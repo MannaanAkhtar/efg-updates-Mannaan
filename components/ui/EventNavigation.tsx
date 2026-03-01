@@ -26,9 +26,9 @@ const EVENT_CONFIGS: Record<string, {
     logo: "/logos/data-ai-first-kuwait-logo.png",
     navLinks: [
       { href: "#overview", label: "Overview" },
-      { href: "#agenda", label: "Agenda" },
       { href: "#speakers", label: "Speakers" },
       { href: "#sponsors", label: "Sponsors" },
+      { href: "#agenda", label: "Agenda" },
       { href: "#venue", label: "Venue" },
     ],
   },
@@ -41,9 +41,9 @@ const EVENT_CONFIGS: Record<string, {
     location: "Kuwait City",
     navLinks: [
       { href: "#overview", label: "Overview" },
-      { href: "#agenda", label: "Agenda" },
       { href: "#speakers", label: "Speakers" },
       { href: "#sponsors", label: "Sponsors" },
+      { href: "#agenda", label: "Agenda" },
       { href: "#venue", label: "Venue" },
     ],
   },
