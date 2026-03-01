@@ -465,6 +465,7 @@ export default function CyberFirstKuwait2026() {
       <SponsorsSection />
       <WhatToExpect />
       <WhoShouldAttend />
+      <AdvisoryBoard />
       <AwardsSection />
       <SplitCTA />
       <ContactSection />
@@ -492,7 +493,7 @@ function HeroSection() {
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&q=85"
+          src="https://cyberfirstseries.com/wp-content/uploads/2024/12/Cyber-First-Series-Pictures-and-Sponsors-30.jpg"
           alt=""
           className="w-full h-full object-cover"
           style={{ filter: "brightness(0.55) saturate(0.85)" }}
@@ -882,11 +883,11 @@ function StatsBar() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
   const items = [
-    { n: 350, suffix: "+", label: "Delegates" },
-    { n: 30, suffix: "", label: "Speakers" },
-    { n: 25, suffix: "", label: "Sponsors" },
-    { n: 25, suffix: "", label: "Media Partners" },
-    { n: 14, suffix: "", label: "Supporting Partners" },
+    { n: 350, suffix: "+", label: "Delegates", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" },
+    { n: 30, suffix: "", label: "Speakers", icon: "M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" },
+    { n: 25, suffix: "", label: "Sponsors", icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
+    { n: 25, suffix: "", label: "Media Partners", icon: "M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" },
+    { n: 14, suffix: "", label: "Supporting Partners", icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" },
   ];
   return (
     <section
@@ -895,7 +896,7 @@ function StatsBar() {
         background: "#020508",
         borderTop: `1px solid ${C}15`,
         borderBottom: `1px solid ${C}15`,
-        padding: "36px 0",
+        padding: "clamp(32px, 4vw, 48px) 0",
       }}
     >
       <div
@@ -906,6 +907,7 @@ function StatsBar() {
           padding: "0 clamp(20px,5vw,80px)",
           display: "grid",
           gridTemplateColumns: `repeat(${items.length}, 1fr)`,
+          gap: 16,
         }}
       >
         {items.map((s, i) => (
@@ -916,31 +918,54 @@ function StatsBar() {
             transition={{ duration: 0.55, delay: i * 0.08, ease: EASE }}
             style={{
               textAlign: "center",
-              padding: "0 20px",
-              borderRight: i < items.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+              padding: "16px 12px",
+              borderRadius: 14,
+              background: `linear-gradient(145deg, ${C}08, rgba(255,255,255,0.02))`,
+              border: `1px solid ${C}12`,
+              position: "relative",
             }}
           >
+            {/* Icon */}
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 10,
+                background: `${C}15`,
+                border: `1px solid ${C}25`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "0 auto 12px",
+              }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d={s.icon} />
+              </svg>
+            </div>
+            {/* Number */}
             <div
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(26px,3.5vw,44px)",
+                fontSize: "clamp(28px,3.5vw,40px)",
                 fontWeight: 900,
-                color: C,
+                color: C_BRIGHT,
                 letterSpacing: "-1.5px",
                 lineHeight: 1,
               }}
             >
               {inView ? <Counter to={s.n} suffix={s.suffix} /> : "0"}
             </div>
+            {/* Label */}
             <div
               style={{
                 fontFamily: "var(--font-outfit)",
-                fontSize: 11,
-                fontWeight: 500,
-                color: "rgba(255,255,255,0.3)",
+                fontSize: 10,
+                fontWeight: 600,
+                color: "rgba(255,255,255,0.4)",
                 letterSpacing: "1.5px",
                 textTransform: "uppercase",
-                marginTop: 6,
+                marginTop: 8,
               }}
             >
               {s.label}
@@ -949,8 +974,11 @@ function StatsBar() {
         ))}
       </div>
       <style jsx global>{`
-        @media (max-width: 768px) {
-          .cfk-stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 24px; }
+        @media (max-width: 900px) {
+          .cfk-stats-grid { grid-template-columns: repeat(3, 1fr) !important; }
+        }
+        @media (max-width: 600px) {
+          .cfk-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
       `}</style>
     </section>
@@ -3259,6 +3287,168 @@ function WhoShouldAttend() {
   );
 }
 
+// ─── Advisory Board ───────────────────────────────────────────────────────────
+const ADVISORY_BOARD = [
+  {
+    name: "Rishabh R. Gaikwad",
+    title: "Head of Information Security & Data Governance",
+    org: "Alghanim Industries",
+    photo: `${S3}/rishabh-gaikwad.png`,
+  },
+  {
+    name: "Shaheela Banu A. Majeed",
+    title: "Information Security & Compliance Officer & Auditor",
+    org: "Oil & Gas / Confidential",
+    photo: `${S3}/shaheela-majeed.png`,
+  },
+  {
+    name: "Eng. Yousef H. El-Kordi",
+    title: "Chief Information Technology Director",
+    org: "City Group Co.",
+    photo: `${S3}/yousef-el-kourdi.png`,
+  },
+  {
+    name: "Mohamed Rushdhi",
+    title: "Head of Information Security Unit",
+    org: "The Industrial Bank of Kuwait",
+    photo: `${S3}/mohamed-rushdhi.png`,
+  },
+  {
+    name: "Abdulmohsen Alsulaimi",
+    title: "IT Director",
+    org: "Shuwaikh Gate Holding (SGH)",
+    photo: null,
+  },
+];
+
+function AdvisoryBoard() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section
+      ref={ref}
+      style={{
+        background: "linear-gradient(180deg, #020810 0%, #051018 100%)",
+        padding: "clamp(56px, 7vw, 100px) 0",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Atmospheric effects */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 60% 50% at 50% 0%, ${C}06, transparent 70%)` }} />
+      <DotMatrixGrid color={C} opacity={0.015} spacing={30} />
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 1 }}>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: EASE }}
+          style={{ textAlign: "center", marginBottom: 48 }}
+        >
+          <div className="flex items-center justify-center gap-3" style={{ marginBottom: 16 }}>
+            <span style={{ width: 30, height: 1, background: C }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: C_BRIGHT }}>
+              Leadership
+            </span>
+            <span style={{ width: 30, height: 1, background: C }} />
+          </div>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 3.8vw, 48px)", letterSpacing: "-1.5px", color: "white", lineHeight: 1.08, margin: "16px 0 0" }}>
+            Advisory Board
+          </h2>
+          <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 300, fontSize: 15, color: "rgba(255,255,255,0.45)", maxWidth: 500, margin: "14px auto 0", lineHeight: 1.6 }}>
+            Industry leaders shaping the summit agenda and driving cybersecurity excellence across Kuwait.
+          </p>
+        </motion.div>
+
+        {/* Board Grid */}
+        <div
+          className="cfk-advisory-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(5, 1fr)",
+            gap: 20,
+          }}
+        >
+          {ADVISORY_BOARD.map((member, i) => (
+            <motion.div
+              key={member.name}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.1 + i * 0.08, ease: EASE }}
+              style={{
+                padding: "24px 16px",
+                borderRadius: 18,
+                background: `linear-gradient(145deg, ${C}08, rgba(255,255,255,0.02))`,
+                border: `1px solid ${C}15`,
+                textAlign: "center",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              {/* Glow */}
+              <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 80% 60% at 50% 0%, ${C}08, transparent 70%)` }} />
+              
+              {/* Photo */}
+              <div
+                style={{
+                  width: 80,
+                  height: 80,
+                  borderRadius: "50%",
+                  margin: "0 auto 16px",
+                  background: `linear-gradient(135deg, ${C}30, ${C}10)`,
+                  border: `2px solid ${C}40`,
+                  overflow: "hidden",
+                  position: "relative",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {member.photo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={member.photo}
+                    alt={member.name}
+                    className="w-full h-full object-cover"
+                    onError={(e) => { e.currentTarget.style.display = "none"; }}
+                  />
+                ) : (
+                  <span style={{ fontFamily: "var(--font-outfit)", fontSize: 24, fontWeight: 600, color: C_BRIGHT }}>
+                    {member.name.charAt(0)}
+                  </span>
+                )}
+              </div>
+
+              {/* Info */}
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, color: "white", margin: "0 0 4px", lineHeight: 1.3 }}>
+                {member.name}
+              </h3>
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.5)", margin: "0 0 4px", lineHeight: 1.4 }}>
+                {member.title}
+              </p>
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 10, color: C_BRIGHT, margin: 0, fontWeight: 500 }}>
+                {member.org}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Mobile responsive */}
+      <style jsx global>{`
+        @media (max-width: 900px) {
+          .cfk-advisory-grid { grid-template-columns: repeat(3, 1fr) !important; }
+        }
+        @media (max-width: 600px) {
+          .cfk-advisory-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
 // ─── Awards Section ──────────────────────────────────────────────────────────
 function AwardsSection() {
   const ref = useRef(null);
@@ -3777,7 +3967,7 @@ function SplitCTA() {
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1920&q=80"
+          src="https://cyberfirstseries.com/wp-content/uploads/2024/12/Cyber-First-Series-Pictures-and-Sponsors-28.jpg"
           alt=""
           className="w-full h-full object-cover"
           style={{ filter: "brightness(0.15) saturate(0.6)" }}
