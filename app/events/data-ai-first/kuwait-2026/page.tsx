@@ -712,6 +712,39 @@ function StatsBar() {
           zIndex: 1,
         }}
       >
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: EASE }}
+          style={{ textAlign: "center", marginBottom: "clamp(32px, 4vw, 48px)" }}
+        >
+          <span
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 12,
+              fontWeight: 600,
+              color: E_BRIGHT,
+              textTransform: "uppercase",
+              letterSpacing: "2px",
+            }}
+          >
+            The Summit at a Glance
+          </span>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(24px, 3vw, 32px)",
+              fontWeight: 700,
+              color: "white",
+              margin: "12px 0 0",
+              letterSpacing: "-0.5px",
+            }}
+          >
+            One Day. One Room. All of Kuwait&apos;s Data & AI Leadership.
+          </h2>
+        </motion.div>
+
         {/* Two-column layout: Hero stat left, supporting stats right */}
         <div
           className="daik-stats-layout"
