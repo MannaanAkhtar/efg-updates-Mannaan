@@ -369,6 +369,81 @@ const WHO_ATTEND_INDUSTRIES = [
 export default function CyberFirstKuwait2026() {
   return (
     <div style={{ background: "#050810" }}>
+      {/* Global Mobile Styles */}
+      <style jsx global>{`
+        /* Hero mobile */
+        @media (max-width: 768px) {
+          .cfk-hero-section h1 {
+            font-size: clamp(28px, 8vw, 42px) !important;
+            max-width: 100% !important;
+          }
+          .cfk-hero-content {
+            padding: 0 20px !important;
+          }
+        }
+        
+        /* Stats bar mobile */
+        @media (max-width: 480px) {
+          .cfk-stats-grid > div {
+            padding: 12px 8px !important;
+          }
+          .cfk-stats-grid > div > div:first-child {
+            width: 28px !important;
+            height: 28px !important;
+          }
+        }
+        
+        /* Speakers grid mobile */
+        @media (max-width: 600px) {
+          .cfk-speakers-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px !important;
+          }
+        }
+        
+        /* Awards mobile */
+        @media (max-width: 900px) {
+          .cfk-awards-top {
+            grid-template-columns: 1fr !important;
+          }
+          .cfk-awards-nom {
+            grid-template-columns: 1fr !important;
+          }
+        }
+        
+        /* Split CTA mobile */
+        @media (max-width: 900px) {
+          .cfk-split-cta {
+            grid-template-columns: 1fr !important;
+          }
+        }
+        
+        /* Advisory board mobile */
+        @media (max-width: 500px) {
+          .cfk-advisory-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px !important;
+          }
+          .cfk-advisory-grid > div {
+            padding: 16px 12px !important;
+          }
+        }
+        
+        /* Expect grid mobile */
+        @media (max-width: 600px) {
+          .cfk-expect-grid > div {
+            min-height: 200px !important;
+          }
+        }
+        
+        /* General text scaling */
+        @media (max-width: 480px) {
+          h2 {
+            font-size: clamp(24px, 7vw, 36px) !important;
+          }
+        }
+      `}</style>
+      
       <EventNavigation />
       <HeroSection />
       <StatsBar />
@@ -2065,7 +2140,7 @@ function Speakers() {
           </div>
           <div style={{ padding: "10px 22px", borderRadius: 30, background: `${C}12`, border: `1px solid ${C}30` }}>
             <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 700, color: C }}>
-              30 Speakers Confirmed for 2026
+              More Speakers Coming Soon
             </span>
           </div>
         </motion.div>
