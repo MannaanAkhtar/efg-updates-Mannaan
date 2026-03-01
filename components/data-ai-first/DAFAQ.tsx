@@ -20,9 +20,9 @@ const faqs = [
   },
   {
     id: 3,
-    question: "When and where is the inaugural edition?",
+    question: "When and where is the first edition?",
     answer:
-      "The inaugural Data & AI First summit takes place on May 18, 2026 in Kuwait City, Kuwait. This is the first of four planned GCC editions, with Abu Dhabi, Riyadh, and Doha scheduled for 2027.",
+      "Data & AI First launches May 18, 2026 in Kuwait City, Kuwait — the first of four GCC editions, with Abu Dhabi, Riyadh, and Doha scheduled for 2027.",
   },
   {
     id: 4,
@@ -34,13 +34,13 @@ const faqs = [
     id: 5,
     question: "How can my organization sponsor or partner?",
     answer:
-      "We offer Patronage, Knowledge Partner, and Supporting Partner tiers. Founding partners of the inaugural Kuwait edition receive priority positioning across all 2027 editions. Contact us through the Sponsors & Partners page for the partnership deck.",
+      "We offer Patronage, Knowledge Partner, and Supporting Partner tiers. Founding partners of the Kuwait debut receive priority positioning across all 2027 editions. Contact us through the Sponsors & Partners page for the partnership deck.",
   },
   {
     id: 6,
     question: "Is there a registration fee?",
     answer:
-      "Registration details and pricing for the inaugural Kuwait edition will be announced soon. Register your interest now to be first notified when full registration opens, and to receive early-bird access.",
+      "Registration details and pricing for the Kuwait edition will be announced soon. Register your interest now to be first notified when full registration opens, and to receive early-bird access.",
   },
 ];
 

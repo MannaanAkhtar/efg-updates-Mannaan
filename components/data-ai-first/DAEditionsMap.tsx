@@ -11,7 +11,7 @@ const cities = [
     name: "Kuwait City",
     country: "Kuwait",
     date: "May 18, 2026",
-    status: "INAUGURAL",
+    status: "LAUNCHING",
     active: true,
     href: "/events/data-ai-first/kuwait-2026",
     image: "https://images.unsplash.com/photo-1578895101408-1a36b834405b?w=600&q=80",

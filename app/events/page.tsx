@@ -156,7 +156,7 @@ const allEvents = [
     title: "Digital Resilience KSA",
     tagline: "Resilience Beyond Defence",
     description:
-      "Saudi Arabia's inaugural digital resilience summit — national strategy, threat intelligence, and enterprise continuity.",
+      "Saudi Arabia's premier digital resilience summit — national strategy, threat intelligence, and enterprise continuity.",
     color: "#01BBF5",
     image:
       "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",

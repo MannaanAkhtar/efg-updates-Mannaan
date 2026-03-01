@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     q: "Where are the upcoming editions?",
-    a: "Our inaugural edition took place in Abu Dhabi (Feb 2026). We\u2019re expanding to Riyadh, Kuwait City, and Doha \u2014 dates to be announced. Subscribe to our mailing list for early access and priority registration.",
+    a: "The first edition took place in Abu Dhabi (Feb 2026). We're expanding to Riyadh, Kuwait City, and Doha — dates to be announced. Subscribe to our mailing list for early access and priority registration.",
   },
   {
     q: "How can my company sponsor?",

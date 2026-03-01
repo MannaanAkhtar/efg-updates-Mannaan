@@ -94,7 +94,7 @@ export default function DAUpcomingEditionCTA() {
                 textTransform: "uppercase",
               }}
             >
-              Inaugural Edition
+              May 2026
             </span>
           </div>
 
@@ -127,7 +127,7 @@ export default function DAUpcomingEditionCTA() {
             }}
           >
             The Gulf&rsquo;s first leadership summit dedicated to building
-            AI-driven organizations. Be part of the inaugural edition.
+            AI-driven organizations. Join us in Kuwait.
           </p>
 
           {/* Info Cards */}

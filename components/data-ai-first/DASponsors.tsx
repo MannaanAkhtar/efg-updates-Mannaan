@@ -6,7 +6,7 @@ import Link from "next/link";
 import { DotMatrixGrid } from "@/components/effects";
 import { EMERALD, EMERALD_BRIGHT, EASE } from "./constants";
 
-// Pre-inaugural placeholder tiers
+// Pre-launch placeholder tiers
 const sponsorTiers = [
   { tier: "Patronage", slots: 1 },
   { tier: "Knowledge Partner", slots: 1 },
@@ -88,7 +88,7 @@ export default function DASponsors() {
           >
             Partner with
             <br />
-            <span style={{ color: EMERALD_BRIGHT }}>the Inaugural Edition</span>
+            <span style={{ color: EMERALD_BRIGHT }}>Data & AI First</span>
           </h2>
 
           <p
