@@ -1196,10 +1196,10 @@ function MarketContext() {
           }}
         >
           {[
-            { value: 43, suffix: "B", prefix: "$", label: "ICT Market 2030", highlight: true, icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" },
-            { value: 9, suffix: "B", prefix: "$", label: "AI Investment", icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
-            { value: 800, suffix: "M", prefix: "$", label: "KOC Digital", icon: "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" },
-            { value: 50, suffix: "K+", prefix: "", label: "New Tech Jobs", icon: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
+            { value: 43, suffix: "B", prefix: "$", label: "ICT Market 2030", desc: "Projected market size", highlight: true, icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6", growth: "+24%" },
+            { value: 9, suffix: "B", prefix: "$", label: "AI Investment", desc: "National AI budget", icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z", growth: "2026" },
+            { value: 800, suffix: "M", prefix: "$", label: "KOC Digital", desc: "Digital transformation", icon: "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z", growth: "Active" },
+            { value: 50, suffix: "K+", prefix: "", label: "New Tech Jobs", desc: "By 2030 estimate", icon: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z", growth: "+18%" },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -1212,79 +1212,131 @@ function MarketContext() {
                 transition: { duration: 0.3 }
               }}
               style={{
-                padding: stat.highlight ? "32px 24px" : "24px 20px",
+                padding: stat.highlight ? "28px 24px 24px" : "22px 18px 18px",
                 background: stat.highlight 
                   ? `linear-gradient(145deg, ${E}30 0%, ${E}15 50%, ${E}08 100%)`
-                  : "rgba(255,255,255,0.05)",
+                  : `linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)`,
                 backdropFilter: "blur(24px)",
                 WebkitBackdropFilter: "blur(24px)",
                 borderRadius: 20,
-                border: `1px solid ${stat.highlight ? `${E}50` : "rgba(255,255,255,0.1)"}`,
-                textAlign: "center",
+                border: `1px solid ${stat.highlight ? `${E}50` : "rgba(255,255,255,0.12)"}`,
+                textAlign: "left",
                 boxShadow: stat.highlight 
                   ? `0 12px 40px ${E}30, inset 0 1px 0 ${E}40, 0 0 80px ${E}15` 
-                  : "0 4px 20px rgba(0,0,0,0.2)",
+                  : "0 4px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.08)",
                 cursor: "default",
                 position: "relative",
                 overflow: "hidden",
               }}
             >
-              {/* Corner icon decoration */}
-              <div className="absolute pointer-events-none" style={{ top: 12, right: 12, opacity: stat.highlight ? 0.4 : 0.15 }}>
-                <svg width={stat.highlight ? 28 : 22} height={stat.highlight ? 28 : 22} viewBox="0 0 24 24" fill="none" stroke={stat.highlight ? E_BRIGHT : "white"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d={stat.icon} />
-                </svg>
+              {/* Top row: Icon + Growth badge */}
+              <div className="flex items-center justify-between" style={{ marginBottom: 16, position: "relative", zIndex: 1 }}>
+                <div style={{
+                  width: stat.highlight ? 44 : 36,
+                  height: stat.highlight ? 44 : 36,
+                  borderRadius: 12,
+                  background: stat.highlight ? `${E}20` : "rgba(255,255,255,0.08)",
+                  border: `1px solid ${stat.highlight ? `${E}40` : "rgba(255,255,255,0.1)"}`,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}>
+                  <svg width={stat.highlight ? 22 : 18} height={stat.highlight ? 22 : 18} viewBox="0 0 24 24" fill="none" stroke={stat.highlight ? E_BRIGHT : "rgba(255,255,255,0.6)"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d={stat.icon} />
+                  </svg>
+                </div>
+                <span style={{
+                  padding: "4px 10px",
+                  borderRadius: 20,
+                  background: stat.highlight ? `${E}25` : "rgba(255,255,255,0.08)",
+                  border: `1px solid ${stat.highlight ? `${E}35` : "rgba(255,255,255,0.1)"}`,
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 10,
+                  fontWeight: 600,
+                  color: stat.highlight ? E_BRIGHT : "rgba(255,255,255,0.5)",
+                  letterSpacing: "0.5px",
+                }}>
+                  {stat.growth}
+                </span>
               </div>
               {/* Subtle grid pattern */}
               <div className="absolute inset-0 pointer-events-none" style={{ 
-                backgroundImage: `radial-gradient(${stat.highlight ? E : "white"}10 1px, transparent 1px)`,
-                backgroundSize: "16px 16px",
-                opacity: 0.3,
+                backgroundImage: `radial-gradient(${stat.highlight ? E : "white"}08 1px, transparent 1px)`,
+                backgroundSize: "20px 20px",
+                opacity: 0.5,
               }} />
               {/* Highlight glow effect for main stat */}
               {stat.highlight && (
                 <div
                   className="absolute inset-0 pointer-events-none"
                   style={{
-                    background: `radial-gradient(ellipse at 50% 30%, ${E}20 0%, transparent 60%)`,
+                    background: `radial-gradient(ellipse at 30% 70%, ${E}15 0%, transparent 60%)`,
                   }}
                 />
               )}
+              {/* Number */}
               <p
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: stat.highlight ? "clamp(44px, 6vw, 60px)" : "clamp(28px, 4vw, 36px)",
+                  fontSize: stat.highlight ? "clamp(40px, 5vw, 52px)" : "clamp(28px, 3.5vw, 34px)",
                   fontWeight: 800,
                   background: stat.highlight 
                     ? `linear-gradient(135deg, ${E_BRIGHT} 0%, ${E_GLOW} 50%, white 100%)`
-                    : "white",
+                    : "linear-gradient(135deg, white 0%, rgba(255,255,255,0.8) 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
                   margin: 0,
                   lineHeight: 1,
                   letterSpacing: "-2px",
-                  filter: stat.highlight ? `drop-shadow(0 0 30px ${E}50)` : "none",
+                  filter: stat.highlight ? `drop-shadow(0 0 20px ${E}40)` : "none",
                   position: "relative",
                 }}
               >
                 {stat.prefix}<Counter to={stat.value} suffix={stat.suffix} duration={stat.highlight ? 2000 : 1500} />
               </p>
+              {/* Label */}
               <p
                 style={{
                   fontFamily: "var(--font-outfit)",
-                  fontSize: stat.highlight ? 13 : 11,
-                  fontWeight: 600,
-                  color: stat.highlight ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.6)",
-                  letterSpacing: "1px",
+                  fontSize: stat.highlight ? 12 : 10,
+                  fontWeight: 700,
+                  color: stat.highlight ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.7)",
+                  letterSpacing: "1.5px",
                   textTransform: "uppercase",
                   margin: 0,
-                  marginTop: stat.highlight ? 12 : 8,
+                  marginTop: stat.highlight ? 10 : 6,
                   position: "relative",
                 }}
               >
                 {stat.label}
               </p>
+              {/* Description */}
+              <p
+                style={{
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 11,
+                  fontWeight: 400,
+                  color: stat.highlight ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.35)",
+                  margin: 0,
+                  marginTop: 4,
+                  position: "relative",
+                }}
+              >
+                {stat.desc}
+              </p>
+              {/* Bottom accent line */}
+              <div style={{
+                position: "absolute",
+                bottom: 0,
+                left: stat.highlight ? 24 : 18,
+                right: stat.highlight ? 24 : 18,
+                height: 2,
+                background: stat.highlight 
+                  ? `linear-gradient(90deg, transparent, ${E}60, transparent)`
+                  : `linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)`,
+                borderRadius: 1,
+              }} />
             </motion.div>
           ))}
         </motion.div>
