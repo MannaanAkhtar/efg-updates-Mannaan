@@ -4225,7 +4225,7 @@ function Venue() {
                 The Venue
               </span>
             </div>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4.5vw, 56px)", letterSpacing: "-2px", color: "var(--white)", lineHeight: 1.05, margin: 0 }}>
+            <h2 className="daik-venue-title" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4.5vw, 56px)", letterSpacing: "-2px", color: "var(--white)", lineHeight: 1.05, margin: 0 }}>
               Jumeirah Messilah <span style={{ color: E_BRIGHT }}>Beach Hotel</span>
             </h2>
           </div>
@@ -4369,6 +4369,15 @@ function Venue() {
             grid-template-columns: 1fr 1fr !important;
             gap: 10px !important;
           }
+          .daik-venue-title {
+            font-size: 28px !important;
+          }
+        }
+        @media (max-width: 500px) {
+          .daik-venue-title {
+            font-size: 24px !important;
+            letter-spacing: -1px !important;
+          }
         }
         @media (max-width: 400px) {
           .daik-venue-inner {
@@ -4380,6 +4389,9 @@ function Venue() {
           }
           .daik-venue-inner > div:last-child > div p:last-child {
             font-size: 13px !important;
+          }
+          .daik-venue-title {
+            font-size: 20px !important;
           }
         }
       `}</style>
