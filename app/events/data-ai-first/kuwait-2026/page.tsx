@@ -4128,6 +4128,53 @@ function SponsorsSection() {
           </motion.div>
         ))}
 
+        {/* Past Partners */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.5, ease: EASE }}
+          style={{ marginTop: 48, paddingTop: 40, borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        >
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: "#606060", textAlign: "center", marginBottom: 24 }}>
+            Trusted by Leading Organizations
+          </p>
+          <div
+            className="daik-past-sponsors"
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 32,
+              opacity: 0.6,
+            }}
+          >
+            {[
+              "EY.png",
+              "fortinet.png",
+              "kaspersky.png",
+              "Tenable-logo.png",
+              "Akamai.png",
+              "paloalto.png",
+              "GBM.png",
+              "Claroty.png",
+              "Dragos.png",
+              "sentinelone.png",
+              "nozomi-networks.png",
+              "Celonis.png",
+            ].map((logo) => (
+              <div key={logo} style={{ height: 28 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/${logo}`}
+                  alt={logo.replace(/[-_\.png]+/g, " ").trim()}
+                  style={{ height: "100%", width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.7 }}
+                />
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
         {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -4162,10 +4209,22 @@ function SponsorsSection() {
           .daik-sponsor-grid {
             grid-template-columns: repeat(2, 1fr) !important;
           }
+          .daik-past-sponsors {
+            gap: 24px !important;
+          }
+          .daik-past-sponsors > div {
+            height: 22px !important;
+          }
         }
         @media (max-width: 480px) {
           .daik-sponsor-grid {
             grid-template-columns: 1fr !important;
+          }
+          .daik-past-sponsors {
+            gap: 20px !important;
+          }
+          .daik-past-sponsors > div {
+            height: 18px !important;
           }
         }
       `}</style>
