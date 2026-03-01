@@ -4204,10 +4204,10 @@ function Venue() {
         <motion.div className="absolute inset-0" style={{ y }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&q=85"
-            alt="Kuwait City venue"
+            src="https://efg-final.s3.eu-north-1.amazonaws.com/venues/jumeirah-messilah-kuwait.jpg"
+            alt="Jumeirah Messilah Beach Hotel, Kuwait City"
             className="w-full h-full object-cover"
-            style={{ filter: "brightness(0.35) saturate(0.7)", transform: "scale(1.15)" }}
+            style={{ filter: "brightness(0.45) saturate(0.85)", transform: "scale(1.15)" }}
           />
         </motion.div>
 
@@ -4225,8 +4225,8 @@ function Venue() {
                 The Venue
               </span>
             </div>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-2px", color: "var(--white)", lineHeight: 1.05, margin: 0 }}>
-              Kuwait <span style={{ color: E_BRIGHT }}>City</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4.5vw, 56px)", letterSpacing: "-2px", color: "var(--white)", lineHeight: 1.05, margin: 0 }}>
+              Jumeirah Messilah <span style={{ color: E_BRIGHT }}>Beach Hotel</span>
             </h2>
           </div>
         </div>
@@ -4292,11 +4292,10 @@ function Venue() {
               </h3>
             </div>
             <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 400, color: "rgba(255,255,255,0.55)", lineHeight: 1.75, margin: 0 }}>
-              Data & AI First Kuwait 2026 will be hosted at a premier venue in Kuwait City.
-              Final venue details will be announced shortly.
+              Data & AI First Kuwait 2026 will be hosted at Jumeirah Messilah Beach Hotel — Kuwait's premier beachfront resort offering world-class conference facilities with stunning waterfront views.
             </p>
             
-            {/* Coming soon badge */}
+            {/* Venue confirmed badge */}
             <div className="flex items-center gap-2" style={{ marginTop: 20 }}>
               <span
                 style={{
@@ -4305,15 +4304,15 @@ function Venue() {
                   gap: 6,
                   padding: "6px 14px",
                   borderRadius: 50,
-                  background: `${E}10`,
-                  border: `1px solid ${E}20`,
+                  background: `${E}15`,
+                  border: `1px solid ${E}30`,
                 }}
               >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={E_BRIGHT} strokeWidth="2" strokeLinecap="round">
-                  <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={E_BRIGHT} strokeWidth="2.5" strokeLinecap="round">
+                  <path d="M5 13l4 4L19 7" />
                 </svg>
                 <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, color: E_BRIGHT }}>
-                  Venue reveal coming soon
+                  Venue Confirmed
                 </span>
               </span>
             </div>
@@ -4322,7 +4321,7 @@ function Venue() {
           {/* Right: Detail grid */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
             {[
-              { label: "Location", value: "Kuwait City", icon: "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" },
+              { label: "Location", value: "Messilah, Kuwait", icon: "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" },
               { label: "Date", value: "May 18, 2026", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
               { label: "Time", value: "8:00 AM – 3:00 PM", icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" },
               { label: "Format", value: "Full-Day Summit", icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" },
