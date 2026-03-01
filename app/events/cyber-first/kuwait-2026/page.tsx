@@ -117,114 +117,31 @@ function Tilt({
 }
 
 // ─── Data ────────────────────────────────────────────────────────────────────
+// Only confirmed speakers with premium photos
 const SPEAKERS = [
   {
-    name: "Yousef El-Kourdi",
-    title: "Group Head of Information Technology",
-    org: "City Group Co. KSC",
-    photo: `${S3}/yousef-el-kourdi.png`,
-  },
-  {
-    name: "Sumit Tekriwal",
-    title: "Head of IT Security Governance",
-    org: "Kuwait International Bank (KIB)",
-    photo: `${S3}/sumit-tekriwal.jpg`,
-  },
-  {
-    name: "Vinod Easow",
-    title: "Cybersecurity & Data Privacy Leader",
-    org: "IKEA Al-Homaizi Ltd.",
-    photo: `${S3}/vinod-easow.png`,
-  },
-  {
-    name: "Eng. Ahmed Baioumy",
-    title: "Digital Transformation Lead",
-    org: "New Mowasat Hospital",
-    photo: `${S3}/ahmed-baioumy.jpg`,
-  },
-  {
-    name: "Kamal Al-Dosouky",
-    title: "Group Information Technology Director",
-    org: "United Real Estate Company",
-    photo: `${S3}/kamal-al-dosouky.jpg`,
-  },
-  {
-    name: "Heba AlSawan",
-    title: "Head of IT Operations & Infrastructure",
-    org: "Public Institution for Social Security",
-    photo: `${S3}/heba-alsawan.png`,
-  },
-  {
-    name: "Shaheela Banu A. Majeed",
-    title: "Information Security & Compliance Officer & Auditor",
-    org: "Oil & Gas / Confidential",
-    photo: `${S3}/shaheela-majeed.png`,
-  },
-  {
-    name: "Mijo George Chiramal",
-    title: "Manager — IT Operations and Information Security",
-    org: "Al Babtain Group",
-    photo: null,
+    name: "Faissal Al-Roumi",
+    title: "Executive Manager of Operational Risk",
+    org: "Burgan Bank",
+    photo: `${S3}/faissal-al-roumi-new.jpg`,
   },
   {
     name: "Dr. Fai Ben Salamah",
     title: "Cybersecurity Expert",
     org: "Kuwait Technical College",
-    photo: `${S3}/dr-fai-ben-salamah.png`,
+    photo: `${S3}/dr-fai-ben-salamah-new.jpg`,
   },
   {
-    name: "Faissal Al-Roumi",
-    title: "Executive Manager of Operational Risk",
-    org: "Burgan Bank",
-    photo: `${S3}/faissal-al-roumi.jpg`,
+    name: "Shaheela Banu A. Majeed",
+    title: "Information Security & Compliance Officer & Auditor",
+    org: "Oil & Gas / Confidential",
+    photo: `${S3}/shaheela-majeed-new.jpg`,
   },
   {
-    name: "Rishabh R. Gaikwad",
-    title: "Head of Information Security, Data Governance",
-    org: "Alghanim Industries",
-    photo: `${S3}/rishabh-gaikwad.png`,
-  },
-  {
-    name: "Hisham Mohamed",
-    title: "Egypt Chief Information Security Officer",
-    org: "Emirates NBD Egypt",
-    photo: null,
-  },
-  {
-    name: "Ahmed Nahla",
-    title: "Director of Digital Innovation",
-    org: "Kamco Invest",
-    photo: `${S3}/ahmed-nahla.jpg`,
-  },
-  {
-    name: "Ali Alqallaf",
-    title: "IT/OT Cybersecurity Operations",
-    org: "KNPC",
-    photo: `${S3}/ali-alqallaf.jpg`,
-  },
-  {
-    name: "Mohamed Rushdhi",
-    title: "Head of Information Security Unit",
-    org: "The Industrial Bank of Kuwait",
-    photo: `${S3}/mohamed-rushdhi.png`,
-  },
-  {
-    name: "Husain A. ALNakkas",
-    title: "IT Consultant — Cybersecurity",
-    org: "Integrated Computer Solutions",
-    photo: `${S3}/husain-alnakkas.png`,
-  },
-  {
-    name: "Abdulmohsen Alsulaimi",
-    title: "Group IT Director",
-    org: "Shuwaikh Gate Holding",
-    photo: null,
-  },
-  {
-    name: "Omer Yildirim",
-    title: "SVP, Chief Technology Officer — Kuwait",
-    org: "Tiqmo",
-    photo: null,
+    name: "Yousef El-Kourdi",
+    title: "Group Head of Information Technology",
+    org: "City Group Co. KSC",
+    photo: `${S3}/yousef-el-kourdi-new.jpg`,
   },
 ];
 
@@ -884,7 +801,7 @@ function StatsBar() {
   const inView = useInView(ref, { once: true });
   const items = [
     { n: 350, suffix: "+", label: "Delegates", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" },
-    { n: 30, suffix: "", label: "Speakers", icon: "M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" },
+    { n: 4, suffix: "+", label: "Speakers", icon: "M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" },
     { n: 25, suffix: "", label: "Sponsors", icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
     { n: 25, suffix: "", label: "Media Partners", icon: "M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" },
     { n: 14, suffix: "", label: "Supporting Partners", icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" },
@@ -3341,34 +3258,28 @@ function WhoShouldAttend() {
 // ─── Advisory Board ───────────────────────────────────────────────────────────
 const ADVISORY_BOARD = [
   {
-    name: "Rishabh R. Gaikwad",
-    title: "Head of Information Security & Data Governance",
-    org: "Alghanim Industries",
-    photo: `${S3}/rishabh-gaikwad.png`,
+    name: "Faissal Al-Roumi",
+    title: "Executive Manager of Operational Risk",
+    org: "Burgan Bank",
+    photo: `${S3}/faissal-al-roumi-new.jpg`,
+  },
+  {
+    name: "Dr. Fai Ben Salamah",
+    title: "Cybersecurity Expert",
+    org: "Kuwait Technical College",
+    photo: `${S3}/dr-fai-ben-salamah-new.jpg`,
   },
   {
     name: "Shaheela Banu A. Majeed",
     title: "Information Security & Compliance Officer & Auditor",
     org: "Oil & Gas / Confidential",
-    photo: `${S3}/shaheela-majeed.png`,
+    photo: `${S3}/shaheela-majeed-new.jpg`,
   },
   {
-    name: "Eng. Yousef H. El-Kordi",
-    title: "Chief Information Technology Director",
-    org: "City Group Co.",
-    photo: `${S3}/yousef-el-kourdi.png`,
-  },
-  {
-    name: "Mohamed Rushdhi",
-    title: "Head of Information Security Unit",
-    org: "The Industrial Bank of Kuwait",
-    photo: `${S3}/mohamed-rushdhi.png`,
-  },
-  {
-    name: "Abdulmohsen Alsulaimi",
-    title: "IT Director",
-    org: "Shuwaikh Gate Holding (SGH)",
-    photo: null,
+    name: "Yousef El-Kourdi",
+    title: "Group Head of Information Technology",
+    org: "City Group Co. KSC",
+    photo: `${S3}/yousef-el-kourdi-new.jpg`,
   },
 ];
 
