@@ -540,7 +540,7 @@ function HeroSection() {
             style={{ marginTop: 24 }}
           >
             <HeroCTA primary href="#register">Request Invitation</HeroCTA>
-            <HeroCTA href="#sponsors">Sponsor Enquiry</HeroCTA>
+            <HeroCTA href="#partnership">Partner With Us</HeroCTA>
           </motion.div>
         </div>
       </div>
@@ -4136,7 +4136,7 @@ function SponsorsSection() {
           style={{ textAlign: "center", marginTop: 36 }}
         >
           <Link
-            href="#register"
+            href="#partnership"
             className="inline-flex items-center gap-2 transition-all group"
             style={{
               padding: "14px 32px",
@@ -4793,9 +4793,9 @@ function SplitCTA() {
             <ApplicationForm />
           </motion.div>
 
-          {/* Sponsor card */}
+          {/* Partnership card */}
           <motion.div
-            id="sponsors"
+            id="partnership"
             initial={{ opacity: 0, x: 20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.25, ease: EASE }}
