@@ -1718,9 +1718,9 @@ function HighlightsGrid() {
                 margin: "0 0 20px",
               }}
             >
-              Why Leaders Are
+              Why Leaders
               <br />
-              <span style={{ color: "#C4A34A" }}>Fighting</span> to Get In
+              <span style={{ color: "#C4A34A" }}>Choose</span> to Attend
             </h2>
             <p
               style={{
