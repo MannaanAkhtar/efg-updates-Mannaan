@@ -552,24 +552,29 @@ function HeroSection() {
           }}
         >
           {/* Series eyebrow */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
+          {/* Edition Badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2, ease: EASE }}
             style={{
-              fontFamily: "var(--font-outfit)",
-              fontSize: 11,
-              fontWeight: 500,
-              letterSpacing: "2.5px",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.35)",
-              marginBottom: 14,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "8px 16px",
+              borderRadius: 30,
+              background: `${C}15`,
+              border: `1px solid ${C}30`,
+              marginBottom: 24,
             }}
           >
-            Cyber First Series · Kuwait
-          </motion.p>
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: C_BRIGHT }}>
+              3rd Annual · 21 April 2026
+            </span>
+          </motion.div>
 
-          {/* Headline */}
+          {/* Headline - Cleaner */}
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -577,20 +582,19 @@ function HeroSection() {
             style={{
               fontFamily: "var(--font-display)",
               fontWeight: 900,
-              fontSize: "clamp(38px, 5.5vw, 80px)",
-              lineHeight: 1.05,
+              fontSize: "clamp(36px, 5vw, 72px)",
+              lineHeight: 1.08,
               letterSpacing: "-0.03em",
               color: "#F0F2F5",
-              margin: "0 0 20px",
-              maxWidth: 700,
+              margin: "0 0 28px",
+              maxWidth: 650,
             }}
           >
-            Building National
-            <br />
+            Building National{" "}
             <span
               className="cfk-shimmer"
               style={{
-                background: `linear-gradient(110deg, #fff 0%, #fff 30%, ${C_BRIGHT} 50%, #fff 70%, #fff 100%)`,
+                background: `linear-gradient(110deg, ${C_BRIGHT} 0%, #fff 50%, ${C_BRIGHT} 100%)`,
                 backgroundSize: "250% 100%",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
@@ -598,62 +602,39 @@ function HeroSection() {
             >
               Cyber Resilience
             </span>
-            <br />
-            for a Digitally Sovereign Kuwait
           </motion.h1>
 
-          {/* Separator */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.6, delay: 0.7, ease: EASE }}
-            style={{
-              width: 48,
-              height: 1,
-              background: `${C}50`,
-              marginBottom: 18,
-              transformOrigin: "left",
-            }}
-          />
-
-          {/* Tagline */}
+          {/* Tagline - Shorter */}
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.8, ease: EASE }}
+            transition={{ duration: 0.7, delay: 0.5, ease: EASE }}
             style={{
               fontFamily: "var(--font-outfit)",
-              fontWeight: 300,
-              fontSize: "clamp(14px, 1.3vw, 17px)",
-              color: "rgba(255,255,255,0.5)",
-              lineHeight: 1.7,
-              maxWidth: 480,
-              marginBottom: 24,
+              fontWeight: 400,
+              fontSize: "clamp(15px, 1.4vw, 18px)",
+              color: "rgba(255,255,255,0.6)",
+              lineHeight: 1.6,
+              maxWidth: 440,
+              marginBottom: 32,
             }}
           >
-            Kuwait&apos;s Premier Cybersecurity &amp; Operational Resilience Conference — convening government authorities, regulators, critical infrastructure leaders, CISOs, and global cybersecurity experts. Exclusive for C-Suite &amp; Director-Level Leaders.
+            Kuwait&apos;s premier cybersecurity summit for CISOs, government leaders, and enterprise security executives.
           </motion.p>
 
-          {/* Date & Location */}
+          {/* Location */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.9, ease: EASE }}
-            style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 28 }}
+            transition={{ duration: 0.6, delay: 0.6, ease: EASE }}
+            style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 32 }}
           >
-            {[
-              { icon: "M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z", text: "Tuesday, 21 April 2026" },
-              { icon: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z", text: "Jumeirah Messilah Beach Hotel, Kuwait City" },
-            ].map((m) => (
-              <div key={m.text} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5, flexShrink: 0 }}>
-                  <path d={m.icon} />
-                </svg>
-                <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.55)" }}>
-                  {m.text}
-                </span>
-              </div>
-            ))}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
+            </svg>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 500, color: "rgba(255,255,255,0.7)" }}>
+              Jumeirah Messilah Beach Hotel, Kuwait City
+            </span>
           </motion.div>
 
           {/* CTAs */}
