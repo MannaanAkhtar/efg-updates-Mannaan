@@ -102,8 +102,9 @@ export default function EventNavigation() {
               <img 
                 src={logo} 
                 alt={name} 
+                className="event-nav-logo"
                 style={{ 
-                  height: 90, 
+                  height: 80, 
                   width: "auto",
                   filter: "invert(1) brightness(1.1)", // Convert black logo to white for dark bg
                 }} 
@@ -248,9 +249,9 @@ export default function EventNavigation() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-[9999] lg:hidden"
-            style={{ background: "rgba(10, 10, 10, 0.98)", paddingTop: 80 }}
+            style={{ background: "rgba(10, 10, 10, 0.98)", paddingTop: 120 }}
           >
-            <div className="flex flex-col items-center justify-center h-full gap-6 -mt-20">
+            <div className="flex flex-col items-center justify-center h-full gap-8 -mt-24">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.href}
@@ -318,6 +319,19 @@ export default function EventNavigation() {
           </motion.div>
         )}
       </AnimatePresence>
+      
+      <style jsx global>{`
+        @media (max-width: 768px) {
+          .event-nav-logo {
+            height: 60px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .event-nav-logo {
+            height: 50px !important;
+          }
+        }
+      `}</style>
     </>
   );
 }
