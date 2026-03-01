@@ -1038,9 +1038,8 @@ function MarketContext() {
                   color: stat.highlight ? "white" : "rgba(255,255,255,0.6)",
                   letterSpacing: "1px",
                   textTransform: "uppercase",
-                  marginTop: stat.highlight ? 12 : 8,
                   margin: 0,
-                  marginTop: 12,
+                  marginTop: stat.highlight ? 12 : 8,
                 }}
               >
                 {stat.label}

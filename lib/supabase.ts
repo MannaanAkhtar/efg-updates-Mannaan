@@ -4,8 +4,8 @@ import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 // Create browser client for client components
 export function createClient() {
   return createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://mxnysxhgyxzjkzxwjlkc.supabase.co',
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im14bnlzeGhneXh6amt6eHdqbGtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3ODE4OTgsImV4cCI6MjA4NzM1Nzg5OH0.y9FFJfHlWqSDL0MXkXImtcztVhjV3TbeyAXqAXhTM7A'
   )
 }
 
