@@ -293,8 +293,8 @@ export default function DataAIFirstKuwait2026() {
       <HighlightsGrid />
       <AtmosphereDivider />
       <Speakers />
-      <AgendaTimeline />
       <SponsorsSection />
+      <AgendaTimeline />
       <AwardsSection />
       <WhoShouldAttend />
       <WhyAttend />
