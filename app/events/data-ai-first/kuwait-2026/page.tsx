@@ -4041,6 +4041,163 @@ function ApplicationForm() {
   );
 }
 
+function PartnershipForm() {
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [focusedField, setFocusedField] = useState<string | null>(null);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setSubmitted(true);
+    }, 1500);
+  };
+
+  const inputStyle = (field: string): React.CSSProperties => ({
+    width: "100%",
+    padding: "11px 14px",
+    borderRadius: 10,
+    background: "rgba(0,0,0,0.4)",
+    border: `1px solid ${focusedField === field ? `${E}50` : "rgba(255,255,255,0.1)"}`,
+    fontFamily: "var(--font-outfit)",
+    fontSize: 13,
+    fontWeight: 400,
+    color: "white",
+    outline: "none",
+    transition: "border-color 0.3s, box-shadow 0.3s",
+    boxShadow: focusedField === field ? `0 0 0 3px ${E}15` : "none",
+  });
+
+  if (submitted) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: EASE }}
+        style={{ textAlign: "center", padding: "24px 0" }}
+      >
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}
+          style={{
+            width: 48,
+            height: 48,
+            borderRadius: "50%",
+            background: `${E}20`,
+            border: `2px solid ${E}40`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0 auto 16px",
+          }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={E_BRIGHT} strokeWidth="2.5">
+            <path d="M5 13l4 4L19 7" />
+          </svg>
+        </motion.div>
+        <h4 style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 800, color: "white", margin: "0 0 6px" }}>
+          Request Received
+        </h4>
+        <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "#707070", maxWidth: 240, margin: "0 auto", lineHeight: 1.5 }}>
+          Partnership deck will be sent to your email shortly.
+        </p>
+      </motion.div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} style={{ marginTop: 20 }}>
+      <div className="daik-partner-form-grid" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        <input
+          type="text"
+          placeholder="Company Name"
+          required
+          onFocus={() => setFocusedField("company")}
+          onBlur={() => setFocusedField(null)}
+          style={inputStyle("company")}
+        />
+        <input
+          type="text"
+          placeholder="Contact Person"
+          required
+          onFocus={() => setFocusedField("contact")}
+          onBlur={() => setFocusedField(null)}
+          style={inputStyle("contact")}
+        />
+        <input
+          type="email"
+          placeholder="Work Email"
+          required
+          onFocus={() => setFocusedField("email")}
+          onBlur={() => setFocusedField(null)}
+          style={inputStyle("email")}
+        />
+        <select
+          required
+          onFocus={() => setFocusedField("tier")}
+          onBlur={() => setFocusedField(null)}
+          style={{
+            ...inputStyle("tier"),
+            cursor: "pointer",
+            appearance: "none",
+            color: "#808080",
+          }}
+        >
+          <option value="">Partnership Interest</option>
+          <option>Patronage Partner</option>
+          <option>Knowledge Partner</option>
+          <option>Supporting Partner</option>
+          <option>Exhibition Only</option>
+        </select>
+      </div>
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full transition-all"
+        style={{
+          marginTop: 12,
+          padding: "12px 24px",
+          borderRadius: 50,
+          background: loading ? `${E}60` : `linear-gradient(135deg, ${E} 0%, ${E_BRIGHT} 100%)`,
+          border: "none",
+          fontFamily: "var(--font-outfit)",
+          fontSize: 14,
+          fontWeight: 600,
+          color: "white",
+          cursor: loading ? "wait" : "pointer",
+          boxShadow: `0 4px 20px ${E}25`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 8,
+        }}
+      >
+        {loading ? (
+          <>
+            <svg className="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 2v4m0 12v4m-8-10h4m12 0h4" />
+            </svg>
+            <span>Sending...</span>
+          </>
+        ) : (
+          <>
+            <span>Request Partnership Deck</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </>
+        )}
+      </button>
+      <p style={{ fontFamily: "var(--font-outfit)", fontSize: 10, color: "#505050", textAlign: "center", marginTop: 10, lineHeight: 1.4 }}>
+        Deck sent via email within 24 hours.
+      </p>
+    </form>
+  );
+}
+
 function SplitCTA() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -4243,42 +4400,8 @@ function SplitCTA() {
               Connect with Kuwait&rsquo;s top decision-makers in AI and data.
             </p>
 
-            {/* Stats */}
-            <div className="flex flex-col gap-3" style={{ marginTop: 24 }}>
-              {[
-                { n: "250+", l: "Delegates" },
-                { n: "25+", l: "Speakers" },
-                { n: "15+", l: "Sponsors" },
-              ].map((s) => (
-                <div key={s.l} className="flex items-center justify-between" style={{ padding: "10px 0", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-                  <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "#707070" }}>{s.l}</span>
-                  <span style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 800, color: E_BRIGHT }}>{s.n}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* CTA */}
-            <Link
-              href="mailto:shyam@eventsfirstgroup.com"
-              className="inline-flex items-center gap-3 transition-all group"
-              style={{
-                marginTop: 28,
-                padding: "14px 32px",
-                borderRadius: 50,
-                background: `linear-gradient(135deg, ${E}15 0%, ${E}08 100%)`,
-                border: `1px solid ${E}40`,
-                fontFamily: "var(--font-outfit)",
-                fontSize: 14,
-                fontWeight: 600,
-                color: E_BRIGHT,
-                boxShadow: `0 4px 20px ${E}15`,
-              }}
-            >
-              <span>Get Partnership Deck</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="transition-transform group-hover:translate-x-1">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
+            {/* Partnership Form */}
+            <PartnershipForm />
           </motion.div>
         </div>
       </div>
