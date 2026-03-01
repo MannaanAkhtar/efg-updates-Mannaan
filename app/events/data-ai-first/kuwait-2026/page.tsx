@@ -3869,8 +3869,177 @@ function WhyAttend() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  12. SPLIT CTA
+//  12. APPLICATION FORM + SPLIT CTA
 // ═══════════════════════════════════════════════════════════════════════════════
+
+function ApplicationForm() {
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [focusedField, setFocusedField] = useState<string | null>(null);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setSubmitted(true);
+    }, 1500);
+  };
+
+  const inputStyle = (field: string): React.CSSProperties => ({
+    width: "100%",
+    padding: "12px 14px",
+    borderRadius: 10,
+    background: "rgba(0,0,0,0.4)",
+    border: `1px solid ${focusedField === field ? `${EFG_ORANGE}50` : "rgba(255,255,255,0.1)"}`,
+    fontFamily: "var(--font-outfit)",
+    fontSize: 14,
+    fontWeight: 400,
+    color: "white",
+    outline: "none",
+    transition: "border-color 0.3s, box-shadow 0.3s",
+    boxShadow: focusedField === field ? `0 0 0 3px ${EFG_ORANGE}15` : "none",
+  });
+
+  if (submitted) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: EASE }}
+        style={{ textAlign: "center", padding: "32px 0" }}
+      >
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}
+          style={{
+            width: 56,
+            height: 56,
+            borderRadius: "50%",
+            background: `${EFG_ORANGE}20`,
+            border: `2px solid ${EFG_ORANGE}40`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0 auto 20px",
+          }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={EFG_ORANGE} strokeWidth="2.5">
+            <path d="M5 13l4 4L19 7" />
+          </svg>
+        </motion.div>
+        <h4 style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 800, color: "white", margin: "0 0 8px" }}>
+          Application Submitted
+        </h4>
+        <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "#808080", maxWidth: 280, margin: "0 auto", lineHeight: 1.6 }}>
+          Our team will review your application and respond within 48 hours.
+        </p>
+      </motion.div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} style={{ marginTop: 24 }}>
+      <div className="daik-app-form-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
+        <input
+          type="text"
+          placeholder="Full Name"
+          required
+          onFocus={() => setFocusedField("name")}
+          onBlur={() => setFocusedField(null)}
+          style={inputStyle("name")}
+        />
+        <input
+          type="email"
+          placeholder="Work Email"
+          required
+          onFocus={() => setFocusedField("email")}
+          onBlur={() => setFocusedField(null)}
+          style={inputStyle("email")}
+        />
+        <input
+          type="text"
+          placeholder="Job Title"
+          required
+          onFocus={() => setFocusedField("title")}
+          onBlur={() => setFocusedField(null)}
+          style={inputStyle("title")}
+        />
+        <input
+          type="text"
+          placeholder="Company"
+          required
+          onFocus={() => setFocusedField("company")}
+          onBlur={() => setFocusedField(null)}
+          style={inputStyle("company")}
+        />
+      </div>
+      <select
+        required
+        onFocus={() => setFocusedField("industry")}
+        onBlur={() => setFocusedField(null)}
+        style={{
+          ...inputStyle("industry"),
+          marginBottom: 12,
+          cursor: "pointer",
+          appearance: "none",
+          color: "#808080",
+        }}
+      >
+        <option value="">Select Industry</option>
+        <option>Government</option>
+        <option>Finance & Banking</option>
+        <option>Technology</option>
+        <option>Oil & Gas</option>
+        <option>Healthcare</option>
+        <option>Telecommunications</option>
+        <option>Education</option>
+        <option>Other</option>
+      </select>
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full transition-all"
+        style={{
+          padding: "14px 28px",
+          borderRadius: 50,
+          background: loading ? `${EFG_ORANGE}60` : `linear-gradient(135deg, #C4A34A 0%, #D4B85A 100%)`,
+          border: "none",
+          fontFamily: "var(--font-outfit)",
+          fontSize: 15,
+          fontWeight: 700,
+          color: "#000",
+          cursor: loading ? "wait" : "pointer",
+          boxShadow: `0 6px 28px rgba(196,163,74,0.35)`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 10,
+        }}
+      >
+        {loading ? (
+          <>
+            <svg className="animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 2v4m0 12v4m-8-10h4m12 0h4m-5.66-5.66l-2.83 2.83m-5.66 5.66l-2.83 2.83m11.32 0l-2.83-2.83m-5.66-5.66l-2.83-2.83" />
+            </svg>
+            <span>Submitting...</span>
+          </>
+        ) : (
+          <>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M13.8 12H3" />
+            </svg>
+            <span>Submit Application</span>
+          </>
+        )}
+      </button>
+      <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "#505050", textAlign: "center", marginTop: 12, lineHeight: 1.5 }}>
+        Applications reviewed within 48 hours. Senior leaders only.
+      </p>
+    </form>
+  );
+}
 
 function SplitCTA() {
   const ref = useRef<HTMLElement>(null);
@@ -4017,71 +4186,8 @@ function SplitCTA() {
               </div>
             </div>
 
-            {/* Countdown */}
-            <div className="flex gap-3" style={{ marginTop: 20 }}>
-              {[
-                { v: cd.d, l: "Days" },
-                { v: cd.h, l: "Hrs" },
-                { v: cd.m, l: "Min" },
-                { v: cd.s, l: "Sec" },
-              ].map((u) => (
-                <div
-                  key={u.l}
-                  className="text-center"
-                  style={{
-                    padding: "12px 16px",
-                    borderRadius: 12,
-                    background: `linear-gradient(145deg, ${EFG_ORANGE}12 0%, ${EFG_ORANGE}06 100%)`,
-                    border: `1px solid ${EFG_ORANGE}20`,
-                    minWidth: 60,
-                  }}
-                >
-                  <motion.span 
-                    key={u.v}
-                    initial={{ opacity: 0.5 }}
-                    animate={{ opacity: 1 }}
-                    style={{ 
-                      fontFamily: "var(--font-display)", 
-                      fontSize: 24, 
-                      fontWeight: 800, 
-                      color: EFG_ORANGE, 
-                      display: "block",
-                      textShadow: `0 0 20px ${EFG_ORANGE}40`,
-                    }}
-                  >
-                    {u.v.toString().padStart(2, "0")}
-                  </motion.span>
-                  <span style={{ fontFamily: "var(--font-outfit)", fontSize: 8, fontWeight: 600, color: `${EFG_ORANGE}70`, letterSpacing: "1.5px", textTransform: "uppercase" }}>
-                    {u.l}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            {/* CTA - Enhanced */}
-            <Link
-              href="/events/data-ai-first/kuwait-2026#register"
-              className="inline-flex items-center gap-3 transition-all group"
-              style={{
-                marginTop: 28,
-                padding: "16px 36px",
-                borderRadius: 50,
-                background: `linear-gradient(135deg, #C4A34A 0%, #D4B85A 100%)`,
-                fontFamily: "var(--font-outfit)",
-                fontSize: 15,
-                fontWeight: 700,
-                color: "#000",
-                boxShadow: `0 6px 28px rgba(196,163,74,0.35)`,
-              }}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M13.8 12H3" />
-              </svg>
-              <span>Submit Application</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="transition-transform group-hover:translate-x-1">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
+            {/* Application Form */}
+            <ApplicationForm />
           </motion.div>
 
           {/* Sponsor card */}
@@ -4186,6 +4292,9 @@ function SplitCTA() {
           .daik-cta-grid > div {
             padding: 28px 24px !important;
           }
+          .daik-app-form-grid {
+            grid-template-columns: 1fr !important;
+          }
         }
         @media (max-width: 480px) {
           .daik-cta-grid > div {
@@ -4206,6 +4315,14 @@ function SplitCTA() {
             width: 100%;
             justify-content: center;
             padding: 12px 24px !important;
+          }
+          .daik-app-form-grid {
+            gap: 10px !important;
+          }
+          .daik-app-form-grid input,
+          .daik-app-form-grid + select {
+            padding: 10px 12px !important;
+            font-size: 13px !important;
           }
         }
       `}</style>
