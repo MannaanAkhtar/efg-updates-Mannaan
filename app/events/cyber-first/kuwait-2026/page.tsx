@@ -2663,6 +2663,19 @@ function SpeakerCard({
   );
 }
 
+// ─── Sponsorship Tiers ────────────────────────────────────────────────────────
+const SPONSOR_TIERS: {
+  tier: string;
+  slots: number;
+  color: string;
+  sponsors?: { name: string; logo: string }[];
+}[] = [
+  { tier: "Gold Partner", slots: 1, color: "#C4A34A", sponsors: [] },
+  { tier: "Associate Partners", slots: 2, color: C_BRIGHT, sponsors: [] },
+  { tier: "Panel Partners", slots: 3, color: "#A78BFA", sponsors: [] },
+  { tier: "Strategic Partners", slots: 4, color: "#808080", sponsors: [] },
+];
+
 // ─── Sponsors ─────────────────────────────────────────────────────────────────
 function SponsorsSection() {
   const ref = useRef<HTMLElement>(null);
@@ -2671,6 +2684,7 @@ function SponsorsSection() {
   return (
     <section
       ref={ref}
+      id="partners"
       style={{
         background: "#020508",
         padding: "clamp(56px,7vw,100px) 0",
@@ -2685,104 +2699,242 @@ function SponsorsSection() {
           backgroundSize: "32px 32px",
         }}
       />
-      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, ease: EASE }}
-          style={{ textAlign: "center", marginBottom: 48 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: EASE }}
+          style={{ textAlign: "center", marginBottom: 40 }}
         >
-          <span
-            style={{
-              display: "inline-block",
-              padding: "6px 16px",
-              borderRadius: 50,
-              background: `${C}12`,
-              border: `1px solid ${C}25`,
-              fontFamily: "var(--font-outfit)",
-              fontSize: 11,
-              fontWeight: 600,
-              letterSpacing: "2.5px",
-              textTransform: "uppercase",
-              color: C_BRIGHT,
-              marginBottom: 20,
-            }}
-          >
-            Sponsors & Partners
-          </span>
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(28px, 3.5vw, 48px)",
-              letterSpacing: "-1.5px",
-              color: "var(--white)",
-              lineHeight: 1.1,
-              margin: "0 0 12px",
-            }}
-          >
-            Trusted by Industry Leaders
+          <div className="flex items-center justify-center gap-3">
+            <span style={{ width: 30, height: 1, background: C }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: C_BRIGHT }}>
+              Partners
+            </span>
+            <span style={{ width: 30, height: 1, background: C }} />
+          </div>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 3.5vw, 44px)", letterSpacing: "-1.5px", color: "var(--white)", lineHeight: 1.1, margin: "16px 0 0" }}>
+            Founding Partners
           </h2>
-          <p
-            style={{
-              fontFamily: "var(--font-outfit)",
-              fontWeight: 300,
-              fontSize: 15,
-              color: "#606060",
-              maxWidth: 480,
-              margin: "0 auto",
-              lineHeight: 1.6,
-            }}
-          >
-            25+ partners across cybersecurity, cloud, and enterprise technology.
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 400, color: "rgba(255,255,255,0.5)", marginTop: 12, maxWidth: 500, margin: "12px auto 0" }}>
+            Join Kuwait&apos;s premier cybersecurity summit as a founding partner
           </p>
         </motion.div>
 
-        {/* All Previous Sponsors - One Block */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <p
-            style={{
-              fontFamily: "var(--font-outfit)",
-              fontSize: 10,
-              fontWeight: 600,
-              letterSpacing: "2.5px",
-              textTransform: "uppercase",
-              color: C,
-              marginBottom: 16,
-              opacity: 0.7,
-              textAlign: "center",
-            }}
+        {/* Sponsor Tiers */}
+        {SPONSOR_TIERS.map((tierData, tierIndex) => (
+          <motion.div
+            key={tierData.tier}
+            initial={{ opacity: 0, y: 15 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 + tierIndex * 0.1, ease: EASE }}
+            style={{ marginBottom: tierIndex < SPONSOR_TIERS.length - 1 ? 28 : 0 }}
           >
-            Previous Sponsors & Partners
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: tierData.color, marginBottom: 12 }}>
+              {tierData.tier}
+            </p>
+            <div
+              className="cfk-sponsor-grid"
+              style={{
+                display: "grid",
+                gridTemplateColumns: `repeat(${Math.min(tierData.slots, 4)}, 1fr)`,
+                gap: 12,
+              }}
+            >
+              {/* Actual sponsors */}
+              {tierData.sponsors?.map((sponsor) => (
+                <div
+                  key={sponsor.name}
+                  className="flex items-center justify-center transition-all"
+                  style={{
+                    padding: tierIndex === 0 ? "32px" : "24px",
+                    borderRadius: 14,
+                    background: `linear-gradient(145deg, ${tierData.color}12, ${tierData.color}06)`,
+                    border: `1px solid ${tierData.color}30`,
+                  }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={sponsor.logo}
+                    alt={sponsor.name}
+                    style={{ maxHeight: tierIndex === 0 ? 60 : 40, maxWidth: "100%", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.9 }}
+                  />
+                </div>
+              ))}
+              {/* Placeholder slots */}
+              {Array.from({ length: tierData.slots - (tierData.sponsors?.length || 0) }).map((_, i) => (
+                <div
+                  key={`placeholder-${i}`}
+                  className="flex items-center justify-center transition-all"
+                  style={{
+                    padding: tierIndex === 0 ? "48px 32px" : "32px 24px",
+                    borderRadius: 14,
+                    background: `linear-gradient(145deg, ${tierData.color}08, ${tierData.color}03)`,
+                    border: `1px dashed ${tierData.color}25`,
+                    cursor: "default",
+                  }}
+                >
+                  <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 400, color: `${tierData.color}50` }}>
+                    Your brand here
+                  </span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        ))}
+
+        {/* Past Partners */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.5, ease: EASE }}
+          style={{ marginTop: 48, paddingTop: 40, borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        >
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: "#606060", textAlign: "center", marginBottom: 24 }}>
+            Trusted by Leading Organizations
           </p>
           <div
+            className="cfk-past-sponsors"
             style={{
               display: "flex",
               flexWrap: "wrap",
               justifyContent: "center",
-              gap: 10,
+              alignItems: "center",
+              gap: 32,
+              opacity: 0.6,
             }}
           >
-            {[...SPONSORS.gold, ...SPONSORS.associate, ...SPONSORS.strategic, ...SPONSORS.specialized, ...SPONSORS.supporting].map((s) => (
-              <SponsorLogo key={s.name} sponsor={s} height={68} logoH={32} />
+            {[...SPONSORS.gold, ...SPONSORS.associate, ...SPONSORS.strategic].filter(s => s.logo).map((s) => (
+              <div key={s.name} style={{ height: 28 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={s.logo!}
+                  alt={s.name}
+                  style={{ height: "100%", width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.7 }}
+                />
+              </div>
             ))}
           </div>
         </motion.div>
 
+        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-          transition={{ duration: 0.5, delay: 0.8, ease: EASE }}
+          transition={{ duration: 0.5, delay: 0.6, ease: EASE }}
           style={{ textAlign: "center", marginTop: 40 }}
         >
           <Link
-            href="/contact"
+            href="#partnership"
+            className="inline-flex items-center gap-2 transition-all group"
             style={{
-              display: "inline-flex",
+              padding: "14px 32px",
+              borderRadius: 50,
+              background: `linear-gradient(135deg, ${C}15 0%, ${C}08 100%)`,
+              border: `1px solid ${C}40`,
+              fontFamily: "var(--font-outfit)",
+              fontSize: 14,
+              fontWeight: 600,
+              color: C_BRIGHT,
+            }}
+          >
+            <span>Become a Founding Partner</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="transition-transform group-hover:translate-x-1">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </Link>
+        </motion.div>
+      </div>
+
+      <style jsx global>{`
+        @media (max-width: 768px) {
+          .cfk-sponsor-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .cfk-past-sponsors {
+            gap: 24px !important;
+          }
+          .cfk-past-sponsors > div {
+            height: 22px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .cfk-sponsor-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .cfk-past-sponsors {
+            gap: 20px !important;
+          }
+          .cfk-past-sponsors > div {
+            height: 18px !important;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// Keep SponsorTier and SponsorLogo for backward compatibility
+function SponsorTier({
+  label,
+  items,
+  size,
+  inView,
+  delay,
+}: {
+  label: string;
+  items: { name: string; logo: string | null }[];
+  size: "lead" | "normal" | "small";
+  inView: boolean;
+  delay: number;
+}) {
+  const heights = { lead: 90, normal: 68, small: 52 };
+  const logoH = { lead: 44, normal: 32, small: 24 };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={inView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 0.5, delay }}
+      style={{ marginTop: 28 }}
+    >
+      <p
+        style={{
+          fontFamily: "var(--font-outfit)",
+          fontSize: 10,
+          fontWeight: 600,
+          letterSpacing: "2.5px",
+          textTransform: "uppercase",
+          color: C,
+          marginBottom: 12,
+          opacity: 0.7,
+        }}
+      >
+        {label}
+      </p>
+      <div
+        className={`cfk-sponsor-${size}`}
+        style={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${Math.min(items.length, size === "lead" ? 3 : size === "normal" ? 4 : 6)}, 1fr)`,
+          gap: 10,
+        }}
+      >
+        {items.map((s) => (
+          <SponsorLogo key={s.name} sponsor={s} height={heights[size]} logoH={logoH[size]} />
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+function _unusedLegacyCTA() {
+  return (
+    <Link
+      href="/contact"
+      style={{
+        display: "inline-flex",
               alignItems: "center",
               gap: 8,
               padding: "12px 28px",
