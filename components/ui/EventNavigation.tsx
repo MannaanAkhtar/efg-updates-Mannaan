@@ -24,7 +24,8 @@ const EVENT_CONFIGS: Record<string, {
     colorBright: "#14A882",
     date: "18 May 2026",
     location: "Kuwait City",
-    logo: "/logos/data-ai-first-kuwait-white.svg",
+    logo: "/logos/data-ai-first-kuwait-logo.png",
+    logoFilter: "invert(1) brightness(1)",
     navLinks: [
       { href: "#overview", label: "Overview" },
       { href: "#speakers", label: "Speakers" },
