@@ -264,12 +264,52 @@ export default function EventSeriesShowcase() {
               variants={cardVariants[index]}
               custom={index}
               style={{
-                marginTop: index % 2 === 1 ? 40 : 0,
+                marginTop: index % 2 === 1 ? 28 : 0,
               }}
             >
               <PortalCard series={series} />
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          style={{ textAlign: "center", marginTop: 56 }}
+        >
+          <Link
+            href="/events"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "14px 36px",
+              borderRadius: 60,
+              border: "1px solid rgba(255,255,255,0.12)",
+              background: "rgba(255,255,255,0.03)",
+              color: "rgba(255,255,255,0.75)",
+              fontFamily: "var(--font-outfit)",
+              fontSize: 14,
+              fontWeight: 600,
+              textDecoration: "none",
+              transition: "all 0.3s ease",
+              backdropFilter: "blur(8px)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = "var(--orange)";
+              e.currentTarget.style.color = "var(--orange)";
+              e.currentTarget.style.background = "rgba(232,101,26,0.06)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+              e.currentTarget.style.color = "rgba(255,255,255,0.75)";
+              e.currentTarget.style.background = "rgba(255,255,255,0.03)";
+            }}
+          >
+            View All 9 Events in 2026 →
+          </Link>
         </motion.div>
 
         {/* Mobile horizontal scroll snap */}

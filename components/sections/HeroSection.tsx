@@ -297,8 +297,9 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.3 }}
-            className="flex flex-col sm:flex-row items-start gap-4"
+            className="flex flex-col items-start gap-4"
           >
+            <div className="flex flex-col sm:flex-row items-start gap-4">
             {/* Primary Button */}
             <Link
               href="/events"
@@ -357,6 +358,30 @@ export default function HeroSection() {
             >
               Become a Partner
             </Link>
+            </div>
+
+            {/* Trust badges */}
+            <div
+              className="flex flex-wrap items-center gap-x-5 gap-y-2"
+              style={{ marginTop: 4 }}
+            >
+              {["Invite-only audiences", "CISO · CIO · CTO focused", "6 GCC nations"].map((badge) => (
+                <span
+                  key={badge}
+                  className="flex items-center gap-1.5"
+                  style={{
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 11,
+                    fontWeight: 500,
+                    color: "rgba(255,255,255,0.38)",
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  <span style={{ color: "var(--orange)", fontSize: 8 }}>●</span>
+                  {badge}
+                </span>
+              ))}
+            </div>
           </motion.div>
         </div>
       </div>
