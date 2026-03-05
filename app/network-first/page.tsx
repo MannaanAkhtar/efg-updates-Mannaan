@@ -77,22 +77,42 @@ const sponsorBenefits = [
   {
     title: "Turnkey Execution",
     description: "From venue sourcing to attendee management — we run the entire operation so you can focus on your message.",
-    icon: "🎯",
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 6v6l4 2" />
+      </svg>
+    ),
   },
   {
     title: "Guaranteed Audience",
     description: "Every seat filled with qualified decision-makers. We verify titles, confirm attendance, and deliver the room you paid for.",
-    icon: "✓",
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+        <polyline points="22 4 12 14.01 9 11.01" />
+      </svg>
+    ),
   },
   {
     title: "Your Brand, Center Stage",
     description: "You own the room. Shape the agenda, lead the discussion, position your solution — without competing voices.",
-    icon: "🏆",
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+      </svg>
+    ),
   },
   {
     title: "Post-Event Intelligence",
     description: "Full attendee list with contact details, engagement notes, and follow-up recommendations delivered within 48 hours.",
-    icon: "📊",
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <polyline points="17 8 12 3 7 8" />
+        <line x1="12" y1="3" x2="12" y2="15" />
+      </svg>
+    ),
   },
 ];
 
@@ -652,9 +672,22 @@ export default function NetworkFirstPage() {
                   textAlign: "center",
                 }}
               >
-                <span style={{ fontSize: 40, display: "block", marginBottom: 20 }}>
+                <div style={{ 
+                  width: 64, 
+                  height: 64, 
+                  borderRadius: 16,
+                  background: `${AMBER}15`,
+                  border: `1px solid ${AMBER}30`,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: AMBER,
+                  marginBottom: 20,
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }}>
                   {benefit.icon}
-                </span>
+                </div>
                 <h3
                   style={{
                     fontFamily: "var(--font-display)",
