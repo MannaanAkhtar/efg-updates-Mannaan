@@ -262,33 +262,34 @@ const GROWTH = [
   },
 ];
 
+const S3_LOGOS = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo";
 const SPONSORS = {
   gold: [
-    { name: "Palo Alto Networks", logo: `${WP}/2025/02/paloalto-logo.png` },
-    { name: "SentinelOne", logo: `${WP}/2025/02/snetinel-logo.png` },
-    { name: "Google Cloud", logo: `${WP}/2025/02/google-logo1.png` },
-    { name: "Kaspersky", logo: `${WP}/2025/02/kaspersky-logo.png` },
+    { name: "Palo Alto Networks", logo: `${S3_LOGOS}/paloalto.png` },
+    { name: "SentinelOne", logo: `${S3_LOGOS}/sentinelone.png` },
+    { name: "Google Cloud", logo: `${S3_LOGOS}/Google-Cloud-Security.png` },
+    { name: "Kaspersky", logo: `${S3_LOGOS}/kaspersky.png` },
   ],
   associate: [
-    { name: "Akamai", logo: `${WP}/2025/02/akamai-logo.png` },
-    { name: "Secureworks", logo: `${WP}/2025/02/secureworks-logo-white.png` },
+    { name: "Akamai", logo: `${S3_LOGOS}/Akamai.png` },
+    { name: "Secureworks", logo: `${S3_LOGOS}/secureworks.png` },
     { name: "Hackmanac", logo: null },
-    { name: "ThreatLocker", logo: `${WP}/2025/02/threatlocker-white-logo.png` },
+    { name: "ThreatLocker", logo: `${S3_LOGOS}/threatlocker.png` },
   ],
   strategic: [
-    { name: "Sechard", logo: `${WP}/2025/02/sechard-logo.png` },
-    { name: "Cyber Shield", logo: `${WP}/2025/02/cyber-shield-logo.png` },
-    { name: "Wallix", logo: `${WP}/2025/02/wallix-logo1.png` },
-    { name: "GBM", logo: `${WP}/2025/02/gbm-logo.png` },
-    { name: "Acronis", logo: `${WP}/2025/02/acronis-white-logo.png` },
-    { name: "Bitdefender", logo: `${WP}/2025/02/bitdefender-white-logo.png` },
-    { name: "Sahara Net", logo: `${WP}/2025/02/sahara-net-logo.png` },
-    { name: "Deepinfo", logo: `${WP}/2025/02/deepinfo-logo.png` },
+    { name: "Sechard", logo: `${S3_LOGOS}/sechard.png` },
+    { name: "Cyber Shield", logo: `${S3_LOGOS}/cyber-shield.png` },
+    { name: "Wallix", logo: `${S3_LOGOS}/wallix.png` },
+    { name: "GBM", logo: `${S3_LOGOS}/gbm.png` },
+    { name: "Acronis", logo: `${S3_LOGOS}/acronis.png` },
+    { name: "Bitdefender", logo: `${S3_LOGOS}/bitdefender.png` },
+    { name: "Sahara Net", logo: `${S3_LOGOS}/sahara-net.png` },
+    { name: "Deepinfo", logo: `${S3_LOGOS}/deepinfo.png` },
   ],
   specialized: [
-    { name: "Gorilla Technology", logo: `${WP}/2025/02/gorilla-logo1.png` },
-    { name: "Cyber Talents", logo: null },
-    { name: "GTB Technologies", logo: `${WP}/2025/02/GTB-long-logo-white.png` },
+    { name: "Gorilla Technology", logo: `${S3_LOGOS}/Gorilla.png` },
+    { name: "Cyber Talents", logo: `${S3_LOGOS}/cyber-talents.png` },
+    { name: "GTB Technologies", logo: `${S3_LOGOS}/gtb.png` },
   ],
   supporting: [
     { name: "Kuwait College of Science & Technology", logo: null },
@@ -449,6 +450,7 @@ export default function CyberFirstKuwait2026() {
       <StatsBar />
       <MarketContext />
       <FocusAreas />
+      <AdvisoryBoard />
       <Speakers />
       <AgendaTimeline />
       <SponsorsSection />
@@ -457,7 +459,6 @@ export default function CyberFirstKuwait2026() {
       <Gallery />
       <WhatToExpect />
       <WhoShouldAttend />
-      <AdvisoryBoard />
       <AwardsSection />
       <SplitCTA />
       <ContactSection />
@@ -560,6 +561,7 @@ function HeroSection() {
             style={{
               display: "inline-flex",
               alignItems: "center",
+              alignSelf: "flex-start",
               gap: 8,
               padding: "8px 16px",
               borderRadius: 30,
@@ -590,7 +592,7 @@ function HeroSection() {
               maxWidth: 650,
             }}
           >
-            Building National{" "}
+            Building National Cyber Resilience for a digitally{" "}
             <span
               className="cfk-shimmer"
               style={{
@@ -600,7 +602,7 @@ function HeroSection() {
                 WebkitTextFillColor: "transparent",
               }}
             >
-              Cyber Resilience
+              sovereign Kuwait
             </span>
           </motion.h1>
 
@@ -1397,26 +1399,29 @@ function MarketContext() {
         />
       </div>
 
-      {/* Floating particles */}
+      {/* Floating particles (deterministic to avoid hydration mismatch) */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="cfk-particle"
-            style={{
-              position: "absolute",
-              width: Math.random() * 4 + 2,
-              height: Math.random() * 4 + 2,
-              borderRadius: "50%",
-              background: C,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              opacity: Math.random() * 0.5 + 0.1,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${Math.random() * 10 + 10}s`,
-            }}
-          />
-        ))}
+        {[...Array(20)].map((_, i) => {
+          const seed = (n: number) => ((n * 9301 + 49297) % 233280) / 233280;
+          return (
+            <div
+              key={i}
+              className="cfk-particle"
+              style={{
+                position: "absolute",
+                width: seed(i * 7) * 4 + 2,
+                height: seed(i * 13) * 4 + 2,
+                borderRadius: "50%",
+                background: C,
+                left: `${seed(i * 17) * 100}%`,
+                top: `${seed(i * 23) * 100}%`,
+                opacity: seed(i * 29) * 0.5 + 0.1,
+                animationDelay: `${seed(i * 31) * 5}s`,
+                animationDuration: `${seed(i * 37) * 10 + 10}s`,
+              }}
+            />
+          );
+        })}
       </div>
 
       {/* ═══ CONTENT ═══ */}
@@ -2239,7 +2244,7 @@ function GrowthStory() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <section ref={ref} style={{ background: "#020508", padding: "clamp(56px,7vw,100px) 0" }}>
+    <section ref={ref} style={{ background: "#020508", padding: "clamp(40px,5vw,72px) 0" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px,5vw,80px)" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -2454,7 +2459,7 @@ function Speakers() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <section ref={ref} style={{ background: "#030810", padding: "clamp(56px,7vw,100px) 0" }}>
+    <section ref={ref} style={{ background: "#030810", padding: "clamp(40px,5vw,72px) 0" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px,5vw,80px)" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -2687,7 +2692,7 @@ function SponsorsSection() {
       id="partners"
       style={{
         background: "#020508",
-        padding: "clamp(56px,7vw,100px) 0",
+        padding: "clamp(40px,5vw,72px) 0",
         position: "relative",
         overflow: "hidden",
       }}
@@ -2806,7 +2811,7 @@ function SponsorsSection() {
             }}
           >
             {[...SPONSORS.gold, ...SPONSORS.associate, ...SPONSORS.strategic].filter(s => s.logo).map((s) => (
-              <div key={s.name} style={{ height: 28 }}>
+              <div key={s.name} style={{ height: 40 }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={s.logo!}
@@ -2876,86 +2881,6 @@ function SponsorsSection() {
 }
 
 // Keep SponsorTier and SponsorLogo for backward compatibility
-function SponsorTier({
-  label,
-  items,
-  size,
-  inView,
-  delay,
-}: {
-  label: string;
-  items: { name: string; logo: string | null }[];
-  size: "lead" | "normal" | "small";
-  inView: boolean;
-  delay: number;
-}) {
-  const heights = { lead: 90, normal: 68, small: 52 };
-  const logoH = { lead: 44, normal: 32, small: 24 };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={inView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.5, delay }}
-      style={{ marginTop: 28 }}
-    >
-      <p
-        style={{
-          fontFamily: "var(--font-outfit)",
-          fontSize: 10,
-          fontWeight: 600,
-          letterSpacing: "2.5px",
-          textTransform: "uppercase",
-          color: C,
-          marginBottom: 12,
-          opacity: 0.7,
-        }}
-      >
-        {label}
-      </p>
-      <div
-        className={`cfk-sponsor-${size}`}
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${Math.min(items.length, size === "lead" ? 3 : size === "normal" ? 4 : 6)}, 1fr)`,
-          gap: 10,
-        }}
-      >
-        {items.map((s) => (
-          <SponsorLogo key={s.name} sponsor={s} height={heights[size]} logoH={logoH[size]} />
-        ))}
-      </div>
-    </motion.div>
-  );
-}
-
-function _unusedLegacyCTA() {
-  return (
-    <Link
-      href="/contact"
-      style={{
-        display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              padding: "12px 28px",
-              borderRadius: 50,
-              border: `1px solid ${C}30`,
-              background: "transparent",
-              fontFamily: "var(--font-outfit)",
-              fontSize: 14,
-              fontWeight: 500,
-              color: C,
-              textDecoration: "none",
-            }}
-          >
-            Become a Sponsor →
-          </Link>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
 function SponsorTier({
   label,
   items,
@@ -3102,7 +3027,7 @@ function WhatToExpect() {
     },
   ];
   return (
-    <section ref={ref} style={{ background: "#030810", padding: "clamp(56px,7vw,100px) 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} style={{ background: "#030810", padding: "clamp(40px,5vw,72px) 0", position: "relative", overflow: "hidden" }}>
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: `radial-gradient(ellipse 50% 60% at 30% 20%, ${C}04 0%, transparent 70%)` }}
@@ -3344,7 +3269,7 @@ function AgendaTimeline() {
       id="agenda"
       style={{
         background: "linear-gradient(180deg, #020a14 0%, #03101c 35%, #040e18 65%, #020810 100%)",
-        padding: "clamp(56px,7vw,100px) 0",
+        padding: "clamp(40px,5vw,72px) 0",
         position: "relative",
         overflow: "hidden",
       }}
@@ -3663,21 +3588,21 @@ function WhoShouldAttend() {
       ref={ref}
       style={{
         background: "#030810",
-        padding: "clamp(56px,7vw,100px) 0",
+        padding: "clamp(40px,5vw,72px) 0",
         position: "relative",
         overflow: "hidden",
       }}
     >
-      {/* Background event image */}
+      {/* Background S3 image */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={`${WP}/2024/12/Speakers-and-Event-pictures-22.png`}
+        src="https://efg-final.s3.eu-north-1.amazonaws.com/cyberbg.jpg"
         alt=""
         aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-        style={{ opacity: 0.07 }}
+        style={{ filter: "brightness(0.28) saturate(0.8)" }}
       />
-      {/* Dark overlay on backdrop image */}
+      {/* Dark overlay */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #030810 0%, rgba(3,8,16,0.85) 40%, rgba(3,8,16,0.9) 70%, #030810 100%)" }} />
 
       {/* Atmospheric layers */}
@@ -3704,10 +3629,10 @@ function WhoShouldAttend() {
           </h2>
         </motion.div>
 
-        {/* ── Split Layout: 55/45 ── */}
-        <div className="cfk-attend-split" style={{ display: "grid", gridTemplateColumns: "55fr 45fr", gap: "48px 56px", alignItems: "start" }}>
+        {/* ── Split Layout: 1fr auto ── */}
+        <div className="cfk-attend-split" style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: "48px 56px", alignItems: "center" }}>
 
-          {/* ── LEFT: Roles (2-column grid, no card) ── */}
+          {/* ── LEFT: Roles (2-column grid) ── */}
           <div className="cfk-attend-roles" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 32px" }}>
             {WHO_ATTEND_ROLES.map((role, i) => (
               <motion.div
@@ -3726,7 +3651,6 @@ function WhoShouldAttend() {
                   cursor: "default",
                 }}
               >
-                {/* Icon */}
                 <div style={{
                   width: 32,
                   height: 32,
@@ -3757,91 +3681,95 @@ function WhoShouldAttend() {
             ))}
           </div>
 
-          {/* ── RIGHT: Industries + Photo stacked ── */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          {/* ── RIGHT: Glass Industries Card ── */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.25, ease: EASE }}
+            style={{
+              padding: "28px 24px",
+              borderRadius: 20,
+              background: `linear-gradient(135deg, rgba(1,187,245,0.06), rgba(1,187,245,0.02))`,
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              border: `1px solid rgba(1,187,245,0.12)`,
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 8px 32px rgba(0,0,0,0.3)",
+              position: "relative",
+              overflow: "hidden",
+              width: "fit-content",
+              alignSelf: "flex-start",
+            }}
+          >
+            <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 60% 60% at 80% 20%, ${C}08, transparent 60%)` }} />
 
-            {/* Industries block (cyan) */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.25, ease: EASE }}
-              style={{
-                padding: "28px 24px",
-                borderRadius: 20,
-                background: `linear-gradient(135deg, ${C} 0%, ${C_BRIGHT} 100%)`,
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 60% at 80% 20%, rgba(255,255,255,0.1), transparent 60%)" }} />
+            <h3 style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 13,
+              fontWeight: 700,
+              color: C,
+              letterSpacing: "1.5px",
+              textTransform: "uppercase",
+              marginBottom: 16,
+              position: "relative",
+              zIndex: 1,
+            }}>
+              Key Industries
+            </h3>
 
-              <h3 style={{
-                fontFamily: "var(--font-display)",
-                fontSize: 13,
-                fontWeight: 700,
-                color: "rgba(255,255,255,0.65)",
-                letterSpacing: "1.5px",
-                textTransform: "uppercase",
-                marginBottom: 16,
-                position: "relative",
-                zIndex: 1,
-              }}>
-                Key Industries
-              </h3>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: 2, position: "relative", zIndex: 1 }}>
-                {WHO_ATTEND_INDUSTRIES.map((ind, i) => (
-                  <motion.div
-                    key={ind.name}
-                    initial={{ opacity: 0, x: 10 }}
-                    animate={inView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.35, delay: 0.35 + i * 0.04, ease: EASE }}
-                    onMouseEnter={() => setHoveredInd(i)}
-                    onMouseLeave={() => setHoveredInd(null)}
-                    className="flex items-center gap-3"
-                    style={{
-                      padding: "9px 12px",
-                      borderRadius: 10,
-                      background: hoveredInd === i ? "rgba(255,255,255,0.12)" : "transparent",
-                      transition: "background 0.25s",
-                      cursor: "default",
-                    }}
-                  >
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, opacity: hoveredInd === i ? 1 : 0.7, transition: "opacity 0.3s" }}>
-                      <path d="M20 6L9 17l-5-5" />
-                    </svg>
-                    <span style={{
-                      fontFamily: "var(--font-outfit)",
-                      fontSize: 14,
-                      fontWeight: hoveredInd === i ? 600 : 500,
-                      color: hoveredInd === i ? "white" : "rgba(255,255,255,0.85)",
-                      transition: "all 0.3s",
-                    }}>
-                      {ind.name}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Stat line */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.45, ease: EASE }}
-              style={{ padding: "16px 24px" }}
-            >
-              <div style={{ height: 1, background: `${C}18`, marginBottom: 14 }} />
-              <div className="flex items-center gap-4 flex-wrap">
-                {["350+ Senior Leaders", "7 Industries", "1 Transformative Day"].map((stat) => (
-                  <span key={stat} style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.35)", whiteSpace: "nowrap" }}>
-                    {stat}
+            <div style={{ display: "flex", flexDirection: "column", gap: 2, position: "relative", zIndex: 1 }}>
+              {WHO_ATTEND_INDUSTRIES.map((ind, i) => (
+                <motion.div
+                  key={ind.name}
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.35, delay: 0.35 + i * 0.04, ease: EASE }}
+                  onMouseEnter={() => setHoveredInd(i)}
+                  onMouseLeave={() => setHoveredInd(null)}
+                  className="flex items-center gap-3"
+                  style={{
+                    padding: "9px 16px",
+                    borderRadius: 10,
+                    border: `1px solid ${hoveredInd === i ? `${C}25` : "transparent"}`,
+                    background: hoveredInd === i ? `${C}08` : "transparent",
+                    transition: "all 0.25s",
+                    cursor: "default",
+                  }}
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={hoveredInd === i ? C_BRIGHT : `${C}60`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, transition: "stroke 0.3s" }}>
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  <span style={{
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 14,
+                    fontWeight: hoveredInd === i ? 600 : 500,
+                    color: hoveredInd === i ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.55)",
+                    transition: "all 0.3s",
+                    whiteSpace: "nowrap",
+                  }}>
+                    {ind.name}
                   </span>
-                ))}
-              </div>
-            </motion.div>
-          </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
+
+        {/* ── Stat line (full-width below grid) ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.45, ease: EASE }}
+          style={{ padding: "24px 0 0" }}
+        >
+          <div style={{ height: 1, background: `${C}18`, marginBottom: 14 }} />
+          <div className="flex items-center gap-4 flex-wrap">
+            {["350+ Senior Leaders", "7 Industries", "1 Transformative Day"].map((stat) => (
+              <span key={stat} style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.35)", whiteSpace: "nowrap" }}>
+                {stat}
+              </span>
+            ))}
+          </div>
+        </motion.div>
       </div>
 
       <style jsx global>{`
@@ -3895,7 +3823,7 @@ function AdvisoryBoard() {
       ref={ref}
       style={{
         background: "linear-gradient(180deg, #020810 0%, #051018 100%)",
-        padding: "clamp(56px, 7vw, 100px) 0",
+        padding: "clamp(40px, 5vw, 72px) 0",
         position: "relative",
         overflow: "hidden",
       }}
@@ -4061,7 +3989,7 @@ function AwardsSection() {
       ref={ref}
       style={{
         background: "linear-gradient(180deg, #020810 0%, #041220 30%, #051828 50%, #041220 70%, #020810 100%)",
-        padding: "clamp(56px,7vw,100px) 0",
+        padding: "clamp(40px,5vw,72px) 0",
         position: "relative",
         overflow: "hidden",
       }}
@@ -4519,13 +4447,35 @@ function SplitCTA() {
 
   const EFG_ORANGE = "#E8651A";
 
+  // Registration form state
+  const [regForm, setRegForm] = useState({ name: "", email: "", company: "", jobTitle: "" });
+  const [regSubmitted, setRegSubmitted] = useState(false);
+
+  // Sponsor form state
+  const [sponForm, setSponForm] = useState({ name: "", email: "", company: "", interest: "" });
+  const [sponSubmitted, setSponSubmitted] = useState(false);
+
+  const inputStyle = (accent: string): React.CSSProperties => ({
+    width: "100%",
+    padding: "12px 16px",
+    borderRadius: 12,
+    border: `1px solid ${accent}20`,
+    background: `${accent}06`,
+    color: "white",
+    fontFamily: "var(--font-outfit)",
+    fontSize: 13,
+    fontWeight: 400,
+    outline: "none",
+    transition: "border-color 0.3s, background 0.3s",
+  });
+
   return (
     <section
       ref={ref}
       style={{
         position: "relative",
         overflow: "hidden",
-        padding: "clamp(72px,9vw,140px) 0",
+        padding: "clamp(40px,5vw,72px) 0",
       }}
     >
       {/* Background image */}
@@ -4595,7 +4545,7 @@ function SplitCTA() {
           className="cfk-split-cta"
           style={{ display: "grid", gridTemplateColumns: "3fr 2fr", gap: 16, alignItems: "stretch" }}
         >
-          {/* Register card (larger) */}
+          {/* ── Register card (larger) ── */}
           <div
             style={{
               padding: "clamp(28px,3.5vw,48px)",
@@ -4609,58 +4559,24 @@ function SplitCTA() {
               justifyContent: "space-between",
             }}
           >
-            {/* Top accent */}
             <div className="absolute top-0 left-0 right-0" style={{ height: 2, background: `linear-gradient(90deg, ${EFG_ORANGE}, ${EFG_ORANGE}60, transparent)` }} />
-
-            {/* Ambient glow */}
             <div
               className="absolute pointer-events-none"
               style={{
-                width: 300,
-                height: 300,
-                bottom: -80,
-                right: -60,
+                width: 300, height: 300, bottom: -80, right: -60,
                 background: `radial-gradient(ellipse at center, rgba(232,101,26,0.08), transparent 70%)`,
                 filter: "blur(40px)",
               }}
             />
 
             <div style={{ position: "relative" }}>
-              <span
-                style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 10,
-                  fontWeight: 700,
-                  letterSpacing: "2.5px",
-                  textTransform: "uppercase",
-                  color: EFG_ORANGE,
-                }}
-              >
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: EFG_ORANGE }}>
                 For Delegates
               </span>
-              <h3
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 800,
-                  fontSize: "clamp(22px,2.8vw,36px)",
-                  letterSpacing: "-1.5px",
-                  color: "white",
-                  lineHeight: 1.1,
-                  margin: "14px 0 12px",
-                }}
-              >
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(22px,2.8vw,36px)", letterSpacing: "-1.5px", color: "white", lineHeight: 1.1, margin: "14px 0 12px" }}>
                 Register for Cyber First<br />Kuwait 2026
               </h3>
-              <p
-                style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 14,
-                  color: "rgba(255,255,255,0.45)",
-                  lineHeight: 1.65,
-                  margin: "0 0 24px",
-                  maxWidth: 420,
-                }}
-              >
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.45)", lineHeight: 1.65, margin: "0 0 24px", maxWidth: 420 }}>
                 Join 350+ CISOs, government security leaders, and technology experts. 21 April at Jumeirah Messilah Beach Hotel, Kuwait.
               </p>
 
@@ -4672,71 +4588,89 @@ function SplitCTA() {
                   { val: cd.m, label: "Min" },
                   { val: cd.s, label: "Sec" },
                 ].map((u) => (
-                  <div
-                    key={u.label}
-                    style={{
-                      textAlign: "center",
-                      background: "rgba(232,101,26,0.08)",
-                      border: "1px solid rgba(232,101,26,0.15)",
-                      borderRadius: 12,
-                      padding: "10px 14px",
-                      minWidth: 56,
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontSize: 22,
-                        fontWeight: 800,
-                        color: "white",
-                        lineHeight: 1,
-                      }}
-                    >
+                  <div key={u.label} style={{ textAlign: "center", background: "rgba(232,101,26,0.08)", border: "1px solid rgba(232,101,26,0.15)", borderRadius: 12, padding: "10px 14px", minWidth: 56 }}>
+                    <div style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 800, color: "white", lineHeight: 1 }}>
                       {String(u.val).padStart(2, "0")}
                     </div>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-outfit)",
-                        fontSize: 9,
-                        fontWeight: 600,
-                        color: "rgba(232,101,26,0.7)",
-                        textTransform: "uppercase",
-                        letterSpacing: "1px",
-                        marginTop: 4,
-                      }}
-                    >
+                    <div style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 600, color: "rgba(232,101,26,0.7)", textTransform: "uppercase", letterSpacing: "1px", marginTop: 4 }}>
                       {u.label}
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
 
-            <Link
-              href="/contact"
-              className="cfk-cta-register"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                alignSelf: "flex-start",
-                gap: 8,
-                padding: "14px 32px",
-                borderRadius: 50,
-                background: EFG_ORANGE,
-                color: "white",
-                fontFamily: "var(--font-outfit)",
-                fontSize: 14,
-                fontWeight: 600,
-                textDecoration: "none",
-                boxShadow: "0 4px 28px rgba(232,101,26,0.35)",
-                transition: "all 0.3s ease",
-              }}
-            >
-              Register Now →
-            </Link>
+              {/* Inline Registration Form */}
+              {regSubmitted ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  style={{ padding: "24px", borderRadius: 16, background: "rgba(232,101,26,0.08)", border: "1px solid rgba(232,101,26,0.2)", textAlign: "center" }}
+                >
+                  <div style={{ fontSize: 28, marginBottom: 8 }}>&#10003;</div>
+                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 600, color: "white", margin: "0 0 4px" }}>Registration Received!</p>
+                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.45)", margin: 0 }}>We&apos;ll be in touch shortly.</p>
+                </motion.div>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  <div className="cfk-reg-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                    <input
+                      placeholder="Full Name"
+                      value={regForm.name}
+                      onChange={(e) => setRegForm({ ...regForm, name: e.target.value })}
+                      style={inputStyle(EFG_ORANGE)}
+                    />
+                    <input
+                      placeholder="Work Email"
+                      type="email"
+                      value={regForm.email}
+                      onChange={(e) => setRegForm({ ...regForm, email: e.target.value })}
+                      style={inputStyle(EFG_ORANGE)}
+                    />
+                  </div>
+                  <div className="cfk-reg-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                    <input
+                      placeholder="Company"
+                      value={regForm.company}
+                      onChange={(e) => setRegForm({ ...regForm, company: e.target.value })}
+                      style={inputStyle(EFG_ORANGE)}
+                    />
+                    <input
+                      placeholder="Job Title"
+                      value={regForm.jobTitle}
+                      onChange={(e) => setRegForm({ ...regForm, jobTitle: e.target.value })}
+                      style={inputStyle(EFG_ORANGE)}
+                    />
+                  </div>
+                  <button
+                    onClick={() => setRegSubmitted(true)}
+                    className="cfk-cta-register"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      alignSelf: "flex-start",
+                      gap: 8,
+                      padding: "14px 32px",
+                      borderRadius: 50,
+                      background: EFG_ORANGE,
+                      color: "white",
+                      fontFamily: "var(--font-outfit)",
+                      fontSize: 14,
+                      fontWeight: 600,
+                      border: "none",
+                      cursor: "pointer",
+                      boxShadow: "0 4px 28px rgba(232,101,26,0.35)",
+                      transition: "all 0.3s ease",
+                      marginTop: 6,
+                    }}
+                  >
+                    Register Now →
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* Sponsor card (smaller) */}
+          {/* ── Sponsor card (smaller) — redesigned ── */}
           <div
             style={{
               padding: "clamp(28px,3.5vw,48px)",
@@ -4747,119 +4681,123 @@ function SplitCTA() {
               overflow: "hidden",
               display: "flex",
               flexDirection: "column",
-              justifyContent: "space-between",
             }}
           >
-            {/* Top accent */}
             <div className="absolute top-0 left-0 right-0" style={{ height: 2, background: `linear-gradient(90deg, ${C}, ${C}60, transparent)` }} />
-
-            {/* Ambient glow */}
             <div
               className="absolute pointer-events-none"
               style={{
-                width: 250,
-                height: 250,
-                bottom: -60,
-                right: -40,
+                width: 250, height: 250, bottom: -60, right: -40,
                 background: `radial-gradient(ellipse at center, ${C}08, transparent 70%)`,
                 filter: "blur(40px)",
               }}
             />
 
-            <div style={{ position: "relative" }}>
-              <span
-                style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 10,
-                  fontWeight: 700,
-                  letterSpacing: "2.5px",
-                  textTransform: "uppercase",
-                  color: C,
-                }}
-              >
+            <div style={{ position: "relative", flex: 1, display: "flex", flexDirection: "column" }}>
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: C }}>
                 For Brands & Vendors
               </span>
-              <h3
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 800,
-                  fontSize: "clamp(20px,2.2vw,30px)",
-                  letterSpacing: "-1px",
-                  color: "white",
-                  lineHeight: 1.15,
-                  margin: "14px 0 12px",
-                }}
-              >
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(20px,2.2vw,30px)", letterSpacing: "-1px", color: "white", lineHeight: 1.15, margin: "14px 0 12px" }}>
                 Sponsor or Partner This Edition
               </h3>
-              <p
-                style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 13,
-                  color: "rgba(255,255,255,0.4)",
-                  lineHeight: 1.65,
-                  margin: "0 0 24px",
-                }}
-              >
-                Access 350+ decision-makers across banking, oil & gas, government, and telecom.
-              </p>
 
-              {/* Trust stats */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
+              {/* Trust stat badges */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 20 }}>
                 {[
-                  { num: "350+", label: "Senior Delegates" },
-                  { num: "25+", label: "Industry Speakers" },
-                  { num: "22+", label: "Sponsors & Partners" },
+                  { num: "350+", label: "Delegates" },
+                  { num: "25+", label: "Speakers" },
+                  { num: "22+", label: "Partners" },
                 ].map((s) => (
-                  <div key={s.label} style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    <span
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontSize: 18,
-                        fontWeight: 800,
-                        color: C_BRIGHT,
-                        minWidth: 48,
-                      }}
-                    >
-                      {s.num}
-                    </span>
-                    <span
-                      style={{
-                        fontFamily: "var(--font-outfit)",
-                        fontSize: 12,
-                        fontWeight: 400,
-                        color: "rgba(255,255,255,0.4)",
-                      }}
-                    >
-                      {s.label}
-                    </span>
+                  <div key={s.label} style={{
+                    display: "flex", alignItems: "center", gap: 6,
+                    padding: "6px 12px", borderRadius: 20,
+                    background: `${C}08`, border: `1px solid ${C}15`,
+                  }}>
+                    <span style={{ fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 800, color: C_BRIGHT }}>{s.num}</span>
+                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 400, color: "rgba(255,255,255,0.4)" }}>{s.label}</span>
                   </div>
                 ))}
               </div>
-            </div>
 
-            <Link
-              href="/contact"
-              className="cfk-cta-sponsor"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                alignSelf: "flex-start",
-                gap: 8,
-                padding: "13px 28px",
-                borderRadius: 50,
-                background: "transparent",
-                color: C,
-                fontFamily: "var(--font-outfit)",
-                fontSize: 13,
-                fontWeight: 600,
-                textDecoration: "none",
-                border: `1px solid ${C}50`,
-                transition: "all 0.3s ease",
-              }}
-            >
-              Explore Partnerships →
-            </Link>
+              {/* Sponsor Form */}
+              {sponSubmitted ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  style={{ padding: "24px", borderRadius: 16, background: `${C}08`, border: `1px solid ${C}20`, textAlign: "center", marginTop: "auto" }}
+                >
+                  <div style={{ fontSize: 28, marginBottom: 8 }}>&#10003;</div>
+                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 600, color: "white", margin: "0 0 4px" }}>Inquiry Received!</p>
+                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.45)", margin: 0 }}>Our partnerships team will reach out.</p>
+                </motion.div>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: "auto" }}>
+                  <input
+                    placeholder="Full Name"
+                    value={sponForm.name}
+                    onChange={(e) => setSponForm({ ...sponForm, name: e.target.value })}
+                    style={inputStyle(C)}
+                  />
+                  <input
+                    placeholder="Work Email"
+                    type="email"
+                    value={sponForm.email}
+                    onChange={(e) => setSponForm({ ...sponForm, email: e.target.value })}
+                    style={inputStyle(C)}
+                  />
+                  <input
+                    placeholder="Company"
+                    value={sponForm.company}
+                    onChange={(e) => setSponForm({ ...sponForm, company: e.target.value })}
+                    style={inputStyle(C)}
+                  />
+                  <select
+                    value={sponForm.interest}
+                    onChange={(e) => setSponForm({ ...sponForm, interest: e.target.value })}
+                    style={{
+                      ...inputStyle(C),
+                      appearance: "none",
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2301BBF5' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "right 16px center",
+                      cursor: "pointer",
+                      color: sponForm.interest ? "white" : "rgba(255,255,255,0.4)",
+                    }}
+                  >
+                    <option value="" disabled>Interest</option>
+                    <option value="Title Sponsor">Title Sponsor</option>
+                    <option value="Gold Sponsor">Gold Sponsor</option>
+                    <option value="Silver Sponsor">Silver Sponsor</option>
+                    <option value="Exhibition Partner">Exhibition Partner</option>
+                    <option value="Media Partner">Media Partner</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <button
+                    onClick={() => setSponSubmitted(true)}
+                    className="cfk-cta-sponsor-btn"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      alignSelf: "flex-start",
+                      gap: 8,
+                      padding: "13px 28px",
+                      borderRadius: 50,
+                      background: "transparent",
+                      color: C,
+                      fontFamily: "var(--font-outfit)",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      border: `1px solid ${C}50`,
+                      cursor: "pointer",
+                      transition: "all 0.3s ease",
+                      marginTop: 6,
+                    }}
+                  >
+                    Explore Partnerships →
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </motion.div>
       </div>
@@ -4869,13 +4807,20 @@ function SplitCTA() {
           box-shadow: 0 8px 40px rgba(232,101,26,0.5) !important;
           transform: translateY(-2px);
         }
-        .cfk-cta-sponsor:hover {
+        .cfk-cta-sponsor-btn:hover {
           background: rgba(1,187,245,0.08) !important;
           border-color: rgba(1,187,245,0.5) !important;
           transform: translateY(-2px);
         }
+        select option {
+          background: #0a1628;
+          color: white;
+        }
         @media (max-width: 768px) {
           .cfk-split-cta {
+            grid-template-columns: 1fr !important;
+          }
+          .cfk-reg-row {
             grid-template-columns: 1fr !important;
           }
         }

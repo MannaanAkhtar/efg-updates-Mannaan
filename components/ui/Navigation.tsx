@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/events", label: "Events", hasDropdown: true },
+  { href: "/network-first", label: "NetworkFirst" },
   { href: "/speakers", label: "Speakers" },
   { href: "/insights", label: "Insights" },
   { href: "/contact", label: "Contact" },

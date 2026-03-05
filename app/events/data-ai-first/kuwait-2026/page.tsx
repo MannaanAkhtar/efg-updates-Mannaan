@@ -162,10 +162,10 @@ const MARKET_STATS: {
   label: string;
   note: string;
 }[] = [
-  { value: 43, suffix: "B", unit: "USD", label: "Kuwait ICT Market by 2030", note: "Growing from $27.12B current valuation" },
-  { value: 9, suffix: "B", unit: "USD", label: "AI & Digital Investment", note: "$3B AI + $6B digital transformation" },
-  { value: 800, suffix: "M", unit: "USD", label: "KOC Digital Transformation", note: "11 sub-projects across oil sector" },
-  { value: 50, suffix: "K+", unit: "JOBS", label: "New Tech Jobs by 2030", note: "KD 1B annual revenues projected" },
+  { value: 43, suffix: ".36B", unit: "USD", label: "ICT Market Surge by 2030", note: "Projected market valuation" },
+  { value: 9, suffix: "B", unit: "USD", label: "AI & Digital Investment", note: "$3B AI + $100 Billion AI Infrastructure Partnership" },
+  { value: 800, suffix: "M", unit: "USD", label: "KOC Digital Transformation", note: "$10B healthcare digitalization budget" },
+  { value: 50, suffix: "K+", unit: "JOBS", label: "New Tech Jobs by 2030", note: "KD 1B annual revenue target" },
 ];
 
 const HIGHLIGHTS = [
@@ -227,12 +227,12 @@ const AGENDA = [
 const AWARDS = [
   { title: "AI Transformation Leader", desc: "Recognising leaders driving enterprise-wide AI adoption and measurable business outcomes." },
   { title: "Data-Driven Innovation", desc: "Celebrating organisations leveraging data to create breakthrough products and services." },
-  { title: "Public Sector AI & Data Impact", desc: "Honouring government entities advancing citizen services through AI and data analytics." },
-  { title: "AI Ethics & Governance Champion", desc: "Recognising commitment to responsible AI — transparency, fairness, and accountability." },
   { title: "Data & AI Ecosystem Contributor", desc: "Celebrating contributions to building Kuwait's national data and AI infrastructure." },
   { title: "AI & Data Visionary Award", desc: "Honouring individuals whose vision is shaping the future of AI in Kuwait and the GCC." },
-  { title: "Emerging AI & Data Talent", desc: "Spotlighting rising professionals making exceptional early-career contributions." },
-  { title: "AI & Data Educator / Mentor", desc: "Celebrating those advancing AI literacy and mentoring the next generation of talent." },
+  { title: "Emerging AI & Data Talent Award", desc: "Spotlighting rising professionals making exceptional early-career contributions." },
+  { title: "AI & Data Educator/Mentor", desc: "Celebrating those advancing AI literacy and mentoring the next generation of talent." },
+  { title: "Public Sector AI & Data Impact", desc: "Honouring government entities advancing citizen services through AI and data analytics." },
+  { title: "AI Ethics & Governance Champion", desc: "Recognising commitment to responsible AI — transparency, fairness, and accountability." },
 ];
 
 const AWARDS_ELIGIBILITY = [
@@ -298,6 +298,7 @@ export default function DataAIFirstKuwait2026() {
       <AwardsSection />
       <WhoShouldAttend />
       <WhyAttend />
+      <PRMediaSection />
       <PastEventsGallery />
       <FAQSection />
       <SplitCTA />
@@ -486,7 +487,7 @@ function HeroSection() {
               lineHeight: 1.7,
             }}
           >
-            Kuwait&apos;s most exclusive gathering of Data & AI decision-makers. By invitation only.
+            Turning Data & AI into Regulated, Profitable, and Scalable Outcomes
           </motion.p>
 
           {/* Exclusivity Badge */}
@@ -984,7 +985,7 @@ function StatsBar() {
                 lineHeight: 1.5,
               }}
             >
-              Hand-selected CDOs, CTOs, CIOs & government strategists. Every attendee personally vetted.
+              A highly curated gathering reserved for CDOs, CTOs, CIOs and senior government strategists driving the next wave of digital and technological advancement.
             </p>
           </motion.div>
 
@@ -1196,10 +1197,10 @@ function MarketContext() {
           }}
         >
           {[
-            { value: 43, suffix: "B", prefix: "$", label: "ICT Market 2030", desc: "Projected market size", highlight: true, icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6", growth: "+24%" },
-            { value: 9, suffix: "B", prefix: "$", label: "AI Investment", desc: "National AI budget", icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z", growth: "2026" },
-            { value: 800, suffix: "M", prefix: "$", label: "KOC Digital", desc: "Digital transformation", icon: "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z", growth: "Active" },
-            { value: 50, suffix: "K+", prefix: "", label: "New Tech Jobs", desc: "By 2030 estimate", icon: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z", growth: "+18%" },
+            { value: 43, suffix: ".36B", prefix: "$", label: "ICT Market Surge by 2030", desc: "Projected market valuation", highlight: true, icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6", growth: "+24%" },
+            { value: 9, suffix: "B", prefix: "$", label: "AI & Digital Investment", desc: "$3B AI + $100B AI Infrastructure Partnership", icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z", growth: "2026" },
+            { value: 800, suffix: "M", prefix: "$", label: "KOC Digital Transformation", desc: "$10B healthcare digitalization", icon: "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z", growth: "Active" },
+            { value: 50, suffix: "K+", prefix: "", label: "New Tech Jobs by 2030", desc: "KD 1B annual revenue target", icon: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z", growth: "+18%" },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -1220,7 +1221,7 @@ function MarketContext() {
                 WebkitBackdropFilter: "blur(24px)",
                 borderRadius: 20,
                 border: `1px solid ${stat.highlight ? `${E}50` : "rgba(255,255,255,0.12)"}`,
-                textAlign: "left",
+                textAlign: "center",
                 boxShadow: stat.highlight 
                   ? `0 12px 40px ${E}30, inset 0 1px 0 ${E}40, 0 0 80px ${E}15` 
                   : "0 4px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.08)",
@@ -1229,36 +1230,6 @@ function MarketContext() {
                 overflow: "hidden",
               }}
             >
-              {/* Top row: Icon + Growth badge */}
-              <div className="flex items-center justify-between" style={{ marginBottom: 16, position: "relative", zIndex: 1 }}>
-                <div style={{
-                  width: stat.highlight ? 44 : 36,
-                  height: stat.highlight ? 44 : 36,
-                  borderRadius: 12,
-                  background: stat.highlight ? `${E}20` : "rgba(255,255,255,0.08)",
-                  border: `1px solid ${stat.highlight ? `${E}40` : "rgba(255,255,255,0.1)"}`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}>
-                  <svg width={stat.highlight ? 22 : 18} height={stat.highlight ? 22 : 18} viewBox="0 0 24 24" fill="none" stroke={stat.highlight ? E_BRIGHT : "rgba(255,255,255,0.6)"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d={stat.icon} />
-                  </svg>
-                </div>
-                <span style={{
-                  padding: "4px 10px",
-                  borderRadius: 20,
-                  background: stat.highlight ? `${E}25` : "rgba(255,255,255,0.08)",
-                  border: `1px solid ${stat.highlight ? `${E}35` : "rgba(255,255,255,0.1)"}`,
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 10,
-                  fontWeight: 600,
-                  color: stat.highlight ? E_BRIGHT : "rgba(255,255,255,0.5)",
-                  letterSpacing: "0.5px",
-                }}>
-                  {stat.growth}
-                </span>
-              </div>
               {/* Subtle grid pattern */}
               <div className="absolute inset-0 pointer-events-none" style={{ 
                 backgroundImage: `radial-gradient(${stat.highlight ? E : "white"}08 1px, transparent 1px)`,
@@ -2138,7 +2109,7 @@ function AgendaTimeline() {
                 <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
               <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase", color: "#C4A34A" }}>
-                Closed-Door Sessions · Chatham House Rules
+                Please note that this is a draft agenda and is subject to changes until 4 days prior to the event
               </span>
             </span>
           </div>
@@ -3757,7 +3728,7 @@ function WhyAttend() {
             <span style={{ width: 30, height: 1, background: `linear-gradient(90deg, ${E}, transparent)` }} />
           </div>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(30px, 3.5vw, 48px)", letterSpacing: "-1.5px", color: "var(--white)", lineHeight: 1.1, margin: 0 }}>
-            6 Reasons to <span style={{ color: "#C4A34A" }}>Fight</span> for a Seat
+            6 Reasons to <span style={{ color: "#C4A34A" }}>Secure</span> a Seat
           </h2>
           <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.4)", marginTop: 10 }}>
             What makes this gathering worth the application process
@@ -3940,6 +3911,160 @@ function WhyAttend() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+//  PR & MEDIA SECTION
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const PR_SHORTS = [
+  { videoId: "JA1X4cN2-t0", title: "Event Highlights Reel" },
+  { videoId: "-a481Lbz55o", title: "Speaker Insights" },
+  { videoId: "dbL42utoYW4", title: "Behind the Scenes" },
+  { videoId: "gR-IUI7yJLg", title: "Keynote Moments" },
+];
+
+const MEDIA_OUTLETS = [
+  "Forbes Middle East", "Arabian Business", "Gulf News", "Bloomberg",
+  "TechCrunch", "Zawya", "ITP.net", "Arab News",
+];
+
+function PRMediaSection() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [playingIdx, setPlayingIdx] = useState<number | null>(null);
+
+  return (
+    <section
+      ref={ref}
+      style={{
+        background: "#0A0A0A",
+        padding: "clamp(40px,5vw,72px) 0",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 50% 40% at 50% 30%, ${E}05, transparent 70%)` }} />
+
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px,5vw,80px)", position: "relative", zIndex: 1 }}>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: EASE }}
+          style={{ textAlign: "center", marginBottom: 40 }}
+        >
+          <div className="flex items-center justify-center gap-3" style={{ marginBottom: 12 }}>
+            <span style={{ width: 30, height: 1, background: E }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: E }}>
+              Media & Coverage
+            </span>
+            <span style={{ width: 30, height: 1, background: E }} />
+          </div>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(30px,3.5vw,48px)", letterSpacing: "-1.5px", color: "white", lineHeight: 1.1, margin: 0 }}>
+            In the <span style={{ color: GOLD }}>Press</span>
+          </h2>
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.4)", marginTop: 10, maxWidth: 520, marginLeft: "auto", marginRight: "auto" }}>
+            Highlights and coverage from our series of premium technology summits across the GCC
+          </p>
+        </motion.div>
+
+        {/* Media Outlets Strip */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
+          style={{
+            display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", gap: "12px 28px",
+            padding: "20px 0", marginBottom: 40,
+            borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)",
+          }}
+        >
+          {MEDIA_OUTLETS.map((name) => (
+            <span key={name} style={{
+              fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 700, letterSpacing: "1px",
+              color: "rgba(255,255,255,0.2)", textTransform: "uppercase", whiteSpace: "nowrap",
+              transition: "color 0.3s",
+            }}>
+              {name}
+            </span>
+          ))}
+        </motion.div>
+
+        {/* YouTube Shorts Grid */}
+        <div className="daik-pr-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+          {PR_SHORTS.map((short, i) => (
+            <motion.div
+              key={short.videoId}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.3 + i * 0.1, ease: EASE }}
+              style={{
+                borderRadius: 16,
+                overflow: "hidden",
+                background: `linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))`,
+                border: "1px solid rgba(255,255,255,0.08)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+              }}
+            >
+              {/* Video area */}
+              <div style={{ position: "relative", paddingTop: "177.78%", background: "#111" }}>
+                {playingIdx === i ? (
+                  <iframe
+                    src={`https://www.youtube.com/embed/${short.videoId}?autoplay=1&rel=0`}
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
+                  />
+                ) : (
+                  <div
+                    onClick={() => setPlayingIdx(i)}
+                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", cursor: "pointer" }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={`https://img.youtube.com/vi/${short.videoId}/hqdefault.jpg`}
+                      alt={short.title}
+                      style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.7)" }}
+                    />
+                    {/* Play button */}
+                    <div style={{
+                      position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
+                      width: 52, height: 52, borderRadius: "50%",
+                      background: `${E}CC`, backdropFilter: "blur(8px)",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      boxShadow: `0 4px 24px ${E}40`,
+                      transition: "transform 0.3s",
+                    }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
+                )}
+              </div>
+              {/* Title */}
+              <div style={{ padding: "14px 16px" }}>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.7)", margin: 0 }}>
+                  {short.title}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <style jsx global>{`
+        @media (max-width: 900px) {
+          .daik-pr-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 480px) {
+          .daik-pr-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 //  12. PAST EVENTS GALLERY
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -4091,11 +4216,23 @@ const SPONSOR_TIERS: {
   color: string;
   sponsors?: { name: string; logo: string }[];
 }[] = [
-  { tier: "Gold Partner", slots: 1, color: GOLD, sponsors: [] },
-  { tier: "Associate Partners", slots: 2, color: E_BRIGHT, sponsors: [] },
-  { tier: "Panel Partners", slots: 3, color: "#A78BFA", sponsors: [] },
+  { tier: "Gold Partner", slots: 1, color: GOLD, sponsors: [
+    { name: "Google Cloud Security", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Google-Cloud-Security.png" },
+  ]},
+  { tier: "Associate Partners", slots: 2, color: E_BRIGHT, sponsors: [
+    { name: "Palo Alto Networks", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/paloalto.png" },
+    { name: "Kaspersky", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/kaspersky.png" },
+  ]},
+  { tier: "Panel Partners", slots: 3, color: "#A78BFA", sponsors: [
+    { name: "Akamai", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Akamai.png" },
+    { name: "SentinelOne", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/sentinelone.png" },
+    { name: "Celonis", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Celonis.png" },
+  ]},
   { tier: "Strategic Partners", slots: 4, color: "#808080", sponsors: [
     { name: "ManageEngine", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ManageEngine.png" },
+    { name: "EY", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/EY.png" },
+    { name: "Bitdefender", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/bitdefender.png" },
+    { name: "Fortinet", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/fortinet.png" },
   ]},
 ];
 
@@ -4173,7 +4310,7 @@ function SponsorsSection() {
                   <img
                     src={sponsor.logo}
                     alt={sponsor.name}
-                    style={{ maxHeight: tierIndex === 0 ? 60 : 40, maxWidth: "100%", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.9 }}
+                    style={{ maxHeight: tierIndex === 0 ? 80 : 52, maxWidth: "80%", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.9 }}
                   />
                 </div>
               ))}
@@ -5249,8 +5386,8 @@ const S3_TEAM = "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos";
 const CONTACTS = {
   speaking: {
     name: "Sanjana Venugopal",
-    role: "Producer",
-    phone: "+971 50 500 3341",
+    role: "Senior Conference Producer",
+    phone: "+971 55 416 1657",
     email: "sanjana@eventsfirstgroup.com",
     photo: `${S3_TEAM}/Sanjana-Venugopal-new.jpg`,
   },
@@ -5328,50 +5465,48 @@ function ContactSection() {
               border: `1px solid ${E}20`,
             }}
           >
-            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: E_BRIGHT, marginBottom: 20 }}>
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: E_BRIGHT, marginBottom: 24 }}>
               For Speaking Enquiries
             </p>
-            <div className="flex items-center gap-4">
-              <div
-                style={{
-                  width: 72,
-                  height: 72,
-                  borderRadius: "50%",
-                  overflow: "hidden",
-                  border: `2px solid ${E}30`,
-                  flexShrink: 0,
-                }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={CONTACTS.speaking.photo}
-                  alt={CONTACTS.speaking.name}
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                />
-              </div>
-              <div>
-                <p style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 700, color: "white", margin: "0 0 2px" }}>
+            <div className="flex items-center gap-5">
+              {/* Company badge headshot */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/sanjana-headshot.png"
+                alt={CONTACTS.speaking.name}
+                style={{ width: 100, height: 100, objectFit: "contain", flexShrink: 0 }}
+              />
+              {/* Name + Role + Contact */}
+              <div style={{ flex: 1 }}>
+                <p style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 700, color: "white", margin: "0 0 2px" }}>
                   {CONTACTS.speaking.name}
                 </p>
-                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "#606060", margin: 0 }}>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "#E8651A", margin: "0 0 16px" }}>
                   {CONTACTS.speaking.role}
                 </p>
+                <div className="flex flex-col gap-3">
+                  <a href={`tel:${CONTACTS.speaking.phone.replace(/\s/g, "")}`} className="flex items-center gap-3 transition-colors hover:opacity-80">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={E_BRIGHT} strokeWidth="2" strokeLinecap="round">
+                      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+                    </svg>
+                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "#909090" }}>{CONTACTS.speaking.phone}</span>
+                  </a>
+                  <a href={`mailto:${CONTACTS.speaking.email}`} className="flex items-center gap-3 transition-colors hover:opacity-80">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={E_BRIGHT} strokeWidth="2" strokeLinecap="round">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <path d="M22 6l-10 7L2 6" />
+                    </svg>
+                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "#909090" }}>{CONTACTS.speaking.email}</span>
+                  </a>
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col gap-3" style={{ marginTop: 20 }}>
-              <a href={`tel:${CONTACTS.speaking.phone.replace(/\s/g, "")}`} className="flex items-center gap-3 transition-colors hover:opacity-80">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={E_BRIGHT} strokeWidth="2" strokeLinecap="round">
-                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
-                </svg>
-                <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "#909090" }}>{CONTACTS.speaking.phone}</span>
-              </a>
-              <a href={`mailto:${CONTACTS.speaking.email}`} className="flex items-center gap-3 transition-colors hover:opacity-80">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={E_BRIGHT} strokeWidth="2" strokeLinecap="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <path d="M22 6l-10 7L2 6" />
-                </svg>
-                <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "#909090" }}>{CONTACTS.speaking.email}</span>
-              </a>
+              {/* EFG Company Logo */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/events-first-group_logo_alt.svg"
+                alt="Events First Group"
+                style={{ width: 120, height: "auto", objectFit: "contain", flexShrink: 0, opacity: 0.85 }}
+              />
             </div>
           </motion.div>
 
