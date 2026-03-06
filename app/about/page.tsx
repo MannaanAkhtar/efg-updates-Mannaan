@@ -58,7 +58,7 @@ const values = [
   },
 ];
 
-type Member = { name: string; role: string; initials: string; photo?: string; isFounder?: boolean };
+type Member = { name: string; role: string; initials: string; photo?: string; isFounder?: boolean; photoPos?: string };
 
 // All team members including founders
 const teamMembers: Member[] = [
@@ -66,7 +66,7 @@ const teamMembers: Member[] = [
   { name: "Yasir", role: "Chief Growth Officer", initials: "Y", photo: `${S3}/yasir.jpeg?v=2` },
   { name: "Shyam", role: "Chief Growth Officer", initials: "S", photo: `${S3}/shyam.jpg?v=3` },
   // Partnership
-  { name: "Mohammed Hassan", role: "Partnership Manager", initials: "MH", photo: `${S3}/hassan.jpg` },
+  { name: "Mohammed Hassan", role: "Partnership Manager", initials: "MH", photo: `${S3}/hassan.jpg`, photoPos: "top" },
   { name: "Mohammed Sahil", role: "Partnership Manager", initials: "MS", photo: `${S3}/sahil.jpeg` },
   { name: "Mohammed Danish", role: "Partnership Manager", initials: "MD", photo: "/team/danish.jpg" },
   { name: "Mayur Methi", role: "Partnership Manager", initials: "MM", photo: `${S3}/Mayur-Methi.png` },
@@ -772,6 +772,7 @@ function TeamMember({ member, index, isInView }: { member: Member; index: number
               width: "100%",
               height: "100%",
               objectFit: "cover",
+              objectPosition: member.photoPos || "center",
               filter: "grayscale(100%)",
               transition: "filter 0.4s ease",
             }}
