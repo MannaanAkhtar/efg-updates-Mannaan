@@ -24,7 +24,7 @@ const C_BRIGHT = "#4DD4FF";
 const EASE = [0.16, 1, 0.3, 1] as const;
 const WP = "https://cyberfirstseries.com/wp-content/uploads";
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com";
-const EVENT_DATE = new Date("2026-09-15T08:00:00+05:30");
+const EVENT_DATE = new Date("2026-06-11T08:30:00+05:30");
 
 // ─── Countdown ───────────────────────────────────────────────────────────────
 function useCountdown(target: Date) {
