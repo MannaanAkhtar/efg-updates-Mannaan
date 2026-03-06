@@ -150,18 +150,23 @@ export default function NetworkFirstPage() {
       <Hero />
       <TrustStrip />
       <IntroStatement />
+      <WhyBoardroomsWork />
       <TheFormat />
       <CandidMoments />
       <WhyHost />
       <EditorialBreak src={`${BOARDROOM}/boardroom-26.jpg`} />
       <TheExperience />
+      <TheFullPackage />
+      <TheJourney />
       <UpcomingSection />
       <UrgencyBanner />
       <EditorialBreak src={`${BOARDROOM}/boardroom-31.jpg`} />
       <PastBoardroomsShowcase />
+      <ResultsThatMatter />
       <ByTheNumbers />
       <VideoTestimonials />
       <TestimonialCarousel />
+      <FAQSection />
       <TitlesMarquee />
       <FinalCTA />
       <Footer />
@@ -384,6 +389,85 @@ function IntroStatement() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// WHY BOARDROOMS WORK
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function WhyBoardroomsWork() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const comparisons = [
+    {
+      versus: "Conferences",
+      problem: "Thousands of attendees. Your booth is one of hundreds. You fight for attention.",
+      solution: "Your brand owns the room. Every executive is there for you.",
+    },
+    {
+      versus: "Webinars",
+      problem: "Lead lists, not relationships. Attendees multitask through your content.",
+      solution: "Face-to-face conversations that build real trust and pipeline.",
+    },
+    {
+      versus: "Cold Outreach",
+      problem: "Gatekeepers. Ignored emails. Months to secure a single meeting.",
+      solution: "Warm introductions in a trusted environment. 15 meetings in one morning.",
+    },
+  ];
+
+  const advantages = [
+    { icon: "🏛", title: "Chatham House Rule", desc: "No recordings, no press. Candor that doesn't happen in public forums." },
+    { icon: "👔", title: "Decision-Makers Only", desc: "CISOs, CTOs, C-level executives. No delegates. Every seat earned." },
+    { icon: "🎯", title: "Your Brand, Front & Center", desc: "You set the agenda. You lead the conversation. You own the narrative." },
+  ];
+
+  return (
+    <section ref={ref} style={{ padding: "clamp(80px, 10vw, 120px) 24px", background: BG_ALT }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ textAlign: "center", marginBottom: 64 }}>
+          <p style={{ fontSize: 11, color: GOLD, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 16 }}>The Boardroom Advantage</p>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 44px)", fontWeight: 600, lineHeight: 1.15, margin: 0, letterSpacing: "-0.02em", color: TEXT }}>
+            Why boardrooms work<br /><span style={{ color: TEXT_50 }}>when everything else doesn&apos;t.</span>
+          </h2>
+        </motion.div>
+
+        {/* Comparison Grid */}
+        <motion.div variants={staggerContainer} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24, marginBottom: 80 }} className="comparison-grid">
+          {comparisons.map((c, i) => (
+            <motion.div key={c.versus} variants={fadeUp} custom={i} style={{ background: BG, border: `1px solid ${BORDER}`, borderRadius: 16, padding: 32, position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${GOLD}, ${GOLD_30})` }} />
+              <p style={{ fontSize: 11, color: GOLD, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 20 }}>vs. {c.versus}</p>
+              <div style={{ marginBottom: 24 }}>
+                <p style={{ fontSize: 13, color: TEXT_30, lineHeight: 1.6, margin: 0, textDecoration: "line-through", textDecorationColor: TEXT_30 }}>{c.problem}</p>
+              </div>
+              <div style={{ borderLeft: `2px solid ${GOLD}`, paddingLeft: 16 }}>
+                <p style={{ fontSize: 15, color: TEXT, lineHeight: 1.6, margin: 0, fontWeight: 500 }}>{c.solution}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Key Advantages */}
+        <motion.div variants={staggerContainer} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 48 }} className="advantages-grid">
+          {advantages.map((a, i) => (
+            <motion.div key={a.title} variants={fadeUp} custom={i} style={{ textAlign: "center" }}>
+              <span style={{ fontSize: 40, display: "block", marginBottom: 16 }}>{a.icon}</span>
+              <h4 style={{ fontSize: 18, fontWeight: 600, color: TEXT, margin: "0 0 8px" }}>{a.title}</h4>
+              <p style={{ fontSize: 14, color: TEXT_50, lineHeight: 1.6, margin: 0 }}>{a.desc}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+      <style jsx global>{`
+        @media (max-width: 900px) { 
+          .comparison-grid { grid-template-columns: 1fr !important; } 
+          .advantages-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // THE FORMAT
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -532,6 +616,156 @@ function TheExperience() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// THE FULL PACKAGE
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function TheFullPackage() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const packages = [
+    {
+      icon: "🌐",
+      title: "Custom Landing Pages",
+      desc: "Branded registration pages for your event. Your logo, your messaging, your call-to-action. Full analytics on registrations and engagement.",
+    },
+    {
+      icon: "📣",
+      title: "Marketing Content",
+      desc: "Pre-event promotion materials, social media assets, email templates, and LinkedIn carousel graphics. Everything you need to amplify reach.",
+    },
+    {
+      icon: "🎬",
+      title: "Post-Event Deliverables",
+      desc: "Complete attendee list with verified contact details. Professional photography, video highlights, and recap content for your channels.",
+    },
+    {
+      icon: "🤝",
+      title: "Lead Nurturing Support",
+      desc: "Follow-up email templates, introduction facilitation to key attendees, and recommended next steps for converting conversations to pipeline.",
+    },
+  ];
+
+  return (
+    <section ref={ref} style={{ padding: "clamp(100px, 12vw, 140px) 24px", background: BG_ALT }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ textAlign: "center", marginBottom: 64 }}>
+          <p style={{ fontSize: 11, color: GOLD, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 16 }}>Beyond the Room</p>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 44px)", fontWeight: 600, lineHeight: 1.15, margin: 0, letterSpacing: "-0.02em", color: TEXT }}>The full package.</h2>
+          <p style={{ fontSize: 17, color: TEXT_50, marginTop: 16, maxWidth: 600, marginLeft: "auto", marginRight: "auto", lineHeight: 1.6 }}>
+            Your boardroom is just the beginning. We provide everything you need before, during, and after the event.
+          </p>
+        </motion.div>
+
+        <motion.div variants={staggerContainer} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 24 }} className="package-grid">
+          {packages.map((p, i) => (
+            <motion.div key={p.title} variants={fadeUp} custom={i} style={{ background: BG, border: `1px solid ${BORDER}`, borderRadius: 16, padding: "32px 28px", display: "flex", gap: 20, alignItems: "flex-start" }}>
+              <span style={{ fontSize: 32, flexShrink: 0, lineHeight: 1 }}>{p.icon}</span>
+              <div>
+                <h4 style={{ fontSize: 18, fontWeight: 600, color: TEXT, margin: "0 0 8px" }}>{p.title}</h4>
+                <p style={{ fontSize: 14, color: TEXT_50, lineHeight: 1.7, margin: 0 }}>{p.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+      <style jsx global>{`@media (max-width: 768px) { .package-grid { grid-template-columns: 1fr !important; } }`}</style>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// THE JOURNEY
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function TheJourney() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const steps = [
+    {
+      num: "01",
+      title: "Discovery Call",
+      desc: "We understand your objectives, target audience, and ideal topics. Together we define what success looks like.",
+      duration: "Week 1",
+    },
+    {
+      num: "02",
+      title: "Guest Curation",
+      desc: "We identify and personally invite 15-20 qualified executives. Title, organization, and relevance to your ICP — every seat earned.",
+      duration: "Weeks 2-4",
+    },
+    {
+      num: "03",
+      title: "Content Alignment",
+      desc: "Agenda development, talking points, and moderator preparation. Your narrative, refined and ready.",
+      duration: "Weeks 3-5",
+    },
+    {
+      num: "04",
+      title: "Event Execution",
+      desc: "Five-star venue, full production, seamless experience. You focus on conversations — we handle everything else.",
+      duration: "Event Day",
+    },
+    {
+      num: "05",
+      title: "Post-Event",
+      desc: "Content delivery, warm introductions, feedback summary. Pipeline building continues long after the room clears.",
+      duration: "Week 6-8",
+    },
+  ];
+
+  return (
+    <section ref={ref} style={{ padding: "clamp(100px, 12vw, 140px) 24px" }}>
+      <div style={{ maxWidth: 900, margin: "0 auto" }}>
+        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ textAlign: "center", marginBottom: 64 }}>
+          <p style={{ fontSize: 11, color: GOLD, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 16 }}>From Kickoff to Close</p>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 44px)", fontWeight: 600, lineHeight: 1.15, margin: 0, letterSpacing: "-0.02em", color: TEXT }}>The journey.</h2>
+          <p style={{ fontSize: 17, color: TEXT_50, marginTop: 16, lineHeight: 1.6 }}>
+            6-8 weeks from kickoff to event. Here&apos;s how we get you there.
+          </p>
+        </motion.div>
+
+        <motion.div variants={staggerContainer} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ position: "relative" }}>
+          {/* Timeline line */}
+          <div style={{ position: "absolute", left: 23, top: 40, bottom: 40, width: 2, background: `linear-gradient(to bottom, ${GOLD}, ${GOLD_30}, transparent)` }} className="journey-line" />
+          
+          {steps.map((step, i) => (
+            <motion.div key={step.num} variants={fadeUp} custom={i} style={{ display: "flex", gap: 32, marginBottom: i === steps.length - 1 ? 0 : 40, position: "relative" }} className="journey-step">
+              {/* Number bubble */}
+              <div style={{ width: 48, height: 48, borderRadius: "50%", background: BG_ALT, border: `2px solid ${GOLD}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, position: "relative", zIndex: 1 }}>
+                <span style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 600, color: GOLD }}>{step.num}</span>
+              </div>
+              
+              {/* Content */}
+              <div style={{ flex: 1, paddingTop: 4 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8, marginBottom: 8 }}>
+                  <h4 style={{ fontSize: 20, fontWeight: 600, color: TEXT, margin: 0 }}>{step.title}</h4>
+                  <span style={{ fontSize: 12, color: GOLD, fontWeight: 500, padding: "4px 12px", background: GOLD_15, borderRadius: 980 }}>{step.duration}</span>
+                </div>
+                <p style={{ fontSize: 15, color: TEXT_50, lineHeight: 1.7, margin: 0 }}>{step.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ textAlign: "center", marginTop: 64, padding: "32px", background: BG_ALT, border: `1px solid ${BORDER}`, borderRadius: 16 }}>
+          <p style={{ fontSize: 15, color: TEXT, margin: 0 }}>
+            <span style={{ color: GOLD, fontWeight: 600 }}>Timeline:</span> Average 6-8 weeks from kickoff to event day. Rush delivery available for select markets.
+          </p>
+        </motion.div>
+      </div>
+      <style jsx global>{`
+        @media (max-width: 640px) { 
+          .journey-step { flex-direction: column; gap: 16px !important; }
+          .journey-line { display: none; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // UPCOMING EVENTS
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -648,6 +882,60 @@ function PastBoardroomsShowcase() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// RESULTS THAT MATTER
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function ResultsThatMatter() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const results = [
+    { value: "12", suffix: "avg", label: "Qualified Meetings", desc: "Per boardroom session" },
+    { value: "85", suffix: "%", label: "Pipeline Generated", desc: "Within 90 days" },
+    { value: "40", suffix: "%", label: "Follow-Up Requests", desc: "Attendees seeking conversations" },
+    { value: "92", suffix: "", label: "Net Promoter Score", desc: "Sponsor satisfaction" },
+  ];
+
+  return (
+    <section ref={ref} style={{ padding: "clamp(100px, 12vw, 140px) 24px", background: BG_ALT }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ textAlign: "center", marginBottom: 64 }}>
+          <p style={{ fontSize: 11, color: GOLD, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 16 }}>Measurable Impact</p>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 44px)", fontWeight: 600, lineHeight: 1.15, margin: 0, letterSpacing: "-0.02em", color: TEXT }}>Results that matter.</h2>
+          <p style={{ fontSize: 17, color: TEXT_50, marginTop: 16, maxWidth: 550, marginLeft: "auto", marginRight: "auto", lineHeight: 1.6 }}>
+            Not vanity metrics. Real outcomes that impact your bottom line.
+          </p>
+        </motion.div>
+
+        <motion.div variants={staggerContainer} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24 }} className="results-grid">
+          {results.map((r, i) => (
+            <motion.div key={r.label} variants={fadeUp} custom={i} style={{ background: BG, border: `1px solid ${BORDER}`, borderRadius: 16, padding: "40px 24px", textAlign: "center", position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 60, height: 3, background: GOLD, borderRadius: "0 0 3px 3px" }} />
+              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: 2, marginBottom: 8 }}>
+                <span style={{ fontFamily: "var(--font-display)", fontSize: "clamp(44px, 6vw, 56px)", fontWeight: 600, color: GOLD, letterSpacing: "-0.03em", lineHeight: 1 }}>{r.value}</span>
+                <span style={{ fontSize: 20, fontWeight: 500, color: GOLD }}>{r.suffix}</span>
+              </div>
+              <h4 style={{ fontSize: 16, fontWeight: 600, color: TEXT, margin: "0 0 4px" }}>{r.label}</h4>
+              <p style={{ fontSize: 13, color: TEXT_50, margin: 0 }}>{r.desc}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ textAlign: "center", marginTop: 48 }}>
+          <p style={{ fontSize: 13, color: TEXT_30, fontStyle: "italic" }}>
+            Based on aggregate sponsor feedback across 100+ boardroom sessions.
+          </p>
+        </motion.div>
+      </div>
+      <style jsx global>{`
+        @media (max-width: 900px) { .results-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+        @media (max-width: 480px) { .results-grid { grid-template-columns: 1fr !important; } }
+      `}</style>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // BY THE NUMBERS
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -735,6 +1023,85 @@ function TestimonialCarousel() {
               <button key={i} onClick={() => setActive(i)} style={{ width: active === i ? 24 : 8, height: 8, borderRadius: 4, border: "none", background: active === i ? GOLD : TEXT_30, cursor: "pointer", transition: "all 0.3s" }} />
             ))}
           </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// FAQ SECTION
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function FAQSection() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      question: "How far in advance should we book?",
+      answer: "We recommend a minimum of 6-8 weeks lead time for optimal guest curation and event preparation. However, rush delivery is available for select markets — contact us to discuss your timeline.",
+    },
+    {
+      question: "How do you select and invite guests?",
+      answer: "Every guest is hand-selected based on title, organization, and direct relevance to your ideal customer profile (ICP). We personally reach out to each executive — no mass emails, no delegates. Every seat is earned through direct relationship.",
+    },
+    {
+      question: "What's included in the sponsorship package?",
+      answer: "The complete package includes: five-star venue and catering, guest curation (15-20 executives), full production (photography and videography), custom landing page, marketing materials, post-event content, complete attendee list, and follow-up facilitation.",
+    },
+    {
+      question: "Can we invite our own prospects?",
+      answer: "Absolutely. Sponsors may invite 3-5 VIP guests of their choice. We'll coordinate the invitations and ensure they're integrated seamlessly into the overall guest experience.",
+    },
+    {
+      question: "What happens after the event?",
+      answer: "Within one week, you receive the full attendee list with verified contact details, professional photography, video highlights, and a recap summary. We also facilitate warm introductions to any attendees you'd like to connect with further.",
+    },
+    {
+      question: "Which markets do you operate in?",
+      answer: "We operate across all GCC markets — UAE, Saudi Arabia, Kuwait, Bahrain, Qatar, and Oman. Each market has dedicated venue partners and executive networks.",
+    },
+    {
+      question: "What topics work best for boardrooms?",
+      answer: "Topics that drive genuine peer conversation: digital transformation, cybersecurity strategy, AI implementation, cloud modernization, leadership challenges. We'll help you refine the angle during our discovery call.",
+    },
+  ];
+
+  return (
+    <section ref={ref} style={{ padding: "clamp(100px, 12vw, 140px) 24px" }}>
+      <div style={{ maxWidth: 800, margin: "0 auto" }}>
+        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ textAlign: "center", marginBottom: 64 }}>
+          <p style={{ fontSize: 11, color: GOLD, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 16 }}>Questions Answered</p>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 44px)", fontWeight: 600, lineHeight: 1.15, margin: 0, letterSpacing: "-0.02em", color: TEXT }}>Frequently asked.</h2>
+        </motion.div>
+
+        <motion.div variants={staggerContainer} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {faqs.map((faq, i) => (
+            <motion.div key={i} variants={fadeUp} custom={i} style={{ border: `1px solid ${openIndex === i ? GOLD : BORDER}`, borderRadius: 12, overflow: "hidden", background: openIndex === i ? BG_ALT : "transparent", transition: "all 0.3s ease" }}>
+              <button onClick={() => setOpenIndex(openIndex === i ? null : i)} style={{ width: "100%", padding: "20px 24px", background: "transparent", border: "none", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16, textAlign: "left" }}>
+                <span style={{ fontSize: 16, fontWeight: 500, color: TEXT }}>{faq.question}</span>
+                <motion.span animate={{ rotate: openIndex === i ? 45 : 0 }} transition={{ duration: 0.2 }} style={{ color: GOLD, fontSize: 24, fontWeight: 300, lineHeight: 1, flexShrink: 0 }}>+</motion.span>
+              </button>
+              <AnimatePresence>
+                {openIndex === i && (
+                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: EASE_OUT }}>
+                    <div style={{ padding: "0 24px 20px", borderTop: `1px solid ${BORDER}` }}>
+                      <p style={{ fontSize: 15, color: TEXT_50, lineHeight: 1.7, margin: "16px 0 0" }}>{faq.answer}</p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ textAlign: "center", marginTop: 48 }}>
+          <p style={{ fontSize: 15, color: TEXT_50, margin: 0 }}>
+            Have more questions?{" "}
+            <a href="mailto:hello@networkfirstme.com" style={{ color: GOLD, textDecoration: "none" }}>Get in touch</a>
+          </p>
         </motion.div>
       </div>
     </section>
