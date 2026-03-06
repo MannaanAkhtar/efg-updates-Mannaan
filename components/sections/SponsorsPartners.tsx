@@ -216,8 +216,8 @@ export default function SponsorsPartners() {
                   key={`r1-${i}`}
                   className="sp-logo-item"
                   style={{
-                    width: 140,
-                    height: 44,
+                    width: 180,
+                    height: 56,
                     margin: "0 clamp(14px, 2vw, 28px)",
                     display: "flex",
                     alignItems: "center",
@@ -255,8 +255,8 @@ export default function SponsorsPartners() {
                   key={`r2-${i}`}
                   className="sp-logo-item"
                   style={{
-                    width: 140,
-                    height: 44,
+                    width: 180,
+                    height: 56,
                     margin: "0 clamp(14px, 2vw, 28px)",
                     display: "flex",
                     alignItems: "center",
@@ -294,8 +294,8 @@ export default function SponsorsPartners() {
                   key={`r3-${i}`}
                   className="sp-logo-item"
                   style={{
-                    width: 140,
-                    height: 44,
+                    width: 180,
+                    height: 56,
                     margin: "0 clamp(14px, 2vw, 28px)",
                     display: "flex",
                     alignItems: "center",
