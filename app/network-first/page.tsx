@@ -12,18 +12,12 @@ const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com";
 
 // Curated boardroom images
 const BOARDROOM_IMAGES = [
-  { id: "4a4dda49-0d68-4b17-b64b-c282119ee9c4", caption: "Executive Roundtable, Dubai" },
-  { id: "64deba6d-acd5-4e3c-aefe-0e345caea674", caption: "U-Shape Boardroom, Kuwait" },
-  { id: "31648058-1291-4296-99a9-1755eabbd671", caption: "Strategic Discussion, Riyadh" },
-  { id: "e53d8ad6-3d16-4650-9322-b4a737778a7b", caption: "Networking Break, Abu Dhabi" },
-  { id: "00671180-bf11-44dc-be86-3d2cf1762b17", caption: "Leadership Session, Dubai" },
-  { id: "5934e230-4a03-44ed-a7e0-470d0940c01c", caption: "Executive Presentation, Kuwait" },
-  { id: "8b5f3390-eaf4-4f6d-9038-2b8438ec9741", caption: "Intimate Roundtable, Dubai" },
-  { id: "6cbebbd9-21cd-44ad-9bd6-4897f37beec1", caption: "C-Level Discussion, Riyadh" },
-  { id: "f73a3ff7-562f-4a4d-ab41-3a7b16b47434", caption: "Speaker Session, Dubai" },
-  { id: "11d8df51-b690-4172-888b-3e11d6cdac3a", caption: "Boardroom Engagement, Kuwait" },
-  { id: "50ef4ffb-0468-4921-bffc-7d299d295bdd", caption: "Technology Leaders, Abu Dhabi" },
-  { id: "27744fc1-b75c-4daf-839f-c2695e0fcb0e", caption: "Premium Venue, Dubai" },
+  { id: "hero-boardroom", caption: "Executive Roundtable, Dubai" },
+  { id: "gallery-03", caption: "Sponsor Presentation, Kuwait" },
+  { id: "gallery-01", caption: "Panel Discussion, Riyadh" },
+  { id: "gallery-04", caption: "Product Demo, Abu Dhabi" },
+  { id: "gallery-02", caption: "Keynote Speaker, Dubai" },
+  { id: "hero-boardroom", caption: "The Room, Kuwait" },
 ];
 
 const stats = [
@@ -127,7 +121,7 @@ export default function NetworkFirstPage() {
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage: `url(${S3}/networkfirst-boardrooms/6cbebbd9-21cd-44ad-9bd6-4897f37beec1.jpg)`,
+            backgroundImage: `url(${S3}/network-first/gallery-03.jpg)`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             filter: "brightness(0.3) saturate(0.8)",
@@ -555,7 +549,7 @@ export default function NetworkFirstPage() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`${S3}/networkfirst-boardrooms/${img.id}.jpg`}
+                src={`${S3}/network-first/${img.id}.jpg`}
                 alt={img.caption}
                 style={{
                   width: "100%",
