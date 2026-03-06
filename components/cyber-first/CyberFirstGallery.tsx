@@ -124,7 +124,7 @@ export default function CyberFirstGallery() {
               margin: "12px 0 0",
             }}
           >
-            Moments captured from our conferences across the GCC.
+            Moments captured from our conferences worldwide.
           </p>
         </motion.div>
 

@@ -9,7 +9,7 @@ const stats = [
   { value: "$39.8B", label: "Kuwait ICT market by 2028", source: "BMI Research" },
   { value: "$500B+", label: "AI contribution to MENA GDP", source: "PwC Middle East" },
   { value: "73%", label: "CEOs ranking AI top priority", source: "Gartner 2025" },
-  { value: "3X", label: "Growth in GCC AI talent demand", source: "LinkedIn Economic Graph" },
+  { value: "3X", label: "Growth in AI talent demand", source: "LinkedIn Economic Graph" },
   { value: "2028", label: "Kuwait's AI hub target year", source: "Kuwait Vision 2035" },
   { value: "45%", label: "Enterprises accelerating AI spend", source: "IDC 2025" },
 ];
@@ -133,8 +133,8 @@ export default function DADataWall() {
             margin: "14px auto 48px",
           }}
         >
-          The Gulf&rsquo;s AI economy is accelerating faster than any other
-          region. These are the benchmarks driving the conversation.
+          The AI economy is accelerating faster than ever.
+          These are the benchmarks driving the conversation.
         </motion.p>
 
         <div

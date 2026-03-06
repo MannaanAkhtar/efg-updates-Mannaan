@@ -815,7 +815,7 @@ export default function InsightsPage() {
           >
             Expert analysis, industry trends, and thought leadership from the
             minds shaping cybersecurity, data &amp; AI, and operational
-            excellence across the GCC.
+            excellence worldwide.
           </motion.p>
         </div>
       </section>

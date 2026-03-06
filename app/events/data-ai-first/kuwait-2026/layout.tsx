@@ -11,13 +11,13 @@ export const metadata: Metadata = {
   keywords: [
     "data AI conference Kuwait 2026",
     "artificial intelligence summit Kuwait",
-    "AI conference Middle East",
-    "data analytics conference GCC",
+    "AI conference",
+    "data analytics conference",
     "CDO summit Kuwait",
     "Data AI First Kuwait",
     "AI event May 2026",
     "machine learning conference Kuwait",
-    "enterprise AI summit GCC",
+    "enterprise AI summit",
     "Kuwait Vision 2035 AI",
   ],
   alternates: {
@@ -95,7 +95,7 @@ export default function DataAIKuwaitLayout({
             },
             typicalAgeRange: "25-",
             keywords:
-              "data, AI, artificial intelligence, CDO, GCC, Kuwait, data summit",
+              "data, AI, artificial intelligence, CDO, Kuwait, data summit, enterprise AI",
           }),
         }}
       />

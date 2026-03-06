@@ -130,7 +130,7 @@ export default function OpexSponsors() {
             }}
           >
             20+ partners across technology, consulting, and academia powering
-            operational excellence across the GCC.
+            operational excellence worldwide.
           </p>
         </motion.div>
 

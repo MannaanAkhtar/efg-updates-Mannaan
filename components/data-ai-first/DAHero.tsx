@@ -149,7 +149,7 @@ export default function DAHero() {
           }}
         >
           A new summit series for the leaders building AI-driven organizations
-          across the Gulf.
+          worldwide.
         </motion.p>
 
         {/* Buttons */}

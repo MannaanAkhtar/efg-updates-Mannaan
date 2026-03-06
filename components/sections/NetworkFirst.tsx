@@ -193,7 +193,7 @@ export default function NetworkFirst() {
                 lineHeight: 1.3,
               }}
             >
-              Closed-door sessions for the GCC&apos;s most senior technology leaders
+              Closed-door sessions for the most senior technology leaders
             </p>
           </div>
         </motion.div>

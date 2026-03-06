@@ -10,7 +10,7 @@ const faqs = [
     id: 1,
     question: "What is Data & AI First?",
     answer:
-      "Data & AI First is a summit series by Events First Group designed for enterprise leaders driving AI transformation across the GCC. It brings together Chief Data Officers, AI architects, government strategists, and solution providers for a full day of practitioner-led sessions, workshops, and curated meetings.",
+      "Data & AI First is a summit series by Events First Group designed for enterprise leaders driving AI transformation. It brings together Chief Data Officers, AI architects, government strategists, and solution providers for a full day of practitioner-led sessions, workshops, and curated meetings.",
   },
   {
     id: 2,
@@ -22,7 +22,7 @@ const faqs = [
     id: 3,
     question: "When and where is the first edition?",
     answer:
-      "Data & AI First launches May 18, 2026 in Kuwait City, Kuwait — the first of four GCC editions, with Abu Dhabi, Riyadh, and Doha scheduled for 2027.",
+      "Data & AI First launches May 18, 2026 in Kuwait City, Kuwait — with Abu Dhabi, Riyadh, and Doha editions scheduled for 2027.",
   },
   {
     id: 4,

@@ -10,7 +10,7 @@ const features = [
     id: "curated",
     title: "Curated Audiences",
     description:
-      "Every attendee is a senior decision-maker. No padding, no fillers — just the people who shape budgets, strategy, and direction across the region's largest enterprises.",
+      "Every attendee is a senior decision-maker. No padding, no fillers — just the people who shape budgets, strategy, and direction at the world's largest enterprises.",
   },
   {
     id: "actionable",
@@ -20,9 +20,9 @@ const features = [
   },
   {
     id: "global",
-    title: "Regional Depth, Global Reach",
+    title: "Local Depth, Global Reach",
     description:
-      "Deep roots across the GCC with perspectives drawn from the world's leading technology practitioners. Local context meets international expertise.",
+      "Deep roots in every market we serve, with perspectives drawn from the world's leading technology practitioners. Local context meets international expertise.",
   },
   {
     id: "community",

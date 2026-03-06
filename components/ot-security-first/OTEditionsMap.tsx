@@ -109,7 +109,7 @@ export default function OTEditionsMap() {
               margin: "20px 0 0",
             }}
           >
-            Expanding Across the GCC
+            Expanding Worldwide
           </h2>
         </motion.div>
 

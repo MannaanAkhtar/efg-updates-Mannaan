@@ -133,7 +133,7 @@ export default function SponsorsWall() {
             }}
           >
             50+ technology leaders and security vendors have partnered with
-            Cyber First to reach the GCC&rsquo;s most senior security audience.
+            Cyber First to reach the most senior security audience.
           </p>
         </motion.div>
 

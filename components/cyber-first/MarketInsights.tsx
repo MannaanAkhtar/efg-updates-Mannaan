@@ -25,7 +25,7 @@ const marketStats = [
     value: 40,
     prefix: "",
     suffix: "%",
-    label: "Year-on-year increase in cyber incidents across the GCC region",
+    label: "Year-on-year increase in cyber incidents globally",
   },
   {
     id: 4,
@@ -116,7 +116,7 @@ export default function MarketInsights() {
               margin: "16px 0 0",
             }}
           >
-            The GCC is investing billions in digital transformation — and
+            Enterprises are investing billions in digital transformation — and
             adversaries know it. The attack surface is expanding faster than
             most organisations can defend. These aren&rsquo;t statistics to
             worry about in isolation. They&rsquo;re the reason 1,500+

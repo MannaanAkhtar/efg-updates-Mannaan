@@ -182,7 +182,7 @@ export default function OpexAwards() {
             }}
           >
             8 award categories celebrating operational excellence, innovation,
-            and leadership across the GCC.
+            and leadership worldwide.
           </p>
         </motion.div>
 
@@ -241,7 +241,7 @@ export default function OpexAwards() {
           {[
             { value: "8", label: "Award Categories" },
             { value: "100+", label: "Nominations" },
-            { value: "3", label: "GCC Editions" },
+            { value: "3", label: "Annual Editions" },
           ].map((stat) => (
             <div key={stat.label} style={{ textAlign: "center" }}>
               <p

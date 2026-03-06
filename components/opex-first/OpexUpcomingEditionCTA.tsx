@@ -57,11 +57,11 @@ const TABS = [
     label: "Sponsor",
     heading: "Partner with\nOpex First",
     description:
-      "Put your brand in the room with the GCC\u2019s top COOs, CTOs, and operations leaders. Sponsorship packages are designed for maximum visibility and qualified lead generation.",
+      "Put your brand in the room with top COOs, CTOs, and operations leaders. Sponsorship packages are designed for maximum visibility and qualified lead generation.",
     perks: [
       { icon: "layers", text: "Boardroom hosting & keynote slots" },
       { icon: "target", text: "Qualified lead generation" },
-      { icon: "eye", text: "Premium brand visibility across GCC" },
+      { icon: "eye", text: "Premium brand visibility worldwide" },
     ],
     trust: "40+ technology leaders have partnered with Opex First",
     fields: [

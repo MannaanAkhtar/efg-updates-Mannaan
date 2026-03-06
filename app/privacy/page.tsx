@@ -61,7 +61,7 @@ const sections = [
     id: "international",
     title: "7. International Data Transfers",
     content: [
-      "Events First Group is headquartered in the United Arab Emirates and operates across the GCC region. Your information may be transferred to and processed in countries outside your country of residence. We ensure that appropriate safeguards are in place to protect your data in accordance with this policy and applicable data protection regulations, including the UAE Federal Decree-Law No. 45 of 2021 on Personal Data Protection.",
+      "Events First Group is headquartered in the United Arab Emirates and operates globally. Your information may be transferred to and processed in countries outside your country of residence. We ensure that appropriate safeguards are in place to protect your data in accordance with this policy and applicable data protection regulations, including the UAE Federal Decree-Law No. 45 of 2021 on Personal Data Protection.",
     ],
   },
   {

@@ -9,7 +9,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const faqs = [
   {
     q: "What is OT Security First?",
-    a: "OT Security First is the region\u2019s only dedicated critical infrastructure cybersecurity summit. We bring together OT security leaders, industrial cybersecurity experts, and critical infrastructure defenders from across the GCC to share knowledge, strategies, and real-world solutions for protecting operational technology environments.",
+    a: "OT Security First is the only dedicated critical infrastructure cybersecurity summit of its kind. We bring together OT security leaders, industrial cybersecurity experts, and critical infrastructure defenders to share knowledge, strategies, and real-world solutions for protecting operational technology environments.",
   },
   {
     q: "Who should attend?",

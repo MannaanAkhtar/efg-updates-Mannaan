@@ -157,7 +157,7 @@ export default function SeriesHero() {
               marginTop: 6,
             }}
           >
-            Where the GCC&rsquo;s Top CISOs Convene
+            Where Top CISOs Convene
           </motion.p>
 
           {/* Description */}
@@ -173,8 +173,8 @@ export default function SeriesHero() {
               margin: "20px auto 0",
             }}
           >
-            1,500+ security leaders across Abu Dhabi, Kuwait, Riyadh, and Doha.
-            92% director-level and above. The room where GCC cybersecurity
+            1,500+ security leaders across Abu Dhabi, Kuwait, Riyadh, Doha, and Nairobi.
+            92% director-level and above. The room where cybersecurity
             strategy is shaped.
           </motion.p>
 

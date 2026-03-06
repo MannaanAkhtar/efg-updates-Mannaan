@@ -133,8 +133,8 @@ export default function DASponsorsMarquee() {
               margin: "14px auto 0",
             }}
           >
-            Backed by global technology leaders and regional enterprises across
-            the Gulf.
+            Backed by global technology leaders and enterprises
+            worldwide.
           </p>
         </motion.div>
 

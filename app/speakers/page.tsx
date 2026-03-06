@@ -1091,7 +1091,7 @@ function EventHighlights() {
           }}
         >
           Keynotes, panels, and conversations captured live from our events
-          across the GCC.
+          worldwide.
         </motion.p>
 
         {/* Video Grid */}

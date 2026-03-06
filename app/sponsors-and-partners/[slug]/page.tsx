@@ -832,7 +832,7 @@ export default function SponsorDetailPage() {
               }}
             >
               Join {sponsor.name} and other industry leaders as an EFG event
-              partner. Connect with senior decision-makers across the GCC.
+              partner. Connect with senior decision-makers worldwide.
             </p>
             <a
               href="mailto:partnerships@eventsfirstgroup.com?subject=Sponsorship%20Inquiry"

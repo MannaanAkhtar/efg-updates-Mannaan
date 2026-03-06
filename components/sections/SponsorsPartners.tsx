@@ -183,7 +183,7 @@ export default function SponsorsPartners() {
               letterSpacing: "0.2px",
             }}
           >
-            Trusted by global technology leaders and regional enterprises
+            Trusted by global technology leaders and enterprises worldwide
           </p>
         </div>
 

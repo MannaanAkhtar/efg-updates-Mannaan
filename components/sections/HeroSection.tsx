@@ -36,26 +36,26 @@ const heroSlides: HeroSlide[] = [
   {
     // VIP front row — uniformed officials, gilded hall. CREDIBILITY.
     image: `${CFK}/cyber21-04-245.jpg`,
-    eyebrow: "Ministerial & Regulatory Participation · GCC",
+    eyebrow: "Ministerial & Regulatory Participation · Global",
     title: ["Government and Industry.", "On The Same"],
     accent: "Stage.",
-    sub: "The only summit series in the GCC with active ministerial and regulatory voices in every session.",
+    sub: "The only summit series with active ministerial and regulatory voices in every session.",
   },
   {
     // Exhibition floor packed — chandeliers, dense crowd, vibrant booths. ENERGY.
     image: `${CFK}/cyber21-04-410.jpg`,
     eyebrow: "5,000+ Delegates · 16 Editions · 99+ Sponsors",
-    title: ["The GCC's Most", "Trusted Technology"],
+    title: ["The World's Most", "Trusted Technology"],
     accent: "Summit Series.",
-    sub: "From Kuwait to Abu Dhabi. From the CISO to the Minister. Every edition, every city.",
+    sub: "From Kuwait to Nairobi. From the CISO to the Minister. Every edition, every city.",
   },
   {
     // Aerial panorama of the full expo floor — signature shot. PRESTIGE.
     image: `${CFK}/cyber21-04-500.jpg`,
     eyebrow: "Cyber First · OT Security · Data & AI · Opex First",
-    title: ["Four Series.", "Twelve Cities."],
+    title: ["Four Series.", "Multiple Cities."],
     accent: "One Standard.",
-    sub: "Built for enterprise leaders shaping the region's digital and security future.",
+    sub: "Built for enterprise leaders shaping the digital and security future.",
   },
 ];
 

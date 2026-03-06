@@ -105,7 +105,7 @@ const STATS = [
   { value: "100+", label: "Boardrooms" },
   { value: "1,500+", label: "Executives" },
   { value: "80+", label: "Sponsors" },
-  { value: "5", label: "GCC Markets" },
+  { value: "6+", label: "Global Markets" },
 ];
 
 const TESTIMONIALS = [
@@ -1061,7 +1061,7 @@ function FAQSection() {
     },
     {
       question: "Which markets do you operate in?",
-      answer: "We operate across all GCC markets — UAE, Saudi Arabia, Kuwait, Bahrain, Qatar, and Oman. Each market has dedicated venue partners and executive networks.",
+      answer: "We operate across multiple global markets including UAE, Saudi Arabia, Kuwait, Bahrain, Qatar, Oman, and Kenya — with expansion into new regions. Each market has dedicated venue partners and executive networks.",
     },
     {
       question: "What topics work best for boardrooms?",

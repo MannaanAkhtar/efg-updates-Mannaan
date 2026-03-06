@@ -110,9 +110,9 @@ export default function DAThesis() {
               margin: "0 0 24px",
             }}
           >
-            The Gulf&rsquo;s Biggest
+            The World&rsquo;s Boldest
             <br />
-            <span style={{ color: EMERALD_BRIGHT }}>AI Bet</span>
+            <span style={{ color: EMERALD_BRIGHT }}>AI Bets</span>
           </motion.h2>
 
           {/* Body text — tighter, one paragraph */}
@@ -130,12 +130,12 @@ export default function DAThesis() {
               maxWidth: 520,
             }}
           >
-            The GCC is making the largest bet on artificial intelligence of any
-            region in the world. Kuwait&rsquo;s Vision 2035 names AI as its primary
-            economic diversifier. The UAE has the world&rsquo;s first Minister of AI.
+            Nations worldwide are making historic bets on artificial intelligence.
+            Kuwait&rsquo;s Vision 2035 names AI as its primary economic diversifier.
+            The UAE has the world&rsquo;s first Minister of AI.
             Saudi Arabia is building NEOM — an entire city run on data.
-            The question is no longer <em>whether</em> AI will transform the
-            region. It&rsquo;s <em>who</em> will lead that transformation.
+            The question is no longer <em>whether</em> AI will transform
+            enterprise. It&rsquo;s <em>who</em> will lead that transformation.
           </motion.p>
 
           {/* Shimmer pull quote */}
@@ -191,7 +191,7 @@ export default function DAThesis() {
             className="flex flex-wrap gap-2"
             style={{ marginTop: 32 }}
           >
-            {["Launching 2026", "Kuwait City", "4 GCC Cities"].map((tag) => (
+            {["Launching 2026", "Kuwait City", "Multiple Cities"].map((tag) => (
               <span
                 key={tag}
                 style={{

@@ -84,7 +84,7 @@ export default function DAChairQuote() {
                 margin: 0,
               }}
             >
-              The GCC isn&rsquo;t waiting for the AI revolution. It&rsquo;s funding it,
+              The world isn&rsquo;t waiting for the AI revolution. It&rsquo;s funding it,
               building it, and shaping the rules. What&rsquo;s missing is a platform where
               the builders meet.
             </p>

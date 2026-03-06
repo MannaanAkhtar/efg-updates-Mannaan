@@ -154,7 +154,7 @@ export default function DASpeakers() {
             }}
           >
             AI leaders, Chief Data Officers, and enterprise architects from
-            across the Gulf region.
+            around the world.
           </p>
         </motion.div>
 

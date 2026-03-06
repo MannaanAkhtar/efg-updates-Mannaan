@@ -42,7 +42,7 @@ const allEvents = [
     title: "Cyber First Kuwait",
     tagline: "Defending the Digital Frontier",
     description:
-      "The GCC's premier cybersecurity leadership summit — bringing together CISOs, government cyber leaders, and security innovators.",
+      "The premier cybersecurity leadership summit — bringing together CISOs, government cyber leaders, and security innovators.",
     color: "#01BBF5",
     image:
       "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
@@ -225,7 +225,7 @@ const NEXT_EVENT = {
   image:
     "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
   description:
-    "The GCC's premier cybersecurity leadership summit returns to Kuwait — bringing together CISOs, government cyber leaders, and security innovators for a day of practitioner-led insight.",
+    "The premier cybersecurity leadership summit returns to Kuwait — bringing together CISOs, government cyber leaders, and security innovators for a day of practitioner-led insight.",
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -572,7 +572,7 @@ function EventsHero() {
             margin: "clamp(24px, 3vw, 36px) 0 0",
           }}
         >
-          We design executive-grade tech events across the GCC — curated rooms,
+          We design executive-grade tech events worldwide — curated rooms,
           serious conversations, real outcomes.
         </motion.p>
 
@@ -587,7 +587,7 @@ function EventsHero() {
           {[
             "Invite-only rooms with 15–20 leaders",
             "Speaker lineups drop first to subscribers",
-            "6 cities, GCC-wide",
+            "Multiple cities worldwide",
           ].map((bullet) => (
             <div
               key={bullet}
@@ -1981,7 +1981,7 @@ function EventsUpNext() {
             <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
               {[
                 "Closed-door CISO boardroom",
-                "GCC threat landscape briefing",
+                "Global threat landscape briefing",
                 "Vendor-free practitioner panels",
               ].map((item) => (
                 <li
@@ -2360,7 +2360,7 @@ function TrustedBy() {
               letterSpacing: "0.2px",
             }}
           >
-            Trusted by global technology leaders and regional enterprises
+            Trusted by global technology leaders and enterprises worldwide
           </p>
         </div>
 
@@ -2635,7 +2635,7 @@ function PastEvents() {
             }}
           >
             Since 2023, EFG has delivered conferences, executive boardrooms, and
-            managed events across the Middle East and Africa.
+            managed events across multiple continents.
           </p>
         </motion.div>
 
@@ -2794,7 +2794,7 @@ function PastEvents() {
           }}
         >
           And 100+ more managed events, executive boardrooms, and industry
-          roundtables across the GCC.
+          roundtables worldwide.
         </motion.p>
       </div>
 
@@ -3234,7 +3234,7 @@ const testimonials = [
   {
     id: 2,
     quote:
-      "Cyber First brought together the exact room of CISOs and government leaders I needed. The conversations here don't happen anywhere else in the GCC.",
+      "Cyber First brought together the exact room of CISOs and government leaders I needed. The conversations here don't happen anywhere else.",
     name: "Regional CISO",
     title: "Fortune 500 Enterprise",
     badge: "Cyber First Kuwait",
@@ -3782,11 +3782,11 @@ const differentiators = [
     ),
   },
   {
-    title: "Built for the GCC, Not Imported",
+    title: "Built Ground-Up, Not Imported",
     description:
-      "These aren\u2019t repackaged global conferences dropped into a Gulf hotel. Every agenda, speaker brief, and format is designed ground-up for the region\u2019s regulatory landscape, talent market, and digital ambitions.",
-    metric: "5",
-    metricLabel: "GCC markets covered",
+      "These aren't repackaged conferences dropped into any hotel. Every agenda, speaker brief, and format is designed ground-up for each market's regulatory landscape, talent ecosystem, and digital ambitions.",
+    metric: "6+",
+    metricLabel: "Markets worldwide",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="10" />
@@ -4414,7 +4414,7 @@ function EventHighlights() {
           }}
         >
           Keynotes, panels, and conversations captured live from our events
-          across the GCC.
+          worldwide.
         </motion.p>
 
         <div

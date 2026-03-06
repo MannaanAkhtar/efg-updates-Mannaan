@@ -11,7 +11,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const trustPoints = [
   "34 expert speakers confirmed",
   "150+ security leaders attended",
-  "Expanding to 4 GCC cities",
+  "Expanding to multiple cities",
 ];
 
 const industries = [
@@ -57,11 +57,11 @@ const TABS = [
     label: "Sponsor",
     heading: "Partner with\nOT Security First",
     description:
-      "Put your brand in the room with the GCC\u2019s top OT security leaders. Sponsorship packages are designed for maximum visibility in the industrial cybersecurity space.",
+      "Put your brand in the room with top OT security leaders. Sponsorship packages are designed for maximum visibility in the industrial cybersecurity space.",
     perks: [
       { icon: "layers", text: "Boardroom hosting & keynote slots" },
       { icon: "target", text: "Qualified OT buyer lead generation" },
-      { icon: "eye", text: "Premium brand visibility across GCC" },
+      { icon: "eye", text: "Premium brand visibility worldwide" },
     ],
     trust: "20+ OT security vendors have partnered with OT Security First",
     fields: [

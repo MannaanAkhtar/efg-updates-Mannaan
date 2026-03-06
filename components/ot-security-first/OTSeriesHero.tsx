@@ -257,7 +257,7 @@ export default function OTSeriesHero() {
       <SeriesTickerBar
         accentColor={OT_CRIMSON}
         announcingText="Announcing Soon"
-        location="Expanding across the GCC"
+        location="Expanding worldwide"
         ctaText="Get Notified"
         ctaHref="#register"
         angularRadius={true}

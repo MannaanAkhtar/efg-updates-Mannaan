@@ -17,7 +17,7 @@ const TABS = [
     label: "Attend",
     heading: "Data & AI First\nKuwait",
     description:
-      "The Gulf\u2019s first leadership summit dedicated to building AI-driven organizations. Join us in Kuwait.",
+      "The leadership summit dedicated to building AI-driven organizations. Join us in Kuwait.",
     perks: [
       { icon: "users", text: "Invite-only, C-suite audience" },
       { icon: "calendar", text: "Full-day immersive programme" },
@@ -39,11 +39,11 @@ const TABS = [
     label: "Sponsor",
     heading: "Partner with\nData & AI First",
     description:
-      "Put your brand in the room with the Gulf\u2019s top CDOs, CTOs, and AI leaders. Sponsorship packages are designed for maximum visibility and qualified lead generation.",
+      "Put your brand in the room with top CDOs, CTOs, and AI leaders. Sponsorship packages are designed for maximum visibility and qualified lead generation.",
     perks: [
       { icon: "layers", text: "Boardroom hosting & keynote slots" },
       { icon: "target", text: "Qualified lead generation" },
-      { icon: "eye", text: "Premium brand visibility across GCC" },
+      { icon: "eye", text: "Premium brand visibility worldwide" },
     ],
     trust: "30+ technology leaders have partnered with Data & AI First",
     fields: [

@@ -273,13 +273,13 @@ function SponsorCard({
 const SPONSOR_FORM = {
   heading: "Partner with\nEFG Events",
   description:
-    "Put your brand in the room with the region\u2019s top decision-makers. Sponsorship packages are designed for maximum visibility and qualified lead generation.",
+    "Put your brand in the room with top decision-makers worldwide. Sponsorship packages are designed for maximum visibility and qualified lead generation.",
   perks: [
     { icon: "layers", text: "Boardroom hosting & keynote slots" },
     { icon: "target", text: "Qualified lead generation" },
-    { icon: "eye", text: "Premium brand visibility across GCC" },
+    { icon: "eye", text: "Premium brand visibility worldwide" },
   ],
-  trust: "Trusted by 80+ sponsors across 5 GCC markets",
+  trust: "Trusted by 80+ sponsors across 6+ global markets",
   fields: [
     { name: "name", label: "Full Name", type: "text", placeholder: "Your full name" },
     { name: "email", label: "Work Email", type: "email", placeholder: "you@company.com" },
@@ -881,7 +881,7 @@ export default function SponsorsPage() {
           >
               The organizations powering EFG events across cybersecurity, OT
               security, and operational excellence — from global technology leaders
-              to regional innovators.
+              to emerging innovators.
             </motion.p>
 
             <motion.button

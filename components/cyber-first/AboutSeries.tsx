@@ -11,7 +11,7 @@ const outcomes = [
     number: "01",
     title: "Actionable Threat Intelligence",
     description:
-      "Real threat briefings from practitioners defending GCC networks right now. Leave with a playbook, not just notes.",
+      "Real threat briefings from practitioners defending enterprise networks right now. Leave with a playbook, not just notes.",
   },
   {
     id: "peer-access",
@@ -25,7 +25,7 @@ const outcomes = [
     number: "03",
     title: "Vendor Clarity, Not Noise",
     description:
-      "Curated solution showcases from vetted partners. No expo-floor chaos — just focused demos matched to real GCC use cases.",
+      "Curated solution showcases from vetted partners. No expo-floor chaos — just focused demos matched to real enterprise use cases.",
   },
   {
     id: "regulatory",
@@ -39,7 +39,7 @@ const outcomes = [
     number: "05",
     title: "Partnerships That Compound",
     description:
-      "Every edition is a reunion. The relationships built at Cyber First create a regional security network that works.",
+      "Every edition is a reunion. The relationships built at Cyber First create a global security network that works.",
   },
   {
     id: "strategy",

@@ -41,13 +41,13 @@ const values = [
   {
     title: "Trust as Infrastructure",
     description:
-      "The GCC's technology leaders return to our events year after year because trust is not a feature of what we do — it is the foundation.",
+      "Technology leaders return to our events year after year because trust is not a feature of what we do — it is the foundation.",
     number: "02",
   },
   {
-    title: "Regional by Design",
+    title: "Global Reach, Local Depth",
     description:
-      "We are not a global brand that entered the GCC. We were built here, for here — with a deep understanding of the region's nuances and ambitions.",
+      "We combine worldwide reach with deep local understanding — every market we enter, we immerse in its nuances and ambitions.",
     number: "03",
   },
   {
@@ -471,19 +471,18 @@ function AboutStory() {
             >
               Built for the Leaders
               <br />
-              Who Build the Region
+              Who Build the Future
             </h2>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "clamp(14px, 1.3vw, 16px)", fontWeight: 300, lineHeight: 1.8, color: "var(--white-muted)" }}>
-                Events First Group was founded in 2023 with a clear conviction: the GCC's
-                senior technology leaders deserved events built specifically for their world —
-                their region, their challenges, their ambitions.
+                Events First Group was founded in 2023 with a clear conviction: senior
+                technology leaders deserved events built specifically for their world —
+                their challenges, their ambitions, their vision.
               </p>
               <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "clamp(14px, 1.3vw, 16px)", fontWeight: 300, lineHeight: 1.8, color: "var(--white-muted)" }}>
-                We didn't import a global conference brand and rebrand it for the Gulf. We
-                built EFG from the ground up — from the relationships forged in boardrooms
-                across Dubai, Riyadh, and Kuwait City, to the agenda-curation philosophy that
-                puts practitioner insight above promotional noise.
+                We built EFG from the ground up — from relationships forged in boardrooms
+                across Dubai, Riyadh, Kuwait City, and Nairobi, to the agenda-curation philosophy
+                that puts practitioner insight above promotional noise.
               </p>
               <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "clamp(14px, 1.3vw, 16px)", fontWeight: 300, lineHeight: 1.8, color: "var(--white-muted)" }}>
                 Today, EFG runs four distinct event series across eight annual editions, serving
@@ -1040,15 +1039,15 @@ function CareersSection() {
               }}
             >
               We're always looking for sharp, driven people who want to shape the
-              future of technology events in the GCC. If you thrive in fast-paced
+              future of technology events worldwide. If you thrive in fast-paced
               environments and care about creating experiences that matter — we'd
               love to hear from you.
             </p>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
               {[
-                "Work with the region's top technology leaders",
+                "Work with top technology leaders worldwide",
                 "Fast-growing team with real ownership",
-                "Based in Dubai, networking across the GCC",
+                "Based in Dubai, events across the globe",
               ].map((item, i) => (
                 <li key={i} style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: "var(--font-dm-sans)", fontSize: 14, color: "var(--white-muted)" }}>
                   <span style={{ color: "var(--orange)" }}>✓</span> {item}

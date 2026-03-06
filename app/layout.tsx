@@ -36,18 +36,18 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Events First Group | Premium Technology Conferences in the GCC",
+  title: "Events First Group | Premium Technology Conferences Worldwide",
   description:
-    "EFG runs premium technology conferences across Dubai, Riyadh, Abu Dhabi, and Doha — cybersecurity, OT security, digital transformation, and AI events for the region's technology leaders.",
+    "EFG runs premium technology conferences across Dubai, Riyadh, Abu Dhabi, Doha, Nairobi, and beyond — cybersecurity, OT security, digital transformation, and AI events for enterprise technology leaders.",
   keywords: [
     "technology conferences",
     "cybersecurity events",
-    "GCC tech summit",
+    "enterprise tech summit",
     "Dubai conferences",
     "Riyadh technology events",
     "CISO summit",
     "digital transformation",
-    "AI conferences Middle East",
+    "AI conferences",
   ],
 };
 

@@ -23,13 +23,13 @@ const INQUIRY_TABS = [
     label: "Sponsor",
     heading: "Partner with\nEFG Events",
     description:
-      "Put your brand in the room with the region\u2019s top decision-makers. Sponsorship packages are designed for maximum visibility and qualified lead generation.",
+      "Put your brand in the room with top decision-makers worldwide. Sponsorship packages are designed for maximum visibility and qualified lead generation.",
     perks: [
       { icon: "layers", text: "Boardroom hosting & keynote slots" },
       { icon: "target", text: "Qualified lead generation" },
-      { icon: "eye", text: "Premium brand visibility across GCC" },
+      { icon: "eye", text: "Premium brand visibility worldwide" },
     ],
-    trust: "Trusted by 80+ sponsors across 5 GCC markets",
+    trust: "Trusted by 80+ sponsors across 6+ global markets",
     fields: [
       { name: "name", label: "Full Name", type: "text", placeholder: "Your full name" },
       { name: "email", label: "Work Email", type: "email", placeholder: "you@company.com" },
@@ -50,7 +50,7 @@ const INQUIRY_TABS = [
       "Our events are curated for senior leaders \u2014 CISOs, CIOs, CTOs, COOs, and VP-level executives. Submit your details and we\u2019ll match you to the right room.",
     perks: [
       { icon: "users", text: "Invite-only, C-suite audience" },
-      { icon: "calendar", text: "9 events across 5 GCC cities" },
+      { icon: "calendar", text: "Multiple events across global cities" },
       { icon: "shield", text: "Chatham House Rule sessions" },
     ],
     trust: "5,000+ senior leaders attended EFG events since 2023",

@@ -63,7 +63,7 @@ const editions = [
 ];
 
 const journeyStats = [
-  { value: "4", label: "GCC Nations" },
+  { value: "4+", label: "Nations" },
   { value: "2", label: "Editions Complete" },
   { value: "300+", label: "Leaders Engaged" },
   { value: "2025–2027", label: "Series Horizon" },
@@ -173,7 +173,7 @@ export default function OpexSeriesJourney() {
               lineHeight: 1.6,
             }}
           >
-            Building the GCC&apos;s premier operational excellence community,
+            Building a premier operational excellence community,
             one city at a time.
           </p>
         </motion.div>

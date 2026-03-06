@@ -172,7 +172,7 @@ const MARKET_STATS: {
 const HIGHLIGHTS = [
   {
     title: "Expert-Led Panels & Live Case Studies",
-    desc: "4 high-impact panel discussions on Kuwait's AI strategy, Vision 2035 alignment, and enterprise transformation — plus live demonstrations of AI deployments with measurable outcomes from Kuwait and GCC enterprises.",
+    desc: "4 high-impact panel discussions on Kuwait's AI strategy, Vision 2035 alignment, and enterprise transformation — plus live demonstrations of AI deployments with measurable outcomes from Kuwait and global enterprises.",
     icon: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z",
     image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80",
     stat: "4 Panels",
@@ -186,7 +186,7 @@ const HIGHLIGHTS = [
   },
   {
     title: "Curated Executive Networking",
-    desc: "Move beyond generic networking — connect with 250+ handpicked senior leaders, CDOs, CTOs, government strategists, investors, and AI architects across Kuwait and the GCC.",
+    desc: "Move beyond generic networking — connect with 250+ handpicked senior leaders, CDOs, CTOs, government strategists, investors, and AI architects.",
     icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
     image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200&q=80",
     stat: "250+",
@@ -229,7 +229,7 @@ const AWARDS = [
   { title: "AI Transformation Leader", desc: "Recognising leaders driving enterprise-wide AI adoption and measurable business outcomes." },
   { title: "Data-Driven Innovation", desc: "Celebrating organisations leveraging data to create breakthrough products and services." },
   { title: "Data & AI Ecosystem Contributor", desc: "Celebrating contributions to building Kuwait's national data and AI infrastructure." },
-  { title: "AI & Data Visionary Award", desc: "Honouring individuals whose vision is shaping the future of AI in Kuwait and the GCC." },
+  { title: "AI & Data Visionary Award", desc: "Honouring individuals whose vision is shaping the future of AI." },
   { title: "Emerging AI & Data Talent Award", desc: "Spotlighting rising professionals making exceptional early-career contributions." },
   { title: "AI & Data Educator/Mentor", desc: "Celebrating those advancing AI literacy and mentoring the next generation of talent." },
   { title: "Public Sector AI & Data Impact", desc: "Honouring government entities advancing citizen services through AI and data analytics." },
@@ -3963,7 +3963,7 @@ function PRMediaSection() {
             In the <span style={{ color: GOLD }}>Press</span>
           </h2>
           <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.4)", marginTop: 10, maxWidth: 520, marginLeft: "auto", marginRight: "auto" }}>
-            Highlights and coverage from our series of premium technology summits across the GCC
+            Highlights and coverage from our series of premium technology summits worldwide
           </p>
         </motion.div>
 
@@ -4173,7 +4173,7 @@ function PastEventsGallery() {
           {[
             { value: "15+", label: "Events Delivered" },
             { value: "5,000+", label: "Attendees" },
-            { value: "6", label: "GCC Countries" },
+            { value: "6+", label: "Global Markets" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <span style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 800, color: E_BRIGHT }}>{stat.value}</span>
@@ -4340,8 +4340,8 @@ function SponsorsSection() {
               margin: "14px auto 0",
             }}
           >
-            Backed by global technology leaders and regional enterprises across
-            the Gulf.
+            Backed by global technology leaders and enterprises
+            worldwide.
           </p>
         </motion.div>
 
@@ -4503,7 +4503,7 @@ function SponsorsSection() {
 const FAQS = [
   {
     q: "What is Data & AI First?",
-    a: "Data & AI First is a premier summit series by Events First Group designed for enterprise leaders driving AI transformation across the GCC. It brings together Chief Data Officers, AI architects, government strategists, and solution providers for a full day of practitioner-led sessions, workshops, and curated meetings.",
+    a: "Data & AI First is a premier summit series by Events First Group designed for enterprise leaders driving AI transformation. It brings together Chief Data Officers, AI architects, government strategists, and solution providers for a full day of practitioner-led sessions, workshops, and curated meetings.",
   },
   {
     q: "Who should attend?",

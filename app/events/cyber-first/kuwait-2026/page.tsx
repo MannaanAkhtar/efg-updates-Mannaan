@@ -231,7 +231,7 @@ const FOCUS_AREAS = [
   },
   {
     title: "Regulatory Compliance & Risk Frameworks",
-    desc: "Navigating Kuwait's evolving regulatory landscape including CBK's Cyber & Operational Resilience Framework (CORF), GCC mandates, and global standards.",
+    desc: "Navigating Kuwait's evolving regulatory landscape including CBK's Cyber & Operational Resilience Framework (CORF) and global standards.",
     icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 14l2 2 4-4",
   },
 ];
@@ -1166,7 +1166,7 @@ function Gallery() {
               margin: "12px 0 0",
             }}
           >
-            Moments captured from our conferences across the GCC.
+            Moments captured from our conferences worldwide.
           </p>
         </motion.div>
 
@@ -5304,11 +5304,11 @@ const REG_TABS = [
     cta: "Request Sponsorship Info",
     heading: "Partner with\nCyber First",
     description:
-      "Put your brand in the room with the GCC\u2019s top CISOs and security decision-makers.",
+      "Put your brand in the room with top CISOs and security decision-makers.",
     perks: [
       { icon: "layers", text: "Boardroom hosting & keynote slots" },
       { icon: "target", text: "Qualified lead generation" },
-      { icon: "eye", text: "Premium brand visibility across GCC" },
+      { icon: "eye", text: "Premium brand visibility worldwide" },
     ],
     trust: "50+ technology leaders have partnered with Cyber First",
     fields: [

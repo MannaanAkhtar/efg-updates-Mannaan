@@ -22,9 +22,9 @@ import SectionTransition from "@/components/effects/SectionTransition";
 
 // Page Metadata
 export const metadata: Metadata = {
-  title: "Cyber First Series | The GCC's Definitive Cybersecurity Summit",
+  title: "Cyber First Series | The Definitive Cybersecurity Summit",
   description:
-    "Cyber First brings together CISOs, government cyber leaders, and security innovators across Abu Dhabi, Kuwait, Riyadh, and Doha. Register for the next edition.",
+    "Cyber First brings together CISOs, government cyber leaders, and security innovators across Abu Dhabi, Kuwait, Riyadh, Doha, and Nairobi. Register for the next edition.",
 };
 
 // Cyber First accent color for transitions

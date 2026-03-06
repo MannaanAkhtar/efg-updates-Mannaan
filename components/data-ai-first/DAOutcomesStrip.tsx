@@ -8,7 +8,7 @@ import { EMERALD, EASE } from "./constants";
 const outcomes = [
   { value: "200+", label: "Expected Attendees" },
   { value: "30+", label: "Expert Speakers" },
-  { value: "4", label: "GCC Cities" },
+  { value: "4+", label: "Global Cities" },
   { value: "1", label: "Day of Intelligence" },
 ];
 

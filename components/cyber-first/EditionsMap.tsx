@@ -399,7 +399,6 @@ function SupportingCard({
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const isCompleted = edition.status === "completed";
-  const isPlanned = edition.status === "planned";
   const isUpcoming = edition.status === "upcoming";
 
   const CardWrapper = edition.external ? "a" : Link;
@@ -413,18 +412,14 @@ function SupportingCard({
       className="relative block overflow-hidden transition-all"
       style={{
         borderRadius: RADIUS.md,
-        border: isPlanned && !isUpcoming
-          ? isHovered
-            ? `1px dashed ${COLORS.borderAccent}`
-            : `1px dashed ${COLORS.borderSubtle}`
-          : isHovered
+        border: isHovered
             ? `1px solid ${COLORS.borderAccent}`
             : `1px solid ${COLORS.borderSubtle}`,
         transform: isHovered ? "translateY(-3px)" : "translateY(0)",
         boxShadow: isHovered ? SHADOWS.cardHover : "none",
         transitionDuration: "0.5s",
         transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-        opacity: isPlanned && !isUpcoming ? 0.85 : 1,
+        opacity: 1,
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
