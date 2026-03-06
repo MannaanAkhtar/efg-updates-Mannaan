@@ -2,8 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-
-const CYBER_BLUE = "#01BBF5";
+import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SPACING } from "@/lib/cyber-design-tokens";
 
 // Market stats data
 const marketStats = [
@@ -57,16 +56,16 @@ export default function MarketInsights() {
     <section
       ref={sectionRef}
       style={{
-        background: "var(--black-light)",
-        padding: "clamp(48px, 6vw, 80px) 0",
+        background: COLORS.bgBase,
+        padding: `${SPACING.sectionPadding} 0`,
       }}
     >
       <div
         className="market-insights-container"
         style={{
-          maxWidth: 1320,
+          maxWidth: SPACING.maxWidth,
           margin: "0 auto",
-          padding: "0 clamp(20px, 4vw, 60px)",
+          padding: `0 ${SPACING.containerPadding}`,
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: 60,
@@ -77,25 +76,16 @@ export default function MarketInsights() {
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, ease: ANIMATION.ease }}
         >
           {/* Label */}
           <div className="flex items-center gap-3">
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
             <span
               style={{
-                width: 30,
-                height: 1,
-                background: CYBER_BLUE,
-              }}
-            />
-            <span
-              style={{
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "2.5px",
-                textTransform: "uppercase",
-                color: CYBER_BLUE,
-                fontFamily: "var(--font-outfit)",
+                ...TYPOGRAPHY.sectionLabel,
+                color: COLORS.cyan,
+                fontFamily: TYPOGRAPHY.fontBody,
               }}
             >
               Market Insights
@@ -105,11 +95,11 @@ export default function MarketInsights() {
           {/* Title */}
           <h2
             style={{
-              fontFamily: "var(--font-display)",
+              fontFamily: TYPOGRAPHY.fontDisplay,
               fontWeight: 800,
               fontSize: "clamp(28px, 3vw, 40px)",
               letterSpacing: "-1px",
-              color: "var(--white)",
+              color: COLORS.textPrimary,
               lineHeight: 1.15,
               margin: "16px 0 0",
             }}
@@ -120,11 +110,9 @@ export default function MarketInsights() {
           {/* Paragraph */}
           <p
             style={{
-              fontFamily: "var(--font-outfit)",
-              fontWeight: 300,
-              fontSize: 16,
-              color: "#808080",
-              lineHeight: 1.75,
+              fontFamily: TYPOGRAPHY.fontBody,
+              ...TYPOGRAPHY.bodyLarge,
+              color: COLORS.textSecondary,
               margin: "16px 0 0",
             }}
           >
@@ -141,7 +129,7 @@ export default function MarketInsights() {
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
-            gap: 16,
+            gap: SPACING.gridGapDefault,
           }}
         >
           {marketStats.map((stat, index) => (
@@ -152,7 +140,7 @@ export default function MarketInsights() {
               transition={{
                 duration: 0.5,
                 delay: 0.2 + index * 0.1,
-                ease: [0.16, 1, 0.3, 1],
+                ease: ANIMATION.ease,
               }}
             >
               <StatBlock stat={stat} isInView={isInView} delay={index * 100} />
@@ -244,13 +232,11 @@ function StatBlock({
     <div
       className="transition-all duration-300"
       style={{
-        background: isHovered
-          ? "rgba(1, 187, 245, 0.04)"
-          : "rgba(1, 187, 245, 0.02)",
+        background: isHovered ? COLORS.cyanSubtle : "rgba(1, 187, 245, 0.02)",
         border: isHovered
-          ? "1px solid rgba(1, 187, 245, 0.15)"
-          : "1px solid rgba(1, 187, 245, 0.06)",
-        borderRadius: 14,
+          ? `1px solid ${COLORS.borderAccentHover}`
+          : `1px solid ${COLORS.borderAccent}`,
+        borderRadius: RADIUS.md,
         padding: 24,
       }}
       onMouseEnter={() => setIsHovered(true)}
@@ -258,10 +244,10 @@ function StatBlock({
     >
       <div
         style={{
-          fontFamily: "var(--font-display)",
+          fontFamily: TYPOGRAPHY.fontDisplay,
           fontSize: "clamp(28px, 3vw, 38px)",
           fontWeight: 800,
-          color: CYBER_BLUE,
+          color: COLORS.cyan,
           letterSpacing: "-1px",
           lineHeight: 1,
         }}
@@ -286,10 +272,10 @@ function StatBlock({
       </div>
       <p
         style={{
-          fontFamily: "var(--font-outfit)",
+          fontFamily: TYPOGRAPHY.fontBody,
           fontSize: 12.5,
           fontWeight: 400,
-          color: "#707070",
+          color: COLORS.textTertiary,
           lineHeight: 1.5,
           marginTop: 6,
         }}

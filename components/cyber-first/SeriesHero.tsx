@@ -4,9 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import SeriesTickerBar from "@/components/ui/SeriesTickerBar";
-
-// Cyber First accent color
-const CYBER_BLUE = "#01BBF5";
+import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SHADOWS, EFFECTS, GRADIENTS, PREMIUM_IMAGES } from "@/lib/cyber-design-tokens";
 
 // Edition data
 const editions = [
@@ -19,7 +17,7 @@ const editions = [
 // Stats data
 const stats = [
   { value: 1500, suffix: "+", label: "SECURITY LEADERS" },
-  { value: 92, suffix: "%", label: "DIRECTOR-LEVEL & ABOVE" },
+  { value: 92, suffix: "%", label: "DIRECTOR-LEVEL+" },
   { value: 80, suffix: "+", label: "SPEAKERS" },
   { value: 50, suffix: "+", label: "SPONSORS" },
 ];
@@ -38,14 +36,14 @@ export default function SeriesHero() {
       className="relative w-full overflow-hidden"
       style={{
         minHeight: "100vh",
-        background: "var(--black)",
+        background: COLORS.bgDeep,
       }}
     >
       {/* Background Image */}
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1600&q=80"
+          src={PREMIUM_IMAGES.heroNetworkDark}
           alt=""
           className="w-full h-full object-cover"
           style={{
@@ -57,16 +55,32 @@ export default function SeriesHero() {
       {/* Blue atmosphere gradient */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `linear-gradient(to bottom, rgba(10,10,10,0.7) 0%, rgba(1,187,245,0.03) 40%, rgba(10,10,10,0.95) 100%)`,
-        }}
+        style={{ background: GRADIENTS.heroOverlay }}
       />
 
       {/* Radial blue glow from bottom */}
       <div
         className="absolute inset-0 pointer-events-none"
+        style={{ background: GRADIENTS.sectionGlow }}
+      />
+
+      {/* Film grain texture */}
+      <div
+        className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse 60% 40% at 50% 80%, rgba(1,187,245,0.06) 0%, transparent 70%)`,
+          backgroundImage: EFFECTS.filmGrain,
+          backgroundRepeat: "repeat",
+          opacity: EFFECTS.filmGrainOpacity,
+        }}
+      />
+
+      {/* Cyber grid pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(${COLORS.cyan}04 1px, transparent 1px), linear-gradient(90deg, ${COLORS.cyan}04 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
+          opacity: 0.5,
         }}
       />
 
@@ -84,25 +98,22 @@ export default function SeriesHero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: ANIMATION.ease }}
             className="flex items-center justify-center gap-3"
           >
             <span
               style={{
                 width: 40,
                 height: 2,
-                background: CYBER_BLUE,
+                background: COLORS.cyan,
                 display: "inline-block",
               }}
             />
             <span
               style={{
-                fontSize: 11,
-                fontWeight: 700,
-                letterSpacing: "4px",
-                textTransform: "uppercase",
-                color: CYBER_BLUE,
-                fontFamily: "var(--font-outfit)",
+                ...TYPOGRAPHY.sectionLabel,
+                color: COLORS.cyan,
+                fontFamily: TYPOGRAPHY.fontBody,
               }}
             >
               Cyber First Series
@@ -111,7 +122,7 @@ export default function SeriesHero() {
               style={{
                 width: 40,
                 height: 2,
-                background: CYBER_BLUE,
+                background: COLORS.cyan,
                 display: "inline-block",
               }}
             />
@@ -121,14 +132,11 @@ export default function SeriesHero() {
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
+            transition={{ duration: 0.7, delay: 0.4, ease: ANIMATION.ease }}
             style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(48px, 7vw, 88px)",
-              letterSpacing: "-3px",
-              color: "var(--white)",
-              lineHeight: 1.05,
+              fontFamily: TYPOGRAPHY.fontDisplay,
+              ...TYPOGRAPHY.heroTitle,
+              color: COLORS.textPrimary,
               marginTop: 16,
             }}
           >
@@ -139,12 +147,12 @@ export default function SeriesHero() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
+            transition={{ duration: 0.7, delay: 0.5, ease: ANIMATION.ease }}
             style={{
-              fontFamily: "var(--font-outfit)",
+              fontFamily: TYPOGRAPHY.fontBody,
               fontWeight: 400,
               fontSize: "clamp(16px, 2vw, 22px)",
-              color: `rgba(1, 187, 245, 1)`,
+              color: COLORS.cyanBright,
               letterSpacing: "1px",
               marginTop: 6,
             }}
@@ -156,13 +164,11 @@ export default function SeriesHero() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
+            transition={{ duration: 0.7, delay: 0.6, ease: ANIMATION.ease }}
             style={{
-              fontFamily: "var(--font-outfit)",
-              fontWeight: 300,
-              fontSize: 15,
-              color: "#A0A0A0",
-              lineHeight: 1.7,
+              fontFamily: TYPOGRAPHY.fontBody,
+              ...TYPOGRAPHY.bodyLarge,
+              color: COLORS.textSecondary,
               maxWidth: 560,
               margin: "20px auto 0",
             }}
@@ -176,7 +182,7 @@ export default function SeriesHero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.7 }}
+            transition={{ duration: 0.7, delay: 0.7, ease: ANIMATION.ease }}
             className="flex flex-wrap items-center justify-center gap-2.5"
             style={{ marginTop: 24 }}
           >
@@ -189,7 +195,7 @@ export default function SeriesHero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.8 }}
+            transition={{ duration: 0.7, delay: 0.8, ease: ANIMATION.ease }}
             className="flex flex-wrap items-center justify-center gap-4"
             style={{ marginTop: 28 }}
           >
@@ -197,19 +203,24 @@ export default function SeriesHero() {
               href="#register"
               className="inline-flex items-center gap-2 transition-all duration-300"
               style={{
-                padding: "12px 28px",
-                borderRadius: 50,
-                background: CYBER_BLUE,
-                color: "#0A0A0A",
-                fontFamily: "var(--font-outfit)",
-                fontSize: 14,
+                padding: "14px 32px",
+                borderRadius: RADIUS.round,
+                background: COLORS.cyan,
+                color: COLORS.bgDeep,
+                fontFamily: TYPOGRAPHY.fontBody,
+                fontSize: 15,
                 fontWeight: 600,
+                boxShadow: SHADOWS.cyanGlow,
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#33CCFF";
+                e.currentTarget.style.background = COLORS.cyanBright;
+                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.boxShadow = SHADOWS.cyanGlowHover;
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = CYBER_BLUE;
+                e.currentTarget.style.background = COLORS.cyan;
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = SHADOWS.cyanGlow;
               }}
             >
               <span>Register for Kuwait 2026</span>
@@ -219,20 +230,22 @@ export default function SeriesHero() {
               href="/sponsors-and-partners"
               className="inline-flex items-center gap-2 transition-all duration-300"
               style={{
-                padding: "12px 28px",
-                borderRadius: 50,
+                padding: "14px 28px",
+                borderRadius: RADIUS.round,
                 background: "transparent",
-                border: `1px solid rgba(1, 187, 245, 0.25)`,
-                color: CYBER_BLUE,
-                fontFamily: "var(--font-outfit)",
+                border: `1px solid ${COLORS.borderAccent}`,
+                color: COLORS.cyan,
+                fontFamily: TYPOGRAPHY.fontBody,
                 fontSize: 14,
-                fontWeight: 600,
+                fontWeight: 500,
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(1, 187, 245, 0.08)";
+                e.currentTarget.style.background = COLORS.cyanSubtle;
+                e.currentTarget.style.borderColor = COLORS.cyan;
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.borderColor = COLORS.borderAccent;
               }}
             >
               <span>Become a Sponsor</span>
@@ -244,7 +257,7 @@ export default function SeriesHero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.9 }}
+            transition={{ duration: 0.7, delay: 0.9, ease: ANIMATION.ease }}
             className="stats-row flex flex-wrap items-center justify-center"
             style={{
               marginTop: 32,
@@ -260,7 +273,7 @@ export default function SeriesHero() {
 
       {/* Ticker Bar - Absolute bottom */}
       <SeriesTickerBar
-        accentColor={CYBER_BLUE}
+        accentColor={COLORS.cyan}
         eventName="Cyber First Kuwait"
         location="Kuwait City, Kuwait"
         targetDate={new Date("2026-04-21T09:00:00")}
@@ -296,20 +309,17 @@ function EditionBadge({
       className={`transition-all duration-300 ${isUpcoming ? "animate-pulse-glow" : ""}`}
       style={{
         padding: "6px 16px",
-        borderRadius: 50,
-        background: isCompleted ? "rgba(1, 187, 245, 0.12)" : "transparent",
+        borderRadius: RADIUS.round,
+        background: isCompleted ? COLORS.cyanSubtle : "transparent",
         border: isCompleted
-          ? "1px solid rgba(1, 187, 245, 0.25)"
+          ? `1px solid ${COLORS.borderAccent}`
           : isUpcoming
-            ? "1px solid rgba(1, 187, 245, 0.3)"
-            : "1px solid rgba(255, 255, 255, 0.08)",
-        color: isCompleted || isUpcoming ? CYBER_BLUE : "#404040",
-        boxShadow: isUpcoming ? "0 0 12px rgba(1, 187, 245, 0.15)" : "none",
-        fontFamily: "var(--font-outfit)",
-        fontSize: 11,
-        fontWeight: 600,
-        letterSpacing: "2px",
-        textTransform: "uppercase",
+            ? `1px solid ${COLORS.borderAccentHover}`
+            : `1px solid ${COLORS.borderSubtle}`,
+        color: isCompleted || isUpcoming ? COLORS.cyan : COLORS.textMuted,
+        boxShadow: isUpcoming ? SHADOWS.cyanGlow : "none",
+        fontFamily: TYPOGRAPHY.fontBody,
+        ...TYPOGRAPHY.sectionLabel,
       }}
     >
       {edition.label}
@@ -366,10 +376,10 @@ function StatItem({
     <div style={{ textAlign: "center" }}>
       <div
         style={{
-          fontFamily: "var(--font-display)",
+          fontFamily: TYPOGRAPHY.fontDisplay,
           fontWeight: 800,
           fontSize: 26,
-          color: "var(--white)",
+          color: COLORS.textPrimary,
           lineHeight: 1,
         }}
       >
@@ -377,7 +387,7 @@ function StatItem({
         {stat.suffix && (
           <span
             style={{
-              color: CYBER_BLUE,
+              color: COLORS.cyan,
               display: "inline-block",
               transform: showSuffix ? "scale(1)" : "scale(1.3)",
               opacity: showSuffix ? 1 : 0,
@@ -390,12 +400,12 @@ function StatItem({
       </div>
       <p
         style={{
-          fontFamily: "var(--font-outfit)",
+          fontFamily: TYPOGRAPHY.fontBody,
           fontSize: 9,
           fontWeight: 500,
           letterSpacing: "2px",
           textTransform: "uppercase",
-          color: "#505050",
+          color: COLORS.textMuted,
           marginTop: 4,
         }}
       >

@@ -165,6 +165,118 @@ export default function NetworkFirstPage() {
       <TitlesMarquee />
       <FinalCTA />
       <Footer />
+      
+      {/* ═══════════════════════════════════════════════════════════════════════
+          GLOBAL MOBILE STYLES
+          ═══════════════════════════════════════════════════════════════════════ */}
+      <style jsx global>{`
+        /* ─── Hero Mobile ─── */
+        @media (max-width: 768px) {
+          .hero-cta-row {
+            flex-direction: column !important;
+            width: 100% !important;
+          }
+          .hero-cta-row a {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+        }
+        
+        /* ─── Trust Strip Mobile ─── */
+        @media (max-width: 640px) {
+          section > div[style*="gap: 64"] {
+            gap: 40px !important;
+          }
+        }
+        
+        /* ─── Intro Statement Mobile ─── */
+        @media (max-width: 640px) {
+          section[style*="padding: clamp(120px"] {
+            padding: 80px 20px !important;
+          }
+        }
+        
+        /* ─── Format Cards Mobile ─── */
+        @media (max-width: 900px) {
+          .format-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .format-card {
+            padding: 32px 24px !important;
+          }
+          .format-card span[style*="fontSize: 64"] {
+            font-size: 48px !important;
+            top: 16px !important;
+            right: 20px !important;
+          }
+        }
+        
+        /* ─── Candid Moments Mobile ─── */
+        @media (max-width: 640px) {
+          .candid-slider > div {
+            flex: 0 0 280px !important;
+          }
+        }
+        
+        /* ─── Upcoming Cards Mobile ─── */
+        @media (max-width: 480px) {
+          .upcoming-card {
+            flex: 0 0 90vw !important;
+          }
+          .upcoming-card > div:last-child {
+            padding: 20px !important;
+          }
+        }
+        
+        /* ─── Past Boardrooms Mobile ─── */
+        @media (max-width: 480px) {
+          .past-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
+          }
+          .past-card {
+            aspect-ratio: 16/10 !important;
+          }
+        }
+        
+        /* ─── Video Grid Mobile ─── */
+        @media (max-width: 640px) {
+          .videos-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 8px !important;
+          }
+        }
+        @media (max-width: 400px) {
+          .videos-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+        }
+        
+        /* ─── General Mobile Typography ─── */
+        @media (max-width: 640px) {
+          h1 {
+            font-size: clamp(40px, 12vw, 56px) !important;
+          }
+          h2 {
+            font-size: clamp(28px, 7vw, 36px) !important;
+          }
+        }
+        
+        /* ─── Touch Targets ─── */
+        @media (max-width: 768px) {
+          button, a[style*="padding"] {
+            min-height: 44px;
+          }
+        }
+        
+        /* ─── Spacing Adjustments ─── */
+        @media (max-width: 640px) {
+          section {
+            padding-left: 16px !important;
+            padding-right: 16px !important;
+          }
+        }
+      `}</style>
     </main>
   );
 }
@@ -194,11 +306,11 @@ function Hero() {
         
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.8 }} style={{ fontSize: "clamp(17px, 2.2vw, 21px)", fontWeight: 400, color: TEXT_50, maxWidth: 500, marginTop: 24, lineHeight: 1.6 }}>Host your boardroom. Curate your guests.<br />Shape the conversation that matters.</motion.p>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1.1 }} style={{ display: "flex", gap: 16, marginTop: 40 }}>
-          <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "16px 32px", background: GOLD, color: BG, borderRadius: 980, fontSize: 15, fontWeight: 500, textDecoration: "none" }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1.1 }} className="hero-cta-row" style={{ display: "flex", gap: 16, marginTop: 40, flexWrap: "wrap", justifyContent: "center" }}>
+          <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "16px 32px", background: GOLD, color: BG, borderRadius: 980, fontSize: 15, fontWeight: 500, textDecoration: "none", minWidth: 180 }}>
             Host a Boardroom
           </Link>
-          <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "16px 32px", background: "transparent", color: TEXT, border: `1px solid ${TEXT_30}`, borderRadius: 980, fontSize: 15, fontWeight: 500, textDecoration: "none" }}>
+          <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "16px 32px", background: "transparent", color: TEXT, border: `1px solid ${TEXT_30}`, borderRadius: 980, fontSize: 15, fontWeight: 500, textDecoration: "none", minWidth: 140 }}>
             Learn More
           </Link>
         </motion.div>
@@ -216,7 +328,21 @@ function Hero() {
           <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }} style={{ width: 1, height: 40, background: `linear-gradient(to bottom, ${GOLD}, transparent)` }} />
         </motion.div>
       </motion.div>
-      <style jsx global>{`@media (max-width: 640px) { .hero-stats { flex-direction: column !important; gap: 24px !important; } }`}</style>
+      <style jsx global>{`
+        @media (max-width: 640px) { 
+          .hero-stats { 
+            flex-direction: row !important; 
+            gap: 32px !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+          }
+        }
+        @media (max-width: 400px) {
+          .hero-stats {
+            gap: 24px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
