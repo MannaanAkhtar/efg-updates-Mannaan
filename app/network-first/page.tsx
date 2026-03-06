@@ -379,7 +379,7 @@ function IntroStatement() {
 
   return (
     <section ref={ref} style={{ padding: "clamp(120px, 18vw, 200px) 24px", maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-      <motion.p initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1, ease: EASE_OUT }} style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 5vw, 48px)", fontWeight: 500, lineHeight: 1.3, letterSpacing: "-0.02em", color: TEXT }}>
+      <motion.p initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1, ease: EASE_OUT }} style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 5vw, 48px)", fontWeight: 500, lineHeight: 1.5, letterSpacing: "0.01em", color: TEXT }}>
         We design and manage exclusive executive networking roundtables{" "}
         <span style={{ color: TEXT_50 }}>that bring together C-level decision-makers</span>{" "}
         <span style={{ color: GOLD }}>for meaningful engagement.</span>
