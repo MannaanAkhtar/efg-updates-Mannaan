@@ -215,22 +215,24 @@ const SPONSORS = {
 };
 
 const AGENDA = [
-  { time: "08:00 – 09:00", title: "Registration & Networking Breakfast", type: "break" as const },
-  { time: "09:00 – 09:15", title: "Opening Ceremony", subtitle: "Welcome Address by Events First Group", type: "ceremony" as const },
-  { time: "09:15 – 09:45", title: "Opening Keynote", subtitle: "Securing Digital India: National Cyber Resilience for a $5 Trillion Economy", type: "keynote" as const },
-  { time: "09:45 – 10:00", title: "Sponsor Presentation", type: "sponsor" as const },
-  { time: "10:00 – 10:45", title: "Panel Discussion 1 – Cyber Leadership & Governance", subtitle: "Building Cyber-Resilient Organizations: Board-Level Accountability and Strategic Risk Management", type: "panel" as const },
-  { time: "10:45 – 11:00", title: "Sponsor Presentation", type: "sponsor" as const },
-  { time: "11:00 – 11:30", title: "Networking & Refreshment Break", type: "break" as const },
-  { time: "11:30 – 11:50", title: "Fireside Chat", subtitle: "AI-Powered Threats & Defenses: Preparing India for the Next Generation of Cyber Attacks", type: "fireside" as const },
-  { time: "11:50 – 12:35", title: "Panel Discussion 2 – Critical Infrastructure Security", subtitle: "Protecting India's Digital Backbone: Power, Telecom & Smart Cities", type: "panel" as const },
-  { time: "12:35 – 12:50", title: "Sponsor Presentation", type: "sponsor" as const },
-  { time: "12:50 – 13:50", title: "Networking Lunch", type: "break" as const },
-  { time: "13:50 – 14:35", title: "Panel Discussion 3 – Banking & Financial Cyber Resilience", subtitle: "Securing India's Digital Payments Revolution: UPI, Digital Banking & RBI Compliance", type: "panel" as const },
-  { time: "14:35 – 15:20", title: "Panel Discussion 4 – Data Protection & Privacy", subtitle: "DPDP Act Implementation: Navigating India's New Data Privacy Landscape", type: "panel" as const },
-  { time: "15:20 – 15:35", title: "Sponsor Presentation", type: "sponsor" as const },
-  { time: "15:35 – 15:50", title: "Cyber First Awards India", type: "awards" as const },
-  { time: "15:50", title: "Closing Remarks & Networking", type: "closing" as const },
+  { time: "08:30 – 09:30", title: "Registration & Networking Breakfast", type: "break" as const },
+  { time: "09:30 – 09:40", title: "Welcome Address", type: "ceremony" as const },
+  { time: "09:40 – 10:00", title: "Chief Guest Address", subtitle: "India's Vision for a Secure Digital Economy", type: "keynote" as const },
+  { time: "10:00 – 10:15", title: "Opening Keynote", subtitle: "Cyber Resilience for India's Digital Economy & Critical Infrastructure", type: "keynote" as const },
+  { time: "10:15 – 10:55", title: "Panel 1: Cyber Leadership in the Boardroom", subtitle: "Governance, Risk & National Cyber Readiness", type: "panel" as const },
+  { time: "10:55 – 11:10", title: "Sponsor Technology Presentation 1", type: "sponsor" as const },
+  { time: "11:10 – 11:25", title: "Sponsor Technology Presentation 2", type: "sponsor" as const },
+  { time: "11:25 – 11:45", title: "Coffee Networking Break", type: "break" as const },
+  { time: "11:45 – 12:25", title: "Panel 2: AI & the New Cyber Battlefield", subtitle: "Defending Against AI-Driven Threats", type: "panel" as const },
+  { time: "12:25 – 12:45", title: "Fireside Chat", subtitle: "Public-Private Collaboration for National Cyber Resilience", type: "fireside" as const },
+  { time: "12:45 – 13:00", title: "Sponsor Technology Presentation 3", type: "sponsor" as const },
+  { time: "13:00 – 14:00", title: "Lunch & Networking", type: "break" as const },
+  { time: "14:00 – 14:40", title: "Panel 3: Data Protection & Digital Trust", subtitle: "Navigating India's Evolving Cyber & Privacy Regulations", type: "panel" as const },
+  { time: "14:40 – 14:50", title: "Sponsor Technology Presentation 4", type: "sponsor" as const },
+  { time: "14:50 – 15:00", title: "Sponsor Technology Presentation 5", type: "sponsor" as const },
+  { time: "15:00 – 15:40", title: "Panel 4: Securing Digital Banking, Payments & Modern Enterprises", subtitle: "Zero Trust, Fraud Prevention & Cloud Security", type: "panel" as const },
+  { time: "15:40 – 16:00", title: "Cyber Leadership Awards & Raffle Draw", type: "awards" as const },
+  { time: "16:00", title: "Closing Remarks & Networking Coffee", type: "closing" as const },
 ];
 
 const AWARDS_DATA = [
@@ -402,7 +404,7 @@ function HeroSection() {
           >
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT }} />
             <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: C_BRIGHT }}>
-              1st Edition · September 2026
+              1st Edition · 11 June 2026
             </span>
           </motion.div>
 
@@ -432,10 +434,10 @@ function HeroSection() {
                 animation: "shimmer 6s ease-in-out infinite",
               }}
             >
-              Digital India
+              Cyber Resilience
             </span>
             <br />
-            for a $5 Trillion Economy
+            for India's Digital Future
           </motion.h1>
 
           {/* Tagline */}
@@ -467,7 +469,7 @@ function HeroSection() {
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
             </svg>
             <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 500, color: "rgba(255,255,255,0.7)" }}>
-              The Leela Palace, New Delhi
+              New Delhi, India
             </span>
           </motion.div>
 
@@ -666,10 +668,10 @@ function MarketContext() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
   
   const stats = [
-    { value: "₹20,000", suffix: "Cr+", label: "Annual Cybercrime Losses", note: "Economic impact in India (2024)", highlight: true },
-    { value: "1.3", suffix: "M+", label: "Cyber Incidents", note: "Tracked by CERT-In in 2023" },
-    { value: "40", suffix: "%", label: "YoY Attack Increase", note: "Ransomware attacks on Indian orgs" },
-    { value: "78", suffix: "%", label: "Skills Gap", note: "Unfilled cybersecurity positions" },
+    { value: "2.9", suffix: "M+", label: "Cyber Incidents", note: "Reported in India in 2025", highlight: true },
+    { value: "$1", suffix: "T", label: "Digital Economy", note: "Expected by 2030" },
+    { value: "900", suffix: "M+", label: "Internet Users", note: "Massive digital ecosystem" },
+    { value: "1", suffix: "M+", label: "Skills Shortage", note: "Cybersecurity professionals by 2030" },
   ];
 
   return (
@@ -985,13 +987,13 @@ function Venue() {
               <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: C }}>Venue</span>
             </div>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 3.5vw, 40px)", letterSpacing: "-1px", color: "white", lineHeight: 1.1, margin: "0 0 16px" }}>
-              The Leela Palace<br />New Delhi
+              Cyber First India 2026<br />Delhi Edition
             </h2>
             <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, marginBottom: 24 }}>
-              Set amidst the iconic Diplomatic Enclave, The Leela Palace New Delhi offers an unparalleled setting for India's premier cybersecurity summit. World-class facilities meet timeless elegance.
+              India's premier cybersecurity summit bringing together the nation's top CISOs, government leaders, and enterprise security executives in the capital city. A world-class venue for world-class conversations.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {[{ icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z", text: "Diplomatic Enclave, Chanakyapuri" }, { icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", text: "September 15, 2026 · 8:00 AM – 5:00 PM" }].map((item) => (
+              {[{ icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z", text: "New Delhi, India" }, { icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", text: "11 June 2026 · 8:30 AM – 4:00 PM" }].map((item) => (
                 <div key={item.text} style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C} strokeWidth="1.5"><path d={item.icon} /></svg>
                   <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.7)" }}>{item.text}</span>
