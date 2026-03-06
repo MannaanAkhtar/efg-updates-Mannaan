@@ -405,8 +405,8 @@ function WhyBoardroomsWork() {
       solution: "Your brand owns the room. Every executive is there for you.",
     },
     {
-      versus: "Webinars",
-      problem: "Lead lists, not relationships. Attendees multitask through your content.",
+      versus: "Digital Ads",
+      problem: "Impressions and clicks. No real conversations. Hard to measure true ROI.",
       solution: "Face-to-face conversations that build real trust and lasting connections.",
     },
     {
