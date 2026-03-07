@@ -23,51 +23,52 @@ interface Category {
   images: GalleryImage[];
 }
 
+// UPDATED: Images now from DIFFERENT events per Shyam's feedback
 const categories: Category[] = [
   {
     id: "sessions",
     label: "The Sessions",
     subtitle: "Panels & Keynotes",
-    heroImage: `${CFK}/cyber21-04-324.jpg`,
+    heroImage: `${OPEX}/4N8A1702.JPG`,
     images: [
-      { src: `${CFK}/cyber21-04-324.jpg`, caption: "Panel discussion — LED stage backdrop" },
-      { src: `${CFK}/cyber21-04-330.jpg`, caption: "Speaker lineup — full panel" },
-      { src: `${GOOD}/4N8A0010.JPG`, caption: "Keynote presentation — main stage" },
       { src: `${OPEX}/4N8A1702.JPG`, caption: "Opex First UAE — executive panel" },
+      { src: `${CFK}/cyber21-04-324.jpg`, caption: "Cyber First Kuwait — LED stage" },
+      { src: `${OT}/4N8A0320.JPG`, caption: "OT Security First — panel discussion" },
+      { src: `${GOOD}/4N8A0010.JPG`, caption: "Keynote presentation — main stage" },
     ],
   },
   {
     id: "government",
     label: "Government Backing",
     subtitle: "Institutional & Official Presence",
-    heroImage: `${CFK}/cyber21-04-430.jpg`,
+    heroImage: `${OPEX}/4N8A1688.JPG`,
     images: [
-      { src: `${CFK}/cyber21-04-430.jpg`, caption: "Official ribbon-cutting ceremony" },
-      { src: `${CFK}/cyber21-04-110.jpg`, caption: "Military & police officials arrival" },
+      { src: `${OPEX}/4N8A1688.JPG`, caption: "Opex First — official ribbon cutting" },
+      { src: `${OPEX}/4N8A1698.JPG`, caption: "Opex First — ceremony moment" },
+      { src: `${CFK}/cyber21-04-430.jpg`, caption: "Cyber First Kuwait — ribbon cutting" },
       { src: `${CFK}/cyber21-04-245.jpg`, caption: "VIP front row — government delegation" },
-      { src: `${CFK}/cyber21-04-210.jpg`, caption: "International dignitaries — bilateral meeting" },
     ],
   },
   {
     id: "speakers",
     label: "The Voices",
     subtitle: "C-Suite & CISO Speakers",
-    heroImage: `${CFK}/cyber21-04-550.jpg`,
+    heroImage: `${OT}/4N8A0250.JPG`,
     images: [
-      { src: `${CFK}/cyber21-04-550.jpg`, caption: "Executive keynote — Burgan Bank" },
+      { src: `${OT}/4N8A0250.JPG`, caption: "OT Security First — keynote address" },
+      { src: `${OPEX}/4N8A1666.JPG`, caption: "Opex First UAE — operations expert" },
+      { src: `${CFK}/cyber21-04-550.jpg`, caption: "Cyber First — executive keynote" },
       { src: `${GOOD}/4N8A0122.JPG`, caption: "Industry leader — main stage address" },
-      { src: `${CFK}/cyber21-04-310.jpg`, caption: "CISO presentation — cybersecurity insights" },
-      { src: `${OPEX}/4N8A1666.JPG`, caption: "Operations expert — Opex First speaker" },
     ],
   },
   {
     id: "expo",
     label: "The Exhibition",
     subtitle: "Global Technology Partners",
-    heroImage: `${CFK}/cyber21-04-410.jpg`,
+    heroImage: `${OT}/4N8A0397.JPG`,
     images: [
-      { src: `${CFK}/cyber21-04-410.jpg`, caption: "Exhibition floor — packed venue" },
       { src: `${OT}/4N8A0397.JPG`, caption: "OT Security — partner booths" },
+      { src: `${CFK}/cyber21-04-410.jpg`, caption: "Cyber First — exhibition floor" },
       { src: `${CFK}/cyber21-04-390.jpg`, caption: "Technology demos — active engagement" },
       { src: `${GOOD}/4N8A9900.JPG`, caption: "Networking — sponsor showcase" },
     ],
@@ -76,20 +77,21 @@ const categories: Category[] = [
     id: "audience",
     label: "The Room",
     subtitle: "5,000+ Senior Delegates",
-    heroImage: `${CFK}/cyber21-04-160.jpg`,
+    heroImage: `${OPEX}/4N8A1848.JPG`,
     images: [
-      { src: `${CFK}/cyber21-04-160.jpg`, caption: "Full house — grand ballroom panorama" },
-      { src: `${CFK}/cyber21-04-400.jpg`, caption: "Plenary session — cinematic lighting" },
-      { src: `${GOOD}/4N8A0065.JPG`, caption: "Engaged audience — depth of field" },
       { src: `${OPEX}/4N8A1848.JPG`, caption: "Opex First — delegate seating" },
+      { src: `${CFK}/cyber21-04-160.jpg`, caption: "Full house — grand ballroom panorama" },
+      { src: `${OT}/4N8A0180.JPG`, caption: "OT Security — engaged audience" },
+      { src: `${GOOD}/4N8A0065.JPG`, caption: "Focus — depth of field" },
     ],
   },
   {
     id: "awards",
     label: "Recognition",
     subtitle: "Honouring Regional Excellence",
-    heroImage: `${GOOD}/4N8A0200.JPG`,
+    heroImage: `${OPEX}/4N8A1751.JPG`,
     images: [
+      { src: `${OPEX}/4N8A1751.JPG`, caption: "Opex First — award ceremony" },
       { src: `${GOOD}/4N8A0200.JPG`, caption: "Cybersecurity Leader of the Year" },
       { src: `${GOOD}/4N8A0330.JPG`, caption: "Trophy presentation ceremony" },
       { src: `${CFK}/cyber21-04-350.jpg`, caption: "Award recipient — recognition moment" },

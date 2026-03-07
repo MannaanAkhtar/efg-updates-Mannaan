@@ -2301,6 +2301,10 @@ function EventsUpNext() {
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo";
 
 const trustedLogos = [
+  { src: `${S3}/Microsoft.png`, name: "Microsoft" },
+  { src: `${S3}/Google-Cloud.png`, name: "Google Cloud" },
+  { src: `${S3}/SAP.png`, name: "SAP" },
+  { src: `${S3}/Oracle.png`, name: "Oracle" },
   { src: `${S3}/paloalto.png`, name: "Palo Alto Networks" },
   { src: `${S3}/Google-Cloud-Security.png`, name: "Google Cloud Security" },
   { src: `${S3}/sentinelone.png`, name: "SentinelOne" },
