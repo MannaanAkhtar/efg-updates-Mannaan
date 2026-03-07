@@ -91,16 +91,16 @@ const PAST_EVENTS_2024 = [
 ];
 
 const CANDID_MOMENTS = [
-  `${BOARDROOM}/outsystems-one/4N8A7047.JPG`,
-  `${BOARDROOM}/outsystems-one/4N8A7060.JPG`,
-  `${BOARDROOM}/outsystems-one/4N8A7070.JPG`,
-  `${BOARDROOM}/outsystems-one/4N8A7077.JPG`,
-  `${BOARDROOM}/outsystems-one/4N8A7086.JPG`,
-  `${BOARDROOM}/outsystems-one/4N8A7097.JPG`,
-  `${BOARDROOM}/outsystems-one/4N8A7107.JPG`,
-  `${BOARDROOM}/outsystems-one/4N8A7116.JPG`,
-  `${BOARDROOM}/outsystems-one/4N8A7121.JPG`,
-  `${BOARDROOM}/outsystems-one/4N8A7129.JPG`,
+  `${BOARDROOM}/boardroom-01.jpg`,
+  `${BOARDROOM}/boardroom-02.jpg`,
+  `${BOARDROOM}/boardroom-05.jpg`,
+  `${BOARDROOM}/boardroom-08.jpg`,
+  `${BOARDROOM}/boardroom-10.jpg`,
+  `${BOARDROOM}/boardroom-14.jpg`,
+  `${BOARDROOM}/boardroom-17.jpg`,
+  `${BOARDROOM}/boardroom-20.jpg`,
+  `${BOARDROOM}/boardroom-23.jpg`,
+  `${BOARDROOM}/boardroom-26.jpg`,
 ];
 
 const STATS = [
@@ -156,13 +156,13 @@ export default function NetworkFirstPage() {
       <TheFormat />
       <CandidMoments />
       <WhyHost />
-      <EditorialBreak src={`${BOARDROOM}/outsystems-one/4N8A7073.JPG`} />
+      <EditorialBreak src={`${BOARDROOM}/boardroom-03.jpg`} />
       <TheExperience />
       <TheFullPackage />
       <TheJourney />
       <UpcomingSection />
       <UrgencyBanner />
-      <EditorialBreak src={`${BOARDROOM}/outsystems-one/4N8A7114.JPG`} />
+      <EditorialBreak src={`${BOARDROOM}/boardroom-12.jpg`} />
       <PastBoardroomsShowcase />
       <ResultsThatMatter />
       <ByTheNumbers />
