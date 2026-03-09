@@ -3,8 +3,8 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { submitForm } from "@/lib/form-helpers";
-import type { FormType } from "@/lib/form-helpers";
+import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
+import type { FormType, CountryCode } from "@/lib/form-helpers";
 import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SHADOWS, SPACING } from "@/lib/cyber-design-tokens";
 
 const CYBER_BLUE = COLORS.cyan;
@@ -132,6 +132,9 @@ export default function UpcomingEditionCTA() {
   const [isLoading, setIsLoading] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [formData, setFormData] = useState<Record<string, string>>({});
+  const [selectedCountry, setSelectedCountry] = useState<CountryCode>(COUNTRY_CODES[0]);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
 
   const tab = TABS.find((t) => t.key === activeTab)!;
 
@@ -154,6 +157,8 @@ export default function UpcomingEditionCTA() {
     setIsSubmitted(false);
     setFormError(null);
     setFormData({});
+    setPhoneError(null);
+    setEmailError(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -171,14 +176,32 @@ export default function UpcomingEditionCTA() {
       speaker: () => ({ ...sharedMeta, proposed_topic: formData.topic || "" }),
     };
 
+    // Validate email
+    const email = formData.email || "";
+    if (!isWorkEmail(email)) {
+      setEmailError("Please use your work email address");
+      setIsLoading(false);
+      return;
+    }
+
+    // Validate phone
+    const phoneVal = validatePhone(formData.phone || "", selectedCountry);
+    if (phoneVal) {
+      setPhoneError(phoneVal);
+      setIsLoading(false);
+      return;
+    }
+
+    const combinedPhone = `${selectedCountry.code}${(formData.phone || "").replace(/[\s\-()]/g, "")}`;
+
     const meta = metadataMap[activeTab]?.() || {};
     const result = await submitForm({
       type,
       full_name: formData.name || "",
-      email: formData.email || "",
+      email,
       company: formData.company || "",
       job_title: formData.title || "",
-      phone: formData.phone || "",
+      phone: combinedPhone,
       event_name: "Cyber First Kuwait 2026",
       metadata: meta,
     });
@@ -638,7 +661,73 @@ export default function UpcomingEditionCTA() {
                       }}
                     >
                       {tab.fields.map((field) => {
-                        const isFullWidth = field.type === "textarea";
+                        const isFullWidth = field.type === "textarea" || field.type === "tel";
+                        if (field.type === "tel") {
+                          return (
+                            <div key={field.name} style={{ gridColumn: "1 / -1" }}>
+                              <label style={labelStyle}>{field.label}</label>
+                              <div style={{ display: "flex", gap: 8 }}>
+                                <select
+                                  value={`${selectedCountry.code}|${selectedCountry.country}`}
+                                  onChange={(e) => {
+                                    const [code, country] = e.target.value.split("|");
+                                    const found = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country);
+                                    if (found) setSelectedCountry(found);
+                                  }}
+                                  style={{
+                                    ...inputStyle,
+                                    width: 120,
+                                    flexShrink: 0,
+                                    appearance: "none" as const,
+                                    cursor: "pointer",
+                                  }}
+                                  onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(1,187,245,0.35)"; }}
+                                  onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}
+                                >
+                                  {COUNTRY_CODES.map((cc) => (
+                                    <option key={`${cc.code}|${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>
+                                      {cc.country} {cc.code}
+                                    </option>
+                                  ))}
+                                </select>
+                                <input
+                                  type="tel"
+                                  value={formData[field.name] || ""}
+                                  onChange={(e) => { handleChange(field.name, e.target.value); setPhoneError(null); }}
+                                  placeholder={selectedCountry.placeholder}
+                                  style={{ ...inputStyle, flex: 1 }}
+                                  onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(1,187,245,0.35)"; }}
+                                  onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}
+                                />
+                              </div>
+                              {phoneError && <p style={{ color: "#ef4444", fontSize: 11, margin: "4px 0 0", fontFamily: "var(--font-outfit)" }}>{phoneError}</p>}
+                            </div>
+                          );
+                        }
+                        if (field.name === "email") {
+                          return (
+                            <div key={field.name}>
+                              <label style={labelStyle}>{field.label}</label>
+                              <input
+                                type={field.type}
+                                value={formData[field.name] || ""}
+                                onChange={(e) => { handleChange(field.name, e.target.value); setEmailError(null); }}
+                                placeholder={field.placeholder}
+                                required
+                                style={inputStyle}
+                                onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(1,187,245,0.35)"; }}
+                                onBlur={(e) => {
+                                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
+                                  const val = formData[field.name] || e.target.value;
+                                  if (val && !isWorkEmail(val)) {
+                                    setEmailError("Please use your work email address");
+                                  }
+                                }}
+                              />
+                              {emailError && <p style={{ color: "#ef4444", fontSize: 11, margin: "4px 0 0", fontFamily: "var(--font-outfit)" }}>{emailError}</p>}
+                            </div>
+                          );
+                        }
                         return (
                           <div
                             key={field.name}
@@ -667,7 +756,7 @@ export default function UpcomingEditionCTA() {
                                 value={formData[field.name] || ""}
                                 onChange={(e) => handleChange(field.name, e.target.value)}
                                 placeholder={field.placeholder}
-                                required={field.type !== "tel"}
+                                required
                                 style={inputStyle}
                                 onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(1,187,245,0.35)"; }}
                                 onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}

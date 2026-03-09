@@ -39,6 +39,9 @@ CREATE POLICY "Allow anonymous inserts" ON form_submissions
 -- VIEWS (for Excel Power Query — one per form type)
 -- ═══════════════════════════════════════════════════════════════
 
+-- NOTE: If views already exist, run DROP VIEW first:
+-- DROP VIEW IF EXISTS v_sponsors, v_attendees, v_speakers, v_contacts, v_awards, v_networkfirst;
+
 CREATE OR REPLACE VIEW v_sponsors AS
   SELECT id, created_at, full_name, email, company, job_title, phone,
          metadata->>'event_interest' AS event_interest,
@@ -51,7 +54,6 @@ CREATE OR REPLACE VIEW v_sponsors AS
 CREATE OR REPLACE VIEW v_attendees AS
   SELECT id, created_at, full_name, email, company, job_title, phone,
          metadata->>'preferred_event' AS preferred_event,
-         metadata->>'preferred_city' AS preferred_city,
          metadata->>'industry' AS industry,
          source_url, source_category, event_name
   FROM form_submissions WHERE type = 'attend'
@@ -71,6 +73,23 @@ CREATE OR REPLACE VIEW v_contacts AS
          metadata->>'message' AS message,
          source_url, source_category
   FROM form_submissions WHERE type = 'contact'
+  ORDER BY created_at DESC;
+
+CREATE OR REPLACE VIEW v_awards AS
+  SELECT id, created_at, full_name, email, company, job_title, phone,
+         metadata->>'award_category' AS award_category,
+         metadata->>'message' AS message,
+         source_url, source_category, event_name
+  FROM form_submissions WHERE type = 'awards'
+  ORDER BY created_at DESC;
+
+CREATE OR REPLACE VIEW v_networkfirst AS
+  SELECT id, created_at, full_name, email, company, job_title, phone,
+         metadata->>'boardroom_type' AS boardroom_type,
+         metadata->>'country' AS country,
+         metadata->>'message' AS message,
+         source_url, source_category
+  FROM form_submissions WHERE type = 'networkfirst'
   ORDER BY created_at DESC;
 
 -- ═══════════════════════════════════════════════════════════════

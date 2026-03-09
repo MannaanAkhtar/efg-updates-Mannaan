@@ -13,7 +13,8 @@ import {
 import Link from "next/link";
 import { Footer } from "@/components/sections";
 import { NeuralConstellation, DotMatrixGrid } from "@/components/effects";
-import { submitForm } from "@/lib/form-helpers";
+import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
+import type { CountryCode } from "@/lib/form-helpers";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 const E = "#0F735E";
@@ -2846,9 +2847,21 @@ function AwardsSection() {
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [awardsSelectedCountry, setAwardsSelectedCountry] = useState<CountryCode>(COUNTRY_CODES[2]);
+  const [awardsPhoneError, setAwardsPhoneError] = useState<string | null>(null);
+  const [awardsEmailError, setAwardsEmailError] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (formData.email && !isWorkEmail(formData.email)) {
+      setAwardsEmailError("Please use your work email address");
+      return;
+    }
+    const phoneErr = validatePhone(formData.phone, awardsSelectedCountry);
+    if (phoneErr) {
+      setAwardsPhoneError(phoneErr);
+      return;
+    }
     setFormSubmitted(true);
   };
 
@@ -3245,25 +3258,42 @@ function AwardsSection() {
                       onBlur={() => setFocusedField(null)}
                       style={inputStyle("contactName")}
                     />
-                    <input
-                      type="email"
-                      placeholder="Email Address"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      onFocus={() => setFocusedField("email")}
-                      onBlur={() => setFocusedField(null)}
-                      style={inputStyle("email")}
-                    />
-                    <input
-                      type="tel"
-                      placeholder="Phone Number"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      onFocus={() => setFocusedField("phone")}
-                      onBlur={() => setFocusedField(null)}
-                      style={inputStyle("phone")}
-                    />
+                    <div>
+                      <input
+                        type="email"
+                        placeholder="Email Address"
+                        required
+                        value={formData.email}
+                        onChange={(e) => { setFormData({ ...formData, email: e.target.value }); setAwardsEmailError(null); }}
+                        onFocus={() => setFocusedField("email")}
+                        onBlur={() => { setFocusedField(null); if (formData.email && !isWorkEmail(formData.email)) setAwardsEmailError("Please use your work email address"); }}
+                        style={inputStyle("email")}
+                      />
+                      {awardsEmailError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{awardsEmailError}</p>}
+                    </div>
+                    <div>
+                      <div style={{ display: "flex", gap: 8 }}>
+                        <select
+                          value={`${awardsSelectedCountry.code}|${awardsSelectedCountry.country}`}
+                          onChange={(e) => { const [code, country] = e.target.value.split("|"); const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country); if (c) { setAwardsSelectedCountry(c); setAwardsPhoneError(null); } }}
+                          onFocus={() => setFocusedField("phone")}
+                          onBlur={() => setFocusedField(null)}
+                          style={{ ...inputStyle("phone"), width: 120, flexShrink: 0, appearance: "none" as const, cursor: "pointer" }}
+                        >
+                          {COUNTRY_CODES.map((cc) => (<option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>{cc.country} {cc.code}</option>))}
+                        </select>
+                        <input
+                          type="tel"
+                          placeholder={awardsSelectedCountry.placeholder}
+                          value={formData.phone}
+                          onChange={(e) => { setFormData({ ...formData, phone: e.target.value }); setAwardsPhoneError(null); }}
+                          onFocus={() => setFocusedField("phone")}
+                          onBlur={() => setFocusedField(null)}
+                          style={{ ...inputStyle("phone"), flex: 1 }}
+                        />
+                      </div>
+                      {awardsPhoneError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{awardsPhoneError}</p>}
+                    </div>
                   </div>
 
                   <select
@@ -4675,18 +4705,33 @@ function ApplicationForm() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [appSelectedCountry, setAppSelectedCountry] = useState<CountryCode>(COUNTRY_CODES[2]);
+  const [appPhoneError, setAppPhoneError] = useState<string | null>(null);
+  const [appEmailError, setAppEmailError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
     const fd = new FormData(e.currentTarget);
+    const emailVal = String(fd.get("email") || "");
+    const phoneVal = String(fd.get("phone") || "");
+    if (emailVal && !isWorkEmail(emailVal)) {
+      setAppEmailError("Please use your work email address");
+      return;
+    }
+    const phoneErr = validatePhone(phoneVal, appSelectedCountry);
+    if (phoneErr) {
+      setAppPhoneError(phoneErr);
+      return;
+    }
+    setLoading(true);
+    const combinedPhone = `${appSelectedCountry.code}${phoneVal.replace(/[\s\-()]/g, "")}`;
     const result = await submitForm({
       type: "attend",
       full_name: String(fd.get("name") || ""),
-      email: String(fd.get("email") || ""),
+      email: emailVal,
       company: String(fd.get("company") || ""),
       job_title: String(fd.get("title") || ""),
-      phone: String(fd.get("phone") || ""),
+      phone: combinedPhone,
       metadata: { message: String(fd.get("message") || "") },
       event_name: "Data & AI First Kuwait 2026",
     });
@@ -4759,24 +4804,43 @@ function ApplicationForm() {
           onBlur={() => setFocusedField(null)}
           style={inputStyle("name")}
         />
-        <input
-          name="email"
-          type="email"
-          placeholder="Work Email"
-          required
-          onFocus={() => setFocusedField("email")}
-          onBlur={() => setFocusedField(null)}
-          style={inputStyle("email")}
-        />
+        <div>
+          <input
+            name="email"
+            type="email"
+            placeholder="Work Email"
+            required
+            onFocus={() => setFocusedField("email")}
+            onBlur={() => setFocusedField(null)}
+            onChange={() => setAppEmailError(null)}
+            style={inputStyle("email")}
+          />
+          {appEmailError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{appEmailError}</p>}
+        </div>
       </div>
-      <input
-        name="phone"
-        type="tel"
-        placeholder="Phone Number"
-        onFocus={() => setFocusedField("phone")}
-        onBlur={() => setFocusedField(null)}
-        style={{ ...inputStyle("phone"), marginBottom: 12 }}
-      />
+      <div style={{ marginBottom: 12 }}>
+        <div style={{ display: "flex", gap: 8 }}>
+          <select
+            value={`${appSelectedCountry.code}|${appSelectedCountry.country}`}
+            onChange={(e) => { const [code, country] = e.target.value.split("|"); const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country); if (c) { setAppSelectedCountry(c); setAppPhoneError(null); } }}
+            onFocus={() => setFocusedField("phone")}
+            onBlur={() => setFocusedField(null)}
+            style={{ ...inputStyle("phone"), width: 120, flexShrink: 0, appearance: "none" as const, cursor: "pointer" }}
+          >
+            {COUNTRY_CODES.map((cc) => (<option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>{cc.country} {cc.code}</option>))}
+          </select>
+          <input
+            name="phone"
+            type="tel"
+            placeholder={appSelectedCountry.placeholder}
+            onFocus={() => setFocusedField("phone")}
+            onBlur={() => setFocusedField(null)}
+            onChange={() => setAppPhoneError(null)}
+            style={{ ...inputStyle("phone"), flex: 1 }}
+          />
+        </div>
+        {appPhoneError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{appPhoneError}</p>}
+      </div>
       <input
         name="company"
         type="text"
@@ -4851,18 +4915,33 @@ function PartnershipForm() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [partnerSelectedCountry, setPartnerSelectedCountry] = useState<CountryCode>(COUNTRY_CODES[2]);
+  const [partnerPhoneError, setPartnerPhoneError] = useState<string | null>(null);
+  const [partnerEmailError, setPartnerEmailError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
     const fd = new FormData(e.currentTarget);
+    const emailVal = String(fd.get("email") || "");
+    const phoneVal = String(fd.get("phone") || "");
+    if (emailVal && !isWorkEmail(emailVal)) {
+      setPartnerEmailError("Please use your work email address");
+      return;
+    }
+    const phoneErr = validatePhone(phoneVal, partnerSelectedCountry);
+    if (phoneErr) {
+      setPartnerPhoneError(phoneErr);
+      return;
+    }
+    setLoading(true);
+    const combinedPhone = `${partnerSelectedCountry.code}${phoneVal.replace(/[\s\-()]/g, "")}`;
     const result = await submitForm({
       type: "sponsor",
       full_name: String(fd.get("name") || ""),
-      email: String(fd.get("email") || ""),
+      email: emailVal,
       company: String(fd.get("company") || ""),
       job_title: String(fd.get("title") || ""),
-      phone: String(fd.get("phone") || ""),
+      phone: combinedPhone,
       metadata: { message: String(fd.get("message") || "") },
       event_name: "Data & AI First Kuwait 2026",
     });
@@ -4935,24 +5014,43 @@ function PartnershipForm() {
           onBlur={() => setFocusedField(null)}
           style={inputStyle("name")}
         />
-        <input
-          name="email"
-          type="email"
-          placeholder="Work Email"
-          required
-          onFocus={() => setFocusedField("email")}
-          onBlur={() => setFocusedField(null)}
-          style={inputStyle("email")}
-        />
+        <div>
+          <input
+            name="email"
+            type="email"
+            placeholder="Work Email"
+            required
+            onFocus={() => setFocusedField("email")}
+            onBlur={() => setFocusedField(null)}
+            onChange={() => setPartnerEmailError(null)}
+            style={inputStyle("email")}
+          />
+          {partnerEmailError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{partnerEmailError}</p>}
+        </div>
       </div>
-      <input
-        name="phone"
-        type="tel"
-        placeholder="Phone Number"
-        onFocus={() => setFocusedField("phone")}
-        onBlur={() => setFocusedField(null)}
-        style={{ ...inputStyle("phone"), marginBottom: 10 }}
-      />
+      <div style={{ marginBottom: 10 }}>
+        <div style={{ display: "flex", gap: 8 }}>
+          <select
+            value={`${partnerSelectedCountry.code}|${partnerSelectedCountry.country}`}
+            onChange={(e) => { const [code, country] = e.target.value.split("|"); const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country); if (c) { setPartnerSelectedCountry(c); setPartnerPhoneError(null); } }}
+            onFocus={() => setFocusedField("phone")}
+            onBlur={() => setFocusedField(null)}
+            style={{ ...inputStyle("phone"), width: 120, flexShrink: 0, appearance: "none" as const, cursor: "pointer" }}
+          >
+            {COUNTRY_CODES.map((cc) => (<option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>{cc.country} {cc.code}</option>))}
+          </select>
+          <input
+            name="phone"
+            type="tel"
+            placeholder={partnerSelectedCountry.placeholder}
+            onFocus={() => setFocusedField("phone")}
+            onBlur={() => setFocusedField(null)}
+            onChange={() => setPartnerPhoneError(null)}
+            style={{ ...inputStyle("phone"), flex: 1 }}
+          />
+        </div>
+        {partnerPhoneError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{partnerPhoneError}</p>}
+      </div>
       <input
         name="company"
         type="text"

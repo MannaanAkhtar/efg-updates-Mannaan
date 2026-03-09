@@ -6,7 +6,8 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import type { SpeakerWithEvents } from "@/lib/supabase/types";
 import { Footer } from "@/components/sections";
-import { submitForm } from "@/lib/form-helpers";
+import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
+import type { CountryCode } from "@/lib/form-helpers";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CONSTANTS
@@ -387,7 +388,7 @@ const SPEAKER_FORM = {
     { name: "phone", label: "Phone Number", type: "tel", placeholder: "+971 xxxx xxxx" },
     { name: "company", label: "Company", type: "text", placeholder: "Company name" },
     { name: "title", label: "Job Title", type: "text", placeholder: "Your role" },
-    { name: "interest", label: "Event Interest", type: "select", placeholder: "Select an event series", options: ["Cyber First", "OT Security First", "Data & AI First", "Opex First", "Multiple Events"] },
+    { name: "interest", label: "Event Interest", type: "select", placeholder: "Select an event series", options: ["Cyber First", "OT Security First", "Data & AI First", "Opex First", "Other"] },
     { name: "city", label: "Preferred City", type: "select", placeholder: "Select a city", options: ["Kuwait City", "Riyadh", "Doha", "Muscat", "Jubail"] },
     { name: "topic", label: "Proposed Topic", type: "text", placeholder: "Brief topic or area of expertise" },
     { name: "message", label: "Message (Optional)", type: "textarea", placeholder: "Tell us about your background..." },
@@ -410,11 +411,29 @@ function SpeakerInquiryForm() {
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [formData, setFormData] = useState<Record<string, string>>({});
+  const [selectedCountry, setSelectedCountry] = useState<CountryCode>(COUNTRY_CODES[0]);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
     setFormError(null);
+
+    if (formData.email && !isWorkEmail(formData.email)) {
+      setEmailError("Please use your work email address");
+      setSubmitting(false);
+      return;
+    }
+
+    const phoneErr = validatePhone(formData.phone || "", selectedCountry);
+    if (phoneErr) {
+      setPhoneError(phoneErr);
+      setSubmitting(false);
+      return;
+    }
+
+    const combinedPhone = `${selectedCountry.code}${(formData.phone || "").replace(/[\s\-()]/g, "")}`;
 
     const result = await submitForm({
       type: "speak",
@@ -422,7 +441,7 @@ function SpeakerInquiryForm() {
       email: formData.email || "",
       company: formData.company || "",
       job_title: formData.title || "",
-      phone: formData.phone || "",
+      phone: combinedPhone,
       event_name: formData.interest || undefined,
       metadata: {
         event_interest: formData.interest || "",
@@ -448,6 +467,9 @@ function SpeakerInquiryForm() {
     setSubmitted(false);
     setFormError(null);
     setFormData({});
+    setPhoneError(null);
+    setEmailError(null);
+    setSelectedCountry(COUNTRY_CODES[0]);
   };
 
   const inputStyle: React.CSSProperties = {
@@ -734,7 +756,63 @@ function SpeakerInquiryForm() {
                       }}
                     >
                       {tab.fields.map((field) => {
-                        const isFullWidth = field.type === "textarea";
+                        const isFullWidth = field.type === "textarea" || field.type === "tel";
+                        if (field.type === "tel") {
+                          return (
+                            <div key={field.name} style={{ gridColumn: "1 / -1" }}>
+                              <label style={labelStyle}>{field.label}</label>
+                              <div style={{ display: "flex", gap: 8 }}>
+                                <select
+                                  value={`${selectedCountry.code}|${selectedCountry.country}`}
+                                  onChange={(e) => {
+                                    const [code, country] = e.target.value.split("|");
+                                    const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country);
+                                    if (c) { setSelectedCountry(c); setPhoneError(null); }
+                                  }}
+                                  style={{ ...inputStyle, width: 120, flexShrink: 0, appearance: "none", cursor: "pointer" }}
+                                >
+                                  {COUNTRY_CODES.map((cc) => (
+                                    <option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>
+                                      {cc.country} {cc.code}
+                                    </option>
+                                  ))}
+                                </select>
+                                <input
+                                  type="tel"
+                                  value={formData[field.name] || ""}
+                                  onChange={(e) => { handleChange(field.name, e.target.value); setPhoneError(null); }}
+                                  placeholder={selectedCountry.placeholder}
+                                  style={{ ...inputStyle, flex: 1 }}
+                                  onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(232,101,26,0.3)"; }}
+                                  onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}
+                                />
+                              </div>
+                              {phoneError && <p style={{ color: "#ef4444", fontSize: 11, margin: "4px 0 0" }}>{phoneError}</p>}
+                            </div>
+                          );
+                        }
+                        if (field.type === "email") {
+                          return (
+                            <div key={field.name}>
+                              <label style={labelStyle}>{field.label}</label>
+                              <input
+                                type="email"
+                                value={formData[field.name] || ""}
+                                onChange={(e) => { handleChange(field.name, e.target.value); setEmailError(null); }}
+                                placeholder={field.placeholder}
+                                required
+                                style={inputStyle}
+                                onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(232,101,26,0.3)"; }}
+                                onBlur={(e) => {
+                                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
+                                  const val = formData[field.name] || e.currentTarget.value;
+                                  if (val && !isWorkEmail(val)) { setEmailError("Please use your work email address"); }
+                                }}
+                              />
+                              {emailError && <p style={{ color: "#ef4444", fontSize: 11, margin: "4px 0 0" }}>{emailError}</p>}
+                            </div>
+                          );
+                        }
                         return (
                           <div
                             key={field.name}
@@ -785,7 +863,7 @@ function SpeakerInquiryForm() {
                                 value={formData[field.name] || ""}
                                 onChange={(e) => handleChange(field.name, e.target.value)}
                                 placeholder={field.placeholder}
-                                required={field.type !== "tel"}
+                                required
                                 style={inputStyle}
                                 onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(232,101,26,0.3)"; }}
                                 onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}

@@ -4,6 +4,8 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Footer } from "@/components/sections";
+import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
+import type { FormType, CountryCode } from "@/lib/form-helpers";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DESIGN SYSTEM — White + Gold Only
@@ -104,9 +106,9 @@ const CANDID_MOMENTS = [
 ];
 
 const STATS = [
-  { value: "100+", label: "Boardrooms" },
-  { value: "1,500+", label: "Executives" },
-  { value: "80+", label: "Sponsors" },
+  { value: "300+", label: "Boardrooms" },
+  { value: "9,000+", label: "Executives" },
+  { value: "90+", label: "Hosts" },
   { value: "6+", label: "Global Markets" },
 ];
 
@@ -117,10 +119,24 @@ const TESTIMONIALS = [
 ];
 
 const TRUST_LOGOS = [
-  "Google-Cloud-Security.png", "paloalto.png", "fortinet.png", "Akamai.png",
-  "EY.png", "Celonis.png", "Claroty.png", "GBM.png", 
-  "OutSystems.png", "Freshworks.png", "CleverTap.png", "Tenable-logo.png",
-  "sentinelone.png", "kaspersky.png", "Dragos.png", "Group-IB.png",
+  { src: `${S3}/Microsoft.png` },
+  { src: `${S3}/SAP.png` },
+  { src: `${S3_LOGOS}/Google-Cloud-Security.png` },
+  { src: `${S3_LOGOS}/EY.png` },
+  { src: `${S3_LOGOS}/paloalto.png` },
+  { src: `${S3_LOGOS}/fortinet.png` },
+  { src: `${S3_LOGOS}/Akamai.png` },
+  { src: `${S3_LOGOS}/Celonis.png` },
+  { src: `${S3_LOGOS}/Claroty.png` },
+  { src: `${S3_LOGOS}/GBM.png` },
+  { src: `${S3_LOGOS}/OutSystems.png` },
+  { src: `${S3_LOGOS}/Freshworks.png` },
+  { src: `${S3_LOGOS}/CleverTap.png` },
+  { src: `${S3_LOGOS}/Tenable-logo.png` },
+  { src: `${S3_LOGOS}/sentinelone.png` },
+  { src: `${S3_LOGOS}/kaspersky.png` },
+  { src: `${S3_LOGOS}/Dragos.png` },
+  { src: `${S3_LOGOS}/Group-IB.png` },
 ];
 
 const TITLES = [
@@ -314,16 +330,16 @@ function Hero() {
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.8 }} style={{ fontSize: "clamp(17px, 2.2vw, 21px)", fontWeight: 400, color: TEXT_50, maxWidth: 600, marginTop: 24, lineHeight: 1.6 }}>Join an exclusive event experience tailored for leaders seeking to expand their network, foster peer connections, and engage in in-depth discussions.</motion.p>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1.1 }} className="hero-cta-row" style={{ display: "flex", gap: 16, marginTop: 40, flexWrap: "wrap", justifyContent: "center" }}>
-          <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "16px 32px", background: GOLD, color: BG, borderRadius: 980, fontSize: 15, fontWeight: 500, textDecoration: "none", minWidth: 180 }}>
+          <Link href="#get-started" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "16px 32px", background: GOLD, color: BG, borderRadius: 980, fontSize: 15, fontWeight: 500, textDecoration: "none", minWidth: 180 }}>
             Host a Boardroom
           </Link>
-          <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "16px 32px", background: "transparent", color: TEXT, border: `1px solid ${TEXT_30}`, borderRadius: 980, fontSize: 15, fontWeight: 500, textDecoration: "none", minWidth: 140 }}>
-            Learn More
+          <Link href="#get-started" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "16px 32px", background: "transparent", color: TEXT, border: `1px solid ${TEXT_30}`, borderRadius: 980, fontSize: 15, fontWeight: 500, textDecoration: "none", minWidth: 140 }}>
+            Request Invite
           </Link>
         </motion.div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 1.4 }} style={{ display: "flex", gap: 56, marginTop: 64 }} className="hero-stats">
-          {[{ v: "100+", l: "Boardrooms" }, { v: "1,500+", l: "Executives" }, { v: "80+", l: "Sponsors" }].map((s) => (
+          {[{ v: "300+", l: "Boardrooms" }, { v: "9,000+", l: "Executives" }, { v: "90+", l: "Hosts" }].map((s) => (
             <div key={s.l} style={{ textAlign: "center" }}>
               <p style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 600, color: GOLD, margin: 0, letterSpacing: "-0.02em" }}>{s.v}</p>
               <p style={{ fontSize: 11, color: TEXT_50, letterSpacing: "0.1em", textTransform: "uppercase", marginTop: 4 }}>{s.l}</p>
@@ -364,7 +380,7 @@ function TrustStrip() {
       <p style={{ fontSize: 11, color: GOLD, letterSpacing: "0.2em", textTransform: "uppercase", textAlign: "center", marginBottom: 24 }}>Trusted By</p>
       <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ duration: 30, repeat: Infinity, ease: "linear" }} style={{ display: "flex", gap: 64, alignItems: "center" }}>
         {[...TRUST_LOGOS, ...TRUST_LOGOS].map((logo, i) => (
-          <img key={i} src={`${S3_LOGOS}/${logo}`} alt="" style={{ height: 48, width: "auto", filter: "brightness(0) invert(1)", opacity: 0.85, flexShrink: 0 }} />
+          <img key={i} src={logo.src} alt="" style={{ height: 56, width: "auto", filter: "brightness(0) invert(1)", opacity: 0.85, flexShrink: 0 }} />
         ))}
       </motion.div>
     </section>
@@ -380,12 +396,80 @@ function IntroStatement() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} style={{ padding: "clamp(120px, 18vw, 200px) 24px", maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-      <motion.p initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1, ease: EASE_OUT }} style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 5vw, 48px)", fontWeight: 500, lineHeight: 1.5, letterSpacing: "0.01em", color: TEXT }}>
-        We design and manage exclusive executive networking roundtables{" "}
-        <span style={{ color: TEXT_50 }}>that bring together C-level decision-makers</span>{" "}
-        <span style={{ color: GOLD }}>for meaningful engagement.</span>
-      </motion.p>
+    <section ref={ref} style={{ position: "relative", padding: "clamp(140px, 20vw, 240px) 24px", background: BG, overflow: "hidden" }}>
+      {/* Backdrop: vignette + gold orb */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 50%, #0a0a0a 0%, #000 100%)" }} />
+      <div className="absolute pointer-events-none" style={{ top: "20%", left: "30%", width: 600, height: 400, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(201,147,90,0.04) 0%, transparent 70%)", filter: "blur(60px)" }} />
+
+      <div style={{ position: "relative", maxWidth: 800, margin: "0 auto", textAlign: "center" }}>
+        {/* Thin gold rule */}
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={inView ? { opacity: 1, scaleX: 1 } : {}}
+          transition={{ duration: 0.8, ease: EASE_OUT }}
+          style={{ width: 60, height: 1, background: GOLD, margin: "0 auto 40px", transformOrigin: "center" }}
+        />
+
+        {/* Oversized decorative quotation mark */}
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 0.3 } : {}}
+          transition={{ duration: 0.8, delay: 0.1, ease: EASE_OUT }}
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            top: 30,
+            right: -40,
+            fontFamily: "Georgia, serif",
+            fontSize: "clamp(80px, 12vw, 130px)",
+            fontWeight: 400,
+            lineHeight: 1,
+            color: GOLD,
+            userSelect: "none",
+          }}
+        >
+          &ldquo;
+        </motion.span>
+
+        {/* Quote text */}
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1, delay: 0.2, ease: EASE_OUT }}
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(26px, 4.5vw, 44px)",
+            fontWeight: 400,
+            lineHeight: 1.5,
+            letterSpacing: "-0.01em",
+            color: "#F0EBE3",
+            margin: 0,
+          }}
+        >
+          We design and manage exclusive executive networking roundtables and virtual boardrooms{" "}
+          <span style={{ color: "rgba(240,235,227,0.45)" }}>that bring together C-level decision-makers</span>{" "}
+          <span style={{ color: GOLD }}>for meaningful engagement.</span>
+        </motion.p>
+
+        {/* Attribution */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.6, ease: EASE_OUT }}
+          style={{
+            fontFamily: "var(--font-outfit)",
+            fontSize: 11,
+            fontWeight: 500,
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: GOLD,
+            marginTop: 36,
+            opacity: 0.6,
+          }}
+        >
+          &mdash; NetworkFirst
+        </motion.p>
+      </div>
     </section>
   );
 }
@@ -833,7 +917,7 @@ function UrgencyBanner() {
     <section style={{ padding: "56px 24px", background: BG, borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}` }}>
       <div style={{ maxWidth: 700, margin: "0 auto", textAlign: "center" }}>
         <p style={{ fontSize: "clamp(18px, 3vw, 22px)", color: TEXT, fontWeight: 500, margin: "0 0 24px", lineHeight: 1.4 }}>Limited sponsorship slots available for Q2 2026.</p>
-        <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "16px 32px", background: GOLD, color: BG, borderRadius: 980, fontSize: 15, fontWeight: 500, textDecoration: "none" }}>
+        <Link href="#get-started" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "16px 32px", background: GOLD, color: BG, borderRadius: 980, fontSize: 15, fontWeight: 500, textDecoration: "none" }}>
           Reserve Your Session
         </Link>
       </div>
@@ -1139,17 +1223,385 @@ function TitlesMarquee() {
 function FinalCTA() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [formData, setFormData] = useState<Record<string, string>>({});
+  const [selectedCountry, setSelectedCountry] = useState<CountryCode>(COUNTRY_CODES[0]);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
+
+  const handleChange = (name: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const resetForm = () => {
+    setSubmitted(false);
+    setFormError(null);
+    setFormData({});
+    setPhoneError(null);
+    setEmailError(null);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const email = formData.email || "";
+    if (email && !isWorkEmail(email)) {
+      setEmailError("Please use your work email address");
+      return;
+    }
+
+    const phone = formData.phone || "";
+    const phoneErr = validatePhone(phone, selectedCountry);
+    if (phoneErr) {
+      setPhoneError(phoneErr);
+      return;
+    }
+
+    setSubmitting(true);
+    setFormError(null);
+
+    const fullPhone = phone ? `${selectedCountry.code}${phone.replace(/[\s\-()]/g, "")}` : "";
+
+    const result = await submitForm({
+      type: "networkfirst" as FormType,
+      full_name: formData.name || "",
+      email,
+      company: formData.company || "",
+      job_title: formData.title || "",
+      phone: fullPhone,
+      metadata: {
+        boardroom_type: formData.boardroom_type || "",
+        country: formData.country || "",
+        message: formData.message || "",
+      },
+    });
+
+    setSubmitting(false);
+    if (result.success) {
+      setSubmitted(true);
+    } else {
+      setFormError(result.error || "Something went wrong.");
+    }
+  };
+
+  const inputStyle: React.CSSProperties = {
+    width: "100%",
+    padding: "14px 18px",
+    borderRadius: 10,
+    border: `1px solid ${BORDER}`,
+    background: "rgba(255,255,255,0.03)",
+    color: TEXT,
+    fontFamily: "var(--font-outfit)",
+    fontSize: 14,
+    fontWeight: 400,
+    outline: "none",
+    transition: "border-color 0.3s ease",
+  };
+
+  const labelStyle: React.CSSProperties = {
+    fontFamily: "var(--font-outfit)",
+    fontSize: 11,
+    fontWeight: 500,
+    color: TEXT_30,
+    marginBottom: 6,
+    display: "block",
+    letterSpacing: "0.3px",
+  };
 
   return (
-    <section ref={ref} style={{ padding: "clamp(140px, 18vw, 220px) 24px", position: "relative" }}>
-      <motion.div initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE_OUT }} style={{ textAlign: "center", maxWidth: 600, margin: "0 auto" }}>
-        <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(40px, 8vw, 64px)", fontWeight: 600, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "0 0 20px", color: TEXT }}>Ready to host<br /><span style={{ color: GOLD }}>your boardroom?</span></h2>
-        <p style={{ fontSize: 17, fontWeight: 400, color: TEXT_50, lineHeight: 1.6, margin: "0 0 36px" }}>Limited sessions available per quarter.<br />Let&apos;s discuss your objectives.</p>
-        <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "18px 40px", background: GOLD, color: BG, borderRadius: 980, fontSize: 16, fontWeight: 500, textDecoration: "none" }}>
-          Get Started
-        </Link>
-        <p style={{ fontSize: 13, color: TEXT_30, marginTop: 24 }}>Or email <a href="mailto:hello@networkfirstme.com" style={{ color: GOLD, textDecoration: "none" }}>hello@networkfirstme.com</a></p>
-      </motion.div>
+    <section ref={ref} id="get-started" style={{ background: BG, padding: "clamp(80px, 12vw, 140px) 0", position: "relative", overflow: "hidden" }}>
+      {/* Atmospheric background */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 800px 600px at 25% 50%, rgba(201,147,90,0.04) 0%, transparent 70%), radial-gradient(ellipse 600px 500px at 75% 40%, rgba(201,147,90,0.03) 0%, transparent 70%)` }} />
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
+        {/* Split layout */}
+        <div className="nf-cta-split" style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: "clamp(40px, 5vw, 72px)", alignItems: "start" }}>
+
+          {/* ── LEFT: Editorial ── */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, ease: EASE_OUT }}
+            style={{ paddingTop: 8 }}
+          >
+            {/* Eyebrow */}
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+              <span style={{ width: 30, height: 1, background: GOLD, flexShrink: 0 }} />
+              <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", textTransform: "uppercase", color: GOLD, fontFamily: "var(--font-outfit)" }}>Get Started</span>
+            </div>
+
+            {/* Headline */}
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "clamp(36px, 4vw, 52px)", letterSpacing: "-0.03em", color: TEXT, lineHeight: 1.08, margin: 0, whiteSpace: "pre-line" }}>
+              Ready to host{"\n"}<span style={{ color: GOLD }}>your boardroom?</span>
+            </h2>
+
+            {/* Description */}
+            <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 300, fontSize: "clamp(14px, 1.2vw, 16px)", color: TEXT_50, lineHeight: 1.7, margin: "20px 0 0", maxWidth: 420 }}>
+              Limited sessions available per quarter. Share your objectives and our team will craft the perfect boardroom experience for your brand.
+            </p>
+
+            {/* Perks — minimal numbered list */}
+            <div style={{ marginTop: 40, display: "flex", flexDirection: "column", gap: 0 }}>
+              {[
+                "Invite-only C-suite audience",
+                "End-to-end event management",
+                "Measurable pipeline ROI",
+              ].map((text, i) => (
+                <div key={text} style={{ display: "flex", alignItems: "center", gap: 16, padding: "14px 0", borderBottom: i < 2 ? `1px solid rgba(201,147,90,0.08)` : "none" }}>
+                  <span style={{ fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 500, color: GOLD, opacity: 0.6, width: 20, flexShrink: 0 }}>0{i + 1}</span>
+                  <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: TEXT_50, letterSpacing: "0.2px" }}>{text}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Trust metrics */}
+            <div style={{ marginTop: 40, paddingTop: 28, borderTop: `1px solid ${BORDER}`, display: "flex", gap: "clamp(24px, 4vw, 48px)" }}>
+              <div>
+                <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 3vw, 36px)", fontWeight: 600, color: TEXT, margin: 0, letterSpacing: "-0.03em" }}>100<span style={{ color: GOLD }}>+</span></p>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 400, color: TEXT_30, margin: "4px 0 0", letterSpacing: "0.3px" }}>Boardrooms hosted</p>
+              </div>
+              <div style={{ width: 1, background: BORDER, alignSelf: "stretch" }} />
+              <div>
+                <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 3vw, 36px)", fontWeight: 600, color: TEXT, margin: 0, letterSpacing: "-0.03em" }}>6<span style={{ color: GOLD }}>+</span></p>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 400, color: TEXT_30, margin: "4px 0 0", letterSpacing: "0.3px" }}>Global markets</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* ── RIGHT: Glass Form Card ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.15, ease: EASE_OUT }}
+            style={{ position: "relative" }}
+          >
+            {/* Gold glow behind card */}
+            <div className="absolute pointer-events-none" style={{ top: -60, right: -60, width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(201,147,90,0.08) 0%, transparent 70%)" }} />
+
+            <div style={{
+              borderRadius: 24,
+              border: "1px solid rgba(201,147,90,0.15)",
+              background: "rgba(201,147,90,0.04)",
+              backdropFilter: "blur(20px) saturate(1.4)",
+              WebkitBackdropFilter: "blur(20px) saturate(1.4)",
+              boxShadow: "0 0 80px rgba(201,147,90,0.06), inset 0 1px 0 rgba(255,255,255,0.05)",
+              padding: "clamp(28px, 3vw, 40px)",
+              position: "relative",
+              overflow: "hidden",
+            }}>
+              {/* Inner highlight line */}
+              <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 120, height: 1, background: `linear-gradient(90deg, transparent, ${GOLD_30}, transparent)` }} />
+
+              {/* Form card header */}
+              <div style={{ marginBottom: 24 }}>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "clamp(20px, 2.2vw, 26px)", letterSpacing: "-0.02em", color: TEXT, margin: 0 }}>Book Your Session</h3>
+                <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 300, fontSize: 13, color: TEXT_30, margin: "6px 0 0", letterSpacing: "0.2px" }}>We&apos;ll respond within 2 business days</p>
+              </div>
+
+              <AnimatePresence mode="wait">
+                {submitted ? (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4, ease: EASE_OUT }}
+                    style={{ textAlign: "center", padding: "40px 0" }}
+                  >
+                    <div style={{ width: 52, height: 52, borderRadius: "50%", background: "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.25)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                    </div>
+                    <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "clamp(22px, 3vw, 28px)", letterSpacing: "-0.5px", color: TEXT, margin: "0 0 8px" }}>Inquiry Submitted</h3>
+                    <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 400, fontSize: 14, color: TEXT_50, margin: "0 0 20px", lineHeight: 1.6 }}>Our team will review your submission and get back to you within 2 business days.</p>
+                    <button onClick={resetForm} style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: GOLD, background: "none", border: "none", cursor: "pointer", padding: 0 }}>
+                      Submit another inquiry &rarr;
+                    </button>
+                  </motion.div>
+                ) : (
+                  <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                    <form onSubmit={handleSubmit}>
+                      <div className="nf-form-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+                        {/* Full Name */}
+                        <div>
+                          <label style={labelStyle}>Full Name</label>
+                          <input type="text" value={formData.name || ""} onChange={(e) => handleChange("name", e.target.value)} placeholder="Your full name" required style={inputStyle} onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.4)"; }} onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.15)"; }} />
+                        </div>
+
+                        {/* Work Email */}
+                        <div>
+                          <label style={labelStyle}>Work Email</label>
+                          <input
+                            type="email"
+                            value={formData.email || ""}
+                            onChange={(e) => { handleChange("email", e.target.value); setEmailError(null); }}
+                            placeholder="you@company.com"
+                            required
+                            style={{ ...inputStyle, borderColor: emailError ? "rgba(239,68,68,0.5)" : undefined }}
+                            onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.4)"; }}
+                            onBlur={(e) => {
+                              const val = e.currentTarget.value;
+                              if (val && !isWorkEmail(val)) { setEmailError("Please use your work email address"); e.currentTarget.style.borderColor = "rgba(239,68,68,0.5)"; }
+                              else { setEmailError(null); e.currentTarget.style.borderColor = "rgba(201,147,90,0.15)"; }
+                            }}
+                          />
+                          {emailError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 11, margin: "4px 0 0" }}>{emailError}</p>}
+                        </div>
+
+                        {/* Phone — full width */}
+                        <div style={{ gridColumn: "1 / -1" }}>
+                          <label style={labelStyle}>Phone Number</label>
+                          <div style={{ display: "flex", gap: 8 }}>
+                            <select
+                              value={`${selectedCountry.code}|${selectedCountry.country}`}
+                              onChange={(e) => {
+                                const [code, country] = e.target.value.split("|");
+                                const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country);
+                                if (c) { setSelectedCountry(c); setPhoneError(null); }
+                              }}
+                              style={{ ...inputStyle, width: 120, flexShrink: 0, appearance: "none" as const, WebkitAppearance: "none" as const, cursor: "pointer", fontSize: 12 }}
+                            >
+                              {COUNTRY_CODES.map((cc) => (
+                                <option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>
+                                  {cc.country} {cc.code}
+                                </option>
+                              ))}
+                            </select>
+                            <input
+                              type="tel"
+                              value={formData.phone || ""}
+                              onChange={(e) => { handleChange("phone", e.target.value); setPhoneError(null); }}
+                              placeholder={selectedCountry.placeholder}
+                              style={{ ...inputStyle, flex: 1 }}
+                              onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.4)"; }}
+                              onBlur={(e) => {
+                                e.currentTarget.style.borderColor = "rgba(201,147,90,0.15)";
+                                const err = validatePhone(formData.phone || "", selectedCountry);
+                                if (err) setPhoneError(err);
+                              }}
+                            />
+                          </div>
+                          {phoneError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 11, margin: "4px 0 0" }}>{phoneError}</p>}
+                        </div>
+
+                        {/* Company */}
+                        <div>
+                          <label style={labelStyle}>Company</label>
+                          <input type="text" value={formData.company || ""} onChange={(e) => handleChange("company", e.target.value)} placeholder="Company name" required style={inputStyle} onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.4)"; }} onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.15)"; }} />
+                        </div>
+
+                        {/* Job Title */}
+                        <div>
+                          <label style={labelStyle}>Job Title</label>
+                          <input type="text" value={formData.title || ""} onChange={(e) => handleChange("title", e.target.value)} placeholder="Your role" required style={inputStyle} onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.4)"; }} onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.15)"; }} />
+                        </div>
+
+                        {/* Type of Boardroom */}
+                        <div>
+                          <label style={labelStyle}>Type of Boardroom</label>
+                          <select
+                            value={formData.boardroom_type || ""}
+                            onChange={(e) => handleChange("boardroom_type", e.target.value)}
+                            required
+                            style={{ ...inputStyle, appearance: "none" as const, WebkitAppearance: "none" as const, cursor: "pointer", color: formData.boardroom_type ? TEXT : TEXT_30 }}
+                          >
+                            <option value="" style={{ color: "#222", background: "#fff" }}>Select type</option>
+                            <option value="Executive Roundtable" style={{ color: "#222", background: "#fff" }}>Executive Roundtable</option>
+                            <option value="Virtual" style={{ color: "#222", background: "#fff" }}>Virtual</option>
+                          </select>
+                        </div>
+
+                        {/* Country */}
+                        <div>
+                          <label style={labelStyle}>Country</label>
+                          <select
+                            value={formData.country || ""}
+                            onChange={(e) => handleChange("country", e.target.value)}
+                            required
+                            style={{ ...inputStyle, appearance: "none" as const, WebkitAppearance: "none" as const, cursor: "pointer", color: formData.country ? TEXT : TEXT_30 }}
+                          >
+                            <option value="" style={{ color: "#222", background: "#fff" }}>Select country</option>
+                            {COUNTRY_CODES.map((cc) => (
+                              <option key={cc.country} value={cc.name} style={{ color: "#222", background: "#fff" }}>
+                                {cc.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* Message — full width */}
+                        <div style={{ gridColumn: "1 / -1" }}>
+                          <label style={labelStyle}>Message (Optional)</label>
+                          <textarea
+                            value={formData.message || ""}
+                            onChange={(e) => handleChange("message", e.target.value)}
+                            placeholder="Tell us about your objectives..."
+                            rows={3}
+                            style={{ ...inputStyle, resize: "vertical", minHeight: 72 }}
+                            onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.4)"; }}
+                            onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.15)"; }}
+                          />
+                        </div>
+                      </div>
+
+                      {/* Honeypot */}
+                      <input type="text" name="website" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
+
+                      {formError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 13, margin: "12px 0 0" }}>{formError}</p>}
+
+                      <button
+                        type="submit"
+                        disabled={submitting}
+                        style={{
+                          width: "100%",
+                          marginTop: 20,
+                          padding: "15px 28px",
+                          borderRadius: 12,
+                          background: submitting ? GOLD_50 : GOLD,
+                          color: BG,
+                          fontFamily: "var(--font-outfit)",
+                          fontSize: 15,
+                          fontWeight: 600,
+                          border: "none",
+                          cursor: submitting ? "not-allowed" : "pointer",
+                          transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
+                          opacity: submitting ? 0.7 : 1,
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!submitting) {
+                            e.currentTarget.style.transform = "translateY(-2px)";
+                            e.currentTarget.style.boxShadow = "0 8px 32px rgba(201,147,90,0.3)";
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = "translateY(0)";
+                          e.currentTarget.style.boxShadow = "none";
+                        }}
+                      >
+                        {submitting ? "Submitting..." : "Get Started"}
+                      </button>
+                    </form>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      <style jsx global>{`
+        @media (max-width: 860px) {
+          .nf-cta-split {
+            grid-template-columns: 1fr !important;
+          }
+        }
+        @media (max-width: 500px) {
+          .nf-form-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

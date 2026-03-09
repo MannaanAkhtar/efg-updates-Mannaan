@@ -4,8 +4,8 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { DotMatrixGrid, ScanLines } from "@/components/effects";
 import { EMERALD, EMERALD_BRIGHT, EASE } from "./constants";
-import { submitForm } from "@/lib/form-helpers";
-import type { FormType } from "@/lib/form-helpers";
+import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
+import type { FormType, CountryCode } from "@/lib/form-helpers";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TAB DATA
@@ -111,6 +111,9 @@ export default function DAUpcomingEditionCTA() {
   const [isLoading, setIsLoading] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [formData, setFormData] = useState<Record<string, string>>({});
+  const [selectedCountry, setSelectedCountry] = useState<CountryCode>(COUNTRY_CODES[0]);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
 
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
@@ -142,6 +145,8 @@ export default function DAUpcomingEditionCTA() {
     setIsSubmitted(false);
     setFormError(null);
     setFormData({});
+    setPhoneError(null);
+    setEmailError(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -159,14 +164,32 @@ export default function DAUpcomingEditionCTA() {
       speaker: () => ({ ...sharedMeta, proposed_topic: formData.topic || "" }),
     };
 
+    // Validate email
+    const email = formData.email || "";
+    if (!isWorkEmail(email)) {
+      setEmailError("Please use your work email address");
+      setIsLoading(false);
+      return;
+    }
+
+    // Validate phone
+    const phoneVal = validatePhone(formData.phone || "", selectedCountry);
+    if (phoneVal) {
+      setPhoneError(phoneVal);
+      setIsLoading(false);
+      return;
+    }
+
+    const combinedPhone = `${selectedCountry.code}${(formData.phone || "").replace(/[\s\-()]/g, "")}`;
+
     const meta = metadataMap[activeTab]?.() || {};
     const result = await submitForm({
       type,
       full_name: formData.name || "",
-      email: formData.email || "",
+      email,
       company: formData.company || "",
       job_title: formData.title || "",
-      phone: formData.phone || "",
+      phone: combinedPhone,
       event_name: "Data & AI First Kuwait 2026",
       metadata: meta,
     });
@@ -541,21 +564,85 @@ export default function DAUpcomingEditionCTA() {
                         className="da-form-name-row"
                         style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}
                       >
-                        {tab.fields.slice(0, 2).map((field) => (
-                          <FormInput
-                            key={field.name}
-                            name={field.name}
-                            label={field.label}
-                            placeholder={field.placeholder}
-                            type={field.type}
-                            value={formData[field.name] || ""}
-                            onChange={(v) => handleChange(field.name, v)}
-                            required
-                          />
-                        ))}
+                        {tab.fields.slice(0, 2).map((field) => {
+                          if (field.name === "email") {
+                            return (
+                              <div key={field.name} style={{ marginBottom: 16 }}>
+                                <label style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 500, color: "#686868", letterSpacing: "0.5px", display: "block", marginBottom: 6 }}>
+                                  {field.label}<span style={{ color: EMERALD, marginLeft: 3 }}>*</span>
+                                </label>
+                                <input
+                                  name={field.name} type={field.type} placeholder={field.placeholder} required value={formData[field.name] || ""}
+                                  onChange={(e) => { handleChange(field.name, e.target.value); setEmailError(null); }}
+                                  style={{ width: "100%", background: "#0a0a0a", border: `1px solid rgba(255,255,255,0.08)`, borderRadius: 8, padding: "11px 14px", fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "var(--white)", outline: "none", transition: "border-color 0.3s, box-shadow 0.3s" }}
+                                  onFocus={(e) => { e.currentTarget.style.borderColor = `${EMERALD}50`; e.currentTarget.style.boxShadow = `0 0 0 3px ${EMERALD}10`; }}
+                                  onBlur={(e) => {
+                                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
+                                    e.currentTarget.style.boxShadow = "none";
+                                    const val = formData[field.name] || e.target.value;
+                                    if (val && !isWorkEmail(val)) {
+                                      setEmailError("Please use your work email address");
+                                    }
+                                  }}
+                                />
+                                {emailError && <p style={{ color: "#ef4444", fontSize: 11, margin: "4px 0 0", fontFamily: "var(--font-outfit)" }}>{emailError}</p>}
+                              </div>
+                            );
+                          }
+                          return (
+                            <FormInput
+                              key={field.name}
+                              name={field.name}
+                              label={field.label}
+                              placeholder={field.placeholder}
+                              type={field.type}
+                              value={formData[field.name] || ""}
+                              onChange={(v) => handleChange(field.name, v)}
+                              required
+                            />
+                          );
+                        })}
                       </div>
 
                       {tab.fields.slice(2).map((field) => {
+                        if (field.type === "tel") {
+                          return (
+                            <div key={field.name} style={{ marginBottom: 16 }}>
+                              <label style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 500, color: "#686868", letterSpacing: "0.5px", display: "block", marginBottom: 6 }}>
+                                {field.label}
+                              </label>
+                              <div style={{ display: "flex", gap: 8 }}>
+                                <select
+                                  value={`${selectedCountry.code}|${selectedCountry.country}`}
+                                  onChange={(e) => {
+                                    const [code, country] = e.target.value.split("|");
+                                    const found = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country);
+                                    if (found) setSelectedCountry(found);
+                                  }}
+                                  style={{ width: 120, flexShrink: 0, background: "#0a0a0a", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8, padding: "11px 14px", fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "var(--white)", outline: "none", transition: "border-color 0.3s, box-shadow 0.3s", appearance: "none" as const, cursor: "pointer" }}
+                                  onFocus={(e) => { e.currentTarget.style.borderColor = `${EMERALD}50`; e.currentTarget.style.boxShadow = `0 0 0 3px ${EMERALD}10`; }}
+                                  onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; e.currentTarget.style.boxShadow = "none"; }}
+                                >
+                                  {COUNTRY_CODES.map((cc) => (
+                                    <option key={`${cc.code}|${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>
+                                      {cc.country} {cc.code}
+                                    </option>
+                                  ))}
+                                </select>
+                                <input
+                                  type="tel"
+                                  value={formData[field.name] || ""}
+                                  onChange={(e) => { handleChange(field.name, e.target.value); setPhoneError(null); }}
+                                  placeholder={selectedCountry.placeholder}
+                                  style={{ flex: 1, background: "#0a0a0a", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8, padding: "11px 14px", fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "var(--white)", outline: "none", transition: "border-color 0.3s, box-shadow 0.3s" }}
+                                  onFocus={(e) => { e.currentTarget.style.borderColor = `${EMERALD}50`; e.currentTarget.style.boxShadow = `0 0 0 3px ${EMERALD}10`; }}
+                                  onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; e.currentTarget.style.boxShadow = "none"; }}
+                                />
+                              </div>
+                              {phoneError && <p style={{ color: "#ef4444", fontSize: 11, margin: "4px 0 0", fontFamily: "var(--font-outfit)" }}>{phoneError}</p>}
+                            </div>
+                          );
+                        }
                         if (field.type === "textarea") {
                           return (
                             <FormTextarea

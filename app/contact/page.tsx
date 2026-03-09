@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Footer } from "@/components/sections";
 import SectionTransition from "@/components/effects/SectionTransition";
-import { submitForm } from "@/lib/form-helpers";
+import { submitForm, isWorkEmail } from "@/lib/form-helpers";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CONSTANTS
@@ -305,6 +305,7 @@ function ContactForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
 
   const focusStyle = (field: string): React.CSSProperties => ({
     ...inputBase,
@@ -380,10 +381,16 @@ function ContactForm() {
               setSubmitting(true);
               setFormError(null);
               const fd = new FormData(e.currentTarget);
+              const emailVal = String(fd.get("email") || "");
+              if (emailVal && !isWorkEmail(emailVal)) {
+                setEmailError("Please use your work email address");
+                setSubmitting(false);
+                return;
+              }
               const result = await submitForm({
                 type: "contact",
                 full_name: String(fd.get("name") || ""),
-                email: String(fd.get("email") || ""),
+                email: emailVal,
                 metadata: {
                   inquiry_type: String(fd.get("inquiry") || ""),
                   message: String(fd.get("message") || ""),
@@ -392,6 +399,7 @@ function ContactForm() {
               setSubmitting(false);
               if (result.success) {
                 setSubmitted(true);
+                setEmailError(null);
                 (e.target as HTMLFormElement).reset();
               } else {
                 setFormError(result.error || "Something went wrong.");
@@ -413,15 +421,24 @@ function ContactForm() {
                 onFocus={() => setFocused("name")}
                 onBlur={() => setFocused(null)}
               />
-              <input
-                name="email"
-                type="email"
-                placeholder="Email Address"
-                required
-                style={focusStyle("email")}
-                onFocus={() => setFocused("email")}
-                onBlur={() => setFocused(null)}
-              />
+              <div>
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="Email Address"
+                  required
+                  style={focusStyle("email")}
+                  onFocus={() => setFocused("email")}
+                  onChange={() => setEmailError(null)}
+                  onBlur={(e) => {
+                    setFocused(null);
+                    if (e.currentTarget.value && !isWorkEmail(e.currentTarget.value)) {
+                      setEmailError("Please use your work email address");
+                    }
+                  }}
+                />
+                {emailError && <p style={{ color: "#ef4444", fontSize: 11, margin: "4px 0 0" }}>{emailError}</p>}
+              </div>
             </div>
 
             {/* Inquiry Type */}

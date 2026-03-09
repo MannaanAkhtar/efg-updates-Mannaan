@@ -15,8 +15,8 @@ import Link from "next/link";
 import { Footer } from "@/components/sections";
 import { NeuralConstellation, DotMatrixGrid } from "@/components/effects";
 import EventNavigation from "@/components/ui/EventNavigation";
-import { submitForm } from "@/lib/form-helpers";
-import type { FormType } from "@/lib/form-helpers";
+import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
+import type { FormType, CountryCode } from "@/lib/form-helpers";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 const C = "#01BBF5";
