@@ -27,6 +27,38 @@ const NOTIFICATION_EMAIL =
 
 const MAX_PAYLOAD_SIZE = 10 * 1024; // 10KB
 
+// Free email providers — require work email for all forms
+const FREE_EMAIL_DOMAINS = [
+  "gmail.com",
+  "yahoo.com",
+  "yahoo.co.uk",
+  "yahoo.co.in",
+  "hotmail.com",
+  "hotmail.co.uk",
+  "outlook.com",
+  "outlook.co.uk",
+  "live.com",
+  "live.co.uk",
+  "msn.com",
+  "aol.com",
+  "icloud.com",
+  "me.com",
+  "mac.com",
+  "protonmail.com",
+  "proton.me",
+  "zoho.com",
+  "mail.com",
+  "gmx.com",
+  "gmx.net",
+  "yandex.com",
+  "yandex.ru",
+  "rediffmail.com",
+  "tutanota.com",
+  "fastmail.com",
+  "hushmail.com",
+  "inbox.com",
+];
+
 // Disposable email domains to block
 const DISPOSABLE_DOMAINS = [
   "mailinator.com",
@@ -91,7 +123,9 @@ function isValidEmail(email: string): boolean {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!re.test(email)) return false;
   const domain = email.split("@")[1]?.toLowerCase();
-  return !DISPOSABLE_DOMAINS.includes(domain);
+  if (FREE_EMAIL_DOMAINS.includes(domain)) return false;
+  if (DISPOSABLE_DOMAINS.includes(domain)) return false;
+  return true;
 }
 
 function buildEmailHtml(data: {
@@ -208,10 +242,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 8. Email validation
+    // 8. Email validation (work email required, no free/disposable providers)
     if (!isValidEmail(email)) {
       return NextResponse.json(
-        { error: "Please provide a valid email address" },
+        { error: "Please use your work email address" },
         { status: 400 }
       );
     }
