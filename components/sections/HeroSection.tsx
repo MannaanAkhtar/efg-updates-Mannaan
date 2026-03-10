@@ -17,32 +17,32 @@ interface HeroSlide {
 
 const heroSlides: HeroSlide[] = [
   {
-    // Grand ballroom with chandeliers — VIPs + packed house. PRESTIGE.
-    image: `${CFK}/cyber21-04-178.jpg`,
+    // Empty venue architecture — stunning chandeliers, grand scale. VENUE.
+    image: `${CFK}/cyber21-04-4.jpg`,
     eyebrow: "Cyber First Kuwait · 21 April 2026 · Kuwait City",
     title: ["Where the Region's", "Decisions Are"],
     accent: "Made.",
     sub: "500+ CISOs, CDOs and Government Officials. One room. One day. Kuwait City.",
   },
   {
-    // Exhibition floor aerial — colorful booths, busy networking. ENERGY.
-    image: `${CFK}/cyber21-04-377.jpg`,
+    // Packed ballroom with audience — shows the crowd. SCALE.
+    image: `${CFK}/cyber21-04-178.jpg`,
     eyebrow: "200+ Speakers · 12 Cities · 6 Nations",
     title: ["Conversations That"],
     accent: "Move Industries.",
     sub: "Honest dialogue on what comes next — and who needs to be in the room when it arrives.",
   },
   {
-    // Wide audience with VIP front row — full room scale. SCALE.
-    image: `${CFK}/cyber21-04-254.jpg`,
+    // Exhibition floor aerial — colorful booths, networking. ENERGY.
+    image: `${CFK}/cyber21-04-377.jpg`,
     eyebrow: "Ministerial & Regulatory Participation · Global",
     title: ["Government and Industry.", "On The Same"],
     accent: "Stage.",
     sub: "The only summit series with active ministerial and regulatory voices in every session.",
   },
   {
-    // Audience from stage perspective — VIP front row visible. AUTHORITY.
-    image: `${CFK}/cyber21-04-412.jpg`,
+    // Panel discussion — thought leaders on stage. AUTHORITY.
+    image: `${CFK}/cyber21-04-615.jpg`,
     eyebrow: "5,000+ Delegates · 16 Editions · 99+ Sponsors",
     title: ["The World's Most", "Trusted Technology"],
     accent: "Summit Series.",
