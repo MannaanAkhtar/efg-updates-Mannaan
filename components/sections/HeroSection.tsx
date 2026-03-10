@@ -33,6 +33,14 @@ const heroSlides: HeroSlide[] = [
     accent: "Move Industries.",
     sub: "Honest dialogue on what comes next — and who needs to be in the room when it arrives.",
   },
+  {
+    // Cyber First Qatar — aerial view, panel on stage, chandeliers.
+    image: `${CFK}/cyber-first-qatar-aerial.jpg`,
+    eyebrow: "Ministerial & Regulatory Participation · Global",
+    title: ["Government and Industry.", "On The Same"],
+    accent: "Stage.",
+    sub: "The only summit series with active ministerial and regulatory voices in every session.",
+  },
 ];
 
 // Next event data for the countdown
