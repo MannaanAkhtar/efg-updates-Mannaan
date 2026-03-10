@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 220" fill="none">
+  <defs>
+    <linearGradient id="eg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14A882"/>
+      <stop offset="100%" stop-color="#0F735E"/>
+    </linearGradient>
+  </defs>
+  
+  <g transform="translate(110, 110)">
+    <!-- Outer fragmented arcs - data visualization style -->
+    <g stroke="#14A882" stroke-width="5" fill="none" stroke-linecap="round">
+      <!-- Top arc segments -->
+      <path d="M -70 -40 A 80 80 0 0 1 -55 -58"/>
+      <path d="M -42 -66 A 80 80 0 0 1 -20 -76"/>
+      <path d="M -8 -79 A 80 80 0 0 1 15 -78"/>
+      <path d="M 28 -74 A 80 80 0 0 1 50 -62"/>
+      <path d="M 60 -52 A 80 80 0 0 1 75 -35"/>
+      
+      <!-- Right side -->
+      <path d="M 80 -18 A 80 80 0 0 1 80 5"/>
+      <path d="M 79 20 A 80 80 0 0 1 70 42"/>
+    </g>
+    
+    <g stroke="#0F735E" stroke-width="5" fill="none" stroke-linecap="round">
+      <!-- Bottom right -->
+      <path d="M 58 55 A 80 80 0 0 1 38 68"/>
+      <path d="M 22 74 A 80 80 0 0 1 -5 78"/>
+      <path d="M -22 76 A 80 80 0 0 1 -48 65"/>
+      
+      <!-- Bottom left -->
+      <path d="M -60 52 A 80 80 0 0 1 -72 32"/>
+      <path d="M -78 15 A 80 80 0 0 1 -80 -10"/>
+      <path d="M -78 -28 A 80 80 0 0 1 -72 -38"/>
+    </g>
+    
+    <!-- Second ring - shorter segments -->
+    <g stroke="#14A882" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.8">
+      <path d="M -52 -30 A 60 60 0 0 1 -35 -48"/>
+      <path d="M -18 -56 A 60 60 0 0 1 15 -57"/>
+      <path d="M 32 -50 A 60 60 0 0 1 52 -30"/>
+      <path d="M 58 -10 A 60 60 0 0 1 56 20"/>
+    </g>
+    
+    <g stroke="#0F735E" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.8">
+      <path d="M 48 38 A 60 60 0 0 1 20 55"/>
+      <path d="M -5 58 A 60 60 0 0 1 -40 48"/>
+      <path d="M -52 32 A 60 60 0 0 1 -58 5"/>
+      <path d="M -58 -15 A 60 60 0 0 1 -52 -32"/>
+    </g>
+    
+    <!-- Inner ring - continuous with gaps -->
+    <g stroke="url(#eg1)" stroke-width="3" fill="none" stroke-linecap="round">
+      <path d="M -30 -22 A 38 38 0 0 1 22 -30"/>
+      <path d="M 32 -18 A 38 38 0 0 1 32 22"/>
+      <path d="M 22 32 A 38 38 0 0 1 -22 32"/>
+      <path d="M -32 18 A 38 38 0 0 1 -32 -15"/>
+    </g>
+    
+    <!-- Core - AI brain center -->
+    <circle cx="0" cy="0" r="24" fill="url(#eg1)"/>
+    <circle cx="0" cy="0" r="16" fill="#0A0A0A"/>
+    <circle cx="0" cy="0" r="10" fill="#14A882"/>
+    <circle cx="0" cy="0" r="5" fill="#0A0A0A"/>
+    
+    <!-- Core crosshairs -->
+    <g stroke="#14A882" stroke-width="1.5" opacity="0.4">
+      <line x1="-24" y1="0" x2="-35" y2="0"/>
+      <line x1="24" y1="0" x2="35" y2="0"/>
+      <line x1="0" y1="-24" x2="0" y2="-35"/>
+      <line x1="0" y1="24" x2="0" y2="35"/>
+    </g>
+    
+    <!-- Data nodes -->
+    <g fill="#14A882">
+      <circle cx="-62" cy="-48" r="5"/>
+      <circle cx="0" cy="-80" r="5"/>
+      <circle cx="65" cy="-42" r="5"/>
+      <circle cx="80" cy="12" r="4"/>
+      <circle cx="-80" cy="5" r="4"/>
+    </g>
+    <g fill="#0F735E">
+      <circle cx="62" cy="50" r="5"/>
+      <circle cx="0" cy="78" r="5"/>
+      <circle cx="-60" cy="48" r="5"/>
+      <circle cx="-78" cy="-20" r="4"/>
+      <circle cx="75" cy="-28" r="4"/>
+    </g>
+  </g>
+  
+  <!-- Typography -->
+  <g transform="translate(230, 68)">
+    <text x="0" y="0" font-family="system-ui, -apple-system, 'SF Pro Display', sans-serif" font-size="44" font-weight="800" fill="white" letter-spacing="-2">
+      DATA <tspan fill="#14A882">&amp;</tspan> AI
+    </text>
+    <text x="0" y="50" font-family="system-ui, -apple-system, 'SF Pro Display', sans-serif" font-size="44" font-weight="800" fill="url(#eg1)" letter-spacing="-2">
+      FIRST
+    </text>
+    
+    <!-- Accent line -->
+    <rect x="0" y="66" width="140" height="2" fill="#14A882" opacity="0.6"/>
+    
+    <text x="0" y="88" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#0F735E" letter-spacing="4">
+      SERIES
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+export { default as OpexHero } from "./OpexHero";
+export { default as OpexAboutSeries } from "./OpexAboutSeries";
+export { default as OpexSeriesJourney } from "./OpexSeriesJourney";
+export { default as OpexKeyThemes } from "./OpexKeyThemes";
+export { default as OpexFeaturedSpeakers } from "./OpexFeaturedSpeakers";
+export { default as OpexExperience } from "./OpexExperience";
+export { default as OpexWhoShouldAttend } from "./OpexWhoShouldAttend";
+export { default as OpexSponsors } from "./OpexSponsors";
+export { default as OpexGallery } from "./OpexGallery";
+export { default as OpexAwards } from "./OpexAwards";
+export { default as OpexUpcomingEditionCTA } from "./OpexUpcomingEditionCTA";
+export { default as OpexExploreOtherSeries } from "./OpexExploreOtherSeries";

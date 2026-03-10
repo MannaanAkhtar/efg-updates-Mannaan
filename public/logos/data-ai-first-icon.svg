@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14A882"/>
+      <stop offset="100%" stop-color="#0F735E"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Central AI core -->
+  <circle cx="24" cy="24" r="10" fill="url(#emeraldGrad)"/>
+  
+  <!-- Orbiting data nodes -->
+  <circle cx="8" cy="14" r="4" fill="#14A882"/>
+  <circle cx="40" cy="14" r="4" fill="#14A882"/>
+  <circle cx="8" cy="34" r="4" fill="#0F735E"/>
+  <circle cx="40" cy="34" r="4" fill="#0F735E"/>
+  <circle cx="24" cy="4" r="3" fill="#14A882"/>
+  <circle cx="24" cy="44" r="3" fill="#0F735E"/>
+  
+  <!-- Connection lines -->
+  <line x1="24" y1="14" x2="24" y2="7" stroke="#14A882" stroke-width="1.5" opacity="0.5"/>
+  <line x1="24" y1="34" x2="24" y2="41" stroke="#0F735E" stroke-width="1.5" opacity="0.5"/>
+  <line x1="15" y1="18" x2="11" y2="16" stroke="#14A882" stroke-width="1.5" opacity="0.5"/>
+  <line x1="33" y1="18" x2="37" y2="16" stroke="#14A882" stroke-width="1.5" opacity="0.5"/>
+  <line x1="15" y1="30" x2="11" y2="32" stroke="#0F735E" stroke-width="1.5" opacity="0.5"/>
+  <line x1="33" y1="30" x2="37" y2="32" stroke="#0F735E" stroke-width="1.5" opacity="0.5"/>
+  
+  <!-- Inner AI diamond spark -->
+  <path d="M20 20 L24 16 L28 20 L24 24 Z" fill="white" opacity="0.95"/>
+  <path d="M20 28 L24 24 L28 28 L24 32 Z" fill="white" opacity="0.7"/>
+</svg>

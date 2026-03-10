@@ -1,0 +1,227 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EFG BRAND DNA — THE COLOR HIERARCHY
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* The Blacks — A family of darkness, each with purpose */
+  --black: #0A0A0A;           /* The void, the deepest canvas, the base */
+  --black-light: #111111;     /* One step up, for alternating sections */
+  --black-card: #141414;      /* Surfaces you can interact with */
+  --black-card-hover: #1A1A1A; /* Surfaces responding to attention */
+
+  /* The Orange — The heartbeat of the brand */
+  --orange: #E8651A;          /* The core signature, from the EFG logo */
+  --orange-bright: #FF7A2E;   /* The excited state, for hover/emphasis */
+  --orange-glow: rgba(232, 101, 26, 0.35); /* The aura, alive shadows */
+
+  /* The Whites — A spectrum of voice */
+  --white: #FFFFFF;           /* Full voice, headlines and primary text */
+  --white-dim: #A0A0A0;       /* Conversational, body text */
+  --white-muted: #707070;     /* A whisper, metadata and secondary */
+
+  /* Borders — Barely there, felt more than seen */
+  --gray-border: rgba(255, 255, 255, 0.06);       /* Default edge */
+  --gray-border-hover: rgba(255, 255, 255, 0.12); /* Edge responding */
+
+  /* Event Series Colors — matched to each series page */
+  --cyber-first: #01BBF5;     /* Cyan — Cyber First brand */
+  --ot-first: #D34B9A;        /* Pink — OT Security First brand */
+  --digital-ai: #0F735E;      /* Emerald — Data & AI First brand */
+  --cloud-first: #7C3AED;     /* Violet — Opex First brand */
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TAILWIND THEME INTEGRATION
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@theme inline {
+  --color-black: var(--black);
+  --color-black-light: var(--black-light);
+  --color-black-card: var(--black-card);
+  --color-black-card-hover: var(--black-card-hover);
+
+  --color-orange: var(--orange);
+  --color-orange-bright: var(--orange-bright);
+  --color-orange-glow: var(--orange-glow);
+
+  --color-white: var(--white);
+  --color-white-dim: var(--white-dim);
+  --color-white-muted: var(--white-muted);
+
+  --color-gray-border: var(--gray-border);
+  --color-gray-border-hover: var(--gray-border-hover);
+
+  --color-cyber-first: var(--cyber-first);
+  --color-ot-first: var(--ot-first);
+  --color-digital-ai: var(--digital-ai);
+  --color-cloud-first: var(--cloud-first);
+  --color-data-first: var(--data-first);
+
+  --font-display: var(--font-display);
+  --font-outfit: var(--font-outfit);
+  --font-dm-sans: var(--font-dm-sans);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GLOBAL FOUNDATION
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Mesh gradient spotlight overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(232, 101, 26, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(124, 58, 237, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 30% at 0% 100%, rgba(1, 187, 245, 0.03) 0%, transparent 50%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TYPOGRAPHY UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Headlines — The voice that commands the room */
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+/* Body — The voice that explains */
+.font-body {
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* Quiet voice — For intimate moments */
+.font-quiet {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 300;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SELECTION STYLING
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+::selection {
+  background: var(--orange);
+  color: var(--white);
+}
+
+::-moz-selection {
+  background: var(--orange);
+  color: var(--white);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLLBAR STYLING (Webkit)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--black-card-hover);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLL OFFSET — compensate for fixed nav (~80px)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+html {
+  scroll-padding-top: 80px;
+}
+
+section[id],
+div[id] {
+  scroll-margin-top: 80px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FOCUS STATES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LENIS SMOOTH SCROLL
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Hide scrollbar on mobile event slider */
+.events-mobile-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Mobile: reduce excess section vertical padding ── */
+@media (max-width: 640px) {
+  section {
+    padding-top: clamp(48px, 10vw, 72px) !important;
+    padding-bottom: clamp(40px, 8vw, 60px) !important;
+  }
+  /* Hero keeps its own padding (handled inline) */
+  .hero-no-pad-override {
+    padding: 0 !important;
+  }
+}

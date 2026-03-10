@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" fill="none">
+  <!-- Brain/Neural Network Icon -->
+  <g transform="translate(5, 5)">
+    <!-- Outer brain shape -->
+    <ellipse cx="25" cy="25" rx="20" ry="18" fill="none" stroke="white" stroke-width="1.5"/>
+    
+    <!-- Central AI core -->
+    <circle cx="25" cy="25" r="6" fill="none" stroke="white" stroke-width="1.5"/>
+    <circle cx="25" cy="25" r="2.5" fill="white"/>
+    
+    <!-- Neural nodes - outer ring -->
+    <circle cx="10" cy="18" r="2.5" fill="white"/>
+    <circle cx="40" cy="18" r="2.5" fill="white"/>
+    <circle cx="10" cy="32" r="2.5" fill="white"/>
+    <circle cx="40" cy="32" r="2.5" fill="white"/>
+    <circle cx="25" cy="8" r="2.5" fill="white"/>
+    <circle cx="25" cy="42" r="2.5" fill="white"/>
+    
+    <!-- Neural connections -->
+    <line x1="12" y1="19" x2="19" y2="23" stroke="white" stroke-width="1" opacity="0.6"/>
+    <line x1="38" y1="19" x2="31" y2="23" stroke="white" stroke-width="1" opacity="0.6"/>
+    <line x1="12" y1="31" x2="19" y2="27" stroke="white" stroke-width="1" opacity="0.6"/>
+    <line x1="38" y1="31" x2="31" y2="27" stroke="white" stroke-width="1" opacity="0.6"/>
+    <line x1="25" y1="10" x2="25" y2="19" stroke="white" stroke-width="1" opacity="0.6"/>
+    <line x1="25" y1="40" x2="25" y2="31" stroke="white" stroke-width="1" opacity="0.6"/>
+    
+    <!-- Data flow lines -->
+    <path d="M8 25 Q 4 25, 4 20" stroke="white" stroke-width="1" fill="none" opacity="0.4"/>
+    <path d="M42 25 Q 46 25, 46 30" stroke="white" stroke-width="1" fill="none" opacity="0.4"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="60" y="25" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="white" letter-spacing="-0.3">
+    DATA &amp; AI FIRST
+  </text>
+  <text x="60" y="42" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="11" font-weight="500" fill="white" opacity="0.7" letter-spacing="1">
+    KUWAIT
+  </text>
+</svg>

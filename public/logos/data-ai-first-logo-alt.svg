@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 50" fill="none">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14A882"/>
+      <stop offset="100%" stop-color="#0F735E"/>
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0F735E"/>
+      <stop offset="100%" stop-color="#14A882"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Abstract D+A icon (Data + AI merged) -->
+  <g transform="translate(4, 4)">
+    <!-- Data bars (left side - representing data) -->
+    <rect x="0" y="6" width="4" height="30" rx="2" fill="#0F735E"/>
+    <rect x="7" y="12" width="4" height="24" rx="2" fill="url(#grad1)"/>
+    <rect x="14" y="2" width="4" height="34" rx="2" fill="#14A882"/>
+    
+    <!-- AI brain/circuit (right side) -->
+    <circle cx="32" cy="21" r="14" stroke="url(#grad1)" stroke-width="2.5" fill="none"/>
+    <circle cx="32" cy="21" r="8" fill="url(#grad1)"/>
+    
+    <!-- Neural connections inside -->
+    <circle cx="32" cy="21" r="3" fill="white" opacity="0.9"/>
+    <circle cx="26" cy="17" r="1.5" fill="white" opacity="0.6"/>
+    <circle cx="38" cy="17" r="1.5" fill="white" opacity="0.6"/>
+    <circle cx="26" cy="25" r="1.5" fill="white" opacity="0.6"/>
+    <circle cx="38" cy="25" r="1.5" fill="white" opacity="0.6"/>
+    
+    <!-- Connection lines -->
+    <line x1="29" y1="19" x2="27" y2="17.5" stroke="white" stroke-width="0.8" opacity="0.5"/>
+    <line x1="35" y1="19" x2="37" y2="17.5" stroke="white" stroke-width="0.8" opacity="0.5"/>
+    <line x1="29" y1="23" x2="27" y2="24.5" stroke="white" stroke-width="0.8" opacity="0.5"/>
+    <line x1="35" y1="23" x2="37" y2="24.5" stroke="white" stroke-width="0.8" opacity="0.5"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="58" y="23" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="15" font-weight="800" fill="white" letter-spacing="-0.3">
+    Data <tspan fill="#14A882">&amp;</tspan> AI
+  </text>
+  <text x="58" y="40" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="15" font-weight="800" letter-spacing="-0.3">
+    <tspan fill="url(#grad1)">First</tspan>
+  </text>
+  
+  <!-- Series indicator -->
+  <text x="118" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="600" fill="#0F735E" letter-spacing="1.5" opacity="0.8">
+    SERIES
+  </text>
+</svg>

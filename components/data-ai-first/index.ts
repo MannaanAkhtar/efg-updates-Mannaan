@@ -1,0 +1,14 @@
+export { default as DAHero } from "./DAHero";
+export { default as DAEditionsMap } from "./DAEditionsMap";
+export { default as DAThesis } from "./DAThesis";
+export { default as DADataWall } from "./DADataWall";
+export { default as DAVideoHighlights } from "./DAVideoHighlights";
+export { default as DATopics } from "./DATopics";
+export { default as DAOutcomesStrip } from "./DAOutcomesStrip";
+export { default as DAFormat } from "./DAFormat";
+export { default as DAAudience } from "./DAAudience";
+export { default as DASpeakers } from "./DASpeakers";
+export { default as DASponsorsMarquee } from "./DASponsorsMarquee";
+export { default as DAFAQ } from "./DAFAQ";
+export { default as DAUpcomingEditionCTA } from "./DAUpcomingEditionCTA";
+export { default as DAExploreOtherSeries } from "./DAExploreOtherSeries";

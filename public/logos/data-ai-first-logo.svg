@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" fill="none">
+  <defs>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14A882"/>
+      <stop offset="100%" stop-color="#0F735E"/>
+    </linearGradient>
+    <linearGradient id="nodeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#14A882"/>
+      <stop offset="50%" stop-color="#0F735E"/>
+      <stop offset="100%" stop-color="#14A882"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Neural Network Icon -->
+  <g transform="translate(5, 5)">
+    <!-- Central brain/AI node -->
+    <circle cx="20" cy="20" r="8" fill="url(#emeraldGrad)"/>
+    
+    <!-- Orbiting data nodes -->
+    <circle cx="6" cy="10" r="3" fill="#14A882"/>
+    <circle cx="34" cy="10" r="3" fill="#14A882"/>
+    <circle cx="6" cy="30" r="3" fill="#0F735E"/>
+    <circle cx="34" cy="30" r="3" fill="#0F735E"/>
+    <circle cx="20" cy="2" r="2.5" fill="#14A882"/>
+    <circle cx="20" cy="38" r="2.5" fill="#0F735E"/>
+    
+    <!-- Connection lines -->
+    <line x1="20" y1="12" x2="20" y2="4.5" stroke="#14A882" stroke-width="1" opacity="0.6"/>
+    <line x1="20" y1="28" x2="20" y2="35.5" stroke="#0F735E" stroke-width="1" opacity="0.6"/>
+    <line x1="12" y1="16" x2="8" y2="12" stroke="#14A882" stroke-width="1" opacity="0.6"/>
+    <line x1="28" y1="16" x2="32" y2="12" stroke="#14A882" stroke-width="1" opacity="0.6"/>
+    <line x1="12" y1="24" x2="8" y2="28" stroke="#0F735E" stroke-width="1" opacity="0.6"/>
+    <line x1="28" y1="24" x2="32" y2="28" stroke="#0F735E" stroke-width="1" opacity="0.6"/>
+    
+    <!-- Inner AI spark -->
+    <path d="M17 17 L20 14 L23 17 L20 20 Z" fill="white" opacity="0.9"/>
+    <path d="M17 23 L20 20 L23 23 L20 26 Z" fill="white" opacity="0.7"/>
+  </g>
+  
+  <!-- Text: Data & AI First -->
+  <text x="52" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="white" letter-spacing="-0.5">
+    Data <tspan fill="#14A882">&amp;</tspan> AI
+  </text>
+  <text x="52" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="url(#emeraldGrad)" letter-spacing="-0.5">
+    First
+  </text>
+</svg>

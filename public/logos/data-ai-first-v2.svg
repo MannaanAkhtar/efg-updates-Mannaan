@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" fill="none">
+  <defs>
+    <linearGradient id="emerald1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14A882"/>
+      <stop offset="100%" stop-color="#0F735E"/>
+    </linearGradient>
+    <linearGradient id="emerald2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0F735E"/>
+      <stop offset="100%" stop-color="#14A882"/>
+    </linearGradient>
+  </defs>
+  
+  <g transform="translate(100, 100)">
+    <!-- Outer ring segments - data streams -->
+    <g stroke="#14A882" stroke-width="3" fill="none" stroke-linecap="round">
+      <!-- Top arc segments -->
+      <path d="M -60 -45 A 75 75 0 0 1 -30 -68" opacity="0.9"/>
+      <path d="M -20 -72 A 75 75 0 0 1 20 -72" opacity="1"/>
+      <path d="M 30 -68 A 75 75 0 0 1 60 -45" opacity="0.9"/>
+      
+      <!-- Right arc segments -->
+      <path d="M 68 -30 A 75 75 0 0 1 75 0" opacity="0.8"/>
+      <path d="M 75 10 A 75 75 0 0 1 68 40" opacity="0.7"/>
+      
+      <!-- Bottom arc segments -->
+      <path d="M 55 55 A 75 75 0 0 1 25 70" opacity="0.6"/>
+      <path d="M 10 73 A 75 75 0 0 1 -25 70" opacity="0.5"/>
+      <path d="M -40 65 A 75 75 0 0 1 -60 50" opacity="0.6"/>
+      
+      <!-- Left arc segments -->
+      <path d="M -70 30 A 75 75 0 0 1 -75 0" opacity="0.7"/>
+      <path d="M -75 -15 A 75 75 0 0 1 -68 -35" opacity="0.8"/>
+    </g>
+    
+    <!-- Middle ring - circuit paths -->
+    <g stroke="#0F735E" stroke-width="2.5" fill="none" stroke-linecap="round">
+      <path d="M -45 -35 A 55 55 0 0 1 0 -55" opacity="0.9"/>
+      <path d="M 10 -54 A 55 55 0 0 1 50 -25" opacity="0.85"/>
+      <path d="M 54 -10 A 55 55 0 0 1 50 30" opacity="0.75"/>
+      <path d="M 40 45 A 55 55 0 0 1 -10 55" opacity="0.65"/>
+      <path d="M -25 52 A 55 55 0 0 1 -52 20" opacity="0.7"/>
+      <path d="M -55 5 A 55 55 0 0 1 -50 -25" opacity="0.8"/>
+    </g>
+    
+    <!-- Inner ring - data points -->
+    <g stroke="url(#emerald1)" stroke-width="2" fill="none" stroke-linecap="round">
+      <path d="M -30 -20 A 35 35 0 0 1 10 -33"/>
+      <path d="M 20 -30 A 35 35 0 0 1 35 0"/>
+      <path d="M 33 15 A 35 35 0 0 1 10 35"/>
+      <path d="M -5 35 A 35 35 0 0 1 -32 10"/>
+      <path d="M -35 -5 A 35 35 0 0 1 -25 -25"/>
+    </g>
+    
+    <!-- Core - AI brain -->
+    <circle cx="0" cy="0" r="18" fill="url(#emerald1)"/>
+    <circle cx="0" cy="0" r="10" fill="#0A0A0A"/>
+    <circle cx="0" cy="0" r="6" fill="#14A882"/>
+    
+    <!-- Neural connections from core -->
+    <g stroke="#14A882" stroke-width="1.5" opacity="0.6">
+      <line x1="6" y1="0" x2="18" y2="0"/>
+      <line x1="-6" y1="0" x2="-18" y2="0"/>
+      <line x1="0" y1="-6" x2="0" y2="-18"/>
+      <line x1="0" y1="6" x2="0" y2="18"/>
+      <line x1="4" y1="-4" x2="13" y2="-13"/>
+      <line x1="-4" y1="-4" x2="-13" y2="-13"/>
+      <line x1="4" y1="4" x2="13" y2="13"/>
+      <line x1="-4" y1="4" x2="-13" y2="13"/>
+    </g>
+    
+    <!-- Data nodes on rings -->
+    <g fill="#14A882">
+      <circle cx="-55" cy="-40" r="3"/>
+      <circle cx="0" cy="-72" r="3"/>
+      <circle cx="55" cy="-40" r="3"/>
+      <circle cx="72" cy="15" r="2.5"/>
+      <circle cx="45" cy="60" r="2.5"/>
+      <circle cx="-45" cy="58" r="2.5"/>
+      <circle cx="-72" cy="10" r="2.5"/>
+    </g>
+    
+    <!-- Accent nodes -->
+    <g fill="#0F735E">
+      <circle cx="-35" cy="-48" r="2"/>
+      <circle cx="35" cy="-48" r="2"/>
+      <circle cx="65" cy="-15" r="2"/>
+      <circle cx="58" cy="40" r="2"/>
+      <circle cx="0" cy="70" r="2"/>
+      <circle cx="-58" cy="38" r="2"/>
+      <circle cx="-65" cy="-20" r="2"/>
+    </g>
+  </g>
+  
+  <!-- Typography -->
+  <g transform="translate(200, 85)">
+    <text x="0" y="0" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="28" font-weight="800" fill="white" letter-spacing="-1">
+      DATA <tspan fill="#14A882">&amp;</tspan> AI
+    </text>
+    <text x="0" y="32" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="28" font-weight="800" fill="url(#emerald1)" letter-spacing="-1">
+      FIRST
+    </text>
+    <text x="0" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#0F735E" letter-spacing="3" opacity="0.8">
+      KUWAIT 2026
+    </text>
+  </g>
+</svg>
