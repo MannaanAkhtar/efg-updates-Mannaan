@@ -145,6 +145,50 @@ export interface Database {
           created_at?: string;
         };
       };
+      form_submissions: {
+        Row: {
+          id: string;
+          created_at: string;
+          type: string;
+          full_name: string;
+          email: string;
+          company: string;
+          job_title: string;
+          phone: string | null;
+          metadata: Json;
+          source_url: string | null;
+          source_category: string | null;
+          event_name: string | null;
+        };
+        Insert: {
+          id?: string;
+          created_at?: string;
+          type: string;
+          full_name: string;
+          email: string;
+          company?: string;
+          job_title?: string;
+          phone?: string | null;
+          metadata?: Json;
+          source_url?: string | null;
+          source_category?: string | null;
+          event_name?: string | null;
+        };
+        Update: {
+          id?: string;
+          created_at?: string;
+          type?: string;
+          full_name?: string;
+          email?: string;
+          company?: string;
+          job_title?: string;
+          phone?: string | null;
+          metadata?: Json;
+          source_url?: string | null;
+          source_category?: string | null;
+          event_name?: string | null;
+        };
+      };
     };
     Views: {};
     Functions: {};
@@ -175,6 +219,9 @@ export type SpeakerWithEvents = Speaker & {
 export type SponsorWithEvents = Sponsor & {
   sponsor_events: SponsorEvent[];
 };
+
+export type FormSubmission = Database["public"]["Tables"]["form_submissions"]["Row"];
+export type FormSubmissionInsert = Database["public"]["Tables"]["form_submissions"]["Insert"];
 
 // Backwards-compatible aliases used by other components
 export type SpeakerWithSeries = SpeakerWithEvents;

@@ -62,7 +62,7 @@ const topics = [
 const stats = [
   { value: "$27B", label: "Saudi digital economy investment" },
   { value: "AED 300B", label: "UAE industrial GDP target by 2031" },
-  { value: "$3.3T", label: "GCC investment pipeline" },
+  { value: "$3.3T", label: "Investment pipeline" },
   { value: "19%", label: "Digital economy's target GDP contribution" },
 ];
 

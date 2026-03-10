@@ -2,53 +2,51 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-
-const CYBER_BLUE = "#01BBF5";
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SHADOWS, SPACING } from "@/lib/cyber-design-tokens";
 
 // Outcome cards — what attendees walk away with
 const outcomes = [
   {
     id: "intelligence",
     number: "01",
-    title: "Threat Intelligence You Can Act On",
+    title: "Actionable Threat Intelligence",
     description:
-      "Not theory — real threat briefings from practitioners defending GCC networks right now. Walk out with a playbook, not just notes.",
+      "Real threat briefings from practitioners defending enterprise networks right now. Leave with a playbook, not just notes.",
   },
   {
     id: "peer-access",
     number: "02",
     title: "Direct Access to Your Peers",
     description:
-      "Structured roundtables and closed-door sessions with CISOs who face the same regulatory, cultural, and operational challenges you do.",
+      "Structured roundtables and closed-door sessions with CISOs facing the same regulatory and operational challenges you do.",
   },
   {
     id: "vendor-clarity",
     number: "03",
     title: "Vendor Clarity, Not Noise",
     description:
-      "Curated solution showcases from vetted partners. No expo-floor chaos — just focused demonstrations matched to real GCC use cases.",
+      "Curated solution showcases from vetted partners. No expo-floor chaos — just focused demos matched to real enterprise use cases.",
   },
   {
     id: "regulatory",
     number: "04",
     title: "Regulatory Foresight",
     description:
-      "Hear directly from national cyber authorities. Understand what's coming before it's mandated — from UAE's NESA to Saudi's NCA and beyond.",
+      "Hear directly from national cyber authorities. Know what's coming before it's mandated — from NESA to NCA and beyond.",
   },
   {
     id: "partnerships",
     number: "05",
-    title: "Partnerships That Last",
+    title: "Partnerships That Compound",
     description:
-      "Every edition is a reunion. The relationships built at Cyber First compound over years, creating a regional security network that works.",
+      "Every edition is a reunion. The relationships built at Cyber First create a global security network that works.",
   },
   {
     id: "strategy",
     number: "06",
-    title: "Board-Ready Strategy",
+    title: "Board-Ready Frameworks",
     description:
-      "Sessions designed for leaders who report to boards. Take back frameworks, metrics, and narratives that translate security into business language.",
+      "Sessions designed for leaders who report to boards. Take back metrics and narratives that translate security into business language.",
   },
 ];
 
@@ -60,51 +58,45 @@ export default function AboutSeries() {
     <section
       ref={sectionRef}
       style={{
-        background: "var(--black)",
-        padding: "clamp(48px, 6vw, 80px) 0",
+        background: COLORS.bgDeep,
+        padding: `${SPACING.sectionPadding} 0`,
       }}
     >
       <div
         style={{
-          maxWidth: 1320,
+          maxWidth: SPACING.maxWidth,
           margin: "0 auto",
-          padding: "0 clamp(20px, 4vw, 60px)",
+          padding: `0 ${SPACING.containerPadding}`,
         }}
       >
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, ease: EASE }}
+          transition={{ duration: 0.7, ease: ANIMATION.ease }}
           style={{ textAlign: "center", marginBottom: 56 }}
         >
           {/* Label */}
           <div className="flex items-center justify-center gap-3">
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
             <span
               style={{
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "2.5px",
-                textTransform: "uppercase",
-                color: CYBER_BLUE,
-                fontFamily: "var(--font-outfit)",
+                ...TYPOGRAPHY.sectionLabel,
+                color: COLORS.cyan,
+                fontFamily: TYPOGRAPHY.fontBody,
               }}
             >
               Outcomes
             </span>
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
           </div>
 
           {/* Title */}
           <h2
             style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(30px, 3.5vw, 48px)",
-              letterSpacing: "-1.5px",
-              color: "var(--white)",
-              lineHeight: 1.1,
+              fontFamily: TYPOGRAPHY.fontDisplay,
+              ...TYPOGRAPHY.sectionTitle,
+              color: COLORS.textPrimary,
               margin: "16px 0 0",
             }}
           >
@@ -113,13 +105,11 @@ export default function AboutSeries() {
 
           <p
             style={{
-              fontFamily: "var(--font-outfit)",
-              fontWeight: 300,
-              fontSize: 16,
-              color: "#707070",
+              fontFamily: TYPOGRAPHY.fontBody,
+              ...TYPOGRAPHY.bodyLarge,
+              color: COLORS.textTertiary,
               maxWidth: 580,
               margin: "16px auto 0",
-              lineHeight: 1.7,
             }}
           >
             Every element of Cyber First is designed for one thing — giving
@@ -134,7 +124,7 @@ export default function AboutSeries() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 16,
+            gap: SPACING.gridGapDefault,
           }}
         >
           {outcomes.map((outcome, index) => (
@@ -144,8 +134,8 @@ export default function AboutSeries() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
               transition={{
                 duration: 0.6,
-                delay: 0.15 + index * 0.07,
-                ease: EASE,
+                delay: 0.15 + index * ANIMATION.staggerDefault,
+                ease: ANIMATION.ease,
               }}
             >
               <OutcomeCard outcome={outcome} />
@@ -185,12 +175,13 @@ function OutcomeCard({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        padding: "32px 28px",
-        background: hovered ? "#141414" : "#111111",
-        border: `1px solid ${hovered ? "rgba(1, 187, 245, 0.1)" : "rgba(255, 255, 255, 0.04)"}`,
-        borderRadius: 16,
+        padding: SPACING.cardPadding,
+        background: hovered ? COLORS.bgCardHover : COLORS.bgCard,
+        border: `1px solid ${hovered ? COLORS.borderAccent : COLORS.borderSubtle}`,
+        borderRadius: RADIUS.lg,
         transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
         transform: hovered ? "translateY(-2px)" : "translateY(0)",
+        boxShadow: hovered ? SHADOWS.cardHover : "none",
         cursor: "default",
         height: "100%",
       }}
@@ -198,10 +189,10 @@ function OutcomeCard({
       {/* Number */}
       <span
         style={{
-          fontFamily: "var(--font-display)",
+          fontFamily: TYPOGRAPHY.fontDisplay,
           fontWeight: 800,
           fontSize: 13,
-          color: hovered ? CYBER_BLUE : "rgba(1, 187, 245, 0.35)",
+          color: hovered ? COLORS.cyan : COLORS.borderAccentHover,
           transition: "color 0.3s",
           letterSpacing: "1px",
         }}
@@ -212,12 +203,9 @@ function OutcomeCard({
       {/* Title */}
       <h3
         style={{
-          fontFamily: "var(--font-display)",
-          fontWeight: 700,
-          fontSize: 18,
-          color: "var(--white)",
-          letterSpacing: "-0.3px",
-          lineHeight: 1.3,
+          fontFamily: TYPOGRAPHY.fontDisplay,
+          ...TYPOGRAPHY.cardTitle,
+          color: COLORS.textPrimary,
           margin: "14px 0 0",
         }}
       >
@@ -227,11 +215,9 @@ function OutcomeCard({
       {/* Description */}
       <p
         style={{
-          fontFamily: "var(--font-outfit)",
-          fontWeight: 300,
-          fontSize: 14,
-          color: "#707070",
-          lineHeight: 1.7,
+          fontFamily: TYPOGRAPHY.fontBody,
+          ...TYPOGRAPHY.bodyDefault,
+          color: COLORS.textTertiary,
           margin: "10px 0 0",
         }}
       >

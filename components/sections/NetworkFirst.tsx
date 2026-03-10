@@ -122,7 +122,7 @@ export default function NetworkFirst() {
           {/* Photo */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={`${S3}/events/Cyber%20First%20Kuwait%202025/filemail_photos/cyber21-04-245.jpg`}
+            src={`${S3}/networkfirst/boardrooms/boardroom-14.jpg`}
             alt="NetworkFirst boardroom attendees"
             style={{
               width: "100%",
@@ -193,7 +193,7 @@ export default function NetworkFirst() {
                 lineHeight: 1.3,
               }}
             >
-              Closed-door sessions for the GCC&apos;s most senior technology leaders
+              Closed-door sessions for the most senior technology leaders
             </p>
           </div>
         </motion.div>
@@ -282,6 +282,7 @@ export default function NetworkFirst() {
             initial={{ opacity: 0, y: 16 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: EASE, delay: 0.42 }}
+            className="nf-pillars"
             style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 40 }}
           >
             {pillars.map((p, i) => (
@@ -290,9 +291,11 @@ export default function NetworkFirst() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.5, ease: EASE, delay: 0.45 + i * 0.08 }}
+                className="nf-pillar-item"
                 style={{ display: "flex", gap: 14, alignItems: "flex-start" }}
               >
                 <div
+                  className="nf-pillar-icon"
                   style={{
                     width: 32,
                     height: 32,
@@ -309,8 +312,9 @@ export default function NetworkFirst() {
                 >
                   {p.icon}
                 </div>
-                <div>
+                <div style={{ flex: 1, minWidth: 0 }}>
                   <p
+                    className="nf-pillar-title"
                     style={{
                       fontFamily: "var(--font-display)",
                       fontSize: 14,
@@ -322,6 +326,7 @@ export default function NetworkFirst() {
                     {p.title}
                   </p>
                   <p
+                    className="nf-pillar-body"
                     style={{
                       fontFamily: "var(--font-outfit)",
                       fontSize: 13,
@@ -434,21 +439,87 @@ export default function NetworkFirst() {
 
       {/* Mobile responsive */}
       <style jsx global>{`
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
           .nf-grid {
             grid-template-columns: 1fr !important;
+            gap: 48px !important;
+          }
+          .nf-photo {
+            order: -1 !important;
+            aspect-ratio: 4 / 3 !important;
+            max-height: 320px !important;
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .nf-grid {
             gap: 40px !important;
             padding-top: 60px !important;
             padding-bottom: 60px !important;
           }
           .nf-photo {
-            aspect-ratio: 16 / 9 !important;
-            max-height: 260px !important;
+            aspect-ratio: 16 / 10 !important;
+            max-height: 280px !important;
+            border-radius: 16px !important;
           }
           .nf-cta-row {
             flex-direction: column !important;
-            align-items: flex-start !important;
-            gap: 10px !important;
+            align-items: stretch !important;
+            gap: 12px !important;
+          }
+          .nf-cta-row a {
+            text-align: center !important;
+            justify-content: center !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .nf-grid {
+            padding-left: 16px !important;
+            padding-right: 16px !important;
+            padding-top: 48px !important;
+            padding-bottom: 48px !important;
+          }
+          .nf-photo {
+            aspect-ratio: 16 / 9 !important;
+            max-height: 220px !important;
+            border-radius: 12px !important;
+          }
+          .nf-photo > div:last-child {
+            bottom: 16px !important;
+            left: 16px !important;
+            right: 16px !important;
+          }
+          .nf-photo > div:last-child p:first-child {
+            font-size: 10px !important;
+          }
+          .nf-photo > div:last-child p:last-child {
+            font-size: 14px !important;
+          }
+          /* Pillar cards */
+          .nf-pillars {
+            gap: 16px !important;
+          }
+          .nf-pillar-item {
+            gap: 12px !important;
+          }
+          .nf-pillar-icon {
+            width: 28px !important;
+            height: 28px !important;
+          }
+          .nf-pillar-title {
+            font-size: 13px !important;
+          }
+          .nf-pillar-body {
+            font-size: 12px !important;
+            line-height: 1.5 !important;
+          }
+        }
+        
+        /* Titles wrap better on mobile */
+        @media (max-width: 640px) {
+          .nf-grid h2 {
+            font-size: clamp(28px, 8vw, 36px) !important;
           }
         }
       `}</style>

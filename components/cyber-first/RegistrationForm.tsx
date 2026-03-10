@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { submitForm, COUNTRY_CODES, validatePhone, type CountryCode } from "@/lib/form-helpers";
 
 const CYBER_BLUE = "#01BBF5";
 
@@ -32,10 +33,33 @@ export default function RegistrationForm() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState<CountryCode>(COUNTRY_CODES[0]); // UAE
+  const [phoneError, setPhoneError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Registration submitted:", formData);
-    setIsSubmitted(true);
+    setIsLoading(true);
+
+    // Validate phone
+    const phoneErr = validatePhone(formData.phone || "", selectedCountry);
+    if (phoneErr) {
+      setPhoneError(phoneErr);
+      setIsLoading(false);
+      return;
+    }
+
+    const result = await submitForm({
+      type: "attend",
+      full_name: `${formData.firstName} ${formData.lastName}`.trim(),
+      email: formData.email,
+      company: formData.organization,
+      job_title: formData.jobTitle,
+      phone: `${selectedCountry.code} ${formData.phone}`,
+      event_name: "Cyber First Kuwait 2026",
+    });
+    setIsLoading(false);
+    if (result.success) setIsSubmitted(true);
   };
 
   return (
@@ -190,19 +214,58 @@ export default function RegistrationForm() {
                   />
                 </div>
 
-                {/* Row 4 */}
+                {/* Row 4 — Phone with country code */}
                 <div style={{ marginBottom: 20 }}>
-                  <FormInput
-                    name="phone"
-                    type="tel"
-                    placeholder="Phone Number"
-                    value={formData.phone}
-                    onChange={handleChange}
-                  />
+                  <div style={{ display: "flex", gap: 8 }}>
+                    <select
+                      value={`${selectedCountry.code}|${selectedCountry.country}`}
+                      onChange={(e) => {
+                        const [code, country] = e.target.value.split("|");
+                        const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country);
+                        if (c) { setSelectedCountry(c); setPhoneError(null); }
+                      }}
+                      style={{
+                        width: 110,
+                        flexShrink: 0,
+                        padding: "14px 10px",
+                        background: "rgba(255, 255, 255, 0.03)",
+                        border: "1px solid rgba(255, 255, 255, 0.08)",
+                        borderRadius: 10,
+                        color: "white",
+                        fontFamily: "var(--font-outfit)",
+                        fontSize: 14,
+                        fontWeight: 400,
+                        outline: "none",
+                        appearance: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {COUNTRY_CODES.map((cc) => (
+                        <option
+                          key={`${cc.code}-${cc.country}`}
+                          value={`${cc.code}|${cc.country}`}
+                          style={{ color: "#222", background: "#fff" }}
+                        >
+                          {cc.country} {cc.code}
+                        </option>
+                      ))}
+                    </select>
+                    <FormInput
+                      name="phone"
+                      type="tel"
+                      placeholder={selectedCountry.placeholder}
+                      value={formData.phone}
+                      onChange={(e) => { handleChange(e); setPhoneError(null); }}
+                      maxLength={selectedCountry.length}
+                    />
+                  </div>
+                  {phoneError && (
+                    <p style={{ color: "#ef4444", fontSize: 11, margin: "4px 0 0" }}>{phoneError}</p>
+                  )}
                 </div>
 
                 {/* Submit Button */}
-                <SubmitButton />
+                <SubmitButton loading={isLoading} />
 
                 {/* Privacy Note */}
                 <p
@@ -313,6 +376,7 @@ function FormInput({
   value,
   onChange,
   required,
+  maxLength,
 }: {
   name: string;
   type?: string;
@@ -320,6 +384,7 @@ function FormInput({
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
+  maxLength?: number;
 }) {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -331,6 +396,7 @@ function FormInput({
       value={value}
       onChange={onChange}
       required={required}
+      maxLength={maxLength}
       onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}
       className="transition-all duration-300"
@@ -357,28 +423,30 @@ function FormInput({
 /**
  * SubmitButton — Form submit button
  */
-function SubmitButton() {
+function SubmitButton({ loading = false }: { loading?: boolean }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <button
       type="submit"
+      disabled={loading}
       className="w-full transition-all duration-300"
       style={{
         padding: 16,
-        background: isHovered ? "#33CCFF" : CYBER_BLUE,
+        background: loading ? `${CYBER_BLUE}80` : isHovered ? "#33CCFF" : CYBER_BLUE,
         border: "none",
         borderRadius: 12,
         fontFamily: "var(--font-outfit)",
         fontSize: 15,
         fontWeight: 600,
         color: "#0A0A0A",
-        cursor: "pointer",
+        cursor: loading ? "wait" : "pointer",
+        opacity: loading ? 0.7 : 1,
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      Register Interest →
+      {loading ? "Submitting..." : "Register Interest →"}
     </button>
   );
 }

@@ -2,9 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-
-const CYBER_BLUE = "#01BBF5";
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SHADOWS, SPACING, GRADIENTS } from "@/lib/cyber-design-tokens";
 
 // Who's in the room — role breakdown
 const roles = [
@@ -18,7 +16,7 @@ const roles = [
 // Big proof numbers
 const proofStats = [
   { value: 1500, suffix: "+", label: "Senior Security Leaders" },
-  { value: 4, suffix: "", label: "GCC Nations" },
+  { value: 5, suffix: "+", label: "Nations" },
   { value: 120, suffix: "+", label: "Organisations Represented" },
   { value: 92, suffix: "%", label: "Director-Level & Above" },
 ];
@@ -36,51 +34,45 @@ export default function PastEditionsTimeline() {
     <section
       ref={sectionRef}
       style={{
-        background: "var(--black)",
-        padding: "clamp(48px, 6vw, 80px) 0",
+        background: COLORS.bgDeep,
+        padding: `${SPACING.sectionPadding} 0`,
       }}
     >
       <div
         style={{
-          maxWidth: 1320,
+          maxWidth: SPACING.maxWidth,
           margin: "0 auto",
-          padding: "0 clamp(20px, 4vw, 60px)",
+          padding: `0 ${SPACING.containerPadding}`,
         }}
       >
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, ease: EASE }}
+          transition={{ duration: 0.7, ease: ANIMATION.ease }}
           style={{ textAlign: "center", marginBottom: 56 }}
         >
           {/* Label */}
           <div className="flex items-center justify-center gap-3">
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
             <span
               style={{
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "2.5px",
-                textTransform: "uppercase",
-                color: CYBER_BLUE,
-                fontFamily: "var(--font-outfit)",
+                ...TYPOGRAPHY.sectionLabel,
+                color: COLORS.cyan,
+                fontFamily: TYPOGRAPHY.fontBody,
               }}
             >
               The Room
             </span>
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
           </div>
 
           {/* Title */}
           <h2
             style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(30px, 3.5vw, 48px)",
-              letterSpacing: "-1.5px",
-              color: "var(--white)",
-              lineHeight: 1.1,
+              fontFamily: TYPOGRAPHY.fontDisplay,
+              ...TYPOGRAPHY.sectionTitle,
+              color: COLORS.textPrimary,
               margin: "16px 0 0",
             }}
           >
@@ -89,17 +81,15 @@ export default function PastEditionsTimeline() {
 
           <p
             style={{
-              fontFamily: "var(--font-outfit)",
-              fontWeight: 300,
-              fontSize: 16,
-              color: "#707070",
+              fontFamily: TYPOGRAPHY.fontBody,
+              ...TYPOGRAPHY.bodyLarge,
+              color: COLORS.textTertiary,
               maxWidth: 600,
               margin: "16px auto 0",
-              lineHeight: 1.7,
             }}
           >
             Cyber First doesn&rsquo;t fill seats — it curates a room. Every
-            attendee is a decision-maker shaping cybersecurity across the GCC.
+            attendee is a decision-maker shaping enterprise cybersecurity.
           </p>
         </motion.div>
 
@@ -107,12 +97,12 @@ export default function PastEditionsTimeline() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
+          transition={{ duration: 0.7, delay: 0.15, ease: ANIMATION.ease }}
           className="the-room-stats"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
-            gap: 24,
+            gap: SPACING.gridGapLarge,
             marginBottom: 56,
           }}
         >
@@ -125,12 +115,12 @@ export default function PastEditionsTimeline() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
+          transition={{ duration: 0.7, delay: 0.3, ease: ANIMATION.ease }}
           className="the-room-roles"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(5, 1fr)",
-            gap: 12,
+            gap: SPACING.gridGapSmall,
           }}
         >
           {roles.map((role, i) => (
@@ -142,12 +132,12 @@ export default function PastEditionsTimeline() {
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-          transition={{ duration: 0.7, delay: 0.5, ease: EASE }}
+          transition={{ duration: 0.7, delay: 0.5, ease: ANIMATION.ease }}
           style={{
-            fontFamily: "var(--font-outfit)",
+            fontFamily: TYPOGRAPHY.fontBody,
             fontWeight: 400,
-            fontSize: 14,
-            color: "#505050",
+            fontSize: 15,
+            color: COLORS.textTertiary,
             textAlign: "center",
             marginTop: 40,
             letterSpacing: "0.3px",
@@ -232,17 +222,17 @@ function ProofStat({
       style={{
         textAlign: "center",
         padding: "28px 16px",
-        background: "#111111",
-        border: "1px solid rgba(1, 187, 245, 0.06)",
-        borderRadius: 14,
+        background: COLORS.bgCard,
+        border: `1px solid ${COLORS.borderAccent}`,
+        borderRadius: RADIUS.md,
       }}
     >
       <div
         style={{
-          fontFamily: "var(--font-display)",
+          fontFamily: TYPOGRAPHY.fontDisplay,
           fontWeight: 800,
           fontSize: "clamp(28px, 3vw, 36px)",
-          color: "var(--white)",
+          color: COLORS.textPrimary,
           lineHeight: 1,
         }}
       >
@@ -250,7 +240,7 @@ function ProofStat({
         {stat.suffix && (
           <span
             style={{
-              color: CYBER_BLUE,
+              color: COLORS.cyan,
               display: "inline-block",
               transform: showSuffix ? "scale(1)" : "scale(1.3)",
               opacity: showSuffix ? 1 : 0,
@@ -263,10 +253,10 @@ function ProofStat({
       </div>
       <p
         style={{
-          fontFamily: "var(--font-outfit)",
+          fontFamily: TYPOGRAPHY.fontBody,
           fontSize: 12,
           fontWeight: 500,
-          color: "#505050",
+          color: COLORS.textMuted,
           marginTop: 8,
           letterSpacing: "0.5px",
         }}
@@ -295,14 +285,14 @@ function RoleCard({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.5, delay: 0.35 + index * 0.07, ease: EASE }}
+      transition={{ duration: 0.5, delay: 0.35 + index * ANIMATION.staggerDefault, ease: ANIMATION.ease }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        padding: "24px 20px",
-        background: hovered ? "#161616" : "#111111",
-        border: `1px solid ${hovered ? "rgba(1, 187, 245, 0.1)" : "rgba(255, 255, 255, 0.04)"}`,
-        borderRadius: 14,
+        padding: SPACING.cardPaddingCompact,
+        background: hovered ? COLORS.bgCardHover : COLORS.bgCard,
+        border: `1px solid ${hovered ? COLORS.borderAccent : COLORS.borderSubtle}`,
+        borderRadius: RADIUS.md,
         transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
         cursor: "default",
       }}
@@ -310,10 +300,10 @@ function RoleCard({
       {/* Percentage */}
       <p
         style={{
-          fontFamily: "var(--font-display)",
+          fontFamily: TYPOGRAPHY.fontDisplay,
           fontWeight: 800,
           fontSize: 28,
-          color: CYBER_BLUE,
+          color: COLORS.cyan,
           margin: 0,
           lineHeight: 1,
         }}
@@ -324,10 +314,10 @@ function RoleCard({
       {/* Title */}
       <h3
         style={{
-          fontFamily: "var(--font-display)",
+          fontFamily: TYPOGRAPHY.fontDisplay,
           fontWeight: 700,
           fontSize: 15,
-          color: "var(--white)",
+          color: COLORS.textPrimary,
           margin: "12px 0 0",
           lineHeight: 1.3,
         }}
@@ -338,10 +328,10 @@ function RoleCard({
       {/* Description */}
       <p
         style={{
-          fontFamily: "var(--font-outfit)",
+          fontFamily: TYPOGRAPHY.fontBody,
           fontWeight: 300,
           fontSize: 13,
-          color: "#606060",
+          color: COLORS.textTertiary,
           margin: "8px 0 0",
           lineHeight: 1.6,
         }}
@@ -354,7 +344,7 @@ function RoleCard({
         style={{
           marginTop: 16,
           height: 3,
-          background: "rgba(255, 255, 255, 0.04)",
+          background: COLORS.borderSubtle,
           borderRadius: 2,
           overflow: "hidden",
         }}
@@ -362,10 +352,10 @@ function RoleCard({
         <motion.div
           initial={{ width: 0 }}
           animate={isInView ? { width: `${role.percentage}%` } : { width: 0 }}
-          transition={{ duration: 1.2, delay: 0.5 + index * 0.1, ease: EASE }}
+          transition={{ duration: 1.2, delay: 0.5 + index * 0.1, ease: ANIMATION.ease }}
           style={{
             height: "100%",
-            background: `linear-gradient(90deg, ${CYBER_BLUE}, rgba(1, 187, 245, 0.4))`,
+            background: GRADIENTS.cyanBar,
             borderRadius: 2,
           }}
         />

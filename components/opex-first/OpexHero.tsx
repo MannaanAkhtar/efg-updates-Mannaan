@@ -143,9 +143,9 @@ export default function OpexHero() {
             marginTop: 24,
           }}
         >
-          The GCC&apos;s dedicated summit series for operational excellence, business
+          The dedicated summit series for operational excellence, business
           transformation, and process innovation. Bringing together COOs,
-          excellence leaders, and transformation architects across the region.
+          excellence leaders, and transformation architects worldwide.
         </motion.p>
 
         {/* Focus Badges */}

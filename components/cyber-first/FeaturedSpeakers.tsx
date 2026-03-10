@@ -3,9 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-
-const CYBER_BLUE = "#01BBF5";
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SHADOWS, SPACING } from "@/lib/cyber-design-tokens";
 
 // Speaker data matched from Supabase (Cyber First UAE)
 const speakers = [
@@ -75,65 +73,57 @@ export default function FeaturedSpeakers() {
     <section
       ref={sectionRef}
       style={{
-        background: "var(--black-light)",
-        padding: "clamp(48px, 6vw, 80px) 0",
+        background: COLORS.bgBase,
+        padding: `${SPACING.sectionPadding} 0`,
       }}
     >
       <div
         style={{
-          maxWidth: 1320,
+          maxWidth: SPACING.maxWidth,
           margin: "0 auto",
-          padding: "0 clamp(20px, 4vw, 60px)",
+          padding: `0 ${SPACING.containerPadding}`,
         }}
       >
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, ease: EASE }}
+          transition={{ duration: 0.7, ease: ANIMATION.ease }}
           style={{ textAlign: "center", marginBottom: 48 }}
         >
           {/* Label */}
           <div className="flex items-center justify-center gap-3">
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
             <span
               style={{
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "2.5px",
-                textTransform: "uppercase",
-                color: CYBER_BLUE,
-                fontFamily: "var(--font-outfit)",
+                ...TYPOGRAPHY.sectionLabel,
+                color: COLORS.cyan,
+                fontFamily: TYPOGRAPHY.fontBody,
               }}
             >
               Speakers
             </span>
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
           </div>
 
           {/* Title */}
           <h2
             style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(30px, 3.5vw, 48px)",
-              letterSpacing: "-1.5px",
-              color: "var(--white)",
-              lineHeight: 1.1,
+              fontFamily: TYPOGRAPHY.fontDisplay,
+              ...TYPOGRAPHY.sectionTitle,
+              color: COLORS.textPrimary,
               margin: "16px 0 0",
             }}
           >
-            The Leaders Setting the Agenda
+            Past Speakers. Future Peers.
           </h2>
 
           {/* Description */}
           <p
             style={{
-              fontFamily: "var(--font-outfit)",
-              fontWeight: 300,
-              fontSize: 16,
-              color: "#707070",
-              lineHeight: 1.6,
+              fontFamily: TYPOGRAPHY.fontBody,
+              ...TYPOGRAPHY.bodyLarge,
+              color: COLORS.textTertiary,
               maxWidth: 520,
               margin: "14px auto 0",
             }}
@@ -149,7 +139,7 @@ export default function FeaturedSpeakers() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
-            gap: 16,
+            gap: SPACING.gridGapDefault,
           }}
         >
           {speakers.map((speaker, index) => (
@@ -160,7 +150,7 @@ export default function FeaturedSpeakers() {
               transition={{
                 duration: 0.5,
                 delay: 0.2 + index * 0.06,
-                ease: EASE,
+                ease: ANIMATION.ease,
               }}
             >
               <SpeakerCard speaker={speaker} />
@@ -172,7 +162,7 @@ export default function FeaturedSpeakers() {
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-          transition={{ duration: 0.6, delay: 0.8, ease: EASE }}
+          transition={{ duration: 0.6, delay: 0.8, ease: ANIMATION.ease }}
           className="text-center"
           style={{ marginTop: 32 }}
         >
@@ -210,12 +200,12 @@ function SpeakerCard({
     <div
       className="transition-all"
       style={{
-        background: "#141414",
-        border: `1px solid ${isHovered ? "rgba(1, 187, 245, 0.1)" : "rgba(255, 255, 255, 0.05)"}`,
-        borderRadius: 16,
+        background: COLORS.bgCard,
+        border: `1px solid ${isHovered ? COLORS.borderAccent : COLORS.borderSubtle}`,
+        borderRadius: RADIUS.lg,
         overflow: "hidden",
         transform: isHovered ? "translateY(-4px)" : "translateY(0)",
-        boxShadow: isHovered ? "0 12px 40px rgba(0, 0, 0, 0.3)" : "none",
+        boxShadow: isHovered ? SHADOWS.cardHover : "none",
         transitionDuration: "0.5s",
         transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
       }}
@@ -245,7 +235,7 @@ function SpeakerCard({
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: `linear-gradient(to top, rgba(20,20,20,1) 0%, rgba(20,20,20,0.4) 40%, transparent 70%)`,
+            background: `linear-gradient(to top, ${COLORS.bgCard} 0%, rgba(18,21,26,0.4) 40%, transparent 70%)`,
           }}
         />
 
@@ -254,7 +244,7 @@ function SpeakerCard({
           className="absolute bottom-0 left-0 right-0 transition-opacity"
           style={{
             height: 2,
-            background: CYBER_BLUE,
+            background: COLORS.cyan,
             opacity: isHovered ? 0.8 : 0,
             transitionDuration: "0.4s",
           }}
@@ -265,10 +255,10 @@ function SpeakerCard({
       <div style={{ padding: "16px 20px 20px" }}>
         <h3
           style={{
-            fontFamily: "var(--font-display)",
+            fontFamily: TYPOGRAPHY.fontDisplay,
             fontSize: 16,
             fontWeight: 700,
-            color: "var(--white)",
+            color: COLORS.textPrimary,
             letterSpacing: "-0.2px",
             margin: 0,
           }}
@@ -277,10 +267,10 @@ function SpeakerCard({
         </h3>
         <p
           style={{
-            fontFamily: "var(--font-outfit)",
+            fontFamily: TYPOGRAPHY.fontBody,
             fontSize: 13,
             fontWeight: 400,
-            color: "#606060",
+            color: COLORS.textTertiary,
             lineHeight: 1.4,
             marginTop: 4,
           }}
@@ -289,10 +279,10 @@ function SpeakerCard({
         </p>
         <p
           style={{
-            fontFamily: "var(--font-outfit)",
+            fontFamily: TYPOGRAPHY.fontBody,
             fontSize: 13,
             fontWeight: 500,
-            color: `rgba(1, 187, 245, 0.7)`,
+            color: `${COLORS.cyan}B3`,
             marginTop: 4,
           }}
         >
@@ -314,15 +304,15 @@ function ViewAllLink() {
       href="/speakers"
       className="inline-flex items-center gap-1.5 transition-colors"
       style={{
-        fontFamily: "var(--font-outfit)",
+        fontFamily: TYPOGRAPHY.fontBody,
         fontSize: 14,
         fontWeight: 500,
-        color: CYBER_BLUE,
+        color: COLORS.cyan,
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <span>View All Speakers</span>
+      <span>See the Full Kuwait 2026 Lineup</span>
       <span
         className="transition-transform duration-300"
         style={{

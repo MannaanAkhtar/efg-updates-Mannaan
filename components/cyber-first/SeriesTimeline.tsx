@@ -2,9 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-
-const CYBER_BLUE = "#01BBF5";
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SHADOWS, SPACING } from "@/lib/cyber-design-tokens";
 
 // Full series timeline — past + future
 const timeline = [
@@ -39,9 +37,9 @@ const timeline = [
     id: 4,
     label: "4th Edition",
     name: "Cyber First KSA",
-    date: "2026",
+    date: "H2 2026",
     city: "Riyadh",
-    venue: null,
+    venue: "Venue TBA",
     status: "planned" as const,
   },
   {
@@ -50,7 +48,7 @@ const timeline = [
     name: "Cyber First Qatar",
     date: "Apr 7, 2026",
     city: "Doha",
-    venue: null,
+    venue: "Venue TBA",
     status: "upcoming" as const,
   },
 ];
@@ -63,48 +61,45 @@ export default function SeriesTimeline() {
     <section
       ref={sectionRef}
       style={{
-        background: "var(--black)",
-        padding: "clamp(48px, 6vw, 80px) 0",
+        background: COLORS.bgDeep,
+        padding: `${SPACING.sectionPadding} 0`,
       }}
     >
       <div
         style={{
-          maxWidth: 1320,
+          maxWidth: SPACING.maxWidth,
           margin: "0 auto",
-          padding: "0 clamp(20px, 4vw, 60px)",
+          padding: `0 ${SPACING.containerPadding}`,
         }}
       >
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, ease: EASE }}
+          transition={{ duration: 0.7, ease: ANIMATION.ease }}
           style={{ textAlign: "center", marginBottom: 40 }}
         >
           <div className="flex items-center justify-center gap-3">
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
             <span
               style={{
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "2.5px",
-                textTransform: "uppercase",
-                color: CYBER_BLUE,
-                fontFamily: "var(--font-outfit)",
+                ...TYPOGRAPHY.sectionLabel,
+                color: COLORS.cyan,
+                fontFamily: TYPOGRAPHY.fontBody,
               }}
             >
               Series Journey
             </span>
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
           </div>
 
           <h2
             style={{
-              fontFamily: "var(--font-display)",
+              fontFamily: TYPOGRAPHY.fontDisplay,
               fontWeight: 800,
               fontSize: "clamp(28px, 3vw, 40px)",
               letterSpacing: "-1px",
-              color: "var(--white)",
+              color: COLORS.textPrimary,
               lineHeight: 1.15,
               margin: "16px 0 0",
             }}
@@ -119,14 +114,14 @@ export default function SeriesTimeline() {
           <motion.div
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-            transition={{ duration: 1.2, delay: 0.2, ease: EASE }}
+            transition={{ duration: 1.2, delay: 0.2, ease: ANIMATION.ease }}
             style={{
               position: "absolute",
               top: 24,
               left: "5%",
               right: "5%",
               height: 1,
-              background: `linear-gradient(90deg, rgba(1, 187, 245, 0.3), rgba(1, 187, 245, 0.08))`,
+              background: `linear-gradient(90deg, ${COLORS.borderAccentHover}, ${COLORS.borderSubtle})`,
               transformOrigin: "left",
             }}
           />
@@ -137,7 +132,7 @@ export default function SeriesTimeline() {
             style={{
               display: "grid",
               gridTemplateColumns: `repeat(${timeline.length}, 1fr)`,
-              gap: 12,
+              gap: SPACING.gridGapSmall,
               position: "relative",
             }}
           >
@@ -190,7 +185,7 @@ function TimelineNode({
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-      transition={{ duration: 0.5, delay: 0.3 + index * 0.1, ease: EASE }}
+      transition={{ duration: 0.5, delay: 0.3 + index * 0.1, ease: ANIMATION.ease }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{ cursor: "default" }}
@@ -207,19 +202,19 @@ function TimelineNode({
             height: isUpcoming ? 14 : 10,
             borderRadius: "50%",
             background: isCompleted
-              ? CYBER_BLUE
+              ? COLORS.cyan
               : isUpcoming
                 ? "transparent"
                 : "transparent",
             border: isCompleted
               ? "none"
               : isUpcoming
-                ? `2px solid ${CYBER_BLUE}`
-                : "1px solid rgba(255, 255, 255, 0.15)",
+                ? `2px solid ${COLORS.cyan}`
+                : `1px solid ${COLORS.borderDefault}`,
             boxShadow: isUpcoming
-              ? `0 0 12px rgba(1, 187, 245, 0.4)`
+              ? SHADOWS.cyanGlow
               : isCompleted
-                ? `0 0 8px rgba(1, 187, 245, 0.2)`
+                ? `0 0 8px ${COLORS.cyanSubtle}`
                 : "none",
             transition: "all 0.3s",
           }}
@@ -230,15 +225,15 @@ function TimelineNode({
       <div
         style={{
           padding: "16px 14px",
-          background: hovered ? "#141414" : "#111111",
+          background: hovered ? COLORS.bgCardHover : COLORS.bgCard,
           border: `1px ${isPlanned ? "dashed" : "solid"} ${
             hovered
-              ? "rgba(1, 187, 245, 0.08)"
+              ? COLORS.borderAccent
               : isPlanned
-                ? "rgba(255, 255, 255, 0.04)"
-                : "rgba(255, 255, 255, 0.05)"
+                ? COLORS.borderSubtle
+                : COLORS.borderSubtle
           }`,
-          borderRadius: 12,
+          borderRadius: RADIUS.md,
           opacity: isPlanned ? 0.6 : 1,
           transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
@@ -246,12 +241,12 @@ function TimelineNode({
         {/* Status badge */}
         <span
           style={{
-            fontFamily: "var(--font-outfit)",
+            fontFamily: TYPOGRAPHY.fontBody,
             fontSize: 9,
             fontWeight: 600,
             letterSpacing: "1.5px",
             textTransform: "uppercase",
-            color: isCompleted || isUpcoming ? CYBER_BLUE : "#404040",
+            color: isCompleted || isUpcoming ? COLORS.cyan : COLORS.textMuted,
           }}
         >
           {isCompleted ? "Completed" : isUpcoming ? "Upcoming" : "Planned"}
@@ -260,10 +255,10 @@ function TimelineNode({
         {/* City */}
         <h3
           style={{
-            fontFamily: "var(--font-display)",
+            fontFamily: TYPOGRAPHY.fontDisplay,
             fontWeight: 700,
             fontSize: 15,
-            color: "var(--white)",
+            color: COLORS.textPrimary,
             margin: "6px 0 0",
             lineHeight: 1.3,
           }}
@@ -274,9 +269,9 @@ function TimelineNode({
         {/* Date + Label */}
         <p
           style={{
-            fontFamily: "var(--font-outfit)",
+            fontFamily: TYPOGRAPHY.fontBody,
             fontSize: 12,
-            color: "#606060",
+            color: COLORS.textTertiary,
             margin: "4px 0 0",
           }}
         >
@@ -287,9 +282,9 @@ function TimelineNode({
         {item.venue && (
           <p
             style={{
-              fontFamily: "var(--font-outfit)",
+              fontFamily: TYPOGRAPHY.fontBody,
               fontSize: 11,
-              color: "#454545",
+              color: COLORS.textMuted,
               margin: "2px 0 0",
             }}
           >

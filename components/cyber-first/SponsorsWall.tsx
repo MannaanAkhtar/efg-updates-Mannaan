@@ -3,8 +3,8 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
+import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SPACING } from "@/lib/cyber-design-tokens";
 
-const CYBER_BLUE = "#01BBF5";
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo";
 
 // 2026 Sponsors — with S3 logo URLs
@@ -80,49 +80,43 @@ export default function SponsorsWall() {
     <section
       ref={sectionRef}
       style={{
-        background: "var(--black-light)",
-        padding: "clamp(48px, 6vw, 80px) 0",
+        background: COLORS.bgBase,
+        padding: `${SPACING.sectionPadding} 0`,
       }}
     >
       <div
         style={{
-          maxWidth: 1320,
+          maxWidth: SPACING.maxWidth,
           margin: "0 auto",
-          padding: "0 clamp(20px, 4vw, 60px)",
+          padding: `0 ${SPACING.containerPadding}`,
         }}
       >
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, ease: ANIMATION.ease }}
           style={{ textAlign: "center", marginBottom: 48 }}
         >
           <div className="flex items-center justify-center gap-3">
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
             <span
               style={{
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "2.5px",
-                textTransform: "uppercase",
-                color: CYBER_BLUE,
-                fontFamily: "var(--font-outfit)",
+                ...TYPOGRAPHY.sectionLabel,
+                color: COLORS.cyan,
+                fontFamily: TYPOGRAPHY.fontBody,
               }}
             >
               Series Sponsors
             </span>
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
           </div>
 
           <h2
             style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(30px, 3.5vw, 48px)",
-              letterSpacing: "-1.5px",
-              color: "var(--white)",
-              lineHeight: 1.1,
+              fontFamily: TYPOGRAPHY.fontDisplay,
+              ...TYPOGRAPHY.sectionTitle,
+              color: COLORS.textPrimary,
               margin: "16px 0 0",
             }}
           >
@@ -131,17 +125,15 @@ export default function SponsorsWall() {
 
           <p
             style={{
-              fontFamily: "var(--font-outfit)",
-              fontWeight: 300,
-              fontSize: 16,
-              color: "#707070",
+              fontFamily: TYPOGRAPHY.fontBody,
+              ...TYPOGRAPHY.bodyLarge,
+              color: COLORS.textTertiary,
               maxWidth: 520,
               margin: "14px auto 0",
-              lineHeight: 1.7,
             }}
           >
             50+ technology leaders and security vendors have partnered with
-            Cyber First to reach the GCC&rsquo;s most senior security audience.
+            Cyber First to reach the most senior security audience.
           </p>
         </motion.div>
 
@@ -153,12 +145,9 @@ export default function SponsorsWall() {
         >
           <p
             style={{
-              fontFamily: "var(--font-outfit)",
-              fontSize: 11,
-              fontWeight: 600,
-              letterSpacing: "3px",
-              textTransform: "uppercase",
-              color: "#404040",
+              fontFamily: TYPOGRAPHY.fontBody,
+              ...TYPOGRAPHY.sectionLabel,
+              color: COLORS.textMuted,
               marginBottom: 16,
             }}
           >
@@ -169,7 +158,7 @@ export default function SponsorsWall() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(5, 1fr)",
-              gap: 12,
+              gap: SPACING.gridGapSmall,
             }}
           >
             {sponsors2026.map((sponsor, index) => (
@@ -180,7 +169,7 @@ export default function SponsorsWall() {
                 transition={{
                   duration: 0.4,
                   delay: 0.3 + index * 0.02,
-                  ease: [0.16, 1, 0.3, 1],
+                  ease: ANIMATION.ease,
                 }}
               >
                 <SponsorCard sponsor={sponsor} size="normal" />
@@ -198,13 +187,11 @@ export default function SponsorsWall() {
         >
           <p
             style={{
-              fontFamily: "var(--font-outfit)",
-              fontSize: 11,
-              fontWeight: 600,
-              letterSpacing: "3px",
-              textTransform: "uppercase",
-              color: "#353535",
+              fontFamily: TYPOGRAPHY.fontBody,
+              ...TYPOGRAPHY.sectionLabel,
+              color: COLORS.textMuted,
               marginBottom: 16,
+              opacity: 0.7,
             }}
           >
             Past Series Sponsors
@@ -242,12 +229,12 @@ export default function SponsorsWall() {
         >
           <p
             style={{
-              fontFamily: "var(--font-outfit)",
+              fontFamily: TYPOGRAPHY.fontBody,
               fontSize: 10,
               fontWeight: 600,
               letterSpacing: "3px",
               textTransform: "uppercase",
-              color: "#404040",
+              color: COLORS.textMuted,
               marginBottom: 16,
             }}
           >
@@ -258,7 +245,7 @@ export default function SponsorsWall() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(6, 1fr)",
-              gap: 12,
+              gap: SPACING.gridGapSmall,
             }}
           >
             {mediaPartners.map((partner, index) => (
@@ -281,7 +268,7 @@ export default function SponsorsWall() {
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-          transition={{ duration: 0.6, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6, delay: 1.4, ease: ANIMATION.ease }}
           style={{ marginTop: 48, textAlign: "center" }}
         >
           <SponsorCTA />
@@ -346,11 +333,11 @@ function SponsorCard({
       style={{
         background: isHovered && sponsor.logo
           ? "rgba(255, 255, 255, 0.9)"
-          : "var(--black-card)",
+          : COLORS.bgCard,
         border: isHovered
-          ? "1px solid rgba(1, 187, 245, 0.1)"
-          : "1px solid rgba(255, 255, 255, 0.05)",
-        borderRadius: size === "normal" ? 14 : 10,
+          ? `1px solid ${COLORS.borderAccent}`
+          : `1px solid ${COLORS.borderSubtle}`,
+        borderRadius: size === "normal" ? RADIUS.md : RADIUS.sm,
         padding: size === "normal" ? "20px 24px" : "12px 16px",
         minHeight: size === "normal" ? 80 : 56,
         transform: isHovered ? "translateY(-2px)" : "translateY(0)",
@@ -378,11 +365,11 @@ function SponsorCard({
       ) : (
         <span
           style={{
-            fontFamily: "var(--font-display)",
+            fontFamily: TYPOGRAPHY.fontDisplay,
             fontSize: size === "normal" ? 13 : 11,
             fontWeight: 700,
             letterSpacing: "1.5px",
-            color: isHovered ? "#0A0A0A" : "rgba(255, 255, 255, 0.18)",
+            color: isHovered ? COLORS.bgDeep : `${COLORS.textPrimary}80`,
             textTransform: "uppercase",
             textAlign: "center",
             transition: "color 0.4s",
@@ -407,15 +394,15 @@ function SponsorCTA() {
       className="inline-flex items-center gap-2 transition-all"
       style={{
         padding: "14px 32px",
-        borderRadius: 50,
+        borderRadius: RADIUS.round,
         border: isHovered
-          ? `1px solid ${CYBER_BLUE}`
-          : "1px solid rgba(1, 187, 245, 0.25)",
-        background: isHovered ? "rgba(1, 187, 245, 0.08)" : "transparent",
-        fontFamily: "var(--font-outfit)",
+          ? `1px solid ${COLORS.cyan}`
+          : `1px solid ${COLORS.borderAccent}`,
+        background: isHovered ? COLORS.cyanSubtle : "transparent",
+        fontFamily: TYPOGRAPHY.fontBody,
         fontSize: 14,
         fontWeight: 500,
-        color: CYBER_BLUE,
+        color: COLORS.cyan,
         transitionDuration: "0.4s",
       }}
       onMouseEnter={() => setIsHovered(true)}

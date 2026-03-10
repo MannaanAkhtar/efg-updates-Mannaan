@@ -268,7 +268,7 @@ export default function Testimonials() {
                 flexShrink: 0,
               }}
             >
-              Sponsors, delegates & speakers across 5 GCC markets
+              Sponsors, delegates & speakers across 6+ global markets
             </motion.p>
           </div>
         </div>

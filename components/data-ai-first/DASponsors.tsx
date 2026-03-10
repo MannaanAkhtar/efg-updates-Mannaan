@@ -102,7 +102,7 @@ export default function DASponsors() {
               lineHeight: 1.6,
             }}
           >
-            Founding partners shape the future of AI leadership in the Gulf.
+            Founding partners shape the future of AI leadership.
             Secure your position at the table.
           </p>
         </motion.div>

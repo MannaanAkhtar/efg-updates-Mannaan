@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { DotMatrixGrid } from "@/components/effects";
 import { EMERALD, EMERALD_BRIGHT, EASE, WIDE } from "./constants";
 
 /* ─── Main highlight video ─── */
@@ -50,20 +49,21 @@ export default function DAVideoHighlights() {
         padding: "clamp(36px, 5vw, 56px) 0",
       }}
     >
-      {/* Texture */}
-      <DotMatrixGrid color={EMERALD} opacity={0.015} spacing={30} />
-
-      {/* Gradient orb */}
+      {/* Horizontal line texture */}
       <div
-        className="absolute pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          width: 600,
-          height: 600,
-          top: "30%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          background: `radial-gradient(ellipse at center, rgba(15,115,94,0.04) 0%, transparent 70%)`,
-          zIndex: 0,
+          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 5px, rgba(15,115,94,0.03) 5px, rgba(15,115,94,0.03) 6px)`,
+          zIndex: 1,
+        }}
+      />
+
+      {/* Emerald glow — center */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 50% 50% at 50% 40%, ${EMERALD}08 0%, transparent 70%)`,
+          zIndex: 1,
         }}
       />
 
@@ -170,7 +170,7 @@ export default function DAVideoHighlights() {
               fontWeight: 600,
               letterSpacing: "3px",
               textTransform: "uppercase",
-              color: "#404040",
+              color: "#555555",
               textAlign: "center",
               marginBottom: 16,
             }}
@@ -206,6 +206,28 @@ export default function DAVideoHighlights() {
               </motion.div>
             ))}
           </div>
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.5, delay: 0.8, ease: EASE }}
+          style={{ textAlign: "center", marginTop: 32 }}
+        >
+          <a
+            href="#register"
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 14,
+              fontWeight: 500,
+              color: EMERALD,
+              textDecoration: "none",
+              letterSpacing: "0.3px",
+            }}
+          >
+            Be Part of the Next Chapter →
+          </a>
         </motion.div>
       </div>
 

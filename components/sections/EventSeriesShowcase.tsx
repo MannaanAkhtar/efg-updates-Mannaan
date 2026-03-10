@@ -19,12 +19,12 @@ const eventSeries = [
     title: "Cyber First",
     tagline: "Defending the Digital Frontier",
     description:
-      "Where the region's CISOs, security architects, and cyber leaders gather to shape the future of enterprise defense.",
+      "Where CISOs, security architects, and cyber leaders gather to shape the future of enterprise defense.",
     editions: 6,
     nations: 4,
     stats: "Kuwait · Qatar · KSA · UAE",
     color: "#01BBF5",
-    image: `${CFK}/cyber21-04-400.jpg`,
+    image: `${OPEX}/4N8A1736.JPG`,
     href: "/events/cyber-first",
   },
   {

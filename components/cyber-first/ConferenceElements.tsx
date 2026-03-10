@@ -2,9 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-
-const CYBER_BLUE = "#01BBF5";
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SHADOWS, SPACING, GRADIENTS, PREMIUM_IMAGES } from "@/lib/cyber-design-tokens";
 
 // Conference elements with background images
 const elements = [
@@ -13,7 +11,7 @@ const elements = [
     title: "Keynotes & Panels",
     description:
       "High-level presentations and moderated discussions featuring CISOs, government leaders, and security practitioners.",
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80",
+    image: PREMIUM_IMAGES.conferenceKeynote,
   },
   {
     id: "awards",
@@ -27,7 +25,7 @@ const elements = [
     title: "1-on-1 Meetings",
     description:
       "Pre-scheduled face-to-face meetings between enterprise buyers and solution providers. Every meeting is curated.",
-    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80",
+    image: PREMIUM_IMAGES.conferenceMeeting,
   },
   {
     id: "hackathon",
@@ -41,7 +39,7 @@ const elements = [
     title: "Networking & Luncheons",
     description:
       "Structured networking sessions and sit-down luncheons designed to build lasting professional relationships.",
-    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&q=80",
+    image: PREMIUM_IMAGES.conferenceNetworking,
   },
   {
     id: "media",
@@ -60,68 +58,60 @@ export default function ConferenceElements() {
     <section
       ref={sectionRef}
       style={{
-        background: "var(--black)",
-        padding: "clamp(48px, 6vw, 80px) 0",
+        background: COLORS.bgDeep,
+        padding: `${SPACING.sectionPadding} 0`,
       }}
     >
       <div
         style={{
-          maxWidth: 1320,
+          maxWidth: SPACING.maxWidth,
           margin: "0 auto",
-          padding: "0 clamp(20px, 4vw, 60px)",
+          padding: `0 ${SPACING.containerPadding}`,
         }}
       >
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, ease: EASE }}
+          transition={{ duration: 0.7, ease: ANIMATION.ease }}
           style={{ textAlign: "center", marginBottom: 48 }}
         >
           <div className="flex items-center justify-center gap-3">
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
             <span
               style={{
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "2.5px",
-                textTransform: "uppercase",
-                color: CYBER_BLUE,
-                fontFamily: "var(--font-outfit)",
+                ...TYPOGRAPHY.sectionLabel,
+                color: COLORS.cyan,
+                fontFamily: TYPOGRAPHY.fontBody,
               }}
             >
               The Experience
             </span>
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
           </div>
 
           <h2
             style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(30px, 3.5vw, 48px)",
-              letterSpacing: "-1.5px",
-              color: "var(--white)",
-              lineHeight: 1.1,
+              fontFamily: TYPOGRAPHY.fontDisplay,
+              ...TYPOGRAPHY.sectionTitle,
+              color: COLORS.textPrimary,
               margin: "16px 0 0",
             }}
           >
-            More Than a Conference
+            Six Formats. One Outcome: You Leave Sharper.
           </h2>
 
           <p
             style={{
-              fontFamily: "var(--font-outfit)",
-              fontWeight: 300,
-              fontSize: 16,
-              color: "#707070",
+              fontFamily: TYPOGRAPHY.fontBody,
+              ...TYPOGRAPHY.bodyLarge,
+              color: COLORS.textTertiary,
               maxWidth: 520,
               margin: "14px auto 0",
-              lineHeight: 1.7,
             }}
           >
-            Every element is designed for one outcome — that the right people
-            leave with the right connections, insights, and momentum.
+            Keynotes for strategy. Roundtables for honesty. 1-on-1s for deals.
+            Every format exists because it earns its place.
           </p>
         </motion.div>
 
@@ -131,7 +121,7 @@ export default function ConferenceElements() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 16,
+            gap: SPACING.gridGapDefault,
           }}
         >
           {elements.map((element, index) => (
@@ -142,7 +132,7 @@ export default function ConferenceElements() {
               transition={{
                 duration: 0.5,
                 delay: 0.2 + index * 0.08,
-                ease: EASE,
+                ease: ANIMATION.ease,
               }}
             >
               <ElementCard element={element} />
@@ -181,10 +171,10 @@ function ElementCard({
     <div
       className="relative overflow-hidden"
       style={{
-        borderRadius: 16,
-        border: `1px solid ${isHovered ? "rgba(1, 187, 245, 0.1)" : "rgba(255, 255, 255, 0.04)"}`,
+        borderRadius: RADIUS.lg,
+        border: `1px solid ${isHovered ? COLORS.borderAccent : COLORS.borderSubtle}`,
         transform: isHovered ? "translateY(-3px)" : "translateY(0)",
-        boxShadow: isHovered ? "0 16px 48px rgba(0, 0, 0, 0.3)" : "none",
+        boxShadow: isHovered ? SHADOWS.cardHover : "none",
         transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
         cursor: "default",
       }}
@@ -205,8 +195,8 @@ function ElementCard({
           className="w-full h-full object-cover"
           style={{
             filter: isHovered
-              ? "brightness(0.25) saturate(0.6)"
-              : "brightness(0.15) saturate(0.4)",
+              ? "brightness(0.35) saturate(0.6)"
+              : "brightness(0.2) saturate(0.4)",
             transform: isHovered ? "scale(1.06)" : "scale(1)",
             transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
@@ -217,7 +207,7 @@ function ElementCard({
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(to top, rgba(10,10,10,0.95) 10%, rgba(10,10,10,0.5) 60%, rgba(10,10,10,0.7) 100%)`,
+          background: GRADIENTS.cardOverlay,
           zIndex: 1,
         }}
       />
@@ -236,10 +226,10 @@ function ElementCard({
       >
         <h3
           style={{
-            fontFamily: "var(--font-display)",
+            fontFamily: TYPOGRAPHY.fontDisplay,
             fontSize: 20,
             fontWeight: 700,
-            color: "var(--white)",
+            color: COLORS.textPrimary,
             margin: 0,
             letterSpacing: "-0.3px",
           }}
@@ -249,10 +239,10 @@ function ElementCard({
 
         <p
           style={{
-            fontFamily: "var(--font-outfit)",
+            fontFamily: TYPOGRAPHY.fontBody,
             fontSize: 14,
             fontWeight: 300,
-            color: isHovered ? "#999" : "#707070",
+            color: isHovered ? COLORS.textSecondary : COLORS.textTertiary,
             lineHeight: 1.65,
             marginTop: 8,
             transition: "color 0.3s",
@@ -267,7 +257,7 @@ function ElementCard({
         className="absolute bottom-0 left-0 right-0"
         style={{
           height: 2,
-          background: CYBER_BLUE,
+          background: COLORS.cyan,
           opacity: isHovered ? 0.6 : 0,
           transition: "opacity 0.4s",
           zIndex: 3,

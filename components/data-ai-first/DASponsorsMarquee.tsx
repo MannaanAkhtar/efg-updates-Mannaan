@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { DotMatrixGrid } from "@/components/effects";
-import { EMERALD, EASE, WIDE } from "./constants";
+import { EMERALD, EMERALD_BRIGHT, EASE, WIDE } from "./constants";
 
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo";
 
@@ -133,8 +133,8 @@ export default function DASponsorsMarquee() {
               margin: "14px auto 0",
             }}
           >
-            Backed by global technology leaders and regional enterprises across
-            the Gulf.
+            Backed by global technology leaders and enterprises
+            worldwide.
           </p>
         </motion.div>
 
@@ -239,6 +239,28 @@ export default function DASponsorsMarquee() {
               ))}
             </div>
           </div>
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.5, delay: 0.6, ease: EASE }}
+          style={{ textAlign: "center", marginTop: 36 }}
+        >
+          <a
+            href="#register"
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 14,
+              fontWeight: 500,
+              color: EMERALD,
+              textDecoration: "none",
+              letterSpacing: "0.3px",
+            }}
+          >
+            Partner With Us →
+          </a>
         </motion.div>
       </div>
 

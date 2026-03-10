@@ -2,9 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-
-const CYBER_BLUE = "#01BBF5";
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SHADOWS, SPACING } from "@/lib/cyber-design-tokens";
 
 // Main video
 const mainVideo = {
@@ -22,53 +20,47 @@ export default function VideoHighlight() {
     <section
       ref={sectionRef}
       style={{
-        background: "var(--black)",
-        padding: "clamp(48px, 6vw, 80px) 0",
+        background: COLORS.bgDeep,
+        padding: `${SPACING.sectionPadding} 0`,
       }}
     >
       <div
         style={{
-          maxWidth: 1320,
+          maxWidth: SPACING.maxWidth,
           margin: "0 auto",
-          padding: "0 clamp(20px, 4vw, 60px)",
+          padding: `0 ${SPACING.containerPadding}`,
         }}
       >
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, ease: EASE }}
+          transition={{ duration: 0.7, ease: ANIMATION.ease }}
           style={{ textAlign: "center", marginBottom: 40 }}
         >
           <div className="flex items-center justify-center gap-3">
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
             <span
               style={{
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "2.5px",
-                textTransform: "uppercase",
-                color: CYBER_BLUE,
-                fontFamily: "var(--font-outfit)",
+                ...TYPOGRAPHY.sectionLabel,
+                color: COLORS.cyan,
+                fontFamily: TYPOGRAPHY.fontBody,
               }}
             >
               Series Highlights
             </span>
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
           </div>
 
           <h2
             style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(30px, 3.5vw, 48px)",
-              letterSpacing: "-1.5px",
-              color: "var(--white)",
-              lineHeight: 1.1,
+              fontFamily: TYPOGRAPHY.fontDisplay,
+              ...TYPOGRAPHY.sectionTitle,
+              color: COLORS.textPrimary,
               margin: "16px 0 0",
             }}
           >
-            See It in Action
+            60 Seconds Inside Cyber First
           </h2>
         </motion.div>
 
@@ -76,7 +68,7 @@ export default function VideoHighlight() {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
+          transition={{ duration: 0.8, delay: 0.2, ease: ANIMATION.ease }}
           style={{
             maxWidth: 900,
             margin: "0 auto",
@@ -86,10 +78,9 @@ export default function VideoHighlight() {
             style={{
               position: "relative",
               aspectRatio: "16 / 9",
-              borderRadius: 20,
+              borderRadius: RADIUS.xl,
               overflow: "hidden",
-              boxShadow:
-                "0 20px 60px rgba(0, 0, 0, 0.4), 0 0 80px rgba(1, 187, 245, 0.05)",
+              boxShadow: `${SHADOWS.xl}, 0 0 80px ${COLORS.cyanSubtle}`,
             }}
           >
             {!isPlaying ? (
@@ -157,10 +148,10 @@ function VideoThumbnail({
             width: 72,
             height: 72,
             borderRadius: "50%",
-            background: isHovered ? CYBER_BLUE : "rgba(1, 187, 245, 0.9)",
+            background: isHovered ? COLORS.cyan : `${COLORS.cyan}E6`,
             boxShadow: isHovered
-              ? "0 0 30px rgba(1, 187, 245, 0.4)"
-              : "0 0 20px rgba(1, 187, 245, 0.2)",
+              ? SHADOWS.cyanGlowStrong
+              : SHADOWS.cyanGlow,
             transform: isHovered ? "scale(1.08)" : "scale(1)",
             transitionDuration: "0.3s",
           }}
@@ -184,10 +175,10 @@ function VideoThumbnail({
         <p
           className="transition-opacity"
           style={{
-            fontFamily: "var(--font-outfit)",
+            fontFamily: TYPOGRAPHY.fontBody,
             fontSize: 14,
             fontWeight: 500,
-            color: "white",
+            color: COLORS.textPrimary,
             marginTop: 12,
             opacity: isHovered ? 1 : 0.8,
           }}

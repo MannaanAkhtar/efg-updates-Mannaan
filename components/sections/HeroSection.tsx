@@ -6,6 +6,7 @@ import Link from "next/link";
 
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com";
 const CFK = `${S3}/events/Cyber%20First%20Kuwait%202025/filemail_photos`;
+const OPEX = `${S3}/events/Opex%20First%20UAE`;
 const HOME = `${S3}/home-event-spec`;
 
 interface HeroSlide {
@@ -18,44 +19,44 @@ interface HeroSlide {
 
 const heroSlides: HeroSlide[] = [
   {
-    // Grand ballroom panoramic — packed full house, ornate wooden architecture. SCALE.
-    image: `${CFK}/cyber21-04-160.jpg`,
+    // Ribbon cutting ceremony — SHYAM'S PICK for main slide
+    image: `${OPEX}/4N8A1688.JPG`,
     eyebrow: "Cyber First Kuwait · 21 April 2026 · Kuwait City",
     title: ["Where the Region's", "Decisions Are"],
     accent: "Made.",
     sub: "500+ CISOs, CDOs and Government Officials. One room. One day. Kuwait City.",
   },
   {
-    // Wide panel on stage with full audience — branded LED backdrop. AUTHORITY.
-    image: `${CFK}/cyber21-04-324.jpg`,
+    // Ribbon cutting — official ceremony moment
+    image: `${OPEX}/4N8A1698.JPG`,
     eyebrow: "200+ Speakers · 12 Cities · 6 Nations",
     title: ["Conversations That"],
     accent: "Move Industries.",
     sub: "Honest dialogue on what comes next — and who needs to be in the room when it arrives.",
   },
   {
-    // VIP front row — uniformed officials, gilded hall. CREDIBILITY.
-    image: `${CFK}/cyber21-04-245.jpg`,
-    eyebrow: "Ministerial & Regulatory Participation · GCC",
+    // Executive panel — authoritative
+    image: `${OPEX}/4N8A1736.JPG`,
+    eyebrow: "Ministerial & Regulatory Participation · Global",
     title: ["Government and Industry.", "On The Same"],
     accent: "Stage.",
-    sub: "The only summit series in the GCC with active ministerial and regulatory voices in every session.",
+    sub: "The only summit series with active ministerial and regulatory voices in every session.",
   },
   {
-    // Exhibition floor packed — chandeliers, dense crowd, vibrant booths. ENERGY.
-    image: `${CFK}/cyber21-04-410.jpg`,
+    // Grand ceremony — scale and prestige
+    image: `${OPEX}/4N8A1751.JPG`,
     eyebrow: "5,000+ Delegates · 16 Editions · 99+ Sponsors",
-    title: ["The GCC's Most", "Trusted Technology"],
+    title: ["The World's Most", "Trusted Technology"],
     accent: "Summit Series.",
-    sub: "From Kuwait to Abu Dhabi. From the CISO to the Minister. Every edition, every city.",
+    sub: "From Kuwait to Riyadh. From the CISO to the Minister. Every edition, every city.",
   },
   {
     // Aerial panorama of the full expo floor — signature shot. PRESTIGE.
     image: `${CFK}/cyber21-04-500.jpg`,
     eyebrow: "Cyber First · OT Security · Data & AI · Opex First",
-    title: ["Four Series.", "Twelve Cities."],
+    title: ["Four Series.", "Multiple Cities."],
     accent: "One Standard.",
-    sub: "Built for enterprise leaders shaping the region's digital and security future.",
+    sub: "Built for enterprise leaders shaping the digital and security future.",
   },
 ];
 

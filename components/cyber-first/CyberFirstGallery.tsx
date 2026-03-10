@@ -2,8 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-
-const CYBER_BLUE = "#01BBF5";
+import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SHADOWS, SPACING } from "@/lib/cyber-design-tokens";
 
 // Gallery images from actual event
 const galleryImages = [
@@ -68,35 +67,32 @@ export default function CyberFirstGallery() {
     <section
       ref={sectionRef}
       style={{
-        background: "var(--black)",
-        padding: "clamp(48px, 6vw, 80px) 0",
+        background: COLORS.bgDeep,
+        padding: `${SPACING.sectionPadding} 0`,
       }}
     >
       <div
         style={{
-          maxWidth: 1320,
+          maxWidth: SPACING.maxWidth,
           margin: "0 auto",
-          padding: "0 clamp(20px, 4vw, 60px)",
+          padding: `0 ${SPACING.containerPadding}`,
         }}
       >
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, ease: ANIMATION.ease }}
           style={{ marginBottom: 48 }}
         >
           {/* Label */}
           <div className="flex items-center gap-3" style={{ marginBottom: 12 }}>
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
             <span
               style={{
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "2.5px",
-                textTransform: "uppercase",
-                color: CYBER_BLUE,
-                fontFamily: "var(--font-outfit)",
+                ...TYPOGRAPHY.sectionLabel,
+                color: COLORS.cyan,
+                fontFamily: TYPOGRAPHY.fontBody,
               }}
             >
               From Past Editions
@@ -106,11 +102,11 @@ export default function CyberFirstGallery() {
           {/* Title */}
           <h2
             style={{
-              fontFamily: "var(--font-display)",
+              fontFamily: TYPOGRAPHY.fontDisplay,
               fontWeight: 800,
               fontSize: "clamp(32px, 4vw, 52px)",
               letterSpacing: "-1.5px",
-              color: "var(--white)",
+              color: COLORS.textPrimary,
               lineHeight: 1.1,
               margin: 0,
             }}
@@ -121,16 +117,14 @@ export default function CyberFirstGallery() {
           {/* Description */}
           <p
             style={{
-              fontFamily: "var(--font-outfit)",
-              fontWeight: 300,
-              fontSize: 16,
-              color: "#808080",
-              lineHeight: 1.6,
+              fontFamily: TYPOGRAPHY.fontBody,
+              ...TYPOGRAPHY.bodyLarge,
+              color: COLORS.textSecondary,
               maxWidth: 460,
               margin: "12px 0 0",
             }}
           >
-            Moments captured from our conferences across the GCC.
+            Moments captured from our conferences worldwide.
           </p>
         </motion.div>
 
@@ -161,6 +155,51 @@ export default function CyberFirstGallery() {
         </motion.div>
 
         {/* CTA */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 12,
+            marginTop: 32,
+          }}
+        >
+          <span
+            style={{
+              fontFamily: TYPOGRAPHY.fontBody,
+              fontSize: 14,
+              color: COLORS.textTertiary,
+              fontWeight: 400,
+            }}
+          >
+            Experience it yourself
+          </span>
+          <a
+            href="#register"
+            style={{
+              padding: "12px 28px",
+              borderRadius: RADIUS.round,
+              background: "transparent",
+              border: `1px solid ${COLORS.borderAccent}`,
+              color: COLORS.cyan,
+              fontFamily: TYPOGRAPHY.fontBody,
+              fontSize: 14,
+              fontWeight: 600,
+              textDecoration: "none",
+              transition: "all 0.3s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = COLORS.cyanSubtle;
+              e.currentTarget.style.borderColor = COLORS.cyan;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+              e.currentTarget.style.borderColor = COLORS.borderAccent;
+            }}
+          >
+            Register for the Next Edition →
+          </a>
+        </div>
       </div>
 
       {/* Grid CSS */}
@@ -231,10 +270,10 @@ function GalleryImage({
         hidden: { opacity: 0, scale: 0.95, y: 20 },
         visible: { opacity: 1, scale: 1, y: 0 },
       }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.6, ease: ANIMATION.ease }}
       style={{
         position: "relative",
-        borderRadius: 16,
+        borderRadius: RADIUS.lg,
         overflow: "hidden",
         cursor: "pointer",
         minHeight: image.gridClass.includes("row-span-2") ? 280 : 140,
@@ -274,7 +313,7 @@ function GalleryImage({
       <div
         className="absolute inset-0 pointer-events-none transition-opacity"
         style={{
-          background: `rgba(1, 187, 245, 0.05)`,
+          background: COLORS.cyanSubtle,
           opacity: isHovered ? 1 : 0,
           transitionDuration: "0.4s",
         }}

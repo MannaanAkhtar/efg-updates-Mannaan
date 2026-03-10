@@ -2,9 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-
-const CYBER_BLUE = "#01BBF5";
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SHADOWS, SPACING } from "@/lib/cyber-design-tokens";
 
 // YouTube Shorts — using real event highlight video IDs
 const shorts = [
@@ -42,53 +40,50 @@ export default function YouTubeShorts() {
     <section
       ref={sectionRef}
       style={{
-        background: "var(--black-light)",
-        padding: "clamp(48px, 6vw, 80px) 0",
+        background: COLORS.bgBase,
+        padding: `${SPACING.sectionPadding} 0`,
       }}
     >
       <div
         style={{
-          maxWidth: 1320,
+          maxWidth: SPACING.maxWidth,
           margin: "0 auto",
-          padding: "0 clamp(20px, 4vw, 60px)",
+          padding: `0 ${SPACING.containerPadding}`,
         }}
       >
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, ease: EASE }}
+          transition={{ duration: 0.7, ease: ANIMATION.ease }}
           style={{ textAlign: "center", marginBottom: 36 }}
         >
           <div className="flex items-center justify-center gap-3">
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
             <span
               style={{
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "2.5px",
-                textTransform: "uppercase",
-                color: CYBER_BLUE,
-                fontFamily: "var(--font-outfit)",
+                ...TYPOGRAPHY.sectionLabel,
+                color: COLORS.cyan,
+                fontFamily: TYPOGRAPHY.fontBody,
               }}
             >
-              Quick Clips
+              From the Room
             </span>
-            <span style={{ width: 30, height: 1, background: CYBER_BLUE }} />
+            <span style={{ width: 30, height: 1, background: COLORS.cyan }} />
           </div>
 
           <h2
             style={{
-              fontFamily: "var(--font-display)",
+              fontFamily: TYPOGRAPHY.fontDisplay,
               fontWeight: 800,
               fontSize: "clamp(28px, 3vw, 40px)",
               letterSpacing: "-1px",
-              color: "var(--white)",
+              color: COLORS.textPrimary,
               lineHeight: 1.15,
               margin: "16px 0 0",
             }}
           >
-            Shorts &amp; Reels
+            Hear It From the Room
           </h2>
         </motion.div>
 
@@ -109,7 +104,7 @@ export default function YouTubeShorts() {
               transition={{
                 duration: 0.5,
                 delay: 0.2 + index * 0.08,
-                ease: EASE,
+                ease: ANIMATION.ease,
               }}
             >
               <ShortCard short={short} />
@@ -155,10 +150,10 @@ function ShortCard({
       className="relative overflow-hidden cursor-pointer"
       style={{
         aspectRatio: "9 / 16",
-        borderRadius: 16,
-        border: `1px solid ${hovered ? "rgba(1, 187, 245, 0.12)" : "rgba(255, 255, 255, 0.05)"}`,
+        borderRadius: RADIUS.lg,
+        border: `1px solid ${hovered ? COLORS.borderAccent : COLORS.borderSubtle}`,
         transform: hovered ? "translateY(-3px)" : "translateY(0)",
-        boxShadow: hovered ? "0 12px 40px rgba(0, 0, 0, 0.3)" : "none",
+        boxShadow: hovered ? SHADOWS.cardHover : "none",
         transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
       }}
       onMouseEnter={() => setHovered(true)}
@@ -186,7 +181,7 @@ function ShortCard({
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: `linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.2) 50%, rgba(10,10,10,0.4) 100%)`,
+              background: `linear-gradient(to top, ${COLORS.bgDeep}E6 0%, ${COLORS.bgDeep}33 50%, ${COLORS.bgDeep}66 100%)`,
             }}
           />
 
@@ -198,10 +193,10 @@ function ShortCard({
                 width: 48,
                 height: 48,
                 borderRadius: "50%",
-                background: hovered ? CYBER_BLUE : "rgba(1, 187, 245, 0.8)",
+                background: hovered ? COLORS.cyan : `${COLORS.cyan}CC`,
                 boxShadow: hovered
-                  ? "0 0 24px rgba(1, 187, 245, 0.4)"
-                  : "0 0 12px rgba(1, 187, 245, 0.2)",
+                  ? SHADOWS.cyanGlowStrong
+                  : SHADOWS.cyanGlow,
                 transform: hovered ? "scale(1.08)" : "scale(1)",
                 transitionDuration: "0.3s",
               }}
@@ -230,7 +225,7 @@ function ShortCard({
             className="absolute bottom-0 left-0 right-0"
             style={{
               height: 2,
-              background: CYBER_BLUE,
+              background: COLORS.cyan,
               opacity: hovered ? 0.8 : 0,
               transition: "opacity 0.3s",
             }}

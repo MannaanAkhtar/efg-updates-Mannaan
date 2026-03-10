@@ -13,6 +13,8 @@ import {
 import Link from "next/link";
 import { Footer } from "@/components/sections";
 import { NeuralConstellation, DotMatrixGrid } from "@/components/effects";
+import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
+import type { CountryCode } from "@/lib/form-helpers";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 const E = "#0F735E";
@@ -171,7 +173,7 @@ const MARKET_STATS: {
 const HIGHLIGHTS = [
   {
     title: "Expert-Led Panels & Live Case Studies",
-    desc: "4 high-impact panel discussions on Kuwait's AI strategy, Vision 2035 alignment, and enterprise transformation — plus live demonstrations of AI deployments with measurable outcomes from Kuwait and GCC enterprises.",
+    desc: "4 high-impact panel discussions on Kuwait's AI strategy, Vision 2035 alignment, and enterprise transformation — plus live demonstrations of AI deployments with measurable outcomes from Kuwait and global enterprises.",
     icon: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z",
     image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80",
     stat: "4 Panels",
@@ -185,7 +187,7 @@ const HIGHLIGHTS = [
   },
   {
     title: "Curated Executive Networking",
-    desc: "Move beyond generic networking — connect with 250+ handpicked senior leaders, CDOs, CTOs, government strategists, investors, and AI architects across Kuwait and the GCC.",
+    desc: "Move beyond generic networking — connect with 250+ handpicked senior leaders, CDOs, CTOs, government strategists, investors, and AI architects.",
     icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
     image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200&q=80",
     stat: "250+",
@@ -228,7 +230,7 @@ const AWARDS = [
   { title: "AI Transformation Leader", desc: "Recognising leaders driving enterprise-wide AI adoption and measurable business outcomes." },
   { title: "Data-Driven Innovation", desc: "Celebrating organisations leveraging data to create breakthrough products and services." },
   { title: "Data & AI Ecosystem Contributor", desc: "Celebrating contributions to building Kuwait's national data and AI infrastructure." },
-  { title: "AI & Data Visionary Award", desc: "Honouring individuals whose vision is shaping the future of AI in Kuwait and the GCC." },
+  { title: "AI & Data Visionary Award", desc: "Honouring individuals whose vision is shaping the future of AI." },
   { title: "Emerging AI & Data Talent Award", desc: "Spotlighting rising professionals making exceptional early-career contributions." },
   { title: "AI & Data Educator/Mentor", desc: "Celebrating those advancing AI literacy and mentoring the next generation of talent." },
   { title: "Public Sector AI & Data Impact", desc: "Honouring government entities advancing citizen services through AI and data analytics." },
@@ -2561,7 +2563,7 @@ function SpeakersSection() {
               <span style={{ width: 30, height: 1, background: `linear-gradient(90deg, ${E}, transparent)` }} />
             </div>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(30px, 3.5vw, 48px)", letterSpacing: "-1.5px", color: "var(--white)", lineHeight: 1.1, margin: 0 }}>
-              Who&rsquo;s Speaking
+              Industry Experts
             </h2>
             <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.45)", marginTop: 10, maxWidth: 400 }}>
               The calibre of voices you&apos;ll hear — and network with — nowhere else
@@ -2845,9 +2847,21 @@ function AwardsSection() {
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [awardsSelectedCountry, setAwardsSelectedCountry] = useState<CountryCode>(COUNTRY_CODES[2]);
+  const [awardsPhoneError, setAwardsPhoneError] = useState<string | null>(null);
+  const [awardsEmailError, setAwardsEmailError] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (formData.email && !isWorkEmail(formData.email)) {
+      setAwardsEmailError("Please use your work email address");
+      return;
+    }
+    const phoneErr = validatePhone(formData.phone, awardsSelectedCountry);
+    if (phoneErr) {
+      setAwardsPhoneError(phoneErr);
+      return;
+    }
     setFormSubmitted(true);
   };
 
@@ -3244,25 +3258,43 @@ function AwardsSection() {
                       onBlur={() => setFocusedField(null)}
                       style={inputStyle("contactName")}
                     />
-                    <input
-                      type="email"
-                      placeholder="Email Address"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      onFocus={() => setFocusedField("email")}
-                      onBlur={() => setFocusedField(null)}
-                      style={inputStyle("email")}
-                    />
-                    <input
-                      type="tel"
-                      placeholder="Phone Number"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      onFocus={() => setFocusedField("phone")}
-                      onBlur={() => setFocusedField(null)}
-                      style={inputStyle("phone")}
-                    />
+                    <div>
+                      <input
+                        type="email"
+                        placeholder="Email Address"
+                        required
+                        value={formData.email}
+                        onChange={(e) => { setFormData({ ...formData, email: e.target.value }); setAwardsEmailError(null); }}
+                        onFocus={() => setFocusedField("email")}
+                        onBlur={() => { setFocusedField(null); if (formData.email && !isWorkEmail(formData.email)) setAwardsEmailError("Please use your work email address"); }}
+                        style={inputStyle("email")}
+                      />
+                      {awardsEmailError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{awardsEmailError}</p>}
+                    </div>
+                    <div>
+                      <div style={{ display: "flex", gap: 8 }}>
+                        <select
+                          value={`${awardsSelectedCountry.code}|${awardsSelectedCountry.country}`}
+                          onChange={(e) => { const [code, country] = e.target.value.split("|"); const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country); if (c) { setAwardsSelectedCountry(c); setAwardsPhoneError(null); } }}
+                          onFocus={() => setFocusedField("phone")}
+                          onBlur={() => setFocusedField(null)}
+                          style={{ ...inputStyle("phone"), width: 120, flexShrink: 0, appearance: "none" as const, cursor: "pointer" }}
+                        >
+                          {COUNTRY_CODES.map((cc) => (<option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>{cc.country} {cc.code}</option>))}
+                        </select>
+                        <input
+                          type="tel"
+                          placeholder={awardsSelectedCountry.placeholder}
+                          value={formData.phone}
+                          onChange={(e) => { setFormData({ ...formData, phone: e.target.value }); setAwardsPhoneError(null); }}
+                          onFocus={() => setFocusedField("phone")}
+                          onBlur={() => setFocusedField(null)}
+                          maxLength={awardsSelectedCountry.length}
+                          style={{ ...inputStyle("phone"), flex: 1 }}
+                        />
+                      </div>
+                      {awardsPhoneError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{awardsPhoneError}</p>}
+                    </div>
                   </div>
 
                   <select
@@ -3496,7 +3528,7 @@ function WhoShouldAttend() {
             </span>
           </div>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.8vw,48px)", letterSpacing: "-1.5px", color: "white", lineHeight: 1.08, margin: 0 }}>
-            Who We&apos;re Looking For
+            Who Will Attend
           </h2>
           <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.45)", marginTop: 10 }}>
             Applications accepted from senior decision-makers only
@@ -3962,7 +3994,7 @@ function PRMediaSection() {
             In the <span style={{ color: GOLD }}>Press</span>
           </h2>
           <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.4)", marginTop: 10, maxWidth: 520, marginLeft: "auto", marginRight: "auto" }}>
-            Highlights and coverage from our series of premium technology summits across the GCC
+            Highlights and coverage from our series of premium technology summits worldwide
           </p>
         </motion.div>
 
@@ -4172,7 +4204,7 @@ function PastEventsGallery() {
           {[
             { value: "15+", label: "Events Delivered" },
             { value: "5,000+", label: "Attendees" },
-            { value: "6", label: "GCC Countries" },
+            { value: "6+", label: "Global Markets" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <span style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 800, color: E_BRIGHT }}>{stat.value}</span>
@@ -4207,232 +4239,287 @@ function PastEventsGallery() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  13. SPONSORS SECTION
+//  13. OUR PARTNERS SECTION (Marquee)
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const SPONSOR_TIERS: {
-  tier: string;
-  slots: number;
-  color: string;
-  sponsors?: { name: string; logo: string }[];
-}[] = [
-  { tier: "Gold Partner", slots: 1, color: GOLD, sponsors: [
-    { name: "Google Cloud Security", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Google-Cloud-Security.png" },
-  ]},
-  { tier: "Associate Partners", slots: 2, color: E_BRIGHT, sponsors: [
-    { name: "Palo Alto Networks", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/paloalto.png" },
-    { name: "Kaspersky", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/kaspersky.png" },
-  ]},
-  { tier: "Panel Partners", slots: 3, color: "#A78BFA", sponsors: [
-    { name: "Akamai", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Akamai.png" },
-    { name: "SentinelOne", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/sentinelone.png" },
-    { name: "Celonis", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Celonis.png" },
-  ]},
-  { tier: "Strategic Partners", slots: 4, color: "#808080", sponsors: [
-    { name: "ManageEngine", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ManageEngine.png" },
-    { name: "EY", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/EY.png" },
-    { name: "Bitdefender", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/bitdefender.png" },
-    { name: "Fortinet", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/fortinet.png" },
-  ]},
+const S3_LOGOS = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo";
+
+const MARQUEE_ROW_1 = [
+  { src: `${S3_LOGOS}/abu-dhabi-university.png`, name: "Abu Dhabi University" },
+  { src: `${S3_LOGOS}/Acronis.png`, name: "Acronis" },
+  { src: `${S3_LOGOS}/adgm-academy.png`, name: "ADGM Academy" },
+  { src: `${S3_LOGOS}/Akamai.png`, name: "Akamai" },
+  { src: `${S3_LOGOS}/AmiViz.png`, name: "AmiViz" },
+  { src: `${S3_LOGOS}/bitdefender.png`, name: "Bitdefender" },
+  { src: `${S3_LOGOS}/Celonis.png`, name: "Celonis" },
+  { src: `${S3_LOGOS}/Claroty.png`, name: "Claroty" },
+  { src: `${S3_LOGOS}/CPX.png`, name: "CPX" },
+  { src: `${S3_LOGOS}/Dragos.png`, name: "Dragos" },
+  { src: `${S3_LOGOS}/EY.png`, name: "EY" },
+  { src: `${S3_LOGOS}/fortinet.png`, name: "Fortinet" },
+  { src: `${S3_LOGOS}/GBM.png`, name: "GBM" },
+  { src: `${S3_LOGOS}/Google-Cloud-Security.png`, name: "Google Cloud Security" },
+  { src: `${S3_LOGOS}/Group-IB.png`, name: "Group-IB" },
+  { src: `${S3_LOGOS}/kaspersky.png`, name: "Kaspersky" },
+  { src: `${S3_LOGOS}/ManageEngine.png`, name: "ManageEngine" },
+  { src: `${S3_LOGOS}/paloalto.png`, name: "Palo Alto Networks" },
+  { src: `${S3_LOGOS}/sentinelone.png`, name: "SentinelOne" },
+  { src: `${S3_LOGOS}/Sonicwall.png`, name: "SonicWall" },
+];
+
+const MARQUEE_ROW_2 = [
+  { src: `${S3_LOGOS}/Anomali.png`, name: "Anomali" },
+  { src: `${S3_LOGOS}/beacon-red.png`, name: "Beacon Red" },
+  { src: `${S3_LOGOS}/CEREBRA.png`, name: "Cerebra" },
+  { src: `${S3_LOGOS}/corelight.png`, name: "Corelight" },
+  { src: `${S3_LOGOS}/cyberknight.png`, name: "CyberKnight" },
+  { src: `${S3_LOGOS}/Deepinfo.png`, name: "Deepinfo" },
+  { src: `${S3_LOGOS}/DTS-solutions.png`, name: "DTS Solutions" },
+  { src: `${S3_LOGOS}/EC-Council.png`, name: "EC-Council" },
+  { src: `${S3_LOGOS}/GAFAI.png`, name: "GAFAI" },
+  { src: `${S3_LOGOS}/Gorilla.png`, name: "Gorilla" },
+  { src: `${S3_LOGOS}/keysight-technologies.png`, name: "Keysight Technologies" },
+  { src: `${S3_LOGOS}/nozomi-networks.png`, name: "Nozomi Networks" },
+  { src: `${S3_LOGOS}/OPSWAT-logo.png`, name: "OPSWAT" },
+  { src: `${S3_LOGOS}/PENTERA.png`, name: "Pentera" },
+  { src: `${S3_LOGOS}/secureworks.png`, name: "Secureworks" },
+  { src: `${S3_LOGOS}/Securonix-logo.png`, name: "Securonix" },
+  { src: `${S3_LOGOS}/Tenable-logo.png`, name: "Tenable" },
+  { src: `${S3_LOGOS}/Wallix.png`, name: "Wallix" },
+  { src: `${S3_LOGOS}/Xage.png`, name: "Xage" },
+  { src: `${S3_LOGOS}/YOKOGAWA.png`, name: "Yokogawa" },
 ];
 
 function SponsorsSection() {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <section
       ref={ref}
       id="partners"
+      className="relative overflow-hidden"
       style={{
-        background: "#080808",
-        padding: "clamp(48px, 6vw, 80px) 0",
-        position: "relative",
-        overflow: "hidden",
+        background: "#111111",
+        padding: "clamp(36px, 5vw, 56px) 0",
       }}
     >
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 1 }}>
+      {/* Atmospheric gradients */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 50% 50% at 50% 40%, rgba(15,115,94,0.03) 0%, transparent 70%)`,
+        }}
+      />
+
+      <DotMatrixGrid color={E} opacity={0.012} spacing={30} />
+
+      <div
+        style={{
+          maxWidth: 1300,
+          margin: "0 auto",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: EASE }}
+          initial={{ opacity: 0, y: 25 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
+          transition={{ duration: 0.7, ease: EASE }}
           style={{ textAlign: "center", marginBottom: 40 }}
         >
           <div className="flex items-center justify-center gap-3">
             <span style={{ width: 30, height: 1, background: E }} />
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: E_BRIGHT }}>
-              Partners
+            <span
+              style={{
+                fontFamily: "var(--font-outfit)",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "2.5px",
+                textTransform: "uppercase",
+                color: E,
+              }}
+            >
+              Trusted By Industry Leaders
             </span>
             <span style={{ width: 30, height: 1, background: E }} />
           </div>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 3.5vw, 44px)", letterSpacing: "-1.5px", color: "var(--white)", lineHeight: 1.1, margin: "16px 0 0" }}>
-            Founding Partners
+
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: "clamp(30px, 3.5vw, 48px)",
+              letterSpacing: "-1.5px",
+              color: "var(--white)",
+              lineHeight: 1.1,
+              margin: "20px 0 0",
+            }}
+          >
+            Our Partners
           </h2>
-          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 400, color: "rgba(255,255,255,0.5)", marginTop: 12, maxWidth: 500, margin: "12px auto 0" }}>
-            Join Kuwait&apos;s leading AI summit as a founding partner
+
+          <p
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontWeight: 300,
+              fontSize: 16,
+              color: "#707070",
+              lineHeight: 1.6,
+              maxWidth: 480,
+              margin: "14px auto 0",
+            }}
+          >
+            Backed by global technology leaders and enterprises
+            worldwide.
           </p>
         </motion.div>
 
-        {/* Sponsor Tiers */}
-        {SPONSOR_TIERS.map((tierData, tierIndex) => (
-          <motion.div
-            key={tierData.tier}
-            initial={{ opacity: 0, y: 15 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 + tierIndex * 0.1, ease: EASE }}
-            style={{ marginBottom: tierIndex < SPONSOR_TIERS.length - 1 ? 28 : 0 }}
-          >
-            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: tierData.color, marginBottom: 12 }}>
-              {tierData.tier}
-            </p>
+        {/* Marquee Container */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          style={{ position: "relative" }}
+        >
+          {/* Left edge fade */}
+          <div
+            className="absolute left-0 top-0 bottom-0 z-10 pointer-events-none"
+            style={{
+              width: "clamp(60px, 10vw, 120px)",
+              background:
+                "linear-gradient(to right, #111111 0%, transparent 100%)",
+            }}
+          />
+          {/* Right edge fade */}
+          <div
+            className="absolute right-0 top-0 bottom-0 z-10 pointer-events-none"
+            style={{
+              width: "clamp(60px, 10vw, 120px)",
+              background:
+                "linear-gradient(to left, #111111 0%, transparent 100%)",
+            }}
+          />
+
+          {/* Row 1 — scrolls left */}
+          <div className="daik-marquee-track" style={{ marginBottom: 20 }}>
             <div
-              className="daik-sponsor-grid"
-              style={{
-                display: "grid",
-                gridTemplateColumns: `repeat(${Math.min(tierData.slots, 4)}, 1fr)`,
-                gap: 12,
-              }}
+              className="daik-marquee-inner daik-scroll-left"
+              style={{ animationDuration: "70s" }}
             >
-              {/* Actual sponsors */}
-              {tierData.sponsors?.map((sponsor, i) => (
+              {[...MARQUEE_ROW_1, ...MARQUEE_ROW_1].map((logo, i) => (
                 <div
-                  key={sponsor.name}
-                  className="flex items-center justify-center transition-all"
+                  key={`r1-${i}`}
+                  className="daik-logo-item"
                   style={{
-                    padding: tierIndex === 0 ? "32px" : "24px",
-                    borderRadius: 14,
-                    background: `linear-gradient(145deg, ${tierData.color}12, ${tierData.color}06)`,
-                    border: `1px solid ${tierData.color}30`,
+                    width: 180,
+                    height: 56,
+                    margin: "0 clamp(16px, 2.5vw, 32px)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    borderRadius: 8,
                   }}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={sponsor.logo}
-                    alt={sponsor.name}
-                    style={{ maxHeight: tierIndex === 0 ? 80 : 52, maxWidth: "80%", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.9 }}
+                    src={logo.src}
+                    alt={logo.name}
+                    loading="lazy"
+                    style={{
+                      maxHeight: "100%",
+                      maxWidth: "100%",
+                      objectFit: "contain",
+                    }}
                   />
                 </div>
               ))}
-              {/* Placeholder slots */}
-              {Array.from({ length: tierData.slots - (tierData.sponsors?.length || 0) }).map((_, i) => (
+            </div>
+          </div>
+
+          {/* Row 2 — scrolls right */}
+          <div className="daik-marquee-track">
+            <div
+              className="daik-marquee-inner daik-scroll-right"
+              style={{ animationDuration: "80s" }}
+            >
+              {[...MARQUEE_ROW_2, ...MARQUEE_ROW_2].map((logo, i) => (
                 <div
-                  key={`placeholder-${i}`}
-                  className="flex items-center justify-center transition-all"
+                  key={`r2-${i}`}
+                  className="daik-logo-item"
                   style={{
-                    padding: tierIndex === 0 ? "48px 32px" : "32px 24px",
-                    borderRadius: 14,
-                    background: `linear-gradient(145deg, ${tierData.color}08, ${tierData.color}03)`,
-                    border: `1px dashed ${tierData.color}25`,
-                    cursor: "default",
+                    width: 180,
+                    height: 56,
+                    margin: "0 clamp(16px, 2.5vw, 32px)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    borderRadius: 8,
                   }}
                 >
-                  <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 400, color: `${tierData.color}50` }}>
-                    Your brand here
-                  </span>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={logo.src}
+                    alt={logo.name}
+                    loading="lazy"
+                    style={{
+                      maxHeight: "100%",
+                      maxWidth: "100%",
+                      objectFit: "contain",
+                    }}
+                  />
                 </div>
               ))}
             </div>
-          </motion.div>
-        ))}
-
-        {/* Past Partners */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.5, ease: EASE }}
-          style={{ marginTop: 48, paddingTop: 40, borderTop: "1px solid rgba(255,255,255,0.06)" }}
-        >
-          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: "#606060", textAlign: "center", marginBottom: 24 }}>
-            Trusted by Leading Organizations
-          </p>
-          <div
-            className="daik-past-sponsors"
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: 32,
-              opacity: 0.6,
-            }}
-          >
-            {[
-              "EY.png",
-              "fortinet.png",
-              "kaspersky.png",
-              "Tenable-logo.png",
-              "Akamai.png",
-              "paloalto.png",
-              "GBM.png",
-              "Claroty.png",
-              "Dragos.png",
-              "sentinelone.png",
-              "nozomi-networks.png",
-              "Celonis.png",
-            ].map((logo) => (
-              <div key={logo} style={{ height: 28 }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/${logo}`}
-                  alt={logo.replace(/[-_\.png]+/g, " ").trim()}
-                  style={{ height: "100%", width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.7 }}
-                />
-              </div>
-            ))}
           </div>
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.6, ease: EASE }}
-          style={{ textAlign: "center", marginTop: 36 }}
-        >
-          <Link
-            href="#partnership"
-            className="inline-flex items-center gap-2 transition-all group"
-            style={{
-              padding: "14px 32px",
-              borderRadius: 50,
-              background: `linear-gradient(135deg, ${E}15 0%, ${E}08 100%)`,
-              border: `1px solid ${E}40`,
-              fontFamily: "var(--font-outfit)",
-              fontSize: 14,
-              fontWeight: 600,
-              color: E_BRIGHT,
-            }}
-          >
-            <span>Become a Founding Partner</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="transition-transform group-hover:translate-x-1">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </Link>
         </motion.div>
       </div>
 
       <style jsx global>{`
-        @media (max-width: 768px) {
-          .daik-sponsor-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+        .daik-logo-item {
+          opacity: 0.35;
+          transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+        }
+        .daik-logo-item img {
+          filter: brightness(0) invert(1);
+        }
+        .daik-logo-item:hover {
+          opacity: 1;
+          transform: scale(1.1);
+          filter: drop-shadow(0 0 12px rgba(255,255,255,0.15));
+        }
+        .daik-marquee-track {
+          overflow: hidden;
+          width: 100%;
+        }
+        .daik-marquee-inner {
+          display: flex;
+          width: max-content;
+          will-change: transform;
+        }
+        .daik-scroll-left {
+          animation: daikScrollLeft linear infinite;
+        }
+        .daik-scroll-right {
+          animation: daikScrollRight linear infinite;
+        }
+        @keyframes daikScrollLeft {
+          0% {
+            transform: translateX(0);
           }
-          .daik-past-sponsors {
-            gap: 24px !important;
-          }
-          .daik-past-sponsors > div {
-            height: 22px !important;
+          100% {
+            transform: translateX(-50%);
           }
         }
-        @media (max-width: 480px) {
-          .daik-sponsor-grid {
-            grid-template-columns: 1fr !important;
+        @keyframes daikScrollRight {
+          0% {
+            transform: translateX(-50%);
           }
-          .daik-past-sponsors {
-            gap: 20px !important;
-          }
-          .daik-past-sponsors > div {
-            height: 18px !important;
+          100% {
+            transform: translateX(0);
           }
         }
       `}</style>
@@ -4447,7 +4534,7 @@ function SponsorsSection() {
 const FAQS = [
   {
     q: "What is Data & AI First?",
-    a: "Data & AI First is a premier summit series by Events First Group designed for enterprise leaders driving AI transformation across the GCC. It brings together Chief Data Officers, AI architects, government strategists, and solution providers for a full day of practitioner-led sessions, workshops, and curated meetings.",
+    a: "Data & AI First is a premier summit series by Events First Group designed for enterprise leaders driving AI transformation. It brings together Chief Data Officers, AI architects, government strategists, and solution providers for a full day of practitioner-led sessions, workshops, and curated meetings.",
   },
   {
     q: "Who should attend?",
@@ -4486,27 +4573,63 @@ function FAQSection() {
         overflow: "hidden",
       }}
     >
-      <div style={{ maxWidth: 800, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 1 }}>
-        {/* Header */}
+      <div
+        className="daik-faq-grid"
+        style={{
+          maxWidth: 1100,
+          margin: "0 auto",
+          padding: "0 clamp(20px, 4vw, 60px)",
+          position: "relative",
+          zIndex: 1,
+          display: "grid",
+          gridTemplateColumns: "1fr 1.5fr",
+          gap: 60,
+          alignItems: "start",
+        }}
+      >
+        {/* Left Column — Header + CTA (sticky) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: EASE }}
-          style={{ textAlign: "center", marginBottom: 40 }}
+          style={{ position: "sticky", top: 120 }}
         >
-          <div className="flex items-center justify-center gap-3">
+          <div className="flex items-center gap-3">
             <span style={{ width: 30, height: 1, background: E }} />
             <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: E_BRIGHT }}>
               FAQ
             </span>
-            <span style={{ width: 30, height: 1, background: E }} />
+            <span style={{ width: 30, height: 1, background: `linear-gradient(90deg, ${E}, transparent)` }} />
           </div>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 3.5vw, 44px)", letterSpacing: "-1.5px", color: "var(--white)", lineHeight: 1.1, margin: "16px 0 0" }}>
             Common Questions
           </h2>
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.4)", lineHeight: 1.7, margin: "16px 0 28px" }}>
+            Can&apos;t find your answer? Get in touch with our team directly.
+          </p>
+          <a
+            href="mailto:info@eventsfirstgroup.com"
+            className="inline-flex items-center gap-2 transition-all group"
+            style={{
+              padding: "12px 28px",
+              borderRadius: 50,
+              background: `linear-gradient(135deg, ${E}15 0%, ${E}08 100%)`,
+              border: `1px solid ${E}40`,
+              fontFamily: "var(--font-outfit)",
+              fontSize: 14,
+              fontWeight: 600,
+              color: E_BRIGHT,
+              textDecoration: "none",
+            }}
+          >
+            <span>Contact Us</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="transition-transform group-hover:translate-x-1">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
         </motion.div>
 
-        {/* FAQ Accordion */}
+        {/* Right Column — Accordion */}
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {FAQS.map((faq, i) => {
             const isOpen = openIndex === i;
@@ -4561,22 +4684,16 @@ function FAQSection() {
             );
           })}
         </div>
-
-        {/* Contact CTA */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          style={{ textAlign: "center", marginTop: 32 }}
-        >
-          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "#606060" }}>
-            Still have questions?{" "}
-            <a href="mailto:info@eventsfirstgroup.com" style={{ color: E_BRIGHT, textDecoration: "none" }}>
-              Contact us
-            </a>
-          </p>
-        </motion.div>
       </div>
+
+      <style jsx global>{`
+        @media (max-width: 768px) {
+          .daik-faq-grid {
+            grid-template-columns: 1fr !important;
+            gap: 32px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
@@ -4589,14 +4706,38 @@ function ApplicationForm() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [appSelectedCountry, setAppSelectedCountry] = useState<CountryCode>(COUNTRY_CODES[2]);
+  const [appPhoneError, setAppPhoneError] = useState<string | null>(null);
+  const [appEmailError, setAppEmailError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const emailVal = String(fd.get("email") || "");
+    const phoneVal = String(fd.get("phone") || "");
+    if (emailVal && !isWorkEmail(emailVal)) {
+      setAppEmailError("Please use your work email address");
+      return;
+    }
+    const phoneErr = validatePhone(phoneVal, appSelectedCountry);
+    if (phoneErr) {
+      setAppPhoneError(phoneErr);
+      return;
+    }
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 1500);
+    const combinedPhone = `${appSelectedCountry.code}${phoneVal.replace(/[\s\-()]/g, "")}`;
+    const result = await submitForm({
+      type: "attend",
+      full_name: String(fd.get("name") || ""),
+      email: emailVal,
+      company: String(fd.get("company") || ""),
+      job_title: String(fd.get("title") || ""),
+      phone: combinedPhone,
+      metadata: { message: String(fd.get("message") || "") },
+      event_name: "Data & AI First Kuwait 2026",
+    });
+    setLoading(false);
+    if (result.success) setSubmitted(true);
   };
 
   const inputStyle = (field: string): React.CSSProperties => ({
@@ -4656,6 +4797,7 @@ function ApplicationForm() {
     <form onSubmit={handleSubmit} style={{ marginTop: 24 }}>
       <div className="daik-app-form-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
         <input
+          name="name"
           type="text"
           placeholder="Full Name"
           required
@@ -4663,53 +4805,70 @@ function ApplicationForm() {
           onBlur={() => setFocusedField(null)}
           style={inputStyle("name")}
         />
-        <input
-          type="email"
-          placeholder="Work Email"
-          required
-          onFocus={() => setFocusedField("email")}
-          onBlur={() => setFocusedField(null)}
-          style={inputStyle("email")}
-        />
-        <input
-          type="text"
-          placeholder="Job Title"
-          required
-          onFocus={() => setFocusedField("title")}
-          onBlur={() => setFocusedField(null)}
-          style={inputStyle("title")}
-        />
-        <input
-          type="text"
-          placeholder="Company"
-          required
-          onFocus={() => setFocusedField("company")}
-          onBlur={() => setFocusedField(null)}
-          style={inputStyle("company")}
-        />
+        <div>
+          <input
+            name="email"
+            type="email"
+            placeholder="Work Email"
+            required
+            onFocus={() => setFocusedField("email")}
+            onBlur={() => setFocusedField(null)}
+            onChange={() => setAppEmailError(null)}
+            style={inputStyle("email")}
+          />
+          {appEmailError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{appEmailError}</p>}
+        </div>
       </div>
-      <select
+      <div style={{ marginBottom: 12 }}>
+        <div style={{ display: "flex", gap: 8 }}>
+          <select
+            value={`${appSelectedCountry.code}|${appSelectedCountry.country}`}
+            onChange={(e) => { const [code, country] = e.target.value.split("|"); const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country); if (c) { setAppSelectedCountry(c); setAppPhoneError(null); } }}
+            onFocus={() => setFocusedField("phone")}
+            onBlur={() => setFocusedField(null)}
+            style={{ ...inputStyle("phone"), width: 120, flexShrink: 0, appearance: "none" as const, cursor: "pointer" }}
+          >
+            {COUNTRY_CODES.map((cc) => (<option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>{cc.country} {cc.code}</option>))}
+          </select>
+          <input
+            name="phone"
+            type="tel"
+            placeholder={appSelectedCountry.placeholder}
+            onFocus={() => setFocusedField("phone")}
+            onBlur={() => setFocusedField(null)}
+            onChange={() => setAppPhoneError(null)}
+            maxLength={appSelectedCountry.length}
+            style={{ ...inputStyle("phone"), flex: 1 }}
+          />
+        </div>
+        {appPhoneError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{appPhoneError}</p>}
+      </div>
+      <input
+        name="company"
+        type="text"
+        placeholder="Company"
         required
-        onFocus={() => setFocusedField("industry")}
+        onFocus={() => setFocusedField("company")}
         onBlur={() => setFocusedField(null)}
-        style={{
-          ...inputStyle("industry"),
-          marginBottom: 12,
-          cursor: "pointer",
-          appearance: "none",
-          color: "#808080",
-        }}
-      >
-        <option value="">Select Industry</option>
-        <option>Government</option>
-        <option>Finance & Banking</option>
-        <option>Technology</option>
-        <option>Oil & Gas</option>
-        <option>Healthcare</option>
-        <option>Telecommunications</option>
-        <option>Education</option>
-        <option>Other</option>
-      </select>
+        style={{ ...inputStyle("company"), marginBottom: 12 }}
+      />
+      <input
+        name="title"
+        type="text"
+        placeholder="Job Title"
+        required
+        onFocus={() => setFocusedField("title")}
+        onBlur={() => setFocusedField(null)}
+        style={{ ...inputStyle("title"), marginBottom: 12 }}
+      />
+      <textarea
+        name="message"
+        placeholder="Message (Optional)"
+        rows={3}
+        onFocus={() => setFocusedField("message")}
+        onBlur={() => setFocusedField(null)}
+        style={{ ...inputStyle("message"), marginBottom: 12, resize: "vertical" }}
+      />
       <button
         type="submit"
         disabled={loading}
@@ -4758,14 +4917,38 @@ function PartnershipForm() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [partnerSelectedCountry, setPartnerSelectedCountry] = useState<CountryCode>(COUNTRY_CODES[2]);
+  const [partnerPhoneError, setPartnerPhoneError] = useState<string | null>(null);
+  const [partnerEmailError, setPartnerEmailError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const emailVal = String(fd.get("email") || "");
+    const phoneVal = String(fd.get("phone") || "");
+    if (emailVal && !isWorkEmail(emailVal)) {
+      setPartnerEmailError("Please use your work email address");
+      return;
+    }
+    const phoneErr = validatePhone(phoneVal, partnerSelectedCountry);
+    if (phoneErr) {
+      setPartnerPhoneError(phoneErr);
+      return;
+    }
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 1500);
+    const combinedPhone = `${partnerSelectedCountry.code}${phoneVal.replace(/[\s\-()]/g, "")}`;
+    const result = await submitForm({
+      type: "sponsor",
+      full_name: String(fd.get("name") || ""),
+      email: emailVal,
+      company: String(fd.get("company") || ""),
+      job_title: String(fd.get("title") || ""),
+      phone: combinedPhone,
+      metadata: { message: String(fd.get("message") || "") },
+      event_name: "Data & AI First Kuwait 2026",
+    });
+    setLoading(false);
+    if (result.success) setSubmitted(true);
   };
 
   const inputStyle = (field: string): React.CSSProperties => ({
@@ -4823,49 +5006,80 @@ function PartnershipForm() {
 
   return (
     <form onSubmit={handleSubmit} style={{ marginTop: 20 }}>
-      <div className="daik-partner-form-grid" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      <div className="daik-app-form-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 10 }}>
         <input
+          name="name"
           type="text"
-          placeholder="Company Name"
+          placeholder="Full Name"
           required
-          onFocus={() => setFocusedField("company")}
+          onFocus={() => setFocusedField("name")}
           onBlur={() => setFocusedField(null)}
-          style={inputStyle("company")}
+          style={inputStyle("name")}
         />
-        <input
-          type="text"
-          placeholder="Contact Person"
-          required
-          onFocus={() => setFocusedField("contact")}
-          onBlur={() => setFocusedField(null)}
-          style={inputStyle("contact")}
-        />
-        <input
-          type="email"
-          placeholder="Work Email"
-          required
-          onFocus={() => setFocusedField("email")}
-          onBlur={() => setFocusedField(null)}
-          style={inputStyle("email")}
-        />
-        <select
-          required
-          onFocus={() => setFocusedField("tier")}
-          onBlur={() => setFocusedField(null)}
-          style={{
-            ...inputStyle("tier"),
-            cursor: "pointer",
-            appearance: "none",
-            color: "#808080",
-          }}
-        >
-          <option value="">Partnership Interest</option>
-          <option>Patronage Partner</option>
-          <option>Knowledge Partner</option>
-          <option>Supporting Partner</option>
-          <option>Exhibition Only</option>
-        </select>
+        <div>
+          <input
+            name="email"
+            type="email"
+            placeholder="Work Email"
+            required
+            onFocus={() => setFocusedField("email")}
+            onBlur={() => setFocusedField(null)}
+            onChange={() => setPartnerEmailError(null)}
+            style={inputStyle("email")}
+          />
+          {partnerEmailError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{partnerEmailError}</p>}
+        </div>
       </div>
+      <div style={{ marginBottom: 10 }}>
+        <div style={{ display: "flex", gap: 8 }}>
+          <select
+            value={`${partnerSelectedCountry.code}|${partnerSelectedCountry.country}`}
+            onChange={(e) => { const [code, country] = e.target.value.split("|"); const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country); if (c) { setPartnerSelectedCountry(c); setPartnerPhoneError(null); } }}
+            onFocus={() => setFocusedField("phone")}
+            onBlur={() => setFocusedField(null)}
+            style={{ ...inputStyle("phone"), width: 120, flexShrink: 0, appearance: "none" as const, cursor: "pointer" }}
+          >
+            {COUNTRY_CODES.map((cc) => (<option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>{cc.country} {cc.code}</option>))}
+          </select>
+          <input
+            name="phone"
+            type="tel"
+            placeholder={partnerSelectedCountry.placeholder}
+            onFocus={() => setFocusedField("phone")}
+            onBlur={() => setFocusedField(null)}
+            onChange={() => setPartnerPhoneError(null)}
+            maxLength={partnerSelectedCountry.length}
+            style={{ ...inputStyle("phone"), flex: 1 }}
+          />
+        </div>
+        {partnerPhoneError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{partnerPhoneError}</p>}
+      </div>
+      <input
+        name="company"
+        type="text"
+        placeholder="Company"
+        required
+        onFocus={() => setFocusedField("company")}
+        onBlur={() => setFocusedField(null)}
+        style={{ ...inputStyle("company"), marginBottom: 10 }}
+      />
+      <input
+        name="title"
+        type="text"
+        placeholder="Job Title"
+        required
+        onFocus={() => setFocusedField("title")}
+        onBlur={() => setFocusedField(null)}
+        style={{ ...inputStyle("title"), marginBottom: 10 }}
+      />
+      <textarea
+        name="message"
+        placeholder="Tell us about your sponsorship goals..."
+        rows={3}
+        onFocus={() => setFocusedField("message")}
+        onBlur={() => setFocusedField(null)}
+        style={{ ...inputStyle("message"), marginBottom: 10, resize: "vertical" }}
+      />
       <button
         type="submit"
         disabled={loading}
@@ -5387,7 +5601,7 @@ const CONTACTS = {
   speaking: {
     name: "Sanjana Venugopal",
     role: "Senior Conference Producer",
-    phone: "+971 55 416 1657",
+    phone: "+971 50 500 3341",
     email: "sanjana@eventsfirstgroup.com",
     photo: `${S3_TEAM}/Sanjana-Venugopal-new.jpg`,
   },

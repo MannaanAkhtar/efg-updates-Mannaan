@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,10 +17,40 @@ const navLinks = [
 ];
 
 const eventSeries = [
-  { href: "/events/cyber-first", label: "Cyber First", color: "#01BBF5" },
-  { href: "/events/ot-security-first", label: "OT Security First", color: "#D34B9A" },
-  { href: "/events/data-ai-first", label: "Data & AI First", color: "#0F735E" },
-  { href: "/events/opex-first", label: "Opex First", color: "#7C3AED" },
+  { 
+    href: "/events/cyber-first", 
+    label: "Cyber First", 
+    color: "#01BBF5",
+    editions: [
+      { href: "/events/cyber-first/kuwait-2026", label: "Kuwait" },
+      { href: "/events/cyber-first/kenya-2026", label: "Nairobi" },
+      { href: "/events/cyber-first/india-2026", label: "New Delhi" },
+    ]
+  },
+  { 
+    href: "/events/ot-security-first", 
+    label: "OT Security First", 
+    color: "#D34B9A",
+    editions: [
+      { href: "/events/ot-security-first", label: "UAE 2026" },
+    ]
+  },
+  { 
+    href: "/events/data-ai-first", 
+    label: "Data & AI First", 
+    color: "#0F735E",
+    editions: [
+      { href: "/events/data-ai-first/kuwait-2026", label: "Kuwait 2026" },
+    ]
+  },
+  { 
+    href: "/events/opex-first", 
+    label: "Opex First", 
+    color: "#7C3AED",
+    editions: [
+      { href: "/events/opex-first", label: "UAE 2026" },
+    ]
+  },
 ];
 
 /**
@@ -32,6 +62,7 @@ const eventSeries = [
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isEventsOpen, setIsEventsOpen] = useState(false);
+  const [activeSeriesIndex, setActiveSeriesIndex] = useState<number | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -137,28 +168,77 @@ export default function Navigation() {
                           boxShadow: "0 20px 60px rgba(0, 0, 0, 0.5)",
                         }}
                       >
-                        {eventSeries.map((event) => (
-                          <Link
+                        {eventSeries.map((event, idx) => (
+                          <div
                             key={event.href}
-                            href={event.href}
-                            className="flex items-center gap-3 px-4 py-[11px] rounded-[9px] text-[14px] transition-colors duration-200"
-                            style={{ color: "var(--white-dim)" }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.background =
-                                "rgba(255, 255, 255, 0.04)";
-                              e.currentTarget.style.color = "var(--white)";
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.background = "transparent";
-                              e.currentTarget.style.color = "var(--white-dim)";
-                            }}
+                            className="relative"
+                            onMouseEnter={() => setActiveSeriesIndex(idx)}
+                            onMouseLeave={() => setActiveSeriesIndex(null)}
                           >
-                            <span
-                              className="w-[6px] h-[6px] rounded-full flex-shrink-0"
-                              style={{ background: event.color }}
-                            />
-                            {event.label}
-                          </Link>
+                            <Link
+                              href={event.href}
+                              className="flex items-center justify-between gap-3 px-4 py-[11px] rounded-[9px] text-[14px] transition-colors duration-200"
+                              style={{ color: activeSeriesIndex === idx ? "var(--white)" : "var(--white-dim)", background: activeSeriesIndex === idx ? "rgba(255, 255, 255, 0.04)" : "transparent" }}
+                            >
+                              <span className="flex items-center gap-3">
+                                <span
+                                  className="w-[6px] h-[6px] rounded-full flex-shrink-0"
+                                  style={{ background: event.color }}
+                                />
+                                {event.label}
+                              </span>
+                              {event.editions && event.editions.length > 0 && (
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.5 }}>
+                                  <polyline points="9 18 15 12 9 6" />
+                                </svg>
+                              )}
+                            </Link>
+                            
+                            {/* Editions Sub-dropdown */}
+                            {event.editions && event.editions.length > 0 && (
+                              <AnimatePresence>
+                                {activeSeriesIndex === idx && (
+                                  <motion.div
+                                    initial={{ opacity: 0, x: -8 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -8 }}
+                                    transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                                    className="absolute left-full top-0 ml-2"
+                                    style={{
+                                      minWidth: 180,
+                                      background: "var(--black-card)",
+                                      border: "1px solid var(--gray-border-hover)",
+                                      borderRadius: 12,
+                                      padding: 8,
+                                      backdropFilter: "blur(20px)",
+                                      WebkitBackdropFilter: "blur(20px)",
+                                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                                    }}
+                                  >
+                                    {event.editions.map((edition) => (
+                                      <Link
+                                        key={edition.href}
+                                        href={edition.href}
+                                        className="flex items-center gap-2 px-3 py-[9px] rounded-[7px] text-[13px] transition-colors duration-200"
+                                        style={{ color: "var(--white-dim)" }}
+                                        onMouseEnter={(e) => {
+                                          e.currentTarget.style.background = `${event.color}15`;
+                                          e.currentTarget.style.color = "var(--white)";
+                                        }}
+                                        onMouseLeave={(e) => {
+                                          e.currentTarget.style.background = "transparent";
+                                          e.currentTarget.style.color = "var(--white-dim)";
+                                        }}
+                                      >
+                                        <span className="w-[4px] h-[4px] rounded-full" style={{ background: event.color, opacity: 0.6 }} />
+                                        {edition.label}
+                                      </Link>
+                                    ))}
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+                            )}
+                          </div>
                         ))}
                       </motion.div>
                     )}

@@ -5,7 +5,6 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 
 const OT_CRIMSON = "#D34B9A";
-const OT_FIREBRICK = "#E86BB8";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 // 8 speakers with S3-hosted photos from Supabase
@@ -86,13 +85,33 @@ export default function OTFeaturedSpeakers() {
       style={{
         background: "#0A0A0A",
         padding: "clamp(48px, 6vw, 80px) 0",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      {/* Vertical line pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(211,75,154,0.03) 59px, rgba(211,75,154,0.03) 60px)",
+        }}
+      />
+      {/* Crimson glow — center-bottom */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 60% 40% at 50% 90%, ${OT_CRIMSON}10 0%, transparent 70%)`,
+        }}
+      />
+
       <div
         style={{
           maxWidth: 1320,
           margin: "0 auto",
           padding: "0 clamp(20px, 4vw, 60px)",
+          position: "relative" as const,
+          zIndex: 1,
         }}
       >
         {/* Header */}
@@ -174,15 +193,29 @@ export default function OTFeaturedSpeakers() {
           ))}
         </div>
 
-        {/* View All Link */}
+        {/* View All + Apply to Speak */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
           transition={{ duration: 0.6, delay: 0.8, ease: EASE }}
-          className="text-center"
+          className="flex items-center justify-center gap-6"
           style={{ marginTop: 32 }}
         >
           <ViewAllLink />
+          <span style={{ width: 1, height: 16, background: "rgba(255,255,255,0.1)" }} />
+          <a
+            href="#register"
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 14,
+              fontWeight: 500,
+              color: OT_CRIMSON,
+              textDecoration: "none",
+              letterSpacing: "0.3px",
+            }}
+          >
+            Apply to Speak →
+          </a>
         </motion.div>
 
         {/* Attendee Logo Wall */}
@@ -199,7 +232,7 @@ export default function OTFeaturedSpeakers() {
               fontWeight: 500,
               letterSpacing: "2px",
               textTransform: "uppercase",
-              color: "#404040",
+              color: "#555",
               textAlign: "center",
               marginBottom: 20,
             }}
@@ -233,7 +266,7 @@ export default function OTFeaturedSpeakers() {
                   fontFamily: "var(--font-display)",
                   fontSize: 14,
                   fontWeight: 700,
-                  color: "#2a2a2a",
+                  color: "#3a3a3a",
                   letterSpacing: "-0.2px",
                   padding: "8px 16px",
                   background: "rgba(255, 255, 255, 0.02)",

@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { isWorkEmail } from "@/lib/form-helpers";
 
 const OT_CRIMSON = "#D34B9A";
 const OT_FIREBRICK = "#E86BB8";
@@ -11,9 +12,15 @@ export default function OTRegistrationForm() {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (email && !isWorkEmail(email)) {
+      setEmailError("Please use your work email address");
+      return;
+    }
     setIsLoading(true);
     // Simulate form submission
     setTimeout(() => {
@@ -118,7 +125,15 @@ export default function OTRegistrationForm() {
                 </div>
 
                 <div style={{ marginTop: 16 }}>
-                  <FormInput label="Work Email" type="email" required />
+                  <FormInput
+                    label="Work Email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(val) => { setEmail(val); setEmailError(null); }}
+                    onBlur={() => { if (email && !isWorkEmail(email)) setEmailError("Please use your work email address"); }}
+                    error={emailError}
+                  />
                 </div>
 
                 <div className="grid gap-4" style={{ gridTemplateColumns: "1fr 1fr", marginTop: 16 }}>
@@ -270,10 +285,18 @@ function FormInput({
   label,
   type,
   required,
+  value,
+  onChange,
+  onBlur: onBlurProp,
+  error,
 }: {
   label: string;
   type: string;
   required?: boolean;
+  value?: string;
+  onChange?: (val: string) => void;
+  onBlur?: () => void;
+  error?: string | null;
 }) {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -298,6 +321,8 @@ function FormInput({
         type={type}
         required={required}
         className="w-full transition-all"
+        value={value}
+        onChange={onChange ? (e) => onChange(e.target.value) : undefined}
         style={{
           background: "#0a0a0a",
           border: isFocused
@@ -312,8 +337,9 @@ function FormInput({
           transitionDuration: "0.3s",
         }}
         onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
+        onBlur={() => { setIsFocused(false); onBlurProp?.(); }}
       />
+      {error && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{error}</p>}
     </div>
   );
 }

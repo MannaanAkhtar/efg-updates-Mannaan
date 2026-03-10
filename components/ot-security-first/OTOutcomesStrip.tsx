@@ -22,8 +22,8 @@ export default function OTOutcomesStrip() {
       ref={ref}
       style={{
         background: "#0a0a0a",
-        borderTop: `1px solid ${OT_CRIMSON}15`,
-        borderBottom: `1px solid ${OT_CRIMSON}15`,
+        borderTop: `1px solid ${OT_CRIMSON}25`,
+        borderBottom: `1px solid ${OT_CRIMSON}25`,
         padding: "clamp(24px, 3vw, 36px) 0",
       }}
     >
@@ -53,7 +53,7 @@ export default function OTOutcomesStrip() {
                 padding: "8px 16px",
                 borderRight:
                   index < outcomes.length - 1
-                    ? `1px solid ${OT_CRIMSON}12`
+                    ? `1px solid ${OT_CRIMSON}20`
                     : "none",
               }}
             >
@@ -75,7 +75,7 @@ export default function OTOutcomesStrip() {
                   fontFamily: "var(--font-outfit)",
                   fontSize: 11,
                   fontWeight: 400,
-                  color: "#505050",
+                  color: "#686868",
                   margin: "6px 0 0",
                   letterSpacing: "0.3px",
                 }}

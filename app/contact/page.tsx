@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Footer } from "@/components/sections";
 import SectionTransition from "@/components/effects/SectionTransition";
+import { submitForm, isWorkEmail } from "@/lib/form-helpers";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CONSTANTS
@@ -301,6 +302,10 @@ function ContactForm() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const [focused, setFocused] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
 
   const focusStyle = (field: string): React.CSSProperties => ({
     ...inputBase,
@@ -360,8 +365,46 @@ function ContactForm() {
             Fill out the form and we&apos;ll get back to you shortly.
           </p>
 
+          {submitted ? (
+            <div style={{ textAlign: "center", padding: "40px 0" }}>
+              <div style={{ width: 52, height: 52, borderRadius: "50%", background: "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.25)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+              </div>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 24, color: "white", margin: "0 0 8px" }}>Message Sent</h3>
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "#808080", margin: "0 0 20px", lineHeight: 1.6 }}>We&apos;ll get back to you within 2 business days.</p>
+              <button onClick={() => { setSubmitted(false); setFormError(null); }} style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "var(--orange)", background: "none", border: "none", cursor: "pointer" }}>Send another message &rarr;</button>
+            </div>
+          ) : (
           <form
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={async (e) => {
+              e.preventDefault();
+              setSubmitting(true);
+              setFormError(null);
+              const fd = new FormData(e.currentTarget);
+              const emailVal = String(fd.get("email") || "");
+              if (emailVal && !isWorkEmail(emailVal)) {
+                setEmailError("Please use your work email address");
+                setSubmitting(false);
+                return;
+              }
+              const result = await submitForm({
+                type: "contact",
+                full_name: String(fd.get("name") || ""),
+                email: emailVal,
+                metadata: {
+                  inquiry_type: String(fd.get("inquiry") || ""),
+                  message: String(fd.get("message") || ""),
+                },
+              });
+              setSubmitting(false);
+              if (result.success) {
+                setSubmitted(true);
+                setEmailError(null);
+                (e.target as HTMLFormElement).reset();
+              } else {
+                setFormError(result.error || "Something went wrong.");
+              }
+            }}
             style={{ display: "flex", flexDirection: "column", gap: 18 }}
           >
             {/* Name + Email row */}
@@ -370,24 +413,38 @@ function ContactForm() {
               style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}
             >
               <input
+                name="name"
                 type="text"
                 placeholder="Your Name"
+                required
                 style={focusStyle("name")}
                 onFocus={() => setFocused("name")}
                 onBlur={() => setFocused(null)}
               />
-              <input
-                type="email"
-                placeholder="Email Address"
-                style={focusStyle("email")}
-                onFocus={() => setFocused("email")}
-                onBlur={() => setFocused(null)}
-              />
+              <div>
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="Email Address"
+                  required
+                  style={focusStyle("email")}
+                  onFocus={() => setFocused("email")}
+                  onChange={() => setEmailError(null)}
+                  onBlur={(e) => {
+                    setFocused(null);
+                    if (e.currentTarget.value && !isWorkEmail(e.currentTarget.value)) {
+                      setEmailError("Please use your work email address");
+                    }
+                  }}
+                />
+                {emailError && <p style={{ color: "#ef4444", fontSize: 11, margin: "4px 0 0" }}>{emailError}</p>}
+              </div>
             </div>
 
             {/* Inquiry Type */}
             <div style={{ position: "relative" }}>
               <select
+                name="inquiry"
                 style={{
                   ...focusStyle("inquiry"),
                   appearance: "none",
@@ -431,7 +488,9 @@ function ContactForm() {
 
             {/* Message */}
             <textarea
+              name="message"
               placeholder="Your Message"
+              required
               rows={5}
               style={{
                 ...focusStyle("message"),
@@ -442,40 +501,50 @@ function ContactForm() {
               onBlur={() => setFocused(null)}
             />
 
+            {/* Error */}
+            {formError && (
+              <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 13, margin: 0 }}>{formError}</p>
+            )}
+
             {/* Submit */}
             <div>
               <button
                 type="submit"
+                disabled={submitting}
                 style={{
                   padding: "15px 40px",
                   borderRadius: 60,
                   border: "none",
-                  background: "var(--orange)",
+                  background: submitting ? "rgba(232,101,26,0.6)" : "var(--orange)",
                   color: "white",
                   fontFamily: "var(--font-outfit)",
                   fontSize: 15,
                   fontWeight: 600,
-                  cursor: "pointer",
+                  cursor: submitting ? "not-allowed" : "pointer",
                   transition: "all 0.3s ease",
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 8,
+                  opacity: submitting ? 0.7 : 1,
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "var(--orange-bright)";
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow = "0 12px 40px var(--orange-glow)";
+                  if (!submitting) {
+                    e.currentTarget.style.background = "var(--orange-bright)";
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow = "0 12px 40px var(--orange-glow)";
+                  }
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "var(--orange)";
+                  e.currentTarget.style.background = submitting ? "rgba(232,101,26,0.6)" : "var(--orange)";
                   e.currentTarget.style.transform = "translateY(0)";
                   e.currentTarget.style.boxShadow = "none";
                 }}
               >
-                Send Message <span>→</span>
+                {submitting ? "Sending..." : "Send Message"} {!submitting && <span>→</span>}
               </button>
             </div>
           </form>
+          )}
         </motion.div>
 
         {/* Right — Info card */}

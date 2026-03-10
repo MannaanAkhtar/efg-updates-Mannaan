@@ -12,13 +12,13 @@ const metrics = [
   { value: 5000, suffix: "+", label: "Senior Delegates", hasComma: true },
   { value: 16,   suffix: "",  label: "Editions Delivered", hasComma: false },
   { value: 6,    suffix: "",  label: "Nations", hasComma: false },
-  { value: 12,   suffix: "",  label: "Cities Across GCC", hasComma: false },
+  { value: 12,   suffix: "+",  label: "Cities Worldwide", hasComma: false },
   { value: 200,  suffix: "+", label: "Expert Speakers", hasComma: false },
   { value: 99,   suffix: "+", label: "Strategic Sponsors", hasComma: false },
 ];
 
 const headlineWords = [
-  { text: "The GCC's", dim: false },
+  { text: "The world's", dim: false },
   { text: "most senior", dim: false },
   { text: "technology leaders", dim: false },
   { text: "don't attend", dim: false },

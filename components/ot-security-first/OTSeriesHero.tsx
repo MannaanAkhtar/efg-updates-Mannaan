@@ -11,10 +11,10 @@ const OT_FIREBRICK = "#E86BB8";
 
 // Sector badges
 const sectors = [
-  { label: "ENERGY", active: true },
-  { label: "OIL & GAS", active: true },
-  { label: "UTILITIES", active: true },
-  { label: "MANUFACTURING", active: false },
+  { label: "ENERGY", active: true, comingSoon: false },
+  { label: "OIL & GAS", active: true, comingSoon: false },
+  { label: "UTILITIES", active: true, comingSoon: false },
+  { label: "MANUFACTURING", active: false, comingSoon: true },
 ];
 
 // Stats for the hero
@@ -46,7 +46,7 @@ export default function OTSeriesHero() {
           alt=""
           className="w-full h-full object-cover"
           style={{
-            filter: "brightness(0.12) saturate(0.6)",
+            filter: "brightness(0.15) saturate(0.6)",
           }}
         />
       </div>
@@ -188,7 +188,9 @@ export default function OTSeriesHero() {
             <span
               key={sector.label}
               style={{
-                display: "inline-block",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
                 padding: "8px 14px",
                 background: sector.active ? OT_CRIMSON : "transparent",
                 border: sector.active
@@ -203,6 +205,19 @@ export default function OTSeriesHero() {
               }}
             >
               {sector.label}
+              {sector.comingSoon && (
+                <span
+                  style={{
+                    fontSize: 7,
+                    fontWeight: 500,
+                    letterSpacing: "1px",
+                    color: "#555",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Soon
+                </span>
+              )}
             </span>
           ))}
         </motion.div>
@@ -215,10 +230,10 @@ export default function OTSeriesHero() {
           className="flex flex-wrap justify-center gap-3"
           style={{ marginTop: 28 }}
         >
-          <CTAButton primary href="https://otsecurityfirst.com/" external>
-            View Latest Edition →
+          <CTAButton primary href="#register">
+            Register for Next Edition →
           </CTAButton>
-          <CTAButton href="/sponsors-and-partners">Become a Sponsor →</CTAButton>
+          <CTAButton href="#register">Become a Sponsor →</CTAButton>
         </motion.div>
 
         {/* Stats Row - Floating in content area */}
@@ -242,7 +257,7 @@ export default function OTSeriesHero() {
       <SeriesTickerBar
         accentColor={OT_CRIMSON}
         announcingText="Announcing Soon"
-        location="Expanding across the GCC"
+        location="Expanding worldwide"
         ctaText="Get Notified"
         ctaHref="#register"
         angularRadius={true}
@@ -376,7 +391,7 @@ function StatItem({
           fontWeight: 500,
           letterSpacing: "2px",
           textTransform: "uppercase",
-          color: "#505050",
+          color: "#686868",
           marginTop: 4,
         }}
       >

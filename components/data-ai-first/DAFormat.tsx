@@ -2,14 +2,14 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { DotMatrixGrid } from "@/components/effects";
+import { ScanLines } from "@/components/effects";
 import { EMERALD, EMERALD_BRIGHT, EASE, NARROW, WIDE } from "./constants";
 
 const formats = [
   { num: "01", title: "Keynotes & Leadership Panels", desc: "Strategic sessions with CDOs, CTOs, and government AI leaders. No vendor pitches — pure practitioner insight.", icon: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" },
   { num: "02", title: "Workshops & Deep Dives", desc: "Hands-on sessions: model deployment, data pipelines, prompt engineering, AI governance. Bring your laptop.", icon: "M14.7 6.3a1 1 0 000-1.4l-1.6-1.6a1 1 0 00-1.4 0l-10 10V17h3.7l10-10zM3 21h18" },
   { num: "03", title: "Data & AI Awards", desc: "Recognizing excellence in AI Transformation, Data Innovation, Ethics, Emerging Talent, and Public Sector Impact.", icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" },
-  { num: "04", title: "Startup Pitch Stage", desc: "The GCC's most promising AI-native companies pitch to investors, enterprise leaders, and government funds.", icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z" },
+  { num: "04", title: "Startup Pitch Stage", desc: "The most promising AI-native companies pitch to investors, enterprise leaders, and government funds.", icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z" },
   { num: "05", title: "Live Case Studies", desc: "Real deployments, real numbers. Organizations share what worked, what failed, and what they'd do differently.", icon: "M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" },
   { num: "06", title: "Curated Meetings", desc: "Pre-scheduled 1-on-1 meetings between enterprise leaders and solution providers. Quality over quantity.", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" },
 ];
@@ -27,22 +27,26 @@ export default function DAFormat() {
         padding: "clamp(36px, 5vw, 56px) 24px",
       }}
     >
-      {/* Multi-layer atmospheric gradients */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `radial-gradient(ellipse 50% 50% at 50% 80%, rgba(15,115,94,0.04) 0%, transparent 70%)`,
-        }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `radial-gradient(ellipse 40% 40% at 15% 30%, rgba(20,168,130,0.02) 0%, transparent 70%)`,
-        }}
+      {/* Photo backdrop */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1920&q=80"
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        style={{ filter: "brightness(0.05) saturate(0.3)", zIndex: 0 }}
       />
 
-      {/* Texture: Dot Matrix */}
-      <DotMatrixGrid color={EMERALD} opacity={0.02} spacing={32} />
+      {/* Scan-line texture */}
+      <ScanLines opacity={0.02} lineHeight={4} />
+
+      {/* Emerald glow — bottom center */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 50% 40% at 50% 85%, ${EMERALD}0A 0%, transparent 70%)`,
+          zIndex: 1,
+        }}
+      />
 
       {/* Intro */}
       <div style={{ maxWidth: NARROW, margin: "0 auto 48px", position: "relative", zIndex: 1 }}>
@@ -116,6 +120,28 @@ export default function DAFormat() {
           <FormatCard key={f.title} format={f} delay={i * 0.08} isInView={isInView} index={i} />
         ))}
       </div>
+
+      {/* CTA */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, delay: 0.6, ease: EASE }}
+        style={{ textAlign: "center", marginTop: 36, position: "relative", zIndex: 1 }}
+      >
+        <a
+          href="#register"
+          style={{
+            fontFamily: "var(--font-outfit)",
+            fontSize: 14,
+            fontWeight: 500,
+            color: EMERALD,
+            textDecoration: "none",
+            letterSpacing: "0.3px",
+          }}
+        >
+          Experience It All →
+        </a>
+      </motion.div>
 
       <style jsx global>{`
         @media (max-width: 900px) {

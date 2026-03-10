@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { DotMatrixGrid } from "@/components/effects";
 import { EMERALD, EMERALD_BRIGHT, EASE, WIDE } from "./constants";
 
 export default function DAThesis() {
@@ -19,21 +18,26 @@ export default function DAThesis() {
         padding: "clamp(36px, 5vw, 56px) 24px",
       }}
     >
-      {/* Multi-layer atmospheric gradients */}
+      {/* Diagonal grid texture */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse 50% 60% at 30% 40%, rgba(15,115,94,0.04) 0%, transparent 70%)`,
+          backgroundImage: `
+            linear-gradient(45deg, rgba(15,115,94,0.04) 1px, transparent 1px),
+            linear-gradient(-45deg, rgba(15,115,94,0.04) 1px, transparent 1px)
+          `,
+          backgroundSize: "50px 50px",
+          zIndex: 1,
         }}
       />
+      {/* Emerald glow — left center */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse 40% 50% at 80% 60%, rgba(20,168,130,0.025) 0%, transparent 70%)`,
+          background: `radial-gradient(ellipse 50% 60% at 15% 40%, ${EMERALD}0C 0%, transparent 70%)`,
+          zIndex: 1,
         }}
       />
-
-      <DotMatrixGrid color={EMERALD} opacity={0.015} spacing={32} />
 
       <div
         className="da-thesis-grid"
@@ -106,9 +110,9 @@ export default function DAThesis() {
               margin: "0 0 24px",
             }}
           >
-            The Gulf&rsquo;s Biggest
+            The World&rsquo;s Boldest
             <br />
-            <span style={{ color: EMERALD_BRIGHT }}>AI Bet</span>
+            <span style={{ color: EMERALD_BRIGHT }}>AI Bets</span>
           </motion.h2>
 
           {/* Body text — tighter, one paragraph */}
@@ -126,12 +130,12 @@ export default function DAThesis() {
               maxWidth: 520,
             }}
           >
-            The GCC is making the largest bet on artificial intelligence of any
-            region in the world. Kuwait&rsquo;s Vision 2035 names AI as its primary
-            economic diversifier. The UAE has the world&rsquo;s first Minister of AI.
+            Nations worldwide are making historic bets on artificial intelligence.
+            Kuwait&rsquo;s Vision 2035 names AI as its primary economic diversifier.
+            The UAE has the world&rsquo;s first Minister of AI.
             Saudi Arabia is building NEOM — an entire city run on data.
-            The question is no longer <em>whether</em> AI will transform the
-            region. It&rsquo;s <em>who</em> will lead that transformation.
+            The question is no longer <em>whether</em> AI will transform
+            enterprise. It&rsquo;s <em>who</em> will lead that transformation.
           </motion.p>
 
           {/* Shimmer pull quote */}
@@ -187,14 +191,14 @@ export default function DAThesis() {
             className="flex flex-wrap gap-2"
             style={{ marginTop: 32 }}
           >
-            {["Launching 2026", "Kuwait City", "4 GCC Cities"].map((tag) => (
+            {["Launching 2026", "Kuwait City", "Multiple Cities"].map((tag) => (
               <span
                 key={tag}
                 style={{
                   fontFamily: "var(--font-outfit)",
                   fontSize: 11,
                   fontWeight: 500,
-                  color: "#505050",
+                  color: "#686868",
                   padding: "6px 14px",
                   borderRadius: 50,
                   border: "1px solid rgba(255,255,255,0.06)",
@@ -204,6 +208,28 @@ export default function DAThesis() {
                 {tag}
               </span>
             ))}
+          </motion.div>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            style={{ marginTop: 28 }}
+          >
+            <a
+              href="#register"
+              style={{
+                fontFamily: "var(--font-outfit)",
+                fontSize: 14,
+                fontWeight: 500,
+                color: EMERALD,
+                textDecoration: "none",
+                letterSpacing: "0.3px",
+              }}
+            >
+              Be Part of the First Edition →
+            </a>
           </motion.div>
         </motion.div>
 

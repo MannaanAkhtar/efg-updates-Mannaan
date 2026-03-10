@@ -5,7 +5,6 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 
 const OT_CRIMSON = "#D34B9A";
-const OT_FIREBRICK = "#E86BB8";
 
 // Partner tiers with logos from otsecurityfirst.com
 const partnerTiers = [
@@ -111,7 +110,7 @@ export default function OTSponsors() {
                 fontWeight: 600,
                 letterSpacing: "2.5px",
                 textTransform: "uppercase",
-                color: OT_FIREBRICK,
+                color: OT_CRIMSON,
               }}
             >
               Our Partners
@@ -133,7 +132,7 @@ export default function OTSponsors() {
           >
             Trusted by
             <br />
-            <span style={{ color: OT_FIREBRICK }}>Industry Leaders</span>
+            <span style={{ color: OT_CRIMSON }}>Industry Leaders</span>
           </h2>
         </motion.div>
 
@@ -153,7 +152,7 @@ export default function OTSponsors() {
                 fontWeight: 600,
                 letterSpacing: "3px",
                 textTransform: "uppercase",
-                color: tierIndex === 0 ? OT_CRIMSON : "#404040",
+                color: tierIndex === 0 ? OT_CRIMSON : "#555",
                 marginBottom: 16,
               }}
             >
@@ -217,7 +216,7 @@ export default function OTSponsors() {
                 fontWeight: 600,
                 letterSpacing: "3px",
                 textTransform: "uppercase",
-                color: "#404040",
+                color: "#555",
               }}
             >
               As Featured In
@@ -403,13 +402,13 @@ function SponsorCTA() {
         padding: "14px 28px",
         borderRadius: 6,
         border: isHovered
-          ? `1px solid ${OT_FIREBRICK}`
+          ? `1px solid ${OT_CRIMSON}`
           : `1px solid ${OT_CRIMSON}40`,
         background: isHovered ? `${OT_CRIMSON}15` : "transparent",
         fontFamily: "var(--font-outfit)",
         fontSize: 14,
         fontWeight: 500,
-        color: OT_FIREBRICK,
+        color: OT_CRIMSON,
         transitionDuration: "0.4s",
       }}
       onMouseEnter={() => setIsHovered(true)}

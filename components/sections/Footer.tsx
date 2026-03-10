@@ -94,7 +94,7 @@ export default function Footer() {
                 marginTop: 18,
               }}
             >
-              Architecting the GCC's most impactful technology events.
+              Architecting the world's most impactful technology events.
             </p>
 
             {/* Social Icons */}

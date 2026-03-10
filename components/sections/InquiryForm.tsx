@@ -2,6 +2,8 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
+import type { FormType, CountryCode } from "@/lib/form-helpers";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CONSTANTS
@@ -21,19 +23,20 @@ const INQUIRY_TABS = [
     label: "Sponsor",
     heading: "Partner with\nEFG Events",
     description:
-      "Put your brand in the room with the region\u2019s top decision-makers. Sponsorship packages are designed for maximum visibility and qualified lead generation.",
+      "Put your brand in the room with top decision-makers worldwide. Sponsorship packages are designed for maximum visibility and qualified lead generation.",
     perks: [
       { icon: "layers", text: "Boardroom hosting & keynote slots" },
       { icon: "target", text: "Qualified lead generation" },
-      { icon: "eye", text: "Premium brand visibility across GCC" },
+      { icon: "eye", text: "Premium brand visibility worldwide" },
     ],
-    trust: "Trusted by 80+ sponsors across 5 GCC markets",
+    trust: "Trusted by 80+ sponsors across 6+ global markets",
     fields: [
       { name: "name", label: "Full Name", type: "text", placeholder: "Your full name" },
       { name: "email", label: "Work Email", type: "email", placeholder: "you@company.com" },
+      { name: "phone", label: "Phone Number", type: "tel", placeholder: "+971 xxxx xxxx" },
       { name: "company", label: "Company", type: "text", placeholder: "Company name" },
       { name: "title", label: "Job Title", type: "text", placeholder: "Your role" },
-      { name: "interest", label: "Event Interest", type: "select", placeholder: "Select an event series", options: ["Cyber First", "OT Security First", "Data & AI First", "Opex First", "Multiple Events"] },
+      { name: "interest", label: "Event Interest", type: "select", placeholder: "Select an event series", options: ["Cyber First", "OT Security First", "Data & AI First", "Opex First", "Other"] },
       { name: "message", label: "Message (Optional)", type: "textarea", placeholder: "Tell us about your sponsorship goals..." },
     ],
     cta: "Request Sponsorship Info",
@@ -46,17 +49,18 @@ const INQUIRY_TABS = [
       "Our events are curated for senior leaders \u2014 CISOs, CIOs, CTOs, COOs, and VP-level executives. Submit your details and we\u2019ll match you to the right room.",
     perks: [
       { icon: "users", text: "Invite-only, C-suite audience" },
-      { icon: "calendar", text: "9 events across 5 GCC cities" },
+      { icon: "calendar", text: "Multiple events across global cities" },
       { icon: "shield", text: "Chatham House Rule sessions" },
     ],
     trust: "5,000+ senior leaders attended EFG events since 2023",
     fields: [
       { name: "name", label: "Full Name", type: "text", placeholder: "Your full name" },
       { name: "email", label: "Work Email", type: "email", placeholder: "you@company.com" },
+      { name: "phone", label: "Phone Number", type: "tel", placeholder: "+971 xxxx xxxx" },
       { name: "company", label: "Company", type: "text", placeholder: "Company name" },
       { name: "title", label: "Job Title", type: "text", placeholder: "Your role" },
-      { name: "event", label: "Preferred Event", type: "select", placeholder: "Select an event", options: ["Cyber First", "OT Security First", "Data & AI First", "Opex First"] },
-      { name: "city", label: "Preferred City", type: "select", placeholder: "Select a city", options: ["Kuwait City", "Riyadh", "Doha", "Muscat", "Jubail"] },
+      { name: "interest", label: "Event Interest", type: "select", placeholder: "Select an event series", options: ["Cyber First", "OT Security First", "Data & AI First", "Opex First", "Other"] },
+      { name: "message", label: "Message (Optional)", type: "textarea", placeholder: "Tell us about your interests..." },
     ],
     cta: "Request Pass",
   },
@@ -75,10 +79,12 @@ const INQUIRY_TABS = [
     fields: [
       { name: "name", label: "Full Name", type: "text", placeholder: "Your full name" },
       { name: "email", label: "Work Email", type: "email", placeholder: "you@company.com" },
-      { name: "company", label: "Company / Organization", type: "text", placeholder: "Company name" },
+      { name: "phone", label: "Phone Number", type: "tel", placeholder: "+971 xxxx xxxx" },
+      { name: "company", label: "Company", type: "text", placeholder: "Company name" },
       { name: "title", label: "Job Title", type: "text", placeholder: "Your role" },
+      { name: "interest", label: "Event Interest", type: "select", placeholder: "Select an event series", options: ["Cyber First", "OT Security First", "Data & AI First", "Opex First", "Other"] },
       { name: "topic", label: "Proposed Topic", type: "text", placeholder: "Brief topic or area of expertise" },
-      { name: "bio", label: "Short Bio", type: "textarea", placeholder: "2\u20133 sentences about your background and expertise..." },
+      { name: "message", label: "Message (Optional)", type: "textarea", placeholder: "Tell us about your background..." },
     ],
     cta: "Submit Speaker Proposal",
   },
@@ -142,13 +148,67 @@ export default function InquiryForm() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const [activeTab, setActiveTab] = useState<string>("sponsor");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
   const [formData, setFormData] = useState<Record<string, string>>({});
+  const [selectedCountry, setSelectedCountry] = useState<CountryCode>(COUNTRY_CODES[0]);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
 
   const tab = INQUIRY_TABS.find((t) => t.key === activeTab)!;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setFormError(null);
+
+    if (formData.email && !isWorkEmail(formData.email)) {
+      setEmailError("Please use your work email address");
+      setSubmitting(false);
+      return;
+    }
+
+    const phoneErr = validatePhone(formData.phone || "", selectedCountry);
+    if (phoneErr) {
+      setPhoneError(phoneErr);
+      setSubmitting(false);
+      return;
+    }
+
+    const typeMap: Record<string, FormType> = { sponsor: "sponsor", pass: "attend", speaker: "speak" };
+    const type = typeMap[activeTab] || "attend";
+
+    const combinedPhone = `${selectedCountry.code}${(formData.phone || "").replace(/[\s\-()]/g, "")}`;
+
+    const sharedMeta = {
+      event_interest: formData.interest || "",
+      message: formData.message || "",
+    };
+
+    const metadataMap: Record<string, () => Record<string, string>> = {
+      sponsor: () => ({ ...sharedMeta }),
+      pass: () => ({ ...sharedMeta }),
+      speaker: () => ({ ...sharedMeta, proposed_topic: formData.topic || "" }),
+    };
+
+    const meta = metadataMap[activeTab]?.() || {};
+    const result = await submitForm({
+      type,
+      full_name: formData.name || "",
+      email: formData.email || "",
+      company: formData.company || "",
+      job_title: formData.title || "",
+      phone: combinedPhone,
+      event_name: meta.event_interest || undefined,
+      metadata: meta,
+    });
+
+    setSubmitting(false);
+    if (result.success) {
+      setSubmitted(true);
+    } else {
+      setFormError(result.error || "Something went wrong.");
+    }
   };
 
   const handleChange = (name: string, value: string) => {
@@ -157,7 +217,11 @@ export default function InquiryForm() {
 
   const resetForm = () => {
     setSubmitted(false);
+    setFormError(null);
     setFormData({});
+    setPhoneError(null);
+    setEmailError(null);
+    setSelectedCountry(COUNTRY_CODES[0]);
   };
 
   const inputStyle: React.CSSProperties = {
@@ -471,7 +535,64 @@ export default function InquiryForm() {
                       }}
                     >
                       {tab.fields.map((field) => {
-                        const isFullWidth = field.type === "textarea";
+                        const isFullWidth = field.type === "textarea" || field.type === "tel";
+                        if (field.type === "tel") {
+                          return (
+                            <div key={field.name} style={{ gridColumn: "1 / -1" }}>
+                              <label style={labelStyle}>{field.label}</label>
+                              <div style={{ display: "flex", gap: 8 }}>
+                                <select
+                                  value={`${selectedCountry.code}|${selectedCountry.country}`}
+                                  onChange={(e) => {
+                                    const [code, country] = e.target.value.split("|");
+                                    const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country);
+                                    if (c) { setSelectedCountry(c); setPhoneError(null); }
+                                  }}
+                                  style={{ ...inputStyle, width: 120, flexShrink: 0, appearance: "none", cursor: "pointer" }}
+                                >
+                                  {COUNTRY_CODES.map((cc) => (
+                                    <option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>
+                                      {cc.country} {cc.code}
+                                    </option>
+                                  ))}
+                                </select>
+                                <input
+                                  type="tel"
+                                  value={formData[field.name] || ""}
+                                  onChange={(e) => { handleChange(field.name, e.target.value); setPhoneError(null); }}
+                                  placeholder={selectedCountry.placeholder}
+                                  maxLength={selectedCountry.length}
+                                  style={{ ...inputStyle, flex: 1 }}
+                                  onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(232,101,26,0.3)"; }}
+                                  onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}
+                                />
+                              </div>
+                              {phoneError && <p style={{ color: "#ef4444", fontSize: 11, margin: "4px 0 0" }}>{phoneError}</p>}
+                            </div>
+                          );
+                        }
+                        if (field.type === "email") {
+                          return (
+                            <div key={field.name}>
+                              <label style={labelStyle}>{field.label}</label>
+                              <input
+                                type="email"
+                                value={formData[field.name] || ""}
+                                onChange={(e) => { handleChange(field.name, e.target.value); setEmailError(null); }}
+                                placeholder={field.placeholder}
+                                required
+                                style={inputStyle}
+                                onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(232,101,26,0.3)"; }}
+                                onBlur={(e) => {
+                                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
+                                  const val = formData[field.name] || e.currentTarget.value;
+                                  if (val && !isWorkEmail(val)) { setEmailError("Please use your work email address"); }
+                                }}
+                              />
+                              {emailError && <p style={{ color: "#ef4444", fontSize: 11, margin: "4px 0 0" }}>{emailError}</p>}
+                            </div>
+                          );
+                        }
                         return (
                           <div
                             key={field.name}
@@ -533,39 +654,53 @@ export default function InquiryForm() {
                       })}
                     </div>
 
+                    {/* Honeypot — hidden from real users */}
+                    <input type="text" name="website" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
+
+                    {/* Error message */}
+                    {formError && (
+                      <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 13, margin: "8px 0 0" }}>
+                        {formError}
+                      </p>
+                    )}
+
                     {/* Submit */}
                     <button
                       type="submit"
+                      disabled={submitting}
                       style={{
                         width: "100%",
                         marginTop: 20,
                         padding: "13px 28px",
                         borderRadius: 10,
-                        background: "var(--orange)",
+                        background: submitting ? "rgba(232,101,26,0.6)" : "var(--orange)",
                         color: "white",
                         fontFamily: "var(--font-outfit)",
                         fontSize: 14,
                         fontWeight: 600,
                         border: "none",
-                        cursor: "pointer",
+                        cursor: submitting ? "not-allowed" : "pointer",
                         transition: "all 0.3s ease",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         gap: 8,
+                        opacity: submitting ? 0.7 : 1,
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = "var(--orange-bright)";
-                        e.currentTarget.style.transform = "translateY(-2px)";
-                        e.currentTarget.style.boxShadow = "0 12px 40px var(--orange-glow)";
+                        if (!submitting) {
+                          e.currentTarget.style.background = "var(--orange-bright)";
+                          e.currentTarget.style.transform = "translateY(-2px)";
+                          e.currentTarget.style.boxShadow = "0 12px 40px var(--orange-glow)";
+                        }
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = "var(--orange)";
+                        e.currentTarget.style.background = submitting ? "rgba(232,101,26,0.6)" : "var(--orange)";
                         e.currentTarget.style.transform = "translateY(0)";
                         e.currentTarget.style.boxShadow = "none";
                       }}
                     >
-                      {tab.cta} <span>&rarr;</span>
+                      {submitting ? "Submitting..." : tab.cta} {!submitting && <span>&rarr;</span>}
                     </button>
                   </form>
 

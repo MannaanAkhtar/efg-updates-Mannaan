@@ -4,13 +4,12 @@ import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
 const OT_CRIMSON = "#D34B9A";
-const OT_FIREBRICK = "#E86BB8";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const faqs = [
   {
     q: "What is OT Security First?",
-    a: "OT Security First is the region\u2019s only dedicated critical infrastructure cybersecurity summit. We bring together OT security leaders, industrial cybersecurity experts, and critical infrastructure defenders from across the GCC to share knowledge, strategies, and real-world solutions for protecting operational technology environments.",
+    a: "OT Security First is the only dedicated critical infrastructure cybersecurity summit of its kind. We bring together OT security leaders, industrial cybersecurity experts, and critical infrastructure defenders to share knowledge, strategies, and real-world solutions for protecting operational technology environments.",
   },
   {
     q: "Who should attend?",
@@ -26,7 +25,8 @@ const faqs = [
   },
   {
     q: "How can my company sponsor?",
-    a: "We offer Patronage, Knowledge Partner, Supporting Partner, and Community Partner tiers. Each includes tailored benefits from keynote slots and exhibition space to brand visibility and delegate access. Contact our partnerships team for the full sponsorship deck.",
+    a: "We offer Patronage, Knowledge Partner, Supporting Partner, and Community Partner tiers. Each includes tailored benefits from keynote slots and exhibition space to brand visibility and delegate access. Contact partnerships@eventsfirstgroup.com for the full sponsorship deck.",
+    email: "partnerships@eventsfirstgroup.com",
   },
   {
     q: "What does the event format look like?",
@@ -45,13 +45,33 @@ export default function OTFAQ() {
       style={{
         background: "#0a0a0a",
         padding: "clamp(48px, 6vw, 80px) 0",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      {/* Scan-line texture */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(211,75,154,0.03) 3px, rgba(211,75,154,0.03) 4px)",
+        }}
+      />
+      {/* Crimson glow — bottom-left */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 50% 50% at 10% 80%, ${OT_CRIMSON}0C 0%, transparent 70%)`,
+        }}
+      />
+
       <div
         style={{
           maxWidth: 1320,
           margin: "0 auto",
           padding: "0 clamp(20px, 4vw, 60px)",
+          position: "relative" as const,
+          zIndex: 1,
         }}
       >
         {/* Header */}
@@ -70,7 +90,7 @@ export default function OTFAQ() {
                 fontWeight: 600,
                 letterSpacing: "2.5px",
                 textTransform: "uppercase",
-                color: OT_FIREBRICK,
+                color: OT_CRIMSON,
               }}
             >
               FAQ
@@ -166,11 +186,49 @@ export default function OTFAQ() {
                     margin: 0,
                   }}
                 >
-                  {faqs[activeIndex].a}
+                  {faqs[activeIndex].email
+                    ? faqs[activeIndex].a.split(faqs[activeIndex].email!).map((part, i, arr) =>
+                        i < arr.length - 1 ? (
+                          <span key={i}>
+                            {part}
+                            <a
+                              href={`mailto:${faqs[activeIndex].email}`}
+                              style={{ color: OT_CRIMSON, textDecoration: "none" }}
+                            >
+                              {faqs[activeIndex].email}
+                            </a>
+                          </span>
+                        ) : (
+                          <span key={i}>{part}</span>
+                        )
+                      )
+                    : faqs[activeIndex].a}
                 </p>
               </motion.div>
             </AnimatePresence>
           </div>
+        </motion.div>
+
+        {/* Still have questions? */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.5, delay: 0.3, ease: EASE }}
+          style={{ textAlign: "center", marginTop: 40 }}
+        >
+          <a
+            href="#register"
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 13,
+              fontWeight: 500,
+              color: OT_CRIMSON,
+              textDecoration: "none",
+              letterSpacing: "0.5px",
+            }}
+          >
+            Still have questions? Get in Touch →
+          </a>
         </motion.div>
       </div>
 
@@ -247,7 +305,7 @@ function QuestionTab({
           fontFamily: "var(--font-outfit)",
           fontSize: 10,
           fontWeight: 600,
-          color: isActive ? OT_CRIMSON : "#303030",
+          color: isActive ? OT_CRIMSON : "#454545",
           letterSpacing: "1px",
           minWidth: 20,
           transition: "color 0.25s",

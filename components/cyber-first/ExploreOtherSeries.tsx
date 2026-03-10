@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
+import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SPACING, GRADIENTS } from "@/lib/cyber-design-tokens";
 
 const EFG_ORANGE = "#E8651A";
 
@@ -45,22 +46,22 @@ export default function ExploreOtherSeries() {
     <section
       ref={sectionRef}
       style={{
-        background: "var(--black)",
-        padding: "clamp(48px, 6vw, 80px) 0",
+        background: COLORS.bgDeep,
+        padding: `${SPACING.sectionPadding} 0`,
       }}
     >
       <div
         style={{
-          maxWidth: 1320,
+          maxWidth: SPACING.maxWidth,
           margin: "0 auto",
-          padding: "0 clamp(20px, 4vw, 60px)",
+          padding: `0 ${SPACING.containerPadding}`,
         }}
       >
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6, ease: ANIMATION.ease }}
           style={{ textAlign: "center", marginBottom: 40 }}
         >
           {/* Label — Orange for EFG parent brand */}
@@ -68,12 +69,9 @@ export default function ExploreOtherSeries() {
             <span style={{ width: 30, height: 1, background: EFG_ORANGE }} />
             <span
               style={{
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "2.5px",
-                textTransform: "uppercase",
+                ...TYPOGRAPHY.sectionLabel,
                 color: EFG_ORANGE,
-                fontFamily: "var(--font-outfit)",
+                fontFamily: TYPOGRAPHY.fontBody,
               }}
             >
               From Events First Group
@@ -84,11 +82,11 @@ export default function ExploreOtherSeries() {
           {/* Title */}
           <h2
             style={{
-              fontFamily: "var(--font-display)",
+              fontFamily: TYPOGRAPHY.fontDisplay,
               fontWeight: 800,
               fontSize: "clamp(28px, 3.5vw, 44px)",
               letterSpacing: "-1.5px",
-              color: "var(--white)",
+              color: COLORS.textPrimary,
               lineHeight: 1.1,
               margin: "16px 0 0",
             }}
@@ -103,7 +101,7 @@ export default function ExploreOtherSeries() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 16,
+            gap: SPACING.gridGapDefault,
           }}
         >
           {otherSeries.map((series, index) => (
@@ -114,7 +112,7 @@ export default function ExploreOtherSeries() {
               transition={{
                 duration: 0.6,
                 delay: 0.2 + index * 0.1,
-                ease: [0.16, 1, 0.3, 1],
+                ease: ANIMATION.ease,
               }}
             >
               <SeriesCard series={series} />
@@ -146,11 +144,11 @@ function SeriesCard({ series }: { series: (typeof otherSeries)[0] }) {
       className="block relative overflow-hidden cursor-pointer transition-all"
       style={{
         aspectRatio: "3 / 2",
-        background: "#141414",
+        background: COLORS.bgCard,
         border: isHovered
           ? `1px solid ${series.color}1A`
-          : "1px solid rgba(255, 255, 255, 0.05)",
-        borderRadius: 16,
+          : `1px solid ${COLORS.borderSubtle}`,
+        borderRadius: RADIUS.lg,
         transform: isHovered ? "translateY(-4px)" : "translateY(0)",
         transitionDuration: "0.5s",
         transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
@@ -206,10 +204,10 @@ function SeriesCard({ series }: { series: (typeof otherSeries)[0] }) {
       >
         <h3
           style={{
-            fontFamily: "var(--font-display)",
+            fontFamily: TYPOGRAPHY.fontDisplay,
             fontSize: 22,
             fontWeight: 800,
-            color: "var(--white)",
+            color: COLORS.textPrimary,
             margin: 0,
           }}
         >
@@ -217,10 +215,10 @@ function SeriesCard({ series }: { series: (typeof otherSeries)[0] }) {
         </h3>
         <p
           style={{
-            fontFamily: "var(--font-outfit)",
+            fontFamily: TYPOGRAPHY.fontBody,
             fontSize: 13,
             fontWeight: 300,
-            color: "#808080",
+            color: COLORS.textSecondary,
             marginTop: 4,
           }}
         >
@@ -232,7 +230,7 @@ function SeriesCard({ series }: { series: (typeof otherSeries)[0] }) {
           className="transition-all"
           style={{
             display: "inline-block",
-            fontFamily: "var(--font-outfit)",
+            fontFamily: TYPOGRAPHY.fontBody,
             fontSize: 14,
             color: series.color,
             marginTop: 10,

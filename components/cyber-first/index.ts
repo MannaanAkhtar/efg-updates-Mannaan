@@ -12,3 +12,4 @@ export { default as UpcomingEditionCTA } from "./UpcomingEditionCTA";
 export { default as SeriesTimeline } from "./SeriesTimeline";
 export { default as YouTubeShorts } from "./YouTubeShorts";
 export { default as ExploreOtherSeries } from "./ExploreOtherSeries";
+export { default as WhoShouldAttend } from "./WhoShouldAttend";

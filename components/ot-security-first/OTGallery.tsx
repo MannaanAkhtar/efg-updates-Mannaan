@@ -4,7 +4,6 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
 const OT_CRIMSON = "#D34B9A";
-const OT_FIREBRICK = "#E86BB8";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 // Gallery photos
@@ -67,13 +66,6 @@ const galleryItems = [
   },
 ];
 
-// Video highlight — placeholder until user provides URL
-const mainVideo = {
-  id: "PLACEHOLDER_VIDEO_ID",
-  title: "OT Security First Highlights",
-  thumbnail:
-    "https://images.unsplash.com/photo-1518709414768-a88981a4515d?w=1280&q=80",
-};
 
 // Compact agenda
 const agenda = [
@@ -118,13 +110,36 @@ export default function OTGallery() {
       style={{
         background: "var(--black-light)",
         padding: "clamp(48px, 6vw, 80px) 0",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      {/* Diagonal grid pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `
+            linear-gradient(45deg, rgba(211,75,154,0.04) 1px, transparent 1px),
+            linear-gradient(-45deg, rgba(211,75,154,0.04) 1px, transparent 1px)
+          `,
+          backgroundSize: "50px 50px",
+        }}
+      />
+      {/* Crimson glow — center */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 50% 50% at 50% 50%, ${OT_CRIMSON}0A 0%, transparent 70%)`,
+        }}
+      />
+
       <div
         style={{
           maxWidth: 1320,
           margin: "0 auto",
           padding: "0 clamp(20px, 4vw, 60px)",
+          position: "relative" as const,
+          zIndex: 1,
         }}
       >
         {/* ─── GALLERY ─── */}
@@ -143,7 +158,7 @@ export default function OTGallery() {
                 fontWeight: 600,
                 letterSpacing: "2.5px",
                 textTransform: "uppercase",
-                color: OT_FIREBRICK,
+                color: OT_CRIMSON,
               }}
             >
               Event Gallery
@@ -162,7 +177,7 @@ export default function OTGallery() {
           >
             Moments from
             <br />
-            <span style={{ color: OT_FIREBRICK }}>Previous Editions</span>
+            <span style={{ color: OT_CRIMSON }}>Previous Editions</span>
           </h2>
         </motion.div>
 
@@ -200,7 +215,7 @@ export default function OTGallery() {
           ))}
         </div>
 
-        {/* ─── VIDEO HIGHLIGHTS ─── */}
+        {/* ─── VIDEO HIGHLIGHTS — Coming Soon ─── */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
@@ -216,14 +231,68 @@ export default function OTGallery() {
                 fontWeight: 600,
                 letterSpacing: "2px",
                 textTransform: "uppercase",
-                color: "#505050",
+                color: "#686868",
               }}
             >
               Event Highlights
             </span>
           </div>
 
-          <VideoPlayer />
+          <div
+            style={{
+              maxWidth: 900,
+              margin: "0 auto",
+              aspectRatio: "16 / 9",
+              borderRadius: 10,
+              background: "#111111",
+              border: "1px solid rgba(255, 255, 255, 0.05)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 12,
+            }}
+          >
+            {/* Muted play icon */}
+            <div
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: 8,
+                background: `${OT_CRIMSON}15`,
+                border: `1px solid ${OT_CRIMSON}25`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <svg
+                width="20"
+                height="24"
+                viewBox="0 0 24 28"
+                fill="none"
+                style={{ marginLeft: 2 }}
+              >
+                <path
+                  d="M22 14L2 26V2L22 14Z"
+                  fill={OT_CRIMSON}
+                  opacity={0.4}
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <p
+              style={{
+                fontFamily: "var(--font-outfit)",
+                fontSize: 14,
+                fontWeight: 500,
+                color: "#686868",
+                margin: 0,
+              }}
+            >
+              Event Highlights Video — Coming Soon
+            </p>
+          </div>
         </motion.div>
 
         {/* ─── COMPACT AGENDA ─── */}
@@ -242,10 +311,10 @@ export default function OTGallery() {
                 fontWeight: 600,
                 letterSpacing: "2px",
                 textTransform: "uppercase",
-                color: "#505050",
+                color: "#686868",
               }}
             >
-              Abu Dhabi 2026 &middot; Day Schedule
+              Abu Dhabi 2026 · Day Schedule
             </span>
           </div>
 
@@ -263,6 +332,28 @@ export default function OTGallery() {
           </div>
         </motion.div>
 
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.5, delay: 0.7, ease: EASE }}
+          style={{ textAlign: "center", marginTop: 40 }}
+        >
+          <a
+            href="#register"
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 13,
+              fontWeight: 500,
+              color: OT_CRIMSON,
+              textDecoration: "none",
+              letterSpacing: "0.5px",
+            }}
+          >
+            Be Part of the Next Edition →
+          </a>
+        </motion.div>
+
         {/* Gallery note */}
         <motion.p
           initial={{ opacity: 0 }}
@@ -271,9 +362,9 @@ export default function OTGallery() {
           style={{
             fontFamily: "var(--font-outfit)",
             fontSize: 12,
-            color: "#505050",
+            color: "#606060",
             textAlign: "center",
-            marginTop: 24,
+            marginTop: 16,
           }}
         >
           More photos from Abu Dhabi 2026 coming soon.
@@ -388,116 +479,6 @@ function GalleryCard({
 }
 
 /**
- * VideoPlayer — Cinematic video player with angular play button (absorbed from OTVideoHighlight)
- */
-function VideoPlayer() {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <div
-      style={{
-        maxWidth: 900,
-        margin: "0 auto",
-      }}
-    >
-      <div
-        style={{
-          position: "relative",
-          aspectRatio: "16 / 9",
-          borderRadius: 10,
-          overflow: "hidden",
-          boxShadow: `0 20px 60px rgba(0, 0, 0, 0.4), 0 0 80px ${OT_CRIMSON}08`,
-        }}
-      >
-        {!isPlaying ? (
-          <div
-            className="absolute inset-0 cursor-pointer"
-            onClick={() => setIsPlaying(true)}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={mainVideo.thumbnail}
-              alt="Video thumbnail"
-              className="w-full h-full object-cover transition-all"
-              style={{
-                filter: isHovered
-                  ? "brightness(0.6) saturate(0.9)"
-                  : "brightness(0.5) saturate(0.8)",
-                transform: isHovered ? "scale(1.02)" : "scale(1)",
-                transitionDuration: "0.5s",
-              }}
-            />
-
-            {/* Play Button — Angular OT style */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <div
-                className="flex items-center justify-center transition-all"
-                style={{
-                  width: 72,
-                  height: 72,
-                  borderRadius: 8,
-                  background: isHovered
-                    ? OT_CRIMSON
-                    : "rgba(211, 75, 154, 0.9)",
-                  boxShadow: isHovered
-                    ? `0 0 30px ${OT_CRIMSON}60`
-                    : `0 0 20px ${OT_CRIMSON}30`,
-                  transform: isHovered ? "scale(1.08)" : "scale(1)",
-                  transitionDuration: "0.3s",
-                }}
-              >
-                <svg
-                  width="24"
-                  height="28"
-                  viewBox="0 0 24 28"
-                  fill="none"
-                  style={{ marginLeft: 4 }}
-                >
-                  <path
-                    d="M22 14L2 26V2L22 14Z"
-                    fill="white"
-                    stroke="white"
-                    strokeWidth="2"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <p
-                className="transition-opacity"
-                style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 14,
-                  fontWeight: 500,
-                  color: "white",
-                  marginTop: 12,
-                  opacity: isHovered ? 1 : 0.8,
-                }}
-              >
-                Watch the Highlights
-              </p>
-            </div>
-          </div>
-        ) : (
-          <iframe
-            width="100%"
-            height="100%"
-            src={`https://www.youtube.com/embed/${mainVideo.id}?autoplay=1&rel=0`}
-            title="OT Security First Highlights"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            style={{ position: "absolute", inset: 0 }}
-          />
-        )}
-      </div>
-    </div>
-  );
-}
-
-/**
  * AgendaRow — Single compact agenda item with time + title
  */
 function AgendaRow({
@@ -509,7 +490,7 @@ function AgendaRow({
 }) {
   const typeColors: Record<string, string> = {
     keynote: OT_CRIMSON,
-    panel: OT_FIREBRICK,
+    panel: OT_CRIMSON,
     roundtable: "#9B7FD4",
     demo: "#4CAF50",
     break: "#353535",
@@ -542,7 +523,7 @@ function AgendaRow({
           fontFamily: "var(--font-outfit)",
           fontSize: 12,
           fontWeight: 600,
-          color: "#505050",
+          color: "#686868",
           minWidth: 44,
           letterSpacing: "0.5px",
         }}

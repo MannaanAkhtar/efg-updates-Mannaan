@@ -177,13 +177,35 @@ export default function DAEditionsMap() {
             fontFamily: "var(--font-outfit)",
             fontSize: 15,
             fontStyle: "italic",
-            color: "#505050",
+            color: "#686868",
             textAlign: "center",
             marginTop: 40,
           }}
         >
           Kuwait is just the beginning.
         </motion.p>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.9, ease: EASE }}
+          style={{ textAlign: "center", marginTop: 16 }}
+        >
+          <a
+            href="#register"
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 13,
+              fontWeight: 500,
+              color: EMERALD,
+              textDecoration: "none",
+              letterSpacing: "0.3px",
+            }}
+          >
+            Get Notified for 2027 Editions →
+          </a>
+        </motion.div>
       </div>
 
       <style jsx global>{`
@@ -281,7 +303,7 @@ function TimelinePipeline({ isInView }: { isInView: boolean }) {
               fontFamily: "var(--font-outfit)",
               fontSize: 10,
               fontWeight: 600,
-              color: city.active ? EMERALD_BRIGHT : "#505050",
+              color: city.active ? EMERALD_BRIGHT : "#686868",
               letterSpacing: "1px",
               textTransform: "uppercase",
               marginTop: 8,

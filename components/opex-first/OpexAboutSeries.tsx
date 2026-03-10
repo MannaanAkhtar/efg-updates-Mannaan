@@ -77,8 +77,8 @@ export default function OpexAboutSeries() {
               marginBottom: 20,
             }}
           >
-            The GCC is in the middle of the most ambitious economic transformation
-            in history. Saudi Arabia&apos;s Vision 2030, the UAE&apos;s Operation 300bn,
+            The world is in the middle of unprecedented economic transformation.
+            Saudi Arabia&apos;s Vision 2030, the UAE&apos;s Operation 300bn,
             Kuwait&apos;s New Kuwait 2035 — trillions of dollars in mega-projects,
             industrial diversification, and digital transformation. But vision
             without execution is just a plan. Opex First is where execution gets

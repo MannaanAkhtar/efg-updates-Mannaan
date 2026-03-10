@@ -12,13 +12,13 @@ export const metadata: Metadata = {
     "cybersecurity conference Kuwait 2026",
     "CISO summit Kuwait",
     "cyber security event Kuwait City",
-    "cybersecurity summit GCC",
+    "cybersecurity summit",
     "information security conference Kuwait",
     "Cyber First Kuwait",
     "cybersecurity event April 2026",
-    "enterprise security summit Middle East",
+    "enterprise security summit",
     "Kuwait cybersecurity leaders",
-    "GCC CISO summit",
+    "CISO summit",
   ],
   alternates: {
     canonical: PAGE_URL,
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Cyber First Kuwait 2026 — 3rd Annual Cybersecurity Summit",
     description:
-      "500+ CISOs and security leaders. 21 April 2026. Jumeirah Messilah Beach Hotel, Kuwait City. The GCC's definitive cybersecurity summit.",
+      "500+ CISOs and security leaders. 21 April 2026. Jumeirah Messilah Beach Hotel, Kuwait City. The definitive cybersecurity summit.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [
@@ -65,7 +65,7 @@ export default function CyberFirstKuwaitLayout({
             "@type": "Event",
             name: "Cyber First Kuwait 2026 — 3rd Annual Cybersecurity Summit",
             description:
-              "Kuwait's premier cybersecurity leadership summit bringing together CISOs, government cyber leaders, and security innovators across the GCC.",
+              "Kuwait's premier cybersecurity leadership summit bringing together CISOs, government cyber leaders, and security innovators.",
             startDate: "2026-04-21T08:00:00+03:00",
             endDate: "2026-04-21T18:00:00+03:00",
             eventStatus: "https://schema.org/EventScheduled",
@@ -94,7 +94,7 @@ export default function CyberFirstKuwaitLayout({
             },
             typicalAgeRange: "25-",
             keywords:
-              "cybersecurity, CISO, information security, GCC, Kuwait, cyber summit",
+              "cybersecurity, CISO, information security, Kuwait, cyber summit, enterprise security",
           }),
         }}
       />

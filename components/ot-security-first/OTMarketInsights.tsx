@@ -12,6 +12,7 @@ const marketStats = [
     value: "$8.75M",
     isNumber: false,
     label: "Average cost of a data breach in the Middle East",
+    source: "IBM Cost of a Data Breach 2025",
   },
   {
     id: 2,
@@ -19,6 +20,7 @@ const marketStats = [
     suffix: "K+",
     isNumber: true,
     label: "Daily cyberattack attempts targeting the UAE",
+    source: "UAE Cybersecurity Council",
   },
   {
     id: 3,
@@ -26,6 +28,7 @@ const marketStats = [
     suffix: "%",
     isNumber: true,
     label: "Of OT environments have at least one unpatched critical vulnerability",
+    source: "Claroty State of XIoT Security",
   },
   {
     id: 4,
@@ -33,18 +36,21 @@ const marketStats = [
     suffix: "%",
     isNumber: true,
     label: "Of industrial organizations experienced an OT security incident in the past year",
+    source: "Fortinet OT Security Report",
   },
   {
     id: 5,
     value: "$3.5B+",
     isNumber: false,
     label: "Projected UAE cybersecurity market by 2026",
+    source: "MarketsandMarkets",
   },
   {
     id: 6,
     value: "#1",
     isNumber: false,
     label: "UAE ranked in the 2024 Global Cybersecurity Index",
+    source: "ITU Global Cybersecurity Index",
   },
 ];
 
@@ -58,13 +64,33 @@ export default function OTMarketInsights() {
       style={{
         background: "#111111",
         padding: "clamp(48px, 6vw, 80px) 0",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      {/* Scan-line texture — industrial monitor feel */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(211,75,154,0.04) 3px, rgba(211,75,154,0.04) 4px)",
+        }}
+      />
+      {/* Radial crimson glow — bottom-right */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 60% 50% at 85% 70%, ${OT_CRIMSON}15 0%, transparent 70%)`,
+        }}
+      />
+
       <div
         style={{
           maxWidth: 1320,
           margin: "0 auto",
           padding: "0 clamp(20px, 4vw, 60px)",
+          position: "relative" as const,
+          zIndex: 1,
         }}
       >
         <div
@@ -139,7 +165,7 @@ export default function OTMarketInsights() {
                 fontSize: 16,
                 fontWeight: 300,
                 lineHeight: 1.8,
-                color: "#606060",
+                color: "#707070",
                 marginTop: 16,
               }}
             >
@@ -181,6 +207,28 @@ export default function OTMarketInsights() {
             </div>
           </motion.div>
         </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.5, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          style={{ textAlign: "center", marginTop: 48 }}
+        >
+          <a
+            href="#register"
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 13,
+              fontWeight: 500,
+              color: OT_CRIMSON,
+              textDecoration: "none",
+              letterSpacing: "0.5px",
+            }}
+          >
+            Discuss Your OT Security Posture →
+          </a>
+        </motion.div>
       </div>
 
       <style jsx global>{`
@@ -234,9 +282,9 @@ function StatBlock({ stat }: { stat: (typeof marketStats)[0] }) {
     <div
       ref={ref}
       style={{
-        borderLeft: "3px solid rgba(139, 0, 0, 0.2)",
+        borderLeft: `3px solid ${OT_CRIMSON}30`,
         padding: 22,
-        background: "rgba(139, 0, 0, 0.015)",
+        background: `${OT_CRIMSON}08`,
         borderRadius: 6,
       }}
     >
@@ -270,6 +318,19 @@ function StatBlock({ stat }: { stat: (typeof marketStats)[0] }) {
         }}
       >
         {stat.label}
+      </p>
+      <p
+        style={{
+          fontFamily: "var(--font-outfit)",
+          fontSize: 10,
+          fontWeight: 400,
+          color: "#505050",
+          marginTop: 4,
+          lineHeight: 1.3,
+          fontStyle: "italic",
+        }}
+      >
+        {stat.source}
       </p>
     </div>
   );

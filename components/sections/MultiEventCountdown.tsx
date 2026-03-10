@@ -373,7 +373,7 @@ export default function MultiEventCountdown() {
               margin: "0 auto",
             }}
           >
-            The region's most influential technology summits are coming.
+            The world's most influential technology summits are coming.
             Secure your seat.
           </p>
         </motion.div>

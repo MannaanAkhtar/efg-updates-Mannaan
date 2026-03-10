@@ -2,74 +2,54 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import Link from "next/link";
 import { DotMatrixGrid } from "@/components/effects";
 import { EMERALD, EMERALD_BRIGHT, EASE, WIDE } from "./constants";
 
-// Placeholder speakers — replace with real data when confirmed
+const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com/speakers/kuwait-2026";
+
 const speakers = [
   {
     id: 1,
-    name: "Dr. Mohamed Al-Kuwaiti",
-    title: "Head of Cyber Security",
-    company: "UAE Government",
-    photo:
-      "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/OT-Security-First/dr-mohamed-hamad-al-kuwaiti.jpg",
+    name: "Dr Khalid Al Begain",
+    title: "President",
+    company: "KCST",
+    photo: `${S3}/khalid-al-begain.png`,
   },
   {
     id: 2,
-    name: "Sara Al Hosani",
-    title: "Cybersecurity Expert",
-    company: "ADNOC",
-    photo:
-      "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Cyber-First-uae/Sara-Al-Hosani.jpg",
+    name: "Mai AlOwaish",
+    title: "CEO",
+    company: "CINET",
+    photo: `${S3}/mai-alowaish.jpg`,
   },
   {
     id: 3,
-    name: "Ali Al Kaf Alhashmi",
-    title: "VP Cyber Security & Technology",
-    company: "Mubadala",
-    photo:
-      "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/OT-Security-First/Ali-Al-Kaf-Alhashmi.png",
+    name: "Iyad Atieh",
+    title: "CISO",
+    company: "Alghanim Industries",
+    photo: `${S3}/iyad-atieh.jpg`,
   },
   {
     id: 4,
-    name: "Bernard Assaf",
-    title: "Security Leader",
-    company: "Enterprise",
-    photo:
-      "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Cyber-First-uae/Bernard-Assaf.png",
+    name: "Abdullah AlNusef",
+    title: "Chief Data Officer",
+    company: "Bank Boubyan",
+    photo: `${S3}/abdullah-alnusef.jpg`,
   },
   {
     id: 5,
-    name: "Hussain Al Khalsan",
-    title: "Cybersecurity Director",
-    company: "Government",
-    photo:
-      "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Cyber-First-uae/Hussain-Al-Khalsan.jpg",
+    name: "Abdulmohsen Alsulaimi",
+    title: "Group CTO",
+    company: "Towell International Holding",
+    photo: `${S3}/abdulmohsen-alsulaimi.jpg`,
   },
   {
     id: 6,
-    name: "Shaytel Patel",
-    title: "Group SVP Technology Audit",
-    company: "DP World",
-    photo:
-      "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/OT-Security-First/Shaytel-Patel.jpg",
-  },
-  {
-    id: 7,
-    name: "James Wiles",
-    title: "Security Strategist",
-    company: "Enterprise",
-    photo:
-      "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Cyber-First-uae/James-Wiles.jpg",
-  },
-  {
-    id: 8,
-    name: "Toufeeq Ahmed",
-    title: "Security Architecture Lead",
-    company: "Enterprise",
-    photo:
-      "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Cyber-First-uae/Toufeeq-Ahmed.jpg",
+    name: "Amr Wageeh",
+    title: "General Counsel & FDI Policy Advisor",
+    company: "KDIPA",
+    photo: `${S3}/amr-wageeh.jpg`,
   },
 ];
 
@@ -86,17 +66,30 @@ export default function DASpeakers() {
         padding: "clamp(36px, 5vw, 56px) 0",
       }}
     >
-      {/* Atmospheric gradients */}
+      {/* Photo backdrop */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&q=80"
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        style={{ filter: "brightness(0.06) saturate(0.3)", zIndex: 0 }}
+      />
+
+      {/* Vertical line pattern */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse 50% 50% at 50% 30%, rgba(15,115,94,0.035) 0%, transparent 70%)`,
+          backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(15,115,94,0.04) 79px, rgba(15,115,94,0.04) 80px)`,
+          zIndex: 1,
         }}
       />
+
+      {/* Emerald glow — center-bottom */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse 40% 40% at 80% 70%, rgba(20,168,130,0.02) 0%, transparent 70%)`,
+          background: `radial-gradient(ellipse 60% 40% at 50% 90%, ${EMERALD}12 0%, transparent 70%)`,
+          zIndex: 1,
         }}
       />
 
@@ -108,7 +101,7 @@ export default function DASpeakers() {
           margin: "0 auto",
           padding: "0 clamp(20px, 4vw, 60px)",
           position: "relative",
-          zIndex: 1,
+          zIndex: 2,
         }}
       >
         {/* Header */}
@@ -161,7 +154,7 @@ export default function DASpeakers() {
             }}
           >
             AI leaders, Chief Data Officers, and enterprise architects from
-            across the Gulf region.
+            around the world.
           </p>
         </motion.div>
 
@@ -170,7 +163,7 @@ export default function DASpeakers() {
           className="da-speakers-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
+            gridTemplateColumns: "repeat(3, 1fr)",
             gap: 16,
           }}
         >
@@ -189,9 +182,99 @@ export default function DASpeakers() {
             </motion.div>
           ))}
         </div>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+          transition={{ duration: 0.6, delay: 0.8, ease: EASE }}
+          className="flex items-center justify-center gap-6"
+          style={{ marginTop: 32 }}
+        >
+          <ViewAllLink />
+          <span style={{ width: 1, height: 16, background: "rgba(255,255,255,0.1)" }} />
+          <a
+            href="#register"
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 14,
+              fontWeight: 500,
+              color: EMERALD,
+              textDecoration: "none",
+              letterSpacing: "0.3px",
+            }}
+          >
+            Apply to Speak →
+          </a>
+        </motion.div>
+
+        {/* Attendee Logo Wall */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.6, delay: 1, ease: EASE }}
+          style={{ marginTop: 48 }}
+        >
+          <p
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 11,
+              fontWeight: 500,
+              letterSpacing: "2px",
+              textTransform: "uppercase",
+              color: "#555",
+              textAlign: "center",
+              marginBottom: 20,
+            }}
+          >
+            Leaders from these organizations
+          </p>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              gap: "8px 16px",
+            }}
+          >
+            {[
+              "KCST",
+              "CINET",
+              "Alghanim Industries",
+              "Bank Boubyan",
+              "Towell International",
+              "KDIPA",
+            ].map((org) => (
+              <span
+                key={org}
+                className="da-logo-item"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  color: "#3a3a3a",
+                  letterSpacing: "-0.2px",
+                  padding: "8px 16px",
+                  background: "rgba(255, 255, 255, 0.02)",
+                  border: "1px solid rgba(255, 255, 255, 0.04)",
+                  borderRadius: 6,
+                  whiteSpace: "nowrap",
+                  transition: "all 0.3s",
+                }}
+              >
+                {org}
+              </span>
+            ))}
+          </div>
+        </motion.div>
       </div>
 
       <style jsx global>{`
+        .da-logo-item:hover {
+          color: #505050 !important;
+          border-color: rgba(15, 115, 94, 0.15) !important;
+        }
         @media (max-width: 1024px) {
           .da-speakers-grid {
             grid-template-columns: repeat(3, 1fr) !important;
@@ -216,11 +299,9 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[0] }) {
       style={{
         background: "#141414",
         border: `1px solid ${isHovered ? `${EMERALD}25` : "rgba(255, 255, 255, 0.05)"}`,
-        borderRadius: 12,
-        transform: isHovered ? "translateY(-6px)" : "translateY(0)",
-        boxShadow: isHovered
-          ? `0 16px 48px rgba(0,0,0,0.3), 0 0 30px ${EMERALD}08`
-          : "none",
+        borderRadius: 10,
+        transform: isHovered ? "translateY(-4px)" : "translateY(0)",
+        boxShadow: isHovered ? `0 12px 40px rgba(0,0,0,0.3), 0 0 20px ${EMERALD}08` : "none",
         transitionDuration: "0.5s",
         transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
       }}
@@ -309,7 +390,7 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[0] }) {
             fontFamily: "var(--font-outfit)",
             fontSize: 13,
             fontWeight: 500,
-            color: `${EMERALD_BRIGHT}B3`,
+            color: `${EMERALD}B3`,
             marginTop: 4,
           }}
         >
@@ -317,5 +398,34 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[0] }) {
         </p>
       </div>
     </div>
+  );
+}
+
+function ViewAllLink() {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <Link
+      href="/speakers"
+      className="inline-flex items-center gap-1.5 transition-colors"
+      style={{
+        fontFamily: "var(--font-outfit)",
+        fontSize: 14,
+        fontWeight: 500,
+        color: EMERALD,
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <span>View All Speakers</span>
+      <span
+        className="transition-transform duration-300"
+        style={{
+          transform: isHovered ? "translateX(4px)" : "translateX(0)",
+        }}
+      >
+        &rarr;
+      </span>
+    </Link>
   );
 }

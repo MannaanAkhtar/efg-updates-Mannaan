@@ -4,7 +4,6 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 
 const OT_CRIMSON = "#D34B9A";
-const OT_FIREBRICK = "#E86BB8";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 // Featured edition (completed)
@@ -110,7 +109,7 @@ export default function OTEditionsMap() {
               margin: "20px 0 0",
             }}
           >
-            Expanding Across the GCC
+            Expanding Worldwide
           </h2>
         </motion.div>
 
@@ -322,7 +321,7 @@ function TimelinePipeline({ isInView }: { isInView: boolean }) {
                 fontSize: 10,
                 fontWeight: 500,
                 color:
-                  node.status === "completed" ? OT_CRIMSON : "#303030",
+                  node.status === "completed" ? OT_CRIMSON : "#505050",
                 marginTop: 2,
                 textAlign: "center",
                 letterSpacing: "0.5px",
@@ -536,7 +535,7 @@ function UpcomingCard({ city }: { city: (typeof upcoming)[0] }) {
           : "1px dashed rgba(255, 255, 255, 0.06)",
         borderRadius: 10,
         padding: 16,
-        opacity: isHovered ? 0.8 : 0.6,
+        opacity: isHovered ? 0.85 : 0.7,
         transitionDuration: "0.4s",
         transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
       }}
@@ -578,24 +577,39 @@ function UpcomingCard({ city }: { city: (typeof upcoming)[0] }) {
         >
           {city.city}, {city.country}
         </h4>
-        <span
-          style={{
-            display: "inline-block",
-            marginTop: 6,
-            padding: "3px 8px",
-            background: "rgba(255, 255, 255, 0.03)",
-            border: "1px solid rgba(255, 255, 255, 0.06)",
-            borderRadius: 3,
-            fontFamily: "var(--font-outfit)",
-            fontSize: 9,
-            fontWeight: 600,
-            letterSpacing: "1.5px",
-            textTransform: "uppercase",
-            color: "#404040",
-          }}
-        >
-          Announcing Soon
-        </span>
+        <div className="flex items-center gap-3" style={{ marginTop: 6 }}>
+          <span
+            style={{
+              display: "inline-block",
+              padding: "3px 8px",
+              background: "rgba(255, 255, 255, 0.03)",
+              border: "1px solid rgba(255, 255, 255, 0.06)",
+              borderRadius: 3,
+              fontFamily: "var(--font-outfit)",
+              fontSize: 9,
+              fontWeight: 600,
+              letterSpacing: "1.5px",
+              textTransform: "uppercase",
+              color: "#555",
+            }}
+          >
+            Announcing Soon
+          </span>
+          <a
+            href="#register"
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 11,
+              fontWeight: 500,
+              color: OT_CRIMSON,
+              textDecoration: "none",
+              opacity: isHovered ? 1 : 0,
+              transition: "opacity 0.3s ease",
+            }}
+          >
+            Get Notified →
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -629,10 +643,11 @@ function ReportsStrip() {
         onMouseLeave={() => setIsHovered(false)}
         className="w-full flex items-center justify-between transition-all"
         style={{
-          background: isHovered ? `${OT_CRIMSON}08` : "#0f0f0f",
-          border: `1px solid ${isHovered ? `${OT_CRIMSON}25` : "rgba(255,255,255,0.04)"}`,
+          background: isHovered ? `${OT_CRIMSON}10` : "#161616",
+          border: `1px solid ${isHovered ? `${OT_CRIMSON}30` : "rgba(255,255,255,0.06)"}`,
+          borderLeft: `3px solid ${isHovered ? OT_CRIMSON : `${OT_CRIMSON}50`}`,
           borderRadius: 10,
-          padding: "14px 20px",
+          padding: "18px 24px",
           cursor: "pointer",
           transitionDuration: "0.3s",
         }}
@@ -656,9 +671,9 @@ function ReportsStrip() {
           <span
             style={{
               fontFamily: "var(--font-outfit)",
-              fontSize: 13,
+              fontSize: 14,
               fontWeight: 500,
-              color: "#808080",
+              color: "#909090",
             }}
           >
             Post-Event Reports
@@ -674,7 +689,7 @@ function ReportsStrip() {
               borderRadius: 4,
             }}
           >
-            {reports.length}
+            {reports.length} Available
           </span>
         </div>
 

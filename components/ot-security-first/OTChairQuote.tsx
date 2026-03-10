@@ -198,7 +198,7 @@ export default function OTChairQuote() {
                 fontWeight: 600,
                 letterSpacing: "2px",
                 textTransform: "uppercase",
-                color: "#505050",
+                color: "#686868",
               }}
             >
               Voices from the Summit
@@ -222,6 +222,23 @@ export default function OTChairQuote() {
                 isInView={isInView}
               />
             ))}
+          </div>
+
+          {/* CTA */}
+          <div style={{ textAlign: "center", marginTop: 32 }}>
+            <a
+              href="#register"
+              style={{
+                fontFamily: "var(--font-outfit)",
+                fontSize: 13,
+                fontWeight: 500,
+                color: OT_CRIMSON,
+                textDecoration: "none",
+                letterSpacing: "0.5px",
+              }}
+            >
+              Join the Conversation →
+            </a>
           </div>
         </motion.div>
       </div>

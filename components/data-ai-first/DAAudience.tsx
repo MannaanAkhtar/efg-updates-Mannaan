@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { DotMatrixGrid, ScanLines } from "@/components/effects";
+import { DotMatrixGrid } from "@/components/effects";
 import { EMERALD, EMERALD_BRIGHT, EASE, NARROW, WIDE } from "./constants";
 
 const roles = [
@@ -44,23 +44,29 @@ export default function DAAudience() {
         padding: "clamp(36px, 5vw, 56px) 24px",
       }}
     >
-      {/* Multi-layer atmospheric gradients */}
+      {/* Diagonal grid texture */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse 50% 50% at 25% 40%, rgba(15,115,94,0.03) 0%, transparent 70%)`,
-        }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `radial-gradient(ellipse 40% 40% at 75% 60%, rgba(20,168,130,0.025) 0%, transparent 70%)`,
+          backgroundImage: `
+            linear-gradient(30deg, rgba(15,115,94,0.03) 1px, transparent 1px),
+            linear-gradient(-30deg, rgba(15,115,94,0.03) 1px, transparent 1px)
+          `,
+          backgroundSize: "40px 40px",
+          zIndex: 1,
         }}
       />
 
-      {/* Textures */}
-      <ScanLines opacity={0.012} lineHeight={5} />
-      <DotMatrixGrid color={EMERALD} opacity={0.015} spacing={30} />
+      {/* Emerald glow — right center */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 40% 50% at 85% 50%, ${EMERALD}08 0%, transparent 70%)`,
+          zIndex: 1,
+        }}
+      />
+
+      <DotMatrixGrid color={EMERALD} opacity={0.01} spacing={36} />
 
       {/* Intro */}
       <div style={{ maxWidth: NARROW, margin: "0 auto 48px", position: "relative", zIndex: 1 }}>
@@ -223,6 +229,28 @@ export default function DAAudience() {
           </div>
         </motion.div>
       </div>
+
+      {/* CTA */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, delay: 0.5, ease: EASE }}
+        style={{ textAlign: "center", marginTop: 36, position: "relative", zIndex: 1 }}
+      >
+        <a
+          href="#register"
+          style={{
+            fontFamily: "var(--font-outfit)",
+            fontSize: 14,
+            fontWeight: 500,
+            color: EMERALD,
+            textDecoration: "none",
+            letterSpacing: "0.3px",
+          }}
+        >
+          See Yourself Here? Register →
+        </a>
+      </motion.div>
 
       <style jsx global>{`
         @media (max-width: 768px) {
