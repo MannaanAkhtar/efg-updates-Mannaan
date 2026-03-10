@@ -41,8 +41,8 @@ const heroSlides: HeroSlide[] = [
     sub: "The only summit series with active ministerial and regulatory voices in every session.",
   },
   {
-    // Panel discussion — thought leaders on stage. AUTHORITY.
-    image: `${CFK}/cyber21-04-615.jpg`,
+    // MOU signing — AOU & GBM partnership. PARTNERSHIPS.
+    image: `${CFK}/mou-signing-aou-gbm.jpg`,
     eyebrow: "5,000+ Delegates · 16 Editions · 99+ Sponsors",
     title: ["The World's Most", "Trusted Technology"],
     accent: "Summit Series.",
