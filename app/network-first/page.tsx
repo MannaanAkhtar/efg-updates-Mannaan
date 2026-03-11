@@ -37,6 +37,9 @@ const NF = "https://networkfirstme.com/wp-content/uploads";
 const UPCOMING_EVENTS = [
   {
     date: "April 29th, 2026",
+    month: "APR",
+    day: "29",
+    year: "2026",
     time: "09:00 – 16:00",
     title: "ONE Executive Day KSA",
     subtitle: "Explore the Power of Agentic Enterprise and Low-Code",
@@ -71,6 +74,25 @@ const PAST_EVENTS_2024 = [
   { sponsor: "Orbit", date: "Oct", venue: "Ritz Carlton JBR", image: `${NF}/2024/10/WhatsApp-Image-2024-10-09-at-9.55.36-PM-1024x660.jpeg` },
   { sponsor: "Kissflow", date: "Sep", venue: "JW Marriott Marina", image: `${NF}/2024/09/Kissflow-1-1024x660.jpg` },
   { sponsor: "Freshworks", date: "Sep", venue: "Abu Dhabi", image: `${NF}/2024/08/freshworks-auh-1024x682.jpg` },
+  { sponsor: "Appknox", date: "Sep", venue: "Conrad Abu Dhabi", image: `${BOARDROOM}/boardroom-05.jpg` },
+  { sponsor: "Uniphore", date: "Sep", venue: "Dubai", image: `${BOARDROOM}/boardroom-08.jpg` },
+  { sponsor: "Orbit", date: "Jul", venue: "Dubai", image: `${BOARDROOM}/boardroom-10.jpg` },
+  { sponsor: "Freshservice", date: "May", venue: "Palazzo Versace Dubai", image: `${BOARDROOM}/boardroom-14.jpg` },
+];
+
+const PAST_EVENTS_2023 = [
+  { sponsor: "Appknox", date: "Aug", venue: "Sheraton Grand Dubai", image: `${BOARDROOM}/boardroom-17.jpg` },
+  { sponsor: "Zero Trust Summit", date: "Oct", venue: "GITEX Dubai", image: `${BOARDROOM}/boardroom-20.jpg` },
+  { sponsor: "Ransomware Recovery", date: "Oct", venue: "GITEX Dubai", image: `${BOARDROOM}/boardroom-23.jpg` },
+  { sponsor: "Atlassian", date: "Sep", venue: "Movenpick Media City", image: `${BOARDROOM}/boardroom-26.jpg` },
+  { sponsor: "Smart NFC Solutions", date: "Jun", venue: "Radisson Blu Dubai", image: `${BOARDROOM}/boardroom-01.jpg` },
+  { sponsor: "Digital Marketing", date: "Jun", venue: "Grand Hyatt Abu Dhabi", image: `${BOARDROOM}/boardroom-02.jpg` },
+  { sponsor: "Adtech Media", date: "May", venue: "Address Marina Dubai", image: `${BOARDROOM}/boardroom-05.jpg` },
+];
+
+const PAST_EVENTS_2026: { sponsor: string; date: string; venue: string; image: string }[] = [
+  { sponsor: "CleverTap Iftar", date: "5 Mar", venue: "Madinat Jumeirah, Dubai", image: `${NF}/2025/10/clevertap-1024x662.jpeg` },
+  { sponsor: "CleverTap Majlis Al-Suhoor", date: "3 Mar", venue: "JW Marriott, Riyadh", image: `${NF}/2025/10/clevertap-1024x662.jpeg` },
 ];
 
 const CANDID_MOMENTS = [
@@ -151,7 +173,6 @@ export default function NetworkFirstPage() {
       <WhyHost />
       <EditorialBreak src={`${BOARDROOM}/boardroom-03.jpg`} />
       <TheExperience />
-      <TheFullPackage />
       <TheJourney />
       <UpcomingSection />
       <PastBoardroomsShowcase />
@@ -1124,159 +1145,6 @@ function TheExperience() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// THE FULL PACKAGE
-// ═══════════════════════════════════════════════════════════════════════════════
-
-function TheFullPackage() {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
-  const phases = [
-    {
-      phase: "Before",
-      items: [
-        { title: "Custom Landing Pages", desc: "Branded registration pages with your logo, messaging, and full analytics on engagement." },
-        { title: "Marketing Content", desc: "Social assets, email templates, LinkedIn graphics — everything to amplify your reach." },
-      ],
-    },
-    {
-      phase: "During",
-      items: [
-        { title: "Premium Execution", desc: "5-star venue, curated menus, on-site branding, and professional photography throughout." },
-        { title: "Managed Facilitation", desc: "Expert moderation ensuring every conversation stays focused and productive." },
-      ],
-    },
-    {
-      phase: "After",
-      items: [
-        { title: "Post-Event Deliverables", desc: "Complete attendee list with verified contacts, video highlights, and recap content." },
-        { title: "Lead Nurturing Support", desc: "Follow-up templates, introduction facilitation, and recommended next steps for conversion." },
-      ],
-    },
-  ];
-
-  return (
-    <section ref={ref} style={{ position: "relative", overflow: "hidden", padding: "clamp(80px, 10vw, 120px) 24px", background: BG_ALT }}>
-      {/* Gold border top */}
-      <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{ height: 1, background: `linear-gradient(90deg, transparent 0%, rgba(201,147,90,0.15) 50%, transparent 100%)`, zIndex: 2 }} />
-
-      {/* Ambient orbs */}
-      <div className="absolute pointer-events-none" style={{ top: "15%", right: "-5%", width: 450, height: 450, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(201,147,90,0.04) 0%, transparent 70%)", filter: "blur(80px)" }} />
-      <div className="absolute pointer-events-none" style={{ bottom: "10%", left: "-8%", width: 350, height: 350, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(201,147,90,0.03) 0%, transparent 70%)", filter: "blur(60px)" }} />
-
-      <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 1 }}>
-        {/* Header */}
-        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ textAlign: "center", marginBottom: 64 }}>
-          <div className="flex items-center justify-center gap-3" style={{ marginBottom: 16 }}>
-            <span style={{ width: 28, height: 1, background: GOLD }} />
-            <p style={{ fontSize: 12, color: GOLD, letterSpacing: "0.2em", textTransform: "uppercase", margin: 0, fontWeight: 600 }}>Beyond the Room</p>
-            <span style={{ width: 28, height: 1, background: GOLD }} />
-          </div>
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(36px, 5.5vw, 52px)", fontWeight: 800, lineHeight: 1.1, margin: "0 0 14px", letterSpacing: "-0.03em", color: TEXT }}>
-            The full package<span style={{ color: GOLD }}>.</span>
-          </h2>
-          <p style={{ fontSize: 15, color: TEXT_30, lineHeight: 1.65, margin: "0 auto", maxWidth: 520 }}>
-            Your boardroom is just the beginning. We deliver value before, during, and long after the event.
-          </p>
-        </motion.div>
-
-        {/* Horizontal timeline connector (desktop only) */}
-        <div className="package-timeline-bar" style={{ position: "relative", maxWidth: 700, margin: "0 auto 40px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          {/* Connecting line */}
-          <div style={{ position: "absolute", left: 0, right: 0, top: "50%", height: 1, background: `linear-gradient(90deg, ${GOLD_30}, ${GOLD}, ${GOLD_30})`, transform: "translateY(-50%)" }} />
-          {phases.map((p, i) => (
-            <motion.div key={p.phase} variants={fadeUp} custom={i} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, position: "relative", zIndex: 1 }}>
-              <div style={{
-                width: 40, height: 40, borderRadius: "50%",
-                background: BG_ALT, border: `2px solid ${GOLD}`,
-                display: "flex", alignItems: "center", justifyContent: "center",
-                boxShadow: `0 0 20px rgba(201,147,90,0.2)`,
-              }}>
-                <span style={{ fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 700, color: GOLD }}>{String(i + 1).padStart(2, "0")}</span>
-              </div>
-              <span style={{ fontFamily: "var(--font-display)", fontSize: 14, fontWeight: 700, color: TEXT, letterSpacing: "0.05em", textTransform: "uppercase" }}>{p.phase}</span>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* 3-Phase Cards */}
-        <div className="package-phases" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
-          {phases.map((p, phaseIdx) => (
-            <motion.div
-              key={p.phase}
-              variants={fadeUp} custom={phaseIdx} initial="hidden" animate={inView ? "visible" : "hidden"}
-              style={{ display: "flex", flexDirection: "column", gap: 14 }}
-            >
-              {p.items.map((item) => (
-                <div
-                  key={item.title}
-                  style={{
-                    padding: "28px 24px 28px 26px",
-                    background: "rgba(255,255,255,0.02)",
-                    border: "1px solid rgba(201,147,90,0.08)",
-                    borderRadius: 14,
-                    position: "relative",
-                    overflow: "hidden",
-                    flex: 1,
-                  }}
-                >
-                  {/* Gold top accent */}
-                  <div style={{ position: "absolute", top: 0, left: 24, width: 36, height: 2, background: `linear-gradient(90deg, ${GOLD}, ${GOLD_30})`, borderRadius: 1 }} />
-                  {/* Gold left accent */}
-                  <div style={{ position: "absolute", top: 14, bottom: 14, left: 0, width: 2, background: `linear-gradient(to bottom, ${GOLD}, ${GOLD_30})`, borderRadius: 1 }} />
-                  <h4 style={{ fontSize: 18, fontWeight: 700, color: TEXT, margin: "0 0 10px", letterSpacing: "-0.01em" }}>{item.title}</h4>
-                  <p style={{ fontSize: 14, color: TEXT_50, lineHeight: 1.7, margin: 0 }}>{item.desc}</p>
-                </div>
-              ))}
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Bottom connector strip */}
-        <motion.div
-          variants={fadeUp} custom={4} initial="hidden" animate={inView ? "visible" : "hidden"}
-          style={{
-            marginTop: 28,
-            padding: "22px 32px",
-            background: "rgba(201,147,90,0.04)",
-            border: "1px solid rgba(201,147,90,0.1)",
-            borderRadius: 14,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 32,
-            flexWrap: "wrap",
-          }}
-        >
-          <p style={{ fontSize: 14, color: TEXT_50, margin: 0, lineHeight: 1.6 }}>
-            <span style={{ color: GOLD, fontWeight: 600 }}>One partner. Full lifecycle.</span>{" "}
-            From the first landing page to the last follow-up email — we own the entire process.
-          </p>
-          <div style={{ display: "flex", gap: 24 }}>
-            {[["6", "Deliverables"], ["1", "Partner"]].map(([num, label]) => (
-              <div key={label} className="flex items-center gap-2">
-                <span style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 800, color: GOLD }}>{num}</span>
-                <span style={{ fontSize: 12, color: TEXT_30, textTransform: "uppercase", letterSpacing: "0.08em" }}>{label}</span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Gold border bottom */}
-      <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: 1, background: `linear-gradient(90deg, transparent 0%, rgba(201,147,90,0.15) 50%, transparent 100%)`, zIndex: 2 }} />
-
-      <style jsx global>{`
-        @media (max-width: 768px) {
-          .package-phases { grid-template-columns: 1fr !important; gap: 16px !important; }
-          .package-timeline-bar { display: none !important; }
-        }
-      `}</style>
-    </section>
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
 // THE JOURNEY
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -1524,7 +1392,6 @@ function TheJourney() {
 function UpcomingSection() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
-  const e = UPCOMING_EVENTS[0];
 
   return (
     <section ref={ref} style={{ position: "relative", overflow: "hidden", padding: "clamp(80px, 10vw, 120px) 24px", background: BG_ALT }}>
@@ -1550,103 +1417,106 @@ function UpcomingSection() {
           </p>
         </motion.div>
 
-        {/* Event Card — Oversized Date Layout */}
-        <motion.a
-          href={e.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          variants={fadeUp} custom={1} initial="hidden" animate={inView ? "visible" : "hidden"}
-          className="upcoming-event-card"
-          style={{
-            display: "block",
-            borderRadius: 14,
-            overflow: "hidden",
-            background: "rgba(255,255,255,0.02)",
-            border: "1px solid rgba(201,147,90,0.08)",
-            textDecoration: "none",
-            position: "relative",
-            padding: "clamp(36px, 5vw, 56px)",
-            transition: "border-color 0.3s ease",
-          }}
-        >
-          {/* Background event photo */}
-          <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-            <img src={e.image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.2) saturate(0.7)" }} />
-            <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.65) 100%)` }} />
-          </div>
-          {/* Gold top accent */}
-          <div style={{ position: "absolute", top: 0, left: "clamp(40px, 5vw, 64px)", width: 48, height: 2, background: `linear-gradient(90deg, ${GOLD}, ${GOLD_30})`, borderRadius: 1, zIndex: 2 }} />
-          {/* Gold left accent */}
-          <div style={{ position: "absolute", top: 24, bottom: 24, left: 0, width: 2, background: `linear-gradient(to bottom, ${GOLD}, ${GOLD_30})`, borderRadius: 1, zIndex: 2 }} />
+        {/* Event Cards */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          {UPCOMING_EVENTS.map((e, idx) => (
+            <motion.a
+              key={e.title}
+              href={e.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              variants={fadeUp} custom={idx + 1} initial="hidden" animate={inView ? "visible" : "hidden"}
+              className="upcoming-event-card"
+              style={{
+                display: "block",
+                borderRadius: 14,
+                overflow: "hidden",
+                background: "rgba(255,255,255,0.02)",
+                border: "1px solid rgba(201,147,90,0.08)",
+                textDecoration: "none",
+                position: "relative",
+                padding: "clamp(28px, 4vw, 44px)",
+                transition: "border-color 0.3s ease",
+              }}
+            >
+              {/* Background event photo */}
+              <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
+                <img src={e.image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.2) saturate(0.7)" }} />
+                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.65) 100%)` }} />
+              </div>
+              {/* Gold top accent */}
+              <div style={{ position: "absolute", top: 0, left: "clamp(32px, 4vw, 48px)", width: 40, height: 2, background: `linear-gradient(90deg, ${GOLD}, ${GOLD_30})`, borderRadius: 1, zIndex: 2 }} />
+              {/* Gold left accent */}
+              <div style={{ position: "absolute", top: 20, bottom: 20, left: 0, width: 2, background: `linear-gradient(to bottom, ${GOLD}, ${GOLD_30})`, borderRadius: 1, zIndex: 2 }} />
 
-          <div className="upcoming-inner" style={{ display: "grid", gridTemplateColumns: "auto 1px 1fr", gap: "clamp(32px, 5vw, 52px)", alignItems: "center", position: "relative", zIndex: 1 }}>
-            {/* Date Block */}
-            <div style={{ textAlign: "center", minWidth: 130, position: "relative" }}>
-              {/* Next Event tag */}
-              <span style={{
-                display: "inline-block", fontSize: 10, fontWeight: 700, color: GOLD,
-                letterSpacing: "0.15em", textTransform: "uppercase",
-                background: "rgba(201,147,90,0.1)", border: "1px solid rgba(201,147,90,0.15)",
-                borderRadius: 6, padding: "4px 12px", marginBottom: 16,
-              }}>Next Event</span>
-              <p style={{ fontSize: 15, color: GOLD, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 2px", fontWeight: 700 }}>APR</p>
-              <p style={{
-                fontFamily: "var(--font-display)", fontSize: "clamp(90px, 14vw, 150px)", fontWeight: 800,
-                color: GOLD, lineHeight: 0.85, margin: 0, letterSpacing: "-0.04em",
-                textShadow: "0 0 60px rgba(201,147,90,0.25)",
-              }}>29</p>
-              <p style={{ fontSize: 14, color: TEXT_30, letterSpacing: "0.12em", margin: "8px 0 0", fontWeight: 500 }}>2026</p>
-            </div>
-
-            {/* Vertical divider */}
-            <div className="upcoming-divider" style={{ width: 1, alignSelf: "stretch", background: `linear-gradient(to bottom, transparent, ${GOLD_30}, ${GOLD}, ${GOLD_30}, transparent)` }} />
-
-            {/* Event Details */}
-            <div>
-              {/* Sponsor tag */}
-              <span style={{
-                display: "inline-block", fontSize: 11, fontWeight: 700, color: BG,
-                background: GOLD, borderRadius: 6, padding: "5px 14px",
-                letterSpacing: "0.03em", marginBottom: 18,
-              }}>{e.sponsor}</span>
-
-              <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(24px, 3.5vw, 34px)", fontWeight: 800, color: TEXT, margin: "0 0 12px", lineHeight: 1.15, letterSpacing: "-0.02em" }}>{e.title}</h3>
-              <p style={{ fontSize: 15, color: TEXT_50, margin: "0 0 22px", lineHeight: 1.65, maxWidth: 480 }}>{e.subtitle}</p>
-
-              {/* Divider */}
-              <div style={{ width: 44, height: 1, background: `linear-gradient(90deg, ${GOLD}, ${GOLD_30})`, marginBottom: 22 }} />
-
-              {/* Meta row */}
-              <div className="flex items-center gap-5" style={{ flexWrap: "wrap", marginBottom: 28 }}>
-                <div className="flex items-center gap-2">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
-                  <span style={{ fontSize: 14, color: TEXT_50 }}>{e.location}</span>
+              <div className="upcoming-inner" style={{ display: "grid", gridTemplateColumns: "auto 1px 1fr", gap: "clamp(24px, 4vw, 40px)", alignItems: "center", position: "relative", zIndex: 1 }}>
+                {/* Date Block */}
+                <div style={{ textAlign: "center", minWidth: 100, position: "relative" }}>
+                  {idx === 0 && (
+                    <span style={{
+                      display: "inline-block", fontSize: 9, fontWeight: 700, color: GOLD,
+                      letterSpacing: "0.15em", textTransform: "uppercase",
+                      background: "rgba(201,147,90,0.1)", border: "1px solid rgba(201,147,90,0.15)",
+                      borderRadius: 5, padding: "3px 10px", marginBottom: 12,
+                    }}>Next Event</span>
+                  )}
+                  <p style={{ fontSize: 13, color: GOLD, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 2px", fontWeight: 700 }}>{e.month}</p>
+                  <p style={{
+                    fontFamily: "var(--font-display)", fontSize: "clamp(60px, 10vw, 100px)", fontWeight: 800,
+                    color: GOLD, lineHeight: 0.85, margin: 0, letterSpacing: "-0.04em",
+                    textShadow: "0 0 50px rgba(201,147,90,0.25)",
+                  }}>{e.day}</p>
+                  <p style={{ fontSize: 12, color: TEXT_30, letterSpacing: "0.12em", margin: "6px 0 0", fontWeight: 500 }}>{e.year}</p>
                 </div>
-                <span style={{ width: 3, height: 3, borderRadius: "50%", background: GOLD_30 }} />
-                <div className="flex items-center gap-2">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
-                  <span style={{ fontSize: 14, color: TEXT_50 }}>{e.time}</span>
+
+                {/* Vertical divider */}
+                <div className="upcoming-divider" style={{ width: 1, alignSelf: "stretch", background: `linear-gradient(to bottom, transparent, ${GOLD_30}, ${GOLD}, ${GOLD_30}, transparent)` }} />
+
+                {/* Event Details */}
+                <div>
+                  {/* Sponsor tag */}
+                  <span style={{
+                    display: "inline-block", fontSize: 10, fontWeight: 700, color: BG,
+                    background: GOLD, borderRadius: 5, padding: "4px 12px",
+                    letterSpacing: "0.03em", marginBottom: 14,
+                  }}>{e.sponsor}</span>
+
+                  <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(20px, 3vw, 28px)", fontWeight: 800, color: TEXT, margin: "0 0 10px", lineHeight: 1.15, letterSpacing: "-0.02em" }}>{e.title}</h3>
+                  <p style={{ fontSize: 14, color: TEXT_50, margin: "0 0 18px", lineHeight: 1.6, maxWidth: 440 }}>{e.subtitle}</p>
+
+                  {/* Meta row */}
+                  <div className="flex items-center gap-4" style={{ flexWrap: "wrap", marginBottom: 20 }}>
+                    <div className="flex items-center gap-2">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                      <span style={{ fontSize: 13, color: TEXT_50 }}>{e.location}</span>
+                    </div>
+                    <span style={{ width: 3, height: 3, borderRadius: "50%", background: GOLD_30 }} />
+                    <div className="flex items-center gap-2">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
+                      <span style={{ fontSize: 13, color: TEXT_50 }}>{e.time}</span>
+                    </div>
+                  </div>
+
+                  {/* CTA */}
+                  <span style={{
+                    display: "inline-flex", alignItems: "center", gap: 8,
+                    fontSize: 13, color: GOLD, fontWeight: 700,
+                    padding: "12px 26px", border: `1.5px solid ${GOLD}`,
+                    borderRadius: 980, transition: "all 0.3s ease",
+                    letterSpacing: "0.02em",
+                  }}>
+                    Register Now
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                  </span>
                 </div>
               </div>
-
-              {/* CTA */}
-              <span style={{
-                display: "inline-flex", alignItems: "center", gap: 10,
-                fontSize: 14, color: GOLD, fontWeight: 700,
-                padding: "14px 32px", border: `1.5px solid ${GOLD}`,
-                borderRadius: 980, transition: "all 0.3s ease",
-                letterSpacing: "0.02em",
-              }}>
-                Register Now
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-              </span>
-            </div>
-          </div>
-        </motion.a>
+            </motion.a>
+          ))}
+        </div>
 
         {/* Coming soon strip */}
         <motion.div
-          variants={fadeUp} custom={2} initial="hidden" animate={inView ? "visible" : "hidden"}
+          variants={fadeUp} custom={UPCOMING_EVENTS.length + 1} initial="hidden" animate={inView ? "visible" : "hidden"}
           style={{
             marginTop: 24,
             padding: "18px 28px",
@@ -1704,33 +1574,47 @@ function UrgencyBanner() {
 function PastBoardroomsShowcase() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
-  const [activeYear, setActiveYear] = useState<"2025" | "2024">("2025");
-  const events = activeYear === "2025" ? PAST_EVENTS_2025 : PAST_EVENTS_2024;
+  const [activeYear, setActiveYear] = useState<"2026" | "2025" | "2024" | "2023">("2025");
+  const eventsMap = {
+    "2026": PAST_EVENTS_2026,
+    "2025": PAST_EVENTS_2025,
+    "2024": PAST_EVENTS_2024,
+    "2023": PAST_EVENTS_2023,
+  };
+  const events = eventsMap[activeYear];
 
   return (
     <section ref={ref} style={{ padding: "clamp(100px, 12vw, 140px) 24px" }}>
       <div style={{ maxWidth: 1400, margin: "0 auto" }}>
         <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 24, marginBottom: 48 }}>
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 44px)", fontWeight: 600, margin: 0, letterSpacing: "-0.02em", color: TEXT }}>100+ sessions delivered.</h2>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 44px)", fontWeight: 600, margin: 0, letterSpacing: "-0.02em", color: TEXT }}>300+ sessions delivered.</h2>
           <div style={{ display: "flex", gap: 4 }}>
-            {(["2025", "2024"] as const).map((year) => (
+            {(["2026", "2025", "2024", "2023"] as const).map((year) => (
               <button key={year} onClick={() => setActiveYear(year)} style={{ padding: "10px 20px", borderRadius: 980, border: "none", background: activeYear === year ? GOLD : "transparent", color: activeYear === year ? BG : TEXT_50, fontSize: 14, fontWeight: 500, cursor: "pointer" }}>{year}</button>
             ))}
           </div>
         </motion.div>
 
         <AnimatePresence mode="wait">
-          <motion.div key={activeYear} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.3 }} className="past-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
-            {events.slice(0, 12).map((e, i) => (
-              <motion.div key={e.sponsor + i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: i * 0.02 }} className="past-card" style={{ position: "relative", aspectRatio: "4/3", borderRadius: 12, overflow: "hidden", border: `1px solid ${BORDER}` }}>
-                <img src={e.image} alt={e.sponsor} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, ${BG}ee 0%, ${BG}60 30%, transparent 50%)` }} />
-                <div style={{ position: "absolute", bottom: 14, left: 14, right: 14 }}>
-                  <p style={{ fontSize: 10, color: GOLD, marginBottom: 2 }}>{e.date} {activeYear}</p>
-                  <p style={{ fontSize: 13, fontWeight: 600, color: TEXT, margin: 0, lineHeight: 1.2 }}>{e.sponsor}</p>
-                </div>
-              </motion.div>
-            ))}
+          <motion.div key={activeYear} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.3 }}>
+            {events.length > 0 ? (
+              <div className="past-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
+                {events.slice(0, 12).map((e, i) => (
+                  <motion.div key={e.sponsor + i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: i * 0.02 }} className="past-card" style={{ position: "relative", aspectRatio: "4/3", borderRadius: 12, overflow: "hidden", border: `1px solid ${BORDER}` }}>
+                    <img src={e.image} alt={e.sponsor} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, ${BG}ee 0%, ${BG}60 30%, transparent 50%)` }} />
+                    <div style={{ position: "absolute", bottom: 14, left: 14, right: 14 }}>
+                      <p style={{ fontSize: 10, color: GOLD, marginBottom: 2 }}>{e.date} {activeYear}</p>
+                      <p style={{ fontSize: 13, fontWeight: 600, color: TEXT, margin: 0, lineHeight: 1.2 }}>{e.sponsor}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div style={{ textAlign: "center", padding: "80px 24px", background: "rgba(255,255,255,0.02)", borderRadius: 14, border: `1px solid ${BORDER}` }}>
+                <p style={{ fontSize: 16, color: TEXT_50, margin: 0 }}>Events for {activeYear} coming soon.</p>
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
