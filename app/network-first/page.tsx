@@ -28,7 +28,7 @@ const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com";
 const BOARDROOM = `${S3}/networkfirst/boardrooms`;
 const S3_LOGOS = `${S3}/sponsors-logo`;
-const NF = "https://networkfirstme.com/wp-content/uploads";
+const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA
