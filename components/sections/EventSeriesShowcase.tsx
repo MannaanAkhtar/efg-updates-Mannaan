@@ -24,7 +24,7 @@ const eventSeries = [
     nations: 4,
     stats: "Kuwait · Qatar · KSA · UAE",
     color: "#01BBF5",
-    image: `${OPEX}/4N8A1736.JPG`,
+    image: `${CFK}/exhibition-networking.jpg`,
     href: "/events/cyber-first",
   },
   {
@@ -63,7 +63,7 @@ const eventSeries = [
     nations: 2,
     stats: "Kuwait · Qatar",
     color: "#11A385",
-    image: `${GOOD}/4N8A0050.JPG`,
+    image: `${OPEX}/4N8A1492.JPG`,
     href: "/events/data-ai-first",
   },
 ];
