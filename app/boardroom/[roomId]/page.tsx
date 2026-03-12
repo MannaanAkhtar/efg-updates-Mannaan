@@ -122,6 +122,9 @@ export default function BoardroomPage() {
           url: roomUrl,
           token,
         });
+        
+        // Set to joined immediately - Daily UI handles the rest
+        setJoinState("joined");
       }
     } catch (err) {
       console.error("Join error:", err);
@@ -341,12 +344,13 @@ const styles: Record<string, React.CSSProperties> = {
   joiningOverlay: {
     position: "absolute" as const,
     inset: 0,
-    background: "rgba(0,0,0,0.8)",
+    background: "rgba(0,0,0,0.6)",
     display: "flex",
     flexDirection: "column" as const,
     alignItems: "center",
     justifyContent: "center",
     zIndex: 10,
+    pointerEvents: "none" as const, // Allow clicks to pass through
   },
   spinner: {
     width: 40,
