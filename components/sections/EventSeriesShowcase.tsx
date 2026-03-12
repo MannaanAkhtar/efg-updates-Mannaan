@@ -50,7 +50,8 @@ const eventSeries = [
     nations: 3,
     stats: "Dubai · Doha · Riyadh",
     color: "#7C3AED",
-    image: `${GOOD}/opex-ksa-speaker.jpg`,
+    image: `${GOOD}/opex-ksa-minister.jpg`,
+    objectPosition: "left center",
     href: "/events/opex-first",
   },
   {
@@ -392,6 +393,7 @@ function PortalCard({
           style={{
             filter: "brightness(0.38) saturate(0.9)",
             transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+            objectPosition: (series as { objectPosition?: string }).objectPosition || "center",
           }}
         />
       </div>
