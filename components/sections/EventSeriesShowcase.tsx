@@ -50,7 +50,7 @@ const eventSeries = [
     nations: 3,
     stats: "Dubai · Doha · Riyadh",
     color: "#7C3AED",
-    image: `${OPEX}/4N8A1666.JPG`,
+    image: `${GOOD}/opex-ksa-speaker.jpg`,
     href: "/events/opex-first",
   },
   {
