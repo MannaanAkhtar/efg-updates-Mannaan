@@ -14,7 +14,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/sections";
 import { NeuralConstellation, DotMatrixGrid } from "@/components/effects";
-import EventNavigation from "@/components/ui/EventNavigation";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
 import type { FormType, CountryCode } from "@/lib/form-helpers";
 
@@ -79,6 +78,48 @@ function Counter({
   );
 }
 
+// ─── CountUp (with prefix, suffix, decimals, delay) ─────────────────────────
+function CountUp({
+  target,
+  prefix = "",
+  suffix = "",
+  active,
+  delay = 0,
+  style,
+}: {
+  target: number;
+  prefix?: string;
+  suffix?: string;
+  active: boolean;
+  delay?: number;
+  style?: React.CSSProperties;
+}) {
+  const [val, setVal] = useState(0);
+  const hasDecimals = target % 1 !== 0;
+
+  useEffect(() => {
+    if (!active) return;
+    const timeout = setTimeout(() => {
+      const duration = 1600;
+      const start = Date.now();
+      const tick = () => {
+        const p = Math.min((Date.now() - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        setVal(hasDecimals ? parseFloat((eased * target).toFixed(2)) : Math.round(eased * target));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, delay * 1000);
+    return () => clearTimeout(timeout);
+  }, [active, target, delay, hasDecimals]);
+
+  return (
+    <div style={style}>
+      {prefix}{hasDecimals ? val.toFixed(2) : val}{suffix}
+    </div>
+  );
+}
+
 // ─── Data ────────────────────────────────────────────────────────────────────
 const SPEAKERS = [
   {
@@ -113,10 +154,11 @@ const GALLERY: {
   area: string;
   rotate?: number;
   lift?: boolean;
+  pos?: string;
 }[] = [
   {
-    src: `${WP}/2024/12/Cyber-First-Series-Pictures-and-Sponsors-28.jpg`,
-    alt: "Delegates networking",
+    src: `${S3}/Good/4N8A0160.JPG`,
+    alt: "Engaged audience at summit",
     area: "hero",
   },
   {
@@ -127,8 +169,8 @@ const GALLERY: {
     lift: true,
   },
   {
-    src: `${WP}/2024/12/Cyber-First-Series-Pictures-and-Sponsors-30.jpg`,
-    alt: "Keynote session",
+    src: `${S3}/Good/4N8A0010.JPG`,
+    alt: "Keynote presentation",
     area: "b",
   },
   {
@@ -139,8 +181,8 @@ const GALLERY: {
     lift: true,
   },
   {
-    src: `${WP}/2024/12/Speakers-and-Event-pictures-25.png`,
-    alt: "Executive networking",
+    src: `${S3}/events/Opex+First+UAE/4N8A1848.JPG`,
+    alt: "Delegates seated for session",
     area: "d",
   },
   {
@@ -148,51 +190,62 @@ const GALLERY: {
     alt: "Awards ceremony",
     area: "e",
   },
+  {
+    src: `${S3}/Good/4N8A0122.JPG`,
+    alt: "Industry leader address",
+    pos: "center 20%",
+    area: "f",
+  },
+  {
+    src: `${S3}/Good/4N8A0065.JPG`,
+    alt: "Summit audience — executive delegates",
+    area: "g",
+  },
 ];
 
-const FOCUS_AREAS = [
+const FOCUS_AREAS: { title: string; desc: string; bg: string; wide?: boolean }[] = [
   {
     title: "Cyber Leadership & National Security",
-    desc: "Elevating cybersecurity as a national priority aligned with Digital India and National Cyber Security Policy, strengthening public-private partnerships and governance frameworks.",
-    icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+    desc: "Elevating cybersecurity as a national priority aligned with Digital India, establishing governance frameworks that enable CISOs to drive board-level security strategy.",
+    bg: `${S3}/Good/4N8A0122.JPG`,
     wide: true,
   },
   {
     title: "AI & Emerging Threat Landscape",
-    desc: "Addressing how artificial intelligence is reshaping cyber threats and defence strategies while enabling secure adoption of AI-driven technologies across Indian enterprises.",
-    icon: "M12 2a4 4 0 014 4v1a2 2 0 012 2v1a2 2 0 01-2 2H8a2 2 0 01-2-2V9a2 2 0 012-2V6a4 4 0 014-4zM9 18h6M10 22h4",
+    desc: "How AI is reshaping cyber threats, defence strategies, and secure enterprise adoption across India's digital ecosystem.",
+    bg: `${S3}/cyberbg.jpg`,
   },
   {
     title: "Critical Infrastructure Protection",
-    desc: "Strengthening protection of power grids, telecommunications, transportation, and smart city infrastructure against targeted cyber attacks and APT groups.",
-    icon: "M2 20h20M4 20V10l8-6 8 6v10M9 20v-4a3 3 0 016 0v4",
+    desc: "Defending power grids, telecom, transport, and smart city systems against targeted APTs and nation-state threats.",
+    bg: `${S3}/events/OT%20Security%20First%20UAE%202025/OT%20First%20UAE%20Photos/4N8A0394.JPG`,
   },
   {
-    title: "Banking & Financial Cyber Resilience",
-    desc: "Enhancing resilience across digital banking, UPI ecosystem, fintech innovation, and RBI compliance frameworks for India's rapidly digitizing financial sector.",
-    icon: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z",
+    title: "Banking & Financial Resilience",
+    desc: "Digital banking, UPI ecosystem, fintech security, and RBI compliance for India's rapidly evolving financial sector.",
+    bg: `${S3}/events/Cyber%20First%20Kuwait%202025/filemail_photos/cyber21-04-324.jpg`,
     wide: true,
   },
   {
-    title: "Data Protection & Privacy",
-    desc: "Navigating the Digital Personal Data Protection Act (DPDP), data localization requirements, and building trust in India's digital economy.",
-    icon: "M12 1a3 3 0 00-3 3v4a3 3 0 006 0V4a3 3 0 00-3-3zM19 10v2a7 7 0 01-14 0v-2M5 21h14M8 21v-4M16 21v-4",
+    title: "Data Protection & DPDP Act",
+    desc: "Navigating the DPDP Act, data localization mandates, and building trust in India's digital economy.",
+    bg: `${S3}/Good/4N8A0030.JPG`,
   },
   {
     title: "Threat Intelligence & SOC",
-    desc: "Building world-class Security Operations Centers, advancing threat detection capabilities, and fostering intelligence sharing across Indian organizations.",
-    icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z",
+    desc: "Building world-class SOCs, threat detection, and intelligence sharing across organisations.",
+    bg: `${S3}/events/Cyber%20First%20Kuwait%202025/filemail_photos/cyber21-04-390.jpg`,
   },
   {
-    title: "Cloud & Digital Transformation Security",
-    desc: "Securing cloud adoption, hybrid infrastructure, and digital transformation initiatives across government and enterprise India.",
-    icon: "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z",
+    title: "Cloud & Digital Transformation",
+    desc: "Securing cloud adoption and hybrid infrastructure across government and enterprise India as organisations accelerate digital-first strategies.",
+    bg: `${S3}/events/Cyber%20First%20Kuwait%202025/filemail_photos/cyber21-04-160.jpg`,
     wide: true,
   },
   {
     title: "CERT-In Compliance & Frameworks",
-    desc: "Understanding and implementing CERT-In directives, incident reporting requirements, and aligning with national cybersecurity frameworks.",
-    icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 14l2 2 4-4",
+    desc: "Implementing CERT-In directives, incident reporting, and national cybersecurity frameworks.",
+    bg: `${S3}/events/Opex%20First%20UAE/4N8A1702.JPG`,
   },
 ];
 
@@ -251,31 +304,14 @@ const AGENDA = [
 ];
 
 const AWARDS_DATA = [
-  {
-    title: "Cybersecurity Visionary of the Year",
-    desc: "Recognizing an individual demonstrating exceptional strategic vision in advancing India's cybersecurity posture.",
-    icon: "M15 12a3 3 0 11-6 0 3 3 0 016 0zM2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z",
-  },
-  {
-    title: "Secure Digital India Leadership",
-    desc: "Honoring leadership in securing Digital India initiatives and emerging technology integration.",
-    icon: "M12 2a4 4 0 014 4v1a2 2 0 012 2v1a2 2 0 01-2 2H8a2 2 0 01-2-2V9a2 2 0 012-2V6a4 4 0 014-4zM9 18h6M10 22h4",
-  },
-  {
-    title: "Enterprise Cyber Resilience Excellence",
-    desc: "Celebrating excellence in building enterprise-wide cyber resilience frameworks and risk governance.",
-    icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
-  },
-  {
-    title: "Critical Infrastructure Defender",
-    desc: "Recognizing outstanding efforts in protecting critical national infrastructure from cyber threats.",
-    icon: "M2 20h20M4 20V10l8-6 8 6v10M9 20v-4a3 3 0 016 0v4",
-  },
-  {
-    title: "Data Privacy & Trust Champion",
-    desc: "Honoring commitment to data protection, DPDP compliance, and building digital trust.",
-    icon: "M12 1a3 3 0 00-3 3v4a3 3 0 006 0V4a3 3 0 00-3-3zM19 10v2a7 7 0 01-14 0v-2M5 21h14M8 21v-4M16 21v-4",
-  },
+  "Cybersecurity Leader of the Year",
+  "CISO of the Year — Enterprise Security Excellence",
+  "AI & Cyber Innovation Leader of the Year",
+  "Cyber Resilience Champion — Critical Infrastructure",
+  "Cybersecurity Solution Provider of the Year",
+  "Best AI-Driven Cybersecurity Innovation",
+  "Cloud Security Excellence Award",
+  "Emerging Cybersecurity Technology Provider of the Year",
 ];
 
 const WHO_ATTEND_INDUSTRIES = [
@@ -293,9 +329,22 @@ export default function CyberFirstIndia2026() {
   return (
     <div style={{ background: "#050810" }}>
       <style jsx global>{`
+        @media (max-width: 1024px) {
+          .cfi-hero-info-card { display: none !important; }
+        }
         @media (max-width: 768px) {
-          .cfi-hero-section h1 { font-size: clamp(28px, 8vw, 42px) !important; max-width: 100% !important; }
-          .cfi-hero-content { padding: 0 20px !important; }
+          .cfi-hero-section { min-height: 100vh !important; height: auto !important; }
+          .cfi-hero-section h1 { font-size: clamp(26px, 7vw, 38px) !important; max-width: 100% !important; letter-spacing: -0.02em !important; }
+          .cfi-hero-content { padding: 0 !important; }
+          .cfi-hero-inner { height: auto !important; min-height: 100vh !important; padding: 100px 20px 180px !important; }
+          .cfi-hero-left { padding-bottom: 0 !important; }
+          .cfi-hero-gradient-side { background: linear-gradient(to bottom, rgba(5,8,16,0.85) 0%, rgba(5,8,16,0.7) 40%, rgba(5,8,16,0.6) 70%, rgba(5,8,16,0.9) 100%) !important; }
+          .cfi-bottom-bar { flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 12px !important; padding: 0 16px !important; }
+          .cfi-bottom-bar > a { width: 100% !important; text-align: center !important; padding: 12px 24px !important; font-size: 14px !important; }
+        }
+        @media (max-width: 480px) {
+          .cfi-hero-section h1 { font-size: clamp(24px, 7vw, 32px) !important; }
+          .cfi-hero-inner { padding: 90px 16px 180px !important; }
         }
         @media (max-width: 480px) {
           .cfi-stats-grid > div { padding: 12px 8px !important; }
@@ -312,18 +361,19 @@ export default function CyberFirstIndia2026() {
         }
       `}</style>
       
-      <EventNavigation />
       <HeroSection />
       <StatsBar />
       <MarketContext />
       <FocusAreas />
       <WhoShouldAttend />
       <AgendaTimeline />
+      <SpeakersSection />
       <SponsorsSection />
       <Gallery />
       <AwardsSection />
       <Venue />
       <RegistrationSection />
+      <ContactEnquiries />
       <Footer />
     </div>
   );
@@ -347,16 +397,16 @@ function HeroSection() {
       {/* Background */}
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1600&q=80"
-          alt=""
+          src="https://efg-final.s3.eu-north-1.amazonaws.com/delhi2-bg.png"
+          alt="New Delhi skyline"
           className="w-full h-full object-cover"
-          style={{ filter: "brightness(0.4) saturate(0.85)" }}
+          style={{ filter: "brightness(0.35) saturate(0.8)", objectPosition: "center 100%" }}
         />
       </div>
 
       {/* Gradient overlays */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none cfi-hero-gradient-side"
         style={{
           background: `linear-gradient(90deg, rgba(5,8,16,0.95) 0%, rgba(5,8,16,0.7) 40%, rgba(5,8,16,0.4) 70%, rgba(5,8,16,0.2) 100%)`,
           zIndex: 1,
@@ -388,39 +438,44 @@ function HeroSection() {
       {/* Content */}
       <div className="cfi-hero-content">
         <div
+          className="cfi-hero-inner"
           style={{
             position: "relative",
             zIndex: 10,
             height: "100vh",
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
+            alignItems: "center",
             maxWidth: 1320,
             margin: "0 auto",
             padding: "0 clamp(24px, 5vw, 80px)",
+            gap: 48,
           }}
         >
+          {/* Left — Text content */}
+          <div className="cfi-hero-left" style={{ display: "flex", flexDirection: "column", justifyContent: "center", flex: 1 }}>
           {/* Edition Badge */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2, ease: EASE }}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              alignSelf: "flex-start",
-              gap: 8,
-              padding: "8px 16px",
-              borderRadius: 30,
-              background: `${C}15`,
-              border: `1px solid ${C}30`,
-              marginBottom: 24,
-            }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
+            style={{ marginTop: 72, marginBottom: 24 }}
           >
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT }} />
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: C_BRIGHT }}>
-              1st Edition · 16 June 2026
-            </span>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "8px 16px",
+                borderRadius: 30,
+                background: `${C}15`,
+                border: `1px solid ${C}30`,
+              }}
+            >
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT }} />
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: C_BRIGHT }}>
+                India Edition · 16 June 2026
+              </span>
+            </div>
           </motion.div>
 
           {/* Headline */}
@@ -439,7 +494,6 @@ function HeroSection() {
               maxWidth: 700,
             }}
           >
-            Securing{" "}
             <span
               style={{
                 background: `linear-gradient(110deg, ${C_BRIGHT} 0%, #fff 50%, ${C_BRIGHT} 100%)`,
@@ -493,10 +547,16 @@ function HeroSection() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.0, ease: EASE }}
-            style={{ display: "flex", gap: 12, flexWrap: "wrap" }}
+            style={{ display: "flex", gap: 16, flexWrap: "wrap", paddingBottom: 80 }}
           >
-            <Link
-              href="/contact"
+            <a
+              href="#register?tab=pass"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById("register");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+                window.dispatchEvent(new CustomEvent("cfi-set-tab", { detail: "pass" }));
+              }}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -513,9 +573,15 @@ function HeroSection() {
               }}
             >
               Reserve Your Seat <span>→</span>
-            </Link>
-            <Link
-              href="/contact"
+            </a>
+            <a
+              href="#register?tab=sponsor"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById("register");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+                window.dispatchEvent(new CustomEvent("cfi-set-tab", { detail: "sponsor" }));
+              }}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -529,10 +595,51 @@ function HeroSection() {
                 fontWeight: 500,
                 textDecoration: "none",
                 border: "1px solid rgba(255,255,255,0.15)",
+                cursor: "pointer",
               }}
             >
               Become a Sponsor
-            </Link>
+            </a>
+          </motion.div>
+          </div>
+
+          {/* Right — Glass info card */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 1.2, ease: EASE }}
+            className="cfi-hero-info-card"
+            style={{
+              width: 300,
+              flexShrink: 0,
+              background: "rgba(255,255,255,0.03)",
+              backdropFilter: "blur(20px)",
+              border: `1px solid ${C}20`,
+              borderRadius: 20,
+              padding: "32px 28px",
+              display: "flex",
+              flexDirection: "column",
+              gap: 24,
+            }}
+          >
+            {[
+              { label: "Date", value: "16 June 2026", icon: "M6 2v4m12-4v4M4 8h16M4 8v10a2 2 0 002 2h12a2 2 0 002-2V8" },
+              { label: "Venue", value: "New Delhi, India", icon: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" },
+              { label: "Delegates", value: "200+ CISOs & CIOs", icon: "M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4-4v2m22 4v-2a4 4 0 00-3-3.87M13 7a4 4 0 11-8 0 4 4 0 018 0z" },
+              { label: "Format", value: "Invite-Only Summit", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" },
+            ].map((item) => (
+              <div key={item.label} style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
+                <div style={{ width: 36, height: 36, borderRadius: 10, background: `${C}12`, border: `1px solid ${C}18`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d={item.icon} />
+                  </svg>
+                </div>
+                <div>
+                  <div style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: 4 }}>{item.label}</div>
+                  <div style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 500, color: "rgba(255,255,255,0.85)", lineHeight: 1.4 }}>{item.value}</div>
+                </div>
+              </div>
+            ))}
           </motion.div>
         </div>
       </div>
@@ -565,7 +672,7 @@ function HeroSection() {
               <span className="relative inline-flex rounded-full h-3 w-3" style={{ background: C }} />
             </span>
             <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: C }}>
-              1st Edition
+              India Edition
             </span>
             <span style={{ color: "rgba(255,255,255,0.15)", margin: "0 6px" }}>|</span>
             <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.5)" }}>
@@ -594,8 +701,14 @@ function HeroSection() {
             ))}
           </div>
 
-          <Link
-            href="#register"
+          <a
+            href="#register?tab=pass"
+            onClick={(e) => {
+              e.preventDefault();
+              const el = document.getElementById("register");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+              window.dispatchEvent(new CustomEvent("cfi-set-tab", { detail: "pass" }));
+            }}
             style={{
               padding: "14px 32px",
               borderRadius: 50,
@@ -606,10 +719,11 @@ function HeroSection() {
               color: "white",
               textDecoration: "none",
               boxShadow: `0 4px 20px ${C}40`,
+              cursor: "pointer",
             }}
           >
             Register Now →
-          </Link>
+          </a>
         </div>
       </motion.div>
 
@@ -633,45 +747,212 @@ function HeroSection() {
 function StatsBar() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
-  const items = [
-    { n: 350, suffix: "+", label: "Delegates", desc: "C-Suite & Directors", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75", highlight: true },
-    { n: 30, suffix: "+", label: "Speakers", desc: "Industry Leaders", icon: "M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" },
-    { n: 25, suffix: "", label: "Sponsors", desc: "Technology Partners", icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
-    { n: 1, suffix: "", label: "Day", desc: "Full Summit", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
+  const stats = [
+    { n: 350, suffix: "+", label: "CISOs & CIOs", desc: "C-Suite & Directors", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75", badge: "Expected", highlight: true },
+    { n: 30, suffix: "+", label: "Expert Speakers", desc: "Practitioners & Leaders", icon: "M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z", badge: "Confirmed" },
+    { n: 25, suffix: "+", label: "Technology Partners", desc: "Sponsors & Exhibitors", icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z", badge: "Planned" },
+    { n: 1, suffix: "", label: "Focused Day", desc: "Full Summit Experience", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z", badge: "16 June" },
   ];
 
   return (
-    <section ref={ref} style={{ position: "relative", padding: "clamp(64px, 8vw, 100px) 0", overflow: "hidden" }}>
+    <section ref={ref} style={{ position: "relative", padding: "clamp(100px, 12vw, 140px) 0 clamp(100px, 12vw, 140px)", overflow: "hidden", background: "#060910" }}>
+      {/* Background — real EFG event photo */}
       <div className="absolute inset-0">
-        <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1600&q=80" alt="" className="w-full h-full object-cover" style={{ filter: "brightness(0.2) saturate(0.7)" }} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={`${S3}/events/Cyber%20First%20Kuwait%202025/filemail_photos/cyber21-04-324.jpg`} alt="" className="w-full h-full object-cover" style={{ filter: "brightness(0.1) saturate(0.4)" }} />
       </div>
-      <div className="absolute inset-0 pointer-events-none" style={{ background: `linear-gradient(180deg, rgba(5,8,16,0.9) 0%, rgba(5,8,16,0.5) 50%, rgba(5,8,16,0.9) 100%)` }} />
-      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 60% 50% at 50% 50%, ${C}10, transparent 70%)` }} />
-      
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(20px,5vw,60px)", position: "relative", zIndex: 1 }}>
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ marginBottom: 40 }}>
-          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "3px", textTransform: "uppercase", color: C_BRIGHT }}>Summit Overview</span>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4.5vw, 48px)", letterSpacing: "-2px", color: "white", lineHeight: 1.1, margin: "14px 0 0", maxWidth: 550 }}>
-            Securing India's<br /><span style={{ color: C_BRIGHT }}>Digital Future.</span>
+
+      {/* Gradient overlays */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(6,9,16,0.95) 0%, rgba(6,9,16,0.6) 50%, rgba(6,9,16,0.95) 100%)" }} />
+
+      {/* Radial glow — slow pulse */}
+      <div className="absolute inset-0 pointer-events-none cfi-overview-glow" style={{ background: `radial-gradient(ellipse 45% 40% at 50% 35%, ${C}0A, transparent 70%)` }} />
+
+      {/* Scan lines */}
+      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.008) 3px, rgba(255,255,255,0.008) 4px)", zIndex: 2 }} />
+
+      {/* ── Text block ── */}
+      <div style={{ maxWidth: 820, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 3 }}>
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ textAlign: "center", marginBottom: 40 }}>
+          {/* Eyebrow */}
+          <div className="flex items-center justify-center gap-3" style={{ marginBottom: 20 }}>
+            <span style={{ width: 24, height: 1, background: C }} />
+            <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 600, letterSpacing: "3px", textTransform: "uppercase", color: C }}>Executive Overview</span>
+            <span style={{ width: 24, height: 1, background: C }} />
+          </div>
+
+          {/* Headline — weight separation */}
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px, 3.5vw, 40px)", letterSpacing: "-1.5px", color: "rgba(255,255,255,0.9)", lineHeight: 1.15, margin: "0 0 6px" }}>
+            One Day. One Room.
+          </h2>
+          <h2 style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 900,
+            fontSize: "clamp(30px, 4vw, 48px)",
+            letterSpacing: "-2px",
+            lineHeight: 1.1,
+            margin: "0 0 28px",
+            background: `linear-gradient(135deg, ${C_BRIGHT} 0%, #ffffff 50%, ${C_BRIGHT} 100%)`,
+            backgroundSize: "200% 100%",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            filter: `drop-shadow(0 0 30px ${C}25)`,
+            animation: "shimmer 6s ease-in-out infinite",
+          }}>
+            India's Top 350+ Security Leaders.
           </h2>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.3, ease: EASE }} className="cfi-stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
-          {items.map((s, i) => (
-            <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: i * 0.1, ease: EASE }} style={{ padding: s.highlight ? "28px 20px 24px" : "24px 16px 20px", borderRadius: 20, background: s.highlight ? `linear-gradient(145deg, ${C}20 0%, ${C}08 100%)` : "rgba(255,255,255,0.04)", border: `1px solid ${s.highlight ? `${C}40` : "rgba(255,255,255,0.08)"}`, position: "relative" }}>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: s.highlight ? "clamp(40px,5vw,52px)" : "clamp(32px,4vw,40px)", fontWeight: 900, color: "white", letterSpacing: "-2px", lineHeight: 1 }}>
+        {/* Two text blocks with left cyan accent bars */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.15, ease: EASE }} style={{ marginBottom: 20 }}>
+          <div style={{ borderLeft: `2px solid ${C}40`, paddingLeft: 20, marginBottom: 20, maxWidth: 660, marginLeft: "auto", marginRight: "auto" }}>
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.5)", lineHeight: 1.8, margin: 0 }}>
+              India's digital landscape is advancing rapidly through <span style={{ color: "rgba(255,255,255,0.9)", fontWeight: 500 }}>Digital India, UPI, Smart Cities, 5G</span>, and the growing use of AI and cloud technologies. Cybersecurity has become a key priority to safeguard critical infrastructure, financial systems, and enterprise operations.
+            </p>
+          </div>
+          <div style={{ borderLeft: `2px solid ${C}25`, paddingLeft: 20, maxWidth: 660, marginLeft: "auto", marginRight: "auto" }}>
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.5)", lineHeight: 1.8, margin: 0 }}>
+              The rise of <span style={{ color: "rgba(255,255,255,0.9)", fontWeight: 500 }}>ransomware, AI-driven cyberattacks, and supply-chain vulnerabilities</span> is creating new challenges. Enterprises must navigate evolving regulations while addressing a <span style={{ color: C_BRIGHT, fontWeight: 500 }}>persistent shortage of 1M+ skilled cyber professionals</span>.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Tags with label */}
+        <motion.div initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.6, delay: 0.3, ease: EASE }} style={{ textAlign: "center", marginBottom: 0 }}>
+          <span style={{ fontFamily: "var(--font-dm)", fontSize: 9, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.25)", display: "block", marginBottom: 10 }}>Who Attends</span>
+          <div className="flex items-center justify-center flex-wrap gap-2 cfi-overview-tags">
+            {["Invite-Only", "C-Suite & Directors", "92% Director-Level+", "15+ Industries"].map((tag) => (
+              <span key={tag} style={{ padding: "5px 14px", borderRadius: 20, background: `${C}08`, border: `1px solid ${C}15`, fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 500, color: `${C}CC` }}>{tag}</span>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      {/* ── Divider band with scan-line texture ── */}
+      <motion.div
+        initial={{ scaleX: 0, opacity: 0 }}
+        animate={inView ? { scaleX: 1, opacity: 1 } : {}}
+        transition={{ duration: 1, delay: 0.4, ease: EASE }}
+        style={{
+          maxWidth: 1200,
+          margin: "56px auto 56px",
+          padding: "0 clamp(20px, 4vw, 60px)",
+          position: "relative",
+          zIndex: 3,
+        }}
+      >
+        <div style={{
+          height: 1,
+          background: `linear-gradient(90deg, transparent 0%, ${C}20 20%, ${C}30 50%, ${C}20 80%, transparent 100%)`,
+        }} />
+      </motion.div>
+
+      {/* ── Stat cards — full width row ── */}
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 3 }}>
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.5, ease: EASE }} className="cfi-stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+          {stats.map((s, i) => (
+            <motion.div
+              key={s.label}
+              className="cfi-stat-card"
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.6 + i * 0.1, ease: EASE }}
+              style={{
+                padding: "28px 22px 26px",
+                borderRadius: 20,
+                background: s.highlight
+                  ? `linear-gradient(145deg, ${C}18 0%, ${C}06 100%)`
+                  : "linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015))",
+                backdropFilter: "blur(12px)",
+                border: `1px solid ${s.highlight ? `${C}35` : "rgba(255,255,255,0.07)"}`,
+                position: "relative",
+                overflow: "hidden",
+                boxShadow: s.highlight ? `0 8px 32px ${C}15, inset 0 1px 0 ${C}20` : "0 4px 24px rgba(0,0,0,0.25)",
+                transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+              }}
+            >
+              {/* Top glow for highlight card */}
+              {s.highlight && (
+                <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 80% 50% at 50% 0%, ${C}10, transparent 60%)` }} />
+              )}
+
+              {/* Icon + contextual badge */}
+              <div className="flex items-center justify-between" style={{ marginBottom: 16, position: "relative" }}>
+                <div style={{
+                  width: s.highlight ? 44 : 38,
+                  height: s.highlight ? 44 : 38,
+                  borderRadius: 12,
+                  background: s.highlight ? `${C}20` : "rgba(255,255,255,0.05)",
+                  border: `1px solid ${s.highlight ? `${C}40` : "rgba(255,255,255,0.08)"}`,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}>
+                  <svg width={s.highlight ? 21 : 17} height={s.highlight ? 21 : 17} viewBox="0 0 24 24" fill="none" stroke={s.highlight ? C_BRIGHT : "rgba(255,255,255,0.45)"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d={s.icon} />
+                  </svg>
+                </div>
+                <span style={{
+                  padding: "3px 10px",
+                  borderRadius: 20,
+                  background: s.highlight ? `${C}15` : "rgba(255,255,255,0.03)",
+                  border: `1px solid ${s.highlight ? `${C}25` : "rgba(255,255,255,0.06)"}`,
+                  fontFamily: "var(--font-dm)",
+                  fontSize: 9,
+                  fontWeight: 600,
+                  color: s.highlight ? C_BRIGHT : "rgba(255,255,255,0.3)",
+                  letterSpacing: "0.5px",
+                  textTransform: "uppercase",
+                }}>{s.badge}</span>
+              </div>
+
+              {/* Number */}
+              <div style={{
+                fontFamily: "var(--font-display)",
+                fontSize: s.highlight ? "clamp(42px, 5vw, 56px)" : "clamp(34px, 4.5vw, 44px)",
+                fontWeight: 900,
+                background: s.highlight ? `linear-gradient(135deg, ${C_BRIGHT} 0%, white 100%)` : "white",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                letterSpacing: "-2px",
+                lineHeight: 1,
+                filter: s.highlight ? `drop-shadow(0 0 24px ${C}30)` : "none",
+                position: "relative",
+              }}>
                 {inView ? <Counter to={s.n} suffix={s.suffix} /> : "0"}
               </div>
-              <div style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.7)", letterSpacing: "1.5px", textTransform: "uppercase", marginTop: 8 }}>{s.label}</div>
-              <div style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.4)", marginTop: 4 }}>{s.desc}</div>
+
+              {/* Label */}
+              <div style={{ fontFamily: "var(--font-outfit)", fontSize: s.highlight ? 12 : 10, fontWeight: 700, color: s.highlight ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.55)", letterSpacing: "1.5px", textTransform: "uppercase", marginTop: 12, position: "relative" }}>{s.label}</div>
+
+              {/* Description */}
+              <div style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 400, color: s.highlight ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.25)", marginTop: 4, position: "relative" }}>{s.desc}</div>
+
+              {/* Bottom accent line */}
+              <div style={{ position: "absolute", bottom: 0, left: 20, right: 20, height: 2, background: s.highlight ? `linear-gradient(90deg, transparent, ${C}50, transparent)` : "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)", borderRadius: 1 }} />
             </motion.div>
           ))}
         </motion.div>
       </div>
 
+      {/* Bottom fade into next section */}
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: 100, background: "linear-gradient(to bottom, transparent, #080A0F)", zIndex: 4 }} />
+
       <style jsx global>{`
-        @media (max-width: 900px) { .cfi-stats-grid { grid-template-columns: repeat(2, 1fr) !important; } }
-        @media (max-width: 480px) { .cfi-stats-grid { gap: 10px !important; } .cfi-stats-grid > div { padding: 16px 14px !important; } }
+        @keyframes cfi-overview-pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.4; }
+        }
+        .cfi-overview-glow { animation: cfi-overview-pulse 8s ease-in-out infinite; }
+        .cfi-stat-card:hover { border-color: rgba(1, 187, 245, 0.3) !important; transform: translateY(-4px); box-shadow: 0 12px 40px rgba(1, 187, 245, 0.1) !important; }
+        @media (max-width: 900px) {
+          .cfi-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 600px) {
+          .cfi-stats-grid { gap: 10px !important; }
+          .cfi-stats-grid > div { padding: 20px 16px 18px !important; border-radius: 16px !important; }
+          .cfi-overview-tags { gap: 6px !important; }
+        }
       `}</style>
     </section>
   );
@@ -681,46 +962,89 @@ function StatsBar() {
 function MarketContext() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
-  
+
   const stats = [
-    { value: "2.9", suffix: "M+", label: "Cyber Incidents", note: "Reported in India in 2025", highlight: true },
-    { value: "$1", suffix: "T", label: "Digital Economy", note: "Expected by 2030" },
-    { value: "900", suffix: "M+", label: "Internet Users", note: "Massive digital ecosystem" },
-    { value: "1", suffix: "M+", label: "Skills Shortage", note: "Cybersecurity professionals by 2030" },
+    { num: 220, prefix: "₹", suffix: "M", label: "Avg. Breach Cost", source: "IBM 2025", highlight: true },
+    { num: 2.27, prefix: "", suffix: "M", label: "Cyber Incidents in 2024", source: "CERT-In" },
+    { num: 1, prefix: "", suffix: "M+", label: "Unfilled Security Roles", source: "ISC2 2025" },
+    { num: 83, prefix: "", suffix: "%", label: "Orgs Not DPDP-Ready", source: "EY India" },
   ];
 
   return (
-    <section ref={ref} style={{ background: "#080A0F", padding: "clamp(80px, 10vw, 120px) 0", position: "relative" }}>
+    <section id="overview" ref={ref} style={{ background: "#080A0F", padding: "clamp(80px, 10vw, 120px) 0", position: "relative" }}>
       <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 50% 50% at 80% 50%, ${C}08, transparent 70%)` }} />
-      
+
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
         <div className="cfi-market-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
+          {/* Left — Copy */}
           <motion.div initial={{ opacity: 0, x: -30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, ease: EASE }}>
             <div className="flex items-center gap-3" style={{ marginBottom: 16 }}>
               <span style={{ width: 30, height: 1, background: C }} />
               <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: C }}>Why Now</span>
             </div>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 48px)", letterSpacing: "-1.5px", color: "white", lineHeight: 1.1, margin: "0 0 20px" }}>
-              India's Digital Economy<br />Demands Cyber Leadership
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 3.5vw, 44px)", letterSpacing: "-1.5px", color: "white", lineHeight: 1.1, margin: "0 0 12px" }}>
+              ₹220 Million.
             </h2>
-            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 16, fontWeight: 400, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, marginBottom: 24 }}>
-              With 900+ million internet users and the world's largest digital payments ecosystem, India is both a land of opportunity and a prime target for sophisticated cyber adversaries. From critical infrastructure to financial services, the stakes have never been higher.
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: "clamp(16px, 1.6vw, 20px)", fontWeight: 400, color: "rgba(255,255,255,0.45)", lineHeight: 1.5, margin: "0 0 28px" }}>
+              That's what a single breach costs in India today.
+              <br />
+              <span style={{ color: C_BRIGHT, fontWeight: 500 }}>And 83% of enterprises haven't begun DPDP compliance.</span>
             </p>
+
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 400, color: "rgba(255,255,255,0.5)", lineHeight: 1.7, marginBottom: 12 }}>
+              India faces <span style={{ color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>3,300+ cyberattacks every week</span> — above the global average. Ransomware, AI-driven threats, and supply-chain compromises are accelerating. The DPDP Act is live and the compliance clock is ticking.
+            </p>
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 400, color: "rgba(255,255,255,0.5)", lineHeight: 1.7, marginBottom: 28 }}>
+              <span style={{ color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>93% of Indian enterprises are increasing their cybersecurity budgets.</span> The question isn't whether to invest — it's where, how, and with whom.
+            </p>
+
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {["CERT-In Compliance", "DPDP Act", "RBI Guidelines", "Digital India"].map((tag) => (
-                <span key={tag} style={{ padding: "6px 14px", borderRadius: 20, background: `${C}10`, border: `1px solid ${C}25`, fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: C }}>{tag}</span>
+              {["CERT-In Compliance", "DPDP Act 2023", "RBI Cyber Framework", "Digital India"].map((tag) => (
+                <span key={tag} style={{ padding: "6px 14px", borderRadius: 20, background: `${C}10`, border: `1px solid ${C}20`, fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: C }}>
+                  {tag}
+                </span>
               ))}
             </div>
           </motion.div>
 
+          {/* Right — Stat cards */}
           <motion.div initial={{ opacity: 0, x: 30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, delay: 0.2, ease: EASE }} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             {stats.map((stat, i) => (
-              <motion.div key={stat.label} initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.3 + i * 0.1, ease: EASE }} style={{ padding: 24, borderRadius: 16, background: stat.highlight ? `linear-gradient(145deg, ${C}15 0%, ${C}05 100%)` : "rgba(255,255,255,0.03)", border: `1px solid ${stat.highlight ? `${C}30` : "rgba(255,255,255,0.06)"}` }}>
-                <div style={{ fontFamily: "var(--font-display)", fontSize: stat.highlight ? 32 : 28, fontWeight: 800, color: stat.highlight ? C_BRIGHT : "white", letterSpacing: "-1px" }}>
-                  {stat.value}<span style={{ fontSize: "0.7em" }}>{stat.suffix}</span>
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.3 + i * 0.1, ease: EASE }}
+                style={{
+                  padding: 24,
+                  borderRadius: 16,
+                  background: stat.highlight
+                    ? `linear-gradient(145deg, ${C}15 0%, ${C}05 100%)`
+                    : "rgba(255,255,255,0.03)",
+                  border: `1px solid ${stat.highlight ? `${C}30` : "rgba(255,255,255,0.06)"}`,
+                  boxShadow: stat.highlight ? `0 0 40px ${C}10` : "none",
+                }}
+              >
+                <CountUp
+                  target={stat.num}
+                  prefix={stat.prefix}
+                  suffix={stat.suffix}
+                  active={inView}
+                  delay={0.4 + i * 0.15}
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: stat.highlight ? 36 : 30,
+                    fontWeight: 800,
+                    color: stat.highlight ? C_BRIGHT : "white",
+                    letterSpacing: "-1px",
+                  }}
+                />
+                <div style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.8)", marginTop: 8 }}>
+                  {stat.label}
                 </div>
-                <div style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.8)", marginTop: 8 }}>{stat.label}</div>
-                <div style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.4)", marginTop: 4 }}>{stat.note}</div>
+                <div style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.3)", marginTop: 6, letterSpacing: "0.5px" }}>
+                  {stat.source}
+                </div>
               </motion.div>
             ))}
           </motion.div>
@@ -738,36 +1062,166 @@ function FocusAreas() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} style={{ background: "#050810", padding: "clamp(80px, 10vw, 120px) 0" }}>
-      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
+    <section ref={ref} style={{ background: "#050810", padding: "clamp(80px, 10vw, 120px) 0", position: "relative", overflow: "hidden" }}>
+      {/* Background atmosphere */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 60% 50% at 30% 40%, ${C}04, transparent 70%)` }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 40% 40% at 80% 60%, ${C}03, transparent 70%)` }} />
+
+      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 1 }}>
+        {/* Header */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: EASE }} style={{ textAlign: "center", marginBottom: 56 }}>
           <div className="flex items-center justify-center gap-3" style={{ marginBottom: 12 }}>
             <span style={{ width: 30, height: 1, background: C }} />
             <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: C }}>Conference Tracks</span>
             <span style={{ width: 30, height: 1, background: C }} />
           </div>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 48px)", letterSpacing: "-1.5px", color: "white", lineHeight: 1.1, margin: 0 }}>
-            What We're Solving
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 48px)", letterSpacing: "-1.5px", color: "white", lineHeight: 1.1, margin: "0 0 14px" }}>
+            What We&apos;re{" "}
+            <span style={{ background: `linear-gradient(135deg, ${C}, ${C_BRIGHT})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Solving</span>
           </h2>
+          <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 300, fontSize: 16, color: "rgba(255,255,255,0.4)", maxWidth: 520, margin: "0 auto", lineHeight: 1.6 }}>
+            8 practitioner-led tracks built around India&apos;s real threat landscape and regulatory reality.
+          </p>
         </motion.div>
 
+        {/* Card Grid */}
         <div className="cfi-focus-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {FOCUS_AREAS.map((area, i) => (
-            <motion.div key={area.title} initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: i * 0.08, ease: EASE }} style={{ gridColumn: area.wide ? "span 2" : "span 1", padding: 28, borderRadius: 16, background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", transition: "all 0.4s ease" }} className="cfi-focus-card">
-              <div style={{ width: 40, height: 40, borderRadius: 10, background: `${C}15`, border: `1px solid ${C}30`, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16 }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d={area.icon} /></svg>
+            <motion.div
+              key={area.title}
+              initial={{ opacity: 0, y: 20, scale: 0.97 }}
+              animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.1 + i * 0.07, ease: EASE }}
+              style={{
+                gridColumn: area.wide ? "span 2" : "span 1",
+                borderRadius: 16,
+                border: "1px solid rgba(255,255,255,0.06)",
+                transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                overflow: "hidden",
+                position: "relative",
+                minHeight: 280,
+              }}
+              className="cfi-focus-card"
+            >
+              {/* Background image */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={area.bg}
+                alt=""
+                aria-hidden="true"
+                className="cfi-focus-bg"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  filter: "brightness(0.35) saturate(0.7)",
+                  transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease",
+                }}
+              />
+
+              {/* Gradient overlay */}
+              <div
+                className="cfi-focus-overlay"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: "linear-gradient(to top, rgba(5,8,16,0.95) 30%, rgba(5,8,16,0.4) 70%, rgba(5,8,16,0.25) 100%)",
+                  transition: "opacity 0.5s ease",
+                }}
+              />
+
+              {/* Content — pushed to bottom */}
+              <div style={{
+                position: "relative",
+                zIndex: 1,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-end",
+                height: "100%",
+                padding: "28px",
+              }}>
+                {/* Track number pill */}
+                <span style={{
+                  fontFamily: "var(--font-dm)",
+                  fontSize: 10,
+                  fontWeight: 600,
+                  color: C_BRIGHT,
+                  letterSpacing: "1.5px",
+                  display: "inline-block",
+                  width: "fit-content",
+                  padding: "3px 10px",
+                  borderRadius: 20,
+                  background: `${C}15`,
+                  border: `1px solid ${C}25`,
+                  marginBottom: 12,
+                }}>{String(i + 1).padStart(2, "0")}</span>
+
+                <h3 style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 700, color: "white", margin: "0 0 8px", letterSpacing: "-0.3px", lineHeight: 1.25 }}>{area.title}</h3>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.7, margin: 0 }}>{area.desc}</p>
               </div>
-              <h3 style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 700, color: "white", margin: "0 0 8px" }}>{area.title}</h3>
-              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 400, color: "rgba(255,255,255,0.5)", lineHeight: 1.6, margin: 0 }}>{area.desc}</p>
             </motion.div>
           ))}
         </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.9, ease: EASE }}
+          style={{ textAlign: "center", marginTop: 48 }}
+        >
+          <Link
+            href="#register"
+            className="cfi-tracks-cta"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "13px 30px",
+              borderRadius: 50,
+              border: `1px solid ${C}25`,
+              background: `${C}06`,
+              fontFamily: "var(--font-outfit)",
+              fontSize: 13,
+              fontWeight: 500,
+              color: C,
+              textDecoration: "none",
+              transition: "all 0.35s ease",
+              letterSpacing: "0.3px",
+            }}
+          >
+            View Full Agenda <span style={{ fontSize: 16, transition: "transform 0.3s ease" }}>→</span>
+          </Link>
+        </motion.div>
       </div>
 
       <style jsx global>{`
-        .cfi-focus-card:hover { background: rgba(1, 187, 245, 0.05) !important; border-color: rgba(1, 187, 245, 0.2) !important; transform: translateY(-4px); }
-        @media (max-width: 1024px) { .cfi-focus-grid { grid-template-columns: repeat(2, 1fr) !important; } .cfi-focus-grid > div { grid-column: span 1 !important; } }
-        @media (max-width: 600px) { .cfi-focus-grid { grid-template-columns: 1fr !important; } }
+        .cfi-focus-card:hover {
+          border-color: rgba(1, 187, 245, 0.2) !important;
+          transform: translateY(-6px) !important;
+          box-shadow: 0 12px 40px rgba(1, 187, 245, 0.1), 0 0 0 1px rgba(1, 187, 245, 0.08);
+        }
+        .cfi-focus-card:hover .cfi-focus-bg {
+          transform: scale(1.08);
+          filter: brightness(0.45) saturate(0.9) !important;
+        }
+        .cfi-focus-card:hover .cfi-focus-overlay {
+          opacity: 0.85;
+        }
+        .cfi-tracks-cta:hover {
+          background: rgba(1, 187, 245, 0.14) !important;
+          border-color: rgba(1, 187, 245, 0.45) !important;
+          box-shadow: 0 4px 20px rgba(1, 187, 245, 0.1);
+        }
+        @media (max-width: 1024px) {
+          .cfi-focus-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .cfi-focus-grid > * { grid-column: span 1 !important; }
+        }
+        @media (max-width: 600px) {
+          .cfi-focus-grid { grid-template-columns: 1fr !important; }
+        }
       `}</style>
     </section>
   );
@@ -832,37 +1286,249 @@ function AgendaTimeline() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const typeColors: Record<string, string> = { keynote: C, panel: "#9D4EDD", fireside: "#F97316", sponsor: "#10B981", break: "#6B7280", ceremony: "#EAB308", awards: "#EC4899", closing: "#06B6D4" };
 
+  const morningItems = AGENDA.slice(0, 12); // Registration through Lunch
+  const afternoonItems = AGENDA.slice(12);   // After Lunch through Closing
+
+  const isBreak = (type: string) => type === "break";
+  const isHighlight = (type: string) => type === "keynote" || type === "ceremony" || type === "awards";
+
+  const renderItem = (item: (typeof AGENDA)[number], i: number, delayOffset: number) => {
+    const color = typeColors[item.type] || C;
+    const breakStyle = isBreak(item.type);
+    const highlight = isHighlight(item.type);
+
+    return (
+      <motion.div
+        key={`${item.time}-${i}`}
+        initial={{ opacity: 0, x: -15 }}
+        animate={inView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.4, delay: delayOffset + i * 0.04, ease: EASE }}
+        style={{ display: "flex", gap: 20, marginBottom: breakStyle ? 10 : 14, paddingLeft: 22, position: "relative" }}
+        className="cfi-agenda-item"
+      >
+        <div style={{ position: "absolute", left: -4, top: breakStyle ? 7 : 11, width: breakStyle ? 8 : 10, height: breakStyle ? 8 : 10, borderRadius: "50%", background: color, boxShadow: highlight ? `0 0 14px ${color}50` : `0 0 8px ${color}25` }} />
+        <div style={{ minWidth: 100, fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.3)", paddingTop: breakStyle ? 2 : 4 }}>{item.time}</div>
+
+        {breakStyle ? (
+          /* Break items — minimal inline style, no card */
+          <div style={{ flex: 1, padding: "6px 0", display: "flex", alignItems: "center", gap: 10 }}>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.3)", fontStyle: "italic" }}>{item.title}</span>
+            <span style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.04)" }} />
+          </div>
+        ) : (
+          /* Content sessions — full card with left accent */
+          <div style={{
+            flex: 1,
+            padding: "14px 18px",
+            borderRadius: 10,
+            background: highlight ? `${color}06` : "rgba(255,255,255,0.02)",
+            border: `1px solid ${highlight ? `${color}15` : "rgba(255,255,255,0.06)"}`,
+            borderLeft: `3px solid ${color}${highlight ? "60" : "30"}`,
+            transition: "all 0.3s ease",
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: item.subtitle ? 5 : 0, flexWrap: "wrap" }}>
+              <span style={{ padding: "2px 7px", borderRadius: 4, background: `${color}12`, fontFamily: "var(--font-dm)", fontSize: 9, fontWeight: 600, color, textTransform: "uppercase", letterSpacing: "0.5px" }}>{item.type}</span>
+              <span style={{ fontFamily: "var(--font-display)", fontSize: 14, fontWeight: highlight ? 800 : 700, color: "white", letterSpacing: "-0.2px" }}>{item.title}</span>
+            </div>
+            {item.subtitle && <p style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: "rgba(255,255,255,0.4)", margin: 0, lineHeight: 1.5 }}>{item.subtitle}</p>}
+          </div>
+        )}
+      </motion.div>
+    );
+  };
+
   return (
-    <section ref={ref} style={{ background: "#050810", padding: "clamp(80px, 10vw, 120px) 0" }}>
-      <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
+    <section id="agenda" ref={ref} style={{ background: "#050810", padding: "clamp(80px, 10vw, 120px) 0", position: "relative", overflow: "hidden" }}>
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 50% 50% at 50% 30%, ${C}04, transparent 70%)` }} />
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 1 }}>
+        {/* Header */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: EASE }} style={{ textAlign: "center", marginBottom: 56 }}>
           <div className="flex items-center justify-center gap-3" style={{ marginBottom: 12 }}>
             <span style={{ width: 30, height: 1, background: C }} />
             <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: C }}>Agenda</span>
             <span style={{ width: 30, height: 1, background: C }} />
           </div>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 48px)", letterSpacing: "-1.5px", color: "white", lineHeight: 1.1, margin: 0 }}>
-            The Day's Programme
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 48px)", letterSpacing: "-1.5px", color: "white", lineHeight: 1.1, margin: "0 0 14px" }}>
+            The Day&apos;s Programme
+          </h2>
+          <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 300, fontSize: 16, color: "rgba(255,255,255,0.4)", maxWidth: 480, margin: "0 auto", lineHeight: 1.6 }}>
+            One focused day. Two halves. Every session designed to deliver actionable outcomes.
+          </p>
+        </motion.div>
+
+        {/* Two-column split */}
+        <div className="cfi-agenda-split" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40 }}>
+          {/* Morning */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
+              style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28, paddingBottom: 16, borderBottom: `1px solid rgba(255,255,255,0.06)` }}
+            >
+              <div style={{ width: 8, height: 8, borderRadius: "50%", background: C, boxShadow: `0 0 10px ${C}40` }} />
+              <span style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 800, color: "white", letterSpacing: "-0.5px" }}>Morning</span>
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 400, color: "rgba(255,255,255,0.25)" }}>08:30 – 13:00</span>
+              <span style={{ flex: 1 }} />
+              <span style={{ fontFamily: "var(--font-dm)", fontSize: 10, fontWeight: 600, color: C, letterSpacing: "0.5px", padding: "3px 10px", borderRadius: 20, background: `${C}10`, border: `1px solid ${C}20` }}>{morningItems.filter(it => !isBreak(it.type)).length} Sessions</span>
+            </motion.div>
+            <div style={{ position: "relative" }}>
+              <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 2, background: `linear-gradient(to bottom, transparent, ${C}25, transparent)` }} />
+              {morningItems.map((item, i) => renderItem(item, i, 0.2))}
+            </div>
+          </div>
+
+          {/* Afternoon */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.25, ease: EASE }}
+              style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28, paddingBottom: 16, borderBottom: `1px solid rgba(255,255,255,0.06)` }}
+            >
+              <div style={{ width: 8, height: 8, borderRadius: "50%", background: C, boxShadow: `0 0 10px ${C}40` }} />
+              <span style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 800, color: "white", letterSpacing: "-0.5px" }}>Afternoon</span>
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 400, color: "rgba(255,255,255,0.25)" }}>14:00 – 16:00</span>
+              <span style={{ flex: 1 }} />
+              <span style={{ fontFamily: "var(--font-dm)", fontSize: 10, fontWeight: 600, color: C, letterSpacing: "0.5px", padding: "3px 10px", borderRadius: 20, background: `${C}10`, border: `1px solid ${C}20` }}>{afternoonItems.filter(it => !isBreak(it.type)).length} Sessions</span>
+            </motion.div>
+            <div style={{ position: "relative" }}>
+              <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 2, background: `linear-gradient(to bottom, transparent, ${C}25, transparent)` }} />
+              {afternoonItems.map((item, i) => renderItem(item, i, 0.35))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style jsx global>{`
+        .cfi-agenda-item > div:last-child:hover {
+          background: rgba(255,255,255,0.035) !important;
+          border-color: rgba(255,255,255,0.1) !important;
+        }
+        @media (max-width: 768px) {
+          .cfi-agenda-split { grid-template-columns: 1fr !important; gap: 32px !important; }
+        }
+        @media (max-width: 600px) {
+          .cfi-agenda-item { flex-direction: column !important; gap: 6px !important; }
+          .cfi-agenda-item > div:first-child { min-width: 0 !important; padding-top: 0 !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── Speakers / Advisors Section ─────────────────────────────────────────────
+const CFI_SPEAKERS = [
+  {
+    name: "Dr. Jagannath Sahoo",
+    designation: "Chief Information Security Officer (CISO)",
+    entity: "INOXGFL",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Dr_Jagannath_Sahoo.jpg",
+  },
+  {
+    name: "Dr Harsha Thennarasu",
+    designation: "Chief Cyber Defence Advisor",
+    entity: "HKIT Security Solutions",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Dr_Harsha.JPG",
+  },
+  {
+    name: "M Dhanasekar",
+    designation: "Wing Commander",
+    entity: "Indian Airforce",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Dhanasekar_Pic.png",
+  },
+  {
+    name: "Dr. Pavan Duggal",
+    designation: "Advocate",
+    entity: "Supreme Court of India",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Pavan_Duggal.jpg",
+  },
+];
+
+function SpeakersSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section id="speakers" ref={ref} style={{ background: "#080A0F", padding: "clamp(80px, 10vw, 120px) 0", position: "relative", overflow: "hidden" }}>
+      {/* Subtle glow */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 60% 40% at 50% 0%, ${C}06, transparent 70%)` }} />
+
+      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
+        {/* Header */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, ease: EASE }} style={{ textAlign: "center", marginBottom: 64 }}>
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "3px", textTransform: "uppercase", color: C_BRIGHT, marginBottom: 16 }}>
+            Confirmed Advisors
+          </p>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 5vw, 48px)", color: "white", margin: 0, lineHeight: 1.15 }}>
+            Industry <span style={{ color: C_BRIGHT }}>Leaders</span> & Experts
           </h2>
         </motion.div>
 
-        <div style={{ position: "relative" }}>
-          <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 2, background: `linear-gradient(to bottom, transparent, ${C}30, transparent)` }} />
-          {AGENDA.map((item, i) => (
-            <motion.div key={i} initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.4, delay: i * 0.05, ease: EASE }} style={{ display: "flex", gap: 24, marginBottom: 24, paddingLeft: 24, position: "relative" }}>
-              <div style={{ position: "absolute", left: -4, top: 8, width: 10, height: 10, borderRadius: "50%", background: typeColors[item.type] || C, boxShadow: `0 0 12px ${typeColors[item.type] || C}50` }} />
-              <div style={{ minWidth: 100, fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.4)" }}>{item.time}</div>
-              <div style={{ flex: 1, padding: 20, borderRadius: 12, background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: item.subtitle ? 6 : 0 }}>
-                  <span style={{ padding: "3px 8px", borderRadius: 4, background: `${typeColors[item.type]}20`, fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 600, color: typeColors[item.type], textTransform: "uppercase" }}>{item.type}</span>
-                  <span style={{ fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 700, color: "white" }}>{item.title}</span>
-                </div>
-                {item.subtitle && <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.5)", margin: 0 }}>{item.subtitle}</p>}
+        {/* Speaker Cards Grid */}
+        <div className="cfi-speakers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 28 }}>
+          {CFI_SPEAKERS.map((speaker, i) => (
+            <motion.div
+              key={speaker.name}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.15 + i * 0.1, ease: EASE }}
+              className="cfi-speaker-card"
+              style={{
+                borderRadius: 16,
+                overflow: "hidden",
+                background: "linear-gradient(160deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))",
+                border: "1px solid rgba(255,255,255,0.07)",
+                transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
+              }}
+            >
+              {/* Photo */}
+              <div style={{ position: "relative", width: "100%", aspectRatio: "1/1", overflow: "hidden" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={speaker.photo}
+                  alt={speaker.name}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", filter: "grayscale(0.2)", transition: "transform 0.5s ease, filter 0.5s ease" }}
+                />
+                {/* Bottom gradient overlay */}
+                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "50%", background: "linear-gradient(to top, #080A0F, transparent)", pointerEvents: "none" }} />
+              </div>
+
+              {/* Info */}
+              <div style={{ padding: "20px 20px 24px", marginTop: -24, position: "relative" }}>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 18, color: "white", margin: "0 0 6px", lineHeight: 1.25 }}>
+                  {speaker.name}
+                </h3>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 400, color: C_BRIGHT, margin: "0 0 4px", lineHeight: 1.4 }}>
+                  {speaker.designation}
+                </p>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.4)", margin: 0 }}>
+                  {speaker.entity}
+                </p>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
+
+      <style jsx global>{`
+        .cfi-speaker-card:hover {
+          transform: translateY(-6px);
+          border-color: ${C}30 !important;
+          box-shadow: 0 20px 50px ${C}10;
+        }
+        .cfi-speaker-card:hover img {
+          transform: scale(1.05);
+          filter: grayscale(0) !important;
+        }
+        @media (max-width: 960px) {
+          .cfi-speakers-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 520px) {
+          .cfi-speakers-grid { grid-template-columns: 1fr !important; max-width: 360px; margin: 0 auto; }
+        }
+      `}</style>
     </section>
   );
 }
@@ -875,7 +1541,7 @@ function SponsorsSection() {
   return (
     <section
       ref={ref}
-      id="partners"
+      id="sponsors"
       style={{
         background: "#020508",
         padding: "clamp(48px, 6vw, 80px) 0",
@@ -1125,19 +1791,34 @@ function Gallery() {
           </h2>
         </motion.div>
 
-        <div className="cfi-gallery-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gridTemplateRows: "200px 200px", gap: 12 }}>
-          {GALLERY.slice(0, 6).map((img, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: i * 0.08, ease: EASE }} style={{ gridColumn: i === 0 ? "span 2" : "span 1", gridRow: i === 0 ? "span 2" : "span 1", borderRadius: 16, overflow: "hidden", position: "relative" }}>
-              <img src={img.src} alt={img.alt} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(5,8,16,0.7) 0%, transparent 50%)" }} />
-            </motion.div>
-          ))}
+        <div className="cfi-gallery-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gridTemplateRows: "220px 200px 200px", gap: 12 }}>
+          {GALLERY.map((img, i) => {
+            // Layout: 0 spans 2col+2row, 6 spans 2col, rest 1col
+            const span2Col = i === 0 || i === 6;
+            const span2Row = i === 0;
+            return (
+              <motion.div key={i} initial={{ opacity: 0, y: 20, scale: 0.97 }} animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}} transition={{ duration: 0.5, delay: i * 0.07, ease: EASE }} className="cfi-gallery-item" style={{ gridColumn: span2Col ? "span 2" : "span 1", gridRow: span2Row ? "span 2" : "span 1", borderRadius: 14, overflow: "hidden", position: "relative" }}>
+                <img src={img.src} alt={img.alt} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: img.pos || "center", transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)" }} />
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(5,8,16,0.6) 0%, transparent 40%)" }} />
+                <span style={{ position: "absolute", bottom: 12, left: 14, fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 400, color: "rgba(255,255,255,0.5)", opacity: 0, transition: "opacity 0.3s ease" }} className="cfi-gallery-label">{img.alt}</span>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
 
       <style jsx global>{`
-        @media (max-width: 900px) { .cfi-gallery-grid { grid-template-columns: repeat(2, 1fr) !important; } .cfi-gallery-grid > div:first-child { grid-column: span 2 !important; grid-row: span 1 !important; } }
-        @media (max-width: 600px) { .cfi-gallery-grid { grid-template-columns: 1fr !important; grid-template-rows: auto !important; } .cfi-gallery-grid > div { grid-column: span 1 !important; aspect-ratio: 16/10; } }
+        .cfi-gallery-item:hover img { transform: scale(1.04); }
+        .cfi-gallery-item:hover .cfi-gallery-label { opacity: 1 !important; }
+        @media (max-width: 900px) {
+          .cfi-gallery-grid { grid-template-columns: repeat(2, 1fr) !important; grid-template-rows: auto !important; }
+          .cfi-gallery-grid > div { grid-column: span 1 !important; grid-row: span 1 !important; aspect-ratio: 16/10; }
+          .cfi-gallery-grid > div:first-child { grid-column: span 2 !important; aspect-ratio: 21/9; }
+        }
+        @media (max-width: 600px) {
+          .cfi-gallery-grid { grid-template-columns: 1fr !important; }
+          .cfi-gallery-grid > div:first-child { grid-column: span 1 !important; aspect-ratio: 16/10; }
+        }
       `}</style>
     </section>
   );
@@ -1145,35 +1826,236 @@ function Gallery() {
 
 // ─── Awards Section ──────────────────────────────────────────────────────────
 function AwardsSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const GOLD = "#C4A34A";
+  const GOLD_BRIGHT = "#D4B85A";
+
+  const [formData, setFormData] = useState({ orgName: "", contactName: "", email: "", phone: "", category: "", reason: "" });
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [awardsSelectedCountry, setAwardsSelectedCountry] = useState<CountryCode>(COUNTRY_CODES[2]);
+  const [awardsPhoneError, setAwardsPhoneError] = useState<string | null>(null);
+  const [awardsEmailError, setAwardsEmailError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (formData.email && !isWorkEmail(formData.email)) { setAwardsEmailError("Please use your work email address"); return; }
+    const phoneErr = validatePhone(formData.phone, awardsSelectedCountry);
+    if (phoneErr) { setAwardsPhoneError(phoneErr); return; }
+    try {
+      await submitForm({ type: "awards", full_name: formData.contactName, email: formData.email, company: formData.orgName, phone: `${awardsSelectedCountry.code} ${formData.phone}`, event_name: "Cyber First India 2026", metadata: { category: formData.category, reason: formData.reason }, website: "" });
+    } catch { /* silently handle */ }
+    setFormSubmitted(true);
+  };
+
+  const inputStyle = (field: string): React.CSSProperties => ({
+    width: "100%", padding: "16px 20px", borderRadius: 14,
+    backgroundColor: focusedField === field ? "rgba(196,163,74,0.06)" : "rgba(255,255,255,0.03)",
+    border: `1px solid ${focusedField === field ? `${GOLD}35` : "rgba(255,255,255,0.07)"}`,
+    boxShadow: focusedField === field ? `0 0 20px ${GOLD}08, inset 0 0 20px ${GOLD}03` : "none",
+    color: "white", fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 400, outline: "none",
+    transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)",
+  });
 
   return (
-    <section ref={ref} style={{ background: "#080A0F", padding: "clamp(80px, 10vw, 120px) 0" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
+    <section ref={ref} style={{ background: "linear-gradient(180deg, #080A0F 0%, #0A0D14 50%, #080A0F 100%)", padding: "clamp(80px, 10vw, 120px) 0", position: "relative", overflow: "hidden" }}>
+      {/* Atmospheric layers */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 70% 50% at 50% 0%, ${GOLD}06, transparent 70%)` }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 50% 40% at 20% 60%, ${C}03, transparent 60%)` }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 40% 40% at 80% 70%, ${GOLD}04, transparent 60%)` }} />
+      {/* Scan line texture */}
+      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.008) 2px, rgba(255,255,255,0.008) 3px)", backgroundSize: "100% 3px" }} />
+
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 1 }}>
+
+        {/* ── Header ── */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: EASE }} style={{ textAlign: "center", marginBottom: 56 }}>
-          <div className="flex items-center justify-center gap-3" style={{ marginBottom: 12 }}>
-            <span style={{ width: 30, height: 1, background: C }} />
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: C }}>Recognition</span>
-            <span style={{ width: 30, height: 1, background: C }} />
+          <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.5, delay: 0.1, ease: EASE }} style={{ width: 60, height: 60, margin: "0 auto 20px", borderRadius: 16, background: `linear-gradient(145deg, ${GOLD}18, ${GOLD}06)`, border: `1px solid ${GOLD}25`, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 8px 40px ${GOLD}12, inset 0 1px 0 ${GOLD}20`, backdropFilter: "blur(12px)" }}>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M6 9H4.5a2.5 2.5 0 010-5H6M18 9h1.5a2.5 2.5 0 000-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 1012 0V2z" />
+            </svg>
+          </motion.div>
+          <div className="flex items-center justify-center gap-3" style={{ marginBottom: 14 }}>
+            <span style={{ width: 30, height: 1, background: `linear-gradient(90deg, transparent, ${GOLD})` }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: GOLD }}>Awards & Recognition</span>
+            <span style={{ width: 30, height: 1, background: `linear-gradient(90deg, ${GOLD}, transparent)` }} />
           </div>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 48px)", letterSpacing: "-1.5px", color: "white", lineHeight: 1.1, margin: 0 }}>
-            Cyber First Awards India
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 3.8vw, 48px)", letterSpacing: "-1.5px", color: "white", lineHeight: 1.08, margin: "12px 0 14px" }}>
+            Cyber First India Awards{" "}
+            <span style={{ background: `linear-gradient(135deg, ${GOLD}, ${GOLD_BRIGHT})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>2026</span>
           </h2>
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 350, color: "rgba(255,255,255,0.4)", maxWidth: 560, margin: "0 auto", lineHeight: 1.65 }}>
+            Recognizing outstanding leaders, innovators, and organizations driving excellence in cybersecurity and digital resilience across India.
+          </p>
         </motion.div>
 
-        <div className="cfi-awards-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
-          {AWARDS_DATA.slice(0, 3).map((award, i) => (
-            <motion.div key={award.title} initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: i * 0.1, ease: EASE }} style={{ padding: 28, borderRadius: 16, background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
-              <div style={{ width: 48, height: 48, borderRadius: 12, background: `${C}15`, border: `1px solid ${C}30`, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={C} strokeWidth="1.5"><path d={award.icon} /></svg>
-              </div>
-              <h3 style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 700, color: "white", margin: "0 0 8px" }}>{award.title}</h3>
-              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.6, margin: 0 }}>{award.desc}</p>
+        {/* ── Two-Column: Categories Left + Form Right ── */}
+        <div className="cfi-awards-main" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28, alignItems: "start" }}>
+
+          {/* LEFT — Award Categories as glass cards */}
+          <motion.div initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.6, delay: 0.2, ease: EASE }}>
+            <div style={{ marginBottom: 20 }}>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(18px,2vw,24px)", color: "white", margin: "0 0 6px", letterSpacing: "-0.5px" }}>8 Award Categories</h3>
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.35)", margin: 0 }}>Celebrating leadership across cybersecurity&apos;s most critical domains</p>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {AWARDS_DATA.map((award, i) => (
+                <motion.div
+                  key={award}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.4, delay: 0.25 + i * 0.04, ease: EASE }}
+                  className="cfi-award-card"
+                  style={{
+                    padding: "16px 20px",
+                    borderRadius: 14,
+                    background: "rgba(255,255,255,0.02)",
+                    border: "1px solid rgba(255,255,255,0.05)",
+                    backdropFilter: "blur(8px)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 16,
+                    transition: "all 0.35s cubic-bezier(0.16,1,0.3,1)",
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                >
+                  {/* Left gold accent */}
+                  <div style={{ position: "absolute", left: 0, top: "20%", bottom: "20%", width: 2, background: `${GOLD}25`, borderRadius: 1 }} />
+
+                  <span style={{ fontFamily: "var(--font-display)", fontWeight: 200, fontSize: 24, letterSpacing: "-1.5px", color: `${GOLD}30`, minWidth: 32, textAlign: "right", lineHeight: 1 }}>{String(i + 1).padStart(2, "0")}</span>
+
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: `${GOLD}0A`, border: `1px solid ${GOLD}15`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={`${GOLD}80`} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M6 9H4.5a2.5 2.5 0 010-5H6M18 9h1.5a2.5 2.5 0 000-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 1012 0V2z" />
+                    </svg>
+                  </div>
+
+                  <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 500, color: "rgba(255,255,255,0.65)", lineHeight: 1.35 }}>{award}</span>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Eligibility strip */}
+            <motion.div initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.5, delay: 0.7, ease: EASE }} style={{ marginTop: 20, padding: "16px 20px", borderRadius: 14, background: `${GOLD}05`, border: `1px solid ${GOLD}12`, display: "flex", flexWrap: "wrap", gap: 14 }}>
+              {["India-based", "12-month impact", "Self-nominations OK", "Open to all sectors"].map((t) => (
+                <span key={t} className="flex items-center gap-2" style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={`${GOLD}70`} strokeWidth="2.5" strokeLinecap="round"><path d="M20 6L9 17l-5-5" /></svg>
+                  {t}
+                </span>
+              ))}
             </motion.div>
-          ))}
+          </motion.div>
+
+          {/* RIGHT — Nomination Form Glass Card */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
+            style={{
+              padding: "clamp(28px,3.5vw,40px)",
+              borderRadius: 24,
+              background: "linear-gradient(170deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 100%)",
+              backdropFilter: "blur(40px) saturate(1.5)",
+              WebkitBackdropFilter: "blur(40px) saturate(1.5)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              boxShadow: `inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(255,255,255,0.02), 0 16px 64px rgba(0,0,0,0.4), 0 0 0 0.5px rgba(255,255,255,0.04)`,
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            {/* Glass reflections */}
+            <div className="absolute pointer-events-none" style={{ top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent 5%, rgba(255,255,255,0.15) 30%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.15) 70%, transparent 95%)` }} />
+            <div className="absolute pointer-events-none" style={{ top: -50, right: -50, width: 220, height: 220, borderRadius: "50%", background: `radial-gradient(circle, ${GOLD}0A, transparent 70%)`, filter: "blur(50px)" }} />
+            <div className="absolute pointer-events-none" style={{ bottom: -50, left: -50, width: 200, height: 200, borderRadius: "50%", background: `radial-gradient(circle, ${C}06, transparent 70%)`, filter: "blur(50px)" }} />
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.015) 100%)", borderRadius: 24 }} />
+
+            <div style={{ position: "relative", zIndex: 1 }}>
+              {/* Nominations Open badge */}
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 20, background: `${GOLD}0C`, border: `1px solid ${GOLD}20`, marginBottom: 18 }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill={GOLD} stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 600, color: GOLD, letterSpacing: "0.5px" }}>Nominations Open</span>
+              </div>
+
+              <h4 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(20px,2.2vw,26px)", letterSpacing: "-0.5px", color: "white", lineHeight: 1.15, margin: "0 0 6px" }}>
+                Submit Your Nomination
+              </h4>
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 350, color: "rgba(255,255,255,0.4)", lineHeight: 1.55, margin: "0 0 24px" }}>
+                Know a leader who deserves recognition? Self-nominations are welcome.
+              </p>
+
+              {!formSubmitted ? (
+                <form onSubmit={handleSubmit}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 12 }}>
+                    <div className="cfi-awards-form-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                      <input type="text" placeholder="Organisation Name" required value={formData.orgName} onChange={(e) => setFormData({ ...formData, orgName: e.target.value })} onFocus={() => setFocusedField("orgName")} onBlur={() => setFocusedField(null)} style={inputStyle("orgName")} />
+                      <input type="text" placeholder="Contact Person" required value={formData.contactName} onChange={(e) => setFormData({ ...formData, contactName: e.target.value })} onFocus={() => setFocusedField("contactName")} onBlur={() => setFocusedField(null)} style={inputStyle("contactName")} />
+                    </div>
+
+                    <input type="email" placeholder="Work Email Address" required value={formData.email} onChange={(e) => { setFormData({ ...formData, email: e.target.value }); setAwardsEmailError(null); }} onFocus={() => setFocusedField("email")} onBlur={() => { setFocusedField(null); if (formData.email && !isWorkEmail(formData.email)) setAwardsEmailError("Please use your work email address"); }} style={inputStyle("email")} />
+                    {awardsEmailError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "-6px 0 0" }}>{awardsEmailError}</p>}
+
+                    {/* Phone — full width row */}
+                    <div style={{ display: "flex", gap: 10 }}>
+                      <select value={`${awardsSelectedCountry.code}|${awardsSelectedCountry.country}`} onChange={(e) => { const [code, country] = e.target.value.split("|"); const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country); if (c) { setAwardsSelectedCountry(c); setAwardsPhoneError(null); } }} onFocus={() => setFocusedField("countryCode")} onBlur={() => setFocusedField(null)} style={{ ...inputStyle("countryCode"), width: 130, flexShrink: 0, appearance: "none" as const, cursor: "pointer", backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 14px center" }}>
+                        {COUNTRY_CODES.map((cc) => (<option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>{cc.country} {cc.code}</option>))}
+                      </select>
+                      <input type="tel" placeholder={awardsSelectedCountry.placeholder} value={formData.phone} onChange={(e) => { setFormData({ ...formData, phone: e.target.value }); setAwardsPhoneError(null); }} onFocus={() => setFocusedField("phone")} onBlur={() => setFocusedField(null)} maxLength={awardsSelectedCountry.length} style={{ ...inputStyle("phone"), flex: 1 }} />
+                    </div>
+                    {awardsPhoneError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "-6px 0 0" }}>{awardsPhoneError}</p>}
+
+                    <select required value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} onFocus={() => setFocusedField("category")} onBlur={() => setFocusedField(null)} style={{ ...inputStyle("category"), appearance: "none" as const, backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23707070' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 18px center", cursor: "pointer", color: formData.category ? "white" : "rgba(255,255,255,0.3)" }}>
+                      <option value="" disabled style={{ color: "#555", background: "#111" }}>Select Award Category</option>
+                      {AWARDS_DATA.map((a) => (<option key={a} value={a} style={{ color: "white", background: "#111" }}>{a}</option>))}
+                    </select>
+
+                    <textarea placeholder="Why should this nominee be considered?" required rows={4} value={formData.reason} onChange={(e) => setFormData({ ...formData, reason: e.target.value })} onFocus={() => setFocusedField("reason")} onBlur={() => setFocusedField(null)} style={{ ...inputStyle("reason"), resize: "vertical", minHeight: 100 }} />
+                  </div>
+
+                  <button type="submit" className="cfi-nominate-btn" style={{ width: "100%", padding: "16px 40px", borderRadius: 14, background: `linear-gradient(135deg, ${GOLD}, ${GOLD_BRIGHT})`, border: "none", color: "#0A0A0A", fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 700, letterSpacing: "-0.2px", cursor: "pointer", transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)", boxShadow: `0 4px 24px ${GOLD}20` }}>
+                    Submit Nomination
+                  </button>
+
+                  <p style={{ textAlign: "center", fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.25)", marginTop: 14 }}>
+                    Free to nominate · Deadline: 30 May 2026
+                  </p>
+                </form>
+              ) : (
+                <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, ease: EASE }} style={{ textAlign: "center", padding: "40px 16px" }}>
+                  <div style={{ width: 60, height: 60, borderRadius: 16, background: `${GOLD}12`, border: `1px solid ${GOLD}30`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px", boxShadow: `0 8px 32px ${GOLD}15` }}>
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+                  </div>
+                  <h4 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 20, color: "white", margin: "0 0 8px" }}>Nomination Submitted</h4>
+                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.45)", lineHeight: 1.6, margin: 0 }}>Thank you. Our committee will review your submission and follow up shortly.</p>
+                </motion.div>
+              )}
+            </div>
+          </motion.div>
         </div>
       </div>
+
+      <style jsx global>{`
+        .cfi-award-card:hover {
+          background: rgba(196,163,74,0.05) !important;
+          border-color: rgba(196,163,74,0.15) !important;
+          transform: translateX(4px);
+        }
+        .cfi-award-card:hover > div:first-child {
+          background: ${GOLD}40 !important;
+        }
+        .cfi-nominate-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 40px rgba(196,163,74,0.3) !important;
+        }
+        @media (max-width: 900px) {
+          .cfi-awards-main { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 600px) {
+          .cfi-awards-form-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   );
 }
@@ -1184,7 +2066,7 @@ function Venue() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} style={{ background: "#050810", padding: "clamp(80px, 10vw, 120px) 0" }}>
+    <section id="venue" ref={ref} style={{ background: "#050810", padding: "clamp(80px, 10vw, 120px) 0" }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
         <div className="cfi-venue-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center" }}>
           <motion.div initial={{ opacity: 0, x: -30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ borderRadius: 20, overflow: "hidden", aspectRatio: "16/10" }}>
@@ -1219,32 +2101,683 @@ function Venue() {
 }
 
 // ─── Registration Section ────────────────────────────────────────────────────
+const REG_TABS = [
+  {
+    key: "sponsor",
+    label: "Sponsor",
+    heading: "Partner with\nCyber First India",
+    description: "Put your brand in the room with India's top CISOs and security leaders. Sponsorship packages designed for maximum visibility and qualified lead generation.",
+    perks: [
+      { icon: "layers", text: "Boardroom hosting & keynote slots" },
+      { icon: "target", text: "Qualified lead generation" },
+      { icon: "eye", text: "Premium brand visibility" },
+    ],
+    trust: "Trusted by 80+ sponsors across 6+ global markets",
+    fields: [
+      { name: "name", label: "Full Name", type: "text", placeholder: "Your full name" },
+      { name: "email", label: "Work Email", type: "email", placeholder: "you@company.com" },
+      { name: "phone", label: "Phone Number", type: "tel", placeholder: "+91 xxxx xxxx" },
+      { name: "company", label: "Company", type: "text", placeholder: "Company name" },
+      { name: "title", label: "Job Title", type: "text", placeholder: "Your role" },
+      { name: "message", label: "Message (Optional)", type: "textarea", placeholder: "Tell us about your sponsorship goals..." },
+    ],
+    cta: "Request Sponsorship Info",
+    formType: "sponsor" as FormType,
+  },
+  {
+    key: "pass",
+    label: "Attend",
+    heading: "Request Your\nEvent Pass",
+    description: "Curated for senior leaders — CISOs, CIOs, CTOs, and VP-level executives. Submit your details and we'll match you to the right room.",
+    perks: [
+      { icon: "users", text: "Invite-only, C-suite audience" },
+      { icon: "calendar", text: "16 June 2026 · New Delhi" },
+      { icon: "shield", text: "Chatham House Rule sessions" },
+    ],
+    trust: "5,000+ senior leaders attended EFG events since 2023",
+    fields: [
+      { name: "name", label: "Full Name", type: "text", placeholder: "Your full name" },
+      { name: "email", label: "Work Email", type: "email", placeholder: "you@company.com" },
+      { name: "phone", label: "Phone Number", type: "tel", placeholder: "+91 xxxx xxxx" },
+      { name: "company", label: "Company", type: "text", placeholder: "Company name" },
+      { name: "title", label: "Job Title", type: "text", placeholder: "Your role" },
+      { name: "message", label: "Message (Optional)", type: "textarea", placeholder: "Tell us about your interests..." },
+    ],
+    cta: "Request Pass",
+    formType: "attend" as FormType,
+  },
+  {
+    key: "speaker",
+    label: "Speak",
+    heading: "Share Your\nExpertise",
+    description: "We platform practitioners, not salespeople. If you're a hands-on leader with real-world experience, we want you on stage.",
+    perks: [
+      { icon: "mic", text: "Keynote & panel opportunities" },
+      { icon: "globe", text: "Reach 300+ senior leaders" },
+      { icon: "award", text: "Join our speaker alumni network" },
+    ],
+    trust: "200+ practitioners have spoken at EFG events since 2023",
+    fields: [
+      { name: "name", label: "Full Name", type: "text", placeholder: "Your full name" },
+      { name: "email", label: "Work Email", type: "email", placeholder: "you@company.com" },
+      { name: "phone", label: "Phone Number", type: "tel", placeholder: "+91 xxxx xxxx" },
+      { name: "company", label: "Company", type: "text", placeholder: "Company name" },
+      { name: "title", label: "Job Title", type: "text", placeholder: "Your role" },
+      { name: "topic", label: "Proposed Topic", type: "text", placeholder: "Brief topic or area of expertise" },
+      { name: "message", label: "Message (Optional)", type: "textarea", placeholder: "Tell us about your background..." },
+    ],
+    cta: "Submit Speaker Proposal",
+    formType: "speak" as FormType,
+  },
+];
+
+function RegPerkIcon({ type }: { type: string }) {
+  const s: React.CSSProperties = { opacity: 0.7 };
+  const props = { width: 16, height: 16, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, style: s };
+  if (type === "layers") return <svg {...props}><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>;
+  if (type === "target") return <svg {...props}><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /></svg>;
+  if (type === "eye") return <svg {...props}><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>;
+  if (type === "users") return <svg {...props}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>;
+  if (type === "calendar") return <svg {...props}><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>;
+  if (type === "shield") return <svg {...props}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>;
+  if (type === "mic") return <svg {...props}><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /><line x1="12" y1="19" x2="12" y2="23" /></svg>;
+  if (type === "globe") return <svg {...props}><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>;
+  return <svg {...props}><circle cx="12" cy="8" r="7" /><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" /></svg>;
+}
+
 function RegistrationSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [activeTab, setActiveTab] = useState("sponsor");
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [formData, setFormData] = useState<Record<string, string>>({});
+  const [selectedCountry, setSelectedCountry] = useState<CountryCode>(COUNTRY_CODES.find(c => c.country === "IN") || COUNTRY_CODES[0]);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
+
+  const tab = REG_TABS.find((t) => t.key === activeTab)!;
+
+  // Listen for tab-switch events from other sections (e.g. "Become a Sponsor" button)
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail && REG_TABS.some((t) => t.key === detail)) {
+        setActiveTab(detail);
+        if (submitted) resetForm();
+      }
+    };
+    window.addEventListener("cfi-set-tab", handler);
+    return () => window.removeEventListener("cfi-set-tab", handler);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [submitted]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setFormError(null);
+
+    if (formData.email && !isWorkEmail(formData.email)) {
+      setEmailError("Please use your work email address");
+      setSubmitting(false);
+      return;
+    }
+
+    const phoneErr = validatePhone(formData.phone || "", selectedCountry);
+    if (phoneErr) {
+      setPhoneError(phoneErr);
+      setSubmitting(false);
+      return;
+    }
+
+    const combinedPhone = `${selectedCountry.code}${(formData.phone || "").replace(/[\s\-()]/g, "")}`;
+
+    const result = await submitForm({
+      type: tab.formType,
+      full_name: formData.name || "",
+      email: formData.email || "",
+      company: formData.company || "",
+      job_title: formData.title || "",
+      phone: combinedPhone,
+      event_name: "Cyber First India 2026",
+      metadata: {
+        message: formData.message || "",
+        ...(formData.topic ? { proposed_topic: formData.topic } : {}),
+      },
+    });
+
+    setSubmitting(false);
+    if (result.success) {
+      setSubmitted(true);
+    } else {
+      setFormError(result.error || "Something went wrong.");
+    }
+  };
+
+  const handleChange = (name: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const resetForm = () => {
+    setSubmitted(false);
+    setFormError(null);
+    setFormData({});
+    setPhoneError(null);
+    setEmailError(null);
+  };
+
+  const inputStyle: React.CSSProperties = {
+    width: "100%",
+    padding: "12px 16px",
+    borderRadius: 10,
+    border: "1px solid rgba(255,255,255,0.08)",
+    background: "rgba(255,255,255,0.04)",
+    color: "white",
+    fontFamily: "var(--font-outfit)",
+    fontSize: 13.5,
+    fontWeight: 400,
+    outline: "none",
+    transition: "border-color 0.3s ease",
+  };
+
+  const labelStyle: React.CSSProperties = {
+    fontFamily: "var(--font-outfit)",
+    fontSize: 11,
+    fontWeight: 500,
+    color: "rgba(255,255,255,0.4)",
+    marginBottom: 5,
+    display: "block",
+    letterSpacing: "0.3px",
+  };
+
+  return (
+    <section id="register" ref={ref} style={{ background: "#080A0F", padding: "clamp(80px, 10vw, 120px) 0", position: "relative", overflow: "hidden" }}>
+      {/* Atmospheric background */}
+      <div style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `radial-gradient(ellipse 700px 500px at 20% 40%, ${C}06, transparent 70%), radial-gradient(ellipse 500px 400px at 80% 60%, ${C}04, transparent 70%)` }} />
+
+      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
+        {/* Tab pills + section label */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: EASE }}
+          style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 48 }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <span style={{ width: 30, height: 1, background: C, flexShrink: 0 }} />
+            <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", textTransform: "uppercase", color: C_BRIGHT, fontFamily: "var(--font-outfit)" }}>
+              Get Involved
+            </span>
+          </div>
+          <div style={{ flex: 1 }} />
+          <div style={{ display: "flex", gap: 6 }}>
+            {REG_TABS.map((t) => {
+              const isActive = activeTab === t.key;
+              return (
+                <button
+                  key={t.key}
+                  onClick={() => { setActiveTab(t.key); if (submitted) resetForm(); }}
+                  style={{
+                    padding: "8px 20px",
+                    borderRadius: 40,
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 13,
+                    fontWeight: isActive ? 600 : 400,
+                    color: isActive ? "#050810" : "rgba(255,255,255,0.4)",
+                    background: isActive ? C : "rgba(255,255,255,0.04)",
+                    border: isActive ? `1px solid ${C}` : "1px solid rgba(255,255,255,0.08)",
+                    cursor: "pointer",
+                    transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
+                    letterSpacing: "0.2px",
+                  }}
+                >
+                  {t.label}
+                </button>
+              );
+            })}
+          </div>
+        </motion.div>
+
+        {/* Split layout */}
+        <div className="cfi-reg-split" style={{ display: "grid", gridTemplateColumns: "1fr 1.25fr", gap: "clamp(32px, 4vw, 64px)", alignItems: "start" }}>
+          {/* LEFT — Editorial */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`left-${activeTab}`}
+              initial={{ opacity: 0, x: -16 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -16 }}
+              transition={{ duration: 0.4, ease: EASE }}
+              style={{ paddingTop: 8 }}
+            >
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 3.5vw, 50px)", letterSpacing: "-2px", color: "white", lineHeight: 1.08, margin: 0, whiteSpace: "pre-line" }}>
+                {tab.heading}
+              </h2>
+              <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 300, fontSize: "clamp(14px, 1.2vw, 16px)", color: "rgba(255,255,255,0.45)", lineHeight: 1.7, margin: "20px 0 0", maxWidth: 440 }}>
+                {tab.description}
+              </p>
+              <div style={{ marginTop: 36, display: "flex", flexDirection: "column", gap: 18 }}>
+                {tab.perks.map((perk) => (
+                  <div key={perk.text} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <div style={{ width: 36, height: 36, borderRadius: 10, background: `${C}0A`, border: `1px solid ${C}18`, display: "flex", alignItems: "center", justifyContent: "center", color: C_BRIGHT, flexShrink: 0 }}>
+                      <RegPerkIcon type={perk.icon} />
+                    </div>
+                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.55)" }}>
+                      {perk.text}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: 40, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 400, color: "rgba(255,255,255,0.25)", letterSpacing: "0.3px", margin: 0 }}>
+                  {tab.trust}
+                </p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* RIGHT — Form card */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
+            style={{ borderRadius: 20, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)", padding: "clamp(24px, 3vw, 36px)", position: "relative", overflow: "hidden" }}
+          >
+            {/* Ambient glow */}
+            <div style={{ position: "absolute", top: -40, right: -40, width: 200, height: 200, borderRadius: "50%", background: `radial-gradient(ellipse, ${C}08, transparent 70%)`, pointerEvents: "none" }} />
+
+            <AnimatePresence mode="wait">
+              {submitted ? (
+                <motion.div key="success" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4, ease: EASE }} style={{ textAlign: "center", padding: "40px 0" }}>
+                  <div style={{ width: 52, height: 52, borderRadius: "50%", background: "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.25)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                  </div>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(20px, 2.5vw, 26px)", letterSpacing: "-0.5px", color: "white", margin: "0 0 8px" }}>
+                    Inquiry Submitted
+                  </h3>
+                  <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 300, fontSize: 14, color: "#A0A0A0", margin: "0 0 20px", lineHeight: 1.6 }}>
+                    Our team will review your submission and get back to you within 2 business days.
+                  </p>
+                  <button onClick={resetForm} style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: C_BRIGHT, background: "none", border: "none", cursor: "pointer", padding: 0 }}>
+                    Submit another inquiry &rarr;
+                  </button>
+                </motion.div>
+              ) : (
+                <motion.div key={`form-${activeTab}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3, ease: EASE }}>
+                  <form onSubmit={handleSubmit}>
+                    <div className="cfi-reg-form-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+                      {tab.fields.map((field) => {
+                        const isFullWidth = field.type === "textarea" || field.type === "tel";
+                        if (field.type === "tel") {
+                          return (
+                            <div key={field.name} style={{ gridColumn: "1 / -1" }}>
+                              <label style={labelStyle}>{field.label}</label>
+                              <div style={{ display: "flex", gap: 8 }}>
+                                <select
+                                  value={`${selectedCountry.code}|${selectedCountry.country}`}
+                                  onChange={(e) => {
+                                    const [code, country] = e.target.value.split("|");
+                                    const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country);
+                                    if (c) { setSelectedCountry(c); setPhoneError(null); }
+                                  }}
+                                  style={{ ...inputStyle, width: 120, flexShrink: 0, appearance: "none", cursor: "pointer" }}
+                                >
+                                  {COUNTRY_CODES.map((cc) => (
+                                    <option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>
+                                      {cc.country} {cc.code}
+                                    </option>
+                                  ))}
+                                </select>
+                                <input
+                                  type="tel"
+                                  value={formData[field.name] || ""}
+                                  onChange={(e) => { handleChange(field.name, e.target.value); setPhoneError(null); }}
+                                  placeholder={selectedCountry.placeholder}
+                                  maxLength={selectedCountry.length}
+                                  style={{ ...inputStyle, flex: 1 }}
+                                  onFocus={(e) => { e.currentTarget.style.borderColor = `${C}50`; }}
+                                  onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}
+                                />
+                              </div>
+                              {phoneError && <p style={{ color: "#ef4444", fontSize: 11, margin: "4px 0 0" }}>{phoneError}</p>}
+                            </div>
+                          );
+                        }
+                        if (field.type === "email") {
+                          return (
+                            <div key={field.name}>
+                              <label style={labelStyle}>{field.label}</label>
+                              <input
+                                type="email"
+                                value={formData[field.name] || ""}
+                                onChange={(e) => { handleChange(field.name, e.target.value); setEmailError(null); }}
+                                placeholder={field.placeholder}
+                                required
+                                style={inputStyle}
+                                onFocus={(e) => { e.currentTarget.style.borderColor = `${C}50`; }}
+                                onBlur={(e) => {
+                                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
+                                  const val = formData[field.name] || e.currentTarget.value;
+                                  if (val && !isWorkEmail(val)) setEmailError("Please use your work email address");
+                                }}
+                              />
+                              {emailError && <p style={{ color: "#ef4444", fontSize: 11, margin: "4px 0 0" }}>{emailError}</p>}
+                            </div>
+                          );
+                        }
+                        return (
+                          <div key={field.name} style={{ gridColumn: isFullWidth ? "1 / -1" : undefined }}>
+                            <label style={labelStyle}>{field.label}</label>
+                            {field.type === "textarea" ? (
+                              <textarea
+                                value={formData[field.name] || ""}
+                                onChange={(e) => handleChange(field.name, e.target.value)}
+                                placeholder={field.placeholder}
+                                rows={3}
+                                style={{ ...inputStyle, resize: "vertical", minHeight: 72 }}
+                                onFocus={(e) => { e.currentTarget.style.borderColor = `${C}50`; }}
+                                onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}
+                              />
+                            ) : (
+                              <input
+                                type={field.type}
+                                value={formData[field.name] || ""}
+                                onChange={(e) => handleChange(field.name, e.target.value)}
+                                placeholder={field.placeholder}
+                                required
+                                style={inputStyle}
+                                onFocus={(e) => { e.currentTarget.style.borderColor = `${C}50`; }}
+                                onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}
+                              />
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Honeypot */}
+                    <input type="text" name="website" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
+
+                    {formError && (
+                      <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 13, margin: "8px 0 0" }}>{formError}</p>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      style={{
+                        width: "100%",
+                        marginTop: 20,
+                        padding: "13px 28px",
+                        borderRadius: 10,
+                        background: submitting ? `${C}99` : C,
+                        color: "#050810",
+                        fontFamily: "var(--font-outfit)",
+                        fontSize: 14,
+                        fontWeight: 600,
+                        border: "none",
+                        cursor: submitting ? "not-allowed" : "pointer",
+                        transition: "all 0.3s ease",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: 8,
+                        opacity: submitting ? 0.7 : 1,
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!submitting) {
+                          e.currentTarget.style.background = C_BRIGHT;
+                          e.currentTarget.style.transform = "translateY(-2px)";
+                          e.currentTarget.style.boxShadow = `0 12px 40px ${C}40`;
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = submitting ? `${C}99` : C;
+                        e.currentTarget.style.transform = "translateY(0)";
+                        e.currentTarget.style.boxShadow = "none";
+                      }}
+                    >
+                      {submitting ? "Submitting..." : tab.cta} {!submitting && <span>&rarr;</span>}
+                    </button>
+                  </form>
+
+                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 400, color: "rgba(255,255,255,0.15)", textAlign: "center", margin: "14px 0 0" }}>
+                    Your information is kept confidential. We&apos;ll only use it to respond to your inquiry.
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+      </div>
+
+      <style jsx global>{`
+        @media (max-width: 860px) {
+          .cfi-reg-split { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 500px) {
+          .cfi-reg-form-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── Contact Enquiries ───────────────────────────────────────────────────────
+const S3_TEAM = "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos";
+
+const CFI_CONTACTS = {
+  speaking: {
+    name: "Harini",
+    role: "Producer",
+    phone: "+91 96630 25036",
+    email: "harini@eventsfirstgroup.com",
+    photo: `${S3_TEAM}/Harini.jpg`,
+  },
+  sponsorship: [
+    {
+      name: "Mohammed Sahil",
+      role: "Partnership Manager",
+      phone: "+971 56 398 6565",
+      email: "sahil@eventsfirstgroup.com",
+      photo: `${S3_TEAM}/sahil.jpeg`,
+    },
+    {
+      name: "Kausar Noor",
+      role: "Partnership Manager",
+      phone: "+91 80734 00732",
+      email: "kausar@eventsfirstgroup.com",
+      photo: "/team/noor-kauser.jpg",
+    },
+    {
+      name: "Mayur Methi",
+      role: "Partnership Manager",
+      phone: "+971 56 170 9909",
+      email: "mayur@eventsfirstgroup.com",
+      photo: `${S3_TEAM}/Mayur-Methi.png`,
+    },
+  ],
+};
+
+function ContactEnquiries() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="register" ref={ref} style={{ background: "#080A0F", padding: "clamp(100px, 12vw, 140px) 0", position: "relative" }}>
-      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 60% 50% at 50% 100%, ${C}15, transparent 70%)` }} />
-      
-      <div style={{ maxWidth: 700, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", textAlign: "center", position: "relative" }}>
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }}>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(36px, 5vw, 56px)", letterSpacing: "-2px", color: "white", lineHeight: 1.1, margin: "0 0 16px" }}>
-            Join Us in<br /><span style={{ color: C_BRIGHT }}>New Delhi</span>
-          </h2>
-          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 17, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, marginBottom: 40, maxWidth: 500, margin: "0 auto 40px" }}>
-            Be part of India's most influential cybersecurity gathering. Limited seats available for qualified security professionals.
-          </p>
-          <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "18px 40px", borderRadius: 50, background: C, color: "#050810", fontFamily: "var(--font-outfit)", fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: `0 8px 32px ${C}40` }}>
-              Register Now <span>→</span>
-            </Link>
-            <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "18px 40px", borderRadius: 50, background: "transparent", color: "white", fontFamily: "var(--font-outfit)", fontSize: 16, fontWeight: 500, textDecoration: "none", border: "1px solid rgba(255,255,255,0.2)" }}>
-              Contact Us
-            </Link>
+    <section ref={ref} style={{ background: "#0A0E14", padding: "clamp(80px, 10vw, 120px) 0", position: "relative" }}>
+      {/* Subtle background glow */}
+      <div style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `radial-gradient(ellipse 50% 60% at 50% 50%, ${C}06, transparent 70%)` }} />
+
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: EASE }}
+          style={{ textAlign: "center", marginBottom: 52 }}
+        >
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginBottom: 14 }}>
+            <div style={{ width: 40, height: 1, background: `linear-gradient(to right, transparent, ${C})` }} />
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "3px", textTransform: "uppercase", color: C_BRIGHT, margin: 0 }}>
+              Get in Touch
+            </p>
+            <div style={{ width: 40, height: 1, background: `linear-gradient(to left, transparent, ${C})` }} />
           </div>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 44px)", color: "white", margin: "0 0 12px", letterSpacing: "-1px" }}>
+            Contact Us
+          </h2>
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.4)", margin: 0, maxWidth: 460, marginLeft: "auto", marginRight: "auto", lineHeight: 1.6 }}>
+            Interested in speaking or sponsoring? Reach out to our team.
+          </p>
         </motion.div>
+
+        {/* Contact Grid */}
+        <div
+          className="cfi-contact-grid"
+          style={{ display: "grid", gridTemplateColumns: "1.6fr 1fr", gap: 24, alignItems: "stretch" }}
+        >
+          {/* Speaking Enquiries — wider card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
+            style={{
+              padding: "32px 36px",
+              borderRadius: 16,
+              background: "linear-gradient(145deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012))",
+              border: "1px solid rgba(255,255,255,0.08)",
+              borderTop: `2px solid ${C}40`,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            {/* Subtle orange glow behind photo area */}
+            <div style={{ position: "absolute", left: 40, top: "50%", transform: "translateY(-50%)", width: 120, height: 120, borderRadius: "50%", background: "radial-gradient(circle, #E8651A15, transparent 70%)", pointerEvents: "none" }} />
+
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: C_BRIGHT, marginBottom: 24, position: "relative" }}>
+              For Speaking Enquiries
+            </p>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", position: "relative" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+                <div style={{ width: 88, height: 88, borderRadius: "50%", background: "linear-gradient(135deg, #E8651A, #C4541A)", padding: 3, flexShrink: 0, boxShadow: "0 4px 24px rgba(232,101,26,0.2)" }}>
+                  <div style={{ width: "100%", height: "100%", borderRadius: "50%", overflow: "hidden" }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={CFI_CONTACTS.speaking.photo} alt={CFI_CONTACTS.speaking.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  </div>
+                </div>
+                <div>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 22, color: "white", margin: "0 0 4px" }}>
+                    {CFI_CONTACTS.speaking.name}
+                  </h3>
+                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "#E8651A", fontWeight: 500, margin: "0 0 16px" }}>
+                    {CFI_CONTACTS.speaking.role}
+                  </p>
+                  {CFI_CONTACTS.speaking.phone && (
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                      <a href={`https://wa.me/${CFI_CONTACTS.speaking.phone.replace(/[\s+]/g, "")}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.55)" }}>{CFI_CONTACTS.speaking.phone}</span>
+                      </a>
+                    </div>
+                  )}
+                  {CFI_CONTACTS.speaking.email && (
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                      <a href={`mailto:${CFI_CONTACTS.speaking.email}`} style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.55)", textDecoration: "none" }}>
+                        {CFI_CONTACTS.speaking.email}
+                      </a>
+                    </div>
+                  )}
+                </div>
+              </div>
+              {/* EFG Logo */}
+              <div className="cfi-contact-logo" style={{ flexShrink: 0, opacity: 0.5 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/events-first-group_logo_alt.svg" alt="Events First Group" style={{ height: 56 }} />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Sponsorship Enquiries — narrower card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.25, ease: EASE }}
+            style={{
+              padding: "32px 28px",
+              borderRadius: 16,
+              background: "linear-gradient(145deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012))",
+              border: "1px solid rgba(255,255,255,0.08)",
+              borderTop: `2px solid ${C}40`,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: C_BRIGHT, marginBottom: 24 }}>
+              For Sponsorship Enquiries
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              {CFI_CONTACTS.sponsorship.map((person, i) => (
+                <motion.div
+                  key={person.name}
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.4, delay: 0.3 + i * 0.08, ease: EASE }}
+                  className="cfi-contact-person"
+                  style={{ display: "flex", alignItems: "center", gap: 14, padding: "10px 14px", borderRadius: 12, background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", transition: "all 0.25s ease" }}
+                >
+                  <div style={{ width: 52, height: 52, borderRadius: "50%", overflow: "hidden", flexShrink: 0, border: "1.5px solid rgba(255,255,255,0.1)" }}>
+                    {person.photo ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={person.photo} alt={person.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    ) : (
+                      <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(255,255,255,0.05)" }}>
+                        <span style={{ fontFamily: "var(--font-outfit)", fontSize: 18, fontWeight: 600, color: "rgba(255,255,255,0.4)" }}>
+                          {person.name.charAt(0)}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <h4 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 15, color: "white", margin: "0 0 2px" }}>
+                      {person.name}
+                    </h4>
+                    <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.35)", margin: "0 0 4px" }}>
+                      {person.role}
+                    </p>
+                    {person.phone && (
+                      <a href={`https://wa.me/${person.phone.replace(/[\s+]/g, "")}`} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: "rgba(255,255,255,0.55)", textDecoration: "none", display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        {person.phone}
+                      </a>
+                    )}
+                    <a href={`mailto:${person.email}`} style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: C_BRIGHT, textDecoration: "none" }}>
+                      {person.email}
+                    </a>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
+
+      <style jsx global>{`
+        .cfi-contact-person:hover {
+          background: rgba(255,255,255,0.04) !important;
+          border-color: rgba(1,187,245,0.15) !important;
+          transform: translateX(4px);
+        }
+        @media (max-width: 768px) {
+          .cfi-contact-grid { grid-template-columns: 1fr !important; }
+          .cfi-contact-logo { display: none !important; }
+        }
+      `}</style>
     </section>
   );
 }

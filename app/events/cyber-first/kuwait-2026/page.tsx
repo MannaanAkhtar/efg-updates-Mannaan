@@ -3927,14 +3927,14 @@ function AwardsSection() {
 
   const inputStyle = (field: string): React.CSSProperties => ({
     width: "100%",
-    padding: "14px 18px",
-    borderRadius: 12,
+    padding: "16px 20px",
+    borderRadius: 14,
     backgroundColor: focusedField === field ? "rgba(196,163,74,0.08)" : "rgba(10,20,40,0.5)",
     border: `1px solid ${focusedField === field ? `${GOLD}40` : "rgba(80,160,220,0.08)"}`,
     boxShadow: focusedField === field ? `0 0 16px ${GOLD}08` : "none",
     color: "white",
     fontFamily: "var(--font-outfit)",
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: 400,
     outline: "none",
     transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)",
@@ -4250,43 +4250,43 @@ function AwardsSection() {
                       onBlur={() => setFocusedField(null)}
                       style={inputStyle("contactName")}
                     />
-                    <div>
+                  </div>
+                  <div style={{ marginBottom: 12 }}>
+                    <input
+                      type="email"
+                      placeholder="Email Address"
+                      required
+                      value={formData.email}
+                      onChange={(e) => { setFormData({ ...formData, email: e.target.value }); setAwardsEmailError(null); }}
+                      onFocus={() => setFocusedField("email")}
+                      onBlur={() => { setFocusedField(null); if (formData.email && !isWorkEmail(formData.email)) setAwardsEmailError("Please use your work email address"); }}
+                      style={inputStyle("email")}
+                    />
+                    {awardsEmailError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{awardsEmailError}</p>}
+                  </div>
+                  <div style={{ marginBottom: 12 }}>
+                    <div style={{ display: "flex", gap: 8 }}>
+                      <select
+                        value={`${awardsSelectedCountry.code}|${awardsSelectedCountry.country}`}
+                        onChange={(e) => { const [code, country] = e.target.value.split("|"); const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country); if (c) { setAwardsSelectedCountry(c); setAwardsPhoneError(null); } }}
+                        onFocus={() => setFocusedField("phone")}
+                        onBlur={() => setFocusedField(null)}
+                        style={{ ...inputStyle("phone"), width: 130, flexShrink: 0, appearance: "none" as const, cursor: "pointer" }}
+                      >
+                        {COUNTRY_CODES.map((cc) => (<option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>{cc.country} {cc.code}</option>))}
+                      </select>
                       <input
-                        type="email"
-                        placeholder="Email Address"
-                        required
-                        value={formData.email}
-                        onChange={(e) => { setFormData({ ...formData, email: e.target.value }); setAwardsEmailError(null); }}
-                        onFocus={() => setFocusedField("email")}
-                        onBlur={() => { setFocusedField(null); if (formData.email && !isWorkEmail(formData.email)) setAwardsEmailError("Please use your work email address"); }}
-                        style={inputStyle("email")}
+                        type="tel"
+                        placeholder={awardsSelectedCountry.placeholder}
+                        value={formData.phone}
+                        onChange={(e) => { setFormData({ ...formData, phone: e.target.value }); setAwardsPhoneError(null); }}
+                        onFocus={() => setFocusedField("phone")}
+                        onBlur={() => setFocusedField(null)}
+                        maxLength={awardsSelectedCountry.length}
+                        style={{ ...inputStyle("phone"), flex: 1 }}
                       />
-                      {awardsEmailError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{awardsEmailError}</p>}
                     </div>
-                    <div>
-                      <div style={{ display: "flex", gap: 8 }}>
-                        <select
-                          value={`${awardsSelectedCountry.code}|${awardsSelectedCountry.country}`}
-                          onChange={(e) => { const [code, country] = e.target.value.split("|"); const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country); if (c) { setAwardsSelectedCountry(c); setAwardsPhoneError(null); } }}
-                          onFocus={() => setFocusedField("phone")}
-                          onBlur={() => setFocusedField(null)}
-                          style={{ ...inputStyle("phone"), width: 120, flexShrink: 0, appearance: "none" as const, cursor: "pointer" }}
-                        >
-                          {COUNTRY_CODES.map((cc) => (<option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>{cc.country} {cc.code}</option>))}
-                        </select>
-                        <input
-                          type="tel"
-                          placeholder={awardsSelectedCountry.placeholder}
-                          value={formData.phone}
-                          onChange={(e) => { setFormData({ ...formData, phone: e.target.value }); setAwardsPhoneError(null); }}
-                          onFocus={() => setFocusedField("phone")}
-                          onBlur={() => setFocusedField(null)}
-                          maxLength={awardsSelectedCountry.length}
-                          style={{ ...inputStyle("phone"), flex: 1 }}
-                        />
-                      </div>
-                      {awardsPhoneError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{awardsPhoneError}</p>}
-                    </div>
+                    {awardsPhoneError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{awardsPhoneError}</p>}
                   </div>
 
                   <select

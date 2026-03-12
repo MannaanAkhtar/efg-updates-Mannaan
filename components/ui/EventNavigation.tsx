@@ -50,6 +50,22 @@ const EVENT_CONFIGS: Record<string, {
       { href: "#venue", label: "Venue" },
     ],
   },
+  "/events/cyber-first/india-2026": {
+    name: "Cyber First India 2026",
+    shortName: "Cyber First India",
+    color: "#01BBF5",
+    colorBright: "#4DD4FF",
+    date: "16 June 2026",
+    location: "New Delhi",
+    logo: "/Cyber_India.png",
+    navLinks: [
+      { href: "#overview", label: "Overview" },
+      { href: "#speakers", label: "Speakers" },
+      { href: "#sponsors", label: "Sponsors" },
+      { href: "#agenda", label: "Agenda" },
+      { href: "#venue", label: "Venue" },
+    ],
+  },
 };
 
 export default function EventNavigation() {
@@ -107,7 +123,7 @@ export default function EventNavigation() {
                 alt={name} 
                 className="event-nav-logo"
                 style={{ 
-                  height: 80, 
+                  height: 110,
                   width: "auto",
                   filter: logoFilter || "none",
                 }} 
