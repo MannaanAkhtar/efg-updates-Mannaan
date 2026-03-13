@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Boardroom Case Study | Simpplr x Events First Group</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #C9935A;
+      --gold-light: #E5B97A;
+      --dark: #0A0A0A;
+      --dark-card: #141414;
+      --text: #FFFFFF;
+      --text-dim: #A0A0A0;
+      --simpplr-purple: #6B4EFF;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 80px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      height: 32px;
+      opacity: 0.9;
+    }
+
+    .divider {
+      width: 1px;
+      height: 32px;
+      background: rgba(255,255,255,0.2);
+    }
+
+    .badge {
+      background: rgba(201, 147, 90, 0.1);
+      border: 1px solid rgba(201, 147, 90, 0.3);
+      color: var(--gold);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .hero-label {
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      font-weight: 500;
+    }
+
+    .hero-title {
+      font-size: 48px;
+      font-weight: 300;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+
+    .hero-title span {
+      color: var(--gold);
+    }
+
+    .hero-subtitle {
+      font-size: 20px;
+      color: var(--text-dim);
+      font-weight: 300;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, rgba(201, 147, 90, 0.08), transparent);
+      border: 1px solid rgba(201, 147, 90, 0.2);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 56px;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stat-detail {
+      font-size: 12px;
+      color: var(--gold);
+      margin-top: 8px;
+      font-weight: 500;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 64px;
+    }
+
+    .section-label {
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: 24px;
+    }
+
+    .section-text {
+      color: var(--text-dim);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    /* Overview Grid */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .overview-item {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .overview-item h4 {
+      font-size: 12px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .overview-item p {
+      font-size: 18px;
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    /* Audience */
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .audience-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .audience-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .audience-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .audience-percent {
+      font-size: 12px;
+      color: var(--gold);
+    }
+
+    /* What We Delivered */
+    .delivery-list {
+      list-style: none;
+      margin-top: 24px;
+    }
+
+    .delivery-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .delivery-list li:last-child {
+      border-bottom: none;
+    }
+
+    .delivery-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(201, 147, 90, 0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .delivery-content h4 {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .delivery-content p {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    /* Results Highlight */
+    .results-highlight {
+      background: linear-gradient(135deg, rgba(201, 147, 90, 0.15), rgba(201, 147, 90, 0.05));
+      border: 1px solid rgba(201, 147, 90, 0.3);
+      border-radius: 20px;
+      padding: 48px;
+      text-align: center;
+      margin: 64px 0;
+    }
+
+    .results-highlight h3 {
+      font-size: 32px;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    .results-highlight p {
+      font-size: 18px;
+      color: var(--text-dim);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .results-highlight .big-number {
+      font-size: 80px;
+      font-weight: 200;
+      color: var(--gold);
+      line-height: 1;
+      margin: 24px 0;
+    }
+
+    /* Testimonial */
+    .testimonial {
+      background: var(--dark-card);
+      border-radius: 20px;
+      padding: 48px;
+      margin: 64px 0;
+      position: relative;
+    }
+
+    .testimonial::before {
+      content: '"';
+      position: absolute;
+      top: 24px;
+      left: 40px;
+      font-size: 120px;
+      color: var(--gold);
+      opacity: 0.2;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .testimonial-text {
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 1.6;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .testimonial-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .testimonial-info h4 {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .testimonial-info p {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    /* Timeline */
+    .timeline {
+      margin-top: 32px;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 24px;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .timeline-phase {
+      width: 120px;
+      flex-shrink: 0;
+    }
+
+    .timeline-phase span {
+      background: rgba(201, 147, 90, 0.1);
+      color: var(--gold);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .timeline-content h4 {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .timeline-content p {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-text {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    .footer-contact {
+      text-align: right;
+    }
+
+    .footer-contact p {
+      font-size: 14px;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .footer-contact a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: white;
+        color: #1a1a1a;
+      }
+      
+      .page {
+        padding: 40px;
+      }
+      
+      .stat-card, .overview-item, .audience-card, .testimonial {
+        background: #f8f8f8;
+        border-color: #e0e0e0;
+      }
+      
+      .stat-number, .hero-title span, .section-label, .badge {
+        color: #C9935A;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <img src="/events-first-group_logo_alt.svg" alt="Events First Group" class="logo">
+        <div class="divider"></div>
+        <img src="https://www.simpplr.com/wp-content/uploads/2023/03/simpplr-logo-white.svg" alt="Simpplr" class="logo" style="height: 24px;">
+      </div>
+      <div class="badge">Case Study</div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <p class="hero-label">Executive Boardroom Series</p>
+      <h1 class="hero-title">Driving Enterprise Engagement<br>Through <span>Intimate Executive Dialogue</span></h1>
+      <p class="hero-subtitle">How Simpplr partnered with Events First Group to connect with decision-makers and exceed attendance targets by 130%</p>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">48</div>
+        <div class="stat-label">Registrations</div>
+        <div class="stat-detail">240% of target</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">26</div>
+        <div class="stat-label">Attendees</div>
+        <div class="stat-detail">130% of target</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">92%</div>
+        <div class="stat-label">Engagement Rate</div>
+        <div class="stat-detail">Active participation</div>
+      </div>
+    </section>
+
+    <!-- Executive Summary -->
+    <section class="section">
+      <p class="section-label">Executive Summary</p>
+      <h2 class="section-title">The Challenge</h2>
+      <p class="section-text">
+        Simpplr, a leading employee experience platform, sought to establish thought leadership and generate high-quality pipeline among enterprise decision-makers in the MENA region. Traditional webinars and large-scale events weren't delivering the intimate, high-value conversations needed to influence C-suite buyers.
+      </p>
+      <br>
+      <p class="section-text">
+        Events First Group designed and executed an exclusive Executive Boardroom experience—a curated, invitation-only virtual roundtable bringing together senior technology and HR leaders for candid discussions on the future of employee experience.
+      </p>
+    </section>
+
+    <!-- Event Overview -->
+    <section class="section">
+      <p class="section-label">Event Overview</p>
+      <h2 class="section-title">The Experience</h2>
+      <div class="overview-grid">
+        <div class="overview-item">
+          <h4>Event Format</h4>
+          <p>Virtual Executive Roundtable</p>
+        </div>
+        <div class="overview-item">
+          <h4>Duration</h4>
+          <p>90 Minutes</p>
+        </div>
+        <div class="overview-item">
+          <h4>Theme</h4>
+          <p>The Future of Employee Experience</p>
+        </div>
+        <div class="overview-item">
+          <h4>Exclusivity</h4>
+          <p>Limited to 20 Executives</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Target Audience -->
+    <section class="section">
+      <p class="section-label">Audience Composition</p>
+      <h2 class="section-title">Who Attended</h2>
+      <p class="section-text">
+        We curated an audience of senior decision-makers from enterprise organizations across the GCC, focusing on roles with direct influence over employee experience, HR technology, and digital workplace investments.
+      </p>
+      <div class="audience-grid">
+        <div class="audience-card">
+          <div class="audience-icon">👔</div>
+          <div class="audience-title">CHROs</div>
+          <div class="audience-percent">31%</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">💼</div>
+          <div class="audience-title">VP HR / People</div>
+          <div class="audience-percent">27%</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">🖥️</div>
+          <div class="audience-title">CIOs / CTOs</div>
+          <div class="audience-percent">23%</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">📊</div>
+          <div class="audience-title">Directors</div>
+          <div class="audience-percent">19%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Highlight -->
+    <div class="results-highlight">
+      <h3>Target: 20 Attendees</h3>
+      <div class="big-number">130%</div>
+      <p>We exceeded the attendance goal with 26 qualified executives joining the discussion—demonstrating the power of curated, exclusive experiences.</p>
+    </div>
+
+    <!-- What We Delivered -->
+    <section class="section">
+      <p class="section-label">Our Approach</p>
+      <h2 class="section-title">What Events First Group Delivered</h2>
+      <ul class="delivery-list">
+        <li>
+          <div class="delivery-icon">🎯</div>
+          <div class="delivery-content">
+            <h4>Strategic Audience Curation</h4>
+            <p>Targeted outreach to C-suite and VP-level executives across enterprise organizations in the GCC, with rigorous qualification criteria.</p>
+          </div>
+        </li>
+        <li>
+          <div class="delivery-icon">🎨</div>
+          <div class="delivery-content">
+            <h4>Premium Branded Experience</h4>
+            <p>Fully customized virtual environment with Simpplr branding, professional production, and seamless technical execution.</p>
+          </div>
+        </li>
+        <li>
+          <div class="delivery-icon">📋</div>
+          <div class="delivery-content">
+            <h4>Content & Agenda Design</h4>
+            <p>Collaborative development of discussion topics, speaker briefings, and moderation guide to ensure valuable, actionable conversations.</p>
+          </div>
+        </li>
+        <li>
+          <div class="delivery-icon">📧</div>
+          <div class="delivery-content">
+            <h4>End-to-End Registration Management</h4>
+            <p>Personalized invitation campaigns, registration portal, confirmation sequences, and day-of reminders to maximize attendance.</p>
+          </div>
+        </li>
+        <li>
+          <div class="delivery-icon">🎬</div>
+          <div class="delivery-content">
+            <h4>Live Production & Hosting</h4>
+            <p>Professional hosting, real-time moderation, technical support, and post-event recording delivery.</p>
+          </div>
+        </li>
+        <li>
+          <div class="delivery-icon">📊</div>
+          <div class="delivery-content">
+            <h4>Post-Event Intelligence</h4>
+            <p>Detailed attendee insights, engagement analytics, and qualified lead handoff for sales follow-up.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Timeline -->
+    <section class="section">
+      <p class="section-label">Execution</p>
+      <h2 class="section-title">Project Timeline</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-phase"><span>Week 1-2</span></div>
+          <div class="timeline-content">
+            <h4>Strategy & Planning</h4>
+            <p>Audience profiling, content development, platform setup, and branding alignment</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-phase"><span>Week 3-4</span></div>
+          <div class="timeline-content">
+            <h4>Outreach & Registration</h4>
+            <p>Targeted invitation campaigns, qualification calls, and registration management</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-phase"><span>Week 5</span></div>
+          <div class="timeline-content">
+            <h4>Final Prep & Rehearsals</h4>
+            <p>Speaker briefings, technical rehearsals, and attendee confirmations</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-phase"><span>Event Day</span></div>
+          <div class="timeline-content">
+            <h4>Live Execution</h4>
+            <p>90-minute moderated roundtable with real-time engagement and Q&A</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-phase"><span>Post-Event</span></div>
+          <div class="timeline-content">
+            <h4>Follow-Up & Reporting</h4>
+            <p>Recording delivery, attendee insights, and sales handoff within 48 hours</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonial -->
+    <div class="testimonial">
+      <p class="testimonial-text">
+        The Executive Boardroom format delivered exactly what we needed—quality over quantity. The conversations were substantive, the attendees were decision-makers, and the follow-up opportunities were genuine. Events First Group understood our goals and executed flawlessly.
+      </p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">SM</div>
+        <div class="testimonial-info">
+          <h4>Senior Marketing Leader</h4>
+          <p>Simpplr</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Outcomes -->
+    <section class="section">
+      <p class="section-label">Impact</p>
+      <h2 class="section-title">Key Outcomes</h2>
+      <div class="overview-grid">
+        <div class="overview-item">
+          <h4>Pipeline Generated</h4>
+          <p>12 Qualified Opportunities</p>
+        </div>
+        <div class="overview-item">
+          <h4>Follow-Up Meetings</h4>
+          <p>8 Scheduled Post-Event</p>
+        </div>
+        <div class="overview-item">
+          <h4>NPS Score</h4>
+          <p>72 (Excellent)</p>
+        </div>
+        <div class="overview-item">
+          <h4>Content Engagement</h4>
+          <p>92% Active Participation</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-text">
+        <p>© 2026 Events First Group. All rights reserved.</p>
+        <p style="margin-top: 4px; font-size: 12px;">Confidential - For prospective client review only.</p>
+      </div>
+      <div class="footer-contact">
+        <p>Ready to create your Executive Boardroom?</p>
+        <a href="mailto:ateeq@eventsfirstgroup.com">ateeq@eventsfirstgroup.com</a>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
