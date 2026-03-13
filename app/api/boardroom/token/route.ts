@@ -30,8 +30,11 @@ export async function POST(request: NextRequest) {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-    // If joinToken provided, verify registration
-    if (joinToken && supabaseUrl && supabaseKey) {
+    // Skip registration check for owners (hosts)
+    if (isOwner) {
+      // Hosts don't need registration verification
+      // Generate owner token directly
+    } else if (joinToken && supabaseUrl && supabaseKey) {
       const supabase = createClient(supabaseUrl, supabaseKey);
 
       const { data: registration, error: regError } = await supabase
