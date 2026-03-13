@@ -143,7 +143,7 @@ function InquiryPerkIcon({ type }: { type: string }) {
 // MAIN COMPONENT
 // ─────────────────────────────────────────────────────────────────────────────
 
-export default function InquiryForm() {
+export default function InquiryForm({ defaultCountry, eventName }: { defaultCountry?: string; eventName?: string } = {}) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const [activeTab, setActiveTab] = useState<string>("sponsor");
@@ -151,7 +151,9 @@ export default function InquiryForm() {
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [formData, setFormData] = useState<Record<string, string>>({});
-  const [selectedCountry, setSelectedCountry] = useState<CountryCode>(COUNTRY_CODES[0]);
+  const [selectedCountry, setSelectedCountry] = useState<CountryCode>(
+    (defaultCountry ? COUNTRY_CODES.find(c => c.country === defaultCountry) : null) || COUNTRY_CODES[0]
+  );
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
 
@@ -199,7 +201,7 @@ export default function InquiryForm() {
       company: formData.company || "",
       job_title: formData.title || "",
       phone: combinedPhone,
-      event_name: meta.event_interest || undefined,
+      event_name: eventName || meta.event_interest || undefined,
       metadata: meta,
     });
 
@@ -534,7 +536,7 @@ export default function InquiryForm() {
                         gap: 14,
                       }}
                     >
-                      {tab.fields.map((field) => {
+                      {tab.fields.filter((f) => !(eventName && f.name === "interest")).map((field) => {
                         const isFullWidth = field.type === "textarea" || field.type === "tel";
                         if (field.type === "tel") {
                           return (

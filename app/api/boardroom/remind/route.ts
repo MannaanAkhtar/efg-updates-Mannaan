@@ -114,8 +114,8 @@ export async function POST(request: NextRequest) {
             eventTime: formattedTime,
             joinUrl,
             hoursUntil,
-            sponsorLogo: boardroom.sponsor_logo || "https://images.ctfassets.net/5nvgvgqbpp73/6f63ePFTcBtQIWJiVIbKVV/708831f68f139c954afadead4486d894/White_Dataiku_Lockup_Logo.svg",
-            sponsorName: boardroom.sponsor_name || "Dataiku",
+            sponsorLogo: boardroom.sponsor_logo || "",
+            sponsorName: boardroom.sponsor_name || "",
             agenda,
           }),
         });

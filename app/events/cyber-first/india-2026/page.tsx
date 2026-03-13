@@ -1843,10 +1843,12 @@ function AwardsSection() {
     if (formData.email && !isWorkEmail(formData.email)) { setAwardsEmailError("Please use your work email address"); return; }
     const phoneErr = validatePhone(formData.phone, awardsSelectedCountry);
     if (phoneErr) { setAwardsPhoneError(phoneErr); return; }
-    try {
-      await submitForm({ type: "awards", full_name: formData.contactName, email: formData.email, company: formData.orgName, phone: `${awardsSelectedCountry.code} ${formData.phone}`, event_name: "Cyber First India 2026", metadata: { category: formData.category, reason: formData.reason }, website: "" });
-    } catch { /* silently handle */ }
-    setFormSubmitted(true);
+    const result = await submitForm({ type: "awards", full_name: formData.contactName, email: formData.email, company: formData.orgName, phone: `${awardsSelectedCountry.code} ${formData.phone}`, event_name: "Cyber First India 2026", metadata: { category: formData.category, reason: formData.reason }, website: "" });
+    if (result.success) {
+      setFormSubmitted(true);
+    } else {
+      setAwardsEmailError(result.error || "Something went wrong. Please try again.");
+    }
   };
 
   const inputStyle = (field: string): React.CSSProperties => ({

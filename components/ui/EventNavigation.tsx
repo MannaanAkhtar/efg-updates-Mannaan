@@ -66,6 +66,22 @@ const EVENT_CONFIGS: Record<string, {
       { href: "#venue", label: "Venue" },
     ],
   },
+  "/events/cyber-first/kenya-2026": {
+    name: "Cyber First East Africa 2026",
+    shortName: "Cyber First East Africa",
+    color: "#8B1A22",
+    colorBright: "#B52230",
+    date: "08 July 2026",
+    location: "Nairobi, Kenya",
+    logo: "/Cyber-First-East-Africa-Logo-01.png",
+    navLinks: [
+      { href: "#overview", label: "Overview" },
+      { href: "#speakers", label: "Speakers" },
+      { href: "#sponsors", label: "Sponsors" },
+      { href: "#agenda", label: "Agenda" },
+      { href: "#venue", label: "Venue" },
+    ],
+  },
 };
 
 export default function EventNavigation() {
@@ -115,7 +131,15 @@ export default function EventNavigation() {
           style={{ maxWidth: 1320, padding: "0 clamp(20px, 4vw, 60px)" }}
         >
           {/* Event Logo / Name */}
-          <Link href={pathname || "/"} className="flex items-center gap-3">
+          <a
+            href={pathname || "/"}
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="flex items-center gap-3"
+            style={{ cursor: "pointer" }}
+          >
             {logo ? (
               /* eslint-disable-next-line @next/next/no-img-element */
               <img 
@@ -167,26 +191,32 @@ export default function EventNavigation() {
                 </div>
               </>
             )}
-          </Link>
+          </a>
 
           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <Link
+              <a
                 key={link.href}
                 href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const id = link.href.replace("#", "");
+                  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+                }}
                 className="transition-colors duration-200"
                 style={{
                   fontFamily: "var(--font-outfit)",
                   fontSize: 14,
                   fontWeight: 500,
                   color: "rgba(255,255,255,0.7)",
+                  cursor: "pointer",
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = colorBright)}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.7)")}
               >
                 {link.label}
-              </Link>
+              </a>
             ))}
           </div>
 
@@ -215,8 +245,12 @@ export default function EventNavigation() {
             >
               ← Events First Group
             </Link>
-            <Link
+            <a
               href="#register"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById("register")?.scrollIntoView({ behavior: "smooth" });
+              }}
               className="transition-all duration-200"
               style={{
                 fontFamily: "var(--font-outfit)",
@@ -226,12 +260,13 @@ export default function EventNavigation() {
                 padding: "10px 24px",
                 borderRadius: 50,
                 background: color,
+                cursor: "pointer",
               }}
               onMouseEnter={(e) => (e.currentTarget.style.background = colorBright)}
               onMouseLeave={(e) => (e.currentTarget.style.background = color)}
             >
               Register Now
-            </Link>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -278,18 +313,24 @@ export default function EventNavigation() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
                 >
-                  <Link
+                  <a
                     href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsMobileMenuOpen(false);
+                      const id = link.href.replace("#", "");
+                      setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 300);
+                    }}
                     style={{
                       fontFamily: "var(--font-display)",
                       fontSize: 28,
                       fontWeight: 600,
                       color: "white",
+                      cursor: "pointer",
                     }}
                   >
                     {link.label}
-                  </Link>
+                  </a>
                 </motion.div>
               ))}
               <motion.div
@@ -298,9 +339,13 @@ export default function EventNavigation() {
                 transition={{ delay: navLinks.length * 0.05 + 0.1 }}
                 className="mt-6"
               >
-                <Link
+                <a
                   href="#register"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsMobileMenuOpen(false);
+                    setTimeout(() => document.getElementById("register")?.scrollIntoView({ behavior: "smooth" }), 300);
+                  }}
                   style={{
                     fontFamily: "var(--font-outfit)",
                     fontSize: 16,
@@ -310,10 +355,11 @@ export default function EventNavigation() {
                     borderRadius: 50,
                     background: color,
                     display: "inline-block",
+                    cursor: "pointer",
                   }}
                 >
                   Register Now
-                </Link>
+                </a>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0 }}

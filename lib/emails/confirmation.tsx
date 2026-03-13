@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 // ═══════════════════════════════════════════════════════════════════════════
-// BOARDROOM CONFIRMATION EMAIL - Premium Dataiku + EFG Co-Branded
+// BOARDROOM CONFIRMATION EMAIL - Premium EFG Co-Branded
 // ═══════════════════════════════════════════════════════════════════════════
 
 interface ConfirmationEmailProps {
@@ -24,8 +24,8 @@ export const ConfirmationEmail: React.FC<ConfirmationEmailProps> = ({
   joinUrl,
   googleCalendarUrl,
   outlookCalendarUrl,
-  sponsorLogo = "https://images.ctfassets.net/5nvgvgqbpp73/6f63ePFTcBtQIWJiVIbKVV/708831f68f139c954afadead4486d894/White_Dataiku_Lockup_Logo.svg",
-  sponsorName = "Dataiku",
+  sponsorLogo = "",
+  sponsorName = "",
 }) => {
   const day = eventDate.split(',')[1]?.trim().split(' ')[1] || '27';
   const month = eventDate.split(',')[1]?.trim().split(' ')[0]?.toUpperCase().slice(0,3) || 'MAR';

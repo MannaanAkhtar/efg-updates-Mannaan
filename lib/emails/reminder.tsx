@@ -23,8 +23,8 @@ export const ReminderEmail: React.FC<ReminderEmailProps> = ({
   eventTime,
   joinUrl,
   hoursUntil,
-  sponsorLogo = "https://images.ctfassets.net/5nvgvgqbpp73/6f63ePFTcBtQIWJiVIbKVV/708831f68f139c954afadead4486d894/White_Dataiku_Lockup_Logo.svg",
-  sponsorName = "Dataiku",
+  sponsorLogo = "",
+  sponsorName = "",
   agenda = [
     { time: "10:00 AM", title: "Welcome & Introductions" },
     { time: "10:15 AM", title: "Keynote: The AI Success Formula" },
