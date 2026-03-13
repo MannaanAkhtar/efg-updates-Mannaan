@@ -234,6 +234,217 @@ function ParticipantTile({ participant, isLarge }: { participant: Participant; i
 // BRANDED VIDEO ROOM
 // ═══════════════════════════════════════════════════════════════════════════
 
+// ═══════════════════════════════════════════════════════════════════════════
+// LOWER THIRD BANNER COMPONENT
+// ═══════════════════════════════════════════════════════════════════════════
+
+function LowerThirdBanner({ 
+  show, 
+  title, 
+  subtitle,
+  sponsorLogo 
+}: { 
+  show: boolean; 
+  title: string; 
+  subtitle?: string;
+  sponsorLogo?: string;
+}) {
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 100, opacity: 0 }}
+          transition={{ type: "spring", damping: 25 }}
+          className="absolute bottom-28 left-8 right-8 z-25 pointer-events-none"
+        >
+          <div className="max-w-2xl mx-auto bg-gradient-to-r from-black/90 via-black/80 to-transparent backdrop-blur-sm border-l-4 border-[#C9935A] p-4 rounded-r-lg">
+            <div className="flex items-center gap-4">
+              {sponsorLogo && (
+                <img src={sponsorLogo} alt="Sponsor" className="h-8 opacity-80" />
+              )}
+              <div>
+                <h3 className="text-white font-medium text-lg">{title}</h3>
+                {subtitle && <p className="text-white/60 text-sm">{subtitle}</p>}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// HOST CONTROLS PANEL
+// ═══════════════════════════════════════════════════════════════════════════
+
+function HostControlsPanel({
+  onAdmitAll,
+  onDenyAll,
+  onToggleBanner,
+  onToggleLowerThird,
+  showBanner,
+  showLowerThird,
+  waitingCount,
+  bannerText,
+  onBannerTextChange,
+  lowerThirdTitle,
+  lowerThirdSubtitle,
+  onLowerThirdChange,
+}: {
+  onAdmitAll: () => void;
+  onDenyAll: () => void;
+  onToggleBanner: () => void;
+  onToggleLowerThird: () => void;
+  showBanner: boolean;
+  showLowerThird: boolean;
+  waitingCount: number;
+  bannerText: string;
+  onBannerTextChange: (text: string) => void;
+  lowerThirdTitle: string;
+  lowerThirdSubtitle: string;
+  onLowerThirdChange: (title: string, subtitle: string) => void;
+}) {
+  const [showPanel, setShowPanel] = useState(false);
+
+  return (
+    <>
+      {/* Toggle Button */}
+      <button
+        onClick={() => setShowPanel(!showPanel)}
+        className="absolute top-20 left-4 z-30 w-10 h-10 rounded-full bg-[#C9935A] text-black flex items-center justify-center hover:bg-[#B8844A] transition-colors"
+        title="Host Controls"
+      >
+        ⚙️
+      </button>
+
+      {/* Controls Panel */}
+      <AnimatePresence>
+        {showPanel && (
+          <motion.div
+            initial={{ x: -320, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -320, opacity: 0 }}
+            className="absolute top-32 left-4 w-72 bg-black/95 border border-white/10 rounded-lg p-4 z-30"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-white font-medium text-sm">Host Controls</h3>
+              <button onClick={() => setShowPanel(false)} className="text-white/40 hover:text-white text-sm">✕</button>
+            </div>
+
+            {/* Waiting Room Actions */}
+            {waitingCount > 0 && (
+              <div className="mb-4 p-3 bg-white/5 rounded-lg">
+                <p className="text-white/60 text-xs mb-2">{waitingCount} waiting</p>
+                <div className="flex gap-2">
+                  <button
+                    onClick={onAdmitAll}
+                    className="flex-1 py-2 bg-green-500/20 text-green-400 text-xs rounded hover:bg-green-500/30"
+                  >
+                    Admit All
+                  </button>
+                  <button
+                    onClick={onDenyAll}
+                    className="flex-1 py-2 bg-red-500/20 text-red-400 text-xs rounded hover:bg-red-500/30"
+                  >
+                    Deny All
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Banner Controls */}
+            <div className="mb-4">
+              <label className="text-white/40 text-xs uppercase tracking-wider">Top Banner</label>
+              <div className="mt-2 space-y-2">
+                <input
+                  type="text"
+                  value={bannerText}
+                  onChange={(e) => onBannerTextChange(e.target.value)}
+                  placeholder="Banner message..."
+                  className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded text-white text-sm"
+                />
+                <button
+                  onClick={onToggleBanner}
+                  className={`w-full py-2 text-xs rounded transition-colors ${
+                    showBanner 
+                      ? "bg-[#C9935A] text-black" 
+                      : "bg-white/10 text-white/60 hover:bg-white/20"
+                  }`}
+                >
+                  {showBanner ? "Hide Banner" : "Show Banner"}
+                </button>
+              </div>
+            </div>
+
+            {/* Lower Third Controls */}
+            <div className="mb-4">
+              <label className="text-white/40 text-xs uppercase tracking-wider">Lower Third</label>
+              <div className="mt-2 space-y-2">
+                <input
+                  type="text"
+                  value={lowerThirdTitle}
+                  onChange={(e) => onLowerThirdChange(e.target.value, lowerThirdSubtitle)}
+                  placeholder="Title..."
+                  className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded text-white text-sm"
+                />
+                <input
+                  type="text"
+                  value={lowerThirdSubtitle}
+                  onChange={(e) => onLowerThirdChange(lowerThirdTitle, e.target.value)}
+                  placeholder="Subtitle..."
+                  className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded text-white text-xs"
+                />
+                <button
+                  onClick={onToggleLowerThird}
+                  className={`w-full py-2 text-xs rounded transition-colors ${
+                    showLowerThird 
+                      ? "bg-[#C9935A] text-black" 
+                      : "bg-white/10 text-white/60 hover:bg-white/20"
+                  }`}
+                >
+                  {showLowerThird ? "Hide Lower Third" : "Show Lower Third"}
+                </button>
+              </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="pt-3 border-t border-white/10">
+              <p className="text-white/40 text-xs mb-2">Quick Overlays</p>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => {
+                    onLowerThirdChange("Executive AI Boardroom", "Powered by Dataiku");
+                    onToggleLowerThird();
+                  }}
+                  className="py-2 bg-white/10 text-white/60 text-xs rounded hover:bg-white/20"
+                >
+                  Event Title
+                </button>
+                <button
+                  onClick={() => {
+                    onLowerThirdChange("Q&A Session", "Submit your questions");
+                    onToggleLowerThird();
+                  }}
+                  className="py-2 bg-white/10 text-white/60 text-xs rounded hover:bg-white/20"
+                >
+                  Q&A Mode
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// BRANDED VIDEO ROOM (ENHANCED)
+// ═══════════════════════════════════════════════════════════════════════════
+
 function BrandedVideoRoom({
   call,
   participants,
@@ -262,15 +473,72 @@ function BrandedVideoRoom({
   localAudio: boolean;
 }) {
   const [showWaiting, setShowWaiting] = useState(false);
+  const [showBanner, setShowBanner] = useState(false);
+  const [showLowerThird, setShowLowerThird] = useState(false);
+  const [bannerText, setBannerText] = useState("Welcome to Executive AI Boardroom");
+  const [lowerThirdTitle, setLowerThirdTitle] = useState("Executive AI Boardroom");
+  const [lowerThirdSubtitle, setLowerThirdSubtitle] = useState("Powered by Dataiku");
+  
   const localParticipant = participants.find(p => p.local);
   const remoteParticipants = participants.filter(p => !p.local);
 
+  const handleAdmitAll = () => {
+    waitingParticipants.forEach(p => onAdmit(p.id));
+  };
+
+  const handleDenyAll = () => {
+    waitingParticipants.forEach(p => onDeny(p.id));
+  };
+
   return (
     <div className="fixed inset-0 bg-black flex flex-col">
+      {/* Host Controls Panel */}
+      <HostControlsPanel
+        onAdmitAll={handleAdmitAll}
+        onDenyAll={handleDenyAll}
+        onToggleBanner={() => setShowBanner(!showBanner)}
+        onToggleLowerThird={() => setShowLowerThird(!showLowerThird)}
+        showBanner={showBanner}
+        showLowerThird={showLowerThird}
+        waitingCount={waitingParticipants.length}
+        bannerText={bannerText}
+        onBannerTextChange={setBannerText}
+        lowerThirdTitle={lowerThirdTitle}
+        lowerThirdSubtitle={lowerThirdSubtitle}
+        onLowerThirdChange={(title, subtitle) => {
+          setLowerThirdTitle(title);
+          setLowerThirdSubtitle(subtitle);
+        }}
+      />
+
+      {/* Top Banner Overlay */}
+      <AnimatePresence>
+        {showBanner && (
+          <motion.div
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -50, opacity: 0 }}
+            className="absolute top-16 left-0 right-0 z-25 px-4"
+          >
+            <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#C9935A] to-[#B8844A] text-black py-3 px-6 rounded-lg text-center font-medium shadow-lg">
+              {bannerText}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Lower Third Overlay */}
+      <LowerThirdBanner
+        show={showLowerThird}
+        title={lowerThirdTitle}
+        subtitle={lowerThirdSubtitle}
+        sponsorLogo={DATAIKU_LOGO}
+      />
+
       {/* Top Bar - Branding Overlay */}
       <div className="absolute top-0 left-0 right-0 z-20 p-4 bg-gradient-to-b from-black/80 to-transparent">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 ml-14">
             <img src={DATAIKU_LOGO} alt="Dataiku" className="h-5 opacity-80" />
             <div className="h-4 w-px bg-white/20" />
             <span className="text-white/60 text-sm">{EVENT.title}</span>

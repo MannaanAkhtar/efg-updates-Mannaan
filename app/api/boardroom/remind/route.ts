@@ -7,6 +7,7 @@ import { Resend } from "resend";
 // ═══════════════════════════════════════════════════════════════════════════
 
 const ADMIN_SECRET = process.env.BOARDROOM_ADMIN_SECRET || "";
+const EMAIL_FROM = process.env.RESEND_FROM_EMAIL || "Events First Group <noreply@eventsfirstgroup.com>";
 
 function isAuthorized(request: NextRequest): boolean {
   const authHeader = request.headers.get("authorization");
@@ -101,7 +102,7 @@ export async function POST(request: NextRequest) {
 
       try {
         await resend.emails.send({
-          from: "Events First Group <onboarding@resend.dev>",
+          from: EMAIL_FROM,
           to: reg.email,
           subject: isUrgent 
             ? `⏰ Starting in ${timeText}: ${boardroom.title}`

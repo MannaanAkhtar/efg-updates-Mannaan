@@ -9,6 +9,7 @@ import { randomUUID } from "crypto";
 
 const NOTIFICATION_EMAIL = process.env.NOTIFICATION_EMAIL || "ateeq@eventsfirstgroup.com";
 const DEFAULT_MAX_PARTICIPANTS = 15;
+const EMAIL_FROM = process.env.RESEND_FROM_EMAIL || "Events First Group <noreply@eventsfirstgroup.com>";
 
 export async function POST(request: NextRequest) {
   try {
@@ -159,7 +160,7 @@ export async function POST(request: NextRequest) {
         const outlookCalendarUrl = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${eventTitle}&startdt=${eventDate.toISOString()}&enddt=${new Date(eventDate.getTime() + 2 * 60 * 60 * 1000).toISOString()}&body=${eventDescription}&location=Virtual`;
 
         await resend.emails.send({
-          from: "Events First Group <onboarding@resend.dev>",
+          from: EMAIL_FROM,
           to: email,
           subject: `Confirmed: ${boardroom?.title || "Executive AI Boardroom"} – ${formattedDate}`,
           html: generateConfirmationEmail({
@@ -178,7 +179,7 @@ export async function POST(request: NextRequest) {
         // Notify admin
         const remainingSeats = maxParticipants - (registrationCount || 0) - 1;
         await resend.emails.send({
-          from: "EFG Boardrooms <onboarding@resend.dev>",
+          from: EMAIL_FROM,
           to: NOTIFICATION_EMAIL,
           subject: `New Registration: ${fullName} for ${boardroom?.title || roomName}`,
           html: `
