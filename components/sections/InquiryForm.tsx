@@ -501,7 +501,7 @@ export default function InquiryForm({ defaultCountry, eventName }: { defaultCoun
                     }}
                   >
                     Our team will review your submission and get back
-                    to you within 2 business days.
+                    to you within 2 working hours.
                   </p>
                   <button
                     onClick={resetForm}

@@ -2448,7 +2448,7 @@ function RegistrationSection() {
                     Inquiry Submitted
                   </h3>
                   <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 300, fontSize: 14, color: "#A0A0A0", margin: "0 0 20px", lineHeight: 1.6 }}>
-                    Our team will review your submission and get back to you within 2 business days.
+                    Our team will review your submission and get back to you within 2 working hours.
                   </p>
                   <button
                     onClick={resetForm}

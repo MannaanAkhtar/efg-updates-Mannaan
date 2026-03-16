@@ -5485,7 +5485,7 @@ function RegistrationSection() {
                   >
                     {activeTab === "attend"
                       ? "We\u2019ll be in touch with event details."
-                      : "Our team will review your submission and get back to you within 2 business days."}
+                      : "Our team will review your submission and get back to you within 2 working hours."}
                   </p>
                   <button
                     onClick={resetForm}

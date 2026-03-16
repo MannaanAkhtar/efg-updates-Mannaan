@@ -392,7 +392,7 @@ export default function OpexUpcomingEditionCTA() {
                     {activeTab === "attend" ? "Thank you!" : "Inquiry Submitted"}
                   </h3>
                   <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 300, fontSize: 14, color: "#A0A0A0", margin: "0 0 20px", lineHeight: 1.6 }}>
-                    {activeTab === "attend" ? "We\u2019ll be in touch with event details." : "Our team will review your submission and get back to you within 2 business days."}
+                    {activeTab === "attend" ? "We\u2019ll be in touch with event details." : "Our team will review your submission and get back to you within 2 working hours."}
                   </p>
                   <button onClick={resetForm} style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: VIOLET, background: "none", border: "none", cursor: "pointer", padding: 0 }}>
                     Submit another inquiry &rarr;

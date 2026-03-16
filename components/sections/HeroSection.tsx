@@ -18,31 +18,7 @@ interface HeroSlide {
 
 const heroSlides: HeroSlide[] = [
   {
-    // Exhibition networking — packed floor, sponsor booths, energy.
-    image: `${CFK}/exhibition-networking.jpg`,
-    eyebrow: "Cyber First Kuwait · 9 June 2026 · Kuwait City",
-    title: ["Where the Region's", "Decisions Are"],
-    accent: "Made.",
-    sub: "500+ CISOs, CDOs and Government Officials. One room. One day. Kuwait City.",
-  },
-  {
-    // VIP audience — UAE officials, military, packed crowd.
-    image: `${OPEX}/4N8A1688.JPG`,
-    eyebrow: "200+ Speakers · 12 Cities · 6 Nations",
-    title: ["Conversations That"],
-    accent: "Move Industries.",
-    sub: "Honest dialogue on what comes next — and who needs to be in the room when it arrives.",
-  },
-  {
-    // Cyber First Qatar — aerial view, panel on stage, chandeliers.
-    image: `${CFK}/cyber-first-qatar-aerial.jpg`,
-    eyebrow: "Ministerial & Regulatory Participation · Global",
-    title: ["Government and Industry.", "On The Same"],
-    accent: "Stage.",
-    sub: "The only summit series with active ministerial and regulatory voices in every session.",
-  },
-  {
-    // OPEX First KSA — leadership panel on stage. LEADERSHIP.
+    // 4 — OPEX First KSA — leadership panel on stage. LEADERSHIP.
     image: `${S3}/opex1.jpg`,
     eyebrow: "Opex First KSA · Leadership Panel · Riyadh",
     title: ["Excellence Isn't a", "Department. It's a"],
@@ -50,15 +26,39 @@ const heroSlides: HeroSlide[] = [
     sub: "Senior leaders from Roads General Authority, Red Sea Global, and the Ministry of HR — one stage, one mission.",
   },
   {
-    // Audience from stage perspective — VIP front row visible. AUTHORITY.
-    image: `${CFK}/cyber21-04-412.jpg`,
+    // 2 — VIP audience — UAE officials, military, packed crowd.
+    image: `${OPEX}/4N8A1688.JPG`,
+    eyebrow: "200+ Speakers · 12 Cities · 6 Nations",
+    title: ["Conversations That"],
+    accent: "Move Industries.",
+    sub: "Honest dialogue on what comes next — and who needs to be in the room when it arrives.",
+  },
+  {
+    // 1 — Exhibition networking — packed floor, sponsor booths, energy.
+    image: `${CFK}/exhibition-networking.jpg`,
+    eyebrow: "Cyber First Kuwait · 9 June 2026 · Kuwait City",
+    title: ["Where the Region's", "Decisions Are"],
+    accent: "Made.",
+    sub: "500+ CISOs, CDOs and Government Officials. One room. One day. Kuwait City.",
+  },
+  {
+    // 3 — Cyber First Qatar — aerial view, panel on stage, chandeliers.
+    image: `${CFK}/cyber-first-qatar-aerial.jpg`,
+    eyebrow: "Ministerial & Regulatory Participation · Global",
+    title: ["Government and Industry.", "On The Same"],
+    accent: "Stage.",
+    sub: "The only summit series with active ministerial and regulatory voices in every session.",
+  },
+  {
+    // 5 — Authority — new image.
+    image: `${CFK}/cyber21-04-324.jpg`,
     eyebrow: "5,000+ Delegates · 16 Editions · 99+ Sponsors",
     title: ["The World's Most", "Trusted Technology"],
     accent: "Summit Series.",
     sub: "From Kuwait to Nairobi. From the CISO to the Minister. Every edition, every city.",
   },
   {
-    // Cyber First Kuwait — MOU signing between GBM & AOU. PARTNERSHIPS.
+    // 6 — Cyber First Kuwait — MOU signing between GBM & AOU. PARTNERSHIPS.
     image: `${S3}/cyber1.jpg`,
     eyebrow: "Cyber First Kuwait · Strategic Partnerships",
     title: ["Where Partnerships"],

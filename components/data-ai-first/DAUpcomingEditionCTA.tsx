@@ -542,7 +542,7 @@ export default function DAUpcomingEditionCTA() {
                       <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "#606060", maxWidth: 300, margin: "0 auto 20px", lineHeight: 1.6 }}>
                         {activeTab === "attend"
                           ? "We\u2019ll notify you when full registration opens for Data & AI First Kuwait. Expect early-bird access and the full agenda in your inbox."
-                          : "Our team will review your submission and get back to you within 2 business days."}
+                          : "Our team will review your submission and get back to you within 2 working hours."}
                       </p>
                       <button
                         onClick={resetForm}

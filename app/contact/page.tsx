@@ -371,7 +371,7 @@ function ContactForm() {
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
               </div>
               <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 24, color: "white", margin: "0 0 8px" }}>Message Sent</h3>
-              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "#808080", margin: "0 0 20px", lineHeight: 1.6 }}>We&apos;ll get back to you within 2 business days.</p>
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "#808080", margin: "0 0 20px", lineHeight: 1.6 }}>We&apos;ll get back to you within 2 working hours.</p>
               <button onClick={() => { setSubmitted(false); setFormError(null); }} style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "var(--orange)", background: "none", border: "none", cursor: "pointer" }}>Send another message &rarr;</button>
             </div>
           ) : (

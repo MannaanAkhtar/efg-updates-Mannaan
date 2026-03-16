@@ -32,7 +32,7 @@ const eventSeries = [
     label: "OT Security First", 
     color: "#D34B9A",
     editions: [
-      { href: "/events/ot-security-first", label: "UAE 2026" },
+      { href: "/events/ot-security-first", label: "Coming Soon" },
     ]
   },
   { 

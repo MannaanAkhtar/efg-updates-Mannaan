@@ -2366,7 +2366,7 @@ function FinalCTA() {
               {/* Form card header */}
               <div style={{ marginBottom: 24 }}>
                 <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "clamp(20px, 2.2vw, 26px)", letterSpacing: "-0.02em", color: TEXT, margin: 0 }}>Book Your Session</h3>
-                <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 300, fontSize: 13, color: TEXT_30, margin: "6px 0 0", letterSpacing: "0.2px" }}>We&apos;ll respond within 2 business days</p>
+                <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 300, fontSize: 13, color: TEXT_30, margin: "6px 0 0", letterSpacing: "0.2px" }}>We&apos;ll respond within 2 working hours</p>
               </div>
 
               <AnimatePresence mode="wait">
@@ -2383,7 +2383,7 @@ function FinalCTA() {
                       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
                     </div>
                     <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "clamp(22px, 3vw, 28px)", letterSpacing: "-0.5px", color: TEXT, margin: "0 0 8px" }}>Inquiry Submitted</h3>
-                    <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 400, fontSize: 14, color: TEXT_50, margin: "0 0 20px", lineHeight: 1.6 }}>Our team will review your submission and get back to you within 2 business days.</p>
+                    <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 400, fontSize: 14, color: TEXT_50, margin: "0 0 20px", lineHeight: 1.6 }}>Our team will review your submission and get back to you within 2 working hours.</p>
                     <button
                       onClick={resetForm}
                       style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: GOLD, background: "none", border: "none", cursor: "pointer", padding: "6px 12px", borderRadius: 8, transition: "all 0.3s ease" }}

@@ -372,7 +372,7 @@ export default function OTUpcomingEditionCTA() {
                   <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 300, color: "#808080", marginTop: 12, maxWidth: 320, marginLeft: "auto", marginRight: "auto" }}>
                     {activeTab === "attend"
                       ? "We\u2019ll notify you when registration opens. Expect early-bird access and agenda previews in your inbox."
-                      : "Our team will review your submission and get back to you within 2 business days."}
+                      : "Our team will review your submission and get back to you within 2 working hours."}
                   </p>
                   <button onClick={resetForm} style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: OT_CRIMSON, background: "none", border: "none", cursor: "pointer", padding: 0, marginTop: 20 }}>
                     Submit another inquiry &rarr;
