@@ -3,7 +3,7 @@ import { BreadcrumbSchema } from "@/lib/schemas";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/cyber-first/india-2026`;
-const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0030.JPG";
+const OG_IMAGE = `${BASE_URL}/Cyber_India.png`;
 
 export const metadata: Metadata = {
   title: "Cyber First India 2026 | Delhi | Cybersecurity Summit — 16 June",
