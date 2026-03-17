@@ -644,12 +644,13 @@ function HeroSection() {
             style={{ display: "none", flexDirection: "column", alignItems: "center", gap: 10, marginBottom: 40 }}
           >
             <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(255,255,255,0.3)" }}>Supporting Partners</span>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14 }}>
               {[
                 { name: "CCA", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/CCA.png" },
                 { name: "Coder Flow AI", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/coder_flowAI.png" },
                 { name: "Crime Free Bharat", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/Crime_free_bharat.JPG" },
                 { name: "Cyber World", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/Cyber_world.png" },
+                { name: "Cyber Security Council", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/cybersecuritycouncil.png" },
               ].map((p) => (
                 <div key={p.name} style={{ height: 44, display: "flex", alignItems: "center" }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -662,6 +663,31 @@ function HeroSection() {
 
           {/* Right — Glass info card + Supporting Partners */}
           <div className="cfi-hero-right" style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, width: 300 }}>
+            {/* Supporting Partners — desktop */}
+            <motion.div
+              className="cfi-hero-partners-desktop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 1.4, ease: EASE }}
+              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, width: "100%" }}
+            >
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(255,255,255,0.3)" }}>Supporting Partners</span>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14 }}>
+                {[
+                  { name: "CCA", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/CCA.png" },
+                  { name: "Coder Flow AI", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/coder_flowAI.png" },
+                  { name: "Crime Free Bharat", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/Crime_free_bharat.JPG" },
+                  { name: "Cyber World", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/Cyber_world.png" },
+                  { name: "Cyber Security Council", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/cybersecuritycouncil.png" },
+                ].map((p) => (
+                  <div key={p.name} style={{ height: 76, display: "flex", alignItems: "center" }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={p.logo} alt={p.name} loading="lazy" style={{ maxHeight: "100%", maxWidth: 110, objectFit: "contain", borderRadius: 4 }} />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -678,6 +704,7 @@ function HeroSection() {
                 display: "flex",
                 flexDirection: "column",
                 gap: 24,
+                marginTop: 40,
               }}
             >
               {[
@@ -698,30 +725,6 @@ function HeroSection() {
                   </div>
                 </div>
               ))}
-            </motion.div>
-
-            {/* Supporting Partners — desktop */}
-            <motion.div
-              className="cfi-hero-partners-desktop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 1.4, ease: EASE }}
-              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, marginTop: 100, width: "100%" }}
-            >
-              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(255,255,255,0.3)" }}>Supporting Partners</span>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16 }}>
-                {[
-                  { name: "CCA", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/CCA.png" },
-                  { name: "Coder Flow AI", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/coder_flowAI.png" },
-                  { name: "Crime Free Bharat", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/Crime_free_bharat.JPG" },
-                  { name: "Cyber World", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/Cyber_world.png" },
-                ].map((p) => (
-                  <div key={p.name} style={{ height: 76, display: "flex", alignItems: "center" }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={p.logo} alt={p.name} loading="lazy" style={{ maxHeight: "100%", maxWidth: 110, objectFit: "contain", borderRadius: 4 }} />
-                  </div>
-                ))}
-              </div>
             </motion.div>
           </div>
         </div>
