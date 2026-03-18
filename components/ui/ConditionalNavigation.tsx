@@ -7,8 +7,8 @@ import EventNavigation, { isEventPage } from "./EventNavigation";
 export default function ConditionalNavigation() {
   const pathname = usePathname();
 
-  // Don't show navigation on admin routes
-  if (pathname?.startsWith("/admin")) {
+  // Don't show navigation on admin or standalone client pages
+  if (pathname?.startsWith("/admin") || pathname?.startsWith("/braze")) {
     return null;
   }
 
