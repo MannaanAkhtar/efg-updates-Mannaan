@@ -145,6 +145,7 @@ export default function BrazeLandingPage() {
           .braze-attend-pills { justify-content: center !important; }
           .braze-form-grid { grid-template-columns: 1fr !important; }
           .braze-section { padding: 60px 0 !important; }
+          .braze-section-flush { padding: 0 !important; margin-top: 0 !important; }
           .braze-stats-bar { flex-direction: column !important; gap: 16px !important; padding: 32px 0 !important; }
           .braze-expect-grid { grid-template-columns: 1fr !important; }
           .braze-hosted-layout { flex-direction: column !important; text-align: center !important; }
@@ -1057,7 +1058,7 @@ function OverviewSection() {
   return (
     <section
       id="overview"
-      className="braze-section"
+      className="braze-section braze-section-flush"
       ref={ref}
       style={{
         padding: "0",
@@ -1899,19 +1900,19 @@ function ThemesSection() {
                   overflow: "hidden",
                   transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
                   cursor: "default",
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.07)",
+                  background: "rgba(255,255,255,0.08)",
+                  border: "1px solid rgba(255,255,255,0.12)",
                   position: "relative",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(255,255,255,0.08)";
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.14)";
+                  e.currentTarget.style.background = "rgba(255,255,255,0.12)";
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)";
                   e.currentTarget.style.transform = "translateX(8px)";
                   e.currentTarget.style.boxShadow = `0 20px 56px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.05)`;
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(255,255,255,0.04)";
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)";
+                  e.currentTarget.style.background = "rgba(255,255,255,0.08)";
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
                   e.currentTarget.style.transform = "translateX(0)";
                   e.currentTarget.style.boxShadow = "none";
                 }}
@@ -1938,9 +1939,7 @@ function ThemesSection() {
                     fontFamily: FONT,
                     fontSize: 34,
                     fontWeight: 900,
-                    background: `linear-gradient(180deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1))`,
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
+                    color: "rgba(255,255,255,0.35)",
                     lineHeight: 1,
                     position: "relative",
                   }}>
@@ -1965,7 +1964,7 @@ function ThemesSection() {
                     fontFamily: FONT,
                     fontWeight: 300,
                     fontSize: 14.5,
-                    color: "rgba(255,255,255,0.5)",
+                    color: "rgba(255,255,255,0.7)",
                     lineHeight: 1.75,
                     margin: 0,
                   }}>
@@ -1996,7 +1995,7 @@ function AttendSection() {
   return (
     <section
       id="attend"
-      className="braze-section"
+      className="braze-section braze-section-flush"
       ref={ref}
       style={{
         padding: "0",
@@ -2250,7 +2249,7 @@ function HostedByBraze() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="braze-section" ref={ref} style={{
+    <section className="braze-section braze-section-flush" ref={ref} style={{
       padding: "0",
       position: "relative",
     }}>
