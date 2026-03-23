@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     siteName: "Events First Group",
     images: [
       {
-        url: "https://eventsfirstgroup.com/Events-First-logo-02.png",
+        url: "https://efg-final.s3.eu-north-1.amazonaws.com/Events+First+logo+icon-01.svg",
         width: 1200,
         height: 630,
         alt: "Events First Group",
@@ -71,12 +71,11 @@ export const metadata: Metadata = {
     title: "Events First Group | Executive Technology Summits",
     description:
       "Premium executive technology summits across the Middle East, Africa, and Asia.",
-    images: ["https://eventsfirstgroup.com/Events-First-logo-02.png"],
+    images: ["https://efg-final.s3.eu-north-1.amazonaws.com/Events+First+logo+icon-01.svg"],
   },
   icons: {
     icon: [
-      { url: "/favicon_io/favicon-32x32.png", type: "image/png", sizes: "32x32" },
-      { url: "/favicon_io/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+      { url: "https://efg-final.s3.eu-north-1.amazonaws.com/Events+First+logo+icon-01.svg", type: "image/svg+xml" },
     ],
     apple: [
       { url: "/favicon_io/apple-touch-icon.png", sizes: "180x180" },
@@ -105,7 +104,7 @@ const organizationJsonLd = {
   name: "Events First Group",
   alternateName: "EFG",
   url: "https://eventsfirstgroup.com",
-  logo: "https://eventsfirstgroup.com/Events-First-logo-02.png",
+  logo: "https://efg-final.s3.eu-north-1.amazonaws.com/Events+First+logo+icon-01.svg",
   description:
     "Events First Group designs executive-grade technology summits across the Middle East, Africa, and Asia. Cyber First, OT Security First, Opex First, and Data & AI First.",
   foundingDate: "2023",

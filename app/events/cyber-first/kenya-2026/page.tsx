@@ -215,7 +215,7 @@ const ADVISORY_BOARD = [
     name: "George Kisaka",
     title: "Vice President",
     org: "ISACA Kenya Chapter",
-    photo: null,
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/George-Kisaka.jpeg",
   },
   {
     name: "Michael Etale",
@@ -225,9 +225,9 @@ const ADVISORY_BOARD = [
   },
   {
     name: "Geoffrey O. Ochieng",
-    title: "Global AI Delegate to Kenya, Global Alliance for AI · Global Ambassador, Global Council for Responsible AI · SOC Analyst",
+    title: "Global AI Delegate to Kenya · SOC Analyst",
     org: "Communications Authority of Kenya (CA)",
-    photo: null,
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Geoffrey-Ochieng.png",
   },
   {
     name: "Hussein Omar Hussein",
@@ -297,7 +297,7 @@ const SPEAKERS = [
     name: "George Kisaka",
     title: "Vice President",
     org: "ISACA Kenya Chapter",
-    photo: null,
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/George-Kisaka.jpeg",
   },
 ];
 
@@ -537,8 +537,9 @@ function HeroSection() {
           </span>
         </motion.div>
 
-        {/* CTAs */}
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.8, ease: EASE }} style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+        {/* CTAs + NC4 Logo Row */}
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.8, ease: EASE }} className="cfk-cta-row" style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
+          {/* Buttons */}
           <a
             href="#get-involved"
             onClick={(e) => { e.preventDefault(); document.getElementById("get-involved")?.scrollIntoView({ behavior: "smooth" }); }}
@@ -557,6 +558,20 @@ function HeroSection() {
           >
             Become a Sponsor
           </a>
+
+          {/* NC4 Logo — pushed to far right */}
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginLeft: "auto" }}>
+            <span style={{ width: 1, height: 32, background: "rgba(255,255,255,0.1)" }} />
+            <div>
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", display: "block", lineHeight: 1.2 }}>Official Support</span>
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", display: "block", lineHeight: 1.2 }}>Partner</span>
+            </div>
+            <img
+              src="https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/NC4+Logo.jpeg"
+              alt="NC4 - National Computer & Cybercrimes Coordination Committee"
+              style={{ height: 54, width: "auto", borderRadius: 6, objectFit: "contain" }}
+            />
+          </div>
         </motion.div>
       </div>
 
@@ -2085,7 +2100,7 @@ function SpeakerCard({
             }}
           />
 
-          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "20px 18px 20px" }}>
+          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "14px 14px 14px" }}>
             <div
               style={{
                 fontFamily: "var(--font-outfit)",
@@ -2193,6 +2208,7 @@ function AdvisoryCard({
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
+                objectPosition: "center 20%",
                 filter: hovered ? "grayscale(0%)" : "grayscale(100%)",
                 transition: "filter 0.5s ease",
               }}
@@ -2231,7 +2247,7 @@ function AdvisoryCard({
             }}
           />
 
-          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "20px 18px 20px" }}>
+          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "14px 14px 14px" }}>
             <div
               style={{
                 fontFamily: "var(--font-outfit)",
@@ -2248,7 +2264,7 @@ function AdvisoryCard({
             <div
               style={{
                 fontFamily: "var(--font-outfit)",
-                fontSize: 12,
+                fontSize: member.title.length > 40 ? 10 : 12,
                 fontWeight: 500,
                 color: "rgba(255,255,255,0.42)",
                 lineHeight: 1.4,
@@ -2269,7 +2285,7 @@ function AdvisoryCard({
               <span
                 style={{
                   fontFamily: "var(--font-outfit)",
-                  fontSize: 13,
+                  fontSize: member.org.length > 25 ? 11 : 13,
                   fontWeight: 700,
                   color: KENYA_ACCENT,
                   letterSpacing: "0.3px",
