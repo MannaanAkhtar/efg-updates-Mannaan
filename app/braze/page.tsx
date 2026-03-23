@@ -235,9 +235,9 @@ function BrazeNav() {
             <Image
               src="/braze/braze-logo-white.png"
               alt="Braze"
-              width={100}
-              height={28}
-              style={{ height: 28, width: "auto" }}
+              width={160}
+              height={44}
+              style={{ height: "clamp(32px, 3vw, 44px)", width: "auto" }}
               priority
             />
           </span>
@@ -827,19 +827,6 @@ function HeroSection() {
         ))}
       </motion.div>
 
-      {/* Bottom vignette — subtle fade */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: 120,
-          background: `linear-gradient(to bottom, transparent, #FAFAFA)`,
-          pointerEvents: "none",
-          zIndex: 3,
-        }}
-      />
     </section>
   );
 }
@@ -915,16 +902,6 @@ function StatsBar() {
         <Image src="/braze/sg-heat1-3.png" alt="" fill style={{ objectFit: "contain" }} />
       </div>
 
-      {/* Bottom fade into orange quote */}
-      <div style={{
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: 100,
-        background: `linear-gradient(to bottom, transparent, ${B_ORANGE}20)`,
-        pointerEvents: "none",
-      }} />
 
       <div style={{ maxWidth: MAX_W, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
         <motion.div
@@ -1167,16 +1144,6 @@ function OverviewSection() {
           </div>
         </div>
 
-        {/* Bottom gradient fade into next section */}
-        <div style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: 160,
-          background: `linear-gradient(to bottom, transparent 0%, ${B_ORANGE}10 40%, ${B_ORANGE}30 70%, ${B_ORANGE} 100%)`,
-          pointerEvents: "none",
-        }} />
       </div>
     </section>
   );
@@ -1510,16 +1477,6 @@ function WhatToExpect() {
         </div>
       </div>
 
-      {/* Bottom fade into purple */}
-      <div style={{
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: 180,
-        background: `linear-gradient(to bottom, transparent, ${B_DARK_PURPLE})`,
-        pointerEvents: "none",
-      }} />
     </section>
   );
 }
@@ -2046,17 +2003,6 @@ function HostedByBraze() {
         overflow: "hidden",
         padding: "56px 0 72px",
       }}>
-        {/* Transition from purple above */}
-        <div style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 80,
-          background: `linear-gradient(180deg, ${B_DARK_PURPLE}, transparent)`,
-          pointerEvents: "none",
-          zIndex: 3,
-        }} />
         {/* Supergraphic watermark — right */}
         <div style={{
           position: "absolute",
@@ -2286,17 +2232,6 @@ function HostedByBraze() {
         </div>
       </div>
 
-      {/* Transition into next section (purple register) */}
-      <div style={{
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: 80,
-        background: `linear-gradient(180deg, transparent, ${B_DARK_PURPLE})`,
-        pointerEvents: "none",
-        zIndex: 3,
-      }} />
     </section>
   );
 }
@@ -2311,6 +2246,20 @@ function RegisterSection() {
   const [selectedCountry, setSelectedCountry] = useState<CountryCode>(
     COUNTRY_CODES.find((c) => c.country === "United Arab Emirates") || COUNTRY_CODES[0]
   );
+  const [codeSearch, setCodeSearch] = useState("");
+  const [codeOpen, setCodeOpen] = useState(false);
+  const codeRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (codeRef.current && !codeRef.current.contains(e.target as Node)) {
+        setCodeOpen(false);
+        setCodeSearch("");
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -2556,27 +2505,70 @@ function RegisterSection() {
               <div>
                 <label style={labelStyle}>Phone *</label>
                 <div style={{ display: "flex", gap: 8 }}>
-                  <select
-                    value={selectedCountry.code}
-                    onChange={(e) => {
-                      const c = COUNTRY_CODES.find((cc) => cc.code === e.target.value);
-                      if (c) setSelectedCountry(c);
-                    }}
-                    style={{
-                      ...inputStyle,
-                      width: 100,
-                      flexShrink: 0,
-                      cursor: "pointer",
-                      appearance: "none" as const,
-                      padding: "14px 12px",
-                    }}
-                  >
-                    {COUNTRY_CODES.map((c) => (
-                      <option key={c.code + c.country} value={c.code} style={{ background: B_DARK_PURPLE, color: "white" }}>
-                        {c.code}
-                      </option>
-                    ))}
-                  </select>
+                  <div ref={codeRef} style={{ position: "relative", width: 110, flexShrink: 0 }}>
+                    <input
+                      value={codeOpen ? codeSearch : selectedCountry.code}
+                      onChange={(e) => {
+                        setCodeSearch(e.target.value);
+                        if (!codeOpen) setCodeOpen(true);
+                      }}
+                      onFocus={() => { setCodeOpen(true); setCodeSearch(""); }}
+                      placeholder={selectedCountry.code}
+                      style={{
+                        ...inputStyle,
+                        cursor: "text",
+                        padding: "14px 12px",
+                        borderColor: codeOpen ? B_ORANGE : "rgba(255,255,255,0.12)",
+                      }}
+                    />
+                    {codeOpen && (
+                      <div style={{
+                        position: "absolute",
+                        top: "100%",
+                        left: 0,
+                        width: 240,
+                        maxHeight: 220,
+                        overflowY: "auto",
+                        background: B_DARK_PURPLE,
+                        border: `1px solid ${B_ORANGE}40`,
+                        borderRadius: 10,
+                        marginTop: 4,
+                        zIndex: 50,
+                        boxShadow: `0 8px 32px rgba(0,0,0,0.4)`,
+                      }}>
+                        {COUNTRY_CODES.filter((c) => {
+                          if (!codeSearch) return true;
+                          const q = codeSearch.toLowerCase().replace("+", "");
+                          return c.code.replace("+", "").includes(q) || c.country.toLowerCase().includes(q);
+                        }).map((c) => (
+                          <div
+                            key={c.code + c.country}
+                            onClick={() => {
+                              setSelectedCountry(c);
+                              setCodeOpen(false);
+                              setCodeSearch("");
+                            }}
+                            style={{
+                              padding: "10px 14px",
+                              cursor: "pointer",
+                              fontFamily: FONT,
+                              fontSize: 13,
+                              color: selectedCountry.code === c.code ? B_ORANGE : "rgba(255,255,255,0.8)",
+                              background: selectedCountry.code === c.code ? `${B_ORANGE}10` : "transparent",
+                              display: "flex",
+                              justifyContent: "space-between",
+                              transition: "background 0.15s",
+                            }}
+                            onMouseEnter={(e) => { e.currentTarget.style.background = `${B_PURPLE}30`; }}
+                            onMouseLeave={(e) => { e.currentTarget.style.background = selectedCountry.code === c.code ? `${B_ORANGE}10` : "transparent"; }}
+                          >
+                            <span>{c.country}</span>
+                            <span style={{ opacity: 0.6 }}>{c.code}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                   <input
                     name="phone"
                     type="tel"
@@ -2711,9 +2703,9 @@ function BrazeFooter() {
           <Image
             src="/braze/braze-logo-white.png"
             alt="Braze"
-            width={90}
-            height={26}
-            style={{ height: 26, width: "auto" }}
+            width={160}
+            height={44}
+            style={{ height: "clamp(30px, 2.8vw, 40px)", width: "auto" }}
           />
           <span style={{ width: 1, height: 22, background: "rgba(255,255,255,0.35)" }} />
           <span style={{ fontFamily: FONT, fontSize: 13, fontWeight: 400, color: "rgba(255,255,255,0.85)" }}>
