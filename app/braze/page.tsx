@@ -434,6 +434,102 @@ function BrazeNav() {
   );
 }
 
+// ─── COUNTDOWN TIMER ────────────────────────────────────────────────────────
+const EVENT_DATE = new Date("2026-04-08T11:00:00+04:00"); // 11 AM GST
+
+function CountdownTimer() {
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    function calc() {
+      const now = new Date().getTime();
+      const diff = EVENT_DATE.getTime() - now;
+      if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+      return {
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / (1000 * 60)) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
+      };
+    }
+    setTimeLeft(calc());
+    const timer = setInterval(() => setTimeLeft(calc()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const units = [
+    { label: "Days", value: timeLeft.days },
+    { label: "Hours", value: timeLeft.hours },
+    { label: "Min", value: timeLeft.minutes },
+    { label: "Sec", value: timeLeft.seconds },
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.58, ease: EASE }}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 10,
+        marginBottom: 32,
+        padding: "12px 20px",
+        borderRadius: 12,
+        background: "rgba(255,255,255,0.1)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+        border: "1px solid rgba(255,255,255,0.15)",
+        alignSelf: "flex-start",
+        width: "fit-content",
+      }}
+    >
+      <span style={{
+        fontFamily: FONT,
+        fontSize: 10,
+        fontWeight: 700,
+        color: "rgba(255,255,255,0.5)",
+        letterSpacing: "1.5px",
+        textTransform: "uppercase",
+        marginRight: 4,
+      }}>
+        Starts in
+      </span>
+      {units.map((u, i) => (
+        <React.Fragment key={i}>
+          {i > 0 && <span style={{ color: "rgba(255,255,255,0.3)", fontWeight: 700, fontSize: 14 }}>:</span>}
+          <div style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}>
+            <span style={{
+              fontFamily: FONT,
+              fontWeight: 900,
+              fontSize: 18,
+              color: "white",
+              lineHeight: 1,
+            }}>
+              {String(u.value).padStart(2, "0")}
+            </span>
+            <span style={{
+              fontFamily: FONT,
+              fontWeight: 600,
+              fontSize: 7,
+              color: "rgba(255,255,255,0.45)",
+              textTransform: "uppercase",
+              letterSpacing: "1px",
+              marginTop: 2,
+            }}>
+              {u.label}
+            </span>
+          </div>
+        </React.Fragment>
+      ))}
+    </motion.div>
+  );
+}
+
 // ─── HERO ────────────────────────────────────────────────────────────────────
 function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
@@ -655,6 +751,7 @@ function HeroSection() {
             >
               {[
                 { icon: <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="white" strokeWidth="1.2"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" stroke="white" strokeWidth="1.2" strokeLinecap="round"/></svg>, text: "8 April 2026" },
+                { icon: <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="white" strokeWidth="1.2"/><path d="M8 4.5V8l2.5 1.5" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>, text: "11:00 AM GST" },
                 { icon: <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="white" strokeWidth="1.2"/><path d="M8 4.5V8l2.5 1.5" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>, text: "60 Min" },
                 { icon: <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="9" rx="1.5" stroke="white" strokeWidth="1.2"/><circle cx="8" cy="7.5" r="2" stroke="white" strokeWidth="1.2"/></svg>, text: "Virtual" },
               ].map((item, i) => (
@@ -678,6 +775,9 @@ function HeroSection() {
                 </React.Fragment>
               ))}
             </motion.div>
+
+            {/* Countdown timer */}
+            <CountdownTimer />
 
             {/* CTA row */}
             <motion.div
@@ -717,7 +817,7 @@ function HeroSection() {
                   e.currentTarget.style.boxShadow = `0 4px 24px ${B_PURPLE}35`;
                 }}
               >
-                Register Your Interest
+                Apply to Join
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                   <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -2388,7 +2488,7 @@ function RegisterSection() {
             margin: "0 0 12px",
           }}
         >
-          Register Your Interest.
+          Apply to Join.
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 16 }}
