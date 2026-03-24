@@ -138,9 +138,7 @@ export default function RootLayout({
         <meta name="author" content="Events First Group" />
         <meta name="geo.region" content="AE-DU" />
         <meta name="geo.placename" content="Dubai" />
-        <link rel="icon" href="/favicon_io/favicon-32x32.png" type="image/png" sizes="32x32" />
-        <link rel="icon" href="/favicon_io/favicon-16x16.png" type="image/png" sizes="16x16" />
-        <link rel="apple-touch-icon" href="/favicon_io/apple-touch-icon.png" sizes="180x180" />
+        <link rel="icon" href="https://efg-final.s3.eu-north-1.amazonaws.com/Events+First+logo+icon-01.svg" type="image/svg+xml" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
