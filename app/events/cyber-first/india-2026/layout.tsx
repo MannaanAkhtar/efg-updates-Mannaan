@@ -48,6 +48,11 @@ export const metadata: Metadata = {
       "350+ CISOs and security leaders. 16 June 2026, Delhi.",
     images: [OG_IMAGE],
   },
+  icons: {
+    icon: [
+      { url: "https://efg-final.s3.eu-north-1.amazonaws.com/Events+First+logo+icon-01.svg", type: "image/svg+xml" },
+    ],
+  },
 };
 
 export default function CyberFirstIndiaLayout({

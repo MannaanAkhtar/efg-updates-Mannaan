@@ -328,8 +328,8 @@ const GALLERY: {
     area: "b",
   },
   {
-    src: `${CF_UAE}/ARU00418.jpg`,
-    alt: "Awards ceremony",
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/cyber21-04-504.jpg",
+    alt: "Conference networking",
     area: "c",
     rotate: 1.2,
     lift: true,
@@ -561,9 +561,21 @@ function HeroSection() {
             Become a Sponsor
           </a>
 
-          {/* NC4 Logo — pushed to far right */}
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginLeft: "auto" }}>
-            <span style={{ width: 1, height: 32, background: "rgba(255,255,255,0.1)" }} />
+          {/* NC4 Logo — pushed to far right, glass card */}
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+            marginLeft: "auto",
+            background: "rgba(255,255,255,0.04)",
+            backdropFilter: "blur(16px)",
+            border: `1px solid ${C}20`,
+            borderRadius: 14,
+            padding: "10px 18px",
+            position: "relative",
+            overflow: "hidden",
+          }}>
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${C}30, transparent)` }} />
             <div>
               <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", display: "block", lineHeight: 1.2 }}>Official Support</span>
               <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", display: "block", lineHeight: 1.2 }}>Partner</span>
@@ -571,7 +583,7 @@ function HeroSection() {
             <img
               src="https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/NC4+Logo.jpeg"
               alt="NC4 - National Computer & Cybercrimes Coordination Committee"
-              style={{ height: 54, width: "auto", borderRadius: 6, objectFit: "contain" }}
+              style={{ height: 50, width: "auto", borderRadius: 6, objectFit: "contain" }}
             />
           </div>
         </motion.div>
