@@ -374,7 +374,6 @@ export default function CyberFirstIndia2026() {
       <MarketContext />
       <FocusAreas />
       <SpeakersSection />
-      <ConfirmedSpeakers />
       <AgendaTimeline />
       <SponsorsSection />
       <Gallery />
@@ -868,7 +867,7 @@ function StatsBar() {
   ];
 
   return (
-    <section ref={ref} style={{ position: "relative", padding: "clamp(100px, 12vw, 140px) 0 clamp(100px, 12vw, 140px)", overflow: "hidden", background: "#060910" }}>
+    <section ref={ref} style={{ position: "relative", padding: "clamp(60px, 7vw, 90px) 0", overflow: "hidden", background: "#060910" }}>
       {/* Background — real EFG event photo */}
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -1084,7 +1083,7 @@ function MarketContext() {
   ];
 
   return (
-    <section id="overview" ref={ref} style={{ background: "#080A0F", padding: "clamp(80px, 10vw, 120px) 0", position: "relative" }}>
+    <section id="overview" ref={ref} style={{ background: "#080A0F", padding: "clamp(60px, 7vw, 90px) 0", position: "relative" }}>
       <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 50% 50% at 80% 50%, ${C}08, transparent 70%)` }} />
 
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
@@ -1175,7 +1174,7 @@ function FocusAreas() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} style={{ background: "#050810", padding: "clamp(80px, 10vw, 120px) 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} style={{ background: "#050810", padding: "clamp(60px, 7vw, 90px) 0", position: "relative", overflow: "hidden" }}>
       {/* Background atmosphere */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 60% 50% at 30% 40%, ${C}04, transparent 70%)` }} />
       <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 40% 40% at 80% 60%, ${C}03, transparent 70%)` }} />
@@ -1346,7 +1345,7 @@ function WhoShouldAttend() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} style={{ background: "#080A0F", padding: "clamp(80px, 10vw, 120px) 0" }}>
+    <section ref={ref} style={{ background: "#080A0F", padding: "clamp(60px, 7vw, 90px) 0" }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
         <div className="cfi-attend-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
           <motion.div initial={{ opacity: 0, x: -30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, ease: EASE }}>
@@ -1451,7 +1450,7 @@ function AgendaTimeline() {
   };
 
   return (
-    <section id="agenda" ref={ref} style={{ background: "#050810", padding: "clamp(80px, 10vw, 120px) 0", position: "relative", overflow: "hidden" }}>
+    <section id="agenda" ref={ref} style={{ background: "#050810", padding: "clamp(60px, 7vw, 90px) 0", position: "relative", overflow: "hidden" }}>
       <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 50% 50% at 50% 30%, ${C}04, transparent 70%)` }} />
 
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 1 }}>
@@ -1531,38 +1530,17 @@ function AgendaTimeline() {
   );
 }
 
-// ─── Speakers / Advisors Section ─────────────────────────────────────────────
+// ─── Speakers & Advisors ─────────────────────────────────────────────────────
 const CFI_SPEAKERS = [
-  {
-    name: "Dr. Jagannath Sahoo",
-    designation: "Chief Information Security Officer (CISO)",
-    entity: "INOXGFL",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Dr_Jagannath_Sahoo.jpg",
-  },
-  {
-    name: "Dr Harsha Thennarasu",
-    designation: "Chief Cyber Defence Advisor",
-    entity: "HKIT Security Solutions",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Dr_Harsha.JPG",
-  },
-  {
-    name: "M Dhanasekar",
-    designation: "Wing Commander",
-    entity: "Indian Airforce",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Dhanasekar_Pic.png",
-  },
-  {
-    name: "Dr. Pavan Duggal",
-    designation: "Advocate",
-    entity: "Supreme Court of India",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Pavan_Duggal.jpg",
-  },
-  {
-    name: "Lt Cdr Karan Kalra (Retd)",
-    designation: "Chief Information Security Officer (CISO)",
-    entity: "Perpetual-Edge",
-    photo: "",
-  },
+  { name: "Air Vice Marshal (Dr) Devesh Vatsa VSM", designation: "Advisor Cyber Security & Critical Technologies", entity: "Data Security Council of India (DSCI)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Dr_Devesh_pic.jpeg" },
+  { name: "Prabhu Narayan", designation: "Director & CISO, Department of Economic Affairs (DEA)", entity: "Ministry of Finance, Government of India", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Prabhu-Narayan.jpg" },
+  { name: "M Dhanasekar", designation: "Wing Commander", entity: "Indian Airforce", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Dhanasekar_Pic.png" },
+  { name: "Dr. Susil Kumar Meher", designation: "Head Health IT and CISO", entity: "AIIMS", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Dr_Sushil_Pic.jpg" },
+  { name: "Saurabh Basu", designation: "Scientist E & Head (Enterprise Cyber Security)", entity: "Centre for Development of Telematics (C-DOT), Ministry of Communication, Govt of India", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Saurabh_pic.jpg" },
+  { name: "Dr. Jagannath Sahoo", designation: "Chief Information Security Officer (CISO)", entity: "INOXGFL", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Dr_Jagannath_Sahoo.jpg" },
+  { name: "Dr. Pavan Duggal", designation: "Advocate", entity: "Supreme Court of India", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Pavan_Duggal.jpg" },
+  { name: "Dr Harsha Thennarasu", designation: "Chief Cyber Defence Advisor", entity: "HKIT Security Solutions", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Dr_Harsha.JPG" },
+  { name: "Lt Cdr Karan Kalra (Retd)", designation: "Chief Information Security Officer (CISO)", entity: "Perpetual-Edge", photo: "" },
 ];
 
 function SpeakersSection() {
@@ -1570,15 +1548,15 @@ function SpeakersSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="speakers" ref={ref} style={{ background: "#080A0F", padding: "clamp(80px, 10vw, 120px) 0", position: "relative", overflow: "hidden" }}>
+    <section id="speakers" ref={ref} style={{ background: "#080A0F", padding: "clamp(60px, 7vw, 90px) 0", position: "relative", overflow: "hidden" }}>
       {/* Subtle glow */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 60% 40% at 50% 0%, ${C}06, transparent 70%)` }} />
 
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
         {/* Header */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, ease: EASE }} style={{ textAlign: "center", marginBottom: 64 }}>
-          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "3px", textTransform: "uppercase", color: C_BRIGHT, marginBottom: 16 }}>
-            Confirmed Advisors
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, ease: EASE }} style={{ textAlign: "center", marginBottom: 48 }}>
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, letterSpacing: "3.5px", textTransform: "uppercase", color: C_BRIGHT, marginBottom: 16 }}>
+            Confirmed Speakers & Advisors
           </p>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 5vw, 48px)", color: "white", margin: 0, lineHeight: 1.15 }}>
             Industry <span style={{ color: C_BRIGHT }}>Leaders</span> & Experts
@@ -1666,113 +1644,6 @@ function SpeakersSection() {
 }
 
 // ─── CONFIRMED SPEAKERS ──────────────────────────────────────────────────────
-const CFI_CONFIRMED_SPEAKERS = [
-  { name: "Air Vice Marshal (Dr) Devesh Vatsa VSM", designation: "Advisor Cyber Security & Critical Technologies", entity: "Data Security Council of India (DSCI)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Dr_Devesh_pic.jpeg" },
-  { name: "Prabhu Narayan", designation: "Director & CISO, Department of Economic Affairs (DEA)", entity: "Ministry of Finance, Government of India", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Prabhu-Narayan.jpg" },
-  { name: "M Dhanasekar", designation: "Wing Commander", entity: "Indian Airforce", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Dhanasekar_Pic.png" },
-  { name: "Dr. Susil Kumar Meher", designation: "Head Health IT and CISO", entity: "AIIMS", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Dr_Sushil_Pic.jpg" },
-  { name: "Saurabh Basu", designation: "Scientist E & Head (Enterprise Cyber Security)", entity: "Centre for Development of Telematics (C-DOT), Ministry of Communication, Govt of India", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Saurabh_pic.jpg" },
-  { name: "Dr. Jagannath Sahoo", designation: "Chief Information Security Officer (CISO)", entity: "INOXGFL", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Dr_Jagannath_Sahoo.jpg" },
-  { name: "Dr. Pavan Duggal", designation: "Advocate", entity: "Supreme Court of India", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Pavan_Duggal.jpg" },
-  { name: "Dr Harsha Thennarasu", designation: "Chief Cyber Defence Advisor", entity: "HKIT Security Solutions", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Dr_Harsha.JPG" },
-  { name: "Lt Cdr Karan Kalra (Retd)", designation: "Chief Information Security Officer (CISO)", entity: "Perpetual-Edge", photo: "" },
-];
-
-function ConfirmedSpeakers() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
-  return (
-    <section id="confirmed-speakers" ref={ref} style={{ background: "#080A0F", padding: "clamp(60px, 7vw, 90px) 0", position: "relative", overflow: "hidden" }}>
-      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 60% 40% at 50% 100%, ${C}06, transparent 70%)` }} />
-
-      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, ease: EASE }} style={{ textAlign: "center", marginBottom: 64 }}>
-          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, letterSpacing: "3.5px", textTransform: "uppercase", color: C_BRIGHT, marginBottom: 16 }}>
-            Confirmed Speakers
-          </p>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 5vw, 48px)", color: "white", margin: 0, lineHeight: 1.15 }}>
-            Featured <span style={{ color: C_BRIGHT }}>Speakers</span>
-          </h2>
-        </motion.div>
-
-        <div className="cfi-cspeakers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 20 }}>
-          {CFI_CONFIRMED_SPEAKERS.map((speaker, i) => (
-            <motion.div
-              key={speaker.name}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.15 + i * 0.08, ease: EASE }}
-              className="cfi-cspeaker-card"
-              style={{
-                borderRadius: 16,
-                overflow: "hidden",
-                background: "linear-gradient(160deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))",
-                border: "1px solid rgba(255,255,255,0.07)",
-                transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
-              }}
-            >
-              <div style={{ position: "relative", width: "100%", aspectRatio: "1/1", overflow: "hidden", background: speaker.photo ? "transparent" : `linear-gradient(135deg, ${C}20, #0A0C12)` }}>
-                {speaker.photo ? (
-                  <>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={speaker.photo}
-                      alt={speaker.name}
-                      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", filter: "grayscale(1)", transition: "transform 0.5s ease, filter 0.5s ease" }}
-                    />
-                  </>
-                ) : (
-                  <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke={`${C_BRIGHT}40`} strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" /><circle cx="12" cy="7" r="4" />
-                    </svg>
-                  </div>
-                )}
-                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "50%", background: "linear-gradient(to top, #080A0F, transparent)", pointerEvents: "none" }} />
-              </div>
-              <div style={{ padding: "20px 20px 24px", marginTop: -24, position: "relative" }}>
-                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 16, color: "white", margin: "0 0 6px", lineHeight: 1.25 }}>
-                  {speaker.name}
-                </h3>
-                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 400, color: C_BRIGHT, margin: "0 0 4px", lineHeight: 1.4 }}>
-                  {speaker.designation}
-                </p>
-                {speaker.entity && (
-                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 500, color: "rgba(255,255,255,0.4)", margin: 0 }}>
-                    {speaker.entity}
-                  </p>
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      <style jsx global>{`
-        .cfi-cspeaker-card:hover {
-          transform: translateY(-4px) !important;
-          border-color: ${C_BRIGHT}30 !important;
-          box-shadow: 0 12px 40px ${C}18 !important;
-        }
-        .cfi-cspeaker-card:hover img {
-          transform: scale(1.05);
-          filter: grayscale(0) !important;
-        }
-        @media (max-width: 1100px) {
-          .cfi-cspeakers-grid { grid-template-columns: repeat(3, 1fr) !important; }
-        }
-        @media (max-width: 768px) {
-          .cfi-cspeakers-grid { grid-template-columns: repeat(2, 1fr) !important; }
-        }
-        @media (max-width: 520px) {
-          .cfi-cspeakers-grid { grid-template-columns: 1fr !important; max-width: 360px; margin: 0 auto; }
-        }
-      `}</style>
-    </section>
-  );
-}
-
 // ─── Sponsors Section ────────────────────────────────────────────────────────
 function SponsorsSection() {
   const ref = useRef<HTMLElement>(null);
@@ -2033,7 +1904,7 @@ function Gallery() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} style={{ background: "#050810", padding: "clamp(80px, 10vw, 120px) 0" }}>
+    <section ref={ref} style={{ background: "#050810", padding: "clamp(60px, 7vw, 90px) 0" }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: EASE }} style={{ marginBottom: 48 }}>
           <div className="flex items-center gap-3" style={{ marginBottom: 12 }}>
@@ -2115,7 +1986,7 @@ function AwardsSection() {
   });
 
   return (
-    <section ref={ref} style={{ background: "linear-gradient(180deg, #080A0F 0%, #0A0D14 50%, #080A0F 100%)", padding: "clamp(80px, 10vw, 120px) 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} style={{ background: "linear-gradient(180deg, #080A0F 0%, #0A0D14 50%, #080A0F 100%)", padding: "clamp(60px, 7vw, 90px) 0", position: "relative", overflow: "hidden" }}>
       {/* Atmospheric layers */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 70% 50% at 50% 0%, ${GOLD}06, transparent 70%)` }} />
       <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 50% 40% at 20% 60%, ${C}03, transparent 60%)` }} />
@@ -2322,7 +2193,7 @@ function Venue() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="venue" ref={ref} style={{ background: "#050810", padding: "clamp(80px, 10vw, 120px) 0" }}>
+    <section id="venue" ref={ref} style={{ background: "#050810", padding: "clamp(60px, 7vw, 90px) 0" }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
         <div className="cfi-venue-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center" }}>
           <motion.div initial={{ opacity: 0, x: -30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ borderRadius: 20, overflow: "hidden", aspectRatio: "16/10" }}>
@@ -2548,7 +2419,7 @@ function RegistrationSection() {
   };
 
   return (
-    <section id="register" ref={ref} style={{ background: "#080A0F", padding: "clamp(80px, 10vw, 120px) 0", position: "relative", overflow: "hidden" }}>
+    <section id="register" ref={ref} style={{ background: "#080A0F", padding: "clamp(60px, 7vw, 90px) 0", position: "relative", overflow: "hidden" }}>
       {/* Atmospheric background */}
       <div style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `radial-gradient(ellipse 700px 500px at 20% 40%, ${C}06, transparent 70%), radial-gradient(ellipse 500px 400px at 80% 60%, ${C}04, transparent 70%)` }} />
 
@@ -2865,7 +2736,7 @@ function ContactEnquiries() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} style={{ background: "#0A0E14", padding: "clamp(80px, 10vw, 120px) 0", position: "relative" }}>
+    <section ref={ref} style={{ background: "#0A0E14", padding: "clamp(60px, 7vw, 90px) 0", position: "relative" }}>
       {/* Subtle background glow */}
       <div style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `radial-gradient(ellipse 50% 60% at 50% 50%, ${C}06, transparent 70%)` }} />
 
