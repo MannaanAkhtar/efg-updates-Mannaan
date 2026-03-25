@@ -35,6 +35,35 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
+  // Handle braze-webinar-2 subdomain → serve /braze2 page
+  if (hostname.startsWith("braze-webinar-2.")) {
+    const url = request.nextUrl.clone();
+    const path = url.pathname;
+
+    if (path.startsWith("/braze2")) {
+      return NextResponse.next();
+    }
+
+    if (path === "/" || path === "") {
+      url.pathname = "/braze2";
+      return NextResponse.rewrite(url);
+    }
+
+    if (
+      path.startsWith("/api/") ||
+      path.startsWith("/_next/") ||
+      path.startsWith("/fonts/") ||
+      path.startsWith("/braze/") ||
+      path.startsWith("/braze2/") ||
+      path.includes(".")
+    ) {
+      return NextResponse.next();
+    }
+
+    url.pathname = "/braze2";
+    return NextResponse.rewrite(url);
+  }
+
   return NextResponse.next();
 }
 

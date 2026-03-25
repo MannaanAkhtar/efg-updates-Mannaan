@@ -20,6 +20,7 @@ const ALLOWED_ORIGINS = [
   "https://eventsfirstgroup.com",
   "https://www.eventsfirstgroup.com",
   "https://braze-webinar.eventsfirstgroup.com",
+  "https://braze-webinar-2.eventsfirstgroup.com",
   "http://localhost:3000",
   "http://localhost:3001",
 ];
