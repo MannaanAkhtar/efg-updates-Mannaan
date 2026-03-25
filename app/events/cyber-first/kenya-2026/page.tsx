@@ -1802,13 +1802,13 @@ function FocusAreas() {
     return () => ctx.revert();
   }, [mounted]);
 
-  const TRACK_IMAGES = [
-    "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
-    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-    "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=80",
-    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80",
-    "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
-    "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800&q=80",
+  const TRACK_DATA = [
+    { short: "Critical Infrastructure", image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80" },
+    { short: "Governance & Privacy", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" },
+    { short: "Cloud & Zero Trust", image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=80" },
+    { short: "Human Firewall", image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" },
+    { short: "AI & Threat Intel", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80" },
+    { short: "Global Partnerships", image: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800&q=80" },
   ];
 
   return (
@@ -1844,13 +1844,13 @@ function FocusAreas() {
         </motion.div>
 
         {/* Flip Cards Grid */}
-        <div className="cfk-flip-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28 }}>
+        <div className="cfk-flip-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
           {FOCUS_AREAS.map((area, i) => (
             <div
               key={area.title}
               ref={(el) => { cardsRef.current[i] = el; }}
               className="cfk-flip-card"
-              style={{ perspective: 1200, height: 420 }}
+              style={{ perspective: 1200, height: 320, cursor: "pointer" }}
             >
               <div 
                 className="cfk-flip-inner"
@@ -1862,106 +1862,107 @@ function FocusAreas() {
                   transition: "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)",
                 }}
               >
-                {/* FRONT - Image + Number */}
-                <div style={{
+                {/* FRONT - Clean image + short title */}
+                <div className="cfk-flip-front" style={{
                   position: "absolute",
                   inset: 0,
                   backfaceVisibility: "hidden",
                   WebkitBackfaceVisibility: "hidden",
-                  borderRadius: 24,
+                  borderRadius: 20,
                   overflow: "hidden",
                 }}>
                   <img 
-                    src={TRACK_IMAGES[i]} 
-                    alt={area.title}
-                    style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.4) saturate(0.8)" }}
+                    src={TRACK_DATA[i]?.image} 
+                    alt={TRACK_DATA[i]?.short}
+                    style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.5) saturate(0.9)", transition: "transform 0.6s ease" }}
                   />
-                  {/* Gradient overlay */}
-                  <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, transparent 30%, ${C}90 100%)` }} />
-                  {/* Large number */}
-                  <div style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    fontFamily: "var(--font-display)",
-                    fontSize: 180,
-                    fontWeight: 900,
-                    color: "rgba(255,255,255,0.1)",
-                    lineHeight: 1,
-                  }}>
-                    {String(i + 1).padStart(2, "0")}
+                  {/* Bottom gradient for text readability */}
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.85) 100%)" }} />
+                  
+                  {/* Short title at bottom */}
+                  <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "24px 28px" }}>
+                    <h3 style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(18px, 2vw, 24px)",
+                      fontWeight: 600,
+                      color: "white",
+                      margin: 0,
+                      letterSpacing: "-0.5px",
+                    }}>
+                      {TRACK_DATA[i]?.short}
+                    </h3>
                   </div>
-                  {/* Track label */}
-                  <div style={{ position: "absolute", bottom: 28, left: 28, right: 28 }}>
+                  
+                  {/* Subtle top shine */}
+                  <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 80, background: "linear-gradient(180deg, rgba(255,255,255,0.05), transparent)", pointerEvents: "none" }} />
+                </div>
+
+                {/* BACK - Full details */}
+                <div className="cfk-flip-back" style={{
+                  position: "absolute",
+                  inset: 0,
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
+                  transform: "rotateY(180deg)",
+                  borderRadius: 20,
+                  background: `linear-gradient(165deg, rgba(20,12,14,0.98) 0%, #0A0608 100%)`,
+                  border: `1px solid ${C_BRIGHT}20`,
+                  padding: "28px 24px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  boxShadow: `inset 0 1px 0 rgba(255,255,255,0.05), 0 20px 60px rgba(0,0,0,0.5)`,
+                }}>
+                  {/* Top accent line */}
+                  <div style={{ position: "absolute", top: 0, left: "20%", right: "20%", height: 2, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}60, transparent)` }} />
+                  
+                  {/* Track badge */}
+                  <div style={{ 
+                    display: "inline-flex", 
+                    alignItems: "center", 
+                    gap: 8,
+                    marginBottom: 16,
+                    padding: "6px 12px",
+                    background: `${C}20`,
+                    border: `1px solid ${C_BRIGHT}30`,
+                    borderRadius: 20,
+                    alignSelf: "flex-start",
+                  }}>
+                    <span style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 8px ${C_BRIGHT}` }} />
                     <span style={{
                       fontFamily: "var(--font-outfit)",
-                      fontSize: 12,
+                      fontSize: 11,
                       fontWeight: 600,
-                      letterSpacing: "3px",
+                      letterSpacing: "2px",
                       textTransform: "uppercase",
                       color: C_BRIGHT,
                     }}>
                       Track {String(i + 1).padStart(2, "0")}
                     </span>
                   </div>
-                  {/* Bottom border glow */}
-                  <div style={{ position: "absolute", bottom: 0, left: "10%", right: "10%", height: 2, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}60, transparent)` }} />
-                </div>
-
-                {/* BACK - Title + Description */}
-                <div style={{
-                  position: "absolute",
-                  inset: 0,
-                  backfaceVisibility: "hidden",
-                  WebkitBackfaceVisibility: "hidden",
-                  transform: "rotateY(180deg)",
-                  borderRadius: 24,
-                  background: `linear-gradient(165deg, ${C}40 0%, #0D0809 50%, #0A0608 100%)`,
-                  border: `1px solid ${C_BRIGHT}25`,
-                  padding: 32,
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                }}>
-                  {/* Top accent */}
-                  <div style={{ position: "absolute", top: 0, left: "15%", right: "15%", height: 2, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}50, transparent)`, borderRadius: "24px 24px 0 0" }} />
                   
-                  {/* Track number */}
-                  <span style={{
-                    fontFamily: "var(--font-outfit)",
-                    fontSize: 13,
-                    fontWeight: 600,
-                    letterSpacing: "4px",
-                    textTransform: "uppercase",
-                    color: C_BRIGHT,
-                    marginBottom: 16,
-                  }}>
-                    Track {String(i + 1).padStart(2, "0")}
-                  </span>
-                  
-                  {/* Title */}
+                  {/* Short title */}
                   <h3 style={{
                     fontFamily: "var(--font-display)",
-                    fontSize: "clamp(18px, 2vw, 24px)",
+                    fontSize: "clamp(20px, 2.2vw, 26px)",
                     fontWeight: 700,
                     color: "white",
-                    margin: "0 0 16px 0",
-                    lineHeight: 1.3,
+                    margin: "0 0 12px 0",
+                    lineHeight: 1.25,
                   }}>
-                    {area.title}
+                    {TRACK_DATA[i]?.short}
                   </h3>
                   
                   {/* Accent line */}
-                  <div style={{ width: 50, height: 2, background: `linear-gradient(90deg, ${C_BRIGHT}, ${KENYA_ACCENT})`, marginBottom: 20, borderRadius: 2 }} />
+                  <div style={{ width: 40, height: 2, background: `linear-gradient(90deg, ${C_BRIGHT}, ${KENYA_ACCENT})`, marginBottom: 16, borderRadius: 2 }} />
                   
-                  {/* Description */}
+                  {/* Full description */}
                   <p style={{
                     fontFamily: "var(--font-outfit)",
-                    fontSize: 15,
+                    fontSize: 14,
                     fontWeight: 400,
-                    color: "rgba(255,255,255,0.65)",
-                    lineHeight: 1.75,
+                    color: "rgba(255,255,255,0.6)",
+                    lineHeight: 1.7,
                     margin: 0,
                   }}>
                     {area.desc}
@@ -1974,8 +1975,25 @@ function FocusAreas() {
       </div>
       
       <style jsx global>{`
+        .cfk-flip-card {
+          transition: transform 0.3s ease;
+        }
+        .cfk-flip-card:hover {
+          transform: translateY(-8px);
+        }
         .cfk-flip-card:hover .cfk-flip-inner {
           transform: rotateY(180deg) !important;
+        }
+        .cfk-flip-card:hover .cfk-flip-front img {
+          transform: scale(1.1);
+        }
+        .cfk-flip-front, .cfk-flip-back {
+          box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+          transition: box-shadow 0.3s ease;
+        }
+        .cfk-flip-card:hover .cfk-flip-front,
+        .cfk-flip-card:hover .cfk-flip-back {
+          box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px ${C}20;
         }
         @media (max-width: 1024px) {
           .cfk-flip-grid { grid-template-columns: repeat(2, 1fr) !important; }
