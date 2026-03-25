@@ -2026,37 +2026,21 @@ function AdvisoryBoard() {
       // Calculate scroll distance
       const scrollWidth = track.scrollWidth - window.innerWidth + 400;
       
-      // Horizontal scroll animation
-      gsap.to(track, {
-        x: -scrollWidth,
-        ease: "none",
+      // Smooth horizontal scroll animation
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: `+=${scrollWidth}`,
+          end: `+=${scrollWidth * 1.2}`,
           pin: true,
-          scrub: 1,
+          scrub: 0.5, // Smoother scrub
           anticipatePin: 1,
         },
       });
-
-      // Card animations - scale and opacity based on position
-      cards.forEach((card) => {
-        gsap.fromTo(card,
-          { scale: 0.8, opacity: 0.3, rotateY: -15 },
-          {
-            scale: 1,
-            opacity: 1,
-            rotateY: 0,
-            scrollTrigger: {
-              trigger: card,
-              containerAnimation: gsap.getById?.("horizontal") || undefined,
-              start: "left 80%",
-              end: "left 30%",
-              scrub: true,
-            },
-          }
-        );
+      
+      tl.to(track, {
+        x: -scrollWidth,
+        ease: "power1.inOut",
       });
     }, sectionRef);
 
@@ -2168,79 +2152,106 @@ function AdvisoryBoard() {
           }}
         >
           {ADVISORY_BOARD.map((member, i) => (
-            <div
+            <motion.div
               key={member.name}
               className="cfk-speaker-card"
+              initial={{ opacity: 0, y: 60, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.25, 1, 0.5, 1] }}
               style={{
                 flexShrink: 0,
-                width: 320,
-                height: 450,
-                borderRadius: 20,
+                width: 340,
+                borderRadius: 24,
                 overflow: "hidden",
                 position: "relative",
-                background: "#0D0809",
-                border: `1px solid rgba(255,255,255,0.1)`,
+                background: "linear-gradient(165deg, rgba(25,18,20,0.95) 0%, rgba(12,8,10,0.98) 100%)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                border: `1px solid rgba(255,255,255,0.08)`,
                 transformStyle: "preserve-3d",
-                transition: "all 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
-                boxShadow: "0 8px 40px rgba(0,0,0,0.4)",
+                transition: "all 0.6s cubic-bezier(0.25, 1, 0.5, 1)",
+                boxShadow: "0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)",
               }}
             >
-              {/* Photo - larger area */}
-              <div style={{ height: "62%", overflow: "hidden", position: "relative" }}>
+              {/* Animated border gradient */}
+              <div className="cfk-card-border" style={{
+                position: "absolute",
+                inset: -1,
+                borderRadius: 25,
+                background: `linear-gradient(135deg, ${C_BRIGHT}30, transparent 40%, transparent 60%, ${KENYA_ACCENT}20)`,
+                zIndex: -1,
+                transition: "opacity 0.4s ease",
+                opacity: 0,
+              }} />
+              
+              {/* Photo with parallax container */}
+              <div style={{ height: 280, overflow: "hidden", position: "relative" }}>
                 {member.photo ? (
                   <img
                     src={member.photo}
                     alt={member.name}
+                    className="cfk-speaker-photo"
                     style={{
-                      width: "100%",
-                      height: "100%",
+                      width: "110%",
+                      height: "110%",
                       objectFit: "cover",
                       objectPosition: "center top",
-                      transition: "transform 0.6s ease",
+                      marginLeft: "-5%",
+                      marginTop: "-5%",
+                      transition: "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)",
                     }}
                   />
                 ) : (
                   <div style={{
                     width: "100%",
                     height: "100%",
-                    background: `linear-gradient(135deg, ${C}50, ${C}25)`,
+                    background: `linear-gradient(135deg, ${C}60, ${C}30)`,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                   }}>
-                    <span style={{ fontSize: 72, color: "rgba(255,255,255,0.2)" }}>👤</span>
+                    <span style={{ fontSize: 80, color: "rgba(255,255,255,0.15)" }}>👤</span>
                   </div>
                 )}
-                {/* Bottom gradient for text readability */}
-                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 80, background: "linear-gradient(180deg, transparent, rgba(0,0,0,0.6))" }} />
+                
+                {/* Premium gradient overlays */}
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.9) 100%)" }} />
+                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${C}15, transparent 50%)` }} />
+                
+                {/* Top shine */}
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 120, background: "linear-gradient(180deg, rgba(255,255,255,0.06), transparent)" }} />
               </div>
               
-              {/* Info - more padding, larger text */}
-              <div style={{ padding: "24px 28px 28px", background: "#0D0809" }}>
+              {/* Info section with glass effect */}
+              <div style={{ 
+                padding: "28px 32px 32px",
+                background: "linear-gradient(180deg, rgba(0,0,0,0.3), transparent)",
+              }}>
                 <h3 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: 22,
+                  fontSize: 24,
                   fontWeight: 700,
                   color: "white",
-                  margin: "0 0 10px 0",
+                  margin: "0 0 12px 0",
                   letterSpacing: "-0.5px",
-                  lineHeight: 1.2,
+                  lineHeight: 1.15,
                 }}>
                   {member.name}
                 </h3>
                 <p style={{
                   fontFamily: "var(--font-outfit)",
-                  fontSize: 14,
+                  fontSize: 15,
                   fontWeight: 600,
                   color: C_BRIGHT,
                   margin: "0 0 8px 0",
-                  lineHeight: 1.4,
+                  lineHeight: 1.45,
                 }}>
                   {member.title}
                 </p>
                 <p style={{
                   fontFamily: "var(--font-outfit)",
-                  fontSize: 13,
+                  fontSize: 14,
                   fontWeight: 400,
                   color: "rgba(255,255,255,0.5)",
                   margin: 0,
@@ -2250,25 +2261,52 @@ function AdvisoryBoard() {
                 </p>
               </div>
               
-              {/* Top accent line */}
-              <div style={{ position: "absolute", top: 0, left: "20%", right: "20%", height: 2, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}50, transparent)` }} />
-            </div>
+              {/* Top accent glow line */}
+              <div style={{ 
+                position: "absolute", 
+                top: 0, 
+                left: 0,
+                right: 0, 
+                height: 2, 
+                background: `linear-gradient(90deg, transparent 10%, ${C_BRIGHT}60 50%, transparent 90%)`,
+                boxShadow: `0 0 20px ${C_BRIGHT}40`,
+              }} />
+            </motion.div>
           ))}
         </div>
       </div>
 
       <style jsx global>{`
+        .cfk-speaker-card {
+          cursor: pointer;
+        }
         .cfk-speaker-card:hover {
-          transform: translateY(-12px) scale(1.02) !important;
-          border-color: ${C_BRIGHT}40 !important;
-          box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 60px ${C}25 !important;
+          transform: translateY(-16px) scale(1.03) rotateX(2deg) !important;
+          border-color: rgba(255,255,255,0.15) !important;
+          box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 80px ${C}30, inset 0 1px 0 rgba(255,255,255,0.1) !important;
         }
-        .cfk-speaker-card:hover img {
-          transform: scale(1.08);
+        .cfk-speaker-card:hover .cfk-card-border {
+          opacity: 1 !important;
         }
-        .cfk-speaker-card:hover .cfk-speaker-glow {
-          border-color: ${C_BRIGHT}50;
-          box-shadow: 0 0 40px ${C_BRIGHT}20;
+        .cfk-speaker-card:hover .cfk-speaker-photo {
+          transform: scale(1.15) !important;
+        }
+        .cfk-speaker-card::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 24px;
+          padding: 1px;
+          background: linear-gradient(135deg, ${C_BRIGHT}00, ${C_BRIGHT}40, ${C_BRIGHT}00);
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          opacity: 0;
+          transition: opacity 0.4s ease;
+        }
+        .cfk-speaker-card:hover::before {
+          opacity: 1;
         }
       `}</style>
     </section>
