@@ -827,7 +827,7 @@ function HeroSection() {
         </div>
       </motion.div>
 
-      {/* Bottom Countdown Bar */}
+{/* Bottom Countdown Bar */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }} 
         animate={{ opacity: 1, y: 0 }} 
@@ -841,25 +841,25 @@ function HeroSection() {
           background: "rgba(8,5,6,0.97)", 
           backdropFilter: "blur(20px)", 
           borderTop: "1px solid rgba(255,255,255,0.06)", 
-          padding: "18px 0",
+          padding: "14px 0",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 20, maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, maxWidth: 1400, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
           
           {/* Left - Date */}
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
             <span style={{ width: 10, height: 10, borderRadius: "50%", background: KENYA_ACCENT }} />
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 700, letterSpacing: "0.5px", textTransform: "uppercase", color: "white" }}>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 700, letterSpacing: "0.5px", textTransform: "uppercase", color: "white" }}>
               8 JULY 2026
             </span>
             <span style={{ color: "rgba(255,255,255,0.2)", margin: "0 2px" }}>|</span>
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.5)" }}>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 400, color: "rgba(255,255,255,0.5)" }}>
               Cyber First East Africa
             </span>
           </div>
 
           {/* Center - Countdown */}
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
             {[
               { v: cd.d, l: "DAYS" }, 
               { v: cd.h, l: "HRS" }, 
@@ -867,10 +867,10 @@ function HeroSection() {
               { v: cd.s, l: "SEC" }
             ].map((u, i) => (
               <div key={u.l} style={{ display: "flex", alignItems: "center" }}>
-                <div style={{ textAlign: "center", minWidth: 48 }}>
+                <div style={{ textAlign: "center", minWidth: 44 }}>
                   <span style={{ 
                     fontFamily: "var(--font-display)", 
-                    fontSize: 28, 
+                    fontSize: 24, 
                     fontWeight: 700, 
                     color: C_BRIGHT, 
                     letterSpacing: "-1px", 
@@ -880,17 +880,17 @@ function HeroSection() {
                   </span>
                   <span style={{ 
                     fontFamily: "var(--font-outfit)", 
-                    fontSize: 10, 
+                    fontSize: 9, 
                     fontWeight: 500, 
                     letterSpacing: "1px", 
                     color: "rgba(255,255,255,0.4)", 
                     display: "block",
-                    marginTop: 2,
+                    marginTop: 1,
                   }}>
                     {u.l}
                   </span>
                 </div>
-                {i < 3 && <span style={{ color: "rgba(255,255,255,0.15)", fontSize: 22, margin: "0 2px" }}>:</span>}
+                {i < 3 && <span style={{ color: "rgba(255,255,255,0.15)", fontSize: 18, margin: "0 1px" }}>:</span>}
               </div>
             ))}
           </div>
@@ -900,16 +900,17 @@ function HeroSection() {
             href="#register"
             onClick={(e) => { e.preventDefault(); document.getElementById("register")?.scrollIntoView({ behavior: "smooth" }); }}
             style={{ 
-              padding: "14px 28px", 
+              padding: "12px 24px", 
               borderRadius: 50, 
               background: C, 
               fontFamily: "var(--font-outfit)", 
-              fontSize: 14, 
+              fontSize: 13, 
               fontWeight: 600, 
               color: "white", 
               textDecoration: "none", 
               cursor: "pointer",
               transition: "all 0.3s ease",
+              flexShrink: 0,
             }}
             onMouseEnter={(e) => { e.currentTarget.style.background = C_BRIGHT; }}
             onMouseLeave={(e) => { e.currentTarget.style.background = C; }}
@@ -921,7 +922,6 @@ function HeroSection() {
     </section>
   );
 }
-
 // ─── STATS BAR ───────────────────────────────────────────────────────────────
 function StatsBar() {
   const ref = useRef(null);
