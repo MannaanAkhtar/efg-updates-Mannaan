@@ -611,159 +611,96 @@ export default function CyberFirstKenya2026() {
 // ─── HERO SECTION ────────────────────────────────────────────────────────────
 function HeroSection() {
   const cd = useCountdown(EVENT_DATE);
-  const heroRef = useRef<HTMLElement>(null);
-  
-  // Parallax on scroll
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={heroRef} id="overview" className="cfk-hero" style={{ position: "relative", height: "100vh", minHeight: 700, overflow: "hidden", background: "#0A0608" }}>
-      {/* Nairobi Skyline Background — with parallax */}
-      <motion.div className="absolute inset-0" style={{ y: bgY, scale: bgScale }}>
+    <section id="overview" className="cfk-hero" style={{ position: "relative", height: "100vh", minHeight: 720, overflow: "hidden", background: "#0A0608" }}>
+      {/* Background Image - Nairobi with Cyber Shield */}
+      <div className="absolute inset-0">
         <img
           src="https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/kenya-cyber.png"
-          alt="Nairobi Skyline with Cyber Network"
+          alt="Nairobi Cyber Security Hub"
           className="w-full h-full object-cover"
-          style={{ filter: "brightness(0.45) saturate(1.1)", minHeight: "120%" }}
+          style={{ filter: "brightness(0.55)" }}
         />
-      </motion.div>
-
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: `linear-gradient(90deg, rgba(10,6,8,0.95) 0%, rgba(10,6,8,0.7) 40%, rgba(10,6,8,0.4) 70%, rgba(10,6,8,0.3) 100%)`, zIndex: 1 }} />
-      <div className="absolute inset-0 pointer-events-none" style={{ background: `linear-gradient(to bottom, rgba(10,6,8,0.5) 0%, transparent 30%, transparent 70%, rgba(10,6,8,0.95) 100%)`, zIndex: 1 }} />
-
-      {/* Animated ambient glow — breathing effect */}
-      <motion.div 
-        className="absolute inset-0 pointer-events-none cfk-hero-glow"
-        animate={{ opacity: [0.4, 0.7, 0.4] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        style={{ background: `radial-gradient(ellipse 60% 50% at 80% 60%, ${KENYA_ACCENT}20, transparent 70%)`, zIndex: 2 }}
-      />
-      <motion.div 
-        className="absolute inset-0 pointer-events-none"
-        animate={{ opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        style={{ background: `radial-gradient(ellipse 40% 40% at 20% 30%, ${C}15, transparent 60%)`, zIndex: 2 }}
-      />
-
-      {/* Cyber effects */}
-      <NeuralConstellation color={C} dotCount={25} connectionDistance={120} speed={0.15} opacity={0.05} />
-      <DotMatrixGrid color={C} opacity={0.01} spacing={40} />
-
-      {/* Subtle grid pattern */}
-      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: `linear-gradient(${C}03 1px, transparent 1px), linear-gradient(90deg, ${C}03 1px, transparent 1px)`, backgroundSize: "50px 50px", opacity: 0.5, zIndex: 2 }} />
-
-      {/* Floating particles */}
-      <div className="cfk-particles absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              width: 3 + (i % 3) * 2,
-              height: 3 + (i % 3) * 2,
-              background: i % 2 === 0 ? C_BRIGHT : KENYA_ACCENT,
-              left: `${15 + i * 15}%`,
-              top: `${20 + (i % 3) * 25}%`,
-              opacity: 0.3,
-              filter: "blur(1px)",
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, 10 * (i % 2 === 0 ? 1 : -1), 0],
-              opacity: [0.2, 0.5, 0.2],
-            }}
-            transition={{
-              duration: 5 + i,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: i * 0.5,
-            }}
-          />
-        ))}
       </div>
 
-      {/* Content — fades on scroll */}
-      <motion.div className="cfk-hero-content" style={{ opacity: contentOpacity, position: "relative", zIndex: 10, height: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+      {/* Left gradient for text readability */}
+      <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(10,6,8,0.92) 0%, rgba(10,6,8,0.8) 30%, rgba(10,6,8,0.4) 55%, transparent 75%)", zIndex: 1 }} />
+      
+      {/* Bottom gradient */}
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 60%, rgba(10,6,8,0.9) 90%, rgba(10,6,8,1) 100%)", zIndex: 1 }} />
 
-        {/* Silicon Savannah Badge — glassmorphism */}
+      {/* Main Content */}
+      <div style={{ position: "relative", zIndex: 10, height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", paddingBottom: 100 }}>
+
+        {/* Date Badge */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.9, y: 20 }} 
-          animate={{ opacity: 1, scale: 1, y: 0 }} 
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }} 
-          className="cfk-hero-badge"
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.5, delay: 0.2 }} 
           style={{ 
             display: "inline-flex", 
             alignItems: "center", 
             alignSelf: "flex-start", 
-            gap: 12, 
-            padding: "10px 20px", 
-            borderRadius: 100, 
-            background: "rgba(255,255,255,0.06)", 
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            border: `1px solid rgba(255,255,255,0.1)`, 
-            marginBottom: 28,
-            boxShadow: `0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1)`,
+            gap: 14, 
+            padding: "12px 22px", 
+            borderRadius: 50, 
+            background: "rgba(20,15,18,0.85)", 
+            border: "1px solid rgba(255,255,255,0.08)", 
+            marginBottom: 40,
+            backdropFilter: "blur(12px)",
           }}
         >
-          <motion.span 
-            animate={{ scale: [1, 1.3, 1], opacity: [0.8, 1, 0.8] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            style={{ width: 8, height: 8, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 12px ${C_BRIGHT}` }} 
-          />
-          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.9)" }}>
-            8 July 2026 · Nairobi · The Silicon Savannah
+          <span style={{ width: 10, height: 10, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 10px ${C_BRIGHT}` }} />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase", color: "white" }}>
+            8 JULY 2026
+          </span>
+          <span style={{ color: "rgba(255,255,255,0.25)", fontSize: 18 }}>|</span>
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 500, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(255,255,255,0.7)" }}>
+            NAIROBI
           </span>
         </motion.div>
 
-        {/* Headline — gradient shimmer text */}
-        <motion.h1 
-          initial={{ opacity: 0, y: 40 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }} 
-          className="cfk-hero-main-headline"
-          style={{ 
+        {/* Main Headline - Beyond Firewalls */}
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}>
+          <h1 style={{ 
             fontFamily: "var(--font-display)", 
-            fontWeight: 900, 
-            fontSize: "clamp(42px, 7vw, 88px)", 
-            lineHeight: 1, 
-            letterSpacing: "-0.04em", 
-            margin: "0 0 16px", 
-            maxWidth: 800,
-            background: `linear-gradient(135deg, #ffffff 0%, #ffffff 40%, ${C_BRIGHT} 50%, #ffffff 60%, #ffffff 100%)`,
-            backgroundSize: "200% 100%",
-            WebkitBackgroundClip: "text",
-            backgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            textShadow: "none",
-            filter: `drop-shadow(0 4px 30px ${C}40)`,
-          }}
-        >
-          Beyond Firewalls
-        </motion.h1>
-        
+            fontWeight: 800, 
+            fontSize: "clamp(56px, 10vw, 130px)", 
+            lineHeight: 0.9, 
+            letterSpacing: "-0.03em", 
+            color: "#FFFFFF", 
+            margin: 0,
+          }}>
+            Beyond
+          </h1>
+          <h1 style={{ 
+            fontFamily: "var(--font-display)", 
+            fontWeight: 800, 
+            fontSize: "clamp(56px, 10vw, 130px)", 
+            lineHeight: 0.9, 
+            letterSpacing: "-0.03em", 
+            color: C_BRIGHT, 
+            margin: "0 0 28px 0",
+          }}>
+            Firewalls
+          </h1>
+        </motion.div>
+
+        {/* Subheadline - Italic */}
         <motion.h2 
-          initial={{ opacity: 0, y: 30 }} 
+          initial={{ opacity: 0, y: 20 }} 
           animate={{ opacity: 1, y: 0 }} 
-          transition={{ duration: 0.9, delay: 0.7, ease: [0.22, 1, 0.36, 1] }} 
+          transition={{ duration: 0.6, delay: 0.5 }} 
           style={{ 
             fontFamily: "var(--font-display)", 
-            fontWeight: 700, 
-            fontSize: "clamp(18px, 2.5vw, 28px)", 
-            lineHeight: 1.3, 
-            background: `linear-gradient(135deg, ${C_BRIGHT}, ${KENYA_ACCENT})`,
-            WebkitBackgroundClip: "text",
-            backgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            margin: "0 0 32px", 
-            maxWidth: 600 
+            fontWeight: 500, 
+            fontStyle: "italic",
+            fontSize: "clamp(22px, 3.5vw, 40px)", 
+            lineHeight: 1.2, 
+            color: C_BRIGHT, 
+            margin: "0 0 20px 0", 
+            maxWidth: 580,
           }}
         >
           Strategic Cyber Defense for Kenya&apos;s Digital Age
@@ -771,199 +708,213 @@ function HeroSection() {
 
         {/* Description */}
         <motion.p 
-          initial={{ opacity: 0, y: 20 }} 
+          initial={{ opacity: 0, y: 16 }} 
           animate={{ opacity: 1, y: 0 }} 
-          transition={{ duration: 0.8, delay: 0.9, ease: [0.22, 1, 0.36, 1] }} 
-          style={{ fontFamily: "var(--font-outfit)", fontWeight: 400, fontSize: "clamp(15px, 1.4vw, 18px)", color: "rgba(255,255,255,0.7)", lineHeight: 1.8, maxWidth: 520, marginBottom: 36 }}
+          transition={{ duration: 0.5, delay: 0.6 }} 
+          style={{ 
+            fontFamily: "var(--font-outfit)", 
+            fontWeight: 400, 
+            fontSize: "clamp(15px, 1.4vw, 18px)", 
+            color: "rgba(255,255,255,0.65)", 
+            lineHeight: 1.65, 
+            maxWidth: 500, 
+            margin: "0 0 40px 0",
+          }}
         >
-          East Africa&apos;s premier cybersecurity summit. Where C-level executives, technology leaders, and policymakers synchronize efforts against escalating digital warfare in the Silicon Savannah.
+          East Africa&apos;s premier cybersecurity summit bringing together C-level executives, technology leaders, and policymakers.
         </motion.p>
 
-        {/* Location pill */}
+        {/* CTA Buttons */}
         <motion.div 
-          initial={{ opacity: 0, x: -20 }} 
-          animate={{ opacity: 1, x: 0 }} 
-          transition={{ duration: 0.6, delay: 1.1, ease: [0.22, 1, 0.36, 1] }} 
-          style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 40, padding: "8px 16px 8px 12px", borderRadius: 100, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", width: "fit-content" }}
-        >
-          <div style={{ width: 28, height: 28, borderRadius: "50%", background: `${KENYA_ACCENT}20`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={KENYA_ACCENT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-              <circle cx="12" cy="9" r="2.5" />
-            </svg>
-          </div>
-          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 500, color: "rgba(255,255,255,0.8)" }}>
-            Nairobi, Kenya
-          </span>
-        </motion.div>
-
-        {/* CTAs — with glow effects */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }} 
+          initial={{ opacity: 0, y: 16 }} 
           animate={{ opacity: 1, y: 0 }} 
-          transition={{ duration: 0.8, delay: 1.3, ease: [0.22, 1, 0.36, 1] }} 
-          className="cfk-cta-row" 
+          transition={{ duration: 0.5, delay: 0.7 }} 
           style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}
         >
-          {/* Primary CTA — glowing button */}
+          {/* Reserve Your Seat */}
           <a
             href="#register"
             onClick={(e) => { e.preventDefault(); document.getElementById("register")?.scrollIntoView({ behavior: "smooth" }); }}
-            className="cfk-hero-cta-primary"
             style={{ 
               display: "inline-flex", 
               alignItems: "center", 
-              gap: 10, 
-              padding: "18px 40px", 
-              borderRadius: 100, 
-              background: `linear-gradient(135deg, ${C_BRIGHT}, ${C})`, 
+              gap: 12, 
+              padding: "18px 38px", 
+              borderRadius: 50, 
+              background: C, 
               color: "white", 
               fontFamily: "var(--font-outfit)", 
-              fontSize: 15, 
-              fontWeight: 700, 
+              fontSize: 16, 
+              fontWeight: 600, 
               textDecoration: "none", 
-              boxShadow: `0 4px 24px ${C}50, 0 12px 48px ${C}30, inset 0 1px 0 rgba(255,255,255,0.2)`, 
               cursor: "pointer", 
-              transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
-              position: "relative",
-              overflow: "hidden",
+              transition: "all 0.3s ease",
+              boxShadow: `0 4px 24px ${C}50`,
             }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = C_BRIGHT; e.currentTarget.style.transform = "translateY(-2px)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = C; e.currentTarget.style.transform = "translateY(0)"; }}
           >
-            <span style={{ position: "relative", zIndex: 1 }}>Reserve Your Seat</span>
-            <span style={{ position: "relative", zIndex: 1 }}>→</span>
+            Reserve Your Seat <span style={{ fontSize: 18 }}>→</span>
           </a>
           
-          {/* Secondary CTA — glass button */}
+          {/* Become a Sponsor */}
           <a
-            href="#register"
-            onClick={(e) => { e.preventDefault(); document.getElementById("register")?.scrollIntoView({ behavior: "smooth" }); }}
-            className="cfk-hero-cta-secondary"
+            href="#enquire"
+            onClick={(e) => { e.preventDefault(); document.getElementById("enquire")?.scrollIntoView({ behavior: "smooth" }); }}
             style={{ 
               display: "inline-flex", 
               alignItems: "center", 
-              gap: 10, 
-              padding: "18px 36px", 
-              borderRadius: 100, 
+              padding: "18px 34px", 
+              borderRadius: 50, 
               background: "rgba(255,255,255,0.06)", 
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
               color: "rgba(255,255,255,0.9)", 
               fontFamily: "var(--font-outfit)", 
-              fontSize: 15, 
-              fontWeight: 600, 
+              fontSize: 16, 
+              fontWeight: 500, 
               textDecoration: "none", 
-              border: "1px solid rgba(255,255,255,0.15)", 
+              border: "1px solid rgba(255,255,255,0.18)", 
               cursor: "pointer", 
-              transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1)",
+              transition: "all 0.3s ease",
+              backdropFilter: "blur(10px)",
             }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.12)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)"; }}
           >
             Become a Sponsor
           </a>
         </motion.div>
-      </motion.div>
+      </div>
 
-      {/* Scroll indicator */}
+      {/* Supporting Partner - NC4 (Bottom Right) */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 0.8 }}
-        className="absolute left-1/2 -translate-x-1/2"
-        style={{ bottom: 140, zIndex: 15, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}
-      >
-        <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 500, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(255,255,255,0.4)" }}>Scroll</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          style={{ width: 24, height: 40, borderRadius: 12, border: "2px solid rgba(255,255,255,0.2)", display: "flex", justifyContent: "center", paddingTop: 8 }}
-        >
-          <motion.div
-            animate={{ y: [0, 12, 0], opacity: [1, 0.3, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            style={{ width: 4, height: 8, borderRadius: 2, background: "rgba(255,255,255,0.4)" }}
-          />
-        </motion.div>
-      </motion.div>
-
-      {/* Supporting Partners strip — absolute, above countdown */}
-      <motion.div
-        className="cfk-partners-strip"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.7, delay: 1, ease: EASE }}
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.9 }}
         style={{
           position: "absolute",
-          bottom: 110,
-          right: 0,
-          zIndex: 20,
+          bottom: 120,
+          right: "clamp(24px, 5vw, 80px)",
+          zIndex: 15,
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 32,
-          background: "transparent",
-          padding: "18px clamp(24px, 5vw, 80px)",
+          alignItems: "flex-end",
+          gap: 14,
         }}
       >
-        {/* Label */}
         <span style={{
           fontFamily: "var(--font-outfit)",
-          fontSize: 14,
-          fontWeight: 700,
+          fontSize: 12,
+          fontWeight: 600,
           letterSpacing: "2.5px",
           textTransform: "uppercase",
           color: KENYA_ACCENT,
-          whiteSpace: "nowrap",
-          textDecoration: "underline",
-          textUnderlineOffset: "6px",
         }}>
-          Supporting Partners
+          Supporting Partner
         </span>
-
-        {/* Partner logos */}
-        <div style={{ display: "flex", alignItems: "center", gap: 48, flexWrap: "wrap", justifyContent: "center" }}>
-          {SUPPORTING_PARTNERS.map((p) => (
-            <div key={p.name} style={{ height: 85, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={p.logo} alt={p.name} loading="lazy" style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain", transform: "scale(1.5)" }} />
-            </div>
-          ))}
+        <div style={{ 
+          background: "white", 
+          borderRadius: 8, 
+          padding: "14px 22px",
+          boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+        }}>
+          {SUPPORTING_PARTNERS[0] && (
+            <img 
+              src={SUPPORTING_PARTNERS[0].logo} 
+              alt={SUPPORTING_PARTNERS[0].name} 
+              style={{ height: 55, objectFit: "contain" }} 
+            />
+          )}
         </div>
       </motion.div>
 
       {/* Bottom Countdown Bar */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 1.2, ease: EASE }} className="cfk-countdown-bar absolute bottom-0 left-0 right-0" style={{ zIndex: 20, background: "rgba(10,6,8,0.92)", backdropFilter: "blur(16px)", borderTop: `1px solid ${C}20`, padding: "18px 0" }}>
-        <div className="cfk-bottom-bar flex items-center justify-between flex-wrap gap-4" style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span className="relative flex h-3 w-3">
-              <span className="absolute inline-flex h-full w-full rounded-full animate-ping" style={{ background: KENYA_ACCENT, opacity: 0.75 }} />
-              <span className="relative inline-flex rounded-full h-3 w-3" style={{ background: KENYA_ACCENT }} />
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.6, delay: 1 }} 
+        style={{ 
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 20, 
+          background: "rgba(8,5,6,0.97)", 
+          backdropFilter: "blur(20px)", 
+          borderTop: "1px solid rgba(255,255,255,0.06)", 
+          padding: "18px 0",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 20, maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+          
+          {/* Left - Date */}
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <span style={{ width: 10, height: 10, borderRadius: "50%", background: KENYA_ACCENT }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 700, letterSpacing: "0.5px", textTransform: "uppercase", color: "white" }}>
+              8 JULY 2026
             </span>
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: KENYA_ACCENT }}>8 July 2026</span>
-            <span style={{ color: "rgba(255,255,255,0.15)", margin: "0 4px" }}>|</span>
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.5)" }}>Cyber First East Africa</span>
+            <span style={{ color: "rgba(255,255,255,0.2)", margin: "0 2px" }}>|</span>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.5)" }}>
+              Cyber First East Africa
+            </span>
           </div>
 
+          {/* Center - Countdown */}
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            {[{ v: cd.d, l: "Days" }, { v: cd.h, l: "Hrs" }, { v: cd.m, l: "Min" }, { v: cd.s, l: "Sec" }].map((u, i) => (
-              <div key={u.l} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <div className="text-center">
-                  <span style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 800, color: C_BRIGHT, letterSpacing: "-1px", lineHeight: 1 }}>{String(u.v).padStart(2, "0")}</span>
-                  <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", display: "block", marginTop: 2 }}>{u.l}</span>
+            {[
+              { v: cd.d, l: "DAYS" }, 
+              { v: cd.h, l: "HRS" }, 
+              { v: cd.m, l: "MIN" }, 
+              { v: cd.s, l: "SEC" }
+            ].map((u, i) => (
+              <div key={u.l} style={{ display: "flex", alignItems: "center" }}>
+                <div style={{ textAlign: "center", minWidth: 48 }}>
+                  <span style={{ 
+                    fontFamily: "var(--font-display)", 
+                    fontSize: 28, 
+                    fontWeight: 700, 
+                    color: C_BRIGHT, 
+                    letterSpacing: "-1px", 
+                    display: "block",
+                  }}>
+                    {String(u.v).padStart(2, "0")}
+                  </span>
+                  <span style={{ 
+                    fontFamily: "var(--font-outfit)", 
+                    fontSize: 10, 
+                    fontWeight: 500, 
+                    letterSpacing: "1px", 
+                    color: "rgba(255,255,255,0.4)", 
+                    display: "block",
+                    marginTop: 2,
+                  }}>
+                    {u.l}
+                  </span>
                 </div>
-                {i < 3 && <span style={{ color: `${C}30`, fontSize: 20, fontWeight: 300, marginLeft: 4 }}>:</span>}
+                {i < 3 && <span style={{ color: "rgba(255,255,255,0.15)", fontSize: 22, margin: "0 2px" }}>:</span>}
               </div>
             ))}
           </div>
 
+          {/* Right - Register Button */}
           <a
             href="#register"
             onClick={(e) => { e.preventDefault(); document.getElementById("register")?.scrollIntoView({ behavior: "smooth" }); }}
-            style={{ padding: "12px 28px", borderRadius: 50, background: C, fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 600, color: "white", textDecoration: "none", boxShadow: `0 4px 16px ${C}35`, cursor: "pointer", transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)" }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = C_BRIGHT; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 12px 40px ${C}50`; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = C; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = `0 4px 16px ${C}35`; }}
+            style={{ 
+              padding: "14px 28px", 
+              borderRadius: 50, 
+              background: C, 
+              fontFamily: "var(--font-outfit)", 
+              fontSize: 14, 
+              fontWeight: 600, 
+              color: "white", 
+              textDecoration: "none", 
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = C_BRIGHT; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = C; }}
           >
-            Register Now →
+            Register
           </a>
         </div>
       </motion.div>
