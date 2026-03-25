@@ -631,7 +631,7 @@ function HeroSection() {
       <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 60%, rgba(10,6,8,0.9) 90%, rgba(10,6,8,1) 100%)", zIndex: 1 }} />
 
       {/* Main Content */}
-      <div style={{ position: "relative", zIndex: 10, height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", paddingBottom: 100 }}>
+      <div style={{ position: "relative", zIndex: 10, height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", paddingTop: 140, paddingBottom: 100 }}>
 
         {/* Date Badge */}
         <motion.div 
