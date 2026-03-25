@@ -53,8 +53,8 @@ const EVENT_CONFIGS: Record<string, {
   "/events/cyber-first/india-2026": {
     name: "Cyber First India 2026",
     shortName: "Cyber First India",
-    color: "#01BBF5",
-    colorBright: "#4DD4FF",
+    color: "#09B7AA",
+    colorBright: "#3DD4C8",
     date: "16 June 2026",
     location: "New Delhi",
     logo: "/Asset-5.svg",

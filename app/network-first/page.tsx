@@ -37,6 +37,32 @@ const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 
 const UPCOMING_EVENTS = [
   {
+    date: "April 8th, 2026",
+    month: "APR",
+    day: "08",
+    year: "2026",
+    time: "11:00 AM GST",
+    title: "Braze Virtual Roundtable",
+    subtitle: "Marketing Through Uncertainty — Customer Engagement Strategies for MENAT",
+    sponsor: "Braze",
+    location: "Virtual",
+    link: "https://braze-webinar.eventsfirstgroup.com",
+    image: "/braze/sg-heat1-5.png",
+  },
+  {
+    date: "April 15th, 2026",
+    month: "APR",
+    day: "15",
+    year: "2026",
+    time: "11:00 AM GST",
+    title: "Braze Virtual Roundtable 2",
+    subtitle: "Marketing Through Uncertainty — Customer Engagement Strategies for MENAT",
+    sponsor: "Braze",
+    location: "Virtual",
+    link: "https://braze-webinar-2.eventsfirstgroup.com",
+    image: "/braze2/hero-bg.jpg",
+  },
+  {
     date: "April 29th, 2026",
     month: "APR",
     day: "29",
@@ -1403,31 +1429,33 @@ function UpcomingSection() {
   const inView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <section ref={ref} style={{ position: "relative", overflow: "hidden", padding: "clamp(80px, 10vw, 120px) 24px", background: BG_ALT }}>
+    <section ref={ref} style={{ position: "relative", overflow: "hidden", padding: "clamp(100px, 12vw, 140px) 24px", background: BG }}>
       {/* Gold border top */}
-      <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{ height: 1, background: `linear-gradient(90deg, transparent 0%, rgba(201,147,90,0.15) 50%, transparent 100%)`, zIndex: 2 }} />
+      <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{ height: 1, background: `linear-gradient(90deg, transparent 0%, ${GOLD_30} 50%, transparent 100%)`, zIndex: 2 }} />
 
-      {/* Ambient orb */}
-      <div className="absolute pointer-events-none" style={{ top: "20%", right: "-8%", width: 400, height: 400, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(201,147,90,0.04) 0%, transparent 70%)", filter: "blur(80px)" }} />
+      {/* Atmospheric glows */}
+      <div className="absolute pointer-events-none" style={{ top: "-10%", left: "50%", transform: "translateX(-50%)", width: 800, height: 500, borderRadius: "50%", background: `radial-gradient(ellipse, rgba(201,147,90,0.06) 0%, transparent 60%)`, filter: "blur(100px)" }} />
+      <div className="absolute pointer-events-none" style={{ bottom: "10%", right: "-5%", width: 400, height: 400, borderRadius: "50%", background: `radial-gradient(ellipse, rgba(201,147,90,0.04) 0%, transparent 70%)`, filter: "blur(80px)" }} />
+      <div className="absolute pointer-events-none" style={{ bottom: "10%", left: "-5%", width: 300, height: 300, borderRadius: "50%", background: `radial-gradient(ellipse, rgba(201,147,90,0.03) 0%, transparent 70%)`, filter: "blur(60px)" }} />
 
-      <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 1 }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative", zIndex: 1 }}>
         {/* Header */}
-        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ textAlign: "center", marginBottom: 64 }}>
-          <div className="flex items-center justify-center gap-3" style={{ marginBottom: 16 }}>
-            <span style={{ width: 28, height: 1, background: GOLD }} />
-            <p style={{ fontSize: 12, color: GOLD, letterSpacing: "0.2em", textTransform: "uppercase", margin: 0, fontWeight: 600 }}>Upcoming Sessions</p>
-            <span style={{ width: 28, height: 1, background: GOLD }} />
+        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ textAlign: "center", marginBottom: 72 }}>
+          <div className="flex items-center justify-center gap-3" style={{ marginBottom: 20 }}>
+            <span style={{ width: 32, height: 1, background: `linear-gradient(90deg, transparent, ${GOLD})` }} />
+            <p style={{ fontSize: 11, color: GOLD, letterSpacing: "0.25em", textTransform: "uppercase", margin: 0, fontWeight: 700 }}>Upcoming Sessions</p>
+            <span style={{ width: 32, height: 1, background: `linear-gradient(270deg, transparent, ${GOLD})` }} />
           </div>
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(36px, 5.5vw, 52px)", fontWeight: 800, lineHeight: 1.1, margin: "0 0 14px", letterSpacing: "-0.03em", color: TEXT }}>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(38px, 5.5vw, 56px)", fontWeight: 800, lineHeight: 1.08, margin: "0 0 16px", letterSpacing: "-0.03em", color: TEXT }}>
             What&apos;s next<span style={{ color: GOLD }}>.</span>
           </h2>
-          <p style={{ fontSize: 15, color: TEXT_30, lineHeight: 1.65, margin: "0 auto", maxWidth: 520 }}>
-            Secure your seat at an upcoming boardroom session.
+          <p style={{ fontSize: 15, color: TEXT_30, lineHeight: 1.65, margin: "0 auto", maxWidth: 480 }}>
+            Secure your seat at an upcoming executive session.
           </p>
         </motion.div>
 
-        {/* Event Cards */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+        {/* Event Cards — Row layout */}
+        <div className="upcoming-row" style={{ display: "grid", gridTemplateColumns: `repeat(${UPCOMING_EVENTS.length}, 1fr)`, gap: 24 }}>
           {UPCOMING_EVENTS.map((e, idx) => (
             <motion.a
               key={e.title}
@@ -1437,87 +1465,79 @@ function UpcomingSection() {
               variants={fadeUp} custom={idx + 1} initial="hidden" animate={inView ? "visible" : "hidden"}
               className="upcoming-event-card"
               style={{
-                display: "block",
-                borderRadius: 14,
+                display: "flex",
+                flexDirection: "column",
+                borderRadius: 18,
                 overflow: "hidden",
-                background: "rgba(255,255,255,0.02)",
-                border: "1px solid rgba(201,147,90,0.08)",
+                background: "rgba(255,255,255,0.03)",
+                backdropFilter: "blur(16px)",
+                WebkitBackdropFilter: "blur(16px)",
+                border: "1px solid rgba(201,147,90,0.12)",
                 textDecoration: "none",
                 position: "relative",
-                padding: "clamp(28px, 4vw, 44px)",
-                transition: "border-color 0.3s ease",
+                transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
             >
-              {/* Background event photo */}
-              <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-                <img src={e.image} alt="Network First executive boardroom session" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.2) saturate(0.7)" }} />
-                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.65) 100%)` }} />
-              </div>
-              {/* Gold top accent */}
-              <div style={{ position: "absolute", top: 0, left: "clamp(32px, 4vw, 48px)", width: 40, height: 2, background: `linear-gradient(90deg, ${GOLD}, ${GOLD_30})`, borderRadius: 1, zIndex: 2 }} />
-              {/* Gold left accent */}
-              <div style={{ position: "absolute", top: 20, bottom: 20, left: 0, width: 2, background: `linear-gradient(to bottom, ${GOLD}, ${GOLD_30})`, borderRadius: 1, zIndex: 2 }} />
-
-              <div className="upcoming-inner" style={{ display: "grid", gridTemplateColumns: "auto 1px 1fr", gap: "clamp(24px, 4vw, 40px)", alignItems: "center", position: "relative", zIndex: 1 }}>
-                {/* Date Block */}
-                <div style={{ textAlign: "center", minWidth: 100, position: "relative" }}>
+              {/* Card image area */}
+              <div style={{ position: "relative", height: 180, overflow: "hidden" }}>
+                <img src={e.image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.35) saturate(0.8)", transition: "transform 0.6s ease" }} className="upcoming-card-img" />
+                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.9) 100%)` }} />
+                {/* Gold shimmer line at top */}
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${GOLD_50}, transparent)` }} />
+                {/* Date badge overlay */}
+                <div style={{ position: "absolute", top: 16, left: 20, display: "flex", alignItems: "center", gap: 10 }}>
                   {idx === 0 && (
                     <span style={{
-                      display: "inline-block", fontSize: 9, fontWeight: 700, color: GOLD,
-                      letterSpacing: "0.15em", textTransform: "uppercase",
-                      background: "rgba(201,147,90,0.1)", border: "1px solid rgba(201,147,90,0.15)",
-                      borderRadius: 5, padding: "3px 10px", marginBottom: 12,
-                    }}>Next Event</span>
+                      fontSize: 9, fontWeight: 700, color: "#000",
+                      letterSpacing: "0.12em", textTransform: "uppercase",
+                      background: GOLD, borderRadius: 4, padding: "4px 10px",
+                    }}>Next</span>
                   )}
-                  <p style={{ fontSize: 13, color: GOLD, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 2px", fontWeight: 700 }}>{e.month}</p>
-                  <p style={{
-                    fontFamily: "var(--font-display)", fontSize: "clamp(60px, 10vw, 100px)", fontWeight: 800,
-                    color: GOLD, lineHeight: 0.85, margin: 0, letterSpacing: "-0.04em",
-                    textShadow: "0 0 50px rgba(201,147,90,0.25)",
-                  }}>{e.day}</p>
-                  <p style={{ fontSize: 12, color: TEXT_30, letterSpacing: "0.12em", margin: "6px 0 0", fontWeight: 500 }}>{e.year}</p>
+                  <span style={{
+                    fontSize: 12, color: TEXT, fontWeight: 600, letterSpacing: "0.03em",
+                    background: "rgba(0,0,0,0.5)", backdropFilter: "blur(8px)",
+                    padding: "5px 12px", borderRadius: 6, border: "1px solid rgba(255,255,255,0.08)",
+                  }}>{e.date}</span>
                 </div>
-
-                {/* Vertical divider */}
-                <div className="upcoming-divider" style={{ width: 1, alignSelf: "stretch", background: `linear-gradient(to bottom, transparent, ${GOLD_30}, ${GOLD}, ${GOLD_30}, transparent)` }} />
-
-                {/* Event Details */}
-                <div>
-                  {/* Sponsor tag */}
+                {/* Sponsor badge bottom-left */}
+                <div style={{ position: "absolute", bottom: 16, left: 20 }}>
                   <span style={{
                     display: "inline-block", fontSize: 10, fontWeight: 700, color: BG,
-                    background: GOLD, borderRadius: 5, padding: "4px 12px",
-                    letterSpacing: "0.03em", marginBottom: 14,
+                    background: `linear-gradient(135deg, ${GOLD}, #D9A96A)`, borderRadius: 6, padding: "5px 14px",
+                    letterSpacing: "0.04em", boxShadow: `0 4px 16px rgba(201,147,90,0.25)`,
                   }}>{e.sponsor}</span>
-
-                  <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(20px, 3vw, 28px)", fontWeight: 800, color: TEXT, margin: "0 0 10px", lineHeight: 1.15, letterSpacing: "-0.02em" }}>{e.title}</h3>
-                  <p style={{ fontSize: 14, color: TEXT_50, margin: "0 0 18px", lineHeight: 1.6, maxWidth: 440 }}>{e.subtitle}</p>
-
-                  {/* Meta row */}
-                  <div className="flex items-center gap-4" style={{ flexWrap: "wrap", marginBottom: 20 }}>
-                    <div className="flex items-center gap-2">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
-                      <span style={{ fontSize: 13, color: TEXT_50 }}>{e.location}</span>
-                    </div>
-                    <span style={{ width: 3, height: 3, borderRadius: "50%", background: GOLD_30 }} />
-                    <div className="flex items-center gap-2">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
-                      <span style={{ fontSize: 13, color: TEXT_50 }}>{e.time}</span>
-                    </div>
-                  </div>
-
-                  {/* CTA */}
-                  <span style={{
-                    display: "inline-flex", alignItems: "center", gap: 8,
-                    fontSize: 13, color: GOLD, fontWeight: 700,
-                    padding: "12px 26px", border: `1.5px solid ${GOLD}`,
-                    borderRadius: 980, transition: "all 0.3s ease",
-                    letterSpacing: "0.02em",
-                  }}>
-                    Register Now
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                  </span>
                 </div>
+              </div>
+
+              {/* Card content */}
+              <div style={{ padding: "24px 24px 28px", display: "flex", flexDirection: "column", flex: 1 }}>
+                <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(18px, 2vw, 21px)", fontWeight: 800, color: TEXT, margin: "0 0 8px", lineHeight: 1.2, letterSpacing: "-0.02em" }}>{e.title}</h3>
+                <p style={{ fontSize: 13, color: TEXT_50, margin: "0 0 20px", lineHeight: 1.6, flex: 1 }}>{e.subtitle}</p>
+
+                {/* Meta */}
+                <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 22, flexWrap: "wrap" }}>
+                  <div className="flex items-center gap-2">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                    <span style={{ fontSize: 12, color: TEXT_50, fontWeight: 500 }}>{e.location}</span>
+                  </div>
+                  <span style={{ width: 3, height: 3, borderRadius: "50%", background: GOLD_30 }} />
+                  <div className="flex items-center gap-2">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
+                    <span style={{ fontSize: 12, color: TEXT_50, fontWeight: 500 }}>{e.time}</span>
+                  </div>
+                </div>
+
+                {/* CTA */}
+                <span className="upcoming-cta" style={{
+                  display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  fontSize: 13, color: GOLD, fontWeight: 700,
+                  padding: "12px 24px", border: `1.5px solid ${GOLD}`,
+                  borderRadius: 980, transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
+                  letterSpacing: "0.02em", alignSelf: "flex-start",
+                }}>
+                  Register Now
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                </span>
               </div>
             </motion.a>
           ))}
@@ -1527,15 +1547,16 @@ function UpcomingSection() {
         <motion.div
           variants={fadeUp} custom={UPCOMING_EVENTS.length + 1} initial="hidden" animate={inView ? "visible" : "hidden"}
           style={{
-            marginTop: 24,
-            padding: "18px 28px",
+            marginTop: 32,
+            padding: "20px 32px",
             background: "rgba(201,147,90,0.03)",
-            border: "1px solid rgba(201,147,90,0.08)",
+            border: "1px solid rgba(201,147,90,0.1)",
             borderRadius: 14,
+            backdropFilter: "blur(8px)",
           }}
         >
           <div className="flex items-center justify-center gap-3" style={{ flexWrap: "wrap" }}>
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: GOLD, boxShadow: `0 0 12px rgba(201,147,90,0.4)` }} />
+            <span style={{ width: 7, height: 7, borderRadius: "50%", background: GOLD, boxShadow: `0 0 14px rgba(201,147,90,0.5)` }} />
             <p style={{ fontSize: 14, color: TEXT_50, margin: 0 }}>
               More sessions coming for <span style={{ color: GOLD, fontWeight: 600 }}>Q2 &amp; Q3 2026</span> &mdash; stay tuned.
             </p>
@@ -1544,16 +1565,26 @@ function UpcomingSection() {
       </div>
 
       {/* Gold border bottom */}
-      <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: 1, background: `linear-gradient(90deg, transparent 0%, rgba(201,147,90,0.15) 50%, transparent 100%)`, zIndex: 2 }} />
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: 1, background: `linear-gradient(90deg, transparent 0%, ${GOLD_30} 50%, transparent 100%)`, zIndex: 2 }} />
 
       <style jsx global>{`
-        @media (max-width: 640px) {
-          .upcoming-inner { grid-template-columns: 1fr !important; text-align: center; }
-          .upcoming-inner > div:first-child { margin-bottom: 8px; }
-          .upcoming-inner > div:last-child { text-align: left; }
-          .upcoming-divider { display: none; }
+        @media (max-width: 900px) {
+          .upcoming-row { grid-template-columns: 1fr 1fr !important; }
         }
-        .upcoming-event-card:hover { border-color: rgba(201,147,90,0.25) !important; }
+        @media (max-width: 600px) {
+          .upcoming-row { grid-template-columns: 1fr !important; }
+        }
+        .upcoming-event-card:hover {
+          border-color: rgba(201,147,90,0.3) !important;
+          transform: translateY(-5px);
+          box-shadow: 0 20px 60px rgba(201,147,90,0.12), 0 8px 24px rgba(0,0,0,0.3);
+        }
+        .upcoming-event-card:hover .upcoming-card-img {
+          transform: scale(1.05);
+        }
+        .upcoming-event-card:hover .upcoming-cta {
+          background: rgba(201,147,90,0.1);
+        }
       `}</style>
     </section>
   );

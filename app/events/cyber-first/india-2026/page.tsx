@@ -18,8 +18,8 @@ import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/for
 import type { FormType, CountryCode } from "@/lib/form-helpers";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
-const C = "#01BBF5";
-const C_BRIGHT = "#4DD4FF";
+const C = "#09B7AA";
+const C_BRIGHT = "#3DD4C8";
 const EASE = [0.16, 1, 0.3, 1] as const;
 const WP = "https://cyberfirstseries.com/wp-content/uploads";
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com";
@@ -331,13 +331,7 @@ export default function CyberFirstIndia2026() {
       <style jsx global>{`
         @media (max-width: 1024px) {
           .cfi-hero-info-card { display: none !important; }
-          .cfi-hero-right { width: auto !important; }
           .cfi-hero-inner { flex-wrap: wrap !important; }
-          .cfi-hero-partners-mobile { display: flex !important; }
-          .cfi-hero-partners-desktop { display: none !important; }
-        }
-        @media (min-width: 1025px) {
-          .cfi-hero-partners-mobile { display: none !important; }
         }
         @media (max-width: 768px) {
           .cfi-hero-section { min-height: 100vh !important; height: auto !important; }
@@ -347,6 +341,10 @@ export default function CyberFirstIndia2026() {
           .cfi-hero-left { padding-bottom: 0 !important; }
           .cfi-hero-ctas { padding-bottom: 20px !important; }
           .cfi-hero-gradient-side { background: linear-gradient(to bottom, rgba(5,8,16,0.85) 0%, rgba(5,8,16,0.7) 40%, rgba(5,8,16,0.6) 70%, rgba(5,8,16,0.9) 100%) !important; }
+          .cfi-partners-strip { align-self: stretch !important; padding: 14px 16px !important; flex-direction: column !important; align-items: center !important; gap: 10px !important; border-radius: 12px !important; margin-top: 20px !important; }
+          .cfi-partners-strip img { transform: scale(1) !important; }
+          .cfi-partners-strip > div:last-child { justify-content: center !important; gap: 12px !important; }
+          .cfi-partners-divider { display: none !important; }
           .cfi-bottom-bar { flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 12px !important; padding: 0 16px !important; }
           .cfi-bottom-bar > a { width: 100% !important; text-align: center !important; padding: 12px 24px !important; font-size: 14px !important; }
         }
@@ -432,6 +430,15 @@ function HeroSection() {
       <NeuralConstellation color={C} dotCount={30} connectionDistance={140} speed={0.2} opacity={0.06} />
       <DotMatrixGrid color={C} opacity={0.012} spacing={36} />
 
+      {/* Subtle accent glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 50% 50% at 80% 60%, ${C}12, transparent 70%)`,
+          zIndex: 2,
+        }}
+      />
+
       {/* Cyber grid */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -452,10 +459,10 @@ function HeroSection() {
             zIndex: 10,
             height: "100vh",
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-start",
             maxWidth: 1320,
             margin: "0 auto",
-            padding: "0 clamp(24px, 5vw, 80px)",
+            padding: "150px clamp(24px, 5vw, 80px) 0",
             gap: 48,
           }}
         >
@@ -463,24 +470,24 @@ function HeroSection() {
           <div className="cfi-hero-left" style={{ display: "flex", flexDirection: "column", justifyContent: "center", flex: 1 }}>
           {/* Edition Badge */}
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
-            style={{ marginTop: 72, marginBottom: 24 }}
+            style={{ marginBottom: 20 }}
           >
             <div
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: 8,
-                padding: "8px 16px",
+                gap: 10,
+                padding: "9px 18px",
                 borderRadius: 30,
-                background: `${C}15`,
+                background: `linear-gradient(135deg, ${C}15, ${C}08)`,
                 border: `1px solid ${C}30`,
               }}
             >
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT }} />
-              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: C_BRIGHT }}>
+              <span style={{ width: 7, height: 7, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 8px ${C_BRIGHT}` }} />
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: C_BRIGHT }}>
                 India Edition · 16 June 2026
               </span>
             </div>
@@ -494,17 +501,17 @@ function HeroSection() {
             style={{
               fontFamily: "var(--font-display)",
               fontWeight: 900,
-              fontSize: "clamp(36px, 5vw, 72px)",
-              lineHeight: 1.08,
+              fontSize: "clamp(34px, 4.8vw, 66px)",
+              lineHeight: 1.06,
               letterSpacing: "-0.03em",
               color: "#F0F2F5",
-              margin: "0 0 28px",
+              margin: "0 0 14px",
               maxWidth: 700,
             }}
           >
             <span
               style={{
-                background: `linear-gradient(110deg, ${C_BRIGHT} 0%, #fff 50%, ${C_BRIGHT} 100%)`,
+                backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, #fff 50%, ${C_BRIGHT} 100%)`,
                 backgroundSize: "250% 100%",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
@@ -525,11 +532,11 @@ function HeroSection() {
             style={{
               fontFamily: "var(--font-outfit)",
               fontWeight: 400,
-              fontSize: "clamp(15px, 1.4vw, 18px)",
-              color: "rgba(255,255,255,0.6)",
-              lineHeight: 1.6,
-              maxWidth: 480,
-              marginBottom: 32,
+              fontSize: "clamp(15px, 1.3vw, 17px)",
+              color: "rgba(255,255,255,0.7)",
+              lineHeight: 1.65,
+              maxWidth: 500,
+              marginBottom: 28,
             }}
           >
             India's premier cybersecurity summit bringing together CISOs, government leaders, and enterprise security executives in New Delhi.
@@ -540,13 +547,13 @@ function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.6, ease: EASE }}
-            style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 32 }}
+            style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 28 }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
             </svg>
             <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 500, color: "rgba(255,255,255,0.7)" }}>
-              New Delhi, India
+              The Lalit Ashok, New Delhi
             </span>
           </motion.div>
 
@@ -556,7 +563,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.0, ease: EASE }}
-            style={{ display: "flex", gap: 16, flexWrap: "wrap", paddingBottom: 80 }}
+            style={{ display: "flex", gap: 14, flexWrap: "wrap" }}
           >
             <a
               href="#register?tab=pass"
@@ -570,7 +577,7 @@ function HeroSection() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                padding: "14px 34px",
+                padding: "14px 32px",
                 borderRadius: 50,
                 background: C,
                 color: "#050810",
@@ -635,76 +642,63 @@ function HeroSection() {
             </a>
           </motion.div>
 
-          {/* Supporting Partners — mobile */}
-          <motion.div
-            className="cfi-hero-partners-mobile"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.2, ease: EASE }}
-            style={{ display: "none", flexDirection: "column", alignItems: "center", gap: 10, marginBottom: 40 }}
-          >
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(255,255,255,0.3)" }}>Supporting Partners</span>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14 }}>
-              {[
-                { name: "CCA", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/CCA.png" },
-                { name: "Coder Flow AI", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/coder_flowAI.png" },
-                { name: "Crime Free Bharat", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/Crime_free_bharat.JPG" },
-                { name: "Cyber World", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/Cyber_world.png" },
-                { name: "Cyber Security Council", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/cybersecuritycouncil.png" },
-              ].map((p) => (
-                <div key={p.name} style={{ height: 44, display: "flex", alignItems: "center" }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.logo} alt={p.name} loading="lazy" style={{ maxHeight: "100%", maxWidth: 64, objectFit: "contain", borderRadius: 4 }} />
-                </div>
-              ))}
-            </div>
-          </motion.div>
           </div>
 
-          {/* Right — Supporting Partners glass card */}
-          <div className="cfi-hero-right" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flexShrink: 0, width: 400 }}>
-            <motion.div
-              className="cfi-hero-partners-desktop"
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 1.2, ease: EASE }}
-              style={{
-                width: "100%",
-                background: "rgba(255,255,255,0.04)",
-                backdropFilter: "blur(20px)",
-                border: `1px solid ${C}25`,
-                borderRadius: 20,
-                padding: "36px 32px",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: 24,
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}40, transparent)` }} />
-              <div style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `radial-gradient(ellipse 70% 60% at 50% 30%, ${C}10, transparent 70%)` }} />
-              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: C_BRIGHT, position: "relative" }}>Supporting Partners</span>
-              <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}40, transparent)` }} />
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, position: "relative", width: "100%" }}>
-                {[
-                  { name: "CCA", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/CCA.png" },
-                  { name: "Coder Flow AI", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/coder_flowAI.png" },
-                  { name: "Crime Free Bharat", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/Crime_free_bharat.JPG" },
-                  { name: "Cyber World", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/Cyber_world.png" },
-                  { name: "Cyber Security Council", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/cybersecuritycouncil.png" },
-                ].map((p, idx) => (
-                  <div key={p.name} style={{ height: 80, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={p.logo} alt={p.name} loading="lazy" style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain", transform: idx === 4 ? "scale(1.7)" : "scale(1.35)" }} />
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
         </div>
       </div>
+
+      {/* Supporting Partners strip — full width, above countdown */}
+      <motion.div
+        className="cfi-partners-strip"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.7, delay: 1, ease: EASE }}
+        style={{
+          position: "absolute",
+          bottom: 110,
+          right: 0,
+          zIndex: 20,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 32,
+          background: "transparent",
+          padding: "18px clamp(24px, 5vw, 80px)",
+        }}
+      >
+
+        {/* Label */}
+        <span style={{
+          fontFamily: "var(--font-outfit)",
+          fontSize: 14,
+          fontWeight: 700,
+          letterSpacing: "2.5px",
+          textTransform: "uppercase",
+          color: C_BRIGHT,
+          whiteSpace: "nowrap",
+          textDecoration: "underline",
+          textUnderlineOffset: "6px",
+        }}>
+          Supporting Partners
+        </span>
+
+        {/* Partner logos */}
+        <div style={{ display: "flex", alignItems: "center", gap: 48, flexWrap: "wrap", justifyContent: "center" }}>
+          {[
+            { name: "CCA", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/CCA.png" },
+            { name: "Coder Flow AI", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/coder_flowAI.png" },
+            { name: "Crime Free Bharat", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/Crime_free_bharat.JPG" },
+            { name: "Cyber World", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/Cyber_world.png" },
+            { name: "Cyber Security Council", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/support+partner+/cybersecuritycouncil.png" },
+          ].map((p, idx) => (
+            <div key={p.name} style={{ height: 85, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={p.logo} alt={p.name} loading="lazy" style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain", transform: idx === 4 ? "scale(1.8)" : "scale(1.5)" }} />
+            </div>
+          ))}
+        </div>
+      </motion.div>
 
       {/* Bottom bar with countdown */}
       <motion.div
@@ -865,7 +859,7 @@ function StatsBar() {
             letterSpacing: "-2px",
             lineHeight: 1.1,
             margin: "0 0 28px",
-            background: `linear-gradient(135deg, ${C_BRIGHT} 0%, #ffffff 50%, ${C_BRIGHT} 100%)`,
+            backgroundImage: `linear-gradient(135deg, ${C_BRIGHT} 0%, #ffffff 50%, ${C_BRIGHT} 100%)`,
             backgroundSize: "200% 100%",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
@@ -2158,7 +2152,7 @@ function Venue() {
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
         <div className="cfi-venue-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center" }}>
           <motion.div initial={{ opacity: 0, x: -30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ borderRadius: 20, overflow: "hidden", aspectRatio: "16/10" }}>
-            <img src="https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/9a14e6cefad958c880dabffebfedb6cc682048f6-2880x1395.avif" alt="Taj Palace Hotel New Delhi" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            <img src="https://efg-final.s3.eu-north-1.amazonaws.com/delhi2-bg.png" alt="The Lalit Ashok Hotel New Delhi" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, delay: 0.2, ease: EASE }}>
             <div className="flex items-center gap-3" style={{ marginBottom: 16 }}>
@@ -2166,13 +2160,13 @@ function Venue() {
               <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: C }}>Venue</span>
             </div>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 3.5vw, 40px)", letterSpacing: "-1px", color: "white", lineHeight: 1.1, margin: "0 0 16px" }}>
-              Cyber First India 2026<br />Delhi Edition
+              The Lalit Ashok<br />New Delhi
             </h2>
             <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, marginBottom: 24 }}>
-              India's premier cybersecurity summit bringing together the nation's top CISOs, government leaders, and enterprise security executives in the capital city. A world-class venue for world-class conversations.
+              Set in the heart of Chanakyapuri — New Delhi's diplomatic enclave — The Lalit Ashok offers a world-class setting for India's most important cybersecurity conversations. Where the nation's top CISOs, government leaders, and enterprise security executives convene.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {[{ icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z", text: "New Delhi, India" }, { icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", text: "16 June 2026 · 8:30 AM – 4:00 PM" }].map((item) => (
+              {[{ icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z", text: "The Lalit Ashok, Chanakyapuri, New Delhi" }, { icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", text: "16 June 2026 · 8:30 AM – 4:00 PM" }].map((item) => (
                 <div key={item.text} style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C} strokeWidth="1.5"><path d={item.icon} /></svg>
                   <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.7)" }}>{item.text}</span>

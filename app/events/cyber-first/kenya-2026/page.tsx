@@ -202,6 +202,10 @@ const WHO_ATTEND_INDUSTRIES = [
   { name: "Manufacturing & Industrial", pct: 10 },
 ];
 
+// Supporting Partners (shown in hero strip above countdown)
+const SUPPORTING_PARTNERS = [
+  { name: "NC4", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/NC4+Logo.jpeg" },
+];
 
 // Kenya Advisory Board (key government & policy leaders from brochure)
 const ADVISORY_BOARD = [
@@ -234,6 +238,12 @@ const ADVISORY_BOARD = [
     title: "Director IT and Digital",
     org: "SBM Bank Kenya",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Hussein_Omar_Hussein.jpg",
+  },
+  {
+    name: "Frank Muriuki",
+    title: "CISO",
+    org: "Kenya Airport Authority",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Frank-Muriuki%C2%A0.png",
   },
 ];
 
@@ -437,7 +447,13 @@ export default function CyberFirstKenya2026() {
         }
         @media (max-width: 768px) {
           .cfk-hero h1 { font-size: clamp(28px, 9vw, 42px) !important; }
-          .cfk-hero-content { padding: 0 20px !important; }
+          .cfk-hero-content { padding: 0 20px !important; padding-bottom: 200px !important; justify-content: flex-start !important; padding-top: 90px !important; }
+          .cfk-partners-strip { bottom: 80px !important; padding: 14px 16px !important; gap: 16px !important; }
+          .cfk-partners-strip img { transform: scale(1) !important; }
+          .cfk-partners-strip > div:last-child { gap: 20px !important; }
+          .cfk-countdown-bar { padding: 8px 0 !important; }
+          .cfk-countdown-bar .text-center span:first-child { font-size: 18px !important; }
+          .cfk-countdown-bar .text-center span:last-child { font-size: 9px !important; }
           .cfk-bento-overview { grid-template-columns: 1fr !important; }
           .cfk-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .cfk-focus-grid { grid-template-columns: 1fr !important; }
@@ -562,43 +578,56 @@ function HeroSection() {
           </a>
 
         </motion.div>
-
-        {/* NC4 Official Support Partner — standalone prominent card */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1, ease: EASE }}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            alignSelf: "flex-start",
-            gap: 18,
-            marginTop: 28,
-            background: "rgba(255,255,255,0.05)",
-            backdropFilter: "blur(20px)",
-            border: `1px solid ${C}25`,
-            borderRadius: 16,
-            padding: "16px 28px",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${KENYA_ACCENT}30, transparent)` }} />
-          <div style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `radial-gradient(ellipse 60% 80% at 80% 50%, ${KENYA_ACCENT}08, transparent 70%)` }} />
-          <div style={{ position: "relative" }}>
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: KENYA_ACCENT, display: "block" }}>Official Support Partner</span>
-          </div>
-          <span style={{ width: 1, height: 44, background: "rgba(255,255,255,0.1)" }} />
-          <img
-            src="https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/NC4+Logo.jpeg"
-            alt="NC4 - National Computer & Cybercrimes Coordination Committee"
-            style={{ height: 70, width: "auto", borderRadius: 8, objectFit: "contain" }}
-          />
-        </motion.div>
       </div>
 
+      {/* Supporting Partners strip — absolute, above countdown */}
+      <motion.div
+        className="cfk-partners-strip"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.7, delay: 1, ease: EASE }}
+        style={{
+          position: "absolute",
+          bottom: 110,
+          right: 0,
+          zIndex: 20,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 32,
+          background: "transparent",
+          padding: "18px clamp(24px, 5vw, 80px)",
+        }}
+      >
+        {/* Label */}
+        <span style={{
+          fontFamily: "var(--font-outfit)",
+          fontSize: 14,
+          fontWeight: 700,
+          letterSpacing: "2.5px",
+          textTransform: "uppercase",
+          color: KENYA_ACCENT,
+          whiteSpace: "nowrap",
+          textDecoration: "underline",
+          textUnderlineOffset: "6px",
+        }}>
+          Supporting Partners
+        </span>
+
+        {/* Partner logos */}
+        <div style={{ display: "flex", alignItems: "center", gap: 48, flexWrap: "wrap", justifyContent: "center" }}>
+          {SUPPORTING_PARTNERS.map((p) => (
+            <div key={p.name} style={{ height: 85, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={p.logo} alt={p.name} loading="lazy" style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain", transform: "scale(1.5)" }} />
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
       {/* Bottom Countdown Bar */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 1.2, ease: EASE }} className="absolute bottom-0 left-0 right-0" style={{ zIndex: 20, background: "rgba(10,6,8,0.92)", backdropFilter: "blur(16px)", borderTop: `1px solid ${C}20`, padding: "18px 0" }}>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 1.2, ease: EASE }} className="cfk-countdown-bar absolute bottom-0 left-0 right-0" style={{ zIndex: 20, background: "rgba(10,6,8,0.92)", backdropFilter: "blur(16px)", borderTop: `1px solid ${C}20`, padding: "18px 0" }}>
         <div className="cfk-bottom-bar flex items-center justify-between flex-wrap gap-4" style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <span className="relative flex h-3 w-3">
