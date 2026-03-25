@@ -473,6 +473,86 @@ export default function CyberFirstKenya2026() {
         /* Smooth transitions for all interactive elements */
         a, button { transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
         
+        /* ═══ GLOBAL CARD ENHANCEMENTS ═══ */
+        /* All cards get premium lift on hover */
+        [class*="cfk-"][class*="-card"]:hover,
+        [class*="cfkn-"][class*="-card"]:hover {
+          transform: translateY(-6px) scale(1.01) !important;
+        }
+        
+        /* Focus Area cards */
+        .cfk-focus-card {
+          background: linear-gradient(165deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 50%, rgba(0,0,0,0.05) 100%) !important;
+          backdrop-filter: blur(20px) !important;
+          -webkit-backdrop-filter: blur(20px) !important;
+          border: 1px solid rgba(255,255,255,0.08) !important;
+          box-shadow: 0 4px 24px rgba(0,0,0,0.3), 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.08) !important;
+          transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1) !important;
+        }
+        .cfk-focus-card:hover {
+          border-color: rgba(255,255,255,0.15) !important;
+          box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 16px 48px rgba(0,0,0,0.3), 0 0 60px ${C}10, inset 0 1px 0 rgba(255,255,255,0.12) !important;
+        }
+        
+        /* Agenda cards */
+        .cfk-agenda-card, .cfk-agenda-item {
+          backdrop-filter: blur(16px) !important;
+          -webkit-backdrop-filter: blur(16px) !important;
+          transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important;
+        }
+        
+        /* Award cards */
+        .cfk-award-card {
+          background: linear-gradient(165deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%) !important;
+          backdrop-filter: blur(24px) !important;
+          -webkit-backdrop-filter: blur(24px) !important;
+          border: 1px solid rgba(255,255,255,0.08) !important;
+          transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1) !important;
+        }
+        .cfk-award-card:hover {
+          transform: translateY(-8px) !important;
+          border-color: rgba(212,168,75,0.3) !important;
+          box-shadow: 0 12px 48px rgba(212,168,75,0.15), 0 4px 24px rgba(0,0,0,0.4) !important;
+        }
+        
+        /* Who attends cards */
+        .cfk-attend-card {
+          backdrop-filter: blur(20px) !important;
+          -webkit-backdrop-filter: blur(20px) !important;
+        }
+        
+        /* Gallery images */
+        .cfk-gallery-item img {
+          transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+        }
+        .cfk-gallery-item:hover img {
+          transform: scale(1.08) !important;
+          filter: brightness(1.1) !important;
+        }
+        
+        /* Marquee logos glow on hover */
+        .cfkn-marquee-inner img {
+          transition: all 0.4s ease !important;
+        }
+        .cfkn-marquee-inner > div:hover img {
+          filter: brightness(0) invert(1) drop-shadow(0 0 20px rgba(255,255,255,0.3)) !important;
+          opacity: 1 !important;
+        }
+        
+        /* Section headlines — gradient shimmer */
+        @keyframes cfk-section-shimmer {
+          0%, 100% { background-position: 200% center; }
+          50% { background-position: 0% center; }
+        }
+        
+        /* Stats cards premium */
+        .cfk-stat-card {
+          backdrop-filter: blur(20px) !important;
+          -webkit-backdrop-filter: blur(20px) !important;
+          border: 1px solid rgba(255,255,255,0.06) !important;
+          transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1) !important;
+        }
+        
         .cfk-stat-card:hover {
           transform: translateY(-4px) !important;
           border-color: ${C_BRIGHT}35 !important;
