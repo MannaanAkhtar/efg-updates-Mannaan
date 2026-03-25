@@ -631,7 +631,7 @@ function HeroSection() {
       <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 60%, rgba(10,6,8,0.9) 90%, rgba(10,6,8,1) 100%)", zIndex: 1 }} />
 
       {/* Main Content */}
-      <div style={{ position: "relative", zIndex: 10, height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", paddingTop: 140, paddingBottom: 100 }}>
+      <div style={{ position: "relative", zIndex: 10, height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-start", maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", paddingTop: 120, paddingBottom: 140 }}>
 
         {/* Date Badge */}
         <motion.div 
@@ -792,7 +792,7 @@ function HeroSection() {
         transition={{ duration: 0.6, delay: 0.9 }}
         style={{
           position: "absolute",
-          bottom: 120,
+          bottom: 130,
           right: "clamp(24px, 5vw, 80px)",
           zIndex: 15,
           display: "flex",
@@ -1253,7 +1253,7 @@ function StatsBar() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
-          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 24, marginTop: 28 }}
+          style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 24, marginTop: 28 }}
           className="cfk-event-meta"
         >
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -1362,7 +1362,7 @@ function SiliconSavannahContext() {
       </div>
 
       {/* Africa continent outline with threat pulse points */}
-      <div className="absolute inset-0 pointer-events-none" style={{ display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2, top: "-5%" }}>
+      <div className="absolute inset-0 pointer-events-none" style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", zIndex: 2, top: "-5%" }}>
         <svg viewBox="0 0 600 700" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "min(90vw, 900px)", height: "auto", opacity: 1 }}>
           {/* Africa outline — accurate wireframe */}
           <path
@@ -1547,7 +1547,7 @@ function SiliconSavannahContext() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.5, ease: EASE }}
-          style={{ textAlign: "center", marginBottom: 24, display: "flex", alignItems: "center", justifyContent: "center", gap: 20 }}
+          style={{ textAlign: "center", marginBottom: 24, display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 20 }}
         >
           <div style={{ flex: 1, maxWidth: 120, height: 1, background: `linear-gradient(90deg, transparent, ${C}20)` }} />
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -1613,7 +1613,7 @@ function SiliconSavannahContext() {
               <div className="cfk-whynow-bar" style={{ position: "absolute", top: "18%", bottom: "18%", left: 0, width: stat.highlight ? 3 : 2, background: `linear-gradient(180deg, transparent, ${stat.highlight ? `${C_BRIGHT}65` : `${C_BRIGHT}25`}, transparent)`, borderRadius: "0 3px 3px 0", transition: "all 0.4s ease" }} />
 
               {/* Status badge */}
-              <div style={{ marginBottom: 10, display: "flex", justifyContent: "center" }}>
+              <div style={{ marginBottom: 10, display: "flex", justifyContent: "flex-start" }}>
                 <span style={{
                   display: "inline-flex", alignItems: "center", gap: 4,
                   padding: "2px 8px", borderRadius: 20,
@@ -1649,7 +1649,7 @@ function SiliconSavannahContext() {
               </div>
 
               {/* Trend indicator */}
-              <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3, marginBottom: 8 }}>
+              <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center", gap: 3, marginBottom: 8 }}>
                 <svg width="8" height="8" viewBox="0 0 10 10" fill="none" style={{ opacity: 0.8 }}>
                   <path d="M5 1 L9 6 L6.5 6 L6.5 9 L3.5 9 L3.5 6 L1 6 Z" fill={C_BRIGHT} />
                 </svg>
@@ -1704,7 +1704,7 @@ function SiliconSavannahContext() {
           {/* Tags + source */}
           <div style={{ textAlign: "center" }}>
             <div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center", marginBottom: 16 }}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "flex-start", marginBottom: 16 }}>
                 {["2022–2027 National Cybersecurity Strategy", "AI-Powered Fraud Prevention", "KE-CIRT/CC Reports", "Internet Service Providers (ISPs)", "CSOC Operations"].map((tag, i) => (
                   <motion.span
                     key={tag}
@@ -1726,7 +1726,7 @@ function SiliconSavannahContext() {
               </div>
 
               {/* Source citation */}
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 6 }}>
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none" style={{ opacity: 0.25 }}>
                   <circle cx="5" cy="5" r="4" stroke="rgba(255,255,255,0.55)" strokeWidth="0.8" fill="none" />
                   <path d="M5 3 L5 5.5 L6.5 6.5" stroke="rgba(255,255,255,0.55)" strokeWidth="0.8" strokeLinecap="round" />
@@ -2010,7 +2010,7 @@ function FocusAreas() {
                     border: `1px solid ${C_BRIGHT}1A`,
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "center",
+                    justifyContent: "flex-start",
                     marginTop: 4,
                     boxShadow: `0 4px 16px ${C}15, inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -1px 0 rgba(0,0,0,0.2)`,
                     transition: "all 0.5s ease",
@@ -2394,7 +2394,7 @@ function SpeakerCard({
               inset: 0,
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "flex-start",
             }}
           >
             <span
@@ -2563,7 +2563,7 @@ function AdvisoryCard({
                 inset: 0,
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "flex-start",
                 background: `linear-gradient(135deg, ${KENYA_ACCENT}20, ${C}15)`,
               }}
             >
@@ -2991,7 +2991,7 @@ function SponsorsSection() {
                     margin: "0 clamp(18px, 2.5vw, 36px)",
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "center",
+                    justifyContent: "flex-start",
                     opacity: 0.55,
                     flexShrink: 0,
                     borderRadius: 8,
@@ -3029,7 +3029,7 @@ function SponsorsSection() {
                     margin: "0 clamp(18px, 2.5vw, 36px)",
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "center",
+                    justifyContent: "flex-start",
                     opacity: 0.55,
                     flexShrink: 0,
                     borderRadius: 8,
@@ -3131,7 +3131,7 @@ function AtmosphereDivider() {
         />
       </motion.div>
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, #090506 0%, transparent 20%, transparent 80%, #090506 100%)" }} />
-      <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "flex-start" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -3866,7 +3866,7 @@ function WhoShouldAttend() {
                 <div style={{
                   width: 30, height: 30, borderRadius: 9,
                   background: `${C_BRIGHT}0E`, border: `1px solid ${C_BRIGHT}1C`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
+                  display: "flex", alignItems: "center", justifyContent: "flex-start",
                   position: "relative",
                 }}>
                   <div style={{ position: "absolute", inset: 3, borderRadius: 6, border: `1px solid ${C_BRIGHT}0A` }} />
@@ -3903,7 +3903,7 @@ function WhoShouldAttend() {
                     width: 34, height: 34, borderRadius: 10,
                     background: hoveredRole === i ? `${C_BRIGHT}1A` : `${C_BRIGHT}08`,
                     border: `1px solid ${hoveredRole === i ? `${C_BRIGHT}38` : `${C_BRIGHT}10`}`,
-                    display: "flex", alignItems: "center", justifyContent: "center",
+                    display: "flex", alignItems: "center", justifyContent: "flex-start",
                     flexShrink: 0, transition: "all 0.3s",
                     boxShadow: hoveredRole === i ? `0 0 16px ${C_BRIGHT}12, inset 0 0 8px ${C_BRIGHT}06` : "none",
                   }}>
@@ -3968,7 +3968,7 @@ function WhoShouldAttend() {
                 <div style={{
                   width: 30, height: 30, borderRadius: 9,
                   background: `${C_BRIGHT}18`, border: `1px solid ${C_BRIGHT}35`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
+                  display: "flex", alignItems: "center", justifyContent: "flex-start",
                   boxShadow: `0 0 12px ${C_BRIGHT}10`,
                   position: "relative",
                 }}>
@@ -4008,7 +4008,7 @@ function WhoShouldAttend() {
                       width: 22, height: 22, borderRadius: 7,
                       background: hoveredInd === i ? `${C_BRIGHT}22` : `${C_BRIGHT}0C`,
                       border: `1px solid ${hoveredInd === i ? `${C_BRIGHT}42` : `${C_BRIGHT}15`}`,
-                      display: "flex", alignItems: "center", justifyContent: "center",
+                      display: "flex", alignItems: "center", justifyContent: "flex-start",
                       flexShrink: 0, transition: "all 0.3s",
                     }}>
                       <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={hoveredInd === i ? C_BRIGHT : `${C_BRIGHT}55`} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "stroke 0.3s" }}>
@@ -4116,7 +4116,7 @@ function AwardsSection() {
 
         {/* ═══ TOP: Header ═══ */}
         <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: EASE }} style={{ textAlign: "center", marginBottom: 28 }}>
-          <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.5, delay: 0.1, ease: EASE }} style={{ width: 60, height: 60, margin: "0 auto 22px", borderRadius: 16, background: `linear-gradient(145deg, ${GOLD}18, ${GOLD}06)`, border: `1px solid ${GOLD}28`, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 8px 48px ${GOLD}15, inset 0 1px 0 ${GOLD}20` }}>
+          <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.5, delay: 0.1, ease: EASE }} style={{ width: 60, height: 60, margin: "0 auto 22px", borderRadius: 16, background: `linear-gradient(145deg, ${GOLD}18, ${GOLD}06)`, border: `1px solid ${GOLD}28`, display: "flex", alignItems: "center", justifyContent: "flex-start", boxShadow: `0 8px 48px ${GOLD}15, inset 0 1px 0 ${GOLD}20` }}>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 9H4.5a2.5 2.5 0 010-5H6M18 9h1.5a2.5 2.5 0 000-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 1012 0V2z" />
             </svg>
@@ -4240,7 +4240,7 @@ function AwardsSection() {
                   </div>
 
                   <button type="submit" className="cfk-nominate-btn" style={{ width: "100%", padding: "16px 32px", borderRadius: 14, background: `linear-gradient(135deg, ${GOLD}, ${GOLD_BRIGHT})`, border: "none", color: "#0A0A0A", fontFamily: "var(--font-display)", fontSize: 14, fontWeight: 700, letterSpacing: "-0.2px", cursor: "pointer", transition: "all 0.35s cubic-bezier(0.16,1,0.3,1)", boxShadow: `0 4px 24px ${GOLD}25`, position: "relative", overflow: "hidden" }}>
-                    <span style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+                    <span style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 8 }}>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" /></svg>
                       Submit Nomination
                     </span>
@@ -4252,7 +4252,7 @@ function AwardsSection() {
                 </form>
               ) : (
                 <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, ease: EASE }} style={{ textAlign: "center", padding: "40px 12px" }}>
-                  <div style={{ width: 60, height: 60, borderRadius: 16, background: `${GOLD}12`, border: `1px solid ${GOLD}30`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px", boxShadow: `0 8px 40px ${GOLD}15` }}>
+                  <div style={{ width: 60, height: 60, borderRadius: 16, background: `${GOLD}12`, border: `1px solid ${GOLD}30`, display: "flex", alignItems: "center", justifyContent: "flex-start", margin: "0 auto 18px", boxShadow: `0 8px 40px ${GOLD}15` }}>
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
                   </div>
                   <h4 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 20, color: "white", margin: "0 0 8px" }}>Nomination Submitted</h4>
@@ -4299,7 +4299,7 @@ function AwardsSection() {
 
                   {/* Icon + Number header */}
                   <div className="flex items-center gap-3" style={{ marginBottom: 14 }}>
-                    <div style={{ width: 36, height: 36, borderRadius: 10, background: `${GOLD}08`, border: `1px solid ${GOLD}15`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all 0.35s" }} className="cfk-award-icon">
+                    <div style={{ width: 36, height: 36, borderRadius: 10, background: `${GOLD}08`, border: `1px solid ${GOLD}15`, display: "flex", alignItems: "center", justifyContent: "flex-start", flexShrink: 0, transition: "all 0.35s" }} className="cfk-award-icon">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={`${GOLD}50`} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d={categoryIcons[i]} /></svg>
                     </div>
                     <span style={{ fontFamily: "var(--font-display)", fontWeight: 200, fontSize: 28, letterSpacing: "-2px", color: `${GOLD}18`, lineHeight: 1, transition: "color 0.35s", marginLeft: "auto" }} className="cfk-award-num">
@@ -4325,7 +4325,7 @@ function AwardsSection() {
               style={{ marginTop: 20, padding: "22px 24px", borderRadius: 16, background: "linear-gradient(145deg, rgba(212,168,75,0.04), rgba(212,168,75,0.01))", border: `1px solid ${GOLD}12` }}
             >
               <h4 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, color: "white", margin: "0 0 16px", display: "flex", alignItems: "center", gap: 10 }}>
-                <div style={{ width: 28, height: 28, borderRadius: 8, background: `${GOLD}0C`, border: `1px solid ${GOLD}18`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ width: 28, height: 28, borderRadius: 8, background: `${GOLD}0C`, border: `1px solid ${GOLD}18`, display: "flex", alignItems: "center", justifyContent: "flex-start" }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5" strokeLinecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
                 </div>
                 Who Can Be Nominated
@@ -4333,7 +4333,7 @@ function AwardsSection() {
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                 {AWARDS_ELIGIBILITY.map((item) => (
                   <div key={item} className="flex items-center gap-3">
-                    <div style={{ width: 20, height: 20, borderRadius: 6, background: `${GOLD}0A`, border: `1px solid ${GOLD}15`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <div style={{ width: 20, height: 20, borderRadius: 6, background: `${GOLD}0A`, border: `1px solid ${GOLD}15`, display: "flex", alignItems: "center", justifyContent: "flex-start", flexShrink: 0 }}>
                       <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={`${GOLD}80`} strokeWidth="3" strokeLinecap="round"><path d="M20 6L9 17l-5-5" /></svg>
                     </div>
                     <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12.5, fontWeight: 450, color: "rgba(255,255,255,0.5)" }}>{item}</span>
@@ -4604,7 +4604,7 @@ function ContactSection() {
                       /* eslint-disable-next-line @next/next/no-img-element */
                       <img src={person.photo} alt={person.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }} />
                     ) : (
-                      <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: `linear-gradient(135deg, ${C}50, ${C}20)` }}>
+                      <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "flex-start", background: `linear-gradient(135deg, ${C}50, ${C}20)` }}>
                         <span style={{ fontFamily: "var(--font-display)", fontSize: 56, fontWeight: 700, color: "white" }}>{person.name.charAt(0)}</span>
                       </div>
                     )}
@@ -4620,11 +4620,11 @@ function ContactSection() {
 
               {/* Contact Actions */}
               <div style={{ display: "flex", flexDirection: "column", gap: 12, position: "relative", zIndex: 1 }}>
-                <a href={`mailto:${person.email}`} className="cfk-contact-btn" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, padding: "14px 20px", borderRadius: 14, background: "rgba(255,255,255,0.06)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.1)", fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.75)", textDecoration: "none", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)", transition: "all 0.3s ease" }}>
+                <a href={`mailto:${person.email}`} className="cfk-contact-btn" style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 10, padding: "14px 20px", borderRadius: 14, background: "rgba(255,255,255,0.06)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.1)", fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.75)", textDecoration: "none", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)", transition: "all 0.3s ease" }}>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.7 }}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><path d="M22 6l-10 7L2 6" /></svg>
                   {person.email}
                 </a>
-                <a href={`https://wa.me/${person.phone.replace(/[\s+]/g, "")}`} target="_blank" rel="noopener noreferrer" className="cfk-whatsapp-btn" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, padding: "16px 20px", borderRadius: 14, background: "linear-gradient(135deg, #25D366 0%, #128C7E 100%)", fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 600, color: "white", textDecoration: "none", boxShadow: "0 4px 20px rgba(37, 211, 102, 0.35), 0 8px 32px rgba(37, 211, 102, 0.2), inset 0 1px 0 rgba(255,255,255,0.2)", transition: "all 0.3s ease" }}>
+                <a href={`https://wa.me/${person.phone.replace(/[\s+]/g, "")}`} target="_blank" rel="noopener noreferrer" className="cfk-whatsapp-btn" style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 10, padding: "16px 20px", borderRadius: 14, background: "linear-gradient(135deg, #25D366 0%, #128C7E 100%)", fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 600, color: "white", textDecoration: "none", boxShadow: "0 4px 20px rgba(37, 211, 102, 0.35), 0 8px 32px rgba(37, 211, 102, 0.2), inset 0 1px 0 rgba(255,255,255,0.2)", transition: "all 0.3s ease" }}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
                   Chat on WhatsApp
                 </a>
@@ -4681,7 +4681,7 @@ function Venue() {
         <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 100% 60% at 50% 100%, ${C}15, transparent 70%)` }} />
         <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 200px 60px rgba(0,0,0,0.5)" }} />
 
-        <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "0 clamp(24px, 5vw, 80px)", zIndex: 2 }}>
+        <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", textAlign: "center", padding: "0 clamp(24px, 5vw, 80px)", zIndex: 2 }}>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={headingInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} style={{ display: "inline-flex", alignItems: "center", gap: 12, padding: "10px 20px", borderRadius: 100, background: "rgba(0,0,0,0.4)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.1)", marginBottom: 24 }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
             <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 600, letterSpacing: "3px", textTransform: "uppercase", color: "rgba(255,255,255,0.8)" }}>The Venue</span>
@@ -4693,7 +4693,7 @@ function Venue() {
         </div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 0.6 }} style={{ position: "absolute", bottom: 40, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 8, zIndex: 2 }}>
-          <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }} style={{ width: 24, height: 40, borderRadius: 12, border: "2px solid rgba(255,255,255,0.3)", display: "flex", justifyContent: "center", paddingTop: 8 }}>
+          <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }} style={{ width: 24, height: 40, borderRadius: 12, border: "2px solid rgba(255,255,255,0.3)", display: "flex", justifyContent: "flex-start", paddingTop: 8 }}>
             <motion.div animate={{ y: [0, 12, 0], opacity: [1, 0.3, 1] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }} style={{ width: 4, height: 8, borderRadius: 2, background: "rgba(255,255,255,0.5)" }} />
           </motion.div>
         </motion.div>
@@ -4716,7 +4716,7 @@ function Venue() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
               {venueDetails.map((item, i) => (
                 <motion.div key={item.label} initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.3 + i * 0.08, ease: [0.22, 1, 0.36, 1] }} className="cfk-detail-card" style={{ padding: "24px 20px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 20, transition: "all 0.3s ease" }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 12, background: `${C}15`, border: `1px solid ${C}25`, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 12, background: `${C}15`, border: `1px solid ${C}25`, display: "flex", alignItems: "center", justifyContent: "flex-start", marginBottom: 16 }}>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d={item.icon} /></svg>
                   </div>
                   <span style={{ fontFamily: "var(--font-dm)", fontSize: 10, fontWeight: 600, color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "2px", display: "block", marginBottom: 6 }}>{item.label}</span>
@@ -4757,7 +4757,7 @@ function RegistrationSection() {
           <p style={{ fontFamily: "var(--font-outfit)", fontSize: 17, color: "rgba(255,255,255,0.75)", lineHeight: 1.7, marginBottom: 40, maxWidth: 500, margin: "0 auto 40px" }}>
             Be part of the Cyber First Movement and lead the charge toward a strategic, resilient, and innovative digital economy in the Silicon Savannah.
           </p>
-          <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: 16, justifyContent: "flex-start", flexWrap: "wrap" }}>
             <Link
               href="/contact"
               style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "18px 40px", borderRadius: 50, background: `linear-gradient(135deg, ${C}, ${C_DIM})`, color: "white", fontFamily: "var(--font-outfit)", fontSize: 16, fontWeight: 700, textDecoration: "none", boxShadow: `0 8px 32px ${C}35`, transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)" }}
