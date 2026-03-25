@@ -232,7 +232,15 @@ export function validatePhone(phone: string, country: CountryCode): string | nul
  */
 export function getSourceCategory(): string {
   if (typeof window === "undefined") return "Server";
+  const h = window.location.hostname;
   const p = window.location.pathname;
+
+  // Subdomain detection — middleware rewrites path to / but we know the actual source
+  if (h.startsWith("braze-webinar-2.")) return "Braze Virtual Roundtable 2";
+  if (h.startsWith("braze-webinar.") || h.startsWith("blaze-webinar.")) return "Braze Virtual Roundtable";
+
+  if (p.startsWith("/braze2")) return "Braze Virtual Roundtable 2";
+  if (p.startsWith("/braze")) return "Braze Virtual Roundtable";
 
   if (p === "/") return "Homepage";
   if (p === "/contact") return "Contact Page";
