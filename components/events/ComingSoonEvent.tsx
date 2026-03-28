@@ -502,7 +502,7 @@ export default function ComingSoonEvent({
 
                   <motion.div custom={3} variants={fieldVariants} initial="hidden" animate="visible" style={{ display: "flex", gap: 8 }}>
                     <select className="cs-select" value={selectedCountry.code} onChange={(e) => { const c = COUNTRY_CODES.find((cc) => cc.code === e.target.value); if (c) setSelectedCountry(c); }} style={{ ...inputStyle, width: 100, flexShrink: 0, cursor: "pointer" }}>
-                      {COUNTRY_CODES.map((c, i) => <option key={`${c.code}-${i}`} value={c.code}>{c.flag} {c.code}</option>)}
+                      {COUNTRY_CODES.map((c, i) => <option key={`${c.code}-${i}`} value={c.code}>{c.country} {c.code}</option>)}
                     </select>
                     <input type="tel" placeholder="Phone *" value={formData.phone} onChange={(e) => { const v = e.target.value.replace(/\D/g, ""); setFormData({ ...formData, phone: v }); }} maxLength={selectedCountry.length} style={inputStyle} onFocus={(e) => { e.currentTarget.style.borderColor = `${color}50`; e.currentTarget.style.boxShadow = `0 0 20px ${color}15`; }} onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; e.currentTarget.style.boxShadow = "none"; }} />
                   </motion.div>
