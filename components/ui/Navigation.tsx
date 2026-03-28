@@ -17,38 +17,43 @@ const navLinks = [
 ];
 
 const eventSeries = [
-  { 
-    href: "/events/cyber-first", 
-    label: "Cyber First", 
+  {
+    href: "/events/cyber-first",
+    label: "Cyber First",
     color: "#01BBF5",
     editions: [
       { href: "/events/cyber-first/kuwait-2026", label: "Kuwait" },
-      { href: "/events/cyber-first/kenya-2026", label: "Nairobi" },
       { href: "/events/cyber-first/india-2026", label: "New Delhi" },
+      { href: "/events/cyber-first/kenya-2026", label: "Nairobi" },
+      { href: "/events/cyber-first/qatar-2026", label: "Qatar" },
+      { href: "/events/cyber-first/oman-2026", label: "Oman" },
+      { href: "/events/cyber-first/ksa-2026", label: "KSA" },
     ]
   },
-  { 
-    href: "/events/ot-security-first", 
-    label: "OT Security First", 
+  {
+    href: "/events/ot-security-first",
+    label: "OT Security First",
     color: "#D34B9A",
     editions: [
-      { href: "/events/ot-security-first", label: "Coming Soon" },
+      { href: "/events/ot-security-first/jubail-2026", label: "Jubail, KSA" },
+      { href: "/events/ot-security-first/oman-2026", label: "Oman" },
     ]
   },
-  { 
-    href: "/events/data-ai-first", 
-    label: "Data & AI First", 
+  {
+    href: "/events/data-ai-first",
+    label: "Data & AI First",
     color: "#0F735E",
     editions: [
-      { href: "/events/data-ai-first/kuwait-2026", label: "Kuwait 2026" },
+      { href: "/events/data-ai-first/kuwait-2026", label: "Kuwait" },
+      { href: "/events/data-ai-first/qatar-2026", label: "Qatar" },
     ]
   },
-  { 
-    href: "/events/opex-first", 
-    label: "Opex First", 
+  {
+    href: "/events/opex-first",
+    label: "Opex First",
     color: "#7C3AED",
     editions: [
-      { href: "/events/opex-first", label: "UAE 2026" },
+      { href: "/events/opex-first/saudi-2026", label: "Saudi Arabia" },
     ]
   },
 ];
