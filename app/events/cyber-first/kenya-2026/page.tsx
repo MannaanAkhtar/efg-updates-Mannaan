@@ -711,7 +711,7 @@ function HeroSection() {
             maxWidth: 520,
           }}
         >
-          Strategic Cyber Defense for Kenya&apos;s Digital Age
+          Strategic Cyber Defense for Digital Age
         </motion.h2>
 
         {/* Description */}
