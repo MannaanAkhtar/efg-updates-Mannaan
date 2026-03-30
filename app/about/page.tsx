@@ -442,83 +442,47 @@ function AboutStory() {
         padding: "clamp(60px, 8vw, 100px) 0",
       }}
     >
-      <div style={{ maxWidth: MAX_W, margin: "0 auto", padding: PAD }}>
-        <div
-          className="story-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "clamp(40px, 6vw, 80px)",
-            alignItems: "center",
-          }}
+      <div style={{ maxWidth: 800, margin: "0 auto", padding: PAD }}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: EASE }}
+          style={{ textAlign: "center" }}
         >
-          {/* Text */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, ease: EASE }}
-          >
-            <SectionLabel text="Our Story" />
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 800,
-                fontSize: "clamp(28px, 4vw, 42px)",
-                letterSpacing: "-1.5px",
-                color: "var(--white)",
-                lineHeight: 1.15,
-                margin: "0 0 24px",
-              }}
-            >
-              Built for the Leaders
-              <br />
-              Who Build the Future
-            </h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "clamp(14px, 1.3vw, 16px)", fontWeight: 300, lineHeight: 1.8, color: "var(--white-muted)" }}>
-                Events First Group was founded in 2023 with a clear conviction: senior
-                technology leaders deserved events built specifically for their world —
-                their challenges, their ambitions, their vision.
-              </p>
-              <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "clamp(14px, 1.3vw, 16px)", fontWeight: 300, lineHeight: 1.8, color: "var(--white-muted)" }}>
-                We built EFG from the ground up — from relationships forged in boardrooms
-                across Dubai, Riyadh, Kuwait City, and Riyadh, to the agenda-curation philosophy
-                that puts practitioner insight above promotional noise.
-              </p>
-              <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "clamp(14px, 1.3vw, 16px)", fontWeight: 300, lineHeight: 1.8, color: "var(--white-muted)" }}>
-                Today, EFG runs four distinct event series across eight annual editions, serving
-                a community of over 5,000 technology decision-makers.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
+          <SectionLabel text="Our Story" centered />
+          <h2
             style={{
-              borderRadius: 20,
-              overflow: "hidden",
-              aspectRatio: "4/3",
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: "clamp(28px, 4vw, 42px)",
+              letterSpacing: "-1.5px",
+              color: "var(--white)",
+              lineHeight: 1.15,
+              margin: "0 0 32px",
             }}
           >
-            <img
-              src="https://efg-final.s3.eu-north-1.amazonaws.com/events/Cyber%20First%20Kuwait%202025/filemail_photos/cyber21-04-410.jpg"
-              alt="EFG Event"
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-          </motion.div>
-        </div>
+            Built for the Leaders
+            <br />
+            Who Build the Future
+          </h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: 20, textAlign: "left" }}>
+            <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "clamp(15px, 1.4vw, 17px)", fontWeight: 300, lineHeight: 1.85, color: "var(--white-muted)" }}>
+              Events First Group was founded in 2023 with a clear conviction: senior
+              technology leaders deserved events built specifically for their world —
+              their challenges, their ambitions, their vision.
+            </p>
+            <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "clamp(15px, 1.4vw, 17px)", fontWeight: 300, lineHeight: 1.85, color: "var(--white-muted)" }}>
+              We built EFG from the ground up — from relationships forged in boardrooms
+              across Dubai, Riyadh, Kuwait City, and Riyadh, to the agenda-curation philosophy
+              that puts practitioner insight above promotional noise.
+            </p>
+            <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "clamp(15px, 1.4vw, 17px)", fontWeight: 300, lineHeight: 1.85, color: "var(--white-muted)" }}>
+              Today, EFG runs four distinct event series across eight annual editions, serving
+              a community of over 5,000 technology decision-makers.
+            </p>
+          </div>
+        </motion.div>
       </div>
-
-      <style jsx global>{`
-        @media (max-width: 860px) {
-          .story-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }
