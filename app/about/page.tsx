@@ -467,18 +467,7 @@ function AboutStory() {
           </h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 20, textAlign: "left" }}>
             <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "clamp(15px, 1.4vw, 17px)", fontWeight: 300, lineHeight: 1.85, color: "var(--white-muted)" }}>
-              Events First Group was founded in 2023 with a clear conviction: senior
-              technology leaders deserved events built specifically for their world,
-              addressing their unique challenges, ambitions, and vision.
-            </p>
-            <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "clamp(15px, 1.4vw, 17px)", fontWeight: 300, lineHeight: 1.85, color: "var(--white-muted)" }}>
-              We built EFG from the ground up, starting with relationships forged in boardrooms
-              across Dubai, Riyadh, and Kuwait City. Our agenda-curation philosophy
-              puts practitioner insight above promotional noise.
-            </p>
-            <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "clamp(15px, 1.4vw, 17px)", fontWeight: 300, lineHeight: 1.85, color: "var(--white-muted)" }}>
-              Today, EFG runs four distinct event series across eight annual editions, serving
-              a community of over 5,000 technology decision-makers.
+              Events First Group was founded in 2023 with a clear conviction: senior technology leaders deserved events built specifically for their world, addressing their unique challenges, ambitions, and vision. We built EFG from the ground up, starting with relationships forged in boardrooms across Dubai, Riyadh, and Kuwait City. Our agenda-curation philosophy puts practitioner insight above promotional noise. Today, EFG runs four distinct event series across eight annual editions, serving a community of over 5,000 technology decision-makers.
             </p>
           </div>
         </motion.div>
