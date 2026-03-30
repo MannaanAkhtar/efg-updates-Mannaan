@@ -468,12 +468,12 @@ function AboutStory() {
           <div style={{ display: "flex", flexDirection: "column", gap: 20, textAlign: "left" }}>
             <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "clamp(15px, 1.4vw, 17px)", fontWeight: 300, lineHeight: 1.85, color: "var(--white-muted)" }}>
               Events First Group was founded in 2023 with a clear conviction: senior
-              technology leaders deserved events built specifically for their world —
-              their challenges, their ambitions, their vision.
+              technology leaders deserved events built specifically for their world.
+              Their challenges. Their ambitions. Their vision.
             </p>
             <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "clamp(15px, 1.4vw, 17px)", fontWeight: 300, lineHeight: 1.85, color: "var(--white-muted)" }}>
-              We built EFG from the ground up — from relationships forged in boardrooms
-              across Dubai, Riyadh, Kuwait City, and Riyadh, to the agenda-curation philosophy
+              We built EFG from the ground up. From relationships forged in boardrooms
+              across Dubai, Riyadh, and Kuwait City, to an agenda-curation philosophy
               that puts practitioner insight above promotional noise.
             </p>
             <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "clamp(15px, 1.4vw, 17px)", fontWeight: 300, lineHeight: 1.85, color: "var(--white-muted)" }}>
