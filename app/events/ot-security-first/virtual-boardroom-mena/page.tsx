@@ -76,10 +76,10 @@ function Counter({ to, suffix = "", prefix = "", duration = 1800 }: { to: number
 
 const THREAT_STATS = [
   { value: 8.75, prefix: "$", suffix: "M", label: "Average cost of a cyber attack on a Middle East organisation", source: "IBM Research", color: CYAN },
-  { value: 5967, prefix: "", suffix: "", label: "Ransomware attacks recorded globally in 2025 — a 37% jump over 2024, many targeting critical infrastructure", source: "Cyble CRIL, Jan 2025", color: C_BRIGHT },
-  { value: 700, prefix: "", suffix: "%", label: "Surge in sponsored attacks since June 13, 2025 — targeting power grids, hospitals & civilian apps", source: "Leder Institute / West Point", color: CYAN },
-  { value: 2451, prefix: "", suffix: "", label: "ICS vulnerabilities disclosed in 2025 across 152 vendors — nearly double the 2024 figure of 1,690", source: "Cyble CRIL Annual Report 2025", color: C_BRIGHT },
-  { value: 26, prefix: "", suffix: "", label: "Active OT threat groups now tracked globally — 11 were operationally active in 2025, up from 9 in 2024", source: "Dragos 2025 OT/ICS Report", color: C_BRIGHT },
+  { value: 5967, prefix: "", suffix: "", label: "Ransomware attacks recorded globally in 2025, a 37% jump over 2024, many targeting critical infrastructure", source: "Cyble CRIL, Jan 2025", color: C_BRIGHT },
+  { value: 700, prefix: "", suffix: "%", label: "Surge in sponsored attacks since June 13, 2025, targeting power grids, hospitals & civilian apps", source: "Leder Institute / West Point", color: CYAN },
+  { value: 2451, prefix: "", suffix: "", label: "ICS vulnerabilities disclosed in 2025 across 152 vendors, nearly double the 2024 figure of 1,690", source: "Cyble CRIL Annual Report 2025", color: C_BRIGHT },
+  { value: 26, prefix: "", suffix: "", label: "Active OT threat groups now tracked globally, 11 were operationally active in 2025, up from 9 in 2024", source: "Dragos 2025 OT/ICS Report", color: C_BRIGHT },
   { value: 50000, prefix: "", suffix: "", label: "Cyberattacks targeting the UAE every single day, according to the UAE's own Cybersecurity Council", source: "UAE Cybersecurity Council, 2025", color: CYAN },
 ];
 
@@ -122,12 +122,12 @@ const CONTACTS_TEAM = [
     photo: `${S3_TEAM}/Mary.jpg`,
   },
   {
-    name: "Shyam Reddy",
-    title: "Chief Growth Partner",
+    name: "Mayur Methi",
+    title: "Partnership Manager",
     category: "Sponsorship Enquiries",
-    phone: "+971 56 910 0679",
-    email: "shyam@eventsfirstgroup.com",
-    photo: `${S3_TEAM}/shyam.jpg?v=3`,
+    phone: "+971 56 170 9909",
+    email: "mayur@eventsfirstgroup.com",
+    photo: `${S3_TEAM}/Mayur-Methi.png`,
   },
 ];
 
@@ -407,9 +407,10 @@ function ThreatStats() {
                   fontFamily: "var(--font-outfit)",
                   fontSize: 13,
                   fontWeight: 400,
-                  color: "rgba(255,255,255,0.5)",
-                  lineHeight: 1.6,
+                  color: "rgba(255,255,255,0.7)",
+                  lineHeight: 1.65,
                   margin: "0 0 16px",
+                  textShadow: "0 1px 4px rgba(0,0,0,0.4)",
                 }}>
                   {stat.label}
                 </p>
@@ -460,8 +461,71 @@ function ThreatStats() {
 // ─── ABOUT THE FORUM ─────────────────────────────────────────────────────────
 function AboutForum() {
   const sectionRef = useRef<HTMLElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const cardInnerRef = useRef<HTMLDivElement>(null);
+  const glareRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
+
+  // GSAP — Scale + Blur Morph entrance + staggered rows
+  useGSAP(() => {
+    if (!cardRef.current) return;
+    gsap.from(cardRef.current, {
+      scale: 0.85, opacity: 0, filter: "blur(18px)",
+      duration: 1.4, ease: "power3.out",
+      scrollTrigger: { trigger: cardRef.current, start: "top 85%" },
+    });
+    gsap.from(".otvm-detail-row", {
+      y: 24, opacity: 0, stagger: 0.1, duration: 0.6, ease: "power2.out",
+      scrollTrigger: { trigger: cardRef.current, start: "top 78%", },
+    });
+  }, { scope: sectionRef });
+
+  // Idle floating animation — subtle continuous tilt so card always feels alive
+  useEffect(() => {
+    if (!cardInnerRef.current) return;
+    const idle = gsap.timeline({ repeat: -1, yoyo: true })
+      .to(cardInnerRef.current, { rotateX: 2, rotateY: -3, duration: 3, ease: "sine.inOut", transformPerspective: 800 })
+      .to(cardInnerRef.current, { rotateX: -1.5, rotateY: 2, duration: 3, ease: "sine.inOut", transformPerspective: 800 })
+      .to(cardInnerRef.current, { rotateX: 1, rotateY: -1, duration: 2.5, ease: "sine.inOut", transformPerspective: 800 });
+    // Store timeline reference on the element for pause/resume
+    (cardInnerRef.current as HTMLDivElement & { _idleTl?: gsap.core.Timeline })._idleTl = idle;
+    return () => { idle.kill(); };
+  }, []);
+
+  // Magnetic tilt + glare on hover
+  const handleCardMouseMove = (e: React.MouseEvent) => {
+    if (!cardInnerRef.current || !glareRef.current) return;
+    // Pause idle animation on hover
+    const el = cardInnerRef.current as HTMLDivElement & { _idleTl?: gsap.core.Timeline };
+    if (el._idleTl) el._idleTl.pause();
+    const rect = cardInnerRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    const rotateX = (y - 0.5) * -12;
+    const rotateY = (x - 0.5) * 12;
+    gsap.to(cardInnerRef.current, {
+      rotateX, rotateY,
+      duration: 0.4, ease: "power2.out",
+      transformPerspective: 800,
+    });
+    gsap.to(glareRef.current, {
+      opacity: 0.15,
+      background: `radial-gradient(600px circle at ${x * 100}% ${y * 100}%, rgba(255,255,255,0.2), transparent 50%)`,
+      duration: 0.3,
+    });
+  };
+  const handleCardMouseLeave = () => {
+    if (!cardInnerRef.current || !glareRef.current) return;
+    gsap.to(cardInnerRef.current, {
+      rotateX: 0, rotateY: 0,
+      duration: 0.6, ease: "elastic.out(1, 0.5)",
+    });
+    gsap.to(glareRef.current, { opacity: 0, duration: 0.4 });
+    // Resume idle animation after mouse leaves
+    const el = cardInnerRef.current as HTMLDivElement & { _idleTl?: gsap.core.Timeline };
+    if (el._idleTl) setTimeout(() => el._idleTl?.resume(), 600);
+  };
 
   return (
     <section
@@ -533,37 +597,42 @@ function AboutForum() {
             initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
             animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
             transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            style={{ paddingTop: 48 }}
           >
-            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 18, fontWeight: 400, color: "rgba(255,255,255,0.65)", lineHeight: 1.8, margin: "0 0 20px", textAlign: "justify" }}>
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 19, fontWeight: 400, color: "rgba(255,255,255,0.8)", lineHeight: 1.8, margin: "0 0 20px", textAlign: "justify", textShadow: "0 1px 4px rgba(0,0,0,0.3)" }}>
               The people responsible for keeping critical infrastructure running across the MENA region are actively reworking their strategies to respond to an AI-accelerated, geopolitically charged threat environment.
             </p>
-            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 18, fontWeight: 400, color: "rgba(255,255,255,0.65)", lineHeight: 1.8, margin: 0, textAlign: "justify" }}>
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 19, fontWeight: 400, color: "rgba(255,255,255,0.8)", lineHeight: 1.8, margin: 0, textAlign: "justify", textShadow: "0 1px 4px rgba(0,0,0,0.3)" }}>
               MENA&apos;s energy and utilities sector sits at a unique intersection: rapid digital transformation, IT/OT convergence, state-sponsored adversaries, and limited cross-sector intelligence sharing. This forum directly addresses that gap — bringing thought leaders from across the region into one room to think out loud, challenge each other, and build practical frameworks together.
             </p>
           </motion.div>
 
-          {/* Right — Event Details card */}
-          <motion.div
-            initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
-            animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-            transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          {/* Right — Event Details card (GSAP: scale+blur entrance + magnetic tilt hover) */}
+          <div
+            ref={cardRef}
+            onMouseMove={handleCardMouseMove}
+            onMouseLeave={handleCardMouseLeave}
+            style={{ perspective: 800, height: "100%" }}
           >
-            <div className="otvm-details-card" style={{
+            <div ref={cardInnerRef} className="otvm-details-card" style={{
               borderRadius: 20,
-              /* Skeuomorphic outer bezel */
               background: "linear-gradient(145deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 50%, rgba(0,0,0,0.2) 100%)",
               boxShadow: "0 1px 0 rgba(255,255,255,0.06) inset, 0 -1px 0 rgba(0,0,0,0.3) inset, 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(211,75,154,0.1)",
               border: "none",
               overflow: "hidden",
               position: "relative",
               padding: 0,
-              transition: "all 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+              height: "100%",
+              transformStyle: "preserve-3d",
+              willChange: "transform",
             }}>
+              {/* Light glare overlay — follows cursor */}
+              <div ref={glareRef} style={{ position: "absolute", inset: 0, borderRadius: 20, opacity: 0, pointerEvents: "none", zIndex: 10 }} />
               {/* Glassmorphism inner panel */}
               <div style={{
                 margin: 5,
                 borderRadius: 16,
-                padding: "clamp(24px, 2.5vw, 36px)",
+                padding: "28px 32px",
                 background: "rgba(255,255,255,0.03)",
                 backdropFilter: "blur(24px)",
                 WebkitBackdropFilter: "blur(24px)",
@@ -571,11 +640,18 @@ function AboutForum() {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -1px 4px rgba(0,0,0,0.3)",
                 position: "relative",
                 overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                minHeight: "100%",
               }}>
                 {/* Glass reflection */}
                 <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)" }} />
                 {/* Inner pink ambient */}
                 <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: "80%", height: "40%", background: "radial-gradient(ellipse, rgba(211,75,154,0.05), transparent 70%)", pointerEvents: "none" }} />
+
+                {/* Left accent bar */}
+                <div style={{ position: "absolute", top: 20, left: 0, width: 3, height: 35, background: `linear-gradient(180deg, ${C_BRIGHT}, rgba(0,201,255,0.3))`, borderRadius: "0 2px 2px 0", boxShadow: `0 0 12px rgba(211,75,154,0.4)` }} />
 
                 <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 18, color: "white", margin: "0 0 24px", letterSpacing: "-0.5px", position: "relative" }}>Event Details</h3>
                 {[
@@ -586,15 +662,15 @@ function AboutForum() {
                   { label: "Sponsors", value: "3 x 10-15 min awareness slots" },
                   { label: "Region", value: "Middle East & Africa" },
                 ].map((item, i) => (
-                  <div key={item.label} style={{ display: "flex", alignItems: "center", gap: 12, padding: "13px 0", borderBottom: i < 5 ? "1px solid rgba(255,255,255,0.04)" : "none", position: "relative" }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: "rgba(211,75,154,0.7)", boxShadow: "0 0 8px rgba(211,75,154,0.5)", flexShrink: 0 }} />
-                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.4)", flex: 1 }}>{item.label}</span>
-                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, color: "white", textAlign: "right" }}>{item.value}</span>
+                  <div key={item.label} className="otvm-detail-row" style={{ display: "flex", alignItems: "center", gap: 12, padding: "13px 0", borderBottom: i < 5 ? "1px solid rgba(255,255,255,0.05)" : "none", position: "relative" }}>
+                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: i % 2 === 0 ? `rgba(0,201,255,0.7)` : "rgba(211,75,154,0.7)", boxShadow: i % 2 === 0 ? "0 0 8px rgba(0,201,255,0.5)" : "0 0 8px rgba(211,75,154,0.5)", flexShrink: 0 }} />
+                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.55)", flex: 1 }}>{item.label}</span>
+                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.9)", textAlign: "right" }}>{item.value}</span>
                   </div>
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
@@ -692,7 +768,7 @@ function KeyThemesSection() {
                   minHeight: isLarge ? 160 : 120,
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "flex-end",
+                  justifyContent: "center",
                 }}>
                   {/* Glass reflection line */}
                   <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)" }} />
@@ -737,13 +813,13 @@ function KeyThemesSection() {
                   {/* Title */}
                   <span style={{
                     fontFamily: "var(--font-outfit)",
-                    fontSize: isLarge ? 17 : 14,
+                    fontSize: 18,
                     fontWeight: 600,
                     color: "rgba(255,255,255,0.9)",
-                    lineHeight: 1.45,
+                    lineHeight: 1.4,
                     position: "relative",
                     paddingLeft: 12,
-                    maxWidth: isLarge ? 400 : undefined,
+                    maxWidth: isLarge ? 440 : undefined,
                   }}>
                     {theme.title}
                   </span>
@@ -1517,8 +1593,9 @@ export default function OTSecurityVirtualForumMENA() {
           font-family: var(--font-outfit);
           font-size: clamp(15px, 1.5vw, 18px);
           font-weight: 400;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.75);
           line-height: 1.7;
+          text-shadow: 0 2px 12px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3);
           max-width: 560px;
           margin: 0 auto 28px;
         }
