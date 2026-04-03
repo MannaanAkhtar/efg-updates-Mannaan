@@ -19,10 +19,11 @@ const chair = {
 
 // Testimonial YT Shorts
 const testimonialShorts = [
-  { id: "SH9Z1U2_rAM", label: "Industry Voice" },
-  { id: "wLgYOHHB6o4", label: "CISO Perspective" },
-  { id: "2jpIlqo0HSY", label: "OT Leader" },
-  { id: "SLkj5gO-LQ8", label: "Expert Insight" },
+  { id: "Q0n_sVaMnxg", label: "Sponsor Interview" },
+  { id: "SF87voLk34A", label: "Sponsor Interview" },
+  { id: "R5dtc5kjiQU", label: "Sponsor Interview" },
+  { id: "Hm_yj3NttPo", label: "Sponsor Interview" },
+  { id: "aaG9We6AjY8", label: "Sponsor Interview" },
 ];
 
 export default function OTChairQuote() {
@@ -210,7 +211,7 @@ export default function OTChairQuote() {
             className="ot-shorts-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
+              gridTemplateColumns: "repeat(5, 1fr)",
               gap: 12,
             }}
           >

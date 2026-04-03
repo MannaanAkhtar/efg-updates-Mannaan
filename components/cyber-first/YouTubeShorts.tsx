@@ -8,27 +8,39 @@ import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SHADOWS, SPACING } from "@/lib/c
 const shorts = [
   {
     id: "short-1",
-    videoId: "JA1X4cN2-t0",
-    title: "Event Highlights",
-    thumbnail: "https://img.youtube.com/vi/JA1X4cN2-t0/hqdefault.jpg",
+    videoId: "jPQFjwuohfI",
+    title: "Sponsor Interview",
+    thumbnail: "https://img.youtube.com/vi/jPQFjwuohfI/hqdefault.jpg",
   },
   {
     id: "short-2",
-    videoId: "-a481Lbz55o",
-    title: "Event Highlights",
-    thumbnail: "https://img.youtube.com/vi/-a481Lbz55o/hqdefault.jpg",
+    videoId: "c8sPwIo4Pis",
+    title: "Sponsor Interview",
+    thumbnail: "https://img.youtube.com/vi/c8sPwIo4Pis/hqdefault.jpg",
   },
   {
     id: "short-3",
-    videoId: "dbL42utoYW4",
-    title: "Event Highlights",
-    thumbnail: "https://img.youtube.com/vi/dbL42utoYW4/hqdefault.jpg",
+    videoId: "2LoeDNqsem0",
+    title: "Sponsor Interview",
+    thumbnail: "https://img.youtube.com/vi/2LoeDNqsem0/hqdefault.jpg",
   },
   {
     id: "short-4",
-    videoId: "gR-IUI7yJLg",
-    title: "Event Highlights",
-    thumbnail: "https://img.youtube.com/vi/gR-IUI7yJLg/hqdefault.jpg",
+    videoId: "8C61dof_f3s",
+    title: "Sponsor Interview",
+    thumbnail: "https://img.youtube.com/vi/8C61dof_f3s/hqdefault.jpg",
+  },
+  {
+    id: "short-5",
+    videoId: "2-KXhfSeBdQ",
+    title: "Sponsor Interview",
+    thumbnail: "https://img.youtube.com/vi/2-KXhfSeBdQ/hqdefault.jpg",
+  },
+  {
+    id: "short-6",
+    videoId: "2IwKmGEfOIo",
+    title: "Sponsor Interview",
+    thumbnail: "https://img.youtube.com/vi/2IwKmGEfOIo/hqdefault.jpg",
   },
 ];
 
@@ -42,6 +54,7 @@ export default function YouTubeShorts() {
       style={{
         background: COLORS.bgBase,
         padding: `${SPACING.sectionPadding} 0`,
+        position: "relative",
       }}
     >
       <div
@@ -92,7 +105,7 @@ export default function YouTubeShorts() {
           className="shorts-row"
           style={{
             display: "grid",
-            gridTemplateColumns: `repeat(${shorts.length}, 1fr)`,
+            gridTemplateColumns: "repeat(3, 1fr)",
             gap: 14,
           }}
         >
@@ -116,12 +129,12 @@ export default function YouTubeShorts() {
       <style jsx global>{`
         @media (max-width: 1024px) {
           .shorts-row {
-            grid-template-columns: repeat(4, 1fr) !important;
+            grid-template-columns: repeat(3, 1fr) !important;
           }
         }
         @media (max-width: 768px) {
           .shorts-row {
-            grid-template-columns: repeat(3, 1fr) !important;
+            grid-template-columns: repeat(2, 1fr) !important;
           }
         }
         @media (max-width: 480px) {
@@ -149,7 +162,7 @@ function ShortCard({
     <div
       className="relative overflow-hidden cursor-pointer"
       style={{
-        aspectRatio: "9 / 16",
+        aspectRatio: "3 / 4",
         borderRadius: RADIUS.lg,
         border: `1px solid ${hovered ? COLORS.borderAccent : COLORS.borderSubtle}`,
         transform: hovered ? "translateY(-3px)" : "translateY(0)",

@@ -23,6 +23,7 @@ if (typeof window !== "undefined") {
 import { Footer, InquiryForm } from "@/components/sections";
 import { NeuralConstellation, DotMatrixGrid } from "@/components/effects";
 import EventNavigation from "@/components/ui/EventNavigation";
+import YouTubeShorts from "@/components/cyber-first/YouTubeShorts";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
 import type { FormType, CountryCode } from "@/lib/form-helpers";
 
@@ -608,6 +609,7 @@ export default function CyberFirstKenya2026() {
       {/* <WhatToExpect /> */}
       <WhoShouldAttend />
       <AwardsSection />
+      <YouTubeShorts />
       <SplitCTA />
       <ContactSection />
       <Venue />

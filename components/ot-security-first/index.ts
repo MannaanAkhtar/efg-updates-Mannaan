@@ -12,3 +12,4 @@ export { default as OTGallery } from "./OTGallery";
 export { default as OTFAQ } from "./OTFAQ";
 export { default as OTUpcomingEditionCTA } from "./OTUpcomingEditionCTA";
 export { default as OTExploreOtherSeries } from "./OTExploreOtherSeries";
+export { default as OTYouTubeShorts } from "./OTYouTubeShorts";

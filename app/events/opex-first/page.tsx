@@ -12,6 +12,7 @@ import {
   OpexUpcomingEditionCTA,
   OpexExploreOtherSeries,
 } from "@/components/opex-first";
+import OpexYouTubeShorts from "@/components/opex-first/OpexYouTubeShorts";
 import { Footer } from "@/components/sections";
 import SectionTransition from "@/components/effects/SectionTransition";
 
@@ -70,7 +71,12 @@ export default function OpexFirstPage() {
 
       <SectionTransition variant="sweep" color={VIOLET} />
 
-      {/* 11. Register — CTA + Form with AnimatePresence */}
+      {/* 11. YouTube Shorts — Video highlights */}
+      <OpexYouTubeShorts />
+
+      <SectionTransition variant="pulse" color={VIOLET} />
+
+      {/* 12. Register — CTA + Form with AnimatePresence */}
       <OpexUpcomingEditionCTA />
 
       <SectionTransition variant="expand" color={VIOLET} />

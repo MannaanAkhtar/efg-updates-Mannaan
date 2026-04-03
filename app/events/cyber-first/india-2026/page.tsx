@@ -13,6 +13,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/sections";
+import YouTubeShorts from "@/components/cyber-first/YouTubeShorts";
 import { NeuralConstellation, DotMatrixGrid } from "@/components/effects";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
 import type { FormType, CountryCode } from "@/lib/form-helpers";
@@ -382,6 +383,7 @@ export default function CyberFirstIndia2026() {
       <WhoShouldAttend />
       <AwardsSection />
       <Venue />
+      <YouTubeShorts />
       <RegistrationSection />
       <ContactEnquiries />
       <Footer />
@@ -2791,7 +2793,7 @@ function ContactEnquiries() {
               {/* EFG Logo */}
               <div className="cfi-contact-logo" style={{ flexShrink: 0, opacity: 0.5 }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/events-first-group_logo_alt.svg" alt="Events First Group" style={{ height: 56 }} />
+                <img src="/events-first-group_logo_alt.svg" alt="Events First Group" width={140} height={56} style={{ height: 56, width: "auto" }} />
               </div>
             </div>
           </motion.div>
