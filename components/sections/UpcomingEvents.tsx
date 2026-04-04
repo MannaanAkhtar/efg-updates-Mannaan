@@ -107,7 +107,7 @@ export default function UpcomingEvents() {
                 margin: 0,
               }}
             >
-              Upcoming Cybersecurity &amp; Technology Summits in 2026
+              What&apos;s Next
             </h2>
           </div>
 

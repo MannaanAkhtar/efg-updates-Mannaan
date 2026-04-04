@@ -174,7 +174,7 @@ export default function PhotoGallery() {
             margin: 0,
           }}
         >
-          Inside Our Cybersecurity &amp; Technology Summits
+          Inside The Room
         </h2>
         <p
           style={{

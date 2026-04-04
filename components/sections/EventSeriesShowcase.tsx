@@ -226,7 +226,7 @@ export default function EventSeriesShowcase() {
               margin: 0,
             }}
           >
-            Four Event Series, Cybersecurity, OT Security, AI &amp; Operational Excellence
+            Four Event Series. One Stage.
           </motion.h2>
 
           {/* Description */}

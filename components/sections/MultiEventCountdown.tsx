@@ -360,7 +360,7 @@ export default function MultiEventCountdown() {
               marginBottom: 12,
             }}
           >
-            Upcoming Summit Dates, Register Now
+            Mark Your Calendar
           </h2>
 
           <p

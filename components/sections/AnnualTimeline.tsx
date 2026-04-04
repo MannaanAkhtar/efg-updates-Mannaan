@@ -449,7 +449,7 @@ export default function AnnualTimeline() {
             </div>
 
             {/* Title */}
-            <h2 className="timeline-title">2026 Event Calendar, 16 Executive Technology Summits</h2>
+            <h2 className="timeline-title">The Year Ahead</h2>
 
             {/* Subtitle */}
             <p className="timeline-subtitle">

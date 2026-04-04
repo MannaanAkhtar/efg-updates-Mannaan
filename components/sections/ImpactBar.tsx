@@ -24,7 +24,7 @@ const headlineWords = [
   { text: "8 nations.", dim: false },
   { text: "They don't", dim: true },
   { text: "attend events.", dim: true },
-  { text: "they build", dim: true },
+  { text: "They build", dim: true },
   { text: "here.", dim: true },
 ];
 

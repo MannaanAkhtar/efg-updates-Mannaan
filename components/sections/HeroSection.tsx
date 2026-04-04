@@ -82,7 +82,7 @@ export default function HeroSection() {
 
           {/* Headline */}
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.35, ease: EASE }} style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(34px, 4.5vw, 64px)", lineHeight: 1.08, letterSpacing: "-0.03em", color: "#F0F2F5", margin: "0 0 20px" }}>
-            Where the Region&apos;s Top Cybersecurity &amp; Technology Decisions Are{" "}
+            Where the Region&apos;s Top Technology Decisions Are{" "}
             <span style={{ backgroundImage: `linear-gradient(110deg, ${ORANGE} 0%, #FFB547 50%, ${ORANGE} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", animation: "hero-shimmer 5s ease-in-out infinite" }}>
               Made.
             </span>
