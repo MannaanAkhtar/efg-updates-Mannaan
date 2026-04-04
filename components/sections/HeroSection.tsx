@@ -82,7 +82,7 @@ export default function HeroSection() {
 
           {/* Headline */}
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.35, ease: EASE }} style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(34px, 4.5vw, 64px)", lineHeight: 1.08, letterSpacing: "-0.03em", color: "#F0F2F5", margin: "0 0 20px" }}>
-            Where the Region&apos;s Top Technology Decisions Are{" "}
+            Where the Region&apos;s Top Decisions Are{" "}
             <span style={{ backgroundImage: `linear-gradient(110deg, ${ORANGE} 0%, #FFB547 50%, ${ORANGE} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", animation: "hero-shimmer 5s ease-in-out infinite" }}>
               Made.
             </span>
@@ -90,7 +90,7 @@ export default function HeroSection() {
 
           {/* Subtitle */}
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.5, ease: EASE }} style={{ fontFamily: "var(--font-outfit)", fontWeight: 400, fontSize: "clamp(14px, 1.2vw, 16px)", color: "rgba(255,255,255,0.65)", lineHeight: 1.7, maxWidth: 440, marginBottom: 24 }}>
-            Events First Group organizes invite-only cybersecurity summits, OT security conferences, data &amp; AI events, and operational excellence forums across the Middle East, Africa &amp; Asia. 16 executive technology summits in 2026 , bringing together 5,000+ CISOs, CDOs, CTOs, and enterprise leaders.
+            Invite-only executive summits across the Middle East, Africa &amp; Asia. Bringing together CISOs, CDOs, and enterprise leaders who shape the future of technology.
           </motion.p>
 
           {/* Trust badges */}
