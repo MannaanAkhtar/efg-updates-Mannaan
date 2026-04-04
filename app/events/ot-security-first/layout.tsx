@@ -8,7 +8,7 @@ const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0290.JP
 export const metadata: Metadata = {
   title: "OT Security First | Industrial Cybersecurity Summit UAE & Saudi Arabia",
   description:
-    "The premier OT/ICS security summit in the Middle East. OT Security First brings together critical infrastructure defenders and industrial cybersecurity experts in UAE & Saudi Arabia.",
+    "The premier OT/ICS security summit series in UAE and Saudi Arabia. For critical infrastructure defenders and OT security experts. Register or sponsor now.",
   keywords: [
     "OT security summit UAE",
     "industrial cybersecurity conference Middle East",
@@ -44,6 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@eventsfirstgrp",
     title: "OT Security First Series, Industrial Cybersecurity Summit",
     description:
       "OT/ICS security leaders protecting critical infrastructure.",

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title:
     "OT Security in the Age of AI Threats | Virtual Forum MENA 2026",
   description:
-    "A closed, senior-level virtual forum for OT security professionals across MENA's energy and utilities sector. 100 verified professionals, 3 focused panel discussions, May 19 2026.",
+    "Closed senior-level virtual forum for OT security leaders in MENA energy and utilities. 100 professionals, 19 May 2026. Register now.",
   keywords: [
     "OT security virtual forum",
     "MENA OT cybersecurity",
@@ -45,6 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@eventsfirstgrp",
     title: "OT Security in the Age of AI Threats, Virtual Forum MENA",
     description:
       "100 verified OT security professionals. May 19, 2026, MENA Region.",

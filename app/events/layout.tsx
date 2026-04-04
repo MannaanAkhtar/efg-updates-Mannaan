@@ -7,7 +7,7 @@ const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0290.JP
 export const metadata: Metadata = {
   title: "Events Calendar 2026 | Executive Technology Summits | Events First Group",
   description:
-    "Browse 9 executive technology summits across Kuwait, Qatar, Saudi Arabia, Oman, and UAE in 2026. Cybersecurity, OT Security, Data & AI, and Opex events for CISOs, CDOs, and enterprise technology leaders.",
+    "Browse 9 executive technology summits across Kuwait, Qatar, Saudi Arabia, Oman and UAE in 2026. For CISOs, CDOs, and enterprise leaders.",
   keywords: [
     "technology events 2026",
     "cybersecurity conference Middle East",
@@ -39,6 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@eventsfirstgrp",
     title: "Events Calendar 2026 | Events First Group",
     description:
       "9 executive technology summits for CISOs, CDOs, and enterprise leaders across the Middle East.",

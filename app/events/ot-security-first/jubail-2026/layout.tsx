@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "OT Security Jubail 2026" }],
     locale: "en_US", type: "website",
   },
-  twitter: { card: "summary_large_image", title: "OT Security Jubail 2026", description: "Industrial security summit. 7 October 2026, Jubail.", images: [OG_IMAGE] },
+  twitter: { card: "summary_large_image", site: "@eventsfirstgrp", title: "OT Security Jubail 2026", description: "Industrial security summit. 7 October 2026, Jubail.", images: [OG_IMAGE] },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

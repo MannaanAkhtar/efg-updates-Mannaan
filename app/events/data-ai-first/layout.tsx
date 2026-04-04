@@ -8,7 +8,7 @@ const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0290.JP
 export const metadata: Metadata = {
   title: "Digital First | AI Summit Dubai & Kuwait | CDO Conference Middle East",
   description:
-    "The premier Data & AI leadership summit in the Middle East. Digital First brings together CDOs, AI architects, and enterprise leaders in Kuwait, UAE & GCC region.",
+    "The premier Data & AI leadership summit series in the Middle East. For CDOs, AI architects, and enterprise leaders. Register or sponsor now.",
   keywords: [
     "AI summit Dubai",
     "data AI conference Middle East",
@@ -44,6 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@eventsfirstgrp",
     title: "Digital First Series, The Premier Data & AI Leadership Summit",
     description:
       "CDOs, AI architects, and enterprise leaders shaping the AI-driven future.",

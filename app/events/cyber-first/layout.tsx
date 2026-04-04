@@ -8,7 +8,7 @@ const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0030.JP
 export const metadata: Metadata = {
   title: "Cyber First | CISO Summit Dubai & Middle East | Cybersecurity Conference",
   description:
-    "The premier CISO summit in Dubai & Middle East. Cyber First brings together CISOs, government cyber leaders, and security innovators across UAE, Kuwait, Saudi Arabia, India & Kenya.",
+    "The premier CISO summit series across Dubai, Kuwait, Saudi Arabia, India and Kenya. For CISOs and security leaders. Register or sponsor now.",
   keywords: [
     "CISO summit Dubai",
     "cybersecurity conference Middle East",
@@ -45,6 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@eventsfirstgrp",
     title: "Cyber First Series, The Definitive Cybersecurity Summit",
     description:
       "CISOs and security leaders across Abu Dhabi, Kuwait, Riyadh, Delhi, and Nairobi.",

@@ -8,7 +8,7 @@ const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0030.JP
 export const metadata: Metadata = {
   title: "Cyber First Kuwait 2026 | 3rd Annual Cybersecurity Summit, 9 June, Jumeirah Messilah Beach",
   description:
-    "Kuwait's premier cybersecurity leadership summit. 500+ CISOs, government cyber leaders, and security innovators gather on 9 June 2026 at Jumeirah Messilah Beach Hotel, Kuwait City. Register or sponsor now.",
+    "Kuwait's premier cybersecurity summit. 500+ CISOs and security leaders, 9 June 2026, Jumeirah Messilah Beach Hotel. Register or sponsor now.",
   keywords: [
     "cybersecurity conference Kuwait 2026",
     "CISO summit Kuwait",
@@ -43,6 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@eventsfirstgrp",
     title: "Cyber First Kuwait 2026, 3rd Annual Cybersecurity Summit",
     description:
       "500+ CISOs and security leaders. 9 June 2026. Jumeirah Messilah Beach Hotel, Kuwait City.",

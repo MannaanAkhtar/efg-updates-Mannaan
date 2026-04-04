@@ -8,7 +8,7 @@ const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0290.JP
 export const metadata: Metadata = {
   title: "OPEX First | Operational Excellence Summit Saudi Arabia | COO Conference",
   description:
-    "The premier Operational Excellence summit in Saudi Arabia & Middle East. OPEX First brings together COOs, excellence leaders, and transformation architects in Riyadh & GCC.",
+    "The premier Operational Excellence summit series in Saudi Arabia and the Middle East. For COOs and transformation leaders. Register or sponsor now.",
   keywords: [
     "operational excellence summit Saudi Arabia",
     "OPEX conference Riyadh",
@@ -43,6 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@eventsfirstgrp",
     title: "Opex First Series, The Premier Operational Excellence Summit",
     description:
       "COOs and excellence leaders redefining operational brilliance.",

@@ -30,6 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@eventsfirstgrp",
     title: "Cyber First Qatar 2026, Doha",
     description: "Qatar's premier cybersecurity summit. 22 September 2026, Doha.",
     images: [OG_IMAGE],

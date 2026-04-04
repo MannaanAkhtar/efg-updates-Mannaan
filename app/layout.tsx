@@ -145,6 +145,11 @@ export default function RootLayout({
         <meta name="geo.region" content="AE-DU" />
         <meta name="geo.placename" content="Dubai" />
         <link rel="icon" href="https://efg-final.s3.eu-north-1.amazonaws.com/Events+First+logo+icon-01.svg" type="image/svg+xml" />
+        {/* Resource hints for faster asset loading */}
+        <link rel="dns-prefetch" href="https://efg-final.s3.eu-north-1.amazonaws.com" />
+        <link rel="preconnect" href="https://efg-final.s3.eu-north-1.amazonaws.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://img.youtube.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}

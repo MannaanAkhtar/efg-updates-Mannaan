@@ -8,7 +8,7 @@ const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0290.JP
 export const metadata: Metadata = {
   title: "Digital First Kuwait 2026 | Data & AI Summit, 10 June, Jumeirah Messilah Beach",
   description:
-    "Kuwait's premier Data & AI leadership summit. 250+ CDOs, AI architects, and enterprise leaders. 10 June 2026 at Jumeirah Messilah Beach Hotel, Kuwait City. Turning Data & AI into Regulated, Profitable, and Scalable Solutions.",
+    "Kuwait's premier Data & AI summit. 250+ CDOs and AI leaders, 10 June 2026, Jumeirah Messilah Beach Hotel, Kuwait City. Register or sponsor now.",
   keywords: [
     "data AI conference Kuwait 2026",
     "artificial intelligence summit Kuwait",
@@ -43,6 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@eventsfirstgrp",
     title: "Digital First Kuwait 2026, Data & AI Summit",
     description:
       "250+ CDOs and AI leaders. 10 June 2026. Jumeirah Messilah Beach Hotel, Kuwait City.",

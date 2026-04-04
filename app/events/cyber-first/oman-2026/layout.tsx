@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Cyber First Oman 2026" }],
     locale: "en_US", type: "website",
   },
-  twitter: { card: "summary_large_image", title: "Cyber First Oman 2026, Muscat", description: "Oman's premier cybersecurity summit. 13 October 2026, Muscat.", images: [OG_IMAGE] },
+  twitter: { card: "summary_large_image", site: "@eventsfirstgrp", title: "Cyber First Oman 2026, Muscat", description: "Oman's premier cybersecurity summit. 13 October 2026, Muscat.", images: [OG_IMAGE] },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
