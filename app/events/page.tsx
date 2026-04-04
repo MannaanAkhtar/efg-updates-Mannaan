@@ -243,6 +243,25 @@ const allEvents = [
     status: "soon" as SeriesStatus,
   },
   {
+    id: "opex-process-intelligence-mena",
+    category: "opex-first",
+    title: "Process Intelligence MENA",
+    tagline: "From Digital Investment to Measurable Execution",
+    description:
+      "A closed, senior-level virtual forum for operational excellence leaders across MENA — exploring process intelligence, automation ROI, and measurable execution frameworks.",
+    color: "#7C3AED",
+    image:
+      "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Untitled-2-01.png",
+    href: "/events/opex-first/virtual-boardroom-mena",
+    date: "2026-05-12",
+    nextDate: "12 May 2026",
+    nextCity: "Virtual",
+    editions: "",
+    regions: "MENA",
+    attendees: "100",
+    status: "open" as SeriesStatus,
+  },
+  {
     id: "opex-first-saudi",
     category: "opex-first",
     title: "OPEX First Saudi",

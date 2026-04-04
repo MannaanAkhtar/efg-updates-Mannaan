@@ -177,6 +177,21 @@ const EVENT_CONFIGS: Record<string, {
     location: "Riyadh, KSA",
     navLinks: [{ href: "#register-interest", label: "Register Interest" }],
   },
+  "/events/opex-first/virtual-boardroom-mena": {
+    name: "Process Intelligence MENA",
+    shortName: "PI MENA",
+    color: "#7C3AED",
+    colorBright: "#9F6AFF",
+    date: "12 May 2026",
+    location: "Virtual",
+    navLinks: [
+      { href: "#overview", label: "Overview" },
+      { href: "#themes", label: "Themes" },
+      { href: "#agenda", label: "Agenda" },
+      { href: "#attend", label: "Who Attends" },
+      { href: "#register", label: "Register" },
+    ],
+  },
 };
 
 export default function EventNavigation() {

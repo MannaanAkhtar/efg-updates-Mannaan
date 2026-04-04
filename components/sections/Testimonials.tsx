@@ -44,10 +44,27 @@ function TestimonialVideoSchema({ videos }: { videos: { id: string; label: strin
 // ─────────────────────────────────────────────────────────────────────────────
 
 const videoShorts = [
-  { id: "SH9Z1U2_rAM", label: "Voices of Excellence" },
-  { id: "wLgYOHHB6o4", label: "Voices of Excellence" },
-  { id: "2jpIlqo0HSY", label: "Voices of Excellence" },
-  { id: "SLkj5gO-LQ8", label: "Voices of Excellence" },
+  // Cyber First (6)
+  { id: "jPQFjwuohfI", label: "Cyber First" },
+  { id: "c8sPwIo4Pis", label: "Cyber First" },
+  { id: "2LoeDNqsem0", label: "Cyber First" },
+  { id: "8C61dof_f3s", label: "Cyber First" },
+  { id: "2-KXhfSeBdQ", label: "Cyber First" },
+  { id: "2IwKmGEfOIo", label: "Cyber First" },
+  // OT Security First (5)
+  { id: "Q0n_sVaMnxg", label: "OT Security First" },
+  { id: "SF87voLk34A", label: "OT Security First" },
+  { id: "R5dtc5kjiQU", label: "OT Security First" },
+  { id: "Hm_yj3NttPo", label: "OT Security First" },
+  { id: "aaG9We6AjY8", label: "OT Security First" },
+  // OPEX First (8, minus 3 duplicates with OT = 5 unique)
+  { id: "WCsfo5Z6xVY", label: "OPEX First" },
+  { id: "baCK3xnKh68", label: "OPEX First" },
+  { id: "vMv0AfXMQL0", label: "OPEX First" },
+  { id: "AefPAed0g-I", label: "OPEX First" },
+  { id: "wLgYOHHB6o4", label: "OPEX First" },
+  { id: "2jpIlqo0HSY", label: "OPEX First" },
+  { id: "SLkj5gO-LQ8", label: "OPEX First" },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -84,7 +101,7 @@ function VideoCard({
       <div
         style={{
           position: "relative",
-          aspectRatio: "9 / 16",
+          aspectRatio: "9 / 13",
           background: "#0A0A0A",
           cursor: isPlaying ? "default" : "pointer",
         }}
@@ -187,6 +204,62 @@ function VideoCard({
         )}
       </div>
     </motion.div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VIDEO SHORTS GRID — show 6, expand to all
+// ─────────────────────────────────────────────────────────────────────────────
+
+function VideoShortsGrid({ isInView }: { isInView: boolean }) {
+  const [showAll, setShowAll] = useState(false);
+  const visible = showAll ? videoShorts : videoShorts.slice(0, 6);
+
+  return (
+    <>
+      <div
+        className="testimonials-video-grid"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(6, 1fr)",
+          gap: "clamp(12px, 1.5vw, 18px)",
+        }}
+      >
+        {visible.map((v, i) => (
+          <VideoCard
+            key={v.id}
+            videoId={v.id}
+            label={v.label}
+            index={i}
+            isInView={isInView}
+          />
+        ))}
+      </div>
+
+      {/* Show All / Show Less button */}
+      {videoShorts.length > 6 && (
+        <div style={{ textAlign: "center", marginTop: 28 }}>
+          <button
+            onClick={() => setShowAll(!showAll)}
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 14,
+              fontWeight: 600,
+              color: "var(--orange)",
+              background: "rgba(232,101,26,0.06)",
+              border: "1px solid rgba(232,101,26,0.15)",
+              padding: "10px 28px",
+              borderRadius: 50,
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              letterSpacing: "0.5px",
+            }}
+          >
+            {showAll ? "Show Less" : `Show All ${videoShorts.length} Videos`}
+          </button>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -311,31 +384,19 @@ export default function Testimonials() {
         </div>
 
         {/* ── VIDEO SHORTS GRID ── */}
-        <div
-          className="testimonials-video-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "clamp(12px, 1.5vw, 18px)",
-          }}
-        >
-          {videoShorts.map((v, i) => (
-            <VideoCard
-              key={v.id}
-              videoId={v.id}
-              label={v.label}
-              index={i}
-              isInView={isInView}
-            />
-          ))}
-        </div>
+        <VideoShortsGrid isInView={isInView} />
       </div>
 
       {/* Responsive */}
       <style jsx global>{`
+        @media (max-width: 1200px) {
+          .testimonials-video-grid {
+            grid-template-columns: repeat(4, 1fr) !important;
+          }
+        }
         @media (max-width: 960px) {
           .testimonials-video-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+            grid-template-columns: repeat(3, 1fr) !important;
           }
         }
         @media (max-width: 600px) {
