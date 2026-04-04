@@ -6,7 +6,7 @@ const PAGE_URL = `${BASE_URL}/events/cyber-first/kuwait-2026`;
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0030.JPG";
 
 export const metadata: Metadata = {
-  title: "Cyber First Kuwait 2026 | 3rd Annual Cybersecurity Summit — 9 June, Jumeirah Messilah Beach",
+  title: "Cyber First Kuwait 2026 | 3rd Annual Cybersecurity Summit, 9 June, Jumeirah Messilah Beach",
   description:
     "Kuwait's premier cybersecurity leadership summit. 500+ CISOs, government cyber leaders, and security innovators gather on 9 June 2026 at Jumeirah Messilah Beach Hotel, Kuwait City. Register or sponsor now.",
   keywords: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     canonical: PAGE_URL,
   },
   openGraph: {
-    title: "Cyber First Kuwait 2026 — 3rd Annual Cybersecurity Summit",
+    title: "Cyber First Kuwait 2026, 3rd Annual Cybersecurity Summit",
     description:
       "500+ CISOs and security leaders. 9 June 2026. Jumeirah Messilah Beach Hotel, Kuwait City. The definitive cybersecurity summit.",
     url: PAGE_URL,
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Cyber First Kuwait 2026 — Cybersecurity Summit",
+        alt: "Cyber First Kuwait 2026, Cybersecurity Summit",
       },
     ],
     locale: "en_US",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cyber First Kuwait 2026 — 3rd Annual Cybersecurity Summit",
+    title: "Cyber First Kuwait 2026, 3rd Annual Cybersecurity Summit",
     description:
       "500+ CISOs and security leaders. 9 June 2026. Jumeirah Messilah Beach Hotel, Kuwait City.",
     images: [OG_IMAGE],
@@ -65,14 +65,14 @@ export default function CyberFirstKuwaitLayout({
           { name: "Kuwait 2026", url: PAGE_URL },
         ]}
       />
-      {/* Event structured data — JSON-LD */}
+      {/* Event structured data, JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Event",
-            name: "Cyber First Kuwait 2026 — 3rd Annual Cybersecurity Summit",
+            name: "Cyber First Kuwait 2026, 3rd Annual Cybersecurity Summit",
             description:
               "Kuwait's premier cybersecurity leadership summit bringing together CISOs, government cyber leaders, and security innovators.",
             startDate: "2026-06-09T08:00:00+03:00",

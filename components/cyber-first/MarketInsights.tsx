@@ -11,7 +11,7 @@ const marketStats = [
     value: 8.75,
     prefix: "$",
     suffix: "M",
-    label: "Average cost of a data breach in the Middle East — among the highest globally",
+    label: "Average cost of a data breach in the Middle East, among the highest globally",
   },
   {
     id: 2,
@@ -72,7 +72,7 @@ export default function MarketInsights() {
           alignItems: "center",
         }}
       >
-        {/* Left Column — Narrative */}
+        {/* Left Column, Narrative */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
@@ -116,7 +116,7 @@ export default function MarketInsights() {
               margin: "16px 0 0",
             }}
           >
-            Enterprises are investing billions in digital transformation — and
+            Enterprises are investing billions in digital transformation, and
             adversaries know it. The attack surface is expanding faster than
             most organisations can defend. These aren&rsquo;t statistics to
             worry about in isolation. They&rsquo;re the reason 1,500+
@@ -124,7 +124,7 @@ export default function MarketInsights() {
           </p>
         </motion.div>
 
-        {/* Right Column — Stats Grid */}
+        {/* Right Column, Stats Grid */}
         <div
           style={{
             display: "grid",
@@ -168,7 +168,7 @@ export default function MarketInsights() {
 }
 
 /**
- * StatBlock — Individual stat with counting animation
+ * StatBlock, Individual stat with counting animation
  */
 function StatBlock({
   stat,

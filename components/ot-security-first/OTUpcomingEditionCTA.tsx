@@ -188,7 +188,7 @@ export default function OTUpcomingEditionCTA() {
       company: formData.company || "",
       job_title: formData.title || "",
       phone: combinedPhone,
-      event_name: "OT Security First — Next Edition",
+      event_name: "OT Security First, Next Edition",
       metadata: meta,
     });
 
@@ -342,7 +342,7 @@ export default function OTUpcomingEditionCTA() {
             </motion.div>
           </AnimatePresence>
 
-          {/* RIGHT — Form */}
+          {/* RIGHT, Form */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}

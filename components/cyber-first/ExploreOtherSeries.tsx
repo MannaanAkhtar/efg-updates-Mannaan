@@ -64,7 +64,7 @@ export default function ExploreOtherSeries() {
           transition={{ duration: 0.6, ease: ANIMATION.ease }}
           style={{ textAlign: "center", marginBottom: 40 }}
         >
-          {/* Label — Orange for EFG parent brand */}
+          {/* Label, Orange for EFG parent brand */}
           <div className="flex items-center justify-center gap-3">
             <span style={{ width: 30, height: 1, background: EFG_ORANGE }} />
             <span
@@ -133,7 +133,7 @@ export default function ExploreOtherSeries() {
 }
 
 /**
- * SeriesCard — Mini event series portal card
+ * SeriesCard, Mini event series portal card
  */
 function SeriesCard({ series }: { series: (typeof otherSeries)[0] }) {
   const [isHovered, setIsHovered] = useState(false);

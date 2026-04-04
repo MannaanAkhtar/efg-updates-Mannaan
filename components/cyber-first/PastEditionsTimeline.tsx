@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SHADOWS, SPACING, GRADIENTS } from "@/lib/cyber-design-tokens";
 
-// Who's in the room — role breakdown
+// Who's in the room, role breakdown
 const roles = [
   { title: "CISOs & CSOs", percentage: 32, description: "Chief Information Security Officers leading enterprise cyber strategy" },
   { title: "CTO & CIO", percentage: 22, description: "Technology executives driving digital transformation securely" },
@@ -88,7 +88,7 @@ export default function PastEditionsTimeline() {
               margin: "16px auto 0",
             }}
           >
-            Cyber First doesn&rsquo;t fill seats — it curates a room. Every
+            Cyber First doesn&rsquo;t fill seats, it curates a room. Every
             attendee is a decision-maker shaping enterprise cybersecurity.
           </p>
         </motion.div>
@@ -171,7 +171,7 @@ export default function PastEditionsTimeline() {
 }
 
 /**
- * ProofStat — Animated counting stat
+ * ProofStat, Animated counting stat
  */
 function ProofStat({
   stat,
@@ -268,7 +268,7 @@ function ProofStat({
 }
 
 /**
- * RoleCard — Audience role breakdown with bar
+ * RoleCard, Audience role breakdown with bar
  */
 function RoleCard({
   role,

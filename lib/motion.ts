@@ -1,6 +1,6 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════
- * EFG MOTION LIBRARY — APPLE-GRADE ANIMATIONS
+ * EFG MOTION LIBRARY, APPLE-GRADE ANIMATIONS
  * ═══════════════════════════════════════════════════════════════════════════
  * 
  * The difference between "good" and "premium" is in the motion.
@@ -10,7 +10,7 @@
 import type { Variants, Transition, TargetAndTransition } from "framer-motion";
 
 // ═══════════════════════════════════════════════════════════════════════════
-// EASING CURVES — The Soul of Motion
+// EASING CURVES, The Soul of Motion
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const ease = {
@@ -35,7 +35,7 @@ export const ease = {
 } as const;
 
 // ═══════════════════════════════════════════════════════════════════════════
-// SPRING CONFIGURATIONS — Physics-based Motion
+// SPRING CONFIGURATIONS, Physics-based Motion
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const springs = {
@@ -89,7 +89,7 @@ export const springs = {
 } as const;
 
 // ═══════════════════════════════════════════════════════════════════════════
-// DURATIONS — Timing Scale
+// DURATIONS, Timing Scale
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const duration = {
@@ -106,7 +106,7 @@ export const duration = {
 } as const;
 
 // ═══════════════════════════════════════════════════════════════════════════
-// STAGGER — List Animations
+// STAGGER, List Animations
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const stagger = {
@@ -119,7 +119,7 @@ export const stagger = {
 } as const;
 
 // ═══════════════════════════════════════════════════════════════════════════
-// TRANSITION PRESETS — Ready to use
+// TRANSITION PRESETS, Ready to use
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const transitions = {
@@ -155,7 +155,7 @@ export const transitions = {
 } as const;
 
 // ═══════════════════════════════════════════════════════════════════════════
-// ANIMATION VARIANTS — The Animation Library
+// ANIMATION VARIANTS, The Animation Library
 // ═══════════════════════════════════════════════════════════════════════════
 
 // Fade Up (Most Common)
@@ -401,7 +401,7 @@ export const staggerSlow: Variants = {
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
-// HOVER EFFECTS — Micro-interactions
+// HOVER EFFECTS, Micro-interactions
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const hoverEffects = {
@@ -449,7 +449,7 @@ export const hoverEffects = {
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
-// SCROLL ANIMATIONS — Viewport-triggered
+// SCROLL ANIMATIONS, Viewport-triggered
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const scrollTrigger = {
@@ -482,7 +482,7 @@ export const scrollTrigger = {
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
-// TRANSITION BUILDERS — Dynamic transitions
+// TRANSITION BUILDERS, Dynamic transitions
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const createTransition = {
@@ -516,7 +516,7 @@ export const createTransition = {
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
-// PARALLAX — Scroll-based transformations
+// PARALLAX, Scroll-based transformations
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const parallax = {
@@ -537,7 +537,7 @@ export const parallax = {
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
-// PAGE TRANSITIONS — Route changes
+// PAGE TRANSITIONS, Route changes
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const pageTransitions: Variants = {

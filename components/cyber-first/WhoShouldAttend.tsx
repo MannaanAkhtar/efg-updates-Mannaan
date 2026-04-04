@@ -16,7 +16,7 @@ const roles = [
   "Head of Cloud Security",
   "Security Architects",
   "Head of Digital Transformation",
-  "Director — Threat Intelligence",
+  "Director, Threat Intelligence",
 ];
 
 // Industries data
@@ -56,7 +56,7 @@ export default function WhoShouldAttend() {
           gap: 60,
         }}
       >
-        {/* Left Column — Pitch */}
+        {/* Left Column, Pitch */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
@@ -102,7 +102,7 @@ export default function WhoShouldAttend() {
           >
             Cyber First is designed exclusively for senior technology and
             security leaders. If your role involves protecting digital assets,
-            managing cyber risk, or shaping security strategy — this is your
+            managing cyber risk, or shaping security strategy, this is your
             event.
           </p>
 
@@ -117,7 +117,7 @@ export default function WhoShouldAttend() {
           </motion.div>
         </motion.div>
 
-        {/* Right Column — Lists */}
+        {/* Right Column, Lists */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
@@ -187,7 +187,7 @@ export default function WhoShouldAttend() {
 }
 
 /**
- * ListItem — Individual list item with hover effect
+ * ListItem, Individual list item with hover effect
  */
 function ListItem({
   item,
@@ -237,7 +237,7 @@ function ListItem({
 }
 
 /**
- * RegisterButton — CTA button
+ * RegisterButton, CTA button
  */
 function RegisterButton() {
   const [isHovered, setIsHovered] = useState(false);

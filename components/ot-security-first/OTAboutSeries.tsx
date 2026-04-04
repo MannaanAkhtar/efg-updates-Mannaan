@@ -84,7 +84,7 @@ export default function OTAboutSeries() {
         overflow: "hidden",
       }}
     >
-      {/* Diagonal grid pattern — industrial SCADA feel */}
+      {/* Diagonal grid pattern, industrial SCADA feel */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -95,7 +95,7 @@ export default function OTAboutSeries() {
           backgroundSize: "60px 60px",
         }}
       />
-      {/* Radial crimson glow — bottom-left */}
+      {/* Radial crimson glow, bottom-left */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -121,7 +121,7 @@ export default function OTAboutSeries() {
             alignItems: "start",
           }}
         >
-          {/* LEFT — Sticky intro */}
+          {/* LEFT, Sticky intro */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
@@ -173,7 +173,7 @@ export default function OTAboutSeries() {
               }}
             >
               The only platform in the MENA region dedicated exclusively to
-              operational technology security — integrating cutting-edge
+              operational technology security, integrating cutting-edge
               technologies, fostering regional expertise, and driving actionable
               strategies to protect ICS, SCADA, and Industrial IoT environments.
             </p>
@@ -214,7 +214,7 @@ export default function OTAboutSeries() {
             </a>
           </motion.div>
 
-          {/* RIGHT — Themes grid */}
+          {/* RIGHT, Themes grid */}
           <div>
             {/* Themes label */}
             <motion.div
@@ -237,7 +237,7 @@ export default function OTAboutSeries() {
               </span>
             </motion.div>
 
-            {/* Themes Grid — 2 columns */}
+            {/* Themes Grid, 2 columns */}
             <div
               className="about-themes-grid"
               style={{
@@ -289,7 +289,7 @@ export default function OTAboutSeries() {
 }
 
 /**
- * ThemeCard — Individual theme card with left-edge crimson bar
+ * ThemeCard, Individual theme card with left-edge crimson bar
  */
 function ThemeCard({
   theme,

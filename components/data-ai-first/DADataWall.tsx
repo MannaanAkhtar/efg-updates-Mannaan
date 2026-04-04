@@ -39,7 +39,7 @@ export default function DADataWall() {
       {/* Scan-line texture */}
       <ScanLines opacity={0.025} lineHeight={3} />
 
-      {/* Emerald glow — top center */}
+      {/* Emerald glow, top center */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{

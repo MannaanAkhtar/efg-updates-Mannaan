@@ -29,7 +29,7 @@ const rules = [
       </svg>
     ),
     title: "Curated Attendance",
-    body: "15 to 20 hand-selected executives per session. Every seat is earned — no walk-ins, no exceptions.",
+    body: "15 to 20 hand-selected executives per session. Every seat is earned, no walk-ins, no exceptions.",
   },
   {
     num: "02",
@@ -103,10 +103,10 @@ export default function NetworkFirst() {
             <span style={{ width: 24, height: 1, background: AMBER_50 }} />
           </p>
           <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 48px)", fontWeight: 800, lineHeight: 1.1, margin: "0 0 16px", letterSpacing: "-0.03em", color: TEXT }}>
-            NetworkFirst — Invite-Only Executive Boardroom Roundtables<span style={{ color: AMBER }}>.</span>
+            NetworkFirst, Invite-Only Executive Boardroom Roundtables<span style={{ color: AMBER }}>.</span>
           </h2>
           <p style={{ fontSize: 15, color: TEXT_30, margin: "0 auto", maxWidth: 560, lineHeight: 1.65 }}>
-            15-seat executive roundtables. Hand-selected CISOs, CTOs, and C-suite leaders. No keynotes, no slides, no recordings. Sponsor-hosted, invite-only boardroom sessions where the conversations that actually move industries happen &mdash; across Dubai, Riyadh, Kuwait, and Doha.
+            15-seat executive roundtables. Hand-selected CISOs, CTOs, and C-suite leaders. No keynotes, no slides, no recordings. Sponsor-hosted, invite-only boardroom sessions where the conversations that actually move industries happen , across Dubai, Riyadh, Kuwait, and Doha.
           </p>
         </motion.div>
 

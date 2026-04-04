@@ -17,7 +17,7 @@ const elements = [
     id: "awards",
     title: "Awards Ceremony",
     description:
-      "Recognizing excellence in cybersecurity — from innovative defenders to visionary leaders shaping the region.",
+      "Recognizing excellence in cybersecurity, from innovative defenders to visionary leaders shaping the region.",
     image: "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=600&q=80",
   },
   {
@@ -31,7 +31,7 @@ const elements = [
     id: "hackathon",
     title: "Hackathon & CTF",
     description:
-      "Hands-on cybersecurity challenges testing real-world skills — from penetration testing to incident response.",
+      "Hands-on cybersecurity challenges testing real-world skills, from penetration testing to incident response.",
     image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80",
   },
   {
@@ -158,7 +158,7 @@ export default function ConferenceElements() {
 }
 
 /**
- * ElementCard — Photo-backed conference element card
+ * ElementCard, Photo-backed conference element card
  */
 function ElementCard({
   element,

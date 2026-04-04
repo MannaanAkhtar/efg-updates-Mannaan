@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
  *
  * A fixed-position div that follows the mouse cursor everywhere on the page.
  * 350px × 350px, perfectly round, with a radial gradient of warm orange light.
- * Follows with intentional lag — a soft pursuit using lerp interpolation.
+ * Follows with intentional lag, a soft pursuit using lerp interpolation.
  *
  * The effect: wherever the user's attention goes, a faint warm light follows.
  * It's atmospheric, like a spotlight in a dark theater tracking the audience's gaze.
@@ -52,7 +52,7 @@ export default function CursorGlow() {
       mousePosition.current = { x: e.clientX, y: e.clientY };
     };
 
-    // Lerp interpolation factor — 0.08 means 8% closer each frame
+    // Lerp interpolation factor, 0.08 means 8% closer each frame
     const lerpFactor = 0.08;
 
     const animate = () => {

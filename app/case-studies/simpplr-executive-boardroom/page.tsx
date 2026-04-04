@@ -23,7 +23,7 @@ function useDeckMode() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SIMPPLR BRAND — Minimal & Clean
+// SIMPPLR BRAND, Minimal & Clean
 // ─────────────────────────────────────────────────────────────────────────────
 
 const BRAND = {
@@ -447,7 +447,7 @@ export default function SimpplrCaseStudy() {
             <div style={{ maxWidth: 640, margin: "0 auto", textAlign: "center" }}>
               <div style={{ fontSize: 48, color: BRAND.orange, marginBottom: 24, lineHeight: 1 }}>"</div>
               <p style={{ fontSize: 20, color: BRAND.gray900, lineHeight: 1.7, fontWeight: 400, marginBottom: 32 }}>
-                The Executive Boardroom format delivered exactly what we needed—quality over quantity. The conversations were substantive, the attendees were decision-makers, and the follow-up opportunities were genuine.
+                The Executive Boardroom format delivered exactly what we needed: quality over quantity. The conversations were substantive, the attendees were decision-makers, and the follow-up opportunities were genuine.
               </p>
               <div>
                 <div style={{ fontSize: 14, fontWeight: 600, color: BRAND.gray900 }}>Senior Marketing Leader</div>
@@ -509,7 +509,7 @@ export default function SimpplrCaseStudy() {
       }}>
         <div>
           <p style={{ fontSize: 13, color: BRAND.gray400 }}>© 2026 Events First Group</p>
-          <p style={{ fontSize: 11, color: BRAND.gray400, marginTop: 4 }}>Confidential — For prospective client review</p>
+          <p style={{ fontSize: 11, color: BRAND.gray400, marginTop: 4 }}>Confidential, For prospective client review</p>
         </div>
         <div style={{ textAlign: "right" }}>
           <Link 

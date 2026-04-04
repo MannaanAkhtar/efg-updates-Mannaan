@@ -607,7 +607,7 @@ function HeroSection() {
         }}
       />
 
-      {/* Supergraphic — Heat 1 gradient, dramatic bleed, with parallax */}
+      {/* Supergraphic, Heat 1 gradient, dramatic bleed, with parallax */}
       <motion.div
         style={{
           position: "absolute",
@@ -629,7 +629,7 @@ function HeroSection() {
         />
       </motion.div>
 
-      {/* Red flashpoint accent — larger, more atmospheric */}
+      {/* Red flashpoint accent, larger, more atmospheric */}
       <div
         style={{
           position: "absolute",
@@ -645,7 +645,7 @@ function HeroSection() {
         }}
       />
 
-      {/* Purple atmospheric glow — bottom left for depth */}
+      {/* Purple atmospheric glow, bottom left for depth */}
       <div
         style={{
           position: "absolute",
@@ -661,7 +661,7 @@ function HeroSection() {
         }}
       />
 
-      {/* Content with scroll fade — two-column layout */}
+      {/* Content with scroll fade, two-column layout */}
       <motion.div
         style={{
           position: "relative",
@@ -736,7 +736,7 @@ function HeroSection() {
               A private virtual roundtable for senior martech leaders in MENAT.
             </motion.p>
 
-            {/* Event details — inline with dividers */}
+            {/* Event details, inline with dividers */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -858,7 +858,7 @@ function HeroSection() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator — minimal line + chevron */}
+      {/* Scroll indicator, minimal line + chevron */}
       <motion.div
         className="braze-scroll-indicator"
         initial={{ opacity: 0 }}
@@ -891,7 +891,7 @@ function HeroSection() {
         </svg>
       </motion.div>
 
-      {/* Event details strip — REMOVED, now in hero content */}
+      {/* Event details strip, REMOVED, now in hero content */}
       <motion.div
         style={{ display: "none" }}
       >
@@ -977,7 +977,7 @@ function StatsBar() {
         overflow: "hidden",
       }}
     >
-      {/* Supergraphic watermark — subtle */}
+      {/* Supergraphic watermark, subtle */}
       <div style={{
         position: "absolute",
         top: "-60%",
@@ -1101,7 +1101,7 @@ function OverviewSection() {
           pointerEvents: "none",
         }} />
 
-        {/* Supergraphic — more visible */}
+        {/* Supergraphic, more visible */}
         <div style={{
           position: "absolute",
           top: "-10%",
@@ -1116,7 +1116,7 @@ function OverviewSection() {
 
         <div style={{ maxWidth: MAX_W, margin: "0 auto", padding: "100px clamp(20px, 4vw, 60px) 100px", position: "relative", zIndex: 2 }}>
           <div className="braze-overview-layout" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }}>
-            {/* LEFT — Heading + CTA */}
+            {/* LEFT, Heading + CTA */}
             <div>
               <motion.span
                 initial={{ opacity: 0, y: 10 }}
@@ -1199,7 +1199,7 @@ function OverviewSection() {
 
             </div>
 
-            {/* RIGHT — Body text in card */}
+            {/* RIGHT, Body text in card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -1284,7 +1284,7 @@ const BENEFITS = [
       </svg>
     ),
     title: "Closed-Door Format",
-    desc: "An intimate, invite-only virtual setting designed for candid conversation — no recordings, no sales pitches.",
+    desc: "An intimate, invite-only virtual setting designed for candid conversation, no recordings, no sales pitches.",
   },
 ];
 
@@ -1299,7 +1299,7 @@ function WhatToExpect() {
       position: "relative",
       overflow: "hidden",
     }}>
-      {/* Supergraphic watermark — right */}
+      {/* Supergraphic watermark, right */}
       <div style={{
         position: "absolute",
         top: "-25%",
@@ -1312,7 +1312,7 @@ function WhatToExpect() {
         <Image src="/braze/sg-heat1-3.png" alt="" fill style={{ objectFit: "contain" }} />
       </div>
 
-      {/* Supergraphic watermark — left subtle */}
+      {/* Supergraphic watermark, left subtle */}
       <div style={{
         position: "absolute",
         bottom: "-20%",
@@ -1478,7 +1478,7 @@ function WhatToExpect() {
                 e.currentTarget.style.borderColor = "rgba(128,30,215,0.25)";
               }}
             >
-              {/* Inner glow — purple shimmer at top */}
+              {/* Inner glow, purple shimmer at top */}
               <div style={{
                 position: "absolute",
                 top: 0,
@@ -1489,7 +1489,7 @@ function WhatToExpect() {
                 pointerEvents: "none",
               }} />
 
-              {/* Corner glow — warm orange bottom-right */}
+              {/* Corner glow, warm orange bottom-right */}
               <div style={{
                 position: "absolute",
                 bottom: -40,
@@ -1607,7 +1607,7 @@ function ThemesSection() {
         <Image src="/braze/sg-heat1-5.png" alt="" fill style={{ objectFit: "contain" }} />
       </div>
 
-      {/* Warm radial glow — top left */}
+      {/* Warm radial glow, top left */}
       <div style={{
         position: "absolute",
         top: "-10%",
@@ -1618,7 +1618,7 @@ function ThemesSection() {
         pointerEvents: "none",
       }} />
 
-      {/* Purple radial glow — bottom right */}
+      {/* Purple radial glow, bottom right */}
       <div style={{
         position: "absolute",
         bottom: "-5%",
@@ -1815,7 +1815,7 @@ function ThemesSection() {
                   </p>
                 </div>
 
-                {/* Subtle right edge accent on hover — arrow hint */}
+                {/* Subtle right edge accent on hover, arrow hint */}
                 <div style={{
                   width: 4,
                   flexShrink: 0,
@@ -1846,7 +1846,7 @@ function AttendSection() {
         marginTop: 80,
       }}
     >
-      {/* Main area — dark purple with orange accents */}
+      {/* Main area, dark purple with orange accents */}
       <div style={{
         background: `linear-gradient(160deg, ${B_DARK_PURPLE} 0%, #1A0440 50%, ${B_DARK_PURPLE} 100%)`,
         position: "relative",
@@ -1866,7 +1866,7 @@ function AttendSection() {
           <Image src="/braze/sg-heat1-1.png" alt="" fill style={{ objectFit: "contain" }} />
         </div>
 
-        {/* Orange radial glow — top right */}
+        {/* Orange radial glow, top right */}
         <div style={{
           position: "absolute",
           top: "-10%",
@@ -1877,7 +1877,7 @@ function AttendSection() {
           pointerEvents: "none",
         }} />
 
-        {/* Purple radial glow — bottom left */}
+        {/* Purple radial glow, bottom left */}
         <div style={{
           position: "absolute",
           bottom: "-10%",
@@ -1926,7 +1926,7 @@ function AttendSection() {
           </motion.h2>
 
           <div className="braze-attend-layout" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "start" }}>
-            {/* Left — description */}
+            {/* Left, description */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -1985,7 +1985,7 @@ function AttendSection() {
               </a>
             </motion.div>
 
-            {/* Right — pills */}
+            {/* Right, pills */}
             <motion.div
               className="braze-attend-pills"
               initial={{ opacity: 0, y: 20 }}
@@ -2103,7 +2103,7 @@ function HostedByBraze() {
         overflow: "hidden",
         padding: "56px 0 72px",
       }}>
-        {/* Supergraphic watermark — right */}
+        {/* Supergraphic watermark, right */}
         <div style={{
           position: "absolute",
           top: "-40%",
@@ -2116,7 +2116,7 @@ function HostedByBraze() {
           <Image src="/braze/sg-heat1-5.png" alt="" fill style={{ objectFit: "contain" }} />
         </div>
 
-        {/* Supergraphic watermark — left subtle */}
+        {/* Supergraphic watermark, left subtle */}
         <div style={{
           position: "absolute",
           bottom: "-30%",
@@ -2140,7 +2140,7 @@ function HostedByBraze() {
           backgroundSize: "24px 24px",
         }} />
 
-        {/* Purple radial glow — top left */}
+        {/* Purple radial glow, top left */}
         <div style={{
           position: "absolute",
           top: "-20%",
@@ -2151,7 +2151,7 @@ function HostedByBraze() {
           pointerEvents: "none",
         }} />
 
-        {/* Orange radial glow — bottom right */}
+        {/* Orange radial glow, bottom right */}
         <div style={{
           position: "absolute",
           bottom: "-10%",

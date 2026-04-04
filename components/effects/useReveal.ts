@@ -17,7 +17,7 @@ interface UseRevealOptions {
  * Returns a ref (to attach to any element) and an isVisible boolean
  * (true once the element enters the viewport).
  *
- * Once triggered, it stays true — animations don't reverse on scroll-up.
+ * Once triggered, it stays true, animations don't reverse on scroll-up.
  * This is the backbone of the reveal animation system.
  */
 export function useReveal<T extends HTMLElement = HTMLDivElement>(

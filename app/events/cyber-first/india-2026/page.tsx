@@ -199,7 +199,7 @@ const GALLERY: {
   },
   {
     src: `${S3}/Good/4N8A0065.JPG`,
-    alt: "Summit audience — executive delegates",
+    alt: "Summit audience, executive delegates",
     area: "g",
   },
 ];
@@ -306,9 +306,9 @@ const AGENDA = [
 
 const AWARDS_DATA = [
   "Cybersecurity Leader of the Year",
-  "CISO of the Year — Enterprise Security Excellence",
+  "CISO of the Year, Enterprise Security Excellence",
   "AI & Cyber Innovation Leader of the Year",
-  "Cyber Resilience Champion — Critical Infrastructure",
+  "Cyber Resilience Champion, Critical Infrastructure",
   "Cybersecurity Solution Provider of the Year",
   "Best AI-Driven Cybersecurity Innovation",
   "Cloud Security Excellence Award",
@@ -472,7 +472,7 @@ function HeroSection() {
             gap: 48,
           }}
         >
-          {/* Left — Text content */}
+          {/* Left, Text content */}
           <div className="cfi-hero-left" style={{ display: "flex", flexDirection: "column", justifyContent: "center", flex: 1 }}>
           {/* Edition Badge */}
           <motion.div
@@ -653,7 +653,7 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* Supporting Partners strip — full width, above countdown */}
+      {/* Supporting Partners strip, full width, above countdown */}
       <motion.div
         className="cfi-partners-strip"
         initial={{ opacity: 0 }}
@@ -829,7 +829,7 @@ function StatsBar() {
 
   return (
     <section ref={ref} style={{ position: "relative", padding: "clamp(60px, 7vw, 90px) 0", overflow: "hidden", background: "#060910" }}>
-      {/* Background — real EFG event photo */}
+      {/* Background, real EFG event photo */}
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={`${S3}/events/Cyber%20First%20Kuwait%202025/filemail_photos/cyber21-04-324.jpg`} alt="" className="w-full h-full object-cover" style={{ filter: "brightness(0.1) saturate(0.4)" }} />
@@ -838,7 +838,7 @@ function StatsBar() {
       {/* Gradient overlays */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(6,9,16,0.95) 0%, rgba(6,9,16,0.6) 50%, rgba(6,9,16,0.95) 100%)" }} />
 
-      {/* Radial glow — slow pulse */}
+      {/* Radial glow, slow pulse */}
       <div className="absolute inset-0 pointer-events-none cfi-overview-glow" style={{ background: `radial-gradient(ellipse 45% 40% at 50% 35%, ${C}0A, transparent 70%)` }} />
 
       {/* Scan lines */}
@@ -854,7 +854,7 @@ function StatsBar() {
             <span style={{ width: 24, height: 1, background: C }} />
           </div>
 
-          {/* Headline — weight separation */}
+          {/* Headline, weight separation */}
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px, 3.5vw, 40px)", letterSpacing: "-1.5px", color: "rgba(255,255,255,0.9)", lineHeight: 1.15, margin: "0 0 6px" }}>
             One Day. One Room.
           </h2>
@@ -920,7 +920,7 @@ function StatsBar() {
         }} />
       </motion.div>
 
-      {/* ── Stat cards — full width row ── */}
+      {/* ── Stat cards, full width row ── */}
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 3 }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.5, ease: EASE }} className="cfi-stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {stats.map((s, i) => (
@@ -1049,7 +1049,7 @@ function MarketContext() {
 
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
         <div className="cfi-market-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
-          {/* Left — Copy */}
+          {/* Left, Copy */}
           <motion.div initial={{ opacity: 0, x: -30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, ease: EASE }}>
             <div className="flex items-center gap-3" style={{ marginBottom: 16 }}>
               <span style={{ width: 30, height: 1, background: C }} />
@@ -1065,10 +1065,10 @@ function MarketContext() {
             </p>
 
             <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 400, color: "rgba(255,255,255,0.5)", lineHeight: 1.7, marginBottom: 12 }}>
-              India faces <span style={{ color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>3,300+ cyberattacks every week</span> — above the global average. Ransomware, AI-driven threats, and supply-chain compromises are accelerating. The DPDP Act is live and the compliance clock is ticking.
+              India faces <span style={{ color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>3,300+ cyberattacks every week</span>, above the global average. Ransomware, AI-driven threats, and supply-chain compromises are accelerating. The DPDP Act is live and the compliance clock is ticking.
             </p>
             <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 400, color: "rgba(255,255,255,0.5)", lineHeight: 1.7, marginBottom: 28 }}>
-              <span style={{ color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>93% of Indian enterprises are increasing their cybersecurity budgets.</span> The question isn't whether to invest — it's where, how, and with whom.
+              <span style={{ color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>93% of Indian enterprises are increasing their cybersecurity budgets.</span> The question isn't whether to invest, it's where, how, and with whom.
             </p>
 
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -1080,7 +1080,7 @@ function MarketContext() {
             </div>
           </motion.div>
 
-          {/* Right — Stat cards */}
+          {/* Right, Stat cards */}
           <motion.div initial={{ opacity: 0, x: 30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, delay: 0.2, ease: EASE }} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             {stats.map((stat, i) => (
               <motion.div
@@ -1205,7 +1205,7 @@ function FocusAreas() {
                 }}
               />
 
-              {/* Content — pushed to bottom */}
+              {/* Content, pushed to bottom */}
               <div style={{
                 position: "relative",
                 zIndex: 1,
@@ -1316,7 +1316,7 @@ function WhoShouldAttend() {
             </div>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 48px)", letterSpacing: "-1.5px", color: "white", lineHeight: 1.1, margin: "0 0 20px" }}>Who Should Attend</h2>
             <p style={{ fontFamily: "var(--font-outfit)", fontSize: 16, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, marginBottom: 32 }}>
-              Cyber First India brings together the decision-makers shaping India's cybersecurity landscape — from government leaders to enterprise CISOs and technology innovators.
+              Cyber First India brings together the decision-makers shaping India's cybersecurity landscape, from government leaders to enterprise CISOs and technology innovators.
             </p>
             
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
@@ -1383,13 +1383,13 @@ function AgendaTimeline() {
         <div style={{ minWidth: 100, fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.3)", paddingTop: breakStyle ? 2 : 4 }}>{item.time}</div>
 
         {breakStyle ? (
-          /* Break items — minimal inline style, no card */
+          /* Break items, minimal inline style, no card */
           <div style={{ flex: 1, padding: "6px 0", display: "flex", alignItems: "center", gap: 10 }}>
             <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.3)", fontStyle: "italic" }}>{item.title}</span>
             <span style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.04)" }} />
           </div>
         ) : (
-          /* Content sessions — full card with left accent */
+          /* Content sessions, full card with left accent */
           <div style={{
             flex: 1,
             padding: "14px 18px",
@@ -1720,7 +1720,7 @@ function SponsorsSection() {
             }}
           />
 
-          {/* Row 1 — scrolls left */}
+          {/* Row 1, scrolls left */}
           <div className="cfi-marquee-track" style={{ marginBottom: 20 }}>
             <div
               className="cfi-marquee-inner cfi-scroll-left"
@@ -1758,7 +1758,7 @@ function SponsorsSection() {
             </div>
           </div>
 
-          {/* Row 2 — scrolls right */}
+          {/* Row 2, scrolls right */}
           <div className="cfi-marquee-track">
             <div
               className="cfi-marquee-inner cfi-scroll-right"
@@ -1985,7 +1985,7 @@ function AwardsSection() {
         {/* ── Two-Column: Categories Left + Form Right ── */}
         <div className="cfi-awards-main" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28, alignItems: "start" }}>
 
-          {/* LEFT — Award Categories as glass cards */}
+          {/* LEFT, Award Categories as glass cards */}
           <motion.div initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.6, delay: 0.2, ease: EASE }}>
             <div style={{ marginBottom: 20 }}>
               <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(18px,2vw,24px)", color: "white", margin: "0 0 6px", letterSpacing: "-0.5px" }}>8 Award Categories</h3>
@@ -2041,7 +2041,7 @@ function AwardsSection() {
             </motion.div>
           </motion.div>
 
-          {/* RIGHT — Nomination Form Glass Card */}
+          {/* RIGHT, Nomination Form Glass Card */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -2089,7 +2089,7 @@ function AwardsSection() {
                     <input type="email" placeholder="Work Email Address" required value={formData.email} onChange={(e) => { setFormData({ ...formData, email: e.target.value }); setAwardsEmailError(null); }} onFocus={() => setFocusedField("email")} onBlur={() => { setFocusedField(null); if (formData.email && !isWorkEmail(formData.email)) setAwardsEmailError("Please use your work email address"); }} style={inputStyle("email")} />
                     {awardsEmailError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "-6px 0 0" }}>{awardsEmailError}</p>}
 
-                    {/* Phone — full width row */}
+                    {/* Phone, full width row */}
                     <div style={{ display: "flex", gap: 10 }}>
                       <select value={`${awardsSelectedCountry.code}|${awardsSelectedCountry.country}`} onChange={(e) => { const [code, country] = e.target.value.split("|"); const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country); if (c) { setAwardsSelectedCountry(c); setAwardsPhoneError(null); } }} onFocus={() => setFocusedField("countryCode")} onBlur={() => setFocusedField(null)} style={{ ...inputStyle("countryCode"), width: 130, flexShrink: 0, appearance: "none" as const, cursor: "pointer", backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 14px center" }}>
                         {COUNTRY_CODES.map((cc) => (<option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>{cc.country} {cc.code}</option>))}
@@ -2173,7 +2173,7 @@ function Venue() {
               The Lalit Ashok<br />New Delhi
             </h2>
             <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, marginBottom: 24 }}>
-              Set in the heart of Chanakyapuri — New Delhi's diplomatic enclave — The Lalit Ashok offers a world-class setting for India's most important cybersecurity conversations. Where the nation's top CISOs, government leaders, and enterprise security executives convene.
+              Set in the heart of Chanakyapuri, New Delhi's diplomatic enclave, The Lalit Ashok offers a world-class setting for India's most important cybersecurity conversations. Where the nation's top CISOs, government leaders, and enterprise security executives convene.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               {[{ icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z", text: "The Lalit Ashok, Chanakyapuri, New Delhi" }, { icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", text: "16 June 2026 · 8:30 AM – 4:00 PM" }].map((item) => (
@@ -2220,7 +2220,7 @@ const REG_TABS = [
     key: "pass",
     label: "Attend",
     heading: "Request Your\nEvent Pass",
-    description: "Curated for senior leaders — CISOs, CIOs, CTOs, and VP-level executives. Submit your details and we'll match you to the right room.",
+    description: "Curated for senior leaders, CISOs, CIOs, CTOs, and VP-level executives. Submit your details and we'll match you to the right room.",
     perks: [
       { icon: "users", text: "Invite-only, C-suite audience" },
       { icon: "calendar", text: "16 June 2026 · New Delhi" },
@@ -2433,7 +2433,7 @@ function RegistrationSection() {
 
         {/* Split layout */}
         <div className="cfi-reg-split" style={{ display: "grid", gridTemplateColumns: "1fr 1.25fr", gap: "clamp(32px, 4vw, 64px)", alignItems: "start" }}>
-          {/* LEFT — Editorial */}
+          {/* LEFT, Editorial */}
           <AnimatePresence mode="wait">
             <motion.div
               key={`left-${activeTab}`}
@@ -2469,7 +2469,7 @@ function RegistrationSection() {
             </motion.div>
           </AnimatePresence>
 
-          {/* RIGHT — Form card */}
+          {/* RIGHT, Form card */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -2733,7 +2733,7 @@ function ContactEnquiries() {
           className="cfi-contact-grid"
           style={{ display: "grid", gridTemplateColumns: "1.6fr 1fr", gap: 24, alignItems: "stretch" }}
         >
-          {/* Speaking Enquiries — wider card */}
+          {/* Speaking Enquiries, wider card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -2798,7 +2798,7 @@ function ContactEnquiries() {
             </div>
           </motion.div>
 
-          {/* Sponsorship Enquiries — narrower card */}
+          {/* Sponsorship Enquiries, narrower card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}

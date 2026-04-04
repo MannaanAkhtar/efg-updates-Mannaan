@@ -4,7 +4,7 @@
  * FilmGrain
  *
  * Full-page SVG noise overlay that adds cinematic texture.
- * Extracted from HeroSection — now reusable across any page.
+ * Extracted from HeroSection, now reusable across any page.
  *
  * Fixed position, covers entire viewport. Apply once per page.
  */

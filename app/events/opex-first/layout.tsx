@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     canonical: PAGE_URL,
   },
   openGraph: {
-    title: "Opex First Series — The Premier Operational Excellence Summit",
+    title: "Opex First Series, The Premier Operational Excellence Summit",
     description:
       "COOs, excellence leaders, and transformation architects. Where efficiency meets excellence.",
     url: PAGE_URL,
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Opex First Series — Operational Excellence Summit",
+        alt: "Opex First Series, Operational Excellence Summit",
       },
     ],
     locale: "en_US",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Opex First Series — The Premier Operational Excellence Summit",
+    title: "Opex First Series, The Premier Operational Excellence Summit",
     description:
       "COOs and excellence leaders redefining operational brilliance.",
     images: [OG_IMAGE],
@@ -64,7 +64,7 @@ export default function OpexFirstLayout({
           { name: "OPEX First", url: PAGE_URL },
         ]}
       />
-      {/* EventSeries structured data — JSON-LD */}
+      {/* EventSeries structured data, JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

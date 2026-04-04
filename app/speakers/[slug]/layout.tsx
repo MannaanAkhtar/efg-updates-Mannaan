@@ -43,7 +43,7 @@ export async function generateMetadata({
     const roleLabel = speaker.role_type === "chair" ? "Conference Chair" : 
                       speaker.role_type === "advisor" ? "Advisor" : "Speaker";
     
-    const title = `${speaker.name} — ${roleLabel} | Events First Group`;
+    const title = `${speaker.name}, ${roleLabel} | Events First Group`;
     const description = speaker.bio 
       ? speaker.bio.substring(0, 160) + (speaker.bio.length > 160 ? "..." : "")
       : `${speaker.name}${speaker.title ? `, ${speaker.title}` : ""}${speaker.organization ? ` at ${speaker.organization}` : ""}. Speaker at Events First Group summits.`;

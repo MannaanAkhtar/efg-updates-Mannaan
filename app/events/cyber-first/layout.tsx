@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     canonical: PAGE_URL,
   },
   openGraph: {
-    title: "Cyber First Series — The Definitive Cybersecurity Summit",
+    title: "Cyber First Series, The Definitive Cybersecurity Summit",
     description:
       "CISOs, government cyber leaders, and security innovators across Abu Dhabi, Kuwait, Riyadh, Delhi, and Nairobi. Register for the next edition.",
     url: PAGE_URL,
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Cyber First Series — Cybersecurity Summit",
+        alt: "Cyber First Series, Cybersecurity Summit",
       },
     ],
     locale: "en_US",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cyber First Series — The Definitive Cybersecurity Summit",
+    title: "Cyber First Series, The Definitive Cybersecurity Summit",
     description:
       "CISOs and security leaders across Abu Dhabi, Kuwait, Riyadh, Delhi, and Nairobi.",
     images: [OG_IMAGE],
@@ -66,7 +66,7 @@ export default function CyberFirstLayout({
           { name: "Cyber First", url: PAGE_URL },
         ]}
       />
-      {/* EventSeries structured data — JSON-LD */}
+      {/* EventSeries structured data, JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

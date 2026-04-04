@@ -37,7 +37,7 @@ const sections = [
     id: "sharing",
     title: "4. Information Sharing & Disclosure",
     content: [
-      "We do not sell your personal information. We may share your data with: event sponsors and partners (with your knowledge at registration); trusted service providers who assist in operating our website, conducting events, or servicing you — provided they agree to keep your information confidential; legal authorities when required by law or to protect our rights.",
+      "We do not sell your personal information. We may share your data with: event sponsors and partners (with your knowledge at registration); trusted service providers who assist in operating our website, conducting events, or servicing you, provided they agree to keep your information confidential; legal authorities when required by law or to protect our rights.",
       "All third-party service providers are contractually obligated to handle your data in accordance with this policy and applicable data protection laws.",
     ],
   },

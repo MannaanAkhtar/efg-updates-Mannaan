@@ -15,7 +15,7 @@ interface SectionTransitionProps {
  * SectionTransition
  *
  * The website's recurring visual motif. Between every major section,
- * a thin animated line of orange light appears — inspired by the horizontal
+ * a thin animated line of orange light appears, inspired by the horizontal
  * bar on the letter "F" in the EFG logo.
  *
  * It's a punctuation mark between scenes. A breath between acts.

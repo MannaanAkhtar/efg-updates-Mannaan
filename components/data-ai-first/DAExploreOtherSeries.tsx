@@ -204,7 +204,7 @@ function PortalCard({
             }}
           />
 
-          {/* Content — bottom aligned */}
+          {/* Content, bottom aligned */}
           <div
             className="absolute bottom-0 left-0 right-0"
             style={{ padding: "0 24px 28px" }}

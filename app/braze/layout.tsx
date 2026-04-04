@@ -16,7 +16,7 @@ export const metadata: Metadata = {
         url: "https://blaze-webinar.eventsfirstgroup.com/braze/braze-logo-purple.png",
         width: 1200,
         height: 630,
-        alt: "Braze x Events First Group — Marketing Through Uncertainty",
+        alt: "Braze x Events First Group, Marketing Through Uncertainty",
       },
     ],
   },

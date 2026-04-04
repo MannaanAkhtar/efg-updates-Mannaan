@@ -72,7 +72,7 @@ export default function SeriesHero() {
     <>
       <section ref={heroRef} className="relative w-full overflow-hidden" style={{ minHeight: "100vh", background: "#030508" }}>
 
-        {/* Background event photo — very dimmed */}
+        {/* Background event photo, very dimmed */}
         <div className="absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={`${S3}/Good/4N8A0122.JPG`} alt="" className="w-full h-full object-cover" style={{ filter: "brightness(0.25) saturate(0.7)", objectPosition: "center 30%" }} />
@@ -167,14 +167,14 @@ export default function SeriesHero() {
               {/* Main event photo */}
               <div style={{ borderRadius: 20, overflow: "hidden", position: "relative", aspectRatio: "4/3", boxShadow: `0 30px 80px rgba(0,0,0,0.5), 0 0 60px ${C}06` }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${S3}/Good/4N8A0160.JPG`} alt="Cyber First summit — 300+ executives" className="w-full h-full object-cover" style={{ filter: "brightness(0.7) saturate(1.1)" }} />
+                <img src={`${S3}/Good/4N8A0160.JPG`} alt="Cyber First summit, 300+ executives" className="w-full h-full object-cover" style={{ filter: "brightness(0.7) saturate(1.1)" }} />
                 {/* Bottom gradient overlay */}
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(3,5,8,0.85) 0%, rgba(3,5,8,0.3) 40%, transparent 70%)" }} />
                 {/* Top accent line */}
                 <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${C}, ${C_BRIGHT}, ${C})`, opacity: 0.6 }} />
               </div>
 
-              {/* Glass overlay card — bottom of photo */}
+              {/* Glass overlay card, bottom of photo */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

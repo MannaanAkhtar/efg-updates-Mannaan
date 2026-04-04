@@ -129,7 +129,7 @@ export default function FeaturedSpeakers() {
             }}
           >
             Government heads, enterprise CISOs, and global security architects
-            — the people who don&rsquo;t just attend conferences, they define them.
+           , the people who don&rsquo;t just attend conferences, they define them.
           </p>
         </motion.div>
 
@@ -187,7 +187,7 @@ export default function FeaturedSpeakers() {
 }
 
 /**
- * SpeakerCard — Premium speaker card with photo
+ * SpeakerCard, Premium speaker card with photo
  */
 function SpeakerCard({
   speaker,
@@ -294,7 +294,7 @@ function SpeakerCard({
 }
 
 /**
- * ViewAllLink — Link to full speakers page
+ * ViewAllLink, Link to full speakers page
  */
 function ViewAllLink() {
   const [isHovered, setIsHovered] = useState(false);

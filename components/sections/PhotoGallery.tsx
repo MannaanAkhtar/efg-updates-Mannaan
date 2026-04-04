@@ -31,10 +31,10 @@ const categories: Category[] = [
     subtitle: "Panels & Keynotes",
     heroImage: `${OPEX}/4N8A1702.JPG`,
     images: [
-      { src: `${OPEX}/4N8A1702.JPG`, caption: "Opex First UAE — executive panel" },
-      { src: `${CFK}/cyber21-04-324.jpg`, caption: "Cyber First Kuwait — LED stage" },
-      { src: `${OT}/4N8A0420.JPG`, caption: "OT Security First — panel discussion" },
-      { src: `${GOOD}/4N8A0010.JPG`, caption: "Keynote presentation — main stage" },
+      { src: `${OPEX}/4N8A1702.JPG`, caption: "Opex First UAE, executive panel" },
+      { src: `${CFK}/cyber21-04-324.jpg`, caption: "Cyber First Kuwait, LED stage" },
+      { src: `${OT}/4N8A0420.JPG`, caption: "OT Security First, panel discussion" },
+      { src: `${GOOD}/4N8A0010.JPG`, caption: "Keynote presentation, main stage" },
     ],
   },
   {
@@ -43,10 +43,10 @@ const categories: Category[] = [
     subtitle: "Institutional & Official Presence",
     heroImage: `${OPEX}/4N8A1688.JPG`,
     images: [
-      { src: `${OPEX}/4N8A1688.JPG`, caption: "Opex First — official ribbon cutting" },
-      { src: `${OPEX}/4N8A1698.JPG`, caption: "Opex First — ceremony moment" },
-      { src: `${CFK}/cyber21-04-430.jpg`, caption: "Cyber First Kuwait — ribbon cutting" },
-      { src: `${CFK}/cyber21-04-245.jpg`, caption: "VIP front row — government delegation" },
+      { src: `${OPEX}/4N8A1688.JPG`, caption: "Opex First, official ribbon cutting" },
+      { src: `${OPEX}/4N8A1698.JPG`, caption: "Opex First, ceremony moment" },
+      { src: `${CFK}/cyber21-04-430.jpg`, caption: "Cyber First Kuwait, ribbon cutting" },
+      { src: `${CFK}/cyber21-04-245.jpg`, caption: "VIP front row, government delegation" },
     ],
   },
   {
@@ -55,10 +55,10 @@ const categories: Category[] = [
     subtitle: "C-Suite & CISO Speakers",
     heroImage: `${OPEX}/4N8A1666.JPG`,
     images: [
-      { src: `${OPEX}/4N8A1666.JPG`, caption: "Opex First UAE — keynote address" },
-      { src: `${CFK}/cyber21-04-550.jpg`, caption: "Cyber First — executive keynote" },
-      { src: `${GOOD}/4N8A0122.JPG`, caption: "Industry leader — main stage" },
-      { src: `${OPEX}/4N8A1660.JPG`, caption: "C-Suite speaker — live session" },
+      { src: `${OPEX}/4N8A1666.JPG`, caption: "Opex First UAE, keynote address" },
+      { src: `${CFK}/cyber21-04-550.jpg`, caption: "Cyber First, executive keynote" },
+      { src: `${GOOD}/4N8A0122.JPG`, caption: "Industry leader, main stage" },
+      { src: `${OPEX}/4N8A1660.JPG`, caption: "C-Suite speaker, live session" },
     ],
   },
   {
@@ -67,10 +67,10 @@ const categories: Category[] = [
     subtitle: "Global Technology Partners",
     heroImage: `${OT}/4N8A0397.JPG`,
     images: [
-      { src: `${OT}/4N8A0397.JPG`, caption: "OT Security — partner booths" },
-      { src: `${CFK}/cyber21-04-410.jpg`, caption: "Cyber First — exhibition floor" },
-      { src: `${CFK}/cyber21-04-390.jpg`, caption: "Technology demos — active engagement" },
-      { src: `${GOOD}/4N8A9900.JPG`, caption: "Networking — sponsor showcase" },
+      { src: `${OT}/4N8A0397.JPG`, caption: "OT Security, partner booths" },
+      { src: `${CFK}/cyber21-04-410.jpg`, caption: "Cyber First, exhibition floor" },
+      { src: `${CFK}/cyber21-04-390.jpg`, caption: "Technology demos, active engagement" },
+      { src: `${GOOD}/4N8A9900.JPG`, caption: "Networking, sponsor showcase" },
     ],
   },
   {
@@ -79,10 +79,10 @@ const categories: Category[] = [
     subtitle: "5,000+ Senior Delegates",
     heroImage: `${OPEX}/4N8A1848.JPG`,
     images: [
-      { src: `${OPEX}/4N8A1848.JPG`, caption: "Opex First — delegate seating" },
-      { src: `${CFK}/cyber21-04-160.jpg`, caption: "Full house — grand ballroom panorama" },
-      { src: `${GOOD}/4N8A0160.JPG`, caption: "OT Security — engaged audience" },
-      { src: `${GOOD}/4N8A0065.JPG`, caption: "Focus — depth of field" },
+      { src: `${OPEX}/4N8A1848.JPG`, caption: "Opex First, delegate seating" },
+      { src: `${CFK}/cyber21-04-160.jpg`, caption: "Full house, grand ballroom panorama" },
+      { src: `${GOOD}/4N8A0160.JPG`, caption: "OT Security, engaged audience" },
+      { src: `${GOOD}/4N8A0065.JPG`, caption: "Focus, depth of field" },
     ],
   },
   {
@@ -91,10 +91,10 @@ const categories: Category[] = [
     subtitle: "Honouring Regional Excellence",
     heroImage: `${OPEX}/4N8A1751.JPG`,
     images: [
-      { src: `${OPEX}/4N8A1751.JPG`, caption: "Opex First — award ceremony" },
+      { src: `${OPEX}/4N8A1751.JPG`, caption: "Opex First, award ceremony" },
       { src: `${GOOD}/4N8A0200.JPG`, caption: "Cybersecurity Leader of the Year" },
       { src: `${GOOD}/4N8A0330.JPG`, caption: "Trophy presentation ceremony" },
-      { src: `${CFK}/cyber21-04-350.jpg`, caption: "Award recipient — recognition moment" },
+      { src: `${CFK}/cyber21-04-350.jpg`, caption: "Award recipient, recognition moment" },
     ],
   },
 ];
@@ -222,7 +222,7 @@ export default function PhotoGallery() {
                 ))}
               </div>
 
-              {/* Expandable panel — only renders for the row containing the active tile */}
+              {/* Expandable panel, only renders for the row containing the active tile */}
               <AnimatePresence>
                 {rowActiveCategory && (
                   <motion.div
@@ -326,7 +326,7 @@ function Tile({
         }}
       />
 
-      {/* Orange top accent — visible when active */}
+      {/* Orange top accent, visible when active */}
       <motion.div
         initial={false}
         animate={{ scaleX: isActive ? 1 : 0 }}

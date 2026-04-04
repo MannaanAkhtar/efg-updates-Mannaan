@@ -6,7 +6,7 @@ const PAGE_URL = `${BASE_URL}/events/cyber-first/qatar-2026`;
 const OG_IMAGE = `${BASE_URL}/og-default.png`;
 
 export const metadata: Metadata = {
-  title: "Cyber First Qatar 2026 | Cybersecurity Summit Doha — September",
+  title: "Cyber First Qatar 2026 | Cybersecurity Summit Doha, September",
   description:
     "Qatar's leading cybersecurity platform for CISOs, government security leaders, and enterprise defenders. 22 September 2026, Doha.",
   keywords: [
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "Cyber First Qatar 2026 — Doha",
+    title: "Cyber First Qatar 2026, Doha",
     description: "Qatar's premier cybersecurity summit. 22 September 2026, Doha.",
     url: PAGE_URL,
     siteName: "Events First Group",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cyber First Qatar 2026 — Doha",
+    title: "Cyber First Qatar 2026, Doha",
     description: "Qatar's premier cybersecurity summit. 22 September 2026, Doha.",
     images: [OG_IMAGE],
   },

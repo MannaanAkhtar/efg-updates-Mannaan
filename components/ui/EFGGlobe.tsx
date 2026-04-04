@@ -152,7 +152,7 @@ export default function EFGGlobe({ className = "" }: EFGGlobeProps) {
             touchAction: "none",
           }}
         />
-        {/* Colored dot overlays — CSS Anchor Positioned, no interaction */}
+        {/* Colored dot overlays, CSS Anchor Positioned, no interaction */}
         {EFG_MARKERS.map((m) => (
           <div
             key={m.id}
@@ -190,7 +190,7 @@ export default function EFGGlobe({ className = "" }: EFGGlobeProps) {
         ))}
       </div>
 
-      {/* Legend — right side */}
+      {/* Legend, right side */}
       <div className="efg-globe-legend" style={{ display: "flex", flexDirection: "column", gap: 6, flexShrink: 0, width: "clamp(100px, 12vw, 150px)" }}>
         <span style={{
           fontFamily: "var(--font-outfit)",

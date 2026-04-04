@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: "Beyond the Firewall: Strategic Security Conversations",
-    description: "Cut through the noise. Focus on what actually works. May 13, 2026 — 90 min virtual roundtable.",
+    description: "Cut through the noise. Focus on what actually works. May 13, 2026, 90 min virtual roundtable.",
     url: PAGE_URL,
     siteName: "Events First Group",
     locale: "en_US",

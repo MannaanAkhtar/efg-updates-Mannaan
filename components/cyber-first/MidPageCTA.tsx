@@ -43,7 +43,7 @@ export default function MidPageCTA() {
           gap: 16,
         }}
       >
-        {/* Left — Event info */}
+        {/* Left, Event info */}
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <span
             style={{
@@ -69,7 +69,7 @@ export default function MidPageCTA() {
           </span>
         </div>
 
-        {/* Center — Countdown */}
+        {/* Center, Countdown */}
         <span
           style={{
             fontFamily: TYPOGRAPHY.fontDisplay,
@@ -82,7 +82,7 @@ export default function MidPageCTA() {
           {daysLeft > 0 ? `${daysLeft} DAYS LEFT` : "EVENT DAY"}
         </span>
 
-        {/* Right — CTA */}
+        {/* Right, CTA */}
         <a
           href="#register"
           style={{

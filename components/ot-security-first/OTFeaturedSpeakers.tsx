@@ -105,7 +105,7 @@ export default function OTFeaturedSpeakers() {
             "repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(211,75,154,0.03) 59px, rgba(211,75,154,0.03) 60px)",
         }}
       />
-      {/* Crimson glow — center-bottom */}
+      {/* Crimson glow, center-bottom */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -176,7 +176,7 @@ export default function OTFeaturedSpeakers() {
           </p>
         </motion.div>
 
-        {/* Speakers Grid — 4 columns, portrait cards */}
+        {/* Speakers Grid, 4 columns, portrait cards */}
         <div
           className="ot-speakers-grid"
           style={{
@@ -313,7 +313,7 @@ export default function OTFeaturedSpeakers() {
 }
 
 /**
- * SpeakerCard — Full portrait card with grayscale-to-color hover
+ * SpeakerCard, Full portrait card with grayscale-to-color hover
  */
 function SpeakerCard({ speaker }: { speaker: (typeof speakers)[0] }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -427,7 +427,7 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[0] }) {
 }
 
 /**
- * ViewAllLink — Link to full speakers page
+ * ViewAllLink, Link to full speakers page
  */
 function ViewAllLink() {
   const [isHovered, setIsHovered] = useState(false);

@@ -42,19 +42,19 @@ const values = [
   {
     title: "Trust as Infrastructure",
     description:
-      "Technology leaders return to our events year after year because trust is not a feature of what we do — it is the foundation.",
+      "Technology leaders return to our events year after year because trust is not a feature of what we do, it is the foundation.",
     number: "02",
   },
   {
     title: "Global Reach, Local Depth",
     description:
-      "We combine worldwide reach with deep local understanding — every market we enter, we immerse in its nuances and ambitions.",
+      "We combine worldwide reach with deep local understanding, every market we enter, we immerse in its nuances and ambitions.",
     number: "03",
   },
   {
     title: "Always Forward",
     description:
-      "Each series, each summit — we are looking at what is coming next and building the room for that conversation before anyone else does.",
+      "Each series, each summit, we are looking at what is coming next and building the room for that conversation before anyone else does.",
     number: "04",
   },
 ];
@@ -131,7 +131,7 @@ function SectionLabel({ text, centered }: { text: string; centered?: boolean }) 
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 1 — HERO (Clean, no founders)
+// SECTION 1, HERO (Clean, no founders)
 // ─────────────────────────────────────────────────────────────────────────────
 
 function AboutHero() {
@@ -252,7 +252,7 @@ function AboutHero() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 2 — IMPACT NUMBERS (Pre-triggered)
+// SECTION 2, IMPACT NUMBERS (Pre-triggered)
 // ─────────────────────────────────────────────────────────────────────────────
 
 function CountStat({
@@ -427,7 +427,7 @@ function AboutImpact() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 3 — OUR STORY
+// SECTION 3, OUR STORY
 // ─────────────────────────────────────────────────────────────────────────────
 
 function AboutStory() {
@@ -477,7 +477,7 @@ function AboutStory() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 4 — VALUES (Larger text, more visual)
+// SECTION 4, VALUES (Larger text, more visual)
 // ─────────────────────────────────────────────────────────────────────────────
 
 function AboutValues() {
@@ -687,7 +687,7 @@ function AboutValues() {
   );
 }
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 5 — TEAM (Founders integrated, consistent photos)
+// SECTION 5, TEAM (Founders integrated, consistent photos)
 // ─────────────────────────────────────────────────────────────────────────────
 
 function TeamMember({ member, index, isInView }: { member: Member; index: number; isInView: boolean }) {
@@ -835,7 +835,7 @@ function AboutTeam() {
               margin: "0 auto",
             }}
           >
-            The people who make it happen — from strategy to stage, from the first call to the last handshake. 
+            The people who make it happen, from strategy to stage, from the first call to the last handshake. 
             <span style={{ color: "var(--orange)" }}> We work hard and have fun doing it.</span>
           </p>
         </motion.div>
@@ -874,7 +874,7 @@ function AboutTeam() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 6 — FUN CULTURE SECTION
+// SECTION 6, FUN CULTURE SECTION
 // ─────────────────────────────────────────────────────────────────────────────
 
 function FunCulture() {
@@ -933,7 +933,7 @@ function FunCulture() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 7 — CAREERS
+// SECTION 7, CAREERS
 // ─────────────────────────────────────────────────────────────────────────────
 
 function CareersSection() {
@@ -1038,7 +1038,7 @@ function CareersSection() {
             >
               We&apos;re always looking for sharp, driven people who want to shape the
               future of technology events worldwide. If you thrive in fast-paced
-              environments and care about creating experiences that matter — we&apos;d
+              environments and care about creating experiences that matter, we&apos;d
               love to hear from you.
             </p>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>

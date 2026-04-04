@@ -186,7 +186,7 @@ export default function OpexAwards() {
           </p>
         </motion.div>
 
-        {/* ── Hero Award Card (first award — spotlight) ── */}
+        {/* ── Hero Award Card (first award, spotlight) ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}

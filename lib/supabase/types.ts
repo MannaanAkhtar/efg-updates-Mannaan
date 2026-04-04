@@ -1,4 +1,4 @@
-// Database types for Supabase — matches ACTUAL production schema
+// Database types for Supabase, matches ACTUAL production schema
 
 export type Json =
   | string

@@ -24,14 +24,14 @@ const EMERALD = "#0F735E";
 export default function DataAIFirstPage() {
   return (
     <div style={{ background: "#0A0A0A" }}>
-      {/* Film grain — full page overlay */}
+      {/* Film grain, full page overlay */}
       <FilmGrain opacity={0.025} />
 
       {/* 1. Hook */}
       <DAHero />
       <SectionTransition variant="dataflow" color={EMERALD} />
 
-      {/* 2. Where & when — now they're sold */}
+      {/* 2. Where & when, now they're sold */}
       <DAEditionsMap />
       <SectionTransition variant="expand" color={EMERALD} />
 

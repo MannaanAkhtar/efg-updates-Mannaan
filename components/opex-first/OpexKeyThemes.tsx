@@ -35,7 +35,7 @@ const topics = [
   {
     num: "06",
     title: "Giga-Project Operations",
-    desc: "Operational strategies for mega-projects — NEOM, Qiddiya, Masdar.",
+    desc: "Operational strategies for mega-projects, NEOM, Qiddiya, Masdar.",
   },
   {
     num: "07",

@@ -246,7 +246,7 @@ export default function CyberFirstGallery() {
 }
 
 /**
- * GalleryImage — Individual gallery cell with spotlight effect
+ * GalleryImage, Individual gallery cell with spotlight effect
  */
 function GalleryImage({
   image,

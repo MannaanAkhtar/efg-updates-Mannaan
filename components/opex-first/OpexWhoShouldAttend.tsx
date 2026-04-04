@@ -58,7 +58,7 @@ export default function OpexWhoShouldAttend() {
           alignItems: "start",
         }}
       >
-        {/* Left — Pitch */}
+        {/* Left, Pitch */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
@@ -106,7 +106,7 @@ export default function OpexWhoShouldAttend() {
             }}
           >
             Opex First is designed for the people responsible for making
-            organizations work better — from process improvement to digital
+            organizations work better, from process improvement to digital
             transformation to supply chain optimization.
           </p>
 
@@ -133,7 +133,7 @@ export default function OpexWhoShouldAttend() {
           </div>
         </motion.div>
 
-        {/* Right — Roles & Industries */}
+        {/* Right, Roles & Industries */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}

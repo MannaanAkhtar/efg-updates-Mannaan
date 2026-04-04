@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════
-// Shared form submission helpers — used by all forms across the site
+// Shared form submission helpers, used by all forms across the site
 // ═══════════════════════════════════════════════════════════════
 
 export type FormType =
@@ -20,7 +20,7 @@ export interface FormPayload {
   phone?: string;
   metadata?: Record<string, string>;
   event_name?: string;
-  website?: string; // honeypot — always send empty
+  website?: string; // honeypot, always send empty
 }
 
 export interface FormResult {
@@ -235,7 +235,7 @@ export function getSourceCategory(): string {
   const h = window.location.hostname;
   const p = window.location.pathname;
 
-  // Subdomain detection — middleware rewrites path to / but we know the actual source
+  // Subdomain detection, middleware rewrites path to / but we know the actual source
   if (h.startsWith("braze-webinar-2.")) return "Braze Virtual Roundtable 2";
   if (h.startsWith("braze-webinar.") || h.startsWith("blaze-webinar.")) return "Braze Virtual Roundtable";
 
@@ -283,7 +283,7 @@ export async function submitForm(payload: FormPayload): Promise<FormResult> {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         ...payload,
-        website: "", // honeypot — always empty for real submissions
+        website: "", // honeypot, always empty for real submissions
         source_url: typeof window !== "undefined" ? window.location.href : "",
         source_category: getSourceCategory(),
       }),

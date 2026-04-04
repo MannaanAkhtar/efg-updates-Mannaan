@@ -5,7 +5,7 @@ const BASE_URL = "https://eventsfirstgroup.com";
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0290.JPG";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Events First Group — Dubai",
+  title: "Contact Us | Events First Group, Dubai",
   description:
     "Get in touch with Events First Group. Inquire about sponsorship, speaking opportunities, delegate registration, partnerships, or media requests. Based in Dubai, UAE.",
   keywords: [
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Contact Us | Events First Group",
-    description: "Get in touch — sponsorship, speaking, registration, or partnerships.",
+    description: "Get in touch, sponsorship, speaking, registration, or partnerships.",
     images: [OG_IMAGE],
   },
 };

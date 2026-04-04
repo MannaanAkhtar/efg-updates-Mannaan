@@ -279,7 +279,7 @@ export default function OTRegistrationForm() {
 }
 
 /**
- * FormInput — Styled form input
+ * FormInput, Styled form input
  */
 function FormInput({
   label,
@@ -345,7 +345,7 @@ function FormInput({
 }
 
 /**
- * FormSelect — Styled select input
+ * FormSelect, Styled select input
  */
 function FormSelect({
   label,

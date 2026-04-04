@@ -44,7 +44,7 @@ export default function OTYouTubeShorts() {
           </h2>
         </motion.div>
 
-        {/* Shorts Row — 5 videos in a row, wraps on smaller screens */}
+        {/* Shorts Row, 5 videos in a row, wraps on smaller screens */}
         <div className="ot-shorts-row" style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 14 }}>
           {shorts.map((short, index) => (
             <motion.div

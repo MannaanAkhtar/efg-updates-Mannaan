@@ -73,7 +73,7 @@ export default async function OpexFeaturedSpeakers() {
       speakers = data as SpeakerWithSeries[];
     }
   } catch {
-    // Fall through — will use fallback
+    // Fall through, will use fallback
   }
 
   // Use Supabase data if available, otherwise fall back to hardcoded speakers

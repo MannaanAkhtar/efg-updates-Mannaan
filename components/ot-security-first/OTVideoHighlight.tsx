@@ -6,7 +6,7 @@ import { motion, useInView } from "framer-motion";
 const OT_CRIMSON = "#D34B9A";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-// Placeholder video — update when user provides URL
+// Placeholder video, update when user provides URL
 const mainVideo = {
   id: "PLACEHOLDER_VIDEO_ID",
   title: "OT Security First Highlights",
@@ -119,7 +119,7 @@ export default function OTVideoHighlight() {
 }
 
 /**
- * VideoThumbnail — Industrial play button with crimson accents
+ * VideoThumbnail, Industrial play button with crimson accents
  */
 function VideoThumbnail({
   thumbnail,
@@ -151,7 +151,7 @@ function VideoThumbnail({
         }}
       />
 
-      {/* Play Button — Angular style */}
+      {/* Play Button, Angular style */}
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <div
           className="flex items-center justify-center transition-all"

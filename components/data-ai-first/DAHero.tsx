@@ -88,7 +88,7 @@ export default function DAHero() {
         }}
       />
 
-      {/* Content — centered single column */}
+      {/* Content, centered single column */}
       <div
         className="relative z-10 flex flex-col items-center justify-center text-center"
         style={{

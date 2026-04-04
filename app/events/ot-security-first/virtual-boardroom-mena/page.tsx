@@ -86,7 +86,7 @@ const THREAT_STATS = [
 const KEY_THEMES = [
   { title: "AI-Powered Threats Targeting OT Environments", icon: "M12 2a4 4 0 014 4v1a2 2 0 012 2v1a2 2 0 01-2 2H8a2 2 0 01-2-2V9a2 2 0 012-2V6a4 4 0 014-4zM9 18h6M10 22h4" },
   { title: "Incident Response & Operational Resilience", icon: "M12 9v2m0 4h.01M5.07 19H19a2 2 0 001.75-2.94l-6.97-12.06a2 2 0 00-3.5 0L3.32 16.06A2 2 0 005.07 19z" },
-  { title: "IT/OT Convergence — Managing the Expanded Attack Surface", icon: "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" },
+  { title: "IT/OT Convergence, Managing the Expanded Attack Surface", icon: "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" },
   { title: "Zero Trust Architecture for OT Networks", icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" },
   { title: "Securing Critical Infrastructure & ICS/SCADA Systems", icon: "M2 20h20M4 20V10l8-6 8 6v10M9 20v-4a3 3 0 016 0v4" },
   { title: "UAE NCA & KSA National Cybersecurity Frameworks", icon: "M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11m16-11v11" },
@@ -95,9 +95,9 @@ const KEY_THEMES = [
 ];
 
 const PANELS = [
-  { num: "01", title: "AI-Powered Threats in OT: Are We Ready?", desc: "State-sponsored actors are now deploying AI-assisted recon and wiper malware against industrial systems across the Gulf. How are energy and utilities operators actually responding — and what does a practical OT defence posture look like in 2025?" },
-  { num: "02", title: "IT/OT Convergence: The Air Gap Is Gone", desc: "Fortinet's 2025 research confirmed the traditional IT/OT air gap is largely gone. With supply-chain attacks doubling and vendor access compromises surging, where are the real exposure points — and how are leaders managing them in live operational environments?" },
-  { num: "03", title: "From Reactive to Resilient: Building an OT Incident Response Capability", desc: "Only 52% of OT organisations globally have a documented, tested incident response plan. With ransomware now causing full OT site shutdowns in 25% of cases, this panel tackles what genuine resilience requires — from early detection to recovery and regulatory reporting." },
+  { num: "01", title: "AI-Powered Threats in OT: Are We Ready?", desc: "State-sponsored actors are now deploying AI-assisted recon and wiper malware against industrial systems across the Gulf. How are energy and utilities operators actually responding, and what does a practical OT defence posture look like in 2025?" },
+  { num: "02", title: "IT/OT Convergence: The Air Gap Is Gone", desc: "Fortinet's 2025 research confirmed the traditional IT/OT air gap is largely gone. With supply-chain attacks doubling and vendor access compromises surging, where are the real exposure points, and how are leaders managing them in live operational environments?" },
+  { num: "03", title: "From Reactive to Resilient: Building an OT Incident Response Capability", desc: "Only 52% of OT organisations globally have a documented, tested incident response plan. With ransomware now causing full OT site shutdowns in 25% of cases, this panel tackles what genuine resilience requires, from early detection to recovery and regulatory reporting." },
 ];
 
 const INDUSTRIES = ["Energy & Power Generation", "Oil & Gas", "Water & Utilities", "Petrochemicals", "Critical Manufacturing", "Telecommunications", "Ports & Logistics", "Government & Defence"];
@@ -105,10 +105,10 @@ const JOB_FUNCTIONS = ["CISO / CSO", "OT Security Manager", "Head of IT/OT", "VP
 const COUNTRIES = ["Saudi Arabia", "UAE", "Qatar", "Kuwait", "Oman", "Bahrain", "Jordan", "Egypt", "Nigeria", "South Africa", "Kenya"];
 
 const WHY_SPONSOR = [
-  { title: "Quality over quantity", desc: "100 carefully selected OT professionals — not a mass-market webinar. Every person in the room is a real decision-maker in energy, utilities, or critical infrastructure." },
+  { title: "Quality over quantity", desc: "100 carefully selected OT professionals, not a mass-market webinar. Every person in the room is a real decision-maker in energy, utilities, or critical infrastructure." },
   { title: "Real dialogue, real intelligence", desc: "Panel discussions surface what organisations are actually struggling with right now. You leave with genuine market intelligence on where MENA OT teams stand." },
-  { title: "Credibility, not advertising", desc: "The no-sales-pitch format means your brand stands for knowledge and expertise — not vendor noise. The audience remembers the sponsors who helped them think." },
-  { title: "The right moment", desc: "After a year that saw Iranian drone strikes hit Gulf cloud infrastructure, SCADA attacks across the region, and 700% surges in state-sponsored activity — the demand for this conversation has never been higher." },
+  { title: "Credibility, not advertising", desc: "The no-sales-pitch format means your brand stands for knowledge and expertise, not vendor noise. The audience remembers the sponsors who helped them think." },
+  { title: "The right moment", desc: "After a year that saw Iranian drone strikes hit Gulf cloud infrastructure, SCADA attacks across the region, and 700% surges in state-sponsored activity, the demand for this conversation has never been higher." },
 ];
 
 const S3_TEAM = "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos";
@@ -131,7 +131,7 @@ const CONTACTS_TEAM = [
   },
 ];
 
-// ─── HERO SECTION — Cybercore Grid ───────────────────────────────────────────
+// ─── HERO SECTION, Cybercore Grid ───────────────────────────────────────────
 function HeroSection() {
   const cd = useCountdown(EVENT_DATE);
   const [mounted, setMounted] = useState(false);
@@ -139,16 +139,16 @@ function HeroSection() {
 
   return (
     <section id="overview" style={{ position: "relative", height: "100vh", minHeight: 700, overflow: "hidden", background: BG_DARK }}>
-      {/* Cybercore animated background — sits behind everything */}
+      {/* Cybercore animated background, sits behind everything */}
       {mounted && <CybercoreBackground beamCount={70} />}
 
-      {/* Central radial glow — cyan-pink light source */}
+      {/* Central radial glow, cyan-pink light source */}
       <div style={{ position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "80%", height: "70%", background: "radial-gradient(ellipse 60% 70% at 50% 100%, rgba(0,201,255,0.25), rgba(211,75,154,0.1) 35%, rgba(0,201,255,0.03) 60%, transparent 80%)", filter: "blur(30px)", zIndex: 2, pointerEvents: "none" }} />
 
       {/* Secondary upper glow */}
       <div style={{ position: "absolute", top: "20%", left: "50%", transform: "translateX(-50%)", width: "60%", height: "50%", background: "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(211,75,154,0.08), transparent 70%)", zIndex: 2, pointerEvents: "none" }} />
 
-      {/* Content overlay — matches demo.tsx pattern */}
+      {/* Content overlay, matches demo.tsx pattern */}
       <div className="content-wrapper">
         <main className="hero-section">
           {/* Badge */}
@@ -250,7 +250,7 @@ function HeroSection() {
   );
 }
 
-// ─── THREAT STATS — Bento Dashboard with Floating Orbs ──────────────────────
+// ─── THREAT STATS, Bento Dashboard with Floating Orbs ──────────────────────
 function ThreatStats() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
@@ -301,7 +301,7 @@ function ThreatStats() {
       {/* Floor glow */}
       <div style={{ position: "absolute", bottom: "-5%", left: "50%", transform: "translateX(-50%)", width: "60%", height: "45%", borderRadius: "50%", background: "radial-gradient(ellipse, rgba(211,75,154,0.25), rgba(232,107,184,0.08) 40%, transparent 70%)", filter: "blur(50px)", pointerEvents: "none", zIndex: 0 }} />
 
-      {/* Floating orbs — using rgba for reliable opacity */}
+      {/* Floating orbs, using rgba for reliable opacity */}
       <div className="otvm-orb" style={{ position: "absolute", top: "5%", left: "8%", width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(211,75,154,0.2), transparent 65%)", filter: "blur(70px)", pointerEvents: "none", zIndex: 0 }} />
       <div className="otvm-orb" style={{ position: "absolute", bottom: "10%", right: "5%", width: 450, height: 450, borderRadius: "50%", background: "radial-gradient(circle, rgba(224,60,50,0.12), transparent 65%)", filter: "blur(70px)", pointerEvents: "none", zIndex: 0 }} />
       <div className="otvm-orb" style={{ position: "absolute", top: "35%", left: "55%", width: 400, height: 400, borderRadius: "50%", background: "radial-gradient(circle, rgba(232,107,184,0.15), transparent 65%)", filter: "blur(80px)", pointerEvents: "none", zIndex: 0 }} />
@@ -316,7 +316,7 @@ function ThreatStats() {
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 120, background: "linear-gradient(to bottom, #070b1f, transparent)", pointerEvents: "none", zIndex: 1 }} />
 
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
-        {/* Section heading — centered, large, with glow underline */}
+        {/* Section heading, centered, large, with glow underline */}
         <motion.div
           initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
           animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
@@ -336,7 +336,7 @@ function ThreatStats() {
           <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.4)" }}>2025 – 2026 data · Sources verified</span>
         </motion.div>
 
-        {/* Stats grid — skeuomorphic panels */}
+        {/* Stats grid, skeuomorphic panels */}
         <div className="otvm-stats-grid" style={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
@@ -355,13 +355,13 @@ function ThreatStats() {
                 position: "relative",
                 overflow: "hidden",
                 transition: "all 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
-                /* Outer frame — embossed bezel with gradient shimmer */
+                /* Outer frame, embossed bezel with gradient shimmer */
                 background: "linear-gradient(145deg, rgba(211,75,154,0.1) 0%, rgba(255,255,255,0.04) 30%, rgba(255,255,255,0.02) 50%, rgba(0,0,0,0.15) 80%, rgba(232,107,184,0.06) 100%)",
                 boxShadow: "0 1px 0 rgba(255,255,255,0.06) inset, 0 -1px 0 rgba(0,0,0,0.3) inset, 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(211,75,154,0.12)",
                 border: "none",
               }}
             >
-              {/* Inner recessed panel — the "screen" */}
+              {/* Inner recessed panel, the "screen" */}
               <div style={{
                 margin: 5,
                 borderRadius: 16,
@@ -372,7 +372,7 @@ function ThreatStats() {
                 overflow: "hidden",
                 border: "1px solid rgba(211,75,154,0.08)",
               }}>
-                {/* Subtle screen reflection — top highlight */}
+                {/* Subtle screen reflection, top highlight */}
                 <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)" }} />
 
                 {/* Status LED indicator */}
@@ -381,7 +381,7 @@ function ThreatStats() {
                   <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "2px" }}>Live Data</span>
                 </div>
 
-                {/* Stat number — LED readout style */}
+                {/* Stat number, LED readout style */}
                 <motion.div
                   initial={{ opacity: 0, filter: "blur(12px)" }}
                   animate={inView ? { opacity: 1, filter: "blur(0px)" } : {}}
@@ -415,7 +415,7 @@ function ThreatStats() {
                   {stat.label}
                 </p>
 
-                {/* Source — etched label */}
+                {/* Source, etched label */}
                 <div style={{
                   paddingTop: 12,
                   borderTop: "1px solid rgba(255,255,255,0.04)",
@@ -430,7 +430,7 @@ function ThreatStats() {
           ))}
         </div>
 
-        {/* Bottom callout — embossed strip */}
+        {/* Bottom callout, embossed strip */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -450,7 +450,7 @@ function ThreatStats() {
         >
           <div style={{ width: 3, height: 36, borderRadius: 2, background: `linear-gradient(to bottom, ${C_BRIGHT}, ${C})`, flexShrink: 0, boxShadow: `0 0 12px ${C}40` }} />
           <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.45)", lineHeight: 1.7, margin: 0 }}>
-            The numbers tell part of the story. The reality on the ground in 2025 and early 2026 goes further — and for MENA&apos;s energy and utilities operators, it is impossible to ignore.
+            The numbers tell part of the story. The reality on the ground in 2025 and early 2026 goes further, and for MENA&apos;s energy and utilities operators, it is impossible to ignore.
           </p>
         </motion.div>
       </div>
@@ -467,7 +467,7 @@ function AboutForum() {
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
 
-  // GSAP — Scale + Blur Morph entrance + staggered rows
+  // GSAP, Scale + Blur Morph entrance + staggered rows
   useGSAP(() => {
     if (!cardRef.current) return;
     gsap.from(cardRef.current, {
@@ -481,7 +481,7 @@ function AboutForum() {
     });
   }, { scope: sectionRef });
 
-  // Idle floating animation — subtle continuous tilt so card always feels alive
+  // Idle floating animation, subtle continuous tilt so card always feels alive
   useEffect(() => {
     if (!cardInnerRef.current) return;
     const idle = gsap.timeline({ repeat: -1, yoyo: true })
@@ -536,7 +536,7 @@ function AboutForum() {
       }}
       style={{ background: `linear-gradient(160deg, ${BG_DARK} 0%, ${BG} 30%, #0c1030 60%, ${BG_CARD} 100%)`, padding: "clamp(60px, 8vw, 100px) 0", position: "relative", overflow: "hidden" }}
     >
-      {/* Liquid glass blobs — large, slow-moving, blurred */}
+      {/* Liquid glass blobs, large, slow-moving, blurred */}
       <div className="otvm-liquid-1" style={{ position: "absolute", top: "5%", right: "0%", width: 600, height: 600, borderRadius: "40% 60% 55% 45% / 55% 40% 60% 45%", background: "linear-gradient(135deg, rgba(211,75,154,0.15), rgba(0,201,255,0.08), rgba(211,75,154,0.1))", filter: "blur(60px)", pointerEvents: "none", opacity: 0.8 }} />
       <div className="otvm-liquid-2" style={{ position: "absolute", bottom: "0%", left: "-5%", width: 500, height: 500, borderRadius: "55% 45% 40% 60% / 45% 55% 45% 55%", background: "linear-gradient(225deg, rgba(0,201,255,0.1), rgba(211,75,154,0.08), rgba(0,201,255,0.12))", filter: "blur(70px)", pointerEvents: "none", opacity: 0.7 }} />
       <div className="otvm-liquid-3" style={{ position: "absolute", top: "40%", left: "40%", width: 400, height: 400, borderRadius: "45% 55% 60% 40% / 60% 45% 55% 45%", background: "radial-gradient(circle, rgba(211,75,154,0.08), transparent 70%)", filter: "blur(80px)", pointerEvents: "none", opacity: 0.6 }} />
@@ -549,7 +549,7 @@ function AboutForum() {
 
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
 
-        {/* Heading — centered with shimmer + glow underline */}
+        {/* Heading, centered with shimmer + glow underline */}
         <motion.div
           initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
           animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
@@ -592,7 +592,7 @@ function AboutForum() {
         </motion.div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 48 }} className="otvm-about-grid">
-          {/* Left — description */}
+          {/* Left, description */}
           <motion.div
             initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
             animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
@@ -603,11 +603,11 @@ function AboutForum() {
               The people responsible for keeping critical infrastructure running across the MENA region are actively reworking their strategies to respond to an AI-accelerated, geopolitically charged threat environment.
             </p>
             <p style={{ fontFamily: "var(--font-outfit)", fontSize: 19, fontWeight: 400, color: "rgba(255,255,255,0.8)", lineHeight: 1.8, margin: 0, textAlign: "justify", textShadow: "0 1px 4px rgba(0,0,0,0.3)" }}>
-              MENA&apos;s energy and utilities sector sits at a unique intersection: rapid digital transformation, IT/OT convergence, state-sponsored adversaries, and limited cross-sector intelligence sharing. This forum directly addresses that gap — bringing thought leaders from across the region into one room to think out loud, challenge each other, and build practical frameworks together.
+              MENA&apos;s energy and utilities sector sits at a unique intersection: rapid digital transformation, IT/OT convergence, state-sponsored adversaries, and limited cross-sector intelligence sharing. This forum directly addresses that gap, bringing thought leaders from across the region into one room to think out loud, challenge each other, and build practical frameworks together.
             </p>
           </motion.div>
 
-          {/* Right — Event Details card (GSAP: scale+blur entrance + magnetic tilt hover) */}
+          {/* Right, Event Details card (GSAP: scale+blur entrance + magnetic tilt hover) */}
           <div
             ref={cardRef}
             onMouseMove={handleCardMouseMove}
@@ -626,7 +626,7 @@ function AboutForum() {
               transformStyle: "preserve-3d",
               willChange: "transform",
             }}>
-              {/* Light glare overlay — follows cursor */}
+              {/* Light glare overlay, follows cursor */}
               <div ref={glareRef} style={{ position: "absolute", inset: 0, borderRadius: 20, opacity: 0, pointerEvents: "none", zIndex: 10 }} />
               {/* Glassmorphism inner panel */}
               <div style={{
@@ -677,7 +677,7 @@ function AboutForum() {
   );
 }
 
-// ─── KEY THEMES — Liquid Glass Bento ─────────────────────────────────────────
+// ─── KEY THEMES, Liquid Glass Bento ─────────────────────────────────────────
 function KeyThemesSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
@@ -724,7 +724,7 @@ function KeyThemesSection() {
           <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.4)" }}>The topics that matter right now in MENA OT security</span>
         </motion.div>
 
-        {/* Bento grid — 4 columns, first 2 cards span 2 each */}
+        {/* Bento grid, 4 columns, first 2 cards span 2 each */}
         <div className="otvm-themes-grid" style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
@@ -833,7 +833,7 @@ function KeyThemesSection() {
   );
 }
 
-// ─── PANEL DISCUSSIONS — Horizontal Expanding Accordion ──────────────────────
+// ─── PANEL DISCUSSIONS, Horizontal Expanding Accordion ──────────────────────
 function PanelDiscussions() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
@@ -868,7 +868,7 @@ function PanelDiscussions() {
             className="otvm-glow-line"
             style={{ width: 120, height: 3, background: "linear-gradient(90deg, transparent, rgba(0,201,255,0.8), transparent)", margin: "0 auto 16px", borderRadius: 2, transformOrigin: "center" }}
           />
-          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.4)" }}>Click to explore each panel — three focused dialogues</span>
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.4)" }}>Click to explore each panel, three focused dialogues</span>
         </motion.div>
 
         {/* Horizontal Accordion */}
@@ -929,7 +929,7 @@ function PanelDiscussions() {
                   {/* Top accent line */}
                   <div style={{ position: "absolute", top: 0, left: isActive ? "5%" : "20%", right: isActive ? "5%" : "20%", height: 2, background: `linear-gradient(90deg, transparent, ${colors[i]}${isActive ? "" : "60"}, transparent)`, transition: "all 0.5s ease" }} />
 
-                  {/* Left accent bar — active only */}
+                  {/* Left accent bar, active only */}
                   {isActive && (
                     <motion.div
                       initial={{ scaleY: 0 }}
@@ -939,7 +939,7 @@ function PanelDiscussions() {
                     />
                   )}
 
-                  {/* Inner glow — active only */}
+                  {/* Inner glow, active only */}
                   {isActive && (
                     <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: "70%", height: "50%", background: `radial-gradient(ellipse, rgba(${rgb},0.05), transparent 70%)`, pointerEvents: "none" }} />
                   )}
@@ -1075,7 +1075,7 @@ function WhoWillBeInRoom() {
 
   return (
     <section ref={sectionRef} id="attend" style={{ background: `linear-gradient(180deg, ${BG_DARK} 0%, ${BG} 50%, ${BG_CARD} 100%)`, padding: "clamp(60px, 8vw, 100px) 0", position: "relative", overflow: "hidden" }}>
-      {/* ---------- Floating orbs — MUCH more visible ---------- */}
+      {/* ---------- Floating orbs, MUCH more visible ---------- */}
       <div style={{ position: "absolute", top: "5%", right: "-2%", width: 600, height: 600, borderRadius: "40% 60% 55% 45% / 55% 40% 60% 45%", background: `radial-gradient(circle, rgba(0,201,255,0.25) 0%, rgba(0,201,255,0.08) 50%, transparent 75%)`, filter: "blur(40px)", pointerEvents: "none", animation: "otvmOrbFloat1 12s ease-in-out infinite" }} />
       <div style={{ position: "absolute", bottom: "5%", left: "-4%", width: 500, height: 500, borderRadius: "55% 45% 40% 60% / 45% 55% 45% 55%", background: `radial-gradient(circle, rgba(211,75,154,0.22) 0%, rgba(211,75,154,0.06) 50%, transparent 75%)`, filter: "blur(40px)", pointerEvents: "none", animation: "otvmOrbFloat2 14s ease-in-out infinite" }} />
       <div style={{ position: "absolute", top: "40%", left: "35%", width: 400, height: 400, borderRadius: "45% 55% 60% 40% / 60% 45% 55% 45%", background: `radial-gradient(circle, rgba(0,201,255,0.15) 0%, rgba(211,75,154,0.08) 40%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none", animation: "otvmOrbFloat3 16s ease-in-out infinite" }} />
@@ -1114,7 +1114,7 @@ function WhoWillBeInRoom() {
           <span style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.45)", letterSpacing: "0.5px" }}>100 verified OT security professionals from across MENA</span>
         </motion.div>
 
-        {/* Three pill group cards — skeuomorphic bezel containers */}
+        {/* Three pill group cards, skeuomorphic bezel containers */}
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           {pillGroups.map((group, gi) => (
             <motion.div
@@ -1144,7 +1144,7 @@ function WhoWillBeInRoom() {
                 {/* Top glass reflection line */}
                 <div style={{ position: "absolute", top: 0, left: "5%", right: "5%", height: 1, background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)` }} />
 
-                {/* Colored accent bar — left side */}
+                {/* Colored accent bar, left side */}
                 <div style={{ position: "absolute", top: 20, left: 0, width: 3, height: 30, background: `linear-gradient(180deg, ${group.color}, rgba(${group.rgb},0.2))`, borderRadius: "0 2px 2px 0", boxShadow: `0 0 12px rgba(${group.rgb},0.4)` }} />
 
                 {/* Category label */}
@@ -1215,10 +1215,10 @@ function WhySponsor() {
       <div style={{ position: "absolute", bottom: "10%", left: "-8%", width: 450, height: 450, borderRadius: "50%", background: `radial-gradient(circle, rgba(0,201,255,0.14) 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
 
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
-        {/* Asymmetric split — left heading + right cards */}
+        {/* Asymmetric split, left heading + right cards */}
         <div className="otvm-sponsor-split" style={{ display: "grid", gridTemplateColumns: "0.42fr 1fr", gap: "clamp(32px, 5vw, 80px)", alignItems: "start" }}>
 
-          {/* ─── LEFT COLUMN — Sticky heading + decorative ring ─── */}
+          {/* ─── LEFT COLUMN, Sticky heading + decorative ring ─── */}
           <motion.div
             initial={{ opacity: 0, x: -40, filter: "blur(10px)" }}
             animate={inView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
@@ -1237,7 +1237,7 @@ function WhySponsor() {
               style={{ width: 80, height: 3, background: `linear-gradient(90deg, ${C_BRIGHT}, ${CYAN})`, marginBottom: 20, borderRadius: 2, transformOrigin: "left", boxShadow: `0 0 14px rgba(211,75,154,0.4)` }}
             />
             <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.45)", lineHeight: 1.7, margin: "0 0 32px" }}>
-              Position your brand in front of verified OT security decision-makers across MENA — in a format built for trust, not noise.
+              Position your brand in front of verified OT security decision-makers across MENA, in a format built for trust, not noise.
             </p>
 
             {/* Decorative conic ring */}
@@ -1265,7 +1265,7 @@ function WhySponsor() {
             <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "2px", marginTop: 10, display: "block" }}>Decision Makers</span>
           </motion.div>
 
-          {/* ─── RIGHT COLUMN — 4 cards with connecting timeline ─── */}
+          {/* ─── RIGHT COLUMN, 4 cards with connecting timeline ─── */}
           <div style={{ position: "relative" }}>
             {/* Vertical connecting gradient line */}
             <motion.div
@@ -1307,7 +1307,7 @@ function WhySponsor() {
                       }} />
                     </div>
 
-                    {/* Card — skeuomorphic bezel */}
+                    {/* Card, skeuomorphic bezel */}
                     <div style={{ flex: 1, borderRadius: 18, padding: 3, background: `linear-gradient(145deg, rgba(${nc.rgb},0.12) 0%, rgba(255,255,255,0.04) 50%, rgba(${nc.rgb},0.06) 100%)`, boxShadow: `0 1px 0 rgba(255,255,255,0.04) inset, 0 -2px 0 rgba(0,0,0,0.3) inset, 0 6px 24px rgba(0,0,0,0.35)` }}>
                       <div style={{
                         borderRadius: 15,
@@ -1376,15 +1376,15 @@ function WhySponsor() {
   );
 }
 
-// ─── REGISTRATION SECTION — Shared InquiryForm (3 tabs) ─────────────────────
+// ─── REGISTRATION SECTION, Shared InquiryForm (3 tabs) ─────────────────────
 function RegistrationSection() {
   return (
     <section id="register" style={{ background: `linear-gradient(180deg, ${BG} 0%, ${BG_DARK} 100%)`, padding: "clamp(60px, 8vw, 100px) 0", position: "relative", overflow: "hidden" }}>
-      {/* Top accent line — full width gradient */}
+      {/* Top accent line, full width gradient */}
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent 10%, rgba(0,201,255,0.25) 30%, rgba(211,75,154,0.25) 70%, transparent 90%)` }} />
-      {/* Orb — cyan top-left */}
+      {/* Orb, cyan top-left */}
       <div style={{ position: "absolute", top: "-10%", left: "-5%", width: 500, height: 500, borderRadius: "50%", background: `radial-gradient(circle, rgba(0,201,255,0.1) 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
-      {/* Orb — pink bottom-right */}
+      {/* Orb, pink bottom-right */}
       <div style={{ position: "absolute", bottom: "-10%", right: "-5%", width: 500, height: 500, borderRadius: "50%", background: `radial-gradient(circle, rgba(211,75,154,0.08) 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
       {/* Central subtle glow */}
       <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: 700, height: 400, borderRadius: "50%", background: `radial-gradient(ellipse, rgba(0,201,255,0.04) 0%, transparent 70%)`, pointerEvents: "none" }} />
@@ -1393,7 +1393,7 @@ function RegistrationSection() {
   );
 }
 
-// ─── CONTACT SECTION — Nairobi People Cards Style ────────────────────────────
+// ─── CONTACT SECTION, Nairobi People Cards Style ────────────────────────────
 function ContactSection() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -1429,7 +1429,7 @@ function ContactSection() {
           </p>
         </motion.div>
 
-        {/* People Grid — 2 columns */}
+        {/* People Grid, 2 columns */}
         <div className="otvm-contact-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 24 }}>
           {CONTACTS_TEAM.map((person, i) => {
             const accent = i === 0 ? CYAN : C_BRIGHT;
@@ -1531,12 +1531,12 @@ export default function OTSecurityVirtualForumMENA() {
         #register #get-involved {
           background: transparent !important;
         }
-        /* Active tab pill — gradient */
+        /* Active tab pill, gradient */
         #register #get-involved button[style*="var(--orange)"] {
           background: linear-gradient(135deg, ${C_BRIGHT}, ${CYAN}) !important;
           border-color: transparent !important;
         }
-        /* CTA submit button — gradient */
+        /* CTA submit button, gradient */
         #register #get-involved button[type="submit"] {
           background: linear-gradient(135deg, ${C_BRIGHT}, ${CYAN}) !important;
           border: none !important;
@@ -1550,7 +1550,7 @@ export default function OTSecurityVirtualForumMENA() {
           background: rgba(211,75,154,0.06) !important;
           border-color: rgba(211,75,154,0.12) !important;
         }
-        /* Form card — match page card style */
+        /* Form card, match page card style */
         #register #get-involved .inquiry-split > div:last-child > div {
           background: rgba(13,18,51,0.6) !important;
           border-color: rgba(211,75,154,0.08) !important;
@@ -1658,7 +1658,7 @@ export default function OTSecurityVirtualForumMENA() {
           background: #070b1f;
         }
 
-        /* Perspective grid floor — visible at bottom */
+        /* Perspective grid floor, visible at bottom */
         .floor {
           position: absolute;
           bottom: 0;
@@ -1674,7 +1674,7 @@ export default function OTSecurityVirtualForumMENA() {
           animation: moveGrid 12s linear infinite;
         }
 
-        /* Big central glow — the "light source" flooding upward */
+        /* Big central glow, the "light source" flooding upward */
         .floor::after {
           content: "";
           position: absolute;
@@ -1714,7 +1714,7 @@ export default function OTSecurityVirtualForumMENA() {
           filter: blur(40px);
         }
 
-        /* Light beams container — full height */
+        /* Light beams container, full height */
         .light-stream-container {
           position: absolute;
           bottom: 0;
@@ -1883,7 +1883,7 @@ export default function OTSecurityVirtualForumMENA() {
           .hero-section h1 { font-size: clamp(28px, 9vw, 42px) !important; }
           .content-wrapper { padding: 80px 20px 120px !important; justify-content: flex-start !important; padding-top: 90px !important; }
           .otvm-efg-badge { bottom: 70px !important; right: 16px !important; }
-          /* Reduce beam count impact — keep animation but lighter */
+          /* Reduce beam count impact, keep animation but lighter */
           .light-beam { opacity: 0.5 !important; }
           .light-beam.secondary { display: none !important; }
           .floor { will-change: background-position; -webkit-backface-visibility: hidden; backface-visibility: hidden; }

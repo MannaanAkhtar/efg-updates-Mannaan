@@ -6,7 +6,7 @@ const PAGE_URL = `${BASE_URL}/events/opex-first/saudi-2026`;
 const OG_IMAGE = `${BASE_URL}/og-default.png`;
 
 export const metadata: Metadata = {
-  title: "OPEX First Saudi 2026 | Operational Excellence Summit Riyadh — September",
+  title: "OPEX First Saudi 2026 | Operational Excellence Summit Riyadh, September",
   description:
     "Process transformation, automation, and the frameworks driving efficiency at scale across Saudi Arabia. 15 September 2026, Riyadh.",
   keywords: [
@@ -20,13 +20,13 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "OPEX First Saudi 2026 — Riyadh",
+    title: "OPEX First Saudi 2026, Riyadh",
     description: "Operational excellence summit. 15 September 2026, Riyadh.",
     url: PAGE_URL, siteName: "Events First Group",
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "OPEX First Saudi 2026" }],
     locale: "en_US", type: "website",
   },
-  twitter: { card: "summary_large_image", title: "OPEX First Saudi 2026 — Riyadh", description: "Operational excellence summit. 15 September 2026, Riyadh.", images: [OG_IMAGE] },
+  twitter: { card: "summary_large_image", title: "OPEX First Saudi 2026, Riyadh", description: "Operational excellence summit. 15 September 2026, Riyadh.", images: [OG_IMAGE] },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

@@ -30,7 +30,7 @@ export default function OpexAboutSeries() {
           alignItems: "center",
         }}
       >
-        {/* Left — Content */}
+        {/* Left, Content */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
@@ -79,7 +79,7 @@ export default function OpexAboutSeries() {
           >
             The world is in the middle of unprecedented economic transformation.
             Saudi Arabia&apos;s Vision 2030, the UAE&apos;s Operation 300bn,
-            Kuwait&apos;s New Kuwait 2035 — trillions of dollars in mega-projects,
+            Kuwait&apos;s New Kuwait 2035, trillions of dollars in mega-projects,
             industrial diversification, and digital transformation. But vision
             without execution is just a plan. Opex First is where execution gets
             engineered.
@@ -94,14 +94,14 @@ export default function OpexAboutSeries() {
             }}
           >
             This is the region&apos;s only dedicated platform for operational
-            excellence — uniting government authorities, business leaders, and
+            excellence, uniting government authorities, business leaders, and
             global technology innovators to share strategies, address evolving
             challenges, and set new benchmarks for efficiency, sustainability, and
             performance.
           </p>
         </motion.div>
 
-        {/* Right — Image */}
+        {/* Right, Image */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}

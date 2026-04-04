@@ -6,7 +6,7 @@ const PAGE_URL = `${BASE_URL}/events/data-ai-first/kuwait-2026`;
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0290.JPG";
 
 export const metadata: Metadata = {
-  title: "Digital First Kuwait 2026 | Data & AI Summit — 10 June, Jumeirah Messilah Beach",
+  title: "Digital First Kuwait 2026 | Data & AI Summit, 10 June, Jumeirah Messilah Beach",
   description:
     "Kuwait's premier Data & AI leadership summit. 250+ CDOs, AI architects, and enterprise leaders. 10 June 2026 at Jumeirah Messilah Beach Hotel, Kuwait City. Turning Data & AI into Regulated, Profitable, and Scalable Solutions.",
   keywords: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     canonical: PAGE_URL,
   },
   openGraph: {
-    title: "Digital First Kuwait 2026 — Data & AI Summit",
+    title: "Digital First Kuwait 2026, Data & AI Summit",
     description:
       "250+ CDOs, AI architects, and enterprise leaders. 10 June 2026. Jumeirah Messilah Beach Hotel, Kuwait City. Turning Data & AI into Regulated, Profitable, and Scalable Solutions.",
     url: PAGE_URL,
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Digital First Kuwait 2026 — Data & AI Summit",
+        alt: "Digital First Kuwait 2026, Data & AI Summit",
       },
     ],
     locale: "en_US",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digital First Kuwait 2026 — Data & AI Summit",
+    title: "Digital First Kuwait 2026, Data & AI Summit",
     description:
       "250+ CDOs and AI leaders. 10 June 2026. Jumeirah Messilah Beach Hotel, Kuwait City.",
     images: [OG_IMAGE],
@@ -65,14 +65,14 @@ export default function DataAIKuwaitLayout({
           { name: "Kuwait 2026", url: PAGE_URL },
         ]}
       />
-      {/* Event structured data — JSON-LD */}
+      {/* Event structured data, JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Event",
-            name: "Digital First Kuwait 2026 — Data & AI Summit",
+            name: "Digital First Kuwait 2026, Data & AI Summit",
             description:
               "Kuwait's premier Data & AI leadership summit bringing together CDOs, AI architects, data scientists, and enterprise leaders to shape Kuwait's AI-driven future aligned with Vision 2035.",
             startDate: "2026-06-10T08:00:00+03:00",

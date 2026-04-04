@@ -170,7 +170,7 @@ export default function EventSeriesShowcase() {
         }}
       >
         {/* ═══════════════════════════════════════════════════════════════
-            SECTION HEADER — Centered Grand Reveal
+            SECTION HEADER, Centered Grand Reveal
             ═══════════════════════════════════════════════════════════════ */}
         <div style={{ textAlign: "center", marginBottom: 64 }}>
           {/* Label */}
@@ -226,7 +226,7 @@ export default function EventSeriesShowcase() {
               margin: 0,
             }}
           >
-            Four Event Series — Cybersecurity, OT Security, AI &amp; Operational Excellence
+            Four Event Series, Cybersecurity, OT Security, AI &amp; Operational Excellence
           </motion.h2>
 
           {/* Description */}
@@ -245,14 +245,14 @@ export default function EventSeriesShowcase() {
               margin: "14px auto 0",
             }}
           >
-            Each series is a universe of its own — built for a specific
+            Each series is a universe of its own, built for a specific
             community, sharpened around a specific mission, alive with the
             people who are shaping that industry's future.
           </motion.p>
         </div>
 
         {/* ═══════════════════════════════════════════════════════════════
-            THE FOUR PORTAL CARDS — Desktop grid
+            THE FOUR PORTAL CARDS, Desktop grid
             ═══════════════════════════════════════════════════════════════ */}
         <motion.div
           variants={containerVariants}
@@ -362,7 +362,7 @@ export default function EventSeriesShowcase() {
 }
 
 /**
- * PortalCard — A cinematic gateway into each event series
+ * PortalCard, A cinematic gateway into each event series
  */
 function PortalCard({
   series,
@@ -382,7 +382,7 @@ function PortalCard({
         aspectRatio: "3 / 4.5",
       }}
     >
-      {/* LAYER 1 — THE PHOTOGRAPH */}
+      {/* LAYER 1, THE PHOTOGRAPH */}
       <div
         className="absolute inset-0 transition-all duration-800"
         style={{
@@ -392,7 +392,7 @@ function PortalCard({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={series.image}
-          alt={`${series.name} — executive technology summit by Events First Group`}
+          alt={`${series.name}, executive technology summit by Events First Group`}
           className="w-full h-full object-cover transition-all duration-800 group-hover:scale-108"
           style={{
             filter: "brightness(0.38) saturate(0.9)",
@@ -402,7 +402,7 @@ function PortalCard({
         />
       </div>
 
-      {/* LAYER 2 — THE COLOR WASH */}
+      {/* LAYER 2, THE COLOR WASH */}
       <div
         className="absolute inset-0 transition-all duration-800"
         style={{
@@ -411,7 +411,7 @@ function PortalCard({
         }}
       />
 
-      {/* LAYER 3 — THE DARKNESS GRADIENT */}
+      {/* LAYER 3, THE DARKNESS GRADIENT */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -424,7 +424,7 @@ function PortalCard({
         }}
       />
 
-      {/* LAYER 4 — THE AMBIENT GLOW */}
+      {/* LAYER 4, THE AMBIENT GLOW */}
       <div
         className="absolute pointer-events-none transition-opacity duration-800 opacity-0 group-hover:opacity-100"
         style={{
@@ -441,7 +441,7 @@ function PortalCard({
         }}
       />
 
-      {/* LAYER 5 — THE CONTENT */}
+      {/* LAYER 5, THE CONTENT */}
       <div
         className="absolute bottom-0 left-0 right-0 z-10"
         style={{ padding: 32 }}
@@ -486,7 +486,7 @@ function PortalCard({
           {series.tagline}
         </p>
 
-        {/* Description — Hidden by default, reveals on hover */}
+        {/* Description, Hidden by default, reveals on hover */}
         <div
           className="overflow-hidden transition-all duration-600 max-h-0 opacity-0 group-hover:max-h-24 group-hover:opacity-100"
           style={{
@@ -537,7 +537,7 @@ function PortalCard({
           </span>
         </div>
 
-        {/* Explore Series — Reveals on hover */}
+        {/* Explore Series, Reveals on hover */}
         <div
           className="overflow-hidden transition-all duration-600 max-h-0 opacity-0 group-hover:max-h-10 group-hover:opacity-100"
           style={{
@@ -559,7 +559,7 @@ function PortalCard({
         </div>
       </div>
 
-      {/* LAYER 6 — TOP BADGES & ARROW */}
+      {/* LAYER 6, TOP BADGES & ARROW */}
       <div
         className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between"
         style={{ padding: "18px 20px" }}

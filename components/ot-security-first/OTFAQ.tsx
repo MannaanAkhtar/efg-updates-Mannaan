@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: "Where are the upcoming editions?",
-    a: "The first edition took place in Abu Dhabi (Feb 2026). We're expanding to Riyadh, Kuwait City, and Doha — dates to be announced. Subscribe to our mailing list for early access and priority registration.",
+    a: "The first edition took place in Abu Dhabi (Feb 2026). We're expanding to Riyadh, Kuwait City, and Doha, dates to be announced. Subscribe to our mailing list for early access and priority registration.",
   },
   {
     q: "How can my company sponsor?",
@@ -57,7 +57,7 @@ export default function OTFAQ() {
             "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(211,75,154,0.03) 3px, rgba(211,75,154,0.03) 4px)",
         }}
       />
-      {/* Crimson glow — bottom-left */}
+      {/* Crimson glow, bottom-left */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -128,7 +128,7 @@ export default function OTFAQ() {
             minHeight: 380,
           }}
         >
-          {/* Left — Question Tabs */}
+          {/* Left, Question Tabs */}
           <div
             style={{
               borderRight: "1px solid rgba(255, 255, 255, 0.05)",
@@ -146,7 +146,7 @@ export default function OTFAQ() {
             ))}
           </div>
 
-          {/* Right — Answer Panel */}
+          {/* Right, Answer Panel */}
           <div
             style={{
               padding: "clamp(24px, 3vw, 40px)",
@@ -250,7 +250,7 @@ export default function OTFAQ() {
 }
 
 /**
- * QuestionTab — Individual question selector with left-edge indicator
+ * QuestionTab, Individual question selector with left-edge indicator
  */
 function QuestionTab({
   question,

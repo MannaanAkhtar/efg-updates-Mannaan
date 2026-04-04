@@ -27,7 +27,7 @@ const topics = [
   {
     num: "04",
     title: "AI for National Transformation",
-    desc: "Government AI strategies driving economic diversification and smart city development. Explore how nations are leveraging AI as a pillar of national vision programs — from Kuwait's 2035 plan to Saudi Arabia's NEOM.",
+    desc: "Government AI strategies driving economic diversification and smart city development. Explore how nations are leveraging AI as a pillar of national vision programs, from Kuwait's 2035 plan to Saudi Arabia's NEOM.",
     icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4",
   },
   {
@@ -51,7 +51,7 @@ const topics = [
   {
     num: "08",
     title: "AI Talent & Workforce",
-    desc: "Closing the skills gap through university partnerships and talent development. Address the most critical bottleneck in AI adoption — people — with strategies for upskilling, reskilling, and attracting top AI talent.",
+    desc: "Closing the skills gap through university partnerships and talent development. Address the most critical bottleneck in AI adoption, people, with strategies for upskilling, reskilling, and attracting top AI talent.",
     icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
   },
   {
@@ -93,7 +93,7 @@ export default function DATopics() {
         }}
       />
 
-      {/* Emerald glow — left */}
+      {/* Emerald glow, left */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{

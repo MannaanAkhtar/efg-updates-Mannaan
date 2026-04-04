@@ -270,7 +270,7 @@ export default function OTChairQuote() {
 }
 
 /**
- * ShortCard — Vertical YT Short with click-to-play + angular play button
+ * ShortCard, Vertical YT Short with click-to-play + angular play button
  */
 function ShortCard({
   short,
@@ -333,7 +333,7 @@ function ShortCard({
               }}
             />
 
-            {/* Play button — Angular OT style */}
+            {/* Play button, Angular OT style */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div
                 className="flex items-center justify-center transition-all"

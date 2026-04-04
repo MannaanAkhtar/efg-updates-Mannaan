@@ -196,7 +196,7 @@ export default function OTSponsors() {
           </motion.div>
         ))}
 
-        {/* As Featured In — Press & Media */}
+        {/* As Featured In, Press & Media */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
@@ -286,7 +286,7 @@ export default function OTSponsors() {
 }
 
 /**
- * PartnerCard — Individual partner with logo
+ * PartnerCard, Individual partner with logo
  */
 function PartnerCard({
   partner,
@@ -351,7 +351,7 @@ function PartnerCard({
 }
 
 /**
- * MediaPartnerCard — Smaller media partner card with logo
+ * MediaPartnerCard, Smaller media partner card with logo
  */
 function MediaPartnerCard({ partner }: { partner: { name: string; logo: string } }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -389,7 +389,7 @@ function MediaPartnerCard({ partner }: { partner: { name: string; logo: string }
 }
 
 /**
- * SponsorCTA — Become a sponsor button
+ * SponsorCTA, Become a sponsor button
  */
 function SponsorCTA() {
   const [isHovered, setIsHovered] = useState(false);

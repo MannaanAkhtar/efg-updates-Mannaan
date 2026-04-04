@@ -24,14 +24,14 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const TAKEAWAYS = [
-  "Clarity on the most common, high-impact security gaps and how modern attackers exploit them — and what effective organizations are doing differently to close them.",
+  "Clarity on the most common, high-impact security gaps and how modern attackers exploit them, and what effective organizations are doing differently to close them.",
   "Actionable strategies to simplify and strengthen security operations, including how unified management and connected controls reduce complexity and blind spots.",
   "Guidance on building protection-focused security programs, leveraging practical best practices and real-world lessons shared by industry peers.",
-  "An understanding of how SonicWall's platform — firewalls, endpoint protection, cloud security, and unified management — work together to improve visibility, speed up detection, and reduce operational burden.",
+  "An understanding of how SonicWall's platform, firewalls, endpoint protection, cloud security, and unified management, work together to improve visibility, speed up detection, and reduce operational burden.",
 ];
 
 const PAIN_POINTS = [
-  { title: "Predictable Gaps", desc: "Attackers aren't getting smarter — organizations are repeatedly leaving the same basic gaps exposed, allowing threat actors to exploit predictable weaknesses across every industry and region." },
+  { title: "Predictable Gaps", desc: "Attackers aren't getting smarter, organizations are repeatedly leaving the same basic gaps exposed, allowing threat actors to exploit predictable weaknesses across every industry and region." },
   { title: "Speed Mismatch", desc: "AI-powered attackers are finding vulnerabilities faster than security teams can identify, prioritize, and close them, widening the gap between detection and response." },
   { title: "Tool Overload", desc: "Disconnected tools and siloed security operations create unnecessary complexity, turning routine management tasks into time-consuming, high-effort operational burdens." },
 ];
@@ -72,7 +72,7 @@ function HeroSection() {
   const cd = useCountdown("2026-05-13T11:00:00+04:00");
   const heroRef = useRef<HTMLElement>(null);
 
-  // GSAP: Title mask reveal — each line clips up
+  // GSAP: Title mask reveal, each line clips up
   useGSAP(() => {
     if (!heroRef.current) return;
     const lines = heroRef.current.querySelectorAll(".sw-title-line");
@@ -109,7 +109,7 @@ function HeroSection() {
     );
   }, []);
 
-  // GSAP: Parallax — text moves faster than bg on scroll
+  // GSAP: Parallax, text moves faster than bg on scroll
   useGSAP(() => {
     if (!heroRef.current) return;
     const content = heroRef.current.querySelector(".sw-hero-content");
@@ -124,7 +124,7 @@ function HeroSection() {
 
   return (
     <section ref={heroRef} style={{ position: "relative", overflow: "hidden", minHeight: "100vh" }}>
-      {/* Hero background image — Ken Burns infinite zoom */}
+      {/* Hero background image, Ken Burns infinite zoom */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Hero_homepage.webp"
@@ -135,11 +135,11 @@ function HeroSection() {
       {/* Left white scrim */}
       <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none", background: "linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.85) 35%, rgba(255,255,255,0.4) 60%, transparent 80%)" }} />
 
-      {/* Content — left-aligned, GSAP animated */}
+      {/* Content, left-aligned, GSAP animated */}
       <div className="sw-hero-content" style={{ position: "relative", zIndex: 2, minHeight: "100vh", display: "flex", alignItems: "center" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "120px clamp(24px, 5vw, 80px) 100px", width: "100%" }}>
           <div style={{ maxWidth: 580 }}>
-            {/* Kicker — GSAP slide-in */}
+            {/* Kicker, GSAP slide-in */}
             <div className="sw-kicker" style={{
               display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 24, opacity: 0,
               padding: "10px 22px 10px 16px", borderRadius: 40,
@@ -151,19 +151,19 @@ function HeroSection() {
               <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: SW_ORANGE }}>Virtual Roundtable</span>
             </div>
 
-            {/* Title — mask reveal per line */}
+            {/* Title, mask reveal per line */}
             <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(40px, 6vw, 68px)", lineHeight: 1.05, letterSpacing: "-2.5px", color: SW_DARK, margin: "0 0 24px" }}>
               <span style={{ display: "block", overflow: "hidden" }}><span className="sw-title-line" style={{ display: "block", fontWeight: 700, opacity: 0 }}>Beyond the</span></span>
               <span style={{ display: "block", overflow: "hidden" }}><span className="sw-title-line" style={{ display: "block", fontWeight: 700, opacity: 0 }}>Firewall:</span></span>
               <span style={{ display: "block", overflow: "hidden" }}><span className="sw-title-line" style={{ display: "block", color: SW_ORANGE, fontWeight: 800, opacity: 0 }}>Strategic Security</span></span>
             </h1>
 
-            {/* Tagline — stagger */}
+            {/* Tagline, stagger */}
             <p className="sw-hero-stagger" style={{ fontFamily: "var(--font-outfit)", fontSize: "clamp(17px, 1.7vw, 21px)", fontWeight: 500, color: "rgba(30,40,40,0.65)", margin: "0 0 24px", lineHeight: 1.6, opacity: 0 }}>
               Cut through the noise. Focus on what actually works.
             </p>
 
-            {/* Meta strip — stagger */}
+            {/* Meta strip, stagger */}
             <div className="sw-hero-stagger" style={{
               display: "inline-flex", gap: 0, marginBottom: 28, borderRadius: 16, overflow: "hidden", position: "relative", opacity: 0,
               background: "rgba(255,255,255,0.25)",
@@ -185,7 +185,7 @@ function HeroSection() {
               ))}
             </div>
 
-            {/* CTAs — stagger */}
+            {/* CTAs, stagger */}
             <div className="sw-hero-stagger" style={{ display: "flex", gap: 14, alignItems: "center", flexWrap: "wrap", marginBottom: 36, opacity: 0 }}>
               <a href="#register" className="sw-hero-cta" style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
@@ -219,7 +219,7 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* Countdown — centered, tiles drop in */}
+      {/* Countdown, centered, tiles drop in */}
       <div className="sw-countdown-wrap" style={{ position: "absolute", bottom: 28, left: 0, right: 0, zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center" }}>
         <div className="sw-hero-stagger" style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10, opacity: 0 }}>
           <span style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(30,40,40,0.4)" }}>Starts In</span>
@@ -274,7 +274,7 @@ function OverviewSection() {
     );
   }, [inView]);
 
-  // 2. Horizontal rule — splits from center outward
+  // 2. Horizontal rule, splits from center outward
   useGSAP(() => {
     if (!inView) return;
     if (ruleLeftRef.current) gsap.fromTo(ruleLeftRef.current, { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power3.out", delay: 0.8 });
@@ -308,7 +308,7 @@ function OverviewSection() {
 
   return (
     <section ref={sectionRef} id="overview" style={{ background: SW_CREAM, padding: "clamp(40px, 5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
-      {/* Background image — parallax */}
+      {/* Background image, parallax */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         ref={bgRef}
@@ -325,7 +325,7 @@ function OverviewSection() {
           <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: SW_ORANGE }}>About This Webinar</span>
         </motion.div>
 
-        {/* Oversized serif — word-by-word blur reveal */}
+        {/* Oversized serif, word-by-word blur reveal */}
         <div ref={headingRef} style={{ textAlign: "center", marginBottom: 32, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "0 12px" }}>
           {OVERVIEW_WORDS.map((word, i) => (
             <span key={i} className="sw-reveal-word" style={{
@@ -337,13 +337,13 @@ function OverviewSection() {
           ))}
         </div>
 
-        {/* Horizontal rule — splits from center */}
+        {/* Horizontal rule, splits from center */}
         <div style={{ display: "flex", justifyContent: "center", gap: 0, marginBottom: 36 }}>
           <div ref={ruleLeftRef} style={{ width: 40, height: 1, background: "rgba(30,40,40,0.15)", transformOrigin: "right center" }} />
           <div ref={ruleRightRef} style={{ width: 40, height: 1, background: "rgba(30,40,40,0.15)", transformOrigin: "left center" }} />
         </div>
 
-        {/* Body text — line-by-line stagger */}
+        {/* Body text, line-by-line stagger */}
         <div ref={bodyRef} style={{ maxWidth: 680, margin: "0 auto", textAlign: "center" }}>
           <p className="sw-body-line" style={{ fontFamily: "var(--font-outfit)", fontSize: 17, fontWeight: 400, color: "#555", lineHeight: 1.9, margin: "0 0 12px", opacity: 0 }}>
             This virtual roundtable highlights the persistent operational gaps
@@ -682,7 +682,7 @@ export default function SonicWallPage() {
 
         /* ─── Mobile responsive ─── */
         @media (max-width: 768px) {
-          /* Hero — content starts higher, full white overlay on mobile */
+          /* Hero, content starts higher, full white overlay on mobile */
           .sw-hero-content { min-height: auto !important; }
           .sw-hero-content > div { padding: 80px 20px 10px !important; }
           .sw-hero-content > div > div { max-width: 100% !important; }
@@ -694,7 +694,7 @@ export default function SonicWallPage() {
           /* Meta strip compact */
           .sw-hero-content .sw-hero-stagger > div { padding: 10px 14px !important; }
 
-          /* Countdown — make it part of flow on mobile */
+          /* Countdown, make it part of flow on mobile */
           .sw-countdown-wrap { position: relative !important; bottom: auto !important; margin-top: 12px; padding-bottom: 12px; }
           .sw-cd-tile { padding: 8px 10px !important; min-width: 48px !important; border-radius: 10px !important; }
           .sw-cd-tile span:first-child { font-size: 18px !important; }

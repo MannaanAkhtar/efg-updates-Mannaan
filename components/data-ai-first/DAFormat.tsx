@@ -6,7 +6,7 @@ import { ScanLines } from "@/components/effects";
 import { EMERALD, EMERALD_BRIGHT, EASE, NARROW, WIDE } from "./constants";
 
 const formats = [
-  { num: "01", title: "Keynotes & Leadership Panels", desc: "Strategic sessions with CDOs, CTOs, and government AI leaders. No vendor pitches — pure practitioner insight.", icon: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" },
+  { num: "01", title: "Keynotes & Leadership Panels", desc: "Strategic sessions with CDOs, CTOs, and government AI leaders. No vendor pitches, pure practitioner insight.", icon: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" },
   { num: "02", title: "Workshops & Deep Dives", desc: "Hands-on sessions: model deployment, data pipelines, prompt engineering, AI governance. Bring your laptop.", icon: "M14.7 6.3a1 1 0 000-1.4l-1.6-1.6a1 1 0 00-1.4 0l-10 10V17h3.7l10-10zM3 21h18" },
   { num: "03", title: "Data & AI Awards", desc: "Recognizing excellence in AI Transformation, Data Innovation, Ethics, Emerging Talent, and Public Sector Impact.", icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" },
   { num: "04", title: "Startup Pitch Stage", desc: "The most promising AI-native companies pitch to investors, enterprise leaders, and government funds.", icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z" },
@@ -39,7 +39,7 @@ export default function DAFormat() {
       {/* Scan-line texture */}
       <ScanLines opacity={0.02} lineHeight={4} />
 
-      {/* Emerald glow — bottom center */}
+      {/* Emerald glow, bottom center */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -99,7 +99,7 @@ export default function DAFormat() {
             marginTop: 16,
           }}
         >
-          Every format is built for actionable outcomes — not passive listening.
+          Every format is built for actionable outcomes, not passive listening.
         </motion.p>
       </div>
 

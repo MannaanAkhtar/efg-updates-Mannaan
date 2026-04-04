@@ -4,7 +4,7 @@
  * DotMatrixGrid
  *
  * A pure CSS dot-pattern overlay that evokes graph paper / data dashboards.
- * Uses radial-gradient for ultra-lightweight rendering — no canvas, no SVG.
+ * Uses radial-gradient for ultra-lightweight rendering, no canvas, no SVG.
  *
  * Layer it behind section content for a subtle "intelligence dashboard" feel.
  */

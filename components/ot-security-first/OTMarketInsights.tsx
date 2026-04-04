@@ -68,7 +68,7 @@ export default function OTMarketInsights() {
         overflow: "hidden",
       }}
     >
-      {/* Scan-line texture — industrial monitor feel */}
+      {/* Scan-line texture, industrial monitor feel */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -76,7 +76,7 @@ export default function OTMarketInsights() {
             "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(211,75,154,0.04) 3px, rgba(211,75,154,0.04) 4px)",
         }}
       />
-      {/* Radial crimson glow — bottom-right */}
+      {/* Radial crimson glow, bottom-right */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -151,7 +151,7 @@ export default function OTMarketInsights() {
               }}
             >
               Unlike IT security breaches, attacks on operational technology
-              don't just steal data — they can halt production, damage physical
+              don't just steal data, they can halt production, damage physical
               equipment, and endanger lives. A compromised pipeline, a
               manipulated power grid, or a hacked water treatment facility has
               consequences that extend far beyond the digital realm. The threat
@@ -249,7 +249,7 @@ export default function OTMarketInsights() {
 }
 
 /**
- * StatBlock — Individual stat with left border (angular)
+ * StatBlock, Individual stat with left border (angular)
  */
 function StatBlock({ stat }: { stat: (typeof marketStats)[0] }) {
   const ref = useRef<HTMLDivElement>(null);

@@ -148,13 +148,13 @@ const FOCUS_AREAS: { title: string; desc: string; icon: string }[] = [
   { title: "National Data Sovereignty", desc: "Establishing frameworks for sovereign data governance, localized storage, and resilient national data infrastructure to protect Kuwait's digital assets.", icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" },
   { title: "Digital Identity & e-Government", desc: "Advancing secure digital identity systems incorporating biometrics and evolving e-Government services for citizen-centric authentication and engagement.", icon: "M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0" },
   { title: "AI & Data Driven Transformation", desc: "Strategies for enterprise-wide AI adoption, turning data and AI into regulated, profitable, and scalable business solutions across sectors.", icon: "M13 10V3L4 14h7v7l9-11h-7z" },
-  { title: "Economic & Social Impact", desc: "Measuring AI's contribution to economic diversification, job creation, and social advancement — targeting 50,000+ new tech jobs by 2030.", icon: "M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" },
-  { title: "Ethical Governance & Mitigation", desc: "Frameworks for transparency, fairness, and accountability in AI systems — mitigating bias in hiring, ensuring equitable outcomes in Kuwait's multicultural society.", icon: "M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" },
-  { title: "Data Ecosystem & Privacy", desc: "Addressing efficient data collection, storage, and management — sovereign AI-enabled data centres, resilient cloud infrastructure, and expanded data-exchange projects.", icon: "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" },
-  { title: "Women in Technology", desc: "Championing diversity in data science and AI leadership — showcasing women leaders, building inclusive teams, and closing the gender gap in technology.", icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" },
-  { title: "Public Sector AI Modernization", desc: "Transforming government services through AI — improving administrative efficiency, citizen engagement, and budget allocation for digital infrastructure.", icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" },
-  { title: "Digital Trust & Threat Detection", desc: "Building digital trust amid global partnerships — strategies for ensuring respect for local traditions while adhering to global cybersecurity and data protection standards.", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" },
-  { title: "AI Risk & Compliance", desc: "Navigating Kuwait's AI regulatory landscape — risk compliance frameworks, ethical biases, and building organisational readiness for AI governance mandates.", icon: "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" },
+  { title: "Economic & Social Impact", desc: "Measuring AI's contribution to economic diversification, job creation, and social advancement, targeting 50,000+ new tech jobs by 2030.", icon: "M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" },
+  { title: "Ethical Governance & Mitigation", desc: "Frameworks for transparency, fairness, and accountability in AI systems, mitigating bias in hiring, ensuring equitable outcomes in Kuwait's multicultural society.", icon: "M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" },
+  { title: "Data Ecosystem & Privacy", desc: "Addressing efficient data collection, storage, and management, sovereign AI-enabled data centres, resilient cloud infrastructure, and expanded data-exchange projects.", icon: "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" },
+  { title: "Women in Technology", desc: "Championing diversity in data science and AI leadership, showcasing women leaders, building inclusive teams, and closing the gender gap in technology.", icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" },
+  { title: "Public Sector AI Modernization", desc: "Transforming government services through AI, improving administrative efficiency, citizen engagement, and budget allocation for digital infrastructure.", icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" },
+  { title: "Digital Trust & Threat Detection", desc: "Building digital trust amid global partnerships, strategies for ensuring respect for local traditions while adhering to global cybersecurity and data protection standards.", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" },
+  { title: "AI Risk & Compliance", desc: "Navigating Kuwait's AI regulatory landscape, risk compliance frameworks, ethical biases, and building organisational readiness for AI governance mandates.", icon: "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" },
   { title: "Resilient Cloud Infrastructure", desc: "Establishing scalable data centres and cloud platforms for disaster recovery, AI integration, and supporting Kuwait's projected $43.36B ICT market growth by 2030.", icon: "M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" },
 ];
 
@@ -174,28 +174,28 @@ const MARKET_STATS: {
 const HIGHLIGHTS = [
   {
     title: "Expert-Led Panels & Live Case Studies",
-    desc: "4 high-impact panel discussions on Kuwait's AI strategy, Vision 2035 alignment, and enterprise transformation — plus live demonstrations of AI deployments with measurable outcomes from Kuwait and global enterprises.",
+    desc: "4 high-impact panel discussions on Kuwait's AI strategy, Vision 2035 alignment, and enterprise transformation, plus live demonstrations of AI deployments with measurable outcomes from Kuwait and global enterprises.",
     icon: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z",
     image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80",
     stat: "4 Panels",
   },
   {
-    title: "100% Data & AI — Zero Filler",
-    desc: "Every session is purpose-built for data and AI practitioners. Interactive deep-dive workshops on the critical challenges facing Kuwaiti businesses and government — bring your toughest problems.",
+    title: "100% Data & AI, Zero Filler",
+    desc: "Every session is purpose-built for data and AI practitioners. Interactive deep-dive workshops on the critical challenges facing Kuwaiti businesses and government, bring your toughest problems.",
     icon: "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4",
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80",
     stat: "100%",
   },
   {
     title: "Curated Executive Networking",
-    desc: "Move beyond generic networking — connect with 250+ handpicked senior leaders, CDOs, CTOs, government strategists, investors, and AI architects.",
+    desc: "Move beyond generic networking, connect with 250+ handpicked senior leaders, CDOs, CTOs, government strategists, investors, and AI architects.",
     icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
     image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200&q=80",
     stat: "250+",
   },
   {
     title: "Awards & Startup Pitch Showcase",
-    desc: "Celebrating 8 categories of AI excellence — transformation, innovation, governance, and emerging talent. Plus a live startup pitch session showcasing Kuwait's most promising AI ventures to investors and government buyers.",
+    desc: "Celebrating 8 categories of AI excellence, transformation, innovation, governance, and emerging talent. Plus a live startup pitch session showcasing Kuwait's most promising AI ventures to investors and government buyers.",
     icon: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z",
     image: "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=1200&q=80",
     stat: "8 Awards",
@@ -212,17 +212,17 @@ const HIGHLIGHTS = [
 const AGENDA = [
   { time: "08:00 – 09:00", title: "Registration, Networking & Refreshments", type: "break" as const },
   { time: "09:00 – 09:15", title: "Welcome Remarks & Opening Ceremony", subtitle: "Welcome Address by Events First Group (EFG)", type: "ceremony" as const },
-  { time: "09:15 – 09:30", title: "Opening Keynote", subtitle: "Kuwait's Transformative Journey & Catalyzing Vision — Roadmap to becoming a regional AI leader", type: "keynote" as const },
-  { time: "09:30 – 10:15", title: "Panel Discussion 1 – AI & Data Ecosystem", subtitle: "Shaping Kuwait's AI & Data Ecosystem — Vision 2035 to Execution, Strategic Integration, Public-Private Partnerships & GenAI Applications", type: "panel" as const },
+  { time: "09:15 – 09:30", title: "Opening Keynote", subtitle: "Kuwait's Transformative Journey & Catalyzing Vision, Roadmap to becoming a regional AI leader", type: "keynote" as const },
+  { time: "09:30 – 10:15", title: "Panel Discussion 1 – AI & Data Ecosystem", subtitle: "Shaping Kuwait's AI & Data Ecosystem, Vision 2035 to Execution, Strategic Integration, Public-Private Partnerships & GenAI Applications", type: "panel" as const },
   { time: "10:15 – 10:30", title: "Sponsor Presentation 1", type: "sponsor" as const },
   { time: "10:30 – 11:00", title: "VIP Exhibition Tour & Networking Break", type: "break" as const },
-  { time: "11:00 – 11:40", title: "Panel Discussion 2 – Data Infrastructure", subtitle: "Building a Robust Data Ecosystem — National Data Sovereignty, Privacy Frameworks & Resilient Cloud Infrastructure", type: "panel" as const },
+  { time: "11:00 – 11:40", title: "Panel Discussion 2 – Data Infrastructure", subtitle: "Building a Robust Data Ecosystem, National Data Sovereignty, Privacy Frameworks & Resilient Cloud Infrastructure", type: "panel" as const },
   { time: "11:45 – 12:00", title: "Edge AI & IoT for Real-Time Applications", type: "presentation" as const },
   { time: "12:00 – 12:15", title: "AI for Sustainability, Energy & Oil and Gas", type: "presentation" as const },
-  { time: "12:15 – 13:00", title: "Panel Discussion 3 – AI Governance & Trust", subtitle: "AI-Driven Transformation — Mitigating Threats, Bias Mitigation, Ethical Compliance & Digital Trust", type: "panel" as const },
+  { time: "12:15 – 13:00", title: "Panel Discussion 3 – AI Governance & Trust", subtitle: "AI-Driven Transformation, Mitigating Threats, Bias Mitigation, Ethical Compliance & Digital Trust", type: "panel" as const },
   { time: "13:00 – 13:30", title: "Prayer & Networking Break", type: "break" as const },
   { time: "13:30 – 13:45", title: "Sponsor Presentation 2", type: "sponsor" as const },
-  { time: "13:45 – 14:30", title: "Panel Discussion 4 – Digital Government", subtitle: "Advancing e-Government & Digital Identity — Biometrics, Citizen Services & National Security", type: "panel" as const },
+  { time: "13:45 – 14:30", title: "Panel Discussion 4 – Digital Government", subtitle: "Advancing e-Government & Digital Identity, Biometrics, Citizen Services & National Security", type: "panel" as const },
   { time: "14:30 – 14:45", title: "AI Impact in Organisations", subtitle: "Operational risks, decision making, customer service", type: "presentation" as const },
   { time: "14:45 – 15:00", title: "Awards Ceremony & Close of Conference", type: "awards" as const },
 ];
@@ -235,7 +235,7 @@ const AWARDS = [
   { title: "Emerging AI & Data Talent Award", desc: "Spotlighting rising professionals making exceptional early-career contributions." },
   { title: "AI & Data Educator/Mentor", desc: "Celebrating those advancing AI literacy and mentoring the next generation of talent." },
   { title: "Public Sector AI & Data Impact", desc: "Honouring government entities advancing citizen services through AI and data analytics." },
-  { title: "AI Ethics & Governance Champion", desc: "Recognising commitment to responsible AI — transparency, fairness, and accountability." },
+  { title: "AI Ethics & Governance Champion", desc: "Recognising commitment to responsible AI, transparency, fairness, and accountability." },
 ];
 
 const AWARDS_ELIGIBILITY = [
@@ -247,11 +247,11 @@ const AWARDS_ELIGIBILITY = [
 ];
 
 const WHY_ATTEND = [
-  { title: "Shape Kuwait's Digital Horizon", desc: "Directly contribute to the national discourse on Data and AI — influencing policy, investment, and strategic direction.", stat: "National Impact", statValue: "1st", icon: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
-  { title: "Curated Connections", desc: "Move beyond generic networking — connect with 250+ handpicked senior leaders, CDOs, government strategists, and AI architects.", stat: "Senior Leaders", statValue: "250+", icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" },
+  { title: "Shape Kuwait's Digital Horizon", desc: "Directly contribute to the national discourse on Data and AI, influencing policy, investment, and strategic direction.", stat: "National Impact", statValue: "1st", icon: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
+  { title: "Curated Connections", desc: "Move beyond generic networking, connect with 250+ handpicked senior leaders, CDOs, government strategists, and AI architects.", stat: "Senior Leaders", statValue: "250+", icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" },
   { title: "Practical, Localized Strategies", desc: "Laser-focused on actionable strategies for deploying Data and AI solutions specifically within the Kuwaiti context.", stat: "Kuwait-Focused", statValue: "100%", icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" },
-  { title: "Deep-Dive Workshops", desc: "Interactive sessions on critical Data and AI challenges facing Kuwaiti businesses and government — bring your toughest problems.", stat: "Live Workshops", statValue: "4", icon: "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" },
-  { title: "Co-Create Kuwait's AI Roadmap", desc: "A dedicated session to outline Kuwait's National Data & AI roadmap — contribute to strategic priorities and investment areas.", stat: "Market Size", statValue: "$9B+", icon: "M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" },
+  { title: "Deep-Dive Workshops", desc: "Interactive sessions on critical Data and AI challenges facing Kuwaiti businesses and government, bring your toughest problems.", stat: "Live Workshops", statValue: "4", icon: "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" },
+  { title: "Co-Create Kuwait's AI Roadmap", desc: "A dedicated session to outline Kuwait's National Data & AI roadmap, contribute to strategic priorities and investment areas.", stat: "Market Size", statValue: "$9B+", icon: "M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" },
   { title: "Overcome AI Challenges", desc: "Discuss your challenges with data and AI solution providers, get expert answers, and create strategic alliances.", stat: "Solution Providers", statValue: "30+", icon: "M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
 ];
 
@@ -324,7 +324,7 @@ function HeroSection() {
       className="daik-hero-section relative w-full overflow-hidden"
       style={{ minHeight: "100vh", background: "#060D0B" }}
     >
-      {/* ── AI Face image — full-bleed, anchored right ── */}
+      {/* ── AI Face image, full-bleed, anchored right ── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -348,7 +348,7 @@ function HeroSection() {
           }}
         />
 
-        {/* Left dissolve — wide gradient so image melts into dark bg seamlessly */}
+        {/* Left dissolve, wide gradient so image melts into dark bg seamlessly */}
         <div
           className="absolute inset-0"
           style={{
@@ -372,7 +372,7 @@ function HeroSection() {
           }}
         />
 
-        {/* Emerald color wash — unifies the teal image with the emerald theme */}
+        {/* Emerald color wash, unifies the teal image with the emerald theme */}
         <div
           className="absolute inset-0"
           style={{
@@ -383,7 +383,7 @@ function HeroSection() {
 
       {/* ── Atmospheric layers (on top of image) ── */}
 
-      {/* Emerald radial glow — left side, behind text */}
+      {/* Emerald radial glow, left side, behind text */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -392,7 +392,7 @@ function HeroSection() {
         }}
       />
 
-      {/* Emerald glow — bottom anchor */}
+      {/* Emerald glow, bottom anchor */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -416,7 +416,7 @@ function HeroSection() {
         }}
       />
 
-      {/* ── Text content — left-aligned, on top of everything ── */}
+      {/* ── Text content, left-aligned, on top of everything ── */}
       <div
         className="relative z-10 flex flex-col justify-center"
         style={{
@@ -429,7 +429,7 @@ function HeroSection() {
         }}
       >
         <div style={{ maxWidth: 560 }}>
-          {/* Badge — Date & Edition */}
+          {/* Badge, Date & Edition */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -815,7 +815,7 @@ function HeroCTA({
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  2. STATS BAR — Impactful, visual-rich
+//  2. STATS BAR, Impactful, visual-rich
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function StatsBar() {
@@ -1106,7 +1106,7 @@ function StatsBar() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  3. MARKET CONTEXT — Full-width image with floating glass stats
+//  3. MARKET CONTEXT, Full-width image with floating glass stats
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function MarketContext() {
@@ -1773,7 +1773,7 @@ function HighlightsGrid() {
               }}
             >
               This isn&apos;t a conference. It&apos;s Kuwait&apos;s most exclusive gathering of Data &amp; AI 
-              decision-makers — where deals close and strategies align.
+              decision-makers, where deals close and strategies align.
             </p>
           </motion.div>
 
@@ -1943,7 +1943,7 @@ function HighlightRow({
             </span>
           </div>
 
-          {/* Description — expands on hover */}
+          {/* Description, expands on hover */}
           <motion.div
             initial={false}
             animate={{
@@ -2581,7 +2581,7 @@ function SpeakersSection() {
               Industry Experts
             </h2>
             <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.45)", marginTop: 10, maxWidth: 400 }}>
-              The calibre of voices you&apos;ll hear — and network with — nowhere else
+              The calibre of voices you&apos;ll hear, and network with, nowhere else
             </p>
           </div>
           <motion.span 
@@ -3019,7 +3019,7 @@ function AwardsSection() {
           </p>
         </motion.div>
 
-        {/* ── 2. Award Categories — Expanding Accordion ── */}
+        {/* ── 2. Award Categories, Expanding Accordion ── */}
         <div style={{ display: "flex", flexDirection: "column", marginBottom: 20 }}>
           {AWARDS.map((award, i) => {
             const isExpanded = expandedAward === i;
@@ -3132,7 +3132,7 @@ function AwardsSection() {
         {/* Divider */}
         <div style={{ height: 1, margin: "28px 0", background: `linear-gradient(90deg, transparent, ${E}15, ${GOLD}20, ${E}15, transparent)` }} />
 
-        {/* ── 3. Nominations & Eligibility (Split Row) — with event photo backdrop ── */}
+        {/* ── 3. Nominations & Eligibility (Split Row), with event photo backdrop ── */}
         <div style={{ position: "relative", borderRadius: 20, overflow: "hidden" }}>
           {/* Event photo backdrop */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -3210,7 +3210,7 @@ function AwardsSection() {
             </div>
           </motion.div>
 
-          {/* RIGHT: Nomination Form — liquid glass card */}
+          {/* RIGHT: Nomination Form, liquid glass card */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={nomInView ? { opacity: 1, y: 0 } : {}}
@@ -3229,7 +3229,7 @@ function AwardsSection() {
           >
             {/* Top refraction highlight */}
             <div className="absolute pointer-events-none" style={{ top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent 5%, rgba(255,255,255,0.15) 30%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.15) 70%, transparent 95%)` }} />
-            {/* Inner light refraction — warm shift top-right, cool shift bottom-left */}
+            {/* Inner light refraction, warm shift top-right, cool shift bottom-left */}
             <div className="absolute pointer-events-none" style={{ top: -40, right: -40, width: 200, height: 200, borderRadius: "50%", background: `radial-gradient(circle, ${GOLD}0C, transparent 70%)`, filter: "blur(40px)" }} />
             <div className="absolute pointer-events-none" style={{ bottom: -40, left: -40, width: 200, height: 200, borderRadius: "50%", background: `radial-gradient(circle, ${E}0C, transparent 70%)`, filter: "blur(40px)" }} />
             {/* Subtle inner sheen */}
@@ -3597,7 +3597,7 @@ function WhoShouldAttend() {
           {/* ── RIGHT: Industries + Stat line ── */}
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
 
-            {/* Industries block — liquid glass */}
+            {/* Industries block, liquid glass */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -4422,7 +4422,7 @@ function SponsorsSection() {
             }}
           />
 
-          {/* Row 1 — scrolls left */}
+          {/* Row 1, scrolls left */}
           <div className="daik-marquee-track" style={{ marginBottom: 20 }}>
             <div
               className="daik-marquee-inner daik-scroll-left"
@@ -4459,7 +4459,7 @@ function SponsorsSection() {
             </div>
           </div>
 
-          {/* Row 2 — scrolls right */}
+          {/* Row 2, scrolls right */}
           <div className="daik-marquee-track">
             <div
               className="daik-marquee-inner daik-scroll-right"
@@ -4616,7 +4616,7 @@ function FAQSection() {
           alignItems: "start",
         }}
       >
-        {/* Left Column — Header + CTA (sticky) */}
+        {/* Left Column, Header + CTA (sticky) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -4658,7 +4658,7 @@ function FAQSection() {
           </a>
         </motion.div>
 
-        {/* Right Column — Accordion */}
+        {/* Right Column, Accordion */}
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {FAQS.map((faq, i) => {
             const isOpen = openIndex === i;
@@ -5243,7 +5243,7 @@ function SplitCTA() {
       </div>
 
       <style jsx global>{`
-        /* Transparent background — let event photo show through */
+        /* Transparent background, let event photo show through */
         .daik-form-wrapper #get-involved {
           background: transparent !important;
         }
@@ -5260,23 +5260,23 @@ function SplitCTA() {
           box-shadow: 0 12px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06) !important;
         }
 
-        /* Tab pills — emerald themed */
+        /* Tab pills, emerald themed */
         .daik-form-wrapper button[style*="background: var(--orange)"] {
           background: ${E} !important;
           border-color: ${E} !important;
         }
 
-        /* Form card ambient glow — emerald instead of orange */
+        /* Form card ambient glow, emerald instead of orange */
         .daik-form-wrapper .inquiry-split > div:last-child > .absolute {
           background: radial-gradient(ellipse, rgba(15,115,94,0.06) 0%, transparent 70%) !important;
         }
 
-        /* Section label — emerald */
+        /* Section label, emerald */
         .daik-form-wrapper [style*="var(--orange)"][style*="letter-spacing: 3px"] {
           color: ${E} !important;
         }
 
-        /* Perk icons — emerald tint */
+        /* Perk icons, emerald tint */
         .daik-form-wrapper .inquiry-split svg {
           color: ${E};
         }
@@ -5394,7 +5394,7 @@ function Venue() {
               </h3>
             </div>
             <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 400, color: "rgba(255,255,255,0.55)", lineHeight: 1.75, margin: 0 }}>
-              Digital First Kuwait 2026 will be hosted at Jumeirah Messilah Beach Hotel — Kuwait's premier beachfront resort offering world-class conference facilities with stunning waterfront views.
+              Digital First Kuwait 2026 will be hosted at Jumeirah Messilah Beach Hotel, Kuwait's premier beachfront resort offering world-class conference facilities with stunning waterfront views.
             </p>
             
             {/* Venue confirmed badge */}

@@ -184,7 +184,7 @@ export default function CompleteProfilePage() {
 
       <h1>Complete Your Profile</h1>
       <p className="auth-subtitle">
-        Step {step} of 3 — {step === 1 ? "Professional Info" : step === 2 ? "Contact & Role" : "Interests"}
+        Step {step} of 3, {step === 1 ? "Professional Info" : step === 2 ? "Contact & Role" : "Interests"}
       </p>
 
       {/* Progress */}

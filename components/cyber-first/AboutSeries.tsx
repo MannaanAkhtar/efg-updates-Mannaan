@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SHADOWS, SPACING } from "@/lib/cyber-design-tokens";
 
-// Outcome cards — what attendees walk away with
+// Outcome cards, what attendees walk away with
 const outcomes = [
   {
     id: "intelligence",
@@ -25,14 +25,14 @@ const outcomes = [
     number: "03",
     title: "Vendor Clarity, Not Noise",
     description:
-      "Curated solution showcases from vetted partners. No expo-floor chaos — just focused demos matched to real enterprise use cases.",
+      "Curated solution showcases from vetted partners. No expo-floor chaos, just focused demos matched to real enterprise use cases.",
   },
   {
     id: "regulatory",
     number: "04",
     title: "Regulatory Foresight",
     description:
-      "Hear directly from national cyber authorities. Know what's coming before it's mandated — from NESA to NCA and beyond.",
+      "Hear directly from national cyber authorities. Know what's coming before it's mandated, from NESA to NCA and beyond.",
   },
   {
     id: "partnerships",
@@ -112,7 +112,7 @@ export default function AboutSeries() {
               margin: "16px auto 0",
             }}
           >
-            Every element of Cyber First is designed for one thing — giving
+            Every element of Cyber First is designed for one thing, giving
             senior security leaders something they can use the moment they
             return to their desks.
           </p>
@@ -161,7 +161,7 @@ export default function AboutSeries() {
 }
 
 /**
- * OutcomeCard — Single outcome with hover effect
+ * OutcomeCard, Single outcome with hover effect
  */
 function OutcomeCard({
   outcome,

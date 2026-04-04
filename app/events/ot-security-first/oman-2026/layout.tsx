@@ -6,7 +6,7 @@ const PAGE_URL = `${BASE_URL}/events/ot-security-first/oman-2026`;
 const OG_IMAGE = `${BASE_URL}/og-default.png`;
 
 export const metadata: Metadata = {
-  title: "OT Security Oman 2026 | Industrial Security Summit Muscat — October",
+  title: "OT Security Oman 2026 | Industrial Security Summit Muscat, October",
   description:
     "Protecting Oman's energy, utilities, and industrial sectors through IT/OT convergence. 14 October 2026, Muscat.",
   keywords: [
@@ -20,13 +20,13 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "OT Security Oman 2026 — Muscat",
+    title: "OT Security Oman 2026, Muscat",
     description: "Industrial security summit. 14 October 2026, Muscat, Oman.",
     url: PAGE_URL, siteName: "Events First Group",
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "OT Security Oman 2026" }],
     locale: "en_US", type: "website",
   },
-  twitter: { card: "summary_large_image", title: "OT Security Oman 2026 — Muscat", description: "Industrial security summit. 14 October 2026, Muscat.", images: [OG_IMAGE] },
+  twitter: { card: "summary_large_image", title: "OT Security Oman 2026, Muscat", description: "Industrial security summit. 14 October 2026, Muscat.", images: [OG_IMAGE] },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

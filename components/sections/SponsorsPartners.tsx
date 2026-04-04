@@ -13,11 +13,11 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// ALL SPONSOR LOGOS — 99 logos from S3
+// ALL SPONSOR LOGOS, 99 logos from S3
 // ─────────────────────────────────────────────────────────────────────────────
 
 const ALL_LOGOS = [
-  // Priority brands first — larger display
+  // Priority brands first, larger display
   { src: `${S3}/Microsoft_logo.png`, name: "Microsoft", priority: true },
   { src: `${S3}/Oracle.png`, name: "Oracle", priority: true },
   { src: `${S3}/Google-Cloud-Security.png`, name: "Google Cloud Security", priority: true },
@@ -193,7 +193,7 @@ export default function SponsorsPartners() {
           </p>
         </div>
 
-        {/* ── MARQUEE — with edge fades ── */}
+        {/* ── MARQUEE, with edge fades ── */}
         <div style={{ position: "relative", overflow: "hidden" }}>
           {/* Left fade */}
           <div
@@ -214,7 +214,7 @@ export default function SponsorsPartners() {
             }}
           />
 
-          {/* Row 1 — scrolls left */}
+          {/* Row 1, scrolls left */}
           <div className="sp-marquee-track" style={{ marginBottom: 16 }}>
             <div className="sp-marquee-inner sp-scroll-left" style={{ animationDuration: "80s" }}>
               {[...ROW_1, ...ROW_1].map((logo, i) => (
@@ -238,7 +238,7 @@ export default function SponsorsPartners() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={logo.src}
-                    alt={`${logo.name} — Events First Group summit sponsor`}
+                    alt={`${logo.name}, Events First Group summit sponsor`}
                     loading="lazy"
                     style={{
                       maxHeight: "100%",
@@ -253,7 +253,7 @@ export default function SponsorsPartners() {
             </div>
           </div>
 
-          {/* Row 2 — scrolls right */}
+          {/* Row 2, scrolls right */}
           <div className="sp-marquee-track" style={{ marginBottom: 16 }}>
             <div className="sp-marquee-inner sp-scroll-right" style={{ animationDuration: "90s" }}>
               {[...ROW_2, ...ROW_2].map((logo, i) => (
@@ -277,7 +277,7 @@ export default function SponsorsPartners() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={logo.src}
-                    alt={`${logo.name} — Events First Group summit sponsor`}
+                    alt={`${logo.name}, Events First Group summit sponsor`}
                     loading="lazy"
                     style={{
                       maxHeight: "100%",
@@ -292,7 +292,7 @@ export default function SponsorsPartners() {
             </div>
           </div>
 
-          {/* Row 3 — scrolls left */}
+          {/* Row 3, scrolls left */}
           <div className="sp-marquee-track">
             <div className="sp-marquee-inner sp-scroll-left" style={{ animationDuration: "85s" }}>
               {[...ROW_3, ...ROW_3].map((logo, i) => (
@@ -316,7 +316,7 @@ export default function SponsorsPartners() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={logo.src}
-                    alt={`${logo.name} — Events First Group summit sponsor`}
+                    alt={`${logo.name}, Events First Group summit sponsor`}
                     loading="lazy"
                     style={{
                       maxHeight: "100%",
@@ -415,7 +415,7 @@ export default function SponsorsPartners() {
           }
         }
 
-        /* Hover — reveal original color + white pill behind dark logos */
+        /* Hover, reveal original color + white pill behind dark logos */
         .sp-logo-item:hover {
           opacity: 1 !important;
           background: rgba(255, 255, 255, 0.9) !important;

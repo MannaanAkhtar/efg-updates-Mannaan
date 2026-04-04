@@ -242,7 +242,7 @@ export default function SeriesTickerBar({
 }
 
 /**
- * CountdownUnit — Single countdown unit (days, hours, minutes, seconds)
+ * CountdownUnit, Single countdown unit (days, hours, minutes, seconds)
  */
 function CountdownUnit({
   value,

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Events Calendar 2026 | Events First Group",
     description:
-      "9 executive summits across the Middle East — Cybersecurity, OT Security, Data & AI, and Opex. For CISOs, CDOs, and enterprise leaders.",
+      "9 executive summits across the Middle East, Cybersecurity, OT Security, Data & AI, and Opex. For CISOs, CDOs, and enterprise leaders.",
     url: `${BASE_URL}/events`,
     siteName: "Events First Group",
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Events First Group — 2026 Events Calendar",
+        alt: "Events First Group, 2026 Events Calendar",
       },
     ],
     locale: "en_US",

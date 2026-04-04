@@ -164,7 +164,7 @@ export default function DASponsorsMarquee() {
             }}
           />
 
-          {/* Row 1 — scrolls left */}
+          {/* Row 1, scrolls left */}
           <div className="da-marquee-track" style={{ marginBottom: 20 }}>
             <div
               className="da-marquee-inner da-scroll-left"
@@ -202,7 +202,7 @@ export default function DASponsorsMarquee() {
             </div>
           </div>
 
-          {/* Row 2 — scrolls right */}
+          {/* Row 2, scrolls right */}
           <div className="da-marquee-track">
             <div
               className="da-marquee-inner da-scroll-right"

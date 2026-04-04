@@ -401,7 +401,7 @@ export default function ComingSoonEvent({
               </div>
             </motion.div>
 
-            {/* Coming Soon — Text Scramble */}
+            {/* Coming Soon, Text Scramble */}
             <h1 className="cs-headline" style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: "clamp(38px, 5.5vw, 68px)", lineHeight: 1.05, letterSpacing: "-0.03em", margin: "0 0 10px" }}>
               <ScrambleText text="Coming Soon" color={color} colorBright={colorBright} />
             </h1>

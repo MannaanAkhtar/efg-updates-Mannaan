@@ -83,7 +83,7 @@ export default function RegistrationForm() {
           gap: 60,
         }}
       >
-        {/* Left Column — Pitch */}
+        {/* Left Column, Pitch */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
@@ -151,7 +151,7 @@ export default function RegistrationForm() {
           </div>
         </motion.div>
 
-        {/* Right Column — Form */}
+        {/* Right Column, Form */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
@@ -214,7 +214,7 @@ export default function RegistrationForm() {
                   />
                 </div>
 
-                {/* Row 4 — Phone with country code */}
+                {/* Row 4, Phone with country code */}
                 <div style={{ marginBottom: 20 }}>
                   <div style={{ display: "flex", gap: 8 }}>
                     <select
@@ -367,7 +367,7 @@ export default function RegistrationForm() {
 }
 
 /**
- * FormInput — Styled form input
+ * FormInput, Styled form input
  */
 function FormInput({
   name,
@@ -421,7 +421,7 @@ function FormInput({
 }
 
 /**
- * SubmitButton — Form submit button
+ * SubmitButton, Form submit button
  */
 function SubmitButton({ loading = false }: { loading?: boolean }) {
   const [isHovered, setIsHovered] = useState(false);

@@ -18,23 +18,23 @@ interface HeroSlide {
 
 const heroSlides: HeroSlide[] = [
   {
-    // 4 — OPEX First KSA — leadership panel on stage. LEADERSHIP.
+    // 4, OPEX First KSA, leadership panel on stage. LEADERSHIP.
     image: `${S3}/opex1.jpg`,
     eyebrow: "Opex First KSA · Leadership Panel · Riyadh",
     title: ["Excellence Isn't a", "Department. It's a"],
     accent: "Culture.",
-    sub: "Senior leaders from Roads General Authority, Red Sea Global, and the Ministry of HR — one stage, one mission.",
+    sub: "Senior leaders from Roads General Authority, Red Sea Global, and the Ministry of HR, one stage, one mission.",
   },
   {
-    // 2 — VIP audience — UAE officials, military, packed crowd.
+    // 2, VIP audience, UAE officials, military, packed crowd.
     image: `${OPEX}/4N8A1688.JPG`,
     eyebrow: "200+ Speakers · 12 Cities · 6 Nations",
     title: ["Conversations That"],
     accent: "Move Industries.",
-    sub: "Honest dialogue on what comes next — and who needs to be in the room when it arrives.",
+    sub: "Honest dialogue on what comes next, and who needs to be in the room when it arrives.",
   },
   {
-    // 1 — Exhibition networking — packed floor, sponsor booths, energy.
+    // 1, Exhibition networking, packed floor, sponsor booths, energy.
     image: `${CFK}/exhibition-networking.jpg`,
     eyebrow: "Cyber First Kuwait · 9 June 2026 · Kuwait City",
     title: ["Where the Region's", "Decisions Are"],
@@ -42,7 +42,7 @@ const heroSlides: HeroSlide[] = [
     sub: "500+ CISOs, CDOs and Government Officials. One room. One day. Kuwait City.",
   },
   {
-    // 3 — Cyber First Qatar — aerial view, panel on stage, chandeliers.
+    // 3, Cyber First Qatar, aerial view, panel on stage, chandeliers.
     image: `${CFK}/cyber-first-qatar-aerial.jpg`,
     eyebrow: "Ministerial & Regulatory Participation · Global",
     title: ["Government and Industry.", "On The Same"],
@@ -50,7 +50,7 @@ const heroSlides: HeroSlide[] = [
     sub: "The only summit series with active ministerial and regulatory voices in every session.",
   },
   {
-    // 5 — Authority — new image.
+    // 5, Authority, new image.
     image: `${CFK}/cyber21-04-324.jpg`,
     eyebrow: "5,000+ Delegates · 16 Editions · 99+ Sponsors",
     title: ["The World's Most", "Trusted Technology"],
@@ -58,7 +58,7 @@ const heroSlides: HeroSlide[] = [
     sub: "From Kuwait to Nairobi. From the CISO to the Minister. Every edition, every city.",
   },
   {
-    // 6 — Cyber First Kuwait — MOU signing between GBM & AOU. PARTNERSHIPS.
+    // 6, Cyber First Kuwait, MOU signing between GBM & AOU. PARTNERSHIPS.
     image: `${S3}/cyber1.jpg`,
     eyebrow: "Cyber First Kuwait · Strategic Partnerships",
     title: ["Where Partnerships"],
@@ -75,7 +75,7 @@ const nextEvent = {
 };
 
 // Slideshow timing
-const SLIDE_DURATION = 5500; // 5.5 seconds — enough to read the headline
+const SLIDE_DURATION = 5500; // 5.5 seconds, enough to read the headline
 const CROSSFADE_DURATION = 1.2; // 1.2 second crossfade
 
 export default function HeroSectionMobile() {
@@ -195,7 +195,7 @@ export default function HeroSectionMobile() {
       />
 
       {/* ═══════════════════════════════════════════════════════════════
-          LAYER 4: FILM GRAIN — SUBTLE CINEMA TEXTURE
+          LAYER 4: FILM GRAIN, SUBTLE CINEMA TEXTURE
           ═══════════════════════════════════════════════════════════════ */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.035] z-3"
@@ -206,7 +206,7 @@ export default function HeroSectionMobile() {
       />
 
       {/* ═══════════════════════════════════════════════════════════════
-          LAYER 5: HERO CONTENT — VERTICALLY CENTERED
+          LAYER 5: HERO CONTENT, VERTICALLY CENTERED
           ═══════════════════════════════════════════════════════════════ */}
       <div
         className="relative z-10 flex items-center px-6 hero-content-wrapper"
@@ -395,7 +395,7 @@ export default function HeroSectionMobile() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════
-          SLIDESHOW INDICATORS — Subtle dots showing current image
+          SLIDESHOW INDICATORS, Subtle dots showing current image
           ═══════════════════════════════════════════════════════════════ */}
       {imageSources.length > 1 && (
         <motion.div
@@ -422,7 +422,7 @@ export default function HeroSectionMobile() {
       )}
 
       {/* ═══════════════════════════════════════════════════════════════
-          COUNTDOWN TICKER — Fixed at viewport bottom
+          COUNTDOWN TICKER, Fixed at viewport bottom
           ═══════════════════════════════════════════════════════════════ */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -483,7 +483,7 @@ export default function HeroSectionMobile() {
           </div>
         </div>
 
-        {/* ── MOBILE ticker — compact two-row layout ── */}
+        {/* ── MOBILE ticker, compact two-row layout ── */}
         <div
           className="flex sm:hidden items-center justify-between"
           style={{ padding: "0 20px" }}
@@ -539,7 +539,7 @@ export default function HeroSectionMobile() {
 }
 
 /**
- * HeroImage — Individual slideshow image with Ken Burns effect
+ * HeroImage, Individual slideshow image with Ken Burns effect
  */
 function HeroImage({
   src,
@@ -572,7 +572,7 @@ function HeroImage({
 }
 
 /**
- * CountdownDisplay — The live countdown numbers
+ * CountdownDisplay, The live countdown numbers
  */
 function CountdownDisplay({ date, compact = false }: { date: Date; compact?: boolean }) {
   const [timeLeft, setTimeLeft] = useState({
@@ -616,7 +616,7 @@ function CountdownDisplay({ date, compact = false }: { date: Date; compact?: boo
 }
 
 /**
- * CountdownUnit — Individual countdown number display
+ * CountdownUnit, Individual countdown number display
  */
 function CountdownUnit({ value, label, compact = false }: { value: number; label: string; compact?: boolean }) {
   return (

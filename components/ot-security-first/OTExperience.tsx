@@ -116,7 +116,7 @@ export default function OTExperience() {
         overflow: "hidden",
       }}
     >
-      {/* Backdrop photo — barely visible */}
+      {/* Backdrop photo, barely visible */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="https://otsecurityfirst.com/wp-content/uploads/2025/10/overview1@2x-1024x534.png"
@@ -141,7 +141,7 @@ export default function OTExperience() {
           backgroundSize: "24px 24px",
         }}
       />
-      {/* Crimson glow — top-left */}
+      {/* Crimson glow, top-left */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -264,7 +264,7 @@ export default function OTExperience() {
 }
 
 /**
- * ExperienceCard — Individual experience element (angular 8px radius)
+ * ExperienceCard, Individual experience element (angular 8px radius)
  */
 function ExperienceCard({ element }: { element: (typeof elements)[0] }) {
   const [isHovered, setIsHovered] = useState(false);

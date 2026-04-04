@@ -114,7 +114,7 @@ export default function OTWhoShouldAttend() {
               OT Security First is designed exclusively for professionals who
               secure industrial control systems, operational technology
               environments, and critical infrastructure. If you protect things
-              that move, generate, or flow — this is your summit.
+              that move, generate, or flow, this is your summit.
             </p>
 
             {/* CTA Button */}
@@ -259,7 +259,7 @@ export default function OTWhoShouldAttend() {
 }
 
 /**
- * RegisterButton — Angular CTA button
+ * RegisterButton, Angular CTA button
  */
 function RegisterButton() {
   const [isHovered, setIsHovered] = useState(false);

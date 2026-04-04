@@ -57,7 +57,7 @@ export default function DAAudience() {
         }}
       />
 
-      {/* Emerald glow — right center */}
+      {/* Emerald glow, right center */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -120,7 +120,7 @@ export default function DAAudience() {
           }}
         >
           Digital First is designed for the people who decide how
-          organizations adopt AI. Not observers — operators.
+          organizations adopt AI. Not observers, operators.
         </motion.p>
       </div>
 

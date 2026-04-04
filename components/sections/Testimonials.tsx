@@ -51,7 +51,7 @@ const videoShorts = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
-// VIDEO CARD — YouTube Shorts inline player
+// VIDEO CARD, YouTube Shorts inline player
 // ─────────────────────────────────────────────────────────────────────────────
 
 function VideoCard({
@@ -80,7 +80,7 @@ function VideoCard({
         position: "relative",
       }}
     >
-      {/* Video container — 9:16 aspect for Shorts */}
+      {/* Video container, 9:16 aspect for Shorts */}
       <div
         style={{
           position: "relative",

@@ -238,7 +238,7 @@ export default function DAUpcomingEditionCTA() {
           zIndex: 2,
         }}
       >
-        {/* Tab pills — top of section */}
+        {/* Tab pills, top of section */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

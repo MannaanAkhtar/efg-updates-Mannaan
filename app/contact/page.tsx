@@ -58,7 +58,7 @@ function SectionLabel({ text }: { text: string }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 1 — HERO
+// SECTION 1, HERO
 // ─────────────────────────────────────────────────────────────────────────────
 
 function ContactHero() {
@@ -172,7 +172,7 @@ function ContactHero() {
           }}
         >
           Whether you&apos;re interested in sponsoring, speaking, attending,
-          or partnering — we&apos;d love to hear from you.
+          or partnering, we&apos;d love to hear from you.
         </motion.p>
 
         {/* Inline contact chips */}
@@ -281,7 +281,7 @@ function ContactChip({
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 2 — FORM + INFO
+// SECTION 2, FORM + INFO
 // ─────────────────────────────────────────────────────────────────────────────
 
 const inputBase: React.CSSProperties = {
@@ -333,7 +333,7 @@ function ContactForm() {
           alignItems: "start",
         }}
       >
-        {/* Left — Form */}
+        {/* Left, Form */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -547,7 +547,7 @@ function ContactForm() {
           )}
         </motion.div>
 
-        {/* Right — Info card */}
+        {/* Right, Info card */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

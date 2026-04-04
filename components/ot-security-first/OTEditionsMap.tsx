@@ -49,7 +49,7 @@ const upcoming = [
 const reports = [
   {
     id: 1,
-    title: "OT Security First Abu Dhabi 2026 — Post-Event Report",
+    title: "OT Security First Abu Dhabi 2026, Post-Event Report",
     tag: "Abu Dhabi 2026",
     href: "#",
   },
@@ -126,7 +126,7 @@ export default function OTEditionsMap() {
             alignItems: "stretch",
           }}
         >
-          {/* LEFT — Featured Abu Dhabi card */}
+          {/* LEFT, Featured Abu Dhabi card */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
@@ -135,7 +135,7 @@ export default function OTEditionsMap() {
             <FeaturedCard />
           </motion.div>
 
-          {/* RIGHT — 3 stacked upcoming city cards */}
+          {/* RIGHT, 3 stacked upcoming city cards */}
           <div className="flex flex-col gap-3">
             {upcoming.map((city, index) => (
               <motion.div
@@ -191,7 +191,7 @@ export default function OTEditionsMap() {
 }
 
 /**
- * TimelinePipeline — Horizontal SCADA-style pipeline showing edition progression
+ * TimelinePipeline, Horizontal SCADA-style pipeline showing edition progression
  */
 function TimelinePipeline({ isInView }: { isInView: boolean }) {
   const nodes = [
@@ -337,7 +337,7 @@ function TimelinePipeline({ isInView }: { isInView: boolean }) {
 }
 
 /**
- * FeaturedCard — Large Abu Dhabi completed edition card
+ * FeaturedCard, Large Abu Dhabi completed edition card
  */
 function FeaturedCard() {
   const [isHovered, setIsHovered] = useState(false);
@@ -519,7 +519,7 @@ function FeaturedCard() {
 }
 
 /**
- * UpcomingCard — Compact horizontal card for upcoming cities
+ * UpcomingCard, Compact horizontal card for upcoming cities
  */
 function UpcomingCard({ city }: { city: (typeof upcoming)[0] }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -616,7 +616,7 @@ function UpcomingCard({ city }: { city: (typeof upcoming)[0] }) {
 }
 
 /**
- * ReportsStrip — Post-event reports dropdown
+ * ReportsStrip, Post-event reports dropdown
  */
 function ReportsStrip() {
   const [isOpen, setIsOpen] = useState(false);
@@ -737,7 +737,7 @@ function ReportsStrip() {
 }
 
 /**
- * ReportItem — Individual report download link
+ * ReportItem, Individual report download link
  */
 function ReportItem({ report }: { report: (typeof reports)[0] }) {
   const [isHovered, setIsHovered] = useState(false);

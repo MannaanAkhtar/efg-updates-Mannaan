@@ -36,7 +36,7 @@ const sections = [
     id: "intellectual-property",
     title: "4. Intellectual Property",
     content: [
-      "All content on this website — including text, graphics, logos, images, videos, event branding, and software — is the property of Events First Group or its licensors and is protected by applicable intellectual property laws.",
+      "All content on this website, including text, graphics, logos, images, videos, event branding, and software, is the property of Events First Group or its licensors and is protected by applicable intellectual property laws.",
       "You may not reproduce, distribute, modify, or create derivative works from any content on this website without our prior written consent. The EFG name, logo, and all event series names (Cyber First, OT Security First, Digital First, Opex First) are trademarks of Events First Group.",
     ],
   },
@@ -52,7 +52,7 @@ const sections = [
     id: "user-content",
     title: "6. User Content & Submissions",
     content: [
-      "If you submit content to EFG — including speaker proposals, inquiry forms, feedback, or any other materials — you grant us a non-exclusive, royalty-free, worldwide licence to use, reproduce, and distribute that content in connection with our services.",
+      "If you submit content to EFG, including speaker proposals, inquiry forms, feedback, or any other materials, you grant us a non-exclusive, royalty-free, worldwide licence to use, reproduce, and distribute that content in connection with our services.",
       "You represent that you own or have the necessary rights to any content you submit, and that such content does not infringe on any third party's intellectual property or other rights.",
     ],
   },

@@ -10,7 +10,7 @@ import type { FormType, CountryCode } from "@/lib/form-helpers";
 import { FAQSchema } from "@/lib/schemas";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// DESIGN SYSTEM — White + Gold Only
+// DESIGN SYSTEM, White + Gold Only
 // ─────────────────────────────────────────────────────────────────────────────
 
 const GOLD = "#C9935A";
@@ -43,7 +43,7 @@ const UPCOMING_EVENTS = [
     year: "2026",
     time: "11:00 AM GST",
     title: "Braze Virtual Roundtable",
-    subtitle: "Marketing Through Uncertainty — Customer Engagement Strategies for MENAT",
+    subtitle: "Marketing Through Uncertainty, Customer Engagement Strategies for MENAT",
     sponsor: "Braze",
     location: "Virtual",
     link: "https://braze-webinar.eventsfirstgroup.com",
@@ -56,7 +56,7 @@ const UPCOMING_EVENTS = [
     year: "2026",
     time: "11:00 AM GST",
     title: "Braze Virtual Roundtable 2",
-    subtitle: "Marketing Through Uncertainty — Customer Engagement Strategies for MENAT",
+    subtitle: "Marketing Through Uncertainty, Customer Engagement Strategies for MENAT",
     sponsor: "Braze",
     location: "Virtual",
     link: "https://braze-webinar-2.eventsfirstgroup.com",
@@ -69,7 +69,7 @@ const UPCOMING_EVENTS = [
     year: "2026",
     time: "02:00 PM GST",
     title: "OT Security Virtual Boardroom MENA",
-    subtitle: "OT Security in the Age of AI Threats — 100 Verified Professionals",
+    subtitle: "OT Security in the Age of AI Threats, 100 Verified Professionals",
     sponsor: "OT Security First",
     location: "Virtual",
     link: "/events/ot-security-first/virtual-boardroom-mena",
@@ -414,7 +414,7 @@ function Hero() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// TRUST STRIP — Animated Marquee with Larger Logos
+// TRUST STRIP, Animated Marquee with Larger Logos
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function TrustStrip() {
@@ -440,7 +440,7 @@ function IntroStatement() {
 
   return (
     <section ref={ref} style={{ position: "relative", padding: "clamp(80px, 12vw, 140px) 24px", background: BG, overflow: "hidden" }}>
-      {/* Backdrop: boardroom photo — heavily darkened & blurred */}
+      {/* Backdrop: boardroom photo, heavily darkened & blurred */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -464,7 +464,7 @@ function IntroStatement() {
       />
       {/* Dark vignette edges */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 75% 60% at 50% 50%, transparent 0%, #0a0a0a 100%)" }} />
-      {/* Gold orb glow — left side */}
+      {/* Gold orb glow, left side */}
       <div className="absolute pointer-events-none" style={{ top: "10%", left: "10%", width: 500, height: 400, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(201,147,90,0.07) 0%, transparent 70%)", filter: "blur(80px)" }} />
       {/* Subtle top/bottom border lines */}
       <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{ height: 1, background: "linear-gradient(90deg, transparent 0%, rgba(201,147,90,0.15) 50%, transparent 100%)" }} />
@@ -488,7 +488,7 @@ function IntroStatement() {
         />
 
         <div style={{ position: "relative" }}>
-          {/* Oversized decorative quotation mark — top-left */}
+          {/* Oversized decorative quotation mark, top-left */}
           <motion.span
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 0.15 } : {}}
@@ -546,7 +546,7 @@ function IntroStatement() {
               textAlign: "left",
             }}
           >
-            &mdash; NetworkFirst
+            , NetworkFirst
           </motion.p>
         </div>
       </div>
@@ -704,14 +704,14 @@ function TheFormat() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const steps = [
-    { num: "01", title: "We Design Your Agenda", desc: "Tailored content aligned to your goals. Every topic, every panel — built around what matters to your pipeline." },
+    { num: "01", title: "We Design Your Agenda", desc: "Tailored content aligned to your goals. Every topic, every panel, built around what matters to your pipeline." },
     { num: "02", title: "We Fill Your Room", desc: "Multi-channel outreach to C-level executives. We identify, invite, and confirm decision-makers who match your ICP." },
-    { num: "03", title: "We Execute Flawlessly", desc: "5-star venues, premium branding, curated menus. You walk in and own the room — we handle every detail." },
+    { num: "03", title: "We Execute Flawlessly", desc: "5-star venues, premium branding, curated menus. You walk in and own the room, we handle every detail." },
   ];
 
   return (
     <section ref={ref} style={{ position: "relative", overflow: "hidden", background: BG }}>
-      {/* ── Full-bleed boardroom photo — fades from left into content ── */}
+      {/* ── Full-bleed boardroom photo, fades from left into content ── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
@@ -744,7 +744,7 @@ function TheFormat() {
 
       {/* ── Main content ── */}
       <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", position: "relative", zIndex: 1 }} className="format-layout">
-        {/* Left spacer — image shows through */}
+        {/* Left spacer, image shows through */}
         <div className="format-spacer" />
 
         {/* Right: Content */}
@@ -763,7 +763,7 @@ function TheFormat() {
             </p>
           </motion.div>
 
-          {/* Steps — with card-like treatment */}
+          {/* Steps, with card-like treatment */}
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {steps.map((s, i) => (
               <motion.div
@@ -881,9 +881,9 @@ function WhyHost() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const benefits = [
-    { num: "01", title: "Private & Intimate Setting", desc: "Managed roundtables in a private setting. No noise, no crowds — just you and the decision-makers who matter." },
+    { num: "01", title: "Private & Intimate Setting", desc: "Managed roundtables in a private setting. No noise, no crowds, just you and the decision-makers who matter." },
     { num: "02", title: "Tailored Agenda", desc: "We co-design every session around your goals. Every topic, every conversation drives pipeline value." },
-    { num: "03", title: "End-to-End Management", desc: "From delegate acquisition to flawless on-site execution — we handle everything so you can focus on relationships." },
+    { num: "03", title: "End-to-End Management", desc: "From delegate acquisition to flawless on-site execution, we handle everything so you can focus on relationships." },
     { num: "04", title: "Post-Event ROI", desc: "Comprehensive attendee database with insights, contacts, and follow-up opportunities to nurture long after the event." },
   ];
 
@@ -1078,7 +1078,7 @@ function TheExperience() {
             What you get<span style={{ color: GOLD }}>.</span>
           </h2>
           <p style={{ fontSize: 15, color: TEXT_30, lineHeight: 1.65, margin: "0 auto", maxWidth: 480 }}>
-            A full-service boardroom experience — from venue to follow-up, every detail is handled.
+            A full-service boardroom experience, from venue to follow-up, every detail is handled.
           </p>
         </motion.div>
 
@@ -1089,12 +1089,12 @@ function TheExperience() {
           gridTemplateRows: "auto auto auto auto",
           gap: 16,
         }}>
-          {/* Feature 1 — top left */}
+          {/* Feature 1, top left */}
           <div style={{ gridColumn: "1", gridRow: "1" }}>
             <ExperienceCard tag={features[0].tag} title={features[0].title} desc={features[0].desc} delay={0} />
           </div>
 
-          {/* Image 1 — top right, spans 2 rows */}
+          {/* Image 1, top right, spans 2 rows */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
@@ -1125,12 +1125,12 @@ function TheExperience() {
             </div>
           </motion.div>
 
-          {/* Feature 2 — second row left */}
+          {/* Feature 2, second row left */}
           <div style={{ gridColumn: "1", gridRow: "2" }}>
             <ExperienceCard tag={features[1].tag} title={features[1].title} desc={features[1].desc} delay={0.1} />
           </div>
 
-          {/* Image 2 — third row left, spans 2 rows */}
+          {/* Image 2, third row left, spans 2 rows */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
@@ -1159,12 +1159,12 @@ function TheExperience() {
             </div>
           </motion.div>
 
-          {/* Feature 3 — third row right */}
+          {/* Feature 3, third row right */}
           <div style={{ gridColumn: "2", gridRow: "3" }}>
             <ExperienceCard tag={features[2].tag} title={features[2].title} desc={features[2].desc} delay={0.2} />
           </div>
 
-          {/* Feature 4 — fourth row right */}
+          {/* Feature 4, fourth row right */}
           <div style={{ gridColumn: "2", gridRow: "4" }}>
             <ExperienceCard tag={features[3].tag} title={features[3].title} desc={features[3].desc} delay={0.3} />
           </div>
@@ -1210,7 +1210,7 @@ function TheJourney() {
     {
       num: "02",
       title: "Guest Curation",
-      desc: "We identify and personally invite 15-20 qualified executives. Title, organization, and relevance to your ICP — every seat earned.",
+      desc: "We identify and personally invite 15-20 qualified executives. Title, organization, and relevance to your ICP, every seat earned.",
       duration: "Weeks 2-4",
     },
     {
@@ -1222,7 +1222,7 @@ function TheJourney() {
     {
       num: "04",
       title: "Event Execution",
-      desc: "Five-star venue, full production, seamless experience. You focus on conversations — we handle everything else.",
+      desc: "Five-star venue, full production, seamless experience. You focus on conversations, we handle everything else.",
       duration: "Event Day",
     },
     {
@@ -1259,7 +1259,7 @@ function TheJourney() {
 
         {/* ── Desktop: Horizontal Process ── */}
         <div className="journey-desktop" style={{ display: "block" }}>
-          {/* Row 1: Top row — 3 cards */}
+          {/* Row 1: Top row, 3 cards */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18, marginBottom: 18 }}>
             {steps.slice(0, 3).map((step, i) => (
               <motion.div
@@ -1307,7 +1307,7 @@ function TheJourney() {
             ))}
           </motion.div>
 
-          {/* Row 2: Bottom row — 2 wider cards */}
+          {/* Row 2: Bottom row, 2 wider cards */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 18 }}>
             {steps.slice(3).map((step, i) => (
               <motion.div
@@ -1467,7 +1467,7 @@ function UpcomingSection() {
           </p>
         </motion.div>
 
-        {/* Event Cards — Row layout */}
+        {/* Event Cards, Row layout */}
         <div className="upcoming-row" style={{ display: "grid", gridTemplateColumns: `repeat(${UPCOMING_EVENTS.length}, 1fr)`, gap: 24 }}>
           {UPCOMING_EVENTS.map((e, idx) => (
             <motion.a
@@ -1571,7 +1571,7 @@ function UpcomingSection() {
           <div className="flex items-center justify-center gap-3" style={{ flexWrap: "wrap" }}>
             <span style={{ width: 7, height: 7, borderRadius: "50%", background: GOLD, boxShadow: `0 0 14px rgba(201,147,90,0.5)` }} />
             <p style={{ fontSize: 14, color: TEXT_50, margin: 0 }}>
-              More sessions coming for <span style={{ color: GOLD, fontWeight: 600 }}>Q2 &amp; Q3 2026</span> &mdash; stay tuned.
+              More sessions coming for <span style={{ color: GOLD, fontWeight: 600 }}>Q2 &amp; Q3 2026</span> , stay tuned.
             </p>
           </div>
         </motion.div>
@@ -1813,7 +1813,7 @@ function ResultsThatMatter() {
           </p>
         </motion.div>
 
-        {/* Company stats — animated counters */}
+        {/* Company stats, animated counters */}
         <motion.div variants={fadeUp} custom={1} initial="hidden" animate={inView ? "visible" : "hidden"} className="impact-stats-strip" style={{
           display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 0,
           marginBottom: 20, position: "relative",
@@ -1839,7 +1839,7 @@ function ResultsThatMatter() {
           <div style={{ flex: 1, height: 1, background: `linear-gradient(270deg, ${GOLD_30}, transparent)` }} />
         </motion.div>
 
-        {/* Outcome cards — mixed visuals */}
+        {/* Outcome cards, mixed visuals */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 }} className="results-grid">
           {outcomes.map((o, i) => (
             <motion.div key={o.label} variants={fadeUp} custom={i} initial="hidden" animate={inView ? "visible" : "hidden"} style={{
@@ -2040,12 +2040,12 @@ function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const faqs = [
-    { question: "How far in advance should we book?", answer: "We recommend a minimum of 6-8 weeks lead time for optimal guest curation and event preparation. However, rush delivery is available for select markets — contact us to discuss your timeline." },
-    { question: "How do you select and invite guests?", answer: "Every guest is hand-selected based on title, organization, and direct relevance to your ideal customer profile (ICP). We personally reach out to each executive — no mass emails, no delegates. Every seat is earned through direct relationship." },
+    { question: "How far in advance should we book?", answer: "We recommend a minimum of 6-8 weeks lead time for optimal guest curation and event preparation. However, rush delivery is available for select markets, contact us to discuss your timeline." },
+    { question: "How do you select and invite guests?", answer: "Every guest is hand-selected based on title, organization, and direct relevance to your ideal customer profile (ICP). We personally reach out to each executive, no mass emails, no delegates. Every seat is earned through direct relationship." },
     { question: "What's included in the sponsorship package?", answer: "The complete package includes: five-star venue and catering, guest curation (15-20 executives), full production (photography and videography), custom landing page, marketing materials, post-event content, complete attendee list, and follow-up facilitation." },
     { question: "Can we invite our own prospects?", answer: "Absolutely. Sponsors may invite 3-5 VIP guests of their choice. We'll coordinate the invitations and ensure they're integrated seamlessly into the overall guest experience." },
     { question: "What happens after the event?", answer: "Within one week, you receive the full attendee list with verified contact details, professional photography, video highlights, and a recap summary. We also facilitate warm introductions to any attendees you'd like to connect with further." },
-    { question: "Which markets do you operate in?", answer: "We operate across multiple global markets including UAE, Saudi Arabia, Kuwait, Bahrain, Qatar, Oman, and Kenya — with expansion into new regions. Each market has dedicated venue partners and executive networks." },
+    { question: "Which markets do you operate in?", answer: "We operate across multiple global markets including UAE, Saudi Arabia, Kuwait, Bahrain, Qatar, Oman, and Kenya, with expansion into new regions. Each market has dedicated venue partners and executive networks." },
     { question: "What topics work best for boardrooms?", answer: "Topics that drive genuine peer conversation: digital transformation, cybersecurity strategy, AI implementation, cloud modernization, leadership challenges. We'll help you refine the angle during our discovery call." },
   ];
 
@@ -2082,7 +2082,7 @@ function FAQSection() {
           </p>
         </motion.div>
 
-        {/* FAQ items — numbered editorial */}
+        {/* FAQ items, numbered editorial */}
         <div style={{ display: "flex", flexDirection: "column" }}>
           {/* Top divider */}
           <div style={{ height: 1, background: `linear-gradient(90deg, ${GOLD_30}, ${BORDER}, ${GOLD_30})` }} />
@@ -2353,7 +2353,7 @@ function FinalCTA() {
               Limited sessions available per quarter. Share your objectives and our team will craft the perfect boardroom experience for your brand.
             </p>
 
-            {/* Perks — minimal numbered list */}
+            {/* Perks, minimal numbered list */}
             <div style={{ marginTop: 40, display: "flex", flexDirection: "column", gap: 0 }}>
               {[
                 "Invite-only C-suite audience",
@@ -2465,7 +2465,7 @@ function FinalCTA() {
                           {emailError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 11, margin: "4px 0 0" }}>{emailError}</p>}
                         </div>
 
-                        {/* Phone — full width */}
+                        {/* Phone, full width */}
                         <div style={{ gridColumn: "1 / -1" }}>
                           <label style={labelStyle}>Phone Number</label>
                           <div style={{ display: "flex", gap: 8 }}>
@@ -2547,7 +2547,7 @@ function FinalCTA() {
                           </select>
                         </div>
 
-                        {/* Message — full width */}
+                        {/* Message, full width */}
                         <div style={{ gridColumn: "1 / -1" }}>
                           <label style={labelStyle}>Message (Optional)</label>
                           <textarea

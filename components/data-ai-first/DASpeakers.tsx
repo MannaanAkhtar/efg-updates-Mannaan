@@ -84,7 +84,7 @@ export default function DASpeakers() {
         }}
       />
 
-      {/* Emerald glow — center-bottom */}
+      {/* Emerald glow, center-bottom */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{

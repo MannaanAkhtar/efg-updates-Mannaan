@@ -29,7 +29,7 @@ const features = [
     id: "curated",
     title: "Curated Audiences",
     description:
-      "Every attendee is a senior decision-maker — CISOs, CDOs, CTOs, and enterprise leaders. No fillers. Just the people who shape cybersecurity budgets, AI strategy, and digital transformation direction.",
+      "Every attendee is a senior decision-maker, CISOs, CDOs, CTOs, and enterprise leaders. No fillers. Just the people who shape cybersecurity budgets, AI strategy, and digital transformation direction.",
   },
   {
     id: "actionable",
@@ -41,13 +41,13 @@ const features = [
     id: "global",
     title: "Local Depth, Global Reach",
     description:
-      "Deep roots in every market we serve — Kuwait, Qatar, Saudi Arabia, UAE, India, and Kenya. Local context meets international expertise across the Middle East, Africa, and Asia.",
+      "Deep roots in every market we serve, Kuwait, Qatar, Saudi Arabia, UAE, India, and Kenya. Local context meets international expertise across the Middle East, Africa, and Asia.",
   },
   {
     id: "community",
     title: "Year-Round Community",
     description:
-      "The network you build at our technology summits stays active between events. 5,000+ senior technology leaders and 200+ speakers — relationships that compound over time.",
+      "The network you build at our technology summits stays active between events. 5,000+ senior technology leaders and 200+ speakers, relationships that compound over time.",
   },
 ];
 
@@ -166,7 +166,7 @@ export default function WhyEFG() {
 
         {/* ── ASYMMETRIC BENTO GRID ── */}
         <div className="why-bento">
-          {/* Photo tile — tall left */}
+          {/* Photo tile, tall left */}
           <motion.div
             className="why-bento-photo-tall"
             initial={{ opacity: 0, scale: 0.96 }}
@@ -214,7 +214,7 @@ export default function WhyEFG() {
           {/* Feature 4: Community */}
           <BentoFeature feature={features[3]} index={3} isInView={isInView} />
 
-          {/* Photo tile — bottom right */}
+          {/* Photo tile, bottom right */}
           <motion.div
             className="why-bento-photo-small"
             initial={{ opacity: 0, scale: 0.96 }}

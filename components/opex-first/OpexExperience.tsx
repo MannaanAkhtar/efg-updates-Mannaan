@@ -49,7 +49,7 @@ const formats = [
   {
     num: "05",
     title: "Live Case Studies",
-    desc: "Real implementations from Saudi and UAE organizations — what worked, what failed, and what they learned.",
+    desc: "Real implementations from Saudi and UAE organizations, what worked, what failed, and what they learned.",
     icon: "M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z",
     image:
       "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&q=80",
@@ -165,7 +165,7 @@ export default function OpexExperience() {
               lineHeight: 1.6,
             }}
           >
-            Every element is designed for one outcome — that the right people
+            Every element is designed for one outcome, that the right people
             leave with the right connections, insights, and momentum.
           </p>
         </motion.div>

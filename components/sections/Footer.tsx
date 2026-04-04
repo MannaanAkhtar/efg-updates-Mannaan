@@ -62,7 +62,7 @@ export default function Footer() {
         }}
       >
         {/* ═══════════════════════════════════════════════════════════════
-            TOP AREA — 4-Column Grid
+            TOP AREA, 4-Column Grid
             ═══════════════════════════════════════════════════════════════ */}
         <div
           className="footer-grid"
@@ -72,7 +72,7 @@ export default function Footer() {
             gap: 48,
           }}
         >
-          {/* Column 1 — Brand */}
+          {/* Column 1, Brand */}
           <div>
             {/* Logo */}
             <Image
@@ -106,13 +106,13 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2 — Events */}
+          {/* Column 2, Events */}
           <FooterColumn title="Events" links={footerLinks.events} />
 
-          {/* Column 3 — Company */}
+          {/* Column 3, Company */}
           <FooterColumn title="Company" links={footerLinks.company} />
 
-          {/* Column 4 — Resources */}
+          {/* Column 4, Resources */}
           <FooterColumn title="Resources" links={footerLinks.resources} />
         </div>
 
@@ -149,7 +149,7 @@ export default function Footer() {
         </div>
 
         {/* ═══════════════════════════════════════════════════════════════
-            HIDDEN SIGN-OFF — Easter egg for completionists
+            HIDDEN SIGN-OFF, Easter egg for completionists
             ═══════════════════════════════════════════════════════════════ */}
         <motion.p
           initial={{ opacity: 0.05 }}
@@ -195,7 +195,7 @@ export default function Footer() {
 }
 
 /**
- * FooterColumn — Link column with header
+ * FooterColumn, Link column with header
  */
 function FooterColumn({
   title,
@@ -245,7 +245,7 @@ function FooterColumn({
 }
 
 /**
- * FooterBottomLink — Privacy/Terms links
+ * FooterBottomLink, Privacy/Terms links
  */
 function FooterBottomLink({ href, label }: { href: string; label: string }) {
   return (
@@ -264,7 +264,7 @@ function FooterBottomLink({ href, label }: { href: string; label: string }) {
 }
 
 /**
- * SocialIcon — Social media icon with hover effect
+ * SocialIcon, Social media icon with hover effect
  */
 function SocialIcon({ href, icon }: { href: string; icon: string }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -287,7 +287,7 @@ function SocialIcon({ href, icon }: { href: string; icon: string }) {
 }
 
 /**
- * SocialIconSVG — SVG icons for social platforms
+ * SocialIconSVG, SVG icons for social platforms
  */
 function SocialIconSVG({ icon }: { icon: string }) {
   const size = 17;

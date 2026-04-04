@@ -1,6 +1,6 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════
- * EFG DESIGN SYSTEM — APPLE-GRADE FOUNDATION
+ * EFG DESIGN SYSTEM, APPLE-GRADE FOUNDATION
  * ═══════════════════════════════════════════════════════════════════════════
  * 
  * This is the single source of truth.
@@ -10,11 +10,11 @@
  */
 
 // ═══════════════════════════════════════════════════════════════════════════
-// COLORS — The Brand DNA
+// COLORS, The Brand DNA
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const colors = {
-  // The Blacks — Depth hierarchy
+  // The Blacks, Depth hierarchy
   black: {
     void: "#0A0A0A",        // Deepest canvas
     base: "#111111",        // Section alternation
@@ -23,7 +23,7 @@ export const colors = {
     elevated: "#1E1E1E",    // Modals, dropdowns
   },
 
-  // The Orange — Brand heartbeat
+  // The Orange, Brand heartbeat
   orange: {
     core: "#E8651A",        // Primary brand
     bright: "#FF7A2E",      // Hover/emphasis
@@ -32,7 +32,7 @@ export const colors = {
     subtle: "rgba(232, 101, 26, 0.08)", // Backgrounds
   },
 
-  // The Whites — Voice spectrum
+  // The Whites, Voice spectrum
   white: {
     pure: "#FFFFFF",        // Headlines
     primary: "#F5F5F7",     // Apple-style off-white
@@ -41,7 +41,7 @@ export const colors = {
     muted: "#48484A",       // Disabled
   },
 
-  // Borders — Barely visible, always felt
+  // Borders, Barely visible, always felt
   border: {
     subtle: "rgba(255, 255, 255, 0.06)",
     default: "rgba(255, 255, 255, 0.08)",
@@ -49,7 +49,7 @@ export const colors = {
     focus: "rgba(255, 255, 255, 0.20)",
   },
 
-  // Event Series — Distinct identities
+  // Event Series, Distinct identities
   series: {
     cyber: "#01BBF5",       // Cyan
     ot: "#D34B9A",          // Pink
@@ -64,7 +64,7 @@ export const colors = {
 } as const;
 
 // ═══════════════════════════════════════════════════════════════════════════
-// TYPOGRAPHY — The Voice
+// TYPOGRAPHY, The Voice
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const typography = {
@@ -75,7 +75,7 @@ export const typography = {
     mono: "SF Mono, JetBrains Mono, monospace",
   },
 
-  // Font sizes — Apple-inspired scale
+  // Font sizes, Apple-inspired scale
   size: {
     xs: "0.75rem",     // 12px
     sm: "0.875rem",    // 14px
@@ -92,7 +92,7 @@ export const typography = {
     "9xl": "8rem",     // 128px
   },
 
-  // Heading sizes — Fluid responsive
+  // Heading sizes, Fluid responsive
   heading: {
     hero: "clamp(2.5rem, 6vw, 5rem)",      // 40px → 80px
     h1: "clamp(2rem, 5vw, 4rem)",          // 32px → 64px
@@ -135,7 +135,7 @@ export const typography = {
 } as const;
 
 // ═══════════════════════════════════════════════════════════════════════════
-// SPACING — The Rhythm (8px base grid)
+// SPACING, The Rhythm (8px base grid)
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const spacing = {
@@ -175,7 +175,7 @@ export const spacing = {
   80: "20rem",       // 320px
   96: "24rem",       // 384px
 
-  // Section padding — vertical rhythm
+  // Section padding, vertical rhythm
   section: {
     sm: "clamp(3rem, 8vw, 5rem)",      // Small sections
     md: "clamp(4rem, 10vw, 7rem)",     // Medium sections
@@ -195,7 +195,7 @@ export const spacing = {
 } as const;
 
 // ═══════════════════════════════════════════════════════════════════════════
-// BORDERS & RADII — The Shape Language
+// BORDERS & RADII, The Shape Language
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const radius = {
@@ -204,14 +204,14 @@ export const radius = {
   md: "8px",         // Inputs, small cards
   lg: "12px",        // Cards
   xl: "16px",        // Large cards
-  "2xl": "20px",     // Section cards — STANDARD
+  "2xl": "20px",     // Section cards, STANDARD
   "3xl": "24px",     // Feature cards
   full: "9999px",    // Pills, circles
-  button: "60px",    // CTA buttons — STANDARD
+  button: "60px",    // CTA buttons, STANDARD
 } as const;
 
 // ═══════════════════════════════════════════════════════════════════════════
-// SHADOWS — Depth Perception
+// SHADOWS, Depth Perception
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const shadows = {
@@ -240,11 +240,11 @@ export const shadows = {
 } as const;
 
 // ═══════════════════════════════════════════════════════════════════════════
-// MOTION — The Apple Secret Sauce
+// MOTION, The Apple Secret Sauce
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const motion = {
-  // Easing curves — Apple-inspired
+  // Easing curves, Apple-inspired
   easing: {
     // Default smooth
     default: [0.25, 0.1, 0.25, 1],
@@ -312,7 +312,7 @@ export const motion = {
 } as const;
 
 // ═══════════════════════════════════════════════════════════════════════════
-// ANIMATION PRESETS — Ready-to-use variants
+// ANIMATION PRESETS, Ready-to-use variants
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const variants = {
@@ -446,7 +446,7 @@ export const variants = {
 } as const;
 
 // ═══════════════════════════════════════════════════════════════════════════
-// COMPONENT STYLES — Standardized patterns
+// COMPONENT STYLES, Standardized patterns
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const components = {
@@ -524,7 +524,7 @@ export const components = {
 } as const;
 
 // ═══════════════════════════════════════════════════════════════════════════
-// BREAKPOINTS — Responsive design
+// BREAKPOINTS, Responsive design
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const breakpoints = {
@@ -550,7 +550,7 @@ export const media = {
 } as const;
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Z-INDEX — Layer hierarchy
+// Z-INDEX, Layer hierarchy
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const zIndex = {

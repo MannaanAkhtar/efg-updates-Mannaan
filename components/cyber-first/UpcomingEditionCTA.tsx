@@ -262,7 +262,7 @@ export default function UpcomingEditionCTA() {
       />
 
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
-        {/* Tab pills — top of section */}
+        {/* Tab pills, top of section */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

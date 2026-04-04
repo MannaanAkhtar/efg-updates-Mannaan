@@ -30,7 +30,7 @@ export default function DAThesis() {
           zIndex: 1,
         }}
       />
-      {/* Emerald glow — left center */}
+      {/* Emerald glow, left center */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -115,7 +115,7 @@ export default function DAThesis() {
             <span style={{ color: EMERALD_BRIGHT }}>AI Bets</span>
           </motion.h2>
 
-          {/* Body text — tighter, one paragraph */}
+          {/* Body text, tighter, one paragraph */}
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -133,7 +133,7 @@ export default function DAThesis() {
             Nations worldwide are making historic bets on artificial intelligence.
             Kuwait&rsquo;s Vision 2035 names AI as its primary economic diversifier.
             The UAE has the world&rsquo;s first Minister of AI.
-            Saudi Arabia is building NEOM — an entire city run on data.
+            Saudi Arabia is building NEOM, an entire city run on data.
             The question is no longer <em>whether</em> AI will transform
             enterprise. It&rsquo;s <em>who</em> will lead that transformation.
           </motion.p>

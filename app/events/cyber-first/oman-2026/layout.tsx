@@ -6,7 +6,7 @@ const PAGE_URL = `${BASE_URL}/events/cyber-first/oman-2026`;
 const OG_IMAGE = `${BASE_URL}/og-default.png`;
 
 export const metadata: Metadata = {
-  title: "Cyber First Oman 2026 | Cybersecurity Summit Muscat — October",
+  title: "Cyber First Oman 2026 | Cybersecurity Summit Muscat, October",
   description:
     "Oman's premier cybersecurity summit bringing together CISOs, regulators, and security leaders. 13 October 2026, Muscat.",
   keywords: [
@@ -20,13 +20,13 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "Cyber First Oman 2026 — Muscat",
+    title: "Cyber First Oman 2026, Muscat",
     description: "Oman's premier cybersecurity summit. 13 October 2026, Muscat.",
     url: PAGE_URL, siteName: "Events First Group",
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Cyber First Oman 2026" }],
     locale: "en_US", type: "website",
   },
-  twitter: { card: "summary_large_image", title: "Cyber First Oman 2026 — Muscat", description: "Oman's premier cybersecurity summit. 13 October 2026, Muscat.", images: [OG_IMAGE] },
+  twitter: { card: "summary_large_image", title: "Cyber First Oman 2026, Muscat", description: "Oman's premier cybersecurity summit. 13 October 2026, Muscat.", images: [OG_IMAGE] },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

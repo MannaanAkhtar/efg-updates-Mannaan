@@ -955,7 +955,7 @@ function SpeakerInquiryForm() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// EVENT HIGHLIGHTS — Long-form video section
+// EVENT HIGHLIGHTS, Long-form video section
 // ─────────────────────────────────────────────────────────────────────────────
 
 const HIGHLIGHT_VIDEOS = [
@@ -1464,7 +1464,7 @@ export default function SpeakersPage() {
             }}
           >
             The industry leaders and experts shaping conversations across
-            cybersecurity, OT security, and operational excellence — from
+            cybersecurity, OT security, and operational excellence, from
             government advisors to technology pioneers.
           </motion.p>
         </div>
@@ -1822,7 +1822,7 @@ export default function SpeakersPage() {
         </div>
       </section>
 
-      {/* ── EVENT HIGHLIGHTS — Video Section ── */}
+      {/* ── EVENT HIGHLIGHTS, Video Section ── */}
       <EventHighlights />
 
       {/* ── SPEAKER INQUIRY FORM ── */}

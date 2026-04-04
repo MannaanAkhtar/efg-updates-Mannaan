@@ -23,7 +23,7 @@ const headlineWords = [
   { text: "16 summits.", dim: false },
   { text: "8 nations.", dim: false },
   { text: "They don't", dim: true },
-  { text: "attend events —", dim: true },
+  { text: "attend events.", dim: true },
   { text: "they build", dim: true },
   { text: "here.", dim: true },
 ];
@@ -61,14 +61,14 @@ export default function ImpactBar() {
         background: "linear-gradient(to bottom, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.1) 25%, rgba(10,10,10,0.1) 75%, rgba(10,10,10,0.92) 100%)",
       }} />
 
-      {/* Orange ambient glow — bottom left */}
+      {/* Orange ambient glow, bottom left */}
       <div className="absolute pointer-events-none" style={{
         bottom: "-10%", left: "-5%",
         width: 700, height: 700, borderRadius: "50%",
         background: "radial-gradient(circle, rgba(232,101,26,0.12) 0%, transparent 70%)",
         filter: "blur(60px)",
       }} />
-      {/* Orange ambient glow — top right */}
+      {/* Orange ambient glow, top right */}
       <div className="absolute pointer-events-none" style={{
         top: "-10%", right: "-5%",
         width: 500, height: 500, borderRadius: "50%",
@@ -96,7 +96,7 @@ export default function ImpactBar() {
           </span>
         </motion.div>
 
-        {/* Headline — word by word reveal */}
+        {/* Headline, word by word reveal */}
         <h2 style={{
           fontFamily: "var(--font-display)", fontWeight: 800,
           fontSize: "clamp(32px, 5vw, 68px)", letterSpacing: "-2px",

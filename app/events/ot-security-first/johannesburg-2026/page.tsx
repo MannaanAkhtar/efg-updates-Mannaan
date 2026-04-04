@@ -45,7 +45,7 @@ const SA_STEEL = "#8B9DAF";
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com";
 const S3_LOGOS = `${S3}/sponsors-logo`;
 
-// Event date — September 2026 (placeholder)
+// Event date, September 2026 (placeholder)
 const EVENT_DATE = new Date("2026-09-01T08:30:00+02:00");
 
 // ─── Countdown Hook ──────────────────────────────────────────────────────────
@@ -214,7 +214,7 @@ function MagneticButton({
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
-// Advisory Board — from PDF
+// Advisory Board, from PDF
 const ADVISORY_BOARD = [
   {
     name: "Muvhango Livhusha",
@@ -260,7 +260,7 @@ const ADVISORY_BOARD = [
   },
 ];
 
-// 10 Strategic Themes — from PDF
+// 10 Strategic Themes, from PDF
 const STRATEGIC_THEMES = [
   {
     short: "Energy Infrastructure",
@@ -307,13 +307,13 @@ const STRATEGIC_THEMES = [
   {
     short: "AI: Shield & Threat",
     title: "Balancing AI as Both Defensive Capability and Emerging Threat Amplifier",
-    desc: "Within OT — while addressing load-shedding's impact on security infrastructure uptime.",
+    desc: "Within OT, while addressing load-shedding's impact on security infrastructure uptime.",
     icon: "M12 2a4 4 0 014 4v1a2 2 0 012 2v1a2 2 0 01-2 2H8a2 2 0 01-2-2V9a2 2 0 012-2V6a4 4 0 014-4zM9 18h6M10 22h4",
   },
   {
     short: "Ransomware Resilience",
     title: "Building Ransomware Resilience",
-    desc: "Through downtime engineering — 50% of 2025 ransomware attacks hit critical infrastructure.",
+    desc: "Through downtime engineering, 50% of 2025 ransomware attacks hit critical infrastructure.",
     icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
   },
   {
@@ -335,13 +335,13 @@ const MARKET_STATS = [
   {
     stat: "230 Million",
     label: "Threat Detections in SA",
-    detail: "Interpol — highest on the continent",
+    detail: "Interpol, highest on the continent",
     accent: false,
   },
   {
     stat: "2,374",
     label: "Reported Breaches (2024/25)",
-    detail: "82% occurring after April 2025 — Information Regulator",
+    detail: "82% occurring after April 2025, Information Regulator",
     accent: false,
   },
   {
@@ -439,7 +439,7 @@ const AWARDS_DATA = [
   { title: "Regulatory & Compliance Leadership Award", desc: "Honouring leadership in translating POPIA, Cybercrimes Act, and CIPA into operational security." },
 ];
 
-// Gallery — reuse existing OT Security First + Cyber First event photos
+// Gallery, reuse existing OT Security First + Cyber First event photos
 const GALLERY: { src: string; alt: string; area: string; rotate?: number; lift?: boolean }[] = [
   { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0412.JPG`, alt: "OT Security First panel discussion", area: "hero" },
   { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0290.JPG`, alt: "Executive networking session", area: "a", rotate: -1.5, lift: true },
@@ -458,7 +458,7 @@ const CONTACTS = {
   ],
 };
 
-// Sponsor logos — reuse existing OT Security First + EFG sponsors
+// Sponsor logos, reuse existing OT Security First + EFG sponsors
 const MARQUEE_ROW_1 = [
   `${S3_LOGOS}/Siemens.png`,
   `${S3_LOGOS}/Fortinet.png`,
@@ -605,7 +605,7 @@ function HeroSection() {
             marginBottom: 28,
           }}
         >
-          A strategic forum for operational technology leadership — protecting South Africa&apos;s energy, mining, and industrial infrastructure in the era of convergence.
+          A strategic forum for operational technology leadership, protecting South Africa&apos;s energy, mining, and industrial infrastructure in the era of convergence.
         </motion.p>
 
         {/* Location */}
@@ -696,7 +696,7 @@ function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Bottom bar — date TBD, countdown hidden until confirmed */}
+      {/* Bottom bar, date TBD, countdown hidden until confirmed */}
 
       <style jsx global>{`
         @media (max-width: 768px) {
@@ -756,7 +756,7 @@ function StatsBar() {
   );
 }
 
-// ─── INDUSTRIAL LANDSCAPE — "Why South Africa" ──────────────────────────────
+// ─── INDUSTRIAL LANDSCAPE, "Why South Africa" ──────────────────────────────
 function IndustrialLandscape() {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -786,7 +786,7 @@ function IndustrialLandscape() {
     <section ref={sectionRef} style={{ background: "#080A0C", position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 40% 50% at 20% 30%, ${C}08, transparent 60%)`, pointerEvents: "none" }} />
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(60px, 7vw, 100px) clamp(20px, 4vw, 60px)", display: "flex", gap: "clamp(40px, 5vw, 80px)", minHeight: "100vh", position: "relative" }} className="otsf-why-sa-layout">
-        {/* Left — sticky */}
+        {/* Left, sticky */}
         <div style={{ flex: "0 0 clamp(320px, 38%, 480px)", position: "relative" }} className="otsf-why-sa-left">
           <div style={{ position: "sticky", top: "15vh" }}>
             <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>Why South Africa</span>
@@ -798,12 +798,12 @@ function IndustrialLandscape() {
               <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.5)" }}>Average cost of a data breach in South Africa (2024)</span>
             </div>
             <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 400, color: "rgba(255,255,255,0.55)", lineHeight: 1.8, margin: 0 }}>
-              From South Africa&apos;s mining complexes and energy grids to port infrastructure, water utilities, petrochemical processing, and advanced manufacturing — these are no longer isolated operational domains. They are digitally integrated ecosystems expanding the cyber-physical attack surface.
+              From South Africa&apos;s mining complexes and energy grids to port infrastructure, water utilities, petrochemical processing, and advanced manufacturing, these are no longer isolated operational domains. They are digitally integrated ecosystems expanding the cyber-physical attack surface.
             </p>
           </div>
         </div>
 
-        {/* Right — scrolling stats */}
+        {/* Right, scrolling stats */}
         <div ref={trackRef} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 24, paddingTop: "10vh", paddingBottom: "10vh" }} className="otsf-why-sa-right">
           {MARKET_STATS.map((item, i) => (
             <motion.div
@@ -834,7 +834,7 @@ function IndustrialLandscape() {
   );
 }
 
-// ─── INDUSTRIAL PROFILE — SA's Industrial Giants ─────────────────────────────
+// ─── INDUSTRIAL PROFILE, SA's Industrial Giants ─────────────────────────────
 function IndustrialProfile() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -918,7 +918,7 @@ function IndustrialProfile() {
           <div style={{ flex: 1, minWidth: 280 }}>
             <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(20px, 2vw, 28px)", color: "white", margin: "0 0 8px" }}>Mining & Resources</h3>
             <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.5)", margin: 0, lineHeight: 1.6 }}>
-              Major mining operations — gold, platinum, manganese, chrome, coal — all heavily dependent on industrial control systems. Critical water infrastructure managed by Rand Water and regional utilities.
+              Major mining operations, gold, platinum, manganese, chrome, coal, all heavily dependent on industrial control systems. Critical water infrastructure managed by Rand Water and regional utilities.
             </p>
           </div>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
@@ -934,7 +934,7 @@ function IndustrialProfile() {
   );
 }
 
-// ─── FOCUS AREAS — 10 GSAP Flip Cards ────────────────────────────────────────
+// ─── FOCUS AREAS, 10 GSAP Flip Cards ────────────────────────────────────────
 function FocusAreas() {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -1067,7 +1067,7 @@ function FocusAreas() {
   );
 }
 
-// ─── ADVISORY BOARD — Horizontal Scroll ──────────────────────────────────────
+// ─── ADVISORY BOARD, Horizontal Scroll ──────────────────────────────────────
 function AdvisoryBoardSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -1119,7 +1119,7 @@ function AdvisoryBoardSection() {
         </motion.span>
       </div>
 
-      {/* Right — horizontal scroll track */}
+      {/* Right, horizontal scroll track */}
       <div ref={trackRef} style={{ display: "flex", alignItems: "center", gap: 32, paddingRight: 200 }} className="otsf-speakers-track">
         {allCards.map((member, i) => {
           const isCTA = "isCTA" in member && member.isCTA;
@@ -1198,7 +1198,7 @@ function AdvisoryBoardSection() {
   );
 }
 
-// ─── EVENT FORMAT — Zig-Zag Timeline ─────────────────────────────────────────
+// ─── EVENT FORMAT, Zig-Zag Timeline ─────────────────────────────────────────
 function EventFormatSection() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -1376,7 +1376,7 @@ function WhoShouldAttend() {
   );
 }
 
-// ─── SPONSORS SECTION — Dual Marquee ─────────────────────────────────────────
+// ─── SPONSORS SECTION, Dual Marquee ─────────────────────────────────────────
 function SponsorsSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -1393,7 +1393,7 @@ function SponsorsSection() {
         </motion.div>
       </div>
 
-      {/* Row 1 — scroll left */}
+      {/* Row 1, scroll left */}
       <div style={{ position: "relative", marginBottom: 16 }}>
         <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 120, background: "linear-gradient(to right, #080A0C, transparent)", zIndex: 2 }} />
         <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 120, background: "linear-gradient(to left, #080A0C, transparent)", zIndex: 2 }} />
@@ -1406,7 +1406,7 @@ function SponsorsSection() {
         </div>
       </div>
 
-      {/* Row 2 — scroll right */}
+      {/* Row 2, scroll right */}
       <div style={{ position: "relative" }}>
         <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 120, background: "linear-gradient(to right, #080A0C, transparent)", zIndex: 2 }} />
         <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 120, background: "linear-gradient(to left, #080A0C, transparent)", zIndex: 2 }} />
@@ -1507,7 +1507,7 @@ function AwardsSection() {
         company: formState.company,
         job_title: formState.title,
         phone: formState.phone ? `${COUNTRY_CODES[formState.countryIdx].code}${formState.phone}` : "",
-        event_name: "OT Security First Johannesburg 2026 — Awards",
+        event_name: "OT Security First Johannesburg 2026, Awards",
         website: "",
       });
       setSubmitted(true);
@@ -1523,7 +1523,7 @@ function AwardsSection() {
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 50% 40% at 50% 50%, ${SA_GOLD}06, transparent 60%)`, pointerEvents: "none" }} />
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64 }} className="otsf-awards-grid">
-          {/* Left — nomination form */}
+          {/* Left, nomination form */}
           <div>
             <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: SA_GOLD, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>Awards</span>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 3.5vw, 44px)", lineHeight: 1.05, letterSpacing: "-1.5px", color: "white", margin: "0 0 16px" }}>
@@ -1594,7 +1594,7 @@ function AwardsSection() {
             )}
           </div>
 
-          {/* Right — award categories */}
+          {/* Right, award categories */}
           <div>
             <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 20, color: "white", margin: "0 0 24px" }}>Award Categories</h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -1707,7 +1707,7 @@ function VenueSection() {
             </svg>
             <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 24, color: "white", marginBottom: 8 }}>Venue TBD</h3>
             <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.45)", margin: 0 }}>
-              Premium venue in Johannesburg &mdash; details to be announced
+              Premium venue in Johannesburg , details to be announced
             </p>
           </div>
 

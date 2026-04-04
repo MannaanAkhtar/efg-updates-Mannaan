@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     canonical: PAGE_URL,
   },
   openGraph: {
-    title: "OT Security First Series — Industrial Cybersecurity Summit",
+    title: "OT Security First Series, Industrial Cybersecurity Summit",
     description:
       "OT/ICS security leaders and critical infrastructure defenders. Protecting the systems that power our world.",
     url: PAGE_URL,
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "OT Security First Series — Industrial Cybersecurity Summit",
+        alt: "OT Security First Series, Industrial Cybersecurity Summit",
       },
     ],
     locale: "en_US",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "OT Security First Series — Industrial Cybersecurity Summit",
+    title: "OT Security First Series, Industrial Cybersecurity Summit",
     description:
       "OT/ICS security leaders protecting critical infrastructure.",
     images: [OG_IMAGE],
@@ -65,7 +65,7 @@ export default function OTSecurityFirstLayout({
           { name: "OT Security First", url: PAGE_URL },
         ]}
       />
-      {/* EventSeries structured data — JSON-LD */}
+      {/* EventSeries structured data, JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

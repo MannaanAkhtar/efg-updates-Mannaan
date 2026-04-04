@@ -22,13 +22,13 @@ const faqs = [
     id: 3,
     question: "When and where is the first edition?",
     answer:
-      "Digital First launches June 10, 2026 in Kuwait City, Kuwait — with Abu Dhabi, Riyadh, and Doha editions scheduled for 2027.",
+      "Digital First launches June 10, 2026 in Kuwait City, Kuwait, with Abu Dhabi, Riyadh, and Doha editions scheduled for 2027.",
   },
   {
     id: 4,
     question: "How is this different from other AI conferences?",
     answer:
-      "No vendor pitches. No recycled keynotes. Every session is designed for actionable outcomes — live case studies with real numbers, hands-on workshops, a startup pitch stage, and pre-scheduled 1-on-1 meetings. It's a working summit, not a trade show.",
+      "No vendor pitches. No recycled keynotes. Every session is designed for actionable outcomes, live case studies with real numbers, hands-on workshops, a startup pitch stage, and pre-scheduled 1-on-1 meetings. It's a working summit, not a trade show.",
   },
   {
     id: 5,
@@ -63,7 +63,7 @@ export default function DAFAQ() {
       {/* Scan-line texture */}
       <ScanLines opacity={0.02} lineHeight={3} />
 
-      {/* Emerald glow — bottom-left */}
+      {/* Emerald glow, bottom-left */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{

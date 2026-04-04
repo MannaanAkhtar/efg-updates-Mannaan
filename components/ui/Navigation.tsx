@@ -450,7 +450,7 @@ function NavLink({
         )}
       </span>
 
-      {/* Underline — persistent on active, animated on hover */}
+      {/* Underline, persistent on active, animated on hover */}
       <motion.span
         className="absolute left-0 bottom-[-4px] h-[1.5px]"
         style={{ background: "var(--orange)" }}

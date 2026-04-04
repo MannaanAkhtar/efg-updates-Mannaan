@@ -109,7 +109,7 @@ function HighlightVideoCard({
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img loading="lazy"
             src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
-            alt={`${title} — Events First Group technology summit video`}
+            alt={`${title}, Events First Group technology summit video`}
             className="eh-thumb"
           />
           <div className="eh-overlay" />

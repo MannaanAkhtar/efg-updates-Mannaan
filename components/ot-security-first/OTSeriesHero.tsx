@@ -275,7 +275,7 @@ export default function OTSeriesHero() {
 }
 
 /**
- * CTAButton — Angular industrial-style button (6px radius, NOT pill)
+ * CTAButton, Angular industrial-style button (6px radius, NOT pill)
  */
 function CTAButton({
   children,
@@ -330,7 +330,7 @@ function CTAButton({
 }
 
 /**
- * StatItem — Animated counting stat
+ * StatItem, Animated counting stat
  */
 function StatItem({
   stat,

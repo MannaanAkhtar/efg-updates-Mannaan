@@ -520,7 +520,7 @@ function HeroSection() {
       <NeuralConstellation color={C} dotCount={30} connectionDistance={140} speed={0.2} opacity={0.06} />
       <DotMatrixGrid color={C} opacity={0.012} spacing={36} />
 
-      {/* Cyber grid — faded across the section */}
+      {/* Cyber grid, faded across the section */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -1528,7 +1528,7 @@ function MarketContext() {
               margin: "0 auto",
             }}
           >
-            Vision 2035 is driving an unprecedented wave of digital transformation — and
+            Vision 2035 is driving an unprecedented wave of digital transformation, and
             with it, the imperative to secure every layer of the nation&apos;s critical infrastructure.
           </motion.p>
         </motion.div>
@@ -2813,7 +2813,7 @@ function SponsorsSection() {
             }}
           />
 
-          {/* Row 1 — scrolls left */}
+          {/* Row 1, scrolls left */}
           <div className="cfk-marquee-track" style={{ marginBottom: 20 }}>
             <div
               className="cfk-marquee-inner cfk-scroll-left"
@@ -2851,7 +2851,7 @@ function SponsorsSection() {
             </div>
           </div>
 
-          {/* Row 2 — scrolls right */}
+          {/* Row 2, scrolls right */}
           <div className="cfk-marquee-track">
             <div
               className="cfk-marquee-inner cfk-scroll-right"
@@ -2970,7 +2970,7 @@ function WhatToExpect() {
     {
       icon: "M2 3h20v14H2V3zm6 18h8m-8-4h8",
       title: "Live CTF / Hackathon",
-      desc: "Teams compete in real-time capture-the-flag scenarios — tested against simulated threat environments.",
+      desc: "Teams compete in real-time capture-the-flag scenarios, tested against simulated threat environments.",
       image: `${WP}/2024/12/Cyber-First-Series-Pictures-and-Sponsors-29.jpg`,
     },
     {
@@ -3259,7 +3259,7 @@ function AgendaTimeline() {
             Agenda
           </h2>
           <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontStyle: "italic", color: "#404040", marginTop: 14 }}>
-            Draft agenda — subject to change.
+            Draft agenda, subject to change.
           </p>
         </motion.div>
 
@@ -3522,7 +3522,7 @@ function AgendaItem({
         {item.title}
       </h4>
 
-      {/* Subtitle — clean text only, no icon box */}
+      {/* Subtitle, clean text only, no icon box */}
       {item.subtitle && (
         <p style={{
           fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 300,
@@ -4045,7 +4045,7 @@ function AwardsSection() {
         {/* ── 1. About + 2. Awards List (Split Row) ── */}
         <div className="cfk-awards-top" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
 
-          {/* LEFT: About Awards — glass card */}
+          {/* LEFT: About Awards, glass card */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -4141,7 +4141,7 @@ function AwardsSection() {
         {/* Divider */}
         <div style={{ height: 1, margin: "28px 0", background: `linear-gradient(90deg, transparent, ${C}15, ${GOLD}20, ${C}15, transparent)` }} />
 
-        {/* ── 3. Nominations & Eligibility (Split Row) — with event photo backdrop ── */}
+        {/* ── 3. Nominations & Eligibility (Split Row), with event photo backdrop ── */}
         <div style={{ position: "relative", borderRadius: 20, overflow: "hidden" }}>
           {/* Event photo backdrop */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -4219,7 +4219,7 @@ function AwardsSection() {
             </div>
           </motion.div>
 
-          {/* RIGHT: Nomination Form — glass card */}
+          {/* RIGHT: Nomination Form, glass card */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={nomInView ? { opacity: 1, y: 0 } : {}}
@@ -4523,7 +4523,7 @@ function SplitCTA() {
       </div>
 
       <style jsx global>{`
-        /* Transparent background — let event photo show through */
+        /* Transparent background, let event photo show through */
         .cfk-form-wrapper #get-involved {
           background: transparent !important;
         }
@@ -4540,23 +4540,23 @@ function SplitCTA() {
           box-shadow: 0 12px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06) !important;
         }
 
-        /* Tab pills — Cyber themed cyan */
+        /* Tab pills, Cyber themed cyan */
         .cfk-form-wrapper button[style*="background: var(--orange)"] {
           background: ${C} !important;
           border-color: ${C} !important;
         }
 
-        /* Form card ambient glow — cyan instead of orange */
+        /* Form card ambient glow, cyan instead of orange */
         .cfk-form-wrapper .inquiry-split > div:last-child > .absolute {
           background: radial-gradient(ellipse, rgba(1,187,245,0.06) 0%, transparent 70%) !important;
         }
 
-        /* Section label — cyan */
+        /* Section label, cyan */
         .cfk-form-wrapper [style*="var(--orange)"][style*="letter-spacing: 3px"] {
           color: ${C} !important;
         }
 
-        /* Perk icons — cyan tint */
+        /* Perk icons, cyan tint */
         .cfk-form-wrapper .inquiry-split svg {
           color: ${C};
         }
@@ -4766,7 +4766,7 @@ function Venue() {
   const venueDetails = [
     { icon: "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0zM12 13a3 3 0 100-6 3 3 0 000 6z", label: "Location", value: "Kuwait City, Kuwait" },
     { icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z", label: "Date", value: "Tuesday, 9 June 2026" },
-    { icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", label: "Time", value: "8:00 AM — 5:00 PM (GST+3)" },
+    { icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", label: "Time", value: "8:00 AM, 5:00 PM (GST+3)" },
     { icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z", label: "Format", value: "Full-day conference + networking" },
   ];
 
@@ -4813,7 +4813,7 @@ function Venue() {
           }}
         />
 
-        {/* Venue name overlaid at bottom of photo — well above the overlap zone */}
+        {/* Venue name overlaid at bottom of photo, well above the overlap zone */}
         <div
           style={{
             position: "absolute",
@@ -4862,7 +4862,7 @@ function Venue() {
         </div>
       </div>
 
-      {/* ── Floating glassmorphic info card — overlaps the photo ── */}
+      {/* ── Floating glassmorphic info card, overlaps the photo ── */}
       <div
         ref={cardRef}
         style={{
@@ -4903,7 +4903,7 @@ function Venue() {
                   maxWidth: 420,
                 }}
               >
-                Kuwait&apos;s premier beachfront conference destination — hosting the region&apos;s
+                Kuwait&apos;s premier beachfront conference destination, hosting the region&apos;s
                 leading cybersecurity gathering for the third consecutive year.
               </p>
               <a

@@ -5,7 +5,7 @@ const BASE_URL = "https://eventsfirstgroup.com";
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/team-fun-1.jpg";
 
 export const metadata: Metadata = {
-  title: "About Us | Events First Group — The Story Behind the Summits",
+  title: "About Us | Events First Group, The Story Behind the Summits",
   description:
     "Events First Group designs executive-grade technology summits across the Middle East, Africa, and Asia. Founded in 2023 in Dubai, we've reached 5,000+ technology leaders through Cyber First, OT Security First, Opex First, and Digital First.",
   keywords: [
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     canonical: `${BASE_URL}/about`,
   },
   openGraph: {
-    title: "About Events First Group — The Story Behind the Summits",
+    title: "About Events First Group, The Story Behind the Summits",
     description:
       "We design executive-grade technology summits for CISOs, CDOs, and enterprise leaders. Founded 2023 in Dubai. 5,000+ leaders reached.",
     url: `${BASE_URL}/about`,

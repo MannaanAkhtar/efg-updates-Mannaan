@@ -44,7 +44,7 @@ const allEvents = [
     title: "Braze Virtual Roundtable",
     tagline: "Marketing Through Uncertainty",
     description:
-      "A private virtual roundtable for senior martech leaders in MENAT — customer engagement strategies during uncertain times.",
+      "A private virtual roundtable for senior martech leaders in MENAT, customer engagement strategies during uncertain times.",
     color: "#C9935A",
     image: "/braze/sg-heat1-5.png",
     href: "https://braze-webinar.eventsfirstgroup.com",
@@ -62,7 +62,7 @@ const allEvents = [
     title: "Braze Virtual Roundtable 2",
     tagline: "Marketing Through Uncertainty",
     description:
-      "A private virtual roundtable for senior martech leaders in MENAT — customer engagement strategies during uncertain times.",
+      "A private virtual roundtable for senior martech leaders in MENAT, customer engagement strategies during uncertain times.",
     color: "#C9935A",
     image: "/braze2/hero-bg.jpg",
     href: "https://braze-webinar-2.eventsfirstgroup.com",
@@ -98,7 +98,7 @@ const allEvents = [
     title: "Cyber First Kuwait",
     tagline: "Defending the Digital Frontier",
     description:
-      "The premier cybersecurity leadership summit — bringing together CISOs, government cyber leaders, and security innovators.",
+      "The premier cybersecurity leadership summit, bringing together CISOs, government cyber leaders, and security innovators.",
     color: "#01BBF5",
     image:
       "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
@@ -117,7 +117,7 @@ const allEvents = [
     title: "Digital First Kuwait",
     tagline: "Intelligence at Scale",
     description:
-      "Data strategy, AI, and machine learning — for the leaders building the intelligent enterprise in Kuwait.",
+      "Data strategy, AI, and machine learning, for the leaders building the intelligent enterprise in Kuwait.",
     color: "#0F735E",
     image:
       "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
@@ -154,7 +154,7 @@ const allEvents = [
     title: "Cyber First East Africa",
     tagline: "Beyond Firewalls",
     description:
-      "East Africa's premier cybersecurity summit — where C-level executives and policymakers synchronize efforts against digital warfare.",
+      "East Africa's premier cybersecurity summit, where C-level executives and policymakers synchronize efforts against digital warfare.",
     color: "#8B1A22",
     image: "https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/kenya-cyber.png",
     href: "/events/cyber-first/kenya-2026",
@@ -191,7 +191,7 @@ const allEvents = [
     title: "OT Security Jubail",
     tagline: "Securing Critical Infrastructure",
     description:
-      "Bridging IT and OT security for the industries that keep the world running — focused on Jubail's industrial heartland.",
+      "Bridging IT and OT security for the industries that keep the world running, focused on Jubail's industrial heartland.",
     color: "#D34B9A",
     image:
       "https://images.unsplash.com/photo-1513828583688-c52646db42da?w=800&q=80",
@@ -210,7 +210,7 @@ const allEvents = [
     title: "Digital First Qatar",
     tagline: "Intelligence at Scale",
     description:
-      "AI governance, data platforms, and enterprise intelligence — built for Qatar's digital vision.",
+      "AI governance, data platforms, and enterprise intelligence, built for Qatar's digital vision.",
     color: "#0F735E",
     image:
       "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
@@ -267,7 +267,7 @@ const allEvents = [
     title: "Digital Resilience KSA",
     tagline: "Resilience Beyond Defence",
     description:
-      "Saudi Arabia's premier digital resilience summit — national strategy, threat intelligence, and enterprise continuity.",
+      "Saudi Arabia's premier digital resilience summit, national strategy, threat intelligence, and enterprise continuity.",
     color: "#01BBF5",
     image:
       "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
@@ -336,7 +336,7 @@ const NEXT_EVENT = {
   image:
     "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
   description:
-    "The premier cybersecurity leadership summit returns to Kuwait — bringing together CISOs, government cyber leaders, and security innovators for a day of practitioner-led insight.",
+    "The premier cybersecurity leadership summit returns to Kuwait, bringing together CISOs, government cyber leaders, and security innovators for a day of practitioner-led insight.",
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -561,7 +561,7 @@ function CountdownDisplay({
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 1 — HERO
+// SECTION 1, HERO
 // ─────────────────────────────────────────────────────────────────────────────
 
 function EventsHero() {
@@ -580,7 +580,7 @@ function EventsHero() {
       className="relative w-full overflow-hidden"
       style={{ background: "var(--black)", minHeight: "100vh" }}
     >
-      {/* Multi-color ambient atmosphere — four series colors + orange */}
+      {/* Multi-color ambient atmosphere, four series colors + orange */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -683,7 +683,7 @@ function EventsHero() {
             margin: "clamp(24px, 3vw, 36px) 0 0",
           }}
         >
-          We design executive-grade tech events worldwide — curated rooms,
+          We design executive-grade tech events worldwide, curated rooms,
           serious conversations, real outcomes.
         </motion.p>
 
@@ -930,7 +930,7 @@ function EventsHero() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 2 — IMPACT NUMBERS
+// SECTION 2, IMPACT NUMBERS
 // ─────────────────────────────────────────────────────────────────────────────
 
 function EventsImpact() {
@@ -1048,7 +1048,7 @@ function EventsImpact() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 3 — EVENT SERIES GRID (brand new, not reused)
+// SECTION 3, EVENT SERIES GRID (brand new, not reused)
 // ─────────────────────────────────────────────────────────────────────────────
 
 function useCountdown(targetDate: string) {
@@ -1169,7 +1169,7 @@ function SeriesCard({
         }}
       />
 
-      {/* Countdown badge — top right */}
+      {/* Countdown badge, top right */}
       <div
         className="absolute z-10"
         style={{ top: 12, right: 12 }}
@@ -1221,7 +1221,7 @@ function SeriesCard({
         </span>
       </div>
 
-      {/* Content — bottom */}
+      {/* Content, bottom */}
       <div
         className="absolute bottom-0 left-0 right-0 z-10"
         style={{ padding: "clamp(14px, 2vw, 22px)" }}
@@ -1266,7 +1266,7 @@ function SeriesCard({
           {series.tagline}
         </p>
 
-        {/* Description — reveal on hover */}
+        {/* Description, reveal on hover */}
         <div
           style={{
             maxHeight: hovered ? 48 : 0,
@@ -1528,7 +1528,7 @@ function EventsSeriesGrid() {
               margin: "14px auto 0",
             }}
           >
-            Browse every upcoming EFG event — filter by interest, city, or
+            Browse every upcoming EFG event, filter by interest, city, or
             month to find the right room for you.
           </p>
         </motion.div>
@@ -1875,7 +1875,7 @@ function FilterDropdown({
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 4 — UP NEXT (spotlight on nearest upcoming event)
+// SECTION 4, UP NEXT (spotlight on nearest upcoming event)
 // ─────────────────────────────────────────────────────────────────────────────
 
 function EventsUpNext() {
@@ -1921,7 +1921,7 @@ function EventsUpNext() {
               maxWidth: 440,
             }}
           >
-            This is what a typical EFG summit looks like — focused, senior,
+            This is what a typical EFG summit looks like, focused, senior,
             and outcome-driven.
           </p>
 
@@ -2406,7 +2406,7 @@ function EventsUpNext() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION: TRUSTED BY — Scrolling logo marquee
+// SECTION: TRUSTED BY, Scrolling logo marquee
 // ─────────────────────────────────────────────────────────────────────────────
 
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo";
@@ -2500,7 +2500,7 @@ function TrustedBy() {
             }}
           />
 
-          {/* Row 1 — scrolls left */}
+          {/* Row 1, scrolls left */}
           <div className="trusted-marquee-track" style={{ marginBottom: 16 }}>
             <div className="trusted-marquee-inner trusted-scroll-left">
               {[...trustedLogos, ...trustedLogos].map((logo, i) => (
@@ -2536,7 +2536,7 @@ function TrustedBy() {
             </div>
           </div>
 
-          {/* Row 2 — scrolls right */}
+          {/* Row 2, scrolls right */}
           <div className="trusted-marquee-track">
             <div className="trusted-marquee-inner trusted-scroll-right">
               {[...trustedLogos.slice(12), ...trustedLogos.slice(0, 12), ...trustedLogos.slice(12), ...trustedLogos.slice(0, 12)].map(
@@ -2615,7 +2615,7 @@ function TrustedBy() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION: PAST EVENTS — Flagship event showcase
+// SECTION: PAST EVENTS, Flagship event showcase
 // ─────────────────────────────────────────────────────────────────────────────
 
 const flagshipEvents = [
@@ -2821,7 +2821,7 @@ function PastEvents() {
             letterSpacing: "0.2px",
           }}
         >
-          Across cybersecurity, data, operations and digital transformation —
+          Across cybersecurity, data, operations and digital transformation,
           these are the rooms we&apos;ve built.
         </motion.p>
 
@@ -3016,11 +3016,11 @@ function PastEvents() {
                 }}
               >
                 {[
-                  { label: "CyberFirst UAE — Keynote Stage", color: "#01BBF5" },
-                  { label: "OT Security MENA — Awards Ceremony", color: "#D34B9A" },
-                  { label: "OPEX First KSA — Panel Discussion", color: "#7C3AED" },
-                  { label: "Digital First Qatar — Networking", color: "#0F735E" },
-                  { label: "Executive Boardroom — In Session", color: "#C9935A" },
+                  { label: "CyberFirst UAE, Keynote Stage", color: "#01BBF5" },
+                  { label: "OT Security MENA, Awards Ceremony", color: "#D34B9A" },
+                  { label: "OPEX First KSA, Panel Discussion", color: "#7C3AED" },
+                  { label: "Digital First Qatar, Networking", color: "#0F735E" },
+                  { label: "Executive Boardroom, In Session", color: "#C9935A" },
                   { label: "Sponsor Exhibition Hall", color: "#E8651A" },
                 ].map((item) => (
                   <div
@@ -3076,7 +3076,7 @@ function PastEvents() {
                     margin: 0,
                   }}
                 >
-                  Photo gallery coming soon — placeholder cards shown above
+                  Photo gallery coming soon, placeholder cards shown above
                 </p>
               </div>
             </motion.div>
@@ -3331,14 +3331,14 @@ function FlagshipCard({ event }: { event: (typeof flagshipEvents)[0] }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION: VOICES — Testimonials
+// SECTION: VOICES, Testimonials
 // ─────────────────────────────────────────────────────────────────────────────
 
 const testimonials = [
   {
     id: 1,
     quote:
-      "The executive boardroom was very transformative for us — our brand got exposure with the right connections.",
+      "The executive boardroom was very transformative for us, our brand got exposure with the right connections.",
     name: "Srikanth Rayaprolu",
     title: "CEO & Co-Founder, Ad Scholars",
     badge: "NetworkFirst Boardroom",
@@ -3360,7 +3360,7 @@ const testimonials = [
   {
     id: 3,
     quote:
-      "The event exceeded expectations and gave our brand center stage. The caliber of attendees — from ministers to CIOs — was exceptional.",
+      "The event exceeded expectations and gave our brand center stage. The caliber of attendees, from ministers to CIOs, was exceptional.",
     name: "Sheryan Gandhi",
     title: "COO, Tap1ce",
     badge: "Sponsor Partner",
@@ -3490,7 +3490,7 @@ function Voices() {
           </p>
         </motion.div>
 
-        {/* Quote area — swipeable */}
+        {/* Quote area, swipeable */}
         <div
           style={{ minHeight: 280, position: "relative" }}
           onTouchStart={handleTouchStart}
@@ -3504,7 +3504,7 @@ function Voices() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5, ease: EASE }}
             >
-              {/* Badge row — event badge + role tag */}
+              {/* Badge row, event badge + role tag */}
               <div
                 className="flex items-center justify-center flex-wrap gap-2"
                 style={{ marginBottom: 24 }}
@@ -3735,7 +3735,7 @@ function Voices() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION: MEDIA COVERAGE — Press strip
+// SECTION: MEDIA COVERAGE, Press strip
 // ─────────────────────────────────────────────────────────────────────────────
 
 const mediaPartners = [
@@ -3848,7 +3848,7 @@ function MediaCoverage() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION: INQUIRY FORM — Split Layout (Left editorial + Right form)
+// SECTION: INQUIRY FORM, Split Layout (Left editorial + Right form)
 // ─────────────────────────────────────────────────────────────────────────────
 // SECTION: HOW EFG EVENTS ARE DIFFERENT
 // ─────────────────────────────────────────────────────────────────────────────
@@ -3966,11 +3966,11 @@ function HowDifferent() {
           }}
         >
           Most tech events are trade shows in disguise. EFG designs invite-only
-          rooms where senior leaders exchange real insight — no expo halls, no
+          rooms where senior leaders exchange real insight, no expo halls, no
           badge scanners, no filler.
         </motion.p>
 
-        {/* Cards — 2x2 grid */}
+        {/* Cards, 2x2 grid */}
         <div
           className="how-diff-grid"
           style={{
@@ -4319,11 +4319,11 @@ function EventsCTA() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// FLOATING CTA — Always-visible pill that scrolls to the inquiry form
+// FLOATING CTA, Always-visible pill that scrolls to the inquiry form
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ─────────────────────────────────────────────────────────────────────────────
-// EVENT HIGHLIGHTS — Long-form video section
+// EVENT HIGHLIGHTS, Long-form video section
 // ─────────────────────────────────────────────────────────────────────────────
 
 const HIGHLIGHT_VIDEOS = [

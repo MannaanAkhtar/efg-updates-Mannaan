@@ -1,4 +1,4 @@
-// Digital First — Design DNA
+// Digital First, Design DNA
 export const EMERALD = "#0F735E";
 export const EMERALD_BRIGHT = "#14A882";
 export const EASE = [0.16, 1, 0.3, 1] as const;

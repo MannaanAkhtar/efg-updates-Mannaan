@@ -6,9 +6,9 @@ const PAGE_URL = `${BASE_URL}/events/ot-security-first/jubail-2026`;
 const OG_IMAGE = `${BASE_URL}/og-default.png`;
 
 export const metadata: Metadata = {
-  title: "OT Security Jubail 2026 | Industrial Security Summit — October",
+  title: "OT Security Jubail 2026 | Industrial Security Summit, October",
   description:
-    "Bridging IT and OT security for critical infrastructure — focused on Jubail's industrial heartland. 7 October 2026, Jubail, Saudi Arabia.",
+    "Bridging IT and OT security for critical infrastructure, focused on Jubail's industrial heartland. 7 October 2026, Jubail, Saudi Arabia.",
   keywords: [
     "OT security summit Jubail 2026",
     "industrial cybersecurity Saudi Arabia",

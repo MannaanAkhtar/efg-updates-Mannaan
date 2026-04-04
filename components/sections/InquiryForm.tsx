@@ -273,7 +273,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel }: { 
       />
 
       <div style={{ maxWidth: MAX_W, margin: "0 auto", padding: PAD, position: "relative" }}>
-        {/* Tab pills — top of section */}
+        {/* Tab pills, top of section */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -656,7 +656,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel }: { 
                       })}
                     </div>
 
-                    {/* Honeypot — hidden from real users */}
+                    {/* Honeypot, hidden from real users */}
                     <input type="text" name="website" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
 
                     {/* Error message */}

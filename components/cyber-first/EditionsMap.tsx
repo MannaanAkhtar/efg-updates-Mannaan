@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SHADOWS, SPACING, GRADIENTS, PREMIUM_IMAGES } from "@/lib/cyber-design-tokens";
 
-// Flagship — the upcoming edition
+// Flagship, the upcoming edition
 const flagship = {
   id: "kuwait",
   city: "Kuwait City",
@@ -87,7 +87,7 @@ export default function EditionsMap() {
           padding: `0 ${SPACING.containerPadding}`,
         }}
       >
-        {/* Header — animated entrance */}
+        {/* Header, animated entrance */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -133,7 +133,7 @@ export default function EditionsMap() {
           </h2>
         </motion.div>
 
-        {/* Flagship Banner — 3D scale-up reveal */}
+        {/* Flagship Banner, 3D scale-up reveal */}
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.97, rotateX: 3 }}
           whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
@@ -185,7 +185,7 @@ export default function EditionsMap() {
 }
 
 /**
- * FlagshipCard — Cinematic wide banner for the upcoming edition
+ * FlagshipCard, Cinematic wide banner for the upcoming edition
  */
 function FlagshipCard() {
   const [isHovered, setIsHovered] = useState(false);
@@ -416,7 +416,7 @@ function FlagshipCard() {
 }
 
 /**
- * SupportingCard — Compact card for completed / planned editions
+ * SupportingCard, Compact card for completed / planned editions
  */
 function SupportingCard({
   edition,

@@ -6,8 +6,8 @@ import CursorGlow from "@/components/effects/CursorGlow";
 import ConditionalNavigation from "@/components/ui/ConditionalNavigation";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
-// Plus Jakarta Sans — The voice that commands the room
-// Geometric, clean, commanding — pure precision at display sizes
+// Plus Jakarta Sans, The voice that commands the room
+// Geometric, clean, commanding, pure precision at display sizes
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-display",
   subsets: ["latin"],
@@ -16,7 +16,7 @@ const plusJakarta = Plus_Jakarta_Sans({
   style: "normal",
 });
 
-// Outfit — The voice that explains
+// Outfit, The voice that explains
 // Clean, modern, effortlessly legible
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -25,7 +25,7 @@ const outfit = Outfit({
   display: "swap",
 });
 
-// DM Sans — The quiet voice
+// DM Sans, The quiet voice
 // Used sparingly: testimonial quotes and the hidden sign-off
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -37,7 +37,7 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "Events First Group | Cybersecurity & Technology Summits — Middle East, Africa & Asia",
+    default: "Events First Group | Cybersecurity & Technology Summits, Middle East, Africa & Asia",
     template: "%s | Events First Group",
   },
   description:
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     "Events First Group",
   ],
   openGraph: {
-    title: "Events First Group | Cybersecurity & Technology Summits — Middle East, Africa & Asia",
+    title: "Events First Group | Cybersecurity & Technology Summits, Middle East, Africa & Asia",
     description:
       "Executive cybersecurity, OT security, AI, and operational excellence summits across the Middle East, Africa & Asia. Invite-only events for CISOs, CDOs & enterprise leaders.",
     url: "https://eventsfirstgroup.com",

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     canonical: PAGE_URL,
   },
   openGraph: {
-    title: "OT Security in the Age of AI Threats — Virtual Forum MENA",
+    title: "OT Security in the Age of AI Threats, Virtual Forum MENA",
     description:
       "100 verified OT security professionals. May 19, 2026. A strategic virtual dialogue on industrial cyber resilience across MENA.",
     url: PAGE_URL,
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "OT Security First — Virtual Forum MENA 2026",
+        alt: "OT Security First, Virtual Forum MENA 2026",
       },
     ],
     locale: "en_US",
@@ -45,9 +45,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "OT Security in the Age of AI Threats — Virtual Forum MENA",
+    title: "OT Security in the Age of AI Threats, Virtual Forum MENA",
     description:
-      "100 verified OT security professionals. May 19, 2026 — MENA Region.",
+      "100 verified OT security professionals. May 19, 2026, MENA Region.",
     images: [OG_IMAGE],
   },
 };
@@ -76,7 +76,7 @@ export default function OTVirtualForumLayout({
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Event",
-            name: "OT Security in the Age of AI Threats — Virtual Forum MENA 2026",
+            name: "OT Security in the Age of AI Threats, Virtual Forum MENA 2026",
             description:
               "A closed, senior-level virtual forum for OT security professionals across MENA's energy and utilities sector.",
             startDate: "2026-05-19T14:00:00+04:00",

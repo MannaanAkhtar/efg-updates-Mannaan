@@ -58,7 +58,7 @@ export default function DAVideoHighlights() {
         }}
       />
 
-      {/* Emerald glow — center */}
+      {/* Emerald glow, center */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{

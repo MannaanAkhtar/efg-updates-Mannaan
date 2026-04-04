@@ -6,7 +6,7 @@ const PAGE_URL = `${BASE_URL}/events/cyber-first/india-2026`;
 const OG_IMAGE = `${BASE_URL}/Cyber_India.png`;
 
 export const metadata: Metadata = {
-  title: "Cyber First India 2026 | Delhi | Cybersecurity Summit — 16 June",
+  title: "Cyber First India 2026 | Delhi | Cybersecurity Summit, 16 June",
   description:
     "Cyber Resilience for India's Digital Future. India's premier cybersecurity summit bringing together 350+ CISOs, government cyber leaders, and enterprise security executives. 16 June 2026, Delhi.",
   keywords: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     canonical: PAGE_URL,
   },
   openGraph: {
-    title: "Cyber First India 2026 — Delhi Edition",
+    title: "Cyber First India 2026, Delhi Edition",
     description:
       "350+ CISOs and security leaders. 16 June 2026, Delhi. Cyber Resilience for India's Digital Future.",
     url: PAGE_URL,
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Cyber First India 2026 — Cybersecurity Summit",
+        alt: "Cyber First India 2026, Cybersecurity Summit",
       },
     ],
     locale: "en_US",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cyber First India 2026 — Delhi Edition",
+    title: "Cyber First India 2026, Delhi Edition",
     description:
       "350+ CISOs and security leaders. 16 June 2026, Delhi.",
     images: [OG_IMAGE],
@@ -70,14 +70,14 @@ export default function CyberFirstIndiaLayout({
           { name: "India 2026", url: PAGE_URL },
         ]}
       />
-      {/* Event structured data — JSON-LD */}
+      {/* Event structured data, JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Event",
-            name: "Cyber First India 2026 — Delhi Edition",
+            name: "Cyber First India 2026, Delhi Edition",
             description:
               "India's premier cybersecurity leadership summit bringing together CISOs, government cyber leaders, and enterprise security executives. Cyber Resilience for India's Digital Future.",
             startDate: "2026-06-16T08:30:00+05:30",

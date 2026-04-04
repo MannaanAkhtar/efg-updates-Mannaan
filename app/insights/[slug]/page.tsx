@@ -235,7 +235,7 @@ function CategoryPill({ category }: { category: string }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// MARKDOWN PARSER — manual, no external deps
+// MARKDOWN PARSER, manual, no external deps
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface TocItem {
@@ -514,7 +514,7 @@ function MarkdownRenderer({ content }: { content: string }) {
       continue;
     }
 
-    // Paragraph — collect consecutive non-empty, non-special lines
+    // Paragraph, collect consecutive non-empty, non-special lines
     const paraLines: string[] = [];
     while (
       i < lines.length &&
@@ -1026,7 +1026,7 @@ export default function ArticleDetailPage() {
           const postData = data as PostWithAuthor;
           setPost(postData);
 
-          // Fetch related posts — smarter: try tag overlap first, fall back to category
+          // Fetch related posts, smarter: try tag overlap first, fall back to category
           let relatedResults: PostWithAuthor[] = [];
 
           // First, get more posts from the same category
@@ -1530,7 +1530,7 @@ export default function ArticleDetailPage() {
             position: "relative",
           }}
         >
-          {/* Floating TOC — left side, desktop only */}
+          {/* Floating TOC, left side, desktop only */}
           <FloatingToc toc={toc} />
 
           {/* Article content */}

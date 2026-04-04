@@ -996,7 +996,7 @@ export default function SponsorsPage() {
             }}
           >
               The organizations powering EFG events across cybersecurity, OT
-              security, and operational excellence — from global technology leaders
+              security, and operational excellence, from global technology leaders
               to emerging innovators.
             </motion.p>
 

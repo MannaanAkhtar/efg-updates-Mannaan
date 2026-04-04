@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SHADOWS, SPACING } from "@/lib/cyber-design-tokens";
 
-// Full series timeline — past + future
+// Full series timeline, past + future
 const timeline = [
   {
     id: 1,
@@ -165,7 +165,7 @@ export default function SeriesTimeline() {
 }
 
 /**
- * TimelineNode — Single edition on the timeline
+ * TimelineNode, Single edition on the timeline
  */
 function TimelineNode({
   item,

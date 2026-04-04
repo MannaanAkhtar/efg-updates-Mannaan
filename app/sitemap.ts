@@ -125,7 +125,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.9,
     },
-    // Digital First — Coming Soon
+    // Digital First, Coming Soon
     {
       url: `${BASE_URL}/events/data-ai-first/qatar-2026`,
       lastModified: new Date(),
@@ -145,7 +145,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.7,
     },
-    // Cyber First — Coming Soon
+    // Cyber First, Coming Soon
     {
       url: `${BASE_URL}/events/cyber-first/qatar-2026`,
       lastModified: new Date(),

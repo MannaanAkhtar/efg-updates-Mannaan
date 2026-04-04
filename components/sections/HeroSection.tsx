@@ -90,7 +90,7 @@ export default function HeroSection() {
 
           {/* Subtitle */}
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.5, ease: EASE }} style={{ fontFamily: "var(--font-outfit)", fontWeight: 400, fontSize: "clamp(14px, 1.2vw, 16px)", color: "rgba(255,255,255,0.65)", lineHeight: 1.7, maxWidth: 440, marginBottom: 24 }}>
-            Events First Group organizes invite-only cybersecurity summits, OT security conferences, data &amp; AI events, and operational excellence forums across the Middle East, Africa &amp; Asia. 16 executive technology summits in 2026 &mdash; bringing together 5,000+ CISOs, CDOs, CTOs, and enterprise leaders.
+            Events First Group organizes invite-only cybersecurity summits, OT security conferences, data &amp; AI events, and operational excellence forums across the Middle East, Africa &amp; Asia. 16 executive technology summits in 2026 , bringing together 5,000+ CISOs, CDOs, CTOs, and enterprise leaders.
           </motion.p>
 
           {/* Trust badges */}

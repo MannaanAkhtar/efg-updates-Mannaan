@@ -30,7 +30,7 @@ const NOTIFICATION_EMAIL =
 
 const MAX_PAYLOAD_SIZE = 10 * 1024; // 10KB
 
-// Free email providers — require work email for all forms
+// Free email providers, require work email for all forms
 const FREE_EMAIL_DOMAINS = [
   "gmail.com",
   "yahoo.com",
@@ -183,7 +183,7 @@ function buildEmailHtml(data: {
 
 export async function POST(request: NextRequest) {
   try {
-    // 1. CSRF — validate Origin
+    // 1. CSRF, validate Origin
     const origin = request.headers.get("origin");
     if (
       origin &&
@@ -219,7 +219,7 @@ export async function POST(request: NextRequest) {
     // 4. Parse body
     const body = await request.json();
 
-    // 5. Honeypot — if `website` field is filled, it's a bot
+    // 5. Honeypot, if `website` field is filled, it's a bot
     if (body.website) {
       // Return success to not alert the bot
       return NextResponse.json({ success: true });
@@ -314,7 +314,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 11. Send email notification (non-blocking — don't fail the request)
+    // 11. Send email notification (non-blocking, don't fail the request)
     const resendKey = process.env.RESEND_API_KEY;
     if (resendKey) {
       try {
@@ -325,7 +325,7 @@ export async function POST(request: NextRequest) {
         await resend.emails.send({
           from: "EFG Forms <onboarding@resend.dev>",
           to: NOTIFICATION_EMAIL,
-          subject: `New ${typeLabel} Inquiry — ${full_name} from ${company || "N/A"}`,
+          subject: `New ${typeLabel} Inquiry, ${full_name} from ${company || "N/A"}`,
           html: buildEmailHtml({
             type,
             full_name,

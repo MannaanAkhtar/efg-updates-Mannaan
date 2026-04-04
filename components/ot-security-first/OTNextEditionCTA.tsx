@@ -137,7 +137,7 @@ export default function OTNextEditionCTA() {
 }
 
 /**
- * InfoCard — Small info card
+ * InfoCard, Small info card
  */
 function InfoCard({ label, value }: { label: string; value: string }) {
   return (
@@ -179,7 +179,7 @@ function InfoCard({ label, value }: { label: string; value: string }) {
 }
 
 /**
- * CTAButton — Angular style button
+ * CTAButton, Angular style button
  */
 function CTAButton({
   children,

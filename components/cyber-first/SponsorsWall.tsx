@@ -7,7 +7,7 @@ import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SPACING } from "@/lib/cyber-desi
 
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo";
 
-// 2026 Sponsors — with S3 logo URLs
+// 2026 Sponsors, with S3 logo URLs
 const sponsors2026: { name: string; logo: string | null }[] = [
   { name: "Google Cloud Security", logo: `${S3}/Google-Cloud-Security.png` },
   { name: "Anomali", logo: `${S3}/Anomali.png` },
@@ -315,7 +315,7 @@ export default function SponsorsWall() {
 }
 
 /**
- * SponsorCard — Logo card with grayscale-to-color hover
+ * SponsorCard, Logo card with grayscale-to-color hover
  * Falls back to text name if no logo URL available
  */
 function SponsorCard({
@@ -383,7 +383,7 @@ function SponsorCard({
 }
 
 /**
- * SponsorCTA — Become a sponsor button
+ * SponsorCTA, Become a sponsor button
  */
 function SponsorCTA() {
   const [isHovered, setIsHovered] = useState(false);

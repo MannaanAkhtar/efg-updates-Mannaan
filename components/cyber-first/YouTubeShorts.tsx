@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { COLORS, TYPOGRAPHY, ANIMATION, RADIUS, SHADOWS, SPACING } from "@/lib/cyber-design-tokens";
 
-// YouTube Shorts — using real event highlight video IDs
+// YouTube Shorts, using real event highlight video IDs
 const shorts = [
   {
     id: "short-1",
@@ -148,7 +148,7 @@ export default function YouTubeShorts() {
 }
 
 /**
- * ShortCard — Vertical video card (9:16 ratio) with play overlay
+ * ShortCard, Vertical video card (9:16 ratio) with play overlay
  */
 function ShortCard({
   short,

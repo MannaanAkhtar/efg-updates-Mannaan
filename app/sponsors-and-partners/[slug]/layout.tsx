@@ -40,7 +40,7 @@ export async function generateMetadata({
       };
     }
 
-    const title = `${sponsor.name} — Partner | Events First Group`;
+    const title = `${sponsor.name}, Partner | Events First Group`;
     const description = sponsor.description 
       ? sponsor.description.substring(0, 160) + (sponsor.description.length > 160 ? "..." : "")
       : `${sponsor.name} is a valued partner at Events First Group technology summits.`;

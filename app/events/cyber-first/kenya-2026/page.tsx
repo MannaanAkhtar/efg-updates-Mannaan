@@ -320,7 +320,7 @@ const SPEAKERS = [
   },
 ];
 
-// Gallery images — Cyber First series only (Kuwait 2025 S3 + UAE 2025 WordPress)
+// Gallery images, Cyber First series only (Kuwait 2025 S3 + UAE 2025 WordPress)
 const CF_UAE = "/images/cyber-first-uae";
 const GALLERY: {
   src: string;
@@ -343,7 +343,7 @@ const GALLERY: {
   },
   {
     src: `${CF_UAE}/ARU00574.jpg`,
-    alt: "Panel discussion — Cyber First UAE",
+    alt: "Panel discussion, Cyber First UAE",
     area: "b",
   },
   {
@@ -366,7 +366,7 @@ const GALLERY: {
 ];
 
 // Sponsor tiers for Kenya
-// Marquee Row 1 — past / credibility logos
+// Marquee Row 1, past / credibility logos
 const MARQUEE_ROW_1 = [
   { name: "Palo Alto Networks", logo: `${S3_LOGOS}/paloalto.png` },
   { name: "SentinelOne", logo: `${S3_LOGOS}/sentinelone.png` },
@@ -376,7 +376,7 @@ const MARQUEE_ROW_1 = [
   { name: "Secureworks", logo: `${S3_LOGOS}/secureworks.png` },
 ];
 
-// Marquee Row 2 — series-wide sponsors
+// Marquee Row 2, series-wide sponsors
 const MARQUEE_ROW_2 = [
   { name: "Google Cloud Security", logo: `${S3_LOGOS}/Google-Cloud-Security.png` },
   { name: "Anomali", logo: `${S3_LOGOS}/Anomali.png` },
@@ -548,7 +548,7 @@ export default function CyberFirstKenya2026() {
           opacity: 1 !important;
         }
         
-        /* Section headlines — gradient shimmer */
+        /* Section headlines, gradient shimmer */
         @keyframes cfk-section-shimmer {
           0%, 100% { background-position: 200% center; }
           50% { background-position: 0% center; }
@@ -3020,7 +3020,7 @@ function SponsorsSection() {
             }}
           />
 
-          {/* Row 1 — scrolls left */}
+          {/* Row 1, scrolls left */}
           <div className="cfkn-marquee-track" style={{ marginBottom: 20 }}>
             <div
               className="cfkn-marquee-inner cfkn-scroll-left"
@@ -3058,7 +3058,7 @@ function SponsorsSection() {
             </div>
           </div>
 
-          {/* Row 2 — scrolls right */}
+          {/* Row 2, scrolls right */}
           <div className="cfkn-marquee-track">
             <div
               className="cfkn-marquee-inner cfkn-scroll-right"
@@ -3470,7 +3470,7 @@ function WhatToExpect() {
 
   return (
     <section ref={ref} style={{ background: "#090506", padding: "clamp(60px, 7vw, 90px) 0", position: "relative", overflow: "hidden" }}>
-      {/* Atmospheric orbs — 4 layers */}
+      {/* Atmospheric orbs, 4 layers */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 55% 55% at 20% 18%, ${C_BRIGHT}08, transparent 70%)` }} />
       <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 35% 40% at 85% 72%, ${C}06, transparent 65%)` }} />
       <div className="absolute inset-0 pointer-events-none cfk-expect-pulse" style={{ background: `radial-gradient(ellipse 50% 40% at 55% 45%, ${C_BRIGHT}05, transparent 60%)` }} />
@@ -3534,9 +3534,9 @@ function WhatToExpect() {
           </p>
         </motion.div>
 
-        {/* Cards — featured top card + 3 below */}
+        {/* Cards, featured top card + 3 below */}
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-          {/* Featured first card — full width */}
+          {/* Featured first card, full width */}
           <ExpectCard key={items[0].title} item={items[0]} index={0} inView={inView} featured />
 
           {/* Bottom 3 cards */}
@@ -3637,7 +3637,7 @@ function ExpectCard({
           />
         </div>
 
-        {/* Gradient overlay — tinted crimson */}
+        {/* Gradient overlay, tinted crimson */}
         <div className="absolute inset-0 pointer-events-none" style={{
           background: featured
             ? `linear-gradient(135deg, rgba(10,5,7,0.75) 10%, rgba(10,5,7,0.3) 45%, rgba(139,26,34,0.08) 70%, rgba(10,5,7,0.7) 100%)`
@@ -3694,7 +3694,7 @@ function ExpectCard({
           transition: "all 0.45s cubic-bezier(0.16,1,0.3,1)",
         }} />
 
-        {/* Number watermark — gradient on hover */}
+        {/* Number watermark, gradient on hover */}
         <div style={{
           position: "absolute", top: featured ? 16 : 10, right: featured ? 28 : 20, zIndex: 2,
           fontFamily: "var(--font-display)", fontSize: featured ? 100 : 72, fontWeight: 900,
@@ -3752,7 +3752,7 @@ function ExpectCard({
               {item.desc}
             </p>
 
-            {/* Highlight tags — keywords */}
+            {/* Highlight tags, keywords */}
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: featured ? 20 : 16 }}>
               {item.highlights.map((h) => (
                 <span key={h} style={{
@@ -3770,7 +3770,7 @@ function ExpectCard({
           </div>
         </div>
 
-        {/* Corner brackets — all 4 */}
+        {/* Corner brackets, all 4 */}
         <div style={{ position: "absolute", top: 10, left: 10, width: 16, height: 16, borderTop: `1.5px solid ${hovered ? `${C_BRIGHT}45` : "rgba(255,255,255,0.04)"}`, borderLeft: `1.5px solid ${hovered ? `${C_BRIGHT}45` : "rgba(255,255,255,0.04)"}`, borderRadius: "4px 0 0 0", transition: "border-color 0.4s", zIndex: 3 }} />
         <div style={{ position: "absolute", top: 10, right: 10, width: 16, height: 16, borderTop: `1.5px solid ${hovered ? `${C_BRIGHT}45` : "rgba(255,255,255,0.04)"}`, borderRight: `1.5px solid ${hovered ? `${C_BRIGHT}45` : "rgba(255,255,255,0.04)"}`, borderRadius: "0 4px 0 0", transition: "border-color 0.4s", zIndex: 3 }} />
         <div style={{ position: "absolute", bottom: 10, left: 10, width: 16, height: 16, borderBottom: `1.5px solid ${hovered ? `${C_BRIGHT}45` : "rgba(255,255,255,0.04)"}`, borderLeft: `1.5px solid ${hovered ? `${C_BRIGHT}45` : "rgba(255,255,255,0.04)"}`, borderRadius: "0 0 0 4px", transition: "border-color 0.4s", zIndex: 3 }} />
@@ -3779,7 +3779,7 @@ function ExpectCard({
         {/* Bottom right accent dot */}
         <div style={{ position: "absolute", bottom: 18, right: featured ? 44 : 22, width: 4, height: 4, borderRadius: "50%", background: hovered ? `${C_BRIGHT}40` : "rgba(255,255,255,0.05)", transition: "background 0.4s", zIndex: 3 }} />
 
-        {/* Bottom left — "Learn more" hint on hover for featured */}
+        {/* Bottom left, "Learn more" hint on hover for featured */}
         {featured && (
           <div style={{
             position: "absolute", bottom: 20, right: 44, zIndex: 3,
@@ -3867,9 +3867,9 @@ function WhoShouldAttend() {
           </p>
         </motion.div>
 
-        {/* Content — Roles grid + Industries panel */}
+        {/* Content, Roles grid + Industries panel */}
         <div className="cfk-attend-split" style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: 28, alignItems: "start" }}>
-          {/* Roles — 2-column grid inside a glass card */}
+          {/* Roles, 2-column grid inside a glass card */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -3976,7 +3976,7 @@ function WhoShouldAttend() {
             <div style={{ position: "absolute", bottom: 16, right: 20, width: 4, height: 4, borderRadius: "50%", background: "rgba(255,255,255,0.06)" }} />
           </motion.div>
 
-          {/* Industries panel — crimson glass card */}
+          {/* Industries panel, crimson glass card */}
           <motion.div
             initial={{ opacity: 0, x: 28 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -4142,12 +4142,12 @@ function AwardsSection() {
 
   // Trophy icons for each category
   const categoryIcons = [
-    "M13 2L3 14h9l-1 8 10-12h-9l1-8z", // Innovation — lightning
-    "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", // Resilience — shield
-    "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z", // Emerging — star
-    "M3 21h18M3 10h18M3 7l9-4 9 4M5 10v11M19 10v11M9 21v-4a3 3 0 016 0v4", // Public Sector — building
-    "M15 12a3 3 0 11-6 0 3 3 0 016 0zM2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z", // Zero Trust — eye
-    "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", // Sentinel — shield-check
+    "M13 2L3 14h9l-1 8 10-12h-9l1-8z", // Innovation, lightning
+    "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", // Resilience, shield
+    "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z", // Emerging, star
+    "M3 21h18M3 10h18M3 7l9-4 9 4M5 10v11M19 10v11M9 21v-4a3 3 0 016 0v4", // Public Sector, building
+    "M15 12a3 3 0 11-6 0 3 3 0 016 0zM2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z", // Zero Trust, eye
+    "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", // Sentinel, shield-check
   ];
 
   return (
@@ -4198,7 +4198,7 @@ function AwardsSection() {
         {/* ── Decorative divider ── */}
         <motion.div initial={{ opacity: 0, scaleX: 0 }} animate={inView ? { opacity: 1, scaleX: 1 } : {}} transition={{ duration: 0.8, delay: 0.4, ease: EASE }} style={{ height: 1, margin: "0 auto 56px", maxWidth: 600, background: `linear-gradient(90deg, transparent, ${GOLD}25, ${GOLD}40, ${GOLD}25, transparent)` }} />
 
-        {/* ═══ BOTTOM: Split — Form (40%) + Categories (60%) ═══ */}
+        {/* ═══ BOTTOM: Split, Form (40%) + Categories (60%) ═══ */}
         <div className="cfk-awards-split" style={{ display: "grid", gridTemplateColumns: "2fr 3fr", gap: 36, alignItems: "start" }}>
 
           {/* ── LEFT: Nomination Form (Glass Card) ── */}
@@ -4317,7 +4317,7 @@ function AwardsSection() {
               <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, color: "rgba(255,255,255,0.38)", margin: 0, lineHeight: 1.6 }}>We&apos;ll shine a spotlight on the visionaries and organizations leading the way in technological advancements.</p>
             </div>
 
-            {/* Category Cards — 2-col grid */}
+            {/* Category Cards, 2-col grid */}
             <div className="cfk-awards-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
               {AWARDS_DATA.map((award, i) => (
                 <motion.div
@@ -4495,7 +4495,7 @@ function SplitCTA() {
       </div>
 
       <style jsx global>{`
-        /* Transparent background — let event photo show through */
+        /* Transparent background, let event photo show through */
         .cfk-form-wrapper #get-involved {
           background: transparent !important;
         }
@@ -4512,7 +4512,7 @@ function SplitCTA() {
           box-shadow: 0 12px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06) !important;
         }
 
-        /* Tab pills — Kenya/Cyber themed */
+        /* Tab pills, Kenya/Cyber themed */
         .cfk-form-wrapper button[style*="background: var(--orange)"] {
           background: ${C} !important;
           border-color: ${C} !important;
@@ -4533,19 +4533,19 @@ function SplitCTA() {
           box-shadow: 0 8px 24px rgba(0,0,0,0.3) !important;
         }
 
-        /* Form card ambient glow — cyan instead of orange */
+        /* Form card ambient glow, cyan instead of orange */
         .cfk-form-wrapper .inquiry-split > div:last-child > .absolute {
           background: radial-gradient(ellipse, rgba(1,187,245,0.06) 0%, transparent 70%) !important;
         }
 
-        /* Submit button — keep orange (EFG brand) */
+        /* Submit button, keep orange (EFG brand) */
 
-        /* Section label — cyan */
+        /* Section label, cyan */
         .cfk-form-wrapper [style*="var(--orange)"][style*="letter-spacing: 3px"] {
           color: ${C} !important;
         }
 
-        /* Perk icons — cyan tint */
+        /* Perk icons, cyan tint */
         .cfk-form-wrapper .inquiry-split svg {
           color: ${C};
         }
@@ -4709,13 +4709,13 @@ function Venue() {
   const venueDetails = [
     { icon: "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0zM12 13a3 3 0 100-6 3 3 0 000 6z", label: "Location", value: "Nairobi, Kenya" },
     { icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z", label: "Date", value: "Wednesday, 8 July 2026" },
-    { icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", label: "Time", value: "8:00 AM — 5:00 PM (EAT)" },
+    { icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", label: "Time", value: "8:00 AM, 5:00 PM (EAT)" },
     { icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z", label: "Format", value: "Full-day conference + networking" },
   ];
 
   return (
     <section id="venue" ref={sectionRef} style={{ background: "#050303", position: "relative" }}>
-      {/* Hero Image — Full Bleed, Immersive */}
+      {/* Hero Image, Full Bleed, Immersive */}
       <div style={{ position: "relative", height: "85vh", minHeight: 600, overflow: "hidden" }}>
         <motion.div className="absolute inset-0" style={{ y: imgY, scale: imgScale }}>
           <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1920&q=85" alt="Nairobi Kenya venue" className="w-full h-full object-cover" style={{ filter: "brightness(0.5) saturate(1.15)", minHeight: "130%" }} />

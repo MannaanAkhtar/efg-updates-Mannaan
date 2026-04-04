@@ -136,7 +136,7 @@ export default function OTExploreOtherSeries() {
 }
 
 /**
- * SeriesCard — Mini event series portal card (angular style for OT)
+ * SeriesCard, Mini event series portal card (angular style for OT)
  */
 function SeriesCard({ series }: { series: (typeof otherSeries)[0] }) {
   const [isHovered, setIsHovered] = useState(false);

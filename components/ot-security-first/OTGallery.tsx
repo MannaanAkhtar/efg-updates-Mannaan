@@ -125,7 +125,7 @@ export default function OTGallery() {
           backgroundSize: "50px 50px",
         }}
       />
-      {/* Crimson glow — center */}
+      {/* Crimson glow, center */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -215,7 +215,7 @@ export default function OTGallery() {
           ))}
         </div>
 
-        {/* ─── VIDEO HIGHLIGHTS — Coming Soon ─── */}
+        {/* ─── VIDEO HIGHLIGHTS, Coming Soon ─── */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
@@ -290,7 +290,7 @@ export default function OTGallery() {
                 margin: 0,
               }}
             >
-              Event Highlights Video — Coming Soon
+              Event Highlights Video, Coming Soon
             </p>
           </div>
         </motion.div>
@@ -394,7 +394,7 @@ export default function OTGallery() {
 }
 
 /**
- * GalleryCard — Individual gallery image card
+ * GalleryCard, Individual gallery image card
  */
 function GalleryCard({
   item,
@@ -479,7 +479,7 @@ function GalleryCard({
 }
 
 /**
- * AgendaRow — Single compact agenda item with time + title
+ * AgendaRow, Single compact agenda item with time + title
  */
 function AgendaRow({
   item,

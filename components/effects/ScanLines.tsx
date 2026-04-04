@@ -4,7 +4,7 @@
  * ScanLines
  *
  * Horizontal line overlay via repeating-linear-gradient.
- * Evokes CRT monitors / data terminals — use sparingly on
+ * Evokes CRT monitors / data terminals, use sparingly on
  * data-heavy sections (DataWall, CTA countdown).
  */
 interface ScanLinesProps {

@@ -194,7 +194,7 @@ export default function UpcomingEvents() {
 }
 
 /**
- * FeaturedEventCard — Large horizontal event card
+ * FeaturedEventCard, Large horizontal event card
  */
 function FeaturedEventCard({
   event,
@@ -233,7 +233,7 @@ function FeaturedEventCard({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* LEFT HALF — THE IMAGE SIDE */}
+      {/* LEFT HALF, THE IMAGE SIDE */}
       <div className="relative overflow-hidden">
         {/* Background Image */}
         <div
@@ -294,7 +294,7 @@ function FeaturedEventCard({
         </div>
       </div>
 
-      {/* RIGHT HALF — THE CONTENT SIDE */}
+      {/* RIGHT HALF, THE CONTENT SIDE */}
       <div
         className="flex flex-col justify-center relative"
         style={{ padding: "36px 40px 36px 20px" }}
@@ -434,7 +434,7 @@ function FeaturedEventCard({
 }
 
 /**
- * PulsingDot — Animated urgency indicator
+ * PulsingDot, Animated urgency indicator
  */
 function PulsingDot({ color }: { color: string }) {
   return (
@@ -452,7 +452,7 @@ function PulsingDot({ color }: { color: string }) {
 }
 
 /**
- * DetailRow — Event detail with icon
+ * DetailRow, Event detail with icon
  */
 function DetailRow({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (

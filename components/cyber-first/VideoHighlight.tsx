@@ -108,7 +108,7 @@ export default function VideoHighlight() {
 }
 
 /**
- * VideoThumbnail — Main video thumbnail with play button
+ * VideoThumbnail, Main video thumbnail with play button
  */
 function VideoThumbnail({
   thumbnail,
