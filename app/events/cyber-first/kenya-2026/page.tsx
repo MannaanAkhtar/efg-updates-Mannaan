@@ -1254,9 +1254,9 @@ function StatsBar() {
       >
         {/* Background Image - City Skyline */}
         <div className="absolute inset-0" style={{ borderRadius: 32, overflow: "hidden" }}>
-          <img 
+          <img
             src="https://images.unsplash.com/photo-1611348524140-53c9a25263d6?w=1600&q=80"
-            alt=""
+            alt="Nairobi city skyline, Kenya cybersecurity summit location"
             className="w-full h-full object-cover"
             style={{ filter: "brightness(0.3) saturate(0.5)" }}
           />
@@ -1373,9 +1373,9 @@ function StatsBar() {
       >
         {/* Background Image - Circuit Board */}
         <div className="absolute inset-0" style={{ borderRadius: 32, overflow: "hidden" }}>
-          <img 
+          <img
             src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80"
-            alt=""
+            alt="Circuit board representing cybersecurity technology"
             className="w-full h-full object-cover"
             style={{ filter: "brightness(0.25) saturate(0.4)" }}
           />
@@ -2796,7 +2796,7 @@ function AgendaTimeline() {
     <section ref={ref} id="agenda" style={{ background: "#0C0809", padding: "clamp(60px, 7vw, 90px) 0", position: "relative", overflow: "hidden" }}>
       {/* Background photo */}
       <div className="absolute inset-0">
-        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=70" alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" style={{ filter: "brightness(0.04) saturate(0.2) contrast(1.2)" }} />
+        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=70" alt="Conference venue for Cyber First Kenya 2026 agenda" className="w-full h-full object-cover" loading="lazy" decoding="async" style={{ filter: "brightness(0.04) saturate(0.2) contrast(1.2)" }} />
       </div>
 
       {/* Gradient overlays */}
@@ -3626,7 +3626,7 @@ function ExpectCard({
         <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
           <img
             src={item.image}
-            alt=""
+            alt={item.title}
             className="w-full h-full object-cover"
             style={{
               filter: hovered ? "brightness(0.35) saturate(0.6)" : "brightness(0.18) saturate(0.4)",

@@ -832,7 +832,7 @@ function StatsBar() {
       {/* Background, real EFG event photo */}
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={`${S3}/events/Cyber%20First%20Kuwait%202025/filemail_photos/cyber21-04-324.jpg`} alt="" className="w-full h-full object-cover" style={{ filter: "brightness(0.1) saturate(0.4)" }} />
+        <img src={`${S3}/events/Cyber%20First%20Kuwait%202025/filemail_photos/cyber21-04-324.jpg`} alt="Cyber First summit stage and audience" className="w-full h-full object-cover" style={{ filter: "brightness(0.1) saturate(0.4)" }} />
       </div>
 
       {/* Gradient overlays */}
@@ -1180,7 +1180,7 @@ function FocusAreas() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={area.bg}
-                alt=""
+                alt={area.title}
                 aria-hidden="true"
                 className="cfi-focus-bg"
                 style={{
