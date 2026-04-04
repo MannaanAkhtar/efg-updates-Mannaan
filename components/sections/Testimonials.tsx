@@ -287,7 +287,7 @@ export default function Testimonials() {
             >
               Trusted by{" "}
               <span style={{ color: "var(--orange)" }}>5,000+</span>{" "}
-              Executives
+              CISOs, CDOs &amp; Enterprise Technology Leaders
             </motion.h2>
 
             <motion.p

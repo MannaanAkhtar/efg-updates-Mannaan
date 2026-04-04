@@ -172,7 +172,7 @@ export default function EventHighlights() {
           transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
           className="eh-heading"
         >
-          Event Highlights
+          Highlights from Our Executive Technology Summits
         </motion.h2>
 
         {/* Subtitle */}

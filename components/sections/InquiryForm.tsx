@@ -21,7 +21,7 @@ const INQUIRY_TABS = [
   {
     key: "sponsor",
     label: "Sponsor",
-    heading: "Partner with\nEFG Events",
+    heading: "Become a Summit\nSponsor",
     description:
       "Put your brand in the room with top decision-makers worldwide. Sponsorship packages are designed for maximum visibility and qualified lead generation.",
     perks: [
@@ -44,7 +44,7 @@ const INQUIRY_TABS = [
   {
     key: "pass",
     label: "Attend",
-    heading: "Request Your\nEvent Pass",
+    heading: "Register for an\nExecutive Summit",
     description:
       "Our events are curated for senior leaders \u2014 CISOs, CIOs, CTOs, COOs, and VP-level executives. Submit your details and we\u2019ll match you to the right room.",
     perks: [
@@ -67,7 +67,7 @@ const INQUIRY_TABS = [
   {
     key: "speaker",
     label: "Speak",
-    heading: "Share Your\nExpertise",
+    heading: "Apply to Speak\nat a Summit",
     description:
       "We platform practitioners, not salespeople. If you\u2019re a hands-on leader with real-world experience, we want you on stage.",
     perks: [

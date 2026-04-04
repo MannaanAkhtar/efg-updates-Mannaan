@@ -226,7 +226,7 @@ export default function EventSeriesShowcase() {
               margin: 0,
             }}
           >
-            Four Worlds. One Stage.
+            Four Event Series — Cybersecurity, OT Security, AI &amp; Operational Excellence
           </motion.h2>
 
           {/* Description */}

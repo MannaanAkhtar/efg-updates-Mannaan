@@ -18,13 +18,13 @@ const metrics = [
 ];
 
 const headlineWords = [
-  { text: "The world's", dim: false },
-  { text: "most senior", dim: false },
-  { text: "technology leaders", dim: false },
-  { text: "don't attend", dim: false },
-  { text: "events.", dim: false },
-  { text: "They", dim: true },
-  { text: "build", dim: true },
+  { text: "15,000+", dim: false },
+  { text: "technology leaders.", dim: false },
+  { text: "16 summits.", dim: false },
+  { text: "8 nations.", dim: false },
+  { text: "They don't", dim: true },
+  { text: "attend events —", dim: true },
+  { text: "they build", dim: true },
   { text: "here.", dim: true },
 ];
 
