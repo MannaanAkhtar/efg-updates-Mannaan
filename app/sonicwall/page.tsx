@@ -548,7 +548,7 @@ function SpeakersSection() {
           {SPEAKERS.map((speaker) => (
             <div key={speaker.name} className="sw-speaker-card" style={{ borderRadius: 16, background: "#fff", overflow: "hidden", opacity: 0, border: "1px solid rgba(30,40,40,0.05)", clipPath: "inset(20% 0 0 0)" }}>
               {/* Photo with gradient overlay */}
-              <div style={{ width: "100%", aspectRatio: "3/4", overflow: "hidden", position: "relative", background: SW_DARK }}>
+              <div className="sw-speaker-photo-wrap" style={{ width: "100%", aspectRatio: "3/4", overflow: "hidden", position: "relative", background: SW_DARK }}>
                 <img className="sw-speaker-photo" loading="lazy" src={speaker.photo} alt={speaker.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", transform: "scale(1.1)", transition: "transform 0.6s cubic-bezier(0.165,0.84,0.44,1), filter 0.6s ease" }} />
                 <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "40%", background: "linear-gradient(to top, rgba(0,0,0,0.15), transparent)", pointerEvents: "none" }} />
               </div>
@@ -1216,8 +1216,8 @@ export default function SonicWallPage() {
           /* About section — full width on mobile */
           .sw-about-content { max-width: 100% !important; }
 
-          /* Speakers — square photos on mobile */
-          .sw-speakers-grid .sw-speaker-card div[style*="aspect-ratio"] { aspect-ratio: 4/3 !important; }
+          /* Speakers — square photos on mobile to show full face */
+          .sw-speaker-photo-wrap { aspect-ratio: 1/1 !important; }
 
           /* Agenda timeline line hidden on mobile */
           .sw-ag-line { display: none !important; }
