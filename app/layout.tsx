@@ -36,23 +36,26 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Events First Group | Executive Technology Summits",
+  title: {
+    default: "Events First Group | Cybersecurity & Technology Summits — Middle East, Africa & Asia",
+    template: "%s | Events First Group",
+  },
   description:
-    "Premium executive technology summits across the Middle East, Africa, and Asia. Cyber First, Digital First, Opex First, OT Security First — bringing together CISOs, CTOs, and enterprise leaders.",
+    "Executive cybersecurity, OT security, AI, and operational excellence summits across the Middle East, Africa & Asia. Invite-only events for CISOs, CDOs & enterprise leaders.",
   keywords: [
-    "technology conferences",
-    "cybersecurity events",
-    "enterprise tech summit",
-    "Dubai conferences",
-    "Riyadh technology events",
-    "CISO summit",
-    "digital transformation",
-    "AI conferences",
+    "cybersecurity summit middle east",
+    "CISO conference",
+    "cybersecurity events dubai",
+    "OT security conference",
+    "technology summit middle east",
+    "AI conference GCC",
+    "operational excellence conference",
+    "Events First Group",
   ],
   openGraph: {
-    title: "Events First Group | Executive Technology Summits",
+    title: "Events First Group | Cybersecurity & Technology Summits — Middle East, Africa & Asia",
     description:
-      "Premium executive technology summits across the Middle East, Africa, and Asia. Cyber First, Digital First, Opex First, OT Security First — bringing together CISOs, CTOs, and enterprise leaders.",
+      "Executive cybersecurity, OT security, AI, and operational excellence summits across the Middle East, Africa & Asia. Invite-only events for CISOs, CDOs & enterprise leaders.",
     url: "https://eventsfirstgroup.com",
     siteName: "Events First Group",
     images: [
@@ -68,9 +71,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Events First Group | Executive Technology Summits",
+    title: "Events First Group | Cybersecurity & Technology Summits",
     description:
-      "Premium executive technology summits across the Middle East, Africa, and Asia.",
+      "Executive cybersecurity, OT security, AI, and operational excellence summits across the Middle East, Africa & Asia.",
+    site: "@eventsfirstgrp",
     images: ["https://efg-final.s3.eu-north-1.amazonaws.com/Events+First+logo+icon-01.svg"],
   },
   icons: {

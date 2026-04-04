@@ -19,26 +19,28 @@ const BASE_URL = "https://eventsfirstgroup.com";
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0290.JPG";
 
 export const metadata: Metadata = {
-  title: "Events First Group | Executive Technology Summits",
+  title: "Cybersecurity Summits & CISO Conferences | Events First Group — MEA & Asia",
   description:
-    "Premium executive summits across the Middle East, Africa, and Asia. Cyber First, Digital First, Opex First, OT Security First — bringing together CISOs, CDOs, and enterprise leaders.",
+    "Executive cybersecurity, OT security, AI, and operational excellence summits across the Middle East, Africa & Asia. Invite-only events for CISOs, CDOs & enterprise leaders. 16 events in 2026.",
   keywords: [
-    "technology conferences",
-    "executive summit",
-    "cybersecurity events",
-    "data AI conference",
-    "CISO summit",
-    "CDO conference",
-    "enterprise technology",
+    "cybersecurity summit middle east",
+    "CISO conference",
+    "cybersecurity events dubai",
+    "OT security conference",
+    "technology summit middle east",
+    "AI conference GCC",
+    "operational excellence conference",
+    "executive cybersecurity summit",
     "Events First Group",
+    "invite only cybersecurity summit",
   ],
   alternates: {
     canonical: BASE_URL,
   },
   openGraph: {
-    title: "Events First Group — Executive Technology Summits",
+    title: "Events First Group — Cybersecurity & Technology Summits",
     description:
-      "Premium executive summits. Cyber First, Digital First, Opex First, OT Security First. CISOs, CDOs, and enterprise leaders.",
+      "16 invite-only cybersecurity, AI, and enterprise summits across the Middle East, Africa & Asia in 2026. Join 5,000+ CISOs & technology leaders.",
     url: BASE_URL,
     siteName: "Events First Group",
     images: [
@@ -46,7 +48,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Events First Group — Executive Technology Summits",
+        alt: "Events First Group — 16 Executive Technology Summits in 2026 across Middle East, Africa & Asia",
       },
     ],
     locale: "en_US",
@@ -54,9 +56,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Events First Group — Executive Technology Summits",
+    title: "Events First Group — Cybersecurity & Technology Summits",
     description:
-      "Premium executive summits for CISOs, CDOs, and enterprise leaders.",
+      "16 invite-only cybersecurity, AI, and enterprise summits across the Middle East, Africa & Asia in 2026. Join 5,000+ CISOs & technology leaders.",
+    site: "@eventsfirstgrp",
+    creator: "@eventsfirstgrp",
     images: [OG_IMAGE],
   },
 };
