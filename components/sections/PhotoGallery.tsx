@@ -20,6 +20,7 @@ interface Category {
   label: string;
   subtitle: string;
   heroImage: string;
+  heroAlt: string;
   images: GalleryImage[];
 }
 
@@ -30,6 +31,7 @@ const categories: Category[] = [
     label: "The Sessions",
     subtitle: "Panels & Keynotes",
     heroImage: `${OPEX}/4N8A1702.JPG`,
+    heroAlt: "CISO panel discussion at Events First Group cybersecurity summit",
     images: [
       { src: `${OPEX}/4N8A1702.JPG`, caption: "Opex First UAE, executive panel" },
       { src: `${CFK}/cyber21-04-324.jpg`, caption: "Cyber First Kuwait, LED stage" },
@@ -42,6 +44,7 @@ const categories: Category[] = [
     label: "Government Backing",
     subtitle: "Institutional & Official Presence",
     heroImage: `${OPEX}/4N8A1688.JPG`,
+    heroAlt: "Government officials endorsing Events First Group technology summit",
     images: [
       { src: `${OPEX}/4N8A1688.JPG`, caption: "Opex First, official ribbon cutting" },
       { src: `${OPEX}/4N8A1698.JPG`, caption: "Opex First, ceremony moment" },
@@ -54,6 +57,7 @@ const categories: Category[] = [
     label: "The Voices",
     subtitle: "C-Suite & CISO Speakers",
     heroImage: `${OPEX}/4N8A1666.JPG`,
+    heroAlt: "Keynote speaker presenting at Cyber First cybersecurity conference",
     images: [
       { src: `${OPEX}/4N8A1666.JPG`, caption: "Opex First UAE, keynote address" },
       { src: `${CFK}/cyber21-04-550.jpg`, caption: "Cyber First, executive keynote" },
@@ -66,6 +70,7 @@ const categories: Category[] = [
     label: "The Exhibition",
     subtitle: "Global Technology Partners",
     heroImage: `${OT}/4N8A0397.JPG`,
+    heroAlt: "Exhibition floor and sponsor displays at Events First Group summit",
     images: [
       { src: `${OT}/4N8A0397.JPG`, caption: "OT Security, partner booths" },
       { src: `${CFK}/cyber21-04-410.jpg`, caption: "Cyber First, exhibition floor" },
@@ -78,6 +83,7 @@ const categories: Category[] = [
     label: "The Room",
     subtitle: "5,000+ Senior Delegates",
     heroImage: `${OPEX}/4N8A1848.JPG`,
+    heroAlt: "Executive delegates networking at invite-only cybersecurity summit",
     images: [
       { src: `${OPEX}/4N8A1848.JPG`, caption: "Opex First, delegate seating" },
       { src: `${CFK}/cyber21-04-160.jpg`, caption: "Full house, grand ballroom panorama" },
@@ -90,6 +96,7 @@ const categories: Category[] = [
     label: "Recognition",
     subtitle: "Honouring Regional Excellence",
     heroImage: `${OPEX}/4N8A1751.JPG`,
+    heroAlt: "Awards ceremony recognizing cybersecurity excellence at Events First Group",
     images: [
       { src: `${OPEX}/4N8A1751.JPG`, caption: "Opex First, award ceremony" },
       { src: `${GOOD}/4N8A0200.JPG`, caption: "Cybersecurity Leader of the Year" },
@@ -305,7 +312,7 @@ function Tile({
       {/* Background image */}
       <Image
         src={category.heroImage}
-        alt={category.label}
+        alt={category.heroAlt}
         fill
         style={{
           objectFit: "cover",
