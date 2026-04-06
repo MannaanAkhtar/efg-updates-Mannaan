@@ -35,9 +35,9 @@ const PAIN_POINTS = [
 ];
 
 const SPEAKERS = [
+  { name: "Mohamed Abdallah", title: "Regional Director, META", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Mohamed_Abdallah1.png", bio: "Mohamed Abdallah stands as the Regional Director at SonicWall, overseeing the expansive regions of the Middle East, Turkey, and Africa." },
   { name: "Nabil Kouzi", title: "Territory Manager", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/nabil1.png", bio: "Nabil drives SonicWall's growth across the UAE, leading territory strategy and empowering organizations with advanced cybersecurity solutions." },
   { name: "Ateef Mulla", title: "Principal Solutions Engineer", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/ateef1.png", bio: "Ateef is a Principal Solutions Engineer who champions the company's end-to-end security solutions, driving the successful delivery of major enterprise projects across the region." },
-  { name: "Mohamed Abdallah", title: "Regional Director, META", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Mohamed_Abdallah1.png", bio: "Mohamed Abdallah stands as the Regional Director at SonicWall, overseeing the expansive regions of the Middle East, Turkey, and Africa.", confirmed: false },
 ];
 
 const AGENDA = [
@@ -203,6 +203,13 @@ function HeroSection() {
 
           </div>
         </div>
+      </div>
+
+      {/* Brought to you by NetworkFirst — bottom right */}
+      <div className="sw-hero-stagger" style={{ position: "absolute", bottom: 32, right: "clamp(24px, 5vw, 80px)", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", gap: 2, opacity: 0 }}>
+        <span style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 500, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(30,40,40,0.4)" }}>Brought to you by</span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Networkfirstlogo-01.jpg" alt="NetworkFirst" width={380} height={104} style={{ height: 100, width: "auto" }} />
       </div>
 
       {/* Countdown — centered, tiles drop in */}
