@@ -91,7 +91,7 @@ const ALL_LOGOS = [
   { src: `${S3}/seclab.png`, name: "SecLab" },
   { src: `${S3}/secureb4.png`, name: "SecureB4" },
   { src: `${S3}/secureworks.png`, name: "Secureworks" },
-  { src: `${S3}/Securonix-logo.png`, name: "Securonix" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/securonix.jpg", name: "Securonix" },
   { src: `${S3}/sis.png`, name: "SIS" },
   { src: `${S3}/Sonicwall.png`, name: "SonicWall" },
   { src: `${S3}/SS%26C.png`, name: "SS&C" },

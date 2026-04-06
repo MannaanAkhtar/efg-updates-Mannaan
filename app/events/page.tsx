@@ -2490,7 +2490,7 @@ const trustedLogos = [
   { src: `${S3}/Sonicwall.png`, name: "SonicWall" },
   { src: `${S3}/CPX.png`, name: "CPX" },
   { src: `${S3}/PENTERA.png`, name: "Pentera" },
-  { src: `${S3}/Securonix-logo.png`, name: "Securonix" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/securonix.jpg", name: "Securonix" },
   { src: `${S3}/Wallix.png`, name: "Wallix" },
   { src: `${S3}/EC-Council.png`, name: "EC-Council" },
 ];

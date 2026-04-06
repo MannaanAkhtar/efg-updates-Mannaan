@@ -20,6 +20,7 @@ export default function ConditionalNavigation() {
     pathname?.startsWith("/admin") ||
     pathname?.startsWith("/braze") ||
     pathname?.startsWith("/sonicwall") ||
+    pathname?.startsWith("/clevertap") ||
     isSubdomain
   ) {
     return null;
