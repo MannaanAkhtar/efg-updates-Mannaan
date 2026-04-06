@@ -37,7 +37,7 @@ function useCountdown(target: Date) {
   useEffect(() => {
     const tick = () => {
       const diff = target.getTime() - Date.now();
-      if (diff <= 0) return setT({ d: 0, h: 0, m: 0, s: 0 });
+      if (diff <= 0) { setT({ d: 0, h: 0, m: 0, s: 0 }); clearInterval(id); return; }
       setT({
         d: Math.floor(diff / 86400000),
         h: Math.floor((diff / 3600000) % 24),
@@ -117,7 +117,7 @@ const CONTACTS_TEAM = [
     name: "Mary",
     title: "Delegate Acquisition",
     category: "Speaking Enquiries",
-    phone: "+971 58 599 762",
+    phone: "+971 56 858 6146",
     email: "Mary@eventsfirstgroup.com",
     photo: `${S3_TEAM}/Mary.jpg`,
   },
@@ -226,7 +226,7 @@ function HeroSection() {
         className="otvm-efg-badge"
       >
         <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 400, color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "2px" }}>An Initiative By</span>
-        <img src="/events-first-group_logo_alt.svg" alt="Events First Group" style={{ height: 48, width: "auto", opacity: 0.7 }} />
+        <img loading="lazy" src="/events-first-group_logo_alt.svg" alt="Events First Group" style={{ height: 48, width: "auto", opacity: 0.7 }} />
       </motion.div>
 
       {/* Countdown bar */}
@@ -633,9 +633,7 @@ function AboutForum() {
                 margin: 5,
                 borderRadius: 16,
                 padding: "28px 32px",
-                background: "rgba(255,255,255,0.03)",
-                backdropFilter: "blur(24px)",
-                WebkitBackdropFilter: "blur(24px)",
+                background: "rgba(255,255,255,0.08)",
                 border: "1px solid rgba(255,255,255,0.06)",
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -1px 4px rgba(0,0,0,0.3)",
                 position: "relative",
@@ -758,9 +756,7 @@ function KeyThemesSection() {
                   margin: 4,
                   borderRadius: 17,
                   padding: isLarge ? "clamp(28px, 3vw, 40px)" : "clamp(20px, 2vw, 28px)",
-                  background: "rgba(10,14,42,0.5)",
-                  backdropFilter: "blur(20px)",
-                  WebkitBackdropFilter: "blur(20px)",
+                  background: "rgba(10,14,42,0.65)",
                   border: "1px solid rgba(255,255,255,0.05)",
                   boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
                   position: "relative",
@@ -911,9 +907,7 @@ function PanelDiscussions() {
                   margin: 4,
                   borderRadius: 17,
                   height: "calc(100% - 8px)",
-                  background: "rgba(8,11,32,0.7)",
-                  backdropFilter: "blur(20px)",
-                  WebkitBackdropFilter: "blur(20px)",
+                  background: "rgba(8,11,32,0.85)",
                   border: "1px solid rgba(255,255,255,0.05)",
                   boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), inset 0 -2px 6px rgba(0,0,0,0.3)",
                   display: "flex",
@@ -1134,9 +1128,7 @@ function WhoWillBeInRoom() {
               <div style={{
                 borderRadius: 17,
                 padding: "28px 32px",
-                background: `linear-gradient(180deg, rgba(13,18,51,0.85) 0%, rgba(7,11,31,0.95) 100%)`,
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
+                background: `linear-gradient(180deg, rgba(13,18,51,0.92) 0%, rgba(7,11,31,0.98) 100%)`,
                 border: "1px solid rgba(255,255,255,0.04)",
                 boxShadow: `inset 0 2px 4px rgba(0,0,0,0.4), inset 0 -1px 0 rgba(255,255,255,0.03)`,
                 position: "relative",
@@ -1167,9 +1159,7 @@ function WhoWillBeInRoom() {
                         "--pill-bg-hover": `rgba(${group.rgb},0.15)`,
                         padding: "10px 20px",
                         borderRadius: 12,
-                        background: `linear-gradient(135deg, rgba(${group.rgb},0.08) 0%, rgba(${group.rgb},0.03) 100%)`,
-                        backdropFilter: "blur(16px)",
-                        WebkitBackdropFilter: "blur(16px)",
+                        background: `linear-gradient(135deg, rgba(${group.rgb},0.12) 0%, rgba(${group.rgb},0.06) 100%)`,
                         border: `1px solid rgba(${group.rgb},0.18)`,
                         borderTop: `1px solid rgba(255,255,255,0.1)`,
                         boxShadow: `inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 2px rgba(0,0,0,0.2), 0 2px 8px rgba(0,0,0,0.25)`,
@@ -1446,9 +1436,7 @@ function ContactSection() {
                   textAlign: "center",
                   padding: "36px 28px 32px",
                   borderRadius: 28,
-                  background: "linear-gradient(165deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 50%, rgba(0,0,0,0.08) 100%)",
-                  backdropFilter: "blur(32px)",
-                  WebkitBackdropFilter: "blur(32px)",
+                  background: "linear-gradient(165deg, rgba(30,35,60,0.85) 0%, rgba(15,18,40,0.9) 50%, rgba(10,12,30,0.95) 100%)",
                   border: "1px solid rgba(255,255,255,0.1)",
                   position: "relative",
                   overflow: "hidden",
@@ -1474,7 +1462,7 @@ function ContactSection() {
                     <div style={{ width: "100%", height: "100%", borderRadius: "50%", overflow: "hidden", background: `linear-gradient(135deg, rgba(${accentRgb},0.3), rgba(${accentRgb},0.1))` }}>
                       {person.photo ? (
                         /* eslint-disable-next-line @next/next/no-img-element */
-                        <img src={person.photo} alt={person.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }} />
+                        <img loading="lazy" src={person.photo} alt={person.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }} />
                       ) : (
                         <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
                           <span style={{ fontFamily: "var(--font-display)", fontSize: 44, fontWeight: 700, color: "white" }}>{person.name.charAt(0)}</span>
@@ -1636,7 +1624,6 @@ export default function OTSecurityVirtualForumMENA() {
           font-weight: 500;
           text-decoration: none;
           border: 1px solid rgba(255,255,255,0.1);
-          backdrop-filter: blur(12px);
           transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
           cursor: pointer;
         }
