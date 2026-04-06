@@ -190,6 +190,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    // SonicWall Webinar
+    {
+      url: `${BASE_URL}/sonicwall`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
+      url: "https://sonicwall-webinar.eventsfirstgroup.com",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
   ];
 
   // ─────────────────────────────────────────────────────────────────────────
