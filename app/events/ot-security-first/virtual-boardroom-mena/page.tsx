@@ -115,7 +115,7 @@ const S3_TEAM = "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos";
 const CONTACTS_TEAM = [
   {
     name: "Mary",
-    title: "Delegate Acquisition",
+    title: "Events Acquisition Manager",
     category: "Speaking Enquiries",
     phone: "+971 56 858 6146",
     email: "Mary@eventsfirstgroup.com",
@@ -1186,6 +1186,130 @@ function WhoWillBeInRoom() {
   );
 }
 
+// ─── AGENDA ─────────────────────────────────────────────────────────────────
+
+const AGENDA_ITEMS: { time: string; segment: string; type: "opening" | "panel" | "sponsor" | "qa" | "closing" }[] = [
+  { time: "11:00 - 11:10 AM", segment: "Welcome & Opening Remarks by UAE Cyber Security Council", type: "opening" },
+  { time: "11:10 - 11:30 AM", segment: "Panel 01 | Securing Critical Infrastructure at a National Level: From Strategy to Operational Reality", type: "panel" },
+  { time: "11:30 - 11:40 AM", segment: "Awareness Presentation — Sponsor TBC", type: "sponsor" },
+  { time: "11:40 - 12:00 PM", segment: "Panel 02 | IT/OT Convergence: The Exposure Points Most Teams Still Miss", type: "panel" },
+  { time: "12:00 - 12:10 PM", segment: "Awareness Presentation — Sponsor TBC", type: "sponsor" },
+  { time: "12:10 - 12:30 PM", segment: "Panel 03 | AI-Powered OT Attacks: What's Already Happening — and How to Respond in Live Environments", type: "panel" },
+  { time: "12:30 - 12:40 PM", segment: "Awareness Presentation — Sponsor TBC", type: "sponsor" },
+  { time: "12:40 - 12:50 PM", segment: "Q & A", type: "qa" },
+  { time: "12:50 - 01:50 PM", segment: "Closing Remarks", type: "closing" },
+];
+
+const AGENDA_TYPE_COLORS: Record<string, { color: string; rgb: string }> = {
+  opening: { color: CYAN, rgb: "0,201,255" },
+  panel: { color: C_BRIGHT, rgb: "232,107,184" },
+  sponsor: { color: "rgba(255,255,255,0.5)", rgb: "255,255,255" },
+  qa: { color: CYAN, rgb: "0,201,255" },
+  closing: { color: C_BRIGHT, rgb: "232,107,184" },
+};
+
+function AgendaSection() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section ref={ref} id="agenda" style={{ background: BG, padding: "clamp(60px, 8vw, 100px) 0", position: "relative", overflow: "hidden" }}>
+      {/* Background orbs */}
+      <div style={{ position: "absolute", top: "15%", left: "-5%", width: 500, height: 500, borderRadius: "50%", background: `radial-gradient(circle, rgba(0,201,255,0.12) 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "10%", right: "-3%", width: 400, height: 400, borderRadius: "50%", background: `radial-gradient(circle, rgba(211,75,154,0.1) 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 1, ease: EASE }}
+          style={{ textAlign: "center", marginBottom: 48 }}
+        >
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 5vw, 56px)", color: "white", letterSpacing: "-2px", margin: "0 0 12px", lineHeight: 1 }}>
+            <span className="otvm-hero-shimmer" style={{ backgroundImage: "linear-gradient(110deg, rgba(232,107,184,1) 0%, rgba(0,201,255,1) 45%, rgba(232,107,184,1) 100%)", backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Agenda</span>
+          </h2>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={inView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1.2, delay: 0.4, ease: EASE }}
+            style={{ width: 100, height: 3, background: `linear-gradient(90deg, transparent, ${CYAN}, transparent)`, margin: "0 auto 16px", borderRadius: 2, transformOrigin: "center", boxShadow: `0 0 12px rgba(0,201,255,0.5)` }}
+          />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.45)", letterSpacing: "0.5px" }}>All times in UAE (GST / UTC+4)</span>
+        </motion.div>
+
+        {/* Timeline */}
+        <div style={{ position: "relative" }}>
+          {/* Vertical connector line */}
+          <div style={{ position: "absolute", top: 0, bottom: 0, left: 28, width: 2, background: `linear-gradient(180deg, ${CYAN}30, ${C_BRIGHT}30, ${CYAN}30)`, borderRadius: 2 }} />
+
+          {AGENDA_ITEMS.map((item, i) => {
+            const typeStyle = AGENDA_TYPE_COLORS[item.type];
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.3 + i * 0.06, ease: EASE }}
+                style={{ display: "flex", gap: 24, marginBottom: i < AGENDA_ITEMS.length - 1 ? 4 : 0, position: "relative" }}
+              >
+                {/* Timeline dot */}
+                <div style={{ width: 58, flexShrink: 0, display: "flex", justifyContent: "center", paddingTop: 22 }}>
+                  <div style={{
+                    width: 12, height: 12, borderRadius: "50%",
+                    background: item.type === "panel" ? C_BRIGHT : item.type === "opening" || item.type === "closing" ? CYAN : "rgba(255,255,255,0.2)",
+                    boxShadow: item.type === "panel" ? `0 0 12px ${C_BRIGHT}60` : item.type === "opening" || item.type === "closing" ? `0 0 12px ${CYAN}60` : "none",
+                    border: "2px solid rgba(10,14,42,1)",
+                    position: "relative", zIndex: 2,
+                  }} />
+                </div>
+
+                {/* Card */}
+                <div style={{
+                  flex: 1,
+                  padding: 3,
+                  borderRadius: 18,
+                  background: `linear-gradient(145deg, rgba(${typeStyle.rgb},0.12) 0%, rgba(255,255,255,0.04) 30%, rgba(255,255,255,0.02) 70%, rgba(${typeStyle.rgb},0.08) 100%)`,
+                  boxShadow: `0 1px 0 rgba(255,255,255,0.04) inset, 0 -2px 0 rgba(0,0,0,0.3) inset, 0 6px 24px rgba(0,0,0,0.3)`,
+                  marginBottom: 8,
+                }}>
+                  <div style={{
+                    borderRadius: 15,
+                    padding: "18px 24px",
+                    background: `linear-gradient(180deg, rgba(13,18,51,0.94) 0%, rgba(7,11,31,0.98) 100%)`,
+                    border: "1px solid rgba(255,255,255,0.04)",
+                    boxShadow: `inset 0 1px 2px rgba(0,0,0,0.3), inset 0 -1px 0 rgba(255,255,255,0.03)`,
+                    position: "relative",
+                  }}>
+                    {/* Top glass reflection */}
+                    <div style={{ position: "absolute", top: 0, left: "5%", right: "5%", height: 1, background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)` }} />
+                    {/* Left accent */}
+                    <div style={{ position: "absolute", top: 14, left: 0, width: 3, height: 20, background: `linear-gradient(180deg, ${typeStyle.color}, rgba(${typeStyle.rgb},0.2))`, borderRadius: "0 2px 2px 0", boxShadow: `0 0 8px rgba(${typeStyle.rgb},0.3)` }} />
+
+                    <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 }}>
+                      <div style={{ flex: 1 }}>
+                        <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, color: typeStyle.color, margin: "0 0 6px", letterSpacing: "0.5px", opacity: 0.9 }}>{item.time}</p>
+                        <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: item.type === "panel" ? 600 : 400, color: item.type === "sponsor" ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.85)", margin: 0, lineHeight: 1.5 }}>{item.segment}</p>
+                      </div>
+                      {item.type === "panel" && (
+                        <span style={{
+                          flexShrink: 0, padding: "4px 12px", borderRadius: 8,
+                          background: `rgba(${typeStyle.rgb},0.12)`, border: `1px solid rgba(${typeStyle.rgb},0.2)`,
+                          fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: typeStyle.color,
+                        }}>Panel</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── WHY SPONSOR ─────────────────────────────────────────────────────────────
 function WhySponsor() {
   const ref = useRef<HTMLElement>(null);
@@ -1890,6 +2014,7 @@ export default function OTSecurityVirtualForumMENA() {
       <KeyThemesSection />
       <PanelDiscussions />
       <WhoWillBeInRoom />
+      <AgendaSection />
       <WhySponsor />
       <RegistrationSection />
       <ContactSection />

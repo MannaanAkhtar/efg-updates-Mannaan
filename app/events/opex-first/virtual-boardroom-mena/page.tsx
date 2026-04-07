@@ -97,7 +97,7 @@ const AGENDA = [
 
 const S3_TEAM = "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos";
 const CONTACTS = [
-  { name: "Mary", title: "Delegate Acquisition", category: "Speaking Enquiries", phone: "+971 58 599 762", email: "Mary@eventsfirstgroup.com", photo: `${S3_TEAM}/Mary.jpg` },
+  { name: "Mary", title: "Events Acquisition Manager", category: "Speaking Enquiries", phone: "+971 56 858 6146", email: "Mary@eventsfirstgroup.com", photo: `${S3_TEAM}/Mary.jpg` },
   { name: "Mayur Methi", title: "Partnership Manager", category: "Sponsorship Enquiries", phone: "+971 56 170 9909", email: "mayur@eventsfirstgroup.com", photo: `${S3_TEAM}/Mayur-Methi.png` },
 ];
 
