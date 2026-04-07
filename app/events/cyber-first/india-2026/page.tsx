@@ -1612,13 +1612,10 @@ function SpeakersSection() {
 // ─── FROM THE STAGE — Event Highlights ───────────────────────────────────────
 
 const CFI_HIGHLIGHTS = [
-  { id: "3ofcPquafgk", title: "Cyber First Event Highlights" },
-  { id: "JA1X4cN2-t0", title: "Cyber First Event Highlights" },
-  { id: "-a481Lbz55o", title: "Cyber First Event Highlights" },
-  { id: "0d_2Itsg6ec", title: "Cyber First Event Highlights" },
-  { id: "3uvw31I1tq8", title: "Cyber First Event Highlights" },
-  { id: "8xluYDV_07g", title: "Cyber First Event Highlights" },
-  { id: "_ogyuzwQWYo", title: "Cyber First Event Highlights" },
+  { id: "AsrScRfgLpA", title: "Cyber First UAE — Event Highlights" },
+  { id: "0d_2Itsg6ec", title: "Cyber First Qatar — Event Highlights" },
+  { id: "gR-IUI7yJLg", title: "Cyber First Kuwait 3rd Edition" },
+  { id: "wcEeU0UEl0o", title: "Cyber First Kuwait — Event Highlights" },
 ];
 
 function CfiVideoCard({ videoId, title, label, isHero, isVertical }: { videoId: string; title: string; label?: string; isHero?: boolean; isVertical?: boolean }) {
@@ -1697,29 +1694,16 @@ function CfiHighlights() {
           transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s",
         }}>Keynotes, panels, and conversations captured live from Cyber First summits.</p>
 
-        {/* Bento Grid — all 7 videos: hero + 2 sidebar + 4 bottom */}
-        <div className="cfi-eh-bento" style={{
+        {/* 2x2 Grid — 4 Cyber First videos */}
+        <div className="cfi-eh-grid" style={{
           opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(28px)",
           transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s",
         }}>
-          <div className="cfi-eh-bento-hero">
-            <CfiVideoCard videoId={CFI_HIGHLIGHTS[0].id} title={CFI_HIGHLIGHTS[0].title} label="Cyber First" isHero />
-          </div>
-          <div className="cfi-eh-bento-side">
-            <div className="cfi-eh-bento-side-card">
-              <CfiVideoCard videoId={CFI_HIGHLIGHTS[1].id} title={CFI_HIGHLIGHTS[1].title} label="Cyber First" />
+          {CFI_HIGHLIGHTS.map((v, i) => (
+            <div key={v.id} className="cfi-eh-grid-card">
+              <CfiVideoCard videoId={v.id} title={v.title} label="Cyber First" isHero={i === 0} />
             </div>
-            <div className="cfi-eh-bento-side-card">
-              <CfiVideoCard videoId={CFI_HIGHLIGHTS[2].id} title={CFI_HIGHLIGHTS[2].title} label="Cyber First" />
-            </div>
-          </div>
-          <div className="cfi-eh-bento-row">
-            {CFI_HIGHLIGHTS.slice(3).map(v => (
-              <div key={v.id} className="cfi-eh-bento-row-card">
-                <CfiVideoCard videoId={v.id} title={v.title} label="Cyber First" />
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
 
@@ -1748,17 +1732,13 @@ function CfiHighlights() {
           line-height: 1.7; margin: 0 0 clamp(28px, 3.5vw, 40px); max-width: 540px;
         }
 
-        /* Bento */
-        .cfi-eh-bento {
-          display: grid; grid-template-columns: 3fr 2fr;
-          grid-template-rows: 1fr 1fr auto;
-          gap: clamp(10px, 1.5vw, 14px); margin-bottom: clamp(28px, 3vw, 40px);
+        /* 2x2 Grid */
+        .cfi-eh-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: clamp(12px, 2vw, 18px);
         }
-        .cfi-eh-bento-hero { grid-column: 1; grid-row: 1 / 3; aspect-ratio: 16 / 9; }
-        .cfi-eh-bento-side { grid-column: 2; grid-row: 1 / 3; display: flex; flex-direction: column; gap: clamp(10px, 1.5vw, 14px); }
-        .cfi-eh-bento-side-card { flex: 1; min-height: 0; }
-        .cfi-eh-bento-row { grid-column: 1 / -1; grid-row: 3; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(10px, 1.5vw, 14px); }
-        .cfi-eh-bento-row-card { aspect-ratio: 16 / 9; }
+        .cfi-eh-grid-card { aspect-ratio: 16 / 9; }
 
         /* Shared card */
         .cfi-v-card {
@@ -1827,17 +1807,8 @@ function CfiHighlights() {
         }
 
         /* Responsive */
-        @media (max-width: 900px) {
-          .cfi-eh-bento { grid-template-columns: 1fr; }
-          .cfi-eh-bento-hero { grid-column: 1; aspect-ratio: 16 / 9; }
-          .cfi-eh-bento-side { grid-column: 1; flex-direction: row; }
-          .cfi-eh-bento-side-card { aspect-ratio: 16 / 9; }
-          .cfi-eh-bento-row { grid-column: 1; grid-template-columns: repeat(2, 1fr); }
-        }
         @media (max-width: 560px) {
-          .cfi-eh-bento-row { grid-template-columns: 1fr 1fr; }
-          .cfi-eh-bento-side { flex-direction: column; }
-          .cfi-eh-bento-side-card { aspect-ratio: 16 / 9; }
+          .cfi-eh-grid { grid-template-columns: 1fr; }
           .cfi-v-play-hero { width: 48px; height: 48px; }
         }
       `}</style>
