@@ -31,21 +31,25 @@ function TestimonialVideoSchema({ videos }: { videos: { id: string; label: strin
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 const videoShorts = [
+  // Cyber First (6)
   { id: "jPQFjwuohfI", label: "Cyber First" },
   { id: "c8sPwIo4Pis", label: "Cyber First" },
   { id: "2LoeDNqsem0", label: "Cyber First" },
   { id: "8C61dof_f3s", label: "Cyber First" },
   { id: "2-KXhfSeBdQ", label: "Cyber First" },
   { id: "2IwKmGEfOIo", label: "Cyber First" },
+  // OT Security First (5)
   { id: "Q0n_sVaMnxg", label: "OT Security First" },
   { id: "SF87voLk34A", label: "OT Security First" },
   { id: "R5dtc5kjiQU", label: "OT Security First" },
   { id: "Hm_yj3NttPo", label: "OT Security First" },
   { id: "aaG9We6AjY8", label: "OT Security First" },
+  // OPEX First (8)
   { id: "WCsfo5Z6xVY", label: "OPEX First" },
   { id: "baCK3xnKh68", label: "OPEX First" },
   { id: "vMv0AfXMQL0", label: "OPEX First" },
   { id: "AefPAed0g-I", label: "OPEX First" },
+  { id: "SH9Z1U2_rAM", label: "OPEX First" },
   { id: "wLgYOHHB6o4", label: "OPEX First" },
   { id: "2jpIlqo0HSY", label: "OPEX First" },
   { id: "SLkj5gO-LQ8", label: "OPEX First" },
