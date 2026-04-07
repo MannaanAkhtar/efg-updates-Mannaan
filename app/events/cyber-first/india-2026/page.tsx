@@ -13,7 +13,6 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/sections";
-import YouTubeShorts from "@/components/cyber-first/YouTubeShorts";
 import { NeuralConstellation, DotMatrixGrid } from "@/components/effects";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
 import type { FormType, CountryCode } from "@/lib/form-helpers";
@@ -381,9 +380,10 @@ export default function CyberFirstIndia2026() {
       <SponsorsSection />
       <Gallery />
       <WhoShouldAttend />
+      <CfiHighlights />
+      <CfiTestimonials />
       <AwardsSection />
       <Venue />
-      <YouTubeShorts />
       <RegistrationSection />
       <ContactEnquiries />
       <Footer />
@@ -1609,7 +1609,352 @@ function SpeakersSection() {
   );
 }
 
-// ─── CONFIRMED SPEAKERS ──────────────────────────────────────────────────────
+// ─── FROM THE STAGE — Event Highlights ───────────────────────────────────────
+
+const CFI_HIGHLIGHTS = [
+  { id: "3ofcPquafgk", title: "Cyber First Event Highlights" },
+  { id: "JA1X4cN2-t0", title: "Cyber First Event Highlights" },
+  { id: "-a481Lbz55o", title: "Cyber First Event Highlights" },
+  { id: "0d_2Itsg6ec", title: "Cyber First Event Highlights" },
+  { id: "3uvw31I1tq8", title: "Cyber First Event Highlights" },
+  { id: "8xluYDV_07g", title: "Cyber First Event Highlights" },
+  { id: "_ogyuzwQWYo", title: "Cyber First Event Highlights" },
+];
+
+function CfiVideoCard({ videoId, title, label, isHero, isVertical }: { videoId: string; title: string; label?: string; isHero?: boolean; isVertical?: boolean }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const thumbSrc = isVertical
+    ? `https://img.youtube.com/vi/${videoId}/oar2.jpg`
+    : `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+
+  return (
+    <div className="cfi-v-card" onClick={() => !isPlaying && setIsPlaying(true)}>
+      {isPlaying ? (
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+        />
+      ) : (
+        <>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            loading="lazy"
+            src={thumbSrc}
+            alt={title}
+            className="cfi-v-thumb"
+            {...(isVertical ? { onError: (e: React.SyntheticEvent<HTMLImageElement>) => { (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`; } } : {})}
+          />
+          <div className="cfi-v-overlay" />
+          <div className="cfi-v-play-wrap">
+            <div className={`cfi-v-play-btn ${isHero ? "cfi-v-play-hero" : ""}`}>
+              <svg width={isHero ? "18" : "14"} height={isHero ? "18" : "14"} viewBox="0 0 24 24" fill="white" style={{ marginLeft: 2 }}>
+                <polygon points="5,3 19,12 5,21" />
+              </svg>
+            </div>
+          </div>
+          {label && (
+            <div className="cfi-v-label">
+              <span style={{
+                background: `linear-gradient(135deg, ${C}4d 0%, ${C}26 100%)`,
+                borderColor: `${C}4d`,
+              }}>{label}</span>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+function CfiHighlights() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section ref={ref} className="cfi-eh-section">
+      <div className="cfi-eh-glow" />
+      <div className="cfi-eh-container">
+        {/* Header */}
+        <div style={{
+          display: "flex", alignItems: "center", gap: 12, marginBottom: 14,
+          opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(16px)",
+          transition: "opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1)",
+        }}>
+          <span style={{ width: 24, height: 2, background: C, borderRadius: 1 }} />
+          <span style={{ fontFamily: "var(--font-dm)", fontSize: 12, fontWeight: 500, letterSpacing: "2.5px", textTransform: "uppercase", color: C }}>From the Stage</span>
+        </div>
+
+        <h2 className="cfi-eh-heading" style={{
+          opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(24px)",
+          transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s",
+        }}>Event Highlights</h2>
+
+        <p className="cfi-eh-subtitle" style={{
+          opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(16px)",
+          transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s",
+        }}>Keynotes, panels, and conversations captured live from Cyber First summits.</p>
+
+        {/* Bento Grid — all 7 videos: hero + 2 sidebar + 4 bottom */}
+        <div className="cfi-eh-bento" style={{
+          opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(28px)",
+          transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s",
+        }}>
+          <div className="cfi-eh-bento-hero">
+            <CfiVideoCard videoId={CFI_HIGHLIGHTS[0].id} title={CFI_HIGHLIGHTS[0].title} label="Cyber First" isHero />
+          </div>
+          <div className="cfi-eh-bento-side">
+            <div className="cfi-eh-bento-side-card">
+              <CfiVideoCard videoId={CFI_HIGHLIGHTS[1].id} title={CFI_HIGHLIGHTS[1].title} label="Cyber First" />
+            </div>
+            <div className="cfi-eh-bento-side-card">
+              <CfiVideoCard videoId={CFI_HIGHLIGHTS[2].id} title={CFI_HIGHLIGHTS[2].title} label="Cyber First" />
+            </div>
+          </div>
+          <div className="cfi-eh-bento-row">
+            {CFI_HIGHLIGHTS.slice(3).map(v => (
+              <div key={v.id} className="cfi-eh-bento-row-card">
+                <CfiVideoCard videoId={v.id} title={v.title} label="Cyber First" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <style jsx global>{`
+        .cfi-eh-section {
+          background: #080A0F;
+          padding: clamp(56px, 7vw, 90px) 0 clamp(40px, 5vw, 60px);
+          position: relative; overflow: hidden;
+        }
+        .cfi-eh-glow {
+          position: absolute; inset: 0; pointer-events: none;
+          background: radial-gradient(ellipse 60% 40% at 50% 0%, ${C}0a 0%, transparent 60%);
+        }
+        .cfi-eh-container {
+          max-width: 1320px; margin: 0 auto;
+          padding: 0 clamp(20px, 4vw, 40px); position: relative;
+        }
+        .cfi-eh-heading {
+          font-family: var(--font-display); font-weight: 800;
+          font-size: clamp(28px, 3.5vw, 44px); letter-spacing: -1.5px;
+          color: #fff; line-height: 1.15; margin: 0 0 8px;
+        }
+        .cfi-eh-subtitle {
+          font-family: var(--font-outfit); font-weight: 300;
+          font-size: clamp(14px, 1.2vw, 16px); color: rgba(255,255,255,0.45);
+          line-height: 1.7; margin: 0 0 clamp(28px, 3.5vw, 40px); max-width: 540px;
+        }
+
+        /* Bento */
+        .cfi-eh-bento {
+          display: grid; grid-template-columns: 3fr 2fr;
+          grid-template-rows: 1fr 1fr auto;
+          gap: clamp(10px, 1.5vw, 14px); margin-bottom: clamp(28px, 3vw, 40px);
+        }
+        .cfi-eh-bento-hero { grid-column: 1; grid-row: 1 / 3; aspect-ratio: 16 / 9; }
+        .cfi-eh-bento-side { grid-column: 2; grid-row: 1 / 3; display: flex; flex-direction: column; gap: clamp(10px, 1.5vw, 14px); }
+        .cfi-eh-bento-side-card { flex: 1; min-height: 0; }
+        .cfi-eh-bento-row { grid-column: 1 / -1; grid-row: 3; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(10px, 1.5vw, 14px); }
+        .cfi-eh-bento-row-card { aspect-ratio: 16 / 9; }
+
+        /* Shared card */
+        .cfi-v-card {
+          position: relative; width: 100%; height: 100%;
+          border-radius: 16px; overflow: hidden;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.08);
+          cursor: pointer;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+          transition: border-color 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1);
+        }
+        .cfi-v-card:hover {
+          border-color: ${C}4d;
+          box-shadow: 0 16px 48px ${C}1f, inset 0 1px 0 rgba(255,255,255,0.1);
+          transform: translateY(-3px);
+        }
+        .cfi-v-card:hover .cfi-v-thumb { transform: scale(1.04); }
+        .cfi-v-card:hover .cfi-v-play-btn {
+          background: ${C}e6;
+          border-color: ${C}66;
+          transform: scale(1.2);
+          box-shadow: 0 0 0 8px ${C}1f, 0 4px 16px ${C}40;
+        }
+        .cfi-v-card:hover .cfi-v-label span {
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        /* Label badge — liquid glass */
+        .cfi-v-label {
+          position: absolute; bottom: 10px; left: 10px; z-index: 2;
+        }
+        .cfi-v-label span {
+          font-family: var(--font-outfit);
+          font-size: 9px; font-weight: 600;
+          letter-spacing: 1.2px; text-transform: uppercase; color: #fff;
+          padding: 4px 10px; border-radius: 50px;
+          border-style: solid; border-width: 1px;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 2px 10px rgba(0,0,0,0.25);
+          transition: box-shadow 0.3s ease;
+        }
+
+        .cfi-v-thumb {
+          position: absolute; inset: 0; width: 100%; height: 100%;
+          object-fit: cover; transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+        }
+        .cfi-v-overlay {
+          position: absolute; inset: 0;
+          background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%);
+        }
+        .cfi-v-play-wrap {
+          position: absolute; inset: 0;
+          display: flex; align-items: center; justify-content: center;
+        }
+        .cfi-v-play-btn {
+          width: 40px; height: 40px; border-radius: 50%;
+          background: rgba(255,255,255,0.15);
+          border: 1.5px solid rgba(255,255,255,0.25);
+          display: flex; align-items: center; justify-content: center;
+          transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
+          animation: cfi-v-pulse 3s ease-in-out infinite;
+        }
+        .cfi-v-play-hero { width: 64px; height: 64px; }
+        @keyframes cfi-v-pulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.08); }
+          50% { box-shadow: 0 0 0 6px rgba(255,255,255,0.04); }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+          .cfi-eh-bento { grid-template-columns: 1fr; }
+          .cfi-eh-bento-hero { grid-column: 1; aspect-ratio: 16 / 9; }
+          .cfi-eh-bento-side { grid-column: 1; flex-direction: row; }
+          .cfi-eh-bento-side-card { aspect-ratio: 16 / 9; }
+          .cfi-eh-bento-row { grid-column: 1; grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 560px) {
+          .cfi-eh-bento-row { grid-template-columns: 1fr 1fr; }
+          .cfi-eh-bento-side { flex-direction: column; }
+          .cfi-eh-bento-side-card { aspect-ratio: 16 / 9; }
+          .cfi-v-play-hero { width: 48px; height: 48px; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── FROM THE ROOM — Testimonials ────────────────────────────────────────────
+
+const CFI_SHORTS = [
+  { id: "jPQFjwuohfI", title: "Cyber First Testimonial" },
+  { id: "c8sPwIo4Pis", title: "Cyber First Testimonial" },
+  { id: "2LoeDNqsem0", title: "Cyber First Testimonial" },
+  { id: "8C61dof_f3s", title: "Cyber First Testimonial" },
+  { id: "2-KXhfSeBdQ", title: "Cyber First Testimonial" },
+  { id: "2IwKmGEfOIo", title: "Cyber First Testimonial" },
+];
+
+function CfiTestimonials() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const showcaseVideos = CFI_SHORTS;
+
+  return (
+    <section ref={ref} className="cfi-vr-section">
+      <div className="cfi-vr-glow" />
+      <div className="cfi-vr-container">
+        {/* Header */}
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, ease: EASE }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
+            <span style={{ width: 24, height: 2, background: C, borderRadius: 1 }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, letterSpacing: "2.5px", textTransform: "uppercase", color: C }}>From the Room</span>
+          </div>
+        </motion.div>
+
+        <motion.h2 initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.1, ease: EASE }} className="cfi-vr-heading">
+          Hear It From the Room
+        </motion.h2>
+
+        <motion.p initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.15, ease: EASE }} className="cfi-vr-subtitle">
+          Hear directly from CISOs and cybersecurity leaders who attended Cyber First India.
+        </motion.p>
+
+        {/* Staggered Showcase */}
+        <motion.div initial={{ opacity: 0, y: 28 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.2, ease: EASE }} className="cfi-vr-showcase">
+          {showcaseVideos.map((v, i) => (
+            <div key={v.id} className={`cfi-vr-slot cfi-vr-slot-${i % 2 === 0 ? "tall" : "short"} ${i === 2 ? "cfi-vr-slot-hero" : ""}`}>
+              <CfiVideoCard videoId={v.id} title={v.title} label="Cyber First" isVertical />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      <style jsx global>{`
+        .cfi-vr-section {
+          background: #080A0F;
+          padding: clamp(56px, 7vw, 90px) 0 clamp(40px, 5vw, 60px);
+          position: relative; overflow: hidden;
+        }
+        .cfi-vr-glow {
+          position: absolute; inset: 0; pointer-events: none;
+          background: radial-gradient(ellipse 60% 40% at 50% 100%, ${C}0a 0%, transparent 60%);
+        }
+        .cfi-vr-container {
+          max-width: 1320px; margin: 0 auto;
+          padding: 0 clamp(20px, 4vw, 40px); position: relative;
+        }
+        .cfi-vr-heading {
+          font-family: var(--font-display); font-weight: 800;
+          font-size: clamp(28px, 3.5vw, 44px); letter-spacing: -1.5px;
+          color: #fff; line-height: 1.15; margin: 0 0 8px;
+        }
+        .cfi-vr-subtitle {
+          font-family: var(--font-outfit); font-weight: 300;
+          font-size: clamp(14px, 1.2vw, 16px); color: rgba(255,255,255,0.45);
+          line-height: 1.7; margin: 0 0 clamp(28px, 3.5vw, 40px); max-width: 500px;
+        }
+
+        /* Staggered Showcase */
+        .cfi-vr-showcase {
+          display: flex; gap: 14px;
+          align-items: center; justify-content: center;
+          margin-bottom: clamp(28px, 3vw, 40px);
+        }
+        .cfi-vr-slot {
+          flex-shrink: 0;
+          transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+        }
+        .cfi-vr-slot:hover { transform: translateY(-6px); }
+        .cfi-vr-slot-tall { width: 200px; height: 340px; }
+        .cfi-vr-slot-short { width: 180px; height: 270px; }
+        .cfi-vr-slot-hero.cfi-vr-slot-tall { width: 220px; height: 380px; }
+
+        /* Vertical card overrides */
+        .cfi-vr-section .cfi-v-thumb { object-position: center 20%; }
+        .cfi-vr-section .cfi-v-card { border-radius: 18px; }
+        .cfi-vr-section .cfi-v-label span { font-size: 8px; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+          .cfi-vr-showcase { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 8px; }
+          .cfi-vr-showcase::-webkit-scrollbar { display: none; }
+          .cfi-vr-slot-tall { width: 130px; height: 220px; }
+          .cfi-vr-slot-short { width: 120px; height: 180px; }
+          .cfi-vr-slot-hero.cfi-vr-slot-tall { width: 145px; height: 250px; }
+        }
+        @media (max-width: 560px) {
+          .cfi-vr-slot-tall { width: 110px; height: 185px; }
+          .cfi-vr-slot-short { width: 100px; height: 155px; }
+          .cfi-vr-slot-hero.cfi-vr-slot-tall { width: 120px; height: 210px; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
 // ─── Sponsors Section ────────────────────────────────────────────────────────
 function SponsorsSection() {
   const ref = useRef<HTMLElement>(null);
