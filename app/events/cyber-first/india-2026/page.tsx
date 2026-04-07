@@ -259,7 +259,7 @@ const MARQUEE_ROW_1 = [
   { name: "Fortinet", logo: `${S3_LOGOS}/fortinet.png` },
   { name: "Tenable", logo: `${S3_LOGOS}/Tenable-logo.png` },
   { name: "SentinelOne", logo: `${S3_LOGOS}/sentinelone.png` },
-  { name: "Securonix", logo: `${S3_LOGOS}/Securonix-logo.png` },
+  { name: "Securonix", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/securonix.jpg" },
 ];
 
 const MARQUEE_ROW_2 = [
@@ -269,7 +269,7 @@ const MARQUEE_ROW_2 = [
   { name: "Pentera", logo: `${S3_LOGOS}/PENTERA.png` },
   { name: "HWG", logo: `${S3_LOGOS}/hwg-here-we-go.png` },
   { name: "AmiViz", logo: `${S3_LOGOS}/AmiViz.png` },
-  { name: "Securonix", logo: `${S3_LOGOS}/Securonix-logo.png` },
+  { name: "Securonix", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/securonix.jpg" },
   { name: "Paramount", logo: `${S3_LOGOS}/Paramount.png` },
   { name: "Kron Technologies", logo: `${S3_LOGOS}/kron-technologies.png` },
   { name: "Appknox", logo: `${S3_LOGOS}/appknox.png` },
@@ -1506,6 +1506,7 @@ const CFI_SPEAKERS = [
   { name: "Jaspreet Singh", designation: "Chief Revenue Officer", entity: "Grant Thornton Bharat LLP", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Jaspreet_Pic.jpg" },
   { name: "Akanksha Garg", designation: "Data Protection Officer and Head Digital Products PMO", entity: "HDFC Securities", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Akansha_Garg.jpeg" },
   { name: "Cmde(Dr) JS Dhanoa (Retd)", designation: "Former CIO", entity: "Indian Navy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Cmde(Dr)_JS_Dhanoa_(Retd).jpeg" },
+  { name: "Vijayant Gaur", designation: "Director General", entity: "Cyber Security Association of India (CSAI)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/CyberFirst_Delhi_Speakers/Vijayant_Guar.png" },
 ];
 
 function SpeakersSection() {
