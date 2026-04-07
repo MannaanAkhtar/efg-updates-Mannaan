@@ -631,6 +631,7 @@ export default function CyberFirstKenya2026() {
       
       <EventNavigation />
       <HeroSection />
+      <ConferenceChair />
       <StatsBar />
       <SiliconSavannahContext />
       <AdvisoryBoard />
@@ -988,6 +989,251 @@ function HeroSection() {
     </section>
   );
 }
+// ─── CONFERENCE CHAIR QUOTE — Editorial Spread ──────────────────────────────
+function ConferenceChair() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const quoteRef = useRef<HTMLDivElement>(null);
+  const [expanded, setExpanded] = useState(false);
+
+  useGSAP(() => {
+    if (!quoteRef.current) return;
+    const words = quoteRef.current.querySelectorAll(".cfk-q-word");
+    gsap.fromTo(words,
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.4, stagger: 0.03, ease: "power3.out",
+        scrollTrigger: { trigger: quoteRef.current, start: "top 80%", once: true } }
+    );
+  }, { scope: sectionRef });
+
+  const quoteText = "Safeguarding national cyberspace is not only a security imperative but a cornerstone for sustainable economic growth and digital resilience.";
+  const quoteWords = quoteText.split(" ");
+
+  return (
+    <section ref={sectionRef} style={{ background: "#0A0608", position: "relative", overflow: "hidden", padding: "clamp(80px, 10vw, 120px) 0" }}>
+      {/* Gradient mesh — animated, multi-orb */}
+      <div className="cfk-chair-mesh" />
+      {/* Grid overlay — subtle structure */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: `linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)`,
+        backgroundSize: "80px 80px",
+        maskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, #000 0%, transparent 70%)",
+        WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, #000 0%, transparent 70%)",
+      }} />
+      {/* Top border glow */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{ height: 1, background: `linear-gradient(90deg, transparent, ${C}30, transparent)` }} />
+
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px, 5vw, 60px)", position: "relative" }}>
+        {/* Eyebrow */}
+        <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
+          style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 48 }}>
+          <span style={{ width: 28, height: 2, background: KENYA_ACCENT, borderRadius: 1 }} />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 700, letterSpacing: "3.5px", textTransform: "uppercase", color: KENYA_ACCENT }}>Government Endorsement</span>
+        </motion.div>
+
+        {/* Two-column editorial layout */}
+        <div className="cfk-chair-split" style={{ display: "grid", gridTemplateColumns: "380px 1fr", gap: "clamp(40px, 6vw, 80px)", alignItems: "start" }}>
+
+          {/* Left — Large editorial portrait */}
+          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: EASE }}>
+            <div className="cfk-chair-photo" style={{
+              position: "relative", borderRadius: 24, overflow: "hidden",
+              border: `1.5px solid ${C}35`,
+              boxShadow: `0 32px 80px rgba(0,0,0,0.6), 0 0 80px ${C}18, inset 0 1px 0 rgba(255,255,255,0.08)`,
+            }}>
+              <img
+                src="https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/James_kimuyu.png"
+                alt="Col Dr James Kimuyu"
+                style={{ width: "100%", aspectRatio: "3/4", objectFit: "cover", objectPosition: "center top", display: "block" }}
+              />
+              {/* Gradient overlays */}
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 50%, rgba(10,6,8,0.7) 80%, rgba(10,6,8,0.95) 100%)" }} />
+              <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${C}0c, transparent 40%)` }} />
+              {/* Top shimmer line */}
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}50, transparent)` }} />
+              {/* Left edge accent */}
+              <div style={{ position: "absolute", top: "15%", left: 0, width: 3, height: "30%", background: `linear-gradient(180deg, transparent, ${C_BRIGHT}60, transparent)`, borderRadius: "0 2px 2px 0" }} />
+
+              {/* NC4 badge — top right */}
+              <div style={{
+                position: "absolute", top: 20, right: 20,
+                padding: "6px 14px", borderRadius: 8,
+                background: "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04))",
+                border: "1px solid rgba(255,255,255,0.12)",
+                backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.3)",
+              }}>
+                <span style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 700, letterSpacing: "1.5px", color: "rgba(255,255,255,0.8)" }}>NC4</span>
+              </div>
+
+              {/* Name overlay at bottom */}
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "28px 28px 24px" }}>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 800, letterSpacing: "3.5px", textTransform: "uppercase", color: KENYA_ACCENT, margin: "0 0 10px" }}>Conference Chair</p>
+                <h3 style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 800, color: "white", margin: "0 0 8px", letterSpacing: "-0.5px", lineHeight: 1.15 }}>Col Dr James<br />Kimuyu</h3>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, color: C_BRIGHT, margin: "0 0 4px" }}>Director</p>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.5)", margin: 0, lineHeight: 1.4 }}>National Computer & Cybercrimes<br />Coordination Committee (NC4)</p>
+              </div>
+            </div>
+
+          </motion.div>
+
+          {/* Right — Glass skeuomorphic panel */}
+          <div className="cfk-chair-glass" style={{
+            position: "relative",
+            background: "linear-gradient(165deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.012) 100%)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: 28,
+            padding: "clamp(32px, 4vw, 48px)",
+            backdropFilter: "blur(28px)",
+            WebkitBackdropFilter: "blur(28px)",
+            boxShadow: `inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.25), 0 24px 80px rgba(0,0,0,0.45), 0 0 40px ${C}08`,
+            overflow: "hidden",
+          }}>
+            {/* Inner top highlight — skeuomorphic shine */}
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, transparent 5%, rgba(255,255,255,0.14) 25%, rgba(255,255,255,0.06) 75%, transparent 95%)" }} />
+            {/* Inner border ring — double border skeuo effect */}
+            <div style={{ position: "absolute", inset: 6, borderRadius: 22, border: "1px solid rgba(255,255,255,0.03)", pointerEvents: "none" }} />
+            {/* Corner glow accent */}
+            <div style={{ position: "absolute", top: -50, right: -50, width: 200, height: 200, borderRadius: "50%", background: `radial-gradient(circle, ${C}10, transparent 65%)`, pointerEvents: "none" }} />
+            {/* Bottom-left warm glow */}
+            <div style={{ position: "absolute", bottom: -30, left: -30, width: 140, height: 140, borderRadius: "50%", background: `radial-gradient(circle, ${KENYA_ACCENT}08, transparent 65%)`, pointerEvents: "none" }} />
+
+            {/* Decorative quote mark */}
+            <motion.div initial={{ opacity: 0, scale: 0.7 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }}>
+              <svg width="40" height="40" viewBox="0 0 24 24" fill={`${C_BRIGHT}20`} style={{ marginBottom: 20 }}>
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10H0z" />
+              </svg>
+            </motion.div>
+
+            {/* Pull quote — word-by-word GSAP */}
+            <div ref={quoteRef} style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(21px, 2.6vw, 32px)",
+              fontWeight: 400,
+              color: "rgba(255,255,255,0.93)",
+              lineHeight: 1.38,
+              letterSpacing: "-0.7px",
+              margin: "0 0 28px",
+              position: "relative",
+            }}>
+              {quoteWords.map((word, i) => (
+                <span key={i} className="cfk-q-word" style={{ display: "inline-block", marginRight: "0.26em", opacity: 0 }}>
+                  {word}
+                </span>
+              ))}
+            </div>
+
+            {/* Accent divider */}
+            <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.5 }}
+              style={{ width: 48, height: 2, background: `linear-gradient(90deg, ${KENYA_ACCENT}, ${KENYA_ACCENT}00)`, marginBottom: 24, transformOrigin: "left", borderRadius: 1 }} />
+
+            {/* Body text */}
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.6, ease: EASE }}
+              style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.62)", lineHeight: 1.85 }}>
+              <p style={{ margin: "0 0 14px" }}>
+                Cyberspace is now a central theatre of operations powering economies, governance and national security. As Kenya accelerates its digital transformation, the same ICT dependencies that enable innovation also introduce systemic vulnerabilities.
+              </p>
+              <p style={{ margin: 0 }}>
+                In response, the Government of Kenya has undertaken critical policy, legal, regulatory and institutional steps — including the <span style={{ color: "rgba(255,255,255,0.8)" }}>Computer Misuse and Cybercrimes Act 2018</span> and the <span style={{ color: "rgba(255,255,255,0.8)" }}>National Cybersecurity Strategy 2022-27</span>.
+              </p>
+
+              {/* Expandable */}
+              <div style={{
+                maxHeight: expanded ? 2000 : 0, overflow: "hidden",
+                transition: "max-height 0.8s cubic-bezier(0.22,1,0.36,1), opacity 0.5s ease",
+                opacity: expanded ? 1 : 0,
+              }}>
+                <p style={{ margin: "16px 0 14px" }}>
+                  These interventions ensure protection and resilience of Critical Information Infrastructure, incident response, public safety, harmonized handling and prosecution of cybercrime and national security. Additionally, Kenya&apos;s aspiration to accede to the Budapest Convention on Cybercrime underscores its commitment to international cooperation and alignment with global best practices.
+                </p>
+                <p style={{ margin: "0 0 14px" }}>
+                  The Government continues to build capabilities for cyber threat monitoring, sector-specific training, incident response coordination and enhanced international partnerships.
+                </p>
+                <p style={{ margin: 0 }}>
+                  Kenya welcomes global stakeholders to participate in <span style={{ color: C_BRIGHT, fontWeight: 600 }}>Cyber First East Africa 2026</span> on 08 July in Nairobi — a premier platform for cybersecurity dialogue, innovation and collaboration. <span style={{ color: "rgba(255,255,255,0.85)", fontWeight: 600 }}>NC4 affirms its mandate to ensure a secure cyberspace for Kenya and Its People.</span>
+                </p>
+              </div>
+
+              <button onClick={() => setExpanded(!expanded)} className="cfk-stmt-btn"
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: 8, marginTop: 20,
+                  fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600,
+                  letterSpacing: "1.5px", textTransform: "uppercase",
+                  color: KENYA_ACCENT,
+                  background: "linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: 50, padding: "9px 20px",
+                  cursor: "pointer", transition: "all 0.3s ease",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), 0 2px 8px rgba(0,0,0,0.2)",
+                }}>
+                {expanded ? "Read less" : "Read full statement"}
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                  style={{ transform: expanded ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.4s cubic-bezier(0.22,1,0.36,1)" }}>
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+            </motion.div>
+
+            {/* Bottom signature line — inside glass */}
+            <div style={{ marginTop: 28, paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ width: 32, height: 2, background: `linear-gradient(90deg, ${KENYA_ACCENT}, transparent)`, borderRadius: 1 }} />
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.35)", margin: 0, letterSpacing: "0.5px" }}>
+                Official statement · <span style={{ color: "rgba(255,255,255,0.5)" }}>Government of Kenya</span>
+              </p>
+            </div>
+
+            {/* Bottom inner glow line */}
+            <div style={{ position: "absolute", bottom: 0, left: "8%", right: "8%", height: 1, background: `linear-gradient(90deg, transparent, ${C}18, transparent)` }} />
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom border glow */}
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: 1, background: `linear-gradient(90deg, transparent, ${C}25, transparent)` }} />
+
+      <style jsx global>{`
+        .cfk-chair-mesh {
+          position: absolute;
+          inset: -40%;
+          background:
+            radial-gradient(ellipse 35% 45% at 20% 50%, ${C}14, transparent 50%),
+            radial-gradient(ellipse 30% 40% at 75% 25%, ${KENYA_ACCENT}0c, transparent 50%),
+            radial-gradient(ellipse 40% 35% at 50% 80%, ${C_BRIGHT}08, transparent 50%),
+            radial-gradient(ellipse 25% 30% at 85% 70%, ${KENYA_GOLD}06, transparent 50%);
+          animation: cfkChairMesh 20s ease-in-out infinite;
+          filter: blur(80px);
+          pointer-events: none;
+        }
+        @keyframes cfkChairMesh {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(2%, -1.5%) scale(1.02); }
+          66% { transform: translate(-1.5%, 2%) scale(0.98); }
+        }
+        .cfk-chair-glass {
+          transition: border-color 0.5s ease, box-shadow 0.5s ease;
+        }
+        .cfk-chair-glass:hover {
+          border-color: rgba(255,255,255,0.12) !important;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.3), 0 32px 100px rgba(0,0,0,0.5), 0 0 60px ${C}0d !important;
+        }
+        .cfk-stmt-btn:hover {
+          color: ${C_BRIGHT} !important;
+          background: linear-gradient(135deg, rgba(224,122,61,0.12), rgba(224,122,61,0.04)) !important;
+          border-color: rgba(224,122,61,0.25) !important;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 4px 16px rgba(224,122,61,0.12) !important;
+        }
+        .cfk-chair-photo { transition: box-shadow 0.5s ease, border-color 0.5s ease; }
+        .cfk-chair-photo:hover { box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 100px ${C}20, inset 0 1px 0 rgba(255,255,255,0.1) !important; border-color: ${C}50 !important; }
+        .cfk-chair-photo:hover img { transform: scale(1.03); }
+        .cfk-chair-photo img { transition: transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+        @media (max-width: 900px) {
+          .cfk-chair-split { grid-template-columns: 1fr !important; }
+          .cfk-chair-split > div:first-child { max-width: 340px; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
 // ─── STATS STRIP + STICKY CARDS ──────────────────────────────────────────────
 function StatsBar() {
   const containerRef = useRef<HTMLDivElement>(null);
