@@ -23,7 +23,6 @@ if (typeof window !== "undefined") {
 import { Footer, InquiryForm } from "@/components/sections";
 import { NeuralConstellation, DotMatrixGrid } from "@/components/effects";
 import EventNavigation from "@/components/ui/EventNavigation";
-import YouTubeShorts from "@/components/cyber-first/YouTubeShorts";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
 import type { FormType, CountryCode } from "@/lib/form-helpers";
 
@@ -217,42 +216,76 @@ const SUPPORTING_PARTNERS = [
 ];
 
 // Kenya Advisory Board (key government & policy leaders from brochure)
-const ADVISORY_BOARD = [
-  {
-    name: "Duncan O.",
-    title: "CISO",
-    org: "Access Bank Kenya",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Duncan_O.jpg",
-  },
+const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string | null; linkedin?: string }[] = [
   {
     name: "George Kisaka",
-    title: "Vice President",
+    title: "VP",
     org: "ISACA Kenya Chapter",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/George-Kisaka.jpeg",
+    linkedin: "https://www.linkedin.com/in/gkisaka/?originalSubdomain=ke",
   },
   {
     name: "Michael Etale",
     title: "Chief Information Security Officer",
     org: "Absa Bank",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Michael_Etale.jpg",
+    linkedin: "https://www.linkedin.com/in/michael-etale-cissp/",
   },
   {
     name: "Geoffrey O. Ochieng",
-    title: "Global AI Delegate to Kenya · SOC Analyst",
-    org: "Communications Authority of Kenya (CA)",
+    title: "Global AI Delegate to Kenya",
+    org: "Global Alliance for Artificial Intelligence",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Geoffrey-Ochieng.png",
+    linkedin: "https://www.linkedin.com/in/geoffrey-o-ochieng%E2%84%A2%A2-85127a285/",
   },
   {
     name: "Hussein Omar Hussein",
     title: "Director IT and Digital",
     org: "SBM Bank Kenya",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Hussein_Omar_Hussein.jpg",
+    linkedin: "https://www.linkedin.com/in/hussein-omar-hussein-hoh",
   },
   {
-    name: "Frank Muriuki",
-    title: "CISO",
-    org: "Kenya Airport Authority",
+    name: "Rosemary Koech-Kimwatu",
+    title: "Head of Data Protection",
+    org: "KCB Bank Group",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Rosemary_Koech_Kimwatu.jpg",
+    linkedin: "https://www.linkedin.com/in/rosemary-koech-kimwatu-47536520/",
+  },
+  {
+    name: "Colonel (Dr.) James Kimuyu",
+    title: "Director",
+    org: "NC4",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Col+Dr+James+Photo.jpeg",
+    linkedin: "https://nc4.go.ke/",
+  },
+  {
+    name: "Frank K Muriuki",
+    title: "Lead - Information Security Officer",
+    org: "Kenyan Airports Authority",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Frank-Muriuki%C2%A0.png",
+    linkedin: "https://www.linkedin.com/in/frank-k-muriuki-66396842/",
+  },
+  {
+    name: "Peter Muhumuza",
+    title: "CISO",
+    org: "KCB Bank Uganda",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Peter_Muhumuza.jpg",
+    linkedin: "https://www.linkedin.com/in/peter-muhumuza-3aa95215/",
+  },
+  {
+    name: "Steven Mwesige",
+    title: "Ag. Chief Information Security Officer",
+    org: "Pearl Bank Uganda",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Steven_Mwesige.jpg",
+    linkedin: "https://www.linkedin.com/in/steven-mwesige/",
+  },
+  {
+    name: "Dr. Isabelle K",
+    title: "Principal Officer | Frequency Spectrum",
+    org: "Communications Authority of Kenya",
+    photo: null,
+    linkedin: "https://www.linkedin.com/in/dr-isabelle-k-459211142/",
   },
 ];
 
@@ -384,7 +417,7 @@ const MARQUEE_ROW_2 = [
   { name: "Pentera", logo: `${S3_LOGOS}/PENTERA.png` },
   { name: "HWG", logo: `${S3_LOGOS}/hwg-here-we-go.png` },
   { name: "AmiViz", logo: `${S3_LOGOS}/AmiViz.png` },
-  { name: "Securonix", logo: `${S3_LOGOS}/Securonix-logo.png` },
+  { name: "Securonix", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/securonix.jpg" },
   { name: "Paramount", logo: `${S3_LOGOS}/Paramount.png` },
   { name: "Kron Technologies", logo: `${S3_LOGOS}/kron-technologies.png` },
   { name: "Appknox", logo: `${S3_LOGOS}/appknox.png` },
@@ -572,6 +605,7 @@ export default function CyberFirstKenya2026() {
           .cfk-stats-grid { grid-template-columns: repeat(3, 1fr) !important; }
         }
         @media (max-width: 768px) {
+          .cfk-hero-toprow { flex-direction: column; align-items: flex-start !important; gap: 12px !important; }
           .cfk-hero h1 { font-size: clamp(28px, 9vw, 42px) !important; }
           .cfk-hero-content { padding: 0 20px !important; padding-bottom: 200px !important; justify-content: flex-start !important; padding-top: 90px !important; }
           .cfk-partners-strip { bottom: 80px !important; padding: 14px 16px !important; gap: 16px !important; }
@@ -599,8 +633,8 @@ export default function CyberFirstKenya2026() {
       <HeroSection />
       <StatsBar />
       <SiliconSavannahContext />
-      <FocusAreas />
       <AdvisoryBoard />
+      <FocusAreas />
       {/* <Speakers /> */}
       <AgendaTimeline />
       <SponsorsSection />
@@ -608,8 +642,9 @@ export default function CyberFirstKenya2026() {
       <Gallery />
       {/* <WhatToExpect /> */}
       <WhoShouldAttend />
+      <CfkHighlights />
+      <CfkTestimonials />
       <AwardsSection />
-      <YouTubeShorts />
       <SplitCTA />
       <ContactSection />
       <Venue />
@@ -643,33 +678,56 @@ function HeroSection() {
       {/* Main Content */}
       <div style={{ position: "relative", zIndex: 10, height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-start", maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", paddingTop: 120, paddingBottom: 140 }}>
 
-        {/* Date Badge */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          transition={{ duration: 0.5, delay: 0.2 }} 
-          style={{ 
-            display: "inline-flex", 
-            alignItems: "center", 
-            alignSelf: "flex-start", 
-            gap: 14, 
-            padding: "12px 22px", 
-            borderRadius: 50, 
-            background: "rgba(20,15,18,0.85)", 
-            border: "1px solid rgba(255,255,255,0.08)", 
-            marginBottom: 40,
-            backdropFilter: "blur(12px)",
-          }}
-        >
-          <span style={{ width: 10, height: 10, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 10px ${C_BRIGHT}` }} />
-          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase", color: "white" }}>
-            8 JULY 2026
-          </span>
-          <span style={{ color: "rgba(255,255,255,0.25)", fontSize: 18 }}>|</span>
-          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 500, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(255,255,255,0.7)" }}>
-            NAIROBI
-          </span>
-        </motion.div>
+        {/* Top Row — Supporting Partner (left) + Date Badge (right) */}
+        <div className="cfk-hero-toprow" style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 40, gap: 20 }}>
+          {/* Supporting Partner */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12 }}
+          >
+            <span style={{
+              fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 800,
+              letterSpacing: "2.5px", textTransform: "uppercase", color: KENYA_ACCENT,
+            }}>Supporting Partner</span>
+            <div style={{
+              background: "white", borderRadius: 8, padding: "14px 22px",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+            }}>
+              <img src={SUPPORTING_PARTNERS[0].logo} alt={SUPPORTING_PARTNERS[0].name} style={{ height: 55, objectFit: "contain" }} />
+            </div>
+          </motion.div>
+
+          {/* Date Badge — liquid glass + skeuomorphic */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            style={{
+              display: "inline-flex", alignItems: "center", gap: 14,
+              padding: "12px 24px",
+              borderRadius: 50,
+              background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)",
+              border: "1px solid rgba(255,255,255,0.12)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 0 rgba(0,0,0,0.2), 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.2)",
+            }}
+          >
+            <span style={{
+              width: 8, height: 8, borderRadius: "50%", background: C_BRIGHT,
+              boxShadow: `0 0 8px ${C_BRIGHT}, 0 0 16px ${C_BRIGHT}60`,
+            }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, letterSpacing: "1.2px", textTransform: "uppercase", color: "white" }}>
+              8 JULY 2026
+            </span>
+            <span style={{ width: 1, height: 16, background: "rgba(255,255,255,0.15)", borderRadius: 1 }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>
+              NAIROBI
+            </span>
+          </motion.div>
+        </div>
 
         {/* Main Headline - Beyond Firewalls */}
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}>
@@ -795,7 +853,7 @@ function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Supporting Partner - NC4 (Bottom Right) */}
+      {/* Community Partner - GAFAI (Bottom Right) */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -819,21 +877,19 @@ function HeroSection() {
           textTransform: "uppercase",
           color: KENYA_ACCENT,
         }}>
-          Supporting Partner
+          Community Partner
         </span>
-        <div style={{ 
-          background: "white", 
-          borderRadius: 8, 
+        <div style={{
+          background: "white",
+          borderRadius: 8,
           padding: "14px 22px",
           boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
         }}>
-          {SUPPORTING_PARTNERS[0] && (
-            <img 
-              src={SUPPORTING_PARTNERS[0].logo} 
-              alt={SUPPORTING_PARTNERS[0].name} 
-              style={{ height: 55, objectFit: "contain" }} 
-            />
-          )}
+          <img
+            src="https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/gafai_blue_Global_Alliance_for_Artificial_Intelligence.png"
+            alt="Global Alliance for Artificial Intelligence (GAFAI)"
+            style={{ height: 39, objectFit: "contain" }}
+          />
         </div>
       </motion.div>
 
@@ -937,42 +993,31 @@ function StatsBar() {
   const containerRef = useRef<HTMLDivElement>(null);
   const card1Ref = useRef<HTMLDivElement>(null);
   const card2Ref = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useGSAP(() => {
+    if (!card1Ref.current || !card2Ref.current) return;
 
-  useEffect(() => {
-    if (!mounted || typeof window === "undefined") return;
+    ScrollTrigger.create({
+      trigger: card1Ref.current,
+      start: "top 5%",
+      endTrigger: card2Ref.current,
+      end: "top 5%",
+      pin: true,
+      pinSpacing: false,
+      anticipatePin: 1,
+      fastScrollEnd: true,
+    });
 
-    const ctx = gsap.context(() => {
-      // Card 1 pins and stays while Card 2 scrolls over it
-      ScrollTrigger.create({
-        trigger: card1Ref.current,
-        start: "top 5%",
-        endTrigger: card2Ref.current,
-        end: "top 5%",
-        pin: true,
-        pinSpacing: false,
-        anticipatePin: 1,
-        fastScrollEnd: true,
-      });
-
-      // Card 2 scrolls up and covers Card 1, then pins briefly
-      ScrollTrigger.create({
-        trigger: card2Ref.current,
-        start: "top 5%",
-        end: "+=300",
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-        fastScrollEnd: true,
-      });
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, [mounted]);
+    ScrollTrigger.create({
+      trigger: card2Ref.current,
+      start: "top 5%",
+      end: "+=300",
+      pin: true,
+      pinSpacing: true,
+      anticipatePin: 1,
+      fastScrollEnd: true,
+    });
+  }, { scope: containerRef });
 
   const stats = [
     { value: "200+", label: "Delegates", sub: "C-Suite Leaders" },
@@ -1511,27 +1556,18 @@ function StatsBar() {
 function SiliconSavannahContext() {
   const sectionRef = useRef<HTMLElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useGSAP(() => {
+    if (!leftRef.current || !sectionRef.current) return;
 
-  useEffect(() => {
-    if (!mounted || typeof window === "undefined") return;
-
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "bottom bottom",
-        pin: leftRef.current,
-        pinSpacing: false,
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, [mounted]);
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top top",
+      end: "bottom bottom",
+      pin: leftRef.current,
+      pinSpacing: false,
+    });
+  }, { scope: sectionRef });
 
   const THREAT_STATS = [
     { value: "4.5", suffix: "B", label: "System Attacks", note: "Detected Q4 2025", trend: "+441%", color: C_BRIGHT },
@@ -1772,37 +1808,26 @@ function SiliconSavannahContext() {
 function FocusAreas() {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const [mounted, setMounted] = useState(false);
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set());
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useGSAP(() => {
+    cardsRef.current.forEach((card, i) => {
+      if (!card) return;
 
-  useEffect(() => {
-    if (!mounted || typeof window === "undefined") return;
-
-    const ctx = gsap.context(() => {
-      cardsRef.current.forEach((card, i) => {
-        if (!card) return;
-        
-        ScrollTrigger.create({
-          trigger: card,
-          start: "top 70%",
-          onEnter: () => {
-            gsap.to(card.querySelector('.cfk-flip-inner'), {
-              rotateY: 180,
-              duration: 0.8,
-              ease: "power2.out",
-            });
-            setFlippedCards(prev => new Set([...prev, i]));
-          },
-        });
+      ScrollTrigger.create({
+        trigger: card,
+        start: "top 70%",
+        onEnter: () => {
+          gsap.to(card.querySelector('.cfk-flip-inner'), {
+            rotateY: 180,
+            duration: 0.8,
+            ease: "power2.out",
+          });
+          setFlippedCards(prev => new Set([...prev, i]));
+        },
       });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, [mounted]);
+    });
+  }, { scope: sectionRef });
 
   const TRACK_DATA = [
     { short: "Critical Infrastructure", image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80" },
@@ -2012,42 +2037,30 @@ function FocusAreas() {
 function AdvisoryBoard() {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted || typeof window === "undefined" || !trackRef.current || !sectionRef.current) return;
+  useGSAP(() => {
+    if (!trackRef.current || !sectionRef.current) return;
 
     const track = trackRef.current;
-    const cards = track.querySelectorAll('.cfk-speaker-card');
-    
-    const ctx = gsap.context(() => {
-      // Calculate scroll distance
-      const scrollWidth = track.scrollWidth - window.innerWidth + 400;
-      
-      // Smooth horizontal scroll animation
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: `+=${scrollWidth * 1.2}`,
-          pin: true,
-          scrub: 0.5, // Smoother scrub
-          anticipatePin: 1,
-        },
-      });
-      
-      tl.to(track, {
-        x: -scrollWidth,
-        ease: "power1.inOut",
-      });
-    }, sectionRef);
+    const leftPanel = 500;
+    const scrollWidth = track.scrollWidth - (window.innerWidth - leftPanel);
 
-    return () => ctx.revert();
-  }, [mounted]);
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top top",
+        end: `+=${scrollWidth * 1.5}`,
+        pin: true,
+        scrub: 0.8,
+        anticipatePin: 1,
+      },
+    });
+
+    tl.to(track, {
+      x: -scrollWidth,
+      ease: "none",
+    });
+  }, { scope: sectionRef });
 
   return (
     <section
@@ -2157,10 +2170,10 @@ function AdvisoryBoard() {
             <motion.div
               key={member.name}
               className="cfk-speaker-card"
-              initial={{ opacity: 0, y: 60, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.25, 1, 0.5, 1] }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "200px" }}
+              transition={{ duration: 0.5, delay: Math.min(i * 0.06, 0.3), ease: [0.25, 1, 0.5, 1] }}
               style={{
                 flexShrink: 0,
                 width: 340,
@@ -2226,21 +2239,45 @@ function AdvisoryBoard() {
               </div>
               
               {/* Info section with glass effect */}
-              <div style={{ 
+              <div style={{
                 padding: "28px 32px 32px",
                 background: "linear-gradient(180deg, rgba(0,0,0,0.3), transparent)",
               }}>
-                <h3 style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 24,
-                  fontWeight: 700,
-                  color: "white",
-                  margin: "0 0 12px 0",
-                  letterSpacing: "-0.5px",
-                  lineHeight: 1.15,
-                }}>
-                  {member.name}
-                </h3>
+                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12 }}>
+                  <h3 style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: 24,
+                    fontWeight: 700,
+                    color: "white",
+                    margin: "0 0 12px 0",
+                    letterSpacing: "-0.5px",
+                    lineHeight: 1.15,
+                    flex: 1,
+                  }}>
+                    {member.name}
+                  </h3>
+                  {member.linkedin && (
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="cfk-linkedin-btn"
+                      style={{
+                        flexShrink: 0,
+                        width: 32, height: 32, borderRadius: 8,
+                        background: "rgba(255,255,255,0.06)",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        transition: "all 0.3s ease",
+                      }}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                      </svg>
+                    </a>
+                  )}
+                </div>
                 <p style={{
                   fontFamily: "var(--font-outfit)",
                   fontSize: 15,
@@ -2309,6 +2346,13 @@ function AdvisoryBoard() {
         }
         .cfk-speaker-card:hover::before {
           opacity: 1;
+        }
+        .cfk-linkedin-btn:hover {
+          background: rgba(10,102,194,0.25) !important;
+          border-color: rgba(10,102,194,0.5) !important;
+        }
+        .cfk-linkedin-btn:hover svg {
+          fill: #0A66C2 !important;
         }
       `}</style>
     </section>
@@ -4097,6 +4141,339 @@ function WhoShouldAttend() {
         @media (max-width: 900px) {
           .cfk-attend-split { grid-template-columns: 1fr !important; }
           .cfk-attend-roles { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── FROM THE STAGE — Event Highlights ───────────────────────────────────────
+
+const CFK_HIGHLIGHTS = [
+  { id: "3ofcPquafgk", title: "Cyber First Event Highlights" },
+  { id: "JA1X4cN2-t0", title: "Cyber First Event Highlights" },
+  { id: "-a481Lbz55o", title: "Cyber First Event Highlights" },
+  { id: "0d_2Itsg6ec", title: "Cyber First Event Highlights" },
+  { id: "3uvw31I1tq8", title: "Cyber First Event Highlights" },
+  { id: "8xluYDV_07g", title: "Cyber First Event Highlights" },
+  { id: "_ogyuzwQWYo", title: "Cyber First Event Highlights" },
+];
+
+const CFK_SHORTS = [
+  { id: "jPQFjwuohfI", title: "Cyber First Testimonial" },
+  { id: "c8sPwIo4Pis", title: "Cyber First Testimonial" },
+  { id: "2LoeDNqsem0", title: "Cyber First Testimonial" },
+  { id: "8C61dof_f3s", title: "Cyber First Testimonial" },
+  { id: "2-KXhfSeBdQ", title: "Cyber First Testimonial" },
+  { id: "2IwKmGEfOIo", title: "Cyber First Testimonial" },
+];
+
+function CfkVideoCard({ videoId, title, label, isHero, isVertical }: { videoId: string; title: string; label?: string; isHero?: boolean; isVertical?: boolean }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const thumbSrc = isVertical
+    ? `https://img.youtube.com/vi/${videoId}/oar2.jpg`
+    : `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+
+  return (
+    <div className="cfk-v-card" onClick={() => !isPlaying && setIsPlaying(true)}>
+      {isPlaying ? (
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+        />
+      ) : (
+        <>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            loading="lazy"
+            src={thumbSrc}
+            alt={title}
+            className="cfk-v-thumb"
+            {...(isVertical ? { onError: (e: React.SyntheticEvent<HTMLImageElement>) => { (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`; } } : {})}
+          />
+          <div className="cfk-v-overlay" />
+          <div className="cfk-v-play-wrap">
+            <div className={`cfk-v-play-btn ${isHero ? "cfk-v-play-hero" : ""}`}>
+              <svg width={isHero ? "18" : "14"} height={isHero ? "18" : "14"} viewBox="0 0 24 24" fill="white" style={{ marginLeft: 2 }}>
+                <polygon points="5,3 19,12 5,21" />
+              </svg>
+            </div>
+          </div>
+          {label && (
+            <div className="cfk-v-label">
+              <span style={{
+                background: `linear-gradient(135deg, ${C}4d 0%, ${C}26 100%)`,
+                borderColor: `${C}4d`,
+              }}>{label}</span>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+function CfkHighlights() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section ref={ref} className="cfk-eh-section">
+      <div className="cfk-eh-glow" />
+      <div className="cfk-eh-container">
+        <div style={{
+          display: "flex", alignItems: "center", gap: 12, marginBottom: 14,
+          opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(16px)",
+          transition: "opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1)",
+        }}>
+          <span style={{ width: 24, height: 2, background: C, borderRadius: 1 }} />
+          <span style={{ fontFamily: "var(--font-dm)", fontSize: 12, fontWeight: 500, letterSpacing: "2.5px", textTransform: "uppercase", color: C }}>From the Stage</span>
+        </div>
+
+        <h2 className="cfk-eh-heading" style={{
+          opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(24px)",
+          transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s",
+        }}>Event Highlights</h2>
+
+        <p className="cfk-eh-subtitle" style={{
+          opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(16px)",
+          transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s",
+        }}>Keynotes, panels, and conversations captured live from Cyber First summits.</p>
+
+        <div className="cfk-eh-bento" style={{
+          opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(28px)",
+          transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s",
+        }}>
+          <div className="cfk-eh-bento-hero">
+            <CfkVideoCard videoId={CFK_HIGHLIGHTS[0].id} title={CFK_HIGHLIGHTS[0].title} label="Cyber First" isHero />
+          </div>
+          <div className="cfk-eh-bento-side">
+            <div className="cfk-eh-bento-side-card">
+              <CfkVideoCard videoId={CFK_HIGHLIGHTS[1].id} title={CFK_HIGHLIGHTS[1].title} label="Cyber First" />
+            </div>
+            <div className="cfk-eh-bento-side-card">
+              <CfkVideoCard videoId={CFK_HIGHLIGHTS[2].id} title={CFK_HIGHLIGHTS[2].title} label="Cyber First" />
+            </div>
+          </div>
+          <div className="cfk-eh-bento-row">
+            {CFK_HIGHLIGHTS.slice(3).map(v => (
+              <div key={v.id} className="cfk-eh-bento-row-card">
+                <CfkVideoCard videoId={v.id} title={v.title} label="Cyber First" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <style jsx global>{`
+        .cfk-eh-section {
+          background: #080A0F;
+          padding: clamp(56px, 7vw, 90px) 0 clamp(40px, 5vw, 60px);
+          position: relative; overflow: hidden;
+        }
+        .cfk-eh-glow {
+          position: absolute; inset: 0; pointer-events: none;
+          background: radial-gradient(ellipse 60% 40% at 50% 0%, ${C}0a 0%, transparent 60%);
+        }
+        .cfk-eh-container {
+          max-width: 1320px; margin: 0 auto;
+          padding: 0 clamp(20px, 4vw, 40px); position: relative;
+        }
+        .cfk-eh-heading {
+          font-family: var(--font-display); font-weight: 800;
+          font-size: clamp(28px, 3.5vw, 44px); letter-spacing: -1.5px;
+          color: #fff; line-height: 1.15; margin: 0 0 8px;
+        }
+        .cfk-eh-subtitle {
+          font-family: var(--font-outfit); font-weight: 300;
+          font-size: clamp(14px, 1.2vw, 16px); color: rgba(255,255,255,0.45);
+          line-height: 1.7; margin: 0 0 clamp(28px, 3.5vw, 40px); max-width: 540px;
+        }
+        .cfk-eh-bento {
+          display: grid; grid-template-columns: 3fr 2fr;
+          grid-template-rows: 1fr 1fr auto;
+          gap: clamp(10px, 1.5vw, 14px);
+        }
+        .cfk-eh-bento-hero { grid-column: 1; grid-row: 1 / 3; aspect-ratio: 16 / 9; }
+        .cfk-eh-bento-side { grid-column: 2; grid-row: 1 / 3; display: flex; flex-direction: column; gap: clamp(10px, 1.5vw, 14px); }
+        .cfk-eh-bento-side-card { flex: 1; min-height: 0; }
+        .cfk-eh-bento-row { grid-column: 1 / -1; grid-row: 3; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(10px, 1.5vw, 14px); }
+        .cfk-eh-bento-row-card { aspect-ratio: 16 / 9; }
+
+        /* Shared card */
+        .cfk-v-card {
+          position: relative; width: 100%; height: 100%;
+          border-radius: 16px; overflow: hidden;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.08);
+          cursor: pointer;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+          transition: border-color 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1);
+        }
+        .cfk-v-card:hover {
+          border-color: ${C}4d;
+          box-shadow: 0 16px 48px ${C}1f, inset 0 1px 0 rgba(255,255,255,0.1);
+          transform: translateY(-3px);
+        }
+        .cfk-v-card:hover .cfk-v-thumb { transform: scale(1.04); }
+        .cfk-v-card:hover .cfk-v-play-btn {
+          background: ${C}e6;
+          border-color: ${C}66;
+          transform: scale(1.2);
+          box-shadow: 0 0 0 8px ${C}1f, 0 4px 16px ${C}40;
+        }
+        .cfk-v-card:hover .cfk-v-label span {
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        /* Label badge — liquid glass */
+        .cfk-v-label {
+          position: absolute; bottom: 10px; left: 10px; z-index: 2;
+        }
+        .cfk-v-label span {
+          font-family: var(--font-outfit);
+          font-size: 9px; font-weight: 600;
+          letter-spacing: 1.2px; text-transform: uppercase; color: #fff;
+          padding: 4px 10px; border-radius: 50px;
+          border-style: solid; border-width: 1px;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 2px 10px rgba(0,0,0,0.25);
+          transition: box-shadow 0.3s ease;
+        }
+
+        .cfk-v-thumb {
+          position: absolute; inset: 0; width: 100%; height: 100%;
+          object-fit: cover; transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+        }
+        .cfk-v-overlay {
+          position: absolute; inset: 0;
+          background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%);
+        }
+        .cfk-v-play-wrap {
+          position: absolute; inset: 0;
+          display: flex; align-items: center; justify-content: center;
+        }
+        .cfk-v-play-btn {
+          width: 40px; height: 40px; border-radius: 50%;
+          background: rgba(255,255,255,0.15);
+          border: 1.5px solid rgba(255,255,255,0.25);
+          display: flex; align-items: center; justify-content: center;
+          transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
+          animation: cfk-v-pulse 3s ease-in-out infinite;
+        }
+        .cfk-v-play-hero { width: 64px; height: 64px; }
+        @keyframes cfk-v-pulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.08); }
+          50% { box-shadow: 0 0 0 6px rgba(255,255,255,0.04); }
+        }
+
+        @media (max-width: 900px) {
+          .cfk-eh-bento { grid-template-columns: 1fr; }
+          .cfk-eh-bento-hero { grid-column: 1; aspect-ratio: 16 / 9; }
+          .cfk-eh-bento-side { grid-column: 1; flex-direction: row; }
+          .cfk-eh-bento-side-card { aspect-ratio: 16 / 9; }
+          .cfk-eh-bento-row { grid-column: 1; grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 560px) {
+          .cfk-eh-bento-row { grid-template-columns: 1fr 1fr; }
+          .cfk-eh-bento-side { flex-direction: column; }
+          .cfk-eh-bento-side-card { aspect-ratio: 16 / 9; }
+          .cfk-v-play-hero { width: 48px; height: 48px; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── FROM THE ROOM — Testimonials ────────────────────────────────────────────
+
+function CfkTestimonials() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section ref={ref} className="cfk-vr-section">
+      <div className="cfk-vr-glow" />
+      <div className="cfk-vr-container">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, ease: EASE }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
+            <span style={{ width: 24, height: 2, background: C, borderRadius: 1 }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, letterSpacing: "2.5px", textTransform: "uppercase", color: C }}>From the Room</span>
+          </div>
+        </motion.div>
+
+        <motion.h2 initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.1, ease: EASE }} className="cfk-vr-heading">
+          Hear It From the Room
+        </motion.h2>
+
+        <motion.p initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.15, ease: EASE }} className="cfk-vr-subtitle">
+          Hear directly from CISOs and cybersecurity leaders who attended Cyber First events.
+        </motion.p>
+
+        <motion.div initial={{ opacity: 0, y: 28 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.2, ease: EASE }} className="cfk-vr-showcase">
+          {CFK_SHORTS.map((v, i) => (
+            <div key={v.id} className={`cfk-vr-slot cfk-vr-slot-${i % 2 === 0 ? "tall" : "short"} ${i === 2 ? "cfk-vr-slot-hero" : ""}`}>
+              <CfkVideoCard videoId={v.id} title={v.title} label="Cyber First" isVertical />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      <style jsx global>{`
+        .cfk-vr-section {
+          background: #080A0F;
+          padding: clamp(56px, 7vw, 90px) 0 clamp(40px, 5vw, 60px);
+          position: relative; overflow: hidden;
+        }
+        .cfk-vr-glow {
+          position: absolute; inset: 0; pointer-events: none;
+          background: radial-gradient(ellipse 60% 40% at 50% 100%, ${C}0a 0%, transparent 60%);
+        }
+        .cfk-vr-container {
+          max-width: 1320px; margin: 0 auto;
+          padding: 0 clamp(20px, 4vw, 40px); position: relative;
+        }
+        .cfk-vr-heading {
+          font-family: var(--font-display); font-weight: 800;
+          font-size: clamp(28px, 3.5vw, 44px); letter-spacing: -1.5px;
+          color: #fff; line-height: 1.15; margin: 0 0 8px;
+        }
+        .cfk-vr-subtitle {
+          font-family: var(--font-outfit); font-weight: 300;
+          font-size: clamp(14px, 1.2vw, 16px); color: rgba(255,255,255,0.45);
+          line-height: 1.7; margin: 0 0 clamp(28px, 3.5vw, 40px); max-width: 500px;
+        }
+        .cfk-vr-showcase {
+          display: flex; gap: 14px;
+          align-items: center; justify-content: center;
+        }
+        .cfk-vr-slot {
+          flex-shrink: 0;
+          transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+        }
+        .cfk-vr-slot:hover { transform: translateY(-6px); }
+        .cfk-vr-slot-tall { width: 200px; height: 340px; }
+        .cfk-vr-slot-short { width: 180px; height: 270px; }
+        .cfk-vr-slot-hero.cfk-vr-slot-tall { width: 220px; height: 380px; }
+
+        /* Vertical card overrides */
+        .cfk-vr-section .cfk-v-thumb { object-position: center 20%; }
+        .cfk-vr-section .cfk-v-card { border-radius: 18px; }
+        .cfk-vr-section .cfk-v-label span { font-size: 8px; }
+
+        @media (max-width: 900px) {
+          .cfk-vr-showcase { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 8px; }
+          .cfk-vr-showcase::-webkit-scrollbar { display: none; }
+          .cfk-vr-slot-tall { width: 130px; height: 220px; }
+          .cfk-vr-slot-short { width: 120px; height: 180px; }
+          .cfk-vr-slot-hero.cfk-vr-slot-tall { width: 145px; height: 250px; }
+        }
+        @media (max-width: 560px) {
+          .cfk-vr-slot-tall { width: 110px; height: 185px; }
+          .cfk-vr-slot-short { width: 100px; height: 155px; }
+          .cfk-vr-slot-hero.cfk-vr-slot-tall { width: 120px; height: 210px; }
         }
       `}</style>
     </section>
