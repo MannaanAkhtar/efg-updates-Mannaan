@@ -1218,7 +1218,192 @@ function AgendaSection() {
       <div style={{ position: "absolute", top: "15%", left: "-5%", width: 500, height: 500, borderRadius: "50%", background: `radial-gradient(circle, rgba(0,201,255,0.12) 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
       <div style={{ position: "absolute", bottom: "10%", right: "-3%", width: 400, height: 400, borderRadius: "50%", background: `radial-gradient(circle, rgba(211,75,154,0.1) 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
 
-      <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        {/* Split layout */}
+        <div className="otvm-agenda-split" style={{ display: "grid", gridTemplateColumns: "0.38fr 1fr", gap: "clamp(32px, 5vw, 80px)", alignItems: "start" }}>
+
+          {/* Left — Sticky heading */}
+          <motion.div
+            initial={{ opacity: 0, x: -40, filter: "blur(10px)" }}
+            animate={inView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
+            transition={{ duration: 1, ease: EASE }}
+            style={{ position: "sticky", top: 120 }}
+          >
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", color: "white", letterSpacing: "-2px", margin: "0 0 20px", lineHeight: 1.05 }}>
+              The{" "}
+              <span className="otvm-hero-shimmer" style={{ display: "block", backgroundImage: "linear-gradient(110deg, rgba(232,107,184,1) 0%, rgba(0,201,255,1) 45%, rgba(232,107,184,1) 100%)", backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Agenda</span>
+            </h2>
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={inView ? { scaleX: 1 } : {}}
+              transition={{ duration: 1.2, delay: 0.4, ease: EASE }}
+              style={{ width: 80, height: 3, background: `linear-gradient(90deg, ${C_BRIGHT}, ${CYAN})`, marginBottom: 20, borderRadius: 2, transformOrigin: "left", boxShadow: `0 0 14px rgba(211,75,154,0.4)` }}
+            />
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.45)", lineHeight: 1.7, margin: "0 0 24px" }}>
+              A focused 2-hour session designed for maximum impact. All times in UAE (GST / UTC+4).
+            </p>
+
+            {/* Session count badge */}
+            <div style={{
+              display: "inline-flex", alignItems: "center", gap: 10,
+              padding: "10px 18px", borderRadius: 14,
+              background: "linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))",
+              border: "1px solid rgba(255,255,255,0.07)",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 16px rgba(0,0,0,0.2)",
+            }}>
+              <span style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 800, background: `linear-gradient(135deg, ${C_BRIGHT}, ${CYAN})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{AGENDA_ITEMS.length}</span>
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "2px", fontWeight: 600 }}>Sessions</span>
+            </div>
+          </motion.div>
+
+          {/* Right — Timeline cards */}
+          <div style={{ position: "relative" }}>
+            {/* Vertical connector line */}
+            <div style={{ position: "absolute", top: 0, bottom: 0, left: 16, width: 2, background: `linear-gradient(180deg, ${CYAN}30, ${C_BRIGHT}30, ${CYAN}30)`, borderRadius: 2 }} />
+
+            {AGENDA_ITEMS.map((item, i) => {
+              const typeStyle = AGENDA_TYPE_COLORS[item.type];
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.3 + i * 0.06, ease: EASE }}
+                  style={{ display: "flex", gap: 20, marginBottom: i < AGENDA_ITEMS.length - 1 ? 4 : 0, position: "relative" }}
+                >
+                  {/* Timeline dot */}
+                  <div style={{ width: 34, flexShrink: 0, display: "flex", justifyContent: "center", paddingTop: 22 }}>
+                    <div style={{
+                      width: 12, height: 12, borderRadius: "50%",
+                      background: item.type === "panel" ? C_BRIGHT : item.type === "opening" || item.type === "closing" ? CYAN : "rgba(255,255,255,0.2)",
+                      boxShadow: item.type === "panel" ? `0 0 12px ${C_BRIGHT}60` : item.type === "opening" || item.type === "closing" ? `0 0 12px ${CYAN}60` : "none",
+                      border: `2px solid ${BG}`,
+                      position: "relative", zIndex: 2,
+                    }} />
+                  </div>
+
+                  {/* Card */}
+                  <div style={{
+                    flex: 1, padding: 3, borderRadius: 18,
+                    background: `linear-gradient(145deg, rgba(${typeStyle.rgb},0.12) 0%, rgba(255,255,255,0.04) 30%, rgba(255,255,255,0.02) 70%, rgba(${typeStyle.rgb},0.08) 100%)`,
+                    boxShadow: `0 1px 0 rgba(255,255,255,0.04) inset, 0 -2px 0 rgba(0,0,0,0.3) inset, 0 6px 24px rgba(0,0,0,0.3)`,
+                    marginBottom: 8,
+                  }}>
+                    <div style={{
+                      borderRadius: 15, padding: "18px 24px",
+                      background: `linear-gradient(180deg, rgba(13,18,51,0.94) 0%, rgba(7,11,31,0.98) 100%)`,
+                      border: "1px solid rgba(255,255,255,0.04)",
+                      boxShadow: `inset 0 1px 2px rgba(0,0,0,0.3), inset 0 -1px 0 rgba(255,255,255,0.03)`,
+                      position: "relative",
+                    }}>
+                      <div style={{ position: "absolute", top: 0, left: "5%", right: "5%", height: 1, background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)` }} />
+                      <div style={{ position: "absolute", top: 14, left: 0, width: 3, height: 20, background: `linear-gradient(180deg, ${typeStyle.color}, rgba(${typeStyle.rgb},0.2))`, borderRadius: "0 2px 2px 0", boxShadow: `0 0 8px rgba(${typeStyle.rgb},0.3)` }} />
+
+                      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 }}>
+                        <div style={{ flex: 1 }}>
+                          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, color: typeStyle.color, margin: "0 0 6px", letterSpacing: "0.5px", opacity: 0.9 }}>{item.time}</p>
+                          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: item.type === "panel" ? 600 : 400, color: item.type === "sponsor" ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.85)", margin: 0, lineHeight: 1.5 }}>{item.segment}</p>
+                        </div>
+                        {item.type === "panel" && (
+                          <span style={{
+                            flexShrink: 0, padding: "4px 12px", borderRadius: 8,
+                            background: `rgba(${typeStyle.rgb},0.12)`, border: `1px solid rgba(${typeStyle.rgb},0.2)`,
+                            fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: typeStyle.color,
+                          }}>Panel</span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <style jsx global>{`
+        @media (max-width: 900px) {
+          .otvm-agenda-split { grid-template-columns: 1fr !important; }
+          .otvm-agenda-split > div:first-child { position: relative !important; top: auto !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── FROM THE STAGE — Event Highlights ───────────────────────────────────────
+
+const OTVM_HIGHLIGHTS = [
+  { id: "3ofcPquafgk", title: "OT Security First UAE — Event Highlights" },
+];
+
+const OTVM_SHORTS = [
+  { id: "Q0n_sVaMnxg", title: "OT Security First Testimonial" },
+  { id: "SF87voLk34A", title: "OT Security First Testimonial" },
+  { id: "R5dtc5kjiQU", title: "OT Security First Testimonial" },
+  { id: "Hm_yj3NttPo", title: "OT Security First Testimonial" },
+  { id: "aaG9We6AjY8", title: "OT Security First Testimonial" },
+];
+
+function OtvmVideoCard({ videoId, title, label, isHero, isVertical }: { videoId: string; title: string; label?: string; isHero?: boolean; isVertical?: boolean }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const thumbSrc = isVertical
+    ? `https://img.youtube.com/vi/${videoId}/oar2.jpg`
+    : `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+
+  return (
+    <div className="otvm-v-card" onClick={() => !isPlaying && setIsPlaying(true)}>
+      {isPlaying ? (
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+        />
+      ) : (
+        <>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            loading="lazy"
+            src={thumbSrc}
+            alt={title}
+            className="otvm-v-thumb"
+            {...(isVertical ? { onError: (e: React.SyntheticEvent<HTMLImageElement>) => { (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`; } } : {})}
+          />
+          <div className="otvm-v-overlay" />
+          <div className="otvm-v-play-wrap">
+            <div className={`otvm-v-play-btn ${isHero ? "otvm-v-play-hero" : ""}`}>
+              <svg width={isHero ? "18" : "14"} height={isHero ? "18" : "14"} viewBox="0 0 24 24" fill="white" style={{ marginLeft: 2 }}>
+                <polygon points="5,3 19,12 5,21" />
+              </svg>
+            </div>
+          </div>
+          {label && (
+            <div className="otvm-v-label">
+              <span style={{
+                background: `linear-gradient(135deg, ${C}4d 0%, ${C}26 100%)`,
+                borderColor: `${C}4d`,
+              }}>{label}</span>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+function OtvmHighlights() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section ref={ref} style={{ background: `linear-gradient(180deg, ${BG_DARK} 0%, ${BG} 50%, ${BG_DARK} 100%)`, padding: "clamp(60px, 8vw, 100px) 0", position: "relative", overflow: "hidden" }}>
+      {/* Ambient orbs */}
+      <div style={{ position: "absolute", top: "10%", left: "-5%", width: 500, height: 500, borderRadius: "50%", background: `radial-gradient(circle, rgba(211,75,154,0.14) 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "10%", right: "-5%", width: 400, height: 400, borderRadius: "50%", background: `radial-gradient(circle, rgba(0,201,255,0.1) 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
@@ -1227,85 +1412,240 @@ function AgendaSection() {
           style={{ textAlign: "center", marginBottom: 48 }}
         >
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 5vw, 56px)", color: "white", letterSpacing: "-2px", margin: "0 0 12px", lineHeight: 1 }}>
-            <span className="otvm-hero-shimmer" style={{ backgroundImage: "linear-gradient(110deg, rgba(232,107,184,1) 0%, rgba(0,201,255,1) 45%, rgba(232,107,184,1) 100%)", backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Agenda</span>
+            From the{" "}
+            <span className="otvm-hero-shimmer" style={{ backgroundImage: "linear-gradient(110deg, rgba(232,107,184,1) 0%, rgba(0,201,255,1) 45%, rgba(232,107,184,1) 100%)", backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Stage</span>
           </h2>
           <motion.div
             initial={{ scaleX: 0 }}
             animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 1.2, delay: 0.4, ease: EASE }}
-            style={{ width: 100, height: 3, background: `linear-gradient(90deg, transparent, ${CYAN}, transparent)`, margin: "0 auto 16px", borderRadius: 2, transformOrigin: "center", boxShadow: `0 0 12px rgba(0,201,255,0.5)` }}
+            style={{ width: 120, height: 3, background: `linear-gradient(90deg, transparent, ${CYAN}, transparent)`, margin: "0 auto 16px", borderRadius: 2, transformOrigin: "center", boxShadow: `0 0 12px rgba(0,201,255,0.5)` }}
           />
-          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.45)", letterSpacing: "0.5px" }}>All times in UAE (GST / UTC+4)</span>
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.45)", letterSpacing: "0.5px" }}>Keynotes, panels, and conversations captured live from OT Security First summits.</span>
         </motion.div>
 
-        {/* Timeline */}
-        <div style={{ position: "relative" }}>
-          {/* Vertical connector line */}
-          <div style={{ position: "absolute", top: 0, bottom: 0, left: 28, width: 2, background: `linear-gradient(180deg, ${CYAN}30, ${C_BRIGHT}30, ${CYAN}30)`, borderRadius: 2 }} />
+        {/* Featured video in skeuomorphic bezel */}
+        <motion.div
+          initial={{ opacity: 0, y: 30, scale: 0.97 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
+          style={{ maxWidth: 900, margin: "0 auto" }}
+        >
+          {/* Outer bezel */}
+          <div style={{
+            padding: 4,
+            borderRadius: 24,
+            background: `linear-gradient(145deg, rgba(0,201,255,0.15) 0%, rgba(255,255,255,0.06) 30%, rgba(255,255,255,0.02) 70%, rgba(211,75,154,0.12) 100%)`,
+            boxShadow: `0 1px 0 rgba(255,255,255,0.06) inset, 0 -2px 0 rgba(0,0,0,0.35) inset, 0 24px 80px rgba(0,0,0,0.5), 0 0 60px ${C}08`,
+          }}>
+            {/* Inner recessed panel */}
+            <div style={{
+              borderRadius: 20,
+              overflow: "hidden",
+              background: `linear-gradient(180deg, rgba(13,18,51,0.95) 0%, rgba(7,11,31,0.98) 100%)`,
+              border: "1px solid rgba(255,255,255,0.04)",
+              boxShadow: `inset 0 2px 4px rgba(0,0,0,0.4), inset 0 -1px 0 rgba(255,255,255,0.03)`,
+              position: "relative",
+            }}>
+              {/* Top glass reflection */}
+              <div style={{ position: "absolute", top: 0, left: "5%", right: "5%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)", zIndex: 3 }} />
 
-          {AGENDA_ITEMS.map((item, i) => {
-            const typeStyle = AGENDA_TYPE_COLORS[item.type];
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -20 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.3 + i * 0.06, ease: EASE }}
-                style={{ display: "flex", gap: 24, marginBottom: i < AGENDA_ITEMS.length - 1 ? 4 : 0, position: "relative" }}
-              >
-                {/* Timeline dot */}
-                <div style={{ width: 58, flexShrink: 0, display: "flex", justifyContent: "center", paddingTop: 22 }}>
-                  <div style={{
-                    width: 12, height: 12, borderRadius: "50%",
-                    background: item.type === "panel" ? C_BRIGHT : item.type === "opening" || item.type === "closing" ? CYAN : "rgba(255,255,255,0.2)",
-                    boxShadow: item.type === "panel" ? `0 0 12px ${C_BRIGHT}60` : item.type === "opening" || item.type === "closing" ? `0 0 12px ${CYAN}60` : "none",
-                    border: "2px solid rgba(10,14,42,1)",
-                    position: "relative", zIndex: 2,
-                  }} />
-                </div>
+              {/* Video */}
+              <div style={{ aspectRatio: "16 / 9" }}>
+                <OtvmVideoCard videoId={OTVM_HIGHLIGHTS[0].id} title={OTVM_HIGHLIGHTS[0].title} label="OT Security First UAE 2026" isHero />
+              </div>
+            </div>
+          </div>
 
-                {/* Card */}
-                <div style={{
-                  flex: 1,
-                  padding: 3,
-                  borderRadius: 18,
-                  background: `linear-gradient(145deg, rgba(${typeStyle.rgb},0.12) 0%, rgba(255,255,255,0.04) 30%, rgba(255,255,255,0.02) 70%, rgba(${typeStyle.rgb},0.08) 100%)`,
-                  boxShadow: `0 1px 0 rgba(255,255,255,0.04) inset, 0 -2px 0 rgba(0,0,0,0.3) inset, 0 6px 24px rgba(0,0,0,0.3)`,
-                  marginBottom: 8,
-                }}>
-                  <div style={{
-                    borderRadius: 15,
-                    padding: "18px 24px",
-                    background: `linear-gradient(180deg, rgba(13,18,51,0.94) 0%, rgba(7,11,31,0.98) 100%)`,
-                    border: "1px solid rgba(255,255,255,0.04)",
-                    boxShadow: `inset 0 1px 2px rgba(0,0,0,0.3), inset 0 -1px 0 rgba(255,255,255,0.03)`,
-                    position: "relative",
-                  }}>
-                    {/* Top glass reflection */}
-                    <div style={{ position: "absolute", top: 0, left: "5%", right: "5%", height: 1, background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)` }} />
-                    {/* Left accent */}
-                    <div style={{ position: "absolute", top: 14, left: 0, width: 3, height: 20, background: `linear-gradient(180deg, ${typeStyle.color}, rgba(${typeStyle.rgb},0.2))`, borderRadius: "0 2px 2px 0", boxShadow: `0 0 8px rgba(${typeStyle.rgb},0.3)` }} />
-
-                    <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 }}>
-                      <div style={{ flex: 1 }}>
-                        <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, color: typeStyle.color, margin: "0 0 6px", letterSpacing: "0.5px", opacity: 0.9 }}>{item.time}</p>
-                        <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: item.type === "panel" ? 600 : 400, color: item.type === "sponsor" ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.85)", margin: 0, lineHeight: 1.5 }}>{item.segment}</p>
-                      </div>
-                      {item.type === "panel" && (
-                        <span style={{
-                          flexShrink: 0, padding: "4px 12px", borderRadius: 8,
-                          background: `rgba(${typeStyle.rgb},0.12)`, border: `1px solid rgba(${typeStyle.rgb},0.2)`,
-                          fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: typeStyle.color,
-                        }}>Panel</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+          {/* Caption below */}
+          <div style={{ textAlign: "center", marginTop: 20, display: "flex", alignItems: "center", justifyContent: "center", gap: 12 }}>
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 10px ${C_BRIGHT}60` }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.4)", letterSpacing: "0.5px" }}>
+              OT Security First UAE 2026 — Event Highlights
+            </span>
+          </div>
+        </motion.div>
       </div>
+
+      <style jsx global>{`
+        .otvm-v-card {
+          position: relative; width: 100%; height: 100%;
+          border-radius: 16px; overflow: hidden;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.08);
+          cursor: pointer;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+          transition: border-color 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1);
+        }
+        .otvm-v-card:hover {
+          border-color: ${C}4d;
+          box-shadow: 0 16px 48px ${C}1f, inset 0 1px 0 rgba(255,255,255,0.1);
+          transform: translateY(-3px);
+        }
+        .otvm-v-card:hover .otvm-v-thumb { transform: scale(1.04); }
+        .otvm-v-card:hover .otvm-v-play-btn {
+          background: ${C}e6; border-color: ${C}66;
+          transform: scale(1.2);
+          box-shadow: 0 0 0 8px ${C}1f, 0 4px 16px ${C}40;
+        }
+        .otvm-v-card:hover .otvm-v-label span {
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .otvm-v-label { position: absolute; bottom: 10px; left: 10px; z-index: 2; }
+        .otvm-v-label span {
+          font-family: var(--font-outfit); font-size: 9px; font-weight: 600;
+          letter-spacing: 1.2px; text-transform: uppercase; color: #fff;
+          padding: 4px 10px; border-radius: 50px;
+          border-style: solid; border-width: 1px;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 2px 10px rgba(0,0,0,0.25);
+          transition: box-shadow 0.3s ease;
+        }
+        .otvm-v-thumb {
+          position: absolute; inset: 0; width: 100%; height: 100%;
+          object-fit: cover; transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+        }
+        .otvm-v-overlay {
+          position: absolute; inset: 0;
+          background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%);
+        }
+        .otvm-v-play-wrap {
+          position: absolute; inset: 0;
+          display: flex; align-items: center; justify-content: center;
+        }
+        .otvm-v-play-btn {
+          width: 40px; height: 40px; border-radius: 50%;
+          background: rgba(255,255,255,0.15);
+          border: 1.5px solid rgba(255,255,255,0.25);
+          display: flex; align-items: center; justify-content: center;
+          transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
+          animation: otvm-v-pulse 3s ease-in-out infinite;
+        }
+        .otvm-v-play-hero { width: 64px; height: 64px; }
+        @keyframes otvm-v-pulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.08); }
+          50% { box-shadow: 0 0 0 6px rgba(255,255,255,0.04); }
+        }
+        @media (max-width: 600px) {
+          .otvm-v-play-hero { width: 48px; height: 48px; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── FROM THE ROOM — Testimonials ────────────────────────────────────────────
+
+function OtvmTestimonials() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section ref={ref} style={{ background: `linear-gradient(180deg, ${BG} 0%, ${BG_DARK} 50%, ${BG} 100%)`, padding: "clamp(60px, 8vw, 100px) 0", position: "relative", overflow: "hidden" }}>
+      {/* Ambient orbs */}
+      <div style={{ position: "absolute", top: "20%", right: "-5%", width: 500, height: 500, borderRadius: "50%", background: `radial-gradient(circle, rgba(0,201,255,0.14) 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "15%", left: "-5%", width: 400, height: 400, borderRadius: "50%", background: `radial-gradient(circle, rgba(211,75,154,0.12) 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: "50%", left: "40%", width: 300, height: 300, borderRadius: "50%", background: `radial-gradient(circle, rgba(0,201,255,0.08) 0%, transparent 70%)`, filter: "blur(60px)", pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        {/* Header — centered, shimmer style */}
+        <motion.div
+          initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 1, ease: EASE }}
+          style={{ textAlign: "center", marginBottom: 56 }}
+        >
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 5vw, 56px)", color: "white", letterSpacing: "-2px", margin: "0 0 12px", lineHeight: 1 }}>
+            From the{" "}
+            <span className="otvm-hero-shimmer" style={{ backgroundImage: "linear-gradient(110deg, rgba(0,201,255,1) 0%, rgba(232,107,184,1) 45%, rgba(0,201,255,1) 100%)", backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Room</span>
+          </h2>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={inView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1.2, delay: 0.4, ease: EASE }}
+            style={{ width: 120, height: 3, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}, transparent)`, margin: "0 auto 16px", borderRadius: 2, transformOrigin: "center", boxShadow: `0 0 12px rgba(211,75,154,0.5)` }}
+          />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.45)", letterSpacing: "0.5px" }}>Hear directly from OT security leaders who attended our summits.</span>
+        </motion.div>
+
+        {/* Staggered Showcase — 5 cards in skeuomorphic bezels */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
+          className="otvm-vr-showcase"
+        >
+          {OTVM_SHORTS.map((v, i) => (
+            <div key={v.id} className={`otvm-vr-slot otvm-vr-slot-${i % 2 === 0 ? "tall" : "short"} ${i === 2 ? "otvm-vr-slot-hero" : ""}`}>
+              {/* Skeuomorphic bezel per card */}
+              <div style={{
+                width: "100%", height: "100%", padding: 3, borderRadius: 22,
+                background: `linear-gradient(145deg, rgba(${i % 2 === 0 ? "0,201,255" : "232,107,184"},0.15) 0%, rgba(255,255,255,0.05) 40%, rgba(255,255,255,0.02) 70%, rgba(${i % 2 === 0 ? "232,107,184" : "0,201,255"},0.1) 100%)`,
+                boxShadow: `0 1px 0 rgba(255,255,255,0.05) inset, 0 -2px 0 rgba(0,0,0,0.3) inset, 0 12px 40px rgba(0,0,0,0.4)`,
+              }}>
+                <div style={{
+                  width: "100%", height: "100%", borderRadius: 19, overflow: "hidden",
+                  background: `linear-gradient(180deg, rgba(13,18,51,0.95) 0%, rgba(7,11,31,0.98) 100%)`,
+                  border: "1px solid rgba(255,255,255,0.04)",
+                  boxShadow: `inset 0 2px 4px rgba(0,0,0,0.4), inset 0 -1px 0 rgba(255,255,255,0.03)`,
+                  position: "relative",
+                }}>
+                  {/* Top glass reflection */}
+                  <div style={{ position: "absolute", top: 0, left: "8%", right: "8%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)", zIndex: 3 }} />
+                  <OtvmVideoCard videoId={v.id} title={v.title} label="OT Security First" isVertical />
+                </div>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Bottom caption */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.6, ease: EASE }}
+          style={{ textAlign: "center", marginTop: 28, display: "flex", alignItems: "center", justifyContent: "center", gap: 16 }}
+        >
+          <div style={{ width: 32, height: 1, background: `linear-gradient(90deg, transparent, ${CYAN}40)` }} />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: "rgba(255,255,255,0.3)", letterSpacing: "2px", textTransform: "uppercase" }}>
+            5 Voices · OT Security First Series
+          </span>
+          <div style={{ width: 32, height: 1, background: `linear-gradient(270deg, transparent, ${CYAN}40)` }} />
+        </motion.div>
+      </div>
+
+      <style jsx global>{`
+        .otvm-vr-showcase {
+          display: flex; gap: 18px;
+          align-items: center; justify-content: center;
+        }
+        .otvm-vr-slot {
+          flex-shrink: 0;
+          transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease;
+        }
+        .otvm-vr-slot:hover { transform: translateY(-8px); }
+        .otvm-vr-slot-tall { width: 200px; height: 340px; }
+        .otvm-vr-slot-short { width: 180px; height: 270px; }
+        .otvm-vr-slot-hero.otvm-vr-slot-tall { width: 230px; height: 400px; }
+
+        /* Vertical overrides */
+        .otvm-vr-showcase .otvm-v-thumb { object-position: center 20%; }
+        .otvm-vr-showcase .otvm-v-card { border-radius: 16px; border: none; box-shadow: none; }
+        .otvm-vr-showcase .otvm-v-card:hover { box-shadow: none; transform: none; }
+        .otvm-vr-showcase .otvm-v-label span { font-size: 8px; }
+
+        @media (max-width: 900px) {
+          .otvm-vr-showcase { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 8px; }
+          .otvm-vr-showcase::-webkit-scrollbar { display: none; }
+          .otvm-vr-slot-tall { width: 140px; height: 240px; }
+          .otvm-vr-slot-short { width: 130px; height: 200px; }
+          .otvm-vr-slot-hero.otvm-vr-slot-tall { width: 155px; height: 270px; }
+        }
+        @media (max-width: 560px) {
+          .otvm-vr-slot-tall { width: 115px; height: 195px; }
+          .otvm-vr-slot-short { width: 105px; height: 165px; }
+          .otvm-vr-slot-hero.otvm-vr-slot-tall { width: 130px; height: 225px; }
+        }
+      `}</style>
     </section>
   );
 }
@@ -2015,6 +2355,8 @@ export default function OTSecurityVirtualForumMENA() {
       <PanelDiscussions />
       <WhoWillBeInRoom />
       <AgendaSection />
+      <OtvmHighlights />
+      <OtvmTestimonials />
       <WhySponsor />
       <RegistrationSection />
       <ContactSection />
