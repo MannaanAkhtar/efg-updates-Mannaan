@@ -4402,13 +4402,10 @@ function WhoShouldAttend() {
 // ─── FROM THE STAGE — Event Highlights ───────────────────────────────────────
 
 const CFK_HIGHLIGHTS = [
-  { id: "3ofcPquafgk", title: "Cyber First Event Highlights" },
-  { id: "JA1X4cN2-t0", title: "Cyber First Event Highlights" },
-  { id: "-a481Lbz55o", title: "Cyber First Event Highlights" },
-  { id: "0d_2Itsg6ec", title: "Cyber First Event Highlights" },
-  { id: "3uvw31I1tq8", title: "Cyber First Event Highlights" },
-  { id: "8xluYDV_07g", title: "Cyber First Event Highlights" },
-  { id: "_ogyuzwQWYo", title: "Cyber First Event Highlights" },
+  { id: "AsrScRfgLpA", title: "Cyber First UAE — Event Highlights" },
+  { id: "0d_2Itsg6ec", title: "Cyber First Qatar — Event Highlights" },
+  { id: "gR-IUI7yJLg", title: "Cyber First Kuwait 3rd Edition" },
+  { id: "wcEeU0UEl0o", title: "Cyber First Kuwait — Event Highlights" },
 ];
 
 const CFK_SHORTS = [
@@ -4495,28 +4492,19 @@ function CfkHighlights() {
           transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s",
         }}>Keynotes, panels, and conversations captured live from Cyber First summits.</p>
 
-        <div className="cfk-eh-bento" style={{
-          opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(28px)",
-          transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s",
-        }}>
-          <div className="cfk-eh-bento-hero">
-            <CfkVideoCard videoId={CFK_HIGHLIGHTS[0].id} title={CFK_HIGHLIGHTS[0].title} label="Cyber First" isHero />
-          </div>
-          <div className="cfk-eh-bento-side">
-            <div className="cfk-eh-bento-side-card">
-              <CfkVideoCard videoId={CFK_HIGHLIGHTS[1].id} title={CFK_HIGHLIGHTS[1].title} label="Cyber First" />
+      </div>
+
+      {/* Marquee — full width */}
+      <div className="cfk-eh-marquee-wrap" style={{
+        opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(20px)",
+        transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s",
+      }}>
+        <div className="cfk-eh-marquee-track">
+          {[...CFK_HIGHLIGHTS, ...CFK_HIGHLIGHTS, ...CFK_HIGHLIGHTS].map((v, i) => (
+            <div key={`${v.id}-${i}`} className="cfk-eh-marquee-card">
+              <CfkVideoCard videoId={v.id} title={v.title} label="Cyber First" />
             </div>
-            <div className="cfk-eh-bento-side-card">
-              <CfkVideoCard videoId={CFK_HIGHLIGHTS[2].id} title={CFK_HIGHLIGHTS[2].title} label="Cyber First" />
-            </div>
-          </div>
-          <div className="cfk-eh-bento-row">
-            {CFK_HIGHLIGHTS.slice(3).map(v => (
-              <div key={v.id} className="cfk-eh-bento-row-card">
-                <CfkVideoCard videoId={v.id} title={v.title} label="Cyber First" />
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
 
@@ -4544,16 +4532,22 @@ function CfkHighlights() {
           font-size: clamp(14px, 1.2vw, 16px); color: rgba(255,255,255,0.45);
           line-height: 1.7; margin: 0 0 clamp(28px, 3.5vw, 40px); max-width: 540px;
         }
-        .cfk-eh-bento {
-          display: grid; grid-template-columns: 3fr 2fr;
-          grid-template-rows: 1fr 1fr auto;
-          gap: clamp(10px, 1.5vw, 14px);
+        /* Marquee */
+        .cfk-eh-marquee-wrap {
+          overflow: hidden; position: relative;
+          mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
+          -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
         }
-        .cfk-eh-bento-hero { grid-column: 1; grid-row: 1 / 3; aspect-ratio: 16 / 9; }
-        .cfk-eh-bento-side { grid-column: 2; grid-row: 1 / 3; display: flex; flex-direction: column; gap: clamp(10px, 1.5vw, 14px); }
-        .cfk-eh-bento-side-card { flex: 1; min-height: 0; }
-        .cfk-eh-bento-row { grid-column: 1 / -1; grid-row: 3; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(10px, 1.5vw, 14px); }
-        .cfk-eh-bento-row-card { aspect-ratio: 16 / 9; }
+        .cfk-eh-marquee-track {
+          display: flex; gap: 16px; width: max-content;
+          animation: cfk-eh-scroll 40s linear infinite;
+        }
+        .cfk-eh-marquee-track:hover { animation-play-state: paused; }
+        .cfk-eh-marquee-card { width: 380px; aspect-ratio: 16 / 9; flex-shrink: 0; }
+        @keyframes cfk-eh-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.333%); }
+        }
 
         /* Shared card */
         .cfk-v-card {
@@ -4621,17 +4615,8 @@ function CfkHighlights() {
           50% { box-shadow: 0 0 0 6px rgba(255,255,255,0.04); }
         }
 
-        @media (max-width: 900px) {
-          .cfk-eh-bento { grid-template-columns: 1fr; }
-          .cfk-eh-bento-hero { grid-column: 1; aspect-ratio: 16 / 9; }
-          .cfk-eh-bento-side { grid-column: 1; flex-direction: row; }
-          .cfk-eh-bento-side-card { aspect-ratio: 16 / 9; }
-          .cfk-eh-bento-row { grid-column: 1; grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 560px) {
-          .cfk-eh-bento-row { grid-template-columns: 1fr 1fr; }
-          .cfk-eh-bento-side { flex-direction: column; }
-          .cfk-eh-bento-side-card { aspect-ratio: 16 / 9; }
+        @media (max-width: 600px) {
+          .cfk-eh-marquee-card { width: 280px; }
           .cfk-v-play-hero { width: 48px; height: 48px; }
         }
       `}</style>

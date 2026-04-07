@@ -1694,14 +1694,17 @@ function CfiHighlights() {
           transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s",
         }}>Keynotes, panels, and conversations captured live from Cyber First summits.</p>
 
-        {/* 2x2 Grid — 4 Cyber First videos */}
-        <div className="cfi-eh-grid" style={{
-          opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(28px)",
-          transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s",
-        }}>
-          {CFI_HIGHLIGHTS.map((v, i) => (
-            <div key={v.id} className="cfi-eh-grid-card">
-              <CfiVideoCard videoId={v.id} title={v.title} label="Cyber First" isHero={i === 0} />
+      </div>
+
+      {/* Marquee — full width */}
+      <div className="cfi-eh-marquee-wrap" style={{
+        opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(20px)",
+        transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s",
+      }}>
+        <div className="cfi-eh-marquee-track">
+          {[...CFI_HIGHLIGHTS, ...CFI_HIGHLIGHTS, ...CFI_HIGHLIGHTS].map((v, i) => (
+            <div key={`${v.id}-${i}`} className="cfi-eh-marquee-card">
+              <CfiVideoCard videoId={v.id} title={v.title} label="Cyber First" />
             </div>
           ))}
         </div>
@@ -1732,13 +1735,22 @@ function CfiHighlights() {
           line-height: 1.7; margin: 0 0 clamp(28px, 3.5vw, 40px); max-width: 540px;
         }
 
-        /* 2x2 Grid */
-        .cfi-eh-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: clamp(12px, 2vw, 18px);
+        /* Marquee */
+        .cfi-eh-marquee-wrap {
+          overflow: hidden; position: relative;
+          mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
+          -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
         }
-        .cfi-eh-grid-card { aspect-ratio: 16 / 9; }
+        .cfi-eh-marquee-track {
+          display: flex; gap: 16px; width: max-content;
+          animation: cfi-eh-scroll 40s linear infinite;
+        }
+        .cfi-eh-marquee-track:hover { animation-play-state: paused; }
+        .cfi-eh-marquee-card { width: 380px; aspect-ratio: 16 / 9; flex-shrink: 0; }
+        @keyframes cfi-eh-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.333%); }
+        }
 
         /* Shared card */
         .cfi-v-card {
@@ -1807,8 +1819,8 @@ function CfiHighlights() {
         }
 
         /* Responsive */
-        @media (max-width: 560px) {
-          .cfi-eh-grid { grid-template-columns: 1fr; }
+        @media (max-width: 600px) {
+          .cfi-eh-marquee-card { width: 280px; }
           .cfi-v-play-hero { width: 48px; height: 48px; }
         }
       `}</style>
