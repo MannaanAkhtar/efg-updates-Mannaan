@@ -607,7 +607,10 @@ export default function CyberFirstKenya2026() {
         @media (max-width: 768px) {
           .cfk-hero-toprow { flex-direction: column; align-items: flex-start !important; gap: 12px !important; }
           .cfk-hero h1 { font-size: clamp(28px, 9vw, 42px) !important; }
-          .cfk-hero-content { padding: 0 20px !important; padding-bottom: 200px !important; justify-content: flex-start !important; padding-top: 90px !important; }
+          .cfk-hero-content { padding: clamp(80px, 12vh, 100px) 20px clamp(100px, 14vh, 140px) !important; }
+          .cfk-community-partner { display: none !important; }
+          .cfk-countdown-date .cfk-countdown-sep,
+          .cfk-countdown-date .cfk-countdown-label { display: none; }
           .cfk-partners-strip { bottom: 80px !important; padding: 14px 16px !important; gap: 16px !important; }
           .cfk-partners-strip img { transform: scale(1) !important; }
           .cfk-partners-strip > div:last-child { gap: 20px !important; }
@@ -659,7 +662,7 @@ function HeroSection() {
   const cd = useCountdown(EVENT_DATE);
 
   return (
-    <section id="overview" className="cfk-hero" style={{ position: "relative", height: "100vh", minHeight: 720, overflow: "hidden", background: "#0A0608" }}>
+    <section id="overview" className="cfk-hero" style={{ position: "relative", minHeight: "100dvh", overflow: "hidden", background: "#0A0608" }}>
       {/* Background Image - Nairobi with Cyber Shield */}
       <div className="absolute inset-0">
         <img
@@ -677,10 +680,10 @@ function HeroSection() {
       <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 60%, rgba(10,6,8,0.9) 90%, rgba(10,6,8,1) 100%)", zIndex: 1 }} />
 
       {/* Main Content */}
-      <div style={{ position: "relative", zIndex: 10, height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-start", maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", paddingTop: 120, paddingBottom: 140 }}>
+      <div className="cfk-hero-content" style={{ position: "relative", zIndex: 10, minHeight: "100dvh", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: 1320, margin: "0 auto", padding: "clamp(100px, 14vh, 140px) clamp(24px, 5vw, 80px) clamp(120px, 16vh, 160px)" }}>
 
         {/* Top Row — Supporting Partner (left) + Date Badge (right) */}
-        <div className="cfk-hero-toprow" style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 40, gap: 20 }}>
+        <div className="cfk-hero-toprow" style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "clamp(20px, 4vh, 40px)", gap: 20 }}>
           {/* Supporting Partner */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -696,7 +699,7 @@ function HeroSection() {
               background: "white", borderRadius: 8, padding: "14px 22px",
               boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
             }}>
-              <img src={SUPPORTING_PARTNERS[0].logo} alt={SUPPORTING_PARTNERS[0].name} style={{ height: 55, objectFit: "contain" }} />
+              <img src={SUPPORTING_PARTNERS[0].logo} alt={SUPPORTING_PARTNERS[0].name} style={{ height: "clamp(36px, 5vw, 55px)", objectFit: "contain" }} />
             </div>
           </motion.div>
 
@@ -750,7 +753,7 @@ function HeroSection() {
             lineHeight: 0.9,
             letterSpacing: "-0.03em",
             color: C_BRIGHT,
-            margin: "0 0 20px 0",
+            margin: "0 0 clamp(12px, 2vh, 20px) 0",
           }}>
             Firewalls
           </h1>
@@ -768,7 +771,7 @@ function HeroSection() {
             fontSize: "clamp(18px, 2.5vw, 30px)",
             lineHeight: 1.2,
             color: C_BRIGHT,
-            margin: "0 0 16px 0",
+            margin: "0 0 clamp(10px, 1.5vh, 16px) 0",
             maxWidth: 520,
           }}
         >
@@ -787,7 +790,7 @@ function HeroSection() {
             color: "rgba(255,255,255,0.65)",
             lineHeight: 1.6,
             maxWidth: 460,
-            margin: "0 0 28px 0",
+            margin: "0 0 clamp(16px, 3vh, 28px) 0",
           }}
         >
           East Africa&apos;s premier cybersecurity summit bringing together C-level executives, technology leaders, and policymakers.
@@ -859,20 +862,21 @@ function HeroSection() {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, delay: 0.9 }}
+        className="cfk-community-partner"
         style={{
           position: "absolute",
-          bottom: 130,
+          bottom: "clamp(80px, 12vh, 130px)",
           right: "clamp(24px, 5vw, 80px)",
           zIndex: 15,
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-end",
-          gap: 14,
+          gap: "clamp(8px, 1vh, 14px)",
         }}
       >
         <span style={{
           fontFamily: "var(--font-outfit)",
-          fontSize: 12,
+          fontSize: "clamp(9px, 1vw, 12px)",
           fontWeight: 600,
           letterSpacing: "2.5px",
           textTransform: "uppercase",
@@ -883,81 +887,82 @@ function HeroSection() {
         <div style={{
           background: "white",
           borderRadius: 8,
-          padding: "14px 22px",
+          padding: "clamp(8px, 1.2vw, 14px) clamp(12px, 1.8vw, 22px)",
           boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
         }}>
           <img
             src="https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/gafai_blue_Global_Alliance_for_Artificial_Intelligence.png"
             alt="Global Alliance for Artificial Intelligence (GAFAI)"
-            style={{ height: 39, objectFit: "contain" }}
+            style={{ height: "clamp(26px, 3.5vw, 39px)", objectFit: "contain" }}
           />
         </div>
       </motion.div>
 
-{/* Bottom Countdown Bar */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }} 
-        animate={{ opacity: 1, y: 0 }} 
-        transition={{ duration: 0.6, delay: 1 }} 
-        style={{ 
+      {/* Bottom Countdown Bar */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1 }}
+        className="cfk-countdown-bar"
+        style={{
           position: "absolute",
           bottom: 0,
           left: 0,
           right: 0,
-          zIndex: 20, 
-          background: "rgba(8,5,6,0.97)", 
-          backdropFilter: "blur(20px)", 
-          borderTop: "1px solid rgba(255,255,255,0.06)", 
-          padding: "14px 0",
+          zIndex: 20,
+          background: "rgba(8,5,6,0.97)",
+          backdropFilter: "blur(20px)",
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+          padding: "clamp(8px, 1.5vh, 14px) 0",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, maxWidth: 1400, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
-          
+        <div className="cfk-countdown-inner" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "clamp(8px, 2vw, 16px)", maxWidth: 1400, margin: "0 auto", padding: "0 clamp(16px, 4vw, 60px)" }}>
+
           {/* Left - Date */}
-          <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
-            <span style={{ width: 10, height: 10, borderRadius: "50%", background: KENYA_ACCENT }} />
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 700, letterSpacing: "0.5px", textTransform: "uppercase", color: "white" }}>
+          <div className="cfk-countdown-date" style={{ display: "flex", alignItems: "center", gap: "clamp(6px, 1vw, 10px)", flexShrink: 0 }}>
+            <span style={{ width: "clamp(6px, 1vw, 10px)", height: "clamp(6px, 1vw, 10px)", borderRadius: "50%", background: KENYA_ACCENT }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: "clamp(10px, 1.2vw, 13px)", fontWeight: 700, letterSpacing: "0.5px", textTransform: "uppercase", color: "white" }}>
               8 JULY 2026
             </span>
-            <span style={{ color: "rgba(255,255,255,0.2)", margin: "0 2px" }}>|</span>
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 400, color: "rgba(255,255,255,0.5)" }}>
+            <span className="cfk-countdown-sep" style={{ color: "rgba(255,255,255,0.2)", margin: "0 2px" }}>|</span>
+            <span className="cfk-countdown-label" style={{ fontFamily: "var(--font-outfit)", fontSize: "clamp(10px, 1.2vw, 13px)", fontWeight: 400, color: "rgba(255,255,255,0.5)" }}>
               Cyber First East Africa
             </span>
           </div>
 
           {/* Center - Countdown */}
-          <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "clamp(2px, 0.5vw, 4px)" }}>
             {[
-              { v: cd.d, l: "DAYS" }, 
-              { v: cd.h, l: "HRS" }, 
-              { v: cd.m, l: "MIN" }, 
+              { v: cd.d, l: "DAYS" },
+              { v: cd.h, l: "HRS" },
+              { v: cd.m, l: "MIN" },
               { v: cd.s, l: "SEC" }
             ].map((u, i) => (
               <div key={u.l} style={{ display: "flex", alignItems: "center" }}>
-                <div style={{ textAlign: "center", minWidth: 44 }}>
-                  <span style={{ 
-                    fontFamily: "var(--font-display)", 
-                    fontSize: 24, 
-                    fontWeight: 700, 
-                    color: C_BRIGHT, 
-                    letterSpacing: "-1px", 
+                <div style={{ textAlign: "center", minWidth: "clamp(32px, 4vw, 44px)" }}>
+                  <span style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "clamp(16px, 2.2vw, 24px)",
+                    fontWeight: 700,
+                    color: C_BRIGHT,
+                    letterSpacing: "-1px",
                     display: "block",
                   }}>
                     {String(u.v).padStart(2, "0")}
                   </span>
-                  <span style={{ 
-                    fontFamily: "var(--font-outfit)", 
-                    fontSize: 9, 
-                    fontWeight: 500, 
-                    letterSpacing: "1px", 
-                    color: "rgba(255,255,255,0.4)", 
+                  <span style={{
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: "clamp(7px, 0.8vw, 9px)",
+                    fontWeight: 500,
+                    letterSpacing: "1px",
+                    color: "rgba(255,255,255,0.4)",
                     display: "block",
                     marginTop: 1,
                   }}>
                     {u.l}
                   </span>
                 </div>
-                {i < 3 && <span style={{ color: "rgba(255,255,255,0.15)", fontSize: 18, margin: "0 1px" }}>:</span>}
+                {i < 3 && <span style={{ color: "rgba(255,255,255,0.15)", fontSize: "clamp(12px, 1.5vw, 18px)", margin: "0 1px" }}>:</span>}
               </div>
             ))}
           </div>
@@ -966,18 +971,19 @@ function HeroSection() {
           <a
             href="#register"
             onClick={(e) => { e.preventDefault(); document.getElementById("register")?.scrollIntoView({ behavior: "smooth" }); }}
-            style={{ 
-              padding: "12px 24px", 
-              borderRadius: 50, 
-              background: C, 
-              fontFamily: "var(--font-outfit)", 
-              fontSize: 13, 
-              fontWeight: 600, 
-              color: "white", 
-              textDecoration: "none", 
+            style={{
+              padding: "clamp(8px, 1.2vw, 12px) clamp(16px, 2.5vw, 24px)",
+              borderRadius: 50,
+              background: C,
+              fontFamily: "var(--font-outfit)",
+              fontSize: "clamp(11px, 1.1vw, 13px)",
+              fontWeight: 600,
+              color: "white",
+              textDecoration: "none",
               cursor: "pointer",
               transition: "all 0.3s ease",
               flexShrink: 0,
+              whiteSpace: "nowrap",
             }}
             onMouseEnter={(e) => { e.currentTarget.style.background = C_BRIGHT; }}
             onMouseLeave={(e) => { e.currentTarget.style.background = C; }}
