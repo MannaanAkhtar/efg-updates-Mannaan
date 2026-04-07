@@ -218,6 +218,13 @@ const SUPPORTING_PARTNERS = [
 // Kenya Advisory Board (key government & policy leaders from brochure)
 const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string | null; linkedin?: string }[] = [
   {
+    name: "Colonel (Dr.) James Kimuyu",
+    title: "Director",
+    org: "NC4",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Col+Dr+James+Photo.jpeg",
+    linkedin: "https://nc4.go.ke/",
+  },
+  {
     name: "George Kisaka",
     title: "VP",
     org: "ISACA Kenya Chapter",
@@ -251,13 +258,6 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     org: "KCB Bank Group",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Rosemary_Koech_Kimwatu.jpg",
     linkedin: "https://www.linkedin.com/in/rosemary-koech-kimwatu-47536520/",
-  },
-  {
-    name: "Colonel (Dr.) James Kimuyu",
-    title: "Director",
-    org: "NC4",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Col+Dr+James+Photo.jpeg",
-    linkedin: "https://nc4.go.ke/",
   },
   {
     name: "Frank K Muriuki",
@@ -1067,7 +1067,7 @@ function ConferenceChair() {
 
               {/* Name overlay at bottom */}
               <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "28px 28px 24px" }}>
-                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 800, letterSpacing: "3.5px", textTransform: "uppercase", color: KENYA_ACCENT, margin: "0 0 10px" }}>Conference Chair</p>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 800, letterSpacing: "3.5px", textTransform: "uppercase", color: KENYA_ACCENT, margin: "0 0 10px" }}>Keynote Speaker</p>
                 <h3 style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 800, color: "white", margin: "0 0 8px", letterSpacing: "-0.5px", lineHeight: 1.15 }}>Col Dr James<br />Kimuyu</h3>
                 <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, color: C_BRIGHT, margin: "0 0 4px" }}>Director</p>
                 <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.5)", margin: 0, lineHeight: 1.4 }}>National Computer & Cybercrimes<br />Coordination Committee (NC4)</p>
@@ -1149,7 +1149,7 @@ function ConferenceChair() {
                   The Government continues to build capabilities for cyber threat monitoring, sector-specific training, incident response coordination and enhanced international partnerships.
                 </p>
                 <p style={{ margin: 0 }}>
-                  Kenya welcomes global stakeholders to participate in <span style={{ color: C_BRIGHT, fontWeight: 600 }}>Cyber First East Africa 2026</span> on 08 July in Nairobi — a premier platform for cybersecurity dialogue, innovation and collaboration. <span style={{ color: "rgba(255,255,255,0.85)", fontWeight: 600 }}>NC4 affirms its mandate to ensure a secure cyberspace for Kenya and Its People.</span>
+                  Kenya welcomes global stakeholders to participate in <span style={{ color: C_BRIGHT, fontWeight: 600 }}>Cyber First East Africa 2026</span> on <span style={{ color: KENYA_ACCENT, fontWeight: 700 }}>08 July</span> in <span style={{ color: KENYA_ACCENT, fontWeight: 700 }}>Nairobi</span> — a premier platform for cybersecurity dialogue, innovation and collaboration. <span style={{ color: "rgba(255,255,255,0.85)", fontWeight: 600 }}>NC4 affirms its mandate to ensure a secure cyberspace for Kenya and Its People.</span>
                 </p>
               </div>
 
