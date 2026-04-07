@@ -1476,142 +1476,227 @@ function TheJourney() {
 // UPCOMING EVENTS
 // ═══════════════════════════════════════════════════════════════════════════════
 
+// Group upcoming events by month
+const NF_MONTHS = (() => {
+  const monthMap: Record<string, typeof UPCOMING_EVENTS> = {};
+  UPCOMING_EVENTS.forEach(e => {
+    if (!monthMap[e.month]) monthMap[e.month] = [];
+    monthMap[e.month].push(e);
+  });
+  const order = ["APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+  const fullNames: Record<string, string> = { APR: "April", MAY: "May", JUN: "June", JUL: "July", AUG: "August", SEP: "September", OCT: "October", NOV: "November", DEC: "December" };
+  return order.filter(m => monthMap[m]).map(m => ({ abbr: m, full: fullNames[m], events: monthMap[m] }));
+})();
+
 function UpcomingSection() {
   const ref = useRef<HTMLElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const monthRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const inView = useInView(ref, { once: true, margin: "-50px" });
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeMonth, setActiveMonth] = useState<string>(NF_MONTHS[0]?.abbr || "");
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartX = useRef(0);
+  const dragScrollLeft = useRef(0);
+  const dragDistance = useRef(0);
+
+  // Track scroll progress + active month
+  const handleScroll = useCallback(() => {
+    if (!scrollRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+    setScrollProgress(Math.min(1, Math.max(0, scrollLeft / (scrollWidth - clientWidth))));
+    const scrollCenter = scrollLeft + clientWidth / 3;
+    let closest = NF_MONTHS[0]?.abbr || "";
+    let closestDist = Infinity;
+    NF_MONTHS.forEach(m => {
+      const el = monthRefs.current[m.abbr];
+      if (el && scrollRef.current) {
+        const rect = el.getBoundingClientRect();
+        const scrollRect = scrollRef.current.getBoundingClientRect();
+        const elLeft = rect.left - scrollRect.left + scrollLeft;
+        const dist = Math.abs(elLeft - scrollCenter);
+        if (dist < closestDist) { closestDist = dist; closest = m.abbr; }
+      }
+    });
+    setActiveMonth(closest);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
+  const scrollToMonth = useCallback((abbr: string) => {
+    const el = monthRefs.current[abbr];
+    if (el && scrollRef.current) {
+      const scrollRect = scrollRef.current.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+      scrollRef.current.scrollTo({ left: scrollRef.current.scrollLeft + (elRect.left - scrollRect.left) - 20, behavior: "smooth" });
+    }
+  }, []);
+
+  // Drag-to-scroll
+  const onDragStart = useCallback((e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    setIsDragging(true); dragStartX.current = e.pageX; dragScrollLeft.current = scrollRef.current.scrollLeft; dragDistance.current = 0;
+  }, []);
+  const onDragMove = useCallback((e: React.MouseEvent) => {
+    if (!isDragging || !scrollRef.current) return;
+    e.preventDefault(); const dx = e.pageX - dragStartX.current; dragDistance.current = Math.abs(dx); scrollRef.current.scrollLeft = dragScrollLeft.current - dx;
+  }, [isDragging]);
+  const onDragEnd = useCallback(() => setIsDragging(false), []);
 
   return (
-    <section ref={ref} style={{ position: "relative", overflow: "hidden", padding: "clamp(100px, 12vw, 140px) 24px", background: BG }}>
+    <section ref={ref} style={{ position: "relative", overflow: "hidden", padding: "clamp(80px, 10vw, 120px) 0", background: BG }}>
       {/* Gold border top */}
       <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{ height: 1, background: `linear-gradient(90deg, transparent 0%, ${GOLD_30} 50%, transparent 100%)`, zIndex: 2 }} />
 
       {/* Atmospheric glows */}
       <div className="absolute pointer-events-none" style={{ top: "-10%", left: "50%", transform: "translateX(-50%)", width: 800, height: 500, borderRadius: "50%", background: `radial-gradient(ellipse, rgba(201,147,90,0.06) 0%, transparent 60%)`, filter: "blur(100px)" }} />
-      <div className="absolute pointer-events-none" style={{ bottom: "10%", right: "-5%", width: 400, height: 400, borderRadius: "50%", background: `radial-gradient(ellipse, rgba(201,147,90,0.04) 0%, transparent 70%)`, filter: "blur(80px)" }} />
-      <div className="absolute pointer-events-none" style={{ bottom: "10%", left: "-5%", width: 300, height: 300, borderRadius: "50%", background: `radial-gradient(ellipse, rgba(201,147,90,0.03) 0%, transparent 70%)`, filter: "blur(60px)" }} />
 
-      <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative", zIndex: 1 }}>
+      <div style={{ position: "relative", zIndex: 1 }}>
         {/* Header */}
-        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ textAlign: "center", marginBottom: 72 }}>
-          <div className="flex items-center justify-center gap-3" style={{ marginBottom: 20 }}>
-            <span style={{ width: 32, height: 1, background: `linear-gradient(90deg, transparent, ${GOLD})` }} />
-            <p style={{ fontSize: 11, color: GOLD, letterSpacing: "0.25em", textTransform: "uppercase", margin: 0, fontWeight: 700 }}>Upcoming Sessions</p>
-            <span style={{ width: 32, height: 1, background: `linear-gradient(270deg, transparent, ${GOLD})` }} />
-          </div>
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(38px, 5.5vw, 56px)", fontWeight: 800, lineHeight: 1.08, margin: "0 0 16px", letterSpacing: "-0.03em", color: TEXT }}>
-            What&apos;s next<span style={{ color: GOLD }}>.</span>
-          </h2>
-          <p style={{ fontSize: 15, color: TEXT_30, lineHeight: 1.65, margin: "0 auto", maxWidth: 480 }}>
-            Secure your seat at an upcoming executive session.
-          </p>
-        </motion.div>
+        <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(16px, 4vw, 60px)" }}>
+          <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ marginBottom: "clamp(20px, 3vw, 32px)" }}>
+            <div className="flex items-center gap-3" style={{ marginBottom: 16 }}>
+              <span style={{ width: 32, height: 1, background: GOLD }} />
+              <p style={{ fontSize: 11, color: GOLD, letterSpacing: "0.25em", textTransform: "uppercase", margin: 0, fontWeight: 700 }}>Upcoming Sessions</p>
+            </div>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 56px)", fontWeight: 800, lineHeight: 1.08, margin: "0 0 12px", letterSpacing: "-0.03em", color: TEXT }}>
+              What&apos;s next<span style={{ color: GOLD }}>.</span>
+            </h2>
+            <p style={{ fontSize: 15, color: TEXT_30, lineHeight: 1.65, margin: 0, maxWidth: 480 }}>
+              {UPCOMING_EVENTS.length} sessions across {NF_MONTHS.length} months. Scroll to explore.
+            </p>
+          </motion.div>
 
-        {/* Event Cards, Row layout */}
-        <div className="upcoming-row" style={{ display: "grid", gridTemplateColumns: `repeat(${UPCOMING_EVENTS.length}, 1fr)`, gap: 24 }}>
-          {UPCOMING_EVENTS.map((e, idx) => (
-            <motion.a
-              key={e.title}
-              href={e.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              variants={fadeUp} custom={idx + 1} initial="hidden" animate={inView ? "visible" : "hidden"}
-              className="upcoming-event-card"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                borderRadius: 18,
-                overflow: "hidden",
-                background: "rgba(255,255,255,0.03)",
-                backdropFilter: "blur(16px)",
-                WebkitBackdropFilter: "blur(16px)",
-                border: "1px solid rgba(201,147,90,0.12)",
-                textDecoration: "none",
-                position: "relative",
-                transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-              }}
-            >
-              {/* Card image area */}
-              <div style={{ position: "relative", height: 180, overflow: "hidden" }}>
-                <img src={e.image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.35) saturate(0.8)", transition: "transform 0.6s ease" }} className="upcoming-card-img" />
-                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.9) 100%)` }} />
-                {/* Gold shimmer line at top */}
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${GOLD_50}, transparent)` }} />
-                {/* Date badge overlay */}
-                <div style={{ position: "absolute", top: 16, left: 20, display: "flex", alignItems: "center", gap: 10 }}>
-                  {idx === 0 && (
-                    <span style={{
-                      fontSize: 9, fontWeight: 700, color: "#000",
-                      letterSpacing: "0.12em", textTransform: "uppercase",
-                      background: GOLD, borderRadius: 4, padding: "4px 10px",
-                    }}>Next</span>
-                  )}
-                  <span style={{
-                    fontSize: 12, color: TEXT, fontWeight: 600, letterSpacing: "0.03em",
-                    background: "rgba(0,0,0,0.5)", backdropFilter: "blur(8px)",
-                    padding: "5px 12px", borderRadius: 6, border: "1px solid rgba(255,255,255,0.08)",
-                  }}>{e.date}</span>
-                </div>
-                {/* Sponsor badge bottom-left */}
-                <div style={{ position: "absolute", bottom: 16, left: 20 }}>
-                  <span style={{
-                    display: "inline-block", fontSize: 10, fontWeight: 700, color: BG,
-                    background: `linear-gradient(135deg, ${GOLD}, #D9A96A)`, borderRadius: 6, padding: "5px 14px",
-                    letterSpacing: "0.04em", boxShadow: `0 4px 16px rgba(201,147,90,0.25)`,
-                  }}>{e.sponsor}</span>
-                </div>
-              </div>
+          {/* Progress Bar */}
+          <motion.div initial={{ opacity: 0, scaleX: 0 }} animate={inView ? { opacity: 1, scaleX: 1 } : {}} transition={{ duration: 1, delay: 0.3 }}
+            style={{ height: 2, background: "rgba(255,255,255,0.06)", borderRadius: 2, marginBottom: "clamp(16px, 2vw, 24px)", overflow: "hidden" }}>
+            <div style={{ height: "100%", width: `${scrollProgress * 100}%`, background: `linear-gradient(90deg, ${GOLD}, #D9A96A)`, borderRadius: 2, transition: "width 0.1s ease-out" }} />
+          </motion.div>
 
-              {/* Card content */}
-              <div style={{ padding: "24px 24px 28px", display: "flex", flexDirection: "column", flex: 1 }}>
-                <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(18px, 2vw, 21px)", fontWeight: 800, color: TEXT, margin: "0 0 8px", lineHeight: 1.2, letterSpacing: "-0.02em" }}>{e.title}</h3>
-                <p style={{ fontSize: 13, color: TEXT_50, margin: "0 0 20px", lineHeight: 1.6, flex: 1 }}>{e.subtitle}</p>
-
-                {/* Meta */}
-                <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 22, flexWrap: "wrap" }}>
-                  <div className="flex items-center gap-2">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
-                    <span style={{ fontSize: 12, color: TEXT_50, fontWeight: 500 }}>{e.location}</span>
-                  </div>
-                  <span style={{ width: 3, height: 3, borderRadius: "50%", background: GOLD_30 }} />
-                  <div className="flex items-center gap-2">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
-                    <span style={{ fontSize: 12, color: TEXT_50, fontWeight: 500 }}>{e.time}</span>
-                  </div>
-                </div>
-
-                {/* CTA */}
-                <span className="upcoming-cta" style={{
-                  display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
-                  fontSize: 13, color: GOLD, fontWeight: 700,
-                  padding: "12px 24px", border: `1.5px solid ${GOLD}`,
-                  borderRadius: 980, transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
-                  letterSpacing: "0.02em", alignSelf: "flex-start",
-                }}>
-                  Register Now
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                </span>
-              </div>
-            </motion.a>
-          ))}
+          {/* Month Pills */}
+          <motion.div initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.6, delay: 0.4 }}
+            style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, marginBottom: "clamp(24px, 3vw, 32px)", flexWrap: "wrap" }}>
+            <div style={{ display: "flex", gap: 8, overflowX: "auto", scrollbarWidth: "none" }}>
+              {NF_MONTHS.map(m => (
+                <button key={m.abbr} onClick={() => scrollToMonth(m.abbr)} className={`nf-month-pill ${activeMonth === m.abbr ? "nf-month-active" : ""}`}>
+                  {m.abbr}
+                  <span className="nf-month-count">{m.events.length}</span>
+                </button>
+              ))}
+            </div>
+            {/* Pagination Arrows */}
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: TEXT_30, letterSpacing: "1px", marginRight: 8 }}>Drag to explore</span>
+              <button onClick={() => scrollRef.current?.scrollBy({ left: -380, behavior: "smooth" })} className="nf-arrow-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+              </button>
+              <button onClick={() => scrollRef.current?.scrollBy({ left: 380, behavior: "smooth" })} className="nf-arrow-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              </button>
+            </div>
+          </motion.div>
         </div>
 
+        {/* Horizontal Scroll Track */}
+        <motion.div initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.5 }}>
+          <div
+            ref={scrollRef}
+            className="nf-scroll-track"
+            style={{ cursor: isDragging ? "grabbing" : "grab", userSelect: isDragging ? "none" : "auto" }}
+            onMouseDown={onDragStart} onMouseMove={onDragMove} onMouseUp={onDragEnd} onMouseLeave={onDragEnd}
+            onClickCapture={(e) => { if (dragDistance.current > 5) { e.preventDefault(); e.stopPropagation(); } }}
+          >
+            <div style={{ width: "clamp(16px, 4vw, 60px)", flexShrink: 0 }} />
+
+            {NF_MONTHS.map((month, mi) => (
+              <div key={month.abbr} ref={(el) => { monthRefs.current[month.abbr] = el; }} style={{ display: "flex", gap: 0, flexShrink: 0 }}>
+                {/* Month Label */}
+                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginRight: 20, flexShrink: 0, minWidth: 64 }}>
+                  {mi > 0 && <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${GOLD_30})`, marginBottom: 12 }} />}
+                  <span style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 800, color: activeMonth === month.abbr ? GOLD : TEXT_30, letterSpacing: "-1px", transition: "color 0.3s" }}>{month.full}</span>
+                </div>
+
+                {/* Cards */}
+                <div style={{ display: "flex", gap: 16 }}>
+                  {month.events.map((e, idx) => {
+                    const isFirst = mi === 0 && idx === 0;
+                    return (
+                      <a
+                        key={e.title + idx}
+                        href={e.link}
+                        target={e.link.startsWith("http") ? "_blank" : undefined}
+                        rel={e.link.startsWith("http") ? "noopener noreferrer" : undefined}
+                        className="nf-event-card"
+                        style={{ textDecoration: "none" }}
+                      >
+                        {/* Card Image */}
+                        <div className="nf-card-img-wrap">
+                          <img src={e.image} alt="" className="nf-card-img" />
+                          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.85) 100%)" }} />
+                          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent, ${GOLD_50}, transparent)` }} />
+                        </div>
+
+                        {/* Date + badges */}
+                        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 16 }}>
+                          <div>
+                            <span style={{ fontFamily: "var(--font-display)", fontSize: isFirst ? 48 : 40, fontWeight: 800, letterSpacing: "-2px", color: TEXT, lineHeight: 1, display: "block" }}>{e.day}</span>
+                            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 500, letterSpacing: "0.8px", textTransform: "uppercase", color: TEXT_30, marginTop: 4, display: "block" }}>{e.date}</span>
+                          </div>
+                          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+                            {isFirst && (
+                              <span style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "4px 10px", background: `${GOLD}25`, border: `1px solid ${GOLD}4D`, borderRadius: 50, fontFamily: "var(--font-outfit)", fontSize: 8, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: GOLD }}>
+                                <span style={{ width: 5, height: 5, borderRadius: "50%", background: GOLD, boxShadow: `0 0 8px ${GOLD}` }} />
+                                Next
+                              </span>
+                            )}
+                            <span style={{ padding: "4px 10px", background: `${GOLD}18`, border: `1px solid ${GOLD}30`, borderRadius: 50, fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase", color: GOLD }}>{e.sponsor}</span>
+                          </div>
+                        </div>
+
+                        {/* Title */}
+                        <h3 style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 700, color: TEXT, margin: "0 0 8px", lineHeight: 1.2, letterSpacing: "-0.5px" }}>{e.title}</h3>
+                        <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: TEXT_50, margin: "0 0 20px", lineHeight: 1.6, flex: 1 }}>{e.subtitle}</p>
+
+                        {/* Meta */}
+                        <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: "auto" }}>
+                          <div className="flex items-center gap-2">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                            <span style={{ fontSize: 11, color: TEXT_30, fontWeight: 500 }}>{e.location}</span>
+                          </div>
+                          <span style={{ width: 3, height: 3, borderRadius: "50%", background: GOLD_30 }} />
+                          <div className="flex items-center gap-2">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
+                            <span style={{ fontSize: 11, color: TEXT_30, fontWeight: 500 }}>{e.time}</span>
+                          </div>
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
+                {/* Spacer between months */}
+                {mi < NF_MONTHS.length - 1 && <div style={{ width: 32, flexShrink: 0 }} />}
+              </div>
+            ))}
+
+            <div style={{ width: "clamp(16px, 4vw, 60px)", flexShrink: 0 }} />
+          </div>
+        </motion.div>
+
+        {/* Fade hints */}
+        <div className="nf-fade-right" />
+
         {/* Coming soon strip */}
-        <motion.div
-          variants={fadeUp} custom={UPCOMING_EVENTS.length + 1} initial="hidden" animate={inView ? "visible" : "hidden"}
-          style={{
-            marginTop: 32,
-            padding: "20px 32px",
-            background: "rgba(201,147,90,0.03)",
-            border: "1px solid rgba(201,147,90,0.1)",
-            borderRadius: 14,
-            backdropFilter: "blur(8px)",
-          }}
-        >
+        <motion.div variants={fadeUp} custom={UPCOMING_EVENTS.length + 1} initial="hidden" animate={inView ? "visible" : "hidden"}
+          style={{ padding: "20px 32px", background: "rgba(201,147,90,0.03)", border: `1px solid rgba(201,147,90,0.1)`, borderRadius: 14, backdropFilter: "blur(8px)", maxWidth: 1200, marginTop: 32, marginLeft: "auto", marginRight: "auto" }}>
           <div className="flex items-center justify-center gap-3" style={{ flexWrap: "wrap" }}>
             <span style={{ width: 7, height: 7, borderRadius: "50%", background: GOLD, boxShadow: `0 0 14px rgba(201,147,90,0.5)` }} />
-            <p style={{ fontSize: 14, color: TEXT_50, margin: 0 }}>
-              More sessions coming for <span style={{ color: GOLD, fontWeight: 600 }}>Q2 &amp; Q3 2026</span> , stay tuned.
-            </p>
+            <p style={{ fontSize: 14, color: TEXT_50, margin: 0 }}>More sessions coming for <span style={{ color: GOLD, fontWeight: 600 }}>Q2 &amp; Q3 2026</span>, stay tuned.</p>
           </div>
         </motion.div>
       </div>
@@ -1620,22 +1705,115 @@ function UpcomingSection() {
       <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: 1, background: `linear-gradient(90deg, transparent 0%, ${GOLD_30} 50%, transparent 100%)`, zIndex: 2 }} />
 
       <style jsx global>{`
-        @media (max-width: 900px) {
-          .upcoming-row { grid-template-columns: 1fr 1fr !important; }
+        /* Scroll Track */
+        .nf-scroll-track {
+          display: flex;
+          overflow-x: auto;
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+          padding-bottom: 8px;
         }
+        .nf-scroll-track::-webkit-scrollbar { display: none; }
+
+        /* Fade hint */
+        .nf-fade-right {
+          position: absolute;
+          top: 0; right: 0; bottom: 0; width: 80px;
+          background: linear-gradient(90deg, transparent, ${BG});
+          pointer-events: none; z-index: 3;
+        }
+
+        /* Month Pills */
+        .nf-month-pill {
+          display: inline-flex; align-items: center; gap: 6px;
+          padding: 8px 16px; border-radius: 50px;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.06);
+          font-family: var(--font-outfit); font-size: 11px;
+          font-weight: 600; letter-spacing: 2px;
+          color: rgba(255,255,255,0.4);
+          cursor: pointer; transition: all 0.3s ease;
+          white-space: nowrap; flex-shrink: 0;
+        }
+        .nf-month-pill:hover {
+          background: rgba(255,255,255,0.06);
+          border-color: rgba(255,255,255,0.12);
+        }
+        .nf-month-active {
+          background: rgba(201,147,90,0.15) !important;
+          border-color: rgba(201,147,90,0.4) !important;
+          color: ${GOLD} !important;
+        }
+        .nf-month-count {
+          font-size: 9px; font-weight: 500;
+          background: rgba(255,255,255,0.06);
+          padding: 2px 6px; border-radius: 50px;
+          color: rgba(255,255,255,0.3);
+        }
+        .nf-month-active .nf-month-count {
+          background: rgba(201,147,90,0.2);
+          color: ${GOLD};
+        }
+
+        /* Pagination Arrows */
+        .nf-arrow-btn {
+          width: 40px; height: 40px; border-radius: 50%;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.1);
+          color: rgba(255,255,255,0.5);
+          display: flex; align-items: center; justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .nf-arrow-btn:hover {
+          background: rgba(201,147,90,0.15);
+          border-color: rgba(201,147,90,0.4);
+          color: ${GOLD};
+          box-shadow: 0 0 20px rgba(201,147,90,0.15);
+        }
+
+        /* Event Card */
+        .nf-event-card {
+          position: relative;
+          width: 320px; flex-shrink: 0;
+          display: flex; flex-direction: column;
+          border-radius: 20px; overflow: hidden;
+          background: rgba(255,255,255,0.025);
+          border: 1px solid rgba(255,255,255,0.08);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+          cursor: pointer;
+        }
+        .nf-event-card:hover {
+          border-color: rgba(201,147,90,0.35);
+          transform: translateY(-6px);
+          box-shadow: 0 24px 64px rgba(201,147,90,0.12), 0 0 40px rgba(201,147,90,0.06);
+        }
+        .nf-event-card:hover .nf-card-img {
+          transform: scale(1.08);
+        }
+
+        /* Card Image */
+        .nf-card-img-wrap {
+          position: relative; height: 140px; overflow: hidden;
+        }
+        .nf-card-img {
+          width: 100%; height: 100%; object-fit: cover;
+          filter: brightness(0.65) saturate(0.9);
+          transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* Card content padding (below image) */
+        .nf-event-card > div:not(.nf-card-img-wrap) {
+          padding-left: 24px; padding-right: 24px;
+        }
+        .nf-event-card > div:nth-child(2) { padding-top: 20px; }
+        .nf-event-card > div:last-child { padding-bottom: 24px; }
+
         @media (max-width: 600px) {
-          .upcoming-row { grid-template-columns: 1fr !important; }
-        }
-        .upcoming-event-card:hover {
-          border-color: rgba(201,147,90,0.3) !important;
-          transform: translateY(-5px);
-          box-shadow: 0 20px 60px rgba(201,147,90,0.12), 0 8px 24px rgba(0,0,0,0.3);
-        }
-        .upcoming-event-card:hover .upcoming-card-img {
-          transform: scale(1.05);
-        }
-        .upcoming-event-card:hover .upcoming-cta {
-          background: rgba(201,147,90,0.1);
+          .nf-event-card { width: 280px; }
+          .nf-card-img-wrap { height: 110px; }
         }
       `}</style>
     </section>
