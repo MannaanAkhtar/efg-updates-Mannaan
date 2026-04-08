@@ -16,7 +16,7 @@ const sponsors2026: { name: string; logo: string | null }[] = [
   { name: "HWG", logo: `${S3}/hwg-here-we-go.png` },
   { name: "AmiViz", logo: `${S3}/AmiViz.png` },
   { name: "Tenable", logo: `${S3}/Tenable-logo.png` },
-  { name: "Securonix", logo: `${S3}/Securonix-logo.png` },
+  { name: "Securonix", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/securonix.jpg" },
   { name: "Paramount", logo: `${S3}/Paramount.png` },
   { name: "Kron Technologies", logo: `${S3}/kron-technologies.png` },
   { name: "Appknox", logo: `${S3}/appknox.png` },

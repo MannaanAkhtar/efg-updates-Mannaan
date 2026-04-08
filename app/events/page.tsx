@@ -39,24 +39,6 @@ type SeriesStatus = "open" | "soon";
 
 const allEvents = [
   {
-    id: "braze-roundtable-1",
-    category: "networkfirst",
-    title: "Braze Virtual Roundtable",
-    tagline: "Marketing Through Uncertainty",
-    description:
-      "A private virtual roundtable for senior martech leaders in MENAT, customer engagement strategies during uncertain times.",
-    color: "#C9935A",
-    image: "/braze/sg-heat1-5.png",
-    href: "https://braze-webinar.eventsfirstgroup.com",
-    date: "2026-04-08",
-    nextDate: "8 Apr 2026",
-    nextCity: "Virtual",
-    editions: "",
-    regions: "MENAT",
-    attendees: "15-20",
-    status: "open" as SeriesStatus,
-  },
-  {
     id: "braze-roundtable-2",
     category: "networkfirst",
     title: "Braze Virtual Roundtable 2",

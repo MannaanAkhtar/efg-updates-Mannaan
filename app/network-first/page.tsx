@@ -37,19 +37,6 @@ const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 
 const UPCOMING_EVENTS = [
   {
-    date: "April 8th, 2026",
-    month: "APR",
-    day: "08",
-    year: "2026",
-    time: "11:00 AM GST",
-    title: "Braze Virtual Roundtable",
-    subtitle: "Marketing Through Uncertainty, Customer Engagement Strategies for MENAT",
-    sponsor: "Braze",
-    location: "Virtual",
-    link: "https://braze-webinar.eventsfirstgroup.com",
-    image: "/braze/sg-heat1-5.png",
-  },
-  {
     date: "April 15th, 2026",
     month: "APR",
     day: "15",
@@ -73,7 +60,9 @@ const UPCOMING_EVENTS = [
     sponsor: "OPEX First",
     location: "Virtual",
     link: "/events/opex-first/virtual-boardroom-mena",
-    image: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Untitled-2-01.png",
+    image: "",
+    brandColor: "#7C3AED",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OPEX+FIRST+logo-1.png",
   },
   {
     date: "May 12th, 2026",
@@ -85,8 +74,10 @@ const UPCOMING_EVENTS = [
     subtitle: "Engaging Customers in Uncertain Times: Why Trust is Your Competitive Advantage",
     sponsor: "CleverTap",
     location: "Virtual",
-    link: "#",
-    image: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverTap_Logotype.png",
+    link: "/clevertap2",
+    image: "",
+    brandColor: "#133B58",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverTap_Logotype.png",
   },
   {
     date: "May 13th, 2026",
@@ -112,7 +103,9 @@ const UPCOMING_EVENTS = [
     sponsor: "OT Security First",
     location: "Virtual",
     link: "/events/ot-security-first/virtual-boardroom-mena",
-    image: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Untitled-2-01.png",
+    image: "",
+    brandColor: "#D34B9A",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Untitled-2-01.png",
   },
   {
     date: "October 19th, 2026",
@@ -170,6 +163,7 @@ const PAST_EVENTS_2023 = [
 ];
 
 const PAST_EVENTS_2026: { sponsor: string; date: string; venue: string; image: string }[] = [
+  { sponsor: "Braze", date: "8 Apr", venue: "Virtual", image: "/braze/sg-heat1-5.png" },
   { sponsor: "CleverTap Iftar", date: "5 Mar", venue: "Madinat Jumeirah, Dubai", image: `${NF}/2026/02/iftar-photo1.jpg` },
   { sponsor: "CleverTap Majlis Al-Suhoor", date: "3 Mar", venue: "JW Marriott, Riyadh", image: `${NF}/2026/02/Suhoor-photo1.jpg` },
 ];
@@ -1525,7 +1519,6 @@ function UpcomingSection() {
     const el = scrollRef.current;
     if (!el) return;
     el.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
     return () => el.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
@@ -1554,21 +1547,24 @@ function UpcomingSection() {
       {/* Gold border top */}
       <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{ height: 1, background: `linear-gradient(90deg, transparent 0%, ${GOLD_30} 50%, transparent 100%)`, zIndex: 2 }} />
 
-      {/* Atmospheric glows */}
-      <div className="absolute pointer-events-none" style={{ top: "-10%", left: "50%", transform: "translateX(-50%)", width: 800, height: 500, borderRadius: "50%", background: `radial-gradient(ellipse, rgba(201,147,90,0.06) 0%, transparent 60%)`, filter: "blur(100px)" }} />
+      {/* Atmospheric glows — richer */}
+      <div className="absolute pointer-events-none" style={{ top: "-10%", left: "50%", transform: "translateX(-50%)", width: 900, height: 500, borderRadius: "50%", background: `radial-gradient(ellipse, rgba(201,147,90,0.08) 0%, transparent 55%)`, filter: "blur(100px)" }} />
+      <div className="absolute pointer-events-none" style={{ bottom: "-5%", left: "20%", width: 500, height: 300, borderRadius: "50%", background: `radial-gradient(ellipse, rgba(201,147,90,0.04) 0%, transparent 60%)`, filter: "blur(80px)" }} />
+      <div className="absolute pointer-events-none" style={{ top: "30%", right: "10%", width: 400, height: 300, borderRadius: "50%", background: `radial-gradient(ellipse, rgba(201,147,90,0.03) 0%, transparent 60%)`, filter: "blur(80px)" }} />
 
       <div style={{ position: "relative", zIndex: 1 }}>
         {/* Header */}
         <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(16px, 4vw, 60px)" }}>
-          <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ marginBottom: "clamp(20px, 3vw, 32px)" }}>
-            <div className="flex items-center gap-3" style={{ marginBottom: 16 }}>
-              <span style={{ width: 32, height: 1, background: GOLD }} />
+          <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ marginBottom: "clamp(24px, 3vw, 36px)", textAlign: "center" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 14, marginBottom: 18 }}>
+              <span style={{ width: 36, height: 1, background: `linear-gradient(90deg, transparent, ${GOLD})` }} />
               <p style={{ fontSize: 11, color: GOLD, letterSpacing: "0.25em", textTransform: "uppercase", margin: 0, fontWeight: 700 }}>Upcoming Sessions</p>
+              <span style={{ width: 36, height: 1, background: `linear-gradient(90deg, ${GOLD}, transparent)` }} />
             </div>
-            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 56px)", fontWeight: 800, lineHeight: 1.08, margin: "0 0 12px", letterSpacing: "-0.03em", color: TEXT }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 56px)", fontWeight: 800, lineHeight: 1.08, margin: "0 0 14px", letterSpacing: "-0.03em", color: TEXT }}>
               What&apos;s next<span style={{ color: GOLD }}>.</span>
             </h2>
-            <p style={{ fontSize: 15, color: TEXT_30, lineHeight: 1.65, margin: 0, maxWidth: 480 }}>
+            <p style={{ fontSize: 15, color: TEXT_30, lineHeight: 1.65, margin: "0 auto", maxWidth: 480 }}>
               {UPCOMING_EVENTS.length} sessions across {NF_MONTHS.length} months. Scroll to explore.
             </p>
           </motion.div>
@@ -1615,15 +1611,19 @@ function UpcomingSection() {
             <div style={{ width: "clamp(16px, 4vw, 60px)", flexShrink: 0 }} />
 
             {NF_MONTHS.map((month, mi) => (
-              <div key={month.abbr} ref={(el) => { monthRefs.current[month.abbr] = el; }} style={{ display: "flex", gap: 0, flexShrink: 0 }}>
-                {/* Month Label */}
-                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginRight: 20, flexShrink: 0, minWidth: 64 }}>
-                  {mi > 0 && <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${GOLD_30})`, marginBottom: 12 }} />}
-                  <span style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 800, color: activeMonth === month.abbr ? GOLD : TEXT_30, letterSpacing: "-1px", transition: "color 0.3s" }}>{month.full}</span>
+              <div key={month.abbr} ref={(el) => { monthRefs.current[month.abbr] = el; }} style={{ display: "flex", flexDirection: "column", flexShrink: 0, paddingLeft: mi > 0 ? "clamp(24px, 4vw, 48px)" : 0 }}>
+                {/* Month Label — above cards */}
+                <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: "clamp(20px, 3vw, 32px)" }}>
+                  {mi > 0 && <div style={{ width: "clamp(40px, 6vw, 80px)", height: 1, background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.1))`, marginRight: "clamp(12px, 2vw, 24px)" }} />}
+                  <span style={{
+                    fontFamily: "var(--font-display)", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 800,
+                    letterSpacing: "-3px", lineHeight: 1,
+                    color: activeMonth === month.abbr ? GOLD : "rgba(255,255,255,0.12)",
+                  }}>{month.full}</span>
                 </div>
 
                 {/* Cards */}
-                <div style={{ display: "flex", gap: 16 }}>
+                <div style={{ display: "flex", gap: "clamp(12px, 2vw, 20px)" }}>
                   {month.events.map((e, idx) => {
                     const isFirst = mi === 0 && idx === 0;
                     return (
@@ -1635,52 +1635,63 @@ function UpcomingSection() {
                         className="nf-event-card"
                         style={{ textDecoration: "none" }}
                       >
-                        {/* Card Image */}
+                        {/* Card Image / Brand Gradient */}
                         <div className="nf-card-img-wrap">
-                          <img src={e.image} alt="" className="nf-card-img" />
-                          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.85) 100%)" }} />
-                          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent, ${GOLD_50}, transparent)` }} />
+                          {e.image ? (
+                            <img src={e.image} alt="" className="nf-card-img" />
+                          ) : (
+                            <div style={{
+                              width: "100%", height: "100%",
+                              background: `linear-gradient(135deg, ${(e as Record<string, string>).brandColor || "#222"}dd 0%, ${(e as Record<string, string>).brandColor || "#222"}88 40%, #0a0a0a 100%)`,
+                              display: "flex", alignItems: "center", justifyContent: "center",
+                              position: "relative",
+                            }}>
+                              {(e as Record<string, string>).brandLogo && (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img src={(e as Record<string, string>).brandLogo} alt="" style={{ height: 36, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+                              )}
+                              {/* Radial glow */}
+                              <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 80% at 30% 30%, ${(e as Record<string, string>).brandColor || "#222"}30, transparent 60%)` }} />
+                            </div>
+                          )}
+                          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%)" }} />
+                          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${(e as Record<string, string>).brandColor ? (e as Record<string, string>).brandColor + "60" : GOLD_50}, transparent)` }} />
+                          {isFirst && (
+                            <div style={{ position: "absolute", top: 12, left: 12, zIndex: 4, display: "inline-flex", alignItems: "center", gap: 5, padding: "4px 10px", background: "rgba(201,147,90,0.2)", border: `1px solid ${GOLD}40`, borderRadius: 50, backdropFilter: "blur(8px)" }}>
+                              <span style={{ width: 5, height: 5, borderRadius: "50%", background: GOLD, boxShadow: `0 0 8px ${GOLD}` }} />
+                              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: GOLD }}>Next</span>
+                            </div>
+                          )}
                         </div>
 
-                        {/* Date + badges */}
-                        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 16 }}>
-                          <div>
-                            <span style={{ fontFamily: "var(--font-display)", fontSize: isFirst ? 48 : 40, fontWeight: 800, letterSpacing: "-2px", color: TEXT, lineHeight: 1, display: "block" }}>{e.day}</span>
-                            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 500, letterSpacing: "0.8px", textTransform: "uppercase", color: TEXT_30, marginTop: 4, display: "block" }}>{e.date}</span>
-                          </div>
-                          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
-                            {isFirst && (
-                              <span style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "4px 10px", background: `${GOLD}25`, border: `1px solid ${GOLD}4D`, borderRadius: 50, fontFamily: "var(--font-outfit)", fontSize: 8, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: GOLD }}>
-                                <span style={{ width: 5, height: 5, borderRadius: "50%", background: GOLD, boxShadow: `0 0 8px ${GOLD}` }} />
-                                Next
-                              </span>
-                            )}
-                            <span style={{ padding: "4px 10px", background: `${GOLD}18`, border: `1px solid ${GOLD}30`, borderRadius: 50, fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase", color: GOLD }}>{e.sponsor}</span>
-                          </div>
+                        {/* Card body — centered, clean */}
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", flex: 1 }}>
+                          {/* Sponsor badge */}
+                          <span style={{ padding: "4px 14px", borderRadius: 50, background: `${GOLD}0d`, border: `1px solid ${GOLD}1a`, fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: GOLD, marginBottom: 14 }}>{e.sponsor}</span>
+
+                          {/* Title */}
+                          <h3 style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 700, color: TEXT, margin: "0 0 8px", lineHeight: 1.25, letterSpacing: "-0.5px" }}>{e.title}</h3>
+
+                          {/* Subtitle — 2 lines */}
+                          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.45)", margin: 0, lineHeight: 1.6, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as const, overflow: "hidden", flex: 1 }}>{e.subtitle}</p>
                         </div>
 
-                        {/* Title */}
-                        <h3 style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 700, color: TEXT, margin: "0 0 8px", lineHeight: 1.2, letterSpacing: "-0.5px" }}>{e.title}</h3>
-                        <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: TEXT_50, margin: "0 0 20px", lineHeight: 1.6, flex: 1 }}>{e.subtitle}</p>
-
-                        {/* Meta */}
-                        <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: "auto" }}>
-                          <div className="flex items-center gap-2">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
-                            <span style={{ fontSize: 11, color: TEXT_30, fontWeight: 500 }}>{e.location}</span>
-                          </div>
-                          <span style={{ width: 3, height: 3, borderRadius: "50%", background: GOLD_30 }} />
-                          <div className="flex items-center gap-2">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
-                            <span style={{ fontSize: 11, color: TEXT_30, fontWeight: 500 }}>{e.time}</span>
-                          </div>
+                        {/* Meta footer */}
+                        <div style={{ marginTop: "auto", paddingTop: 16, borderTop: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", gap: 16 }}>
+                          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, color: GOLD }}>{e.date.split(",")[0]}</span>
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, color: "rgba(255,255,255,0.35)" }}>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(201,147,90,0.6)" strokeWidth="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                            {e.location}
+                          </span>
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, color: "rgba(255,255,255,0.35)" }}>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(201,147,90,0.6)" strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
+                            {e.time}
+                          </span>
                         </div>
                       </a>
                     );
                   })}
                 </div>
-                {/* Spacer between months */}
-                {mi < NF_MONTHS.length - 1 && <div style={{ width: 32, flexShrink: 0 }} />}
               </div>
             ))}
 
@@ -1693,9 +1704,16 @@ function UpcomingSection() {
 
         {/* Coming soon strip */}
         <motion.div variants={fadeUp} custom={UPCOMING_EVENTS.length + 1} initial="hidden" animate={inView ? "visible" : "hidden"}
-          style={{ padding: "20px 32px", background: "rgba(201,147,90,0.03)", border: `1px solid rgba(201,147,90,0.1)`, borderRadius: 14, backdropFilter: "blur(8px)", maxWidth: 1200, marginTop: 32, marginLeft: "auto", marginRight: "auto" }}>
-          <div className="flex items-center justify-center gap-3" style={{ flexWrap: "wrap" }}>
-            <span style={{ width: 7, height: 7, borderRadius: "50%", background: GOLD, boxShadow: `0 0 14px rgba(201,147,90,0.5)` }} />
+          style={{
+            padding: "18px 32px", maxWidth: 1200, marginTop: 36, marginLeft: "auto", marginRight: "auto",
+            borderRadius: 16,
+            background: "linear-gradient(135deg, rgba(201,147,90,0.04) 0%, rgba(255,255,255,0.015) 100%)",
+            border: `1px solid rgba(201,147,90,0.12)`,
+            backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
+            boxShadow: "inset 0 1px 0 rgba(201,147,90,0.06), 0 4px 16px rgba(0,0,0,0.15)",
+          }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
+            <span style={{ width: 7, height: 7, borderRadius: "50%", background: GOLD, boxShadow: `0 0 14px ${GOLD_50}` }} />
             <p style={{ fontSize: 14, color: TEXT_50, margin: 0 }}>More sessions coming for <span style={{ color: GOLD, fontWeight: 600 }}>Q2 &amp; Q3 2026</span>, stay tuned.</p>
           </div>
         </motion.div>
@@ -1727,93 +1745,102 @@ function UpcomingSection() {
         .nf-month-pill {
           display: inline-flex; align-items: center; gap: 6px;
           padding: 8px 16px; border-radius: 50px;
-          background: rgba(255,255,255,0.03);
+          background: transparent;
           border: 1px solid rgba(255,255,255,0.06);
           font-family: var(--font-outfit); font-size: 11px;
           font-weight: 600; letter-spacing: 2px;
-          color: rgba(255,255,255,0.4);
+          color: rgba(255,255,255,0.35);
           cursor: pointer; transition: all 0.3s ease;
           white-space: nowrap; flex-shrink: 0;
         }
         .nf-month-pill:hover {
-          background: rgba(255,255,255,0.06);
           border-color: rgba(255,255,255,0.12);
+          color: rgba(255,255,255,0.6);
         }
         .nf-month-active {
-          background: rgba(201,147,90,0.15) !important;
-          border-color: rgba(201,147,90,0.4) !important;
+          background: rgba(201,147,90,0.1) !important;
+          border-color: rgba(201,147,90,0.35) !important;
           color: ${GOLD} !important;
         }
         .nf-month-count {
-          font-size: 9px; font-weight: 500;
+          font-size: 9px; font-weight: 600;
           background: rgba(255,255,255,0.06);
           padding: 2px 6px; border-radius: 50px;
-          color: rgba(255,255,255,0.3);
+          color: rgba(255,255,255,0.25);
         }
         .nf-month-active .nf-month-count {
-          background: rgba(201,147,90,0.2);
+          background: rgba(201,147,90,0.18);
           color: ${GOLD};
         }
 
         /* Pagination Arrows */
         .nf-arrow-btn {
-          width: 40px; height: 40px; border-radius: 50%;
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.1);
-          color: rgba(255,255,255,0.5);
+          width: 38px; height: 38px; border-radius: 50%;
+          background: transparent;
+          border: 1px solid rgba(255,255,255,0.08);
+          color: rgba(255,255,255,0.4);
           display: flex; align-items: center; justify-content: center;
           cursor: pointer;
           transition: all 0.3s ease;
         }
         .nf-arrow-btn:hover {
-          background: rgba(201,147,90,0.15);
-          border-color: rgba(201,147,90,0.4);
+          border-color: rgba(201,147,90,0.3);
           color: ${GOLD};
-          box-shadow: 0 0 20px rgba(201,147,90,0.15);
         }
 
-        /* Event Card */
+        /* Event Card — premium glass */
         .nf-event-card {
           position: relative;
-          width: 320px; flex-shrink: 0;
+          width: 340px; flex-shrink: 0;
           display: flex; flex-direction: column;
           border-radius: 20px; overflow: hidden;
-          background: rgba(255,255,255,0.025);
+          background: linear-gradient(170deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.01) 100%);
           border: 1px solid rgba(255,255,255,0.08);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-          transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+          box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+          transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
           cursor: pointer;
         }
+        .nf-event-card::before {
+          content: '';
+          position: absolute; top: 0; left: 0; right: 0; height: 1px;
+          background: linear-gradient(90deg, transparent 10%, rgba(201,147,90,0.3) 50%, transparent 90%);
+          z-index: 3;
+        }
         .nf-event-card:hover {
-          border-color: rgba(201,147,90,0.35);
+          border-color: rgba(201,147,90,0.3);
           transform: translateY(-6px);
-          box-shadow: 0 24px 64px rgba(201,147,90,0.12), 0 0 40px rgba(201,147,90,0.06);
+          box-shadow:
+            0 24px 56px rgba(0,0,0,0.35),
+            0 0 48px rgba(201,147,90,0.08);
+        }
+        .nf-event-card:hover::before {
+          background: linear-gradient(90deg, transparent 5%, rgba(201,147,90,0.5) 50%, transparent 95%);
         }
         .nf-event-card:hover .nf-card-img {
-          transform: scale(1.08);
+          transform: scale(1.06);
+          filter: brightness(0.65) saturate(0.95);
         }
 
         /* Card Image */
         .nf-card-img-wrap {
-          position: relative; height: 140px; overflow: hidden;
+          position: relative; height: 180px; overflow: hidden;
         }
         .nf-card-img {
           width: 100%; height: 100%; object-fit: cover;
-          filter: brightness(0.65) saturate(0.9);
-          transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+          filter: brightness(0.55) saturate(0.8);
+          transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        /* Card content padding (below image) */
+        /* Card content padding */
         .nf-event-card > div:not(.nf-card-img-wrap) {
           padding-left: 24px; padding-right: 24px;
         }
-        .nf-event-card > div:nth-child(2) { padding-top: 20px; }
-        .nf-event-card > div:last-child { padding-bottom: 24px; }
+        .nf-event-card > div:nth-child(2) { padding-top: 18px; }
+        .nf-event-card > div:last-child { padding-bottom: 22px; }
 
         @media (max-width: 600px) {
           .nf-event-card { width: 280px; }
-          .nf-card-img-wrap { height: 110px; }
+          .nf-card-img-wrap { height: 140px; }
         }
       `}</style>
     </section>

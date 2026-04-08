@@ -4303,7 +4303,7 @@ const MARQUEE_ROW_2 = [
   { src: `${S3_LOGOS}/OPSWAT-logo.png`, name: "OPSWAT" },
   { src: `${S3_LOGOS}/PENTERA.png`, name: "Pentera" },
   { src: `${S3_LOGOS}/secureworks.png`, name: "Secureworks" },
-  { src: `${S3_LOGOS}/Securonix-logo.png`, name: "Securonix" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/securonix.jpg", name: "Securonix" },
   { src: `${S3_LOGOS}/Tenable-logo.png`, name: "Tenable" },
   { src: `${S3_LOGOS}/Wallix.png`, name: "Wallix" },
   { src: `${S3_LOGOS}/Xage.png`, name: "Xage" },

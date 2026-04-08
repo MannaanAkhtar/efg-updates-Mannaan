@@ -25,20 +25,6 @@ type EventItem = {
 
 const allEvents: EventItem[] = [
   {
-    id: "braze-roundtable-1",
-    series: "NetworkFirst",
-    seriesColor: "#C9935A",
-    edition: "",
-    title: "Braze Virtual Roundtable",
-    date: new Date("2026-04-08"),
-    dateDisplay: "April 8, 2026",
-    location: "Virtual",
-    venue: "Virtual",
-    attendees: "15-20",
-    href: "https://braze-webinar.eventsfirstgroup.com",
-    status: "open",
-  },
-  {
     id: "braze-roundtable-2",
     series: "NetworkFirst",
     seriesColor: "#C9935A",

@@ -46,7 +46,7 @@ const ROW_2 = [
   { src: `${S3}/OPSWAT-logo.png`, name: "OPSWAT" },
   { src: `${S3}/PENTERA.png`, name: "Pentera" },
   { src: `${S3}/secureworks.png`, name: "Secureworks" },
-  { src: `${S3}/Securonix-logo.png`, name: "Securonix" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/securonix.jpg", name: "Securonix" },
   { src: `${S3}/Tenable-logo.png`, name: "Tenable" },
   { src: `${S3}/Wallix.png`, name: "Wallix" },
   { src: `${S3}/Xage.png`, name: "Xage" },

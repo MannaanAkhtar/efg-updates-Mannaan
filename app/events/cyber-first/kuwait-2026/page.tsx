@@ -2688,7 +2688,7 @@ const MARQUEE_ROW_2 = [
   { name: "Pentera", logo: `${S3_LOGOS}/PENTERA.png` },
   { name: "HWG", logo: `${S3_LOGOS}/hwg-here-we-go.png` },
   { name: "AmiViz", logo: `${S3_LOGOS}/AmiViz.png` },
-  { name: "Securonix", logo: `${S3_LOGOS}/Securonix-logo.png` },
+  { name: "Securonix", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/securonix.jpg" },
   { name: "Paramount", logo: `${S3_LOGOS}/Paramount.png` },
   { name: "Kron Technologies", logo: `${S3_LOGOS}/kron-technologies.png` },
   { name: "Appknox", logo: `${S3_LOGOS}/appknox.png` },
