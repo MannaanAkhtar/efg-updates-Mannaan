@@ -142,10 +142,11 @@ function HeroSection() {
             </div>
 
             {/* Title — mask reveal per line */}
-            <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(40px, 6vw, 68px)", lineHeight: 1.05, letterSpacing: "-2.5px", color: SW_DARK, margin: "0 0 24px" }}>
+            <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.05, letterSpacing: "-2.5px", color: SW_DARK, margin: "0 0 24px" }}>
               <span style={{ display: "block", overflow: "hidden" }}><span className="sw-title-line" style={{ display: "block", fontWeight: 300, opacity: 0 }}>Beyond the</span></span>
               <span style={{ display: "block", overflow: "hidden" }}><span className="sw-title-line" style={{ display: "block", fontWeight: 300, opacity: 0 }}>Firewall:</span></span>
               <span style={{ display: "block", overflow: "hidden" }}><span className="sw-title-line" style={{ display: "block", color: SW_ORANGE, fontWeight: 300, opacity: 0 }}>Strategic Security</span></span>
+              <span style={{ display: "block", overflow: "hidden" }}><span className="sw-title-line" style={{ display: "block", color: SW_ORANGE, fontWeight: 300, opacity: 0 }}>Conversations</span></span>
             </h1>
 
             {/* Tagline — stagger */}
@@ -799,7 +800,6 @@ function CompanySection() {
             {[
               { num: "30+", label: "Years" },
               { num: "17K+", label: "Partners" },
-              { num: "1M+", label: "Networks Protected" },
             ].map((stat, i) => (
               <div key={stat.label} style={{ flex: 1, textAlign: "center", padding: "12px 0", position: "relative" }}>
                 {i > 0 && <div className="sw-about-stat-div" style={{ position: "absolute", left: 0, top: "15%", bottom: "15%", width: 1, background: "rgba(30,40,40,0.1)", transform: "scaleY(0)" }} />}
