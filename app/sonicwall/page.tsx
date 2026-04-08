@@ -342,7 +342,7 @@ function OverviewSection() {
           {/* Live demo callout — liquid glass skeuomorphic */}
           <div className="sw-ov-callout" style={{ display: "inline-flex", alignItems: "center", gap: 12, padding: "14px 28px", borderRadius: 50, background: "linear-gradient(145deg, rgba(160,190,240,0.3) 0%, rgba(200,220,250,0.25) 50%, rgba(255,230,215,0.2) 100%)", border: "1px solid rgba(255,255,255,0.5)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8), inset 0 -1px 0 rgba(0,0,0,0.04), 0 6px 24px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04)", opacity: 0 }}>
             <div style={{ width: 8, height: 8, borderRadius: "50%", background: SW_ORANGE, boxShadow: `0 0 6px ${SW_ORANGE}50, 0 0 12px ${SW_ORANGE}20`, animation: "swCalloutPulse 2s ease-in-out infinite" }} />
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 500, color: SW_DARK, letterSpacing: "0.1px" }}>Includes a live SonicWall Platform &amp; Unified Management demo</span>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 500, color: SW_DARK, letterSpacing: "0.1px" }}>Includes a SonicWall Platform &amp; Unified Management demo</span>
           </div>
         </div>
       </div>
