@@ -184,6 +184,7 @@ const EVENT_CONFIGS: Record<string, {
     colorBright: "#9F6AFF",
     date: "12 May 2026",
     location: "Virtual",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OPEX+FIRST+logo-1.png",
     navLinks: [
       { href: "#overview", label: "Overview" },
       { href: "#themes", label: "Themes" },

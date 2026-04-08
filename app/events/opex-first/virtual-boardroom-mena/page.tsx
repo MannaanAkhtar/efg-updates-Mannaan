@@ -8,7 +8,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { MeshGradient } from "@paper-design/shaders-react";
 import { Footer, InquiryForm } from "@/components/sections";
-import ComingSoonEvent from "@/components/events/ComingSoonEvent";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -16,7 +15,7 @@ if (typeof window !== "undefined") {
 
 // ─── COMING SOON MODE ─────────────────────────────────────────────────────
 // Set to false when ready to launch the full page
-const COMING_SOON = true;
+const COMING_SOON = false;
 
 // ─── Design Tokens ───────────────────────────────────────────────────────────
 const V = "#7C3AED";          // Violet / OPEX First primary
@@ -1202,6 +1201,262 @@ function AgendaSection() {
   );
 }
 
+// ─── FROM THE STAGE — Event Highlights ───────────────────────────────────────
+
+const OPEX_HIGHLIGHTS = [
+  { id: "5obYKv-vJZE", title: "OPEX First UAE 2026" },
+  { id: "dbL42utoYW4", title: "OPEX First KSA 2025" },
+  { id: "3uvw31I1tq8", title: "Enterprise OPS Conference" },
+];
+
+const OPEX_SHORTS = [
+  { id: "WCsfo5Z6xVY", title: "OPEX First Testimonial" },
+  { id: "baCK3xnKh68", title: "OPEX First Testimonial" },
+  { id: "vMv0AfXMQL0", title: "OPEX First Testimonial" },
+  { id: "AefPAed0g-I", title: "OPEX First Testimonial" },
+  { id: "SH9Z1U2_rAM", title: "OPEX First Testimonial" },
+  { id: "wLgYOHHB6o4", title: "OPEX First Testimonial" },
+  { id: "2jpIlqo0HSY", title: "OPEX First Testimonial" },
+  { id: "SLkj5gO-LQ8", title: "OPEX First Testimonial" },
+];
+
+function OpexVideoCard({ videoId, title, label, isHero, isVertical }: { videoId: string; title: string; label?: string; isHero?: boolean; isVertical?: boolean }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const thumbSrc = isVertical
+    ? `https://img.youtube.com/vi/${videoId}/oar2.jpg`
+    : `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+
+  return (
+    <div className="opex-v-card" onClick={() => !isPlaying && setIsPlaying(true)}>
+      {isPlaying ? (
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+        />
+      ) : (
+        <>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img loading="lazy" src={thumbSrc} alt={title} className="opex-v-thumb"
+            {...(isVertical ? { onError: (e: React.SyntheticEvent<HTMLImageElement>) => { (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`; } } : {})}
+          />
+          <div className="opex-v-overlay" />
+          <div className="opex-v-play-wrap">
+            <div className={`opex-v-play-btn ${isHero ? "opex-v-play-hero" : ""}`}>
+              <svg width={isHero ? "18" : "14"} height={isHero ? "18" : "14"} viewBox="0 0 24 24" fill="white" style={{ marginLeft: 2 }}>
+                <polygon points="5,3 19,12 5,21" />
+              </svg>
+            </div>
+          </div>
+          {label && (
+            <div className="opex-v-label">
+              <span style={{ background: `linear-gradient(135deg, ${V}4d 0%, ${V}26 100%)`, borderColor: `${V}4d` }}>{label}</span>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+function OpexHighlights() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section ref={ref} style={{ background: `linear-gradient(180deg, ${BG_DARK} 0%, ${BG} 50%, ${BG_DARK} 100%)`, padding: "clamp(60px, 8vw, 100px) 0", position: "relative", overflow: "hidden" }}>
+      <div style={{ position: "absolute", top: "10%", left: "-5%", width: 500, height: 500, borderRadius: "50%", background: `radial-gradient(circle, rgba(124,58,237,0.14) 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "10%", right: "-5%", width: 400, height: 400, borderRadius: "50%", background: `radial-gradient(circle, rgba(52,211,153,0.1) 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1, ease: EASE }} style={{ textAlign: "center", marginBottom: 48 }}>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 5vw, 56px)", color: "white", letterSpacing: "-2px", margin: "0 0 12px", lineHeight: 1 }}>
+            From the{" "}
+            <span style={{ background: `linear-gradient(110deg, ${V_BRIGHT}, ${MINT}, ${V_BRIGHT})`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", animation: "opexShimmer 6s ease-in-out infinite" }}>Stage</span>
+          </h2>
+          <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 1.2, delay: 0.4, ease: EASE }}
+            style={{ width: 120, height: 3, background: `linear-gradient(90deg, transparent, ${V_BRIGHT}, transparent)`, margin: "0 auto 16px", borderRadius: 2, transformOrigin: "center", boxShadow: `0 0 12px rgba(124,58,237,0.5)` }} />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.45)", letterSpacing: "0.5px" }}>Keynotes, panels, and conversations captured live from OPEX First summits.</span>
+        </motion.div>
+
+        {/* 3-column grid with bezels */}
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.3, ease: EASE }} className="opex-eh-grid">
+          {OPEX_HIGHLIGHTS.map((v, i) => (
+            <div key={v.id} className="opex-eh-grid-card">
+              <div style={{
+                width: "100%", height: "100%", padding: 3, borderRadius: 22,
+                background: `linear-gradient(145deg, rgba(${i % 2 === 0 ? "124,58,237" : "52,211,153"},0.15) 0%, rgba(255,255,255,0.05) 40%, rgba(255,255,255,0.02) 70%, rgba(${i % 2 === 0 ? "52,211,153" : "124,58,237"},0.1) 100%)`,
+                boxShadow: `0 1px 0 rgba(255,255,255,0.05) inset, 0 -2px 0 rgba(0,0,0,0.3) inset, 0 12px 40px rgba(0,0,0,0.4)`,
+              }}>
+                <div style={{
+                  width: "100%", height: "100%", borderRadius: 19, overflow: "hidden",
+                  background: `linear-gradient(180deg, ${BG_CARD} 0%, ${BG_DARK} 100%)`,
+                  border: "1px solid rgba(255,255,255,0.04)",
+                  boxShadow: `inset 0 2px 4px rgba(0,0,0,0.4), inset 0 -1px 0 rgba(255,255,255,0.03)`,
+                  position: "relative",
+                }}>
+                  <div style={{ position: "absolute", top: 0, left: "5%", right: "5%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)", zIndex: 3 }} />
+                  <OpexVideoCard videoId={v.id} title={v.title} label={v.title} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      <style jsx global>{`
+        .opex-v-card {
+          position: relative; width: 100%; height: 100%;
+          border-radius: 16px; overflow: hidden;
+          background: rgba(255,255,255,0.03); cursor: pointer;
+          transition: border-color 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1);
+        }
+        .opex-v-card:hover .opex-v-thumb { transform: scale(1.04); }
+        .opex-v-card:hover .opex-v-play-btn {
+          background: ${V}e6; border-color: ${V}66;
+          transform: scale(1.2); box-shadow: 0 0 0 8px ${V}1f, 0 4px 16px ${V}40;
+        }
+        .opex-v-card:hover .opex-v-label span { box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 4px 12px rgba(0,0,0,0.3); }
+        .opex-v-label { position: absolute; bottom: 10px; left: 10px; z-index: 2; }
+        .opex-v-label span {
+          font-family: var(--font-outfit); font-size: 9px; font-weight: 600;
+          letter-spacing: 1.2px; text-transform: uppercase; color: #fff;
+          padding: 4px 10px; border-radius: 50px; border-style: solid; border-width: 1px;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 2px 10px rgba(0,0,0,0.25);
+          transition: box-shadow 0.3s ease;
+        }
+        .opex-v-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+        .opex-v-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%); }
+        .opex-v-play-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+        .opex-v-play-btn {
+          width: 40px; height: 40px; border-radius: 50%;
+          background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.25);
+          display: flex; align-items: center; justify-content: center;
+          transition: all 0.4s cubic-bezier(0.22,1,0.36,1); animation: opex-v-pulse 3s ease-in-out infinite;
+        }
+        .opex-v-play-hero { width: 64px; height: 64px; }
+        @keyframes opex-v-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.08); } 50% { box-shadow: 0 0 0 6px rgba(255,255,255,0.04); } }
+        .opex-eh-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 2vw, 20px); }
+        .opex-eh-grid-card { aspect-ratio: 16 / 9; }
+        @media (max-width: 768px) { .opex-eh-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; } }
+        @media (max-width: 600px) { .opex-v-play-hero { width: 48px; height: 48px; } }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── FROM THE ROOM — Testimonials ────────────────────────────────────────────
+
+function OpexTestimonials() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const row1 = OPEX_SHORTS.slice(0, 5);
+  const row2 = OPEX_SHORTS.slice(5);
+
+  return (
+    <section ref={ref} style={{ background: `linear-gradient(180deg, ${BG} 0%, ${BG_DARK} 50%, ${BG} 100%)`, padding: "clamp(60px, 8vw, 100px) 0", position: "relative", overflow: "hidden" }}>
+      <div style={{ position: "absolute", top: "20%", right: "-5%", width: 500, height: 500, borderRadius: "50%", background: `radial-gradient(circle, rgba(52,211,153,0.12) 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "15%", left: "-5%", width: 400, height: 400, borderRadius: "50%", background: `radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1, ease: EASE }} style={{ textAlign: "center", marginBottom: 56 }}>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 5vw, 56px)", color: "white", letterSpacing: "-2px", margin: "0 0 12px", lineHeight: 1 }}>
+            From the{" "}
+            <span style={{ background: `linear-gradient(110deg, ${MINT}, ${V_BRIGHT}, ${MINT})`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", animation: "opexShimmer 6s ease-in-out infinite" }}>Room</span>
+          </h2>
+          <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 1.2, delay: 0.4, ease: EASE }}
+            style={{ width: 120, height: 3, background: `linear-gradient(90deg, transparent, ${MINT}, transparent)`, margin: "0 auto 16px", borderRadius: 2, transformOrigin: "center", boxShadow: `0 0 12px rgba(52,211,153,0.5)` }} />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.45)", letterSpacing: "0.5px" }}>Hear directly from operational excellence leaders who attended our summits.</span>
+        </motion.div>
+
+        {/* Row 1 — 5 cards */}
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.3, ease: EASE }} className="opex-vr-showcase">
+          {row1.map((v, i) => (
+            <div key={v.id} className={`opex-vr-slot opex-vr-slot-${i % 2 === 0 ? "tall" : "short"} ${i === 2 ? "opex-vr-slot-hero" : ""}`}>
+              <div style={{
+                width: "100%", height: "100%", padding: 3, borderRadius: 22,
+                background: `linear-gradient(145deg, rgba(${i % 2 === 0 ? "124,58,237" : "52,211,153"},0.15) 0%, rgba(255,255,255,0.05) 40%, rgba(255,255,255,0.02) 70%, rgba(${i % 2 === 0 ? "52,211,153" : "124,58,237"},0.1) 100%)`,
+                boxShadow: `0 1px 0 rgba(255,255,255,0.05) inset, 0 -2px 0 rgba(0,0,0,0.3) inset, 0 12px 40px rgba(0,0,0,0.4)`,
+              }}>
+                <div style={{
+                  width: "100%", height: "100%", borderRadius: 19, overflow: "hidden",
+                  background: `linear-gradient(180deg, ${BG_CARD} 0%, ${BG_DARK} 100%)`,
+                  border: "1px solid rgba(255,255,255,0.04)",
+                  boxShadow: `inset 0 2px 4px rgba(0,0,0,0.4), inset 0 -1px 0 rgba(255,255,255,0.03)`,
+                  position: "relative",
+                }}>
+                  <div style={{ position: "absolute", top: 0, left: "8%", right: "8%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)", zIndex: 3 }} />
+                  <OpexVideoCard videoId={v.id} title={v.title} label="OPEX First" isVertical />
+                </div>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Row 2 — 3 cards */}
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.5, ease: EASE }} className="opex-vr-showcase" style={{ marginTop: 24 }}>
+          {row2.map((v, i) => (
+            <div key={v.id} className={`opex-vr-slot opex-vr-slot-${i % 2 === 0 ? "short" : "tall"} ${i === 1 ? "opex-vr-slot-hero" : ""}`}>
+              <div style={{
+                width: "100%", height: "100%", padding: 3, borderRadius: 22,
+                background: `linear-gradient(145deg, rgba(${i % 2 === 0 ? "52,211,153" : "124,58,237"},0.15) 0%, rgba(255,255,255,0.05) 40%, rgba(255,255,255,0.02) 70%, rgba(${i % 2 === 0 ? "124,58,237" : "52,211,153"},0.1) 100%)`,
+                boxShadow: `0 1px 0 rgba(255,255,255,0.05) inset, 0 -2px 0 rgba(0,0,0,0.3) inset, 0 12px 40px rgba(0,0,0,0.4)`,
+              }}>
+                <div style={{
+                  width: "100%", height: "100%", borderRadius: 19, overflow: "hidden",
+                  background: `linear-gradient(180deg, ${BG_CARD} 0%, ${BG_DARK} 100%)`,
+                  border: "1px solid rgba(255,255,255,0.04)",
+                  boxShadow: `inset 0 2px 4px rgba(0,0,0,0.4), inset 0 -1px 0 rgba(255,255,255,0.03)`,
+                  position: "relative",
+                }}>
+                  <div style={{ position: "absolute", top: 0, left: "8%", right: "8%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)", zIndex: 3 }} />
+                  <OpexVideoCard videoId={v.id} title={v.title} label="OPEX First" isVertical />
+                </div>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Caption */}
+        <motion.div initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.6, delay: 0.7, ease: EASE }}
+          style={{ textAlign: "center", marginTop: 28, display: "flex", alignItems: "center", justifyContent: "center", gap: 16 }}>
+          <div style={{ width: 32, height: 1, background: `linear-gradient(90deg, transparent, ${V}40)` }} />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: "rgba(255,255,255,0.3)", letterSpacing: "2px", textTransform: "uppercase" }}>8 Voices · OPEX First Series</span>
+          <div style={{ width: 32, height: 1, background: `linear-gradient(270deg, transparent, ${V}40)` }} />
+        </motion.div>
+      </div>
+
+      <style jsx global>{`
+        .opex-vr-showcase { display: flex; gap: 18px; align-items: center; justify-content: center; }
+        .opex-vr-slot { flex-shrink: 0; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); }
+        .opex-vr-slot:hover { transform: translateY(-8px); }
+        .opex-vr-slot-tall { width: 200px; height: 340px; }
+        .opex-vr-slot-short { width: 180px; height: 270px; }
+        .opex-vr-slot-hero.opex-vr-slot-tall { width: 230px; height: 400px; }
+        .opex-vr-showcase .opex-v-thumb { object-position: center 20%; }
+        .opex-vr-showcase .opex-v-card { border-radius: 16px; border: none; box-shadow: none; }
+        .opex-vr-showcase .opex-v-card:hover { box-shadow: none; transform: none; }
+        .opex-vr-showcase .opex-v-label span { font-size: 8px; }
+        @media (max-width: 900px) {
+          .opex-vr-showcase { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 8px; }
+          .opex-vr-showcase::-webkit-scrollbar { display: none; }
+          .opex-vr-slot-tall { width: 140px; height: 240px; }
+          .opex-vr-slot-short { width: 130px; height: 200px; }
+          .opex-vr-slot-hero.opex-vr-slot-tall { width: 155px; height: 270px; }
+        }
+        @media (max-width: 560px) {
+          .opex-vr-slot-tall { width: 115px; height: 195px; }
+          .opex-vr-slot-short { width: 105px; height: 165px; }
+          .opex-vr-slot-hero.opex-vr-slot-tall { width: 130px; height: 225px; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
 // ─── REGISTRATION ────────────────────────────────────────────────────────────
 function RegistrationSection() {
   return (
@@ -1270,21 +1525,6 @@ function ContactSection() {
 
 // ─── MAIN PAGE ───────────────────────────────────────────────────────────────
 export default function ProcessIntelligenceMENA() {
-  // Coming soon — remove this return when ready to launch
-  return (
-    <ComingSoonEvent
-      seriesName="OPEX First"
-      eventTitle="Process Intelligence MENA"
-      color="#7C3AED"
-      colorBright="#9F6AFF"
-      tagline="From Digital Investment to Measurable Execution — A 2-hour executive webinar for senior transformation, operations, and technology leaders across the GCC."
-      eventDate="2026-05-12T11:00:00+04:00"
-      dateDisplay="May 12, 2026"
-      location="Virtual"
-    />
-  );
-
-  // ─── Full page below (preserved, not deleted) ─────────────────────────
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
@@ -1345,6 +1585,8 @@ export default function ProcessIntelligenceMENA() {
       <CaseStudiesSection />
       <WhoAttendsSection />
       <AgendaSection />
+      <OpexHighlights />
+      <OpexTestimonials />
       <RegistrationSection />
       <ContactSection />
       <Footer />
