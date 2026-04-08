@@ -605,10 +605,15 @@ export default function CyberFirstKenya2026() {
           .cfk-stats-grid { grid-template-columns: repeat(3, 1fr) !important; }
         }
         @media (max-width: 768px) {
-          .cfk-hero-toprow { flex-direction: column; align-items: flex-start !important; gap: 12px !important; }
-          .cfk-hero h1 { font-size: clamp(28px, 9vw, 42px) !important; }
-          .cfk-hero-content { padding: clamp(80px, 12vh, 100px) 20px clamp(100px, 14vh, 140px) !important; }
+          .cfk-hero-toprow { flex-direction: column; align-items: flex-start !important; gap: 8px !important; }
+          .cfk-hero h1 { font-size: clamp(28px, 9vw, 42px) !important; margin-bottom: 8px !important; }
+          .cfk-hero-content { padding: 60px 20px 60px !important; min-height: 100dvh; justify-content: center !important; gap: 0 !important; }
           .cfk-community-partner { display: none !important; }
+          .cfk-community-mobile { display: flex !important; }
+          .cfk-hero-toprow { margin-bottom: 10px !important; }
+          .cfk-hero-toprow img { max-height: 32px !important; }
+          .cfk-hero .cfk-hero-stagger { margin-bottom: 10px !important; }
+          .cfk-countdown-bar { bottom: 0 !important; }
           .cfk-countdown-date .cfk-countdown-sep,
           .cfk-countdown-date .cfk-countdown-label { display: none; }
           .cfk-partners-strip { bottom: 80px !important; padding: 14px 16px !important; gap: 16px !important; }
@@ -700,6 +705,14 @@ function HeroSection() {
               boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
             }}>
               <img src={SUPPORTING_PARTNERS[0].logo} alt={SUPPORTING_PARTNERS[0].name} style={{ height: "clamp(36px, 5vw, 55px)", objectFit: "contain" }} />
+            </div>
+
+            {/* Community Partner — mobile only (inline, compact) */}
+            <div className="cfk-community-mobile" style={{ display: "none", flexDirection: "column", alignItems: "flex-start", gap: 6, marginTop: 8 }}>
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 8, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: KENYA_ACCENT }}>Community Partner</span>
+              <div style={{ background: "white", borderRadius: 6, padding: "6px 12px", boxShadow: "0 2px 12px rgba(0,0,0,0.3)" }}>
+                <img src="https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/gafai_blue_Global_Alliance_for_Artificial_Intelligence.png" alt="GAFAI" style={{ height: 22, objectFit: "contain" }} />
+              </div>
             </div>
           </motion.div>
 
@@ -1037,7 +1050,7 @@ function ConferenceChair() {
         </motion.div>
 
         {/* Two-column editorial layout */}
-        <div className="cfk-chair-split" style={{ display: "grid", gridTemplateColumns: "380px 1fr", gap: "clamp(40px, 6vw, 80px)", alignItems: "start" }}>
+        <div className="cfk-chair-split" style={{ display: "grid", gridTemplateColumns: "clamp(260px, 30vw, 380px) 1fr", gap: "clamp(24px, 5vw, 80px)", alignItems: "start" }}>
 
           {/* Left — Large editorial portrait */}
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: EASE }}>
@@ -1235,6 +1248,9 @@ function ConferenceChair() {
           .cfk-chair-split { grid-template-columns: 1fr !important; }
           .cfk-chair-split > div:first-child { max-width: 340px; }
         }
+        @media (max-width: 640px) {
+          .cfk-chair-split > div:first-child { max-width: 260px; margin: 0 auto; }
+        }
       `}</style>
     </section>
   );
@@ -1248,6 +1264,8 @@ function StatsBar() {
 
   useGSAP(() => {
     if (!card1Ref.current || !card2Ref.current) return;
+    // Disable sticky pinning on mobile
+    if (window.innerWidth < 768) return;
 
     ScrollTrigger.create({
       trigger: card1Ref.current,
@@ -1799,6 +1817,34 @@ function StatsBar() {
             text-align: center !important;
           }
         }
+        @media (max-width: 768px) {
+          .cfk-stack-card {
+            min-height: auto !important;
+            height: auto !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+            background: #0A0608 !important;
+          }
+          .cfk-stack-card > .absolute { display: none !important; }
+          .cfk-stack-card > div:last-child {
+            padding: clamp(48px, 10vw, 72px) 24px !important;
+            gap: 24px !important;
+          }
+          .cfk-stack-card span[style*="120px"],
+          .cfk-stack-card span[style*="220px"] {
+            font-size: clamp(72px, 18vw, 100px) !important;
+            letter-spacing: -4px !important;
+          }
+          .cfk-stack-card span[style*="60px"] {
+            font-size: clamp(36px, 9vw, 52px) !important;
+          }
+          .cfk-stack-card p {
+            font-size: clamp(15px, 4vw, 18px) !important;
+            text-align: center !important;
+          }
+          .cfk-summit-section { padding: clamp(48px, 8vw, 72px) 0 !important; }
+          .cfk-summit-section .cfk-summit-headline { font-size: clamp(32px, 8vw, 48px) !important; }
+        }
       `}</style>
     </div>
   );
@@ -1811,6 +1857,7 @@ function SiliconSavannahContext() {
 
   useGSAP(() => {
     if (!leftRef.current || !sectionRef.current) return;
+    if (window.innerWidth < 768) return;
 
     ScrollTrigger.create({
       trigger: sectionRef.current,
@@ -1831,18 +1878,19 @@ function SiliconSavannahContext() {
   ];
 
   return (
-    <section ref={sectionRef} style={{ position: "relative", background: "#0A0608", minHeight: "100vh" }}>
-      <div style={{ 
-        display: "grid", 
-        gridTemplateColumns: "1fr 1fr", 
+    <section ref={sectionRef} className="cfk-whynow-section" style={{ position: "relative", background: "#0A0608", minHeight: "100vh" }}>
+      <div className="cfk-whynow-grid" style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
         minHeight: "100vh",
         maxWidth: 1600,
         margin: "0 auto",
       }}>
         {/* LEFT SIDE - STICKY */}
-        <div 
+        <div
           ref={leftRef}
-          style={{ 
+          className="cfk-whynow-left"
+          style={{
             height: "100vh",
             display: "flex",
             flexDirection: "column",
@@ -1963,7 +2011,7 @@ function SiliconSavannahContext() {
         </div>
         
         {/* RIGHT SIDE - SCROLLING STATS */}
-        <div style={{ 
+        <div className="cfk-whynow-right" style={{
           padding: "clamp(60px, 8vw, 120px) clamp(40px, 5vw, 80px)",
           display: "flex",
           flexDirection: "column",
@@ -1976,6 +2024,7 @@ function SiliconSavannahContext() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: i * 0.05 }}
+              className="cfk-whynow-stat-row"
               style={{
                 padding: "clamp(32px, 4vw, 48px) 0",
                 borderBottom: i < THREAT_STATS.length - 1 ? "1px solid rgba(255,255,255,0.08)" : "none",
@@ -2049,6 +2098,35 @@ function SiliconSavannahContext() {
         @media (max-width: 1024px) {
           section[style*="grid-template-columns: 1fr 1fr"] > div {
             grid-template-columns: 1fr !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .cfk-whynow-section { min-height: auto !important; }
+          .cfk-whynow-grid {
+            grid-template-columns: 1fr !important;
+            min-height: auto !important;
+          }
+          .cfk-whynow-left {
+            height: auto !important;
+            padding: clamp(48px, 10vw, 64px) 24px 32px !important;
+            text-align: center;
+          }
+          .cfk-whynow-left h2 { text-align: center; }
+          .cfk-whynow-left p { text-align: center; max-width: 100% !important; margin-left: auto; margin-right: auto; }
+          .cfk-whynow-right {
+            padding: 0 24px clamp(48px, 10vw, 64px) !important;
+          }
+          .cfk-whynow-stat-row {
+            grid-template-columns: auto 1fr auto !important;
+            gap: 12px !important;
+            padding: 20px 0 !important;
+          }
+          .cfk-whynow-stat-row span[style*="48px"] {
+            font-size: clamp(32px, 8vw, 44px) !important;
+            letter-spacing: -2px !important;
+          }
+          .cfk-whynow-stat-row span[style*="24px"] {
+            font-size: clamp(16px, 4vw, 22px) !important;
           }
         }
       `}</style>
@@ -2285,6 +2363,78 @@ function FocusAreas() {
   );
 }
 
+// ─── ADVISORY MOBILE MARQUEE ────────────────────────────────────────────────
+function AdvisoryMobileMarquee() {
+  const [page, setPage] = useState(0);
+  const perPage = 2;
+  const totalPages = Math.ceil(ADVISORY_BOARD.length / perPage);
+  const paused = useRef(false);
+
+  // Auto-advance
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (!paused.current) setPage(p => (p + 1) % totalPages);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [totalPages]);
+
+  const visible = ADVISORY_BOARD.slice(page * perPage, page * perPage + perPage);
+
+  return (
+    <div className="cfk-advisory-mobile" style={{ display: "none", padding: "0 24px 40px" }}>
+      {/* Cards row — marquee-like crossfade */}
+      <div
+        style={{ display: "flex", gap: 14, justifyContent: "center" }}
+        onPointerEnter={() => { paused.current = true; }}
+        onPointerLeave={() => { paused.current = false; }}
+      >
+        {visible.map((member) => (
+          <div key={member.name} style={{
+            width: "calc(50% - 7px)", maxWidth: 220, borderRadius: 18, overflow: "hidden",
+            background: "linear-gradient(165deg, rgba(25,18,20,0.95) 0%, rgba(12,8,10,0.98) 100%)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            boxShadow: "0 12px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)",
+          }}>
+            {/* Photo */}
+            <div style={{ height: 200, overflow: "hidden", position: "relative" }}>
+              {member.photo ? (
+                <img src={member.photo} alt={member.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
+              ) : (
+                <div style={{ width: "100%", height: "100%", background: `linear-gradient(135deg, ${C}60, ${C}30)`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <span style={{ fontSize: 48, color: "rgba(255,255,255,0.15)" }}>👤</span>
+                </div>
+              )}
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "50%", background: "linear-gradient(to bottom, transparent, rgba(12,8,10,0.95))" }} />
+            </div>
+            {/* Info */}
+            <div style={{ padding: "12px 14px 16px" }}>
+              <p style={{ fontFamily: "var(--font-display)", fontSize: 14, fontWeight: 700, color: "white", margin: "0 0 4px", lineHeight: 1.25 }}>{member.name}</p>
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 500, color: C_BRIGHT, margin: "0 0 3px", lineHeight: 1.3 }}>{member.title}</p>
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.5)", margin: 0, lineHeight: 1.3 }}>{member.org}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Pagination dots */}
+      <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 20 }}>
+        {Array.from({ length: totalPages }).map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setPage(i)}
+            style={{
+              width: page === i ? 24 : 8, height: 8, borderRadius: 4,
+              background: page === i ? C_BRIGHT : "rgba(255,255,255,0.15)",
+              border: "none", cursor: "pointer", padding: 0,
+              transition: "all 0.3s ease",
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── ADVISORY BOARD - HORIZONTAL SCROLL WITH GSAP ────────────────────────────
 function AdvisoryBoard() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -2292,9 +2442,11 @@ function AdvisoryBoard() {
 
   useGSAP(() => {
     if (!trackRef.current || !sectionRef.current) return;
+    // Disable horizontal scroll on mobile — use vertical grid instead
+    if (window.innerWidth < 768) return;
 
     const track = trackRef.current;
-    const leftPanel = 500;
+    const leftPanel = Math.min(500, window.innerWidth * 0.35);
     const scrollWidth = track.scrollWidth - (window.innerWidth - leftPanel);
 
     const tl = gsap.timeline({
@@ -2317,6 +2469,7 @@ function AdvisoryBoard() {
   return (
     <section
       ref={sectionRef}
+      className="cfk-advisory-section"
       style={{
         background: "#0A0608",
         position: "relative",
@@ -2328,9 +2481,9 @@ function AdvisoryBoard() {
       <div className="absolute inset-0" style={{ background: `radial-gradient(ellipse 100% 80% at 0% 50%, ${C}15, transparent 50%)` }} />
       <div className="absolute inset-0" style={{ background: `radial-gradient(ellipse 60% 60% at 100% 50%, ${KENYA_ACCENT}10, transparent 50%)` }} />
 
-      <div style={{ display: "flex", height: "100%", alignItems: "center" }}>
+      <div className="cfk-advisory-wrap" style={{ display: "flex", height: "100%", alignItems: "center" }}>
         {/* LEFT - Sticky Heading with solid background */}
-        <div style={{
+        <div className="cfk-advisory-left" style={{
           width: "clamp(380px, 35vw, 500px)",
           flexShrink: 0,
           padding: "60px clamp(40px, 5vw, 80px)",
@@ -2391,7 +2544,7 @@ function AdvisoryBoard() {
             </p>
             
             {/* Scroll indicator */}
-            <div style={{ marginTop: 56, display: "flex", alignItems: "center", gap: 14 }}>
+            <div className="cfk-scroll-hint" style={{ marginTop: 56, display: "flex", alignItems: "center", gap: 14 }}>
               <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.4)", letterSpacing: "3px", textTransform: "uppercase" }}>
                 Scroll to explore
               </span>
@@ -2410,6 +2563,7 @@ function AdvisoryBoard() {
         {/* RIGHT - Horizontal Scroll Track */}
         <div
           ref={trackRef}
+          className="cfk-advisory-track"
           style={{
             display: "flex",
             gap: 32,
@@ -2567,6 +2721,9 @@ function AdvisoryBoard() {
         </div>
       </div>
 
+      {/* Mobile Marquee + Pagination */}
+      <AdvisoryMobileMarquee />
+
       <style jsx global>{`
         .cfk-speaker-card {
           cursor: pointer;
@@ -2605,6 +2762,20 @@ function AdvisoryBoard() {
         }
         .cfk-linkedin-btn:hover svg {
           fill: #0A66C2 !important;
+        }
+        @media (max-width: 767px) {
+          .cfk-advisory-wrap { flex-direction: column !important; height: auto !important; }
+          .cfk-advisory-left { width: 100% !important; height: auto !important; border-right: none !important; padding: clamp(40px,8vw,56px) 24px 20px !important; text-align: center; }
+          .cfk-advisory-left h2 { font-size: clamp(32px, 8vw, 44px) !important; text-align: center; }
+          .cfk-advisory-left p { text-align: center; max-width: 100% !important; }
+          .cfk-advisory-track { display: none !important; }
+          .cfk-advisory-section { height: auto !important; }
+          .cfk-scroll-hint { display: none !important; }
+          .cfk-advisory-mobile { display: block !important; }
+        }
+        @keyframes cfk-advisory-marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
         }
       `}</style>
     </section>
@@ -3855,6 +4026,9 @@ function WhatToExpect() {
           .cfk-expect-pulse { animation: cfk-expect-glow-pulse 7s ease-in-out infinite; }
           .cfk-expect-headline { animation: cfk-expect-shimmer 8s ease-in-out infinite; }
           @media (max-width: 900px) {
+            .cfk-expect-grid { grid-template-columns: 1fr 1fr !important; }
+          }
+          @media (max-width: 640px) {
             .cfk-expect-grid { grid-template-columns: 1fr !important; }
           }
         `}</style>
@@ -4164,7 +4338,7 @@ function WhoShouldAttend() {
         </motion.div>
 
         {/* Content, Roles grid + Industries panel */}
-        <div className="cfk-attend-split" style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: 28, alignItems: "start" }}>
+        <div className="cfk-attend-split" style={{ display: "grid", gridTemplateColumns: "1fr clamp(280px, 30vw, 380px)", gap: 28, alignItems: "start" }}>
           {/* Roles, 2-column grid inside a glass card */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -4624,6 +4798,65 @@ function CfkHighlights() {
   );
 }
 
+// ─── FROM THE ROOM — Mobile Marquee ─────────────────────────────────────────
+function VrMobileMarquee({ inView }: { inView: boolean }) {
+  const [page, setPage] = useState(0);
+  const perPage = 3;
+  const totalPages = Math.ceil(CFK_SHORTS.length / perPage);
+  const paused = useRef(false);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (!paused.current) setPage(p => (p + 1) % totalPages);
+    }, 4500);
+    return () => clearInterval(id);
+  }, [totalPages]);
+
+  const visible = CFK_SHORTS.slice(page * perPage, page * perPage + perPage);
+
+  return (
+    <motion.div
+      className="cfk-vr-mobile"
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, delay: 0.2 }}
+      style={{ display: "none" }}
+    >
+      <div
+        style={{ display: "flex", gap: 10, justifyContent: "center" }}
+        onPointerEnter={() => { paused.current = true; }}
+        onPointerLeave={() => { paused.current = false; }}
+      >
+        {visible.map((v, i) => (
+          <div key={v.id} style={{
+            width: "calc(33.33% - 7px)", maxWidth: 130,
+            height: i === 1 ? 220 : 185,
+            flexShrink: 0,
+          }}>
+            <CfkVideoCard videoId={v.id} title={v.title} label="Cyber First" isVertical />
+          </div>
+        ))}
+      </div>
+
+      {/* Pagination dots */}
+      <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 20 }}>
+        {Array.from({ length: totalPages }).map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setPage(i)}
+            style={{
+              width: page === i ? 24 : 8, height: 8, borderRadius: 4,
+              background: page === i ? C_BRIGHT : "rgba(255,255,255,0.15)",
+              border: "none", cursor: "pointer", padding: 0,
+              transition: "all 0.3s ease",
+            }}
+          />
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
 // ─── FROM THE ROOM — Testimonials ────────────────────────────────────────────
 
 function CfkTestimonials() {
@@ -4656,6 +4889,9 @@ function CfkTestimonials() {
             </div>
           ))}
         </motion.div>
+
+        {/* Mobile marquee + pagination */}
+        <VrMobileMarquee inView={inView} />
       </div>
 
       <style jsx global>{`
@@ -4701,16 +4937,19 @@ function CfkTestimonials() {
         .cfk-vr-section .cfk-v-label span { font-size: 8px; }
 
         @media (max-width: 900px) {
-          .cfk-vr-showcase { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 8px; }
+          .cfk-vr-showcase { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; justify-content: flex-start; padding: 0 clamp(16px,4vw,40px) 8px; }
           .cfk-vr-showcase::-webkit-scrollbar { display: none; }
           .cfk-vr-slot-tall { width: 130px; height: 220px; }
           .cfk-vr-slot-short { width: 120px; height: 180px; }
           .cfk-vr-slot-hero.cfk-vr-slot-tall { width: 145px; height: 250px; }
         }
-        @media (max-width: 560px) {
-          .cfk-vr-slot-tall { width: 110px; height: 185px; }
-          .cfk-vr-slot-short { width: 100px; height: 155px; }
-          .cfk-vr-slot-hero.cfk-vr-slot-tall { width: 120px; height: 210px; }
+        @media (max-width: 640px) {
+          .cfk-vr-showcase { display: none !important; }
+          .cfk-vr-mobile { display: block !important; }
+        }
+        @keyframes cfk-vr-marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
         }
       `}</style>
     </section>
@@ -4774,7 +5013,7 @@ function AwardsSection() {
 
         {/* ═══ TOP: Header ═══ */}
         <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: EASE }} style={{ textAlign: "center", marginBottom: 28 }}>
-          <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.5, delay: 0.1, ease: EASE }} style={{ width: 60, height: 60, margin: "0 auto 22px", borderRadius: 16, background: `linear-gradient(145deg, ${GOLD}18, ${GOLD}06)`, border: `1px solid ${GOLD}28`, display: "flex", alignItems: "center", justifyContent: "flex-start", boxShadow: `0 8px 48px ${GOLD}15, inset 0 1px 0 ${GOLD}20` }}>
+          <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.5, delay: 0.1, ease: EASE }} style={{ width: 60, height: 60, margin: "0 auto 22px", borderRadius: 16, background: `linear-gradient(145deg, ${GOLD}18, ${GOLD}06)`, border: `1px solid ${GOLD}28`, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 8px 48px ${GOLD}15, inset 0 1px 0 ${GOLD}20` }}>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 9H4.5a2.5 2.5 0 010-5H6M18 9h1.5a2.5 2.5 0 000-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 1012 0V2z" />
             </svg>
@@ -4792,15 +5031,15 @@ function AwardsSection() {
             Join us as we celebrate the Cyber First 2026 Awards, honoring those who demonstrate outstanding excellence and innovation in operational practices.
           </p>
           {/* Stats strip */}
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.3, ease: EASE }} className="flex items-center justify-center gap-6 flex-wrap" style={{ padding: "16px 32px", borderRadius: 16, background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", display: "inline-flex" }}>
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.3, ease: EASE }} className="cfk-awards-stats-strip" style={{ padding: "16px 32px", borderRadius: 16, background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 24, flexWrap: "wrap" }}>
             {[
               { num: "6", label: "Categories" },
               { num: "5", label: "Eligible Sectors" },
               { num: "2026", label: "Inaugural Edition" },
             ].map((s, si) => (
               <React.Fragment key={s.label}>
-                {si > 0 && <div style={{ width: 1, height: 24, background: "rgba(255,255,255,0.08)" }} />}
-                <div className="flex items-center gap-3">
+                {si > 0 && <div className="cfk-awards-stats-div" style={{ width: 1, height: 24, background: "rgba(255,255,255,0.08)" }} />}
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 24, letterSpacing: "-1px", background: `linear-gradient(135deg, ${GOLD}, ${GOLD_BRIGHT})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{s.num}</span>
                   <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.35)", letterSpacing: "0.5px" }}>{s.label}</span>
                 </div>
@@ -5048,6 +5287,21 @@ function AwardsSection() {
           .cfk-awards-split { grid-template-columns: 1fr !important; }
           .cfk-awards-grid { grid-template-columns: 1fr !important; }
         }
+        @media (max-width: 640px) {
+          .cfk-awards-stats-strip {
+            display: grid !important; grid-template-columns: 1fr 1fr 1fr;
+            gap: 0 !important; padding: 0 !important;
+            border: none !important; background: none !important;
+          }
+          .cfk-awards-stats-strip > div:not(.cfk-awards-stats-div) {
+            flex-direction: column !important; gap: 4px !important;
+            text-align: center; justify-content: center; align-items: center;
+            padding: 14px 8px;
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+          }
+          .cfk-awards-stats-div { display: none !important; }
+        }
       `}</style>
     </section>
   );
@@ -5253,7 +5507,7 @@ function ContactSection() {
               </div>
 
               {/* Photo */}
-              <div className="cfk-photo-wrapper" style={{ width: 160, height: 160, margin: "0 auto 28px", borderRadius: "50%", position: "relative" }}>
+              <div className="cfk-photo-wrapper" style={{ width: "min(160px, 40vw)", height: "min(160px, 40vw)", margin: "0 auto 28px", borderRadius: "50%", position: "relative" }}>
                 <div className="cfk-photo-ring" style={{ position: "absolute", inset: -4, borderRadius: "50%", background: `conic-gradient(from 0deg, ${C_BRIGHT}, ${KENYA_ACCENT}, ${C_BRIGHT})`, opacity: 0.9 }} />
                 <div style={{ position: "absolute", inset: -4, borderRadius: "50%", boxShadow: `0 0 40px ${C_BRIGHT}40, 0 0 80px ${C_BRIGHT}20`, pointerEvents: "none" }} />
                 <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: "50%", padding: 4, background: "#0a0a0a" }}>
