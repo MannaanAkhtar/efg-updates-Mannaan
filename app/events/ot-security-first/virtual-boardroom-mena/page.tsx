@@ -4,6 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import {
   motion,
   useInView,
+  AnimatePresence,
 } from "framer-motion";
 import Link from "next/link";
 import { gsap } from "gsap";
@@ -95,9 +96,9 @@ const KEY_THEMES = [
 ];
 
 const PANELS = [
-  { num: "01", title: "AI-Powered Threats in OT: Are We Ready?", desc: "State-sponsored actors are now deploying AI-assisted recon and wiper malware against industrial systems across the Gulf. How are energy and utilities operators actually responding, and what does a practical OT defence posture look like in 2025?" },
-  { num: "02", title: "IT/OT Convergence: The Air Gap Is Gone", desc: "Fortinet's 2025 research confirmed the traditional IT/OT air gap is largely gone. With supply-chain attacks doubling and vendor access compromises surging, where are the real exposure points, and how are leaders managing them in live operational environments?" },
-  { num: "03", title: "From Reactive to Resilient: Building an OT Incident Response Capability", desc: "Only 52% of OT organisations globally have a documented, tested incident response plan. With ransomware now causing full OT site shutdowns in 25% of cases, this panel tackles what genuine resilience requires, from early detection to recovery and regulatory reporting." },
+  { num: "01", title: "Securing Critical Infrastructure at a National Level: From Strategy to Operational Reality", desc: "National cybersecurity strategies across the Gulf are evolving rapidly — but how effectively are they translating into real protection for live OT environments? As threats targeting energy, utilities, and national infrastructure intensify, governments and operators face increasing pressure to bridge the gap between policy and execution. How are countries like the United Arab Emirates, Saudi Arabia, Qatar, Bahrain, Oman, and Kuwait operationalizing their strategies on the ground, and where do the biggest gaps between national ambition and real-world implementation still remain?" },
+  { num: "02", title: "IT/OT Convergence: The Exposure Points Most Teams Still Miss", desc: "As IT and OT environments become increasingly interconnected, the attack surface expands in ways many organizations still underestimate. While convergence enables efficiency and visibility, it also introduces hidden exposure points — from vendor access pathways to supply chain dependencies — that can quietly undermine even the most mature security strategies. Where do the most critical vulnerabilities actually exist today, and how can organizations secure these environments without compromising operational uptime?" },
+  { num: "03", title: "AI-Powered OT Attacks: What's Already Happening — and How to Respond in Live Environments", desc: "Artificial intelligence is already reshaping the threat landscape — accelerating reconnaissance, automating attack paths, and increasing the speed and precision of compromise across OT environments. As attackers become more adaptive and scalable, traditional detection and incident response models are struggling to keep pace. How are AI-driven attacks already playing out in real-world OT environments, and what does an effective response and resilience strategy look like against faster, more intelligent threats?" },
 ];
 
 const INDUSTRIES = ["Energy & Power Generation", "Oil & Gas", "Water & Utilities", "Petrochemicals", "Critical Manufacturing", "Telecommunications", "Ports & Logistics", "Government & Defence"];
@@ -834,6 +835,7 @@ function PanelDiscussions() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
   const [activePanel, setActivePanel] = useState(0);
+  const [showFullDesc, setShowFullDesc] = useState(false);
 
   const colors = [CYAN, C_BRIGHT, CYAN];
 
@@ -873,7 +875,7 @@ function PanelDiscussions() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className="otvm-panels-accordion"
-          style={{ display: "flex", gap: 14, height: "clamp(340px, 42vh, 420px)" }}
+          style={{ display: "flex", gap: 14, minHeight: "clamp(380px, 48vh, 480px)" }}
         >
           {PANELS.map((panel, i) => {
             const isActive = activePanel === i;
@@ -882,7 +884,7 @@ function PanelDiscussions() {
             return (
               <motion.div
                 key={panel.num}
-                onClick={() => setActivePanel(i)}
+                onClick={() => { setActivePanel(i); setShowFullDesc(false); }}
                 animate={{ flex: isActive ? 3.5 : 1 }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 className={`otvm-panel-card ${isActive ? "" : "otvm-panel-collapsed"}`}
@@ -1017,11 +1019,24 @@ function PanelDiscussions() {
                         color: "rgba(255,255,255,0.5)",
                         lineHeight: 1.7,
                         margin: 0,
-                        maxWidth: 550,
+                        maxWidth: 600,
+                        ...(!showFullDesc ? { display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical" as const, overflow: "hidden" } : {}),
                       }}>
                         {panel.desc}
                       </p>
-                      <div style={{ marginTop: 20, display: "flex", alignItems: "center", gap: 8 }}>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setShowFullDesc(!showFullDesc); }}
+                        style={{
+                          background: "none", border: "none", cursor: "pointer", padding: "6px 0", marginTop: 8,
+                          display: "flex", alignItems: "center", gap: 6,
+                          fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, color: colors[i],
+                          transition: "opacity 0.3s ease",
+                        }}
+                      >
+                        {showFullDesc ? "Show less" : "Read more"}
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={colors[i]} strokeWidth="2" strokeLinecap="round" style={{ transition: "transform 0.3s ease", transform: showFullDesc ? "rotate(180deg)" : "rotate(0)" }}><path d="M6 9l6 6 6-6" /></svg>
+                      </button>
+                      <div style={{ marginTop: 12, display: "flex", alignItems: "center", gap: 8 }}>
                         <div style={{ width: 32, height: 2, background: `linear-gradient(90deg, ${colors[i]}, transparent)`, borderRadius: 1 }} />
                         <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 500, color: "rgba(255,255,255,0.25)" }}>20-minute moderated dialogue</span>
                       </div>
