@@ -1142,7 +1142,7 @@ function SeriesCard({
     >
       {/* Background image */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      {series.image ? <img
         src={series.image}
         alt={`${series.title} - ${series.tagline} - ${series.nextCity}`}
         className="absolute inset-0 w-full h-full object-cover"
@@ -1153,7 +1153,7 @@ function SeriesCard({
           transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
           transform: hovered ? "scale(1.08)" : "scale(1)",
         }}
-      />
+      /> : <div className="absolute inset-0" style={{ background: `linear-gradient(135deg, ${series.color}30, #0a0a0a)` }} />}
 
       {/* Color wash */}
       <div

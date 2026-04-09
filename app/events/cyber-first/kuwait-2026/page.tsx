@@ -4577,7 +4577,7 @@ const CFK_CONTACTS = {
   speaking: {
     name: "Harini Sudhakar",
     role: "Producer",
-    phone: "+971 50 500 3341",
+    phone: "+971 50 615 9216",
     email: "harini@eventsfirstgroup.com",
     photo: `${S3_TEAM}/Harini.jpg`,
   },
@@ -4585,7 +4585,7 @@ const CFK_CONTACTS = {
     {
       name: "Mohammed Hassan",
       role: "Partnership Manager",
-      phone: "+971 56 398 6565",
+      phone: "+971 54 302 0244",
       email: "hassan@eventsfirstgroup.com",
       photo: null,
     },
