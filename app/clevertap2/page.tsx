@@ -236,7 +236,7 @@ function HeroSection() {
               {[
                 { label: "Date", value: "13 May 2026", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
                 { label: "Time", value: "11:00 AM GST", icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" },
-                { label: "Format", value: "Virtual · 90 min", icon: "M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" },
+                { label: "Format", value: "Virtual · 60 min", icon: "M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" },
               ].map((item, i) => (
                 <div key={item.label} style={{ padding: "clamp(10px, 1.5vh, 14px) clamp(14px, 2vw, 22px)", borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.15)" : "none", display: "flex", alignItems: "center", gap: "clamp(8px, 1vw, 12px)" }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={CT_BLUE} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.4, flexShrink: 0 }}><path d={item.icon} /></svg>
@@ -448,7 +448,7 @@ function OverviewSection() {
             <div className="ct-ov-divider" style={{ width: 48, height: 2, background: CT_RED, borderRadius: 1, transform: "scaleX(0)", marginBottom: 20 }} />
 
             <p style={{ fontFamily: "var(--font-opensans)", fontSize: 14, color: CT_SLATE, lineHeight: 1.7, margin: "0 0 28px" }}>
-              A 90-minute peer-led session for marketing, CRM, and growth leaders across MENAT.
+              A 60-minute peer-led session for marketing, CRM, and growth leaders across MENAT.
             </p>
 
           </div>
@@ -814,7 +814,7 @@ function AgendaSection() {
             <p className="ct-ag-sub" style={{
               fontFamily: "var(--font-opensans)", fontSize: 14, color: CT_SLATE,
               lineHeight: 1.7, margin: "0 0 28px", opacity: 0,
-            }}>90 minutes of focused discussion, peer insights, and actionable frameworks.</p>
+            }}>60 minutes of focused discussion, peer insights, and actionable frameworks.</p>
             <div style={{ width: 40, height: 3, borderRadius: 2, background: `linear-gradient(90deg, ${CT_BLUE}, rgba(59,130,246,0.4))` }} />
           </div>
 
