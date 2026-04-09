@@ -54,7 +54,7 @@ const eventSeries = [
     label: "Opex First",
     color: "#7C3AED",
     editions: [
-      { href: "/events/opex-first/virtual-boardroom-mena", label: "Process Intelligence MENA", virtual: true },
+      { href: "/events/opex-first/process-intelligence", label: "Process Intelligence MENA", virtual: true },
       { href: "/events/opex-first/saudi-2026", label: "Saudi Arabia" },
     ]
   },

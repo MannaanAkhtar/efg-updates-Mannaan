@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
 
 const BASE_URL = "https://eventsfirstgroup.com";
-const PAGE_URL = `${BASE_URL}/events/opex-first/virtual-boardroom-mena`;
+const PAGE_URL = `${BASE_URL}/events/opex-first/process-intelligence`;
 const OG_IMAGE =
   "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Untitled-2-01.png";
 
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title:
     "Process Intelligence MENA | Executive Webinar 2026",
   description:
-    "From Digital Investment to Measurable Execution. A 2-hour executive webinar for senior transformation, operations, and technology leaders across the GCC. May 12, 2026.",
+    "From Digital Investment to Measurable Execution. A 2-hour executive webinar for senior transformation, operations, and technology leaders across the GCC. May 21, 2026.",
   keywords: [
     "process intelligence webinar",
     "MENA process mining",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Process Intelligence MENA — Executive Webinar",
     description:
-      "From Digital Investment to Measurable Execution. Driving Operational Intelligence Across the GCC. May 12, 2026.",
+      "From Digital Investment to Measurable Execution. Driving Operational Intelligence Across the GCC. May 21, 2026.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Process Intelligence MENA — Executive Webinar",
     description:
-      "From Digital Investment to Measurable Execution. May 12, 2026 — GCC Region.",
+      "From Digital Investment to Measurable Execution. May 21, 2026 — GCC Region.",
     images: [OG_IMAGE],
   },
 };
@@ -79,8 +79,8 @@ export default function OpexVirtualForumLayout({
             name: "Process Intelligence MENA — Executive Webinar 2026",
             description:
               "From Digital Investment to Measurable Execution. A 2-hour executive webinar for senior transformation, operations, and technology leaders across the GCC.",
-            startDate: "2026-05-12T11:00:00+04:00",
-            endDate: "2026-05-12T13:00:00+04:00",
+            startDate: "2026-05-21T11:00:00+04:00",
+            endDate: "2026-05-21T13:00:00+04:00",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode:
               "https://schema.org/OnlineEventAttendanceMode",

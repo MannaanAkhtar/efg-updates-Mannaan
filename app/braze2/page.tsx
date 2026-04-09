@@ -514,7 +514,7 @@ function BrazeNav() {
 }
 
 // ─── COUNTDOWN TIMER ────────────────────────────────────────────────────────
-const EVENT_DATE = new Date("2026-04-15T11:00:00+04:00"); // 11 AM GST
+const EVENT_DATE = new Date("2026-04-29T11:00:00+04:00"); // 11 AM GST
 
 function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -832,7 +832,7 @@ function HeroSection() {
               }}
             >
               {[
-                { icon: <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="white" strokeWidth="1.2"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" stroke="white" strokeWidth="1.2" strokeLinecap="round"/></svg>, text: "15 April 2026" },
+                { icon: <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="white" strokeWidth="1.2"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" stroke="white" strokeWidth="1.2" strokeLinecap="round"/></svg>, text: "29 April 2026" },
                 { icon: <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="white" strokeWidth="1.2"/><path d="M8 4.5V8l2.5 1.5" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>, text: "11:00 AM GST" },
                 { icon: <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="white" strokeWidth="1.2"/><path d="M8 4.5V8l2.5 1.5" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>, text: "60 Min" },
                 { icon: <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="9" rx="1.5" stroke="white" strokeWidth="1.2"/><circle cx="8" cy="7.5" r="2" stroke="white" strokeWidth="1.2"/></svg>, text: "Virtual" },

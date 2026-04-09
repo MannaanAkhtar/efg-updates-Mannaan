@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
       { source: "/ot-security-first/", destination: "/events/ot-security-first", permanent: true },
       { source: "/opex-first", destination: "/events/opex-first", permanent: true },
       { source: "/opex-first/", destination: "/events/opex-first", permanent: true },
+      { source: "/events/opex-first/virtual-boardroom-mena", destination: "/events/opex-first/process-intelligence", permanent: true },
       { source: "/data-ai-first", destination: "/events/data-ai-first", permanent: true },
       { source: "/data-ai-first/", destination: "/events/data-ai-first", permanent: true },
       { source: "/digital-first", destination: "/events/data-ai-first", permanent: true },

@@ -145,7 +145,7 @@ function useCountdown(target: string) {
 // ─── HERO SECTION ────────────────────────────────────────────────────────────
 function HeroSection() {
   const [mounted, setMounted] = useState(false);
-  const cd = useCountdown("2026-05-12T11:00:00+04:00");
+  const cd = useCountdown("2026-05-21T11:00:00+04:00");
   useEffect(() => setMounted(true), []);
 
   return (
@@ -234,7 +234,7 @@ function HeroSection() {
             transition={{ duration: 0.7, delay: 1.1 }}
             style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center", marginBottom: 28 }}
           >
-            {["12 May 2026", "Virtual · Live", "2 Hours", "GCC Leaders"].map((label) => (
+            {["21 May 2026", "Virtual · Live", "2 Hours", "GCC Leaders"].map((label) => (
               <div key={label} className="opex-info-pill" style={{
                 padding: "9px 20px", borderRadius: 50, position: "relative", overflow: "hidden",
                 background: "linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02) 50%, rgba(124,58,237,0.06))",

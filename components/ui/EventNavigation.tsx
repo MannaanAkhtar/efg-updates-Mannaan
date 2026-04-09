@@ -177,12 +177,12 @@ const EVENT_CONFIGS: Record<string, {
     location: "Riyadh, KSA",
     navLinks: [{ href: "#register-interest", label: "Register Interest" }],
   },
-  "/events/opex-first/virtual-boardroom-mena": {
+  "/events/opex-first/process-intelligence": {
     name: "Process Intelligence MENA",
     shortName: "PI MENA",
     color: "#7C3AED",
     colorBright: "#9F6AFF",
-    date: "12 May 2026",
+    date: "21 May 2026",
     location: "Virtual",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OPEX+FIRST+logo-1.png",
     navLinks: [
