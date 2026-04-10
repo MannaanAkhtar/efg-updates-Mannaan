@@ -4,7 +4,7 @@ import { BreadcrumbSchema } from "@/lib/schemas";
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/opex-first/process-intelligence`;
 const OG_IMAGE =
-  "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Untitled-2-01.png";
+  "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OPEX+FIRST+logo-1.png";
 
 export const metadata: Metadata = {
   title:
