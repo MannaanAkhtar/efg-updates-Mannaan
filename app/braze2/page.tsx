@@ -239,6 +239,7 @@ export default function BrazeLandingPage() {
       <BrazeNav />
       <HeroSection />
       <OverviewSection />
+      <WinningBrandsSection />
       <WhatToExpect />
       <ThemesSection />
       <AttendSection />
@@ -1197,105 +1198,73 @@ function OverviewSection() {
           <Image src="/braze2/sg-heat2-5.png" alt="" fill style={{ objectFit: "contain" }} />
         </div>
 
-        <div style={{ maxWidth: MAX_W, margin: "0 auto", padding: "100px clamp(20px, 4vw, 60px) 100px", position: "relative", zIndex: 2 }}>
-          <div className="braze2-overview-layout" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }}>
-            {/* LEFT, Heading + CTA */}
-            <div>
-              <motion.span
-                initial={{ opacity: 0, y: 10 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.2, ease: EASE }}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  fontFamily: FONT,
-                  fontSize: 11,
-                  fontWeight: 700,
-                  letterSpacing: "2.5px",
-                  textTransform: "uppercase",
-                  color: B_PURPLE,
-                  marginBottom: 20,
-                }}
-              >
-                <span style={{ width: 6, height: 6, borderRadius: "50%", background: B_LAVENDER }} />
-                About the Roundtable
-              </motion.span>
-
-              <motion.h2
-                initial={{ opacity: 0, y: 24 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
-                style={{
-                  fontFamily: FONT,
-                  fontWeight: 900,
-                  fontSize: "clamp(22px, 2.4vw, 32px)",
-                  lineHeight: 1.2,
-                  letterSpacing: "-0.03em",
-                  color: B_DARK_PURPLE,
-                  margin: "0 0 36px",
-                  paddingLeft: 24,
-                  borderImage: `linear-gradient(to bottom, ${B_PURPLE}, ${B_ORANGE}) 1`,
-                  borderLeft: "3px solid",
-                }}
-              >
-                Balancing AI-Driven Efficiency with Empathetic Agility.
-              </motion.h2>
-
-              <motion.a
-                href="#register"
-                initial={{ opacity: 0, y: 12 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.45, ease: EASE }}
-                onClick={(e: React.MouseEvent) => {
-                  e.preventDefault();
-                  document.getElementById("register")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  padding: "14px 32px",
-                  borderRadius: 50,
-                  background: B_PURPLE,
-                  color: "white",
-                  fontFamily: FONT,
-                  fontSize: 14,
-                  fontWeight: 700,
-                  textDecoration: "none",
-                  transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-                }}
-                onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow = `0 12px 36px ${B_PURPLE}30`;
-                }}
-                onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "none";
-                }}
-              >
-                Join the Discussion
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </motion.a>
-
-            </div>
-
-            {/* RIGHT, Body text in card */}
-            <motion.div
-              className="braze2-overview-card"
-              initial={{ opacity: 0, y: 20 }}
+        <div style={{ maxWidth: 920, margin: "0 auto", padding: "100px clamp(20px, 4vw, 60px) 40px", position: "relative", zIndex: 2 }}>
+          {/* Centered cinematic header */}
+          <div style={{ textAlign: "center", marginBottom: 56 }}>
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.35, ease: EASE }}
+              transition={{ duration: 0.5, delay: 0.2, ease: EASE }}
               style={{
-                background: "rgba(128,30,215,0.03)",
-                borderRadius: 20,
-                padding: "36px 36px 40px",
-                border: "1px solid rgba(128,30,215,0.08)",
-                boxShadow: "0 4px 24px rgba(128,30,215,0.04)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                fontFamily: FONT,
+                fontSize: 11,
+                fontWeight: 700,
+                letterSpacing: "2.5px",
+                textTransform: "uppercase",
+                color: B_PURPLE,
+                marginBottom: 20,
               }}
             >
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: B_LAVENDER }} />
+              About the Roundtable
+            </motion.span>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
+              style={{
+                fontFamily: FONT,
+                fontWeight: 900,
+                fontSize: "clamp(28px, 3.6vw, 46px)",
+                lineHeight: 1.15,
+                letterSpacing: "-0.03em",
+                color: B_DARK_PURPLE,
+                margin: "0 auto 24px",
+                maxWidth: 760,
+              }}
+            >
+              Balancing AI-Driven Efficiency with <span style={{ background: `linear-gradient(135deg, ${B_PURPLE}, ${B_ORANGE})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Empathetic Agility</span>.
+            </motion.h2>
+
+            {/* Gradient underline */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={inView ? { scaleX: 1 } : {}}
+              transition={{ duration: 1, delay: 0.5, ease: EASE }}
+              style={{ width: 64, height: 3, background: `linear-gradient(90deg, ${B_PURPLE}, ${B_ORANGE})`, borderRadius: 2, margin: "0 auto", transformOrigin: "center" }}
+            />
+          </div>
+
+          {/* Body text card — full width centered */}
+          <motion.div
+            className="braze2-overview-card"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.35, ease: EASE }}
+            style={{
+              background: "rgba(128,30,215,0.03)",
+              borderRadius: 20,
+              padding: "clamp(32px, 5vw, 56px) clamp(28px, 5vw, 56px)",
+              border: "1px solid rgba(128,30,215,0.08)",
+              boxShadow: "0 4px 24px rgba(128,30,215,0.04)",
+              maxWidth: 820,
+              margin: "0 auto",
+            }}
+          >
               <p
                 style={{
                   fontFamily: FONT,
@@ -1334,54 +1303,257 @@ function OverviewSection() {
               >
                 In parallel, brands are under pressure to stay human, empathetic, and relevant in moments of uncertainty. This requires constant adaptation in real time — from pausing or reshaping campaigns to shifting messaging and even rethinking category focus based on evolving customer sentiment.
               </p>
-
-              {/* Separator */}
-              <div style={{ width: 40, height: 2, background: `linear-gradient(90deg, ${B_PURPLE}, ${B_ORANGE})`, borderRadius: 2, margin: "0 0 20px" }} />
-
-              <p
-                style={{
-                  fontFamily: FONT,
-                  fontWeight: 600,
-                  fontSize: "clamp(14px, 1.1vw, 15.5px)",
-                  color: "rgba(30,0,70,0.85)",
-                  lineHeight: 1.6,
-                  margin: "0 0 14px",
-                }}
-              >
-                The brands winning today are those balancing AI-driven efficiency with empathetic agility. This shows up in three ways:
-              </p>
-
-              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 22px" }}>
-                {[
-                  "Shifting from transactional messaging to emotionally intelligent engagement",
-                  "Reducing \"always-on noise\" in favour of high-value, contextual communication",
-                  "Using AI not just for optimisation, but to close capability gaps and enable real-time action",
-                ].map((item) => (
-                  <li key={item} style={{ display: "flex", gap: 12, alignItems: "flex-start", marginBottom: 10, fontFamily: FONT, fontSize: "clamp(13.5px, 1vw, 15px)", color: "rgba(30,0,70,0.72)", lineHeight: 1.65 }}>
-                    <span style={{ flexShrink: 0, width: 6, height: 6, borderRadius: "50%", background: `linear-gradient(135deg, ${B_PURPLE}, ${B_ORANGE})`, marginTop: 8 }} />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <p
-                style={{
-                  fontFamily: FONT,
-                  fontWeight: 400,
-                  fontSize: "clamp(14px, 1.1vw, 15.5px)",
-                  color: "rgba(30,0,70,0.65)",
-                  lineHeight: 1.8,
-                  margin: 0,
-                  fontStyle: "italic",
-                }}
-              >
-                Join us for this roundtable as we bring together senior martech leaders to explore how this shift is being operationalised in practice across the region.
-              </p>
             </motion.div>
-          </div>
         </div>
 
       </div>
+    </section>
+  );
+}
+
+// ─── WINNING BRANDS — 3 PILLARS ─────────────────────────────────────────────
+const WINNING_PILLARS = [
+  {
+    num: "01",
+    title: "Emotionally Intelligent Engagement",
+    desc: "Shifting from transactional messaging to interactions that read and respond to customer sentiment in real time.",
+  },
+  {
+    num: "02",
+    title: "High-Value, Contextual Communication",
+    desc: "Reducing \"always-on noise\" in favour of fewer, sharper messages tied to context, moment, and need.",
+  },
+  {
+    num: "03",
+    title: "AI That Closes Capability Gaps",
+    desc: "Using AI not just for optimisation, but to bridge the gap between strategy and live, real-time execution.",
+  },
+];
+
+function WinningBrandsSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section
+      className="braze2-section"
+      ref={ref}
+      style={{
+        padding: "clamp(20px, 3vw, 40px) 0 clamp(60px, 8vw, 100px)",
+        background: `linear-gradient(180deg, #FAFAFA 0%, #F4EDFB 100%)`,
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Subtle dot grid */}
+      <div style={{
+        position: "absolute",
+        inset: 0,
+        backgroundImage: `radial-gradient(${B_PURPLE}10 1px, transparent 1px)`,
+        backgroundSize: "32px 32px",
+        pointerEvents: "none",
+      }} />
+
+      {/* Supergraphic */}
+      <div style={{
+        position: "absolute",
+        top: "-15%",
+        left: "-8%",
+        width: "38%",
+        height: "120%",
+        opacity: 0.06,
+        pointerEvents: "none",
+        transform: "scaleX(-1)",
+      }}>
+        <Image src="/braze2/sg-heat2-3.png" alt="" fill style={{ objectFit: "contain" }} />
+      </div>
+
+      <div style={{ maxWidth: MAX_W, margin: "0 auto", padding: PAD, position: "relative", zIndex: 2 }}>
+        {/* Centered header */}
+        <div style={{ textAlign: "center", marginBottom: 56 }}>
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              fontFamily: FONT,
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: "2.5px",
+              textTransform: "uppercase",
+              color: B_PURPLE,
+              marginBottom: 18,
+            }}
+          >
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: B_ORANGE }} />
+            What the Winners Do
+          </motion.span>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.25, ease: EASE }}
+            style={{
+              fontFamily: FONT,
+              fontWeight: 900,
+              fontSize: "clamp(26px, 3.4vw, 42px)",
+              lineHeight: 1.15,
+              letterSpacing: "-0.03em",
+              color: B_DARK_PURPLE,
+              margin: "0 auto 18px",
+              maxWidth: 760,
+            }}
+          >
+            The Brands Winning Today Show Up in <span style={{ background: `linear-gradient(135deg, ${B_PURPLE}, ${B_ORANGE})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Three Ways</span>.
+          </motion.h2>
+
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={inView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1, delay: 0.45, ease: EASE }}
+            style={{ width: 64, height: 3, background: `linear-gradient(90deg, ${B_PURPLE}, ${B_ORANGE})`, borderRadius: 2, margin: "0 auto", transformOrigin: "center" }}
+          />
+        </div>
+
+        {/* 3 pillar cards */}
+        <div className="braze2-pillars-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "clamp(16px, 2vw, 24px)", marginBottom: 48 }}>
+          {WINNING_PILLARS.map((p, i) => (
+            <motion.div
+              key={p.num}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.35 + i * 0.12, ease: EASE }}
+              className="braze2-pillar-card"
+              style={{
+                position: "relative",
+                background: "white",
+                borderRadius: 18,
+                padding: "clamp(28px, 3vw, 36px) clamp(24px, 2.5vw, 30px)",
+                border: "1px solid rgba(128,30,215,0.08)",
+                boxShadow: "0 4px 24px rgba(128,30,215,0.06), 0 1px 0 rgba(255,255,255,0.8) inset",
+                transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                overflow: "hidden",
+              }}
+            >
+              {/* Top gradient accent */}
+              <div style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: 3,
+                background: `linear-gradient(90deg, ${B_PURPLE}, ${B_ORANGE})`,
+                borderRadius: "18px 18px 0 0",
+              }} />
+
+              {/* Number */}
+              <div style={{
+                fontFamily: FONT,
+                fontSize: 13,
+                fontWeight: 800,
+                letterSpacing: "2px",
+                color: B_PURPLE,
+                marginBottom: 14,
+                opacity: 0.55,
+              }}>
+                {p.num}
+              </div>
+
+              <h3 style={{
+                fontFamily: FONT,
+                fontWeight: 900,
+                fontSize: "clamp(17px, 1.5vw, 20px)",
+                lineHeight: 1.25,
+                letterSpacing: "-0.01em",
+                color: B_DARK_PURPLE,
+                margin: "0 0 12px",
+              }}>
+                {p.title}
+              </h3>
+
+              <p style={{
+                fontFamily: FONT,
+                fontWeight: 400,
+                fontSize: "clamp(13.5px, 1vw, 14.5px)",
+                lineHeight: 1.65,
+                color: "rgba(30,0,70,0.65)",
+                margin: 0,
+              }}>
+                {p.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Closing line + CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.75, ease: EASE }}
+          style={{ textAlign: "center", maxWidth: 720, margin: "0 auto" }}
+        >
+          <p style={{
+            fontFamily: FONT,
+            fontWeight: 400,
+            fontSize: "clamp(14.5px, 1.15vw, 16.5px)",
+            color: "rgba(30,0,70,0.7)",
+            lineHeight: 1.75,
+            margin: "0 0 28px",
+            fontStyle: "italic",
+          }}>
+            Join us for this roundtable as we bring together senior martech leaders to explore how this shift is being operationalised in practice across the region.
+          </p>
+
+          <a
+            href="#register"
+            onClick={(e: React.MouseEvent) => {
+              e.preventDefault();
+              document.getElementById("register")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "14px 32px",
+              borderRadius: 50,
+              background: B_PURPLE,
+              color: "white",
+              fontFamily: FONT,
+              fontSize: 14,
+              fontWeight: 700,
+              textDecoration: "none",
+              transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+            }}
+            onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow = `0 12px 36px ${B_PURPLE}30`;
+            }}
+            onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "none";
+            }}
+          >
+            Join the Discussion
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+        </motion.div>
+      </div>
+
+      <style>{`
+        .braze2-pillar-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 16px 48px rgba(128,30,215,0.12), 0 1px 0 rgba(255,255,255,0.8) inset !important;
+          border-color: rgba(128,30,215,0.18) !important;
+        }
+        @media (max-width: 768px) {
+          .braze2-pillars-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   );
 }
