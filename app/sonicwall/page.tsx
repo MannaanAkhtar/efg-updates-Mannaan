@@ -38,13 +38,15 @@ const SPEAKERS = [
   { name: "Mohamed Abdallah", title: "Regional Director, META", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Mohamed_Abdallah1.png", bio: "Mohamed Abdallah stands as the Regional Director at SonicWall, overseeing the expansive regions of the Middle East, Turkey, and Africa." },
   { name: "Nabil Kouzi", title: "Territory Manager", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/nabil1.png", bio: "Nabil drives SonicWall's growth across the UAE, leading territory strategy and empowering organizations with advanced cybersecurity solutions." },
   { name: "Ateef Mulla", title: "Principal Solutions Engineer", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/ateef1.png", bio: "Ateef is a Principal Solutions Engineer who champions the company's end-to-end security solutions, driving the successful delivery of major enterprise projects across the region." },
+  { name: "Sumit Tekriwal", title: "Head of Information Governance, Compliance & Privacy Unit, KIB", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Sumit.png", bio: "Sumit leads the Information Governance, Compliance & Privacy Unit at Kuwait International Bank (KIB), driving regulatory alignment, data protection, and risk management across the institution." },
+  { name: "Toufeeq Ahmed", title: "Group Head of Cybersecurity, Gargash Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Toufeeq.png", bio: "Toufeeq leads cybersecurity strategy and operations across Gargash Group, safeguarding the organisation's digital infrastructure and driving resilience against evolving threats." },
 ];
 
 const AGENDA = [
   { time: "11:00 AM", duration: "5 min", title: "Welcome & Ground Rules", presenter: "Event Host / Moderator" },
   { time: "11:05 AM", duration: "30 min", title: "SonicWall 2026 Cyber Protect Report Overview", presenter: "Nabil Kouzi / Ateef Mulla", highlight: true },
   { time: "11:35 AM", duration: "30 min", title: "SonicWall Platform Overview & Unified Management Demo", presenter: "Ateef Mulla", highlight: true },
-  { time: "12:05 PM", duration: "15 min", title: "Panel Discussion: Cyber Resilience in the Age of Real-Time Threats — Closing the Gap Between Attack Speed and Response", presenter: "Moderator + All Panelists" },
+  { time: "12:05 PM", duration: "15 min", title: "Panel Discussion", presenter: "Moderator + All Panelists" },
   { time: "12:20 PM", duration: "10 min", title: "Audience Q&A", presenter: "Moderator + Audience" },
   { time: "12:30 PM", duration: "5 min", title: "Audience Poll, Closing Remarks & Next Steps", presenter: "Moderator" },
 ];
@@ -142,11 +144,11 @@ function HeroSection() {
             </div>
 
             {/* Title — mask reveal per line */}
-            <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 52px)", lineHeight: 1.05, letterSpacing: "-2.5px", color: SW_DARK, margin: "0 0 24px" }}>
-              <span style={{ display: "block", overflow: "hidden" }}><span className="sw-title-line" style={{ display: "block", fontWeight: 300, opacity: 0 }}>Beyond the</span></span>
-              <span style={{ display: "block", overflow: "hidden" }}><span className="sw-title-line" style={{ display: "block", fontWeight: 300, opacity: 0 }}>Firewall:</span></span>
-              <span style={{ display: "block", overflow: "hidden" }}><span className="sw-title-line" style={{ display: "block", color: SW_ORANGE, fontWeight: 300, opacity: 0 }}>Strategic Security</span></span>
-              <span style={{ display: "block", overflow: "hidden" }}><span className="sw-title-line" style={{ display: "block", color: SW_ORANGE, fontWeight: 300, opacity: 0 }}>Conversations</span></span>
+            <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 4.2vw, 46px)", lineHeight: 1.1, letterSpacing: "-2px", color: SW_DARK, margin: "0 0 24px" }}>
+              <span style={{ display: "block", overflow: "hidden" }}><span className="sw-title-line" style={{ display: "block", fontWeight: 300, opacity: 0 }}>Cyber Resilience in the</span></span>
+              <span style={{ display: "block", overflow: "hidden" }}><span className="sw-title-line" style={{ display: "block", fontWeight: 300, opacity: 0 }}>Age of Real-Time Threats:</span></span>
+              <span style={{ display: "block", overflow: "hidden" }}><span className="sw-title-line" style={{ display: "block", color: SW_ORANGE, fontWeight: 300, opacity: 0 }}>Closing the Gap Between</span></span>
+              <span style={{ display: "block", overflow: "hidden" }}><span className="sw-title-line" style={{ display: "block", color: SW_ORANGE, fontWeight: 300, opacity: 0 }}>Attack Speed and Response</span></span>
             </h1>
 
             {/* Tagline — stagger */}
