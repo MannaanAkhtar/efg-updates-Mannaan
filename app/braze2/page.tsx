@@ -23,24 +23,24 @@ const FONT = "'Aribau Grotesk', sans-serif";
 // ─── Content ─────────────────────────────────────────────────────────────────
 const THEMES = [
   {
-    num: "01",
-    title: "Engagement During Uncertainty",
-    desc: "Approaches to customer engagement during uncertain times.",
+    num: "11:00 AM",
+    title: "Welcome, Introductions & Key Regional Learnings",
+    desc: "Setting the stage with the latest insights from across the Middle East martech landscape.",
   },
   {
-    num: "02",
-    title: "Messaging and Sensitivity",
-    desc: "Balancing business targets, messaging, and sensitivity.",
+    num: "11:10 AM",
+    title: "Open Roundtable Discussion",
+    desc: "Senior peers share how they are balancing AI-driven efficiency with empathetic agility.",
   },
   {
-    num: "03",
-    title: "Adapting Marketing Strategies",
-    desc: "Peer insights on adapting marketing strategies.",
+    num: "11:40 AM",
+    title: "Practical Applications of AI",
+    desc: "Real-time engagement and lifecycle orchestration in practice across the region.",
   },
   {
-    num: "04",
-    title: "Lessons from the Region",
-    desc: "Lessons learned from challenges across the region.",
+    num: "11:58 AM",
+    title: "Closing Remarks",
+    desc: "Key takeaways, action points, and next steps for the community.",
   },
 ];
 
@@ -177,7 +177,7 @@ export default function BrazeLandingPage() {
 
           /* Themes */
           .braze2-themes-timeline { display: none !important; }
-          .braze2-themes-number { width: 56px !important; min-width: 56px !important; }
+          .braze2-themes-number { width: 90px !important; min-width: 90px !important; }
           .braze2-themes-card { padding: 14px !important; }
           .braze2-themes-title { font-size: 17px !important; }
           .braze2-themes-desc { font-size: 13px !important; }
@@ -219,7 +219,8 @@ export default function BrazeLandingPage() {
             background-position: 40% 30% !important;
           }
           .braze2-hero-supergraphic { opacity: 0.35 !important; }
-          .braze2-themes-number { width: 48px !important; min-width: 48px !important; font-size: 20px !important; }
+          .braze2-themes-number { width: 80px !important; min-width: 80px !important; }
+          .braze2-themes-number span { font-size: 14px !important; }
           .braze2-themes-card { padding: 10px !important; }
           .braze2-themes-title { font-size: 15px !important; }
           .braze2-attend-section {
@@ -788,16 +789,16 @@ function HeroSection() {
               style={{
                 fontFamily: FONT,
                 fontWeight: 900,
-                fontSize: "clamp(30px, 3.5vw, 46px)",
-                lineHeight: 1.1,
+                fontSize: "clamp(24px, 2.8vw, 38px)",
+                lineHeight: 1.15,
                 letterSpacing: "-0.02em",
                 color: "white",
                 margin: "0 0 24px",
-                maxWidth: 540,
+                maxWidth: 600,
                 textShadow: "0 2px 40px rgba(0,0,0,0.08)",
               }}
             >
-              Marketing Through Uncertainty: How Brands Are Adjusting Customer Engagement Right Now<span style={{ color: B_LAVENDER }}>.</span>
+              AI, Empathy, and the New Marketing Operating Model: From Campaigns to Real-Time Adaptive Engagement Systems<span style={{ color: B_LAVENDER }}>.</span>
             </motion.h1>
 
             {/* Subtitle */}
@@ -815,7 +816,7 @@ function HeroSection() {
                 maxWidth: 440,
               }}
             >
-              A private virtual roundtable for senior martech leaders in MENAT.
+              Where senior martech leaders explore how AI-driven efficiency meets empathetic agility across the Middle East.
             </motion.p>
 
             {/* Event details, inline with dividers */}
@@ -1228,8 +1229,8 @@ function OverviewSection() {
                 style={{
                   fontFamily: FONT,
                   fontWeight: 900,
-                  fontSize: "clamp(26px, 3vw, 40px)",
-                  lineHeight: 1.15,
+                  fontSize: "clamp(22px, 2.4vw, 32px)",
+                  lineHeight: 1.2,
                   letterSpacing: "-0.03em",
                   color: B_DARK_PURPLE,
                   margin: "0 0 36px",
@@ -1238,7 +1239,7 @@ function OverviewSection() {
                   borderLeft: "3px solid",
                 }}
               >
-                In Times of Uncertainty, Should Brands Stay Loud or Go Quiet?
+                Balancing AI-Driven Efficiency with Empathetic Agility.
               </motion.h2>
 
               <motion.a
@@ -1299,13 +1300,39 @@ function OverviewSection() {
                 style={{
                   fontFamily: FONT,
                   fontWeight: 400,
-                  fontSize: "clamp(15px, 1.2vw, 16px)",
+                  fontSize: "clamp(14px, 1.1vw, 15.5px)",
+                  color: "rgba(30,0,70,0.72)",
+                  lineHeight: 1.75,
+                  margin: "0 0 16px",
+                }}
+              >
+                Across the Middle East, marketing leaders are operating in a fundamentally different environment. Growth is under pressure. Customer acquisition costs continue to rise, and expectations from the boardroom are higher than ever.
+              </p>
+
+              <p
+                style={{
+                  fontFamily: FONT,
+                  fontWeight: 400,
+                  fontSize: "clamp(14px, 1.1vw, 15.5px)",
+                  color: "rgba(30,0,70,0.72)",
+                  lineHeight: 1.75,
+                  margin: "0 0 16px",
+                }}
+              >
+                Marketing complexity is increasing faster than most teams can adapt. Rigid stacks, fragmented data, and disconnected tools are slowing down decision-making, when speed and flexibility have become critical to performance.
+              </p>
+
+              <p
+                style={{
+                  fontFamily: FONT,
+                  fontWeight: 400,
+                  fontSize: "clamp(14px, 1.1vw, 15.5px)",
                   color: "rgba(30,0,70,0.72)",
                   lineHeight: 1.75,
                   margin: "0 0 24px",
                 }}
               >
-                The Middle East region is navigating an evolving landscape. Marketing leaders face shifting priorities, messaging challenges, and rapidly changing customer expectations. Understanding how peers are navigating these changes is critical.
+                In parallel, brands are under pressure to stay human, empathetic, and relevant in moments of uncertainty. This requires constant adaptation in real time — from pausing or reshaping campaigns to shifting messaging and even rethinking category focus based on evolving customer sentiment.
               </p>
 
               {/* Separator */}
@@ -1314,14 +1341,41 @@ function OverviewSection() {
               <p
                 style={{
                   fontFamily: FONT,
+                  fontWeight: 600,
+                  fontSize: "clamp(14px, 1.1vw, 15.5px)",
+                  color: "rgba(30,0,70,0.85)",
+                  lineHeight: 1.6,
+                  margin: "0 0 14px",
+                }}
+              >
+                The brands winning today are those balancing AI-driven efficiency with empathetic agility. This shows up in three ways:
+              </p>
+
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 22px" }}>
+                {[
+                  "Shifting from transactional messaging to emotionally intelligent engagement",
+                  "Reducing \"always-on noise\" in favour of high-value, contextual communication",
+                  "Using AI not just for optimisation, but to close capability gaps and enable real-time action",
+                ].map((item) => (
+                  <li key={item} style={{ display: "flex", gap: 12, alignItems: "flex-start", marginBottom: 10, fontFamily: FONT, fontSize: "clamp(13.5px, 1vw, 15px)", color: "rgba(30,0,70,0.72)", lineHeight: 1.65 }}>
+                    <span style={{ flexShrink: 0, width: 6, height: 6, borderRadius: "50%", background: `linear-gradient(135deg, ${B_PURPLE}, ${B_ORANGE})`, marginTop: 8 }} />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <p
+                style={{
+                  fontFamily: FONT,
                   fontWeight: 400,
-                  fontSize: "clamp(15px, 1.2vw, 16px)",
+                  fontSize: "clamp(14px, 1.1vw, 15.5px)",
                   color: "rgba(30,0,70,0.65)",
                   lineHeight: 1.8,
                   margin: 0,
+                  fontStyle: "italic",
                 }}
               >
-                Join a focused group of senior martech leaders across MENAT for a virtual closed-door roundtable to exchange perspectives, share strategies, and learn from each other on engaging consumers effectively during uncertain periods.
+                Join us for this roundtable as we bring together senior martech leaders to explore how this shift is being operationalised in practice across the region.
               </p>
             </motion.div>
           </div>
@@ -1782,7 +1836,7 @@ function ThemesSection() {
                 marginBottom: 14,
               }}
             >
-              Discussion Themes
+              Agenda · 11:00 AM GST
             </motion.span>
 
             <motion.h2
@@ -1799,7 +1853,7 @@ function ThemesSection() {
                 margin: 0,
               }}
             >
-              What We Will Explore.
+              How the Session Flows.
             </motion.h2>
           </div>
         </div>
@@ -1916,9 +1970,9 @@ function ThemesSection() {
                   zIndex: 2,
                 }} />
 
-                {/* Number block */}
+                {/* Time block */}
                 <div className="braze2-themes-number" style={{
-                  width: 80,
+                  width: 120,
                   flexShrink: 0,
                   display: "flex",
                   alignItems: "center",
@@ -1929,13 +1983,15 @@ function ThemesSection() {
                 }}>
                   <span style={{
                     fontFamily: FONT,
-                    fontSize: 38,
-                    fontWeight: 900,
-                    background: `linear-gradient(180deg, rgba(255,255,255,0.25), rgba(255,255,255,0.08))`,
+                    fontSize: 17,
+                    fontWeight: 800,
+                    letterSpacing: "-0.01em",
+                    background: `linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.5))`,
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
-                    lineHeight: 1,
+                    lineHeight: 1.1,
                     position: "relative",
+                    textAlign: "center",
                   }}>
                     {t.num}
                   </span>
