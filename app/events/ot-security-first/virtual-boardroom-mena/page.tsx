@@ -96,9 +96,30 @@ const KEY_THEMES = [
 ];
 
 const PANELS = [
-  { num: "01", title: "Securing Critical Infrastructure at a National Level: From Strategy to Operational Reality", desc: "National cybersecurity strategies across the Gulf are evolving rapidly — but how effectively are they translating into real protection for live OT environments? As threats targeting energy, utilities, and national infrastructure intensify, governments and operators face increasing pressure to bridge the gap between policy and execution. How are countries like the United Arab Emirates, Saudi Arabia, Qatar, Bahrain, Oman, and Kuwait operationalizing their strategies on the ground, and where do the biggest gaps between national ambition and real-world implementation still remain?" },
-  { num: "02", title: "IT/OT Convergence: The Exposure Points Most Teams Still Miss", desc: "As IT and OT environments become increasingly interconnected, the attack surface expands in ways many organizations still underestimate. While convergence enables efficiency and visibility, it also introduces hidden exposure points — from vendor access pathways to supply chain dependencies — that can quietly undermine even the most mature security strategies. Where do the most critical vulnerabilities actually exist today, and how can organizations secure these environments without compromising operational uptime?" },
-  { num: "03", title: "AI-Powered OT Attacks: What's Already Happening — and How to Respond in Live Environments", desc: "Artificial intelligence is already reshaping the threat landscape — accelerating reconnaissance, automating attack paths, and increasing the speed and precision of compromise across OT environments. As attackers become more adaptive and scalable, traditional detection and incident response models are struggling to keep pace. How are AI-driven attacks already playing out in real-world OT environments, and what does an effective response and resilience strategy look like against faster, more intelligent threats?" },
+  {
+    num: "01",
+    title: "Securing Critical Infrastructure at a National Level: From Strategy to Operational Reality",
+    paragraphs: [
+      "National cybersecurity strategies across the Gulf are evolving rapidly — but how effectively are they translating into real protection for live OT environments? As threats targeting energy, utilities, and national infrastructure intensify, governments and operators face increasing pressure to bridge the gap between policy and execution.",
+      "How are countries like the United Arab Emirates, Saudi Arabia, Qatar, Bahrain, Oman, and Kuwait operationalizing their strategies on the ground, and where do the biggest gaps between national ambition and real-world implementation still remain?",
+    ],
+  },
+  {
+    num: "02",
+    title: "IT/OT Convergence: The Exposure Points Most Teams Still Miss",
+    paragraphs: [
+      "As IT and OT environments become increasingly interconnected, the attack surface expands in ways many organizations still underestimate. While convergence enables efficiency and visibility, it also introduces hidden exposure points — from vendor access pathways to supply chain dependencies — that can quietly undermine even the most mature security strategies.",
+      "Where do the most critical vulnerabilities actually exist today, and how can organizations secure these environments without compromising operational uptime?",
+    ],
+  },
+  {
+    num: "03",
+    title: "AI-Powered OT Attacks: What's Already Happening — and How to Respond in Live Environments",
+    paragraphs: [
+      "Artificial intelligence is already reshaping the threat landscape — accelerating reconnaissance, automating attack paths, and increasing the speed and precision of compromise across OT environments. As attackers become more adaptive and scalable, traditional detection and incident response models are struggling to keep pace.",
+      "How are AI-driven attacks already playing out in real-world OT environments, and what does an effective response and resilience strategy look like against faster, more intelligent threats?",
+    ],
+  },
 ];
 
 const INDUSTRIES = ["Energy & Power Generation", "Oil & Gas", "Water & Utilities", "Petrochemicals", "Critical Manufacturing", "Telecommunications", "Ports & Logistics", "Government & Defence"];
@@ -130,6 +151,14 @@ const CONTACTS_TEAM = [
     email: "mayur@eventsfirstgroup.com",
     photo: `${S3_TEAM}/Mayur-Methi.png`,
   },
+  {
+    name: "Mohammed Danish",
+    title: "Partnership Manager",
+    category: "Sponsorship Enquiries",
+    phone: "+971 56 553 5513",
+    email: "danish@eventsfirstgroup.com",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/danish.png",
+  },
 ];
 
 // ─── HERO SECTION, Cybercore Grid ───────────────────────────────────────────
@@ -139,7 +168,7 @@ function HeroSection() {
   useEffect(() => setMounted(true), []);
 
   return (
-    <section id="overview" style={{ position: "relative", height: "100vh", minHeight: 700, overflow: "hidden", background: BG_DARK }}>
+    <section id="overview" style={{ position: "relative", minHeight: "100vh", overflow: "hidden", background: BG_DARK }}>
       {/* Cybercore animated background, sits behind everything */}
       {mounted && <CybercoreBackground beamCount={70} />}
 
@@ -233,7 +262,7 @@ function HeroSection() {
       {/* Countdown bar */}
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 20, padding: "20px 0" }}>
         <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
-          <div style={{ display: "flex", gap: 28 }}>
+          <div style={{ display: "flex", gap: "clamp(12px, 3vw, 28px)", flexWrap: "wrap" }}>
             {[{ v: cd.d, l: "Days" }, { v: cd.h, l: "Hrs" }, { v: cd.m, l: "Min" }, { v: cd.s, l: "Sec" }].map((item) => (
               <div key={item.l} className="text-center">
                 <span style={{ fontFamily: "var(--font-display)", fontSize: "clamp(22px, 2.5vw, 32px)", fontWeight: 800, color: "white", display: "block", letterSpacing: "-1px" }}>{String(item.v).padStart(2, "0")}</span>
@@ -1012,18 +1041,21 @@ function PanelDiscussions() {
                       }}>
                         {panel.title}
                       </h3>
-                      <p style={{
-                        fontFamily: "var(--font-outfit)",
-                        fontSize: 14,
-                        fontWeight: 400,
-                        color: "rgba(255,255,255,0.5)",
-                        lineHeight: 1.7,
-                        margin: 0,
-                        maxWidth: 600,
-                        ...(!showFullDesc ? { display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical" as const, overflow: "hidden" } : {}),
-                      }}>
-                        {panel.desc}
-                      </p>
+                      <div style={{ maxWidth: 600 }}>
+                        {(showFullDesc ? panel.paragraphs : panel.paragraphs.slice(0, 1)).map((para, pi) => (
+                          <p key={pi} style={{
+                            fontFamily: "var(--font-outfit)",
+                            fontSize: 14,
+                            fontWeight: 400,
+                            color: "rgba(255,255,255,0.5)",
+                            lineHeight: 1.7,
+                            margin: pi === 0 ? 0 : "12px 0 0",
+                            ...(!showFullDesc && pi === 0 ? { display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical" as const, overflow: "hidden" } : {}),
+                          }}>
+                            {para}
+                          </p>
+                        ))}
+                      </div>
                       <button
                         onClick={(e) => { e.stopPropagation(); setShowFullDesc(!showFullDesc); }}
                         style={{
@@ -1872,7 +1904,7 @@ function ContactSection() {
       {/* Background glow */}
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 40% at 50% 30%, rgba(0,201,255,0.04), transparent 70%)`, pointerEvents: "none" }} />
 
-      <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
@@ -1899,10 +1931,10 @@ function ContactSection() {
         </motion.div>
 
         {/* People Grid, 2 columns */}
-        <div className="otvm-contact-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 24 }}>
+        <div className="otvm-contact-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "clamp(16px, 2vw, 24px)" }}>
           {CONTACTS_TEAM.map((person, i) => {
-            const accent = i === 0 ? CYAN : C_BRIGHT;
-            const accentRgb = i === 0 ? "0,201,255" : "211,75,154";
+            const accent = i % 2 === 0 ? CYAN : C_BRIGHT;
+            const accentRgb = i % 2 === 0 ? "0,201,255" : "211,75,154";
 
             return (
               <motion.div
@@ -1986,7 +2018,7 @@ export default function OTSecurityVirtualForumMENA() {
   if (!mounted) return null;
 
   return (
-    <div style={{ background: BG }}>
+    <div className="otvm-page" style={{ background: BG, overflowX: "hidden" }}>
       <style jsx global>{`
         /* ─── Override InquiryForm for this page ─────────────────── */
         #register {
@@ -2031,25 +2063,26 @@ export default function OTSecurityVirtualForumMENA() {
         .content-wrapper {
           position: relative;
           z-index: 10;
-          height: 100vh;
-          min-height: 700px;
+          min-height: 100vh;
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          padding: 70px clamp(24px, 5vw, 80px) 100px;
+          padding: clamp(120px, 14vh, 160px) clamp(24px, 5vw, 80px) clamp(60px, 8vh, 100px);
+          box-sizing: border-box;
         }
 
         .hero-section {
           text-align: center;
-          max-width: 900px;
+          max-width: min(900px, 100%);
+          width: 100%;
         }
 
         .hero-section h1 {
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: clamp(44px, 8vw, 100px);
-          line-height: 0.92;
+          font-size: clamp(40px, 7vw, 88px);
+          line-height: 0.95;
           letter-spacing: -0.04em;
           color: white;
           margin: 0 0 24px;
@@ -2343,6 +2376,11 @@ export default function OTSecurityVirtualForumMENA() {
           .otvm-panels-accordion { flex-direction: column !important; height: auto !important; }
           .otvm-panels-accordion > * { flex: none !important; min-height: 200px; }
           .otvm-sponsor-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 900px) {
+          .otvm-contact-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 600px) {
           .otvm-contact-grid { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 768px) {
@@ -2359,6 +2397,16 @@ export default function OTSecurityVirtualForumMENA() {
           .otvm-bento-grid > * { grid-column: span 1 !important; }
           .otvm-themes-grid { grid-template-columns: 1fr !important; }
           .otvm-orb { display: none !important; }
+        }
+        /* ─── Global responsive safety ──────────────────────────── */
+        html, body { overflow-x: hidden; max-width: 100vw; }
+        .otvm-page * { max-width: 100%; }
+        .otvm-page img, .otvm-page video, .otvm-page iframe { max-width: 100%; height: auto; }
+        /* Tablet intermediate breakpoint for video card slots */
+        @media (max-width: 1024px) and (min-width: 769px) {
+          .otvm-vr-slot-tall { width: 170px !important; height: 290px !important; }
+          .otvm-vr-slot-short { width: 155px !important; height: 230px !important; }
+          .otvm-vr-slot-hero.otvm-vr-slot-tall { width: 195px !important; height: 340px !important; }
         }
       `}</style>
 
