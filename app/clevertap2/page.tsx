@@ -19,10 +19,10 @@ const CT_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverT
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const TAKEAWAYS = [
-  { heading: "Stay Present.", desc: "In uncertain times, the brands customers trust most are the ones that remain visible, helpful, and relevant. Silence creates a trust gap competitors will fill." },
-  { heading: "Broadcast to Relevance.", desc: "Shift from promotional, one-size-fits-all messaging to personalised, context-aware engagement that deepens relationships at every touchpoint." },
-  { heading: "Retain with Purpose.", desc: "Practical strategies for personalisation, lifecycle engagement, and retention that go beyond cost metrics and build lasting loyalty." },
-  { heading: "A Trust Framework.", desc: "Walk away with a clear, actionable framework for making retention your strongest trust-building strategy, with real examples from fintech, ecommerce, and telco." },
+  { heading: "Operationalizing Trust at Scale", desc: "Turning strategy into repeatable workflows with real-time triggers and smart segmentation." },
+  { heading: "Real-World Engagement Playbooks", desc: "Examples from fintech, ecommerce, telco, and subscription brands on proactive, context-aware customer engagement." },
+  { heading: "Live Demo: From Strategy to Execution", desc: "A hands-on walkthrough of building a retention campaign end to end." },
+  { heading: "Retention Strategy Powered by Trust", desc: "How trust-based retention drives measurable impact on churn, NPS, and customer lifetime value." },
 ];
 
 const AGENDA = [
@@ -34,7 +34,7 @@ const AGENDA = [
   { time: "11:57 AM", duration: "15 min", title: "Closing Remarks & Next Steps", presenter: "Moderator + Panelists" },
 ];
 
-const OVERVIEW_WORDS = "Relevance builds trust. Trust builds revenue.".split(" ");
+const OVERVIEW_WORDS = "Is trust the missing piece in your retention strategy?".split(" ");
 
 // ─── COUNTDOWN ──────────────────────────────────────────────────────────────
 const CountdownDisplay = memo(function CountdownDisplay({ target }: { target: string }) {
@@ -108,7 +108,7 @@ function HeroSection() {
     const result = await submitForm({
       type: "attend", full_name: formData.name || "", email: formData.email || "",
       company: formData.company || "", job_title: formData.title || "", phone: combinedPhone,
-      event_name: "CleverTap Engaging Customers Webinar 2026", metadata: { message: formData.message || "" },
+      event_name: "CleverTap Engaging Customers Webinar 2026", metadata: { country: formData.country || "", message: formData.message || "" },
     });
     setSubmitting(false);
     if (result.success) setSubmitted(true);
@@ -205,23 +205,19 @@ function HeroSection() {
               marginBottom: "clamp(16px, 3vh, 28px)", opacity: 0,
             }}>
               <div style={{ width: 7, height: 7, borderRadius: "50%", background: CT_RED, boxShadow: `0 0 8px ${CT_RED}60` }} />
-              <span style={{ fontFamily: "var(--font-opensans)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: CT_BLUE }}>Virtual Roundtable</span>
+              <span style={{ fontFamily: "var(--font-opensans)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: CT_BLUE }}>Webinar</span>
             </div>
 
             {/* Title */}
-            <h1 style={{ fontFamily: "var(--font-opensans)", fontSize: "clamp(28px, 5.5vw, 56px)", lineHeight: 1.05, letterSpacing: "-2.5px", color: CT_BLACK, margin: "0 0 clamp(12px, 2vh, 22px)", textShadow: "0 1px 2px rgba(255,255,255,0.5)" }}>
-              <span style={{ display: "block", overflow: "hidden" }}><span className="ct-title-line" style={{ display: "block", fontWeight: 800, opacity: 0 }}>Engaging Customers</span></span>
-              <span style={{ display: "block", overflow: "hidden" }}><span className="ct-title-line" style={{ display: "block", fontWeight: 800, opacity: 0 }}>in <span style={{ color: CT_BLUE }}>Uncertain Times</span></span></span>
+            <h1 style={{ fontFamily: "var(--font-opensans)", fontSize: "clamp(24px, 4.4vw, 44px)", lineHeight: 1.1, letterSpacing: "-1.8px", color: CT_BLACK, margin: "0 0 clamp(12px, 2vh, 22px)", textShadow: "0 1px 2px rgba(255,255,255,0.5)" }}>
+              <span style={{ display: "block", overflow: "hidden" }}><span className="ct-title-line" style={{ display: "block", fontWeight: 800, opacity: 0 }}>Engaging Customers in</span></span>
+              <span style={{ display: "block", overflow: "hidden" }}><span className="ct-title-line" style={{ display: "block", fontWeight: 800, opacity: 0 }}><span style={{ color: CT_BLUE }}>Uncertain Times</span></span></span>
+              <span style={{ display: "block", overflow: "hidden" }}><span className="ct-title-line" style={{ display: "block", fontWeight: 800, opacity: 0, fontSize: "0.6em" }}>How Middle East Brands Are Making Retention Their Growth Strategy</span></span>
             </h1>
-
-            {/* Sub-tagline — emphasis */}
-            <p className="ct-hero-stagger" style={{ fontFamily: "var(--font-opensans)", fontSize: "clamp(14px, 1.6vw, 20px)", fontWeight: 600, color: CT_BLACK, margin: "0 0 clamp(6px, 1vh, 10px)", lineHeight: 1.4, opacity: 0, letterSpacing: "-0.5px" }}>
-              Why Trust is Your Competitive Advantage
-            </p>
 
             {/* Tagline */}
             <p className="ct-hero-stagger" style={{ fontFamily: "var(--font-opensans)", fontSize: "clamp(13px, 1.3vw, 16px)", fontWeight: 400, color: CT_CADET, margin: "0 0 clamp(16px, 3vh, 28px)", lineHeight: 1.7, opacity: 0, maxWidth: 460 }}>
-              A peer-led session for marketing, CRM, and growth leaders across MENAT. Relevance builds trust. Trust builds revenue.
+              A peer-led session for marketing, CRM, and growth leaders across Middle East.
             </p>
 
             {/* Meta strip — liquid glass */}
@@ -279,9 +275,13 @@ function HeroSection() {
               <div style={{ position: "absolute", bottom: -30, left: -30, width: 120, height: 120, borderRadius: "50%", background: "radial-gradient(circle, rgba(59,130,246,0.04), transparent 65%)", pointerEvents: "none" }} />
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={CT_RED} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="8.5" cy="7" r="4" /><line x1="20" y1="8" x2="20" y2="14" /><line x1="23" y1="11" x2="17" y2="11" /></svg>
-              <h3 style={{ fontFamily: "var(--font-opensans)", fontWeight: 700, fontSize: 22, color: CT_BLACK, margin: 0, letterSpacing: "-0.5px" }}>Register Now</h3>
+              <h3 style={{ fontFamily: "var(--font-opensans)", fontWeight: 700, fontSize: 22, color: CT_BLACK, margin: 0, letterSpacing: "-0.5px" }}>Register Your Interest</h3>
             </div>
-            <p style={{ fontFamily: "var(--font-opensans)", fontSize: 13, color: CT_CADET, margin: "0 0 20px", lineHeight: 1.5 }}>Secure your seat for this exclusive session.</p>
+            <p style={{ fontFamily: "var(--font-opensans)", fontSize: 13, color: CT_CADET, margin: "0 0 8px", lineHeight: 1.5 }}>Secure your seat for this exclusive session.</p>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 11px", borderRadius: 50, background: `${CT_RED}10`, border: `1px solid ${CT_RED}30`, marginBottom: 16 }}>
+              <div style={{ width: 5, height: 5, borderRadius: "50%", background: CT_RED, boxShadow: `0 0 6px ${CT_RED}` }} />
+              <span style={{ fontFamily: "var(--font-opensans)", fontSize: 10, fontWeight: 700, letterSpacing: "1.2px", textTransform: "uppercase", color: CT_RED }}>Limited to 100 Seats</span>
+            </div>
 
             {submitted ? (
               <div style={{ textAlign: "center", padding: "24px 0" }}>
@@ -323,6 +323,13 @@ function HeroSection() {
                     <label style={labelStyle}>Job Title</label>
                     <input type="text" value={formData.title || ""} onChange={e => handleChange("title", e.target.value)} placeholder="Your role" required className="ct-form-input" style={inputStyle} />
                   </div>
+                  <div style={{ gridColumn: "1 / -1" }}>
+                    <label style={labelStyle}>Country</label>
+                    <select value={formData.country || ""} onChange={e => handleChange("country", e.target.value)} required className="ct-form-input" style={{ ...inputStyle, appearance: "none", cursor: "pointer" }}>
+                      <option value="" style={{ color: "#222", background: "#fff" }}>Select your country</option>
+                      {COUNTRY_CODES.map(cc => (<option key={cc.country} value={cc.name} style={{ color: "#222", background: "#fff" }}>{cc.name}</option>))}
+                    </select>
+                  </div>
                 </div>
                 <input type="text" name="website" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
                 {formError && <p style={{ color: CT_RED, fontFamily: "var(--font-opensans)", fontSize: 12, margin: "8px 0 0" }}>{formError}</p>}
@@ -336,11 +343,11 @@ function HeroSection() {
                   boxShadow: `0 4px 16px rgba(239,68,68,0.25), inset 0 1px 0 rgba(255,255,255,0.2)`,
                   letterSpacing: "0.3px",
                 }}>
-                  {submitting ? "Submitting..." : "Register Now"} {!submitting && <span>&rarr;</span>}
+                  {submitting ? "Submitting..." : "Register Your Interest"} {!submitting && <span>&rarr;</span>}
                 </button>
-                <p style={{ fontFamily: "var(--font-opensans)", fontSize: 11, color: "rgba(19,59,88,0.3)", textAlign: "center", margin: "12px 0 0", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(19,59,88,0.3)" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>
-                  Your information is kept confidential.
+                <p style={{ fontFamily: "var(--font-opensans)", fontSize: 11, color: "rgba(19,59,88,0.45)", textAlign: "center", margin: "12px 0 0", lineHeight: 1.5 }}>
+                  By submitting this form, you agree to CleverTap&apos;s{" "}
+                  <a href="https://clevertap.com/privacy-policy/" target="_blank" rel="noopener noreferrer" style={{ color: CT_BLUE, textDecoration: "underline", fontWeight: 600 }}>Privacy Policy</a>.
                 </p>
               </form>
             )}
@@ -350,16 +357,6 @@ function HeroSection() {
           </div>
         </div>
 
-      </div>
-
-      {/* Brought to you by NetworkFirst — bottom right */}
-      <div className="ct-hero-stagger" style={{
-        position: "absolute", bottom: 16, right: "clamp(24px, 5vw, 80px)", zIndex: 6,
-        display: "flex", flexDirection: "column", alignItems: "center", gap: 0, opacity: 0,
-      }}>
-        <span style={{ fontFamily: "var(--font-opensans)", fontSize: 10, fontWeight: 500, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(19,59,88,0.35)", marginBottom: -6 }}>Brought to you by</span>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Networkfirstlogo-bg.png" alt="NetworkFirst" width={300} height={84} style={{ height: "clamp(50px, 7vw, 80px)", width: "auto" }} />
       </div>
     </section>
   );
@@ -448,7 +445,7 @@ function OverviewSection() {
             <div className="ct-ov-divider" style={{ width: 48, height: 2, background: CT_RED, borderRadius: 1, transform: "scaleX(0)", marginBottom: 20 }} />
 
             <p style={{ fontFamily: "var(--font-opensans)", fontSize: 14, color: CT_SLATE, lineHeight: 1.7, margin: "0 0 28px" }}>
-              A 60-minute peer-led session for marketing, CRM, and growth leaders across MENAT.
+              Relevance builds trust. Trust builds revenue.
             </p>
 
           </div>
@@ -483,17 +480,11 @@ function OverviewSection() {
                 </svg>
 
                 <p className="ct-ov-para" style={{ fontFamily: "var(--font-opensans)", fontSize: "clamp(14px, 1.3vw, 15.5px)", fontWeight: 400, color: CT_CADET, lineHeight: 1.85, margin: "0 0 18px", opacity: 0 }}>
-                  The brands customers trust most are the ones that stay <span style={{ color: CT_BLACK, fontWeight: 600 }}>present, relevant, and helpful</span>. In this fireside chat, senior marketing and CRM leaders share how they are shifting from promotional, broadcast-style messaging to personalised, context-aware engagement that deepens customer relationships.
+                  The brands customers trust most are the ones that stay <span style={{ color: CT_BLACK, fontWeight: 600 }}>present, relevant, and helpful</span>. In this webinar, senior marketing and CRM leaders share how they are shifting from promotional, broadcast-style messaging to personalised, context-aware engagement that deepens customer relationships.
                 </p>
                 <p className="ct-ov-para" style={{ fontFamily: "var(--font-opensans)", fontSize: "clamp(14px, 1.3vw, 15.5px)", fontWeight: 400, color: CT_CADET, lineHeight: 1.85, margin: "0 0 22px", opacity: 0 }}>
                   You will leave with a clear framework for making <span style={{ color: CT_BLACK, fontWeight: 600 }}>retention a trust-building strategy</span>, not just a cost metric.
                 </p>
-
-                {/* Signature line */}
-                <div style={{ display: "flex", alignItems: "center", gap: 10, paddingTop: 16, borderTop: "1px solid rgba(19,59,88,0.05)" }}>
-                  <div style={{ width: 24, height: 2, background: `linear-gradient(90deg, ${CT_RED}, transparent)`, borderRadius: 1 }} />
-                  <span style={{ fontFamily: "var(--font-opensans)", fontSize: 11, color: "rgba(19,59,88,0.3)", letterSpacing: "0.5px" }}>Hosted by <span style={{ color: CT_BLUE, fontWeight: 600 }}>CleverTap</span> × <span style={{ color: CT_BLUE, fontWeight: 600 }}>NetworkFirst</span></span>
-                </div>
 
                 {/* Bottom accent */}
                 <div style={{ position: "absolute", bottom: 0, left: "8%", right: "8%", height: 1, background: "linear-gradient(90deg, transparent, rgba(19,59,88,0.05), transparent)" }} />
@@ -598,7 +589,7 @@ function TakeawaysSection() {
             <span className="ct-tk-kicker" style={{ fontFamily: "var(--font-opensans)", fontSize: 10, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: CT_BLUE, opacity: 0 }}>What You Will Learn</span>
             <div className="ct-tk-dash" style={{ width: 28, height: 2, background: CT_BLUE, borderRadius: 1, transform: "scaleX(0)" }} />
           </div>
-          <h2 className="ct-tk-heading" style={{ fontFamily: "var(--font-opensans)", fontWeight: 700, fontSize: "clamp(28px, 4vw, 42px)", letterSpacing: "-1.5px", color: CT_BLACK, lineHeight: 1.15, margin: 0, opacity: 0 }}>Key Takeaways</h2>
+          <h2 className="ct-tk-heading" style={{ fontFamily: "var(--font-opensans)", fontWeight: 700, fontSize: "clamp(24px, 3.4vw, 38px)", letterSpacing: "-1.2px", color: CT_BLACK, lineHeight: 1.15, margin: 0, opacity: 0 }}>60 Minutes That Could Redefine Your Retention Strategy</h2>
         </div>
 
         {/* 2x2 Glass card grid */}
@@ -1130,24 +1121,6 @@ function AboutSection() {
                 Trusted by <span style={{ color: "rgba(255,255,255,0.95)", fontWeight: 600 }}>2,000+ brands</span> globally, CleverTap enables marketing and growth teams to orchestrate omnichannel campaigns that drive engagement, retention, and revenue.
               </p>
 
-              {/* Links — minimal centered */}
-              <div className="ct-abt-links" style={{
-                display: "flex", gap: 24, alignItems: "center", justifyContent: "center", flexWrap: "wrap",
-                paddingTop: 20, opacity: 0,
-                borderTop: "1px solid rgba(255,255,255,0.07)",
-              }}>
-                <a href="https://www.clevertap.com/" target="_blank" rel="noopener noreferrer" className="ct-abt-link" style={{
-                  fontFamily: "var(--font-opensans)", fontSize: 13.5, fontWeight: 600,
-                  color: "rgba(255,255,255,0.85)", textDecoration: "none",
-                  paddingBottom: 2, borderBottom: "1px solid rgba(255,255,255,0.25)",
-                }}>clevertap.com &rarr;</a>
-                <span style={{ width: 1, height: 14, background: "rgba(255,255,255,0.15)" }} />
-                <a href="mailto:sjthomas@clevertap.com" className="ct-abt-link" style={{
-                  fontFamily: "var(--font-opensans)", fontSize: 13.5, fontWeight: 600,
-                  color: "rgba(255,255,255,0.85)", textDecoration: "none",
-                  paddingBottom: 2, borderBottom: "1px solid rgba(255,255,255,0.25)",
-                }}>sjthomas@clevertap.com</a>
-              </div>
             </div>
           </div>
         </div>
@@ -1161,14 +1134,9 @@ function CleverTapFooter() {
   return (
     <footer style={{ background: CT_WHITE, borderTop: "1px solid rgba(0,0,0,0.06)", padding: "24px 0 20px" }}>
       <div style={{ maxWidth: 1000, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16, marginBottom: 14 }}>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "wrap", gap: 16, marginBottom: 14 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={CT_LOGO} alt="CleverTap" width={140} height={32} style={{ height: 26, width: "auto" }} />
-          <div style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
-            <a href="https://www.clevertap.com/" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-opensans)", fontSize: 12.5, fontWeight: 500, color: CT_CADET, textDecoration: "none", transition: "color 0.3s" }}>clevertap.com &rarr;</a>
-            <span style={{ width: 1, height: 12, background: "rgba(0,0,0,0.08)" }} />
-            <a href="mailto:sjthomas@clevertap.com" style={{ fontFamily: "var(--font-opensans)", fontSize: 12.5, fontWeight: 500, color: CT_CADET, textDecoration: "none", transition: "color 0.3s" }}>sjthomas@clevertap.com</a>
-          </div>
         </div>
         <div style={{ height: 1, background: "rgba(0,0,0,0.06)", marginBottom: 12 }} />
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
@@ -1191,7 +1159,6 @@ function CleverTapNav() {
 
   const navLinks = [
     { href: "#overview", label: "Overview" },
-    { href: "#agenda", label: "Agenda" },
   ];
 
   return (
@@ -1234,7 +1201,7 @@ export default function CleverTapPage() {
       <HeroSection />
       <OverviewSection />
       <TakeawaysSection />
-      <AgendaSection />
+      {/* <AgendaSection /> — hidden for now */}
       <AboutSection />
       <CleverTapFooter />
     </div>
