@@ -21,6 +21,7 @@ export default function ConditionalNavigation() {
     pathname?.startsWith("/braze") ||
     pathname?.startsWith("/sonicwall") ||
     pathname?.startsWith("/clevertap") ||
+    pathname?.startsWith("/bigleap") ||
     isSubdomain
   ) {
     return null;
