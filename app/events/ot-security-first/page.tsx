@@ -9,13 +9,12 @@ import {
   OTFeaturedSpeakers,
   OTExperience,
   OTWhoShouldAttend,
-  OTSponsors,
   OTGallery,
   OTFAQ,
   OTUpcomingEditionCTA,
   OTExploreOtherSeries,
 } from "@/components/ot-security-first";
-import { Footer } from "@/components/sections";
+import { Footer, SponsorsPartners } from "@/components/sections";
 import SectionTransition from "@/components/effects/SectionTransition";
 
 // Page Metadata
@@ -79,8 +78,8 @@ export default function OTSecurityFirstPage() {
       {/* Section Transition - Sweep */}
       <SectionTransition variant="sweep" color={OT_CRIMSON} />
 
-      {/* 10. Sponsors + Media Partners (As Featured In) */}
-      <OTSponsors />
+      {/* 10. Sponsors + Media Partners — uses homepage marquee */}
+      <SponsorsPartners />
 
       {/* Section Transition - Expand */}
       <SectionTransition variant="expand" color={OT_CRIMSON} />

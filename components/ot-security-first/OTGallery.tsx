@@ -6,64 +6,22 @@ import { motion, useInView } from "framer-motion";
 const OT_CRIMSON = "#D34B9A";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-// Gallery photos
+const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com";
+const OT = `${S3}/events/OT%20Security%20First%20UAE%202025/OT%20First%20UAE%20Photos`;
+const CFK = `${S3}/events/Cyber%20First%20Kuwait%202025/filemail_photos`;
+const OPEX = `${S3}/events/Opex%20First%20UAE`;
+const GOOD = `${S3}/Good`;
+
+// Gallery photos — mixed from OT Security First, Cyber First Kuwait, OPEX First, and general
 const galleryItems = [
-  {
-    id: 1,
-    aspect: "wide" as const,
-    label: "Event Overview",
-    image:
-      "https://otsecurityfirst.com/wp-content/uploads/2025/10/overview1@2x-1024x534.png",
-  },
-  {
-    id: 2,
-    aspect: "tall" as const,
-    label: "Keynote Session",
-    image:
-      "https://otsecurityfirst.com/wp-content/uploads/2026/01/keynote1.jpg",
-  },
-  {
-    id: 3,
-    aspect: "square" as const,
-    label: "Panel Discussion",
-    image:
-      "https://otsecurityfirst.com/wp-content/uploads/2026/01/panel1.jpg",
-  },
-  {
-    id: 4,
-    aspect: "square" as const,
-    label: "Networking",
-    image:
-      "https://otsecurityfirst.com/wp-content/uploads/2026/01/networking1.jpg",
-  },
-  {
-    id: 5,
-    aspect: "wide" as const,
-    label: "Exhibition Floor",
-    image:
-      "https://otsecurityfirst.com/wp-content/uploads/2026/01/exhibition1.jpg",
-  },
-  {
-    id: 6,
-    aspect: "tall" as const,
-    label: "Technical Demo",
-    image:
-      "https://otsecurityfirst.com/wp-content/uploads/2026/01/demo1.jpg",
-  },
-  {
-    id: 7,
-    aspect: "square" as const,
-    label: "CISO Roundtable",
-    image:
-      "https://otsecurityfirst.com/wp-content/uploads/2026/01/roundtable1.jpg",
-  },
-  {
-    id: 8,
-    aspect: "square" as const,
-    label: "Vendor Showcase",
-    image:
-      "https://otsecurityfirst.com/wp-content/uploads/2026/01/vendor1.jpg",
-  },
+  { id: 1, aspect: "wide" as const, label: "Panel Discussion", image: `${OT}/4N8A0412.JPG` },
+  { id: 2, aspect: "tall" as const, label: "Keynote Address", image: `${OPEX}/4N8A1666.JPG` },
+  { id: 3, aspect: "square" as const, label: "Partner Exhibition", image: `${OT}/4N8A0397.JPG` },
+  { id: 4, aspect: "square" as const, label: "LED Stage", image: `${CFK}/cyber21-04-324.jpg` },
+  { id: 5, aspect: "wide" as const, label: "Award Ceremony", image: `${OPEX}/4N8A1751.JPG` },
+  { id: 6, aspect: "tall" as const, label: "Executive Networking", image: `${GOOD}/4N8A0290.JPG` },
+  { id: 7, aspect: "square" as const, label: "Grand Ballroom", image: `${CFK}/cyber21-04-160.jpg` },
+  { id: 8, aspect: "square" as const, label: "Live Session", image: `${OT}/4N8A0420.JPG` },
 ];
 
 
@@ -243,55 +201,23 @@ export default function OTGallery() {
               maxWidth: 900,
               margin: "0 auto",
               aspectRatio: "16 / 9",
-              borderRadius: 10,
-              background: "#111111",
-              border: "1px solid rgba(255, 255, 255, 0.05)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 12,
+              borderRadius: 14,
+              overflow: "hidden",
+              border: `1px solid ${OT_CRIMSON}20`,
+              boxShadow: `0 20px 60px rgba(0,0,0,0.4), 0 0 40px ${OT_CRIMSON}08`,
             }}
           >
-            {/* Muted play icon */}
-            <div
+            <iframe
+              src="https://www.youtube.com/embed/3ofcPquafgk?rel=0&modestbranding=1"
+              title="OT Security First UAE — Event Highlights"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
               style={{
-                width: 56,
-                height: 56,
-                borderRadius: 8,
-                background: `${OT_CRIMSON}15`,
-                border: `1px solid ${OT_CRIMSON}25`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                width: "100%",
+                height: "100%",
+                border: "none",
               }}
-            >
-              <svg
-                width="20"
-                height="24"
-                viewBox="0 0 24 28"
-                fill="none"
-                style={{ marginLeft: 2 }}
-              >
-                <path
-                  d="M22 14L2 26V2L22 14Z"
-                  fill={OT_CRIMSON}
-                  opacity={0.4}
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-            <p
-              style={{
-                fontFamily: "var(--font-outfit)",
-                fontSize: 14,
-                fontWeight: 500,
-                color: "#686868",
-                margin: 0,
-              }}
-            >
-              Event Highlights Video, Coming Soon
-            </p>
+            />
           </div>
         </motion.div>
 

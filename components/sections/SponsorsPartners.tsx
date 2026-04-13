@@ -178,6 +178,19 @@ export default function SponsorsPartners() {
             />
           </div>
 
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: "clamp(28px, 3.5vw, 48px)",
+              color: "var(--white)",
+              letterSpacing: "-1.5px",
+              lineHeight: 1.1,
+              margin: "16px 0 8px",
+            }}
+          >
+            Our Partners &amp; Sponsors
+          </h2>
           <p
             style={{
               fontFamily: "var(--font-outfit)",
