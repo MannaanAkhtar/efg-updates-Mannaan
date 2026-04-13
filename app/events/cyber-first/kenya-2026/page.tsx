@@ -649,7 +649,7 @@ export default function CyberFirstKenya2026() {
       <SiliconSavannahContext />
       <AdvisoryBoard />
       <FocusAreas />
-      {/* <Speakers /> */}
+      <Speakers />
       <AgendaTimeline />
       <SponsorsSection />
       <AtmosphereDivider />
@@ -672,7 +672,7 @@ function HeroSection() {
   const cd = useCountdown(EVENT_DATE);
 
   return (
-    <section id="overview" className="cfk-hero" style={{ position: "relative", minHeight: "100dvh", overflow: "hidden", background: "#0A0608" }}>
+    <section className="cfk-hero" style={{ position: "relative", minHeight: "100dvh", overflow: "hidden", background: "#0A0608" }}>
       {/* Background Image - Nairobi with Cyber Shield */}
       <div className="absolute inset-0">
         <img
@@ -1883,7 +1883,7 @@ function SiliconSavannahContext() {
   ];
 
   return (
-    <section ref={sectionRef} className="cfk-whynow-section" style={{ position: "relative", background: "#0A0608", minHeight: "100vh" }}>
+    <section id="overview" ref={sectionRef} className="cfk-whynow-section" style={{ position: "relative", background: "#0A0608", minHeight: "100vh" }}>
       <div className="cfk-whynow-grid" style={{
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
@@ -2473,6 +2473,7 @@ function AdvisoryBoard() {
 
   return (
     <section
+      id="speakers"
       ref={sectionRef}
       className="cfk-advisory-section"
       style={{
@@ -2798,7 +2799,7 @@ function Speakers() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
   
   return (
-    <section id="speakers" ref={ref} style={{ background: "#090506", padding: "clamp(40px,5vw,60px) 0" }}>
+    <section ref={ref} style={{ background: "#090506", padding: "clamp(40px,5vw,60px) 0" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px,5vw,80px)" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
