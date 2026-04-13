@@ -91,8 +91,15 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  // Handle braze-webinar-2 / vroundtable-braze subdomain → serve /braze2 page
-  if (hostname.startsWith("braze-webinar-2.") || hostname.startsWith("vroundtable-braze.")) {
+  // Redirect old braze-webinar-2 subdomain → new vroundtable-braze subdomain
+  if (hostname.startsWith("braze-webinar-2.")) {
+    const newUrl = new URL(request.url);
+    newUrl.hostname = hostname.replace("braze-webinar-2.", "vroundtable-braze.");
+    return NextResponse.redirect(newUrl, 301);
+  }
+
+  // Handle vroundtable-braze subdomain → serve /braze2 page
+  if (hostname.startsWith("vroundtable-braze.")) {
     const url = request.nextUrl.clone();
     const path = url.pathname;
 
