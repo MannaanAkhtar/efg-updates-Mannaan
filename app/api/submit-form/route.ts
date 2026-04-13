@@ -21,6 +21,8 @@ const ALLOWED_ORIGINS = [
   "https://www.eventsfirstgroup.com",
   "https://braze-webinar.eventsfirstgroup.com",
   "https://braze-webinar-2.eventsfirstgroup.com",
+  "https://sonicwall-webinar.eventsfirstgroup.com",
+  "https://big-leap-riyadh.eventsfirstgroup.com",
   "http://localhost:3000",
   "http://localhost:3001",
 ];
