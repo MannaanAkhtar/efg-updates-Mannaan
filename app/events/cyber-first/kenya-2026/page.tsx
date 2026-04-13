@@ -169,19 +169,24 @@ const FOCUS_AREAS = [
 ];
 
 const AGENDA = [
-  { time: "08:00 – 09:00", title: "Registration & Networking Breakfast", type: "break" as const },
-  { time: "09:00 – 09:20", title: "Opening Keynote", subtitle: "The State of Kenya's Cyber Economy: Navigating the KSh 30 Billion Crisis and Strategic Resilience", type: "keynote" as const },
-  { time: "09:20 – 10:10", title: "Panel 1: Critical Infrastructure Security", subtitle: "Safeguarding National Critical Infrastructure & Neutralizing Advanced Threats", type: "panel" as const },
-  { time: "10:10 – 10:30", title: "Fireside Chat", subtitle: "Regulatory Governance, Data Privacy & Policy Synchronization", type: "fireside" as const },
-  { time: "10:30 – 10:50", title: "Coffee & Networking Break", type: "break" as const },
-  { time: "10:50 – 11:35", title: "Panel 2: AI & Threat Intelligence", subtitle: "Integrating Artificial Intelligence & Next-Generation Threat Intelligence", type: "panel" as const },
-  { time: "11:35 – 12:00", title: "Customer Success Story", subtitle: "Enterprise Case Study: From Breach to Resilience", type: "fireside" as const },
-  { time: "12:00 – 12:45", title: "Networking Lunch", type: "break" as const },
-  { time: "12:45 – 13:30", title: "Panel 3: Cloud & Zero Trust", subtitle: "Architecting Resilient Cloud Ecosystems & Operationalizing Zero Trust", type: "panel" as const },
-  { time: "13:30 – 13:55", title: "Fireside Chat", subtitle: "Fostering Strategic Geopolitical Partnerships & Intelligence Synergy", type: "fireside" as const },
-  { time: "13:55 – 14:40", title: "Panel 4: Talent & Human Defense", subtitle: "Cultivating the Human Defense Perimeter & Bridging the Talent Deficit", type: "panel" as const },
-  { time: "14:40 – 15:00", title: "Closing Keynote", subtitle: "Building Performance-Driven Cyber Institutions", type: "keynote" as const },
-  { time: "15:00", title: "Cyber First Awards East Africa & Networking", type: "awards" as const },
+  { time: "08:00 – 09:00", title: "Registration, Networking, and Refreshments", type: "break" as const },
+  { time: "09:05 – 09:10", title: "Welcome Remarks", type: "keynote" as const },
+  { time: "09:10 – 09:15", title: "National Anthem and Opening Ceremony", type: "keynote" as const },
+  { time: "09:15 – 09:30", title: "Opening Keynote", subtitle: "The Digital Mandate Roadmap – NC4 and Kenya's Cyber Economy\nCol Dr James Kimuyu – Director, National Computer and Cybercrimes Coordination Committee (NC4)", type: "keynote" as const },
+  { time: "09:30 – 10:00", title: "Leadership Panel", subtitle: "Who Owns the Risk? Boards, Regulators and CISOs under New Expectations\nGovernance focused on accountability, reporting, and decision making for cyber risk across sectors, how responsibility is shared, what effective governance looks like in practice", bullets: ["Safeguarding national critical infrastructure and policy synchronization", "Regulatory expectations, audit findings, corrective action plans", "Third-party and supply chain risk management"], type: "panel" as const },
+  { time: "10:00 – 10:15", title: "Fireside Chat", subtitle: "The Sovereign Shield – Harmonizing Critical Infrastructure Defence under the CMCA 2025\nThe tactical enforcement of the 2025 Amendment Act, focusing on how government agencies and regulators are transitioning from legislative theory to real-time website deactivation and threat containment", type: "fireside" as const },
+  { time: "10:15 – 10:30", title: "Technology Presentation", subtitle: "Using Endpoint and Network Telemetry to Spot Business Critical Attacks\n(Reserved for Sponsor)", type: "fireside" as const },
+  { time: "10:30 – 11:15", title: "VIP Exhibition Tour followed by Networking & Refreshments", type: "break" as const },
+  { time: "11:15 – 11:45", title: "Panel Discussion", subtitle: "From Logs to Decisions – Making Threat Intelligence and Analytics Actionable\nHow organizations can prioritize a small set of high-value detection and intel use-cases, instead of drowning in data and alerts", bullets: ["Identity centric defence for mobile money and digital channels", "Real time fraud and abuse detection across payment rails", "Endpoint and network protection in branch, agency, and shared-device environments", "Prioritizing data sources & automation boundaries"], type: "panel" as const },
+  { time: "11:45 – 12:00", title: "Technology Presentation", subtitle: "MFA Fatigue & Password less – Implementing Identity First Security\n(Reserved for Sponsor)", type: "fireside" as const },
+  { time: "12:00 – 12:15", title: "Technology Presentation", subtitle: "Behavioural Biometrics – The Next Frontier in Anti-Fraud for Digital Lenders\n(Reserved for Sponsor)", type: "fireside" as const },
+  { time: "12:15 – 12:45", title: "Panel Discussion", subtitle: "Keeping the Lights On – Practical Resilience Against DDoS, Ransomware and Network Disruptions\nKeeping critical services available under intense pressure and concrete strategies for maintaining availability of critical services under DDoS waves, network issues, and ransomware across sectors", bullets: ["Service classification – what must never go down, for how long", "Technology and process for DDoS mitigation on public services", "Ransomware preparation – segmentation, backup strategy, offline copies, recovery drills", "Interplay between physical incidents and cyber resilience"], type: "panel" as const },
+  { time: "12:45 – 13:00", title: "Technology Presentation", subtitle: "Proactive Deception Strategies for Government Portals\n(Reserved for Sponsor)", type: "fireside" as const },
+  { time: "13:00 – 13:30", title: "Networking Break and Refreshments", type: "break" as const },
+  { time: "13:30 – 14:00", title: "Panel Discussion", subtitle: "Identity Under Pressure – Stopping Fraud and Account Takeover in a Mobile First Economy\nHow identity abuse drives fraud and disruption across mobile money, digital banking, telco services, and citizen portals", bullets: ["Real-time risk scoring for logins and transactions", "Coordinating fraud, cyber, and operations teams", "Securing agents and merchants in mobile money ecosystems", "Protecting privileged admin and operator accounts in telco/gov", "Handling identity in shared-device environments"], type: "panel" as const },
+  { time: "14:00 – 14:15", title: "Presentation", subtitle: "API Security at Scale – Protecting the Interconnected Ecosystem of the Silicon Savannah\n(Reserved Session)", type: "fireside" as const },
+  { time: "14:15 – 14:30", title: "Cyber First Award Ceremony & Raffle Draw", type: "awards" as const },
+  { time: "14:30", title: "Networking Lunch and End of Conference", type: "break" as const },
 ];
 
 const AWARDS_DATA = [
@@ -282,8 +287,8 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
   },
   {
     name: "Dr. Isabelle K",
-    title: "Principal Officer | Frequency Spectrum",
-    org: "Communications Authority of Kenya",
+    title: "Principal Officer | Frequency Spectrum Management | Standardisation and Innovation",
+    org: "Communications Authority of Kenya (CA)",
     photo: null,
     linkedin: "https://www.linkedin.com/in/dr-isabelle-k-459211142/",
   },
@@ -2604,6 +2609,7 @@ function AdvisoryBoard() {
                 zIndex: -1,
                 transition: "opacity 0.4s ease",
                 opacity: 0,
+                pointerEvents: "none",
               }} />
               
               {/* Photo with parallax container */}
@@ -2676,6 +2682,8 @@ function AdvisoryBoard() {
                         border: "1px solid rgba(255,255,255,0.1)",
                         display: "flex", alignItems: "center", justifyContent: "center",
                         transition: "all 0.3s ease",
+                        position: "relative",
+                        zIndex: 10,
                       }}
                     >
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)">
@@ -2707,14 +2715,15 @@ function AdvisoryBoard() {
               </div>
               
               {/* Top accent glow line */}
-              <div style={{ 
-                position: "absolute", 
-                top: 0, 
+              <div style={{
+                position: "absolute",
+                top: 0,
                 left: 0,
-                right: 0, 
-                height: 2, 
+                right: 0,
+                height: 2,
                 background: `linear-gradient(90deg, transparent 10%, ${C_BRIGHT}60 50%, transparent 90%)`,
                 boxShadow: `0 0 20px ${C_BRIGHT}40`,
+                pointerEvents: "none",
               }} />
             </motion.div>
           ))}
@@ -2752,6 +2761,7 @@ function AdvisoryBoard() {
           mask-composite: exclude;
           opacity: 0;
           transition: opacity 0.4s ease;
+          pointer-events: none;
         }
         .cfk-speaker-card:hover::before {
           opacity: 1;
@@ -3163,9 +3173,9 @@ function AgendaTimeline() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const typeColors: Record<string, string> = { keynote: C, panel: "#9D4EDD", fireside: "#F97316", sponsor: "#10B981", break: "#6B7280", awards: KENYA_GOLD, closing: "#06B6D4" };
 
-  // Split agenda into morning (before lunch) and afternoon (lunch onward)
-  const morningItems = AGENDA.slice(0, 7);   // 08:00 – 12:00
-  const afternoonItems = AGENDA.slice(7);     // 12:00 – 15:00
+  // Split agenda into morning (before networking break) and afternoon (after break)
+  const morningItems = AGENDA.slice(0, 10);   // 08:00 – 12:00
+  const afternoonItems = AGENDA.slice(10);     // 12:00 – 14:30
 
   const renderColumn = (items: typeof AGENDA, label: string, timeRange: string, startDelay: number) => (
     <div style={{ flex: 1, minWidth: 0 }}>
@@ -3245,7 +3255,18 @@ function AgendaTimeline() {
                 <span style={{ fontFamily: "var(--font-display)", fontSize: 14, fontWeight: 700, color: "rgba(255,255,255,0.92)", letterSpacing: "-0.2px" }}>{item.title}</span>
               </div>
               {item.subtitle && (
-                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: "rgba(255,255,255,0.38)", margin: 0, lineHeight: 1.65, paddingLeft: 1 }}>{item.subtitle}</p>
+                <div style={{ paddingLeft: 1 }}>
+                  {item.subtitle.split("\n").map((line, li) => (
+                    <p key={li} style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: li === 0 ? "rgba(255,255,255,0.55)" : "rgba(255,255,255,0.35)", margin: li > 0 ? "4px 0 0" : 0, lineHeight: 1.65, fontStyle: li > 0 ? "italic" : "normal" }}>{line}</p>
+                  ))}
+                </div>
+              )}
+              {"bullets" in item && item.bullets && (
+                <ul style={{ margin: "6px 0 0", paddingLeft: 16 }}>
+                  {(item.bullets as string[]).map((b, bi) => (
+                    <li key={bi} style={{ fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.35)", lineHeight: 1.7, listStyleType: "disc" }}>{b}</li>
+                  ))}
+                </ul>
               )}
             </div>
           </motion.div>
@@ -3298,7 +3319,7 @@ function AgendaTimeline() {
             WebkitTextFillColor: "transparent", color: "transparent",
             filter: `drop-shadow(0 0 30px ${C}20)`,
           }}>
-            13 Sessions. 7 Hours. One Stage.
+            18 Sessions. 6.5 Hours. One Stage.
           </h2>
 
           {/* Animated underline */}
@@ -3328,7 +3349,7 @@ function AgendaTimeline() {
         {/* Two-column split */}
         <div className="cfk-agenda-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 44 }}>
           {renderColumn(morningItems, "Morning Session", "08:00 – 12:00", 0.2)}
-          {renderColumn(afternoonItems, "Afternoon Session", "12:00 – 15:00", 0.5)}
+          {renderColumn(afternoonItems, "Afternoon Session", "12:00 – 14:30", 0.5)}
         </div>
       </div>
 
