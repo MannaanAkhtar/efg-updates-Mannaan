@@ -649,7 +649,7 @@ export default function CyberFirstKenya2026() {
       <SiliconSavannahContext />
       <AdvisoryBoard />
       <FocusAreas />
-      <Speakers />
+      {/* <Speakers /> */}
       <AgendaTimeline />
       <SponsorsSection />
       <AtmosphereDivider />
