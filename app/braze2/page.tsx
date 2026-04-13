@@ -21,23 +21,11 @@ const PAD = "0 clamp(20px, 4vw, 60px)";
 const FONT = "'Aribau Grotesk', sans-serif";
 
 // ─── Content ─────────────────────────────────────────────────────────────────
-const THEMES = [
-  {
-    num: "11:00 AM",
-    title: "Welcome, Introductions & Key Regional Learnings",
-  },
-  {
-    num: "11:10 AM",
-    title: "Open Roundtable Discussion",
-  },
-  {
-    num: "11:40 AM",
-    title: "Practical Applications of AI",
-  },
-  {
-    num: "11:58 AM",
-    title: "Closing Remarks",
-  },
+const THEMES: { num: string; title: string; desc?: string }[] = [
+  { num: "11:00 AM", title: "Welcome, Introductions & Key Regional Learnings" },
+  { num: "11:10 AM", title: "Open Roundtable Discussion" },
+  { num: "11:40 AM", title: "Practical Applications of AI" },
+  { num: "11:58 AM", title: "Closing Remarks" },
 ];
 
 const ROLES_GROUP_1 = [
