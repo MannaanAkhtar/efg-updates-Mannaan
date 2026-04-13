@@ -161,6 +161,27 @@ const CONTACTS_TEAM = [
   },
 ];
 
+const OTVB_SPEAKERS = [
+  {
+    name: "Vijay Velayutham",
+    title: "Principal Information Security Officer",
+    org: "UAE Ministry of Energy & Infrastructure",
+    photo: `${S3}/boardroom/Vijay+Velayutham.png`,
+  },
+  {
+    name: "Dr. Shaheela Banu Abdul Majeed",
+    title: "Information Security & Compliance Officer and Auditor",
+    org: "Oil & Gas Industry",
+    photo: `${S3}/boardroom/Dr.+Shaheela+Abdul+Majeed.png`,
+  },
+  {
+    name: "Ali Abdulla Hasan Alsadadi",
+    title: "Chief of Information Technology",
+    org: "Ministry of Oil & Environment Bahrain",
+    photo: `${S3}/boardroom/Ali+Abdulla+Hasan+Alsadadi.png`,
+  },
+];
+
 // ─── HERO SECTION, Cybercore Grid ───────────────────────────────────────────
 function HeroSection() {
   const cd = useCountdown(EVENT_DATE);
@@ -1254,6 +1275,168 @@ const AGENDA_TYPE_COLORS: Record<string, { color: string; rgb: string }> = {
   qa: { color: CYAN, rgb: "0,201,255" },
   closing: { color: C_BRIGHT, rgb: "232,107,184" },
 };
+
+// ─── SPEAKERS SECTION ───────────────────────────────────────────────────────
+function SpeakersSection() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section
+      ref={ref}
+      id="speakers"
+      style={{
+        background: `linear-gradient(180deg, ${BG_DARK} 0%, ${BG} 50%, ${BG_DARK} 100%)`,
+        padding: "clamp(60px, 8vw, 100px) 0",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Background orbs */}
+      <div style={{ position: "absolute", top: "20%", left: "-8%", width: 500, height: 500, borderRadius: "50%", background: `radial-gradient(circle, ${C}12 0%, transparent 70%)`, filter: "blur(60px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "15%", right: "-5%", width: 450, height: 450, borderRadius: "50%", background: `radial-gradient(circle, ${CYAN}10 0%, transparent 70%)`, filter: "blur(60px)", pointerEvents: "none" }} />
+
+      {/* Grid texture */}
+      <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(0,201,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,201,255,0.02) 1px, transparent 1px)", backgroundSize: "60px 60px", pointerEvents: "none" }} />
+
+      {/* Top border */}
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent 5%, ${C}25, ${CYAN}15, ${C}25, transparent 95%)` }} />
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          style={{ textAlign: "center", marginBottom: 56 }}
+        >
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 5vw, 56px)", color: "white", letterSpacing: "-2px", margin: "0 0 12px", lineHeight: 1 }}>
+            Featured{" "}
+            <span className="otvm-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              Speakers
+            </span>
+          </h2>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={inView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            style={{ width: 120, height: 3, background: `linear-gradient(90deg, transparent, ${CYAN}CC, transparent)`, margin: "0 auto 16px", borderRadius: 2, transformOrigin: "center" }}
+          />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.4)" }}>
+            Industry leaders driving the OT security conversation
+          </span>
+        </motion.div>
+
+        {/* Speaker cards — 3 column grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 32 }} className="otvb-speakers-grid">
+          {OTVB_SPEAKERS.map((speaker, i) => (
+            <motion.div
+              key={speaker.name}
+              initial={{ opacity: 0, y: 36, filter: "blur(8px)" }}
+              animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+              transition={{ duration: 0.8, delay: 0.2 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="otvb-speaker-card"
+              style={{
+                borderRadius: 24,
+                overflow: "hidden",
+                position: "relative",
+                background: `linear-gradient(165deg, rgba(13,18,51,0.95) 0%, rgba(7,11,31,0.98) 100%)`,
+                border: `1px solid rgba(255,255,255,0.08)`,
+                boxShadow: `0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`,
+                transition: "all 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
+              }}
+            >
+              {/* Photo */}
+              <div style={{ height: 320, overflow: "hidden", position: "relative" }}>
+                <img
+                  src={speaker.photo}
+                  alt={speaker.name}
+                  className="otvb-speaker-photo"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "center top",
+                    transition: "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)",
+                  }}
+                />
+                {/* Gradient overlay */}
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(7,11,31,0.95) 100%)", pointerEvents: "none" }} />
+                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${C}10, transparent 50%)`, pointerEvents: "none" }} />
+                {/* Top shine */}
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 100, background: "linear-gradient(180deg, rgba(255,255,255,0.04), transparent)", pointerEvents: "none" }} />
+              </div>
+
+              {/* Info */}
+              <div style={{ padding: "24px 28px 28px" }}>
+                <h3 style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: 22,
+                  fontWeight: 700,
+                  color: "white",
+                  margin: "0 0 10px",
+                  letterSpacing: "-0.5px",
+                  lineHeight: 1.15,
+                }}>
+                  {speaker.name}
+                </h3>
+                <p style={{
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  color: C_BRIGHT,
+                  margin: "0 0 6px",
+                  lineHeight: 1.45,
+                }}>
+                  {speaker.title}
+                </p>
+                <p style={{
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 13,
+                  fontWeight: 400,
+                  color: "rgba(255,255,255,0.5)",
+                  margin: 0,
+                  lineHeight: 1.4,
+                }}>
+                  {speaker.org}
+                </p>
+              </div>
+
+              {/* Top accent glow */}
+              <div style={{
+                position: "absolute", top: 0, left: 0, right: 0, height: 2,
+                background: `linear-gradient(90deg, transparent 10%, ${C_BRIGHT}60 50%, transparent 90%)`,
+                boxShadow: `0 0 20px ${C_BRIGHT}30`,
+                pointerEvents: "none",
+              }} />
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Bottom border */}
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent 10%, ${C}15, transparent 90%)` }} />
+
+      <style jsx global>{`
+        .otvb-speaker-card:hover {
+          transform: translateY(-10px) scale(1.02) !important;
+          border-color: rgba(255,255,255,0.15) !important;
+          box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 60px ${C}20, inset 0 1px 0 rgba(255,255,255,0.1) !important;
+        }
+        .otvb-speaker-card:hover .otvb-speaker-photo {
+          transform: scale(1.08) !important;
+        }
+        @media (max-width: 900px) {
+          .otvb-speakers-grid {
+            grid-template-columns: 1fr !important;
+            max-width: 420px !important;
+            margin: 0 auto !important;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
 
 function AgendaSection() {
   const ref = useRef<HTMLElement>(null);
@@ -2416,6 +2599,7 @@ export default function OTSecurityVirtualForumMENA() {
       <AboutForum />
       <KeyThemesSection />
       <PanelDiscussions />
+      <SpeakersSection />
       <WhoWillBeInRoom />
       <AgendaSection />
       <OtvmHighlights />
