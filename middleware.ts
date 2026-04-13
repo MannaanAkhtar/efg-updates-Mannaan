@@ -91,8 +91,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  // Handle braze-webinar-2 subdomain → serve /braze2 page
-  if (hostname.startsWith("braze-webinar-2.")) {
+  // Handle braze-webinar-2 / vroundtable-braze subdomain → serve /braze2 page
+  if (hostname.startsWith("braze-webinar-2.") || hostname.startsWith("vroundtable-braze.")) {
     const url = request.nextUrl.clone();
     const path = url.pathname;
 

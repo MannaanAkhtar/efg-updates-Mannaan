@@ -10,7 +10,7 @@ export default function ConditionalNavigation() {
   const [isSubdomain, setIsSubdomain] = useState(false);
 
   useEffect(() => {
-    if (window.location.hostname.startsWith("braze-webinar.") || window.location.hostname.startsWith("blaze-webinar.") || window.location.hostname.startsWith("braze-webinar-2.") || window.location.hostname.startsWith("sonicwall-webinar.") || window.location.hostname.startsWith("big-leap-riyadh.")) {
+    if (window.location.hostname.startsWith("braze-webinar.") || window.location.hostname.startsWith("blaze-webinar.") || window.location.hostname.startsWith("braze-webinar-2.") || window.location.hostname.startsWith("vroundtable-braze.") || window.location.hostname.startsWith("sonicwall-webinar.") || window.location.hostname.startsWith("big-leap-riyadh.")) {
       setIsSubdomain(true);
     }
   }, []);

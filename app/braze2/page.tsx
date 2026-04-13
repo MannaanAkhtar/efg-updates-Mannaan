@@ -25,22 +25,18 @@ const THEMES = [
   {
     num: "11:00 AM",
     title: "Welcome, Introductions & Key Regional Learnings",
-    desc: "Setting the stage with the latest insights from across the Middle East martech landscape.",
   },
   {
     num: "11:10 AM",
     title: "Open Roundtable Discussion",
-    desc: "Senior peers share how they are balancing AI-driven efficiency with empathetic agility.",
   },
   {
     num: "11:40 AM",
     title: "Practical Applications of AI",
-    desc: "Real-time engagement and lifecycle orchestration in practice across the region.",
   },
   {
     num: "11:58 AM",
     title: "Closing Remarks",
-    desc: "Key takeaways, action points, and next steps for the community.",
   },
 ];
 
@@ -240,7 +236,7 @@ export default function BrazeLandingPage() {
       <HeroSection />
       <OverviewSection />
       <WinningBrandsSection />
-      <WhatToExpect />
+      {/* <WhatToExpect /> */}
       <ThemesSection />
       <AttendSection />
       <HostedByBraze />
@@ -802,23 +798,6 @@ function HeroSection() {
               AI, Empathy, and the New Marketing Operating Model: From Campaigns to Real-Time Adaptive Engagement Systems<span style={{ color: B_LAVENDER }}>.</span>
             </motion.h1>
 
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4, ease: EASE }}
-              style={{
-                fontFamily: FONT,
-                fontWeight: 400,
-                fontSize: "clamp(15px, 1.3vw, 18px)",
-                color: "rgba(255,255,255,0.9)",
-                lineHeight: 1.6,
-                margin: "0 0 36px",
-                maxWidth: 440,
-              }}
-            >
-              Where senior martech leaders explore how AI-driven efficiency meets empathetic agility across the Middle East.
-            </motion.p>
 
             {/* Event details, inline with dividers */}
             <motion.div
@@ -2182,6 +2161,7 @@ function ThemesSection() {
                   }}>
                     {t.title}
                   </h3>
+                  {t.desc && (
                   <p className="braze2-themes-desc" style={{
                     fontFamily: FONT,
                     fontWeight: 300,
@@ -2192,6 +2172,7 @@ function ThemesSection() {
                   }}>
                     {t.desc}
                   </p>
+                  )}
                 </div>
               </motion.div>
             ))}
