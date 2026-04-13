@@ -46,7 +46,7 @@ const UPCOMING_EVENTS = [
     subtitle: "Marketing Through Uncertainty, Customer Engagement Strategies for MENAT",
     sponsor: "Braze",
     location: "Virtual",
-    link: "https://braze-webinar-2.eventsfirstgroup.com",
+    link: "https://vroundtable-braze.eventsfirstgroup.com",
     image: "/braze2/hero-bg.jpg",
   },
   {

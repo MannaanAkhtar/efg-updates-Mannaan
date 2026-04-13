@@ -47,7 +47,7 @@ const allEvents = [
       "A private virtual roundtable for senior martech leaders in MENAT, customer engagement strategies during uncertain times.",
     color: "#C9935A",
     image: "/braze2/hero-bg.jpg",
-    href: "https://braze-webinar-2.eventsfirstgroup.com",
+    href: "https://vroundtable-braze.eventsfirstgroup.com",
     date: "2026-04-29",
     nextDate: "29 Apr 2026",
     nextCity: "Virtual",

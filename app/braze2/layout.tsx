@@ -13,7 +13,7 @@ export const metadata: Metadata = {
       "A private virtual roundtable for senior martech leaders in MENAT.",
     images: [
       {
-        url: "https://braze-webinar-2.eventsfirstgroup.com/braze/braze-logo-purple.png",
+        url: "https://vroundtable-braze.eventsfirstgroup.com/braze/braze-logo-purple.png",
         width: 1200,
         height: 630,
         alt: "Braze x Events First Group, Marketing Through Uncertainty",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     title: "Marketing Through Uncertainty | Braze x EFG Roundtable",
     description:
       "A private virtual roundtable for senior martech leaders in MENAT.",
-    images: ["https://braze-webinar-2.eventsfirstgroup.com/braze/braze-logo-purple.png"],
+    images: ["https://vroundtable-braze.eventsfirstgroup.com/braze/braze-logo-purple.png"],
   },
 };
 

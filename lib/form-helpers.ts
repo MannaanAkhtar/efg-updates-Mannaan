@@ -236,7 +236,7 @@ export function getSourceCategory(): string {
   const p = window.location.pathname;
 
   // Subdomain detection, middleware rewrites path to / but we know the actual source
-  if (h.startsWith("braze-webinar-2.")) return "Braze Virtual Roundtable 2";
+  if (h.startsWith("braze-webinar-2.") || h.startsWith("vroundtable-braze.")) return "Braze Virtual Roundtable 2";
   if (h.startsWith("braze-webinar.") || h.startsWith("blaze-webinar.")) return "Braze Virtual Roundtable";
 
   if (p.startsWith("/braze2")) return "Braze Virtual Roundtable 2";

@@ -35,7 +35,7 @@ const allEvents: EventItem[] = [
     location: "Virtual",
     venue: "Virtual",
     attendees: "15-20",
-    href: "https://braze-webinar-2.eventsfirstgroup.com",
+    href: "https://vroundtable-braze.eventsfirstgroup.com",
     status: "open",
   },
   {
