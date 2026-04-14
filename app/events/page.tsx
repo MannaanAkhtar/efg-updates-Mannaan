@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect, useCallback, useMemo } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { NetworkFirst, Footer, InquiryForm } from "@/components/sections";
+import { NetworkFirst, Footer, InquiryForm, EventHighlights as HomeEventHighlights, Testimonials } from "@/components/sections";
 import SectionTransition from "@/components/effects/SectionTransition";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -4670,7 +4670,8 @@ export default function EventsPage() {
       <SectionTransition variant="sweep" />
       <MediaCoverage />
       <SectionTransition variant="expand" />
-      <EventHighlights />
+      <HomeEventHighlights />
+      <Testimonials />
       <InquiryForm />
       <SectionTransition variant="sweep" />
       <Footer />
