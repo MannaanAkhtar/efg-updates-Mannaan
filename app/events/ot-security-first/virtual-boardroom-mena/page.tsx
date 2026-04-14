@@ -170,15 +170,22 @@ const OTVB_SPEAKERS = [
   },
   {
     name: "Dr. Shaheela Banu Abdul Majeed",
-    title: "Information Security & Compliance Officer and Auditor",
-    org: "Oil & Gas Industry",
+    title: "Information Security & Compliance Officer & Auditor",
+    org: "Kuwait Gulf Oil Company (KGOC)",
     photo: `${S3}/boardroom/Dr.+Shaheela+Abdul+Majeed.png`,
+    photoPosition: "center 20%",
   },
   {
     name: "Ali Abdulla Hasan Alsadadi",
     title: "Chief of Information Technology",
     org: "Ministry of Oil & Environment Bahrain",
     photo: `${S3}/boardroom/Ali+Abdulla+Hasan+Alsadadi.png`,
+  },
+  {
+    name: "Nasser Salim Al Alawi",
+    title: "OT Cybersecurity Manager",
+    org: "Oman LNG LLC",
+    photo: `${S3}/boardroom/NasserAlAlawi.png`,
   },
 ];
 
@@ -1328,7 +1335,7 @@ function SpeakersSection() {
         </motion.div>
 
         {/* Speaker cards — 3 column grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 32 }} className="otvb-speakers-grid">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24 }} className="otvb-speakers-grid">
           {OTVB_SPEAKERS.map((speaker, i) => (
             <motion.div
               key={speaker.name}
@@ -1347,7 +1354,7 @@ function SpeakersSection() {
               }}
             >
               {/* Photo */}
-              <div style={{ height: 320, overflow: "hidden", position: "relative" }}>
+              <div style={{ height: 260, overflow: "hidden", position: "relative" }}>
                 <img
                   src={speaker.photo}
                   alt={speaker.name}
@@ -1356,7 +1363,7 @@ function SpeakersSection() {
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
-                    objectPosition: "center top",
+                    objectPosition: ("photoPosition" in speaker && speaker.photoPosition) ? speaker.photoPosition as string : "center top",
                     transition: "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)",
                   }}
                 />
@@ -1368,10 +1375,10 @@ function SpeakersSection() {
               </div>
 
               {/* Info */}
-              <div style={{ padding: "24px 28px 28px" }}>
+              <div style={{ padding: "18px 22px 22px" }}>
                 <h3 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: 22,
+                  fontSize: 18,
                   fontWeight: 700,
                   color: "white",
                   margin: "0 0 10px",
@@ -1382,11 +1389,11 @@ function SpeakersSection() {
                 </h3>
                 <p style={{
                   fontFamily: "var(--font-outfit)",
-                  fontSize: 14,
+                  fontSize: 13,
                   fontWeight: 600,
                   color: C_BRIGHT,
-                  margin: "0 0 6px",
-                  lineHeight: 1.45,
+                  margin: "0 0 4px",
+                  lineHeight: 1.4,
                 }}>
                   {speaker.title}
                 </p>
@@ -1428,8 +1435,13 @@ function SpeakersSection() {
         }
         @media (max-width: 900px) {
           .otvb-speakers-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+        @media (max-width: 560px) {
+          .otvb-speakers-grid {
             grid-template-columns: 1fr !important;
-            max-width: 420px !important;
+            max-width: 380px !important;
             margin: 0 auto !important;
           }
         }
@@ -1924,8 +1936,8 @@ function WhySponsor() {
               Position your brand in front of verified OT security decision-makers across MENA, in a format built for trust, not noise.
             </p>
 
-            {/* Decorative conic ring */}
-            <div style={{ position: "relative", width: 160, height: 160 }}>
+            {/* Decorative conic ring — hidden on mobile */}
+            <div className="otvm-sponsor-ring" style={{ position: "relative", width: 160, height: 160 }}>
               <div style={{
                 position: "absolute", inset: 0, borderRadius: "50%",
                 background: `conic-gradient(from 180deg, ${CYAN}, ${C_BRIGHT}, ${CYAN})`,
@@ -1946,7 +1958,7 @@ function WhySponsor() {
                 <span style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: 36, background: `linear-gradient(135deg, ${C_BRIGHT}, ${CYAN})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>100</span>
               </div>
             </div>
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "2px", marginTop: 10, display: "block" }}>Decision Makers</span>
+            <span className="otvm-sponsor-ring-label" style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "2px", marginTop: 10, display: "block" }}>Decision Makers</span>
           </motion.div>
 
           {/* ─── RIGHT COLUMN, 4 cards with connecting timeline ─── */}
@@ -2054,6 +2066,8 @@ function WhySponsor() {
         @keyframes otvmRingSpin { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
         @media (max-width: 900px) {
           .otvm-sponsor-split { grid-template-columns: 1fr !important; }
+          .otvm-sponsor-ring, .otvm-sponsor-ring-label { display: none !important; }
+          .otvm-sponsor-split > div:first-child { position: static !important; }
         }
       `}</style>
     </section>
