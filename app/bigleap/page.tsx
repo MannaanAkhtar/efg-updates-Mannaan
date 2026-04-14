@@ -1519,7 +1519,7 @@ function AgendaSection() {
       style={{
         position: "relative",
         overflow: "hidden",
-        padding: "clamp(44px, 5.5vw, 72px) 0",
+        padding: "clamp(28px, 3.5vw, 48px) 0",
         background: "transparent",
       }}
     >
@@ -1529,13 +1529,13 @@ function AgendaSection() {
         style={{
           maxWidth: 1320,
           margin: "0 auto",
-          padding: "0 clamp(24px, 5vw, 80px)",
+          padding: "0 clamp(20px, 4vw, 60px)",
           position: "relative",
           zIndex: 10,
         }}
       >
         {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: "clamp(36px, 5vh, 56px)" }}>
+        <div style={{ textAlign: "center", marginBottom: "clamp(24px, 3vh, 36px)" }}>
           {/* Premium kicker pill */}
           <div
             style={{
@@ -1629,11 +1629,20 @@ function AgendaSection() {
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: "clamp(40px, 5vw, 64px)",
+            gap: "clamp(32px, 4vw, 48px)",
           }}
         >
           {/* ═══════════════════ AGENDA ═══════════════════ */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 800, margin: "0 auto", width: "100%" }}>
+          <div style={{
+            display: "flex", flexDirection: "column", gap: 14, maxWidth: 800, margin: "0 auto", width: "100%",
+            padding: "clamp(16px, 2vw, 28px)", borderRadius: 24, position: "relative", overflow: "hidden",
+            background: "rgba(255,255,255,0.015)", border: "1px solid rgba(255,255,255,0.04)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 20px 60px rgba(0,0,0,0.3)",
+          }}>
+            {/* Subtle grid texture inside agenda container */}
+            <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)", backgroundSize: "40px 40px", pointerEvents: "none", maskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, #000, transparent 80%)", WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, #000, transparent 80%)" }} />
+            {/* Corner glow */}
+            <div style={{ position: "absolute", top: -60, right: -60, width: 200, height: 200, borderRadius: "50%", background: `radial-gradient(circle, ${TBL_RED}10, transparent 60%)`, pointerEvents: "none" }} />
             {AGENDA.map((item, i) => (
               <div
                 key={i}
@@ -1701,9 +1710,6 @@ function AgendaSection() {
                 Invitation
               </span>
             </h2>
-            <p style={{ fontFamily: FONT, fontSize: 15, fontWeight: 500, color: "rgba(255,255,255,0.5)", margin: 0 }}>
-              Seats are reserved for senior decision-makers in growth, marketing, and digital.
-            </p>
           </div>
           <div
             id="register"
@@ -2003,11 +2009,10 @@ function AgendaSection() {
       </div>
 
       <style>{`
-        .tbl-agenda-card { transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.35s ease, box-shadow 0.35s ease; }
+        .tbl-agenda-card { transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; }
         .tbl-agenda-card:hover {
-          border-color: rgba(255,255,255,0.20) !important;
-          transform: translateX(4px);
-          box-shadow: 0 8px 24px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.10) !important;
+          transform: translateY(-3px) scale(1.01);
+          box-shadow: 0 16px 48px rgba(239,68,68,0.10), 0 8px 24px rgba(0,0,0,0.4) !important;
         }
         .tbl-form-input:focus {
           border-color: ${TBL_RED}80 !important;
@@ -2446,7 +2451,7 @@ function BigLeapFooter() {
       style={{
         background: TBL_OXFORD_BLACK,
         borderTop: "1px solid rgba(255,255,255,0.06)",
-        padding: "44px 0 36px",
+        padding: "18px 0 14px",
       }}
     >
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
@@ -2456,8 +2461,8 @@ function BigLeapFooter() {
             justifyContent: "space-between",
             alignItems: "center",
             flexWrap: "wrap",
-            gap: 36,
-            marginBottom: 32,
+            gap: 20,
+            marginBottom: 12,
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -2465,7 +2470,7 @@ function BigLeapFooter() {
             src={TBL_LOGO}
             alt="The Big Leap"
             loading="lazy"
-            style={{ height: 36, width: "auto" }}
+            style={{ height: 80, width: "auto" }}
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
