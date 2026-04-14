@@ -22,7 +22,7 @@ const CT_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverT
 const RIYADH_IMG = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/finalll.png";
 const TBL_OVERVIEW_BG = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Filters+for+BG_page-0001.jpg";
 const TBL_SPONSOR_BG = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Filters+for+BG_page-0003.jpg";
-const TBL_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/TBL_Stand+Alone+logo_for+dark.svg";
+const TBL_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/bigleapconnect.png";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const PILLARS = [
@@ -265,11 +265,11 @@ function HeroSection() {
           alignItems: "center",
           justifyContent: "center",
           textAlign: "center",
-          padding: "clamp(90px, 11vh, 140px) clamp(20px, 4vw, 80px) clamp(36px, 5vh, 70px)",
+          padding: "clamp(80px, 9vh, 120px) clamp(20px, 4vw, 80px) clamp(30px, 4vh, 60px)",
           width: "100%",
           maxWidth: 1280,
           margin: "0 auto",
-          gap: "clamp(16px, 2.4vh, 32px)",
+          gap: "clamp(10px, 1.5vh, 20px)",
         }}
       >
         {/* Kicker — editorial eyebrow with hairline rules + red dot */}
@@ -333,63 +333,21 @@ function HeroSection() {
           />
         </div>
 
-        {/* Title — larger, single visual block, no italic on AI, clean */}
-        <h1
+        {/* Big Leap Logo — large, centered hero element */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="tbl-title-line"
+          src={TBL_LOGO}
+          alt="The Big Leap"
           style={{
-            fontFamily: FONT,
-            fontSize: "clamp(38px, min(7vw, 10vh), 92px)",
-            lineHeight: 1.04,
-            letterSpacing: "-0.045em",
-            margin: 0,
-            fontWeight: 900,
-            maxWidth: "min(1100px, 94vw)",
-            color: TBL_WHITE,
+            height: "clamp(240px, min(42vw, 45vh), 600px)",
+            width: "auto",
+            opacity: 0,
+            filter: "drop-shadow(0 8px 48px rgba(0,0,0,0.5))",
           }}
-        >
-          <span style={{ display: "block", overflow: "hidden", paddingBottom: "0.05em" }}>
-            <span
-              className="tbl-title-line"
-              style={{
-                display: "block",
-                fontWeight: 900,
-                opacity: 0,
-                background: "linear-gradient(180deg, #ffffff 0%, #ffffff 60%, rgba(255,255,255,0.90) 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                filter: "drop-shadow(0 8px 48px rgba(0,0,0,0.7)) drop-shadow(0 2px 4px rgba(0,0,0,0.5))",
-              }}
-            >
-              Beyond the Hype.
-            </span>
-          </span>
-          <span style={{ display: "block", overflow: "hidden", paddingBottom: "0.05em" }}>
-            <span
-              className="tbl-title-line"
-              style={{
-                display: "block",
-                fontWeight: 900,
-                opacity: 0,
-                background: "linear-gradient(180deg, #ffffff 0%, #ffffff 60%, rgba(255,255,255,0.90) 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                filter: "drop-shadow(0 8px 48px rgba(0,0,0,0.7)) drop-shadow(0 2px 4px rgba(0,0,0,0.5))",
-              }}
-            >
-              Redefining Growth with{" "}
-              <span
-                style={{
-                  background: `linear-gradient(160deg, #ffb4b4 0%, ${TBL_RED} 50%, #b91c1c 100%)`,
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
-                AI.
-              </span>
-            </span>
-          </span>
-        </h1>
+        />
 
-        {/* Tagline — bigger, cleaner */}
+        {/* Tagline */}
         <p
           className="tbl-stagger"
           style={{
@@ -397,6 +355,7 @@ function HeroSection() {
             fontSize: "clamp(15px, min(1.5vw, 2.1vh), 21px)",
             fontWeight: 500,
             color: "rgba(255,255,255,0.82)",
+            marginTop: "clamp(-30px, -4vh, -50px)",
             lineHeight: 1.6,
             margin: "0 auto",
             maxWidth: "min(720px, 92vw)",
@@ -404,7 +363,7 @@ function HeroSection() {
             textShadow: "0 2px 18px rgba(0,0,0,0.55)",
           }}
         >
-          An invite-only evening for Riyadh&apos;s senior growth, marketing, product, and digital leaders.
+          An invite-only evening for Riyadh&apos;s senior growth, marketing, and digital leaders.
         </p>
 
         {/* Meta strip — soft glass pill with hairline dividers */}
@@ -452,9 +411,8 @@ function HeroSection() {
             />
             {[
               { label: "May 5, 2026" },
+              { label: "4:30 PM" },
               { label: "Riyadh, KSA" },
-              { label: "90 Minutes" },
-              { label: "Panel + Discussion" },
             ].map((item, i, arr) => (
               <React.Fragment key={item.label}>
                 <span
@@ -537,7 +495,7 @@ function HeroSection() {
               transition: "all 0.4s cubic-bezier(0.165,0.84,0.44,1)",
             }}
           >
-            Apply to Attend <span>&rarr;</span>
+            Request Your Invitation <span>&rarr;</span>
           </a>
           <a
             href="#agenda"
@@ -609,47 +567,6 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll indicator — bottom centered, cinematic */}
-      <div
-        className="tbl-scroll-cue"
-        style={{
-          position: "absolute",
-          bottom: "clamp(14px, 2.4vh, 26px)",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 6,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 6,
-          opacity: 0.55,
-          pointerEvents: "none",
-        }}
-      >
-        <span
-          style={{
-            fontFamily: FONT,
-            fontSize: "clamp(8px, 0.85vmin, 9.5px)",
-            fontWeight: 600,
-            letterSpacing: "0.28em",
-            textTransform: "uppercase",
-            color: "rgba(255,255,255,0.75)",
-          }}
-        >
-          Scroll
-        </span>
-        <div
-          style={{
-            width: 1,
-            height: "clamp(22px, 2.6vmin, 32px)",
-            background: "linear-gradient(180deg, rgba(255,255,255,0.6), transparent)",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          <div className="tbl-scroll-line" />
-        </div>
-      </div>
 
       <style>{`
         .tbl-btn-primary { position: relative; overflow: hidden; }
@@ -846,7 +763,7 @@ function OverviewSection() {
               maxWidth: 820,
             }}
           >
-            {["Big", "Ideas.", "Bold", "Conversations.", "One"].map((w, i) => (
+            {["Beyond", "the", "Hype.", "Redefining", "Growth", "with"].map((w, i) => (
               <span
                 key={`w-${i}`}
                 className="tbl-ov-word"
@@ -863,7 +780,7 @@ function OverviewSection() {
                 {w}
               </span>
             ))}
-            {["Unmissable", "Evening."].map((w, i) => (
+            {["AI."].map((w, i) => (
               <span
                 key={`r-${i}`}
                 className="tbl-ov-word"
@@ -1080,7 +997,7 @@ function OverviewSection() {
               }}
             >
               As the leadership community around customer engagement continues to evolve,{" "}
-              <span style={{ color: "rgba(255,255,255,0.97)", fontWeight: 600 }}>The Big Leap</span> brings together Riyadh&apos;s foremost growth, marketing, product, and digital leaders for focused, high-impact dialogue. Curated as an invite-only forum, this is specially designed to enable deeper peer exchange, meaningful conversations, and actionable takeaways among senior decision-makers. It is a space where leaders move beyond trends and headlines to examine what transformation truly demands.
+              <span style={{ color: "rgba(255,255,255,0.97)", fontWeight: 600 }}>The Big Leap Connect</span>{" "}brings together Riyadh&apos;s foremost growth, marketing, and digital leaders for focused, high-impact dialogue. Curated as an invite-only forum, this is specially designed to enable deeper peer exchange, meaningful conversations, and actionable takeaways among senior decision-makers. It is a space where leaders move beyond trends and headlines to examine what transformation truly demands.
             </p>
 
             {/* Separator with red dot */}
@@ -1201,10 +1118,10 @@ function OverviewSection() {
                 src={TBL_LOGO}
                 alt="The Big Leap"
                 style={{
-                  height: "clamp(80px, 10vw, 130px)",
+                  height: "clamp(140px, 18vw, 240px)",
                   width: "auto",
                   position: "relative",
-                  margin: "clamp(70px, 8vw, 110px) 0",
+                  margin: "clamp(40px, 5vw, 70px) 0",
                   opacity: 0,
                 }}
               />
@@ -1247,97 +1164,22 @@ function WhatToExpectSection() {
       >
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "clamp(36px, 5vh, 56px)" }}>
-          {/* Premium dark kicker pill */}
-          <div
-            style={{
-              display: "inline-flex",
-              padding: "1.2px",
-              borderRadius: 999,
-              background: "linear-gradient(140deg, rgba(255,255,255,0.45) 0%, rgba(239,68,68,0.35) 28%, rgba(255,255,255,0.10) 55%, rgba(255,255,255,0.32) 100%)",
-              boxShadow: "0 18px 50px rgba(0,0,0,0.55), 0 6px 20px rgba(239,68,68,0.18)",
-              marginBottom: "clamp(20px, 2.6vh, 28px)",
-              opacity: inView ? 1 : 0,
-              transform: inView ? "translateY(0)" : "translateY(10px)",
-              transition: "all 0.7s cubic-bezier(0.16,1,0.3,1)",
-            }}
-          >
-            <div
-              style={{
-                position: "relative",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 10,
-                padding: "8px 22px 8px 14px",
-                borderRadius: 999,
-                background: "linear-gradient(180deg, rgba(0,13,38,0.78) 0%, rgba(0,13,38,0.62) 100%)",
-                backdropFilter: "blur(24px) saturate(1.5)",
-                WebkitBackdropFilter: "blur(24px) saturate(1.5)",
-                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.30), inset 0 -1px 0 rgba(0,0,0,0.4), inset 0 0 22px rgba(239,68,68,0.08)",
-                overflow: "hidden",
-              }}
-            >
-              <div style={{ position: "absolute", top: 0, left: "12%", right: "12%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent)" }} />
-              <div
-                className="tbl-pulse-dot"
-                style={{
-                  position: "relative",
-                  width: 7,
-                  height: 7,
-                  borderRadius: "50%",
-                  background: `radial-gradient(circle at 35% 35%, #ff8a8a 0%, ${TBL_RED} 50%, #b91c1c 100%)`,
-                  boxShadow: `0 0 14px ${TBL_RED}, 0 0 4px ${TBL_RED}`,
-                }}
-              />
-              <span
-                style={{
-                  fontFamily: FONT,
-                  fontSize: 11,
-                  fontWeight: 700,
-                  letterSpacing: "0.26em",
-                  textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.96)",
-                  textShadow: "0 1px 2px rgba(0,0,0,0.4)",
-                  position: "relative",
-                }}
-              >
-                What&apos;s in Store
-              </span>
-            </div>
-          </div>
-
           <h2
             style={{
               fontFamily: FONT,
               fontWeight: 700,
-              fontSize: "clamp(28px, 4.4vw, 52px)",
+              fontSize: "clamp(22px, 3.5vw, 48px)",
               lineHeight: 1.08,
               letterSpacing: "-0.038em",
               margin: "0 auto clamp(22px, 2.8vh, 30px)",
-              maxWidth: 820,
+              color: TBL_WHITE,
+              whiteSpace: "nowrap",
               opacity: inView ? 1 : 0,
               transform: inView ? "translateY(0)" : "translateY(24px)",
               transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s",
             }}
           >
-            <span
-              style={{
-                background: "linear-gradient(180deg, #ffffff 0%, #ffffff 60%, rgba(255,255,255,0.86) 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                filter: "drop-shadow(0 6px 40px rgba(0,0,0,0.55)) drop-shadow(0 1px 2px rgba(0,0,0,0.4))",
-              }}
-            >
-              Here&apos;s What the Evening Has in{" "}
-            </span>
-            <span
-              style={{
-                background: `linear-gradient(160deg, #ffb4b4 0%, ${TBL_RED} 50%, #b91c1c 100%)`,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              Store.
-            </span>
+            Here&apos;s What the Evening Has in Store.
           </h2>
 
           {/* Glowing red underline */}
@@ -1482,175 +1324,79 @@ function WhatToExpectSection() {
                   />
                 ))}
 
-                {/* ═══ Editorial pillar rows — dark treatment ═══ */}
-                {PILLARS.map((p, i, arr) => (
+                {/* ═══ 2x2 pillar grid ═══ */}
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(14px, 1.8vw, 24px)" }} className="tbl-pillars-grid">
+                {PILLARS.map((p) => (
                   <div
                     key={p.num}
                     className="tbl-pillar-row"
                     style={{
-                      display: "grid",
-                      gridTemplateColumns: "auto 1fr auto",
-                      gap: "clamp(18px, 2.2vw, 32px)",
+                      display: "flex",
+                      flexDirection: "column",
                       alignItems: "center",
-                      padding: "clamp(20px, 2.4vw, 30px) clamp(14px, 1.8vw, 24px)",
-                      borderBottom: i < arr.length - 1 ? "1px solid rgba(255,255,255,0.07)" : "none",
+                      textAlign: "center",
+                      padding: "clamp(28px, 3.2vw, 40px) clamp(20px, 2.4vw, 32px)",
                       position: "relative",
+                      borderRadius: 20,
+                      background: "linear-gradient(165deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 50%, rgba(255,255,255,0.03) 100%)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.3), 0 8px 32px rgba(0,0,0,0.3)",
+                      backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
                       transition: "all 0.5s cubic-bezier(0.16,1,0.3,1)",
-                      borderRadius: 16,
                     }}
                   >
-                    {/* Left red side accent — appears on hover */}
-                    <div
-                      className="tbl-row-bar"
-                      style={{
-                        position: "absolute",
-                        left: 0,
-                        top: "50%",
-                        width: 3,
-                        height: 0,
-                        borderRadius: 2,
-                        background: `linear-gradient(180deg, ${TBL_RED}, #b91c1c)`,
-                        boxShadow: `0 0 12px ${TBL_RED}55`,
-                        transform: "translateY(-50%)",
-                        transition: "height 0.5s cubic-bezier(0.16,1,0.3,1)",
-                      }}
-                    />
+                    {/* Background number watermark */}
+                    <span style={{
+                      position: "absolute",
+                      bottom: -15,
+                      right: 8,
+                      fontFamily: FONT,
+                      fontSize: "clamp(130px, 15vw, 220px)",
+                      fontWeight: 900,
+                      lineHeight: 1,
+                      color: "transparent",
+                      background: `linear-gradient(160deg, rgba(239,68,68,0.15) 0%, rgba(239,68,68,0.03) 100%)`,
+                      WebkitBackgroundClip: "text",
+                      pointerEvents: "none",
+                      userSelect: "none",
+                      letterSpacing: "-0.04em",
+                    }}>
+                      {p.num}
+                    </span>
 
-                    {/* LEFT — Numbered circular badge */}
-                    <div
-                      style={{
-                        position: "relative",
-                        width: "clamp(72px, 7.6vw, 100px)",
-                        height: "clamp(72px, 7.6vw, 100px)",
-                        flexShrink: 0,
-                      }}
-                    >
-                      {/* Outer concentric ring */}
-                      <div
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          borderRadius: "50%",
-                          border: "1px solid rgba(255,255,255,0.10)",
-                        }}
-                      />
-                      {/* Mid concentric ring */}
-                      <div
-                        className="tbl-num-ring"
-                        style={{
-                          position: "absolute",
-                          inset: 8,
-                          borderRadius: "50%",
-                          border: `1px solid ${TBL_RED}55`,
-                          transition: "transform 0.5s cubic-bezier(0.16,1,0.3,1)",
-                        }}
-                      />
-                      {/* Inner glass disc — dark skeuo */}
-                      <div
-                        style={{
-                          position: "absolute",
-                          inset: 14,
-                          borderRadius: "50%",
-                          padding: "1.5px",
-                          background: `linear-gradient(140deg, rgba(239,68,68,0.6) 0%, rgba(255,255,255,0.18) 50%, rgba(239,68,68,0.45) 100%)`,
-                          boxShadow: `0 12px 28px rgba(239,68,68,0.22), 0 4px 10px rgba(0,0,0,0.4)`,
-                        }}
-                      >
-                        <div
-                          style={{
-                            position: "relative",
-                            width: "100%",
-                            height: "100%",
-                            borderRadius: "50%",
-                            background: "linear-gradient(180deg, rgba(13,28,58,0.92) 0%, rgba(7,18,46,0.86) 100%)",
-                            backdropFilter: "blur(20px) saturate(1.4)",
-                            WebkitBackdropFilter: "blur(20px) saturate(1.4)",
-                            boxShadow: "inset 0 2px 0 rgba(255,255,255,0.22), inset 0 -2px 0 rgba(0,0,0,0.4), inset 0 0 22px rgba(239,68,68,0.10)",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            overflow: "hidden",
-                          }}
-                        >
-                          {/* Top reflection arc */}
-                          <div
-                            style={{
-                              position: "absolute",
-                              top: "8%",
-                              left: "20%",
-                              right: "20%",
-                              height: 2,
-                              borderRadius: "50%",
-                              background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.65), transparent)",
-                              filter: "blur(0.5px)",
-                            }}
-                          />
-                          <span
-                            className="tbl-pillar-num"
-                            style={{
-                              fontFamily: FONT,
-                              fontSize: "clamp(28px, 3vw, 42px)",
-                              fontWeight: 900,
-                              lineHeight: 1,
-                              letterSpacing: "-0.03em",
-                              background: `linear-gradient(160deg, #ffb4b4 0%, ${TBL_RED} 50%, #b91c1c 100%)`,
-                              WebkitBackgroundClip: "text",
-                              WebkitTextFillColor: "transparent",
-                              transition: "all 0.5s cubic-bezier(0.16,1,0.3,1)",
-                              textAlign: "center",
-                              filter: `drop-shadow(0 0 8px ${TBL_RED}40)`,
-                            }}
-                          >
-                            {p.num}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    {/* Top accent glow line */}
+                    <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent 10%, ${TBL_RED}80 50%, transparent 90%)`, boxShadow: `0 0 16px ${TBL_RED}25`, pointerEvents: "none" }} />
+                    {/* Top glass reflection */}
+                    <div style={{ position: "absolute", top: 2, left: "8%", right: "8%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)", pointerEvents: "none" }} />
+                    {/* Corner glow */}
+                    <div style={{ position: "absolute", top: -30, left: -30, width: 120, height: 120, borderRadius: "50%", background: `radial-gradient(circle, ${TBL_RED}15, transparent 60%)`, pointerEvents: "none" }} />
 
-                    {/* MIDDLE — Title + Description */}
-                    <div style={{ minWidth: 0 }}>
-                      {/* Eyebrow — Pillar # */}
-                      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                        <div style={{ width: 22, height: 1.5, background: `linear-gradient(90deg, ${TBL_RED}, ${TBL_RED}55)` }} />
-                        <span
-                          style={{
-                            fontFamily: FONT,
-                            fontSize: 9.5,
-                            fontWeight: 700,
-                            letterSpacing: "0.22em",
-                            textTransform: "uppercase",
-                            color: TBL_RED,
-                          }}
-                        >
-                          Pillar {p.num}
-                        </span>
-                      </div>
+                    {/* Title + Description */}
+                    <div style={{ position: "relative", zIndex: 2 }}>
                       <h3
                         style={{
                           fontFamily: FONT,
                           fontWeight: 700,
-                          fontSize: "clamp(21px, 1.95vw, 28px)",
+                          fontSize: "clamp(22px, 2.2vw, 30px)",
                           lineHeight: 1.2,
                           letterSpacing: "-0.022em",
-                          margin: "0 0 10px",
-                          background: "linear-gradient(180deg, #ffffff 0%, #ffffff 60%, rgba(255,255,255,0.86) 100%)",
-                          WebkitBackgroundClip: "text",
-                          WebkitTextFillColor: "transparent",
+                          margin: "0 0 12px",
+                          color: TBL_WHITE,
                           filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.45))",
                         }}
                       >
                         {p.title}
                       </h3>
+                      {/* Subtle accent line under title */}
+                      <div style={{ width: 40, height: 2, background: `linear-gradient(90deg, ${TBL_RED}, ${TBL_RED}40)`, borderRadius: 2, margin: "0 auto 14px", boxShadow: `0 0 8px ${TBL_RED}30` }} />
                       <p
                         style={{
                           fontFamily: FONT,
                           fontWeight: 500,
-                          fontSize: "clamp(14px, 1.1vw, 16px)",
+                          fontSize: "clamp(14px, 1.15vw, 17px)",
                           lineHeight: 1.75,
-                          color: "rgba(255,255,255,0.72)",
+                          color: "rgba(255,255,255,0.6)",
                           margin: 0,
-                          maxWidth: 720,
-                          textShadow: "0 1px 2px rgba(0,0,0,0.35)",
                         }}
                       >
                         {p.desc}
@@ -1659,6 +1405,7 @@ function WhatToExpectSection() {
 
                   </div>
                 ))}
+                </div>
 
                 {/* Bottom inner shadow line */}
                 <div style={{ position: "absolute", bottom: 0, left: "12%", right: "12%", height: 1, background: "linear-gradient(90deg, transparent, rgba(0,0,0,0.5), transparent)", pointerEvents: "none" }} />
@@ -1670,25 +1417,16 @@ function WhatToExpectSection() {
 
       <style>{`
         .tbl-pillar-row:hover {
-          background: linear-gradient(90deg, rgba(239,68,68,0.05), rgba(239,68,68,0.02) 60%, transparent);
-        }
-        .tbl-pillar-row:hover .tbl-row-bar {
-          height: 70% !important;
-        }
-        .tbl-pillar-row:hover .tbl-num-ring {
-          transform: scale(1.06);
-          border-color: rgba(239,68,68,0.85) !important;
-        }
-        .tbl-pillar-row:hover .tbl-row-accent {
-          opacity: 1 !important;
-          transform: translateX(6px);
+          border-color: rgba(239,68,68,0.25) !important;
+          transform: translateY(-4px) !important;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 0 rgba(0,0,0,0.3), 0 16px 48px rgba(0,0,0,0.4), 0 0 24px rgba(239,68,68,0.08) !important;
         }
         @media (max-width: 760px) {
-          .tbl-pillar-row { grid-template-columns: auto 1fr !important; gap: 18px !important; }
+          .tbl-pillars-grid { grid-template-columns: 1fr 1fr !important; }
           .tbl-row-accent { display: none !important; }
         }
         @media (max-width: 520px) {
-          .tbl-pillar-row { grid-template-columns: 1fr !important; }
+          .tbl-pillars-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>
@@ -1830,7 +1568,7 @@ function AgendaSection() {
               <div style={{ position: "absolute", top: 0, left: "12%", right: "12%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent)" }} />
               <div className="tbl-pulse-dot" style={{ position: "relative", width: 7, height: 7, borderRadius: "50%", background: `radial-gradient(circle at 35% 35%, #ff8a8a, ${TBL_RED} 50%, #b91c1c)`, boxShadow: `0 0 14px ${TBL_RED}, 0 0 4px ${TBL_RED}` }} />
               <span style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, letterSpacing: "0.26em", textTransform: "uppercase", color: "rgba(255,255,255,0.96)", textShadow: "0 1px 2px rgba(0,0,0,0.4)", position: "relative" }}>
-                Run of Show &middot; 90 Minutes
+                Run of Show
               </span>
             </div>
           </div>
@@ -1885,263 +1623,94 @@ function AgendaSection() {
           />
         </div>
 
-        {/* ═══ SPLIT LAYOUT: Agenda (left) + Form (right) ═══ */}
+        {/* ═══ STACKED LAYOUT: Agenda on top, Form below ═══ */}
         <div
           className="tbl-split"
           style={{
-            display: "grid",
-            gridTemplateColumns: "1.1fr 0.9fr",
-            gap: "clamp(20px, 2.4vw, 32px)",
-            alignItems: "start",
+            display: "flex",
+            flexDirection: "column",
+            gap: "clamp(40px, 5vw, 64px)",
           }}
         >
-          {/* ═══════════════════ LEFT — AGENDA TIMELINE ═══════════════════ */}
-          <div
-            style={{
-              position: "relative",
-              borderRadius: 28,
-              opacity: inView ? 1 : 0,
-              transform: inView ? "translateY(0)" : "translateY(28px)",
-              transition: "all 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s",
-              boxShadow: `
-                0 50px 100px -20px rgba(0,0,0,0.65),
-                0 30px 60px -16px rgba(239,68,68,0.14),
-                0 14px 28px -8px rgba(0,0,0,0.5)
-              `,
-            }}
-          >
-            {/* Outer metallic gradient ring */}
-            <div
-              style={{
-                padding: "2px",
-                borderRadius: 28,
-                background: `linear-gradient(140deg, rgba(255,255,255,0.50) 0%, rgba(239,68,68,0.42) 22%, rgba(255,255,255,0.06) 42%, rgba(0,0,0,0.5) 58%, rgba(255,255,255,0.30) 78%, rgba(239,68,68,0.32) 100%)`,
-              }}
-            >
-              {/* Inner ring */}
-              <div style={{ padding: "1px", borderRadius: 26, background: "linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.20))" }}>
-                <div
-                  style={{
-                    position: "relative",
-                    borderRadius: 25,
-                    padding: "clamp(24px, 2.8vw, 36px) clamp(20px, 2.4vw, 32px)",
-                    background: `linear-gradient(180deg, rgba(13,28,58,0.92) 0%, rgba(7,18,46,0.82) 50%, rgba(0,13,38,0.88) 100%)`,
-                    backdropFilter: "blur(36px) saturate(1.6)",
-                    WebkitBackdropFilter: "blur(36px) saturate(1.6)",
-                    boxShadow: `
-                      inset 0 2px 0 rgba(255,255,255,0.20),
-                      inset 0 1px 0 rgba(255,255,255,0.42),
-                      inset 0 -2px 0 rgba(0,0,0,0.50),
-                      inset 0 -1px 0 rgba(0,0,0,0.35),
-                      inset 2px 0 4px rgba(255,255,255,0.05),
-                      inset -2px 0 4px rgba(0,0,0,0.30),
-                      inset 0 0 100px rgba(239,68,68,0.05),
-                      inset 0 80px 120px -50px rgba(255,255,255,0.06)
-                    `,
-                    overflow: "hidden",
-                  }}
-                >
-                  {/* Specular top highlight */}
-                  <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "40%", background: "linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 40%, transparent 100%)", pointerEvents: "none" }} />
-                  <div style={{ position: "absolute", top: 0, left: "6%", right: "6%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.70), transparent)" }} />
-                  <div style={{ position: "absolute", top: -100, right: -100, width: 280, height: 280, borderRadius: "50%", background: "radial-gradient(circle, rgba(239,68,68,0.18), transparent 65%)", pointerEvents: "none" }} />
-
-                  {/* Cinematic corner brackets */}
-                  {[
-                    { top: 12, left: 12, bt: true, bl: true },
-                    { top: 12, right: 12, bt: true, br: true },
-                    { bottom: 12, left: 12, bb: true, bl: true },
-                    { bottom: 12, right: 12, bb: true, br: true },
-                  ].map((c, i) => (
-                    <div key={`b-${i}`} style={{ position: "absolute", top: c.top, bottom: c.bottom, left: c.left, right: c.right, width: 14, height: 14, borderTop: c.bt ? "1.5px solid rgba(239,68,68,0.55)" : "none", borderBottom: c.bb ? "1.5px solid rgba(239,68,68,0.55)" : "none", borderLeft: c.bl ? "1.5px solid rgba(239,68,68,0.55)" : "none", borderRight: c.br ? "1.5px solid rgba(239,68,68,0.55)" : "none", borderTopLeftRadius: c.bt && c.bl ? 3 : 0, borderTopRightRadius: c.bt && c.br ? 3 : 0, borderBottomLeftRadius: c.bb && c.bl ? 3 : 0, borderBottomRightRadius: c.bb && c.br ? 3 : 0, pointerEvents: "none", filter: `drop-shadow(0 0 4px ${TBL_RED}40)` }} />
-                  ))}
-
-                  {/* Panel eyebrow with item count */}
-                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "clamp(20px, 2.4vh, 26px)", position: "relative" }}>
-                    <div style={{ width: 18, height: 1.5, background: TBL_RED }} />
-                    <span style={{ fontFamily: FONT, fontSize: 10, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: TBL_RED }}>
-                      Schedule
-                    </span>
-                    <div style={{ flex: 1, height: 1, background: `linear-gradient(90deg, ${TBL_RED}66, transparent)` }} />
-                    <span style={{ fontFamily: FONT, fontSize: 9.5, fontWeight: 700, letterSpacing: "0.18em", color: "rgba(255,255,255,0.45)" }}>
-                      {String(AGENDA.length).padStart(2, "0")} STEPS
-                    </span>
+          {/* ═══════════════════ AGENDA ═══════════════════ */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 800, margin: "0 auto", width: "100%" }}>
+            {AGENDA.map((item, i) => (
+              <div
+                key={i}
+                className="tbl-agenda-card"
+                style={{
+                  display: "flex", alignItems: "center", gap: "clamp(18px, 2.2vw, 30px)",
+                  borderRadius: 20, position: "relative", overflow: "hidden",
+                  padding: "2px",
+                  background: item.highlight
+                    ? `linear-gradient(140deg, ${TBL_RED}60 0%, rgba(255,255,255,0.12) 40%, ${TBL_RED}30 100%)`
+                    : "linear-gradient(140deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.10) 100%)",
+                  boxShadow: item.highlight
+                    ? `0 12px 36px rgba(239,68,68,0.12), 0 4px 14px rgba(0,0,0,0.3)`
+                    : "0 8px 28px rgba(0,0,0,0.25)",
+                  opacity: inView ? 1 : 0,
+                  transform: inView ? "translateY(0)" : "translateY(16px)",
+                  transition: `all 0.5s cubic-bezier(0.16,1,0.3,1) ${0.3 + i * 0.07}s`,
+                }}
+              >
+                <div style={{
+                  display: "flex", alignItems: "center", gap: "clamp(18px, 2.2vw, 30px)", width: "100%",
+                  padding: "clamp(18px, 2.2vw, 24px) clamp(20px, 2.6vw, 30px)",
+                  borderRadius: 18,
+                  background: item.highlight
+                    ? `linear-gradient(135deg, rgba(239,68,68,0.06) 0%, rgba(0,13,38,0.92) 40%, rgba(0,13,38,0.88) 100%)`
+                    : "linear-gradient(135deg, rgba(0,13,38,0.90) 0%, rgba(0,13,38,0.85) 100%)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.3)",
+                  position: "relative", overflow: "hidden",
+                }}>
+                  {/* Top reflection */}
+                  <div style={{ position: "absolute", top: 0, left: "8%", right: "8%", height: 1, background: `linear-gradient(90deg, transparent, ${item.highlight ? "rgba(239,68,68,0.4)" : "rgba(255,255,255,0.20)"}, transparent)`, pointerEvents: "none" }} />
+                  {/* Left accent bar for highlighted */}
+                  {item.highlight && (
+                    <div style={{ position: "absolute", left: 0, top: "15%", bottom: "15%", width: 3, borderRadius: "0 3px 3px 0", background: `linear-gradient(180deg, ${TBL_RED}, ${TBL_RED}80)`, boxShadow: `0 0 12px ${TBL_RED}40` }} />
+                  )}
+                  {/* Step number watermark */}
+                  <span style={{ position: "absolute", right: 20, top: "50%", transform: "translateY(-50%)", fontFamily: FONT, fontSize: 64, fontWeight: 900, color: "transparent", background: item.highlight ? `linear-gradient(160deg, rgba(239,68,68,0.08), rgba(239,68,68,0.02))` : "linear-gradient(160deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))", WebkitBackgroundClip: "text", pointerEvents: "none", userSelect: "none" }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  {/* Time */}
+                  <div style={{ flexShrink: 0, textAlign: "center", minWidth: 80, position: "relative", zIndex: 2 }}>
+                    <span style={{ fontFamily: FONT, fontSize: "clamp(16px, 1.4vw, 20px)", fontWeight: 800, color: item.highlight ? TBL_RED : TBL_WHITE, display: "block", lineHeight: 1.2, filter: item.highlight ? `drop-shadow(0 0 6px ${TBL_RED}40)` : "none" }}>{item.time}</span>
+                    <span style={{ fontFamily: FONT, fontSize: 10, fontWeight: 600, color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "1px" }}>{item.duration}</span>
                   </div>
-
-                  {/* Agenda items with timeline rail */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: 10, position: "relative" }}>
-                    {/* Vertical timeline rail running down the left edge of time blocks */}
-                    <div
-                      style={{
-                        position: "absolute",
-                        left: 55,
-                        top: 12,
-                        bottom: 12,
-                        width: 1,
-                        background: `linear-gradient(180deg, transparent, ${TBL_RED}55 12%, rgba(255,255,255,0.18) 50%, ${TBL_RED}55 88%, transparent)`,
-                        pointerEvents: "none",
-                        zIndex: 0,
-                      }}
-                    />
-
-                    {AGENDA.map((item, i) => (
-                      <div
-                        key={i}
-                        className="tbl-agenda-card"
-                        style={{
-                          display: "flex",
-                          alignItems: "stretch",
-                          borderRadius: 12,
-                          overflow: "hidden",
-                          background: item.highlight
-                            ? `linear-gradient(135deg, rgba(239,68,68,0.10) 0%, rgba(27,38,61,0.5) 50%, rgba(0,13,38,0.55) 100%)`
-                            : `linear-gradient(135deg, rgba(27,38,61,0.42) 0%, rgba(0,13,38,0.50) 100%)`,
-                          border: item.highlight ? "1px solid rgba(239,68,68,0.30)" : "1px solid rgba(255,255,255,0.07)",
-                          boxShadow: item.highlight
-                            ? "0 6px 18px rgba(239,68,68,0.10), 0 4px 14px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.06)"
-                            : "0 4px 14px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05)",
-                          position: "relative",
-                          zIndex: 1,
-                          opacity: inView ? 1 : 0,
-                          transform: inView ? "translateX(0)" : "translateX(-20px)",
-                          transition: `all 0.55s cubic-bezier(0.16,1,0.3,1) ${0.45 + i * 0.08}s`,
-                        }}
-                      >
-                        <div style={{ position: "absolute", top: 0, left: "5%", right: "5%", height: 1, background: `linear-gradient(90deg, transparent, ${item.highlight ? TBL_RED + "70" : "rgba(255,255,255,0.10)"}, transparent)` }} />
-                        {item.highlight && (
-                          <div style={{ position: "absolute", left: 0, top: 10, bottom: 10, width: 3, borderRadius: "0 3px 3px 0", background: `linear-gradient(180deg, ${TBL_RED}, ${TBL_RED}80)`, boxShadow: `0 0 8px ${TBL_RED}55` }} />
-                        )}
-
-                        {/* Time block */}
-                        <div
-                          className="tbl-agenda-time"
-                          style={{
-                            width: 110,
-                            flexShrink: 0,
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            background: "rgba(255,255,255,0.025)",
-                            borderRight: "1px solid rgba(255,255,255,0.06)",
-                            padding: "14px 10px",
-                            gap: 3,
-                            position: "relative",
-                          }}
-                        >
-                          {/* Timeline rail dot — sits on the vertical line */}
-                          <div
-                            className={item.highlight ? "tbl-pulse-dot" : ""}
-                            style={{
-                              position: "absolute",
-                              left: -4,
-                              top: "50%",
-                              transform: "translateY(-50%)",
-                              width: 9,
-                              height: 9,
-                              borderRadius: "50%",
-                              background: item.highlight
-                                ? `radial-gradient(circle at 35% 35%, #ff8a8a, ${TBL_RED} 55%, #b91c1c)`
-                                : `radial-gradient(circle at 35% 35%, #ffffff, rgba(255,255,255,0.7) 55%, rgba(255,255,255,0.4))`,
-                              boxShadow: item.highlight
-                                ? `0 0 14px ${TBL_RED}, 0 0 4px ${TBL_RED}, 0 0 0 2px rgba(0,13,38,0.85)`
-                                : "0 0 8px rgba(255,255,255,0.45), 0 0 0 2px rgba(0,13,38,0.85)",
-                              zIndex: 2,
-                            }}
-                          />
-                          {/* Step number */}
-                          <span
-                            style={{
-                              fontFamily: FONT,
-                              fontSize: 8,
-                              fontWeight: 700,
-                              color: item.highlight ? TBL_RED : "rgba(255,255,255,0.4)",
-                              letterSpacing: "0.16em",
-                              opacity: 0.85,
-                            }}
-                          >
-                            {String(i + 1).padStart(2, "0")}
-                          </span>
-                          <span
-                            style={{
-                              fontFamily: FONT,
-                              fontSize: 14,
-                              fontWeight: 800,
-                              color: item.highlight ? TBL_RED : TBL_WHITE,
-                              letterSpacing: "-0.01em",
-                              lineHeight: 1.1,
-                              filter: item.highlight ? `drop-shadow(0 0 8px ${TBL_RED}55)` : "none",
-                            }}
-                          >
-                            {item.time}
-                          </span>
-                          <span
-                            style={{
-                              fontFamily: FONT,
-                              fontSize: 8.5,
-                              fontWeight: 600,
-                              color: "rgba(255,255,255,0.42)",
-                              textTransform: "uppercase",
-                              letterSpacing: "1.1px",
-                            }}
-                          >
-                            {item.duration}
-                          </span>
-                        </div>
-
-                        {/* Content */}
-                        <div style={{ flex: 1, padding: "14px 18px 16px", minWidth: 0, position: "relative" }}>
-                          {/* Highlight badge for featured items */}
-                          {item.highlight && (
-                            <div style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "2px 8px", borderRadius: 50, background: `${TBL_RED}18`, border: `1px solid ${TBL_RED}40`, marginBottom: 6 }}>
-                              <div style={{ width: 4, height: 4, borderRadius: "50%", background: TBL_RED, boxShadow: `0 0 6px ${TBL_RED}` }} />
-                              <span style={{ fontFamily: FONT, fontSize: 8, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: TBL_RED }}>
-                                Featured
-                              </span>
-                            </div>
-                          )}
-                          <h3
-                            style={{
-                              fontFamily: FONT,
-                              fontWeight: 700,
-                              fontSize: "clamp(13px, 1.05vw, 14.5px)",
-                              color: TBL_WHITE,
-                              margin: "0 0 4px",
-                              lineHeight: 1.35,
-                              letterSpacing: "-0.005em",
-                            }}
-                          >
-                            {item.title}
-                          </h3>
-                          <span
-                            style={{
-                              fontFamily: FONT,
-                              fontSize: 11,
-                              fontWeight: 500,
-                              color: "rgba(255,255,255,0.42)",
-                            }}
-                          >
-                            {item.presenter}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
+                  {/* Divider */}
+                  <div style={{ width: 1, alignSelf: "stretch", background: `linear-gradient(180deg, transparent, ${item.highlight ? TBL_RED + "50" : "rgba(255,255,255,0.12)"}, transparent)`, position: "relative", zIndex: 2 }} />
+                  {/* Content */}
+                  <div style={{ flex: 1, minWidth: 0, position: "relative", zIndex: 2 }}>
+                    <h3 style={{ fontFamily: FONT, fontWeight: 700, fontSize: "clamp(15px, 1.3vw, 18px)", color: TBL_WHITE, margin: 0, lineHeight: 1.4, letterSpacing: "-0.01em" }}>{item.title}</h3>
+                    <span style={{ fontFamily: FONT, fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.4)" }}>{item.presenter}</span>
                   </div>
-
-                  {/* Bottom inner shadow */}
-                  <div style={{ position: "absolute", bottom: 0, left: "12%", right: "12%", height: 1, background: "linear-gradient(90deg, transparent, rgba(0,0,0,0.5), transparent)", pointerEvents: "none" }} />
                 </div>
               </div>
-            </div>
+            ))}
           </div>
 
-          {/* ═══════════════════ RIGHT — REGISTRATION FORM ═══════════════════ */}
+          {/* ═══════════════════ REGISTRATION FORM ═══════════════════ */}
+          <div style={{ textAlign: "center", marginBottom: "clamp(20px, 2.5vh, 28px)" }}>
+            <h2 style={{
+              fontFamily: FONT, fontWeight: 700, fontSize: "clamp(28px, 3.5vw, 44px)",
+              color: TBL_WHITE, letterSpacing: "-0.03em", margin: "0 0 8px",
+            }}>
+              Request Your{" "}
+              <span style={{ background: `linear-gradient(160deg, #ffb4b4 0%, ${TBL_RED} 50%, #b91c1c 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                Invitation
+              </span>
+            </h2>
+            <p style={{ fontFamily: FONT, fontSize: 15, fontWeight: 500, color: "rgba(255,255,255,0.5)", margin: 0 }}>
+              Seats are reserved for senior decision-makers in growth, marketing, and digital.
+            </p>
+          </div>
           <div
             id="register"
-            className="tbl-form-sticky"
             style={{
-              position: "sticky",
-              top: 100,
+              maxWidth: 720,
+              margin: "0 auto",
+              width: "100%",
               borderRadius: 28,
               opacity: inView ? 1 : 0,
               transform: inView ? "translateY(0)" : "translateY(28px)",
@@ -2408,7 +1977,7 @@ function AgendaSection() {
                           transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)",
                         }}
                       >
-                        {submitting ? "Submitting..." : "Apply to Attend"} {!submitting && <span>&rarr;</span>}
+                        {submitting ? "Submitting..." : "Request Your Invitation"} {!submitting && <span>&rarr;</span>}
                       </button>
                       <p style={{ fontFamily: FONT, fontSize: 10.5, color: "rgba(255,255,255,0.4)", textAlign: "center", margin: "12px 0 0", lineHeight: 1.5 }}>
                         By submitting this form, you agree to CleverTap&apos;s{" "}
@@ -2461,8 +2030,6 @@ function AgendaSection() {
           box-shadow: 0 18px 46px rgba(239,68,68,0.55), 0 2px 8px rgba(239,68,68,0.32), inset 0 1px 0 rgba(255,255,255,0.32) !important;
         }
         @media (max-width: 980px) {
-          .tbl-split { grid-template-columns: 1fr !important; }
-          .tbl-form-sticky { position: relative !important; top: 0 !important; }
         }
         @media (max-width: 600px) {
           .tbl-form-fields { grid-template-columns: 1fr !important; }
@@ -2976,15 +2543,15 @@ function BigLeapNav() {
         transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
       }}
     >
-      {/* Left: TBL logo */}
+      {/* Left: CleverTap logo */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={TBL_LOGO}
-        alt="The Big Leap"
+        src={CT_LOGO}
+        alt="CleverTap"
         width={140}
         height={42}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        style={{ height: 52, width: "auto", cursor: "pointer" }}
+        style={{ height: 52, width: "auto", cursor: "pointer", filter: "brightness(0) invert(1)" }}
       />
 
       {/* Right: links + CleverTap mark + CTA */}
@@ -3009,38 +2576,6 @@ function BigLeapNav() {
           </a>
         ))}
 
-        {/* CleverTap parent mark */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-            paddingLeft: 18,
-            borderLeft: "1px solid rgba(255,255,255,0.12)",
-          }}
-        >
-          <span
-            style={{
-              fontFamily: FONT,
-              fontSize: 11,
-              fontWeight: 600,
-              letterSpacing: "1.4px",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.45)",
-            }}
-          >
-            By
-          </span>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={CT_LOGO}
-            alt="CleverTap"
-            width={90}
-            height={24}
-            style={{ height: 26, width: "auto", filter: "brightness(0) invert(1)", opacity: 0.9 }}
-          />
-        </div>
-
         <a
           href="#register"
           onClick={(e) => onLink(e, "#register")}
@@ -3058,7 +2593,7 @@ function BigLeapNav() {
             transition: "all 0.3s",
           }}
         >
-          Apply to Attend
+          Request Your Invitation
         </a>
       </div>
 

@@ -8,9 +8,9 @@ const OG_IMAGE =
 
 export const metadata: Metadata = {
   title:
-    "OT Security First South Africa 2026 | Johannesburg — Industrial Cyber Resilience",
+    "OT Security First Africa 2026 | Johannesburg — Uncompromised OT Security",
   description:
-    "Industrial Cyber Resilience in the Era of Convergence. Africa's premier OT/ICS security summit bringing together 200+ CISOs, industrial security leaders, and critical infrastructure operators. 2026, Johannesburg.",
+    "Uncompromised OT Security - Protecting what Powers our World. Africa's premier OT/ICS security summit, 26 August 2026 in Johannesburg. 200+ delegates, 20+ speakers, cross-sector collaboration.",
   keywords: [
     "OT security conference South Africa 2026",
     "industrial cybersecurity summit Johannesburg",
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
     canonical: PAGE_URL,
   },
   openGraph: {
-    title: "OT Security First South Africa 2026 — Johannesburg Edition",
+    title: "OT Security First Africa 2026 — Johannesburg",
     description:
-      "200+ industrial security leaders. Johannesburg 2026. Industrial Cyber Resilience in the Era of Convergence.",
+      "Uncompromised OT Security. 200+ delegates, 26 August 2026, Johannesburg. Protecting what Powers our World.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [
@@ -47,9 +47,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "OT Security First South Africa 2026 — Johannesburg Edition",
+    title: "OT Security First Africa 2026 — Johannesburg",
     description:
-      "200+ industrial security leaders. Johannesburg 2026 — Africa's Industrial Heartland.",
+      "Uncompromised OT Security. 200+ delegates, 26 August 2026, Johannesburg.",
     images: [OG_IMAGE],
   },
 };
@@ -79,11 +79,11 @@ export default function OTSecurityFirstJohannesburgLayout({
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Event",
-            name: "OT Security First South Africa 2026 — Johannesburg Edition",
+            name: "OT Security First Africa 2026 — Johannesburg",
             description:
-              "Africa's premier industrial cybersecurity summit. Industrial Cyber Resilience in the Era of Convergence — bringing together CISOs, OT security leaders, and critical infrastructure operators.",
-            startDate: "2026-09-01T08:30:00+02:00",
-            endDate: "2026-09-01T18:00:00+02:00",
+              "Uncompromised OT Security - Protecting what Powers our World. Cross-sector collaboration between technology experts, OT leaders, government and policy makers.",
+            startDate: "2026-08-26T08:30:00+02:00",
+            endDate: "2026-08-26T18:00:00+02:00",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode:
               "https://schema.org/OfflineEventAttendanceMode",
