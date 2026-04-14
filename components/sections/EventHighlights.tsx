@@ -52,28 +52,28 @@ const SERIES_COLORS: Record<string, { bg: string; border: string }> = {
 
 const HIGHLIGHT_VIDEOS = [
   // Bento grid (first 6): 1 per series + NetworkFirst
-  { id: "3ofcPquafgk", title: "OT Security First UAE", series: "OT Security First" },
-  { id: "AsrScRfgLpA", title: "Cyber First UAE", series: "Cyber First" },
-  { id: "5obYKv-vJZE", title: "OPEX First UAE", series: "OPEX First" },
-  { id: "-a481Lbz55o", title: "Digital First KSA", series: "Digital First" },
-  { id: "JA1X4cN2-t0", title: "CleverTap NetworkFirst", series: "NetworkFirst" },
-  { id: "0d_2Itsg6ec", title: "Cyber First Qatar", series: "Cyber First" },
+  { id: "3ofcPquafgk", title: "OT Security First UAE — Event Highlights", series: "OT Security First" },
+  { id: "AsrScRfgLpA", title: "Cyber First UAE — Event Highlights", series: "Cyber First" },
+  { id: "5obYKv-vJZE", title: "OPEX First UAE 2026", series: "OPEX First" },
+  { id: "-a481Lbz55o", title: "Digital First KSA — Event Highlights", series: "Digital First" },
+  { id: "JA1X4cN2-t0", title: "CleverTap NetworkFirst — Event Highlights", series: "NetworkFirst" },
+  { id: "0d_2Itsg6ec", title: "Cyber First Qatar — Event Highlights", series: "Cyber First" },
   // Marquee
-  { id: "dbL42utoYW4", title: "OPEX First KSA", series: "OPEX First" },
+  { id: "dbL42utoYW4", title: "OPEX First KSA 2025", series: "OPEX First" },
   { id: "gR-IUI7yJLg", title: "Cyber First Kuwait 3rd Edition", series: "Cyber First" },
-  { id: "wcEeU0UEl0o", title: "Cyber First Kuwait", series: "Cyber First" },
-  { id: "Bc3L3iTsaIg", title: "Digital First Qatar", series: "Digital First" },
-  { id: "IsMPomtqH5U", title: "Digital First Qatar", series: "Digital First" },
+  { id: "wcEeU0UEl0o", title: "Cyber First Kuwait — Event Highlights", series: "Cyber First" },
+  { id: "Bc3L3iTsaIg", title: "Digital First Qatar — Event Highlights", series: "Digital First" },
+  { id: "IsMPomtqH5U", title: "Digital First Qatar — Speaker Insights", series: "Digital First" },
   { id: "3uvw31I1tq8", title: "Enterprise OPS Conference", series: "OPEX First" },
-  { id: "6H11mOM-aJc", title: "Digital First Egypt", series: "Digital First" },
-  { id: "kjro4AVXUhM", title: "Digital First Egypt", series: "Digital First" },
-  { id: "8xluYDV_07g", title: "Digital First Egypt", series: "Digital First" },
-  { id: "ktsauwzmb-Q", title: "Digital First Egypt", series: "Digital First" },
-  { id: "iFVU9upOXyM", title: "Digital First Egypt", series: "Digital First" },
-  { id: "_ogyuzwQWYo", title: "Digital First Egypt", series: "Digital First" },
-  { id: "j7g0eRb7hsQ", title: "Digital First Egypt", series: "Digital First" },
-  { id: "Klt-iNu1g4g", title: "Digital First Egypt", series: "Digital First" },
-  { id: "OYIX4ga3DI8", title: "Digital First Egypt", series: "Digital First" },
+  { id: "6H11mOM-aJc", title: "Digital First Egypt — Event Highlights", series: "Digital First" },
+  { id: "kjro4AVXUhM", title: "Digital First Egypt — Keynote Moments", series: "Digital First" },
+  { id: "8xluYDV_07g", title: "Digital First Egypt — Panel Discussion", series: "Digital First" },
+  { id: "ktsauwzmb-Q", title: "Digital First Egypt — Industry Insights", series: "Digital First" },
+  { id: "iFVU9upOXyM", title: "Digital First Egypt — Speaker Spotlight", series: "Digital First" },
+  { id: "_ogyuzwQWYo", title: "Digital First Egypt — Networking Moments", series: "Digital First" },
+  { id: "j7g0eRb7hsQ", title: "Digital First Egypt — Closing Remarks", series: "Digital First" },
+  { id: "Klt-iNu1g4g", title: "Digital First Egypt — Awards Ceremony", series: "Digital First" },
+  { id: "OYIX4ga3DI8", title: "Digital First Egypt — Opening Session", series: "Digital First" },
 ];
 
 const BENTO_COUNT = 6;
@@ -132,7 +132,7 @@ function HighlightCard({
             <span style={{
               background: SERIES_COLORS[series]?.bg || "rgba(255,255,255,0.1)",
               borderColor: SERIES_COLORS[series]?.border || "rgba(255,255,255,0.15)",
-            }}>{series}</span>
+            }}>{title}</span>
           </div>
         </>
       )}
@@ -224,8 +224,27 @@ export default function EventHighlights() {
         </div>
       </div>
 
-      {/* Marquee — full width */}
-      <div className="eh-marquee-wrap" style={{
+      {/* Mobile marquee — all videos as big cards, visible only on mobile when bento is hidden */}
+      <div className="eh-mobile-marquee" style={{
+        opacity: inView ? 1 : 0,
+        transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.2s",
+      }}>
+        <div className="eh-marquee-track">
+          {HIGHLIGHT_VIDEOS.map(v => (
+            <div key={`m-${v.id}`} className="eh-mobile-card">
+              <HighlightCard videoId={v.id} title={v.title} series={v.series} />
+            </div>
+          ))}
+          {HIGHLIGHT_VIDEOS.map(v => (
+            <div key={`md-${v.id}`} className="eh-mobile-card">
+              <HighlightCard videoId={v.id} title={v.title} series={v.series} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop marquee — remaining videos only */}
+      <div className="eh-desktop-marquee eh-marquee-wrap" style={{
         opacity: inView ? 1 : 0,
         transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.4s",
       }}>
@@ -430,6 +449,21 @@ export default function EventHighlights() {
           transition: box-shadow 0.3s ease;
         }
 
+        /* ── Mobile marquee — hidden on desktop, visible on mobile ── */
+        .eh-mobile-marquee {
+          display: none;
+          overflow: hidden;
+          position: relative;
+          mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
+          -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
+        }
+        .eh-mobile-card {
+          width: 82vw;
+          max-width: 340px;
+          aspect-ratio: 16 / 9;
+          flex-shrink: 0;
+        }
+
         /* ── Marquee ── */
         .eh-marquee-wrap {
           overflow: hidden;
@@ -460,44 +494,27 @@ export default function EventHighlights() {
         /* ── Responsive ── */
         @media (max-width: 900px) {
           .eh-bento {
-            grid-template-columns: 1fr;
+            display: none !important;
           }
-          .eh-bento-hero {
-            grid-column: 1;
-            aspect-ratio: 16 / 9;
+          .eh-desktop-marquee {
+            display: none !important;
           }
-          .eh-bento-side {
-            grid-column: 1;
-            flex-direction: row;
-          }
-          .eh-bento-side-card {
-            aspect-ratio: 16 / 9;
-          }
-          .eh-bento-row {
-            grid-column: 1;
-            grid-template-columns: repeat(3, 1fr);
-          }
-          .eh-marquee-card {
-            width: 220px;
-          }
-        }
-
-        @media (max-width: 560px) {
-          .eh-bento-row {
-            grid-template-columns: 1fr 1fr;
-          }
-          .eh-bento-side {
-            flex-direction: column;
-          }
-          .eh-bento-side-card {
-            aspect-ratio: 16 / 9;
-          }
-          .eh-marquee-card {
-            width: 180px;
+          .eh-mobile-marquee {
+            display: block !important;
           }
           .eh-play-hero {
             width: 48px;
             height: 48px;
+          }
+        }
+
+        @media (max-width: 560px) {
+          .eh-mobile-card {
+            width: 80vw;
+            max-width: 300px;
+          }
+          .eh-card {
+            border-radius: 12px;
           }
         }
       `}</style>
