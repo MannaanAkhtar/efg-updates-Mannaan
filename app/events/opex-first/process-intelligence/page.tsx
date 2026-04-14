@@ -859,7 +859,7 @@ function MarketDriversSection() {
     <section ref={sectionRef} id="drivers" style={{ background: `linear-gradient(180deg, ${BG} 0%, ${BG_CARD} 100%)`, padding: "clamp(40px, 5vw, 70px) 0", position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", top: "20%", right: "-5%", width: 600, height: 600, borderRadius: "50%", background: `radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 50%)`, pointerEvents: "none" }} />
 
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+      <div className="driver-header-area" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1, ease: EASE }} style={{ textAlign: "center", marginBottom: 28 }}>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 5vw, 56px)", color: "white", letterSpacing: "-2px", margin: "0 0 8px", lineHeight: 1 }}>
@@ -869,7 +869,7 @@ function MarketDriversSection() {
         </motion.div>
 
         {/* Glass tabs */}
-        <div ref={tabsRef} style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 24, flexWrap: "wrap" }}>
+        <div ref={tabsRef} className="driver-tabs-wrap" style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 24, flexWrap: "wrap" }}>
           {MARKET_DRIVERS.map((_, i) => {
             const isActive = activeIdx === i;
             const isViolet = i % 2 === 0;
@@ -982,6 +982,36 @@ function MarketDriversSection() {
         </div>
       </motion.div>
 
+      {/* Mobile tabs — below carousel, hidden on desktop */}
+      <div className="driver-tabs-mobile" style={{ display: "none", justifyContent: "center", gap: 8, flexWrap: "wrap", maxWidth: 1100, margin: "20px auto 0", padding: "0 clamp(20px, 4vw, 60px)" }}>
+        {MARKET_DRIVERS.map((_, i) => {
+          const isActive = activeIdx === i;
+          const isViolet = i % 2 === 0;
+          const rgb = isViolet ? "124,58,237" : "52,211,153";
+          const accent = isViolet ? V_BRIGHT : MINT;
+          return (
+            <button
+              key={i}
+              onClick={() => scrollToCard(i)}
+              style={{
+                padding: "9px 18px", borderRadius: 12, cursor: "pointer", position: "relative", overflow: "hidden",
+                fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 700, letterSpacing: "0.5px",
+                transition: "all 0.3s ease", border: "none",
+                background: isActive
+                  ? `linear-gradient(145deg, rgba(${rgb},0.2), rgba(${rgb},0.08))`
+                  : "linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))",
+                color: isActive ? accent : "rgba(255,255,255,0.35)",
+                boxShadow: isActive
+                  ? `0 1px 0 rgba(255,255,255,0.1) inset, 0 -1px 0 rgba(0,0,0,0.3) inset, 0 4px 16px rgba(${rgb},0.15), 0 0 0 1px rgba(${rgb},0.25)`
+                  : "0 1px 0 rgba(255,255,255,0.04) inset, 0 -1px 0 rgba(0,0,0,0.2) inset, 0 2px 8px rgba(0,0,0,0.2)",
+              }}
+            >
+              {String(i + 1).padStart(2, "0")}
+            </button>
+          );
+        })}
+      </div>
+
       {/* Progress bar with glowing dot */}
       <div style={{ maxWidth: 1100, margin: "16px auto 0", padding: "0 clamp(20px, 4vw, 60px)" }}>
         <div style={{ height: 3, background: "rgba(255,255,255,0.05)", borderRadius: 3, overflow: "visible", position: "relative" }}>
@@ -1003,6 +1033,8 @@ function MarketDriversSection() {
           .driver-carousel-card { flex: 0 0 90vw !important; padding: 24px 20px 20px !important; }
           .driver-carousel-card > div { flex-direction: column !important; }
           .driver-carousel-card > div > div:last-child { display: none; }
+          .driver-tabs-wrap { display: none !important; }
+          .driver-tabs-mobile { display: flex !important; }
         }
       `}</style>
     </section>
@@ -1111,7 +1143,7 @@ function CaseStudiesSection() {
           <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.25)", letterSpacing: "2px" }}>{String(activeIdx + 1).padStart(2, "0")} / {String(CASE_STUDIES.length).padStart(2, "0")}</span>
         </motion.div>
 
-        <div ref={tabsRef} style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 28, flexWrap: "wrap" }}>
+        <div ref={tabsRef} className="cs-tabs-desktop" style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 28, flexWrap: "wrap" }}>
           {CASE_STUDIES.map((c, i) => {
             const isActive = activeIdx === i;
             const tabRgb = i % 2 === 0 ? "124,58,237" : "52,211,153";
@@ -1194,6 +1226,27 @@ function CaseStudiesSection() {
         </div>
       </div>
 
+        {/* Mobile tabs — below card */}
+        <div className="cs-tabs-mobile" style={{ display: "none", justifyContent: "center", gap: 8, marginTop: 20, flexWrap: "wrap" }}>
+          {CASE_STUDIES.map((c, i) => {
+            const isActive = activeIdx === i;
+            const tabRgb = i % 2 === 0 ? "124,58,237" : "52,211,153";
+            const tabAccent = i % 2 === 0 ? V_BRIGHT : MINT;
+            return (
+              <button key={c.company} className="cs-tab" onClick={() => handleTabClick(i)} style={{
+                padding: "9px 18px", borderRadius: 12, cursor: "pointer", position: "relative", overflow: "hidden",
+                fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 700, letterSpacing: "0.3px",
+                transition: "all 0.3s ease", border: "none",
+                background: isActive ? `linear-gradient(145deg, rgba(${tabRgb},0.2), rgba(${tabRgb},0.08))` : "linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))",
+                color: isActive ? tabAccent : "rgba(255,255,255,0.35)",
+                boxShadow: isActive ? `0 1px 0 rgba(255,255,255,0.1) inset, 0 -1px 0 rgba(0,0,0,0.3) inset, 0 4px 16px rgba(${tabRgb},0.15), 0 0 0 1px rgba(${tabRgb},0.25)` : "0 1px 0 rgba(255,255,255,0.04) inset, 0 -1px 0 rgba(0,0,0,0.2) inset, 0 2px 8px rgba(0,0,0,0.2)",
+              }}>
+                {c.company}
+              </button>
+            );
+          })}
+        </div>
+
       <style>{`
         .cs-tab { transition: all 0.35s cubic-bezier(0.22,1,0.36,1) !important; }
         .cs-tab:hover { color: rgba(255,255,255,0.65) !important; transform: translateY(-2px); }
@@ -1204,6 +1257,8 @@ function CaseStudiesSection() {
           .cs-watermark-col { display: none !important; }
           .cs-card-inner { padding: 24px 20px 20px !important; }
           .cs-tab { padding: 7px 14px !important; font-size: 11px !important; }
+          .cs-tabs-desktop { display: none !important; }
+          .cs-tabs-mobile { display: flex !important; }
         }
       `}</style>
     </section>
