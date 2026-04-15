@@ -251,6 +251,7 @@ export default function NetworkFirstPage() {
     <main style={{ background: BG, color: TEXT, overflowX: "hidden" }}>
       <Hero />
       <TrustStrip />
+      <UpcomingSection />
       <NetworkFirst />
       <IntroStatement />
       <WhyBoardroomsWork />
@@ -260,7 +261,6 @@ export default function NetworkFirstPage() {
       <EditorialBreak src={`${BOARDROOM}/boardroom-03.jpg`} />
       <TheExperience />
       <TheJourney />
-      <UpcomingSection />
       <PastBoardroomsShowcase />
       <ResultsThatMatter />
       <VideoTestimonials />
