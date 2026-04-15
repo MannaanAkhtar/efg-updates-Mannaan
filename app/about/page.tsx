@@ -86,7 +86,7 @@ const teamMembers: Member[] = [
   { name: "Sanjana Venugopal", role: "Producer", initials: "SV", photo: `${S3}/Sanjana-Venugopal-new.jpg` },
   { name: "Harini", role: "Producer", initials: "H", photo: `${S3}/Harini.jpg` },
   // Marketing & Tech
-  { name: "Syed Asad", role: "Marketing & Tech", initials: "SA", photo: `${S3}/Syed-Asad.jpg` },
+  { name: "Syed Asad", role: "Marketing & Design", initials: "SA", photo: `${S3}/Syed-Asad.jpg` },
   { name: "Mannan Akhtar", role: "Marketing & Tech", initials: "MA", photo: `${S3}/Mannan-Akhtar.jpg?v=2` },
 ];
 
