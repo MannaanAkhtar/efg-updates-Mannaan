@@ -37,6 +37,21 @@ const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 
 const UPCOMING_EVENTS = [
   {
+    date: "April 28th, 2026",
+    month: "APR",
+    day: "28",
+    year: "2026",
+    time: "11:00 AM – 2:00 PM",
+    title: "Huawei Cloud Executive Roundtable",
+    subtitle: "Media & Entertainment, Saudi Arabia 2026",
+    sponsor: "Huawei Cloud",
+    location: "Riyadh, KSA",
+    link: "https://events02.huawei.com/UniversalForm/register/149366439/register.html?site=SA&formId=12413&way=onsite",
+    image: "",
+    brandColor: "#CF0A2C",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Huawei.png",
+  },
+  {
     date: "April 29th, 2026",
     month: "APR",
     day: "29",
@@ -91,6 +106,8 @@ const UPCOMING_EVENTS = [
     location: "Virtual",
     link: "https://sonicwall-webinar.eventsfirstgroup.com/",
     image: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/sonicwall_hero.png",
+    brandColor: "#FF6B35",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Sonicwall_Logo_RGB_Orange_Sonic+Dark.png",
   },
   {
     date: "May 19th, 2026",
@@ -1658,7 +1675,7 @@ function UpcomingSection() {
                               {(e as Record<string, string>).brandLogo && (
                                 <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
                                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                                  <img src={(e as Record<string, string>).brandLogo} alt="" style={{ height: 52, width: "auto", opacity: 0.85 }} />
+                                  <img src={(e as Record<string, string>).brandLogo} alt="" style={{ height: 72, width: "auto", opacity: 0.85 }} />
                                 </div>
                               )}
                             </>
@@ -1671,7 +1688,7 @@ function UpcomingSection() {
                             }}>
                               {(e as Record<string, string>).brandLogo && (
                                 // eslint-disable-next-line @next/next/no-img-element
-                                <img src={(e as Record<string, string>).brandLogo} alt="" style={{ height: 52, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+                                <img src={(e as Record<string, string>).brandLogo} alt="" style={{ height: 72, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
                               )}
                               {/* Radial glow */}
                               <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 80% at 30% 30%, ${(e as Record<string, string>).brandColor || "#222"}30, transparent 60%)` }} />
