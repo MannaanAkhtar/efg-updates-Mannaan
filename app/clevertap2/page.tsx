@@ -230,7 +230,7 @@ function HeroSection() {
               opacity: 0,
             }}>
               {[
-                { label: "Date", value: "13 May 2026", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
+                { label: "Date", value: "10 June 2026", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
                 { label: "Time", value: "11:00 AM GST", icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" },
                 { label: "Format", value: "Virtual · 60 min", icon: "M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" },
               ].map((item, i) => (
@@ -250,7 +250,7 @@ function HeroSection() {
                 <div style={{ width: 6, height: 6, borderRadius: "50%", background: CT_BLUE, opacity: 0.4 }} />
                 <span style={{ fontFamily: "var(--font-opensans)", fontSize: 10, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: CT_BLUE, opacity: 0.5 }}>Starts In</span>
               </div>
-              <CountdownDisplay target="2026-05-13T11:00:00+04:00" />
+              <CountdownDisplay target="2026-06-10T11:00:00+04:00" />
             </div>
           </div>
 
