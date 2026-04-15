@@ -4,27 +4,27 @@ export const metadata: Metadata = {
   icons: {
     icon: "/braze/braze-logo-purple.png",
   },
-  title: "Marketing Through Uncertainty | Braze x Events First Group",
+  title: "AI, Empathy & the New Marketing Operating Model | Braze x EFG Roundtable",
   description:
-    "A private virtual roundtable for senior martech leaders in MENAT. How brands are adjusting customer engagement strategies during uncertain times.",
+    "Balancing AI-Driven Efficiency with Empathetic Agility.",
   openGraph: {
-    title: "Marketing Through Uncertainty | Braze x EFG Roundtable",
+    title: "AI, Empathy & the New Marketing Operating Model | Braze x EFG",
     description:
-      "A private virtual roundtable for senior martech leaders in MENAT.",
+      "Balancing AI-Driven Efficiency with Empathetic Agility.",
     images: [
       {
         url: "https://vroundtable-braze.eventsfirstgroup.com/braze/braze-logo-purple.png",
         width: 1200,
         height: 630,
-        alt: "Braze x Events First Group, Marketing Through Uncertainty",
+        alt: "Braze x Events First Group, AI Empathy & the New Marketing Operating Model",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Marketing Through Uncertainty | Braze x EFG Roundtable",
+    title: "AI, Empathy & the New Marketing Operating Model | Braze x EFG",
     description:
-      "A private virtual roundtable for senior martech leaders in MENAT.",
+      "Balancing AI-Driven Efficiency with Empathetic Agility.",
     images: ["https://vroundtable-braze.eventsfirstgroup.com/braze/braze-logo-purple.png"],
   },
 };
