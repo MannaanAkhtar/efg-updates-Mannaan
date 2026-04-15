@@ -40,6 +40,7 @@ const SPEAKERS = [
   { name: "Mohamed Abdallah", title: "Regional Director, META", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Mohamed_Abdallah1.png", bio: "Mohamed Abdallah stands as the Regional Director at SonicWall, overseeing the expansive regions of the Middle East, Turkey, and Africa." },
   { name: "Nabil Kouzi", title: "Territory Manager", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/nabil1.png", bio: "Nabil drives SonicWall's growth across the UAE, leading territory strategy and empowering organizations with advanced cybersecurity solutions." },
   { name: "Ateef Mulla", title: "Principal Solutions Engineer", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/ateef1.png", bio: "Ateef is a Principal Solutions Engineer who champions the company's end-to-end security solutions, driving the successful delivery of major enterprise projects across the region." },
+  { name: "John Mankarios", title: "VP - Deputy Head of IT, QInvest", photo: "", bio: "John serves as VP and Deputy Head of IT at QInvest, overseeing technology strategy and infrastructure across the organisation." },
 ];
 
 const AGENDA = [
@@ -559,7 +560,13 @@ function SpeakersSection() {
             <div key={speaker.name} className="sw-speaker-card" style={{ borderRadius: 16, background: "#fff", overflow: "hidden", opacity: 0, border: "1px solid rgba(30,40,40,0.05)", clipPath: "inset(20% 0 0 0)" }}>
               {/* Photo with gradient overlay */}
               <div className="sw-speaker-photo-wrap" style={{ width: "100%", aspectRatio: "3/4", overflow: "hidden", position: "relative", background: SW_DARK }}>
-                <img className="sw-speaker-photo" loading="lazy" src={speaker.photo} alt={speaker.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", transform: "scale(1.1)", transition: "transform 0.6s cubic-bezier(0.165,0.84,0.44,1), filter 0.6s ease" }} />
+                {speaker.photo ? (
+                  <img className="sw-speaker-photo" loading="lazy" src={speaker.photo} alt={speaker.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", transform: "scale(1.1)", transition: "transform 0.6s cubic-bezier(0.165,0.84,0.44,1), filter 0.6s ease" }} />
+                ) : (
+                  <div style={{ width: "100%", height: "100%", background: `linear-gradient(135deg, ${SW_ORANGE}20, ${SW_DARK})`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <span style={{ fontFamily: "var(--font-display)", fontSize: 56, fontWeight: 300, color: "rgba(255,255,255,0.15)" }}>{speaker.name.split(" ").map(n => n[0]).join("")}</span>
+                  </div>
+                )}
                 <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "40%", background: "linear-gradient(to top, rgba(0,0,0,0.15), transparent)", pointerEvents: "none" }} />
               </div>
               {/* Info */}
