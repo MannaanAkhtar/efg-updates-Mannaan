@@ -218,6 +218,10 @@ export default function BrazeLandingPage() {
           .braze2-form-container { padding: 24px 16px !important; }
           .braze2-hosted-card { padding: 24px 16px !important; }
         }
+        .braze2-country-dropdown::-webkit-scrollbar { width: 6px; }
+        .braze2-country-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .braze2-country-dropdown::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+        .braze2-country-dropdown::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
       `}</style>
 
       <BrazeNav />
@@ -2878,7 +2882,6 @@ function RegisterSection() {
         padding: "100px 0",
         background: `linear-gradient(180deg, #1a0440 0%, ${B_DARK_PURPLE} 100%)`,
         position: "relative",
-        overflow: "hidden",
       }}
     >
       {/* Subtle supergraphic */}
@@ -3059,19 +3062,24 @@ function RegisterSection() {
                       }}
                     />
                     {codeOpen && (
-                      <div style={{
-                        position: "absolute",
-                        top: "100%",
-                        left: 0,
-                        width: 240,
-                        maxHeight: 220,
-                        overflowY: "auto",
-                        background: B_DARK_PURPLE,
-                        border: `1px solid ${B_ORANGE}40`,
-                        borderRadius: 10,
-                        marginTop: 4,
-                        zIndex: 50,
-                        boxShadow: `0 8px 32px rgba(0,0,0,0.4)`,
+                      <div
+                        className="braze2-country-dropdown"
+                        onWheel={(e) => e.stopPropagation()}
+                        onTouchMove={(e) => e.stopPropagation()}
+                        style={{
+                          position: "absolute",
+                          top: "100%",
+                          left: 0,
+                          width: 240,
+                          maxHeight: 220,
+                          overflowY: "scroll",
+                          WebkitOverflowScrolling: "touch",
+                          background: B_DARK_PURPLE,
+                          border: `1px solid ${B_ORANGE}40`,
+                          borderRadius: 10,
+                          marginTop: 4,
+                          zIndex: 999,
+                          boxShadow: `0 8px 32px rgba(0,0,0,0.4)`,
                       }}>
                         {COUNTRY_CODES.filter((c) => {
                           if (!codeSearch) return true;
