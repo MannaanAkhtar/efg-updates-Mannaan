@@ -50,6 +50,21 @@ const UPCOMING_EVENTS = [
     image: "/braze2/hero-bg.jpg",
   },
   {
+    date: "May 5th, 2026",
+    month: "MAY",
+    day: "05",
+    year: "2026",
+    time: "4:30 PM",
+    title: "The Big Leap Connect, Riyadh",
+    subtitle: "Beyond the Hype: Redefining Growth with AI",
+    sponsor: "CleverTap",
+    location: "Riyadh, KSA",
+    link: "https://big-leap-riyadh.eventsfirstgroup.com",
+    image: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/finalll.png",
+    brandColor: "#000D26",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/bigleapconnect.png",
+  },
+  {
     date: "May 12th, 2026",
     month: "MAY",
     day: "12",
@@ -1638,7 +1653,15 @@ function UpcomingSection() {
                         {/* Card Image / Brand Gradient */}
                         <div className="nf-card-img-wrap">
                           {e.image ? (
-                            <img src={e.image} alt="" className="nf-card-img" />
+                            <>
+                              <img src={e.image} alt="" className="nf-card-img" />
+                              {(e as Record<string, string>).brandLogo && (
+                                <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
+                                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                                  <img src={(e as Record<string, string>).brandLogo} alt="" style={{ height: 52, width: "auto", opacity: 0.85 }} />
+                                </div>
+                              )}
+                            </>
                           ) : (
                             <div style={{
                               width: "100%", height: "100%",
@@ -1648,7 +1671,7 @@ function UpcomingSection() {
                             }}>
                               {(e as Record<string, string>).brandLogo && (
                                 // eslint-disable-next-line @next/next/no-img-element
-                                <img src={(e as Record<string, string>).brandLogo} alt="" style={{ height: 36, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+                                <img src={(e as Record<string, string>).brandLogo} alt="" style={{ height: 52, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
                               )}
                               {/* Radial glow */}
                               <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 80% at 30% 30%, ${(e as Record<string, string>).brandColor || "#222"}30, transparent 60%)` }} />
