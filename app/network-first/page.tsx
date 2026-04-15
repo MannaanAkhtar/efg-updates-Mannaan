@@ -1662,8 +1662,8 @@ function UpcomingSection() {
                       <a
                         key={e.title + idx}
                         href={e.link}
-                        target={e.link.startsWith("http") ? "_blank" : undefined}
-                        rel={e.link.startsWith("http") ? "noopener noreferrer" : undefined}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="nf-event-card"
                         style={{ textDecoration: "none" }}
                       >
