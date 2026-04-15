@@ -166,20 +166,25 @@ const OTVB_SPEAKERS = [
     name: "H.E. Dr. Mohamed Al Kuwaiti",
     title: "Head of Cyber Security",
     org: "United Arab Emirates Government",
+    flag: "https://flagcdn.com/w40/ae.png",
     photo: `${S3}/boardroom/MohamedAlKuwaiti.jpg`,
     photoPosition: "center 20%",
     photoScale: 1.4,
+    featured: true,
+    bio: "H.E. Dr. Mohamed Al Kuwaiti serves as the Head of Cyber Security for the United Arab Emirates Government, a role he has held since H.E\u2019s appointment by the UAE Cabinet in 2020. In this capacity, Dr. Al Kuwaiti leads the UAE Cyber Security Council (CSC), where H.E is responsible for shaping and executing the nation\u2019s comprehensive cybersecurity strategy, ensuring the protection and resilience of the UAE\u2019s digital infrastructure, and advancing the UAE\u2019s vision to become the world\u2019s most trusted digital hub.",
   },
   {
     name: "Vijay Velayutham",
     title: "Principal Information Security Officer",
     org: "UAE Ministry of Energy & Infrastructure",
+    flag: "https://flagcdn.com/w40/ae.png",
     photo: `${S3}/boardroom/Vijay+Velayutham.png`,
   },
   {
     name: "Dr. Shaheela Banu Abdul Majeed",
     title: "Information Security & Compliance Officer & Auditor",
     org: "Kuwait Gulf Oil Company (KGOC)",
+    flag: "https://flagcdn.com/w40/kw.png",
     photo: `${S3}/boardroom/Dr.+Shaheela+Abdul+Majeed.png`,
     photoPosition: "center 20%",
   },
@@ -187,12 +192,14 @@ const OTVB_SPEAKERS = [
     name: "Ali Abdulla Hasan Alsadadi",
     title: "Chief of Information Technology",
     org: "Ministry of Oil & Environment Bahrain",
+    flag: "https://flagcdn.com/w40/bh.png",
     photo: `${S3}/boardroom/Ali+Abdulla+Hasan+Alsadadi.png`,
   },
   {
     name: "Nasser Salim Al Alawi",
     title: "OT Cybersecurity Manager",
     org: "Oman LNG LLC",
+    flag: "https://flagcdn.com/w40/om.png",
     photo: `${S3}/boardroom/NasserAlAlawi.png`,
   },
 ];
@@ -1342,14 +1349,71 @@ function SpeakersSection() {
           </span>
         </motion.div>
 
-        {/* Speaker cards — 3 column grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 20 }} className="otvb-speakers-grid">
-          {OTVB_SPEAKERS.map((speaker, i) => (
+        {/* Featured speaker — H.E. Dr. Mohamed Al Kuwaiti */}
+        {OTVB_SPEAKERS.filter(s => "featured" in s && s.featured).map((speaker) => (
+          <motion.div
+            key={speaker.name}
+            initial={{ opacity: 0, y: 36, filter: "blur(8px)" }}
+            animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              borderRadius: 24, overflow: "hidden", marginBottom: 32,
+              background: `linear-gradient(165deg, rgba(13,18,51,0.95) 0%, rgba(7,11,31,0.98) 100%)`,
+              border: `1px solid rgba(255,255,255,0.08)`,
+              boxShadow: `0 24px 64px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`,
+              position: "relative",
+            }}
+          >
+            {/* Top accent glow */}
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent 10%, ${C_BRIGHT}60 30%, ${CYAN}80 50%, ${C_BRIGHT}60 70%, transparent 90%)`, boxShadow: `0 0 20px ${C_BRIGHT}30`, pointerEvents: "none", zIndex: 2 }} />
+
+            <div className="otvb-featured-split" style={{ display: "grid", gridTemplateColumns: "0.4fr 0.6fr" }}>
+              {/* Photo */}
+              <div style={{ height: 380, overflow: "hidden", position: "relative" }}>
+                <img
+                  src={speaker.photo}
+                  alt={speaker.name}
+                  style={{
+                    width: "100%", height: "100%", objectFit: "cover",
+                    objectPosition: ("photoPosition" in speaker && speaker.photoPosition) ? speaker.photoPosition as string : "center top",
+                    transform: `scale(${("photoScale" in speaker && speaker.photoScale) ? speaker.photoScale : 1})`,
+                  }}
+                />
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 60%, rgba(7,11,31,0.95) 100%)", pointerEvents: "none" }} />
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 50%, rgba(7,11,31,0.6) 100%)", pointerEvents: "none" }} />
+              </div>
+
+              {/* Bio content */}
+              <div style={{ padding: "clamp(28px, 3vw, 44px) clamp(24px, 3vw, 40px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(24px, 2.5vw, 32px)", fontWeight: 700, color: "white", margin: "0 0 10px", letterSpacing: "-0.5px", lineHeight: 1.15 }}>
+                  {speaker.name}
+                </h3>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 600, color: C_BRIGHT, margin: "0 0 4px", lineHeight: 1.4 }}>
+                  {speaker.title}
+                </p>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.5)", margin: "0 0 20px", lineHeight: 1.4, display: "flex", alignItems: "center", gap: 8 }}>
+                  {speaker.org}
+                  {"flag" in speaker && speaker.flag && <img src={speaker.flag as string} alt="" style={{ height: 14, width: "auto", borderRadius: 2 }} />}
+                </p>
+                <div style={{ width: 50, height: 2, background: `linear-gradient(90deg, ${C_BRIGHT}, ${CYAN})`, borderRadius: 2, marginBottom: 18, boxShadow: `0 0 10px ${C_BRIGHT}40` }} />
+                {"bio" in speaker && speaker.bio && (
+                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.65)", margin: 0, lineHeight: 1.75 }}>
+                    {speaker.bio as string}
+                  </p>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        ))}
+
+        {/* Remaining speaker cards — 4 column grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }} className="otvb-speakers-grid">
+          {OTVB_SPEAKERS.filter(s => !("featured" in s && s.featured)).map((speaker, i) => (
             <motion.div
               key={speaker.name}
               initial={{ opacity: 0, y: 36, filter: "blur(8px)" }}
               animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-              transition={{ duration: 0.8, delay: 0.2 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.8, delay: 0.4 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
               className="otvb-speaker-card"
               style={{
                 borderRadius: 24,
@@ -1413,8 +1477,10 @@ function SpeakersSection() {
                   color: "rgba(255,255,255,0.5)",
                   margin: 0,
                   lineHeight: 1.4,
+                  display: "flex", alignItems: "center", gap: 6,
                 }}>
                   {speaker.org}
+                  {"flag" in speaker && speaker.flag && <img src={speaker.flag as string} alt="" style={{ height: 12, width: "auto", borderRadius: 2 }} />}
                 </p>
               </div>
 
@@ -1445,6 +1511,12 @@ function SpeakersSection() {
         @media (max-width: 900px) {
           .otvb-speakers-grid {
             grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .otvb-featured-split {
+            grid-template-columns: 1fr !important;
+          }
+          .otvb-featured-split > div:first-child {
+            height: 280px !important;
           }
         }
         @media (max-width: 560px) {
