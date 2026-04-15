@@ -163,6 +163,14 @@ const CONTACTS_TEAM = [
 
 const OTVB_SPEAKERS = [
   {
+    name: "H.E. Dr. Mohamed Al Kuwaiti",
+    title: "Head of Cyber Security",
+    org: "United Arab Emirates Government",
+    photo: `${S3}/boardroom/MohamedAlKuwaiti.jpg`,
+    photoPosition: "center 20%",
+    photoScale: 1.4,
+  },
+  {
     name: "Vijay Velayutham",
     title: "Principal Information Security Officer",
     org: "UAE Ministry of Energy & Infrastructure",
@@ -1335,7 +1343,7 @@ function SpeakersSection() {
         </motion.div>
 
         {/* Speaker cards — 3 column grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24 }} className="otvb-speakers-grid">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 20 }} className="otvb-speakers-grid">
           {OTVB_SPEAKERS.map((speaker, i) => (
             <motion.div
               key={speaker.name}
@@ -1364,6 +1372,7 @@ function SpeakersSection() {
                     height: "100%",
                     objectFit: "cover",
                     objectPosition: ("photoPosition" in speaker && speaker.photoPosition) ? speaker.photoPosition as string : "center top",
+                    transform: `scale(${("photoScale" in speaker && speaker.photoScale) ? speaker.photoScale : 1})`,
                     transition: "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)",
                   }}
                 />
