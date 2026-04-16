@@ -22,10 +22,10 @@ const FONT = "'Aribau Grotesk', sans-serif";
 
 // ─── Content ─────────────────────────────────────────────────────────────────
 const THEMES: { num: string; title: string; desc?: string }[] = [
-  { num: "11:00 AM", title: "Welcome, Introductions & Key Regional Learnings" },
-  { num: "11:10 AM", title: "Open Roundtable Discussion" },
+  { num: "11:00 AM", title: "Welcome, Introductions & key regional learnings" },
+  { num: "11:10 AM", title: "Open roundtable discussion" },
   { num: "11:40 AM", title: "Practical Applications of AI" },
-  { num: "11:58 AM", title: "Closing Remarks" },
+  { num: "11:58 AM", title: "Closing remarks" },
 ];
 
 const ROLES_GROUP_1 = [
@@ -241,8 +241,8 @@ export default function BrazeLandingPage() {
 // ─── NAV ─────────────────────────────────────────────────────────────────────
 const NAV_LINKS = [
   { href: "#overview", label: "Overview" },
-  { href: "#themes", label: "Discussion Themes" },
-  { href: "#attend", label: "Who Should Attend" },
+  { href: "#themes", label: "Discussion themes" },
+  { href: "#attend", label: "Who should attend" },
   { href: "#register", label: "Register" },
 ];
 
@@ -369,7 +369,7 @@ function BrazeNav() {
               e.currentTarget.style.boxShadow = "none";
             }}
           >
-            Register Now
+            Register now
           </a>
 
           {/* Mobile burger */}
@@ -494,7 +494,7 @@ function BrazeNav() {
                 textDecoration: "none",
               }}
             >
-              Register Now
+              Register now
             </motion.a>
           </motion.div>
         )}
@@ -787,7 +787,9 @@ function HeroSection() {
                 textShadow: "0 2px 40px rgba(0,0,0,0.08)",
               }}
             >
-              AI, Empathy, and the New Marketing Operating Model: From Campaigns to Real-Time Adaptive Engagement Systems<span style={{ color: B_LAVENDER }}>.</span>
+              AI, empathy, and the new marketing operating model:
+              <br />
+              <span style={{ fontSize: "clamp(20px, 2.4vw, 30px)", fontStyle: "italic", fontWeight: 700, opacity: 0.8 }}>From campaigns to real-time adaptive engagement systems<span style={{ color: B_LAVENDER }}>.</span></span>
             </motion.h1>
 
 
@@ -872,7 +874,7 @@ function HeroSection() {
                   e.currentTarget.style.boxShadow = `0 4px 24px ${B_PURPLE}35`;
                 }}
               >
-                Register Your Interest
+                Register your interest
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                   <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -907,7 +909,7 @@ function HeroSection() {
                   e.currentTarget.style.borderBottomColor = "rgba(255,255,255,0.25)";
                 }}
               >
-                Learn More
+                Learn more
               </a>
             </motion.div>
         </motion.div>
@@ -1208,7 +1210,7 @@ function OverviewSection() {
                 maxWidth: 760,
               }}
             >
-              Balancing AI-Driven Efficiency with <span style={{ background: `linear-gradient(135deg, ${B_PURPLE}, ${B_ORANGE})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Empathetic Agility</span>.
+              Balancing AI-driven efficiency with <span style={{ background: `linear-gradient(135deg, ${B_PURPLE}, ${B_ORANGE})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>empathetic agility</span>.
             </motion.h2>
 
             {/* Gradient underline */}
@@ -1286,17 +1288,17 @@ function OverviewSection() {
 const WINNING_PILLARS = [
   {
     num: "01",
-    title: "Emotionally Intelligent Engagement",
+    title: "Emotionally intelligent engagement",
     desc: "Shifting from transactional messaging to interactions that read and respond to customer sentiment in real time.",
   },
   {
     num: "02",
-    title: "High-Value, Contextual Communication",
+    title: "High-value, contextual communication",
     desc: "Reducing \"always-on noise\" in favour of fewer, sharper messages tied to context, moment, and need.",
   },
   {
     num: "03",
-    title: "AI That Closes Capability Gaps",
+    title: "AI that closes capability gaps",
     desc: "Using AI not just for optimisation, but to bridge the gap between strategy and live, real-time execution.",
   },
 ];
@@ -1378,7 +1380,7 @@ function WinningBrandsSection() {
               maxWidth: 760,
             }}
           >
-            The Brands Winning Today Show Up in <span style={{ background: `linear-gradient(135deg, ${B_PURPLE}, ${B_ORANGE})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Three Ways</span>.
+            The brands winning today show up in <span style={{ background: `linear-gradient(135deg, ${B_PURPLE}, ${B_ORANGE})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>three ways</span>.
           </motion.h2>
 
           <motion.div
@@ -1507,7 +1509,7 @@ function WinningBrandsSection() {
               e.currentTarget.style.boxShadow = "none";
             }}
           >
-            Join the Discussion
+            Join the discussion
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -1541,7 +1543,7 @@ const BENEFITS = [
         <line x1="19" y1="14" x2="22" y2="19" stroke={B_PURPLE} strokeWidth="1.5" />
       </svg>
     ),
-    title: "Peer Insights",
+    title: "Peer insights",
     desc: "Exchange strategies with senior martech leaders navigating similar challenges across the MENAT region.",
   },
   {
@@ -1551,7 +1553,7 @@ const BENEFITS = [
         <polyline points="10,20 14,14 18,17 22,12" stroke={B_PURPLE} strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    title: "Actionable Strategies",
+    title: "Actionable strategies",
     desc: "Walk away with concrete approaches to customer engagement that you can implement immediately.",
   },
   {
@@ -1563,7 +1565,7 @@ const BENEFITS = [
         <line x1="12" y1="21" x2="16" y2="21" stroke={B_PURPLE} strokeWidth="1.5" strokeLinecap="round" />
       </svg>
     ),
-    title: "Closed-Door Format",
+    title: "Closed-door format",
     desc: "An intimate, invite-only virtual setting designed for candid conversation, no recordings, no sales pitches.",
   },
 ];
@@ -1691,7 +1693,7 @@ function WhatToExpect() {
               textShadow: "0 3px 28px rgba(0,0,0,0.15)",
             }}
           >
-            Your Time, Well Spent.
+            Your time, well spent.
           </motion.h2>
 
           <motion.p
@@ -1996,7 +1998,7 @@ function ThemesSection() {
                 margin: 0,
               }}
             >
-              How the Session Flows.
+              How the session flows.
             </motion.h2>
           </div>
         </div>
@@ -2335,7 +2337,7 @@ function AttendSection() {
               margin: "0 0 52px",
             }}
           >
-            Built for Senior Martech Leaders.
+            Built for senior martech leaders.
           </motion.h2>
 
           <div className="braze2-attend-layout" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "start" }}>
@@ -2394,7 +2396,7 @@ function AttendSection() {
                   e.currentTarget.style.boxShadow = "none";
                 }}
               >
-                Secure Your Spot <span>→</span>
+                Secure your spot <span>→</span>
               </a>
             </motion.div>
 
@@ -2927,7 +2929,7 @@ function RegisterSection() {
             margin: "0 0 12px",
           }}
         >
-          Register Your Interest.
+          Register your interest.
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 16 }}
@@ -3137,7 +3139,7 @@ function RegisterSection() {
               <div style={{ gridColumn: "1 / -1" }}>
                 <label style={labelStyle}>Country *</label>
                 <select name="country" required style={{ ...inputStyle, cursor: "pointer" }} onFocus={(e) => { e.currentTarget.style.borderColor = B_ORANGE; e.currentTarget.style.boxShadow = `0 0 0 3px ${B_ORANGE}18`; e.currentTarget.style.background = "rgba(255,255,255,0.07)"; }} onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"; e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.background = "rgba(255,255,255,0.05)"; }}>
-                  <option value="" style={{ background: "#111", color: "#888" }}>Select Country *</option>
+                  <option value="" style={{ background: "#111", color: "#888" }}>Select country *</option>
                   {[...new Set(COUNTRY_CODES.map(c => c.name))].sort().map((name) => (
                     <option key={name} value={name} style={{ background: "#111", color: "#fff" }}>{name}</option>
                   ))}
@@ -3193,7 +3195,7 @@ function RegisterSection() {
                 e.currentTarget.style.boxShadow = "none";
               }}
             >
-              {sending ? "Submitting..." : "Submit Registration"} {!sending && <span>→</span>}
+              {sending ? "Submitting..." : "Submit registration"} {!sending && <span>→</span>}
             </button>
           </motion.form>
         )}
