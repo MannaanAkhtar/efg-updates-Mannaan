@@ -230,6 +230,12 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     linkedin: "https://nc4.go.ke/",
   },
   {
+    name: "David Mugyoni",
+    title: "Director General",
+    org: "Communications Authority of Kenya (CA)",
+    photo: null,
+  },
+  {
     name: "George Kisaka",
     title: "VP",
     org: "ISACA Kenya Chapter",
@@ -291,6 +297,26 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     org: "Communications Authority of Kenya (CA)",
     photo: null,
     linkedin: "https://www.linkedin.com/in/dr-isabelle-k-459211142/",
+  },
+  {
+    name: "Emmanuel Kimeu",
+    title: "Secretary, ICT - Security and Audit Control - State Department of ICT and Digital Economy",
+    org: "Ministry of Information, Communications and The Digital Economy",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Emmanuel_kimeu.png",
+    linkedin: "https://www.linkedin.com/in/emmanuel-kimeu-7490041b/",
+  },
+  {
+    name: "Mutheu Nyagah - Khimulu",
+    title: "Advisory Board Member",
+    org: "African Cyber Society",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Mutheu_NyagahKhimulu.png",
+  },
+  {
+    name: "George Rugero",
+    title: "Head - Information Security",
+    org: "Airtel Rwanda",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/George_Rugero.png",
+    linkedin: "https://www.linkedin.com/in/george-rugero-4770299/",
   },
 ];
 
@@ -2574,7 +2600,7 @@ function AdvisoryBoard() {
             display: "flex",
             gap: 32,
             paddingLeft: 48,
-            paddingRight: 200,
+            paddingRight: 400,
             willChange: "transform",
           }}
         >
