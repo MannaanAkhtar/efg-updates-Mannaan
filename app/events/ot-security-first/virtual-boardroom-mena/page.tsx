@@ -1414,6 +1414,7 @@ function SpeakersSection() {
         {/* Remaining speaker cards — 4 column grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }} className="otvb-speakers-grid">
           {OTVB_SPEAKERS.filter(s => !("featured" in s && s.featured)).map((speaker, i) => (
+            /* Gradient border wrapper */
             <motion.div
               key={speaker.name}
               initial={{ opacity: 0, y: 36, filter: "blur(8px)" }}
@@ -1422,82 +1423,80 @@ function SpeakersSection() {
               className="otvb-speaker-card"
               style={{
                 borderRadius: 24,
-                overflow: "hidden",
-                position: "relative",
-                background: `linear-gradient(165deg, rgba(13,18,51,0.95) 0%, rgba(7,11,31,0.98) 100%)`,
-                border: `1px solid rgba(255,255,255,0.08)`,
-                boxShadow: `0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`,
+                padding: 2,
+                background: `linear-gradient(160deg, ${C_BRIGHT}50, ${CYAN}30, rgba(255,255,255,0.08), ${C_BRIGHT}30)`,
+                boxShadow: `0 20px 60px rgba(0,0,0,0.5), 0 0 25px ${C}12`,
                 transition: "all 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
               }}
             >
-              {/* Photo */}
-              <div style={{ height: 260, overflow: "hidden", position: "relative" }}>
-                <img
-                  src={speaker.photo}
-                  alt={speaker.name}
-                  className="otvb-speaker-photo"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    objectPosition: ("photoPosition" in speaker && speaker.photoPosition) ? speaker.photoPosition as string : "center top",
-                    transform: `scale(${("photoScale" in speaker && speaker.photoScale) ? speaker.photoScale : 1})`,
-                    transition: "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)",
-                  }}
-                />
-                {/* Gradient overlay */}
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(7,11,31,0.95) 100%)", pointerEvents: "none" }} />
-                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${C}10, transparent 50%)`, pointerEvents: "none" }} />
-                {/* Top shine */}
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 100, background: "linear-gradient(180deg, rgba(255,255,255,0.04), transparent)", pointerEvents: "none" }} />
-              </div>
+              <div style={{
+                borderRadius: 22,
+                overflow: "hidden",
+                position: "relative",
+                background: `linear-gradient(165deg, rgba(13,18,51,0.97) 0%, rgba(7,11,31,0.99) 100%)`,
+              }}>
+                {/* Photo */}
+                <div style={{ height: 260, overflow: "hidden", position: "relative" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={speaker.photo}
+                    alt={speaker.name}
+                    className="otvb-speaker-photo"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: ("photoPosition" in speaker && speaker.photoPosition) ? speaker.photoPosition as string : "center top",
+                      transform: `scale(${("photoScale" in speaker && speaker.photoScale) ? speaker.photoScale : 1})`,
+                      transition: "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)",
+                    }}
+                  />
+                  {/* Gradient overlay */}
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(7,11,31,0.95) 100%)", pointerEvents: "none" }} />
+                  <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${C}10, transparent 50%)`, pointerEvents: "none" }} />
+                </div>
 
-              {/* Info */}
-              <div style={{ padding: "18px 22px 22px" }}>
-                <h3 style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 18,
-                  fontWeight: 700,
-                  color: "white",
-                  margin: "0 0 10px",
-                  letterSpacing: "-0.5px",
-                  lineHeight: 1.15,
-                }}>
-                  {speaker.name}
-                </h3>
-                <p style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: C_BRIGHT,
-                  margin: "0 0 4px",
-                  lineHeight: 1.4,
-                }}>
-                  {speaker.title}
-                </p>
-                <p style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 13,
-                  fontWeight: 400,
-                  color: "rgba(255,255,255,0.5)",
-                  margin: 0,
-                  lineHeight: 1.4,
-                }}>
-                  {speaker.org}
-                </p>
+                {/* Info */}
+                <div style={{ padding: "18px 22px 22px" }}>
+                  <h3 style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: 18,
+                    fontWeight: 700,
+                    color: "white",
+                    margin: "0 0 10px",
+                    letterSpacing: "-0.5px",
+                    lineHeight: 1.15,
+                  }}>
+                    {speaker.name}
+                  </h3>
+                  <p style={{
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: C_BRIGHT,
+                    margin: "0 0 4px",
+                    lineHeight: 1.4,
+                  }}>
+                    {speaker.title}
+                  </p>
+                  <p style={{
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 13,
+                    fontWeight: 400,
+                    color: "rgba(255,255,255,0.5)",
+                    margin: 0,
+                    lineHeight: 1.4,
+                  }}>
+                    {speaker.org}
+                  </p>
+                </div>
+
+                {/* Country flag — on the photo/info dividing line */}
                 {"flag" in speaker && speaker.flag && (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={speaker.flag as string} alt="" style={{ marginTop: 8, height: 14, width: "auto", borderRadius: 2, opacity: 0.85, display: "block" }} />
+                  <img src={speaker.flag as string} alt="" style={{ position: "absolute", top: 250, right: 16, height: 20, width: "auto", borderRadius: 3, boxShadow: "0 2px 8px rgba(0,0,0,0.6)", zIndex: 3 }} />
                 )}
               </div>
-
-              {/* Top accent glow */}
-              <div style={{
-                position: "absolute", top: 0, left: 0, right: 0, height: 2,
-                background: `linear-gradient(90deg, transparent 10%, ${C_BRIGHT}60 50%, transparent 90%)`,
-                boxShadow: `0 0 20px ${C_BRIGHT}30`,
-                pointerEvents: "none",
-              }} />
             </motion.div>
           ))}
         </div>
@@ -1508,9 +1507,9 @@ function SpeakersSection() {
 
       <style jsx global>{`
         .otvb-speaker-card:hover {
-          transform: translateY(-10px) scale(1.02) !important;
-          border-color: rgba(255,255,255,0.15) !important;
-          box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 60px ${C}20, inset 0 1px 0 rgba(255,255,255,0.1) !important;
+          transform: translateY(-8px) scale(1.02) !important;
+          background: linear-gradient(160deg, ${C_BRIGHT}80, ${CYAN}60, rgba(255,255,255,0.15), ${C_BRIGHT}60) !important;
+          box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 40px ${C}20 !important;
         }
         .otvb-speaker-card:hover .otvb-speaker-photo {
           transform: scale(1.08) !important;
