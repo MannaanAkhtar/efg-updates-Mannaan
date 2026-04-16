@@ -2782,15 +2782,18 @@ function HostedByBraze() {
 function RegisterSection() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [mounted, setMounted] = useState(false);
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
   const [selectedCountry, setSelectedCountry] = useState<CountryCode>(
-    COUNTRY_CODES.find((c) => c.country === "United Arab Emirates") || COUNTRY_CODES[0]
+    () => COUNTRY_CODES.find((c) => c.country === "United Arab Emirates") || COUNTRY_CODES[0]
   );
   const [codeSearch, setCodeSearch] = useState("");
   const [codeOpen, setCodeOpen] = useState(false);
   const codeRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -3049,13 +3052,13 @@ function RegisterSection() {
                 <div style={{ display: "flex", gap: 8 }}>
                   <div ref={codeRef} style={{ position: "relative", width: 110, flexShrink: 0 }}>
                     <input
-                      value={codeOpen ? codeSearch : selectedCountry.code}
+                      value={mounted ? (codeOpen ? codeSearch : selectedCountry.code) : ""}
                       onChange={(e) => {
                         setCodeSearch(e.target.value);
                         if (!codeOpen) setCodeOpen(true);
                       }}
                       onFocus={() => { setCodeOpen(true); setCodeSearch(""); }}
-                      placeholder={selectedCountry.code}
+                      placeholder={mounted ? selectedCountry.code : "+971"}
                       style={{
                         ...inputStyle,
                         cursor: "text",

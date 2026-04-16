@@ -278,11 +278,52 @@ export function getSourceCategory(): string {
   return p;
 }
 
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const;
+const UTM_STORAGE_KEY = "efg_utm";
+
+/**
+ * Read UTM parameters from the URL and persist in sessionStorage.
+ * Returns only non-empty UTM values.
+ */
+function getUtmParams(): Record<string, string> {
+  if (typeof window === "undefined") return {};
+
+  // Try sessionStorage first (persists across page navigation)
+  try {
+    const stored = sessionStorage.getItem(UTM_STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      // If URL has fresh UTM params, they override stored ones
+      const params = new URLSearchParams(window.location.search);
+      const hasUrlUtms = UTM_KEYS.some((k) => params.get(k));
+      if (!hasUrlUtms) return parsed;
+    }
+  } catch { /* ignore storage errors */ }
+
+  // Read from URL
+  const params = new URLSearchParams(window.location.search);
+  const utms: Record<string, string> = {};
+  for (const key of UTM_KEYS) {
+    const val = params.get(key)?.trim();
+    if (val) utms[key] = val;
+  }
+
+  // Persist to sessionStorage
+  if (Object.keys(utms).length > 0) {
+    try {
+      sessionStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(utms));
+    } catch { /* ignore storage errors */ }
+  }
+
+  return utms;
+}
+
 /**
  * Submit a form to the backend API.
  */
 export async function submitForm(payload: FormPayload): Promise<FormResult> {
   try {
+    const utmParams = getUtmParams();
     const res = await fetch("/api/submit-form", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -291,6 +332,7 @@ export async function submitForm(payload: FormPayload): Promise<FormResult> {
         website: "", // honeypot, always empty for real submissions
         source_url: typeof window !== "undefined" ? window.location.href : "",
         source_category: getSourceCategory(),
+        metadata: { ...payload.metadata, ...utmParams },
       }),
     });
 
