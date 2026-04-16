@@ -211,7 +211,7 @@ function HeroSection() {
   useEffect(() => setMounted(true), []);
 
   return (
-    <section id="overview" style={{ position: "relative", minHeight: "100vh", overflow: "hidden", background: BG_DARK }}>
+    <section id="overview" className="otvm-hero-section" style={{ position: "relative", minHeight: "100vh", overflow: "hidden", background: BG_DARK }}>
       {/* Cybercore animated background, sits behind everything */}
       {mounted && <CybercoreBackground beamCount={70} />}
 
@@ -224,17 +224,19 @@ function HeroSection() {
       {/* Content overlay, matches demo.tsx pattern */}
       <div className="content-wrapper">
         <main className="hero-section">
-          {/* Badge */}
+          {/* CSC Logo */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            style={{ display: "inline-flex", alignItems: "center", gap: 12, padding: "10px 22px", borderRadius: 50, background: "rgba(211,75,154,0.08)", border: "1px solid rgba(211,75,154,0.2)", marginBottom: 32 }}
+            style={{ marginBottom: 32, display: "flex", justifyContent: "center" }}
           >
-            <span style={{ width: 8, height: 8, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 12px ${C_BRIGHT}` }} />
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C_BRIGHT }}>Virtual Forum</span>
-            <span style={{ color: "rgba(255,255,255,0.2)" }}>·</span>
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}>MENA · 2026</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CSC_Logos-01_.png"
+              alt="UAE Cyber Security Council"
+              style={{ height: "clamp(80px, 12vw, 150px)", width: "auto", maxWidth: "80%" }}
+            />
           </motion.div>
 
           {/* Headline */}
@@ -303,7 +305,7 @@ function HeroSection() {
       </motion.div>
 
       {/* Countdown bar */}
-      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 20, padding: "20px 0" }}>
+      <div className="otvm-countdown-bar" style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 20, padding: "20px 0" }}>
         <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
           <div style={{ display: "flex", gap: "clamp(12px, 3vw, 28px)", flexWrap: "wrap" }}>
             {[{ v: cd.d, l: "Days" }, { v: cd.h, l: "Hrs" }, { v: cd.m, l: "Min" }, { v: cd.s, l: "Sec" }].map((item) => (
@@ -1279,7 +1281,7 @@ function WhoWillBeInRoom() {
 // ─── AGENDA ─────────────────────────────────────────────────────────────────
 
 const AGENDA_ITEMS: { time: string; segment: string; type: "opening" | "panel" | "sponsor" | "qa" | "closing" }[] = [
-  { time: "11:00 - 11:10 AM", segment: "Welcome & Opening Remarks by UAE Cyber Security Council", type: "opening" },
+  { time: "11:00 - 11:10 AM", segment: "Welcome & Opening Remarks by H.E. Dr. Mohamed Al Kuwaiti, UAE Cyber Security Council", type: "opening" },
   { time: "11:10 - 11:30 AM", segment: "Panel 01 | Securing Critical Infrastructure at a National Level: From Strategy to Operational Reality", type: "panel" },
   { time: "11:30 - 11:40 AM", segment: "Awareness Presentation — Sponsor TBC", type: "sponsor" },
   { time: "11:40 - 12:00 PM", segment: "Panel 02 | IT/OT Convergence: The Exposure Points Most Teams Still Miss", type: "panel" },
@@ -1287,7 +1289,7 @@ const AGENDA_ITEMS: { time: string; segment: string; type: "opening" | "panel" |
   { time: "12:10 - 12:30 PM", segment: "Panel 03 | AI-Powered OT Attacks: What's Already Happening — and How to Respond in Live Environments", type: "panel" },
   { time: "12:30 - 12:40 PM", segment: "Awareness Presentation — Sponsor TBC", type: "sponsor" },
   { time: "12:40 - 12:50 PM", segment: "Q & A", type: "qa" },
-  { time: "12:50 - 01:50 PM", segment: "Closing Remarks", type: "closing" },
+  { time: "12:50 - 01:00 PM", segment: "Closing Remarks", type: "closing" },
 ];
 
 const AGENDA_TYPE_COLORS: Record<string, { color: string; rgb: string }> = {
@@ -1384,17 +1386,20 @@ function SpeakersSection() {
               </div>
 
               {/* Bio content */}
-              <div style={{ padding: "clamp(28px, 3vw, 44px) clamp(24px, 3vw, 40px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+              <div style={{ padding: "clamp(28px, 3vw, 44px) clamp(24px, 3vw, 40px)", display: "flex", flexDirection: "column", justifyContent: "center", position: "relative" }}>
                 <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(24px, 2.5vw, 32px)", fontWeight: 700, color: "white", margin: "0 0 10px", letterSpacing: "-0.5px", lineHeight: 1.15 }}>
                   {speaker.name}
                 </h3>
                 <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 600, color: C_BRIGHT, margin: "0 0 4px", lineHeight: 1.4 }}>
                   {speaker.title}
                 </p>
-                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.5)", margin: "0 0 20px", lineHeight: 1.4, display: "flex", alignItems: "center", gap: 8 }}>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.5)", margin: "0 0 20px", lineHeight: 1.4 }}>
                   {speaker.org}
-                  {"flag" in speaker && speaker.flag && <img src={speaker.flag as string} alt="" style={{ height: 14, width: "auto", borderRadius: 2 }} />}
                 </p>
+                {"flag" in speaker && speaker.flag && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={speaker.flag as string} alt="" style={{ position: "absolute", top: "clamp(28px, 3vw, 44px)", right: "clamp(24px, 3vw, 40px)", height: 18, width: "auto", borderRadius: 3, opacity: 0.85 }} />
+                )}
                 <div style={{ width: 50, height: 2, background: `linear-gradient(90deg, ${C_BRIGHT}, ${CYAN})`, borderRadius: 2, marginBottom: 18, boxShadow: `0 0 10px ${C_BRIGHT}40` }} />
                 {"bio" in speaker && speaker.bio && (
                   <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.65)", margin: 0, lineHeight: 1.75 }}>
@@ -1477,11 +1482,13 @@ function SpeakersSection() {
                   color: "rgba(255,255,255,0.5)",
                   margin: 0,
                   lineHeight: 1.4,
-                  display: "flex", alignItems: "center", gap: 6,
                 }}>
                   {speaker.org}
-                  {"flag" in speaker && speaker.flag && <img src={speaker.flag as string} alt="" style={{ height: 12, width: "auto", borderRadius: 2 }} />}
                 </p>
+                {"flag" in speaker && speaker.flag && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={speaker.flag as string} alt="" style={{ marginTop: 8, height: 14, width: "auto", borderRadius: 2, opacity: 0.85, display: "block" }} />
+                )}
               </div>
 
               {/* Top accent glow */}
@@ -2663,8 +2670,10 @@ export default function OTSecurityVirtualForumMENA() {
         }
         @media (max-width: 768px) {
           .hero-section h1 { font-size: clamp(28px, 9vw, 42px) !important; }
-          .content-wrapper { padding: 80px 20px 120px !important; justify-content: flex-start !important; padding-top: 90px !important; }
-          .otvm-efg-badge { bottom: 70px !important; right: 16px !important; }
+          .otvm-hero-section { min-height: auto !important; }
+          .content-wrapper { padding: 80px 20px 30px !important; justify-content: flex-start !important; padding-top: 90px !important; min-height: auto !important; }
+          .otvm-efg-badge { display: none !important; }
+          .otvm-countdown-bar { position: relative !important; margin-top: -30px !important; }
           /* Reduce beam count impact, keep animation but lighter */
           .light-beam { opacity: 0.5 !important; }
           .light-beam.secondary { display: none !important; }
