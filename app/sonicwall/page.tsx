@@ -36,11 +36,11 @@ const PAIN_POINTS = [
 
 const SPEAKERS = [
   { name: "Sumit Tekriwal", title: "Head of Information Governance, Compliance & Privacy Unit, KIB", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Sumit.png", bio: "Sumit leads the Information Governance, Compliance & Privacy Unit at Kuwait International Bank (KIB), driving regulatory alignment, data protection, and risk management across the institution." },
+  { name: "John Mankarios", title: "VP - Deputy Head of IT, QInvest", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/JohnMankarios.png", bio: "John serves as VP and Deputy Head of IT at QInvest, overseeing technology strategy and infrastructure across the organisation." },
   { name: "Toufeeq Ahmed", title: "Group Head of Cybersecurity, Gargash Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Toufeeq.png", bio: "Toufeeq leads cybersecurity strategy and operations across Gargash Group, safeguarding the organisation's digital infrastructure and driving resilience against evolving threats." },
   { name: "Mohamed Abdallah", title: "Regional Director, META", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Mohamed_Abdallah1.png", bio: "Mohamed Abdallah stands as the Regional Director at SonicWall, overseeing the expansive regions of the Middle East, Turkey, and Africa." },
   { name: "Nabil Kouzi", title: "Territory Manager", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/nabil1.png", bio: "Nabil drives SonicWall's growth across the UAE, leading territory strategy and empowering organizations with advanced cybersecurity solutions." },
   { name: "Ateef Mulla", title: "Principal Solutions Engineer", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/ateef1.png", bio: "Ateef is a Principal Solutions Engineer who champions the company's end-to-end security solutions, driving the successful delivery of major enterprise projects across the region." },
-  { name: "John Mankarios", title: "VP - Deputy Head of IT, QInvest", photo: "", bio: "John serves as VP and Deputy Head of IT at QInvest, overseeing technology strategy and infrastructure across the organisation." },
 ];
 
 const AGENDA = [
