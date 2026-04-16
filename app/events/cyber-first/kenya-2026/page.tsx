@@ -173,17 +173,17 @@ const AGENDA = [
   { time: "09:05 – 09:10", title: "Welcome Remarks", type: "keynote" as const },
   { time: "09:10 – 09:15", title: "National Anthem and Opening Ceremony", type: "keynote" as const },
   { time: "09:15 – 09:30", title: "Opening Keynote", subtitle: "The Digital Mandate Roadmap – NC4 and Kenya's Cyber Economy\nCol Dr James Kimuyu – Director, National Computer and Cybercrimes Coordination Committee (NC4)", type: "keynote" as const },
-  { time: "09:30 – 10:00", title: "Leadership Panel", subtitle: "Who Owns the Risk? Boards, Regulators and CISOs under New Expectations\nGovernance focused on accountability, reporting, and decision making for cyber risk across sectors, how responsibility is shared, what effective governance looks like in practice", bullets: ["Safeguarding national critical infrastructure and policy synchronization", "Regulatory expectations, audit findings, corrective action plans", "Third-party and supply chain risk management"], type: "panel" as const },
+  { time: "09:30 – 10:00", title: "Leadership Panel", subtitle: "Who Owns the Risk? Boards, Regulators and CISOs under New Expectations\nGovernance focused on accountability, reporting, and decision making for cyber risk across sectors, how responsibility is shared, what effective governance looks like in practice", type: "panel" as const },
   { time: "10:00 – 10:15", title: "Fireside Chat", subtitle: "The Sovereign Shield – Harmonizing Critical Infrastructure Defence under the CMCA 2025\nThe tactical enforcement of the 2025 Amendment Act, focusing on how government agencies and regulators are transitioning from legislative theory to real-time website deactivation and threat containment", type: "fireside" as const },
   { time: "10:15 – 10:30", title: "Technology Presentation", subtitle: "Using Endpoint and Network Telemetry to Spot Business Critical Attacks\n(Reserved for Sponsor)", type: "fireside" as const },
   { time: "10:30 – 11:15", title: "VIP Exhibition Tour followed by Networking & Refreshments", type: "break" as const },
-  { time: "11:15 – 11:45", title: "Panel Discussion", subtitle: "From Logs to Decisions – Making Threat Intelligence and Analytics Actionable\nHow organizations can prioritize a small set of high-value detection and intel use-cases, instead of drowning in data and alerts", bullets: ["Identity centric defence for mobile money and digital channels", "Real time fraud and abuse detection across payment rails", "Endpoint and network protection in branch, agency, and shared-device environments", "Prioritizing data sources & automation boundaries"], type: "panel" as const },
+  { time: "11:15 – 11:45", title: "Panel Discussion", subtitle: "From Logs to Decisions – Making Threat Intelligence and Analytics Actionable\nHow organizations can prioritize a small set of high-value detection and intel use-cases, instead of drowning in data and alerts", type: "panel" as const },
   { time: "11:45 – 12:00", title: "Technology Presentation", subtitle: "MFA Fatigue & Password less – Implementing Identity First Security\n(Reserved for Sponsor)", type: "fireside" as const },
   { time: "12:00 – 12:15", title: "Technology Presentation", subtitle: "Behavioural Biometrics – The Next Frontier in Anti-Fraud for Digital Lenders\n(Reserved for Sponsor)", type: "fireside" as const },
-  { time: "12:15 – 12:45", title: "Panel Discussion", subtitle: "Keeping the Lights On – Practical Resilience Against DDoS, Ransomware and Network Disruptions\nKeeping critical services available under intense pressure and concrete strategies for maintaining availability of critical services under DDoS waves, network issues, and ransomware across sectors", bullets: ["Service classification – what must never go down, for how long", "Technology and process for DDoS mitigation on public services", "Ransomware preparation – segmentation, backup strategy, offline copies, recovery drills", "Interplay between physical incidents and cyber resilience"], type: "panel" as const },
+  { time: "12:15 – 12:45", title: "Panel Discussion", subtitle: "Keeping the Lights On – Practical Resilience Against DDoS, Ransomware and Network Disruptions\nKeeping critical services available under intense pressure and concrete strategies for maintaining availability of critical services under DDoS waves, network issues, and ransomware across sectors", type: "panel" as const },
   { time: "12:45 – 13:00", title: "Technology Presentation", subtitle: "Proactive Deception Strategies for Government Portals\n(Reserved for Sponsor)", type: "fireside" as const },
   { time: "13:00 – 13:30", title: "Networking Break and Refreshments", type: "break" as const },
-  { time: "13:30 – 14:00", title: "Panel Discussion", subtitle: "Identity Under Pressure – Stopping Fraud and Account Takeover in a Mobile First Economy\nHow identity abuse drives fraud and disruption across mobile money, digital banking, telco services, and citizen portals", bullets: ["Real-time risk scoring for logins and transactions", "Coordinating fraud, cyber, and operations teams", "Securing agents and merchants in mobile money ecosystems", "Protecting privileged admin and operator accounts in telco/gov", "Handling identity in shared-device environments"], type: "panel" as const },
+  { time: "13:30 – 14:00", title: "Panel Discussion", subtitle: "Identity Under Pressure – Stopping Fraud and Account Takeover in a Mobile First Economy\nHow identity abuse drives fraud and disruption across mobile money, digital banking, telco services, and citizen portals", type: "panel" as const },
   { time: "14:00 – 14:15", title: "Presentation", subtitle: "API Security at Scale – Protecting the Interconnected Ecosystem of the Silicon Savannah\n(Reserved Session)", type: "fireside" as const },
   { time: "14:15 – 14:30", title: "Cyber First Award Ceremony & Raffle Draw", type: "awards" as const },
   { time: "14:30", title: "Networking Lunch and End of Conference", type: "break" as const },
@@ -3198,219 +3198,174 @@ function AdvisoryCard({
 function AgendaTimeline() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const typeColors: Record<string, string> = { keynote: C, panel: "#9D4EDD", fireside: "#F97316", sponsor: "#10B981", break: "#6B7280", awards: KENYA_GOLD, closing: "#06B6D4" };
-
-  // Split agenda into morning (before networking break) and afternoon (after break)
-  const morningItems = AGENDA.slice(0, 10);   // 08:00 – 12:00
-  const afternoonItems = AGENDA.slice(10);     // 12:00 – 14:30
-
-  const renderColumn = (items: typeof AGENDA, label: string, timeRange: string, startDelay: number) => (
-    <div style={{ flex: 1, minWidth: 0 }}>
-      {/* Column header card */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5, delay: startDelay, ease: EASE }}
-        style={{
-          display: "flex", alignItems: "center", justifyContent: "space-between",
-          padding: "14px 20px", marginBottom: 28, borderRadius: 12,
-          background: `linear-gradient(135deg, ${C}0A, ${C}04)`,
-          border: `1px solid ${C}18`,
-          backdropFilter: "blur(8px)",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 8, height: 8, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 10px ${C_BRIGHT}50` }} />
-          <span style={{ fontFamily: "var(--font-dm)", fontSize: 13, fontWeight: 600, letterSpacing: "3.5px", textTransform: "uppercase", color: C_BRIGHT }}>{label}</span>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 400, color: "rgba(255,255,255,0.3)" }}>{timeRange}</span>
-          <span style={{
-            fontFamily: "var(--font-dm)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.5)",
-            padding: "3px 8px", borderRadius: 20, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)",
-          }}>{items.length} items</span>
-        </div>
-      </motion.div>
-
-      {/* Timeline */}
-      <div style={{ position: "relative" }}>
-        {/* Timeline rail */}
-        <div style={{ position: "absolute", left: 3, top: 0, bottom: 0, width: 2, background: `linear-gradient(to bottom, ${C}20, ${C}08)`, borderRadius: 2 }} />
-
-        {items.map((item, i) => (
-          <motion.div
-            key={i}
-            className="cfk-agenda-item"
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.4, delay: startDelay + 0.15 + i * 0.06, ease: EASE }}
-            style={{ paddingLeft: 28, marginBottom: 14, position: "relative" }}
-          >
-            {/* Dot on timeline */}
-            <div style={{
-              position: "absolute", left: 0, top: 12, width: 8, height: 8, borderRadius: "50%",
-              background: C, boxShadow: `0 0 8px ${C}35`, border: "2px solid #0C0809",
-              transition: "all 0.3s ease",
-            }} />
-
-            {/* Time label */}
-            <div style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.3)", marginBottom: 5, letterSpacing: "0.3px" }}>{item.time}</div>
-
-            {/* Card */}
-            <div className="cfk-agenda-card" style={{
-              padding: "16px 18px", borderRadius: 12, position: "relative", overflow: "hidden",
-              background: "linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.012))",
-              border: "1px solid rgba(255,255,255,0.055)",
-              boxShadow: "0 2px 12px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.03)",
-              transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
-            }}>
-              {/* Left accent bar */}
-              <div className="cfk-agenda-bar" style={{
-                position: "absolute", top: "15%", bottom: "15%", left: 0, width: 2,
-                background: `linear-gradient(180deg, transparent, ${typeColors[item.type] || C}50, transparent)`,
-                borderRadius: "0 2px 2px 0", transition: "all 0.35s ease",
-              }} />
-
-              {/* Content */}
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: item.subtitle ? 6 : 0, flexWrap: "wrap" }}>
-                <span style={{
-                  padding: "3px 8px", borderRadius: 4,
-                  background: `${typeColors[item.type]}12`, border: `1px solid ${typeColors[item.type]}18`,
-                  fontFamily: "var(--font-dm)", fontSize: 13, fontWeight: 600,
-                  color: typeColors[item.type], textTransform: "uppercase", letterSpacing: "0.5px",
-                }}>{item.type}</span>
-                <span style={{ fontFamily: "var(--font-display)", fontSize: 14, fontWeight: 700, color: "rgba(255,255,255,0.92)", letterSpacing: "-0.2px" }}>{item.title}</span>
-              </div>
-              {item.subtitle && (
-                <div style={{ paddingLeft: 1 }}>
-                  {item.subtitle.split("\n").map((line, li) => (
-                    <p key={li} style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: li === 0 ? "rgba(255,255,255,0.55)" : "rgba(255,255,255,0.35)", margin: li > 0 ? "4px 0 0" : 0, lineHeight: 1.65, fontStyle: li > 0 ? "italic" : "normal" }}>{line}</p>
-                  ))}
-                </div>
-              )}
-              {"bullets" in item && item.bullets && (
-                <ul style={{ margin: "6px 0 0", paddingLeft: 16 }}>
-                  {(item.bullets as string[]).map((b, bi) => (
-                    <li key={bi} style={{ fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.35)", lineHeight: 1.7, listStyleType: "disc" }}>{b}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </motion.div>
-        ))}
-
-        {/* End cap */}
-        <div style={{ paddingLeft: 28, position: "relative" }}>
-          <div style={{ position: "absolute", left: 1, top: 0, width: 6, height: 6, borderRadius: "50%", border: `1.5px solid ${C}30` }} />
-        </div>
-      </div>
-    </div>
-  );
+  const typeLabels: Record<string, string> = { keynote: "Keynote", panel: "Panel", fireside: "Fireside", sponsor: "Tech Talk", break: "Break", awards: "Awards", closing: "Closing" };
+  const typeColors: Record<string, string> = { keynote: C_BRIGHT, panel: "#9D4EDD", fireside: "#F97316", sponsor: "#10B981", break: "rgba(255,255,255,0.25)", awards: KENYA_GOLD, closing: "#06B6D4" };
 
   return (
-    <section ref={ref} id="agenda" style={{ background: "#0C0809", padding: "clamp(60px, 7vw, 90px) 0", position: "relative", overflow: "hidden" }}>
-      {/* Background photo */}
-      <div className="absolute inset-0">
-        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=70" alt="Conference venue for Cyber First Kenya 2026 agenda" className="w-full h-full object-cover" loading="lazy" decoding="async" style={{ filter: "brightness(0.04) saturate(0.2) contrast(1.2)" }} />
+    <section ref={ref} id="agenda" style={{ background: "#0C0809", padding: "clamp(60px, 7vw, 100px) 0", position: "relative", overflow: "hidden" }}>
+      {/* Background */}
+      <div style={{ position: "absolute", inset: 0 }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=70" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.04) saturate(0.2)" }} loading="lazy" />
       </div>
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(12,8,9,0.97) 0%, rgba(12,8,9,0.7) 30%, rgba(12,8,9,0.7) 70%, rgba(12,8,9,0.97) 100%)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 50% 40% at 30% 40%, ${C}08, transparent 70%)`, pointerEvents: "none" }} />
 
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(12,8,9,0.98) 0%, rgba(12,8,9,0.6) 30%, rgba(12,8,9,0.6) 70%, rgba(12,8,9,0.98) 100%)" }} />
-
-      {/* Atmospheric glows */}
-      <div className="absolute inset-0 pointer-events-none cfk-agenda-pulse" style={{ background: `radial-gradient(ellipse 45% 40% at 30% 40%, ${C}08, transparent 70%)` }} />
-      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 40% 35% at 75% 55%, ${KENYA_ACCENT}05, transparent 65%)` }} />
-
-      {/* Top border */}
-      <div className="absolute top-0 left-0 right-0" style={{ height: 1, background: `linear-gradient(90deg, transparent 5%, ${C}20, ${C_BRIGHT}12, ${C}20, transparent 95%)` }} />
-
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 3 }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 3 }}>
         {/* Header */}
-        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ textAlign: "center", marginBottom: 20 }}>
-          <div className="flex items-center justify-center gap-3" style={{ marginBottom: 20 }}>
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ textAlign: "center", marginBottom: 56 }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 20 }}>
             <span style={{ width: 28, height: 1, background: `linear-gradient(90deg, transparent, ${C_BRIGHT})` }} />
             <span style={{ fontFamily: "var(--font-dm)", fontSize: 13, fontWeight: 600, letterSpacing: "3.5px", textTransform: "uppercase", color: C_BRIGHT }}>Agenda</span>
             <span style={{ width: 28, height: 1, background: `linear-gradient(270deg, transparent, ${C_BRIGHT})` }} />
           </div>
-
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(26px, 3.5vw, 40px)", letterSpacing: "-1.5px", color: "rgba(255,255,255,0.88)", lineHeight: 1.15, margin: "0 0 8px" }}>
-            The Day&apos;s{" "}
-            <span style={{ color: C_BRIGHT }}>Programme</span>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 4vw, 44px)", letterSpacing: "-1.5px", color: "rgba(255,255,255,0.92)", lineHeight: 1.15, margin: "0 0 12px" }}>
+            The Day&apos;s{" "}<span style={{ color: C_BRIGHT }}>Programme</span>
           </h2>
-          <h2 className="cfk-agenda-headline" style={{
-            fontFamily: "var(--font-display)", fontWeight: 900,
-            fontSize: "clamp(30px, 4vw, 48px)", letterSpacing: "-2px", lineHeight: 1.1, margin: "0 0 12px",
-            backgroundImage: `linear-gradient(135deg, ${C_BRIGHT} 0%, #ffffff 50%, ${C_BRIGHT} 100%)`,
-            backgroundSize: "200% 100%",
-            WebkitBackgroundClip: "text", backgroundClip: "text",
-            WebkitTextFillColor: "transparent", color: "transparent",
-            filter: `drop-shadow(0 0 30px ${C}20)`,
-          }}>
-            18 Sessions. 6.5 Hours. One Stage.
-          </h2>
-
-          {/* Animated underline */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={inView ? { scaleX: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
-            style={{ width: 60, height: 2, background: `linear-gradient(90deg, ${C_BRIGHT}, ${KENYA_ACCENT}, ${C_BRIGHT})`, borderRadius: 2, margin: "0 auto 20px" }}
-          />
-
-          <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 300, fontSize: 16, color: "rgba(255,255,255,0.38)", maxWidth: 520, margin: "0 auto", lineHeight: 1.7 }}>
-            A curated single-track programme designed to maximize learning, networking, and actionable takeaways.
+          <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 400, fontSize: 16, color: "rgba(255,255,255,0.4)", maxWidth: 500, margin: "0 auto", lineHeight: 1.7 }}>
+            18 sessions across 6.5 hours — a single-track programme built for focus.
           </p>
         </motion.div>
 
-        {/* Divider */}
-        <motion.div
-          initial={{ scaleX: 0, opacity: 0 }}
-          animate={inView ? { scaleX: 1, opacity: 1 } : {}}
-          transition={{ duration: 1, delay: 0.4, ease: EASE }}
-          style={{ maxWidth: 1100, margin: "48px auto 48px", position: "relative" }}
-        >
-          <div style={{ height: 1, background: `linear-gradient(90deg, transparent 0%, ${C}12 15%, ${C}22 50%, ${C}12 85%, transparent 100%)` }} />
-          <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%) rotate(45deg)", width: 6, height: 6, background: C_BRIGHT, borderRadius: 1, boxShadow: `0 0 12px ${C_BRIGHT}40` }} />
-        </motion.div>
+        {/* Split layout — morning / afternoon */}
+        <div className="cfk-agenda-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, alignItems: "start" }}>
+        {[
+          { items: AGENDA.slice(0, 10), label: "Morning Session", time: "08:00 – 12:00", delay: 0.15 },
+          { items: AGENDA.slice(10), label: "Afternoon Session", time: "12:00 – 14:30", delay: 0.35 },
+        ].map((col, ci) => (
+          <div key={ci}>
+            {/* Column header */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: col.delay, ease: EASE }}
+              style={{
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+                padding: "12px 18px", marginBottom: 16, borderRadius: 10,
+                background: `linear-gradient(135deg, ${C}0A, ${C}04)`,
+                border: `1px solid ${C}15`,
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 8px ${C_BRIGHT}50` }} />
+                <span style={{ fontFamily: "var(--font-dm)", fontSize: 12, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: C_BRIGHT }}>{col.label}</span>
+              </div>
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 400, color: "rgba(255,255,255,0.3)" }}>{col.time}</span>
+            </motion.div>
 
-        {/* Two-column split */}
-        <div className="cfk-agenda-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 44 }}>
-          {renderColumn(morningItems, "Morning Session", "08:00 – 12:00", 0.2)}
-          {renderColumn(afternoonItems, "Afternoon Session", "12:00 – 14:30", 0.5)}
+            {/* Cards */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          {col.items.map((item, i) => {
+            const isBreak = item.type === "break";
+            const color = typeColors[item.type] || C;
+            return (
+              <motion.div
+                key={i}
+                className="cfk-agenda-card"
+                initial={{ opacity: 0, y: 16 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.15 + i * 0.04, ease: EASE }}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: isBreak ? "1fr" : "clamp(100px, 14vw, 140px) 1fr",
+                  borderRadius: 14,
+                  overflow: "hidden",
+                  background: isBreak
+                    ? "linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))"
+                    : "linear-gradient(135deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015))",
+                  border: `1px solid ${isBreak ? "rgba(255,255,255,0.04)" : "rgba(255,255,255,0.06)"}`,
+                  transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              >
+                {isBreak ? (
+                  /* Break row — simple centered */
+                  <div style={{ padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                      <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 500, color: "rgba(255,255,255,0.3)" }}>{item.time}</span>
+                      <span style={{ width: 1, height: 14, background: "rgba(255,255,255,0.1)" }} />
+                      <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 500, color: "rgba(255,255,255,0.4)" }}>{item.title}</span>
+                    </div>
+                    <span style={{ fontSize: 14, opacity: 0.3 }}>☕</span>
+                  </div>
+                ) : (
+                  <>
+                    {/* Time column */}
+                    <div style={{
+                      padding: "20px 20px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      borderRight: `1px solid rgba(255,255,255,0.04)`,
+                      background: "rgba(0,0,0,0.15)",
+                    }}>
+                      <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 600, color: "rgba(255,255,255,0.7)", letterSpacing: "0.3px", lineHeight: 1.4 }}>{item.time}</span>
+                      <span style={{
+                        display: "inline-block", marginTop: 6,
+                        fontFamily: "var(--font-dm)", fontSize: 10, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase",
+                        color, opacity: 0.9,
+                      }}>{typeLabels[item.type] || item.type}</span>
+                    </div>
+
+                    {/* Content column */}
+                    <div style={{ padding: "20px 24px", position: "relative" }}>
+                      {/* Left accent */}
+                      <div style={{ position: "absolute", top: "20%", bottom: "20%", left: 0, width: 2, background: `linear-gradient(180deg, transparent, ${color}60, transparent)`, borderRadius: 2 }} />
+
+                      <h4 style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: "clamp(15px, 1.6vw, 17px)",
+                        fontWeight: 700,
+                        color: "rgba(255,255,255,0.92)",
+                        margin: 0,
+                        lineHeight: 1.35,
+                        letterSpacing: "-0.3px",
+                      }}>
+                        {item.title}
+                      </h4>
+                      {item.subtitle && (
+                        <div style={{ marginTop: 8 }}>
+                          {item.subtitle.split("\n").map((line, li) => (
+                            <p key={li} style={{
+                              fontFamily: "var(--font-outfit)",
+                              fontSize: 14,
+                              color: li === 0 ? "rgba(255,255,255,0.55)" : "rgba(255,255,255,0.35)",
+                              margin: li > 0 ? "4px 0 0" : 0,
+                              lineHeight: 1.65,
+                              fontStyle: li > 0 ? "italic" : "normal",
+                            }}>{line}</p>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
+              </motion.div>
+            );
+          })}
+            </div>
+          </div>
+        ))}
         </div>
       </div>
 
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: 100, background: "linear-gradient(to bottom, transparent, #0C0809)", zIndex: 4 }} />
-      <div className="absolute bottom-0 left-0 right-0" style={{ height: 1, background: `linear-gradient(90deg, transparent 10%, ${C}12, transparent 90%)`, zIndex: 5 }} />
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 80, background: "linear-gradient(to bottom, transparent, #0C0809)", pointerEvents: "none", zIndex: 4 }} />
 
       <style jsx global>{`
-        @keyframes cfk-agenda-glow-pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.4; }
-        }
-        @keyframes cfk-agenda-shimmer {
-          0% { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
-        }
-        .cfk-agenda-pulse { animation: cfk-agenda-glow-pulse 8s ease-in-out infinite; }
-        .cfk-agenda-headline { animation: cfk-agenda-shimmer 8s ease-in-out infinite; }
         .cfk-agenda-card:hover {
           border-color: ${C}20 !important;
           transform: translateY(-2px) !important;
-          box-shadow: 0 8px 24px ${C}10, inset 0 1px 0 ${C_BRIGHT}08 !important;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 20px ${C}08 !important;
         }
-        .cfk-agenda-card:hover .cfk-agenda-bar {
-          top: 8% !important;
-          bottom: 8% !important;
-          width: 3px !important;
-          background: linear-gradient(180deg, transparent, ${C_BRIGHT}70, transparent) !important;
-          box-shadow: 0 0 8px ${C_BRIGHT}25 !important;
-        }
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
           .cfk-agenda-grid {
             grid-template-columns: 1fr !important;
-            gap: 36px !important;
+            gap: 28px !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .cfk-agenda-card {
+            grid-template-columns: 1fr !important;
           }
         }
       `}</style>
@@ -3493,7 +3448,7 @@ function SponsorsSection() {
               margin: "20px 0 0",
             }}
           >
-            Our Partners & Sponsors
+            Our Series Partners & Sponsors
           </h2>
 
           <p
