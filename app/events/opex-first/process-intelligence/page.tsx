@@ -793,6 +793,113 @@ function KeyThemesSection() {
   );
 }
 
+// ─── SPEAKERS ───────────────────────────────────────────────────────────────
+const SPEAKERS = [
+  {
+    name: "Dr. Mohammad Khalaf Alghamdi",
+    title: "Ph.D. Deputy Mayor for Strategy & Transformation",
+    org: "Madinah Municipality",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Mohamad+Khalaf.png",
+  },
+  {
+    name: "Eng. Meshal Aldeaijy",
+    title: "Strategic Planning and Execution Advisor",
+    org: "Confidential",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Meshal+Aldeaijy.png",
+  },
+];
+
+function SpeakersSection() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section ref={ref} id="speakers" style={{ background: `linear-gradient(180deg, ${BG} 0%, ${BG_CARD} 50%, ${BG} 100%)`, padding: "clamp(48px, 6vw, 80px) 0", position: "relative", overflow: "hidden" }}>
+      {/* Background glows */}
+      <div style={{ position: "absolute", top: "10%", left: "-5%", width: "40%", height: "60%", background: `radial-gradient(ellipse, ${V}08, transparent 70%)`, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "10%", right: "-5%", width: "35%", height: "50%", background: `radial-gradient(ellipse, ${MINT}05, transparent 70%)`, pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: EASE }}
+          style={{ textAlign: "center", marginBottom: 56 }}
+        >
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 20 }}>
+            <span style={{ width: 28, height: 1, background: `linear-gradient(90deg, transparent, ${V_BRIGHT})` }} />
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 12, fontWeight: 600, letterSpacing: "3px", textTransform: "uppercase", color: V_BRIGHT }}>Speakers</span>
+            <span style={{ width: 28, height: 1, background: `linear-gradient(270deg, transparent, ${V_BRIGHT})` }} />
+          </div>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 4vw, 44px)", letterSpacing: "-1.5px", color: "rgba(255,255,255,0.92)", lineHeight: 1.15, margin: 0 }}>
+            Featured <span className="opex-shimmer-text">panellists</span>
+          </h2>
+        </motion.div>
+
+        {/* Speaker cards */}
+        <div style={{ display: "flex", justifyContent: "center", gap: 28, flexWrap: "wrap", alignItems: "stretch" }}>
+          {SPEAKERS.map((speaker, i) => (
+            <motion.div
+              key={speaker.name}
+              initial={{ opacity: 0, y: 36, filter: "blur(8px)" }}
+              animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+              transition={{ duration: 0.8, delay: 0.3 + i * 0.15, ease: EASE }}
+              style={{
+                width: 300,
+                borderRadius: 24,
+                padding: 2,
+                background: `linear-gradient(160deg, ${V_BRIGHT}50, ${MINT}30, rgba(255,255,255,0.08), ${V_BRIGHT}30)`,
+                boxShadow: `0 20px 60px rgba(0,0,0,0.5), 0 0 25px ${V}12`,
+                transition: "all 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
+                display: "flex",
+              }}
+            >
+              <div style={{
+                borderRadius: 22,
+                overflow: "hidden",
+                position: "relative",
+                background: `linear-gradient(165deg, ${BG_CARD} 0%, ${BG_DARK} 100%)`,
+                flex: 1,
+                display: "flex",
+                flexDirection: "column" as const,
+              }}>
+                {/* Photo */}
+                <div style={{ height: 280, overflow: "hidden", position: "relative" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={speaker.photo}
+                    alt={speaker.name}
+                    style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", transition: "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)" }}
+                  />
+                  <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, transparent 40%, ${BG_DARK}ee 100%)`, pointerEvents: "none" }} />
+                  <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${V}10, transparent 50%)`, pointerEvents: "none" }} />
+                </div>
+
+                {/* Info */}
+                <div style={{ padding: "18px 22px 24px", flex: 1 }}>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 700, color: "white", margin: "0 0 10px", letterSpacing: "-0.5px", lineHeight: 1.15 }}>
+                    {speaker.name}
+                  </h3>
+                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, color: MINT, margin: "0 0 4px", lineHeight: 1.4 }}>
+                    {speaker.title}
+                  </p>
+                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 400, color: "rgba(255,255,255,0.5)", margin: 0, lineHeight: 1.4 }}>
+                    {speaker.org}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Bottom border */}
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent 10%, ${V}15, transparent 90%)` }} />
+    </section>
+  );
+}
+
 // ─── MARKET DRIVERS ──────────────────────────────────────────────────────────
 function MarketDriversSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -1979,6 +2086,7 @@ export default function ProcessIntelligenceMENA() {
       <HeroSection />
       <AboutSection />
       <KeyThemesSection />
+      <SpeakersSection />
       <MarketDriversSection />
       <CaseStudiesSection />
       <WhoAttendsSection />
