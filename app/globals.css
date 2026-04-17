@@ -144,9 +144,14 @@ body::before {
    SCROLLBAR STYLING (Webkit)
    ═══════════════════════════════════════════════════════════════════════════ */
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) var(--black);
+}
+
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -154,12 +159,23 @@ body::before {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--black-card-hover);
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 5px;
+  border: 2px solid var(--black);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 1024px) {
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+}
+
+@media (max-width: 768px) {
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-thumb { border-width: 1px; }
+  * { scrollbar-width: auto; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════

@@ -2576,15 +2576,15 @@ function AdvisoryBoard() {
             </p>
             
             {/* Scroll indicator */}
-            <div className="cfk-scroll-hint" style={{ marginTop: 56, display: "flex", alignItems: "center", gap: 14 }}>
-              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.4)", letterSpacing: "3px", textTransform: "uppercase" }}>
+            <div className="cfk-scroll-hint" style={{ marginTop: 40, display: "flex", alignItems: "center", gap: 14, padding: "14px 24px", borderRadius: 50, background: `linear-gradient(135deg, ${C}12, rgba(255,255,255,0.04))`, border: `1px solid ${C}20` }}>
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,0.6)", letterSpacing: "2px", textTransform: "uppercase" }}>
                 Scroll to explore
               </span>
-              <div style={{ width: 50, height: 1, background: `linear-gradient(90deg, rgba(255,255,255,0.4), transparent)` }} />
+              <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, rgba(255,255,255,0.5), transparent)` }} />
               <motion.span
-                animate={{ x: [0, 12, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
-                style={{ color: C_BRIGHT, fontSize: 20, fontWeight: 600 }}
+                animate={{ x: [0, 14, 0] }}
+                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                style={{ color: C_BRIGHT, fontSize: 22, fontWeight: 700 }}
               >
                 →
               </motion.span>
