@@ -320,6 +320,10 @@ function groupEventsByMonth(events: EventItem[]) {
     if (!grouped[month]) grouped[month] = [];
     grouped[month].push(e);
   });
+  // Sort events within each month by date
+  for (const month in grouped) {
+    grouped[month].sort((a, b) => a.date.getTime() - b.date.getTime());
+  }
   return grouped;
 }
 
