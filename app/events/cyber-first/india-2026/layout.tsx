@@ -6,9 +6,9 @@ const PAGE_URL = `${BASE_URL}/events/cyber-first/india-2026`;
 const OG_IMAGE = `${BASE_URL}/Cyber_India.png`;
 
 export const metadata: Metadata = {
-  title: "Cyber First India 2026 | Delhi | Cybersecurity Summit, 16 June",
+  title: "Cyber First India 2026 | Delhi | Cybersecurity Summit, 10 October",
   description:
-    "India's premier cybersecurity summit. 350+ CISOs and security leaders. 16 June 2026, Delhi. Register or sponsor now.",
+    "India's premier cybersecurity summit. 350+ CISOs and security leaders. 10 October 2026, Delhi. Register or sponsor now.",
   keywords: [
     "cybersecurity conference India 2026",
     "CISO summit India",
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "cybersecurity summit India",
     "information security conference Delhi",
     "Cyber First India",
-    "cybersecurity event June 2026",
+    "cybersecurity event October 2026",
     "enterprise security summit India",
     "India cybersecurity leaders",
     "digital India security",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Cyber First India 2026, Delhi Edition",
     description:
-      "350+ CISOs and security leaders. 16 June 2026, Delhi. Cyber Resilience for India's Digital Future.",
+      "350+ CISOs and security leaders. 10 October 2026, Delhi. Cyber Resilience for India's Digital Future.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Cyber First India 2026, Delhi Edition",
     description:
-      "350+ CISOs and security leaders. 16 June 2026, Delhi.",
+      "350+ CISOs and security leaders. 10 October 2026, Delhi.",
     site: "@eventsfirstgrp",
     images: [OG_IMAGE],
   },
@@ -81,8 +81,8 @@ export default function CyberFirstIndiaLayout({
             name: "Cyber First India 2026, Delhi Edition",
             description:
               "India's premier cybersecurity leadership summit bringing together CISOs, government cyber leaders, and enterprise security executives. Cyber Resilience for India's Digital Future.",
-            startDate: "2026-06-16T08:30:00+05:30",
-            endDate: "2026-06-16T18:00:00+05:30",
+            startDate: "2026-10-10T08:30:00+05:30",
+            endDate: "2026-10-10T18:00:00+05:30",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {
@@ -124,7 +124,7 @@ export default function CyberFirstIndiaLayout({
               {
                 "@type": "Question",
                 name: "When and where is Cyber First India 2026?",
-                acceptedAnswer: { "@type": "Answer", text: "Cyber First India 2026 takes place on 16 June 2026 in New Delhi, India. It is a full-day summit running from 08:30 to 18:00 IST." },
+                acceptedAnswer: { "@type": "Answer", text: "Cyber First India 2026 takes place on 10 October 2026 in New Delhi, India. It is a full-day summit running from 08:30 to 18:00 IST." },
               },
               {
                 "@type": "Question",

@@ -23,7 +23,7 @@ const C_BRIGHT = "#3DD4C8";
 const EASE = [0.16, 1, 0.3, 1] as const;
 const WP = "https://cyberfirstseries.com/wp-content/uploads";
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com";
-const EVENT_DATE = new Date("2026-06-16T08:30:00+05:30");
+const EVENT_DATE = new Date("2026-10-10T08:30:00+05:30");
 
 // ─── Countdown ───────────────────────────────────────────────────────────────
 function useCountdown(target: Date) {
@@ -494,7 +494,7 @@ function HeroSection() {
             >
               <span style={{ width: 7, height: 7, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 8px ${C_BRIGHT}` }} />
               <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: C_BRIGHT }}>
-                India Edition · 16 June 2026
+                India Edition · 10 October 2026
               </span>
             </div>
           </motion.div>
@@ -824,7 +824,7 @@ function StatsBar() {
     { n: 200, suffix: "+", label: "CISOs & CIOs", desc: "C-Suite & Directors", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75", badge: "Expected", highlight: true },
     { n: 30, suffix: "+", label: "Expert Speakers", desc: "Practitioners & Leaders", icon: "M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z", badge: "Confirmed" },
     { n: 25, suffix: "+", label: "Technology Partners", desc: "Sponsors & Exhibitors", icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z", badge: "Planned" },
-    { n: 1, suffix: "", label: "Focused Day", desc: "Full Summit Experience", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z", badge: "16 June" },
+    { n: 1, suffix: "", label: "Focused Day", desc: "Full Summit Experience", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z", badge: "10 Oct" },
   ];
 
   return (
@@ -2440,7 +2440,7 @@ function AwardsSection() {
                   </button>
 
                   <p style={{ textAlign: "center", fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.25)", marginTop: 14 }}>
-                    Free to nominate · Deadline: 30 May 2026
+                    Free to nominate · Deadline: 30 September 2026
                   </p>
                 </form>
               ) : (
@@ -2505,7 +2505,7 @@ function Venue() {
               Set in the heart of Chanakyapuri, New Delhi's diplomatic enclave, The Lalit Ashok offers a world-class setting for India's most important cybersecurity conversations. Where the nation's top CISOs, government leaders, and enterprise security executives convene.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {[{ icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z", text: "The Lalit Ashok, Chanakyapuri, New Delhi" }, { icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", text: "16 June 2026 · 8:30 AM – 4:00 PM" }].map((item) => (
+              {[{ icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z", text: "The Lalit Ashok, Chanakyapuri, New Delhi" }, { icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", text: "10 October 2026 · 8:30 AM – 4:00 PM" }].map((item) => (
                 <div key={item.text} style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C} strokeWidth="1.5"><path d={item.icon} /></svg>
                   <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.7)" }}>{item.text}</span>
@@ -2552,7 +2552,7 @@ const REG_TABS = [
     description: "Curated for senior leaders, CISOs, CIOs, CTOs, and VP-level executives. Submit your details and we'll match you to the right room.",
     perks: [
       { icon: "users", text: "Invite-only, C-suite audience" },
-      { icon: "calendar", text: "16 June 2026 · New Delhi" },
+      { icon: "calendar", text: "10 October 2026 · New Delhi" },
       { icon: "shield", text: "Chatham House Rule sessions" },
     ],
     trust: "5,000+ senior leaders attended EFG events since 2023",

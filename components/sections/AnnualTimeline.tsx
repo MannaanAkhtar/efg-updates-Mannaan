@@ -142,8 +142,8 @@ const allEvents: EventItem[] = [
     seriesColor: "#09B7AA",
     edition: "",
     title: "Cyber First New Delhi",
-    date: new Date("2026-06-16"),
-    dateDisplay: "June 16, 2026",
+    date: new Date("2026-10-10"),
+    dateDisplay: "October 10, 2026",
     location: "New Delhi, India",
     venue: "The Lalit Ashok, New Delhi",
     attendees: "400+",
@@ -349,6 +349,8 @@ export default function AnnualTimeline() {
   const [isDragging, setIsDragging] = useState(false);
   const [activeMonth, setActiveMonth] = useState<number | null>(null);
   const [activeSeries, setActiveSeries] = useState<string>("all");
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   // Drag-to-scroll refs
   const dragStartX = useRef(0);
@@ -498,12 +500,12 @@ export default function AnnualTimeline() {
                 <button
                   key={filter.value}
                   onClick={() => setActiveSeries(filter.value)}
-                  className={`filter-pill ${activeSeries === filter.value ? 'active' : ''}`}
+                  className={`filter-pill ${mounted && activeSeries === filter.value ? 'active' : ''}`}
                   style={{
                     '--pill-color': filter.color || 'var(--orange)',
                   } as React.CSSProperties}
                 >
-                  {filter.color && activeSeries === filter.value && (
+                  {filter.color && mounted && activeSeries === filter.value && (
                     <span 
                       className="filter-dot" 
                       style={{ background: filter.color }}
