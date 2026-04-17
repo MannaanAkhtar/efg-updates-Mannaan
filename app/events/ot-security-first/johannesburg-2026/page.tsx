@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import {
   motion,
   useInView,
@@ -18,7 +18,6 @@ if (typeof window !== "undefined") {
 }
 import { Footer } from "@/components/sections";
 import EventNavigation from "@/components/ui/EventNavigation";
-import OTYouTubeShorts from "@/components/ot-security-first/OTYouTubeShorts";
 import {
   submitForm,
   isWorkEmail,
@@ -244,16 +243,16 @@ const SPEAKERS = [
 
 // Strategic Focus Areas from brochure
 const STRATEGIC_THEMES = [
-  { short: "Zero Trust for ICS", title: "Zero Trust Architecture for ICS", icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" },
-  { short: "IT/OT Convergence", title: "IT/OT Convergence & SOC Integration", icon: "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" },
-  { short: "AI & Behavioral Analytics", title: "AI & Behavioral Analytics", icon: "M12 2a4 4 0 014 4v1a2 2 0 012 2v1a2 2 0 01-2 2H8a2 2 0 01-2-2V9a2 2 0 012-2V6a4 4 0 014-4zM9 18h6M10 22h4" },
-  { short: "Legacy Retrofitting", title: "Legacy Retrofitting & Hardening", icon: "M12 9v2m0 4h.01M5.07 19H19a2 2 0 001.75-2.94l-6.97-12.06a2 2 0 00-3.5 0L3.32 16.06A2 2 0 005.07 19z" },
-  { short: "Supply Chain & Third-Party", title: "Supply Chain & Third-Party Risk", icon: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" },
-  { short: "Skills & Capacity", title: "Developing Skills & Capacity", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" },
-  { short: "Regulation & Collaboration", title: "Regulation, Standards & Public-Private Collaboration", icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 14l2 2 4-4" },
-  { short: "Incident Response", title: "Incident Response & Crisis Management", icon: "M13 10V3L4 14h7v7l9-11h-7z" },
-  { short: "Network Visibility", title: "Network Visibility & Monitoring", icon: "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" },
-  { short: "Emerging Technologies", title: "Emerging Technologies in OT Security", icon: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.573-1.066z" },
+  { short: "Zero Trust for ICS", title: "Zero Trust Architecture for ICS" },
+  { short: "IT/OT Convergence", title: "IT/OT Convergence & SOC Integration" },
+  { short: "AI & Behavioral Analytics", title: "AI & Behavioral Analytics" },
+  { short: "Legacy Retrofitting", title: "Legacy Retrofitting & Hardening" },
+  { short: "Supply Chain & Third-Party", title: "Supply Chain & Third-Party Risk" },
+  { short: "Skills & Capacity", title: "Developing Skills & Capacity" },
+  { short: "Regulation & Collaboration", title: "Regulation, Standards & Public-Private Collaboration" },
+  { short: "Incident Response", title: "Incident Response & Crisis Management" },
+  { short: "Network Visibility", title: "Network Visibility & Monitoring" },
+  { short: "Emerging Technologies", title: "Emerging Technologies in OT Security" },
 ];
 
 // Facts & Figures from brochure
@@ -330,14 +329,16 @@ const AWARDS_DATA = [
   { title: "Public Sector / Critical Infrastructure Protection Award", desc: "For a government entity, regulator, or state-owned enterprise showing leadership in securing national critical infrastructure." },
 ];
 
-// Gallery, reuse existing OT Security First + Cyber First event photos
+// Gallery — 8 unique shots spanning 5 different EFG events
 const GALLERY: { src: string; alt: string; area: string; rotate?: number; lift?: boolean }[] = [
-  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0412.JPG`, alt: "OT Security First panel discussion", area: "hero" },
-  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0290.JPG`, alt: "Executive networking session", area: "a", rotate: -1.5, lift: true },
-  { src: `${S3}/events/Cyber+First+Kuwait+2025/Kuwait+Photos/Kuwait+Photos/4X9A1744.jpg`, alt: "Keynote presentation", area: "b" },
-  { src: `${S3}/Good/4N8A0290.JPG`, alt: "Conference atmosphere", area: "c", rotate: 1 },
-  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0412.JPG`, alt: "OT Security First awards", area: "d" },
-  { src: `${S3}/events/Cyber+First+Kuwait+2025/Kuwait+Photos/Kuwait+Photos/4X9A1744.jpg`, alt: "Networking reception", area: "e", lift: true },
+  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0420.JPG`, alt: "OT Security First UAE — panel", area: "hero" },
+  { src: `${S3}/events/Cyber+First+Kuwait+2025/filemail_photos/cyber21-04-430.jpg`, alt: "Cyber First Kuwait — executive ceremony", area: "a", rotate: -1.5, lift: true },
+  { src: `${S3}/events/Opex+First+UAE/4N8A1848.JPG`, alt: "OPEX First UAE — delegate audience", area: "b" },
+  { src: `${S3}/events/Cyber+First+Kuwait+2025/filemail_photos/cyber21-04-550.jpg`, alt: "Cyber First Kuwait — keynote", area: "c", rotate: 1 },
+  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0397.JPG`, alt: "OT Security First UAE — exhibition", area: "d" },
+  { src: `${S3}/cyber-first-kenya/cyber21-04-504.jpg`, alt: "Cyber First Kenya — speakers", area: "e", rotate: -1, lift: true },
+  { src: `${S3}/events/Opex+First+UAE/4N8A1702.JPG`, alt: "OPEX First UAE — executive panel", area: "f" },
+  { src: `${S3}/Good/4N8A0200.JPG`, alt: "EFG awards recognition", area: "g", rotate: 0.8 },
 ];
 
 // Contact details — updated from brochure
@@ -349,31 +350,50 @@ const CONTACTS = {
   ],
 };
 
-// Sponsor logos, reuse existing OT Security First + EFG sponsors
+// Sponsor logos, reuse existing EFG series sponsors (verified S3 paths)
 const MARQUEE_ROW_1 = [
-  `${S3_LOGOS}/Siemens.png`,
-  `${S3_LOGOS}/Fortinet.png`,
-  `${S3_LOGOS}/Palo-Alto.png`,
-  `${S3_LOGOS}/nozomi.png`,
+  `${S3_LOGOS}/paloalto.png`,
+  `${S3_LOGOS}/fortinet.png`,
   `${S3_LOGOS}/Claroty.png`,
   `${S3_LOGOS}/Dragos.png`,
-  `${S3_LOGOS}/CyberArk.png`,
-  `${S3_LOGOS}/Tenable.png`,
-  `${S3_LOGOS}/Schneider.png`,
-  `${S3_LOGOS}/Honeywell.png`,
+  `${S3_LOGOS}/nozomi-networks.png`,
+  `${S3_LOGOS}/Tenable-logo.png`,
+  `${S3_LOGOS}/kaspersky.png`,
+  `${S3_LOGOS}/sentinelone.png`,
+  `${S3_LOGOS}/Microsoft_logo.png`,
+  `${S3_LOGOS}/Google-Cloud-Security.png`,
+  `${S3_LOGOS}/Sonicwall.png`,
+  `${S3_LOGOS}/threatlocker.png`,
+  `${S3_LOGOS}/OPSWAT-logo.png`,
+  `${S3_LOGOS}/Xage.png`,
+  `${S3_LOGOS}/corelight.png`,
 ];
 
 const MARQUEE_ROW_2 = [
-  `${S3_LOGOS}/Cisco.png`,
-  `${S3_LOGOS}/Kaspersky.png`,
-  `${S3_LOGOS}/Microsoft.png`,
-  `${S3_LOGOS}/Splunk.png`,
-  `${S3_LOGOS}/TrendMicro.png`,
-  `${S3_LOGOS}/Waterfall.png`,
-  `${S3_LOGOS}/Armis.png`,
-  `${S3_LOGOS}/tripwire.png`,
-  `${S3_LOGOS}/Forescout.png`,
-  `${S3_LOGOS}/hexagon.png`,
+  `${S3_LOGOS}/Oracle.png`,
+  `${S3_LOGOS}/EY.png`,
+  `${S3_LOGOS}/Group-IB.png`,
+  `${S3_LOGOS}/Acronis.png`,
+  `${S3_LOGOS}/ManageEngine.png`,
+  `${S3_LOGOS}/Wallix.png`,
+  `${S3_LOGOS}/PENTERA.png`,
+  `${S3_LOGOS}/Akamai.png`,
+  `${S3_LOGOS}/secureworks.png`,
+  `${S3_LOGOS}/filigran.png`,
+  `${S3_LOGOS}/Anomali.png`,
+  `${S3_LOGOS}/AmiViz.png`,
+  `${S3_LOGOS}/GBM.png`,
+  `${S3_LOGOS}/Paramount.png`,
+  `${S3_LOGOS}/YOKOGAWA.png`,
+];
+
+// OT Security testimonials — 5 vertical shorts from OT Security First UAE
+const OT_SHORTS = [
+  { id: "Q0n_sVaMnxg", title: "OT Security First Testimonial" },
+  { id: "SF87voLk34A", title: "OT Security First Testimonial" },
+  { id: "R5dtc5kjiQU", title: "OT Security First Testimonial" },
+  { id: "Hm_yj3NttPo", title: "OT Security First Testimonial" },
+  { id: "aaG9We6AjY8", title: "OT Security First Testimonial" },
 ];
 
 // ─── HERO SECTION ────────────────────────────────────────────────────────────
@@ -596,90 +616,531 @@ function HeroSection() {
 }
 
 // ─── FACTS & FIGURES BAR ────────────────────────────────────────────────────
-function StatsBar() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
+// Stat card — skeuomorphic + liquid glass hybrid
+function StatCard({ stat, label, featured = false, large = false }: { stat: string; label: string; featured?: boolean; large?: boolean }) {
   return (
-    <section ref={ref} style={{ background: "#080A0C", padding: "clamp(40px, 5vw, 60px) 0", position: "relative", borderTop: `1px solid ${C}10`, borderBottom: `1px solid ${C}10` }}>
-      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 80% 100% at 50% 0%, ${CYAN}08, transparent 60%)`, pointerEvents: "none" }} />
-      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "clamp(16px, 2vw, 24px)" }} className="otsf-stats-grid">
-          {FACTS_FIGURES.map((s, i) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
-              className="otsf-stat-card"
-              style={{
-                padding: "clamp(20px, 2vw, 32px) clamp(16px, 1.5vw, 24px)",
-                background: i === 0 ? `linear-gradient(135deg, ${CYAN}15, ${CYAN}05)` : "rgba(255,255,255,0.03)",
-                border: `1px solid ${i === 0 ? `${CYAN}30` : "rgba(255,255,255,0.06)"}`,
-                borderRadius: 20,
-                textAlign: "center",
-                transition: "all 0.3s ease",
-              }}
-            >
-              <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(24px, 2.5vw, 36px)", color: i === 0 ? CYAN : "white", letterSpacing: "-1px", display: "block", marginBottom: 6 }}>
-                {s.stat}
-              </span>
-              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 400, color: "rgba(255,255,255,0.55)", lineHeight: 1.5 }}>{s.label}</span>
-            </motion.div>
-          ))}
-        </div>
+    <div className="otsf-stat-premium" style={{
+      borderRadius: 24,
+      padding: 1.5,
+      // Gradient border shell
+      background: featured
+        ? `linear-gradient(160deg, ${CYAN}80, ${C_BRIGHT}40, rgba(255,255,255,0.15), ${CYAN}50)`
+        : `linear-gradient(160deg, rgba(255,255,255,0.22), rgba(255,255,255,0.06), ${C}30)`,
+      // Skeuomorphic outer shadows — bottom heavy for raised feel + atmospheric glow
+      boxShadow: featured
+        ? `0 24px 60px rgba(0,0,0,0.5), 0 8px 20px rgba(0,0,0,0.3), 0 0 50px ${CYAN}25, 0 1px 0 rgba(255,255,255,0.1)`
+        : `0 20px 50px rgba(0,0,0,0.45), 0 6px 16px rgba(0,0,0,0.25), 0 1px 0 rgba(255,255,255,0.08)`,
+      height: "100%",
+      transition: "all 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
+      position: "relative",
+    }}>
+      <div style={{
+        borderRadius: 22.5,
+        padding: large ? "clamp(36px, 4vw, 52px) clamp(32px, 4vw, 48px)" : "clamp(26px, 2.8vw, 34px) clamp(22px, 2.2vw, 30px)",
+        // Liquid glass — translucent frosted background
+        background: featured
+          ? `linear-gradient(165deg, rgba(13,18,51,0.75) 0%, rgba(7,11,31,0.92) 50%, rgba(0,201,255,0.08) 100%)`
+          : `linear-gradient(165deg, rgba(13,18,51,0.8) 0%, rgba(7,11,31,0.95) 100%)`,
+        backdropFilter: "blur(20px) saturate(180%)",
+        WebkitBackdropFilter: "blur(20px) saturate(180%)",
+        // Skeuomorphic inset shadows — top bright bevel + bottom dark depth
+        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 2px rgba(0,0,0,0.4), inset 1px 0 0 rgba(255,255,255,0.04), inset -1px 0 0 rgba(0,0,0,0.3)`,
+        position: "relative",
+        overflow: "hidden",
+        height: "100%",
+        textAlign: large ? "left" : "center",
+        display: "flex",
+        flexDirection: large ? "row" : "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: large ? "clamp(24px, 3.5vw, 48px)" : 10,
+      }}>
+        {/* Liquid glass top reflection — light from top-left bouncing off glass surface */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "50%", background: "linear-gradient(160deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 30%, transparent 60%)", pointerEvents: "none", borderRadius: "22.5px 22.5px 0 0" }} />
+
+        {/* Curved glass highlight at top — mimics refracted light */}
+        <div style={{ position: "absolute", top: 2, left: "6%", right: "6%", height: 1, background: `linear-gradient(90deg, transparent, ${featured ? `${CYAN}80` : "rgba(255,255,255,0.4)"}, transparent)`, boxShadow: featured ? `0 0 12px ${CYAN}60` : `0 0 6px rgba(255,255,255,0.2)`, borderRadius: 2 }} />
+
+        {/* Secondary inner shine */}
+        <div style={{ position: "absolute", top: 6, left: "15%", right: "15%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)", opacity: 0.6 }} />
+
+        {/* Left accent bar — skeuomorphic raised rail */}
+        <div style={{ position: "absolute", top: "15%", bottom: "15%", left: 0, width: 3, background: `linear-gradient(180deg, transparent, ${featured ? CYAN : C_BRIGHT}, transparent)`, borderRadius: "0 3px 3px 0", boxShadow: `0 0 12px ${featured ? CYAN : C_BRIGHT}60` }} />
+
+        {/* Corner atmospheric glow — behind the glass */}
+        {featured && <div style={{ position: "absolute", top: -80, right: -80, width: 280, height: 280, background: `radial-gradient(circle, ${CYAN}28, transparent 70%)`, borderRadius: "50%", pointerEvents: "none" }} />}
+        {!featured && <div style={{ position: "absolute", top: -40, right: -40, width: 180, height: 180, background: `radial-gradient(circle, ${C}18, transparent 70%)`, borderRadius: "50%", pointerEvents: "none" }} />}
+        {!featured && <div style={{ position: "absolute", bottom: -40, left: -40, width: 140, height: 140, background: `radial-gradient(circle, ${CYAN}0d, transparent 70%)`, borderRadius: "50%", pointerEvents: "none" }} />}
+
+        {/* Subtle grid texture through the glass */}
+        <div style={{ position: "absolute", inset: 0, backgroundImage: `linear-gradient(${featured ? CYAN : C}08 1px, transparent 1px), linear-gradient(90deg, ${featured ? CYAN : C}08 1px, transparent 1px)`, backgroundSize: "28px 28px", pointerEvents: "none", opacity: 0.3, maskImage: "radial-gradient(ellipse at center, black 20%, transparent 75%)", WebkitMaskImage: "radial-gradient(ellipse at center, black 20%, transparent 75%)" }} />
+
+        {/* Bottom reflection — liquid glass pool effect */}
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${featured ? `${CYAN}40` : "rgba(255,255,255,0.12)"}, transparent)` }} />
+
+        {/* Stat number */}
+        <span style={{
+          fontFamily: "var(--font-display)",
+          fontWeight: 800,
+          fontSize: large ? "clamp(48px, 5.5vw, 76px)" : "clamp(30px, 3vw, 42px)",
+          color: featured ? CYAN : "white",
+          letterSpacing: "-2.5px",
+          display: "block",
+          // Skeuomorphic text — subtle bottom depth + top highlight + glow
+          textShadow: featured
+            ? `0 0 30px ${CYAN}60, 0 2px 0 rgba(0,0,0,0.4), 0 -1px 0 rgba(255,255,255,0.1)`
+            : `0 2px 0 rgba(0,0,0,0.4), 0 -1px 0 rgba(255,255,255,0.06), 0 0 20px ${C}25`,
+          lineHeight: 0.95,
+          position: "relative",
+          zIndex: 2,
+        }}>
+          {stat}
+        </span>
+
+        {/* Label */}
+        <span style={{
+          fontFamily: "var(--font-outfit)",
+          fontSize: large ? "clamp(14px, 1.2vw, 17px)" : "clamp(12.5px, 1vw, 14px)",
+          fontWeight: 400,
+          color: "rgba(255,255,255,0.72)",
+          lineHeight: 1.55,
+          display: "block",
+          textShadow: "0 1px 2px rgba(0,0,0,0.4)",
+          maxWidth: large ? 600 : undefined,
+          position: "relative",
+          zIndex: 2,
+        }}>
+          {label}
+        </span>
       </div>
-    </section>
+    </div>
   );
 }
 
-// ─── OVERVIEW SECTION ───────────────────────────────────────────────────────
-function OverviewSection() {
+// ─── ABOUT + STATS (editorial interleaved layout) ──────────────────────────
+function AboutSection() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [videoPlaying, setVideoPlaying] = useState(false);
 
-  const paragraphs = [
-    "From South Africa\u2019s mining complexes and energy grids to port infrastructure, water utilities, petrochemical processing, and advanced manufacturing environments. These are no longer isolated operational domains, they are digitally integrated ecosystems combining OT, enterprise IT, cloud platforms, AI, remote vendor connectivity, and smart automation.",
-    "This convergence is accelerating productivity but expanding the cyber-physical attack surface. Critical infrastructure is a primary target for sophisticated ransomware and state sponsored APTs. High impact outages, ransomware, and supply chain attacks are elevating OT security from an engineering concern to a board level and national priority.",
-    "The Critical Infrastructure Protection Act (CIPA) and the Cybercrimes Act (2020) have turned cybersecurity from a nice-to-have into a legal mandate.",
-    "With 67% of organizations planning to increase OT security budgets in 2026\u201327, and major investments in energy transition, mining automation, manufacturing modernization underway, the security decisions taken in the next few months will lock in risk or resilience for decades.",
-    "OT Security First Africa 2026 is an exclusive platform that will enable candid dialogues, cross-sector collaborations, concrete action plans, between top technology experts, OT leaders, government and policy makers, to secure Africa\u2019s industrial backbone. Join us on 26 August 2026 in Johannesburg, with the need to implement defense, before the next major outage occurs!",
-  ];
+  // Editorial narrative blocks — alternating text and stats
+  const lede = "From South Africa\u2019s mining complexes and energy grids to port infrastructure, water utilities, petrochemical processing, and advanced manufacturing environments. These are no longer isolated operational domains — they are digitally integrated ecosystems.";
+
+  const p2 = "This convergence is accelerating productivity but expanding the cyber-physical attack surface. Critical infrastructure is a primary target for sophisticated ransomware and state-sponsored APTs. High-impact outages, ransomware, and supply chain attacks are elevating OT security from an engineering concern to a board-level and national priority.";
+  const p3 = "The Critical Infrastructure Protection Act (CIPA) and the Cybercrimes Act (2020) have turned cybersecurity from a nice-to-have into a legal mandate.";
+  const p4 = "With 67% of organizations planning to increase OT security budgets in 2026\u201327, and major investments in energy transition, mining automation, and manufacturing modernization underway, the security decisions taken in the next few months will lock in risk — or resilience — for decades.";
+  const closing = "OT Security First Africa 2026 is an exclusive platform that will enable candid dialogues, cross-sector collaborations, and concrete action plans between top technology experts, OT leaders, government and policy makers — to secure Africa\u2019s industrial backbone.";
+
+  // Split stats into pairs for interleaving
+  const heroStat = FACTS_FIGURES[0]; // 94%
+  const statsPair1 = [FACTS_FIGURES[1], FACTS_FIGURES[2]]; // $4.5M + 47 days
+  const statsPair2 = [FACTS_FIGURES[3], FACTS_FIGURES[4]]; // 82% + 61%
+  const statsPair3 = [FACTS_FIGURES[5], FACTS_FIGURES[6]]; // 23% + 19.5%
 
   return (
-    <section ref={ref} style={{ background: "#080A0C", position: "relative", overflow: "hidden", padding: "clamp(60px, 7vw, 100px) 0" }}>
-      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 40% 50% at 20% 30%, ${C}08, transparent 60%)`, pointerEvents: "none" }} />
-      <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }}>
-          <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: CYAN, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>About the Event</span>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", lineHeight: 1.05, letterSpacing: "-2px", color: "white", margin: "0 0 40px" }}>
-            Securing Africa&apos;s<br /><span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Industrial Backbone</span>
-          </h2>
-        </motion.div>
+    <section
+      ref={ref}
+      id="overview"
+      style={{
+        background: "transparent",
+        padding: "clamp(50px, 6vw, 90px) 0",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          {paragraphs.map((p, i) => (
-            <motion.p
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 + i * 0.1, ease: EASE }}
-              style={{ fontFamily: "var(--font-outfit)", fontSize: 16, fontWeight: 400, color: "rgba(255,255,255,0.65)", lineHeight: 1.8, margin: 0 }}
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        {/* Split hero — text left, previous-edition video right */}
+        <div className="otsf-about-split" style={{
+          display: "grid",
+          gridTemplateColumns: "1.05fr 1fr",
+          gap: "clamp(32px, 4vw, 64px)",
+          alignItems: "center",
+          marginBottom: "clamp(48px, 6vw, 72px)",
+        }}>
+          {/* Left — text column */}
+          <motion.div
+            className="otsf-about-text"
+            initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
+            animate={inView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", textAlign: "left" }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
+              <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${CYAN}, transparent)` }} />
+              <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: CYAN, textTransform: "uppercase", letterSpacing: "4px" }}>About the Event</span>
+            </div>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4.4vw, 52px)", color: "white", letterSpacing: "-2px", margin: "0 0 18px", lineHeight: 1.05 }}>
+              Securing Africa&apos;s<br />
+              <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>industrial backbone</span>
+            </h2>
+            <motion.div
+              className="otsf-about-underline"
+              initial={{ scaleX: 0 }}
+              animate={inView ? { scaleX: 1 } : {}}
+              transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              style={{ width: 120, height: 3, background: `linear-gradient(90deg, ${CYAN}cc, transparent)`, margin: "0 0 28px 0", borderRadius: 2, transformOrigin: "left" }}
+            />
+            <p style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(17px, 1.55vw, 22px)",
+              fontWeight: 500,
+              color: "rgba(255,255,255,0.88)",
+              lineHeight: 1.5,
+              letterSpacing: "-0.3px",
+              margin: 0,
+              textShadow: "0 1px 4px rgba(0,0,0,0.3)",
+            }}>
+              {lede}
+            </p>
+          </motion.div>
+
+          {/* Right — previous edition video bezel */}
+          <motion.div
+            initial={{ opacity: 0, x: 24, scale: 0.97 }}
+            animate={inView ? { opacity: 1, x: 0, scale: 1 } : {}}
+            transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="otsf-about-video"
+            style={{
+              position: "relative",
+              width: "100%",
+              aspectRatio: "16 / 9",
+              padding: 2,
+              borderRadius: 22,
+              background: `linear-gradient(135deg, ${C_BRIGHT}55, ${CYAN}35 50%, ${C_BRIGHT}30)`,
+              boxShadow: `0 24px 60px rgba(0,0,0,0.5), 0 0 40px ${C}22`,
+            }}
+          >
+            <div
+              onClick={() => !videoPlaying && setVideoPlaying(true)}
+              style={{
+                position: "relative",
+                width: "100%",
+                height: "100%",
+                borderRadius: 20,
+                overflow: "hidden",
+                background: "rgba(7,11,31,0.9)",
+                cursor: videoPlaying ? "default" : "pointer",
+              }}
             >
-              {p}
-            </motion.p>
-          ))}
+              {videoPlaying ? (
+                <iframe
+                  src="https://www.youtube.com/embed/3ofcPquafgk?autoplay=1&rel=0&modestbranding=1&playsinline=1"
+                  title="OT Security First UAE — Event Highlights"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+                />
+              ) : (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    loading="lazy"
+                    src="https://img.youtube.com/vi/3ofcPquafgk/hqdefault.jpg"
+                    alt="OT Security First UAE — Event Highlights"
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                  {/* Glass reflection line */}
+                  <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: `linear-gradient(90deg, transparent, ${CYAN}90, transparent)`, boxShadow: `0 0 10px ${CYAN}60`, pointerEvents: "none" }} />
+                  {/* Vignette */}
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(7,11,31,0.15) 0%, rgba(7,11,31,0.1) 50%, rgba(7,11,31,0.55) 100%)", pointerEvents: "none" }} />
+                  {/* Play button */}
+                  <div className="otsf-about-play-wrap" style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
+                    <div className="otsf-about-play-btn" style={{
+                      width: 72,
+                      height: 72,
+                      borderRadius: "50%",
+                      background: "rgba(255,255,255,0.95)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      boxShadow: "0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.2)",
+                      transition: "all 0.3s cubic-bezier(0.22, 1, 0.36, 1)",
+                      backdropFilter: "blur(10px)",
+                    }}>
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill={C} style={{ marginLeft: 3 }}>
+                        <polygon points="5,3 19,12 5,21" />
+                      </svg>
+                    </div>
+                  </div>
+                  {/* Corner label */}
+                  <div style={{ position: "absolute", top: 14, left: 14, pointerEvents: "none" }}>
+                    <span style={{
+                      display: "inline-block",
+                      padding: "6px 12px",
+                      borderRadius: 999,
+                      background: `linear-gradient(135deg, ${C}66 0%, ${C}33 100%)`,
+                      border: `1px solid ${C}66`,
+                      fontFamily: "var(--font-dm)",
+                      fontSize: 10,
+                      fontWeight: 700,
+                      color: "white",
+                      textTransform: "uppercase",
+                      letterSpacing: "2px",
+                      backdropFilter: "blur(8px)",
+                    }}>OT Security · UAE Highlights</span>
+                  </div>
+                </>
+              )}
+            </div>
+          </motion.div>
         </div>
 
+        {/* Editorial flow — interleaved text + stats */}
+        <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(40px, 5vw, 72px)" }}>
+
+          {/* Hero stat — 94% featured full-width card */}
+          <motion.div
+            initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+            animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+            transition={{ duration: 0.9, delay: 0.4, ease: EASE }}
+          >
+            <StatCard stat={heroStat.stat} label={heroStat.label} featured large />
+          </motion.div>
+
+          {/* Paragraph 2 */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.5, ease: EASE }}
+            style={{ maxWidth: 820, margin: "0 auto" }}
+          >
+            <p style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: "clamp(16px, 1.35vw, 19px)",
+              fontWeight: 400,
+              color: "rgba(255,255,255,0.88)",
+              lineHeight: 1.75,
+              margin: 0,
+              textAlign: "center",
+              letterSpacing: "0.01em",
+              textShadow: "0 1px 4px rgba(0,0,0,0.3)",
+            }}>
+              {p2}
+            </p>
+          </motion.div>
+
+          {/* Stats pair 1 — $4.5M + 47 days */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.6, ease: EASE }}
+            style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(16px, 2vw, 24px)" }}
+            className="otsf-stats-pair"
+          >
+            {statsPair1.map((s) => <StatCard key={s.label} stat={s.stat} label={s.label} />)}
+          </motion.div>
+
+          {/* Paragraph 3 — pull quote style (italic) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.7, ease: EASE }}
+            style={{ maxWidth: 820, margin: "0 auto", textAlign: "center", position: "relative", padding: "0 24px" }}
+          >
+            <span style={{ position: "absolute", left: 0, top: "50%", transform: "translateY(-50%)", width: 3, height: "70%", background: `linear-gradient(180deg, transparent, ${CYAN}, transparent)`, borderRadius: 2 }} />
+            <span style={{ position: "absolute", right: 0, top: "50%", transform: "translateY(-50%)", width: 3, height: "70%", background: `linear-gradient(180deg, transparent, ${C_BRIGHT}, transparent)`, borderRadius: 2 }} />
+            <p style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(18px, 1.8vw, 24px)",
+              fontWeight: 400,
+              fontStyle: "italic",
+              color: "rgba(255,255,255,0.9)",
+              lineHeight: 1.5,
+              letterSpacing: "-0.3px",
+              margin: 0,
+              textShadow: "0 1px 4px rgba(0,0,0,0.3)",
+            }}>
+              {p3}
+            </p>
+          </motion.div>
+
+          {/* Stats pair 2 — 82% + 61% */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.75, ease: EASE }}
+            style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(16px, 2vw, 24px)" }}
+            className="otsf-stats-pair"
+          >
+            {statsPair2.map((s) => <StatCard key={s.label} stat={s.stat} label={s.label} />)}
+          </motion.div>
+
+          {/* Paragraph 4 */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.8, ease: EASE }}
+            style={{ maxWidth: 820, margin: "0 auto" }}
+          >
+            <p style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: "clamp(16px, 1.35vw, 19px)",
+              fontWeight: 400,
+              color: "rgba(255,255,255,0.88)",
+              lineHeight: 1.75,
+              margin: 0,
+              textAlign: "center",
+              letterSpacing: "0.01em",
+              textShadow: "0 1px 4px rgba(0,0,0,0.3)",
+            }}>
+              {p4}
+            </p>
+          </motion.div>
+
+          {/* Stats pair 3 — 23% + 19.5% */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.85, ease: EASE }}
+            style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(16px, 2vw, 24px)" }}
+            className="otsf-stats-pair"
+          >
+            {statsPair3.map((s) => <StatCard key={s.label} stat={s.stat} label={s.label} />)}
+          </motion.div>
+
+          {/* Closing narrative */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.95, ease: EASE }}
+            style={{ maxWidth: 840, margin: "0 auto", textAlign: "center" }}
+          >
+            <p style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(17px, 1.6vw, 22px)",
+              fontWeight: 500,
+              color: "rgba(255,255,255,0.88)",
+              lineHeight: 1.45,
+              letterSpacing: "-0.3px",
+              margin: 0,
+              textShadow: "0 1px 4px rgba(0,0,0,0.3)",
+            }}>
+              {closing}
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Highlighted callout — premium CTA with skeuomorphism + liquid glass */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8, ease: EASE }}
-          style={{ marginTop: 40, padding: "28px 32px", borderRadius: 20, background: `linear-gradient(135deg, ${C}12, ${CYAN}06)`, border: `1px solid ${C}25` }}
+          initial={{ opacity: 0, y: 30, scale: 0.98 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.8, delay: 1.1, ease: EASE }}
+          className="otsf-movement-cta"
+          style={{
+            marginTop: "clamp(56px, 7vw, 88px)",
+            maxWidth: 1200,
+            marginLeft: "auto",
+            marginRight: "auto",
+            borderRadius: 28,
+            padding: 2,
+            background: `linear-gradient(135deg, ${C_BRIGHT}, ${CYAN} 50%, ${C_BRIGHT})`,
+            boxShadow: `0 28px 80px rgba(0,0,0,0.5), 0 12px 32px ${C}30, 0 0 60px ${CYAN}25, inset 0 1px 0 rgba(255,255,255,0.15)`,
+            transition: "all 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
+            position: "relative",
+          }}
         >
-          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 17, fontWeight: 700, color: "white", lineHeight: 1.7, margin: 0, textAlign: "center" }}>
-            Be a part of the Cyber First Movement and lead the charge toward a strategic, resilient and innovative economy!
-          </p>
+          {/* Outer gradient animated border shimmer */}
+          <div style={{ position: "absolute", inset: -2, borderRadius: 30, background: `linear-gradient(135deg, transparent, ${C_BRIGHT}40, transparent, ${CYAN}40, transparent)`, filter: "blur(12px)", opacity: 0.6, pointerEvents: "none", zIndex: -1 }} />
+
+          <div style={{
+            borderRadius: 26,
+            padding: "clamp(32px, 4vw, 56px) clamp(32px, 4vw, 72px)",
+            background: `linear-gradient(135deg, rgba(211,75,154,0.18) 0%, rgba(13,18,51,0.85) 30%, rgba(7,11,31,0.95) 65%, rgba(0,201,255,0.15) 100%)`,
+            backdropFilter: "blur(24px) saturate(180%)",
+            WebkitBackdropFilter: "blur(24px) saturate(180%)",
+            // Skeuomorphic inset shadows
+            boxShadow: `inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 2px rgba(0,0,0,0.5), inset 1px 0 0 rgba(255,255,255,0.05), inset -1px 0 0 rgba(0,0,0,0.3)`,
+            position: "relative",
+            overflow: "hidden",
+          }}>
+            {/* Top reflection light */}
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "60%", background: "linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 70%)", pointerEvents: "none", borderRadius: "26px 26px 0 0" }} />
+
+            {/* Top shine line with glow */}
+            <div style={{ position: "absolute", top: 2, left: "10%", right: "10%", height: 1, background: `linear-gradient(90deg, transparent, ${CYAN}, transparent)`, boxShadow: `0 0 24px ${CYAN}80`, borderRadius: 2 }} />
+
+            {/* Secondary shine */}
+            <div style={{ position: "absolute", top: 8, left: "20%", right: "20%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)" }} />
+
+            {/* Corner glows */}
+            <div style={{ position: "absolute", top: -100, left: -100, width: 350, height: 350, background: `radial-gradient(circle, ${C_BRIGHT}30, transparent 70%)`, borderRadius: "50%", pointerEvents: "none" }} />
+            <div style={{ position: "absolute", bottom: -100, right: -100, width: 350, height: 350, background: `radial-gradient(circle, ${CYAN}25, transparent 70%)`, borderRadius: "50%", pointerEvents: "none" }} />
+
+            {/* Subtle grid texture */}
+            <div style={{ position: "absolute", inset: 0, backgroundImage: `linear-gradient(${CYAN}08 1px, transparent 1px), linear-gradient(90deg, ${C}08 1px, transparent 1px)`, backgroundSize: "32px 32px", pointerEvents: "none", opacity: 0.4, maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)", WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)" }} />
+
+            {/* Bottom reflection pool */}
+            <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}60, ${CYAN}60, transparent)` }} />
+
+            {/* Content — 2-column layout */}
+            <div className="otsf-movement-content" style={{ position: "relative", zIndex: 2, display: "grid", gridTemplateColumns: "1fr auto", alignItems: "center", gap: "clamp(28px, 4vw, 56px)" }}>
+              {/* LEFT — Badge + Headline */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "clamp(16px, 2vw, 22px)", textAlign: "left" }}>
+                <div style={{
+                  display: "inline-flex",
+                  alignSelf: "flex-start",
+                  alignItems: "center",
+                  gap: 10,
+                  padding: "7px 18px",
+                  borderRadius: 50,
+                  background: `linear-gradient(135deg, ${C_BRIGHT}20, ${CYAN}15)`,
+                  border: `1px solid ${CYAN}35`,
+                  backdropFilter: "blur(10px)",
+                }}>
+                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: CYAN, boxShadow: `0 0 10px ${CYAN}`, animation: "otsf-pulse 2s ease-in-out infinite" }} />
+                  <span style={{ fontFamily: "var(--font-dm)", fontSize: 10.5, fontWeight: 700, color: "rgba(255,255,255,0.85)", textTransform: "uppercase", letterSpacing: "3px" }}>Join the movement</span>
+                </div>
+
+                <p style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(20px, 2.2vw, 30px)",
+                  fontWeight: 700,
+                  color: "white",
+                  lineHeight: 1.3,
+                  margin: 0,
+                  letterSpacing: "-0.5px",
+                  textShadow: `0 2px 20px rgba(0,0,0,0.4), 0 0 30px ${CYAN}20`,
+                }}>
+                  Be a part of the <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontWeight: 800 }}>Cyber First Movement</span> and lead the charge toward a strategic, resilient and innovative economy.
+                </p>
+              </div>
+
+              {/* RIGHT — CTA button */}
+              <Link
+                href="#register"
+                className="otsf-movement-btn"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 10,
+                  padding: "16px 36px",
+                  borderRadius: 50,
+                  background: `linear-gradient(135deg, ${C}, ${CYAN})`,
+                  color: "white",
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 15,
+                  fontWeight: 700,
+                  textDecoration: "none",
+                  letterSpacing: "0.3px",
+                  whiteSpace: "nowrap",
+                  boxShadow: `0 8px 24px ${C}40, 0 0 30px ${CYAN}25, inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 2px rgba(0,0,0,0.3)`,
+                  transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-2px) scale(1.03)";
+                  e.currentTarget.style.boxShadow = `0 14px 36px ${C}55, 0 0 40px ${CYAN}40, inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 2px rgba(0,0,0,0.3)`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0) scale(1)";
+                  e.currentTarget.style.boxShadow = `0 8px 24px ${C}40, 0 0 30px ${CYAN}25, inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 2px rgba(0,0,0,0.3)`;
+                }}
+              >
+                Register your interest
+                <span style={{ fontSize: 16, lineHeight: 1 }}>→</span>
+              </Link>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>
@@ -687,45 +1148,381 @@ function OverviewSection() {
 }
 
 // ─── MARKET DRIVERS ─────────────────────────────────────────────────────────
+// Icon components for each driver — outlined SVG icons (Apple-style)
+const DRIVER_ICONS = [
+  // Regulation/CIPA — shield with checkmark
+  <svg key="0" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L4 5v7c0 4.5 3.3 8.6 8 10 4.7-1.4 8-5.5 8-10V5l-8-3z"/><path d="M9 12l2 2 4-4"/></svg>,
+  // Government funding — building with coins
+  <svg key="1" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18"/><path d="M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg>,
+  // Industry 4.0 — chip/circuit
+  <svg key="2" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>,
+  // Geopolitical APTs — globe with target
+  <svg key="3" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>,
+  // Cyber insurance — document with shield
+  <svg key="4" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 11l-2 2 2 2 2-2-2-2z"/></svg>,
+  // Supply chain breaches — link chain
+  <svg key="5" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>,
+  // Talent shortage — people
+  <svg key="6" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>,
+];
+
+// Short titles for each driver (extracted from the full text)
+const DRIVER_TITLES = [
+  "Regulatory alignment",
+  "National funding boost",
+  "Industry 4.0 explosion",
+  "Geopolitical threats",
+  "Insurance mandates",
+  "Vendor breach risk",
+  "Talent shortage",
+];
+
+// Key takeaways/bullets for each driver
+const DRIVER_TAKEAWAYS = [
+  ["CIPA enforcement rolling out across sectors", "Alignment with IEC 62443 & NIST frameworks", "Compliance now a board-level priority"],
+  ["Government-backed resilience programs", "Digital transformation funding", "Public-sector cyber mandates"],
+  ["340% increase in attack surface", "Managed OT Security services rising", "SOC-based monitoring adoption"],
+  ["APT campaigns targeting energy infra", "State-sponsored threat escalation", "Cross-border OT espionage risk"],
+  ["89% insurers mandate ICS coverage", "Premiums tied to OT controls", "Claim denials for poor segmentation"],
+  ["76% breaches from vendor access", "Third-party equipment risks", "Supply chain compromise rising"],
+  ["3.5M professional shortage globally", "Acute gap in OT specialization", "Skills bottleneck in Africa"],
+];
+
+// Category + impact stat per driver
+const DRIVER_META = [
+  { category: "Regulation", impact: "CIPA", impactLabel: "Legal mandate" },
+  { category: "Economic", impact: "↑", impactLabel: "Funding rising" },
+  { category: "Industry", impact: "340%", impactLabel: "Attack surface ↑" },
+  { category: "Geopolitical", impact: "APT", impactLabel: "State-level threats" },
+  { category: "Financial", impact: "89%", impactLabel: "Insurers require ICS" },
+  { category: "Supply chain", impact: "76%", impactLabel: "Vendor-related" },
+  { category: "Workforce", impact: "3.5M", impactLabel: "Global shortage" },
+];
+
+// Cinematic industrial images — dark, moody, relevant to OT / critical infra
+const DRIVER_IMAGES = [
+  "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1600&q=85&auto=format&fit=crop", // Regulation — gavel/law
+  "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1600&q=85&auto=format&fit=crop", // National funding — power grid/infrastructure
+  "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1600&q=85&auto=format&fit=crop", // Industry 4.0 — factory machinery
+  "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&q=85&auto=format&fit=crop", // Geopolitical — earth from space / global
+  "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1600&q=85&auto=format&fit=crop", // Insurance — documents/pen
+  "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=1600&q=85&auto=format&fit=crop", // Vendor breach / supply chain — shipping containers
+  "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=1600&q=85&auto=format&fit=crop", // Talent — engineer with hard hat
+];
+
+// Single driver card for horizontal scroll
+function DriverCard({ index }: { index: number }) {
+  const accent = index % 2 === 0 ? C_BRIGHT : CYAN;
+  const accentDeep = index % 2 === 0 ? C : CYAN_DIM;
+
+  return (
+    <div
+      className="otsf-driver-slide"
+      style={{
+        flex: "0 0 100%",
+        scrollSnapAlign: "start",
+        display: "grid",
+        gridTemplateColumns: "1fr 1.15fr",
+        gap: "clamp(24px, 3.5vw, 56px)",
+        alignItems: "center",
+        padding: "0 4px",
+      }}
+    >
+      {/* IMAGE side */}
+      <div style={{ position: "relative", aspectRatio: "5 / 4", borderRadius: 20, overflow: "hidden", boxShadow: `0 24px 60px rgba(0,0,0,0.45), 0 0 40px ${accentDeep}22` }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={DRIVER_IMAGES[index]}
+          alt={DRIVER_TITLES[index]}
+          loading="lazy"
+          style={{ width: "100%", height: "100%", objectFit: "cover", filter: "saturate(0.7) contrast(1.08) brightness(0.82)" }}
+        />
+        <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, rgba(7,11,31,0.2) 0%, rgba(7,11,31,0.3) 50%, rgba(7,11,31,0.85) 100%)`, pointerEvents: "none" }} />
+        <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${accentDeep}20, transparent 55%)`, mixBlendMode: "overlay", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", top: 0, left: "8%", right: "8%", height: 1, background: `linear-gradient(90deg, transparent, ${accent}80, transparent)`, boxShadow: `0 0 16px ${accent}60` }} />
+        {/* Category chip */}
+        <div style={{ position: "absolute", top: 24, left: 24 }}>
+          <span style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "7px 16px",
+            borderRadius: 50,
+            background: `rgba(7,11,31,0.7)`,
+            backdropFilter: "blur(16px) saturate(180%)",
+            border: `1px solid ${accent}60`,
+            fontFamily: "var(--font-dm)",
+            fontSize: 10,
+            fontWeight: 700,
+            color: "white",
+            letterSpacing: "2.5px",
+            textTransform: "uppercase",
+            boxShadow: `0 4px 12px rgba(0,0,0,0.4), 0 0 20px ${accentDeep}30`,
+          }}>
+            <span style={{ width: 5, height: 5, borderRadius: "50%", background: accent, boxShadow: `0 0 10px ${accent}` }} />
+            {DRIVER_META[index].category}
+          </span>
+        </div>
+        {/* Big outlined number */}
+        <div style={{ position: "absolute", bottom: 16, left: 20 }}>
+          <span style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(54px, 7vw, 100px)",
+            fontWeight: 800,
+            color: "transparent",
+            WebkitTextStroke: `1.5px rgba(255,255,255,0.4)`,
+            letterSpacing: "-4px",
+            lineHeight: 0.85,
+            display: "block",
+          }}>
+            0{index + 1}
+          </span>
+        </div>
+      </div>
+
+      {/* CONTENT side */}
+      <div className="otsf-driver-slide-content" style={{ display: "flex", flexDirection: "column", gap: "clamp(18px, 2.2vw, 28px)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: accent, letterSpacing: "3.5px", textTransform: "uppercase" }}>
+            0{index + 1} / 07
+          </span>
+          <div style={{ flex: 1, height: 1, background: `linear-gradient(90deg, ${accent}60, transparent)` }} />
+        </div>
+        <h3 style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(26px, 3.2vw, 42px)",
+          fontWeight: 700,
+          color: "white",
+          margin: 0,
+          letterSpacing: "-1.3px",
+          lineHeight: 1.08,
+          textShadow: `0 2px 20px rgba(0,0,0,0.4)`,
+        }}>
+          {DRIVER_TITLES[index]}
+        </h3>
+        <div style={{ display: "flex", alignItems: "baseline", gap: 14 }}>
+          <span style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(36px, 3.6vw, 52px)",
+            fontWeight: 800,
+            color: accent,
+            letterSpacing: "-2px",
+            lineHeight: 1,
+            textShadow: `0 0 24px ${accentDeep}60, 0 2px 0 rgba(0,0,0,0.4)`,
+          }}>
+            {DRIVER_META[index].impact}
+          </span>
+          <span style={{
+            fontFamily: "var(--font-outfit)",
+            fontSize: "clamp(13px, 1.05vw, 15px)",
+            fontWeight: 500,
+            color: "rgba(255,255,255,0.55)",
+            letterSpacing: "0.3px",
+          }}>
+            {DRIVER_META[index].impactLabel}
+          </span>
+        </div>
+        <p style={{
+          fontFamily: "var(--font-outfit)",
+          fontSize: "clamp(14.5px, 1.15vw, 16.5px)",
+          fontWeight: 400,
+          color: "rgba(255,255,255,0.72)",
+          lineHeight: 1.8,
+          margin: 0,
+          textShadow: "0 1px 2px rgba(0,0,0,0.3)",
+        }}>
+          {MARKET_DRIVERS[index]}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// Horizontal carousel for the drivers
+function DriversCarousel() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const activeIndexRef = useRef(0);
+
+  const scrollTo = useCallback((i: number) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const slide = el.children[i] as HTMLElement | undefined;
+    if (slide) {
+      el.scrollTo({ left: slide.offsetLeft, behavior: "smooth" });
+    }
+  }, []);
+
+  const onScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const closest = Math.round(el.scrollLeft / el.clientWidth);
+    const clamped = Math.max(0, Math.min(MARKET_DRIVERS.length - 1, closest));
+    activeIndexRef.current = clamped;
+    setActiveIndex(clamped);
+  };
+
+  // Auto-scroll every 5 seconds, pause on hover/touch
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      const next = (activeIndexRef.current + 1) % MARKET_DRIVERS.length;
+      scrollTo(next);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isPaused, scrollTo]);
+
+  const canPrev = activeIndex > 0;
+  const canNext = activeIndex < MARKET_DRIVERS.length - 1;
+
+  return (
+    <div
+      style={{ position: "relative" }}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={() => setIsPaused(true)}
+      onTouchEnd={() => setTimeout(() => setIsPaused(false), 2000)}
+    >
+      {/* Scroll container */}
+      <div
+        ref={scrollRef}
+        onScroll={onScroll}
+        className="otsf-drivers-scroll"
+        style={{
+          display: "flex",
+          overflowX: "auto",
+          overflowY: "hidden",
+          scrollSnapType: "x mandatory",
+          WebkitOverflowScrolling: "touch",
+          gap: 0,
+          paddingBottom: 4,
+          scrollbarWidth: "none",
+        }}
+      >
+        {MARKET_DRIVERS.map((_, i) => <DriverCard key={i} index={i} />)}
+      </div>
+
+      {/* Bottom controls — arrows + dots */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 20, marginTop: "clamp(32px, 4vw, 48px)" }}>
+        {/* Prev */}
+        <button
+          onClick={() => scrollTo(Math.max(0, activeIndex - 1))}
+          disabled={!canPrev}
+          aria-label="Previous driver"
+          style={{
+            width: 48,
+            height: 48,
+            borderRadius: "50%",
+            border: `1px solid ${canPrev ? C_BRIGHT : "rgba(255,255,255,0.1)"}40`,
+            background: `rgba(7,11,31,0.6)`,
+            backdropFilter: "blur(12px)",
+            color: canPrev ? "white" : "rgba(255,255,255,0.3)",
+            cursor: canPrev ? "pointer" : "not-allowed",
+            fontFamily: "inherit",
+            transition: "all 0.3s ease",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 20,
+            boxShadow: canPrev ? `0 6px 16px rgba(0,0,0,0.3), 0 0 20px ${C}15` : "none",
+          }}
+          onMouseEnter={(e) => { if (canPrev) { e.currentTarget.style.transform = "scale(1.08)"; e.currentTarget.style.background = `${C}25`; } }}
+          onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.background = "rgba(7,11,31,0.6)"; }}
+        >
+          ←
+        </button>
+
+        {/* Dots */}
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          {MARKET_DRIVERS.map((_, i) => {
+            const isActive = i === activeIndex;
+            const accent = i % 2 === 0 ? C_BRIGHT : CYAN;
+            return (
+              <button
+                key={i}
+                onClick={() => scrollTo(i)}
+                aria-label={`Go to driver ${i + 1}`}
+                style={{
+                  width: isActive ? 32 : 8,
+                  height: 8,
+                  borderRadius: 4,
+                  background: isActive ? `linear-gradient(90deg, ${C_BRIGHT}, ${CYAN})` : "rgba(255,255,255,0.2)",
+                  border: "none",
+                  padding: 0,
+                  cursor: "pointer",
+                  transition: "all 0.4s cubic-bezier(0.25, 1, 0.5, 1)",
+                  boxShadow: isActive ? `0 0 12px ${accent}60` : "none",
+                }}
+              />
+            );
+          })}
+        </div>
+
+        {/* Next */}
+        <button
+          onClick={() => scrollTo(Math.min(MARKET_DRIVERS.length - 1, activeIndex + 1))}
+          disabled={!canNext}
+          aria-label="Next driver"
+          style={{
+            width: 48,
+            height: 48,
+            borderRadius: "50%",
+            border: `1px solid ${canNext ? CYAN : "rgba(255,255,255,0.1)"}40`,
+            background: `rgba(7,11,31,0.6)`,
+            backdropFilter: "blur(12px)",
+            color: canNext ? "white" : "rgba(255,255,255,0.3)",
+            cursor: canNext ? "pointer" : "not-allowed",
+            fontFamily: "inherit",
+            transition: "all 0.3s ease",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 20,
+            boxShadow: canNext ? `0 6px 16px rgba(0,0,0,0.3), 0 0 20px ${CYAN}15` : "none",
+          }}
+          onMouseEnter={(e) => { if (canNext) { e.currentTarget.style.transform = "scale(1.08)"; e.currentTarget.style.background = `${CYAN}25`; } }}
+          onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.background = "rgba(7,11,31,0.6)"; }}
+        >
+          →
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function MarketDriversSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} style={{ background: "#080A0C", padding: "clamp(60px, 7vw, 100px) 0", position: "relative" }}>
-      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 50% 40% at 70% 50%, ${CYAN}06, transparent 60%)`, pointerEvents: "none" }} />
-      <div style={{ maxWidth: 1000, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ marginBottom: 48 }}>
-          <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: CYAN, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>Why Now</span>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", lineHeight: 1.05, letterSpacing: "-2px", color: "white", margin: 0 }}>
-            Market <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Drivers</span>
+    <section ref={ref} style={{ background: "transparent", padding: "clamp(50px, 6vw, 90px) 0", position: "relative", overflow: "hidden" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        {/* Header — centered like Apple product section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: EASE }}
+          style={{ textAlign: "center", marginBottom: "clamp(48px, 6vw, 72px)" }}
+        >
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 20 }}>
+            <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${C_BRIGHT})` }} />
+            <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "4px" }}>Why Now</span>
+            <span style={{ width: 40, height: 1, background: `linear-gradient(270deg, transparent, ${C_BRIGHT})` }} />
+          </div>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4.5vw, 52px)", lineHeight: 1.05, letterSpacing: "-2px", color: "white", margin: "0 0 16px" }}>
+            Market <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>drivers</span>
           </h2>
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400, color: "rgba(255,255,255,0.6)", lineHeight: 1.6, maxWidth: 640, margin: "0 auto" }}>
+            Seven converging forces are reshaping Africa&apos;s OT security landscape — and why this summit matters now.
+          </p>
         </motion.div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          {MARKET_DRIVERS.map((driver, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -30 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 + i * 0.08, ease: EASE }}
-              className="otsf-role-card"
-              style={{
-                padding: "20px 24px",
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.06)",
-                borderRadius: 16,
-                display: "flex",
-                alignItems: "flex-start",
-                gap: 16,
-                transition: "all 0.3s ease",
-              }}
-            >
-              <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: CYAN, minWidth: 24, paddingTop: 2 }}>0{i + 1}</span>
-              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 400, color: "rgba(255,255,255,0.7)", lineHeight: 1.7, margin: 0 }}>{driver}</p>
-            </motion.div>
-          ))}
-        </div>
+        {/* Horizontal scroll carousel */}
+        <DriversCarousel />
+
+        {/* Hidden fallback reference (prevent unused import) */}
+        <span style={{ display: "none" }}>{DRIVER_TAKEAWAYS[0][0]}</span>
       </div>
     </section>
   );
@@ -734,127 +1531,156 @@ function MarketDriversSection() {
 // ─── FOCUS AREAS, 10 GSAP Flip Cards ────────────────────────────────────────
 function FocusAreas() {
   const sectionRef = useRef<HTMLElement>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const [mounted, setMounted] = useState(false);
-  const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set());
   const inView = useInView(sectionRef, { once: true, margin: "-60px" });
 
-  useEffect(() => setMounted(true), []);
-
-  useGSAP(() => {
-    if (!mounted) return;
-    const ctx = gsap.context(() => {
-      cardsRef.current.forEach((card, i) => {
-        if (!card) return;
-        ScrollTrigger.create({
-          trigger: card,
-          start: "top 75%",
-          onEnter: () => {
-            gsap.to(card.querySelector(".otsf-flip-inner"), {
-              rotateY: 180,
-              duration: 0.8,
-              delay: i * 0.05,
-              ease: "power2.out",
-            });
-            setFlippedCards((prev) => new Set([...prev, i]));
-          },
-        });
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, { scope: sectionRef, dependencies: [mounted] });
-
   return (
-    <section ref={sectionRef} id="agenda" style={{ background: "#080A0C", padding: "clamp(60px, 7vw, 100px) 0", position: "relative" }}>
-      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 40% at 50% 20%, ${C}06, transparent 60%)`, pointerEvents: "none" }} />
-      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ marginBottom: 48 }}>
-          <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>Strategic Themes</span>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", lineHeight: 1.05, letterSpacing: "-2px", color: "white", margin: "0 0 16px" }}>
-            The Agenda<br /><span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>10 Critical Tracks</span>
+    <section ref={sectionRef} id="agenda" style={{ background: "transparent", padding: "clamp(50px, 6vw, 90px) 0", position: "relative", overflow: "hidden" }}>
+      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        {/* Header — left-aligned editorial style */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: EASE }}
+          style={{ marginBottom: "clamp(40px, 5vw, 60px)", maxWidth: 780 }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
+            <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${C_BRIGHT}, transparent)` }} />
+            <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "4px" }}>Strategic Themes</span>
+          </div>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4.5vw, 54px)", lineHeight: 1.05, letterSpacing: "-2px", color: "white", margin: "0 0 20px" }}>
+            The agenda, <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>10 critical tracks</span>
           </h2>
-          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 16, fontWeight: 400, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, margin: 0, maxWidth: 600 }}>
-            Non-surface industrial priorities anchored in operational practicality, not theoretical abstraction.
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400, color: "rgba(255,255,255,0.6)", lineHeight: 1.7, margin: 0 }}>
+            Non-surface industrial priorities, anchored in operational practicality — drawn from the rooms our community fills.
           </p>
         </motion.div>
 
-        <div className="otsf-flip-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "clamp(12px, 1.5vw, 20px)" }}>
-          {STRATEGIC_THEMES.map((theme, i) => (
-            <div
-              key={i}
-              ref={(el) => { cardsRef.current[i] = el; }}
-              className="otsf-flip-card"
-              style={{ perspective: 1200, height: 280, cursor: "pointer" }}
-            >
-              <div
-                className="otsf-flip-inner"
+        {/* Cinematic hero image */}
+        <motion.div
+          initial={{ opacity: 0, y: 30, scale: 0.98 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 1, ease: EASE }}
+          style={{
+            position: "relative",
+            width: "100%",
+            aspectRatio: "21 / 9",
+            borderRadius: 28,
+            overflow: "hidden",
+            marginBottom: "clamp(40px, 5vw, 64px)",
+            boxShadow: `0 32px 80px rgba(0,0,0,0.5), 0 0 60px ${C}18`,
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`${S3}/events/Cyber+First+Kuwait+2025/Kuwait+Photos/Kuwait+Photos/4X9A1744.jpg`}
+            alt="EFG community"
+            loading="lazy"
+            style={{ width: "100%", height: "100%", objectFit: "cover", filter: "saturate(1.05) contrast(1.03)" }}
+          />
+          <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, rgba(7,11,31,0.1) 0%, rgba(7,11,31,0.15) 55%, rgba(7,11,31,0.6) 100%)`, pointerEvents: "none" }} />
+          <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${C}20, transparent 50%, ${CYAN}15)`, mixBlendMode: "overlay", pointerEvents: "none" }} />
+          <div style={{ position: "absolute", top: 0, left: "8%", right: "8%", height: 1, background: `linear-gradient(90deg, transparent, ${CYAN}80, transparent)`, boxShadow: `0 0 16px ${CYAN}60` }} />
+        </motion.div>
+
+        {/* Bento grid — 4 columns, first 2 cards span 2 each (VB MENA pattern) */}
+        <div className="otsf-themes-grid" style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: 16,
+        }}>
+          {STRATEGIC_THEMES.map((theme, i) => {
+            const isLarge = i < 2;
+            const accentRgba = i % 2 === 0 ? "rgba(211,75,154," : "rgba(0,201,255,";
+
+            return (
+              <motion.div
+                key={theme.title}
+                initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
+                animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+                transition={{ duration: 0.7, delay: 0.15 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                className="otsf-theme-card"
                 style={{
-                  width: "100%",
-                  height: "100%",
+                  gridColumn: isLarge ? "span 2" : "span 1",
+                  borderRadius: 20,
+                  background: `linear-gradient(145deg, ${accentRgba}0.06), rgba(255,255,255,0.04) 40%, rgba(0,0,0,0.15) 100%)`,
+                  boxShadow: `0 1px 0 rgba(255,255,255,0.05) inset, 0 -1px 0 rgba(0,0,0,0.3) inset, 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px ${accentRgba}0.08)`,
+                  border: "none",
+                  overflow: "hidden",
                   position: "relative",
-                  transformStyle: "preserve-3d",
-                  transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+                  transition: "all 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
                 }}
               >
-                {/* Front */}
-                <div
-                  className="otsf-flip-front"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    backfaceVisibility: "hidden",
-                    borderRadius: 20,
-                    overflow: "hidden",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "flex-end",
-                    padding: "clamp(16px, 1.5vw, 24px)",
-                    background: `linear-gradient(180deg, ${C}15, #0D0E10)`,
-                    border: `1px solid ${C}20`,
-                  }}
-                >
-                  {/* Icon */}
-                  <div style={{ position: "absolute", top: 20, right: 20, width: 40, height: 40, borderRadius: 12, background: `${C}15`, border: `1px solid ${C}25`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d={theme.icon} /></svg>
-                  </div>
-                  {/* Track number */}
-                  <span style={{ fontFamily: "var(--font-dm)", fontSize: 10, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "3px", marginBottom: 8 }}>
-                    Track {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(15px, 1.3vw, 18px)", color: "white", lineHeight: 1.3, margin: 0 }}>
-                    {theme.short}
-                  </h3>
-                </div>
+                {/* Liquid glass inner panel */}
+                <div style={{
+                  margin: 4,
+                  borderRadius: 17,
+                  padding: isLarge ? "clamp(28px, 3vw, 40px)" : "clamp(20px, 2vw, 28px)",
+                  background: "rgba(10,14,42,0.65)",
+                  border: "1px solid rgba(255,255,255,0.05)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
+                  position: "relative",
+                  overflow: "hidden",
+                  minHeight: isLarge ? 160 : 120,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                }}>
+                  {/* Glass reflection line */}
+                  <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)" }} />
 
-                {/* Back */}
-                <div
-                  className="otsf-flip-back"
-                  style={{
+                  {/* Refraction glow */}
+                  <div className="otsf-theme-refract" style={{
                     position: "absolute",
                     inset: 0,
-                    backfaceVisibility: "hidden",
-                    transform: "rotateY(180deg)",
-                    borderRadius: 20,
-                    overflow: "hidden",
-                    padding: "clamp(16px, 1.5vw, 24px)",
-                    background: `linear-gradient(135deg, ${C}20, #0D0E10)`,
-                    border: `1px solid ${C}30`,
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                  }}
-                >
-                  <span style={{ fontFamily: "var(--font-dm)", fontSize: 10, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "3px", marginBottom: 10 }}>
-                    Track {String(i + 1).padStart(2, "0")}
+                    background: `radial-gradient(ellipse 60% 60% at 30% 30%, ${accentRgba}0.06), transparent 70%)`,
+                    pointerEvents: "none",
+                  }} />
+
+                  {/* Watermark number */}
+                  <span style={{
+                    position: "absolute",
+                    top: isLarge ? 20 : 12,
+                    right: isLarge ? 28 : 16,
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 800,
+                    fontSize: isLarge ? 64 : 48,
+                    color: `${accentRgba}0.08)`,
+                    letterSpacing: "-2px",
+                    lineHeight: 1,
+                    pointerEvents: "none",
+                  }}>
+                    {String(i + 1).padStart(2, "0")}
                   </span>
-                  <div style={{ width: 32, height: 2, background: `linear-gradient(90deg, ${C_BRIGHT}, transparent)`, marginBottom: 12 }} />
-                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(13px, 1.1vw, 16px)", color: "white", lineHeight: 1.3, margin: 0 }}>
+
+                  {/* Left accent bar */}
+                  <div style={{
+                    position: "absolute",
+                    left: 0,
+                    top: "20%",
+                    bottom: "20%",
+                    width: 3,
+                    borderRadius: 2,
+                    background: `linear-gradient(to bottom, ${accentRgba}0.6), ${accentRgba}0.15))`,
+                    boxShadow: `0 0 12px ${accentRgba}0.3)`,
+                  }} />
+
+                  {/* Title */}
+                  <span style={{
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: isLarge ? 19 : 17,
+                    fontWeight: 600,
+                    color: "rgba(255,255,255,0.9)",
+                    lineHeight: 1.4,
+                    position: "relative",
+                    paddingLeft: 12,
+                    maxWidth: isLarge ? 440 : undefined,
+                  }}>
                     {theme.title}
-                  </h3>
+                  </span>
                 </div>
-              </div>
-            </div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -867,7 +1693,7 @@ function SpeakersSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="speakers" style={{ background: "#080A0C", padding: "clamp(60px, 7vw, 100px) 0", position: "relative" }}>
+    <section ref={ref} id="speakers" style={{ background: "transparent", padding: "clamp(40px, 5vw, 70px) 0", position: "relative" }}>
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 40% 60% at 80% 50%, ${C}08, transparent 60%)`, pointerEvents: "none" }} />
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ marginBottom: 48 }}>
@@ -982,7 +1808,7 @@ function EventSnapshotSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} style={{ background: "#080A0C", padding: "clamp(60px, 7vw, 100px) 0", position: "relative" }}>
+    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px, 5vw, 70px) 0", position: "relative" }}>
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 50% 50% at 50% 30%, ${CYAN}06, transparent 60%)`, pointerEvents: "none" }} />
       <div style={{ maxWidth: 1000, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ textAlign: "center", marginBottom: 48 }}>
@@ -1035,7 +1861,7 @@ function WhoShouldAttend() {
   ];
 
   return (
-    <section ref={ref} style={{ background: "#080A0C", padding: "clamp(60px, 7vw, 100px) 0", position: "relative" }}>
+    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px, 5vw, 70px) 0", position: "relative" }}>
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 50% 40% at 30% 60%, ${CYAN}06, transparent 60%)`, pointerEvents: "none" }} />
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ marginBottom: 48 }}>
@@ -1100,12 +1926,12 @@ function SponsorsSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="sponsors" style={{ background: "#080A0C", padding: "clamp(60px, 7vw, 80px) 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} id="sponsors" style={{ background: "transparent", padding: "clamp(40px, 5vw, 60px) 0", position: "relative", overflow: "hidden" }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", textAlign: "center", marginBottom: 48 }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 24, marginBottom: 16 }}>
             <div style={{ flex: 1, height: 1, background: `linear-gradient(to right, transparent, ${C}30)` }} />
-            <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "4px" }}>Past Sponsors & Partners</span>
+            <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "4px" }}>Past Series Sponsors & Partners</span>
             <div style={{ flex: 1, height: 1, background: `linear-gradient(to left, transparent, ${C}30)` }} />
           </div>
         </motion.div>
@@ -1113,12 +1939,12 @@ function SponsorsSection() {
 
       {/* Row 1, scroll left */}
       <div style={{ position: "relative", marginBottom: 16 }}>
-        <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 120, background: "linear-gradient(to right, #080A0C, transparent)", zIndex: 2 }} />
-        <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 120, background: "linear-gradient(to left, #080A0C, transparent)", zIndex: 2 }} />
+        <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 120, background: `linear-gradient(to right, ${BG}, transparent)`, zIndex: 2, pointerEvents: "none" }} />
+        <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 120, background: `linear-gradient(to left, ${BG}, transparent)`, zIndex: 2, pointerEvents: "none" }} />
         <div className="otsf-marquee" style={{ display: "flex", gap: 40, animation: "otsf-scroll-left 70s linear infinite" }}>
           {[...MARQUEE_ROW_1, ...MARQUEE_ROW_1].map((logo, i) => (
-            <div key={i} style={{ flexShrink: 0, height: 50, width: 120, display: "flex", alignItems: "center", justifyContent: "center", opacity: 0.5 }}>
-              <img src={logo} alt="" style={{ maxHeight: 40, maxWidth: 100, objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.7 }} loading="lazy" />
+            <div key={i} style={{ flexShrink: 0, height: 90, width: 190, display: "flex", alignItems: "center", justifyContent: "center", opacity: 0.6 }}>
+              <img src={logo} alt="" style={{ maxHeight: 72, maxWidth: 170, objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.85 }} loading="lazy" />
             </div>
           ))}
         </div>
@@ -1126,15 +1952,174 @@ function SponsorsSection() {
 
       {/* Row 2, scroll right */}
       <div style={{ position: "relative" }}>
-        <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 120, background: "linear-gradient(to right, #080A0C, transparent)", zIndex: 2 }} />
-        <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 120, background: "linear-gradient(to left, #080A0C, transparent)", zIndex: 2 }} />
+        <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 120, background: `linear-gradient(to right, ${BG}, transparent)`, zIndex: 2, pointerEvents: "none" }} />
+        <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 120, background: `linear-gradient(to left, ${BG}, transparent)`, zIndex: 2, pointerEvents: "none" }} />
         <div className="otsf-marquee" style={{ display: "flex", gap: 40, animation: "otsf-scroll-right 80s linear infinite" }}>
           {[...MARQUEE_ROW_2, ...MARQUEE_ROW_2].map((logo, i) => (
-            <div key={i} style={{ flexShrink: 0, height: 50, width: 120, display: "flex", alignItems: "center", justifyContent: "center", opacity: 0.5 }}>
-              <img src={logo} alt="" style={{ maxHeight: 40, maxWidth: 100, objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.7 }} loading="lazy" />
+            <div key={i} style={{ flexShrink: 0, height: 90, width: 190, display: "flex", alignItems: "center", justifyContent: "center", opacity: 0.6 }}>
+              <img src={logo} alt="" style={{ maxHeight: 72, maxWidth: 170, objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.85 }} loading="lazy" />
             </div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── FROM THE ROOM — OT Security Testimonials ──────────────────────────────
+function OTShortCard({ videoId, title }: { videoId: string; title: string }) {
+  const [playing, setPlaying] = useState(false);
+
+  return (
+    <div
+      onClick={() => !playing && setPlaying(true)}
+      style={{
+        position: "relative",
+        width: "100%",
+        height: "100%",
+        borderRadius: 19,
+        overflow: "hidden",
+        background: "rgba(7,11,31,0.95)",
+        cursor: playing ? "default" : "pointer",
+      }}
+    >
+      {playing ? (
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+        />
+      ) : (
+        <>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            loading="lazy"
+            src={`https://img.youtube.com/vi/${videoId}/oar2.jpg`}
+            onError={(e) => { (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`; }}
+            alt={title}
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 20%" }}
+          />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(7,11,31,0.1) 0%, rgba(7,11,31,0.1) 55%, rgba(7,11,31,0.55) 100%)", pointerEvents: "none" }} />
+          {/* Play button */}
+          <div className="otsf-short-play" style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 48,
+            height: 48,
+            borderRadius: "50%",
+            background: "rgba(255,255,255,0.95)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: "0 6px 24px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.2)",
+            backdropFilter: "blur(10px)",
+            transition: "all 0.3s cubic-bezier(0.22, 1, 0.36, 1)",
+          }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill={C} style={{ marginLeft: 2 }}>
+              <polygon points="5,3 19,12 5,21" />
+            </svg>
+          </div>
+          {/* Corner label */}
+          <div style={{ position: "absolute", top: 10, left: 10 }}>
+            <span style={{
+              display: "inline-block",
+              padding: "4px 9px",
+              borderRadius: 999,
+              background: `linear-gradient(135deg, ${C}66 0%, ${C}33 100%)`,
+              border: `1px solid ${C}66`,
+              fontFamily: "var(--font-dm)",
+              fontSize: 8,
+              fontWeight: 700,
+              color: "white",
+              textTransform: "uppercase",
+              letterSpacing: "1.5px",
+              backdropFilter: "blur(8px)",
+            }}>OT Security</span>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function OTTestimonials() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section ref={ref} style={{ background: "transparent", padding: "clamp(50px, 6vw, 90px) 0", position: "relative", overflow: "hidden" }}>
+      {/* Ambient orbs */}
+      <div style={{ position: "absolute", top: "20%", right: "-5%", width: 500, height: 500, borderRadius: "50%", background: `radial-gradient(circle, ${CYAN}14 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "15%", left: "-5%", width: 400, height: 400, borderRadius: "50%", background: `radial-gradient(circle, ${C}12 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          style={{ textAlign: "center", marginBottom: "clamp(40px, 5vw, 56px)" }}
+        >
+          <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: CYAN, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>Testimonials</span>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 5vw, 56px)", color: "white", letterSpacing: "-2px", margin: "0 0 14px", lineHeight: 1 }}>
+            From the{" "}
+            <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${CYAN} 0%, ${C_BRIGHT} 45%, ${CYAN} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Room</span>
+          </h2>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={inView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            style={{ width: 120, height: 3, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}, transparent)`, margin: "0 auto 16px", borderRadius: 2, transformOrigin: "center", boxShadow: `0 0 12px ${C}80` }}
+          />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.45)", letterSpacing: "0.3px" }}>Hear directly from OT security leaders who attended our summits.</span>
+        </motion.div>
+
+        {/* Staggered showcase — 5 vertical cards, alternating tall/short, center hero */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
+          className="otsf-testi-showcase"
+        >
+          {OT_SHORTS.map((v, i) => (
+            <div key={v.id} className={`otsf-testi-slot otsf-testi-slot-${i % 2 === 0 ? "tall" : "short"} ${i === 2 ? "otsf-testi-slot-hero" : ""}`}>
+              <div style={{
+                width: "100%", height: "100%", padding: 3, borderRadius: 22,
+                background: `linear-gradient(145deg, rgba(${i % 2 === 0 ? "0,201,255" : "232,107,184"},0.18) 0%, rgba(255,255,255,0.05) 40%, rgba(255,255,255,0.02) 70%, rgba(${i % 2 === 0 ? "232,107,184" : "0,201,255"},0.12) 100%)`,
+                boxShadow: `0 1px 0 rgba(255,255,255,0.05) inset, 0 -2px 0 rgba(0,0,0,0.3) inset, 0 14px 44px rgba(0,0,0,0.45)`,
+              }}>
+                <div style={{
+                  width: "100%", height: "100%", borderRadius: 19, overflow: "hidden",
+                  background: `linear-gradient(180deg, rgba(13,18,51,0.95) 0%, rgba(7,11,31,0.98) 100%)`,
+                  border: "1px solid rgba(255,255,255,0.04)",
+                  boxShadow: `inset 0 2px 4px rgba(0,0,0,0.4), inset 0 -1px 0 rgba(255,255,255,0.03)`,
+                  position: "relative",
+                }}>
+                  <div style={{ position: "absolute", top: 0, left: "8%", right: "8%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)", zIndex: 3, pointerEvents: "none" }} />
+                  <OTShortCard videoId={v.id} title={v.title} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Bottom caption */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.6, ease: EASE }}
+          style={{ textAlign: "center", marginTop: 28, display: "flex", alignItems: "center", justifyContent: "center", gap: 16 }}
+        >
+          <div style={{ width: 32, height: 1, background: `linear-gradient(90deg, transparent, ${CYAN}55)` }} />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: "rgba(255,255,255,0.35)", letterSpacing: "2px", textTransform: "uppercase" }}>
+            5 Voices · OT Security First Series
+          </span>
+          <div style={{ width: 32, height: 1, background: `linear-gradient(270deg, transparent, ${CYAN}55)` }} />
+        </motion.div>
       </div>
     </section>
   );
@@ -1146,7 +2131,7 @@ function GallerySection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} style={{ background: "#080A0C", padding: "clamp(60px, 7vw, 80px) 0", position: "relative" }}>
+    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px, 5vw, 60px) 0", position: "relative" }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ marginBottom: 40 }}>
           <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>Atmosphere</span>
@@ -1160,12 +2145,12 @@ function GallerySection() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
-            gridTemplateRows: "220px 200px",
+            gridTemplateRows: "240px 210px 210px",
             gap: 16,
-            gridTemplateAreas: `"hero hero a" "b c d"`,
+            gridTemplateAreas: `"hero hero a" "b c d" "e f g"`,
           }}
         >
-          {GALLERY.slice(0, 5).map((img, i) => (
+          {GALLERY.map((img, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, scale: 0.95 }}
@@ -1237,7 +2222,7 @@ function AwardsSection() {
   };
 
   return (
-    <section ref={ref} style={{ background: "#080A0C", padding: "clamp(60px, 7vw, 100px) 0", position: "relative" }}>
+    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px, 5vw, 70px) 0", position: "relative" }}>
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 50% 40% at 50% 50%, ${CYAN}06, transparent 60%)`, pointerEvents: "none" }} />
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64 }} className="otsf-awards-grid">
@@ -1354,7 +2339,7 @@ function ContactSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="contact" style={{ background: "#080A0C", padding: "clamp(60px, 7vw, 80px) 0", position: "relative" }}>
+    <section ref={ref} id="contact" style={{ background: "transparent", padding: "clamp(40px, 5vw, 60px) 0", position: "relative" }}>
       <div style={{ maxWidth: 1000, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ textAlign: "center", marginBottom: 48 }}>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 3.5vw, 44px)", letterSpacing: "-1.5px", color: "white", margin: "0 0 12px" }}>
@@ -1407,7 +2392,7 @@ function VenueSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="venue" style={{ background: "#080A0C", padding: "clamp(60px, 7vw, 80px) 0", position: "relative" }}>
+    <section ref={ref} id="venue" style={{ background: "transparent", padding: "clamp(40px, 5vw, 60px) 0", position: "relative" }}>
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 50% 50% at 50% 80%, ${C}06, transparent 60%)`, pointerEvents: "none" }} />
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", textAlign: "center", position: "relative" }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }}>
@@ -1467,7 +2452,7 @@ function RegistrationSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="register" ref={ref} style={{ background: "#080A0C", padding: "clamp(60px, 7vw, 90px) 0", position: "relative" }}>
+    <section id="register" ref={ref} style={{ background: "transparent", padding: "clamp(40px, 5vw, 70px) 0", position: "relative" }}>
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 50% at 50% 100%, ${C}08, transparent 70%)`, pointerEvents: "none" }} />
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 40% 40% at 30% 80%, ${C}06, transparent 60%)`, pointerEvents: "none" }} />
 
@@ -1539,23 +2524,38 @@ export default function OTSecurityFirstJohannesburg2026() {
   return (
     <>
       <EventNavigation />
-      <main style={{ background: "#080A0C", color: "white" }}>
-        <HeroSection />
-        <StatsBar />
-        <OverviewSection />
-        <MarketDriversSection />
-        <FocusAreas />
-        <SpeakersSection />
-        <EventSnapshotSection />
-        <WhoShouldAttend />
-        <SponsorsSection />
-        <GallerySection />
-        <AwardsSection />
-        <ContactSection />
-        <VenueSection />
-        <OTYouTubeShorts />
-        <RegistrationSection />
-        <Footer />
+      <main style={{
+        background: `linear-gradient(160deg, ${BG_DARK} 0%, ${BG} 30%, #0c1030 60%, ${BG_CARD} 100%)`,
+        color: "white",
+        position: "relative",
+        overflow: "hidden",
+      }}>
+        {/* Global liquid blobs + noise — behind all sections */}
+        <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0 }}>
+          <div style={{ position: "absolute", top: "5%", right: "0%", width: 600, height: 600, borderRadius: "40% 60% 55% 45% / 55% 40% 60% 45%", background: `linear-gradient(135deg, ${C}22, ${CYAN}12, ${C}18)`, filter: "blur(70px)", opacity: 0.5 }} />
+          <div style={{ position: "absolute", top: "30%", left: "-5%", width: 500, height: 500, borderRadius: "55% 45% 40% 60% / 45% 55% 45% 55%", background: `linear-gradient(225deg, ${CYAN}18, ${C}10, ${CYAN}1c)`, filter: "blur(80px)", opacity: 0.45 }} />
+          <div style={{ position: "absolute", top: "65%", right: "5%", width: 550, height: 550, borderRadius: "45% 55% 60% 40% / 60% 45% 55% 45%", background: `linear-gradient(145deg, ${C}20, ${CYAN}10, ${C}16)`, filter: "blur(70px)", opacity: 0.4 }} />
+          <div style={{ position: "absolute", bottom: "5%", left: "10%", width: 450, height: 450, borderRadius: "55% 45% 40% 60% / 45% 55% 45% 55%", background: `radial-gradient(circle, ${CYAN}15, transparent 70%)`, filter: "blur(80px)", opacity: 0.4 }} />
+          {/* Noise */}
+          <div style={{ position: "absolute", inset: 0, opacity: 0.025, mixBlendMode: "overlay", backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundSize: "128px 128px" }} />
+        </div>
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <HeroSection />
+          <AboutSection />
+          <MarketDriversSection />
+          <FocusAreas />
+          <SpeakersSection />
+          <OTTestimonials />
+          <EventSnapshotSection />
+          <WhoShouldAttend />
+          <SponsorsSection />
+          <GallerySection />
+          <AwardsSection />
+          <ContactSection />
+          <VenueSection />
+          <RegistrationSection />
+          <Footer />
+        </div>
       </main>
 
       <style jsx global>{`
@@ -1613,6 +2613,151 @@ export default function OTSecurityFirstJohannesburg2026() {
           transform: translateY(-4px);
           border-color: ${C}30 !important;
           background: rgba(255,255,255,0.05) !important;
+        }
+
+        .otsf-stat-premium:hover {
+          transform: translateY(-6px) scale(1.01);
+          box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 40px ${CYAN}18 !important;
+        }
+
+        .otsf-movement-cta:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 36px 90px rgba(0,0,0,0.6), 0 16px 40px ${C}40, 0 0 80px ${CYAN}35, inset 0 1px 0 rgba(255,255,255,0.2) !important;
+        }
+
+        .otsf-driver-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 40px ${C}15 !important;
+        }
+
+        .otsf-driver-tab:hover {
+          transform: translateX(4px);
+        }
+        .otsf-driver-tab:hover > div {
+          background: linear-gradient(165deg, rgba(13,18,51,0.85), rgba(7,11,31,0.95)) !important;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 2px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.25) !important;
+        }
+
+        .otsf-drivers-scroll::-webkit-scrollbar,
+        .otsf-themes-scroll::-webkit-scrollbar {
+          display: none;
+        }
+
+        /* Testimonials staggered showcase */
+        .otsf-testi-showcase {
+          display: flex;
+          gap: 18px;
+          align-items: center;
+          justify-content: center;
+        }
+        .otsf-testi-slot {
+          flex-shrink: 0;
+          transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+        }
+        .otsf-testi-slot:hover { transform: translateY(-10px); }
+        .otsf-testi-slot-tall { width: 210px; height: 360px; }
+        .otsf-testi-slot-short { width: 190px; height: 290px; }
+        .otsf-testi-slot-hero.otsf-testi-slot-tall { width: 240px; height: 420px; }
+        .otsf-testi-slot:hover .otsf-short-play {
+          background: ${C} !important;
+          transform: translate(-50%, -50%) scale(1.1);
+          box-shadow: 0 10px 32px ${C}80, 0 0 0 1px rgba(255,255,255,0.25) !important;
+        }
+        .otsf-testi-slot:hover .otsf-short-play svg { fill: white !important; }
+
+        @media (max-width: 960px) {
+          .otsf-testi-showcase {
+            flex-wrap: wrap;
+            gap: 14px;
+          }
+          .otsf-testi-slot,
+          .otsf-testi-slot-tall,
+          .otsf-testi-slot-short,
+          .otsf-testi-slot-hero.otsf-testi-slot-tall {
+            width: calc(50% - 7px);
+            height: 320px;
+          }
+        }
+        @media (max-width: 520px) {
+          .otsf-testi-slot,
+          .otsf-testi-slot-tall,
+          .otsf-testi-slot-short,
+          .otsf-testi-slot-hero.otsf-testi-slot-tall {
+            width: 100%;
+            height: 360px;
+          }
+        }
+
+        .otsf-theme-card {
+          will-change: transform;
+        }
+        .otsf-theme-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 -1px 0 rgba(0,0,0,0.3) inset, 0 16px 48px rgba(0,0,0,0.5), 0 0 40px rgba(211,75,154,0.12) !important;
+        }
+
+        @media (max-width: 1024px) {
+          .otsf-themes-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .otsf-theme-card {
+            grid-column: span 1 !important;
+          }
+        }
+
+        @media (max-width: 900px) {
+          .otsf-drivers-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .otsf-driver-slide,
+          .otsf-theme-slide {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+          }
+          .otsf-about-split {
+            grid-template-columns: 1fr !important;
+            gap: 36px !important;
+          }
+          .otsf-about-text {
+            align-items: center !important;
+            text-align: center !important;
+          }
+          .otsf-about-underline {
+            margin: 0 auto 24px !important;
+            transform-origin: center !important;
+          }
+        }
+
+        .otsf-about-video:hover .otsf-about-play-btn {
+          background: ${C} !important;
+          transform: scale(1.08);
+          box-shadow: 0 12px 40px ${C}80, 0 0 0 1px rgba(255,255,255,0.3) !important;
+        }
+        .otsf-about-video:hover .otsf-about-play-btn svg {
+          fill: white !important;
+        }
+
+        @media (max-width: 640px) {
+          .otsf-themes-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .otsf-movement-content {
+            grid-template-columns: 1fr !important;
+            text-align: center !important;
+          }
+          .otsf-movement-content > div:first-child {
+            text-align: center !important;
+            align-items: center !important;
+          }
+          .otsf-movement-content > div:first-child > div:first-child {
+            align-self: center !important;
+          }
+          .otsf-movement-btn {
+            justify-self: center !important;
+          }
         }
 
         .otsf-stat-row:hover {
@@ -1710,6 +2855,9 @@ export default function OTSecurityFirstJohannesburg2026() {
         @media (max-width: 768px) {
           .otsf-stats-grid {
             grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .otsf-stats-pair {
+            grid-template-columns: 1fr !important;
           }
           .otsf-flip-grid {
             grid-template-columns: repeat(2, 1fr) !important;
