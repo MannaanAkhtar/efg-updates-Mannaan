@@ -39,6 +39,23 @@ type SeriesStatus = "open" | "soon";
 
 const allEvents = [
   {
+    id: "networkfirst-huawei-cloud",
+    category: "networkfirst",
+    title: "Huawei Cloud Executive Roundtable",
+    tagline: "Media & Entertainment, Saudi Arabia 2026",
+    description: "An executive roundtable exploring cloud transformation in the media and entertainment sector across Saudi Arabia.",
+    color: "#C9935A",
+    image: "",
+    href: "https://events02.huawei.com/UniversalForm/register/149366439/register.html?site=SA&formId=12413&way=onsite",
+    date: "2026-04-28",
+    nextDate: "28 Apr 2026",
+    nextCity: "Riyadh, KSA",
+    editions: "",
+    regions: "Saudi Arabia",
+    attendees: "15-20",
+    status: "open" as SeriesStatus,
+  },
+  {
     id: "braze-roundtable-2",
     category: "networkfirst",
     title: "Braze Virtual Roundtable 2",

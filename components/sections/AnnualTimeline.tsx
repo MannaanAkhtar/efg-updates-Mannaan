@@ -25,6 +25,20 @@ type EventItem = {
 
 const allEvents: EventItem[] = [
   {
+    id: "networkfirst-huawei-cloud",
+    series: "NetworkFirst",
+    seriesColor: "#C9935A",
+    edition: "",
+    title: "Huawei Cloud Executive Roundtable",
+    date: new Date("2026-04-28"),
+    dateDisplay: "April 28, 2026",
+    location: "Riyadh, KSA",
+    venue: "Riyadh, KSA",
+    attendees: "15-20",
+    href: "https://events02.huawei.com/UniversalForm/register/149366439/register.html?site=SA&formId=12413&way=onsite",
+    status: "open",
+  },
+  {
     id: "braze-roundtable-2",
     series: "NetworkFirst",
     seriesColor: "#C9935A",
