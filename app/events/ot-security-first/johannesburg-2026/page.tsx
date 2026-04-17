@@ -557,7 +557,7 @@ function HeroSection() {
       >
         <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 400, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "2px" }}>An Initiative By</span>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img loading="lazy" src="/events-first-group_logo_alt.svg" alt="Events First Group" style={{ height: 44, width: "auto", opacity: 0.6 }} />
+        <img loading="lazy" src="/events-first-group_logo_alt.svg" alt="Events First Group" width={120} height={44} style={{ height: 44, width: "auto", opacity: 0.6 }} />
       </motion.div>
 
       {/* Countdown bar — bottom anchored, inline numbers with colon separators */}

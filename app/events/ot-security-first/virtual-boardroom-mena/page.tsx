@@ -301,7 +301,7 @@ function HeroSection() {
         className="otvm-efg-badge"
       >
         <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 400, color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "2px" }}>An Initiative By</span>
-        <img loading="lazy" src="/events-first-group_logo_alt.svg" alt="Events First Group" style={{ height: 48, width: "auto", opacity: 0.7 }} />
+        <img loading="lazy" src="/events-first-group_logo_alt.svg" alt="Events First Group" width={120} height={48} style={{ height: 48, width: "auto", opacity: 0.7 }} />
       </motion.div>
 
       {/* Countdown bar */}

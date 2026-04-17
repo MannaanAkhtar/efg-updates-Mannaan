@@ -314,6 +314,7 @@ function Tile({
         src={category.heroImage}
         alt={category.heroAlt}
         fill
+        priority
         style={{
           objectFit: "cover",
           transition: "transform 0.6s ease, filter 0.4s ease",
