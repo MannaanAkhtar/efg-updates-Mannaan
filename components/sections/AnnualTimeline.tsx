@@ -496,8 +496,8 @@ export default function AnnualTimeline() {
             <h2 className="timeline-title">The Year Ahead</h2>
 
             {/* Subtitle */}
-            <p className="timeline-subtitle">
-              {filteredEvents.length} events across {visibleMonths.length} months. Scroll to explore.
+            <p className="timeline-subtitle" suppressHydrationWarning>
+              {mounted ? filteredEvents.length : ""} events across {mounted ? visibleMonths.length : ""} months. Scroll to explore.
             </p>
           </motion.div>
 
@@ -621,7 +621,7 @@ export default function AnnualTimeline() {
                           <TimelineCard
                             key={event.id}
                             event={event}
-                            isNext={event.id === nextEvent.id}
+                            isNext={mounted && event.id === nextEvent.id}
                             index={eventIdx}
                             isTouch={isTouch}
                           />
@@ -1221,11 +1221,13 @@ function TimelineCard({
 }) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  
+  const [cardMounted, setCardMounted] = useState(false);
+  useEffect(() => setCardMounted(true), []);
+
   // 3D Tilt effect (disabled on touch)
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  
+
   const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [6, -6]), { stiffness: 300, damping: 30 });
   const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-6, 6]), { stiffness: 300, damping: 30 });
 
@@ -1244,7 +1246,7 @@ function TimelineCard({
     setIsHovered(false);
   };
 
-  const daysUntil = getDaysUntil(event.date);
+  const daysUntil = cardMounted ? getDaysUntil(event.date) : 0;
   const dayNum = event.date.getDate();
   const accentColor = event.seriesColor;
 
@@ -1356,7 +1358,7 @@ function TimelineCard({
                   color: accentColor,
                 }}
               >
-                {daysUntil}d
+                {cardMounted ? daysUntil : 0}d
               </span>
             </div>
           </div>
