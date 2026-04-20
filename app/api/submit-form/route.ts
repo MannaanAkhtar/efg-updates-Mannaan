@@ -317,7 +317,32 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 11. Send email notification (non-blocking, don't fail the request)
+    // 11. Forward to EFG Dashboard (non-blocking)
+    const dashboardSecret = process.env.ENQUIRY_WEBHOOK_SECRET;
+    if (dashboardSecret) {
+      const typeMap: Record<string, string> = { sponsor: "sponsorship", attend: "registration", speak: "speaking", contact: "general", awards: "award", networkfirst: "registration", careers: "general" };
+      try {
+        await fetch("https://efg-dashboard.vercel.app/api/enquiries", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-webhook-secret": dashboardSecret },
+          body: JSON.stringify({
+            form_type: typeMap[type] || "general",
+            full_name, email, phone: phone || "",
+            company, job_title,
+            event_interest: event_name || metadata.event_interest || "",
+            message: metadata.message || metadata.proposed_topic || "",
+            award_category: metadata.award_category || "",
+            nominee_name: metadata.nominee_name || "",
+            nominee_company: metadata.nominee_company || "",
+            nomination_reason: metadata.nomination_reason || "",
+            source_url: source_url || "",
+            utm_source: metadata.utm_source || "",
+          }),
+        });
+      } catch (e) { console.error("Dashboard webhook failed:", e); }
+    }
+
+    // 12. Send email notification (non-blocking, don't fail the request)
     const resendKey = process.env.RESEND_API_KEY;
     if (resendKey) {
       try {
