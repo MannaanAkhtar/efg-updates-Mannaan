@@ -1358,147 +1358,332 @@ function SpeakersSection() {
             initial={{ opacity: 0, y: 36, filter: "blur(8px)" }}
             animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            style={{
-              borderRadius: 24, overflow: "hidden", marginBottom: 32,
-              background: `linear-gradient(165deg, rgba(13,18,51,0.95) 0%, rgba(7,11,31,0.98) 100%)`,
-              border: `1px solid rgba(255,255,255,0.08)`,
-              boxShadow: `0 24px 64px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`,
-              position: "relative",
-            }}
+            style={{ position: "relative", marginBottom: 36 }}
+            className="otvb-featured-card"
           >
-            {/* Top accent glow */}
-            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent 10%, ${C_BRIGHT}60 30%, ${CYAN}80 50%, ${C_BRIGHT}60 70%, transparent 90%)`, boxShadow: `0 0 20px ${C_BRIGHT}30`, pointerEvents: "none", zIndex: 2 }} />
+            {/* Ambient dual-accent glow */}
+            <div className="otvb-featured-glow" style={{
+              position: "absolute",
+              inset: -28,
+              borderRadius: 38,
+              background: `radial-gradient(ellipse 50% 70% at 20% 50%, rgba(232,107,184,0.22) 0%, transparent 70%), radial-gradient(ellipse 50% 70% at 80% 50%, rgba(0,201,255,0.18) 0%, transparent 70%)`,
+              filter: "blur(28px)",
+              opacity: 0.6,
+              pointerEvents: "none",
+              transition: "opacity 0.6s ease",
+            }} />
 
-            <div className="otvb-featured-split" style={{ display: "grid", gridTemplateColumns: "0.4fr 0.6fr" }}>
-              {/* Photo */}
-              <div style={{ height: 380, overflow: "hidden", position: "relative" }}>
-                <img
-                  src={speaker.photo}
-                  alt={speaker.name}
-                  style={{
-                    width: "100%", height: "100%", objectFit: "cover",
-                    objectPosition: ("photoPosition" in speaker && speaker.photoPosition) ? speaker.photoPosition as string : "center top",
-                    transform: `scale(${("photoScale" in speaker && speaker.photoScale) ? speaker.photoScale : 1})`,
-                  }}
-                />
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 60%, rgba(7,11,31,0.95) 100%)", pointerEvents: "none" }} />
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 50%, rgba(7,11,31,0.6) 100%)", pointerEvents: "none" }} />
-              </div>
+            {/* Outer metallic gradient bezel */}
+            <div style={{
+              position: "relative",
+              padding: 2,
+              borderRadius: 26,
+              background: `linear-gradient(135deg, rgba(232,107,184,0.6) 0%, rgba(0,201,255,0.3) 25%, rgba(255,255,255,0.14) 50%, rgba(0,201,255,0.3) 75%, rgba(232,107,184,0.6) 100%)`,
+              boxShadow: `0 32px 80px rgba(0,0,0,0.55), 0 0 55px rgba(232,107,184,0.18), 0 0 0 1px rgba(255,255,255,0.03)`,
+            }}>
+              {/* Inner highlight ring */}
+              <div style={{
+                position: "absolute",
+                inset: 2,
+                borderRadius: 24,
+                pointerEvents: "none",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.04)",
+                zIndex: 3,
+              }} />
 
-              {/* Bio content */}
-              <div style={{ padding: "clamp(28px, 3vw, 44px) clamp(24px, 3vw, 40px)", display: "flex", flexDirection: "column", justifyContent: "center", position: "relative" }}>
-                <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(24px, 2.5vw, 32px)", fontWeight: 700, color: "white", margin: "0 0 10px", letterSpacing: "-0.5px", lineHeight: 1.15 }}>
-                  {speaker.name}
-                </h3>
-                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 600, color: C_BRIGHT, margin: "0 0 4px", lineHeight: 1.4 }}>
-                  {speaker.title}
-                </p>
-                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.5)", margin: "0 0 20px", lineHeight: 1.4 }}>
-                  {speaker.org}
-                </p>
-                {"flag" in speaker && speaker.flag && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={speaker.flag as string} alt="" style={{ position: "absolute", top: "clamp(28px, 3vw, 44px)", right: "clamp(24px, 3vw, 40px)", height: 18, width: "auto", borderRadius: 3, opacity: 0.85 }} />
-                )}
-                <div style={{ width: 50, height: 2, background: `linear-gradient(90deg, ${C_BRIGHT}, ${CYAN})`, borderRadius: 2, marginBottom: 18, boxShadow: `0 0 10px ${C_BRIGHT}40` }} />
-                {"bio" in speaker && speaker.bio && (
-                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.65)", margin: 0, lineHeight: 1.75 }}>
-                    {speaker.bio as string}
-                  </p>
-                )}
+              <div style={{
+                position: "relative",
+                borderRadius: 24,
+                overflow: "hidden",
+                background: "linear-gradient(165deg, rgba(22,26,54,0.96) 0%, rgba(12,14,34,0.98) 50%, rgba(8,10,26,1) 100%)",
+              }}>
+                {/* Hover shine sweep */}
+                <div className="otvb-featured-shine" style={{
+                  position: "absolute",
+                  top: 0,
+                  left: "-80%",
+                  width: "45%",
+                  height: "100%",
+                  background: "linear-gradient(100deg, transparent, rgba(255,255,255,0.1) 50%, transparent)",
+                  transform: "skewX(-20deg)",
+                  pointerEvents: "none",
+                  transition: "left 1.2s cubic-bezier(0.22, 1, 0.36, 1)",
+                  zIndex: 4,
+                }} />
+
+                {/* Top reflection line */}
+                <div style={{ position: "absolute", top: 0, left: "5%", right: "5%", height: 1, background: `linear-gradient(90deg, transparent 10%, ${C_BRIGHT}dd 30%, ${CYAN}ff 50%, ${C_BRIGHT}dd 70%, transparent 90%)`, boxShadow: `0 0 18px ${C_BRIGHT}60`, pointerEvents: "none", zIndex: 5 }} />
+
+                <div className="otvb-featured-split" style={{ display: "grid", gridTemplateColumns: "0.4fr 0.6fr" }}>
+                  {/* Photo */}
+                  <div style={{ position: "relative", minHeight: 420, overflow: "hidden" }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={speaker.photo}
+                      alt={`${speaker.name}, ${speaker.title} — ${speaker.org}`}
+                      loading="lazy"
+                      width={500}
+                      height={600}
+                      className="otvb-featured-photo"
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        objectPosition: ("photoPosition" in speaker && speaker.photoPosition) ? speaker.photoPosition as string : "center top",
+                        transform: `scale(${("photoScale" in speaker && speaker.photoScale) ? speaker.photoScale : 1})`,
+                        filter: "saturate(0.92) contrast(1.08) brightness(0.98)",
+                        transition: "transform 1.1s cubic-bezier(0.22,1,0.36,1), filter 0.5s ease",
+                      }}
+                    />
+                    {/* Right-edge fade into bio panel */}
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 60%, rgba(8,10,26,0.92) 100%)", pointerEvents: "none" }} />
+                    {/* Bottom fade */}
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 55%, rgba(8,10,26,0.55) 100%)", pointerEvents: "none" }} />
+                    {/* Accent wash */}
+                    <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, rgba(232,107,184,0.14) 0%, transparent 45%, rgba(0,201,255,0.12) 100%)`, mixBlendMode: "overlay", pointerEvents: "none" }} />
+                    {/* Film grain */}
+                    <div style={{ position: "absolute", inset: 0, opacity: 0.06, mixBlendMode: "overlay", backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundSize: "180px 180px", pointerEvents: "none" }} />
+                    {/* Inner photo frame */}
+                    <div style={{ position: "absolute", inset: 10, border: "1px solid rgba(255,255,255,0.05)", borderRadius: 14, pointerEvents: "none" }} />
+                  </div>
+
+                  {/* Bio content — glass panel */}
+                  <div style={{
+                    position: "relative",
+                    padding: "clamp(28px, 3vw, 44px) clamp(24px, 3vw, 40px)",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    background: "linear-gradient(180deg, rgba(14,18,42,0.45) 0%, rgba(8,10,26,0.65) 100%)",
+                    backdropFilter: "blur(20px) saturate(1.3)",
+                    WebkitBackdropFilter: "blur(20px) saturate(1.3)",
+                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+                  }}>
+                    {/* Top glass shine */}
+                    <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)", pointerEvents: "none" }} />
+
+                    <h3 style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(24px, 2.5vw, 32px)",
+                      fontWeight: 700,
+                      color: "white",
+                      margin: "0 0 12px",
+                      letterSpacing: "-0.5px",
+                      lineHeight: 1.15,
+                      paddingRight: 46,
+                    }}>
+                      {speaker.name}
+                    </h3>
+                    <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 600, color: C_BRIGHT, margin: "0 0 4px", lineHeight: 1.4 }}>
+                      {speaker.title}
+                    </p>
+                    <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.55)", margin: "0 0 20px", lineHeight: 1.4 }}>
+                      {speaker.org}
+                    </p>
+
+                    {/* Flag pill */}
+                    {"flag" in speaker && speaker.flag && (
+                      <div style={{
+                        position: "absolute",
+                        top: "clamp(28px, 3vw, 44px)",
+                        right: "clamp(24px, 3vw, 40px)",
+                        padding: 2,
+                        borderRadius: 6,
+                        background: `linear-gradient(135deg, rgba(232,107,184,0.45), rgba(0,201,255,0.3))`,
+                        boxShadow: `0 4px 12px rgba(0,0,0,0.5), 0 0 12px rgba(232,107,184,0.25)`,
+                      }}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={speaker.flag as string} alt="" style={{ display: "block", height: 18, width: "auto", borderRadius: 4 }} />
+                      </div>
+                    )}
+
+                    <div style={{ width: 60, height: 2, background: `linear-gradient(90deg, ${C_BRIGHT}, ${CYAN})`, borderRadius: 2, marginBottom: 20, boxShadow: `0 0 12px ${C_BRIGHT}40` }} />
+                    {"bio" in speaker && speaker.bio && (
+                      <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.72)", margin: 0, lineHeight: 1.8 }}>
+                        {speaker.bio as string}
+                      </p>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
         ))}
 
         {/* Remaining speaker cards — 4 column grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }} className="otvb-speakers-grid">
-          {OTVB_SPEAKERS.filter(s => !("featured" in s && s.featured)).map((speaker, i) => (
-            /* Gradient border wrapper */
-            <motion.div
-              key={speaker.name}
-              initial={{ opacity: 0, y: 36, filter: "blur(8px)" }}
-              animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-              transition={{ duration: 0.8, delay: 0.4 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className="otvb-speaker-card"
-              style={{
-                borderRadius: 24,
-                padding: 2,
-                background: `linear-gradient(160deg, ${C_BRIGHT}50, ${CYAN}30, rgba(255,255,255,0.08), ${C_BRIGHT}30)`,
-                boxShadow: `0 20px 60px rgba(0,0,0,0.5), 0 0 25px ${C}12`,
-                transition: "all 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
-              }}
-            >
-              <div style={{
-                borderRadius: 22,
-                overflow: "hidden",
-                position: "relative",
-                background: `linear-gradient(165deg, rgba(13,18,51,0.97) 0%, rgba(7,11,31,0.99) 100%)`,
-              }}>
-                {/* Photo */}
-                <div style={{ height: 260, overflow: "hidden", position: "relative" }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={speaker.photo}
-                    alt={speaker.name}
-                    className="otvb-speaker-photo"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      objectPosition: ("photoPosition" in speaker && speaker.photoPosition) ? speaker.photoPosition as string : "center top",
-                      transform: `scale(${("photoScale" in speaker && speaker.photoScale) ? speaker.photoScale : 1})`,
-                      transition: "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)",
-                    }}
-                  />
-                  {/* Gradient overlay */}
-                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(7,11,31,0.95) 100%)", pointerEvents: "none" }} />
-                  <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${C}10, transparent 50%)`, pointerEvents: "none" }} />
-                </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24 }} className="otvb-speakers-grid">
+          {OTVB_SPEAKERS.filter(s => !("featured" in s && s.featured)).map((speaker, i) => {
+            const accent = i % 2 === 0 ? C_BRIGHT : CYAN;
+            const accentRgb = i % 2 === 0 ? "232,107,184" : "0,201,255";
+            return (
+              <motion.div
+                key={speaker.name}
+                initial={{ opacity: 0, y: 40, scale: 0.96, filter: "blur(6px)" }}
+                animate={inView ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" } : {}}
+                transition={{ duration: 0.75, delay: 0.4 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="otvb-speaker-card" style={{ position: "relative", transition: "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)" }}>
+                  {/* Ambient accent glow behind card */}
+                  <div className="otvb-speaker-glow" style={{
+                    position: "absolute",
+                    inset: -20,
+                    borderRadius: 34,
+                    background: `radial-gradient(ellipse 70% 60% at 50% 50%, rgba(${accentRgb},0.18) 0%, transparent 70%)`,
+                    filter: "blur(22px)",
+                    opacity: 0.55,
+                    pointerEvents: "none",
+                    transition: "opacity 0.55s ease",
+                  }} />
 
-                {/* Info */}
-                <div style={{ padding: "18px 22px 22px" }}>
-                  <h3 style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: 18,
-                    fontWeight: 700,
-                    color: "white",
-                    margin: "0 0 10px",
-                    letterSpacing: "-0.5px",
-                    lineHeight: 1.15,
+                  {/* Outer metallic gradient bezel */}
+                  <div style={{
+                    position: "relative",
+                    padding: 2,
+                    borderRadius: 24,
+                    background: `linear-gradient(135deg, rgba(${accentRgb},0.65) 0%, rgba(${accentRgb},0.2) 15%, rgba(255,255,255,0.14) 32%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.12) 68%, rgba(${accentRgb},0.2) 85%, rgba(${accentRgb},0.55) 100%)`,
+                    boxShadow: `0 28px 64px rgba(0,0,0,0.5), 0 0 45px rgba(${accentRgb},0.16), 0 0 0 1px rgba(255,255,255,0.03)`,
                   }}>
-                    {speaker.name}
-                  </h3>
-                  <p style={{
-                    fontFamily: "var(--font-outfit)",
-                    fontSize: 13,
-                    fontWeight: 600,
-                    color: C_BRIGHT,
-                    margin: "0 0 4px",
-                    lineHeight: 1.4,
-                  }}>
-                    {speaker.title}
-                  </p>
-                  <p style={{
-                    fontFamily: "var(--font-outfit)",
-                    fontSize: 13,
-                    fontWeight: 400,
-                    color: "rgba(255,255,255,0.5)",
-                    margin: 0,
-                    lineHeight: 1.4,
-                  }}>
-                    {speaker.org}
-                  </p>
-                </div>
+                    {/* Inner highlight ring */}
+                    <div style={{
+                      position: "absolute",
+                      inset: 2,
+                      borderRadius: 22,
+                      pointerEvents: "none",
+                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.04)",
+                      zIndex: 3,
+                    }} />
 
-                {/* Country flag — on the photo/info dividing line */}
-                {"flag" in speaker && speaker.flag && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={speaker.flag as string} alt="" style={{ position: "absolute", top: 250, right: 16, height: 20, width: "auto", borderRadius: 3, boxShadow: "0 2px 8px rgba(0,0,0,0.6)", zIndex: 3 }} />
-                )}
-              </div>
-            </motion.div>
-          ))}
+                    <div style={{
+                      position: "relative",
+                      borderRadius: 22,
+                      overflow: "hidden",
+                      background: "linear-gradient(165deg, rgba(13,18,51,0.97) 0%, rgba(7,11,31,0.99) 100%)",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}>
+                      {/* Hover shine sweep */}
+                      <div className="otvb-speaker-shine" style={{
+                        position: "absolute",
+                        top: 0,
+                        left: "-80%",
+                        width: "60%",
+                        height: "100%",
+                        background: "linear-gradient(100deg, transparent, rgba(255,255,255,0.12) 50%, transparent)",
+                        transform: "skewX(-20deg)",
+                        pointerEvents: "none",
+                        transition: "left 1s cubic-bezier(0.22, 1, 0.36, 1)",
+                        zIndex: 4,
+                      }} />
+
+                      {/* Photo section */}
+                      <div style={{ position: "relative", width: "100%", aspectRatio: "4 / 5", overflow: "hidden" }}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={speaker.photo}
+                          alt={`${speaker.name}, ${speaker.title} at ${speaker.org}`}
+                          loading="lazy"
+                          width={400}
+                          height={500}
+                          className="otvb-speaker-photo"
+                          style={{
+                            position: "absolute",
+                            inset: 0,
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            objectPosition: ("photoPosition" in speaker && speaker.photoPosition) ? speaker.photoPosition as string : "center top",
+                            transform: `scale(${("photoScale" in speaker && speaker.photoScale) ? speaker.photoScale : 1})`,
+                            filter: "saturate(0.92) contrast(1.08) brightness(0.98)",
+                            transition: "transform 1s cubic-bezier(0.22,1,0.36,1), filter 0.5s ease",
+                          }}
+                        />
+                        {/* Top vignette */}
+                        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "30%", background: "linear-gradient(180deg, rgba(8,10,26,0.4) 0%, transparent 100%)", pointerEvents: "none" }} />
+                        {/* Bottom fade */}
+                        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 55%, rgba(8,10,26,0.55) 85%, rgba(8,10,26,0.9) 100%)", pointerEvents: "none" }} />
+                        {/* Accent wash */}
+                        <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, rgba(${accentRgb},0.14) 0%, transparent 50%, rgba(${accentRgb},0.1) 100%)`, mixBlendMode: "overlay", pointerEvents: "none" }} />
+                        {/* Film grain */}
+                        <div style={{ position: "absolute", inset: 0, opacity: 0.06, mixBlendMode: "overlay", backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundSize: "180px 180px", pointerEvents: "none" }} />
+                        {/* Top reflection */}
+                        <div style={{ position: "absolute", top: 0, left: "6%", right: "6%", height: 1, background: `linear-gradient(90deg, transparent, ${accent}dd, transparent)`, boxShadow: `0 0 16px ${accent}90`, pointerEvents: "none" }} />
+                        {/* Inner photo frame */}
+                        <div style={{ position: "absolute", inset: 8, border: "1px solid rgba(255,255,255,0.04)", borderRadius: 14, pointerEvents: "none" }} />
+                      </div>
+
+                      {/* Accent hairline divider */}
+                      <div style={{ position: "relative", height: 1, background: `linear-gradient(90deg, transparent, rgba(${accentRgb},0.55), transparent)`, boxShadow: `0 0 14px rgba(${accentRgb},0.4)` }} />
+
+                      {/* Info panel — glassmorphism, stacked name/title/org with flag */}
+                      <div style={{
+                        position: "relative",
+                        padding: "18px 20px 22px",
+                        background: "linear-gradient(180deg, rgba(14,18,42,0.55) 0%, rgba(8,10,26,0.75) 100%)",
+                        backdropFilter: "blur(20px) saturate(1.3)",
+                        WebkitBackdropFilter: "blur(20px) saturate(1.3)",
+                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+                        minHeight: 128,
+                      }}>
+                        <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)", pointerEvents: "none" }} />
+
+                        <h3 style={{
+                          fontFamily: "var(--font-display)",
+                          fontWeight: 700,
+                          fontSize: "clamp(16px, 1.3vw, 19px)",
+                          color: "white",
+                          margin: "0 0 8px",
+                          letterSpacing: "-0.4px",
+                          lineHeight: 1.2,
+                          paddingRight: 36,
+                        }}>
+                          {speaker.name}
+                        </h3>
+                        <p style={{
+                          fontFamily: "var(--font-outfit)",
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: accent,
+                          margin: "0 0 6px",
+                          lineHeight: 1.4,
+                        }}>
+                          {speaker.title}
+                        </p>
+                        <p style={{
+                          fontFamily: "var(--font-outfit)",
+                          fontSize: 12.5,
+                          fontWeight: 400,
+                          color: "rgba(255,255,255,0.58)",
+                          margin: 0,
+                          lineHeight: 1.45,
+                          paddingRight: 36,
+                        }}>
+                          {speaker.org}
+                        </p>
+
+                        {/* Country flag pill — bottom-right corner */}
+                        {"flag" in speaker && speaker.flag && (
+                          <div style={{
+                            position: "absolute",
+                            right: 14,
+                            bottom: 14,
+                            padding: 2,
+                            borderRadius: 6,
+                            background: `linear-gradient(135deg, rgba(${accentRgb},0.45), rgba(255,255,255,0.08))`,
+                            boxShadow: `0 4px 12px rgba(0,0,0,0.5), 0 0 10px rgba(${accentRgb},0.25)`,
+                          }}>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={speaker.flag as string} alt="" style={{ display: "block", height: 16, width: "auto", borderRadius: 4 }} />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
 
@@ -1506,13 +1691,39 @@ function SpeakersSection() {
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent 10%, ${C}15, transparent 90%)` }} />
 
       <style jsx global>{`
+        .otvb-featured-card {
+          will-change: transform;
+          transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .otvb-featured-card:hover .otvb-featured-glow {
+          opacity: 0.95 !important;
+        }
+        .otvb-featured-card:hover .otvb-featured-photo {
+          filter: saturate(1.05) contrast(1.1) brightness(1.02) !important;
+        }
+        .otvb-featured-card:hover .otvb-featured-shine {
+          left: 160% !important;
+        }
+        .otvb-speaker-card {
+          will-change: transform;
+        }
         .otvb-speaker-card:hover {
-          transform: translateY(-8px) scale(1.02) !important;
-          background: linear-gradient(160deg, ${C_BRIGHT}80, ${CYAN}60, rgba(255,255,255,0.15), ${C_BRIGHT}60) !important;
-          box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 40px ${C}20 !important;
+          transform: translateY(-6px) !important;
+        }
+        .otvb-speaker-card:hover .otvb-speaker-glow {
+          opacity: 0.9 !important;
         }
         .otvb-speaker-card:hover .otvb-speaker-photo {
-          transform: scale(1.08) !important;
+          transform: scale(1.06) !important;
+          filter: saturate(1.05) contrast(1.1) brightness(1.02) !important;
+        }
+        .otvb-speaker-card:hover .otvb-speaker-shine {
+          left: 160% !important;
+        }
+        @media (max-width: 1024px) {
+          .otvb-speakers-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+          }
         }
         @media (max-width: 900px) {
           .otvb-speakers-grid {
