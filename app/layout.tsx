@@ -163,7 +163,7 @@ export default function RootLayout({
         <SmoothScrollProvider>
           <CursorGlow />
           <ConditionalNavigation />
-          <main style={{ position: "relative" }}>{children}</main>
+          <main id="main-content" style={{ position: "relative" }}>{children}</main>
           <WhatsAppButton />
         </SmoothScrollProvider>
       </body>

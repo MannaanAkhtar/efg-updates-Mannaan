@@ -16,7 +16,7 @@ import { useGSAP } from "@gsap/react";
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
-import { Footer } from "@/components/sections";
+import { Footer, InquiryForm } from "@/components/sections";
 import EventNavigation from "@/components/ui/EventNavigation";
 import {
   submitForm,
@@ -215,29 +215,34 @@ const SPEAKERS = [
     title: "OT/IT Convergence (Digital Transformation)",
     org: "Eskom Holdings SOC Ltd",
     linkedin: "https://www.linkedin.com/in/akashmakhan/",
+    photo: `${S3}/boardroom/Akash_Makhan.png`,
   },
   {
     name: "Zanele Fikizolo",
     title: "Senior Advisor – IT Governance, Risk and Compliance",
     org: "Eskom Holdings SOC Ltd",
     linkedin: "https://www.linkedin.com/in/zanele-fikizolo-7b10413a/",
+    photo: `${S3}/boardroom/Zanele_Fikizolo.png`,
   },
   {
     name: "Muvhango Livhusha",
     title: "Vice President",
     org: "ISACA South Africa Chapter",
     linkedin: "https://www.linkedin.com/in/muvhango-sipho-steven-livhusha-phd-candidate-mba-cisa-8566a61aa/",
+    photo: `${S3}/boardroom/Muvhango_Livhusha.png`,
   },
   {
     name: "Tendani Silima",
     title: "Senior Advisor Cybersecurity",
     org: "Eskom Holdings SOC Ltd",
     linkedin: "https://www.linkedin.com/in/tendani-silima-b915aa73/",
+    photo: `${S3}/boardroom/Tendani_Silima.png`,
   },
   {
     name: "Xolani Nzimande",
     title: "OT Cybersecurity Specialist",
     org: "Sasol",
+    photo: `${S3}/boardroom/Xolani_Nzimande.png`,
   },
 ];
 
@@ -312,12 +317,12 @@ const TARGET_INDUSTRIES = [
 
 // Event Snapshot
 const EVENT_SNAPSHOT = [
-  { stat: "200+", label: "Delegates" },
-  { stat: "20+", label: "Industry Speakers" },
-  { stat: "10+", label: "Conference Sessions" },
-  { stat: "10+", label: "Technology Providers" },
-  { stat: "10+", label: "Media Partners" },
-  { stat: "5", label: "Awards" },
+  { stat: "200+", label: "Delegates", img: `${S3}/events/Cyber+First+Kuwait+2025/filemail_photos/cyber21-04-160.jpg` },
+  { stat: "20+", label: "Industry Speakers", img: `${S3}/Good/4N8A0122.JPG` },
+  { stat: "10+", label: "Conference Sessions", img: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0398.JPG` },
+  { stat: "10+", label: "Technology Providers", img: `${S3}/events/Cyber+First+Kuwait+2025/filemail_photos/cyber21-04-410.jpg` },
+  { stat: "10+", label: "Media Partners", img: `${S3}/Good/4N8A9900.JPG` },
+  { stat: "5", label: "Awards", img: `${S3}/Good/4N8A0330.JPG` },
 ];
 
 // Awards — 5 categories from brochure
@@ -343,10 +348,10 @@ const GALLERY: { src: string; alt: string; area: string; rotate?: number; lift?:
 
 // Contact details — updated from brochure
 const CONTACTS = {
-  speaking: { name: "Sanjana Venugopal", phone: "+971 50 500 3341", email: "sanjana@eventsfirstgroup.com" },
+  speaking: { name: "Sanjana Venugopal", title: "Speaker Acquisition Lead", phone: "+971 54 571 4377", email: "sanjana@eventsfirstgroup.com", photo: `${S3}/about-us-photos/Sanjana-Venugopal-new.jpg` },
   sponsorship: [
-    { name: "Kausar Noor", phone: "+91 807 340 0732", email: "kausar@eventsfirstgroup.com" },
-    { name: "Mayur Methi", phone: "+971 56 170 9909", email: "mayur@eventsfirstgroup.com" },
+    { name: "Kausar Noor", title: "Partnership Manager", phone: "+971 54 571 4377", email: "kausar@eventsfirstgroup.com", photo: `${S3}/about-us-photos/Kausar-Noor.jpg` },
+    { name: "Mayur Methi", title: "Partnership Manager", phone: "+971 54 571 4377", email: "mayur@eventsfirstgroup.com", photo: `${S3}/about-us-photos/Mayur-Methi.png` },
   ],
 };
 
@@ -404,9 +409,15 @@ function HeroSection() {
     <section id="overview" className="otsf-hero" style={{ position: "relative", minHeight: "100vh", overflow: "hidden", background: BG_DARK }}>
       {/* Background Image — kept as-is */}
       <div className="absolute inset-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={`${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0412.JPG`}
-          alt="OT Security First Summit"
+          alt="OT Security First Africa 2026 summit — industrial cybersecurity leaders on stage"
+          width={1920}
+          height={1080}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
           className="w-full h-full object-cover"
           style={{ filter: "brightness(0.35) saturate(0.7)" }}
         />
@@ -575,7 +586,7 @@ function HeroSection() {
         className="otsf-efg-badge"
         style={{ position: "absolute", bottom: 80, right: "clamp(24px, 5vw, 80px)", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}
       >
-        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 400, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "2px" }}>An Initiative By</span>
+        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.55)", textTransform: "uppercase", letterSpacing: "2px" }}>An Initiative By</span>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img loading="lazy" src="/events-first-group_logo_alt.svg" alt="Events First Group" width={120} height={44} style={{ height: 44, width: "auto", opacity: 0.6 }} />
       </motion.div>
@@ -588,7 +599,7 @@ function HeroSection() {
               <React.Fragment key={item.l}>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
                   <span style={{ fontFamily: "var(--font-display)", fontSize: "clamp(22px, 2.5vw, 32px)", fontWeight: 800, color: "white", letterSpacing: "-1px" }}>{String(item.v).padStart(2, "0")}</span>
-                  <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9, fontWeight: 600, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: "1.5px" }}>{item.l}</span>
+                  <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9, fontWeight: 600, color: "rgba(255,255,255,0.55)", textTransform: "uppercase", letterSpacing: "1.5px" }}>{item.l}</span>
                 </div>
                 {i < 3 && <span style={{ fontFamily: "var(--font-display)", fontSize: "clamp(18px, 2vw, 26px)", fontWeight: 300, color: "rgba(255,255,255,0.15)", margin: "0 2px" }}>:</span>}
               </React.Fragment>
@@ -743,7 +754,7 @@ function AboutSection() {
       id="overview"
       style={{
         background: "transparent",
-        padding: "clamp(50px, 6vw, 90px) 0",
+        padding: "clamp(40px, 4.5vw, 64px) 0",
         position: "relative",
         overflow: "hidden",
       }}
@@ -756,7 +767,7 @@ function AboutSection() {
           gridTemplateColumns: "1.05fr 1fr",
           gap: "clamp(32px, 4vw, 64px)",
           alignItems: "center",
-          marginBottom: "clamp(48px, 6vw, 72px)",
+          marginBottom: "clamp(28px, 3.5vw, 44px)",
         }}>
           {/* Left — text column */}
           <motion.div
@@ -812,7 +823,11 @@ function AboutSection() {
             }}
           >
             <div
+              role={videoPlaying ? undefined : "button"}
+              tabIndex={videoPlaying ? undefined : 0}
+              aria-label={videoPlaying ? undefined : "Play OT Security First UAE highlights video"}
               onClick={() => !videoPlaying && setVideoPlaying(true)}
+              onKeyDown={(e) => { if (!videoPlaying && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setVideoPlaying(true); } }}
               style={{
                 position: "relative",
                 width: "100%",
@@ -838,6 +853,8 @@ function AboutSection() {
                     loading="lazy"
                     src="https://img.youtube.com/vi/3ofcPquafgk/hqdefault.jpg"
                     alt="OT Security First UAE — Event Highlights"
+                    width={480}
+                    height={360}
                     style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
                   />
                   {/* Glass reflection line */}
@@ -887,7 +904,7 @@ function AboutSection() {
         </div>
 
         {/* Editorial flow — interleaved text + stats */}
-        <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(40px, 5vw, 72px)" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(28px, 3.5vw, 48px)" }}>
 
           {/* Hero stat — 94% featured full-width card */}
           <motion.div
@@ -1028,7 +1045,7 @@ function AboutSection() {
           transition={{ duration: 0.8, delay: 1.1, ease: EASE }}
           className="otsf-movement-cta"
           style={{
-            marginTop: "clamp(56px, 7vw, 88px)",
+            marginTop: "clamp(32px, 4vw, 56px)",
             maxWidth: 1200,
             marginLeft: "auto",
             marginRight: "auto",
@@ -1235,6 +1252,8 @@ function DriverCard({ index }: { index: number }) {
           src={DRIVER_IMAGES[index]}
           alt={DRIVER_TITLES[index]}
           loading="lazy"
+          width={1000}
+          height={800}
           style={{ width: "100%", height: "100%", objectFit: "cover", filter: "saturate(0.7) contrast(1.08) brightness(0.82)" }}
         />
         <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, rgba(7,11,31,0.2) 0%, rgba(7,11,31,0.3) 50%, rgba(7,11,31,0.85) 100%)`, pointerEvents: "none" }} />
@@ -1496,14 +1515,14 @@ function MarketDriversSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} style={{ background: "transparent", padding: "clamp(50px, 6vw, 90px) 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
         {/* Header — centered like Apple product section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: EASE }}
-          style={{ textAlign: "center", marginBottom: "clamp(48px, 6vw, 72px)" }}
+          style={{ textAlign: "center", marginBottom: "clamp(28px, 3.5vw, 44px)" }}
         >
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 20 }}>
             <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${C_BRIGHT})` }} />
@@ -1534,14 +1553,14 @@ function FocusAreas() {
   const inView = useInView(sectionRef, { once: true, margin: "-60px" });
 
   return (
-    <section ref={sectionRef} id="agenda" style={{ background: "transparent", padding: "clamp(50px, 6vw, 90px) 0", position: "relative", overflow: "hidden" }}>
+    <section ref={sectionRef} id="agenda" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
         {/* Header — left-aligned editorial style */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: EASE }}
-          style={{ marginBottom: "clamp(40px, 5vw, 60px)", maxWidth: 780 }}
+          style={{ marginBottom: "clamp(28px, 3.5vw, 44px)", maxWidth: 780 }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
             <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${C_BRIGHT}, transparent)` }} />
@@ -1566,15 +1585,17 @@ function FocusAreas() {
             aspectRatio: "21 / 9",
             borderRadius: 28,
             overflow: "hidden",
-            marginBottom: "clamp(40px, 5vw, 64px)",
+            marginBottom: "clamp(28px, 3.5vw, 44px)",
             boxShadow: `0 32px 80px rgba(0,0,0,0.5), 0 0 60px ${C}18`,
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`${S3}/events/Cyber+First+Kuwait+2025/Kuwait+Photos/Kuwait+Photos/4X9A1744.jpg`}
-            alt="EFG community"
+            alt="Cyber First Kuwait delegates networking at an EFG summit"
             loading="lazy"
+            width={1680}
+            height={720}
             style={{ width: "100%", height: "100%", objectFit: "cover", filter: "saturate(1.05) contrast(1.03)" }}
           />
           <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, rgba(7,11,31,0.1) 0%, rgba(7,11,31,0.15) 55%, rgba(7,11,31,0.6) 100%)`, pointerEvents: "none" }} />
@@ -1693,7 +1714,7 @@ function SpeakersSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="speakers" style={{ background: "transparent", padding: "clamp(40px, 5vw, 70px) 0", position: "relative" }}>
+    <section ref={ref} id="speakers" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative" }}>
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 40% 60% at 80% 50%, ${C}08, transparent 60%)`, pointerEvents: "none" }} />
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ marginBottom: 48 }}>
@@ -1707,66 +1728,225 @@ function SpeakersSection() {
         </motion.div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }} className="otsf-speakers-grid">
-          {SPEAKERS.map((speaker, i) => (
-            <motion.div
-              key={speaker.name}
-              initial={{ opacity: 0, y: 40 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 + i * 0.08, ease: EASE }}
-            >
-              <Tilt max={6}>
-                <div
-                  className="otsf-speaker-card"
-                  style={{
-                    borderRadius: 24,
-                    overflow: "hidden",
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.06)",
-                    transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-                    position: "relative",
-                  }}
-                >
-                  {/* Top accent */}
-                  <div style={{ position: "absolute", top: 0, left: "15%", right: "15%", height: 2, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}, transparent)`, opacity: 0.5 }} />
+          {SPEAKERS.map((speaker, i) => {
+            const accent = i % 2 === 0 ? C_BRIGHT : CYAN;
+            const accentRgb = i % 2 === 0 ? "232,107,184" : "0,201,255";
+            return (
+              <motion.div
+                key={speaker.name}
+                initial={{ opacity: 0, y: 40, scale: 0.96, filter: "blur(6px)" }}
+                animate={inView ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" } : {}}
+                transition={{ duration: 0.75, delay: 0.15 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <Tilt max={6}>
+                  <div className="otsf-speaker-card" style={{ position: "relative", transition: "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)" }}>
+                    {/* Ambient accent glow behind card */}
+                    <div className="otsf-speaker-glow" style={{
+                      position: "absolute",
+                      inset: -20,
+                      borderRadius: 34,
+                      background: `radial-gradient(ellipse 70% 60% at 50% 50%, rgba(${accentRgb},0.18) 0%, transparent 70%)`,
+                      filter: "blur(22px)",
+                      opacity: 0.55,
+                      pointerEvents: "none",
+                      transition: "opacity 0.55s ease",
+                    }} />
 
-                  {/* Initials placeholder */}
-                  <div style={{
-                    height: 200,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    background: `linear-gradient(135deg, ${C}18, ${C}05, rgba(255,255,255,0.02))`,
-                    position: "relative",
-                    overflow: "hidden",
-                  }}>
-                    <span style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: 56,
-                      fontWeight: 800,
-                      color: `${C_BRIGHT}30`,
-                      letterSpacing: "-2px",
+                    {/* Outer metallic gradient bezel */}
+                    <div style={{
+                      position: "relative",
+                      padding: 2,
+                      borderRadius: 24,
+                      background: `linear-gradient(135deg, rgba(${accentRgb},0.65) 0%, rgba(${accentRgb},0.2) 15%, rgba(255,255,255,0.14) 32%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.12) 68%, rgba(${accentRgb},0.2) 85%, rgba(${accentRgb},0.55) 100%)`,
+                      boxShadow: `0 28px 64px rgba(0,0,0,0.5), 0 0 45px rgba(${accentRgb},0.16), 0 0 0 1px rgba(255,255,255,0.03)`,
                     }}>
-                      {speaker.name.split(" ").map(n => n[0]).join("")}
-                    </span>
-                    <div style={{ position: "absolute", width: 100, height: 100, borderRadius: "50%", background: `radial-gradient(circle, ${C}20, transparent)`, pointerEvents: "none" }} />
-                  </div>
+                      {/* Inner highlight ring */}
+                      <div style={{
+                        position: "absolute",
+                        inset: 2,
+                        borderRadius: 22,
+                        pointerEvents: "none",
+                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.04)",
+                        zIndex: 3,
+                      }} />
 
-                  {/* Info */}
-                  <div style={{ padding: "20px 24px 24px" }}>
-                    <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 18, color: "white", margin: "0 0 6px" }}>{speaker.name}</h3>
-                    <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: C_BRIGHT, margin: "0 0 4px" }}>{speaker.title}</p>
-                    <p style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 400, color: "rgba(255,255,255,0.45)", margin: "0 0 10px" }}>{speaker.org}</p>
-                    {speaker.linkedin && (
-                      <a href={speaker.linkedin} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: CYAN, textDecoration: "none" }}>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill={CYAN}><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                        LinkedIn
-                      </a>
-                    )}
+                      <div style={{
+                        position: "relative",
+                        borderRadius: 22,
+                        overflow: "hidden",
+                        background: "linear-gradient(165deg, rgba(22,26,54,0.96) 0%, rgba(12,14,34,0.98) 50%, rgba(8,10,26,1) 100%)",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}>
+                        {/* Hover shine sweep */}
+                        <div className="otsf-speaker-shine" style={{
+                          position: "absolute",
+                          top: 0,
+                          left: "-80%",
+                          width: "60%",
+                          height: "100%",
+                          background: "linear-gradient(100deg, transparent, rgba(255,255,255,0.12) 50%, transparent)",
+                          transform: "skewX(-20deg)",
+                          pointerEvents: "none",
+                          transition: "left 1s cubic-bezier(0.22, 1, 0.36, 1)",
+                          zIndex: 4,
+                        }} />
+
+                        {/* Photo section */}
+                        <div style={{ position: "relative", width: "100%", aspectRatio: "4 / 5", overflow: "hidden" }}>
+                          {speaker.photo ? (
+                            <>
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={speaker.photo}
+                                alt={`${speaker.name}, ${speaker.title} at ${speaker.org}`}
+                                loading="lazy"
+                                width={400}
+                                height={500}
+                                className="otsf-speaker-photo"
+                                style={{
+                                  position: "absolute",
+                                  inset: 0,
+                                  width: "100%",
+                                  height: "100%",
+                                  objectFit: "cover",
+                                  objectPosition: "top center",
+                                  filter: "saturate(0.92) contrast(1.08) brightness(0.98)",
+                                  transition: "transform 1s cubic-bezier(0.22,1,0.36,1), filter 0.5s ease",
+                                }}
+                              />
+                            </>
+                          ) : (
+                            <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: `linear-gradient(135deg, rgba(${accentRgb},0.18), rgba(${accentRgb},0.04))` }}>
+                              <span style={{ fontFamily: "var(--font-display)", fontSize: 72, fontWeight: 800, color: `${accent}30`, letterSpacing: "-2px" }}>
+                                {speaker.name.split(" ").map(n => n[0]).join("")}
+                              </span>
+                            </div>
+                          )}
+                          {/* Bottom fade */}
+                          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 0%, transparent 35%, rgba(8,10,26,0.55) 70%, rgba(8,10,26,0.96) 100%)", pointerEvents: "none" }} />
+                          {/* Top vignette */}
+                          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "30%", background: "linear-gradient(180deg, rgba(8,10,26,0.4) 0%, transparent 100%)", pointerEvents: "none" }} />
+                          {/* Accent wash */}
+                          <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, rgba(${accentRgb},0.14) 0%, transparent 50%, rgba(${accentRgb},0.1) 100%)`, mixBlendMode: "overlay", pointerEvents: "none" }} />
+                          {/* Film grain */}
+                          <div style={{ position: "absolute", inset: 0, opacity: 0.06, mixBlendMode: "overlay", backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundSize: "180px 180px", pointerEvents: "none" }} />
+                          {/* Top reflection */}
+                          <div style={{ position: "absolute", top: 0, left: "6%", right: "6%", height: 1, background: `linear-gradient(90deg, transparent, ${accent}dd, transparent)`, boxShadow: `0 0 16px ${accent}90`, pointerEvents: "none" }} />
+                          {/* Inner photo frame */}
+                          <div style={{ position: "absolute", inset: 8, border: "1px solid rgba(255,255,255,0.04)", borderRadius: 14, pointerEvents: "none" }} />
+
+                          {/* Name + title overlaid at bottom of photo */}
+                          <div style={{ position: "absolute", left: 20, right: 20, bottom: 18 }}>
+                            <h3 style={{
+                              fontFamily: "var(--font-display)",
+                              fontWeight: 700,
+                              fontSize: "clamp(17px, 1.4vw, 21px)",
+                              color: "white",
+                              margin: 0,
+                              letterSpacing: "-0.4px",
+                              lineHeight: 1.15,
+                              textShadow: "0 2px 18px rgba(0,0,0,0.9), 0 1px 6px rgba(0,0,0,0.75)",
+                            }}>
+                              {speaker.name}
+                            </h3>
+                            <div style={{ display: "flex", alignItems: "flex-start", gap: 9, marginTop: 6 }}>
+                              <span style={{ width: 14, height: 1, background: accent, boxShadow: `0 0 8px ${accent}`, marginTop: 7, flexShrink: 0 }} />
+                              <span style={{
+                                fontFamily: "var(--font-outfit)",
+                                fontSize: 11.5,
+                                fontWeight: 500,
+                                color: "rgba(255,255,255,0.82)",
+                                letterSpacing: "0.2px",
+                                lineHeight: 1.35,
+                                textShadow: "0 1px 8px rgba(0,0,0,0.85)",
+                              }}>
+                                {speaker.title}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Accent hairline divider */}
+                        <div style={{ position: "relative", height: 1, background: `linear-gradient(90deg, transparent, rgba(${accentRgb},0.55), transparent)`, boxShadow: `0 0 14px rgba(${accentRgb},0.4)` }} />
+
+                        {/* Info panel — glassmorphism */}
+                        <div style={{
+                          position: "relative",
+                          padding: "16px 20px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          gap: 12,
+                          background: "linear-gradient(180deg, rgba(14,18,42,0.55) 0%, rgba(8,10,26,0.75) 100%)",
+                          backdropFilter: "blur(20px) saturate(1.3)",
+                          WebkitBackdropFilter: "blur(20px) saturate(1.3)",
+                          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+                          minHeight: 60,
+                        }}>
+                          {/* Top reflection */}
+                          <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)", pointerEvents: "none" }} />
+
+                          {/* Organization */}
+                          <div style={{ display: "flex", alignItems: "center", gap: 9, flex: 1, minWidth: 0 }}>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+                              <path d="M3 21h18M3 7l9-4 9 4M4 21V10m4 11v-7a2 2 0 012-2h4a2 2 0 012 2v7m4 0V10" stroke={accent} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                            <span style={{
+                              fontFamily: "var(--font-outfit)",
+                              fontSize: 12,
+                              fontWeight: 500,
+                              color: "rgba(255,255,255,0.72)",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                            }}>
+                              {speaker.org}
+                            </span>
+                          </div>
+
+                          {/* LinkedIn orb button */}
+                          {speaker.linkedin && (
+                            <a
+                              href={speaker.linkedin}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`${speaker.name} on LinkedIn`}
+                              className="otsf-speaker-li"
+                              style={{
+                                position: "relative",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                width: 38,
+                                height: 38,
+                                borderRadius: "50%",
+                                flexShrink: 0,
+                                background: `
+                                  radial-gradient(circle at 30% 25%, rgba(255,255,255,0.22) 0%, transparent 35%),
+                                  linear-gradient(155deg, ${accent} 0%, rgba(${accentRgb},0.5) 45%, rgba(${accentRgb},0.22) 100%)
+                                `,
+                                border: `1px solid rgba(${accentRgb},0.8)`,
+                                boxShadow: `inset 0 1.5px 0 rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.08), 0 6px 14px rgba(${accentRgb},0.35), 0 0 22px rgba(${accentRgb},0.2)`,
+                                textDecoration: "none",
+                                transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+                                overflow: "hidden",
+                              }}
+                            >
+                              <span style={{ position: "absolute", top: 2, left: "22%", right: "22%", height: "38%", background: "radial-gradient(ellipse at center top, rgba(255,255,255,0.5), transparent 70%)", pointerEvents: "none", borderRadius: "50%" }} />
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="white" style={{ position: "relative", filter: "drop-shadow(0 1px 4px rgba(0,0,0,0.4))" }}>
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                              </svg>
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </Tilt>
-            </motion.div>
-          ))}
+                </Tilt>
+              </motion.div>
+            );
+          })}
 
           {/* CTA card */}
           <motion.div
@@ -1808,39 +1988,166 @@ function EventSnapshotSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px, 5vw, 70px) 0", position: "relative" }}>
-      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 50% 50% at 50% 30%, ${CYAN}06, transparent 60%)`, pointerEvents: "none" }} />
-      <div style={{ maxWidth: 1000, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ textAlign: "center", marginBottom: 48 }}>
+    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
+      {/* Ambient orbs */}
+      <div style={{ position: "absolute", top: "15%", left: "-5%", width: 420, height: 420, borderRadius: "50%", background: `radial-gradient(circle, ${C}12 0%, transparent 70%)`, filter: "blur(60px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "10%", right: "-5%", width: 460, height: 460, borderRadius: "50%", background: `radial-gradient(circle, ${CYAN}10 0%, transparent 70%)`, filter: "blur(60px)", pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          style={{ textAlign: "center", marginBottom: "clamp(28px, 3.5vw, 44px)" }}
+        >
           <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: CYAN, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>At a Glance</span>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", lineHeight: 1.05, letterSpacing: "-2px", color: "white", margin: 0 }}>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 5vw, 56px)", lineHeight: 1, letterSpacing: "-2px", color: "white", margin: "0 0 14px" }}>
             Event <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Snapshot</span>
           </h2>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={inView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            style={{ width: 120, height: 3, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}, transparent)`, margin: "0 auto", borderRadius: 2, transformOrigin: "center", boxShadow: `0 0 12px ${C}80` }}
+          />
         </motion.div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }} className="otsf-snapshot-grid">
-          {EVENT_SNAPSHOT.map((item, i) => (
-            <motion.div
-              key={item.label}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 + i * 0.08, ease: EASE }}
-              style={{
-                padding: "clamp(28px, 3vw, 40px) 24px",
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.06)",
-                borderRadius: 20,
-                textAlign: "center",
-                transition: "all 0.3s ease",
-              }}
-              className="otsf-stat-card"
-            >
-              <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 48px)", color: CYAN, letterSpacing: "-1px", display: "block", marginBottom: 8 }}>
-                {item.stat}
-              </span>
-              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 600, color: "rgba(255,255,255,0.7)" }}>{item.label}</span>
-            </motion.div>
-          ))}
+        <div className="otsf-snapshot-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+          {EVENT_SNAPSHOT.map((item, i) => {
+            const accent = i % 2 === 0 ? C_BRIGHT : CYAN;
+            const accentRgba = i % 2 === 0 ? "rgba(232,107,184," : "rgba(0,201,255,";
+            return (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
+                animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+                transition={{ duration: 0.7, delay: 0.2 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                className="otsf-snapshot-card"
+                style={{
+                  position: "relative",
+                  padding: 2,
+                  borderRadius: 22,
+                  background: `linear-gradient(145deg, ${accentRgba}0.22) 0%, rgba(255,255,255,0.04) 40%, rgba(0,0,0,0.15) 100%)`,
+                  boxShadow: `0 1px 0 rgba(255,255,255,0.05) inset, 0 -1px 0 rgba(0,0,0,0.3) inset, 0 14px 40px rgba(0,0,0,0.4), 0 0 0 1px ${accentRgba}0.1)`,
+                  transition: "transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease",
+                }}
+              >
+                <div style={{
+                  position: "relative",
+                  borderRadius: 20,
+                  overflow: "hidden",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04)",
+                  padding: "clamp(22px, 2.2vw, 28px)",
+                  minHeight: "clamp(190px, 15vw, 230px)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-end",
+                }}>
+                  {/* Background photo */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.img}
+                    alt={`${item.stat} ${item.label} from previous EFG editions`}
+                    loading="lazy"
+                    width={480}
+                    height={320}
+                    className="otsf-snapshot-img"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      filter: "saturate(0.85) contrast(1.08) brightness(0.95)",
+                      transition: "transform 0.9s cubic-bezier(0.22,1,0.36,1), filter 0.5s ease",
+                      pointerEvents: "none",
+                    }}
+                  />
+
+                  {/* Stronger bottom-weighted vignette */}
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(7,11,31,0.35) 0%, rgba(7,11,31,0.55) 45%, rgba(7,11,31,0.92) 80%, rgba(7,11,31,0.98) 100%)", pointerEvents: "none" }} />
+
+                  {/* Accent color wash */}
+                  <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${accentRgba}0.28) 0%, transparent 50%, ${accentRgba}0.22) 100%)`, mixBlendMode: "overlay", pointerEvents: "none" }} />
+
+                  {/* Film grain noise */}
+                  <div style={{ position: "absolute", inset: 0, opacity: 0.08, mixBlendMode: "overlay", backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundSize: "180px 180px", pointerEvents: "none" }} />
+
+                  {/* Glass reflection line */}
+                  <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: `linear-gradient(90deg, transparent, ${accent}aa, transparent)`, boxShadow: `0 0 12px ${accent}80`, pointerEvents: "none" }} />
+
+                  {/* Corner chip — subtle event-series tag */}
+                  <div style={{ position: "absolute", top: 16, left: 16, display: "flex", alignItems: "center", gap: 7 }}>
+                    <span className="otsf-snapshot-pulse" style={{
+                      width: 6, height: 6, borderRadius: "50%",
+                      background: accent,
+                      boxShadow: `0 0 8px ${accent}, 0 0 16px ${accent}80`,
+                      flexShrink: 0,
+                    }} />
+                    <span style={{
+                      fontFamily: "var(--font-dm)",
+                      fontSize: 9.5,
+                      fontWeight: 700,
+                      color: "rgba(255,255,255,0.72)",
+                      textTransform: "uppercase",
+                      letterSpacing: "2.5px",
+                      textShadow: "0 1px 6px rgba(0,0,0,0.8)",
+                    }}>
+                      Past Edition
+                    </span>
+                  </div>
+
+                  {/* Bottom content stack */}
+                  <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 10 }}>
+                    {/* Stat number */}
+                    <span style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 800,
+                      fontSize: "clamp(42px, 4.6vw, 60px)",
+                      letterSpacing: "-2px",
+                      lineHeight: 0.95,
+                      color: "white",
+                      textShadow: `0 2px 20px rgba(0,0,0,0.8), 0 0 38px ${accent}55`,
+                    }}>
+                      {item.stat}
+                    </span>
+
+                    {/* Hairline accent rule */}
+                    <div style={{
+                      height: 1,
+                      width: 30,
+                      background: `linear-gradient(90deg, ${accent}, ${accent}30)`,
+                      boxShadow: `0 0 10px ${accent}80`,
+                    }} />
+
+                    {/* Label */}
+                    <span style={{
+                      fontFamily: "var(--font-outfit)",
+                      fontSize: 13.5,
+                      fontWeight: 600,
+                      color: "rgba(255,255,255,0.94)",
+                      letterSpacing: "0.2px",
+                      textShadow: "0 1px 8px rgba(0,0,0,0.75)",
+                    }}>
+                      {item.label}
+                    </span>
+                  </div>
+
+                  {/* Bottom accent bar */}
+                  <div className="otsf-snapshot-bar" style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    height: 2,
+                    width: "34%",
+                    background: `linear-gradient(90deg, ${accent}, ${accent}66 60%, transparent)`,
+                    boxShadow: `0 0 14px ${accent}`,
+                    transition: "width 0.6s cubic-bezier(0.25, 1, 0.5, 1)",
+                  }} />
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -1852,67 +2159,318 @@ function WhoShouldAttend() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const groups: { key: keyof typeof WHO_ATTEND; label: string; color: string }[] = [
-    { key: "executive", label: "Executive Leadership", color: C_BRIGHT },
-    { key: "otSecurity", label: "OT Security & Cybersecurity", color: CYAN },
-    { key: "opsEngineering", label: "Operations & Engineering", color: C_BRIGHT },
-    { key: "riskCompliance", label: "Risk & Compliance", color: CYAN },
-    { key: "government", label: "Government & Public Sector", color: C_BRIGHT },
+  const groups: { key: keyof typeof WHO_ATTEND; label: string; accent: string; accentRgba: string; icon: string; span: number }[] = [
+    {
+      key: "executive",
+      label: "Executive Leadership",
+      accent: C_BRIGHT,
+      accentRgba: "rgba(232,107,184,",
+      icon: "M12 2l2.8 6.3 6.9.7-5.2 4.7 1.5 6.8L12 17l-6 3.5 1.5-6.8L2.3 9l6.9-.7z",
+      span: 2,
+    },
+    {
+      key: "otSecurity",
+      label: "OT Security & Cybersecurity",
+      accent: CYAN,
+      accentRgba: "rgba(0,201,255,",
+      icon: "M12 2l8 3v6c0 5.2-3.4 9.7-8 11-4.6-1.3-8-5.8-8-11V5l8-3zm0 6a3 3 0 00-3 3v2H9v4h6v-4h-.5v-2a3 3 0 00-2.5-3z",
+      span: 1,
+    },
+    {
+      key: "opsEngineering",
+      label: "Operations & Engineering",
+      accent: C_BRIGHT,
+      accentRgba: "rgba(232,107,184,",
+      icon: "M12 15a3 3 0 100-6 3 3 0 000 6zm7.4-3c0 .4 0 .8-.1 1.2l2.1 1.6-2 3.4-2.4-1a7 7 0 01-2 1.2L14.5 21h-5l-.4-2.6a7 7 0 01-2-1.2l-2.4 1-2-3.4 2-1.6a7 7 0 010-2.4l-2-1.6 2-3.4 2.4 1a7 7 0 012-1.2L9.5 3h5l.4 2.6a7 7 0 012 1.2l2.4-1 2 3.4-2 1.6c.1.4.1.8.1 1.2z",
+      span: 1,
+    },
+    {
+      key: "riskCompliance",
+      label: "Risk & Compliance",
+      accent: CYAN,
+      accentRgba: "rgba(0,201,255,",
+      icon: "M12 2L3 7v5c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V7l-9-5zm-1 14l-4-4 1.4-1.4L11 13.2l5.6-5.6L18 9l-7 7z",
+      span: 1,
+    },
+    {
+      key: "government",
+      label: "Government & Public Sector",
+      accent: C_BRIGHT,
+      accentRgba: "rgba(232,107,184,",
+      icon: "M3 21h18v-2H3v2zM5 9v8h2V9H5zm6 0v8h2V9h-2zm6 0v8h2V9h-2zM12 2L2 7v2h20V7L12 2z",
+      span: 1,
+    },
   ];
 
   return (
-    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px, 5vw, 70px) 0", position: "relative" }}>
-      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 50% 40% at 30% 60%, ${CYAN}06, transparent 60%)`, pointerEvents: "none" }} />
-      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ marginBottom: 48 }}>
+    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
+      {/* Ambient orbs */}
+      <div style={{ position: "absolute", top: "10%", right: "-5%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${CYAN}12 0%, transparent 70%)`, filter: "blur(60px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "15%", left: "-5%", width: 420, height: 420, borderRadius: "50%", background: `radial-gradient(circle, ${C}10 0%, transparent 70%)`, filter: "blur(60px)", pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        {/* Centered header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          style={{ textAlign: "center", marginBottom: "clamp(28px, 3.5vw, 44px)" }}
+        >
           <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: CYAN, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>Designed For</span>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", lineHeight: 1.05, letterSpacing: "-2px", color: "white", margin: 0 }}>
-            Who This Forum<br /><span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Is Built For</span>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 5vw, 56px)", lineHeight: 1, letterSpacing: "-2px", color: "white", margin: "0 0 14px" }}>
+            Who This Forum{" "}
+            <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Is Built For</span>
           </h2>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={inView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            style={{ width: 120, height: 3, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}, transparent)`, margin: "0 auto 14px", borderRadius: 2, transformOrigin: "center", boxShadow: `0 0 12px ${C}80` }}
+          />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.45)" }}>
+            Five leadership tracks gathering at one table — from boardrooms to control rooms.
+          </span>
         </motion.div>
 
-        {/* Attendee groups */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }} className="otsf-who-grid">
+        {/* Attendee groups — bento: Executive spans 2, rest are single cells */}
+        <div className="otsf-who-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, alignItems: "stretch", gridAutoRows: "min-content" }}>
           {groups.map((group, gi) => (
             <motion.div
               key={group.key}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 + gi * 0.1, ease: EASE }}
+              initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
+              animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+              transition={{ duration: 0.7, delay: 0.15 + gi * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              className="otsf-who-card"
               style={{
-                padding: "28px 28px",
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.06)",
-                borderRadius: 20,
+                gridColumn: `span ${group.span}`,
+                position: "relative",
+                padding: 1.5,
+                borderRadius: 24,
+                background: `linear-gradient(145deg, ${group.accentRgba}0.55) 0%, ${group.accentRgba}0.18) 18%, rgba(255,255,255,0.08) 40%, rgba(255,255,255,0.02) 65%, ${group.accentRgba}0.35) 100%)`,
+                boxShadow: `0 20px 60px rgba(0,0,0,0.5), 0 0 40px ${group.accentRgba}0.12), 0 0 0 1px rgba(255,255,255,0.03)`,
+                transition: "transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease",
               }}
             >
-              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 17, color: group.color, margin: "0 0 16px" }}>{group.label}</h3>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                {WHO_ATTEND[group.key].map((role) => (
-                  <div key={role} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    <span style={{ width: 6, height: 6, borderRadius: "50%", background: `${group.color}50`, flexShrink: 0 }} />
-                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.7)" }}>{role}</span>
+              <div style={{
+                position: "relative",
+                width: "100%",
+                height: "100%",
+                borderRadius: 22.5,
+                overflow: "hidden",
+                background: `linear-gradient(160deg, rgba(20,26,64,0.62) 0%, rgba(10,14,42,0.7) 50%, rgba(7,11,31,0.78) 100%)`,
+                backdropFilter: "blur(28px) saturate(1.25)",
+                WebkitBackdropFilter: "blur(28px) saturate(1.25)",
+                boxShadow: `inset 0 1.5px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.05), inset 0 30px 60px -30px ${group.accentRgba}0.25)`,
+                padding: "clamp(22px, 2.2vw, 28px)",
+                display: "flex",
+                flexDirection: "column",
+              }}>
+                {/* Liquid glass — top highlight strip */}
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 50, background: `linear-gradient(180deg, rgba(255,255,255,0.09) 0%, transparent 100%)`, pointerEvents: "none" }} />
+
+                {/* Glass reflection line (sharp) */}
+                <div style={{ position: "absolute", top: 0, left: "6%", right: "6%", height: 1, background: `linear-gradient(90deg, transparent, ${group.accent}cc, transparent)`, boxShadow: `0 0 14px ${group.accent}80`, pointerEvents: "none" }} />
+
+                {/* Refraction glow — top-left */}
+                <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 55% 50% at 20% 15%, ${group.accentRgba}0.14), transparent 70%)`, pointerEvents: "none" }} />
+
+                {/* Refraction glow — bottom-right accent */}
+                <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 50% at 85% 90%, ${group.accentRgba}0.1), transparent 60%)`, pointerEvents: "none" }} />
+
+                {/* Ghost number */}
+                <span style={{
+                  position: "absolute",
+                  bottom: -18,
+                  right: 8,
+                  fontFamily: "var(--font-display)",
+                  fontSize: 150,
+                  fontWeight: 900,
+                  lineHeight: 0.85,
+                  letterSpacing: "-7px",
+                  color: "transparent",
+                  WebkitTextStroke: `1px ${group.accent}18`,
+                  textShadow: `0 0 40px ${group.accent}08`,
+                  pointerEvents: "none",
+                  userSelect: "none",
+                }}>
+                  {String(gi + 1).padStart(2, "0")}
+                </span>
+
+                {/* Header — liquid glass icon tile + title */}
+                <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 14, marginBottom: 18 }}>
+                  <div className="otsf-who-icon" style={{
+                    position: "relative",
+                    width: 44,
+                    height: 44,
+                    borderRadius: 12,
+                    background: `linear-gradient(145deg, ${group.accent}55 0%, ${group.accent}22 45%, ${group.accent}0f 100%)`,
+                    border: `1px solid ${group.accent}66`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    boxShadow: `inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.25), 0 6px 16px ${group.accentRgba}0.3), 0 0 24px ${group.accentRgba}0.18)`,
+                    overflow: "hidden",
+                  }}>
+                    {/* Icon tile inner highlight */}
+                    <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "50%", background: "linear-gradient(180deg, rgba(255,255,255,0.2), transparent)", pointerEvents: "none" }} />
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="white" style={{ filter: `drop-shadow(0 0 6px ${group.accent})`, position: "relative" }}>
+                      <path d={group.icon} />
+                    </svg>
                   </div>
-                ))}
+                  <h3 style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 700,
+                    fontSize: "clamp(15px, 1.35vw, 18px)",
+                    color: "white",
+                    margin: 0,
+                    letterSpacing: "-0.3px",
+                    lineHeight: 1.2,
+                    textShadow: "0 1px 6px rgba(0,0,0,0.5)",
+                  }}>
+                    {group.label}
+                  </h3>
+                </div>
+
+                {/* Hairline divider */}
+                <div style={{
+                  position: "relative",
+                  height: 1,
+                  width: "100%",
+                  background: `linear-gradient(90deg, ${group.accent}66, ${group.accent}15 55%, transparent)`,
+                  marginBottom: 16,
+                  boxShadow: `0 1px 0 rgba(0,0,0,0.2)`,
+                }} />
+
+                {/* Role list */}
+                <div className={group.span === 2 ? "otsf-who-roles-2col" : "otsf-who-roles"} style={{
+                  position: "relative",
+                  display: "grid",
+                  gridTemplateColumns: group.span === 2 ? "1fr 1fr" : "1fr",
+                  gap: "9px 18px",
+                }}>
+                  {WHO_ATTEND[group.key].map((role) => (
+                    <div key={role} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
+                      <span style={{
+                        position: "relative",
+                        width: 14,
+                        height: 14,
+                        borderRadius: "50%",
+                        background: `radial-gradient(circle, ${group.accent}30 0%, transparent 65%)`,
+                        flexShrink: 0,
+                        marginTop: 3,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}>
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="none">
+                          <path d="M9 18l6-6-6-6" stroke={group.accent} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                      <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 400, color: "rgba(255,255,255,0.8)", lineHeight: 1.45 }}>
+                        {role}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Bottom accent bar */}
+                <div className="otsf-who-bar" style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  height: 2,
+                  width: "26%",
+                  background: `linear-gradient(90deg, ${group.accent}, ${group.accent}66 60%, transparent)`,
+                  boxShadow: `0 0 14px ${group.accent}, 0 0 24px ${group.accent}80`,
+                  transition: "width 0.6s cubic-bezier(0.25, 1, 0.5, 1)",
+                }} />
+
+                {/* Hover shine sweep */}
+                <div className="otsf-who-shine" style={{
+                  position: "absolute",
+                  top: 0,
+                  left: "-60%",
+                  width: "50%",
+                  height: "100%",
+                  background: `linear-gradient(100deg, transparent, rgba(255,255,255,0.08) 50%, transparent)`,
+                  transform: "skewX(-20deg)",
+                  pointerEvents: "none",
+                  transition: "left 0.9s cubic-bezier(0.22, 1, 0.36, 1)",
+                }} />
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Target Industries */}
+        {/* Target Industries — premium chips */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.7, ease: EASE }}
-          style={{ marginTop: 40 }}
+          transition={{ duration: 0.7, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          style={{ marginTop: "clamp(28px, 3.5vw, 44px)", textAlign: "center" }}
         >
-          <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 20, color: "white", margin: "0 0 20px" }}>Target <span style={{ color: CYAN }}>Industries</span></h3>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-            {TARGET_INDUSTRIES.map((ind) => (
-              <span key={ind} style={{ padding: "10px 20px", borderRadius: 50, background: `${CYAN}10`, border: `1px solid ${CYAN}25`, fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: CYAN }}>
-                {ind}
-              </span>
-            ))}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 20 }}>
+            <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${CYAN})` }} />
+            <span style={{ fontFamily: "var(--font-dm)", fontSize: 10.5, fontWeight: 700, color: CYAN, textTransform: "uppercase", letterSpacing: "4px" }}>Target Industries</span>
+            <span style={{ width: 40, height: 1, background: `linear-gradient(270deg, transparent, ${CYAN})` }} />
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center", maxWidth: 960, margin: "0 auto" }}>
+            {TARGET_INDUSTRIES.map((ind, i) => {
+              const chipAccent = i % 2 === 0 ? CYAN : C_BRIGHT;
+              const chipRgba = i % 2 === 0 ? "rgba(0,201,255," : "rgba(232,107,184,";
+              return (
+                <motion.span
+                  key={ind}
+                  initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                  animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
+                  transition={{ duration: 0.55, delay: 0.7 + i * 0.04, ease: [0.22, 1, 0.36, 1] }}
+                  className="otsf-industry-chip"
+                  style={{
+                    position: "relative",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 9,
+                    padding: "1.5px",
+                    borderRadius: 999,
+                    background: `linear-gradient(135deg, ${chipRgba}0.5) 0%, ${chipRgba}0.15) 30%, rgba(255,255,255,0.06) 55%, ${chipRgba}0.35) 100%)`,
+                    boxShadow: `0 8px 20px rgba(0,0,0,0.35), 0 0 18px ${chipRgba}0.14)`,
+                    cursor: "default",
+                    transition: "all 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
+                    overflow: "hidden",
+                  }}
+                >
+                  <span style={{
+                    position: "relative",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 9,
+                    padding: "9px 17px",
+                    borderRadius: 999,
+                    background: `linear-gradient(160deg, rgba(20,26,64,0.65) 0%, rgba(10,14,42,0.72) 100%)`,
+                    backdropFilter: "blur(18px) saturate(1.2)",
+                    WebkitBackdropFilter: "blur(18px) saturate(1.2)",
+                    boxShadow: `inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,255,255,0.04)`,
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 13,
+                    fontWeight: 500,
+                    color: "rgba(255,255,255,0.92)",
+                    letterSpacing: "0.2px",
+                    textShadow: "0 1px 4px rgba(0,0,0,0.4)",
+                  }}>
+                    {/* Top reflection */}
+                    <span style={{ position: "absolute", top: 0, left: "15%", right: "15%", height: 1, background: `linear-gradient(90deg, transparent, ${chipAccent}aa, transparent)`, pointerEvents: "none" }} />
+                    <span style={{
+                      width: 6, height: 6, borderRadius: "50%",
+                      background: chipAccent,
+                      boxShadow: `0 0 8px ${chipAccent}, 0 0 14px ${chipAccent}66`,
+                      flexShrink: 0,
+                    }} />
+                    {ind}
+                  </span>
+                </motion.span>
+              );
+            })}
           </div>
         </motion.div>
       </div>
@@ -1926,7 +2484,7 @@ function SponsorsSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="sponsors" style={{ background: "transparent", padding: "clamp(40px, 5vw, 60px) 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} id="sponsors" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", textAlign: "center", marginBottom: 48 }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 24, marginBottom: 16 }}>
@@ -1944,7 +2502,7 @@ function SponsorsSection() {
         <div className="otsf-marquee" style={{ display: "flex", gap: 40, animation: "otsf-scroll-left 70s linear infinite" }}>
           {[...MARQUEE_ROW_1, ...MARQUEE_ROW_1].map((logo, i) => (
             <div key={i} style={{ flexShrink: 0, height: 90, width: 190, display: "flex", alignItems: "center", justifyContent: "center", opacity: 0.6 }}>
-              <img src={logo} alt="" style={{ maxHeight: 72, maxWidth: 170, objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.85 }} loading="lazy" />
+              <img src={logo} alt={`${(logo.split("/").pop() || "sponsor").replace(/\.[a-z]+$/i, "").replace(/[-_]/g, " ")} logo`} width={170} height={72} style={{ maxHeight: 72, maxWidth: 170, objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.85 }} loading="lazy" />
             </div>
           ))}
         </div>
@@ -1957,7 +2515,7 @@ function SponsorsSection() {
         <div className="otsf-marquee" style={{ display: "flex", gap: 40, animation: "otsf-scroll-right 80s linear infinite" }}>
           {[...MARQUEE_ROW_2, ...MARQUEE_ROW_2].map((logo, i) => (
             <div key={i} style={{ flexShrink: 0, height: 90, width: 190, display: "flex", alignItems: "center", justifyContent: "center", opacity: 0.6 }}>
-              <img src={logo} alt="" style={{ maxHeight: 72, maxWidth: 170, objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.85 }} loading="lazy" />
+              <img src={logo} alt={`${(logo.split("/").pop() || "sponsor").replace(/\.[a-z]+$/i, "").replace(/[-_]/g, " ")} logo`} width={170} height={72} style={{ maxHeight: 72, maxWidth: 170, objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.85 }} loading="lazy" />
             </div>
           ))}
         </div>
@@ -1972,7 +2530,11 @@ function OTShortCard({ videoId, title }: { videoId: string; title: string }) {
 
   return (
     <div
+      role={playing ? undefined : "button"}
+      tabIndex={playing ? undefined : 0}
+      aria-label={playing ? undefined : `Play testimonial: ${title}`}
       onClick={() => !playing && setPlaying(true)}
+      onKeyDown={(e) => { if (!playing && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setPlaying(true); } }}
       style={{
         position: "relative",
         width: "100%",
@@ -1999,6 +2561,8 @@ function OTShortCard({ videoId, title }: { videoId: string; title: string }) {
             src={`https://img.youtube.com/vi/${videoId}/oar2.jpg`}
             onError={(e) => { (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`; }}
             alt={title}
+            width={360}
+            height={640}
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 20%" }}
           />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(7,11,31,0.1) 0%, rgba(7,11,31,0.1) 55%, rgba(7,11,31,0.55) 100%)", pointerEvents: "none" }} />
@@ -2051,7 +2615,7 @@ function OTTestimonials() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} style={{ background: "transparent", padding: "clamp(50px, 6vw, 90px) 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
       {/* Ambient orbs */}
       <div style={{ position: "absolute", top: "20%", right: "-5%", width: 500, height: 500, borderRadius: "50%", background: `radial-gradient(circle, ${CYAN}14 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
       <div style={{ position: "absolute", bottom: "15%", left: "-5%", width: 400, height: 400, borderRadius: "50%", background: `radial-gradient(circle, ${C}12 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
@@ -2062,7 +2626,7 @@ function OTTestimonials() {
           initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
           animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          style={{ textAlign: "center", marginBottom: "clamp(40px, 5vw, 56px)" }}
+          style={{ textAlign: "center", marginBottom: "clamp(28px, 3.5vw, 44px)" }}
         >
           <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: CYAN, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>Testimonials</span>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 5vw, 56px)", color: "white", letterSpacing: "-2px", margin: "0 0 14px", lineHeight: 1 }}>
@@ -2131,7 +2695,7 @@ function GallerySection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px, 5vw, 60px) 0", position: "relative" }}>
+    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative" }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ marginBottom: 40 }}>
           <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>Atmosphere</span>
@@ -2169,6 +2733,8 @@ function GallerySection() {
                 src={img.src}
                 alt={img.alt}
                 loading="lazy"
+                width={800}
+                height={600}
                 style={{
                   width: "100%",
                   height: "100%",
@@ -2189,7 +2755,7 @@ function GallerySection() {
 function AwardsSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [formState, setFormState] = useState({ name: "", email: "", company: "", title: "", phone: "", countryIdx: 0 });
+  const [formState, setFormState] = useState({ name: "", email: "", company: "", title: "", category: "", phone: "", countryIdx: 0 });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -2199,6 +2765,7 @@ function AwardsSection() {
     if (!formState.name.trim()) errs.name = "Required";
     if (!formState.email.trim()) errs.email = "Required";
     else if (!isWorkEmail(formState.email)) errs.email = "Please use your work email";
+    if (!formState.category) errs.category = "Please select a category";
     if (Object.keys(errs).length) return setErrors(errs);
 
     setSubmitting(true);
@@ -2212,6 +2779,7 @@ function AwardsSection() {
         phone: formState.phone ? `${COUNTRY_CODES[formState.countryIdx].code}${formState.phone}` : "",
         event_name: "OT Security First Johannesburg 2026, Awards",
         website: "",
+        metadata: { award_category: formState.category },
       });
       setSubmitted(true);
     } catch {
@@ -2222,112 +2790,335 @@ function AwardsSection() {
   };
 
   return (
-    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px, 5vw, 70px) 0", position: "relative" }}>
-      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 50% 40% at 50% 50%, ${CYAN}06, transparent 60%)`, pointerEvents: "none" }} />
-      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64 }} className="otsf-awards-grid">
-          {/* Left, nomination form */}
-          <div>
-            <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: CYAN, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>Awards</span>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 3.5vw, 44px)", lineHeight: 1.05, letterSpacing: "-1.5px", color: "white", margin: "0 0 16px" }}>
-              OT Security First<br /><span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Awards Africa</span>
-            </h2>
-            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, margin: "0 0 32px" }}>
-              Nominate outstanding organisations and leaders driving OT security excellence across the continent.
-            </p>
+    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
+      {/* Ambient orbs */}
+      <div style={{ position: "absolute", top: "15%", left: "-5%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${C}14 0%, transparent 70%)`, filter: "blur(70px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "15%", right: "-5%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${CYAN}10 0%, transparent 70%)`, filter: "blur(70px)", pointerEvents: "none" }} />
 
-            {submitted ? (
-              <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} style={{ padding: 40, background: `${CYAN}10`, border: `1px solid ${CYAN}25`, borderRadius: 20, textAlign: "center" }}>
-                <span style={{ fontSize: 40, display: "block", marginBottom: 12 }}>&#10003;</span>
-                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 22, color: "white", marginBottom: 8 }}>Nomination Submitted</h3>
-                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.5)" }}>Thank you! We&apos;ll be in touch.</p>
-              </motion.div>
-            ) : (
-              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                {[
-                  { key: "name", label: "Full Name", type: "text" },
-                  { key: "email", label: "Work Email", type: "email" },
-                  { key: "company", label: "Company / Organisation", type: "text" },
-                  { key: "title", label: "Job Title", type: "text" },
-                ].map((field) => (
-                  <div key={field.key}>
-                    <input
-                      type={field.type}
-                      placeholder={field.label}
-                      value={formState[field.key as keyof typeof formState] as string}
-                      onChange={(e) => { setFormState((s) => ({ ...s, [field.key]: e.target.value })); setErrors((prev) => { const n = { ...prev }; delete n[field.key]; return n; }); }}
-                      style={{
-                        width: "100%",
-                        padding: "14px 18px",
-                        borderRadius: 12,
-                        background: "rgba(255,255,255,0.04)",
-                        border: `1px solid ${errors[field.key] ? "#ef4444" : "rgba(255,255,255,0.08)"}`,
-                        color: "white",
-                        fontFamily: "var(--font-outfit)",
-                        fontSize: 14,
-                        outline: "none",
-                        transition: "border-color 0.2s",
-                      }}
-                    />
-                    {errors[field.key] && <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: "#ef4444", marginTop: 4, display: "block" }}>{errors[field.key]}</span>}
-                  </div>
-                ))}
-                <button
-                  onClick={handleSubmit}
-                  disabled={submitting}
-                  style={{
-                    padding: "16px 32px",
-                    borderRadius: 50,
-                    background: `linear-gradient(135deg, ${CYAN}, ${CYAN_DIM})`,
-                    color: "#0A0A0A",
-                    fontFamily: "var(--font-outfit)",
-                    fontSize: 15,
-                    fontWeight: 700,
-                    border: "none",
-                    cursor: submitting ? "wait" : "pointer",
-                    opacity: submitting ? 0.7 : 1,
-                    transition: "all 0.3s ease",
-                    marginTop: 8,
-                  }}
-                >
-                  {submitting ? "Submitting..." : "Submit Nomination"}
-                </button>
-                {errors.form && <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "#ef4444" }}>{errors.form}</span>}
-              </div>
-            )}
+      <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        {/* Centered header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          style={{ textAlign: "center", marginBottom: "clamp(28px, 3.5vw, 44px)" }}
+        >
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
+            <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${C_BRIGHT})` }} />
+            <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "4.5px" }}>The Awards</span>
+            <span style={{ width: 40, height: 1, background: `linear-gradient(270deg, transparent, ${C_BRIGHT})` }} />
+          </div>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 5vw, 56px)", lineHeight: 1, letterSpacing: "-2px", color: "white", margin: "0 0 14px" }}>
+            OT Security First{" "}
+            <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Awards Africa</span>
+          </h2>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={inView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            style={{ width: 120, height: 3, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}, transparent)`, margin: "0 auto 14px", borderRadius: 2, transformOrigin: "center", boxShadow: `0 0 12px ${C}` }}
+          />
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: "clamp(14px, 1.1vw, 16px)", fontWeight: 400, color: "rgba(255,255,255,0.55)", maxWidth: 600, margin: "0 auto", lineHeight: 1.55 }}>
+            Five categories celebrating organisations and leaders driving OT security excellence across the continent.
+          </p>
+        </motion.div>
+
+        {/* Categories — 5 numbered entries above the container */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          style={{ marginBottom: "clamp(28px, 3.5vw, 44px)" }}
+        >
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 28 }}>
+            <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${C_BRIGHT})` }} />
+            <span style={{ fontFamily: "var(--font-dm)", fontSize: 10.5, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "4px" }}>Five Categories</span>
+            <span style={{ width: 40, height: 1, background: `linear-gradient(270deg, transparent, ${C_BRIGHT})` }} />
           </div>
 
-          {/* Right, award categories */}
-          <div>
-            <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 20, color: "white", margin: "0 0 24px" }}>Award Categories</h3>
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              {AWARDS_DATA.map((award, i) => (
+          <div className="otsf-awards-cats" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", columnGap: "clamp(28px, 4vw, 56px)", rowGap: 2 }}>
+            {AWARDS_DATA.map((award, i) => {
+              const accent = i % 2 === 0 ? C_BRIGHT : CYAN;
+              return (
                 <motion.div
                   key={award.title}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.3 + i * 0.08, ease: EASE }}
-                  className="otsf-award-card"
+                  transition={{ duration: 0.5, delay: 0.25 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                  className="otsf-award-row"
                   style={{
-                    padding: "20px 24px",
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.06)",
-                    borderRadius: 16,
-                    transition: "all 0.3s ease",
+                    position: "relative",
+                    padding: "18px 0",
+                    borderBottom: "1px solid rgba(255,255,255,0.08)",
+                    transition: "padding-left 0.45s cubic-bezier(0.22,1,0.36,1)",
                   }}
                 >
-                  <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
-                    <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: CYAN, minWidth: 20 }}>0{i + 1}</span>
-                    <div>
-                      <h4 style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 600, color: "white", margin: "0 0 4px" }}>{award.title}</h4>
-                      <p style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 400, color: "rgba(255,255,255,0.45)", margin: 0, lineHeight: 1.5 }}>{award.desc}</p>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 14 }}>
+                    <span style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: 12,
+                      fontWeight: 700,
+                      color: accent,
+                      letterSpacing: "1.5px",
+                      minWidth: 24,
+                      fontVariantNumeric: "tabular-nums",
+                      textShadow: `0 0 10px ${accent}55`,
+                    }}>
+                      0{i + 1}
+                    </span>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <h4 style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: "clamp(14px, 1.2vw, 16.5px)",
+                        fontWeight: 600,
+                        color: "white",
+                        margin: "0 0 4px",
+                        letterSpacing: "-0.2px",
+                        lineHeight: 1.3,
+                      }}>
+                        {award.title}
+                      </h4>
+                      <p style={{
+                        fontFamily: "var(--font-outfit)",
+                        fontSize: 12.5,
+                        fontWeight: 400,
+                        color: "rgba(255,255,255,0.5)",
+                        margin: 0,
+                        lineHeight: 1.55,
+                      }}>
+                        {award.desc}
+                      </p>
                     </div>
                   </div>
+                  <div className="otsf-award-sliver" style={{
+                    position: "absolute",
+                    left: 0,
+                    top: "28%",
+                    bottom: "28%",
+                    width: 2,
+                    background: `linear-gradient(to bottom, transparent, ${accent}, transparent)`,
+                    boxShadow: `0 0 8px ${accent}`,
+                    opacity: 0,
+                    transition: "opacity 0.45s ease",
+                  }} />
                 </motion.div>
-              ))}
+              );
+            })}
+          </div>
+        </motion.div>
+
+        {/* Unified gradient-bordered container wrapping both cards (Web Summit style) */}
+        <motion.div
+          initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            position: "relative",
+            padding: 2,
+            borderRadius: 28,
+            background: `linear-gradient(135deg, ${C_BRIGHT} 0%, ${C_BRIGHT}88 15%, ${CYAN}66 40%, rgba(255,255,255,0.08) 55%, ${CYAN}88 75%, ${CYAN} 100%)`,
+            boxShadow: `0 28px 70px rgba(0,0,0,0.5), 0 0 60px ${C}22, 0 0 40px ${CYAN}14`,
+          }}
+        >
+          <div className="otsf-awards-grid" style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            borderRadius: 26,
+            overflow: "hidden",
+            background: BG,
+          }}>
+            {/* Left — pure photo card (no text overlay) */}
+            <div className="otsf-awards-photo" style={{
+              position: "relative",
+              minHeight: 620,
+              overflow: "hidden",
+            }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`${S3}/Good/4N8A0200.JPG`}
+                alt="OT Security First Awards Africa ceremony — honouring industrial cybersecurity excellence"
+                loading="lazy"
+                width={720}
+                height={900}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  filter: "saturate(0.95) contrast(1.1) brightness(0.95)",
+                  pointerEvents: "none",
+                }}
+              />
+              {/* Subtle bottom vignette */}
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 0%, transparent 55%, rgba(7,11,31,0.45) 100%)", pointerEvents: "none" }} />
+              {/* Accent tint */}
+              <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${C}14 0%, transparent 50%, ${CYAN}10 100%)`, mixBlendMode: "overlay", pointerEvents: "none" }} />
+              {/* Corner chip */}
+              <div style={{ position: "absolute", bottom: 22, left: 22, display: "flex", alignItems: "center", gap: 9, padding: "8px 14px", borderRadius: 999, background: "rgba(7,11,31,0.55)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: `1px solid rgba(255,255,255,0.12)` }}>
+                <span className="otsf-awards-pulse" style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 10px ${C_BRIGHT}, 0 0 18px ${C_BRIGHT}80` }} />
+                <span style={{ fontFamily: "var(--font-dm)", fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.85)", textTransform: "uppercase", letterSpacing: "2.5px" }}>Honoring Excellence</span>
+              </div>
+            </div>
+
+          {/* Right — Nomination form (liquid glass panel inside unified container) */}
+          <div className="otsf-awards-form" style={{
+              position: "relative",
+              overflow: "hidden",
+              background: "linear-gradient(160deg, rgba(20,26,64,0.5) 0%, rgba(10,14,42,0.65) 100%)",
+              backdropFilter: "blur(24px) saturate(1.2)",
+              WebkitBackdropFilter: "blur(24px) saturate(1.2)",
+              boxShadow: "inset 0 1.5px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.35)",
+              padding: "clamp(32px, 3.5vw, 48px)",
+              borderLeft: "1px solid rgba(255,255,255,0.06)",
+            }}>
+              {/* Top reflection */}
+              <div style={{ position: "absolute", top: 0, left: "8%", right: "8%", height: 1, background: `linear-gradient(90deg, transparent, ${CYAN}bb, transparent)`, boxShadow: `0 0 12px ${CYAN}80`, pointerEvents: "none" }} />
+
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 22 }}>
+                <span style={{ width: 28, height: 1, background: CYAN }} />
+                <span style={{ fontFamily: "var(--font-dm)", fontSize: 10.5, fontWeight: 700, color: CYAN, textTransform: "uppercase", letterSpacing: "3.5px" }}>Nominate</span>
+              </div>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 22, color: "white", margin: "0 0 6px", letterSpacing: "-0.5px", position: "relative" }}>
+                Nominate a Leader
+              </h3>
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, color: "rgba(255,255,255,0.55)", margin: "0 0 22px", lineHeight: 1.55, position: "relative" }}>
+                Recognise the teams and individuals shaping industrial cyber resilience.
+              </p>
+
+              {submitted ? (
+                <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} style={{
+                  padding: 28,
+                  background: `linear-gradient(135deg, ${CYAN}12, ${CYAN}06)`,
+                  border: `1px solid ${CYAN}30`,
+                  borderRadius: 14,
+                  textAlign: "center",
+                }}>
+                  <div style={{
+                    width: 52, height: 52, borderRadius: "50%",
+                    background: `linear-gradient(145deg, ${CYAN}55, ${CYAN}22)`,
+                    border: `1px solid ${CYAN}66`,
+                    boxShadow: `0 0 24px ${CYAN}55`,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: 14,
+                  }}>
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  </div>
+                  <h4 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 18, color: "white", margin: "0 0 6px" }}>Nomination submitted</h4>
+                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.55)", margin: 0 }}>Thank you — we&apos;ll be in touch.</p>
+                </motion.div>
+              ) : (
+                <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 14 }}>
+                  {[
+                    { key: "name", label: "Full Name", type: "text" },
+                    { key: "email", label: "Work Email", type: "email" },
+                    { key: "company", label: "Company / Organisation", type: "text" },
+                    { key: "title", label: "Job Title", type: "text" },
+                  ].map((field) => (
+                    <div key={field.key}>
+                      <input
+                        type={field.type}
+                        placeholder={field.label}
+                        value={formState[field.key as keyof typeof formState] as string}
+                        onChange={(e) => { setFormState((s) => ({ ...s, [field.key]: e.target.value })); setErrors((prev) => { const n = { ...prev }; delete n[field.key]; return n; }); }}
+                        className="otsf-awards-input"
+                        style={{
+                          width: "100%",
+                          padding: "14px 18px",
+                          borderRadius: 12,
+                          background: "linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 100%)",
+                          border: `1px solid ${errors[field.key] ? "#ef4444" : "rgba(255,255,255,0.1)"}`,
+                          color: "white",
+                          fontFamily: "var(--font-outfit)",
+                          fontSize: 14,
+                          fontWeight: 400,
+                          outline: "none",
+                          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), inset 0 -1px 0 rgba(0,0,0,0.18)",
+                          transition: "border-color 0.3s, box-shadow 0.3s, background 0.3s",
+                        }}
+                      />
+                      {errors[field.key] && <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: "#ef4444", marginTop: 6, display: "block" }}>{errors[field.key]}</span>}
+                    </div>
+                  ))}
+
+                  {/* Category dropdown */}
+                  <div style={{ position: "relative" }}>
+                    <select
+                      value={formState.category}
+                      onChange={(e) => { setFormState((s) => ({ ...s, category: e.target.value })); setErrors((prev) => { const n = { ...prev }; delete n.category; return n; }); }}
+                      className="otsf-awards-input otsf-awards-select"
+                      style={{
+                        width: "100%",
+                        padding: "14px 44px 14px 18px",
+                        borderRadius: 12,
+                        background: "linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 100%)",
+                        border: `1px solid ${errors.category ? "#ef4444" : "rgba(255,255,255,0.1)"}`,
+                        color: formState.category ? "white" : "rgba(255,255,255,0.38)",
+                        fontFamily: "var(--font-outfit)",
+                        fontSize: 14,
+                        fontWeight: 400,
+                        outline: "none",
+                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), inset 0 -1px 0 rgba(0,0,0,0.18)",
+                        transition: "border-color 0.3s, box-shadow 0.3s, background 0.3s",
+                        appearance: "none",
+                        WebkitAppearance: "none",
+                        MozAppearance: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <option value="" disabled style={{ background: "#0a0e2a", color: "rgba(255,255,255,0.5)" }}>Award Category</option>
+                      {AWARDS_DATA.map((award, i) => (
+                        <option key={award.title} value={award.title} style={{ background: "#0a0e2a", color: "white" }}>
+                          0{i + 1} · {award.title}
+                        </option>
+                      ))}
+                    </select>
+                    {/* Custom chevron */}
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      style={{ position: "absolute", right: 16, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}
+                    >
+                      <path d="M6 9l6 6 6-6" stroke={CYAN} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    {errors.category && <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: "#ef4444", marginTop: 6, display: "block" }}>{errors.category}</span>}
+                  </div>
+
+                  <button
+                    onClick={handleSubmit}
+                    disabled={submitting}
+                    className="otsf-awards-submit"
+                    style={{
+                      position: "relative",
+                      padding: "15px 32px",
+                      borderRadius: 50,
+                      background: `linear-gradient(135deg, ${CYAN} 0%, ${C_BRIGHT} 100%)`,
+                      color: "#0A0A0A",
+                      fontFamily: "var(--font-outfit)",
+                      fontSize: 14.5,
+                      fontWeight: 700,
+                      border: "none",
+                      cursor: submitting ? "wait" : "pointer",
+                      opacity: submitting ? 0.7 : 1,
+                      letterSpacing: "0.3px",
+                      boxShadow: `0 10px 28px ${CYAN}45, 0 0 24px ${C}30, inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 0 rgba(0,0,0,0.2)`,
+                      transition: "all 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
+                      marginTop: 8,
+                      overflow: "hidden",
+                    }}
+                  >
+                    <span style={{ position: "relative", zIndex: 2 }}>{submitting ? "Submitting..." : "Submit Nomination"}</span>
+                  </button>
+                  {errors.form && <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "#ef4444" }}>{errors.form}</span>}
+                </div>
+              )}
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -2338,48 +3129,310 @@ function ContactSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
+  // Flatten contacts so each person gets their own card
+  const people = [
+    { ...CONTACTS.speaking, category: "Speaking" },
+    ...CONTACTS.sponsorship.map((c) => ({ ...c, category: "Sponsorship" })),
+  ];
+
+  const initials = (name: string) => name.split(" ").map((n) => n[0]).slice(0, 2).join("").toUpperCase();
+
   return (
-    <section ref={ref} id="contact" style={{ background: "transparent", padding: "clamp(40px, 5vw, 60px) 0", position: "relative" }}>
-      <div style={{ maxWidth: 1000, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ textAlign: "center", marginBottom: 48 }}>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 3.5vw, 44px)", letterSpacing: "-1.5px", color: "white", margin: "0 0 12px" }}>
-            Get In <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Touch</span>
+    <section ref={ref} id="contact" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
+      {/* Ambient orbs */}
+      <div style={{ position: "absolute", top: "10%", left: "-5%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${CYAN}12 0%, transparent 70%)`, filter: "blur(70px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "10%", right: "-5%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${C}10 0%, transparent 70%)`, filter: "blur(70px)", pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: 1160, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        {/* Centered header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          style={{ textAlign: "center", marginBottom: "clamp(28px, 3.5vw, 44px)" }}
+        >
+          <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: CYAN, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>Meet Your Team</span>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 5vw, 56px)", lineHeight: 1, letterSpacing: "-2px", color: "white", margin: "0 0 14px" }}>
+            Get In{" "}
+            <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Touch</span>
           </h2>
-          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.5)", margin: 0 }}>For speaking and sponsorship enquiries</p>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={inView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            style={{ width: 120, height: 3, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}, transparent)`, margin: "0 auto 14px", borderRadius: 2, transformOrigin: "center", boxShadow: `0 0 12px ${C}80` }}
+          />
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.55)", maxWidth: 560, margin: "0 auto", lineHeight: 1.55 }}>
+            Real people, ready to help you with speaking and sponsorship enquiries.
+          </p>
         </motion.div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }} className="otsf-contact-grid">
-          {/* Speaking */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
-            className="otsf-contact-card"
-            style={{ padding: "32px 28px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 24, transition: "all 0.3s ease" }}
-          >
-            <span style={{ fontFamily: "var(--font-dm)", fontSize: 10, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "3px", display: "block", marginBottom: 16 }}>Speaking Enquiries</span>
-            <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 20, color: "white", margin: "0 0 8px" }}>{CONTACTS.speaking.name}</h3>
-            <a href={`tel:${CONTACTS.speaking.phone.replace(/\s/g, "")}`} style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.6)", textDecoration: "none", display: "block", marginBottom: 4 }}>{CONTACTS.speaking.phone}</a>
-            <a href={`mailto:${CONTACTS.speaking.email}`} style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: C_BRIGHT, textDecoration: "none" }}>{CONTACTS.speaking.email}</a>
-          </motion.div>
+        {/* 3 portrait profile cards — photo top half, contact bottom half */}
+        <div className="otsf-contact-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "clamp(18px, 2vw, 28px)" }}>
+          {people.map((person, i) => {
+            const accent = i % 2 === 0 ? C_BRIGHT : CYAN;
+            const accentRgb = i % 2 === 0 ? "232,107,184" : "0,201,255";
+            const mailHref = `mailto:${person.email}`;
 
-          {/* Sponsorship */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
-            className="otsf-contact-card"
-            style={{ padding: "32px 28px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 24, transition: "all 0.3s ease" }}
-          >
-            <span style={{ fontFamily: "var(--font-dm)", fontSize: 10, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "3px", display: "block", marginBottom: 16 }}>Sponsorship Enquiries</span>
-            {CONTACTS.sponsorship.map((c) => (
-              <div key={c.name} style={{ marginBottom: 16 }}>
-                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 18, color: "white", margin: "0 0 6px" }}>{c.name}</h3>
-                <a href={`tel:${c.phone.replace(/\s/g, "")}`} style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.6)", textDecoration: "none", display: "block", marginBottom: 2 }}>{c.phone}</a>
-                <a href={`mailto:${c.email}`} style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: C_BRIGHT, textDecoration: "none" }}>{c.email}</a>
-              </div>
-            ))}
-          </motion.div>
+            return (
+              <motion.div
+                key={person.email}
+                initial={{ opacity: 0, y: 50, scale: 0.95, filter: "blur(8px)" }}
+                animate={inView ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" } : {}}
+                transition={{ duration: 0.8, delay: 0.2 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                className="otsf-contact-card"
+                style={{
+                  position: "relative",
+                  transition: "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
+                }}
+              >
+                {/* Ambient accent glow behind card */}
+                <div className="otsf-contact-glow" style={{
+                  position: "absolute",
+                  inset: -24,
+                  borderRadius: 36,
+                  background: `radial-gradient(ellipse 70% 60% at 50% 50%, rgba(${accentRgb},0.2) 0%, transparent 70%)`,
+                  filter: "blur(24px)",
+                  opacity: 0.65,
+                  pointerEvents: "none",
+                  transition: "opacity 0.55s ease",
+                }} />
+
+                {/* Outer skeuomorphic gradient bezel — 2.5px metallic edge */}
+                <div style={{
+                  position: "relative",
+                  padding: 2.5,
+                  borderRadius: 26,
+                  background: `
+                    linear-gradient(135deg,
+                      rgba(${accentRgb},0.7) 0%,
+                      rgba(${accentRgb},0.22) 14%,
+                      rgba(255,255,255,0.16) 30%,
+                      rgba(255,255,255,0.02) 50%,
+                      rgba(255,255,255,0.14) 70%,
+                      rgba(${accentRgb},0.2) 86%,
+                      rgba(${accentRgb},0.6) 100%)
+                  `,
+                  boxShadow: `
+                    0 32px 72px rgba(0,0,0,0.55),
+                    0 0 50px rgba(${accentRgb},0.18),
+                    0 0 0 1px rgba(255,255,255,0.035)
+                  `,
+                }}>
+                  {/* Inner highlight ring — sits just inside the bezel */}
+                  <div style={{
+                    position: "absolute",
+                    inset: 2.5,
+                    borderRadius: 23.5,
+                    pointerEvents: "none",
+                    boxShadow: `
+                      inset 0 1px 0 rgba(255,255,255,0.12),
+                      inset 0 -1px 0 rgba(0,0,0,0.5),
+                      inset 0 0 0 1px rgba(255,255,255,0.04)
+                    `,
+                    zIndex: 3,
+                  }} />
+
+                  <div style={{
+                    position: "relative",
+                    borderRadius: 23.5,
+                    overflow: "hidden",
+                    background: "linear-gradient(165deg, rgba(22,26,54,0.96) 0%, rgba(12,14,34,0.98) 50%, rgba(8,10,26,1) 100%)",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}>
+                    {/* Hover shine sweep */}
+                    <div className="otsf-contact-shine" style={{
+                      position: "absolute",
+                      top: 0,
+                      left: "-80%",
+                      width: "60%",
+                      height: "100%",
+                      background: "linear-gradient(100deg, transparent, rgba(255,255,255,0.13) 50%, transparent)",
+                      transform: "skewX(-20deg)",
+                      pointerEvents: "none",
+                      transition: "left 1s cubic-bezier(0.22, 1, 0.36, 1)",
+                      zIndex: 4,
+                    }} />
+
+                    {/* Top portrait photo — framed */}
+                    <div style={{ position: "relative", width: "100%", aspectRatio: "4 / 5", overflow: "hidden" }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={person.photo}
+                        alt={`${person.name}, ${person.title} at Events First Group`}
+                        loading="lazy"
+                        width={400}
+                        height={500}
+                        className="otsf-contact-photo"
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          objectPosition: "top center",
+                          filter: "saturate(0.92) contrast(1.08) brightness(0.98)",
+                          transition: "transform 1s cubic-bezier(0.22,1,0.36,1), filter 0.5s ease",
+                        }}
+                      />
+                      {/* Bottom fade into panel */}
+                      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 0%, transparent 40%, rgba(8,10,26,0.5) 70%, rgba(8,10,26,0.95) 100%)", pointerEvents: "none" }} />
+                      {/* Top vignette for pill legibility */}
+                      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "35%", background: "linear-gradient(180deg, rgba(8,10,26,0.45) 0%, transparent 100%)", pointerEvents: "none" }} />
+                      {/* Accent color wash */}
+                      <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, rgba(${accentRgb},0.16) 0%, transparent 45%, rgba(${accentRgb},0.12) 100%)`, mixBlendMode: "overlay", pointerEvents: "none" }} />
+                      {/* Film grain */}
+                      <div style={{ position: "absolute", inset: 0, opacity: 0.06, mixBlendMode: "overlay", backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundSize: "180px 180px", pointerEvents: "none" }} />
+                      {/* Top reflection */}
+                      <div style={{ position: "absolute", top: 0, left: "6%", right: "6%", height: 1, background: `linear-gradient(90deg, transparent, ${accent}dd, transparent)`, boxShadow: `0 0 16px ${accent}90`, pointerEvents: "none" }} />
+                      {/* Inner photo frame — subtle hairline just inside the edge */}
+                      <div style={{ position: "absolute", inset: 8, border: "1px solid rgba(255,255,255,0.04)", borderRadius: 16, pointerEvents: "none" }} />
+
+                      {/* Category pill — double-glass */}
+                      <div style={{
+                        position: "absolute",
+                        top: 15,
+                        left: 15,
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 7,
+                        padding: 2,
+                        borderRadius: 999,
+                        background: `linear-gradient(135deg, rgba(${accentRgb},0.75) 0%, rgba(${accentRgb},0.25) 50%, rgba(${accentRgb},0.55) 100%)`,
+                        boxShadow: `0 6px 18px rgba(0,0,0,0.4), 0 0 20px rgba(${accentRgb},0.28)`,
+                      }}>
+                        <div style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 7,
+                          padding: "6px 14px",
+                          borderRadius: 999,
+                          background: "rgba(7,11,31,0.78)",
+                          backdropFilter: "blur(16px) saturate(1.3)",
+                          WebkitBackdropFilter: "blur(16px) saturate(1.3)",
+                          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.2), inset 0 -1px 0 rgba(0,0,0,0.25)",
+                        }}>
+                          <span className="otsf-contact-pulse" style={{ width: 6, height: 6, borderRadius: "50%", background: accent, boxShadow: `0 0 8px ${accent}, 0 0 14px ${accent}88` }} />
+                          <span style={{ fontFamily: "var(--font-dm)", fontSize: 9.5, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.95)" }}>{person.category}</span>
+                        </div>
+                      </div>
+
+                      {/* Name + title overlaid at bottom of photo */}
+                      <div style={{ position: "absolute", left: 22, right: 22, bottom: 20 }}>
+                        <h3 style={{
+                          fontFamily: "var(--font-display)",
+                          fontWeight: 700,
+                          fontSize: "clamp(20px, 1.7vw, 26px)",
+                          color: "white",
+                          margin: 0,
+                          letterSpacing: "-0.5px",
+                          lineHeight: 1.1,
+                          textShadow: "0 2px 18px rgba(0,0,0,0.9), 0 1px 6px rgba(0,0,0,0.75)",
+                        }}>
+                          {person.name}
+                        </h3>
+                        <div style={{ display: "flex", alignItems: "center", gap: 9, marginTop: 8 }}>
+                          <span style={{ width: 18, height: 1, background: accent, boxShadow: `0 0 8px ${accent}` }} />
+                          <span style={{
+                            fontFamily: "var(--font-outfit)",
+                            fontSize: 11.5,
+                            fontWeight: 500,
+                            color: "rgba(255,255,255,0.82)",
+                            letterSpacing: "0.3px",
+                            textShadow: "0 1px 8px rgba(0,0,0,0.85)",
+                          }}>
+                            {person.title}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Divider — accent hairline */}
+                    <div style={{ position: "relative", height: 1, background: `linear-gradient(90deg, transparent, rgba(${accentRgb},0.55), transparent)`, boxShadow: `0 0 14px rgba(${accentRgb},0.45)` }} />
+
+                    {/* Bottom contact panel — glassmorphism */}
+                    <div style={{
+                      position: "relative",
+                      padding: "18px 22px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      gap: 12,
+                      background: `linear-gradient(180deg, rgba(14,18,42,0.55) 0%, rgba(8,10,26,0.75) 100%)`,
+                      backdropFilter: "blur(20px) saturate(1.3)",
+                      WebkitBackdropFilter: "blur(20px) saturate(1.3)",
+                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -1px 0 rgba(0,0,0,0.25)",
+                    }}>
+                      {/* Inner reflection line at top of panel */}
+                      <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)", pointerEvents: "none" }} />
+
+                      {/* Email link */}
+                      <a href={mailHref} className="otsf-contact-link" style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 10,
+                        flex: 1,
+                        minWidth: 0,
+                        fontFamily: "var(--font-outfit)",
+                        fontSize: 12.5,
+                        fontWeight: 500,
+                        color: "rgba(255,255,255,0.78)",
+                        textDecoration: "none",
+                        transition: "color 0.3s ease",
+                        overflow: "hidden",
+                      }}>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, filter: `drop-shadow(0 0 4px ${accent}66)` }}>
+                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z M22 6l-10 7L2 6" stroke={accent} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{person.email}</span>
+                      </a>
+
+                      {/* WhatsApp orb button — premium skeuomorphic sphere */}
+                      <a
+                        href={`https://wa.me/${person.phone.replace(/[^\d]/g, "")}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`WhatsApp ${person.name}`}
+                        className="otsf-contact-wa"
+                        style={{
+                          position: "relative",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: 44,
+                          height: 44,
+                          borderRadius: "50%",
+                          flexShrink: 0,
+                          background: `
+                            radial-gradient(circle at 30% 25%, rgba(255,255,255,0.24) 0%, transparent 35%),
+                            linear-gradient(155deg, ${accent} 0%, rgba(${accentRgb},0.55) 45%, rgba(${accentRgb},0.25) 100%)
+                          `,
+                          border: `1px solid rgba(${accentRgb},0.85)`,
+                          boxShadow: `
+                            inset 0 1.5px 0 rgba(255,255,255,0.35),
+                            inset 0 -2px 4px rgba(0,0,0,0.3),
+                            inset 0 0 0 1px rgba(255,255,255,0.08),
+                            0 8px 18px rgba(${accentRgb},0.35),
+                            0 0 28px rgba(${accentRgb},0.22)
+                          `,
+                          textDecoration: "none",
+                          transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {/* Specular top highlight */}
+                        <span style={{ position: "absolute", top: 2, left: "22%", right: "22%", height: "38%", background: "radial-gradient(ellipse at center top, rgba(255,255,255,0.5), transparent 70%)", pointerEvents: "none", borderRadius: "50%" }} />
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="white" style={{ position: "relative", filter: `drop-shadow(0 1px 4px rgba(0,0,0,0.4))` }}>
+                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.15-.174.2-.298.3-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -2392,7 +3445,7 @@ function VenueSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="venue" style={{ background: "transparent", padding: "clamp(40px, 5vw, 60px) 0", position: "relative" }}>
+    <section ref={ref} id="venue" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative" }}>
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 50% 50% at 50% 80%, ${C}06, transparent 60%)`, pointerEvents: "none" }} />
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", textAlign: "center", position: "relative" }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }}>
@@ -2452,7 +3505,7 @@ function RegistrationSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="register" ref={ref} style={{ background: "transparent", padding: "clamp(40px, 5vw, 70px) 0", position: "relative" }}>
+    <section id="register" ref={ref} style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative" }}>
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 50% at 50% 100%, ${C}08, transparent 70%)`, pointerEvents: "none" }} />
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 40% 40% at 30% 80%, ${C}06, transparent 60%)`, pointerEvents: "none" }} />
 
@@ -2551,14 +3604,56 @@ export default function OTSecurityFirstJohannesburg2026() {
           <SponsorsSection />
           <GallerySection />
           <AwardsSection />
+          <section id="inquiry" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
+            {/* Ambient orbs — match other sections */}
+            <div style={{ position: "absolute", top: "10%", left: "-5%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${CYAN}12 0%, transparent 70%)`, filter: "blur(70px)", pointerEvents: "none" }} />
+            <div style={{ position: "absolute", bottom: "10%", right: "-5%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${C}10 0%, transparent 70%)`, filter: "blur(70px)", pointerEvents: "none" }} />
+            <div style={{ position: "relative", zIndex: 2 }}>
+              <InquiryForm defaultCountry="ZA" eventName="OT Security First Africa 2026" labelText="Join Us in Johannesburg" />
+            </div>
+          </section>
           <ContactSection />
           <VenueSection />
-          <RegistrationSection />
           <Footer />
         </div>
       </main>
 
       <style jsx global>{`
+        /* ─── Override InquiryForm for this page ─────────────────── */
+        #inquiry {
+          --orange: ${C_BRIGHT};
+          --orange-bright: ${C};
+          --orange-glow: rgba(211,75,154,0.35);
+        }
+        #inquiry #get-involved {
+          background: transparent !important;
+        }
+        /* Active tab pill only — target by background property, not color */
+        #inquiry #get-involved button[style*="background: var(--orange)"],
+        #inquiry #get-involved button[style*="background:var(--orange)"] {
+          background: linear-gradient(135deg, ${C_BRIGHT}, ${CYAN}) !important;
+          border-color: transparent !important;
+        }
+        #inquiry #get-involved button[type="submit"] {
+          background: linear-gradient(135deg, ${C_BRIGHT}, ${CYAN}) !important;
+          border: none !important;
+        }
+        #inquiry #get-involved button[type="submit"]:hover {
+          background: linear-gradient(135deg, ${C}, #4DD9FF) !important;
+          box-shadow: 0 12px 40px rgba(211,75,154,0.3) !important;
+        }
+        #inquiry #get-involved .flex.items-center.gap-3 > div:first-child {
+          background: rgba(211,75,154,0.06) !important;
+          border-color: rgba(211,75,154,0.12) !important;
+        }
+        #inquiry #get-involved .inquiry-split > div:last-child > div {
+          background: rgba(13,18,51,0.6) !important;
+          border-color: rgba(211,75,154,0.08) !important;
+        }
+        #inquiry #get-involved .flex.items-center.gap-3 > span:first-child {
+          background: linear-gradient(90deg, ${C_BRIGHT}, ${CYAN}) !important;
+        }
+
         /* ─── Animations ────────────────────────────────────────────── */
         @keyframes otsf-hero-shimmer {
           0%, 100% { background-position: 200% center; }
@@ -2613,6 +3708,122 @@ export default function OTSecurityFirstJohannesburg2026() {
           transform: translateY(-4px);
           border-color: ${C}30 !important;
           background: rgba(255,255,255,0.05) !important;
+        }
+
+        .otsf-snapshot-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 -1px 0 rgba(0,0,0,0.3) inset, 0 22px 56px rgba(0,0,0,0.55), 0 0 40px ${C}22 !important;
+        }
+        .otsf-snapshot-card:hover .otsf-snapshot-bar {
+          width: 100% !important;
+        }
+        .otsf-snapshot-card:hover .otsf-snapshot-img {
+          transform: scale(1.06);
+          filter: saturate(1.05) contrast(1.08) brightness(1.02) !important;
+        }
+
+        /* Designed For — card + chip hovers */
+        .otsf-who-card {
+          will-change: transform;
+        }
+        .otsf-who-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 28px 68px rgba(0,0,0,0.6), 0 0 50px ${C}28, 0 0 0 1px rgba(255,255,255,0.06) !important;
+        }
+        .otsf-who-card:hover .otsf-who-bar {
+          width: 100% !important;
+        }
+        .otsf-who-card:hover .otsf-who-icon {
+          transform: scale(1.08) rotate(-2deg);
+        }
+        .otsf-who-icon {
+          transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .otsf-who-card:hover .otsf-who-shine {
+          left: 130% !important;
+        }
+
+        .otsf-industry-chip:hover {
+          transform: translateY(-3px) scale(1.03);
+          box-shadow: 0 14px 32px rgba(0,0,0,0.45), 0 0 28px rgba(255,255,255,0.08) !important;
+        }
+
+        /* Awards — form inputs */
+        .otsf-awards-input::placeholder {
+          color: rgba(255,255,255,0.38);
+        }
+        .otsf-awards-input:hover {
+          border-color: rgba(255,255,255,0.22) !important;
+          background: linear-gradient(160deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%) !important;
+        }
+        .otsf-awards-input:focus {
+          border-color: ${CYAN}aa !important;
+          background: linear-gradient(160deg, rgba(0,201,255,0.08) 0%, rgba(0,201,255,0.02) 100%) !important;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0 3px ${CYAN}22, 0 0 18px ${CYAN}25 !important;
+        }
+
+        /* Awards — submit button with shine */
+        .otsf-awards-submit::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -120%;
+          width: 60%;
+          height: 100%;
+          background: linear-gradient(100deg, transparent, rgba(255,255,255,0.4) 50%, transparent);
+          transform: skewX(-20deg);
+          transition: left 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .otsf-awards-submit:hover:not(:disabled) {
+          transform: translateY(-2px) scale(1.015);
+          box-shadow: 0 16px 40px ${CYAN}60, 0 0 36px ${C}45, inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.2) !important;
+        }
+        .otsf-awards-submit:hover:not(:disabled)::before {
+          left: 140%;
+        }
+        .otsf-awards-submit:active:not(:disabled) {
+          transform: translateY(0) scale(1);
+        }
+
+        /* Awards — category rows */
+        .otsf-award-row:hover {
+          padding-left: 14px !important;
+        }
+        .otsf-award-row:hover .otsf-award-sliver {
+          opacity: 1 !important;
+        }
+
+        @keyframes otsf-awards-pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.55; transform: scale(1.35); }
+        }
+        .otsf-awards-pulse {
+          animation: otsf-awards-pulse 2.4s ease-in-out infinite;
+        }
+
+        @media (max-width: 960px) {
+          .otsf-who-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .otsf-who-card {
+            grid-column: span 1 !important;
+          }
+          .otsf-who-roles-2col {
+            grid-template-columns: 1fr !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .otsf-who-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+
+        @keyframes otsf-snapshot-pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.55; transform: scale(1.35); }
+        }
+        .otsf-snapshot-pulse {
+          animation: otsf-snapshot-pulse 2.4s ease-in-out infinite;
         }
 
         .otsf-stat-premium:hover {
@@ -2780,9 +3991,39 @@ export default function OTSecurityFirstJohannesburg2026() {
         }
 
         .otsf-speaker-card:hover {
-          transform: translateY(-12px) scale(1.02) !important;
-          border-color: ${C}25 !important;
-          box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 60px ${C}15;
+          transform: translateY(-10px) !important;
+        }
+        .otsf-speaker-card:hover .otsf-speaker-glow {
+          opacity: 1 !important;
+        }
+        .otsf-speaker-card:hover .otsf-speaker-photo {
+          transform: scale(1.06);
+          filter: saturate(1.08) contrast(1.1) brightness(1.03) !important;
+        }
+        .otsf-speaker-card:hover .otsf-speaker-shine {
+          left: 140% !important;
+        }
+        .otsf-speaker-li:hover {
+          transform: translateY(-2px) scale(1.1);
+          background:
+            radial-gradient(circle at 30% 25%, rgba(255,255,255,0.32) 0%, transparent 40%),
+            linear-gradient(155deg, #0A66C2 0%, #0852A0 50%, #054583 100%) !important;
+          border-color: #0A66C2 !important;
+          box-shadow:
+            inset 0 1.5px 0 rgba(255,255,255,0.42),
+            inset 0 -2px 4px rgba(0,0,0,0.25),
+            inset 0 0 0 1px rgba(255,255,255,0.12),
+            0 12px 26px rgba(10,102,194,0.5),
+            0 0 36px rgba(10,102,194,0.35) !important;
+        }
+        .otsf-speaker-li:hover svg { filter: drop-shadow(0 0 8px rgba(255,255,255,0.8)) drop-shadow(0 1px 4px rgba(0,0,0,0.3)) !important; }
+
+        @keyframes otsf-speaker-pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.55; transform: scale(1.4); }
+        }
+        .otsf-speaker-pulse {
+          animation: otsf-speaker-pulse 2.4s ease-in-out infinite;
         }
 
         .otsf-timeline-card:hover {
@@ -2801,9 +4042,47 @@ export default function OTSecurityFirstJohannesburg2026() {
           background: rgba(255,255,255,0.04) !important;
         }
 
+        .otsf-contact-card {
+          will-change: transform;
+        }
         .otsf-contact-card:hover {
-          border-color: ${C}20 !important;
-          transform: translateY(-4px);
+          transform: translateY(-10px);
+        }
+        .otsf-contact-card:hover .otsf-contact-glow {
+          opacity: 1 !important;
+        }
+        .otsf-contact-card:hover .otsf-contact-photo {
+          transform: scale(1.07);
+          filter: saturate(1.1) contrast(1.1) brightness(1.03) !important;
+        }
+        .otsf-contact-card:hover .otsf-contact-shine {
+          left: 140% !important;
+        }
+        .otsf-contact-link:hover {
+          color: white !important;
+          opacity: 1 !important;
+        }
+        .otsf-contact-wa:hover {
+          transform: translateY(-3px) scale(1.12);
+          background:
+            radial-gradient(circle at 30% 25%, rgba(255,255,255,0.35) 0%, transparent 40%),
+            linear-gradient(155deg, #25D366 0%, #1DA851 50%, #128C7E 100%) !important;
+          border-color: #2ff07a !important;
+          box-shadow:
+            inset 0 1.5px 0 rgba(255,255,255,0.45),
+            inset 0 -2px 4px rgba(0,0,0,0.25),
+            inset 0 0 0 1px rgba(255,255,255,0.15),
+            0 14px 32px rgba(37,211,102,0.55),
+            0 0 44px rgba(37,211,102,0.4) !important;
+        }
+        .otsf-contact-wa:hover svg { filter: drop-shadow(0 0 10px rgba(255,255,255,0.9)) drop-shadow(0 1px 4px rgba(0,0,0,0.3)) !important; }
+
+        @keyframes otsf-contact-pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.55; transform: scale(1.4); }
+        }
+        .otsf-contact-pulse {
+          animation: otsf-contact-pulse 2.4s ease-in-out infinite;
         }
 
         .otsf-gallery-item:hover img {
@@ -2830,9 +4109,24 @@ export default function OTSecurityFirstJohannesburg2026() {
             grid-template-columns: repeat(3, 1fr) !important;
           }
           .otsf-who-grid,
-          .otsf-awards-grid,
+          .otsf-awards-grid {
+            grid-template-columns: 1fr !important;
+          }
           .otsf-contact-grid {
             grid-template-columns: 1fr !important;
+            max-width: 420px;
+            margin: 0 auto;
+          }
+          .otsf-awards-photo {
+            min-height: 340px !important;
+          }
+          .otsf-awards-form {
+            border-left: none !important;
+            border-top: 1px solid rgba(255,255,255,0.08) !important;
+          }
+          .otsf-awards-cats {
+            grid-template-columns: 1fr !important;
+            column-gap: 0 !important;
           }
           .otsf-snapshot-grid {
             grid-template-columns: repeat(2, 1fr) !important;

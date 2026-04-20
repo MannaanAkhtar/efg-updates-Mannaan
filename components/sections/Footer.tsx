@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -28,24 +27,6 @@ const footerLinks = {
 };
 
 export default function Footer() {
-  const [isAtBottom, setIsAtBottom] = useState(false);
-
-  // Detect when user scrolls to absolute bottom
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.innerHeight + window.scrollY;
-      const documentHeight = document.body.offsetHeight;
-      const threshold = 100;
-
-      if (scrollPosition >= documentHeight - threshold) {
-        setIsAtBottom(true);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <footer
       style={{
@@ -148,24 +129,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* ═══════════════════════════════════════════════════════════════
-            HIDDEN SIGN-OFF, Easter egg for completionists
-            ═══════════════════════════════════════════════════════════════ */}
-        <motion.p
-          initial={{ opacity: 0.05 }}
-          animate={{ opacity: isAtBottom ? 0.2 : 0.05 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          style={{
-            fontFamily: "var(--font-dm-sans)",
-            fontSize: 13.5,
-            fontStyle: "italic",
-            color: "rgba(255, 255, 255, 1)",
-            textAlign: "center",
-            marginTop: 52,
-          }}
-        >
-          The next conversation starts here.
-        </motion.p>
       </div>
 
       {/* Responsive styles */}

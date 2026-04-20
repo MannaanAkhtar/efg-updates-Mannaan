@@ -36,6 +36,7 @@ const eventSeries = [
     color: "#D34B9A",
     editions: [
       { href: "/events/ot-security-first/virtual-boardroom-mena", label: "Virtual Boardroom MENA", virtual: true },
+      { href: "/events/ot-security-first/johannesburg-2026", label: "Johannesburg" },
       { href: "/events/ot-security-first/jubail-2026", label: "Jubail, KSA" },
       { href: "/events/ot-security-first/oman-2026", label: "Oman" },
     ]
