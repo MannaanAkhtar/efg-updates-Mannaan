@@ -805,7 +805,7 @@ const SPEAKERS = [
     name: "Eng. Meshal Aldeaijy",
     title: "Strategic Planning and Execution Advisor",
     org: "Confidential",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Meshal+Aldeaijy.png",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Eng.+Meshal+Aldeaijy.png",
   },
 ];
 
