@@ -1624,7 +1624,6 @@ function SpeakersSection() {
                         backdropFilter: "blur(20px) saturate(1.3)",
                         WebkitBackdropFilter: "blur(20px) saturate(1.3)",
                         boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
-                        minHeight: 128,
                       }}>
                         <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)", pointerEvents: "none" }} />
 
@@ -1637,6 +1636,11 @@ function SpeakersSection() {
                           letterSpacing: "-0.4px",
                           lineHeight: 1.2,
                           paddingRight: 36,
+                          height: "2.4em",
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 2,
+                          overflow: "hidden",
                         }}>
                           {speaker.name}
                         </h3>
@@ -1647,6 +1651,11 @@ function SpeakersSection() {
                           color: accent,
                           margin: "0 0 6px",
                           lineHeight: 1.4,
+                          height: "2.8em",
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 2,
+                          overflow: "hidden",
                         }}>
                           {speaker.title}
                         </p>
@@ -1657,7 +1666,12 @@ function SpeakersSection() {
                           color: "rgba(255,255,255,0.58)",
                           margin: 0,
                           lineHeight: 1.45,
-                          paddingRight: 36,
+                          paddingRight: 46,
+                          height: "2.9em",
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 2,
+                          overflow: "hidden",
                         }}>
                           {speaker.org}
                         </p>
