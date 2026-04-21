@@ -224,6 +224,7 @@ const SUPPORTING_PARTNERS = [
 const CFK_SPONSORS_2026 = [
   { name: "INUA AI", logo: `${S3}/logos/INUA+AI+LOGO+3+white.png`, url: "#" },
   { name: "QuantumSynapse", logo: `${S3}/logos/QuantumSynapse-1.png`, url: "#" },
+  { name: "ManageEngine", logo: `${S3}/logos/ManageEngine.png`, url: "#" },
 ];
 
 // Kenya Advisory Board (key government & policy leaders from brochure)
@@ -3632,6 +3633,7 @@ function EventSponsors2026() {
                     alt={`${sponsor.name} logo`}
                     loading="lazy"
                     className="cfk-sponsor-logo"
+                    data-sponsor={sponsor.name}
                     style={{
                       maxWidth: "100%",
                       maxHeight: 180,
@@ -3688,6 +3690,12 @@ function EventSponsors2026() {
         .cfk-sponsor-card:hover .cfk-sponsor-logo {
           transform: scale(1.05) !important;
           filter: brightness(1.18) drop-shadow(0 4px 16px rgba(0,0,0,0.7)) drop-shadow(0 2px 6px rgba(212,168,75,0.5)) !important;
+        }
+        .cfk-sponsor-logo[data-sponsor="ManageEngine"] {
+          transform: scale(1.35);
+        }
+        .cfk-sponsor-card:hover .cfk-sponsor-logo[data-sponsor="ManageEngine"] {
+          transform: scale(1.42) !important;
         }
         .cfk-sponsor-card:hover .cfk-sponsor-shine {
           left: 160% !important;
@@ -5435,33 +5443,33 @@ function AwardsSection() {
                   <div style={{ display: "flex", flexDirection: "column", gap: 22, marginBottom: 28 }}>
                     <div className="cfk-input-group">
                       <label style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: `${GOLD}80`, marginBottom: 4, display: "block" }}>Organisation</label>
-                      <input type="text" placeholder="Company or Institution" required value={formData.orgName} onChange={(e) => setFormData({ ...formData, orgName: e.target.value })} onFocus={() => setFocusedField("orgName")} onBlur={() => setFocusedField(null)} style={inputStyle("orgName")} />
+                      <input suppressHydrationWarning type="text" placeholder="Company or Institution" required value={formData.orgName} onChange={(e) => setFormData({ ...formData, orgName: e.target.value })} onFocus={() => setFocusedField("orgName")} onBlur={() => setFocusedField(null)} style={inputStyle("orgName")} />
                     </div>
                     <div className="cfk-input-group">
                       <label style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: `${GOLD}80`, marginBottom: 4, display: "block" }}>Contact Person</label>
-                      <input type="text" placeholder="Full Name" required value={formData.contactName} onChange={(e) => setFormData({ ...formData, contactName: e.target.value })} onFocus={() => setFocusedField("contactName")} onBlur={() => setFocusedField(null)} style={inputStyle("contactName")} />
+                      <input suppressHydrationWarning type="text" placeholder="Full Name" required value={formData.contactName} onChange={(e) => setFormData({ ...formData, contactName: e.target.value })} onFocus={() => setFocusedField("contactName")} onBlur={() => setFocusedField(null)} style={inputStyle("contactName")} />
                     </div>
 
                     <div className="cfk-input-group">
                       <label style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: `${GOLD}80`, marginBottom: 4, display: "block" }}>Email</label>
-                      <input type="email" placeholder="Work Email Address" required value={formData.email} onChange={(e) => { setFormData({ ...formData, email: e.target.value }); setAwardsEmailError(null); }} onFocus={() => setFocusedField("email")} onBlur={() => { setFocusedField(null); if (formData.email && !isWorkEmail(formData.email)) setAwardsEmailError("Please use your work email address"); }} style={inputStyle("email")} />
+                      <input suppressHydrationWarning type="email" placeholder="Work Email Address" required value={formData.email} onChange={(e) => { setFormData({ ...formData, email: e.target.value }); setAwardsEmailError(null); }} onFocus={() => setFocusedField("email")} onBlur={() => { setFocusedField(null); if (formData.email && !isWorkEmail(formData.email)) setAwardsEmailError("Please use your work email address"); }} style={inputStyle("email")} />
                       {awardsEmailError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "6px 0 0" }}>{awardsEmailError}</p>}
                     </div>
 
                     <div className="cfk-input-group">
                       <label style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: `${GOLD}80`, marginBottom: 4, display: "block" }}>Phone</label>
                       <div style={{ display: "flex", gap: 12, alignItems: "end" }}>
-                        <select value={`${awardsSelectedCountry.code}|${awardsSelectedCountry.country}`} onChange={(e) => { const [code, country] = e.target.value.split("|"); const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country); if (c) { setAwardsSelectedCountry(c); setAwardsPhoneError(null); } }} onFocus={() => setFocusedField("countryCode")} onBlur={() => setFocusedField(null)} style={{ ...inputStyle("countryCode"), width: 100, flexShrink: 0, cursor: "pointer", appearance: "none" as const, backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 4px center" }}>
+                        <select suppressHydrationWarning value={`${awardsSelectedCountry.code}|${awardsSelectedCountry.country}`} onChange={(e) => { const [code, country] = e.target.value.split("|"); const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country); if (c) { setAwardsSelectedCountry(c); setAwardsPhoneError(null); } }} onFocus={() => setFocusedField("countryCode")} onBlur={() => setFocusedField(null)} style={{ ...inputStyle("countryCode"), width: 100, flexShrink: 0, cursor: "pointer", appearance: "none" as const, backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 4px center" }}>
                           {COUNTRY_CODES.map((cc) => (<option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>{cc.country} {cc.code}</option>))}
                         </select>
-                        <input type="tel" placeholder={awardsSelectedCountry.placeholder} value={formData.phone} onChange={(e) => { setFormData({ ...formData, phone: e.target.value }); setAwardsPhoneError(null); }} onFocus={() => setFocusedField("phone")} onBlur={() => setFocusedField(null)} maxLength={awardsSelectedCountry.length} style={{ ...inputStyle("phone"), flex: 1 }} />
+                        <input suppressHydrationWarning type="tel" placeholder={awardsSelectedCountry.placeholder} value={formData.phone} onChange={(e) => { setFormData({ ...formData, phone: e.target.value }); setAwardsPhoneError(null); }} onFocus={() => setFocusedField("phone")} onBlur={() => setFocusedField(null)} maxLength={awardsSelectedCountry.length} style={{ ...inputStyle("phone"), flex: 1 }} />
                       </div>
                       {awardsPhoneError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "6px 0 0" }}>{awardsPhoneError}</p>}
                     </div>
 
                     <div className="cfk-input-group">
                       <label style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: `${GOLD}80`, marginBottom: 4, display: "block" }}>Award Category</label>
-                      <select required value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} onFocus={() => setFocusedField("category")} onBlur={() => setFocusedField(null)} style={{ ...inputStyle("category"), cursor: "pointer", appearance: "none" as const, backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23707070' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 4px center", color: formData.category ? "white" : "rgba(255,255,255,0.3)" }}>
+                      <select suppressHydrationWarning required value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} onFocus={() => setFocusedField("category")} onBlur={() => setFocusedField(null)} style={{ ...inputStyle("category"), cursor: "pointer", appearance: "none" as const, backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23707070' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 4px center", color: formData.category ? "white" : "rgba(255,255,255,0.3)" }}>
                         <option value="" disabled style={{ color: "#555", background: "#111" }}>Select Category</option>
                         {AWARDS_DATA.map((a) => (<option key={a.title} value={a.title} style={{ color: "white", background: "#111" }}>{a.title}</option>))}
                       </select>
@@ -5469,7 +5477,7 @@ function AwardsSection() {
 
                     <div className="cfk-input-group">
                       <label style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: `${GOLD}80`, marginBottom: 4, display: "block" }}>Reason for Nomination</label>
-                      <textarea placeholder="Why should this nominee be considered?" required rows={3} value={formData.reason} onChange={(e) => setFormData({ ...formData, reason: e.target.value })} onFocus={() => setFocusedField("reason")} onBlur={() => setFocusedField(null)} style={{ ...inputStyle("reason"), resize: "vertical", minHeight: 80, borderBottom: `1.5px solid ${focusedField === "reason" ? GOLD : "rgba(255,255,255,0.10)"}` }} />
+                      <textarea suppressHydrationWarning placeholder="Why should this nominee be considered?" required rows={3} value={formData.reason} onChange={(e) => setFormData({ ...formData, reason: e.target.value })} onFocus={() => setFocusedField("reason")} onBlur={() => setFocusedField(null)} style={{ ...inputStyle("reason"), resize: "vertical", minHeight: 80, borderBottom: `1.5px solid ${focusedField === "reason" ? GOLD : "rgba(255,255,255,0.10)"}` }} />
                     </div>
                   </div>
 
