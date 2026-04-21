@@ -376,7 +376,7 @@ function NetworkMesh() {
 // ═════════════════════════════════════════════════════════════════════════════
 function Hero() {
   return (
-    <section style={{ position: "relative", minHeight: "100vh", background: INK, overflow: "hidden", color: "white", display: "flex", flexDirection: "column" }}>
+    <section style={{ position: "relative", minHeight: "100svh", background: INK, overflow: "hidden", color: "white", display: "flex", flexDirection: "column" }}>
       {/* Shader */}
       <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
         <CyberFirstCloudsBg />
@@ -393,7 +393,7 @@ function Hero() {
         flex: 1,
         display: "flex",
         flexDirection: "column",
-        padding: "clamp(82px, 9vh, 108px) clamp(24px, 5vw, 80px) clamp(72px, 8vh, 98px)",
+        padding: "clamp(64px, 9svh, 108px) clamp(16px, 5vw, 80px) clamp(56px, 8svh, 98px)",
       }}>
         {/* ─── TOP BLOCK: brand intro + tagline + sub ───────────────────── */}
         <div style={{ textAlign: "center", maxWidth: 1200, margin: "0 auto", width: "100%" }}>
@@ -490,7 +490,7 @@ function Hero() {
             style={{
               fontFamily: "var(--font-display)",
               fontWeight: 200,
-              fontSize: "clamp(52px, 8.4vw, 128px)",
+              fontSize: "clamp(40px, 9.2vw, 128px)",
               lineHeight: 1,
               letterSpacing: "-0.025em",
               margin: 0,
@@ -562,11 +562,13 @@ function Hero() {
                     fontFamily: "var(--font-display)",
                     fontWeight: 300,
                     fontStyle: "italic",
-                    fontSize: "clamp(17px, 1.7vw, 26px)",
-                    lineHeight: 1.25,
+                    fontSize: "clamp(14px, 2.2vw, 26px)",
+                    lineHeight: 1.3,
                     letterSpacing: "-0.005em",
                     color: "rgba(255,255,255,0.95)",
                     textShadow: "0 1px 0 rgba(0,0,0,0.4)",
+                    textAlign: "center",
+                    textWrap: "balance" as "balance",
                   }}>
                     The CISOs of a region,{" "}
                     <span className="cf-accent-shimmer">in one room.</span>
@@ -626,12 +628,14 @@ function Hero() {
                     zIndex: 3,
                     display: "block",
                     fontFamily: "var(--font-outfit)",
-                    fontSize: "clamp(12.5px, 0.95vw, 15px)",
+                    fontSize: "clamp(11px, 1.2vw, 15px)",
                     fontWeight: 400,
                     lineHeight: 1.55,
                     color: "rgba(255,255,255,0.82)",
                     letterSpacing: "0.01em",
                     textShadow: "0 1px 0 rgba(0,0,0,0.35)",
+                    textAlign: "center",
+                    textWrap: "balance" as "balance",
                   }}>
                     The executive cybersecurity summit series for the Middle East, Africa, and South Asia.
                   </span>
@@ -725,7 +729,7 @@ function Hero() {
 
                 <div style={{
                   fontFamily: "var(--font-outfit)",
-                  fontSize: 12,
+                  fontSize: "clamp(10.5px, 1vw, 12px)",
                   fontWeight: 600,
                   color: "rgba(255,255,255,0.95)",
                   letterSpacing: "0.26em",
@@ -736,7 +740,7 @@ function Hero() {
                 </div>
                 <div style={{
                   fontFamily: "var(--font-outfit)",
-                  fontSize: 11.5,
+                  fontSize: "clamp(10.5px, 1vw, 11.5px)",
                   fontWeight: 300,
                   color: "rgba(255,255,255,0.52)",
                   lineHeight: 1.5,
@@ -1016,7 +1020,7 @@ function Hero() {
           transform: translateY(-2px);
           box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 0 30px rgba(1,187,245,0.3) !important;
         }
-        @media (max-width: 760px) {
+        @media (max-width: 960px) {
           .cf-hero-services {
             grid-template-columns: repeat(2, 1fr) !important;
             row-gap: 20px !important;
@@ -1027,7 +1031,22 @@ function Hero() {
             border-top: 1px solid rgba(255,255,255,0.08) !important;
           }
           .cf-hero-divider { display: none !important; }
-          .cf-hero-actions { flex-direction: column !important; gap: 18px !important; }
+          .cf-hero-actions { flex-direction: column !important; gap: 14px !important; }
+          .cf-hero-cta { width: 100% !important; justify-content: center !important; max-width: 320px !important; }
+          .cf-hero-next { width: 100% !important; justify-content: center !important; max-width: 320px !important; }
+        }
+        @media (max-width: 480px) {
+          .cf-hero-services {
+            grid-template-columns: 1fr !important;
+            row-gap: 16px !important;
+          }
+          .cf-hero-services > .cf-hero-service {
+            border-left: none !important;
+            padding-top: 16px !important;
+          }
+          .cf-hero-services > .cf-hero-service:not(:first-child) {
+            border-top: 1px solid rgba(255,255,255,0.08) !important;
+          }
         }
       `}</style>
     </section>
