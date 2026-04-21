@@ -376,7 +376,7 @@ function NetworkMesh() {
 // ═════════════════════════════════════════════════════════════════════════════
 function Hero() {
   return (
-    <section style={{ position: "relative", minHeight: "100svh", background: INK, overflow: "hidden", color: "white", display: "flex", flexDirection: "column" }}>
+    <section style={{ position: "relative", minHeight: "100svh", background: INK, overflow: "hidden", color: "white", display: "flex", flexDirection: "column", justifyContent: "center" }}>
       {/* Shader */}
       <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
         <CyberFirstCloudsBg />
@@ -386,14 +386,14 @@ function Hero() {
       <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, rgba(5,6,8,0.72) 0%, rgba(5,6,8,0.25) 22%, rgba(5,6,8,0) 40%, rgba(5,6,8,0) 60%, rgba(5,6,8,0.35) 78%, rgba(5,6,8,0.8) 100%)`, zIndex: 1, pointerEvents: "none" }} />
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 90% 100% at 50% 50%, transparent 40%, rgba(5,6,8,0.5) 100%)`, zIndex: 1, pointerEvents: "none" }} />
 
-      {/* Content — flex column, top + bottom blocks with elastic middle */}
+      {/* Content — stacked top + bottom blocks, tight rhythm */}
       <div style={{
         position: "relative",
         zIndex: 4,
-        flex: 1,
         display: "flex",
         flexDirection: "column",
-        padding: "clamp(64px, 9svh, 108px) clamp(16px, 5vw, 80px) clamp(56px, 8svh, 98px)",
+        gap: "clamp(24px, 3.5svh, 44px)",
+        padding: "clamp(56px, 7svh, 88px) clamp(16px, 5vw, 80px) clamp(44px, 6svh, 72px)",
       }}>
         {/* ─── TOP BLOCK: brand intro + tagline + sub ───────────────────── */}
         <div style={{ textAlign: "center", maxWidth: 1200, margin: "0 auto", width: "100%" }}>
@@ -402,7 +402,7 @@ function Hero() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: EASE }}
-            style={{ marginBottom: "clamp(18px, 2.4vh, 28px)", display: "flex", justifyContent: "center" }}
+            style={{ marginBottom: "clamp(12px, 1.6vh, 20px)", display: "flex", justifyContent: "center" }}
           >
             {/* Ambient cyan halo behind the badge */}
             <div style={{ position: "relative", display: "inline-block" }}>
@@ -509,7 +509,7 @@ function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, ease: EASE, delay: 0.4 }}
-            style={{ marginTop: "clamp(20px, 2.4vh, 30px)", display: "flex", justifyContent: "center" }}
+            style={{ marginTop: "clamp(14px, 1.8vh, 22px)", display: "flex", justifyContent: "center" }}
           >
             <div style={{ position: "relative", display: "inline-block", maxWidth: "min(100%, 780px)" }}>
               {/* Ambient cyan halo */}
@@ -583,7 +583,7 @@ function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, ease: EASE, delay: 0.55 }}
-            style={{ marginTop: "clamp(12px, 1.4vh, 18px)", display: "flex", justifyContent: "center" }}
+            style={{ marginTop: "clamp(10px, 1.1vh, 14px)", display: "flex", justifyContent: "center" }}
           >
             <div style={{ position: "relative", display: "inline-block", maxWidth: "min(100%, 640px)" }}>
               {/* Subtle ambient halo (quieter) */}
@@ -645,9 +645,6 @@ function Hero() {
           </motion.div>
         </div>
 
-        {/* ─── ELASTIC SPACE — shader breathes ──────────────────────────── */}
-        <div style={{ flex: 1, minHeight: "clamp(16px, 3vh, 48px)" }} />
-
         {/* ─── BOTTOM BLOCK: services + CTA + next edition ──────────────── */}
         <div style={{ maxWidth: 1120, margin: "0 auto", width: "100%" }}>
           {/* Services manifest — polished 4-column row with chrome number chips */}
@@ -660,7 +657,7 @@ function Hero() {
               display: "grid",
               gridTemplateColumns: "repeat(4, 1fr)",
               gap: 0,
-              padding: "clamp(18px, 2.2vh, 26px) 0",
+              padding: "clamp(14px, 1.6vh, 20px) 0",
               position: "relative",
             }}
           >
@@ -762,8 +759,8 @@ function Hero() {
               flexWrap: "wrap",
               alignItems: "center",
               justifyContent: "center",
-              gap: "clamp(18px, 2.4vw, 32px)",
-              marginTop: "clamp(20px, 2.6vh, 32px)",
+              gap: "clamp(14px, 2vw, 26px)",
+              marginTop: "clamp(14px, 1.8vh, 22px)",
             }}
             className="cf-hero-actions"
           >
