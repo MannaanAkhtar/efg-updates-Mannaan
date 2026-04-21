@@ -232,7 +232,6 @@ const TRUST_LOGOS = [
   { src: `${S3_LOGOS}/Celonis.png` },
   { src: `${S3_LOGOS}/Claroty.png` },
   { src: `${S3_LOGOS}/GBM.png` },
-  { src: `${S3}/NetwrokFirstLogo/Simpplr_logo.webp` },
   { src: `${S3_LOGOS}/Tenable-logo.png` },
   { src: `${S3_LOGOS}/sentinelone.png` },
   { src: `${S3_LOGOS}/kaspersky.png` },
