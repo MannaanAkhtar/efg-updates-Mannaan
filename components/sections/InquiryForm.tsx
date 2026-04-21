@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
 import type { FormType, CountryCode } from "@/lib/form-helpers";
@@ -156,6 +156,26 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
   );
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
+
+  // Allow other components on the page to switch the active tab via a custom event.
+  // Tier CTAs elsewhere dispatch: window.dispatchEvent(new CustomEvent("efg:set-form-tab", { detail: "sponsor" | "pass" | "speaker" }))
+  useEffect(() => {
+    const onSet = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (typeof detail === "string" && INQUIRY_TABS.some((t) => t.key === detail)) {
+        setActiveTab(detail);
+        if (submitted) {
+          setSubmitted(false);
+          setFormError(null);
+          setFormData({});
+          setPhoneError(null);
+          setEmailError(null);
+        }
+      }
+    };
+    window.addEventListener("efg:set-form-tab", onSet as EventListener);
+    return () => window.removeEventListener("efg:set-form-tab", onSet as EventListener);
+  }, [submitted]);
 
   const tab = INQUIRY_TABS.find((t) => t.key === activeTab)!;
 
@@ -544,6 +564,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                               <label style={labelStyle}>{field.label}</label>
                               <div style={{ display: "flex", gap: 8 }}>
                                 <select
+                                  suppressHydrationWarning
                                   value={`${selectedCountry.code}|${selectedCountry.country}`}
                                   onChange={(e) => {
                                     const [code, country] = e.target.value.split("|");
@@ -559,6 +580,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                                   ))}
                                 </select>
                                 <input
+                                  suppressHydrationWarning
                                   type="tel"
                                   value={formData[field.name] || ""}
                                   onChange={(e) => { handleChange(field.name, e.target.value); setPhoneError(null); }}
@@ -578,6 +600,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                             <div key={field.name}>
                               <label style={labelStyle}>{field.label}</label>
                               <input
+                                suppressHydrationWarning
                                 type="email"
                                 value={formData[field.name] || ""}
                                 onChange={(e) => { handleChange(field.name, e.target.value); setEmailError(null); }}
@@ -605,6 +628,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                             <label style={labelStyle}>{field.label}</label>
                             {field.type === "textarea" ? (
                               <textarea
+                                suppressHydrationWarning
                                 value={formData[field.name] || ""}
                                 onChange={(e) => handleChange(field.name, e.target.value)}
                                 placeholder={field.placeholder}
@@ -619,6 +643,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                               />
                             ) : field.type === "select" ? (
                               <select
+                                suppressHydrationWarning
                                 value={formData[field.name] || ""}
                                 onChange={(e) => handleChange(field.name, e.target.value)}
                                 required
@@ -641,6 +666,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                               </select>
                             ) : (
                               <input
+                                suppressHydrationWarning
                                 type={field.type}
                                 value={formData[field.name] || ""}
                                 onChange={(e) => handleChange(field.name, e.target.value)}
