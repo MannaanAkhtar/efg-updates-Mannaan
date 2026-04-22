@@ -348,7 +348,7 @@ const GALLERY: { src: string; alt: string; area: string; rotate?: number; lift?:
 
 // Contact details — updated from brochure
 const CONTACTS = {
-  speaking: { name: "Sanjana Venugopal", title: "Speaker Acquisition Lead", phone: "+971 54 571 4377", email: "sanjana@eventsfirstgroup.com", photo: `${S3}/about-us-photos/Sanjana-Venugopal-new.jpg` },
+  speaking: { name: "Sanjana Venugopal", title: "Senior Conference Producer", phone: "+971 54 571 4377", email: "sanjana@eventsfirstgroup.com", photo: `${S3}/about-us-photos/Sanjana-Venugopal-new.jpg` },
   sponsorship: [
     { name: "Kausar Noor", title: "Partnership Manager", phone: "+971 54 571 4377", email: "kausar@eventsfirstgroup.com", photo: `${S3}/about-us-photos/Kausar-Noor.jpg` },
     { name: "Mayur Methi", title: "Partnership Manager", phone: "+971 54 571 4377", email: "mayur@eventsfirstgroup.com", photo: `${S3}/about-us-photos/Mayur-Methi.png` },
