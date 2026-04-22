@@ -3445,43 +3445,43 @@ function EventSponsors2026() {
           </span>
         </motion.div>
 
-        {/* ── Strategic Sponsors sub-heading ── */}
+        {/* ── Panel Sponsors sub-heading ── */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginBottom: "clamp(20px, 2.4vw, 32px)" }}
         >
-          <div style={{ flex: "0 1 90px", height: 1, background: `linear-gradient(to right, transparent, ${KENYA_GOLD}55)` }} />
+          <div style={{ flex: "0 1 90px", height: 1, background: `linear-gradient(to right, transparent, ${C}55)` }} />
           <span style={{
             fontFamily: "var(--font-dm-sans)",
             fontSize: 11,
             fontWeight: 700,
-            color: KENYA_GOLD,
+            color: C_BRIGHT,
             textTransform: "uppercase",
             letterSpacing: "3.5px",
-            textShadow: `0 0 14px ${KENYA_GOLD}44`,
+            textShadow: `0 0 14px ${C_BRIGHT}44`,
           }}>
-            Strategic Sponsor
+            Panel Sponsors
           </span>
-          <div style={{ flex: "0 1 90px", height: 1, background: `linear-gradient(to left, transparent, ${KENYA_GOLD}55)` }} />
+          <div style={{ flex: "0 1 90px", height: 1, background: `linear-gradient(to left, transparent, ${C}55)` }} />
         </motion.div>
 
-        {/* Strategic sponsor grid */}
-        <div className="cfk-sponsors-grid cfk-sponsors-grid-strategic" style={{
+        {/* Panel sponsors grid */}
+        <div className="cfk-sponsors-grid cfk-sponsors-grid-panel" style={{
           display: "grid",
-          gridTemplateColumns: `repeat(${Math.min(CFK_SPONSORS_2026.filter(s => s.tier === "strategic").length, 3)}, minmax(200px, 280px))`,
+          gridTemplateColumns: `repeat(${Math.min(CFK_SPONSORS_2026.filter(s => s.tier === "panel").length, 4)}, minmax(180px, 240px))`,
           gap: 20,
           justifyContent: "center",
           marginBottom: "clamp(24px, 3vw, 40px)",
         }}>
-          {CFK_SPONSORS_2026.filter(s => s.tier === "strategic").map((sponsor, i) => (
+          {CFK_SPONSORS_2026.filter(s => s.tier === "panel").map((sponsor, i) => (
             <motion.a
               key={sponsor.name}
               href={sponsor.url}
               target={sponsor.url && sponsor.url !== "#" ? "_blank" : undefined}
               rel={sponsor.url && sponsor.url !== "#" ? "noopener noreferrer" : undefined}
-              aria-label={`${sponsor.name} — strategic sponsor`}
+              aria-label={`${sponsor.name} — panel sponsor`}
               initial={{ opacity: 0, y: 36, scale: 0.96, filter: "blur(6px)" }}
               animate={inView ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" } : {}}
               transition={{ duration: 0.8, delay: 0.3 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
@@ -3688,42 +3688,42 @@ function EventSponsors2026() {
           ))}
         </div>
 
-        {/* ── Panel Sponsors sub-heading ── */}
+        {/* ── Strategic Sponsor sub-heading ── */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
           style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginBottom: "clamp(20px, 2.4vw, 32px)" }}
         >
-          <div style={{ flex: "0 1 90px", height: 1, background: `linear-gradient(to right, transparent, ${C}55)` }} />
+          <div style={{ flex: "0 1 90px", height: 1, background: `linear-gradient(to right, transparent, ${KENYA_GOLD}55)` }} />
           <span style={{
             fontFamily: "var(--font-dm-sans)",
             fontSize: 11,
             fontWeight: 700,
-            color: C_BRIGHT,
+            color: KENYA_GOLD,
             textTransform: "uppercase",
             letterSpacing: "3.5px",
-            textShadow: `0 0 14px ${C_BRIGHT}44`,
+            textShadow: `0 0 14px ${KENYA_GOLD}44`,
           }}>
-            Panel Sponsors
+            Strategic Sponsor
           </span>
-          <div style={{ flex: "0 1 90px", height: 1, background: `linear-gradient(to left, transparent, ${C}55)` }} />
+          <div style={{ flex: "0 1 90px", height: 1, background: `linear-gradient(to left, transparent, ${KENYA_GOLD}55)` }} />
         </motion.div>
 
-        {/* Panel sponsors grid */}
-        <div className="cfk-sponsors-grid cfk-sponsors-grid-panel" style={{
+        {/* Strategic sponsor grid */}
+        <div className="cfk-sponsors-grid cfk-sponsors-grid-strategic" style={{
           display: "grid",
-          gridTemplateColumns: `repeat(${Math.min(CFK_SPONSORS_2026.filter(s => s.tier === "panel").length, 4)}, minmax(180px, 240px))`,
+          gridTemplateColumns: `repeat(${Math.min(CFK_SPONSORS_2026.filter(s => s.tier === "strategic").length, 3)}, minmax(200px, 280px))`,
           gap: 20,
           justifyContent: "center",
         }}>
-          {CFK_SPONSORS_2026.filter(s => s.tier === "panel").map((sponsor, i) => (
+          {CFK_SPONSORS_2026.filter(s => s.tier === "strategic").map((sponsor, i) => (
             <motion.a
               key={sponsor.name}
               href={sponsor.url}
               target={sponsor.url && sponsor.url !== "#" ? "_blank" : undefined}
               rel={sponsor.url && sponsor.url !== "#" ? "noopener noreferrer" : undefined}
-              aria-label={`${sponsor.name} — panel sponsor`}
+              aria-label={`${sponsor.name} — strategic sponsor`}
               initial={{ opacity: 0, y: 36, scale: 0.96, filter: "blur(6px)" }}
               animate={inView ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" } : {}}
               transition={{ duration: 0.8, delay: 0.6 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
