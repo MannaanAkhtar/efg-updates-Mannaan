@@ -807,6 +807,18 @@ const SPEAKERS = [
     org: "Confidential",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Eng.+Meshal+Aldeaijy.png",
   },
+  {
+    name: "Abdelkader NESSIB",
+    title: "IT Operations & Infrastructure Manager / Cybersecurity & Digital Transformation Advisor",
+    org: "Saipem Qatar",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdelkader.png",
+  },
+  {
+    name: "Ben Kite",
+    title: "Senior Executive Leader – Defence, Intelligence, Cyber, Security & Resilience",
+    org: "Kearney",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ben_Kite.png",
+  },
 ];
 
 function SpeakersSection() {
@@ -838,7 +850,7 @@ function SpeakersSection() {
         </motion.div>
 
         {/* Speaker cards */}
-        <div style={{ display: "flex", justifyContent: "center", gap: 28, flexWrap: "wrap", alignItems: "stretch" }}>
+        <div className="opex-pi-speakers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20, alignItems: "stretch" }}>
           {SPEAKERS.map((speaker, i) => (
             <motion.div
               key={speaker.name}
@@ -846,7 +858,6 @@ function SpeakersSection() {
               animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
               transition={{ duration: 0.8, delay: 0.3 + i * 0.15, ease: EASE }}
               style={{
-                width: 300,
                 borderRadius: 24,
                 padding: 2,
                 background: `linear-gradient(160deg, ${V_BRIGHT}50, ${MINT}30, rgba(255,255,255,0.08), ${V_BRIGHT}30)`,
@@ -896,6 +907,15 @@ function SpeakersSection() {
 
       {/* Bottom border */}
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent 10%, ${V}15, transparent 90%)` }} />
+
+      <style jsx global>{`
+        @media (max-width: 900px) {
+          .opex-pi-speakers-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 18px !important; }
+        }
+        @media (max-width: 520px) {
+          .opex-pi-speakers-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   );
 }
