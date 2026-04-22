@@ -106,18 +106,18 @@ const PANELS = [
   },
   {
     num: "02",
-    title: "IT/OT Convergence: The Exposure Points Most Teams Still Miss",
+    title: "Hidden OT Exposure Across Critical Infrastructure: Vendor Access, Unmanaged Connections & Shared Control Networks",
     paragraphs: [
-      "As IT and OT environments become increasingly interconnected, the attack surface expands in ways many organizations still underestimate. While convergence enables efficiency and visibility, it also introduces hidden exposure points — from vendor access pathways to supply chain dependencies — that can quietly undermine even the most mature security strategies.",
-      "Where do the most critical vulnerabilities actually exist today, and how can organizations secure these environments without compromising operational uptime?",
+      "Across GCC critical infrastructure, the most exposed OT attack surface is already embedded in daily operations. Vendor access paths spanning multiple sites, unmanaged remote access through jump hosts and support tools, and shared control networks bridging IT and OT without full visibility or control are the exposure points attackers find first. Where are these access paths already being exploited in live environments? Why are they still underestimated?",
+      "This is not a theoretical risk. Geopolitical tension continues to drive targeted cyber activity. Vendor access is often the entry point.",
     ],
   },
   {
     num: "03",
-    title: "AI-Powered OT Attacks: What's Already Happening — and How to Respond in Live Environments",
+    title: "When Disruption Is the Goal: How OT Attacks Are Evolving Across Critical Infrastructure and What Response Looks Like Now",
     paragraphs: [
-      "Artificial intelligence is already reshaping the threat landscape — accelerating reconnaissance, automating attack paths, and increasing the speed and precision of compromise across OT environments. As attackers become more adaptive and scalable, traditional detection and incident response models are struggling to keep pace.",
-      "How are AI-driven attacks already playing out in real-world OT environments, and what does an effective response and resilience strategy look like against faster, more intelligent threats?",
+      "Adversaries are no longer after your data. They want to stop production, disable safety systems, and force manual overrides. Attacks are faster and more coordinated. Detection windows are shrinking. You may have minutes, not days.",
+      "Traditional IT incident response models fail in live OT environments. Where is this already playing out across the GCC? This panel avoids the hype. It focuses on what is already happening in regional OT environments and answers: how do you respond when disruption is the goal?",
     ],
   },
 ];
@@ -254,9 +254,9 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
-            OT Security<br />
+            OT Security in a<br />
             <span className="otvm-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-              in the Age of AI Threats
+              High-Threat GCC Environment
             </span>
           </motion.h1>
 
@@ -266,7 +266,7 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            A closed, senior-level virtual forum for 100 OT security leaders protecting MENA&apos;s critical infrastructure in the era of convergence.
+            A closed, senior-level virtual forum for 100 OT security leaders securing Critical Infrastructure in the GCC.
           </motion.p>
 
           {/* Info badges */}
