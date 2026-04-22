@@ -267,6 +267,7 @@ export default function NetworkFirstPage() {
     <main style={{ background: BG, color: TEXT, overflowX: "hidden" }}>
       <Hero />
       <TrustStrip />
+      <BoardroomInMotion />
       <UpcomingSection />
       <NetworkFirst />
       <IntroStatement />
@@ -490,6 +491,202 @@ function TrustStrip() {
           <img key={i} src={logo.src} alt="Network First executive boardroom session" style={{ height: 56, width: "auto", filter: "brightness(0) invert(1)", opacity: 0.85, flexShrink: 0 }} />
         ))}
       </motion.div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// BOARDROOM IN MOTION, Cinematic Film Feature
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function BoardroomInMotion() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [playing, setPlaying] = useState(false);
+  const videoId = "OkDztBETSic";
+
+  return (
+    <section ref={ref} style={{ position: "relative", padding: "clamp(88px, 12vw, 140px) 24px", background: BG_ALT, overflow: "hidden" }}>
+      {/* Blurred boardroom backdrop */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `url(${BOARDROOM}/boardroom-14.jpg)`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          filter: "blur(6px) brightness(0.16) saturate(0.6)",
+        }}
+      />
+      {/* Gold wireframe grid — same mask language as IntroStatement */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `
+            repeating-linear-gradient(0deg, rgba(201,147,90,0.04) 0px, rgba(201,147,90,0.04) 1px, transparent 1px, transparent 80px),
+            repeating-linear-gradient(90deg, rgba(201,147,90,0.04) 0px, rgba(201,147,90,0.04) 1px, transparent 1px, transparent 80px)
+          `,
+          maskImage: "radial-gradient(ellipse 85% 75% at 50% 50%, black 0%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(ellipse 85% 75% at 50% 50%, black 0%, transparent 100%)",
+        }}
+      />
+      {/* Radial vignette */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 75% 60% at 50% 50%, transparent 0%, #050505 100%)" }} />
+      {/* Gold orb, left */}
+      <div aria-hidden className="absolute pointer-events-none" style={{ top: "15%", left: "-5%", width: 520, height: 420, borderRadius: "50%", background: `radial-gradient(ellipse, ${GOLD_15} 0%, transparent 70%)`, filter: "blur(80px)" }} />
+      {/* Gold orb, right */}
+      <div aria-hidden className="absolute pointer-events-none" style={{ bottom: "10%", right: "-5%", width: 460, height: 380, borderRadius: "50%", background: `radial-gradient(ellipse, ${GOLD_15} 0%, transparent 70%)`, filter: "blur(80px)" }} />
+      {/* Top + bottom gold hairlines */}
+      <div aria-hidden className="absolute top-0 left-0 right-0 pointer-events-none" style={{ height: 1, background: `linear-gradient(90deg, transparent 0%, ${GOLD_30} 50%, transparent 100%)` }} />
+      <div aria-hidden className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: 1, background: `linear-gradient(90deg, transparent 0%, ${GOLD_30} 50%, transparent 100%)` }} />
+
+      <div style={{ position: "relative", maxWidth: 1100, margin: "0 auto" }}>
+        {/* Header */}
+        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ textAlign: "center", marginBottom: "clamp(40px, 5vw, 64px)" }}>
+          <p style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, margin: "0 0 16px", display: "flex", alignItems: "center", justifyContent: "center", gap: 12 }}>
+            <span style={{ width: 24, height: 1, background: GOLD_50 }} />
+            Inside the Room
+            <span style={{ width: 24, height: 1, background: GOLD_50 }} />
+          </p>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 46px)", fontWeight: 600, lineHeight: 1.15, margin: "0 0 16px", letterSpacing: "-0.02em", color: TEXT }}>
+            See what a <span style={{ fontStyle: "italic", color: GOLD }}>Network First</span> boardroom looks like<span style={{ color: GOLD }}>.</span>
+          </h2>
+          <p style={{ fontSize: 15, color: TEXT_30, margin: 0, maxWidth: 520, marginLeft: "auto", marginRight: "auto", lineHeight: 1.6 }}>
+            No stage lights. No scripts. Just the conversations that actually move business.
+          </p>
+        </motion.div>
+
+        {/* Video frame */}
+        <motion.div
+          initial={{ opacity: 0, y: 40, scale: 0.98 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.9, delay: 0.15, ease: EASE_OUT }}
+          style={{
+            position: "relative",
+            maxWidth: 1000,
+            margin: "0 auto",
+            aspectRatio: "16 / 9",
+            borderRadius: 16,
+            padding: 2,
+            background: `linear-gradient(140deg, ${GOLD_50} 0%, ${GOLD_30} 18%, rgba(255,255,255,0.08) 45%, rgba(0,0,0,0.6) 65%, ${GOLD_30} 88%, ${GOLD_50} 100%)`,
+            boxShadow: `0 40px 80px rgba(0,0,0,0.6), 0 18px 40px rgba(0,0,0,0.5), 0 0 60px rgba(201,147,90,0.15)`,
+          }}
+        >
+          {/* Inner black seat */}
+          <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: 14, overflow: "hidden", background: "#000", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.04)" }}>
+            {playing ? (
+              <iframe
+                src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+                title="Network First boardroom film"
+                allow="accelerated-animation; autoplay; encrypted-media; picture-in-picture"
+                allowFullScreen
+                style={{ width: "100%", height: "100%", border: 0, display: "block" }}
+              />
+            ) : (
+              <button
+                type="button"
+                onClick={() => setPlaying(true)}
+                aria-label="Play Network First boardroom film"
+                className="nfbim-play-trigger"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  border: 0,
+                  padding: 0,
+                  cursor: "pointer",
+                  background: "transparent",
+                  appearance: "none",
+                }}
+              >
+                {/* Poster */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+                  alt="Network First boardroom session film"
+                  className="nfbim-poster"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    filter: "brightness(0.72) saturate(1.05)",
+                    transition: "filter 0.5s ease, transform 0.8s ease",
+                    display: "block",
+                  }}
+                />
+                {/* Top/bottom grad wash for legibility */}
+                <span aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.22) 0%, transparent 25%, transparent 70%, rgba(0,0,0,0.45) 100%)", pointerEvents: "none" }} />
+
+                {/* Gold top accent */}
+                <span aria-hidden style={{ position: "absolute", top: 0, left: "18%", right: "18%", height: 2, background: `linear-gradient(90deg, transparent, ${GOLD}, transparent)`, opacity: 0.7 }} />
+
+                {/* Corner brackets */}
+                {[
+                  { top: 12, left: 12, borderTop: `1px solid ${GOLD_50}`, borderLeft: `1px solid ${GOLD_50}` },
+                  { top: 12, right: 12, borderTop: `1px solid ${GOLD_50}`, borderRight: `1px solid ${GOLD_50}` },
+                  { bottom: 12, left: 12, borderBottom: `1px solid ${GOLD_50}`, borderLeft: `1px solid ${GOLD_50}` },
+                  { bottom: 12, right: 12, borderBottom: `1px solid ${GOLD_50}`, borderRight: `1px solid ${GOLD_50}` },
+                ].map((pos, idx) => (
+                  <span key={idx} aria-hidden style={{ position: "absolute", width: 22, height: 22, ...pos, pointerEvents: "none" }} />
+                ))}
+
+                {/* Play button */}
+                <span style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
+                  <span className="nfbim-play" style={{
+                    width: 88,
+                    height: 88,
+                    borderRadius: "50%",
+                    background: "rgba(201,147,90,0.16)",
+                    backdropFilter: "blur(14px)",
+                    WebkitBackdropFilter: "blur(14px)",
+                    border: `1.5px solid ${GOLD_50}`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    boxShadow: `0 0 44px rgba(201,147,90,0.28), inset 0 1px 0 rgba(255,255,255,0.08)`,
+                    transition: "transform 0.45s cubic-bezier(0.22,1,0.36,1), background 0.45s ease, border-color 0.45s ease",
+                  }}>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill={GOLD} style={{ marginLeft: 4, filter: `drop-shadow(0 0 12px ${GOLD_50})` }}><polygon points="6 3 20 12 6 21" /></svg>
+                  </span>
+                </span>
+
+                {/* Bottom caption */}
+                <span aria-hidden style={{
+                  position: "absolute",
+                  bottom: 20,
+                  left: 0,
+                  right: 0,
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: 10,
+                  fontSize: 11,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.75)",
+                  fontFamily: "var(--font-dm-sans)",
+                  fontWeight: 600,
+                  textShadow: "0 1px 8px rgba(0,0,0,0.6)",
+                }}>
+                  <span style={{ color: GOLD }}>▸</span>
+                  Watch the Film
+                  <span aria-hidden style={{ display: "inline-block", width: 22, height: 1, background: GOLD_30, alignSelf: "center" }} />
+                </span>
+              </button>
+            )}
+          </div>
+        </motion.div>
+      </div>
+
+      <style jsx global>{`
+        .nfbim-play-trigger:hover .nfbim-poster { filter: brightness(0.82) saturate(1.1) !important; transform: scale(1.015); }
+        .nfbim-play-trigger:hover .nfbim-play { transform: scale(1.08); background: rgba(201,147,90,0.26) !important; border-color: ${GOLD} !important; }
+        @media (prefers-reduced-motion: reduce) {
+          .nfbim-play-trigger:hover .nfbim-poster { transform: none !important; }
+          .nfbim-play-trigger:hover .nfbim-play { transform: none !important; }
+        }
+      `}</style>
     </section>
   );
 }
@@ -2378,6 +2575,7 @@ function FAQSection() {
               transition={{ duration: 0.5, delay: 0.08 * i, ease: EASE_OUT }}
             >
               <button
+                suppressHydrationWarning
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 className="faq-row"
                 style={{
