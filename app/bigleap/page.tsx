@@ -996,8 +996,8 @@ function OverviewSection() {
                 textShadow: "0 1px 2px rgba(0,0,0,0.35)",
               }}
             >
-              As the leadership community around customer engagement continues to evolve,{" "}
-              <span style={{ color: "rgba(255,255,255,0.97)", fontWeight: 600 }}>The Big Leap Connect</span>{" "}brings together Riyadh&apos;s foremost growth, marketing, and digital leaders for focused, high-impact dialogue. Curated as an invite-only forum, this is specially designed to enable deeper peer exchange, meaningful conversations, and actionable takeaways among senior decision-makers. It is a space where leaders move beyond trends and headlines to examine what transformation truly demands.
+              As customer expectations shift and AI reshapes what engagement looks like, Riyadh&apos;s growth, marketing, and digital leaders are navigating new questions faster than any playbook can keep up with.{" "}
+              <span style={{ color: "rgba(255,255,255,0.97)", fontWeight: 600 }}>The Big Leap Connect</span>{" "}brings them together for the kind of focused, high-impact dialogue this moment demands &mdash; an invite-only forum built for deeper peer exchange, candid conversation, and actionable takeaways among senior martech leaders pressure-testing what AI-led engagement actually looks like in practice.
             </p>
 
             {/* Separator with red dot */}
@@ -1030,7 +1030,7 @@ function OverviewSection() {
               >
                 CleverTap
               </span>
-              , The Big Leap Connect is where Riyadh&apos;s growth leaders converge to exchange ideas, challenge thinking, and collectively take the next leap.
+              , The Big Leap Connect is where Riyadh&apos;s leaders converge to exchange ideas, challenge thinking, and collectively take the next leap &mdash; toward engagement that is personalised, context-aware, and measurably built for retention at scale.
             </p>
 
             {/* Bottom inner shadow line */}
