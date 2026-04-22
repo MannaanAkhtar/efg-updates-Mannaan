@@ -29,22 +29,22 @@ const PILLARS = [
   {
     num: "01",
     title: "Curated Panel",
-    desc: "A thoughtfully assembled panel of industry leaders sharing strategic perspectives on the defining shifts in customer engagement, AI adoption, and sustainable growth.",
+    desc: "A handpicked panel of regional leaders dissecting what's actually working in AI-powered engagement.",
   },
   {
     num: "02",
-    title: "Interactive Breakouts",
-    desc: "Focused group discussions that encourage candid dialogue, shared problem-solving, and actionable thinking around scaling modern customer engagement.",
+    title: "Actionable Takeaways",
+    desc: "Proven frameworks and execution playbooks to deepen personalisation, strengthen retention, and grow customer lifetime value.",
   },
   {
     num: "03",
-    title: "Actionable Takeaways",
-    desc: "Proven frameworks and execution models to drive deeper personalization, stronger retention, and measurable customer lifetime value.",
+    title: "From Segments to Individuals",
+    desc: "See how AI Agents make true 1:1 personalisation automatic — across every channel, every moment.",
   },
   {
     num: "04",
     title: "High-Trust Exchange",
-    desc: "An invite-only setting designed for candid discussion, shared challenges, and meaningful professional connection.",
+    desc: "An invite-only, closed-door setting built for honest, unfiltered exchange between senior leaders.",
   },
 ];
 
@@ -61,7 +61,7 @@ const AGENDA = [
   {
     time: "5:45 PM",
     duration: "20–30 mins",
-    title: "Panel Discussion / Fireside Chat — Beyond the Hype: Redefining Growth with AI",
+    title: "Panel Discussion — Beyond the Hype: Redefining Growth with AI",
     presenter: "Industry Leaders",
     highlight: true,
   },
