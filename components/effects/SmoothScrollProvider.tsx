@@ -28,6 +28,10 @@ export default function SmoothScrollProvider({ children }: SmoothScrollProviderP
 
     lenisRef.current = lenis;
 
+    // Expose the instance on window so global UI (e.g. scroll-to-top) can drive it
+    // without fighting native window.scrollTo against Lenis's wheel hijack.
+    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
+
     // Animation frame loop
     function raf(time: number) {
       lenis.raf(time);
@@ -40,6 +44,7 @@ export default function SmoothScrollProvider({ children }: SmoothScrollProviderP
     return () => {
       lenis.destroy();
       lenisRef.current = null;
+      delete (window as unknown as { __lenis?: Lenis }).__lenis;
     };
   }, []);
 

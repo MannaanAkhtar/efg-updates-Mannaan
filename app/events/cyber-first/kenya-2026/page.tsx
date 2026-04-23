@@ -218,6 +218,7 @@ const WHO_ATTEND_INDUSTRIES = [
 // Supporting Partners (shown in hero strip above countdown)
 const SUPPORTING_PARTNERS = [
   { name: "NC4", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/NC4+Logo.jpeg" },
+  { name: "CA", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/CA+Logo.png" },
 ];
 
 // Event Sponsors 2026 (confirmed partners for the Nairobi edition)
@@ -511,6 +512,120 @@ const CFK_CONTACTS = {
   ],
 };
 
+// ─── SCROLL-TO-TOP — sits above the global WhatsApp button, local to this page ───
+function CfkScrollToTop() {
+  const [visible, setVisible] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 400);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const handleClick = () => {
+    const reduceMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const lenis = (window as unknown as {
+      __lenis?: { scrollTo: (target: number, opts?: { duration?: number; immediate?: boolean }) => void };
+    }).__lenis;
+    if (lenis) {
+      lenis.scrollTo(0, reduceMotion ? { immediate: true } : { duration: 1.0 });
+    } else {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    }
+  };
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.button
+          type="button"
+          aria-label="Back to top"
+          onClick={handleClick}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          initial={{ scale: 0, opacity: 0, y: 8 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          exit={{ scale: 0, opacity: 0, y: 8 }}
+          transition={{ type: "spring", stiffness: 240, damping: 18 }}
+          style={{
+            position: "fixed",
+            bottom: "calc(1.5rem + 56px + 12px)",
+            right: "1.5rem",
+            zIndex: 50,
+            appearance: "none",
+            border: 0,
+            padding: 0,
+            background: "transparent",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+          }}
+        >
+          {/* Tooltip */}
+          <AnimatePresence>
+            {hovered && (
+              <motion.span
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                style={{
+                  background: "white",
+                  color: "#1f2937",
+                  padding: "8px 16px",
+                  borderRadius: 8,
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.35)",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  whiteSpace: "nowrap",
+                  fontFamily: "var(--font-outfit)",
+                }}
+                className="hidden sm:block"
+              >
+                Back to top
+              </motion.span>
+            )}
+          </AnimatePresence>
+
+          <motion.span
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            style={{
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 56,
+              height: 56,
+              borderRadius: "50%",
+              background: "linear-gradient(135deg, #1a1a1d 0%, #0a0a0c 100%)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              boxShadow: "0 10px 30px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06)",
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="white"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              width={22}
+              height={22}
+              aria-hidden="true"
+            >
+              <polyline points="18 15 12 9 6 15" />
+            </svg>
+          </motion.span>
+        </motion.button>
+      )}
+    </AnimatePresence>
+  );
+}
+
 // ─── PAGE COMPONENT ──────────────────────────────────────────────────────────
 export default function CyberFirstKenya2026() {
   return (
@@ -697,6 +812,7 @@ export default function CyberFirstKenya2026() {
       <ContactSection />
       <Venue />
       <Footer />
+      <CfkScrollToTop />
     </div>
   );
 }
@@ -738,12 +854,19 @@ function HeroSection() {
             <span style={{
               fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 800,
               letterSpacing: "2.5px", textTransform: "uppercase", color: KENYA_ACCENT,
-            }}>Supporting Partner</span>
-            <div style={{
-              background: "white", borderRadius: 8, padding: "14px 22px",
-              boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
-            }}>
-              <img src={SUPPORTING_PARTNERS[0].logo} alt={SUPPORTING_PARTNERS[0].name} style={{ height: "clamp(36px, 5vw, 55px)", objectFit: "contain" }} />
+            }}>Supporting Partners</span>
+            <div style={{ display: "flex", alignItems: "center", gap: "clamp(10px, 1.2vw, 14px)", flexWrap: "wrap" }}>
+              {SUPPORTING_PARTNERS.map((partner) => (
+                <div
+                  key={partner.name}
+                  style={{
+                    background: "white", borderRadius: 8, padding: "14px 22px",
+                    boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+                  }}
+                >
+                  <img src={partner.logo} alt={partner.name} style={{ height: "clamp(36px, 5vw, 55px)", objectFit: "contain", display: "block" }} />
+                </div>
+              ))}
             </div>
 
             {/* Community Partner — mobile only (inline, compact) */}

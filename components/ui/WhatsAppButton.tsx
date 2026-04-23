@@ -7,7 +7,7 @@ const WhatsAppButton = () => {
   const [isHovered, setIsHovered] = useState(false);
   const phoneNumber = "971545714377";
   const message = "Hello! I'd like to know more about EFG events.";
-  
+
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   return (
@@ -44,7 +44,7 @@ const WhatsAppButton = () => {
       >
         {/* Pulse ring */}
         <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-25" />
-        
+
         {/* WhatsApp Icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
