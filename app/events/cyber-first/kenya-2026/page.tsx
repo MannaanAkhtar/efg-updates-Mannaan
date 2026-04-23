@@ -222,10 +222,12 @@ const SUPPORTING_PARTNERS = [
 ];
 
 // Event Sponsors 2026 (confirmed partners for the Nairobi edition)
-const CFK_SPONSORS_2026: { name: string; logo: string; url: string; tier: "strategic" | "panel" }[] = [
+const CFK_SPONSORS_2026: { name: string; logo: string; url: string; tier: "strategic" | "panel" | "media" }[] = [
   { name: "ManageEngine", logo: `${S3}/logos/ManageEngine.png`, url: "#", tier: "strategic" },
   { name: "INUA AI", logo: `${S3}/logos/INUA+AI+LOGO+3+white.png`, url: "#", tier: "panel" },
   { name: "QuantumSynapse", logo: `${S3}/logos/QuantumSynapse-1.png`, url: "#", tier: "panel" },
+  { name: "Cryptoken Media", logo: `${S3}/sponsors-logo/cryptoken_media.png`, url: "#", tier: "media" },
+  { name: "TEX Afrika Media", logo: `${S3}/sponsors-logo/tex_afrika_media.png`, url: "#", tier: "media" },
 ];
 
 // Kenya Advisory Board (key government & policy leaders from brochure)
@@ -4052,6 +4054,248 @@ function EventSponsors2026() {
             </motion.a>
           ))}
         </div>
+
+        {/* ── Media Sponsors sub-heading ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginTop: "clamp(40px, 5vw, 64px)", marginBottom: "clamp(20px, 2.4vw, 32px)" }}
+        >
+          <div style={{ flex: "0 1 90px", height: 1, background: `linear-gradient(to right, transparent, rgba(255,255,255,0.18))` }} />
+          <span style={{
+            fontFamily: "var(--font-dm-sans)",
+            fontSize: 11,
+            fontWeight: 700,
+            color: "rgba(255,255,255,0.85)",
+            textTransform: "uppercase",
+            letterSpacing: "3.5px",
+            textShadow: "0 0 14px rgba(255,255,255,0.2)",
+          }}>
+            Media Sponsors
+          </span>
+          <div style={{ flex: "0 1 90px", height: 1, background: `linear-gradient(to left, transparent, rgba(255,255,255,0.18))` }} />
+        </motion.div>
+
+        {/* Media sponsors grid */}
+        <div className="cfk-sponsors-grid cfk-sponsors-grid-media" style={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${Math.min(CFK_SPONSORS_2026.filter(s => s.tier === "media").length, 4)}, minmax(180px, 240px))`,
+          gap: 20,
+          justifyContent: "center",
+        }}>
+          {CFK_SPONSORS_2026.filter(s => s.tier === "media").map((sponsor, i) => (
+            <motion.a
+              key={sponsor.name}
+              href={sponsor.url}
+              target={sponsor.url && sponsor.url !== "#" ? "_blank" : undefined}
+              rel={sponsor.url && sponsor.url !== "#" ? "noopener noreferrer" : undefined}
+              aria-label={`${sponsor.name} — media sponsor`}
+              initial={{ opacity: 0, y: 36, scale: 0.96, filter: "blur(6px)" }}
+              animate={inView ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" } : {}}
+              transition={{ duration: 0.8, delay: 0.95 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+              className="cfk-sponsor-card"
+              style={{
+                position: "relative",
+                display: "block",
+                textDecoration: "none",
+                transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+              }}
+            >
+              {/* Layer 1 — Ambient outer halo */}
+              <div className="cfk-sponsor-glow" style={{
+                position: "absolute",
+                inset: -24,
+                borderRadius: 36,
+                background: `radial-gradient(ellipse 75% 65% at 30% 30%, rgba(181,34,48,0.22) 0%, transparent 65%), radial-gradient(ellipse 60% 60% at 75% 80%, rgba(212,168,75,0.18) 0%, transparent 70%)`,
+                filter: "blur(26px)",
+                opacity: 0.55,
+                pointerEvents: "none",
+                transition: "opacity 0.55s ease",
+                zIndex: 0,
+              }} />
+
+              {/* Layer 2 — Ground drop shadow */}
+              <div style={{
+                position: "absolute",
+                inset: "auto 10% -14px 10%",
+                height: 26,
+                borderRadius: "50%",
+                background: "radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, transparent 70%)",
+                filter: "blur(10px)",
+                pointerEvents: "none",
+                zIndex: 0,
+              }} />
+
+              {/* Layer 3 — Outer metallic bezel */}
+              <div className="cfk-sponsor-bezel" style={{
+                position: "relative",
+                padding: 3,
+                borderRadius: 22,
+                background: `
+                  linear-gradient(135deg,
+                    rgba(181,34,48,0.85) 0%,
+                    rgba(224,92,110,0.35) 12%,
+                    rgba(255,235,200,0.45) 28%,
+                    rgba(180,150,110,0.08) 45%,
+                    rgba(120,80,40,0.04) 55%,
+                    rgba(255,230,180,0.25) 72%,
+                    rgba(212,168,75,0.4) 88%,
+                    rgba(212,168,75,0.85) 100%
+                  )
+                `,
+                boxShadow: `
+                  0 30px 70px rgba(0,0,0,0.55),
+                  0 12px 30px rgba(0,0,0,0.35),
+                  0 0 50px rgba(181,34,48,0.18),
+                  0 0 0 1px rgba(255,255,255,0.04),
+                  inset 0 1px 0 rgba(255,235,200,0.3)
+                `,
+                zIndex: 1,
+              }}>
+                {/* Bezel upper highlight */}
+                <div style={{
+                  position: "absolute",
+                  top: 0, left: "8%", right: "8%",
+                  height: "32%",
+                  background: "linear-gradient(180deg, rgba(255,235,200,0.3) 0%, rgba(255,235,200,0.05) 60%, transparent 100%)",
+                  borderRadius: "22px 22px 50% 50%",
+                  pointerEvents: "none",
+                  zIndex: 2,
+                  filter: "blur(0.5px)",
+                }} />
+
+                {/* Bezel lower shadow */}
+                <div style={{
+                  position: "absolute",
+                  bottom: 0, left: "5%", right: "5%",
+                  height: "20%",
+                  background: "linear-gradient(0deg, rgba(0,0,0,0.4) 0%, transparent 100%)",
+                  borderRadius: "50% 50% 22px 22px",
+                  pointerEvents: "none",
+                  zIndex: 2,
+                }} />
+
+                {/* Recessed inner panel */}
+                <div style={{
+                  position: "relative",
+                  borderRadius: 19,
+                  overflow: "hidden",
+                  background: `
+                    radial-gradient(ellipse 140% 80% at 50% -20%, rgba(181,34,48,0.14) 0%, transparent 55%),
+                    radial-gradient(ellipse 120% 80% at 50% 120%, rgba(212,168,75,0.1) 0%, transparent 50%),
+                    linear-gradient(165deg, rgba(30,14,16,0.98) 0%, rgba(20,8,10,0.99) 50%, rgba(12,6,7,1) 100%)
+                  `,
+                  padding: "0 10px",
+                  minHeight: 180,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: `
+                    inset 0 2px 6px rgba(0,0,0,0.65),
+                    inset 0 -1px 0 rgba(255,235,200,0.05),
+                    inset 0 0 40px rgba(0,0,0,0.4),
+                    inset 0 0 0 1px rgba(255,235,200,0.06)
+                  `,
+                  zIndex: 1,
+                }}>
+                  {/* Specular corner glint */}
+                  <div style={{
+                    position: "absolute",
+                    top: 6, left: 10,
+                    width: 36, height: 36,
+                    background: "radial-gradient(circle at 30% 30%, rgba(255,240,220,0.5), transparent 60%)",
+                    pointerEvents: "none",
+                    zIndex: 3,
+                    filter: "blur(2px)",
+                  }} />
+
+                  {/* Caustic curve reflection */}
+                  <div style={{
+                    position: "absolute",
+                    top: "40%", left: 0, right: 0,
+                    height: 1,
+                    background: `linear-gradient(90deg, transparent 10%, rgba(255,235,200,0.12) 40%, rgba(212,168,75,0.18) 55%, rgba(255,235,200,0.08) 75%, transparent 95%)`,
+                    transform: "skewY(-2deg)",
+                    pointerEvents: "none",
+                    zIndex: 2,
+                    filter: "blur(0.4px)",
+                  }} />
+
+                  {/* Bottom rim underglow */}
+                  <div style={{
+                    position: "absolute",
+                    bottom: 0, left: "12%", right: "12%",
+                    height: 1,
+                    background: `linear-gradient(90deg, transparent, rgba(181,34,48,0.6), transparent)`,
+                    boxShadow: `0 0 18px rgba(181,34,48,0.45)`,
+                    pointerEvents: "none",
+                    zIndex: 2,
+                  }} />
+
+                  {/* Top accent hairline (gold) */}
+                  <div style={{
+                    position: "absolute",
+                    top: 0, left: "8%", right: "8%",
+                    height: 1,
+                    background: `linear-gradient(90deg, transparent, ${KENYA_GOLD}dd, transparent)`,
+                    boxShadow: `0 0 16px ${KENYA_GOLD}80`,
+                    pointerEvents: "none",
+                    zIndex: 3,
+                  }} />
+
+                  {/* Hover shine sweep */}
+                  <div className="cfk-sponsor-shine" style={{
+                    position: "absolute",
+                    top: 0,
+                    left: "-80%",
+                    width: "55%",
+                    height: "100%",
+                    background: "linear-gradient(100deg, transparent, rgba(255,235,200,0.2) 50%, transparent)",
+                    transform: "skewX(-20deg)",
+                    pointerEvents: "none",
+                    transition: "left 1s cubic-bezier(0.22, 1, 0.36, 1)",
+                    zIndex: 4,
+                  }} />
+
+                  {/* Logo */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={sponsor.logo}
+                    alt={`${sponsor.name} logo`}
+                    loading="lazy"
+                    className="cfk-sponsor-logo"
+                    data-sponsor={sponsor.name}
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: 180,
+                      width: "auto",
+                      height: "auto",
+                      objectFit: "contain",
+                      filter: "brightness(1.08) drop-shadow(0 3px 10px rgba(0,0,0,0.65)) drop-shadow(0 1px 2px rgba(212,168,75,0.25))",
+                      transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease",
+                      position: "relative",
+                      zIndex: 5,
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Sponsor name */}
+              <div style={{
+                marginTop: 14,
+                textAlign: "center",
+                fontFamily: "var(--font-outfit)",
+                fontSize: 12,
+                fontWeight: 500,
+                color: "rgba(255,255,255,0.5)",
+                letterSpacing: "0.4px",
+              }}>
+                {sponsor.name}
+              </div>
+            </motion.a>
+          ))}
+        </div>
       </div>
 
       {/* Bottom border */}
@@ -4084,6 +4328,19 @@ function EventSponsors2026() {
         }
         .cfk-sponsor-card:hover .cfk-sponsor-logo[data-sponsor="ManageEngine"] {
           transform: scale(1.42) !important;
+        }
+        .cfk-sponsor-logo[data-sponsor="Cryptoken Media"] {
+          background: #fff;
+          padding: 14px 20px;
+          border-radius: 10px;
+          max-height: 140px;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.55);
+          filter: none !important;
+        }
+        .cfk-sponsor-card:hover .cfk-sponsor-logo[data-sponsor="Cryptoken Media"] {
+          transform: scale(1.05) !important;
+          filter: none !important;
+          box-shadow: 0 6px 22px rgba(0,0,0,0.65) !important;
         }
         .cfk-sponsor-card:hover .cfk-sponsor-shine {
           left: 160% !important;
