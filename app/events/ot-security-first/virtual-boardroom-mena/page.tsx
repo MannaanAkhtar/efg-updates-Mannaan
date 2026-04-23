@@ -202,6 +202,12 @@ const OTVB_SPEAKERS = [
     flag: "https://flagcdn.com/w40/om.png",
     photo: `${S3}/boardroom/NasserAlAlawi.png`,
   },
+  {
+    name: "Anand GP",
+    title: "Regional Sales Engineer & OT Cybersecurity Consultant",
+    org: "TxOne",
+    photo: `${S3}/Speakers-photos/Anand_GP.png`,
+  },
 ];
 
 // ─── EVENT SPONSORS 2026 ────────────────────────────────────────────────────
@@ -210,6 +216,11 @@ const OTVB_SPONSORS_2026 = [
     name: "TXOne Networks",
     logo: `${S3}/boardroom/TXOne+LOGO-3.png`,
     url: "https://www.txone.com/",
+  },
+  {
+    name: "Darktrace",
+    logo: `${S3}/sponsors-logo/Darktrace_Logo_DarkBG_White.png`,
+    url: "https://www.darktrace.com/",
   },
 ];
 
@@ -1707,6 +1718,187 @@ function SpeakersSection() {
               </motion.div>
             );
           })}
+
+          {/* "More Speakers Coming Soon" placeholder — matches speaker card shell */}
+          {(() => {
+            const placeholderIdx = OTVB_SPEAKERS.filter(s => !("featured" in s && s.featured)).length;
+            const accent = placeholderIdx % 2 === 0 ? C_BRIGHT : CYAN;
+            const accentRgb = placeholderIdx % 2 === 0 ? "232,107,184" : "0,201,255";
+            return (
+              <motion.div
+                initial={{ opacity: 0, y: 40, scale: 0.96, filter: "blur(6px)" }}
+                animate={inView ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" } : {}}
+                transition={{ duration: 0.75, delay: 0.4 + placeholderIdx * 0.12, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="otvb-speaker-card otvb-speaker-placeholder" style={{ position: "relative", transition: "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)" }}>
+                  {/* Ambient glow */}
+                  <div className="otvb-speaker-glow" style={{
+                    position: "absolute",
+                    inset: -20,
+                    borderRadius: 34,
+                    background: `radial-gradient(ellipse 70% 60% at 50% 50%, rgba(${accentRgb},0.14) 0%, transparent 70%)`,
+                    filter: "blur(22px)",
+                    opacity: 0.5,
+                    pointerEvents: "none",
+                    transition: "opacity 0.55s ease",
+                  }} />
+
+                  {/* Outer bezel */}
+                  <div style={{
+                    position: "relative",
+                    padding: 2,
+                    borderRadius: 24,
+                    background: `linear-gradient(135deg, rgba(${accentRgb},0.5) 0%, rgba(${accentRgb},0.15) 15%, rgba(255,255,255,0.1) 32%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.08) 68%, rgba(${accentRgb},0.15) 85%, rgba(${accentRgb},0.42) 100%)`,
+                    boxShadow: `0 28px 64px rgba(0,0,0,0.5), 0 0 45px rgba(${accentRgb},0.14), 0 0 0 1px rgba(255,255,255,0.03)`,
+                  }}>
+                    {/* Inner highlight ring */}
+                    <div style={{
+                      position: "absolute",
+                      inset: 2,
+                      borderRadius: 22,
+                      pointerEvents: "none",
+                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.04)",
+                      zIndex: 3,
+                    }} />
+
+                    <div style={{
+                      position: "relative",
+                      borderRadius: 22,
+                      overflow: "hidden",
+                      background: "linear-gradient(165deg, rgba(13,18,51,0.97) 0%, rgba(7,11,31,0.99) 100%)",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}>
+                      {/* Photo-area placeholder */}
+                      <div style={{ position: "relative", width: "100%", aspectRatio: "4 / 5", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        {/* Subtle pattern bg */}
+                        <div style={{
+                          position: "absolute",
+                          inset: 0,
+                          backgroundImage: `
+                            linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px),
+                            radial-gradient(ellipse 140% 90% at 50% 50%, rgba(${accentRgb},0.12) 0%, transparent 70%)
+                          `,
+                          backgroundSize: "32px 32px, 32px 32px, 100% 100%",
+                          maskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 90%)",
+                          WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 90%)",
+                          pointerEvents: "none",
+                        }} />
+                        {/* Inner dashed frame */}
+                        <div style={{ position: "absolute", inset: 14, border: `1.5px dashed rgba(${accentRgb},0.28)`, borderRadius: 16, pointerEvents: "none" }} />
+
+                        {/* Central cluster: avatar group icon + pulsing dots */}
+                        <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: 16, zIndex: 2 }}>
+                          {/* Avatar group icon */}
+                          <div style={{
+                            width: 68,
+                            height: 68,
+                            borderRadius: "50%",
+                            background: `radial-gradient(circle at 30% 30%, rgba(${accentRgb},0.35), rgba(${accentRgb},0.08) 70%)`,
+                            border: `1px solid rgba(${accentRgb},0.35)`,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            boxShadow: `0 8px 26px rgba(0,0,0,0.5), 0 0 22px rgba(${accentRgb},0.22), inset 0 1px 0 rgba(255,255,255,0.08)`,
+                          }}>
+                            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke={accent} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                              <circle cx="9" cy="7" r="4" />
+                              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                          </div>
+
+                          {/* 3-dot pulse */}
+                          <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                            {[0, 1, 2].map((d) => (
+                              <span
+                                key={d}
+                                className="otvb-placeholder-dot"
+                                style={{
+                                  width: 5,
+                                  height: 5,
+                                  borderRadius: 999,
+                                  background: accent,
+                                  boxShadow: `0 0 8px ${accent}`,
+                                  opacity: 0.5,
+                                  animationDelay: `${d * 0.18}s`,
+                                }}
+                              />
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Top reflection hairline */}
+                        <div style={{ position: "absolute", top: 0, left: "6%", right: "6%", height: 1, background: `linear-gradient(90deg, transparent, ${accent}cc, transparent)`, boxShadow: `0 0 16px ${accent}80`, pointerEvents: "none" }} />
+                      </div>
+
+                      {/* Accent hairline divider */}
+                      <div style={{ position: "relative", height: 1, background: `linear-gradient(90deg, transparent, rgba(${accentRgb},0.45), transparent)`, boxShadow: `0 0 14px rgba(${accentRgb},0.32)` }} />
+
+                      {/* Info panel */}
+                      <div style={{
+                        position: "relative",
+                        padding: "18px 20px 22px",
+                        background: "linear-gradient(180deg, rgba(14,18,42,0.55) 0%, rgba(8,10,26,0.75) 100%)",
+                        backdropFilter: "blur(20px) saturate(1.3)",
+                        WebkitBackdropFilter: "blur(20px) saturate(1.3)",
+                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+                      }}>
+                        <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)", pointerEvents: "none" }} />
+
+                        <h3 style={{
+                          fontFamily: "var(--font-display)",
+                          fontWeight: 700,
+                          fontSize: "clamp(16px, 1.3vw, 19px)",
+                          color: "white",
+                          margin: "0 0 8px",
+                          letterSpacing: "-0.4px",
+                          lineHeight: 1.2,
+                          height: "2.4em",
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 2,
+                          overflow: "hidden",
+                        }}>
+                          More Speakers
+                        </h3>
+                        <p style={{
+                          fontFamily: "var(--font-outfit)",
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: accent,
+                          margin: "0 0 6px",
+                          lineHeight: 1.4,
+                          height: "2.8em",
+                          letterSpacing: "0.5px",
+                          textTransform: "uppercase",
+                        }}>
+                          Coming Soon
+                        </p>
+                        <p style={{
+                          fontFamily: "var(--font-outfit)",
+                          fontSize: 12.5,
+                          fontWeight: 400,
+                          color: "rgba(255,255,255,0.58)",
+                          margin: 0,
+                          lineHeight: 1.45,
+                          height: "2.9em",
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 2,
+                          overflow: "hidden",
+                        }}>
+                          Additional OT security leaders to be announced
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })()}
         </div>
       </div>
 
@@ -1742,6 +1934,16 @@ function SpeakersSection() {
         }
         .otvb-speaker-card:hover .otvb-speaker-shine {
           left: 160% !important;
+        }
+        .otvb-speaker-placeholder:hover {
+          transform: translateY(-4px);
+        }
+        .otvb-placeholder-dot {
+          animation: otvb-placeholder-pulse 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+        @keyframes otvb-placeholder-pulse {
+          0%, 100% { opacity: 0.35; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.25); }
         }
         @media (max-width: 1024px) {
           .otvb-speakers-grid {
