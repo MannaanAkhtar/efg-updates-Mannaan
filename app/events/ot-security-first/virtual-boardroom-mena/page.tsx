@@ -208,6 +208,12 @@ const OTVB_SPEAKERS = [
     org: "TxOne",
     photo: `${S3}/Speakers-photos/Anand_GP.png`,
   },
+  {
+    name: "Alaa Khalid",
+    title: "Director of CyberSecurity Operations and GRC",
+    org: "Mining Industry",
+    photo: `${S3}/sponsors-logo/Alaa_Khalid.png`,
+  },
 ];
 
 // ─── EVENT SPONSORS 2026 ────────────────────────────────────────────────────
@@ -2029,6 +2035,28 @@ function SponsorsSection() {
           <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.5)" }}>
             The brands shaping the OT security conversation alongside us
           </span>
+        </motion.div>
+
+        {/* ── Gold Sponsors sub-heading ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginBottom: "clamp(20px, 2.4vw, 32px)" }}
+        >
+          <div style={{ flex: "0 1 120px", height: 1, background: `linear-gradient(to right, transparent, rgba(232,192,96,0.45))` }} />
+          <span style={{
+            fontFamily: "var(--font-dm-sans)",
+            fontSize: "clamp(15px, 1.3vw, 18px)",
+            fontWeight: 700,
+            color: "#E8C060",
+            textTransform: "uppercase",
+            letterSpacing: "4px",
+            textShadow: "0 0 18px rgba(232,192,96,0.4)",
+          }}>
+            Gold Sponsors
+          </span>
+          <div style={{ flex: "0 1 120px", height: 1, background: `linear-gradient(to left, transparent, rgba(232,192,96,0.45))` }} />
         </motion.div>
 
         {/* Sponsor grid */}
