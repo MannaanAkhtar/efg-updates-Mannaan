@@ -329,7 +329,7 @@ export async function POST(request: NextRequest) {
             form_type: typeMap[type] || "general",
             full_name, email, phone: phone || "",
             company, job_title,
-            event_interest: event_name || metadata.event_interest || "",
+            event_interest: event_name || metadata.event_interest || source_category || "",
             message: metadata.message || metadata.proposed_topic || "",
             award_category: metadata.award_category || "",
             nominee_name: metadata.nominee_name || "",
