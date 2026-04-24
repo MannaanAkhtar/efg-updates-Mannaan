@@ -1306,12 +1306,12 @@ function WhoWillBeInRoom() {
 
 // ─── AGENDA ─────────────────────────────────────────────────────────────────
 
-const AGENDA_ITEMS: { time: string; segment: string; type: "opening" | "panel" | "sponsor" | "qa" | "closing" }[] = [
+const AGENDA_ITEMS: { time: string; segment: string; type: "opening" | "panel" | "sponsor" | "qa" | "closing"; confirmed?: boolean }[] = [
   { time: "11:00 - 11:10 AM", segment: "Welcome & Opening Remarks by H.E. Dr. Mohamed Al Kuwaiti, UAE Cyber Security Council", type: "opening" },
   { time: "11:10 - 11:30 AM", segment: "Panel 01 | Securing Critical Infrastructure at a National Level: From Strategy to Operational Reality", type: "panel" },
   { time: "11:30 - 11:40 AM", segment: "Awareness Presentation — Sponsor TBC", type: "sponsor" },
   { time: "11:40 - 12:00 PM", segment: "Panel 02 | IT/OT Convergence: The Exposure Points Most Teams Still Miss", type: "panel" },
-  { time: "12:00 - 12:10 PM", segment: "Awareness Presentation — Sponsor TBC", type: "sponsor" },
+  { time: "12:00 - 12:10 PM", segment: "TXOne Networks | Protecting Uncatchable OT Systems: A Practical Framework for Resilience", type: "sponsor", confirmed: true },
   { time: "12:10 - 12:30 PM", segment: "Panel 03 | AI-Powered OT Attacks: What's Already Happening — and How to Respond in Live Environments", type: "panel" },
   { time: "12:30 - 12:40 PM", segment: "Awareness Presentation — Sponsor TBC", type: "sponsor" },
   { time: "12:40 - 12:50 PM", segment: "Q & A", type: "qa" },
@@ -1724,187 +1724,6 @@ function SpeakersSection() {
               </motion.div>
             );
           })}
-
-          {/* "More Speakers Coming Soon" placeholder — matches speaker card shell */}
-          {(() => {
-            const placeholderIdx = OTVB_SPEAKERS.filter(s => !("featured" in s && s.featured)).length;
-            const accent = placeholderIdx % 2 === 0 ? C_BRIGHT : CYAN;
-            const accentRgb = placeholderIdx % 2 === 0 ? "232,107,184" : "0,201,255";
-            return (
-              <motion.div
-                initial={{ opacity: 0, y: 40, scale: 0.96, filter: "blur(6px)" }}
-                animate={inView ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" } : {}}
-                transition={{ duration: 0.75, delay: 0.4 + placeholderIdx * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <div className="otvb-speaker-card otvb-speaker-placeholder" style={{ position: "relative", transition: "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)" }}>
-                  {/* Ambient glow */}
-                  <div className="otvb-speaker-glow" style={{
-                    position: "absolute",
-                    inset: -20,
-                    borderRadius: 34,
-                    background: `radial-gradient(ellipse 70% 60% at 50% 50%, rgba(${accentRgb},0.14) 0%, transparent 70%)`,
-                    filter: "blur(22px)",
-                    opacity: 0.5,
-                    pointerEvents: "none",
-                    transition: "opacity 0.55s ease",
-                  }} />
-
-                  {/* Outer bezel */}
-                  <div style={{
-                    position: "relative",
-                    padding: 2,
-                    borderRadius: 24,
-                    background: `linear-gradient(135deg, rgba(${accentRgb},0.5) 0%, rgba(${accentRgb},0.15) 15%, rgba(255,255,255,0.1) 32%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.08) 68%, rgba(${accentRgb},0.15) 85%, rgba(${accentRgb},0.42) 100%)`,
-                    boxShadow: `0 28px 64px rgba(0,0,0,0.5), 0 0 45px rgba(${accentRgb},0.14), 0 0 0 1px rgba(255,255,255,0.03)`,
-                  }}>
-                    {/* Inner highlight ring */}
-                    <div style={{
-                      position: "absolute",
-                      inset: 2,
-                      borderRadius: 22,
-                      pointerEvents: "none",
-                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.04)",
-                      zIndex: 3,
-                    }} />
-
-                    <div style={{
-                      position: "relative",
-                      borderRadius: 22,
-                      overflow: "hidden",
-                      background: "linear-gradient(165deg, rgba(13,18,51,0.97) 0%, rgba(7,11,31,0.99) 100%)",
-                      display: "flex",
-                      flexDirection: "column",
-                    }}>
-                      {/* Photo-area placeholder */}
-                      <div style={{ position: "relative", width: "100%", aspectRatio: "4 / 5", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        {/* Subtle pattern bg */}
-                        <div style={{
-                          position: "absolute",
-                          inset: 0,
-                          backgroundImage: `
-                            linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px),
-                            radial-gradient(ellipse 140% 90% at 50% 50%, rgba(${accentRgb},0.12) 0%, transparent 70%)
-                          `,
-                          backgroundSize: "32px 32px, 32px 32px, 100% 100%",
-                          maskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 90%)",
-                          WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 90%)",
-                          pointerEvents: "none",
-                        }} />
-                        {/* Inner dashed frame */}
-                        <div style={{ position: "absolute", inset: 14, border: `1.5px dashed rgba(${accentRgb},0.28)`, borderRadius: 16, pointerEvents: "none" }} />
-
-                        {/* Central cluster: avatar group icon + pulsing dots */}
-                        <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: 16, zIndex: 2 }}>
-                          {/* Avatar group icon */}
-                          <div style={{
-                            width: 68,
-                            height: 68,
-                            borderRadius: "50%",
-                            background: `radial-gradient(circle at 30% 30%, rgba(${accentRgb},0.35), rgba(${accentRgb},0.08) 70%)`,
-                            border: `1px solid rgba(${accentRgb},0.35)`,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            boxShadow: `0 8px 26px rgba(0,0,0,0.5), 0 0 22px rgba(${accentRgb},0.22), inset 0 1px 0 rgba(255,255,255,0.08)`,
-                          }}>
-                            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke={accent} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                              <circle cx="9" cy="7" r="4" />
-                              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                            </svg>
-                          </div>
-
-                          {/* 3-dot pulse */}
-                          <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
-                            {[0, 1, 2].map((d) => (
-                              <span
-                                key={d}
-                                className="otvb-placeholder-dot"
-                                style={{
-                                  width: 5,
-                                  height: 5,
-                                  borderRadius: 999,
-                                  background: accent,
-                                  boxShadow: `0 0 8px ${accent}`,
-                                  opacity: 0.5,
-                                  animationDelay: `${d * 0.18}s`,
-                                }}
-                              />
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Top reflection hairline */}
-                        <div style={{ position: "absolute", top: 0, left: "6%", right: "6%", height: 1, background: `linear-gradient(90deg, transparent, ${accent}cc, transparent)`, boxShadow: `0 0 16px ${accent}80`, pointerEvents: "none" }} />
-                      </div>
-
-                      {/* Accent hairline divider */}
-                      <div style={{ position: "relative", height: 1, background: `linear-gradient(90deg, transparent, rgba(${accentRgb},0.45), transparent)`, boxShadow: `0 0 14px rgba(${accentRgb},0.32)` }} />
-
-                      {/* Info panel */}
-                      <div style={{
-                        position: "relative",
-                        padding: "18px 20px 22px",
-                        background: "linear-gradient(180deg, rgba(14,18,42,0.55) 0%, rgba(8,10,26,0.75) 100%)",
-                        backdropFilter: "blur(20px) saturate(1.3)",
-                        WebkitBackdropFilter: "blur(20px) saturate(1.3)",
-                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
-                      }}>
-                        <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)", pointerEvents: "none" }} />
-
-                        <h3 style={{
-                          fontFamily: "var(--font-display)",
-                          fontWeight: 700,
-                          fontSize: "clamp(16px, 1.3vw, 19px)",
-                          color: "white",
-                          margin: "0 0 8px",
-                          letterSpacing: "-0.4px",
-                          lineHeight: 1.2,
-                          height: "2.4em",
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 2,
-                          overflow: "hidden",
-                        }}>
-                          More Speakers
-                        </h3>
-                        <p style={{
-                          fontFamily: "var(--font-outfit)",
-                          fontSize: 13,
-                          fontWeight: 600,
-                          color: accent,
-                          margin: "0 0 6px",
-                          lineHeight: 1.4,
-                          height: "2.8em",
-                          letterSpacing: "0.5px",
-                          textTransform: "uppercase",
-                        }}>
-                          Coming Soon
-                        </p>
-                        <p style={{
-                          fontFamily: "var(--font-outfit)",
-                          fontSize: 12.5,
-                          fontWeight: 400,
-                          color: "rgba(255,255,255,0.58)",
-                          margin: 0,
-                          lineHeight: 1.45,
-                          height: "2.9em",
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 2,
-                          overflow: "hidden",
-                        }}>
-                          Additional OT security leaders to be announced
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })()}
         </div>
       </div>
 
@@ -1940,16 +1759,6 @@ function SpeakersSection() {
         }
         .otvb-speaker-card:hover .otvb-speaker-shine {
           left: 160% !important;
-        }
-        .otvb-speaker-placeholder:hover {
-          transform: translateY(-4px);
-        }
-        .otvb-placeholder-dot {
-          animation: otvb-placeholder-pulse 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-        }
-        @keyframes otvb-placeholder-pulse {
-          0%, 100% { opacity: 0.35; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.25); }
         }
         @media (max-width: 1024px) {
           .otvb-speakers-grid {
@@ -2424,12 +2233,12 @@ function AgendaSection() {
                       position: "relative",
                     }}>
                       <div style={{ position: "absolute", top: 0, left: "5%", right: "5%", height: 1, background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)` }} />
-                      <div style={{ position: "absolute", top: 14, left: 0, width: 3, height: 20, background: `linear-gradient(180deg, ${typeStyle.color}, rgba(${typeStyle.rgb},0.2))`, borderRadius: "0 2px 2px 0", boxShadow: `0 0 8px rgba(${typeStyle.rgb},0.3)` }} />
+                      <div style={{ position: "absolute", top: 14, left: 0, width: 3, height: 20, background: `linear-gradient(180deg, ${item.type === "sponsor" && item.confirmed ? "rgba(255,255,255,0.9)" : typeStyle.color}, rgba(${typeStyle.rgb},0.2))`, borderRadius: "0 2px 2px 0", boxShadow: `0 0 8px rgba(${typeStyle.rgb},0.3)` }} />
 
                       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 }}>
                         <div style={{ flex: 1 }}>
-                          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, color: typeStyle.color, margin: "0 0 6px", letterSpacing: "0.5px", opacity: 0.9 }}>{item.time}</p>
-                          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: item.type === "panel" ? 600 : 400, color: item.type === "sponsor" ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.85)", margin: 0, lineHeight: 1.5 }}>{item.segment}</p>
+                          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, color: item.type === "sponsor" && item.confirmed ? "rgba(255,255,255,0.85)" : typeStyle.color, margin: "0 0 6px", letterSpacing: "0.5px", opacity: 0.9 }}>{item.time}</p>
+                          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: item.type === "panel" ? 600 : 400, color: item.type === "sponsor" && !item.confirmed ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.85)", margin: 0, lineHeight: 1.5 }}>{item.segment}</p>
                         </div>
                         {item.type === "panel" && (
                           <span style={{
@@ -2437,6 +2246,13 @@ function AgendaSection() {
                             background: `rgba(${typeStyle.rgb},0.12)`, border: `1px solid rgba(${typeStyle.rgb},0.2)`,
                             fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: typeStyle.color,
                           }}>Panel</span>
+                        )}
+                        {item.type === "sponsor" && item.confirmed && (
+                          <span style={{
+                            flexShrink: 0, padding: "4px 12px", borderRadius: 8,
+                            background: `rgba(0,201,255,0.12)`, border: `1px solid rgba(0,201,255,0.28)`,
+                            fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: CYAN,
+                          }}>Tech Talk</span>
                         )}
                       </div>
                     </div>
