@@ -205,7 +205,7 @@ const OTVB_SPEAKERS = [
   {
     name: "Anand GP",
     title: "Regional Sales Engineer & OT Cybersecurity Consultant",
-    org: "TxOne",
+    org: "TXOne Networks",
     photo: `${S3}/Speakers-photos/Anand_GP.png`,
   },
   {
