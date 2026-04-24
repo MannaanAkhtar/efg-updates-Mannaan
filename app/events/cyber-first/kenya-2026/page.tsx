@@ -223,11 +223,11 @@ const SUPPORTING_PARTNERS = [
 
 // Event Sponsors 2026 (confirmed partners for the Nairobi edition)
 const CFK_SPONSORS_2026: { name: string; logo: string; url: string; tier: "strategic" | "panel" | "media" }[] = [
-  { name: "ManageEngine", logo: `${S3}/logos/ManageEngine.png`, url: "#", tier: "strategic" },
-  { name: "INUA AI", logo: `${S3}/logos/INUA+AI+LOGO+3+white.png`, url: "#", tier: "panel" },
-  { name: "QuantumSynapse", logo: `${S3}/logos/QuantumSynapse-1.png`, url: "#", tier: "panel" },
-  { name: "Cryptoken Media", logo: `${S3}/sponsors-logo/cryptoken_media.png`, url: "#", tier: "media" },
-  { name: "TEX Afrika Media", logo: `${S3}/sponsors-logo/tex_afrika_media.png`, url: "#", tier: "media" },
+  { name: "ManageEngine", logo: `${S3}/logos/ManageEngine.png`, url: "https://www.manageengine.com/", tier: "strategic" },
+  { name: "INUA AI", logo: `${S3}/logos/INUA+AI+LOGO+3+white.png`, url: "https://inuaai.com/", tier: "panel" },
+  { name: "QuantumSynapse", logo: `${S3}/logos/QuantumSynapse-1.png`, url: "https://quantumsynapse.ai/", tier: "panel" },
+  { name: "Cryptoken Media", logo: `${S3}/sponsors-logo/cryptoken_media.png`, url: "https://cryptoken.media/", tier: "media" },
+  { name: "TEX Afrika Media", logo: `${S3}/sponsors-logo/tex_afrika_media.png`, url: "https://www.texafrica.com/", tier: "media" },
 ];
 
 // Kenya Advisory Board (key government & policy leaders from brochure)
