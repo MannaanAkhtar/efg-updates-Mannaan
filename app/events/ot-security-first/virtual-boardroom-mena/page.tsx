@@ -217,16 +217,36 @@ const OTVB_SPEAKERS = [
 ];
 
 // ─── EVENT SPONSORS 2026 ────────────────────────────────────────────────────
-const OTVB_SPONSORS_2026 = [
+const OTVB_SPONSORS_2026: { name: string; logo: string; url: string; tier: "platinum" | "gold" }[] = [
+  {
+    name: "FlintX",
+    logo: `${S3}/sponsors-logo/FlintX.png`,
+    url: "#",
+    tier: "platinum",
+  },
   {
     name: "TXOne Networks",
     logo: `${S3}/boardroom/TXOne+LOGO-3.png`,
     url: "https://www.txone.com/",
+    tier: "gold",
   },
   {
     name: "Darktrace",
     logo: `${S3}/sponsors-logo/Darktrace_Logo_DarkBG_White.png`,
     url: "https://www.darktrace.com/",
+    tier: "gold",
+  },
+  {
+    name: "Trellix",
+    logo: `${S3}/sponsors-logo/Trellix-Logo-Black.svg`,
+    url: "https://www.trellix.com/",
+    tier: "gold",
+  },
+  {
+    name: "SecuriCIP",
+    logo: `${S3}/sponsors-logo/SecuriCIP.png`,
+    url: "#",
+    tier: "gold",
   },
 ];
 
@@ -1306,16 +1326,20 @@ function WhoWillBeInRoom() {
 
 // ─── AGENDA ─────────────────────────────────────────────────────────────────
 
-const AGENDA_ITEMS: { time: string; segment: string; type: "opening" | "panel" | "sponsor" | "qa" | "closing"; confirmed?: boolean }[] = [
-  { time: "11:00 - 11:10 AM", segment: "Welcome & Opening Remarks by H.E. Dr. Mohamed Al Kuwaiti, UAE Cyber Security Council", type: "opening" },
+const AGENDA_ITEMS: { time: string; segment: string; subtitle?: string; type: "opening" | "panel" | "sponsor" | "qa" | "raffle" | "closing"; confirmed?: boolean }[] = [
+  { time: "11:00 - 11:10 AM", segment: "Welcome & Opening Remarks by UAE Cyber Security Council", type: "opening" },
   { time: "11:10 - 11:30 AM", segment: "Panel 01 | Securing Critical Infrastructure at a National Level: From Strategy to Operational Reality", type: "panel" },
-  { time: "11:30 - 11:40 AM", segment: "Awareness Presentation — Sponsor TBC", type: "sponsor" },
-  { time: "11:40 - 12:00 PM", segment: "Panel 02 | IT/OT Convergence: The Exposure Points Most Teams Still Miss", type: "panel" },
-  { time: "12:00 - 12:10 PM", segment: "TXOne Networks | Protecting Uncatchable OT Systems: A Practical Framework for Resilience", type: "sponsor", confirmed: true },
-  { time: "12:10 - 12:30 PM", segment: "Panel 03 | AI-Powered OT Attacks: What's Already Happening — and How to Respond in Live Environments", type: "panel" },
-  { time: "12:30 - 12:40 PM", segment: "Awareness Presentation — Sponsor TBC", type: "sponsor" },
-  { time: "12:40 - 12:50 PM", segment: "Q & A", type: "qa" },
-  { time: "12:50 - 01:00 PM", segment: "Closing Remarks", type: "closing" },
+  { time: "11:30 - 11:40 AM", segment: "Awareness Presentation 1 — FlintX", subtitle: "AI in Critical Infrastructure SecOps: What's Actually Deployable Today", type: "sponsor", confirmed: true },
+  { time: "11:40 - 11:50 AM", segment: "Awareness Presentation 2 — Trellix", type: "sponsor", confirmed: true },
+  { time: "11:50 - 12:10 PM", segment: "Panel 02 | Hidden OT Exposure Across Critical Infrastructure: Vendor Access, Unmanaged Connections & Shared Control Networks", type: "panel" },
+  { time: "12:10 - 12:20 PM", segment: "Awareness Presentation 3 — TxOne Networks", subtitle: "Protecting Uncatchable OT Systems: A Practical Framework for Resilience", type: "sponsor", confirmed: true },
+  { time: "12:20 - 12:30 PM", segment: "Awareness Presentation 4 — DarkTrace", type: "sponsor", confirmed: true },
+  { time: "12:30 - 12:50 PM", segment: "Panel 03 | When Disruption Is the Goal: How OT Attacks Are Evolving Across Critical Infrastructure and What Response Looks Like Now", type: "panel" },
+  { time: "12:50 - 01:00 PM", segment: "Awareness Presentation 5 — SecuriCIP", type: "sponsor", confirmed: true },
+  { time: "01:00 - 01:10 PM", segment: "Awareness Presentation 6 — Sponsor TBC", type: "sponsor" },
+  { time: "01:10 - 01:20 PM", segment: "Q & A", type: "qa" },
+  { time: "01:20 - 01:30 PM", segment: "Raffle", type: "raffle" },
+  { time: "01:30 - 01:40 PM", segment: "Closing Remarks", type: "closing" },
 ];
 
 const AGENDA_TYPE_COLORS: Record<string, { color: string; rgb: string }> = {
@@ -1323,6 +1347,7 @@ const AGENDA_TYPE_COLORS: Record<string, { color: string; rgb: string }> = {
   panel: { color: C_BRIGHT, rgb: "232,107,184" },
   sponsor: { color: "rgba(255,255,255,0.5)", rgb: "255,255,255" },
   qa: { color: CYAN, rgb: "0,201,255" },
+  raffle: { color: "#E8C060", rgb: "232,192,96" },
   closing: { color: C_BRIGHT, rgb: "232,107,184" },
 };
 
@@ -1846,11 +1871,112 @@ function SponsorsSection() {
           </span>
         </motion.div>
 
+        {/* ── Platinum Sponsor sub-heading ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginBottom: "clamp(20px, 2.4vw, 32px)" }}
+        >
+          <div style={{ flex: "0 1 120px", height: 1, background: `linear-gradient(to right, transparent, rgba(229,231,235,0.45))` }} />
+          <span style={{
+            fontFamily: "var(--font-dm-sans)",
+            fontSize: "clamp(15px, 1.3vw, 18px)",
+            fontWeight: 700,
+            color: "#E5E7EB",
+            textTransform: "uppercase",
+            letterSpacing: "4px",
+            textShadow: "0 0 18px rgba(229,231,235,0.35)",
+          }}>
+            Platinum Sponsor
+          </span>
+          <div style={{ flex: "0 1 120px", height: 1, background: `linear-gradient(to left, transparent, rgba(229,231,235,0.45))` }} />
+        </motion.div>
+
+        {/* Platinum sponsor grid */}
+        <div className="otvb-sponsors-grid otvb-sponsors-grid-platinum" style={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${Math.min(OTVB_SPONSORS_2026.filter(s => s.tier === "platinum").length, 3)}, minmax(180px, 240px))`,
+          gap: 20,
+          justifyContent: "center",
+          marginBottom: "clamp(40px, 5vw, 64px)",
+        }}>
+          {OTVB_SPONSORS_2026.filter(s => s.tier === "platinum").map((sponsor, i) => (
+            <motion.a
+              key={sponsor.name}
+              href={sponsor.url}
+              target={sponsor.url && sponsor.url !== "#" ? "_blank" : undefined}
+              rel={sponsor.url && sponsor.url !== "#" ? "noopener noreferrer" : undefined}
+              aria-label={`${sponsor.name} — platinum sponsor`}
+              initial={{ opacity: 0, y: 36, scale: 0.96, filter: "blur(6px)" }}
+              animate={inView ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" } : {}}
+              transition={{ duration: 0.8, delay: 0.2 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+              className="otvb-sponsor-card"
+              style={{
+                position: "relative",
+                display: "block",
+                textDecoration: "none",
+                transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+              }}
+            >
+              <div style={{
+                position: "relative",
+                padding: 2,
+                borderRadius: 24,
+                background: `linear-gradient(135deg, rgba(229,231,235,0.55) 0%, rgba(255,255,255,0.18) 22%, rgba(255,255,255,0.05) 50%, rgba(229,231,235,0.18) 78%, rgba(229,231,235,0.5) 100%)`,
+                boxShadow: `0 28px 64px rgba(0,0,0,0.5), 0 0 45px rgba(229,231,235,0.12), 0 0 0 1px rgba(255,255,255,0.04)`,
+              }}>
+                <div style={{
+                  position: "relative",
+                  borderRadius: 22,
+                  overflow: "hidden",
+                  background: "linear-gradient(165deg, rgba(13,18,51,0.97) 0%, rgba(7,11,31,0.99) 100%)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minHeight: 180,
+                  padding: "20px 18px",
+                }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={sponsor.logo}
+                    alt={`${sponsor.name} logo`}
+                    loading="lazy"
+                    data-sponsor={sponsor.name}
+                    className="otvb-sponsor-logo"
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: 180,
+                      width: "auto",
+                      height: "auto",
+                      objectFit: "contain",
+                      transform: "scale(1.35)",
+                      filter: "brightness(1.06) drop-shadow(0 3px 10px rgba(0,0,0,0.65))",
+                      transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease",
+                    }}
+                  />
+                </div>
+              </div>
+              <div style={{
+                marginTop: 14,
+                textAlign: "center",
+                fontFamily: "var(--font-outfit)",
+                fontSize: 12,
+                fontWeight: 500,
+                color: "rgba(255,255,255,0.5)",
+                letterSpacing: "0.4px",
+              }}>
+                {sponsor.name}
+              </div>
+            </motion.a>
+          ))}
+        </div>
+
         {/* ── Gold Sponsors sub-heading ── */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
           style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginBottom: "clamp(20px, 2.4vw, 32px)" }}
         >
           <div style={{ flex: "0 1 120px", height: 1, background: `linear-gradient(to right, transparent, rgba(232,192,96,0.45))` }} />
@@ -1871,11 +1997,11 @@ function SponsorsSection() {
         {/* Sponsor grid */}
         <div className="otvb-sponsors-grid" style={{
           display: "grid",
-          gridTemplateColumns: `repeat(${Math.min(OTVB_SPONSORS_2026.length, 4)}, minmax(180px, 240px))`,
+          gridTemplateColumns: `repeat(${Math.min(OTVB_SPONSORS_2026.filter(s => s.tier === "gold").length, 4)}, minmax(180px, 240px))`,
           gap: 20,
           justifyContent: "center",
         }}>
-          {OTVB_SPONSORS_2026.map((sponsor, i) => (
+          {OTVB_SPONSORS_2026.filter(s => s.tier === "gold").map((sponsor, i) => (
             <motion.a
               key={sponsor.name}
               href={sponsor.url}
@@ -2069,6 +2195,7 @@ function SponsorsSection() {
                     alt={`${sponsor.name} logo`}
                     loading="lazy"
                     className="otvb-sponsor-logo"
+                    data-sponsor={sponsor.name}
                     style={{
                       maxWidth: "100%",
                       maxHeight: 180,
@@ -2125,6 +2252,25 @@ function SponsorsSection() {
         .otvb-sponsor-card:hover .otvb-sponsor-logo {
           transform: scale(1.05) !important;
           filter: brightness(1.18) drop-shadow(0 4px 16px rgba(0,0,0,0.7)) drop-shadow(0 2px 6px rgba(0,201,255,0.45)) !important;
+        }
+        .otvb-sponsor-logo[data-sponsor="Trellix"] {
+          background: #fff;
+          padding: 14px 20px;
+          border-radius: 10px;
+          max-height: 130px;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.55);
+          filter: none !important;
+        }
+        .otvb-sponsor-card:hover .otvb-sponsor-logo[data-sponsor="Trellix"] {
+          transform: scale(1.05) !important;
+          filter: none !important;
+          box-shadow: 0 6px 22px rgba(0,0,0,0.65) !important;
+        }
+        .otvb-sponsor-logo[data-sponsor="SecuriCIP"] {
+          transform: scale(1.35);
+        }
+        .otvb-sponsor-card:hover .otvb-sponsor-logo[data-sponsor="SecuriCIP"] {
+          transform: scale(1.42) !important;
         }
         .otvb-sponsor-card:hover .otvb-sponsor-shine {
           left: 160% !important;
@@ -2211,8 +2357,8 @@ function AgendaSection() {
                   <div style={{ width: 34, flexShrink: 0, display: "flex", justifyContent: "center", paddingTop: 22 }}>
                     <div style={{
                       width: 12, height: 12, borderRadius: "50%",
-                      background: item.type === "panel" ? C_BRIGHT : item.type === "opening" || item.type === "closing" ? CYAN : "rgba(255,255,255,0.2)",
-                      boxShadow: item.type === "panel" ? `0 0 12px ${C_BRIGHT}60` : item.type === "opening" || item.type === "closing" ? `0 0 12px ${CYAN}60` : "none",
+                      background: item.type === "panel" ? C_BRIGHT : item.type === "opening" || item.type === "qa" ? CYAN : item.type === "raffle" ? "#E8C060" : item.type === "closing" ? C_BRIGHT : item.type === "sponsor" && item.confirmed ? CYAN : "rgba(255,255,255,0.2)",
+                      boxShadow: item.type === "panel" ? `0 0 12px ${C_BRIGHT}60` : item.type === "opening" || item.type === "qa" ? `0 0 12px ${CYAN}60` : item.type === "raffle" ? `0 0 12px rgba(232,192,96,0.55)` : item.type === "closing" ? `0 0 12px ${C_BRIGHT}60` : item.type === "sponsor" && item.confirmed ? `0 0 10px ${CYAN}45` : "none",
                       border: `2px solid ${BG}`,
                       position: "relative", zIndex: 2,
                     }} />
@@ -2239,6 +2385,19 @@ function AgendaSection() {
                         <div style={{ flex: 1 }}>
                           <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, color: item.type === "sponsor" && item.confirmed ? "rgba(255,255,255,0.85)" : typeStyle.color, margin: "0 0 6px", letterSpacing: "0.5px", opacity: 0.9 }}>{item.time}</p>
                           <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: item.type === "panel" ? 600 : 400, color: item.type === "sponsor" && !item.confirmed ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.85)", margin: 0, lineHeight: 1.5 }}>{item.segment}</p>
+                          {item.subtitle && (
+                            <p style={{
+                              fontFamily: "var(--font-outfit)",
+                              fontSize: 12.5,
+                              fontWeight: 400,
+                              fontStyle: "italic",
+                              color: "rgba(255,255,255,0.62)",
+                              margin: "6px 0 0",
+                              lineHeight: 1.5,
+                            }}>
+                              &ldquo;{item.subtitle}&rdquo;
+                            </p>
+                          )}
                         </div>
                         {item.type === "panel" && (
                           <span style={{
