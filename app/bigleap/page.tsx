@@ -22,7 +22,7 @@ const CT_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverT
 const RIYADH_IMG = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/finalll.png";
 const TBL_OVERVIEW_BG = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Filters+for+BG_page-0001.jpg";
 const TBL_SPONSOR_BG = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Filters+for+BG_page-0003.jpg";
-const TBL_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/The+Big+Leap_Connect_Logo.svg";
+const TBL_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/The+Big+Leap_Connect_Logo+%282%29.svg";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const PILLARS = [
