@@ -819,6 +819,18 @@ const SPEAKERS = [
     org: "Kearney",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ben_Kite.png",
   },
+  {
+    name: "Mohamed Hamed",
+    title: "Head of Strategy",
+    org: "National Bank of Umm Al Qaiwain",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohamed+Hamed.png",
+  },
+  {
+    name: "Danyal Nasser Anwar",
+    title: "Process Improvement Unit Head",
+    org: "Department of Culture & Tourism",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Danyal.png",
+  },
 ];
 
 function SpeakersSection() {
