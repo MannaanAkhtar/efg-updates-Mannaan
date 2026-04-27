@@ -527,44 +527,6 @@ function HeroSection() {
           </a>
         </div>
 
-        {/* Presented-by lockup — bottom anchored */}
-        <div
-          className="tbl-stagger"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "clamp(10px, 1.4vmin, 16px)",
-            opacity: 0,
-          }}
-        >
-          <div style={{ width: "clamp(22px, 3vmin, 36px)", height: 1, background: "rgba(255,255,255,0.18)" }} />
-          <span
-            style={{
-              fontFamily: FONT,
-              fontSize: "clamp(11px, 1.2vmin, 14px)",
-              fontWeight: 600,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.5)",
-            }}
-          >
-            Presented by
-          </span>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={CT_LOGO}
-            alt="CleverTap"
-            loading="eager"
-            style={{
-              height: "clamp(24px, 3vmin, 36px)",
-              width: "auto",
-              filter: "brightness(0) invert(1)",
-              opacity: 0.92,
-            }}
-          />
-          <div style={{ width: "clamp(22px, 3vmin, 36px)", height: 1, background: "rgba(255,255,255,0.18)" }} />
-        </div>
       </div>
 
 
