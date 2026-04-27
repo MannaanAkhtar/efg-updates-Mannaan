@@ -203,16 +203,28 @@ const OTVB_SPEAKERS = [
     photo: `${S3}/boardroom/NasserAlAlawi.png`,
   },
   {
+    name: "Alaa Khalid",
+    title: "Director of CyberSecurity Operations and GRC",
+    org: "Mining Industry",
+    photo: `${S3}/sponsors-logo/Alaa_Khalid.png`,
+  },
+  {
+    name: "Samir Mokthar",
+    title: "Founder & CEO",
+    org: "FlintX",
+    photo: `${S3}/Speakers-photos/Samir+Mokthar.png`,
+  },
+  {
     name: "Anand GP",
     title: "Regional Sales Engineer & OT Cybersecurity Consultant",
     org: "TXOne Networks",
     photo: `${S3}/Speakers-photos/Anand_GP.png`,
   },
   {
-    name: "Alaa Khalid",
-    title: "Director of CyberSecurity Operations and GRC",
-    org: "Mining Industry",
-    photo: `${S3}/sponsors-logo/Alaa_Khalid.png`,
+    name: "Syed Shahabuddin",
+    title: "Regional OT Solutions Architect, EMEA / APAC",
+    org: "Darktrace",
+    photo: `${S3}/Speakers-photos/Syed+Shahabuddin.png`,
   },
 ];
 
@@ -2301,60 +2313,56 @@ function AgendaSection() {
       <div style={{ position: "absolute", bottom: "10%", right: "-3%", width: 400, height: 400, borderRadius: "50%", background: `radial-gradient(circle, rgba(211,75,154,0.1) 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
 
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
-        {/* Split layout */}
-        <div className="otvm-agenda-split" style={{ display: "grid", gridTemplateColumns: "0.38fr 1fr", gap: "clamp(32px, 5vw, 80px)", alignItems: "start" }}>
-
-          {/* Left — Sticky heading */}
+        {/* Heading — top, centered */}
+        <motion.div
+          initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 1, ease: EASE }}
+          style={{ textAlign: "center", marginBottom: "clamp(36px, 4vw, 56px)" }}
+        >
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(34px, 4.5vw, 56px)", color: "white", letterSpacing: "-2px", margin: "0 0 14px", lineHeight: 1.05 }}>
+            The{" "}
+            <span className="otvm-hero-shimmer" style={{ backgroundImage: "linear-gradient(110deg, rgba(232,107,184,1) 0%, rgba(0,201,255,1) 45%, rgba(232,107,184,1) 100%)", backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Agenda</span>
+          </h2>
           <motion.div
-            initial={{ opacity: 0, x: -40, filter: "blur(10px)" }}
-            animate={inView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
-            transition={{ duration: 1, ease: EASE }}
-            style={{ position: "sticky", top: 120 }}
-          >
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", color: "white", letterSpacing: "-2px", margin: "0 0 20px", lineHeight: 1.05 }}>
-              The{" "}
-              <span className="otvm-hero-shimmer" style={{ display: "block", backgroundImage: "linear-gradient(110deg, rgba(232,107,184,1) 0%, rgba(0,201,255,1) 45%, rgba(232,107,184,1) 100%)", backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Agenda</span>
-            </h2>
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={inView ? { scaleX: 1 } : {}}
-              transition={{ duration: 1.2, delay: 0.4, ease: EASE }}
-              style={{ width: 80, height: 3, background: `linear-gradient(90deg, ${C_BRIGHT}, ${CYAN})`, marginBottom: 20, borderRadius: 2, transformOrigin: "left", boxShadow: `0 0 14px rgba(211,75,154,0.4)` }}
-            />
-            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.45)", lineHeight: 1.7, margin: "0 0 24px" }}>
-              A focused 2-hour session designed for maximum impact. All times in UAE (GST / UTC+4).
-            </p>
+            initial={{ scaleX: 0 }}
+            animate={inView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1.2, delay: 0.4, ease: EASE }}
+            style={{ width: 80, height: 3, background: `linear-gradient(90deg, ${C_BRIGHT}, ${CYAN})`, margin: "0 auto 16px", borderRadius: 2, boxShadow: `0 0 14px rgba(211,75,154,0.4)` }}
+          />
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.5)", lineHeight: 1.6, margin: "0 auto 18px", maxWidth: 580 }}>
+            A focused 2-hour session designed for maximum impact. All times in UAE (GST / UTC+4).
+          </p>
 
-            {/* Session count badge */}
-            <div style={{
-              display: "inline-flex", alignItems: "center", gap: 10,
-              padding: "10px 18px", borderRadius: 14,
-              background: "linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))",
-              border: "1px solid rgba(255,255,255,0.07)",
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 16px rgba(0,0,0,0.2)",
-            }}>
-              <span style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 800, background: `linear-gradient(135deg, ${C_BRIGHT}, ${CYAN})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{AGENDA_ITEMS.length}</span>
-              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "2px", fontWeight: 600 }}>Sessions</span>
-            </div>
-          </motion.div>
+          {/* Session count badge */}
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: 10,
+            padding: "8px 16px", borderRadius: 50,
+            background: "linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))",
+            border: "1px solid rgba(255,255,255,0.08)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 16px rgba(0,0,0,0.2)",
+          }}>
+            <span style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 800, background: `linear-gradient(135deg, ${C_BRIGHT}, ${CYAN})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{AGENDA_ITEMS.length}</span>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 10.5, color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "2px", fontWeight: 600 }}>Sessions</span>
+          </div>
+        </motion.div>
 
-          {/* Right — Timeline cards */}
-          <div style={{ position: "relative" }}>
-            {/* Vertical connector line */}
-            <div style={{ position: "absolute", top: 0, bottom: 0, left: 16, width: 2, background: `linear-gradient(180deg, ${CYAN}30, ${C_BRIGHT}30, ${CYAN}30)`, borderRadius: 2 }} />
-
-            {AGENDA_ITEMS.map((item, i) => {
+        <div className="otvm-agenda-split">
+          {/* Timeline cards (2-column split, full width) */}
+          {(() => {
+            const splitAt = Math.ceil(AGENDA_ITEMS.length / 2);
+            const renderItem = (item: typeof AGENDA_ITEMS[number], originalIdx: number, isLastInCol: boolean) => {
               const typeStyle = AGENDA_TYPE_COLORS[item.type];
               return (
                 <motion.div
-                  key={i}
+                  key={originalIdx}
                   initial={{ opacity: 0, x: -20 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.3 + i * 0.06, ease: EASE }}
-                  style={{ display: "flex", gap: 20, marginBottom: i < AGENDA_ITEMS.length - 1 ? 4 : 0, position: "relative" }}
+                  transition={{ duration: 0.5, delay: 0.3 + originalIdx * 0.05, ease: EASE }}
+                  style={{ display: "flex", gap: 18, marginBottom: isLastInCol ? 0 : 4, position: "relative" }}
                 >
                   {/* Timeline dot */}
-                  <div style={{ width: 34, flexShrink: 0, display: "flex", justifyContent: "center", paddingTop: 22 }}>
+                  <div style={{ width: 32, flexShrink: 0, display: "flex", justifyContent: "center", paddingTop: 20 }}>
                     <div style={{
                       width: 12, height: 12, borderRadius: "50%",
                       background: item.type === "panel" ? C_BRIGHT : item.type === "opening" || item.type === "qa" ? CYAN : item.type === "raffle" ? "#E8C060" : item.type === "closing" ? C_BRIGHT : item.type === "sponsor" && item.confirmed ? CYAN : "rgba(255,255,255,0.2)",
@@ -2370,9 +2378,10 @@ function AgendaSection() {
                     background: `linear-gradient(145deg, rgba(${typeStyle.rgb},0.12) 0%, rgba(255,255,255,0.04) 30%, rgba(255,255,255,0.02) 70%, rgba(${typeStyle.rgb},0.08) 100%)`,
                     boxShadow: `0 1px 0 rgba(255,255,255,0.04) inset, 0 -2px 0 rgba(0,0,0,0.3) inset, 0 6px 24px rgba(0,0,0,0.3)`,
                     marginBottom: 8,
+                    minWidth: 0,
                   }}>
                     <div style={{
-                      borderRadius: 15, padding: "18px 24px",
+                      borderRadius: 15, padding: "16px 20px",
                       background: `linear-gradient(180deg, rgba(13,18,51,0.94) 0%, rgba(7,11,31,0.98) 100%)`,
                       border: "1px solid rgba(255,255,255,0.04)",
                       boxShadow: `inset 0 1px 2px rgba(0,0,0,0.3), inset 0 -1px 0 rgba(255,255,255,0.03)`,
@@ -2381,8 +2390,8 @@ function AgendaSection() {
                       <div style={{ position: "absolute", top: 0, left: "5%", right: "5%", height: 1, background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)` }} />
                       <div style={{ position: "absolute", top: 14, left: 0, width: 3, height: 20, background: `linear-gradient(180deg, ${item.type === "sponsor" && item.confirmed ? "rgba(255,255,255,0.9)" : typeStyle.color}, rgba(${typeStyle.rgb},0.2))`, borderRadius: "0 2px 2px 0", boxShadow: `0 0 8px rgba(${typeStyle.rgb},0.3)` }} />
 
-                      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 }}>
-                        <div style={{ flex: 1 }}>
+                      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12 }}>
+                        <div style={{ flex: 1, minWidth: 0 }}>
                           <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, color: item.type === "sponsor" && item.confirmed ? "rgba(255,255,255,0.85)" : typeStyle.color, margin: "0 0 6px", letterSpacing: "0.5px", opacity: 0.9 }}>{item.time}</p>
                           <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: item.type === "panel" ? 600 : 400, color: item.type === "sponsor" && !item.confirmed ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.85)", margin: 0, lineHeight: 1.5 }}>{item.segment}</p>
                           {item.subtitle && (
@@ -2401,14 +2410,14 @@ function AgendaSection() {
                         </div>
                         {item.type === "panel" && (
                           <span style={{
-                            flexShrink: 0, padding: "4px 12px", borderRadius: 8,
+                            flexShrink: 0, padding: "4px 11px", borderRadius: 8,
                             background: `rgba(${typeStyle.rgb},0.12)`, border: `1px solid rgba(${typeStyle.rgb},0.2)`,
                             fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: typeStyle.color,
                           }}>Panel</span>
                         )}
                         {item.type === "sponsor" && item.confirmed && (
                           <span style={{
-                            flexShrink: 0, padding: "4px 12px", borderRadius: 8,
+                            flexShrink: 0, padding: "4px 11px", borderRadius: 8,
                             background: `rgba(0,201,255,0.12)`, border: `1px solid rgba(0,201,255,0.28)`,
                             fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: CYAN,
                           }}>Tech Talk</span>
@@ -2418,15 +2427,29 @@ function AgendaSection() {
                   </div>
                 </motion.div>
               );
-            })}
-          </div>
+            };
+
+            return (
+              <div className="otvm-agenda-cols" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(20px, 3vw, 40px)" }}>
+                {/* Column 1 — first half */}
+                <div style={{ position: "relative" }}>
+                  <div style={{ position: "absolute", top: 0, bottom: 0, left: 14, width: 2, background: `linear-gradient(180deg, ${CYAN}30, ${C_BRIGHT}30, ${CYAN}30)`, borderRadius: 2 }} />
+                  {AGENDA_ITEMS.slice(0, splitAt).map((item, j) => renderItem(item, j, j === splitAt - 1))}
+                </div>
+                {/* Column 2 — second half */}
+                <div style={{ position: "relative" }}>
+                  <div style={{ position: "absolute", top: 0, bottom: 0, left: 14, width: 2, background: `linear-gradient(180deg, ${CYAN}30, ${C_BRIGHT}30, ${CYAN}30)`, borderRadius: 2 }} />
+                  {AGENDA_ITEMS.slice(splitAt).map((item, j) => renderItem(item, j + splitAt, j === AGENDA_ITEMS.length - splitAt - 1))}
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </div>
 
       <style jsx global>{`
-        @media (max-width: 900px) {
-          .otvm-agenda-split { grid-template-columns: 1fr !important; }
-          .otvm-agenda-split > div:first-child { position: relative !important; top: auto !important; }
+        @media (max-width: 760px) {
+          .otvm-agenda-cols { grid-template-columns: 1fr !important; gap: 0 !important; }
         }
       `}</style>
     </section>
