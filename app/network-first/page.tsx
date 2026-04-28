@@ -63,6 +63,8 @@ const UPCOMING_EVENTS = [
     location: "Virtual",
     link: "https://vroundtable-braze.eventsfirstgroup.com",
     image: "/braze2/hero-bg.jpg",
+    brandColor: "#7B2CBF",
+    brandLogo: "/braze/braze-logo-white.png",
   },
   {
     date: "April 30th, 2026",
@@ -77,6 +79,7 @@ const UPCOMING_EVENTS = [
     link: "https://events.teams.microsoft.com/event/572999a1-6472-4bfb-963f-067897b6a5d5@1dc9b339-fadb-432e-86df-423c38a0fcb8#msdynmkt_trackingcontext=4686f809-03d1-4a4c-8b5e-586aef200200",
     image: "",
     brandColor: "#0078D4",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/crayon.png",
   },
   {
     date: "May 5th, 2026",
@@ -106,6 +109,7 @@ const UPCOMING_EVENTS = [
     link: "https://events.teams.microsoft.com/event/40a2a4b2-7568-4c65-b8cc-a312883c3171@1dc9b339-fadb-432e-86df-423c38a0fcb8#msdynmkt_trackingcontext=e4d52e22-099e-4a3b-aaf5-807974e20000",
     image: "",
     brandColor: "#0078D4",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/crayonXmicrosoft1.png",
   },
   {
     date: "June 10th, 2026",
@@ -1899,7 +1903,18 @@ function UpcomingSection() {
                               {(e as Record<string, string>).brandLogo && (
                                 <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
                                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                                  <img src={(e as Record<string, string>).brandLogo} alt="" style={{ height: 72, width: "auto", opacity: 0.85 }} />
+                                  <img
+                                    src={(e as Record<string, string>).brandLogo}
+                                    alt=""
+                                    style={{
+                                      height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Braze" ? 50 : 72,
+                                      width: "auto",
+                                      opacity: 0.85,
+                                      ...(e.sponsor === "Braze"
+                                        ? { filter: "brightness(0) saturate(100%) invert(22%) sepia(91%) saturate(2904%) hue-rotate(264deg) brightness(98%) contrast(98%) drop-shadow(0 2px 12px rgba(123,44,191,0.5))" }
+                                        : {}),
+                                    }}
+                                  />
                                 </div>
                               )}
                             </>
@@ -1912,7 +1927,7 @@ function UpcomingSection() {
                             }}>
                               {(e as Record<string, string>).brandLogo && (
                                 // eslint-disable-next-line @next/next/no-img-element
-                                <img src={(e as Record<string, string>).brandLogo} alt="" style={{ height: 72, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+                                <img src={(e as Record<string, string>).brandLogo} alt="" style={{ height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Braze" ? 50 : 72, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
                               )}
                               {/* Radial glow */}
                               <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 80% at 30% 30%, ${(e as Record<string, string>).brandColor || "#222"}30, transparent 60%)` }} />
