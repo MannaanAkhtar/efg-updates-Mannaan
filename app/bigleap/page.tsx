@@ -1395,6 +1395,391 @@ function WhatToExpectSection() {
   );
 }
 
+// ─── SPEAKERS ────────────────────────────────────────────────────────────────
+const TBL_SPEAKERS: { name: string; title: string; org?: string; photo: string }[] = [
+  {
+    name: "Rim Almazroua",
+    title: "Head of Growth & Optimization",
+    org: "Awaed",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Rim+Almazroua.png",
+  },
+  {
+    name: "Suhaib Abu Taleb",
+    title: "Business Head — Saudi Arabia, Egypt, Jordan",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Suhaib+Abu+Taleb.png",
+  },
+  {
+    name: "Mohammad Tannous",
+    title: "Regional Director, Middle East, Africa & Turkey",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammad+Tannous.png",
+  },
+];
+
+function SpeakersSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInView(sectionRef, { once: true, margin: "-80px" });
+
+  return (
+    <section
+      ref={sectionRef}
+      id="speakers"
+      style={{
+        position: "relative",
+        overflow: "hidden",
+        padding: "clamp(28px, 3.5vw, 48px) 0",
+        background: "transparent",
+      }}
+    >
+      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 10 }}>
+        {/* Header */}
+        <div style={{ textAlign: "center", marginBottom: "clamp(28px, 3.4vh, 44px)" }}>
+          {/* Premium kicker pill */}
+          <div
+            style={{
+              display: "inline-flex",
+              padding: "1.2px",
+              borderRadius: 999,
+              background: "linear-gradient(140deg, rgba(255,255,255,0.45) 0%, rgba(239,68,68,0.35) 28%, rgba(255,255,255,0.10) 55%, rgba(255,255,255,0.32) 100%)",
+              boxShadow: "0 18px 50px rgba(0,0,0,0.55), 0 6px 20px rgba(239,68,68,0.18)",
+              marginBottom: "clamp(20px, 2.6vh, 28px)",
+              opacity: inView ? 1 : 0,
+              transform: inView ? "translateY(0)" : "translateY(10px)",
+              transition: "all 0.7s cubic-bezier(0.16,1,0.3,1)",
+            }}
+          >
+            <div
+              style={{
+                position: "relative",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                padding: "8px 22px 8px 14px",
+                borderRadius: 999,
+                background: "linear-gradient(180deg, rgba(0,13,38,0.78) 0%, rgba(0,13,38,0.62) 100%)",
+                backdropFilter: "blur(24px) saturate(1.5)",
+                WebkitBackdropFilter: "blur(24px) saturate(1.5)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.30), inset 0 -1px 0 rgba(0,0,0,0.4), inset 0 0 22px rgba(239,68,68,0.08)",
+                overflow: "hidden",
+              }}
+            >
+              <div style={{ position: "absolute", top: 0, left: "12%", right: "12%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent)" }} />
+              <div className="tbl-pulse-dot" style={{ position: "relative", width: 7, height: 7, borderRadius: "50%", background: `radial-gradient(circle at 35% 35%, #ff8a8a, ${TBL_RED} 50%, #b91c1c)`, boxShadow: `0 0 14px ${TBL_RED}, 0 0 4px ${TBL_RED}` }} />
+              <span style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, letterSpacing: "0.26em", textTransform: "uppercase", color: "rgba(255,255,255,0.96)", textShadow: "0 1px 2px rgba(0,0,0,0.4)", position: "relative" }}>
+                On Stage
+              </span>
+            </div>
+          </div>
+
+          <h2
+            style={{
+              fontFamily: FONT,
+              fontWeight: 700,
+              fontSize: "clamp(28px, 4.4vw, 52px)",
+              lineHeight: 1.08,
+              letterSpacing: "-0.038em",
+              margin: "0 auto clamp(14px, 2vh, 22px)",
+              maxWidth: 820,
+              color: "rgba(255,255,255,0.96)",
+              opacity: inView ? 1 : 0,
+              transform: inView ? "translateY(0)" : "translateY(24px)",
+              transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s",
+            }}
+          >
+            The voices behind{" "}
+            <span style={{ background: `linear-gradient(110deg, #ffb4b4, ${TBL_RED}, #ff5555)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontStyle: "italic", fontWeight: 800 }}>
+              the next leap
+            </span>
+            .
+          </h2>
+
+          <p
+            style={{
+              fontFamily: FONT,
+              fontSize: "clamp(14px, 1.1vw, 16px)",
+              fontWeight: 400,
+              lineHeight: 1.55,
+              color: "rgba(255,255,255,0.55)",
+              margin: "0 auto",
+              maxWidth: 580,
+              opacity: inView ? 1 : 0,
+              transform: inView ? "translateY(0)" : "translateY(16px)",
+              transition: "all 0.8s cubic-bezier(0.16,1,0.3,1) 0.18s",
+            }}
+          >
+            Senior leaders shaping the conversation on AI-led customer engagement, retention, and growth across the region.
+          </p>
+        </div>
+
+        {/* Speaker cards grid */}
+        <div
+          className="tbl-speakers-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${Math.min(TBL_SPEAKERS.length, 3)}, minmax(240px, 320px))`,
+            gap: "clamp(18px, 2vw, 28px)",
+            justifyContent: "center",
+          }}
+        >
+          {TBL_SPEAKERS.map((speaker, i) => (
+            <div
+              key={speaker.name}
+              className="tbl-speaker-card"
+              style={{
+                position: "relative",
+                opacity: inView ? 1 : 0,
+                transform: inView ? "translateY(0)" : "translateY(28px)",
+                transition: `all 0.8s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.1}s`,
+              }}
+            >
+              {/* Ambient red halo behind card (skeu lift) */}
+              <span
+                aria-hidden
+                className="tbl-speaker-halo"
+                style={{
+                  position: "absolute",
+                  inset: -22,
+                  borderRadius: 36,
+                  background: "radial-gradient(ellipse 70% 65% at 30% 20%, rgba(239,68,68,0.22) 0%, transparent 65%), radial-gradient(ellipse 60% 60% at 75% 85%, rgba(255,255,255,0.06) 0%, transparent 70%)",
+                  filter: "blur(28px)",
+                  opacity: 0.7,
+                  pointerEvents: "none",
+                  transition: "opacity 0.5s ease",
+                  zIndex: 0,
+                }}
+              />
+
+              {/* Ground drop shadow under card (skeu) */}
+              <span
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  inset: "auto 8% -14px 8%",
+                  height: 28,
+                  borderRadius: "50%",
+                  background: "radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, transparent 70%)",
+                  filter: "blur(12px)",
+                  pointerEvents: "none",
+                  zIndex: 0,
+                }}
+              />
+
+              {/* Outer chrome bezel — multi-stop ridge gradient */}
+              <div
+                className="tbl-speaker-bezel"
+                style={{
+                  position: "relative",
+                  padding: 2.5,
+                  borderRadius: 24,
+                  background: `
+                    linear-gradient(140deg,
+                      rgba(255,255,255,0.55) 0%,
+                      rgba(239,68,68,0.45) 18%,
+                      rgba(255,200,200,0.18) 32%,
+                      rgba(255,255,255,0.04) 48%,
+                      rgba(0,0,0,0.55) 60%,
+                      rgba(255,255,255,0.18) 76%,
+                      rgba(239,68,68,0.4) 90%,
+                      rgba(255,255,255,0.42) 100%
+                    )
+                  `,
+                  boxShadow: `
+                    0 32px 78px rgba(0,0,0,0.6),
+                    0 14px 34px rgba(0,0,0,0.4),
+                    0 0 50px rgba(239,68,68,0.18),
+                    0 0 0 1px rgba(255,255,255,0.04),
+                    inset 0 1px 0 rgba(255,235,235,0.3)
+                  `,
+                  zIndex: 1,
+                  transition: "box-shadow 0.6s cubic-bezier(0.22,1,0.36,1)",
+                }}
+              >
+                {/* Bezel upper highlight (chrome dome) */}
+                <div
+                  aria-hidden
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: "8%",
+                    right: "8%",
+                    height: "30%",
+                    background: "linear-gradient(180deg, rgba(255,235,235,0.32) 0%, rgba(255,235,235,0.05) 60%, transparent 100%)",
+                    borderRadius: "24px 24px 50% 50%",
+                    pointerEvents: "none",
+                    zIndex: 2,
+                    filter: "blur(0.5px)",
+                  }}
+                />
+                {/* Bezel lower shadow */}
+                <div
+                  aria-hidden
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: "5%",
+                    right: "5%",
+                    height: "20%",
+                    background: "linear-gradient(0deg, rgba(0,0,0,0.45) 0%, transparent 100%)",
+                    borderRadius: "50% 50% 24px 24px",
+                    pointerEvents: "none",
+                    zIndex: 2,
+                  }}
+                />
+
+                {/* Recessed inner cavity (skeu inset) */}
+                <div
+                  style={{
+                    position: "relative",
+                    borderRadius: 21.5,
+                    overflow: "hidden",
+                    background: `
+                      radial-gradient(ellipse 140% 80% at 50% -20%, rgba(239,68,68,0.16) 0%, transparent 55%),
+                      radial-gradient(ellipse 120% 80% at 50% 120%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                      linear-gradient(165deg, rgba(13,28,58,0.97) 0%, rgba(7,18,46,0.99) 50%, rgba(4,10,28,1) 100%)
+                    `,
+                    boxShadow: `
+                      inset 0 2px 6px rgba(0,0,0,0.65),
+                      inset 0 -1px 0 rgba(255,235,235,0.05),
+                      inset 0 0 40px rgba(0,0,0,0.4),
+                      inset 0 0 0 1px rgba(255,235,235,0.06)
+                    `,
+                    zIndex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  {/* Photo */}
+                  <div style={{ position: "relative", width: "100%", aspectRatio: "4 / 5", overflow: "hidden", background: "rgba(0,0,0,0.6)" }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={speaker.photo}
+                      alt={speaker.name}
+                      loading="lazy"
+                      className="tbl-speaker-photo"
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        objectPosition: "center top",
+                        filter: "saturate(0.95) contrast(1.05) brightness(0.98)",
+                        transition: "transform 0.8s cubic-bezier(0.22,1,0.36,1), filter 0.5s ease",
+                      }}
+                    />
+                    {/* Top hairline highlight (glass edge) */}
+                    <div style={{ position: "absolute", top: 0, left: "8%", right: "8%", height: 1, background: `linear-gradient(90deg, transparent, ${TBL_RED}aa, transparent)`, boxShadow: `0 0 14px ${TBL_RED}80`, pointerEvents: "none", zIndex: 4 }} />
+                    {/* Bottom fade */}
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 50%, rgba(7,18,46,0.6) 80%, rgba(7,18,46,0.92) 100%)", pointerEvents: "none", zIndex: 3 }} />
+                    {/* Subtle red wash overlay */}
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(239,68,68,0.08) 0%, transparent 50%)", pointerEvents: "none", zIndex: 3 }} />
+                  </div>
+
+                  {/* Red rim hairline divider with glow */}
+                  <div style={{ position: "relative", height: 1, background: `linear-gradient(90deg, transparent, ${TBL_RED}66, transparent)`, boxShadow: `0 0 14px rgba(239,68,68,0.45)` }} />
+                  {/* Subtle white emboss line below rim */}
+                  <div style={{ position: "relative", height: 1, marginTop: -1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)" }} />
+
+                  {/* Info — liquid glass panel */}
+                  <div
+                    style={{
+                      position: "relative",
+                      padding: "18px 22px 22px",
+                      background: `
+                        radial-gradient(120% 200% at 50% -40%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.02) 30%, transparent 55%),
+                        linear-gradient(180deg, rgba(13,28,58,0.55) 0%, rgba(7,18,46,0.82) 100%)
+                      `,
+                      backdropFilter: "blur(22px) saturate(1.4)",
+                      WebkitBackdropFilter: "blur(22px) saturate(1.4)",
+                      boxShadow: `
+                        inset 0 1px 0 rgba(255,255,255,0.10),
+                        inset 0 -1px 0 rgba(0,0,0,0.45),
+                        inset 0 6px 14px rgba(239,68,68,0.05),
+                        inset 0 -6px 14px rgba(0,0,0,0.35)
+                      `,
+                      overflow: "hidden",
+                    }}
+                  >
+                    {/* Top sheen highlight */}
+                    <div aria-hidden style={{ position: "absolute", top: 0, left: "12%", right: "12%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)", pointerEvents: "none" }} />
+                    {/* Bottom rim shadow */}
+                    <div aria-hidden style={{ position: "absolute", bottom: 0, left: "12%", right: "12%", height: 1, background: "linear-gradient(90deg, transparent, rgba(0,0,0,0.5), transparent)", pointerEvents: "none" }} />
+
+                    <h3
+                      style={{
+                        fontFamily: FONT,
+                        fontWeight: 700,
+                        fontSize: "clamp(17px, 1.3vw, 20px)",
+                        color: "rgba(255,255,255,0.96)",
+                        margin: "0 0 8px",
+                        letterSpacing: "-0.4px",
+                        lineHeight: 1.2,
+                        textShadow: "0 1px 2px rgba(0,0,0,0.45)",
+                        position: "relative",
+                      }}
+                    >
+                      {speaker.name}
+                    </h3>
+                    <p
+                      style={{
+                        fontFamily: FONT,
+                        fontSize: 13,
+                        fontWeight: 600,
+                        color: TBL_RED,
+                        margin: speaker.org ? "0 0 6px" : 0,
+                        lineHeight: 1.4,
+                        textShadow: "0 1px 6px rgba(239,68,68,0.35)",
+                        position: "relative",
+                      }}
+                    >
+                      {speaker.title}
+                    </p>
+                    {speaker.org && (
+                      <p
+                        style={{
+                          fontFamily: FONT,
+                          fontSize: 12.5,
+                          fontWeight: 400,
+                          color: "rgba(255,255,255,0.58)",
+                          margin: 0,
+                          lineHeight: 1.4,
+                          position: "relative",
+                        }}
+                      >
+                        {speaker.org}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <style jsx global>{`
+        .tbl-speaker-card { will-change: transform; transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+        .tbl-speaker-card:hover { transform: translateY(-6px); }
+        .tbl-speaker-card:hover .tbl-speaker-halo { opacity: 1 !important; }
+        .tbl-speaker-card:hover .tbl-speaker-bezel {
+          box-shadow:
+            0 40px 90px rgba(0,0,0,0.65),
+            0 18px 40px rgba(0,0,0,0.45),
+            0 0 70px rgba(239,68,68,0.32),
+            0 0 0 1px rgba(255,255,255,0.06),
+            inset 0 1px 0 rgba(255,235,235,0.4) !important;
+        }
+        .tbl-speaker-card:hover .tbl-speaker-photo { transform: scale(1.04); filter: saturate(1.05) contrast(1.08) brightness(1.02) !important; }
+        @media (max-width: 900px) {
+          .tbl-speakers-grid { grid-template-columns: repeat(2, minmax(0, 320px)) !important; }
+        }
+        @media (max-width: 600px) {
+          .tbl-speakers-grid { grid-template-columns: minmax(0, 360px) !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
 // ─── AGENDA — Vertical Timeline ──────────────────────────────────────────────
 function AgendaSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -2696,6 +3081,7 @@ export default function BigLeapPage() {
         <div style={{ position: "relative", zIndex: 10 }}>
           <OverviewSection />
           <WhatToExpectSection />
+          <SpeakersSection />
           <AgendaSection />
         </div>
       </div>
