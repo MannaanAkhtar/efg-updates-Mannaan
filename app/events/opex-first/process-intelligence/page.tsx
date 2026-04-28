@@ -831,6 +831,18 @@ const SPEAKERS = [
     org: "Department of Culture & Tourism",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Danyal.png",
   },
+  {
+    name: "Ismail Ibrahim Al Janahi",
+    title: "Procurement Section Head",
+    org: "Abu Dhabi Investment Office",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ismail.png",
+  },
+  {
+    name: "Suvo Chatterjee",
+    title: "Director – Business Excellence & Transformation | Strategy & Planning",
+    org: "Ras Al Khaimah Economic Zone (Government of Ras Al Khaimah)",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/suvo.png",
+  },
 ];
 
 function SpeakersSection() {
@@ -893,7 +905,14 @@ function SpeakersSection() {
                   <img
                     src={speaker.photo}
                     alt={speaker.name}
-                    style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", transition: "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)" }}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: "center top",
+                      transition: "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)",
+                      ...((speaker as { photoStyle?: React.CSSProperties }).photoStyle || {}),
+                    }}
                   />
                   <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, transparent 40%, ${BG_DARK}ee 100%)`, pointerEvents: "none" }} />
                   <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${V}10, transparent 50%)`, pointerEvents: "none" }} />
