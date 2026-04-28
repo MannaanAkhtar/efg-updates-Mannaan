@@ -843,6 +843,12 @@ const SPEAKERS = [
     org: "Ras Al Khaimah Economic Zone (Government of Ras Al Khaimah)",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/suvo.png",
   },
+  {
+    name: "Butti Al Mazrouei",
+    title: "Head of Supply Chain Management",
+    org: "Mubadala Energy",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Butti.png",
+  },
 ];
 
 function SpeakersSection() {
