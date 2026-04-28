@@ -203,12 +203,6 @@ const OTVB_SPEAKERS = [
     photo: `${S3}/boardroom/NasserAlAlawi.png`,
   },
   {
-    name: "Alaa Khalid",
-    title: "Director of CyberSecurity Operations and GRC",
-    org: "Mining Industry",
-    photo: `${S3}/sponsors-logo/Alaa_Khalid.png`,
-  },
-  {
     name: "Samir Mokthar",
     title: "Founder & CEO",
     org: "FlintX",
@@ -225,6 +219,19 @@ const OTVB_SPEAKERS = [
     title: "Regional OT Solutions Architect, EMEA / APAC",
     org: "Darktrace",
     photo: `${S3}/Speakers-photos/Syed+Shahabuddin.png`,
+  },
+  {
+    name: "Mo Cashman",
+    title: "Global Field CTO",
+    org: "Trellix",
+    photo: `${S3}/Speakers-photos/MoCashman.png`,
+  },
+  {
+    name: "Thomas Philip",
+    title: "Head of Digital & IT",
+    org: "Petrotec & Al-Mahhar Holding",
+    flag: "https://flagcdn.com/w40/qa.png",
+    photo: `${S3}/Speakers-photos/ThomasPhilip.png`,
   },
 ];
 
@@ -1342,9 +1349,9 @@ const AGENDA_ITEMS: { time: string; segment: string; subtitle?: string; type: "o
   { time: "11:00 - 11:10 AM", segment: "Welcome & Opening Remarks by UAE Cyber Security Council", type: "opening" },
   { time: "11:10 - 11:30 AM", segment: "Panel 01 | Securing Critical Infrastructure at a National Level: From Strategy to Operational Reality", type: "panel" },
   { time: "11:30 - 11:40 AM", segment: "Awareness Presentation 1 — FlintX", subtitle: "AI in Critical Infrastructure SecOps: What's Actually Deployable Today", type: "sponsor", confirmed: true },
-  { time: "11:40 - 11:50 AM", segment: "Awareness Presentation 2 — Trellix", type: "sponsor", confirmed: true },
+  { time: "11:40 - 11:50 AM", segment: "Awareness Presentation 2 — Trellix", subtitle: "Reaction to Readiness: Building resilience for OT systems in 2026", type: "sponsor", confirmed: true },
   { time: "11:50 - 12:10 PM", segment: "Panel 02 | Hidden OT Exposure Across Critical Infrastructure: Vendor Access, Unmanaged Connections & Shared Control Networks", type: "panel" },
-  { time: "12:10 - 12:20 PM", segment: "Awareness Presentation 3 — TxOne Networks", subtitle: "Protecting Uncatchable OT Systems: A Practical Framework for Resilience", type: "sponsor", confirmed: true },
+  { time: "12:10 - 12:20 PM", segment: "Awareness Presentation 3 — TxOne Networks", subtitle: "Protecting Unpatchable OT Systems: A Practical Framework for Resilience", type: "sponsor", confirmed: true },
   { time: "12:20 - 12:30 PM", segment: "Awareness Presentation 4 — DarkTrace", type: "sponsor", confirmed: true },
   { time: "12:30 - 12:50 PM", segment: "Panel 03 | When Disruption Is the Goal: How OT Attacks Are Evolving Across Critical Infrastructure and What Response Looks Like Now", type: "panel" },
   { time: "12:50 - 01:00 PM", segment: "Awareness Presentation 5 — SecuriCIP", type: "sponsor", confirmed: true },
