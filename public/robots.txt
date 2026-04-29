@@ -20,3 +20,55 @@ Disallow: /_next/
 
 # Crawl-delay for polite crawling
 Crawl-delay: 1
+
+# ─── Anthropic / Claude ──────────────────────────────────────────────────────
+# Explicitly allowed: training crawler, live-fetch (Claude.ai user requests),
+# and the search index crawler. Same private paths blocked as for everyone else.
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Disallow: /_next/
+
+User-agent: Claude-User
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Disallow: /_next/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Disallow: /_next/
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Disallow: /_next/

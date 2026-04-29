@@ -1,0 +1,48 @@
+# Events First Group
+
+> Premium B2B technology event company headquartered in Dubai. Events First Group (EFG) produces invite-only summits, executive boardrooms, and virtual forums for CISOs, CTOs, CDOs, and senior transformation leaders across the GCC, MENA, Africa, and India. Our events are free for qualified end-users; revenue comes from sponsorships and our NetworkFirst boardroom programme.
+
+## Series
+
+- [Cyber First](https://eventsfirstgroup.com/events/cyber-first): Executive cybersecurity summits for CISOs and security leadership across MEA.
+- [OT Security First](https://eventsfirstgroup.com/events/ot-security-first): Industrial / OT / ICS security summits for critical-infrastructure leaders.
+- [Digital First](https://eventsfirstgroup.com/events/data-ai-first): AI and data strategy summits for the intelligent enterprise.
+- [OPEX First](https://eventsfirstgroup.com/events/opex-first): Operational excellence and process intelligence summits.
+- [NetworkFirst](https://eventsfirstgroup.com/network-first): Invite-only executive boardrooms hosted with strategic technology partners.
+
+## Active editions (2026)
+
+- [Cyber First Kenya 2026 — Nairobi](https://eventsfirstgroup.com/events/cyber-first/kenya-2026): East Africa's premier cybersecurity summit. July 2026, Nairobi. 300+ CISOs, CIOs, government cyber leaders, fintech and mobile-money security heads, and critical-infrastructure operators. Theme: "Beyond Firewalls, Strategic Cyber Defense for Kenya's Digital Age." Topics include national critical infrastructure, regulatory governance, cloud security and Zero Trust, AI-powered threat intelligence, and the Cyber First Awards East Africa across 6 categories.
+
+- [Cyber First Kuwait 2026](https://eventsfirstgroup.com/events/cyber-first/kuwait-2026): Kuwait's 3rd Annual Cybersecurity Summit. 9 June 2026, Jumeirah Messilah Beach Hotel & Spa, Kuwait City. 500+ CISOs, security leaders, and government cyber leaders. The definitive cybersecurity gathering in Kuwait.
+
+- [OT Security First Jubail 2026 — Saudi Arabia](https://eventsfirstgroup.com/events/ot-security-first/jubail-2026): Industrial security summit bridging IT and OT for Saudi Arabia's industrial heartland. 7 October 2026, Jubail. Focus on SCADA security, ICS, IT/OT convergence, and critical-infrastructure resilience for energy, petrochemicals, and utilities.
+
+- [OT Security First Africa 2026 — Johannesburg](https://eventsfirstgroup.com/events/ot-security-first/johannesburg-2026): Africa's premier OT/ICS security summit. 26 August 2026, Johannesburg. Theme: "Uncompromised OT Security — Protecting what Powers our World." 200+ delegates, 20+ speakers, cross-sector collaboration spanning mining, energy (Eskom-tier), transport (Transnet-tier), POPIA compliance, and government policy.
+
+- [OT Security First Virtual Boardroom MENA 2026](https://eventsfirstgroup.com/events/ot-security-first/virtual-boardroom-mena): Closed, senior-level virtual forum on OT security in a high-threat GCC environment. 19 May 2026 (online). 100 verified OT security professionals from MENA energy, utilities, oil & gas, and petrochemicals. Sponsors include FlintX (Platinum), TXOne Networks, Darktrace, Trellix, and SecuriCIP (Gold).
+
+- [OPEX First Process Intelligence MENA 2026](https://eventsfirstgroup.com/events/opex-first/process-intelligence): Executive virtual webinar — "From Digital Investment to Measurable Execution. Driving Operational Intelligence Across the GCC." 21 May 2026, 11:00–13:00 GST. Two hours for senior transformation, operations, and technology leaders across the GCC. Speakers from Mubadala Energy, Madinah Municipality, Saipem Qatar, Kearney, RAK Economic Zone, Abu Dhabi Investment Office, Department of Culture & Tourism Abu Dhabi, and National Bank of Umm Al Qaiwain.
+
+- [The Big Leap Connect — Riyadh](https://eventsfirstgroup.com/bigleap): "Beyond the Hype: Redefining Growth with AI." 5 May 2026, Riyadh, Saudi Arabia. An invite-only evening for Riyadh's senior growth, marketing, product, and digital leaders, presented by CleverTap.
+
+## NetworkFirst — virtual roundtables and boardrooms
+
+- [Braze Virtual Roundtable](https://vroundtable-braze.eventsfirstgroup.com): Invite-only customer-engagement boardroom hosted with Braze.
+- [SonicWall Virtual Session](https://sonicwall-webinar.eventsfirstgroup.com): Cybersecurity webinar hosted with SonicWall.
+- [Crayon Virtual Sessions](https://eventsfirstgroup.com/network-first): "Built for Uncertainty" (30 April 2026) and "AI Without Blindspots" — Crayon × Microsoft (5 May 2026).
+- [Big Leap Riyadh](https://big-leap-riyadh.eventsfirstgroup.com): Subdomain mirror of the CleverTap evening event.
+
+## About
+
+- [About EFG](https://eventsfirstgroup.com/about): Company overview, mission, leadership, and how we curate invite-only rooms.
+- [All events](https://eventsfirstgroup.com/events): Annual calendar across all five series.
+- [Speakers](https://eventsfirstgroup.com/speakers): Cross-series speaker directory.
+- [Insights](https://eventsfirstgroup.com/insights): Editorial, post-event reports, and industry briefings.
+- [Contact](https://eventsfirstgroup.com/contact): General enquiries, partnership requests, and delegate registrations.
+
+## Optional
+
+- [Sitemap (XML)](https://eventsfirstgroup.com/sitemap.xml)
+- Partnerships and sponsorship: partnerships@eventsfirstgroup.com
+- General enquiries: hello@eventsfirstgroup.com
