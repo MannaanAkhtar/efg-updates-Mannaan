@@ -235,6 +235,7 @@ const PAST_EVENTS_2026: PastEvent[] = [
     image: "",
     brandColor: "#CF0A2C",
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Huawei.png",
+    link: "https://events02.huawei.com/UniversalForm/register/149366439/register.html?site=SA&formId=12413&way=onsite",
   },
   {
     sponsor: "Braze",
