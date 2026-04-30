@@ -369,10 +369,23 @@ function HeroSection() {
         <img loading="lazy" src="/events-first-group_logo_alt.svg" alt="Events First Group" width={120} height={48} style={{ height: 48, width: "auto", opacity: 0.7 }} />
       </motion.div>
 
-      {/* Countdown bar */}
-      <div className="otvm-countdown-bar" style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 20, padding: "20px 0" }}>
-        <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
-          <div style={{ display: "flex", gap: "clamp(12px, 3vw, 28px)", flexWrap: "wrap" }}>
+      {/* Supporting partner — Rilian (bottom-left, mirrors EFG badge) */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 1.7 }}
+        style={{ position: "absolute", bottom: 80, left: "clamp(24px, 5vw, 80px)", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}
+        className="otvm-rilian-badge"
+      >
+        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 400, color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "2px" }}>Supporting Partner</span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img loading="lazy" src="https://efg-final.s3.eu-north-1.amazonaws.com/logos/Corrected+Rilian+Logo+-+Black.png" alt="Rilian" style={{ height: 48, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+      </motion.div>
+
+      {/* Countdown bar — sits on the same row as Rilian / EFG badges */}
+      <div className="otvm-countdown-bar" style={{ position: "absolute", bottom: 80, left: "50%", transform: "translateX(-50%)", zIndex: 20 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: "clamp(16px, 3vw, 32px)" }}>
+          <div style={{ display: "flex", gap: "clamp(12px, 3vw, 28px)", flexWrap: "wrap", justifyContent: "center" }}>
             {[{ v: cd.d, l: "Days" }, { v: cd.h, l: "Hrs" }, { v: cd.m, l: "Min" }, { v: cd.s, l: "Sec" }].map((item) => (
               <div key={item.l} className="text-center">
                 <span style={{ fontFamily: "var(--font-display)", fontSize: "clamp(22px, 2.5vw, 32px)", fontWeight: 800, color: "white", display: "block", letterSpacing: "-1px" }}>{String(item.v).padStart(2, "0")}</span>
@@ -3155,7 +3168,7 @@ export default function OTSecurityVirtualForumMENA() {
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          padding: clamp(120px, 14vh, 160px) clamp(24px, 5vw, 80px) clamp(60px, 8vh, 100px);
+          padding: clamp(64px, 7vh, 88px) clamp(24px, 5vw, 80px) clamp(160px, 18vh, 200px);
           box-sizing: border-box;
         }
 
@@ -3474,8 +3487,9 @@ export default function OTSecurityVirtualForumMENA() {
           .hero-section h1 { font-size: clamp(28px, 9vw, 42px) !important; }
           .otvm-hero-section { min-height: auto !important; }
           .content-wrapper { padding: 80px 20px 30px !important; justify-content: flex-start !important; padding-top: 90px !important; min-height: auto !important; }
-          .otvm-efg-badge { display: none !important; }
-          .otvm-countdown-bar { position: relative !important; margin-top: -30px !important; }
+          .otvm-efg-badge,
+          .otvm-rilian-badge { display: none !important; }
+          .otvm-countdown-bar { position: relative !important; bottom: auto !important; left: auto !important; transform: none !important; margin-top: -30px !important; }
           /* Reduce beam count impact, keep animation but lighter */
           .light-beam { opacity: 0.5 !important; }
           .light-beam.secondary { display: none !important; }
