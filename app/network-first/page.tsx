@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback, useMemo } from "react";
 import { motion, useInView, useScroll, useTransform, useSpring, useMotionValue, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Footer } from "@/components/sections";
@@ -36,36 +36,6 @@ const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 // ─────────────────────────────────────────────────────────────────────────────
 
 const UPCOMING_EVENTS = [
-  {
-    date: "April 28th, 2026",
-    month: "APR",
-    day: "28",
-    year: "2026",
-    time: "11:00 AM – 2:00 PM",
-    title: "Huawei Cloud Executive Roundtable",
-    subtitle: "Media & Entertainment, Saudi Arabia 2026",
-    sponsor: "Huawei Cloud",
-    location: "Riyadh, KSA",
-    link: "https://events02.huawei.com/UniversalForm/register/149366439/register.html?site=SA&formId=12413&way=onsite",
-    image: "",
-    brandColor: "#CF0A2C",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Huawei.png",
-  },
-  {
-    date: "April 29th, 2026",
-    month: "APR",
-    day: "29",
-    year: "2026",
-    time: "11:00 AM GST",
-    title: "Braze Virtual Roundtable 2",
-    subtitle: "Marketing Through Uncertainty, Customer Engagement Strategies for MENAT",
-    sponsor: "Braze",
-    location: "Virtual",
-    link: "https://vroundtable-braze.eventsfirstgroup.com",
-    image: "/braze2/hero-bg.jpg",
-    brandColor: "#7B2CBF",
-    brandLogo: "/braze/braze-logo-white.png",
-  },
   {
     date: "April 30th, 2026",
     month: "APR",
@@ -226,11 +196,69 @@ const PAST_EVENTS_2023 = [
   { sponsor: "Adtech Media", date: "May", venue: "Address Marina Dubai", image: `${BOARDROOM}/boardroom-05.jpg` },
 ];
 
-const PAST_EVENTS_2026: { sponsor: string; date: string; venue: string; image: string }[] = [
-  { sponsor: "Braze", date: "8 Apr", venue: "Virtual", image: "/braze/sg-heat1-5.png" },
-  { sponsor: "CleverTap Iftar", date: "5 Mar", venue: "Madinat Jumeirah, Dubai", image: `${NF}/2026/02/iftar-photo1.jpg` },
-  { sponsor: "CleverTap Majlis Al-Suhoor", date: "3 Mar", venue: "JW Marriott, Riyadh", image: `${NF}/2026/02/Suhoor-photo1.jpg` },
+type PastEvent = {
+  sponsor: string;
+  title?: string;
+  subtitle?: string;
+  month?: string;
+  date: string;
+  venue: string;
+  time?: string;
+  image: string;
+  brandColor?: string;
+  brandLogo?: string;
+  link?: string;
+};
+
+const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    sponsor: "Braze",
+    title: "Braze Virtual Roundtable 2",
+    subtitle: "Marketing Through Uncertainty, Customer Engagement Strategies for MENAT",
+    month: "APR",
+    date: "29 Apr",
+    venue: "Virtual",
+    time: "11:00 AM GST",
+    image: "/braze2/hero-bg.jpg",
+    brandColor: "#7B2CBF",
+    brandLogo: "/braze/braze-logo-white.png",
+    link: "https://vroundtable-braze.eventsfirstgroup.com",
+  },
+  {
+    sponsor: "Huawei Cloud",
+    title: "Huawei Cloud Executive Roundtable",
+    subtitle: "Media & Entertainment, Saudi Arabia 2026",
+    month: "APR",
+    date: "28 Apr",
+    venue: "Riyadh, KSA",
+    time: "11:00 AM – 2:00 PM",
+    image: "",
+    brandColor: "#CF0A2C",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Huawei.png",
+  },
+  {
+    sponsor: "Braze",
+    title: "Braze Virtual Roundtable",
+    subtitle: "Setting the Heat for Marketing in MENAT",
+    month: "APR",
+    date: "8 Apr",
+    venue: "Virtual",
+    image: "/braze/sg-heat1-5.png",
+    brandColor: "#7B2CBF",
+  },
 ];
+
+const MONTH_FULL: Record<string, string> = { JAN: "January", FEB: "February", MAR: "March", APR: "April", MAY: "May", JUN: "June", JUL: "July", AUG: "August", SEP: "September", OCT: "October", NOV: "November", DEC: "December" };
+const MONTH_REVERSE_ORDER = ["DEC", "NOV", "OCT", "SEP", "AUG", "JUL", "JUN", "MAY", "APR", "MAR", "FEB", "JAN"];
+
+function deriveMonth(date: string): string {
+  const months = Object.keys(MONTH_FULL);
+  const upper = date.toUpperCase();
+  for (const m of months) {
+    if (upper.includes(m)) return m;
+  }
+  return "";
+}
 
 const CANDID_MOMENTS = [
   `${BOARDROOM}/boardroom-01.jpg`,
@@ -2155,7 +2183,7 @@ function UrgencyBanner() {
 function PastBoardroomsShowcase() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
-  const [activeYear, setActiveYear] = useState<"2026" | "2025" | "2024" | "2023">("2025");
+  const [activeYear, setActiveYear] = useState<"2026" | "2025" | "2024" | "2023">("2026");
   const eventsMap = {
     "2026": PAST_EVENTS_2026,
     "2025": PAST_EVENTS_2025,
@@ -2164,9 +2192,42 @@ function PastBoardroomsShowcase() {
   };
   const events = eventsMap[activeYear];
 
+  // 2026 cards mirror the upcoming-calendar chrome: month grouping + horizontal drag-scroll.
+  const past2026Months = useMemo(() => {
+    const map: Record<string, PastEvent[]> = {};
+    PAST_EVENTS_2026.forEach((e) => {
+      const m = e.month || deriveMonth(e.date);
+      if (!map[m]) map[m] = [];
+      map[m].push(e);
+    });
+    return MONTH_REVERSE_ORDER.filter((m) => map[m]).map((m) => ({ abbr: m, full: MONTH_FULL[m], events: map[m] }));
+  }, []);
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartX = useRef(0);
+  const dragScrollLeft = useRef(0);
+  const dragDistance = useRef(0);
+
+  const onDragStart = useCallback((e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    setIsDragging(true);
+    dragStartX.current = e.pageX;
+    dragScrollLeft.current = scrollRef.current.scrollLeft;
+    dragDistance.current = 0;
+  }, []);
+  const onDragMove = useCallback((e: React.MouseEvent) => {
+    if (!isDragging || !scrollRef.current) return;
+    e.preventDefault();
+    const dx = e.pageX - dragStartX.current;
+    dragDistance.current = Math.abs(dx);
+    scrollRef.current.scrollLeft = dragScrollLeft.current - dx;
+  }, [isDragging]);
+  const onDragEnd = useCallback(() => setIsDragging(false), []);
+
   return (
-    <section ref={ref} style={{ padding: "clamp(100px, 12vw, 140px) 24px" }}>
-      <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+    <section ref={ref} style={{ padding: "clamp(100px, 12vw, 140px) 0", position: "relative" }}>
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 24px" }}>
         <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 24, marginBottom: 48 }}>
           <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 44px)", fontWeight: 600, margin: 0, letterSpacing: "-0.02em", color: TEXT }}>300+ sessions delivered.</h2>
           <div style={{ display: "flex", gap: 4 }}>
@@ -2181,9 +2242,121 @@ function PastBoardroomsShowcase() {
             ))}
           </div>
         </motion.div>
+      </div>
 
-        <AnimatePresence mode="wait">
-          <motion.div key={activeYear} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.3 }}>
+      <AnimatePresence mode="wait">
+        {activeYear === "2026" ? (
+          <motion.div key="past-2026" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.3 }}>
+            <div
+              ref={scrollRef}
+              className="nf-scroll-track"
+              style={{ cursor: isDragging ? "grabbing" : "grab", userSelect: isDragging ? "none" : "auto" }}
+              onMouseDown={onDragStart}
+              onMouseMove={onDragMove}
+              onMouseUp={onDragEnd}
+              onMouseLeave={onDragEnd}
+              onClickCapture={(e) => { if (dragDistance.current > 5) { e.preventDefault(); e.stopPropagation(); } }}
+            >
+              <div style={{ width: "clamp(16px, 4vw, 60px)", flexShrink: 0 }} />
+
+              {past2026Months.map((month, mi) => (
+                <div key={month.abbr} style={{ display: "flex", flexDirection: "column", flexShrink: 0, paddingLeft: mi > 0 ? "clamp(24px, 4vw, 48px)" : 0 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: "clamp(20px, 3vw, 32px)" }}>
+                    {mi > 0 && <div style={{ width: "clamp(40px, 6vw, 80px)", height: 1, background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.1))`, marginRight: "clamp(12px, 2vw, 24px)" }} />}
+                    <span style={{ fontFamily: "var(--font-display)", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 800, letterSpacing: "-3px", lineHeight: 1, color: "rgba(255,255,255,0.18)" }}>
+                      {month.full}
+                    </span>
+                  </div>
+
+                  <div style={{ display: "flex", gap: "clamp(12px, 2vw, 20px)" }}>
+                    {month.events.map((e, idx) => {
+                      const inner = (
+                        <>
+                          <div className="nf-card-img-wrap">
+                            {e.image ? (
+                              <>
+                                <img src={e.image} alt="" className="nf-card-img" />
+                                {e.brandLogo && (
+                                  <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                      src={e.brandLogo}
+                                      alt=""
+                                      style={{
+                                        height: e.sponsor === "Braze" ? 50 : 72,
+                                        width: "auto",
+                                        opacity: 0.85,
+                                        ...(e.sponsor === "Braze"
+                                          ? { filter: "brightness(0) saturate(100%) invert(22%) sepia(91%) saturate(2904%) hue-rotate(264deg) brightness(98%) contrast(98%) drop-shadow(0 2px 12px rgba(123,44,191,0.5))" }
+                                          : {}),
+                                      }}
+                                    />
+                                  </div>
+                                )}
+                              </>
+                            ) : (
+                              <div style={{
+                                width: "100%", height: "100%",
+                                background: `linear-gradient(135deg, ${e.brandColor || "#222"}dd 0%, ${e.brandColor || "#222"}88 40%, #0a0a0a 100%)`,
+                                display: "flex", alignItems: "center", justifyContent: "center",
+                                position: "relative",
+                              }}>
+                                {e.brandLogo && (
+                                  // eslint-disable-next-line @next/next/no-img-element
+                                  <img src={e.brandLogo} alt="" style={{ height: e.sponsor === "Braze" ? 50 : 72, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+                                )}
+                                <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 80% at 30% 30%, ${e.brandColor || "#222"}30, transparent 60%)` }} />
+                              </div>
+                            )}
+                            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%)" }} />
+                            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${e.brandColor ? e.brandColor + "60" : GOLD_50}, transparent)` }} />
+                            <div style={{ position: "absolute", top: 12, left: 12, zIndex: 4, display: "inline-flex", alignItems: "center", gap: 5, padding: "4px 10px", background: "rgba(255,255,255,0.08)", border: `1px solid rgba(255,255,255,0.14)`, borderRadius: 50, backdropFilter: "blur(8px)" }}>
+                              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.7)" }}>Past</span>
+                            </div>
+                          </div>
+
+                          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", flex: 1 }}>
+                            <span style={{ padding: "4px 14px", borderRadius: 50, background: `${GOLD}0d`, border: `1px solid ${GOLD}1a`, fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: GOLD, marginBottom: 14 }}>{e.sponsor}</span>
+                            <h3 style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 700, color: TEXT, margin: "0 0 8px", lineHeight: 1.25, letterSpacing: "-0.5px" }}>{e.title || e.sponsor}</h3>
+                            {e.subtitle && (
+                              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.45)", margin: 0, lineHeight: 1.6, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as const, overflow: "hidden", flex: 1 }}>{e.subtitle}</p>
+                            )}
+                          </div>
+
+                          <div style={{ marginTop: "auto", paddingTop: 16, borderTop: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", gap: 16 }}>
+                            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, color: GOLD }}>{e.date}</span>
+                            <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, color: "rgba(255,255,255,0.35)" }}>
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(201,147,90,0.6)" strokeWidth="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                              {e.venue}
+                            </span>
+                            {e.time && (
+                              <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, color: "rgba(255,255,255,0.35)" }}>
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(201,147,90,0.6)" strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
+                                {e.time}
+                              </span>
+                            )}
+                          </div>
+                        </>
+                      );
+                      return e.link ? (
+                        <a key={(e.title || e.sponsor) + idx} href={e.link} target="_blank" rel="noopener noreferrer" className="nf-event-card" style={{ textDecoration: "none" }}>
+                          {inner}
+                        </a>
+                      ) : (
+                        <div key={(e.title || e.sponsor) + idx} className="nf-event-card">
+                          {inner}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+
+              <div style={{ width: "clamp(16px, 4vw, 60px)", flexShrink: 0 }} />
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div key={activeYear} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.3 }} style={{ maxWidth: 1400, margin: "0 auto", padding: "0 24px" }}>
             {events.length > 0 ? (
               <div className="past-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
                 {events.slice(0, 12).map((e, i) => (
@@ -2203,8 +2376,9 @@ function PastBoardroomsShowcase() {
               </div>
             )}
           </motion.div>
-        </AnimatePresence>
-      </div>
+        )}
+      </AnimatePresence>
+
       <style jsx global>{`@media (max-width: 1100px) { .past-grid { grid-template-columns: repeat(3, 1fr) !important; } } @media (max-width: 768px) { .past-grid { grid-template-columns: repeat(2, 1fr) !important; } }`}</style>
     </section>
   );
