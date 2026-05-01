@@ -233,6 +233,12 @@ const OTVB_SPEAKERS = [
     flag: "https://flagcdn.com/w40/qa.png",
     photo: `${S3}/Speakers-photos/ThomasPhilip.png`,
   },
+  {
+    name: "Nisheet Saxena",
+    title: "IT/OT Cybersecurity and Crisis Resilience Advisor",
+    org: "Confidential",
+    photo: `${S3}/Speakers-photos/Nisheet_Saxena.png`,
+  },
 ];
 
 // ─── EVENT SPONSORS 2026 ────────────────────────────────────────────────────
