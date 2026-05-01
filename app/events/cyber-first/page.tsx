@@ -109,7 +109,7 @@ const ENGAGEMENT_TIERS = [
       "Co-authored research distribution",
     ],
     cta: "Request sponsorship deck",
-    image: "https://cyberfirstseries.com/wp-content/uploads/2024/12/Cyber-First-Series-Pictures-and-Sponsors-28.jpg",
+    image: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Cyber+First+Kuwait+2025/filemail_photos/cyber21-04-410.jpg",
   },
   {
     num: "02",
@@ -124,7 +124,7 @@ const ENGAGEMENT_TIERS = [
       "Cross-edition circuit access",
     ],
     cta: "Request an invite",
-    image: "https://cyberfirstseries.com/wp-content/uploads/2024/12/Speakers-and-Event-pictures-25.png",
+    image: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Cyber+First+Kuwait+2025/filemail_photos/cyber21-04-350.jpg",
   },
   {
     num: "03",
@@ -174,9 +174,9 @@ const TESTIMONIAL_IDS = ["jPQFjwuohfI", "c8sPwIo4Pis", "2LoeDNqsem0", "8C61dof_f
 
 // Event photo gallery — mixed aspect, chrome bezel treatment (Proof section)
 const GALLERY_PHOTOS = [
-  { src: "https://cyberfirstseries.com/wp-content/uploads/2024/12/Cyber-First-Series-Pictures-and-Sponsors-29.jpg", caption: "Panel session · Kuwait", aspect: "4 / 3" },
-  { src: "https://cyberfirstseries.com/wp-content/uploads/2024/12/Cyber-First-Series-Pictures-and-Sponsors-30.jpg", caption: "On the main stage", aspect: "4 / 3" },
-  { src: "https://cyberfirstseries.com/wp-content/uploads/2024/12/Speakers-and-Event-pictures-20.png", caption: "Awards ceremony", aspect: "4 / 3" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Cyber+First+Kuwait+2025/filemail_photos/cyber21-04-550.jpg", caption: "Panel session · Kuwait", aspect: "4 / 3" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Cyber+First+Kuwait+2025/filemail_photos/cyber21-04-324.jpg", caption: "On the main stage", aspect: "4 / 3" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0330.JPG", caption: "Awards ceremony", aspect: "4 / 3" },
   { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Cyber+First+Kuwait+2025/Kuwait+Photos/Kuwait+Photos/4X9A1744.jpg", caption: "The main hall", aspect: "4 / 3" },
   { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Cyber%20First%20Kuwait%202025/filemail_photos/cyber21-04-390.jpg", caption: "Delegates in session", aspect: "4 / 3" },
   { src: "https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/cyber21-04-504.jpg", caption: "Exhibition floor", aspect: "4 / 3" },
