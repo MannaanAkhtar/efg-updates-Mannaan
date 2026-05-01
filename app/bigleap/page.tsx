@@ -641,6 +641,7 @@ function OverviewSection() {
         overflow: "hidden",
         padding: "clamp(48px, 6vw, 80px) 0",
         background: "transparent",
+        scrollMarginTop: "110px",
       }}
     >
       {/* Background lives on the shared TBL dark wrapper in the page composition */}
@@ -1429,6 +1430,7 @@ function SpeakersSection() {
         overflow: "hidden",
         padding: "clamp(28px, 3.5vw, 48px) 0",
         background: "transparent",
+        scrollMarginTop: "110px",
       }}
     >
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 10 }}>
@@ -1869,6 +1871,7 @@ function AgendaSection() {
         overflow: "hidden",
         padding: "clamp(28px, 3.5vw, 48px) 0",
         background: "transparent",
+        scrollMarginTop: "110px",
       }}
     >
       {/* Background lives on the shared TBL dark wrapper in the page composition */}
@@ -2066,6 +2069,7 @@ function AgendaSection() {
               margin: "0 auto",
               width: "100%",
               borderRadius: 28,
+              scrollMarginTop: "110px",
               opacity: inView ? 1 : 0,
               transform: inView ? "translateY(0)" : "translateY(28px)",
               transition: "all 0.9s cubic-bezier(0.16,1,0.3,1) 0.45s",
@@ -2966,6 +2970,79 @@ function BigLeapNav() {
 
 // ─── MAIN PAGE ───────────────────────────────────────────────────────────────
 export default function BigLeapPage() {
+  // Fragment-link reflow fix — on mobile, lazy images + font swaps + Framer/GSAP
+  // intros above the target keep expanding layout for several seconds AFTER the
+  // browser's first scroll fires. To stay locked on the target (e.g. #agenda),
+  // we re-correct on every animation frame for up to 4s, abort if the user
+  // touches the screen, and stop early once the target sits at the right offset
+  // and stays there for a few frames.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+
+    let aborted = false;
+    let stableFrames = 0;
+    const startedAt = performance.now();
+    const MAX_DURATION_MS = 4000;
+    const STABLE_FRAMES_NEEDED = 8; // ~130ms of stillness
+    const POSITION_TOLERANCE_PX = 4;
+
+    const findTarget = () => {
+      try { return document.querySelector(hash) as HTMLElement | null; } catch { return null; }
+    };
+
+    // scroll-margin-top is 110px — we want target's box top to land at viewport-top + 110.
+    const SCROLL_MARGIN_PX = 110;
+
+    const correct = () => {
+      if (aborted) return;
+      const el = findTarget();
+      if (!el) {
+        if (performance.now() - startedAt < MAX_DURATION_MS) requestAnimationFrame(correct);
+        return;
+      }
+      const rect = el.getBoundingClientRect();
+      const delta = rect.top - SCROLL_MARGIN_PX;
+
+      if (Math.abs(delta) <= POSITION_TOLERANCE_PX) {
+        stableFrames += 1;
+        if (stableFrames >= STABLE_FRAMES_NEEDED) return; // locked in
+      } else {
+        stableFrames = 0;
+        window.scrollBy({ top: delta, behavior: "auto" });
+      }
+
+      if (performance.now() - startedAt < MAX_DURATION_MS) requestAnimationFrame(correct);
+    };
+
+    const abort = () => { aborted = true; };
+    // Any user gesture stops further auto-correction.
+    window.addEventListener("wheel", abort, { once: true, passive: true });
+    window.addEventListener("touchstart", abort, { once: true, passive: true });
+    window.addEventListener("keydown", abort, { once: true });
+
+    const start = () => {
+      // First fire immediately so we land approximately right.
+      const el = findTarget();
+      if (el) el.scrollIntoView({ behavior: "auto", block: "start" });
+      requestAnimationFrame(correct);
+    };
+
+    if (document.readyState === "complete") {
+      start();
+    } else {
+      window.addEventListener("load", start, { once: true });
+    }
+
+    return () => {
+      aborted = true;
+      window.removeEventListener("wheel", abort);
+      window.removeEventListener("touchstart", abort);
+      window.removeEventListener("keydown", abort);
+    };
+  }, []);
+
   return (
     <div
       style={{
