@@ -242,7 +242,7 @@ const OTVB_SPEAKERS = [
 ];
 
 // ─── EVENT SPONSORS 2026 ────────────────────────────────────────────────────
-const OTVB_SPONSORS_2026: { name: string; logo: string; url: string; tier: "platinum" | "gold" }[] = [
+const OTVB_SPONSORS_2026: { name: string; logo: string; url: string; tier: "platinum" | "gold" | "supporting" }[] = [
   {
     name: "FlintX",
     logo: `${S3}/sponsors-logo/FlintX.png`,
@@ -272,6 +272,12 @@ const OTVB_SPONSORS_2026: { name: string; logo: string; url: string; tier: "plat
     logo: `${S3}/sponsors-logo/SecuriCIP.png`,
     url: "#",
     tier: "gold",
+  },
+  {
+    name: "Rilian",
+    logo: `${S3}/logos/Corrected+Rilian+Logo+-+Black.png`,
+    url: "#",
+    tier: "supporting",
   },
 ];
 
@@ -375,20 +381,7 @@ function HeroSection() {
         <img loading="lazy" src="/events-first-group_logo_alt.svg" alt="Events First Group" width={120} height={48} style={{ height: 48, width: "auto", opacity: 0.7 }} />
       </motion.div>
 
-      {/* Supporting partner — Rilian (bottom-left, mirrors EFG badge) */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1.7 }}
-        style={{ position: "absolute", bottom: 80, left: "clamp(24px, 5vw, 80px)", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}
-        className="otvm-rilian-badge"
-      >
-        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 400, color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "2px" }}>Supporting Partner</span>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img loading="lazy" src="https://efg-final.s3.eu-north-1.amazonaws.com/logos/Corrected+Rilian+Logo+-+Black.png" alt="Rilian" style={{ height: 48, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
-      </motion.div>
-
-      {/* Countdown bar — sits on the same row as Rilian / EFG badges */}
+      {/* Countdown bar — sits on the same row as the EFG badge */}
       <div className="otvm-countdown-bar" style={{ position: "absolute", bottom: 80, left: "50%", transform: "translateX(-50%)", zIndex: 20 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: "clamp(16px, 3vw, 32px)" }}>
           <div style={{ display: "flex", gap: "clamp(12px, 3vw, 28px)", flexWrap: "wrap", justifyContent: "center" }}>
@@ -2264,6 +2257,183 @@ function SponsorsSection() {
             </motion.a>
           ))}
         </div>
+
+        {/* ── Supporting Sponsor sub-heading ── */}
+        {OTVB_SPONSORS_2026.some(s => s.tier === "supporting") && (
+          <>
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginTop: "clamp(40px, 5vw, 64px)", marginBottom: "clamp(20px, 2.4vw, 32px)" }}
+            >
+              <div style={{ flex: "0 1 120px", height: 1, background: `linear-gradient(to right, transparent, rgba(200,205,214,0.35))` }} />
+              <span style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "clamp(15px, 1.3vw, 18px)",
+                fontWeight: 700,
+                color: "#C8CDD6",
+                textTransform: "uppercase",
+                letterSpacing: "4px",
+                textShadow: "0 0 14px rgba(200,205,214,0.25)",
+              }}>
+                Supporting Sponsor
+              </span>
+              <div style={{ flex: "0 1 120px", height: 1, background: `linear-gradient(to left, transparent, rgba(200,205,214,0.35))` }} />
+            </motion.div>
+
+            {/* Supporting sponsor grid */}
+            <div className="otvb-sponsors-grid" style={{
+              display: "grid",
+              gridTemplateColumns: `repeat(${Math.min(OTVB_SPONSORS_2026.filter(s => s.tier === "supporting").length, 4)}, minmax(180px, 240px))`,
+              gap: 20,
+              justifyContent: "center",
+            }}>
+              {OTVB_SPONSORS_2026.filter(s => s.tier === "supporting").map((sponsor, i) => (
+                <motion.a
+                  key={sponsor.name}
+                  href={sponsor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${sponsor.name} — visit website`}
+                  initial={{ opacity: 0, y: 36, scale: 0.96, filter: "blur(6px)" }}
+                  animate={inView ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" } : {}}
+                  transition={{ duration: 0.8, delay: 0.35 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                  className="otvb-sponsor-card"
+                  style={{
+                    position: "relative",
+                    display: "block",
+                    textDecoration: "none",
+                    transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+                  }}
+                >
+                  {/* Layer 1 — Ambient outer halo */}
+                  <div className="otvb-sponsor-glow" style={{
+                    position: "absolute",
+                    inset: -24,
+                    borderRadius: 36,
+                    background: `radial-gradient(ellipse 75% 65% at 30% 30%, rgba(0,201,255,0.22) 0%, transparent 65%), radial-gradient(ellipse 60% 60% at 75% 80%, rgba(232,107,184,0.18) 0%, transparent 70%)`,
+                    filter: "blur(26px)",
+                    opacity: 0.55,
+                    pointerEvents: "none",
+                    transition: "opacity 0.55s ease",
+                    zIndex: 0,
+                  }} />
+
+                  {/* Layer 2 — Ground drop shadow */}
+                  <div style={{
+                    position: "absolute",
+                    inset: "auto 10% -14px 10%",
+                    height: 26,
+                    borderRadius: "50%",
+                    background: "radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, transparent 70%)",
+                    filter: "blur(10px)",
+                    pointerEvents: "none",
+                    zIndex: 0,
+                  }} />
+
+                  {/* Layer 3 — Outer metallic bezel */}
+                  <div className="otvb-sponsor-bezel" style={{
+                    position: "relative",
+                    padding: 3,
+                    borderRadius: 22,
+                    background: `
+                      linear-gradient(135deg,
+                        rgba(0,201,255,0.85) 0%,
+                        rgba(120,220,255,0.35) 12%,
+                        rgba(255,255,255,0.45) 28%,
+                        rgba(180,200,230,0.08) 45%,
+                        rgba(120,80,150,0.04) 55%,
+                        rgba(255,255,255,0.25) 72%,
+                        rgba(232,107,184,0.4) 88%,
+                        rgba(232,107,184,0.85) 100%
+                      )
+                    `,
+                    boxShadow: `
+                      0 30px 70px rgba(0,0,0,0.55),
+                      0 12px 30px rgba(0,0,0,0.35),
+                      0 0 50px rgba(0,201,255,0.15),
+                      0 0 0 1px rgba(255,255,255,0.04),
+                      inset 0 1px 0 rgba(255,255,255,0.25)
+                    `,
+                    zIndex: 1,
+                  }}>
+                    {/* Bezel highlights */}
+                    <div style={{ position: "absolute", top: 0, left: "8%", right: "8%", height: "32%", background: "linear-gradient(180deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.05) 60%, transparent 100%)", borderRadius: "22px 22px 50% 50%", pointerEvents: "none", zIndex: 2, filter: "blur(0.5px)" }} />
+                    <div style={{ position: "absolute", bottom: 0, left: "5%", right: "5%", height: "20%", background: "linear-gradient(0deg, rgba(0,0,0,0.35) 0%, transparent 100%)", borderRadius: "50% 50% 22px 22px", pointerEvents: "none", zIndex: 2 }} />
+
+                    {/* Recessed inner panel */}
+                    <div style={{
+                      position: "relative",
+                      borderRadius: 19,
+                      overflow: "hidden",
+                      background: `
+                        radial-gradient(ellipse 140% 80% at 50% -20%, rgba(0,201,255,0.12) 0%, transparent 55%),
+                        radial-gradient(ellipse 120% 80% at 50% 120%, rgba(232,107,184,0.08) 0%, transparent 50%),
+                        linear-gradient(165deg, rgba(26,30,60,0.98) 0%, rgba(14,16,38,0.99) 50%, rgba(8,10,26,1) 100%)
+                      `,
+                      padding: "0 10px",
+                      minHeight: 180,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      boxShadow: `
+                        inset 0 2px 6px rgba(0,0,0,0.6),
+                        inset 0 -1px 0 rgba(255,255,255,0.04),
+                        inset 0 0 40px rgba(0,0,0,0.35),
+                        inset 0 0 0 1px rgba(255,255,255,0.05)
+                      `,
+                      zIndex: 1,
+                    }}>
+                      {/* Sheen + glints */}
+                      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "55%", background: `linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.05) 35%, transparent 70%)`, backdropFilter: "blur(2px) saturate(1.3)", WebkitBackdropFilter: "blur(2px) saturate(1.3)", pointerEvents: "none", zIndex: 2, borderRadius: "19px 19px 40% 40% / 19px 19px 12% 12%" }} />
+                      <div style={{ position: "absolute", top: 6, left: 10, width: 36, height: 36, background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 60%)", pointerEvents: "none", zIndex: 3, filter: "blur(2px)" }} />
+                      <div style={{ position: "absolute", top: "40%", left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.12) 40%, rgba(0,201,255,0.15) 55%, rgba(255,255,255,0.08) 75%, transparent 95%)`, transform: "skewY(-2deg)", pointerEvents: "none", zIndex: 2, filter: "blur(0.4px)" }} />
+                      <div style={{ position: "absolute", bottom: 0, left: "12%", right: "12%", height: 1, background: `linear-gradient(90deg, transparent, rgba(232,107,184,0.55), transparent)`, boxShadow: `0 0 18px rgba(232,107,184,0.4)`, pointerEvents: "none", zIndex: 2 }} />
+                      <div style={{ position: "absolute", top: 0, left: "8%", right: "8%", height: 1, background: `linear-gradient(90deg, transparent, ${CYAN}dd, transparent)`, boxShadow: `0 0 16px ${CYAN}80`, pointerEvents: "none", zIndex: 3 }} />
+
+                      <div className="otvb-sponsor-shine" style={{ position: "absolute", top: 0, left: "-80%", width: "55%", height: "100%", background: "linear-gradient(100deg, transparent, rgba(255,255,255,0.18) 50%, transparent)", transform: "skewX(-20deg)", pointerEvents: "none", transition: "left 1s cubic-bezier(0.22, 1, 0.36, 1)", zIndex: 4 }} />
+
+                      {/* Logo */}
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={sponsor.logo}
+                        alt={`${sponsor.name} logo`}
+                        loading="lazy"
+                        className="otvb-sponsor-logo"
+                        data-sponsor={sponsor.name}
+                        style={{
+                          maxWidth: "100%",
+                          maxHeight: 180,
+                          width: "auto",
+                          height: "auto",
+                          objectFit: "contain",
+                          filter: "brightness(1.08) drop-shadow(0 3px 10px rgba(0,0,0,0.65)) drop-shadow(0 1px 2px rgba(0,201,255,0.25))",
+                          transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease",
+                          position: "relative",
+                          zIndex: 5,
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Sponsor name */}
+                  <div style={{
+                    marginTop: 14,
+                    textAlign: "center",
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 12,
+                    fontWeight: 500,
+                    color: "rgba(255,255,255,0.5)",
+                    letterSpacing: "0.4px",
+                  }}>
+                    {sponsor.name}
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
       {/* Bottom border */}
@@ -2309,6 +2479,19 @@ function SponsorsSection() {
         }
         .otvb-sponsor-card:hover .otvb-sponsor-logo[data-sponsor="SecuriCIP"] {
           transform: scale(1.42) !important;
+        }
+        .otvb-sponsor-logo[data-sponsor="Rilian"] {
+          background: #fff;
+          padding: 14px 20px;
+          border-radius: 10px;
+          max-height: 130px;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.55);
+          filter: none !important;
+        }
+        .otvb-sponsor-card:hover .otvb-sponsor-logo[data-sponsor="Rilian"] {
+          transform: scale(1.05) !important;
+          filter: none !important;
+          box-shadow: 0 6px 22px rgba(0,0,0,0.65) !important;
         }
         .otvb-sponsor-card:hover .otvb-sponsor-shine {
           left: 160% !important;
