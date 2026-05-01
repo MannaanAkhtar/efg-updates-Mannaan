@@ -145,6 +145,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: `${BASE_URL}/events/opex-first/process-intelligence`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
     // Cyber First, Coming Soon
     {
       url: `${BASE_URL}/events/cyber-first/qatar-2026`,
@@ -189,6 +195,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: `${BASE_URL}/events/ot-security-first/virtual-boardroom-mena`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
     // Network First (standalone page)
     {
       url: `${BASE_URL}/network-first`,
@@ -208,6 +220,52 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.85,
+    },
+    // Big Leap (CleverTap × EFG, Riyadh)
+    {
+      url: `${BASE_URL}/bigleap`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
+      url: "https://big-leap-riyadh.eventsfirstgroup.com",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    // Braze virtual roundtables
+    {
+      url: `${BASE_URL}/braze`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/braze2`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: "https://vroundtable-braze.eventsfirstgroup.com",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    // CleverTap landing page
+    {
+      url: `${BASE_URL}/clevertap2`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    // Case studies
+    {
+      url: `${BASE_URL}/case-studies/simpplr-executive-boardroom`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
     },
   ];
 
