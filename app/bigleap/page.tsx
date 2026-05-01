@@ -61,7 +61,7 @@ const AGENDA = [
   {
     time: "5:45 PM",
     duration: "20–30 mins",
-    title: "Panel Discussion — Beyond the Hype: Redefining Growth with AI",
+    title: "Fireside Chat — Beyond the Hype: Redefining Growth with AI",
     presenter: "Industry Leaders",
     highlight: true,
   },
