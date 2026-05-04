@@ -176,7 +176,16 @@ const EVENT_CONFIGS: Record<string, {
     colorBright: "#9F6AFF",
     date: "15 Sep 2026",
     location: "Riyadh, KSA",
-    navLinks: [{ href: "#register-interest", label: "Register Interest" }],
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OPEX+FIRST+logo-1.png",
+    navLinks: [
+      { href: "#overview", label: "Overview" },
+      { href: "#themes", label: "Themes" },
+      // { href: "#speakers", label: "Speakers" }, // hidden until photos confirmed
+      { href: "#agenda", label: "Agenda" },
+      { href: "#sponsors", label: "Sponsors" },
+      { href: "#awards", label: "Awards" },
+      { href: "#register", label: "Register" },
+    ],
   },
   "/events/opex-first/process-intelligence": {
     name: "Process Intelligence MENA",

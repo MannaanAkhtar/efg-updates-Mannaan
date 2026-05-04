@@ -308,6 +308,8 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
               return (
                 <button
                   key={t.key}
+                  type="button"
+                  suppressHydrationWarning
                   onClick={() => {
                     setActiveTab(t.key);
                     if (submitted) resetForm();
@@ -524,6 +526,8 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                     to you within 2 working hours.
                   </p>
                   <button
+                    type="button"
+                    suppressHydrationWarning
                     onClick={resetForm}
                     style={{
                       fontFamily: "var(--font-outfit)",
@@ -695,6 +699,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                     {/* Submit */}
                     <button
                       type="submit"
+                      suppressHydrationWarning
                       disabled={submitting}
                       style={{
                         width: "100%",

@@ -36,6 +36,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://eventsfirstgroup.com"),
   title: {
     default: "Events First Group | Cybersecurity & Technology Summits, Middle East, Africa & Asia",
     template: "%s | Events First Group",
