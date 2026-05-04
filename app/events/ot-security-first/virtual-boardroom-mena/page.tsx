@@ -243,6 +243,7 @@ const OTVB_SPEAKERS = [
     name: "Nisheet Saxena",
     title: "IT/OT Cybersecurity and Crisis Resilience Advisor",
     org: "Confidential",
+    flag: "https://flagcdn.com/w40/qa.png",
     photo: `${S3}/Speakers-photos/Nisheet_Saxena.png`,
   },
 ];
