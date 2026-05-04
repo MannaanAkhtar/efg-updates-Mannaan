@@ -1370,7 +1370,7 @@ const AGENDA_ITEMS: { time: string; segment: string; subtitle?: string; type: "o
   { time: "11:40 - 11:50 AM", segment: "Awareness Presentation 2 — Trellix", subtitle: "Reaction to Readiness: Building resilience for OT systems in 2026", type: "sponsor", confirmed: true },
   { time: "11:50 - 12:10 PM", segment: "Panel 02 | Hidden OT Exposure Across Critical Infrastructure: Vendor Access, Unmanaged Connections & Shared Control Networks", type: "panel" },
   { time: "12:10 - 12:20 PM", segment: "Awareness Presentation 3 — TxOne Networks", subtitle: "Protecting Unpatchable OT Systems: A Practical Framework for Resilience", type: "sponsor", confirmed: true },
-  { time: "12:20 - 12:30 PM", segment: "Awareness Presentation 4 — DarkTrace", type: "sponsor", confirmed: true },
+  { time: "12:20 - 12:30 PM", segment: "Awareness Presentation 4 — DarkTrace", subtitle: "Beyond Visibility, Driving Risk-Informed OT Defense in Converged Environments", type: "sponsor", confirmed: true },
   { time: "12:30 - 12:50 PM", segment: "Panel 03 | When Disruption Is the Goal: How OT Attacks Are Evolving Across Critical Infrastructure and What Response Looks Like Now", type: "panel" },
   { time: "12:50 - 01:00 PM", segment: "Awareness Presentation 5 — SecuriCIP", type: "sponsor", confirmed: true },
   { time: "01:00 - 01:10 PM", segment: "Awareness Presentation 6 — Sponsor TBC", type: "sponsor" },
