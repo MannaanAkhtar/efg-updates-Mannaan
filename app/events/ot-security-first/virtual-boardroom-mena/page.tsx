@@ -285,6 +285,12 @@ const OTVB_SPONSORS_2026: { name: string; logo: string; url: string; tier: "plat
     url: "#",
     tier: "supporting",
   },
+  {
+    name: "Nozomi Networks",
+    logo: `${S3}/logos/Nozomi_Networks.png`,
+    url: "https://www.nozominetworks.com/",
+    tier: "supporting",
+  },
 ];
 
 // ─── HERO SECTION, Cybercore Grid ───────────────────────────────────────────
