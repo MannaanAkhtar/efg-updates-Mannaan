@@ -50,24 +50,24 @@ const PILLARS = [
 
 const AGENDA = [
   { time: "4:30 PM", duration: "1 Hour", title: "Registrations", presenter: "On-site welcome" },
-  { time: "5:30 PM", duration: "5 mins", title: "Welcome Note", presenter: "Event Host" },
+  { time: "5:30 PM", duration: "5 mins", title: "Welcome Note", presenter: "Suhaib Abu Taleb, Business Head — Saudi Arabia, Egypt, Jordan, CleverTap" },
   {
     time: "5:35 PM",
     duration: "10 mins",
-    title: "Keynote — Elevating Customer Experience Through Personalized and Intelligent Engagement",
-    presenter: "CleverTap",
+    title: "Keynote — Beyond Automation: How AI Agents Deliver True 1:1 Engagement at Scale",
+    presenter: "Suhaib Abu Taleb, Business Head — Saudi Arabia, Egypt, Jordan, CleverTap",
     highlight: true,
   },
   {
     time: "5:45 PM",
     duration: "20–30 mins",
-    title: "Fireside Chat — Beyond the Hype: Redefining Growth with AI",
-    presenter: "Industry Leaders",
+    title: "Fireside Chat — Beyond the Hype: Where Strong Engagement Foundation Meets the AI Future",
+    presenter: "Rim Almazroua, Head of Growth & Optimization, Awaed\nSuhaib Abu Taleb, Business Head — Saudi Arabia, Egypt, Jordan, CleverTap",
     highlight: true,
   },
-  { time: "6:10 PM", duration: "15 mins", title: "Audience Q&A", presenter: "Moderator + Panelists" },
-  { time: "6:25 PM", duration: "15 mins", title: "Closing Remarks", presenter: "Event Host" },
-  { time: "6:30 PM", duration: "Open", title: "Dinner & Networking", presenter: "All Guests" },
+  { time: "6:10 PM", duration: "15 mins", title: "Audience Q&A", presenter: "" },
+  { time: "6:25 PM", duration: "15 mins", title: "Closing Remarks", presenter: "Suhaib Abu Taleb, Business Head — Saudi Arabia, Egypt, Jordan, CleverTap" },
+  { time: "6:30 PM", duration: "Open", title: "Dinner & Networking", presenter: "" },
 ];
 
 // ─── COUNTDOWN ──────────────────────────────────────────────────────────────
@@ -1408,11 +1408,13 @@ const TBL_SPEAKERS: { name: string; title: string; org?: string; photo: string }
   {
     name: "Suhaib Abu Taleb",
     title: "Business Head — Saudi Arabia, Egypt, Jordan",
+    org: "CleverTap",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Suhaib+Abu+Taleb.png",
   },
   {
     name: "Mohammad Tannous",
     title: "Regional Director, Middle East, Africa & Turkey",
+    org: "CleverTap",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammad+Tannous.png",
   },
 ];
@@ -1532,6 +1534,9 @@ function SpeakersSection() {
                 opacity: inView ? 1 : 0,
                 transform: inView ? "translateY(0)" : "translateY(28px)",
                 transition: `all 0.8s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.1}s`,
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
               }}
             >
               {/* Ambient red halo behind card (skeu lift) */}
@@ -1594,6 +1599,9 @@ function SpeakersSection() {
                   `,
                   zIndex: 1,
                   transition: "box-shadow 0.6s cubic-bezier(0.22,1,0.36,1)",
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
                 {/* Bezel upper highlight (chrome dome) */}
@@ -1648,6 +1656,7 @@ function SpeakersSection() {
                     zIndex: 1,
                     display: "flex",
                     flexDirection: "column",
+                    flex: 1,
                   }}
                 >
                   {/* Photo */}
@@ -1700,6 +1709,7 @@ function SpeakersSection() {
                         inset 0 -6px 14px rgba(0,0,0,0.35)
                       `,
                       overflow: "hidden",
+                      flex: 1,
                     }}
                   >
                     {/* Top sheen highlight */}
@@ -1718,6 +1728,13 @@ function SpeakersSection() {
                         lineHeight: 1.2,
                         textShadow: "0 1px 2px rgba(0,0,0,0.45)",
                         position: "relative",
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 1,
+                        overflow: "hidden",
+                        minHeight: "1.2em",
+                        whiteSpace: "nowrap",
+                        textOverflow: "ellipsis",
                       }}
                     >
                       {speaker.name}
@@ -1728,29 +1745,37 @@ function SpeakersSection() {
                         fontSize: 13,
                         fontWeight: 600,
                         color: TBL_RED,
-                        margin: speaker.org ? "0 0 6px" : 0,
+                        margin: "0 0 6px",
                         lineHeight: 1.4,
                         textShadow: "0 1px 6px rgba(239,68,68,0.35)",
                         position: "relative",
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 2,
+                        overflow: "hidden",
+                        minHeight: "2.8em",
                       }}
                     >
                       {speaker.title}
                     </p>
-                    {speaker.org && (
-                      <p
-                        style={{
-                          fontFamily: FONT,
-                          fontSize: 12.5,
-                          fontWeight: 400,
-                          color: "rgba(255,255,255,0.58)",
-                          margin: 0,
-                          lineHeight: 1.4,
-                          position: "relative",
-                        }}
-                      >
-                        {speaker.org}
-                      </p>
-                    )}
+                    <p
+                      style={{
+                        fontFamily: FONT,
+                        fontSize: 12.5,
+                        fontWeight: 400,
+                        color: "rgba(255,255,255,0.58)",
+                        margin: 0,
+                        lineHeight: 1.4,
+                        position: "relative",
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 2,
+                        overflow: "hidden",
+                        minHeight: "2.8em",
+                      }}
+                    >
+                      {speaker.org || ""}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -2043,7 +2068,9 @@ function AgendaSection() {
                   {/* Content */}
                   <div style={{ flex: 1, minWidth: 0, position: "relative", zIndex: 2 }}>
                     <h3 style={{ fontFamily: FONT, fontWeight: 700, fontSize: "clamp(15px, 1.3vw, 18px)", color: TBL_WHITE, margin: 0, lineHeight: 1.4, letterSpacing: "-0.01em" }}>{item.title}</h3>
-                    <span style={{ fontFamily: FONT, fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.4)" }}>{item.presenter}</span>
+                    {item.presenter && (
+                      <span style={{ fontFamily: FONT, fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.4)", whiteSpace: "pre-line", display: "block", marginTop: 4, lineHeight: 1.5 }}>{item.presenter}</span>
+                    )}
                   </div>
                 </div>
               </div>
