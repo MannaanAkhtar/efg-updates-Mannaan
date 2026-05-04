@@ -37,21 +37,6 @@ const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 
 const UPCOMING_EVENTS = [
   {
-    date: "April 30th, 2026",
-    month: "APR",
-    day: "30",
-    year: "2026",
-    time: "1:00 PM – 2:00 PM",
-    title: "Built for Uncertainty: How IT Leaders Keep the Business Running",
-    subtitle: "Resilience wherever your business operates",
-    sponsor: "Crayon",
-    location: "Virtual",
-    link: "https://events.teams.microsoft.com/event/572999a1-6472-4bfb-963f-067897b6a5d5@1dc9b339-fadb-432e-86df-423c38a0fcb8#msdynmkt_trackingcontext=4686f809-03d1-4a4c-8b5e-586aef200200",
-    image: "",
-    brandColor: "#0078D4",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/crayon.png",
-  },
-  {
     date: "May 5th, 2026",
     month: "MAY",
     day: "05",
@@ -211,6 +196,18 @@ type PastEvent = {
 };
 
 const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    sponsor: "Crayon",
+    title: "Built for Uncertainty: How IT Leaders Keep the Business Running",
+    subtitle: "Resilience wherever your business operates",
+    month: "APR",
+    date: "30 Apr",
+    venue: "Virtual",
+    time: "1:00 PM – 2:00 PM",
+    image: "",
+    brandColor: "#0078D4",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/crayon.png",
+  },
   {
     sponsor: "Braze",
     title: "Braze Virtual Roundtable 2",
