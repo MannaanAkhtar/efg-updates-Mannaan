@@ -227,6 +227,12 @@ const OTVB_SPEAKERS = [
     photo: `${S3}/Speakers-photos/MoCashman.png`,
   },
   {
+    name: "Ahmed Fathalla",
+    title: "Senior Manager, OT Systems & Cybersecurity",
+    org: "SecuriCIP",
+    photo: `${S3}/Speakers-photos/Ahmed_Fathalla.png`,
+  },
+  {
     name: "Thomas Philip",
     title: "Head of Digital & IT",
     org: "Petrotec & Al-Mahhar Holding",
