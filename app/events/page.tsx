@@ -39,24 +39,6 @@ type SeriesStatus = "open" | "soon";
 
 const allEvents = [
   {
-    id: "crayon-built-for-uncertainty",
-    category: "networkfirst",
-    title: "Crayon Virtual Session",
-    tagline: "Built for Uncertainty: How IT Leaders Keep the Business Running",
-    description:
-      "A virtual executive session hosted by Crayon on how IT leaders keep the business running through uncertainty and disruption.",
-    color: "#0078D4",
-    image: "",
-    href: "https://events.teams.microsoft.com/event/572999a1-6472-4bfb-963f-067897b6a5d5@1dc9b339-fadb-432e-86df-423c38a0fcb8#msdynmkt_trackingcontext=4686f809-03d1-4a4c-8b5e-586aef200200",
-    date: "2026-04-30",
-    nextDate: "30 Apr 2026",
-    nextCity: "Virtual",
-    editions: "",
-    regions: "MEA",
-    attendees: "Open",
-    status: "open" as SeriesStatus,
-  },
-  {
     id: "networkfirst-outsystems-ksa",
     category: "networkfirst",
     title: "ONE Executive Day KSA",

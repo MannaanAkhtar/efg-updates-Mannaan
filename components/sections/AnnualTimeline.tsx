@@ -25,20 +25,6 @@ type EventItem = {
 
 const allEvents: EventItem[] = [
   {
-    id: "crayon-built-for-uncertainty",
-    series: "NetworkFirst",
-    seriesColor: "#C9935A",
-    edition: "",
-    title: "Crayon Virtual Session",
-    date: new Date("2026-04-30"),
-    dateDisplay: "April 30, 2026",
-    location: "Virtual",
-    venue: "Virtual",
-    attendees: "Open",
-    href: "https://events.teams.microsoft.com/event/572999a1-6472-4bfb-963f-067897b6a5d5@1dc9b339-fadb-432e-86df-423c38a0fcb8#msdynmkt_trackingcontext=4686f809-03d1-4a4c-8b5e-586aef200200",
-    status: "open",
-  },
-  {
     id: "bigleap-riyadh",
     series: "NetworkFirst",
     seriesColor: "#C9935A",
