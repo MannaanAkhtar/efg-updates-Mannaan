@@ -101,7 +101,7 @@
 - **Change:** Added explicit `User-agent` blocks for **GPTBot, ChatGPT-User, PerplexityBot, Google-Extended, Applebot-Extended, CCBot** mirroring the existing ClaudeBot pattern (allow `/`, disallow private paths). 6 new blocks total (audit asked for 5; added ChatGPT-User as the OpenAI live-fetch counterpart to GPTBot for parity with Claude-User).
 - **Why:** Locks in current allow-state for AI training/citation bots. Without explicit listing, any future global Disallow change in the wildcard `*` block would silently lock out these crawlers. Better to opt them in by name now.
 - **Verify:** `grep -E '(GPTBot|PerplexityBot|Google-Extended|Applebot-Extended|CCBot|ChatGPT-User)' public/robots.txt` → 6 matches.
-- **Commit:** _(see Phase 1 Commit D)_
+- **Commit:** `7ea5a6e`
 
 ### ✅ Last updated date in llms.txt
 
@@ -111,7 +111,7 @@
 - **Change:** Added `> Last updated: 2026-05-05` blockquote line directly below the H1.
 - **Why:** Helps AI assistants (Claude, ChatGPT, Perplexity) prioritise fresher content when ranking citation candidates. The `>` blockquote syntax is a recognised llms.txt convention for metadata.
 - **Verify:** `head -5 public/llms.txt` → "Last updated" line appears on line 3.
-- **Commit:** _(see Phase 1 Commit D)_
+- **Commit:** `7ea5a6e`
 
 ---
 
