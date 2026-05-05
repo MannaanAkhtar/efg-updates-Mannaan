@@ -1403,7 +1403,7 @@ const TBL_SPEAKERS: { name: string; title: string; org?: string; photo: string }
     name: "Rim Almazroua",
     title: "Head of Growth & Optimization",
     org: "Awaed",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Rim+Almazroua.png",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Rim_Almazroua.png",
   },
   {
     name: "Suhaib Abu Taleb",
