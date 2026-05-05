@@ -53,7 +53,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
         location: { "@type": "Place", name: "Doha", address: { "@type": "PostalAddress", addressLocality: "Doha", addressCountry: "QA" } },
         organizer: { "@type": "Organization", name: "Events First Group", url: BASE_URL },
-        offers: { "@type": "Offer", url: PAGE_URL, availability: "https://schema.org/PreOrder" },
+        offers: { "@type": "Offer", url: PAGE_URL, availability: "https://schema.org/InStock", price: "0", priceCurrency: "USD", validFrom: "2026-01-01" },
       }) }} />
       {children}
     </>

@@ -67,7 +67,7 @@ export default function OpexVirtualForumLayout({
             name: "OPEX First",
             url: `${BASE_URL}/events/opex-first`,
           },
-          { name: "Virtual Boardroom MENA", url: PAGE_URL },
+          { name: "Process Intelligence", url: PAGE_URL },
         ]}
       />
       <script
