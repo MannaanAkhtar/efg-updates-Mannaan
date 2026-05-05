@@ -82,7 +82,7 @@ export default function CyberFirstKenyaLayout({
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {
               "@type": "Place",
-              name: "Nairobi",
+              name: "Hyatt Regency Nairobi",
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Nairobi",
