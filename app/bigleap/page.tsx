@@ -1411,12 +1411,6 @@ const TBL_SPEAKERS: { name: string; title: string; org?: string; photo: string }
     org: "CleverTap",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Suhaib+Abu+Taleb.png",
   },
-  {
-    name: "Mohammad Tannous",
-    title: "Regional Director, Middle East, Africa & Turkey",
-    org: "CleverTap",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammad+Tannous.png",
-  },
 ];
 
 function SpeakersSection() {
