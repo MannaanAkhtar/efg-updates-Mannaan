@@ -10,6 +10,9 @@ const openSans = Open_Sans({
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/clevertap2`;
+// TODO: replace with a designed 1200×630 share card once available.
+// CleverTap brand logo used as best available event-specific asset for now.
+const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverTap_Logotype.png";
 
 export const metadata: Metadata = {
   title: "Engaging Customers in Uncertain Times | CleverTap x EFG",
@@ -30,8 +33,16 @@ export const metadata: Metadata = {
     description: "Relevance builds trust. Trust builds revenue. June 10, 2026 — 90 min virtual roundtable.",
     url: PAGE_URL,
     siteName: "Events First Group",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Engaging Customers in Uncertain Times — CleverTap × EFG, 10 June 2026" }],
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@eventsfirstgrp",
+    title: "Engaging Customers in Uncertain Times — CleverTap × EFG",
+    description: "Relevance builds trust. Trust builds revenue. June 10, 2026 — 90 min virtual roundtable.",
+    images: [OG_IMAGE],
   },
 };
 

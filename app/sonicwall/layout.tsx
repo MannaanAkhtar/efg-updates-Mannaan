@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/sonicwall`;
+// TODO: replace with a designed 1200×630 share card once available.
+// Hero image used as the best available event-specific asset for now.
+const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/sonicwall_hero.png";
 
 export const metadata: Metadata = {
   title: "Beyond the Firewall: Strategic Security Conversations | SonicWall x EFG",
@@ -23,8 +26,16 @@ export const metadata: Metadata = {
     description: "Cut through the noise. Focus on what actually works. May 13, 2026, 90 min virtual roundtable.",
     url: PAGE_URL,
     siteName: "Events First Group",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Beyond the Firewall — SonicWall × EFG, 13 May 2026" }],
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@eventsfirstgrp",
+    title: "Beyond the Firewall: Strategic Security Conversations",
+    description: "Cut through the noise. Focus on what actually works. May 13, 2026, 90 min virtual roundtable.",
+    images: [OG_IMAGE],
   },
 };
 

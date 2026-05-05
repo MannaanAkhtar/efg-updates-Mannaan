@@ -77,7 +77,21 @@
 - **Change:** Rewrote both descriptions to fit under Google's ~160-char SERP snippet limit while keeping primary keywords (event name, edition, date, city, audience size, sponsor pillars).
 - **Why:** Prevents Google from truncating the description mid-sentence in search results. Both target descriptions stay under 160 chars.
 - **Verify:** `node -e "console.log(desc.length)"` against each new description string.
-- **Commit:** _(see Phase 1 Commit B)_
+- **Commit:** `8aab4ce`
+
+### ✅ OG image + Twitter card on /sonicwall and /clevertap2
+
+- **Audit ref:** F.5 / Top finding #8 / Quick win #6 (excluding /bigleap per user)
+- **Date:** 2026-05-05
+- **Files:**
+  - `app/sonicwall/layout.tsx`
+  - `app/clevertap2/layout.tsx`
+- **Change:** Added `openGraph.images` array (1200×630, with descriptive alt text) and a full `twitter` block with `card: summary_large_image`. Used existing event-specific S3 imagery as best-available placeholder pending designed share cards.
+  - sonicwall → `boardroom/sonicwall_hero.png`
+  - clevertap2 → `boardroom/CleverTap_Logotype.png` (CleverTap logo, since no clevertap2 hero exists yet)
+- **Why:** Without OG images, social shares (LinkedIn, Slack, X, WhatsApp) fell back to the EFG root logo rather than event-specific imagery. TODO comments left in both files flagging the need for designed 1200×630 share cards.
+- **Verify:** OpenGraph.xyz / LinkedIn Post Inspector / Twitter Card Validator on each URL post-deploy → preview shows the event-branded image, not the bare EFG logo.
+- **Commit:** _(see Phase 1 Commit C)_
 
 ---
 
@@ -90,14 +104,6 @@ _(none — Phase 1 Commit A landed)_
 ## 📋 To do
 
 ### Phase 1 — Quick wins (this session)
-
-#### 📋 Add OG image + Twitter card to /sonicwall, /clevertap2
-
-- **Audit ref:** F.5 / Top finding #8 / Quick win #6
-- **Files:** `app/sonicwall/layout.tsx`, `app/clevertap2/layout.tsx`
-- **Change:** Add `openGraph.images` array and `twitter.images` field. Use existing event-specific imagery already on S3.
-- **Why:** Without OG image, social shares (LinkedIn, Slack, X/Twitter, WhatsApp) fall back to the site's root logo, not event-specific imagery.
-- **Verify:** OpenGraph.xyz / LinkedIn Post Inspector → preview shows event imagery, not bare logo.
 
 > User exclusion: `/braze`, `/braze2`, `/bigleap` deferred per user request (audit findings against these files are parked, not abandoned).
 
