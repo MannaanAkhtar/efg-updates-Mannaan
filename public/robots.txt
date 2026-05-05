@@ -72,3 +72,86 @@ Disallow: /profile
 Disallow: /complete-profile
 Disallow: /callback
 Disallow: /_next/
+
+# ─── OpenAI ──────────────────────────────────────────────────────────────────
+# GPTBot powers training; ChatGPT-User handles live in-conversation fetches.
+
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Disallow: /_next/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Disallow: /_next/
+
+# ─── Perplexity ──────────────────────────────────────────────────────────────
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Disallow: /_next/
+
+# ─── Google AI (Gemini, training extensions) ─────────────────────────────────
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Disallow: /_next/
+
+# ─── Apple Intelligence ──────────────────────────────────────────────────────
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Disallow: /_next/
+
+# ─── Common Crawl (used by many AI training pipelines) ───────────────────────
+
+User-agent: CCBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Disallow: /_next/

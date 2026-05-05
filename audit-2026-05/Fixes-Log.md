@@ -91,7 +91,27 @@
   - clevertap2 → `boardroom/CleverTap_Logotype.png` (CleverTap logo, since no clevertap2 hero exists yet)
 - **Why:** Without OG images, social shares (LinkedIn, Slack, X, WhatsApp) fell back to the EFG root logo rather than event-specific imagery. TODO comments left in both files flagging the need for designed 1200×630 share cards.
 - **Verify:** OpenGraph.xyz / LinkedIn Post Inspector / Twitter Card Validator on each URL post-deploy → preview shows the event-branded image, not the bare EFG logo.
-- **Commit:** _(see Phase 1 Commit C)_
+- **Commit:** `75224d1`
+
+### ✅ Explicit AI bot allow blocks in robots.txt
+
+- **Audit ref:** F.13 / Quick win #7
+- **Date:** 2026-05-05
+- **Files:** `public/robots.txt`
+- **Change:** Added explicit `User-agent` blocks for **GPTBot, ChatGPT-User, PerplexityBot, Google-Extended, Applebot-Extended, CCBot** mirroring the existing ClaudeBot pattern (allow `/`, disallow private paths). 6 new blocks total (audit asked for 5; added ChatGPT-User as the OpenAI live-fetch counterpart to GPTBot for parity with Claude-User).
+- **Why:** Locks in current allow-state for AI training/citation bots. Without explicit listing, any future global Disallow change in the wildcard `*` block would silently lock out these crawlers. Better to opt them in by name now.
+- **Verify:** `grep -E '(GPTBot|PerplexityBot|Google-Extended|Applebot-Extended|CCBot|ChatGPT-User)' public/robots.txt` → 6 matches.
+- **Commit:** _(see Phase 1 Commit D)_
+
+### ✅ Last updated date in llms.txt
+
+- **Audit ref:** Quick win #9
+- **Date:** 2026-05-05
+- **Files:** `public/llms.txt`
+- **Change:** Added `> Last updated: 2026-05-05` blockquote line directly below the H1.
+- **Why:** Helps AI assistants (Claude, ChatGPT, Perplexity) prioritise fresher content when ranking citation candidates. The `>` blockquote syntax is a recognised llms.txt convention for metadata.
+- **Verify:** `head -5 public/llms.txt` → "Last updated" line appears on line 3.
+- **Commit:** _(see Phase 1 Commit D)_
 
 ---
 
@@ -107,21 +127,7 @@ _(none — Phase 1 Commit A landed)_
 
 > User exclusion: `/braze`, `/braze2`, `/bigleap` deferred per user request (audit findings against these files are parked, not abandoned).
 
-#### 📋 Add explicit AI bot blocks to robots.txt
-
-- **Audit ref:** F.13 / Quick win #7
-- **Files:** `public/robots.txt`
-- **Change:** Add explicit `User-agent` blocks for **GPTBot, PerplexityBot, Google-Extended, Applebot-Extended, CCBot** mirroring the existing ClaudeBot / Claude-User / anthropic-ai pattern (allow `/`, disallow `/api/`, `/admin/`, etc.).
-- **Why:** Locks in current allow-state. Without explicit listing, future bot policy changes (e.g., a global Disallow) would silently lock out these crawlers.
-- **Verify:** `grep -E '(GPTBot|PerplexityBot|Google-Extended|Applebot-Extended|CCBot)' public/robots.txt` → 5 hits.
-
-#### 📋 Add `Last updated` to llms.txt
-
-- **Audit ref:** Quick win #9
-- **Files:** `public/llms.txt`
-- **Change:** Add `> Last updated: 2026-05-05` line near top of the file.
-- **Why:** Helps AI assistants prioritise fresher content when ranking citations.
-- **Verify:** First 5 lines of llms.txt include the Last updated line.
+_(Phase 1 complete — all 8 quick-win items either landed or deferred per user. See Done section above.)_
 
 ---
 
