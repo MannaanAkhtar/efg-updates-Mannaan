@@ -11,7 +11,7 @@ const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OPEX+FIRST
 export const metadata: Metadata = {
   title: "OPEX First Saudi 2026 | 2nd Edition Operational Excellence Summit, Riyadh",
   description:
-    "Operational Excellence — Where Leadership Vision Meets Technology Execution. 2nd Edition. 15 September 2026, Riyadh. 220+ delegates, 30+ speakers, 5 award categories across Vision 2030 execution priorities.",
+    "2nd Edition Operational Excellence summit, Riyadh, 15 September 2026. 220+ delegates, 30+ speakers, 5 awards aligned to Vision 2030 priorities.",
   keywords: [
     "OPEX First Saudi 2026",
     "operational excellence summit Riyadh",

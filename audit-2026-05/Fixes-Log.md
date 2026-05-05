@@ -55,7 +55,7 @@
 - **Why:** Removes Google Search Console "PreOrder without price/priceCurrency" structured-data warnings on 6 event URLs at once. Matches the saudi-2026 fix pattern.
 - **Note:** Audit said the Cyber First Saudi page used slug `saudi-2026` and didn't exist — actual slug is `ksa-2026`, so it's 6 pages (not 5) once located.
 - **Verify:** Schema validator (validator.schema.org) on each URL post-deploy → no errors on Event/Offer.
-- **Commit:** _(see Phase 1 Commit A)_
+- **Commit:** `f8a918b`
 
 ### ✅ process-intelligence BreadcrumbList label
 
@@ -65,7 +65,19 @@
 - **Change:** Last breadcrumb item label changed from "Virtual Boardroom MENA" → "Process Intelligence" so it matches the URL slug `/events/opex-first/process-intelligence`.
 - **Why:** Crawler clarity + internal consistency. Mismatch between URL slug and breadcrumb label confused both Googlebot and AI crawlers.
 - **Verify:** View-source on `/events/opex-first/process-intelligence` → BreadcrumbList JSON-LD shows "Process Intelligence" as final crumb.
-- **Commit:** _(see Phase 1 Commit A)_
+- **Commit:** `f8a918b`
+
+### ✅ Trim 2 long descriptions to under SERP truncation limit
+
+- **Audit ref:** F.6 / Quick win #2 + #3
+- **Date:** 2026-05-05
+- **Files:**
+  - `app/events/opex-first/saudi-2026/layout.tsx` (227 → 143 chars)
+  - `app/events/ot-security-first/johannesburg-2026/layout.tsx` (190 → 155 chars)
+- **Change:** Rewrote both descriptions to fit under Google's ~160-char SERP snippet limit while keeping primary keywords (event name, edition, date, city, audience size, sponsor pillars).
+- **Why:** Prevents Google from truncating the description mid-sentence in search results. Both target descriptions stay under 160 chars.
+- **Verify:** `node -e "console.log(desc.length)"` against each new description string.
+- **Commit:** _(see Phase 1 Commit B)_
 
 ---
 
@@ -78,22 +90,6 @@ _(none — Phase 1 Commit A landed)_
 ## 📋 To do
 
 ### Phase 1 — Quick wins (this session)
-
-#### 📋 Trim opex-first/saudi-2026 description
-
-- **Audit ref:** F.6 / Quick win #2
-- **Files:** `app/events/opex-first/saudi-2026/layout.tsx`
-- **Change:** Description is currently 227 characters → trim to ~155 to avoid Google SERP truncation.
-- **Why:** Google truncates description meta at ~160 chars; current copy gets clipped mid-sentence in search results.
-- **Verify:** Count chars in `description` field after edit (target: 145-160).
-
-#### 📋 Trim ot-security-first/johannesburg-2026 description
-
-- **Audit ref:** F.6 / Quick win #3
-- **Files:** `app/events/ot-security-first/johannesburg-2026/layout.tsx`
-- **Change:** 190 → ~155 chars.
-- **Why:** Same as above.
-- **Verify:** Count chars after edit.
 
 #### 📋 Add OG image + Twitter card to /sonicwall, /clevertap2
 

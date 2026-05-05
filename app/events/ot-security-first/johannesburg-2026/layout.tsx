@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title:
     "OT Security First Africa 2026 | Johannesburg — Uncompromised OT Security",
   description:
-    "Uncompromised OT Security - Protecting what Powers our World. Africa's premier OT/ICS security summit, 26 August 2026 in Johannesburg. 200+ delegates, 20+ speakers, cross-sector collaboration.",
+    "Africa's premier OT/ICS security summit, Johannesburg, 26 August 2026. 200+ delegates and 20+ speakers from energy, utilities, and critical infrastructure.",
   keywords: [
     "OT security conference South Africa 2026",
     "industrial cybersecurity summit Johannesburg",
