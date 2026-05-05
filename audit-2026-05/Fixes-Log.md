@@ -1,3 +1,36 @@
+---
+pdf_options:
+  format: A4
+  margin: 22mm
+  printBackground: true
+  displayHeaderFooter: true
+  headerTemplate: |-
+    <div style="font-size:9px;width:100%;padding:0 22mm;color:#7a7a7a;display:flex;justify-content:space-between;align-items:center;">
+      <span>SEO Audit Fixes Log</span>
+      <span>Events First Group · May 2026</span>
+    </div>
+  footerTemplate: |-
+    <div style="font-size:9px;width:100%;padding:0 22mm;color:#7a7a7a;text-align:center;">
+      Page <span class="pageNumber"></span> of <span class="totalPages"></span>
+    </div>
+stylesheet:
+  - https://cdn.jsdelivr.net/npm/github-markdown-css@5/github-markdown-light.min.css
+css: |-
+  .markdown-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif; font-size: 11.5px; line-height: 1.6; color: #1a1a1a; max-width: 100%; padding: 0; }
+  .markdown-body h1 { margin-top: 0; padding-bottom: 8px; border-bottom: 2px solid #1a1a1a; font-size: 22px; }
+  .markdown-body h2 { font-size: 15px; margin-top: 22px; padding-bottom: 5px; border-bottom: 1px solid #ddd; }
+  .markdown-body h3 { font-size: 12.5px; margin-top: 18px; }
+  .markdown-body h4 { font-size: 11.5px; margin-top: 16px; }
+  .markdown-body table { font-size: 10px; page-break-inside: avoid; border-collapse: collapse; margin: 10px 0; width: 100%; }
+  .markdown-body th { background: #f0f0f0; font-weight: 700; text-align: left; padding: 6px 8px; border: 1px solid #ccc; }
+  .markdown-body td { padding: 5px 8px; border: 1px solid #ddd; vertical-align: top; }
+  .markdown-body code { background: #f3f3f3; padding: 1px 5px; border-radius: 3px; font-size: 10px; }
+  .markdown-body pre { background: #f6f6f6; border: 1px solid #e3e3e3; padding: 10px 12px; font-size: 10px; line-height: 1.45; page-break-inside: avoid; border-radius: 4px; }
+  .markdown-body p, .markdown-body li { font-size: 11.5px; }
+  .markdown-body blockquote { border-left: 3px solid #c9935a; padding: 4px 12px; color: #555; margin: 10px 0; }
+  .markdown-body hr { border: 0; border-top: 1px solid #ddd; margin: 24px 0; }
+---
+
 # SEO Audit Fixes Log
 
 > Live changelog tracking implementation of recommendations from `Summary.md`, `SEO-AI-Audit.md`, and `Strategy-Report.md` (May 2026 audit baseline).
