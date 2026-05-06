@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
+import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/cyber-first/ksa-2026`;
@@ -49,6 +50,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             ],
           }),
         }}
+      />
+      <EventFactBlock
+        eventName="Digital Resilience KSA 2026"
+        series="Cyber First"
+        date="10 October 2026"
+        city="Riyadh"
+        country="Saudi Arabia"
+        format="in-person"
+        audienceTypes={["CISOs", "Government cyber leaders", "Regulators", "Enterprise security executives", "Critical-infrastructure operators"]}
+        url={PAGE_URL}
       />
       {children}
     </>

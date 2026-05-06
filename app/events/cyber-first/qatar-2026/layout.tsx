@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
+import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/cyber-first/qatar-2026`;
@@ -70,6 +71,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             ],
           }),
         }}
+      />
+      <EventFactBlock
+        eventName="Cyber First Qatar 2026"
+        series="Cyber First"
+        date="22 September 2026"
+        city="Doha"
+        country="Qatar"
+        format="in-person"
+        audienceTypes={["CISOs", "Government security leaders", "Regulators", "Banking and financial security heads", "Energy sector defenders", "Telecom security leaders"]}
+        url={PAGE_URL}
       />
       {children}
     </>

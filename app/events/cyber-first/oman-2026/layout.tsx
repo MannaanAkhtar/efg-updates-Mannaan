@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
+import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/cyber-first/oman-2026`;
@@ -49,6 +50,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             ],
           }),
         }}
+      />
+      <EventFactBlock
+        eventName="Cyber First Oman 2026"
+        series="Cyber First"
+        date="13 October 2026"
+        city="Muscat"
+        country="Oman"
+        format="in-person"
+        audienceTypes={["CISOs", "Regulators", "Government cyber leaders", "Banking security heads", "Energy sector security leaders", "Telecom security executives"]}
+        url={PAGE_URL}
       />
       {children}
     </>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
+import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/cyber-first/kuwait-2026`;
@@ -158,6 +159,29 @@ export default function CyberFirstKuwaitLayout({
             ],
           }),
         }}
+      />
+      <EventFactBlock
+        eventName="Cyber First Kuwait 2026, 3rd Annual Cybersecurity Summit"
+        series="Cyber First"
+        date="9 June 2026"
+        venue="Jumeirah Messilah Beach Hotel & Spa"
+        city="Kuwait City"
+        country="Kuwait"
+        format="in-person"
+        audienceSize="500+ delegates"
+        audienceTypes={["CISOs", "Government cyber leaders", "Banking and fintech security heads", "Telecom security leaders", "Enterprise security executives"]}
+        topSpeakers={[
+          { name: "Faissal Al-Roumi", title: "Executive Manager of Operational Risk", org: "Burgan Bank" },
+          { name: "Dr. Fai Ben Salamah", title: "Cybersecurity Expert", org: "Kuwait Technical College" },
+          { name: "Shaheela Banu A. Majeed", title: "Information Security & Compliance Officer & Auditor", org: "Oil & Gas (Confidential)" },
+          { name: "Yousef El-Kourdi", title: "Group Head of Information Technology", org: "City Group Co. KSC" },
+        ]}
+        topSponsors={[
+          { name: "Palo Alto Networks", tier: "Gold" },
+          { name: "SentinelOne", tier: "Gold" },
+          { name: "Google Cloud", tier: "Gold" },
+        ]}
+        url={PAGE_URL}
       />
       {children}
     </>

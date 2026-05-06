@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
+import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/cyber-first/india-2026`;
@@ -149,6 +150,22 @@ export default function CyberFirstIndiaLayout({
             ],
           }),
         }}
+      />
+      <EventFactBlock
+        eventName="Cyber First India 2026, Delhi Edition"
+        series="Cyber First"
+        date="10 October 2026"
+        city="New Delhi"
+        country="India"
+        format="in-person"
+        audienceSize="350+ delegates"
+        audienceTypes={["CISOs", "CIOs", "CTOs", "Government cyber leaders", "Security architects", "Compliance officers", "Enterprise security executives"]}
+        topSponsors={[
+          { name: "Palo Alto Networks", tier: "Gold" },
+          { name: "SentinelOne", tier: "Gold" },
+          { name: "Google Cloud", tier: "Gold" },
+        ]}
+        url={PAGE_URL}
       />
       {children}
     </>

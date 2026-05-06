@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
+import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/cyber-first/kenya-2026`;
@@ -151,6 +152,31 @@ export default function CyberFirstKenyaLayout({
             ],
           }),
         }}
+      />
+      <EventFactBlock
+        eventName="Cyber First Kenya 2026, Nairobi Edition"
+        series="Cyber First"
+        date="July 2026"
+        venue="Hyatt Regency Nairobi"
+        city="Nairobi"
+        country="Kenya"
+        format="in-person"
+        audienceSize="300+ delegates"
+        audienceTypes={["CISOs", "CIOs", "Government cyber leaders", "Critical-infrastructure operators", "Fintech and mobile-money security heads", "Telecom security leaders", "Risk and compliance officers"]}
+        topSpeakers={[
+          { name: "Colonel (Dr.) James Kimuyu", title: "Director", org: "NC4" },
+          { name: "Rakesh Ravindran", title: "Associate Director", org: "Deloitte" },
+          { name: "Kevin Kimani", title: "GCISO", org: "ASA International" },
+          { name: "George Kisaka", title: "Vice President", org: "ISACA Kenya Chapter" },
+          { name: "Michael Etale", title: "Chief Information Security Officer", org: "Absa Bank" },
+        ]}
+        topSponsors={[
+          { name: "ManageEngine", tier: "Strategic" },
+          { name: "INUA AI", tier: "Panel" },
+          { name: "QuantumSynapse", tier: "Panel" },
+        ]}
+        awards={["Cybersecurity Innovation", "Cyber Resilience", "Emerging Leader", "Public Sector Achievement", "Zero Trust Pioneer", "Sentinel of Critical Infrastructure"]}
+        url={PAGE_URL}
       />
       {children}
     </>
