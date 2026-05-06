@@ -146,6 +146,28 @@ css: |-
 - **Verify:** `head -5 public/llms.txt` → "Last updated" line appears on line 3.
 - **Commit:** `7ea5a6e`
 
+### ✅ Phase 3 — sr-only static fact blocks across 14 events + 4 series hubs
+
+- **Audit ref:** F.3 / Strategic priority #1 (highest-leverage structural fix)
+- **Date:** 2026-05-06
+- **Decision:** sr-only / crawler-only — no visual change to the page. Visible variant parked for future design work.
+- **Component:** [`components/seo/FactBlock.tsx`](components/seo/FactBlock.tsx) — exports `EventFactBlock` (per-event) and `SeriesFactBlock` (per-hub). Both render a hidden `<aside class="sr-only">` (Tailwind 4 built-in `sr-only` utility). Visually invisible, fully present in static HTML.
+- **EventFactBlock fields:** event name, series, date, venue (or "Virtual" for online events), city, country, format (in-person / virtual / hybrid), audience size, audience profile, top 5 speakers, top 3 sponsors with tier, award categories, URL.
+- **SeriesFactBlock fields:** series name, description, audience profile, edition count, list of editions (name, city, country, date, URL), URL.
+- **Files (18 total):**
+  - **Cyber First × 7:** `cyber-first/layout.tsx` (hub), `india-2026`, `kenya-2026`, `ksa-2026`, `kuwait-2026`, `oman-2026`, `qatar-2026`
+  - **Digital First × 3:** `data-ai-first/layout.tsx` (hub), `kuwait-2026`, `qatar-2026`
+  - **OT Security × 5:** `ot-security-first/layout.tsx` (hub), `johannesburg-2026`, `jubail-2026`, `oman-2026`, `virtual-boardroom-mena`
+  - **OPEX First × 3:** `opex-first/layout.tsx` (hub), `saudi-2026`, `process-intelligence`
+- **Speaker/sponsor coverage:** 8 confirmed events carry top 5 speakers — kenya, kuwait CF, india CF (sponsors only — speakers TBC), kuwait DF, johannesburg, vb-mena, saudi OPEX, process-intelligence. 6 coming-soon events (ksa, oman CF, qatar CF, qatar DF, jubail, oman OT) carry core facts only and can be enhanced when rosters confirm.
+- **Why:** Non-JS crawlers (Slack, LinkedIn, GPTBot, CCBot, Bing) and AI assistants get the full event-fact picture on first response — including speakers and sponsors — without affecting the visual design. This was the audit's #1 strategic priority for AI citation.
+- **Verify:** `curl https://eventsfirstgroup.com/events/cyber-first/kenya-2026 | grep -A 2 "data-event-fact-block"` after deploy → confirm sr-only `<aside>` with structured event facts is in static HTML.
+- **Commits:**
+  - `ee897bc` — Cyber First (1 hub + 6 events) + new component
+  - `5652018` — Digital First (1 hub + 2 events)
+  - `94a8bd4` — OT Security (1 hub + 4 events)
+  - `a0ae873` — OPEX First (1 hub + 2 events)
+
 ### ✅ Phase 2 — FAQPage JSON-LD rolled out to 11 event layouts
 
 - **Audit ref:** F.4 / Top finding #4
@@ -177,7 +199,7 @@ css: |-
 
 ## 🔧 In progress
 
-_(none — Phase 2 complete. Pick up Phase 3, 4, or 5 next session.)_
+_(none — Phase 3 complete. Pick up Phase 4 or Phase 5 next session.)_
 
 ---
 
@@ -197,15 +219,9 @@ _(Complete — see "✅ Done" section above. 14 of 14 event-location layouts now
 
 ---
 
-### Phase 3 — Static fact block in event-page layouts (deferred — needs design call)
+### Phase 3 — Static fact block in event-page layouts
 
-Server-rendered `<aside>` inside every event-page `layout.tsx` exposing event name, date, venue, city, country, audience size, top 5 speakers, top 3 sponsors. Lives in static HTML so non-JS crawlers see it on first response.
-
-**Open decision:** visible in design vs `sr-only` (visually hidden, crawler-only).
-
-**Files:** 14 event location layouts + 4 series hub layouts.
-
-**Audit ref:** F.3 / Strategic priority #1.
+_(Complete — see "✅ Done" section above. Shipped as sr-only across 14 events + 4 series hubs. Visible variant available as a follow-up if design requested.)_
 
 ---
 
