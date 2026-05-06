@@ -109,6 +109,57 @@ export default function DataAIKuwaitLayout({
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "When is Digital First Kuwait 2026?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Digital First Kuwait 2026 — the Data & AI Summit — takes place on 10 June 2026 at Jumeirah Messilah Beach Hotel & Spa, Kuwait City.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Where is Digital First Kuwait 2026 held?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "At Jumeirah Messilah Beach Hotel & Spa in Kuwait City, Kuwait. Venue logistics and agenda are shared with registered delegates.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Who attends Digital First Kuwait 2026?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "250+ CDOs, AI architects, data scientists, and enterprise leaders shaping Kuwait's AI strategy aligned with Vision 2035. Attendance is invitation-only and curated for senior data and AI leadership.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Is there a fee to attend Digital First Kuwait 2026?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Attendance is free for qualified delegates. Apply via the registration form on the event page; the advisory team will confirm eligibility.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How do I register or sponsor Digital First Kuwait 2026?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Use the registration form on the event page to apply as a delegate. For sponsorship or partnership enquiries, contact partnerships@eventsfirstgroup.com.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
       {children}
     </>
   );
