@@ -115,6 +115,57 @@ export default function OTSecurityFirstJohannesburgLayout({
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "When is OT Security First Africa 2026?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "OT Security First Africa 2026 takes place on 26 August 2026 in Johannesburg, South Africa.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Where is OT Security First Africa 2026 held?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "In Johannesburg, Gauteng, South Africa. The exact venue is confirmed to registered delegates closer to the event date.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Who attends OT Security First Africa 2026?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "200+ OT/ICS security leaders, CISOs, and engineering directors from energy (Eskom-tier), mining, transport (Transnet-tier), water, and government across South Africa and the broader continent. 20+ speakers across cross-sector tracks.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Is there a fee to attend OT Security First Africa 2026?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Attendance is free for qualified delegates. Apply via the registration form on the event page; the advisory team will confirm eligibility.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How do I register or sponsor OT Security First Africa 2026?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Register via the form on this page. For sponsorship, partnership, or speaking enquiries, contact partnerships@eventsfirstgroup.com.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
       {children}
     </>
   );

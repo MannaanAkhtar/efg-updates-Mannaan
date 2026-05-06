@@ -107,6 +107,57 @@ export default function OTVirtualForumLayout({
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "When is the OT Security Virtual Forum MENA 2026?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The forum takes place online on 19 May 2026 from 14:00 to 16:00 (GST). Verified registrants receive a private joining link before the session.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Where is the OT Security Virtual Forum MENA held?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "It is a closed virtual forum — no physical venue. Verified registrants receive a private joining link before the session.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Who attends the OT Security Virtual Forum MENA?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "100 verified senior OT security professionals from MENA energy, utilities, oil & gas, and petrochemicals. The room is closed and curated; attendance is by invitation or vetted application.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Is there a fee to attend the OT Security Virtual Forum MENA?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Attendance is free. Applications are reviewed for seniority and sector fit before access is granted.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How do I register or sponsor the OT Security Virtual Forum MENA?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Apply via the registration form on this page. For sponsorship enquiries, contact partnerships@eventsfirstgroup.com.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
       {children}
     </>
   );
