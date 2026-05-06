@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
+import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/data-ai-first/kuwait-2026`;
@@ -159,6 +160,25 @@ export default function DataAIKuwaitLayout({
             ],
           }),
         }}
+      />
+      <EventFactBlock
+        eventName="Digital First Kuwait 2026, Data & AI Summit"
+        series="Digital First"
+        date="10 June 2026"
+        venue="Jumeirah Messilah Beach Hotel & Spa"
+        city="Kuwait City"
+        country="Kuwait"
+        format="in-person"
+        audienceSize="250+ delegates"
+        audienceTypes={["CDOs", "AI architects", "Data scientists", "Heads of analytics", "Digital transformation directors", "Enterprise AI executives"]}
+        topSpeakers={[
+          { name: "Dr Khalid Al Begain", title: "President", org: "KCST" },
+          { name: "Mai AlOwaish", title: "CEO", org: "CINET" },
+          { name: "Iyad Atieh", title: "CISO", org: "Alghanim Industries" },
+          { name: "Abdullah AlNusef", title: "Chief Data Officer", org: "Bank Boubyan" },
+          { name: "Abdulmohsen Alsulaimi", title: "Group CTO", org: "Towell International Holding" },
+        ]}
+        url={PAGE_URL}
       />
       {children}
     </>

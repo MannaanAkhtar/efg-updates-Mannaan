@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
+import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/data-ai-first/qatar-2026`;
@@ -49,6 +50,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             ],
           }),
         }}
+      />
+      <EventFactBlock
+        eventName="Digital First Qatar 2026"
+        series="Digital First"
+        date="23 September 2026"
+        city="Doha"
+        country="Qatar"
+        format="in-person"
+        audienceTypes={["CDOs", "AI architects", "Data leaders", "Enterprise transformation executives", "Digital strategy directors"]}
+        url={PAGE_URL}
       />
       {children}
     </>
