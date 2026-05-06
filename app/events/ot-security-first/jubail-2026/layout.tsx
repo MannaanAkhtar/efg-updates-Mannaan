@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
+import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/ot-security-first/jubail-2026`;
@@ -49,6 +50,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             ],
           }),
         }}
+      />
+      <EventFactBlock
+        eventName="OT Security Jubail 2026"
+        series="OT Security First"
+        date="7 October 2026"
+        city="Jubail"
+        country="Saudi Arabia"
+        format="in-person"
+        audienceTypes={["OT/ICS security leaders", "Plant CISOs", "Energy security heads", "Petrochemicals security executives", "Utilities security leaders", "Engineering directors"]}
+        url={PAGE_URL}
       />
       {children}
     </>

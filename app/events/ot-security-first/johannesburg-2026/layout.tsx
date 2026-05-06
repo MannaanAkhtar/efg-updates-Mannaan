@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
+import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/ot-security-first/johannesburg-2026`;
@@ -165,6 +166,24 @@ export default function OTSecurityFirstJohannesburgLayout({
             ],
           }),
         }}
+      />
+      <EventFactBlock
+        eventName="OT Security First Africa 2026, Johannesburg"
+        series="OT Security First"
+        date="26 August 2026"
+        city="Johannesburg"
+        country="South Africa"
+        format="in-person"
+        audienceSize="200+ delegates and 20+ speakers"
+        audienceTypes={["OT/ICS security leaders", "Plant CISOs", "Energy security heads (Eskom-tier)", "Mining cybersecurity directors", "Transport security leaders (Transnet-tier)", "Water utility security executives", "POPIA compliance officers", "Government cyber policy makers"]}
+        topSpeakers={[
+          { name: "Akash Makhan", title: "OT/IT Convergence (Digital Transformation)", org: "Eskom Holdings SOC Ltd" },
+          { name: "Zanele Fikizolo", title: "Senior Advisor – IT Governance, Risk and Compliance", org: "Eskom Holdings SOC Ltd" },
+          { name: "Muvhango Livhusha", title: "Vice President", org: "ISACA South Africa Chapter" },
+          { name: "Tendani Silima", title: "Senior Advisor Cybersecurity", org: "Eskom Holdings SOC Ltd" },
+          { name: "Xolani Nzimande", title: "OT Cybersecurity Specialist", org: "Sasol" },
+        ]}
+        url={PAGE_URL}
       />
       {children}
     </>

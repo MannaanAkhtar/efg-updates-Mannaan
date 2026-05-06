@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
+import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/ot-security-first/oman-2026`;
@@ -49,6 +50,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             ],
           }),
         }}
+      />
+      <EventFactBlock
+        eventName="OT Security Oman 2026"
+        series="OT Security First"
+        date="14 October 2026"
+        city="Muscat"
+        country="Oman"
+        format="in-person"
+        audienceTypes={["OT/ICS security leaders", "Plant CISOs", "Energy and oil & gas security heads", "Utilities security executives", "Engineering directors"]}
+        url={PAGE_URL}
       />
       {children}
     </>

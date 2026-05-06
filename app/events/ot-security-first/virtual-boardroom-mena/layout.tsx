@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
+import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/ot-security-first/virtual-boardroom-mena`;
@@ -157,6 +158,29 @@ export default function OTVirtualForumLayout({
             ],
           }),
         }}
+      />
+      <EventFactBlock
+        eventName="OT Security in the Age of AI Threats, Virtual Forum MENA 2026"
+        series="OT Security First"
+        date="19 May 2026"
+        city="MENA Region"
+        country="Online"
+        format="virtual"
+        audienceSize="100 verified OT security professionals"
+        audienceTypes={["OT/ICS security professionals", "Energy and utilities security leaders", "Oil & gas security executives", "Petrochemicals security heads", "Critical-infrastructure operators"]}
+        topSpeakers={[
+          { name: "H.E. Dr. Mohamed Al Kuwaiti", title: "Head of Cyber Security", org: "United Arab Emirates Government" },
+          { name: "Vijay Velayutham", title: "Principal Information Security Officer", org: "UAE Ministry of Energy & Infrastructure" },
+          { name: "Dr. Shaheela Banu Abdul Majeed", title: "Information Security & Compliance Officer & Auditor", org: "Kuwait Gulf Oil Company (KGOC)" },
+          { name: "Ali Abdulla Hasan Alsadadi", title: "Chief of Information Technology", org: "Ministry of Oil & Environment Bahrain" },
+          { name: "Nasser Salim Al Alawi", title: "OT Cybersecurity Manager", org: "Oman LNG LLC" },
+        ]}
+        topSponsors={[
+          { name: "FlintX", tier: "Platinum" },
+          { name: "TXOne Networks", tier: "Gold" },
+          { name: "Darktrace", tier: "Gold" },
+        ]}
+        url={PAGE_URL}
       />
       {children}
     </>
