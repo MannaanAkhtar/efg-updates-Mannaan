@@ -108,6 +108,57 @@ export default function CyberFirstKuwaitLayout({
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "When is Cyber First Kuwait 2026?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Cyber First Kuwait 2026 — the 3rd Annual Cybersecurity Summit — takes place on 9 June 2026 at Jumeirah Messilah Beach Hotel & Spa, Kuwait City.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Where is Cyber First Kuwait 2026 held?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "At Jumeirah Messilah Beach Hotel & Spa in Kuwait City, Kuwait. Venue logistics and agenda are shared with registered delegates.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Who attends Cyber First Kuwait 2026?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "500+ CISOs, government cyber leaders, and enterprise security executives from across Kuwait and the GCC. Attendance is invitation-only and curated for senior security leadership.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Is there a fee to attend Cyber First Kuwait 2026?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Attendance is free for qualified end-users (CISOs and security leaders). Apply via the registration form on the event page; the advisory team will confirm eligibility.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How do I register or sponsor Cyber First Kuwait 2026?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Use the registration form on the event page to apply as a delegate. For sponsorship or partnership enquiries, contact partnerships@eventsfirstgroup.com.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
       {children}
     </>
   );

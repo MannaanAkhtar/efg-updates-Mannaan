@@ -55,6 +55,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         organizer: { "@type": "Organization", name: "Events First Group", url: BASE_URL },
         offers: { "@type": "Offer", url: PAGE_URL, availability: "https://schema.org/InStock", price: "0", priceCurrency: "USD", validFrom: "2026-01-01" },
       }) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              { "@type": "Question", name: "When is Cyber First Qatar 2026?", acceptedAnswer: { "@type": "Answer", text: "Cyber First Qatar 2026 takes place on 22 September 2026 in Doha, Qatar." } },
+              { "@type": "Question", name: "Where is Cyber First Qatar 2026 held?", acceptedAnswer: { "@type": "Answer", text: "The summit is held in Doha, Qatar. The exact venue is confirmed to registered delegates closer to the event date." } },
+              { "@type": "Question", name: "Who attends Cyber First Qatar 2026?", acceptedAnswer: { "@type": "Answer", text: "CISOs, government security leaders, regulators, and enterprise defenders across Qatar's banking, energy, telecom, and public sectors. Attendance is invitation-only." } },
+              { "@type": "Question", name: "Is there a fee to attend Cyber First Qatar 2026?", acceptedAnswer: { "@type": "Answer", text: "Attendance is free for qualified delegates. Apply via the registration form on the event page; the advisory team will confirm eligibility." } },
+              { "@type": "Question", name: "How do I register or sponsor Cyber First Qatar 2026?", acceptedAnswer: { "@type": "Answer", text: "Register via the form on this page. For sponsorship, partnership, or speaking enquiries, contact partnerships@eventsfirstgroup.com." } },
+            ],
+          }),
+        }}
+      />
       {children}
     </>
   );
