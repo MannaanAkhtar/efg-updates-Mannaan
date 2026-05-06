@@ -106,6 +106,57 @@ export default function OpexVirtualForumLayout({
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "When is Process Intelligence MENA 2026?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The Process Intelligence MENA executive webinar takes place online on 21 May 2026, from 11:00 to 13:00 GST (2 hours).",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Where is Process Intelligence MENA held?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "It is a virtual session — no physical venue. Registrants receive a private joining link before the session.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Who attends Process Intelligence MENA?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Senior transformation, operations, and technology leaders across the GCC. Speakers include leaders from Mubadala Energy, Madinah Municipality, Saipem Qatar, Kearney, RAK Economic Zone, Abu Dhabi Investment Office, the Department of Culture & Tourism Abu Dhabi, and National Bank of Umm Al Qaiwain.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Is there a fee to attend Process Intelligence MENA?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Attendance is free for qualified senior leaders. Register via the form on the event page.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How do I register or sponsor Process Intelligence MENA?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Register via the form on this page. For sponsorship or partnership enquiries, contact partnerships@eventsfirstgroup.com.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
       {children}
     </>
   );
