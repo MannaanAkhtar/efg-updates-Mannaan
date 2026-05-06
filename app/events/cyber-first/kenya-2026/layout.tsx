@@ -3,7 +3,10 @@ import { BreadcrumbSchema } from "@/lib/schemas";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/cyber-first/kenya-2026`;
-const OG_IMAGE = `${BASE_URL}/Cyber-First-East-Africa-Logo-01.png`;
+// TODO: replace with a designed 1200×630 share card (logo + event title + Nairobi/July 2026 + skyline)
+// once available. Today this uses the Nairobi cityscape hero asset, which previews far better on
+// WhatsApp/Slack/LinkedIn than the bare logo-on-white asset that was here before.
+const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/kenya-cyber.png";
 
 export const metadata: Metadata = {
   title: "Cyber First Kenya 2026 | Nairobi | Beyond Firewalls, July 2026",
@@ -35,7 +38,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Cyber First Kenya 2026, Cybersecurity Summit",
+        alt: "Cyber First Kenya 2026, Nairobi cyber security summit — July 2026",
       },
     ],
     locale: "en_US",
