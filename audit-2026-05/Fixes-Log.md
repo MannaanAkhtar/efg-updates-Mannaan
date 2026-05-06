@@ -146,11 +146,38 @@ css: |-
 - **Verify:** `head -5 public/llms.txt` → "Last updated" line appears on line 3.
 - **Commit:** `7ea5a6e`
 
+### ✅ Phase 2 — FAQPage JSON-LD rolled out to 11 event layouts
+
+- **Audit ref:** F.4 / Top finding #4
+- **Date:** 2026-05-06
+- **Files (11 event layouts):**
+  - `app/events/cyber-first/ksa-2026/layout.tsx`
+  - `app/events/cyber-first/kuwait-2026/layout.tsx`
+  - `app/events/cyber-first/oman-2026/layout.tsx`
+  - `app/events/cyber-first/qatar-2026/layout.tsx`
+  - `app/events/data-ai-first/kuwait-2026/layout.tsx`
+  - `app/events/data-ai-first/qatar-2026/layout.tsx`
+  - `app/events/opex-first/process-intelligence/layout.tsx`
+  - `app/events/ot-security-first/johannesburg-2026/layout.tsx`
+  - `app/events/ot-security-first/jubail-2026/layout.tsx`
+  - `app/events/ot-security-first/oman-2026/layout.tsx`
+  - `app/events/ot-security-first/virtual-boardroom-mena/layout.tsx`
+- **Change:** Added a 5-question FAQPage `<script type="application/ld+json">` block to each layout (when, where, who attends, fee, register/sponsor). Pattern matches the saudi-2026 schema shape, with location- and edition-specific answers. Virtual-event layouts (VB MENA, Process Intelligence) adapt the pattern to use joining-link language instead of physical venue.
+- **Why:** Drives FAQ rich snippets in Google SERPs and direct AI citation matches for prompt-style queries (e.g., "when is OT Security First Jubail?", "who attends Cyber First Kuwait?"). FAQs were the single highest-leverage AI-citation lever in the audit.
+- **Coverage:** 14 of 14 event-location layouts now carry FAQPage JSON-LD (saudi-2026, india-2026, kenya-2026 already had it; this round added the remaining 11).
+- **Series hubs** (`/events/{cyber-first,data-ai-first,opex-first,ot-security-first}/layout.tsx`) — verified to exist with EventSeries schema; FAQ at series level deferred to Phase 4 (different audience/scope from event-specific FAQs).
+- **Verify:** Google Rich Results Test on each updated URL → FAQ section parses cleanly, returns 5 Q&A.
+- **Commits:**
+  - `f049ebb` — 4 Cyber First layouts (ksa, kuwait, oman, qatar)
+  - `4848e5c` — 2 Digital First layouts (kuwait, qatar)
+  - `ffa1515` — 4 OT Security layouts (johannesburg, jubail, oman, virtual-boardroom-mena)
+  - `2f5fe67` — OPEX process-intelligence
+
 ---
 
 ## 🔧 In progress
 
-_(none — Phase 1 Commit A landed)_
+_(none — Phase 2 complete. Pick up Phase 3, 4, or 5 next session.)_
 
 ---
 
@@ -164,22 +191,9 @@ _(Phase 1 complete — all 8 quick-win items either landed or deferred per user.
 
 ---
 
-### Phase 2 — FAQPage JSON-LD rollout (deferred)
+### Phase 2 — FAQPage JSON-LD rollout
 
-12 layouts need a FAQPage block (saudi-2026, india-2026, kenya-2026 already have one):
-
-- `app/events/cyber-first/kuwait-2026/layout.tsx`
-- `app/events/cyber-first/oman-2026/layout.tsx`
-- `app/events/cyber-first/qatar-2026/layout.tsx`
-- `app/events/data-ai-first/qatar-2026/layout.tsx`
-- `app/events/ot-security-first/{johannesburg,jubail,oman}-2026/layout.tsx`
-- `app/events/ot-security-first/virtual-boardroom-mena/layout.tsx`
-- `app/events/opex-first/process-intelligence/layout.tsx`
-- 4 series hub layouts (verify they exist as separate routes)
-
-**Pattern:** 5 location-specific Q&A per page (when, where, who attends, fee, register/nominate). Reuse saudi-2026 schema shape.
-
-**Effort:** ~10 min per page. Audit ref: F.4 / Top finding #4.
+_(Complete — see "✅ Done" section above. 14 of 14 event-location layouts now carry FAQPage JSON-LD.)_
 
 ---
 
