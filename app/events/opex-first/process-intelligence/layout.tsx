@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
+import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/opex-first/process-intelligence`;
@@ -156,6 +157,26 @@ export default function OpexVirtualForumLayout({
             ],
           }),
         }}
+      />
+      <EventFactBlock
+        eventName="Process Intelligence MENA — Executive Webinar 2026"
+        series="OPEX First"
+        date="21 May 2026 (11:00–13:00 GST)"
+        city="GCC Region"
+        country="Online"
+        format="virtual"
+        audienceTypes={["Senior transformation leaders", "Operations directors", "Technology leaders", "Process intelligence executives", "Public-sector excellence officers", "Enterprise C-suite"]}
+        topSpeakers={[
+          { name: "Dr. Mohammad Khalaf Alghamdi, Ph.D.", title: "Deputy Mayor for Strategy & Transformation", org: "Madinah Municipality" },
+          { name: "Eng. Meshal Aldeaijy", title: "Strategic Planning and Execution Advisor", org: "Confidential" },
+          { name: "Abdelkader Nessib", title: "IT Operations & Infrastructure Manager / Cybersecurity & Digital Transformation Advisor", org: "Saipem Qatar" },
+          { name: "Ben Kite", title: "Senior Executive Leader – Defence, Intelligence, Cyber, Security & Resilience", org: "Kearney" },
+          { name: "Mohamed Hamed", title: "Head of Strategy", org: "National Bank of Umm Al Qaiwain" },
+        ]}
+        topSponsors={[
+          { name: "ARIS", tier: "Platinum" },
+        ]}
+        url={PAGE_URL}
       />
       {children}
     </>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
+import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/opex-first/saudi-2026`;
@@ -147,6 +148,30 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             ],
           }),
         }}
+      />
+      <EventFactBlock
+        eventName="OPEX First Saudi 2026, 2nd Edition"
+        series="OPEX First"
+        date="15 September 2026"
+        city="Riyadh"
+        country="Saudi Arabia"
+        format="in-person"
+        audienceSize="220+ delegates and 30+ speakers"
+        audienceTypes={["COOs", "Transformation directors", "Process intelligence leaders", "Government excellence officers", "Enterprise C-suite", "AI governance leaders", "Vision 2030 execution heads"]}
+        topSpeakers={[
+          { name: "H.E. Dr. Abdullah Bin Sharaf Alghamdi", title: "President", org: "Saudi Data & AI Authority (SDAIA)" },
+          { name: "H.E. Eng. Ahmed Alsuwaiyan", title: "Governor & Board Member", org: "Digital Government Authority" },
+          { name: "Rayan Alnafisah", title: "Senior Director", org: "Royal Commission for Riyadh City" },
+          { name: "Neil Matthew Menezes", title: "VP — Maaden ERP Transformation Program", org: "Maaden" },
+          { name: "Sultan Moraished", title: "Group Head of Technology & Corporate Excellence", org: "Red Sea Global" },
+        ]}
+        topSponsors={[
+          { name: "Celonis", tier: "Confirmed" },
+          { name: "RICS", tier: "Confirmed" },
+          { name: "IQS", tier: "Confirmed" },
+        ]}
+        awards={["Operational Excellence", "AI & Digital Transformation", "Sustainability & ESG", "Supply Chain & Procurement", "Leadership in Operational & Change Excellence"]}
+        url={PAGE_URL}
       />
       {children}
     </>

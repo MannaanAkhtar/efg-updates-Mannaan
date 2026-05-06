@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
+import { SeriesFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/opex-first`;
@@ -86,6 +87,16 @@ export default function OpexFirstLayout({
               "operational excellence, OPEX, COO, business transformation, process excellence, continuous improvement, lean six sigma",
           }),
         }}
+      />
+      <SeriesFactBlock
+        seriesName="OPEX First"
+        description="OPEX First is the operational excellence and process intelligence summit series by Events First Group, convening transformation leaders, COOs, government excellence officers, and enterprise C-suite across Saudi Arabia and the wider GCC. Each edition is invitation-only and free for qualified end-users."
+        audience={["COOs", "Transformation directors", "Process intelligence leaders", "Government excellence officers", "Enterprise C-suite", "Operations heads", "Continuous improvement leaders"]}
+        editions={[
+          { name: "Process Intelligence MENA, Executive Webinar", city: "GCC Region", country: "Online", date: "21 May 2026", url: `${BASE_URL}/events/opex-first/process-intelligence` },
+          { name: "OPEX First Saudi 2026 (2nd Edition)", city: "Riyadh", country: "Saudi Arabia", date: "15 September 2026", url: `${BASE_URL}/events/opex-first/saudi-2026` },
+        ]}
+        url={PAGE_URL}
       />
       {children}
     </>
