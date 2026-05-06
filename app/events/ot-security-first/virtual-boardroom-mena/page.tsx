@@ -246,6 +246,12 @@ const OTVB_SPEAKERS = [
     flag: "https://flagcdn.com/w40/qa.png",
     photo: `${S3}/Speakers-photos/Nisheet_Saxena.png`,
   },
+  {
+    name: "Manish Kumar",
+    title: "OT Network & Cybersecurity Manager",
+    org: "Global Innovation & Digital Engineering",
+    photo: `${S3}/Speakers-photos/Manish_Kumar.png`,
+  },
 ];
 
 // ─── EVENT SPONSORS 2026 ────────────────────────────────────────────────────
