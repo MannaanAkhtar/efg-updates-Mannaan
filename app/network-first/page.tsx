@@ -37,36 +37,6 @@ const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 
 const UPCOMING_EVENTS = [
   {
-    date: "May 5th, 2026",
-    month: "MAY",
-    day: "05",
-    year: "2026",
-    time: "4:30 PM",
-    title: "The Big Leap Connect, Riyadh",
-    subtitle: "Beyond the Hype: Redefining Growth with AI",
-    sponsor: "CleverTap",
-    location: "Riyadh, KSA",
-    link: "https://big-leap-riyadh.eventsfirstgroup.com",
-    image: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/finalll.png",
-    brandColor: "#000D26",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/bigleapconnect.png",
-  },
-  {
-    date: "May 5th, 2026",
-    month: "MAY",
-    day: "05",
-    year: "2026",
-    time: "1:00 PM – 2:30 PM",
-    title: "AI Without Blindspots: Governing the Agentic Enterprise in MEA",
-    subtitle: "Crayon × Microsoft — virtual executive session",
-    sponsor: "Crayon × Microsoft",
-    location: "Virtual",
-    link: "https://events.teams.microsoft.com/event/40a2a4b2-7568-4c65-b8cc-a312883c3171@1dc9b339-fadb-432e-86df-423c38a0fcb8#msdynmkt_trackingcontext=e4d52e22-099e-4a3b-aaf5-807974e20000",
-    image: "",
-    brandColor: "#0078D4",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/crayonXmicrosoft1.png",
-  },
-  {
     date: "June 10th, 2026",
     month: "JUN",
     day: "10",
@@ -196,6 +166,30 @@ type PastEvent = {
 };
 
 const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    sponsor: "CleverTap",
+    title: "The Big Leap Connect, Riyadh",
+    subtitle: "Beyond the Hype: Redefining Growth with AI",
+    month: "MAY",
+    date: "05 May",
+    venue: "Riyadh, KSA",
+    time: "4:30 PM",
+    image: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/finalll.png",
+    brandColor: "#000D26",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/bigleapconnect.png",
+  },
+  {
+    sponsor: "Crayon × Microsoft",
+    title: "AI Without Blindspots: Governing the Agentic Enterprise in MEA",
+    subtitle: "Crayon × Microsoft — virtual executive session",
+    month: "MAY",
+    date: "05 May",
+    venue: "Virtual",
+    time: "1:00 PM – 2:30 PM",
+    image: "",
+    brandColor: "#0078D4",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/crayonXmicrosoft1.png",
+  },
   {
     sponsor: "Crayon",
     title: "Built for Uncertainty: How IT Leaders Keep the Business Running",
