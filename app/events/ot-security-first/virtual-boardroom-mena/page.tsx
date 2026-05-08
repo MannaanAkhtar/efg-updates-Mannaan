@@ -252,6 +252,24 @@ const OTVB_SPEAKERS = [
     org: "Global Innovation & Digital Engineering",
     photo: `${S3}/Speakers-photos/Manish_Kumar.png`,
   },
+  {
+    name: "Yahya Alazri",
+    title: "Expert",
+    org: "Oman National CERT",
+    photo: `${S3}/Speakers-photos/yahya_alazn.png`,
+  },
+  {
+    name: "Nicholas Jones",
+    title: "EMEIA Cybersecurity Oil & Gas Lead",
+    org: "EY",
+    photo: `${S3}/Speakers-photos/Nicholas_Jones.png`,
+  },
+  {
+    name: "Ahmed Al Bahdoor",
+    title: "Head of Cyber Security",
+    org: "Oman Airports Management Company",
+    photo: `${S3}/Speakers-photos/Ahmed_Al_Bahoor.png`,
+  },
 ];
 
 // ─── EVENT SPONSORS 2026 ────────────────────────────────────────────────────
