@@ -231,7 +231,7 @@ const CFK_SPONSORS_2026: { name: string; logo: string; url: string; tier: "strat
 ];
 
 // Kenya Advisory Board (key government & policy leaders from brochure)
-const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string | null; linkedin?: string }[] = [
+const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string | null; linkedin?: string; photoStyle?: React.CSSProperties }[] = [
   {
     name: "Colonel (Dr.) James Kimuyu",
     title: "Director",
@@ -313,7 +313,8 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     name: "Dr. Isabelle K",
     title: "Principal Officer | Frequency Spectrum Management | Standardisation and Innovation",
     org: "Communications Authority of Kenya (CA)",
-    photo: null,
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ISABELLE_KANDAGOR.png",
+    photoStyle: { objectPosition: "center 15%" },
     linkedin: "https://www.linkedin.com/in/dr-isabelle-k-459211142/",
   },
   {
@@ -2583,7 +2584,7 @@ function AdvisoryMobileMarquee() {
             {/* Photo */}
             <div style={{ height: 200, overflow: "hidden", position: "relative" }}>
               {member.photo ? (
-                <img src={member.photo} alt={member.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
+                <img src={member.photo} alt={member.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", ...member.photoStyle }} />
               ) : (
                 <div style={{ width: "100%", height: "100%", background: `linear-gradient(135deg, ${C}60, ${C}30)`, display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <span style={{ fontSize: 48, color: "rgba(255,255,255,0.15)" }}>👤</span>
@@ -2808,6 +2809,7 @@ function AdvisoryBoard() {
                       marginLeft: "-5%",
                       marginTop: "-5%",
                       transition: "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)",
+                      ...member.photoStyle,
                     }}
                   />
                 ) : (
