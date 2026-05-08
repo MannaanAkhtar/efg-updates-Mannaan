@@ -257,7 +257,7 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     name: "George Kisaka",
     title: "VP",
     org: "ISACA Kenya Chapter",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/George-Kisaka.jpeg",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/GeorgeKisaka.png",
     linkedin: "https://www.linkedin.com/in/gkisaka/?originalSubdomain=ke",
   },
   {
@@ -400,7 +400,7 @@ const SPEAKERS = [
     name: "George Kisaka",
     title: "Vice President",
     org: "ISACA Kenya Chapter",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/George-Kisaka.jpeg",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/GeorgeKisaka.png",
   },
   {
     name: "Rakesh Ravindran",
