@@ -81,8 +81,8 @@ export default function OTVirtualForumLayout({
             name: "OT Security in the Age of AI Threats, Virtual Forum MENA 2026",
             description:
               "A closed, senior-level virtual forum for OT security professionals across MENA's energy and utilities sector.",
-            startDate: "2026-05-19T14:00:00+04:00",
-            endDate: "2026-05-19T16:00:00+04:00",
+            startDate: "2026-05-19T11:00:00+04:00",
+            endDate: "2026-05-19T14:00:00+04:00",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode:
               "https://schema.org/OnlineEventAttendanceMode",
@@ -120,7 +120,7 @@ export default function OTVirtualForumLayout({
                 name: "When is the OT Security Virtual Forum MENA 2026?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "The forum takes place online on 19 May 2026 from 14:00 to 16:00 (GST). Verified registrants receive a private joining link before the session.",
+                  text: "The forum takes place online on 19 May 2026 from 11:00 to 14:00 (GST) — a 3-hour session. Verified registrants receive a private joining link before the session.",
                 },
               },
               {
@@ -162,7 +162,7 @@ export default function OTVirtualForumLayout({
       <EventFactBlock
         eventName="OT Security in the Age of AI Threats, Virtual Forum MENA 2026"
         series="OT Security First"
-        date="19 May 2026"
+        date="19 May 2026 (11:00–14:00 GST, 3-hour webinar)"
         city="MENA Region"
         country="Online"
         format="virtual"

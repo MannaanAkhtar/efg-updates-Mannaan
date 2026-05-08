@@ -384,7 +384,7 @@ function HeroSection() {
             {[
               { label: "19 May 2026", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
               { label: "Virtual · Live", icon: "M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" },
-              { label: "2 Hours", icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" },
+              { label: "3 Hours", icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" },
               { label: "100 Leaders", icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" },
             ].map((item) => (
               <div key={item.label} style={{ padding: "8px 18px", borderRadius: 50, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
@@ -842,7 +842,7 @@ function AboutForum() {
 
                 <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 18, color: "white", margin: "0 0 24px", letterSpacing: "-0.5px", position: "relative" }}>Event Details</h3>
                 {[
-                  { label: "Duration", value: "2 hours" },
+                  { label: "Duration", value: "3 hours" },
                   { label: "Format", value: "Virtual Live Broadcast" },
                   { label: "Audience", value: "100 OT Security Professionals" },
                   { label: "Panels", value: "3 x 20-minute sessions" },
@@ -1397,17 +1397,16 @@ function WhoWillBeInRoom() {
 const AGENDA_ITEMS: { time: string; segment: string; subtitle?: string; type: "opening" | "panel" | "sponsor" | "qa" | "raffle" | "closing"; confirmed?: boolean }[] = [
   { time: "11:00 - 11:10 AM", segment: "Welcome & Opening Remarks by UAE Cyber Security Council", type: "opening" },
   { time: "11:10 - 11:30 AM", segment: "Panel 01 | Securing Critical Infrastructure at a National Level: From Strategy to Operational Reality", type: "panel" },
-  { time: "11:30 - 11:40 AM", segment: "Awareness Presentation 1 — FlintX", subtitle: "AI in Critical Infrastructure SecOps: What's Actually Deployable Today", type: "sponsor", confirmed: true },
-  { time: "11:40 - 11:50 AM", segment: "Awareness Presentation 2 — Trellix", subtitle: "Reaction to Readiness: Building resilience for OT systems in 2026", type: "sponsor", confirmed: true },
-  { time: "11:50 - 12:10 PM", segment: "Panel 02 | Hidden OT Exposure Across Critical Infrastructure: Vendor Access, Unmanaged Connections & Shared Control Networks", type: "panel" },
-  { time: "12:10 - 12:20 PM", segment: "Awareness Presentation 3 — TxOne Networks", subtitle: "Protecting Unpatchable OT Systems: A Practical Framework for Resilience", type: "sponsor", confirmed: true },
-  { time: "12:20 - 12:30 PM", segment: "Awareness Presentation 4 — DarkTrace", subtitle: "Beyond Visibility, Driving Risk-Informed OT Defense in Converged Environments", type: "sponsor", confirmed: true },
-  { time: "12:30 - 12:50 PM", segment: "Panel 03 | When Disruption Is the Goal: How OT Attacks Are Evolving Across Critical Infrastructure and What Response Looks Like Now", type: "panel" },
-  { time: "12:50 - 01:00 PM", segment: "Awareness Presentation 5 — SecuriCIP", subtitle: "Vulnerability Management Inside OT Environments: Challenges and Solutions (SecuriLERT)", type: "sponsor", confirmed: true },
-  { time: "01:00 - 01:10 PM", segment: "Awareness Presentation 6 — Sponsor TBC", type: "sponsor" },
-  { time: "01:10 - 01:20 PM", segment: "Q & A", type: "qa" },
-  { time: "01:20 - 01:30 PM", segment: "Raffle", type: "raffle" },
-  { time: "01:30 - 01:40 PM", segment: "Closing Remarks", type: "closing" },
+  { time: "11:30 - 11:45 AM", segment: "Awareness Presentation 1 — FlintX", subtitle: "AI in Critical Infrastructure SecOps: What's Actually Deployable Today (Tech Talk)", type: "sponsor", confirmed: true },
+  { time: "11:45 - 12:00 PM", segment: "Awareness Presentation 2 — Trellix", subtitle: "Reaction to Readiness: Building Resilience for OT Systems in 2026 (Tech Talk)", type: "sponsor", confirmed: true },
+  { time: "12:00 - 12:20 PM", segment: "Panel 02 | Hidden OT Exposure Across Critical Infrastructure: Vendor Access, Unmanaged Connections & Shared Control Networks", type: "panel" },
+  { time: "12:20 - 12:35 PM", segment: "Awareness Presentation 3 — TXOne Networks", subtitle: "Protecting Unpatchable OT Systems: A Practical Framework for Resilience (Tech Talk)", type: "sponsor", confirmed: true },
+  { time: "12:35 - 12:50 PM", segment: "Awareness Presentation 4 — Darktrace", subtitle: "Beyond Visibility: Driving Risk-Informed OT Defense in Converged Environments (Tech Talk)", type: "sponsor", confirmed: true },
+  { time: "12:50 - 01:10 PM", segment: "Panel 03 | When Disruption Is the Goal: How OT Attacks Are Evolving Across Critical Infrastructure and What Response Looks Like Now", type: "panel" },
+  { time: "01:10 - 01:25 PM", segment: "Awareness Presentation 5 — SecuriCIP", subtitle: "Vulnerability Management Inside OT Environments: Challenges and Solutions (SecuriLERT) (Tech Talk)", type: "sponsor", confirmed: true },
+  { time: "01:25 - 01:40 PM", segment: "Awareness Presentation 6 — Sponsor TBC", subtitle: "Tech Talk", type: "sponsor" },
+  { time: "01:40 - 01:50 PM", segment: "Live Q & A Session", type: "qa" },
+  { time: "01:50 - 02:00 PM", segment: "Raffle Draw & Closing Remarks", type: "raffle" },
 ];
 
 const AGENDA_TYPE_COLORS: Record<string, { color: string; rgb: string }> = {
