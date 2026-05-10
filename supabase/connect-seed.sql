@@ -106,19 +106,9 @@ insert into connect_sponsorships (id, organization_id, event_id, tier, contract_
     'eee00000-0000-0000-0000-000000000001'::uuid,
     'supporting', 18000, '2026-03-22', 'active', 'Supporting partner.');
 
--- Pipeline-stage sponsorships to demonstrate the multi-event Darktrace view
--- (clearly marked as draft so EFG stakeholders see the "in negotiation" state).
-insert into connect_sponsorships (id, organization_id, event_id, tier, contract_value_usd, signed_at, status, notes) values
-  ('5500a000-0000-0000-0000-000000000008'::uuid,
-    '22222222-0000-0000-0000-000000000003'::uuid,  -- Darktrace
-    'eee00000-0000-0000-0000-000000000010'::uuid,  -- OT Security First Jubail 2026
-    'gold',     null, null, 'draft',
-    'Sponsorship in negotiation — proposal sent 2 May 2026, response expected this week.'),
-  ('5500a000-0000-0000-0000-000000000009'::uuid,
-    '22222222-0000-0000-0000-000000000003'::uuid,  -- Darktrace
-    'eee00000-0000-0000-0000-000000000006'::uuid,  -- Johannesburg
-    'silver',   null, null, 'draft',
-    'Africa-edition sponsorship request from Darktrace UK&I — under EFG account-management review.');
+-- (Fictional pipeline-stage Darktrace sponsorships removed — Darktrace
+--  currently sponsors only OT Security First Virtual Boardroom MENA. The
+--  cross-event intelligence card surfaces Jubail as a recommended next.)
 
 -- ─── DELIVERABLES (Darktrace × OT VB MENA — ~50% complete, event in 8 days) ─
 insert into connect_deliverables (sponsorship_id, title, description, due_date, status, sort_order) values
@@ -164,7 +154,7 @@ insert into connect_intelligence_signals (organization_id, type, headline, body,
   ('22222222-0000-0000-0000-000000000003'::uuid,
     'cross_event_match',
     'OT Security First Jubail matches your ICP — sponsorship is open',
-    'Jubail (7 Oct 2026) is Saudi industrial heartland with 60% Energy / Petrochem audience expected. EFG has Gold tier still available — your draft proposal is awaiting review.',
+    'Jubail (7 Oct 2026) is Saudi industrial heartland with 60% Energy / Petrochem audience expected. EFG has Gold tier still available — speak with your EFG account manager to explore.',
     '{"event_id":"eee00000-0000-0000-0000-000000000010","match_score":0.82,"available_tier":"gold"}'::jsonb);
 
 -- ─── DONE ───────────────────────────────────────────────────────────────────
