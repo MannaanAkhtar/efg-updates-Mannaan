@@ -113,6 +113,7 @@ const organizationJsonLd = {
   sameAs: [
     "https://www.linkedin.com/company/events-first-group",
     "https://x.com/eventsfirstgrp",
+    "https://www.youtube.com/@EventsFirstGroup-fe8rq",
   ],
   contactPoint: {
     "@type": "ContactPoint",
