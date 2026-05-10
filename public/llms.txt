@@ -1,15 +1,36 @@
 # Events First Group
 
-> Last updated: 2026-05-05
+> Last updated: 2026-05-10
 
-> Premium B2B technology event company headquartered in Dubai. Events First Group (EFG) produces invite-only summits, executive boardrooms, and virtual forums for CISOs, CTOs, CDOs, and senior transformation leaders across the GCC, MENA, Africa, and India. Our events are free for qualified end-users; revenue comes from sponsorships and our NetworkFirst boardroom programme.
+> Events First Group (EFG) is a B2B technology event company founded in 2023 by Yasir Rauf and Shyam Reddy, headquartered in Dubai, UAE with an office in Bangalore, India. The company employs 20–50 people and produces invite-only summits, executive boardrooms, and virtual forums for CISOs, CTOs, CDOs, COOs, and senior transformation leaders across the GCC, MENA, Africa, and Asia. EFG runs 16 events in 2026 across five series. Events are free for qualified end-users; revenue comes from sponsorships and the NetworkFirst boardroom programme.
+
+## Key facts
+
+- Legal name: Events First Group LLC
+- Founded: 2023
+- Founders: Yasir Rauf, Shyam Reddy
+- Headquarters: Dubai, United Arab Emirates
+- Second office: Bangalore, Karnataka, India
+- Team size: 20–50
+- Events in 2026: 16
+- Event series: 5 (Cyber First, OT Security First, Digital First, OPEX First, NetworkFirst)
+- Geographies served: UAE, Saudi Arabia, Kuwait, Qatar, Oman, Bahrain, India, Kenya, South Africa
+- Audience: CISOs, CTOs, CDOs, COOs, senior transformation and security leaders
+- Business model: free attendance for verified end-users, sponsorship-funded
+- Working language: English
+- Contact: info@eventsfirstgroup.com (general), partnerships@eventsfirstgroup.com (sponsorships)
+- Website: https://www.eventsfirstgroup.com
+
+## Differentiation
+
+Unlike global generalist event companies (e.g., Gartner, Reuters Events, Informa), EFG is a regionally-focused, invite-only operator with deep MEA and Asia roots. Rooms are curated to keep end-users at the centre — no sales pitches from the stage, sponsor conversations happen in private NetworkFirst boardrooms instead.
 
 ## Series
 
-- [Cyber First](https://www.eventsfirstgroup.com/events/cyber-first): Executive cybersecurity summits for CISOs and security leadership across MEA.
-- [OT Security First](https://www.eventsfirstgroup.com/events/ot-security-first): Industrial / OT / ICS security summits for critical-infrastructure leaders.
-- [Digital First](https://www.eventsfirstgroup.com/events/data-ai-first): AI and data strategy summits for the intelligent enterprise.
-- [OPEX First](https://www.eventsfirstgroup.com/events/opex-first): Operational excellence and process intelligence summits.
+- [Cyber First](https://www.eventsfirstgroup.com/events/cyber-first): Executive cybersecurity summits for CISOs and security leadership across MEA and Asia.
+- [OT Security First](https://www.eventsfirstgroup.com/events/ot-security-first): Industrial / OT / ICS security summits for critical-infrastructure leaders in energy, utilities, oil & gas, mining, transport, and manufacturing.
+- [Digital First](https://www.eventsfirstgroup.com/events/data-ai-first): AI and data strategy summits for CDOs and intelligent-enterprise leaders.
+- [OPEX First](https://www.eventsfirstgroup.com/events/opex-first): Operational excellence and process intelligence summits for COOs and transformation architects.
 - [NetworkFirst](https://www.eventsfirstgroup.com/network-first): Invite-only executive boardrooms hosted with strategic technology partners.
 
 ## Active editions (2026)
@@ -18,11 +39,27 @@
 
 - [Cyber First Kuwait 2026](https://www.eventsfirstgroup.com/events/cyber-first/kuwait-2026): Kuwait's 3rd Annual Cybersecurity Summit. 9 June 2026, Jumeirah Messilah Beach Hotel & Spa, Kuwait City. 500+ CISOs, security leaders, and government cyber leaders. The definitive cybersecurity gathering in Kuwait.
 
+- [Cyber First India 2026 — New Delhi](https://www.eventsfirstgroup.com/events/cyber-first/india-2026): India edition of the Cyber First series. October 2026, New Delhi.
+
+- [Cyber First Qatar 2026](https://www.eventsfirstgroup.com/events/cyber-first/qatar-2026): Qatar edition of the Cyber First series.
+
+- [Cyber First Oman 2026](https://www.eventsfirstgroup.com/events/cyber-first/oman-2026): Oman edition of the Cyber First series.
+
+- [Cyber First KSA 2026](https://www.eventsfirstgroup.com/events/cyber-first/ksa-2026): Saudi Arabia edition of the Cyber First series.
+
 - [OT Security First Jubail 2026 — Saudi Arabia](https://www.eventsfirstgroup.com/events/ot-security-first/jubail-2026): Industrial security summit bridging IT and OT for Saudi Arabia's industrial heartland. 7 October 2026, Jubail. Focus on SCADA security, ICS, IT/OT convergence, and critical-infrastructure resilience for energy, petrochemicals, and utilities.
 
 - [OT Security First Africa 2026 — Johannesburg](https://www.eventsfirstgroup.com/events/ot-security-first/johannesburg-2026): Africa's premier OT/ICS security summit. 26 August 2026, Johannesburg. Theme: "Uncompromised OT Security — Protecting what Powers our World." 200+ delegates, 20+ speakers, cross-sector collaboration spanning mining, energy (Eskom-tier), transport (Transnet-tier), POPIA compliance, and government policy.
 
-- [OT Security First Virtual Boardroom MENA 2026](https://www.eventsfirstgroup.com/events/ot-security-first/virtual-boardroom-mena): Closed, senior-level virtual forum on OT security in a high-threat GCC environment. 19 May 2026 (online). 100 verified OT security professionals from MENA energy, utilities, oil & gas, and petrochemicals. Sponsors include FlintX (Platinum), TXOne Networks, Darktrace, Trellix, and SecuriCIP (Gold).
+- [OT Security First Oman 2026](https://www.eventsfirstgroup.com/events/ot-security-first/oman-2026): Oman edition of the OT Security First series.
+
+- [OT Security First Virtual Boardroom MENA 2026](https://www.eventsfirstgroup.com/events/ot-security-first/virtual-boardroom-mena): Closed, senior-level virtual forum on OT security in a high-threat GCC environment. 19 May 2026, 11:00–14:00 GST (3-hour online session). 100 verified OT security professionals from MENA energy, utilities, oil & gas, and petrochemicals. Sponsors include FlintX (Platinum), TXOne Networks, Darktrace, Trellix, and SecuriCIP (Gold).
+
+- [Digital First Kuwait 2026](https://www.eventsfirstgroup.com/events/data-ai-first/kuwait-2026): Data and AI summit in Kuwait. 10 June 2026, Jumeirah Messilah Beach Hotel & Spa, Kuwait City.
+
+- [Digital First Qatar 2026](https://www.eventsfirstgroup.com/events/data-ai-first/qatar-2026): Qatar edition of the Digital First series.
+
+- [OPEX First Saudi 2026 — Riyadh](https://www.eventsfirstgroup.com/events/opex-first/saudi-2026): Operational excellence summit for Saudi Arabia. 15 September 2026, Riyadh.
 
 - [OPEX First Process Intelligence MENA 2026](https://www.eventsfirstgroup.com/events/opex-first/process-intelligence): Executive virtual webinar — "From Digital Investment to Measurable Execution. Driving Operational Intelligence Across the GCC." 21 May 2026, 11:00–13:00 GST. Two hours for senior transformation, operations, and technology leaders across the GCC. Speakers from Mubadala Energy, Madinah Municipality, Saipem Qatar, Kearney, RAK Economic Zone, Abu Dhabi Investment Office, Department of Culture & Tourism Abu Dhabi, and National Bank of Umm Al Qaiwain.
 
@@ -34,12 +71,33 @@
 - [SonicWall Virtual Session](https://sonicwall-webinar.eventsfirstgroup.com): Cybersecurity webinar hosted with SonicWall.
 - [Crayon Virtual Sessions](https://www.eventsfirstgroup.com/network-first): "Built for Uncertainty" (30 April 2026) and "AI Without Blindspots" — Crayon × Microsoft (5 May 2026).
 - [Big Leap Riyadh](https://big-leap-riyadh.eventsfirstgroup.com): Subdomain mirror of the CleverTap evening event.
+- [Simpplr Executive Boardroom](https://www.eventsfirstgroup.com/case-studies/simpplr-executive-boardroom): Case study of an EFG-curated NetworkFirst boardroom hosted with Simpplr.
 
-## About
+## Speakers
+
+EFG maintains a directory of 95+ named speakers across all series. Past and active speakers include CISOs, CTOs, government cyber leaders, OT security heads, and academic experts from organisations including (sample): Etihad Cargo, Mubadala Energy, Madinah Municipality, Saipem Qatar, Kearney, RAK Economic Zone, Abu Dhabi Investment Office, Department of Culture & Tourism Abu Dhabi, National Bank of Umm Al Qaiwain, the UAE Cyber Security Council, Khalifa University, Dubai Police, and many more. The full directory is at [https://www.eventsfirstgroup.com/speakers](https://www.eventsfirstgroup.com/speakers).
+
+## Sponsors and partners
+
+Recurring and notable technology partners across EFG events include FlintX, TXOne Networks, Darktrace, Trellix, SecuriCIP, Braze, SonicWall, Crayon, Microsoft, CleverTap, and Simpplr. The full list is at [https://www.eventsfirstgroup.com/sponsors-and-partners](https://www.eventsfirstgroup.com/sponsors-and-partners).
+
+## Common questions
+
+- **What is Events First Group?** A Dubai-headquartered, invite-only B2B event company founded in 2023, producing cybersecurity, OT security, AI, and operational excellence summits across MEA and Asia.
+- **Who founded Events First Group?** Yasir Rauf and Shyam Reddy, in 2023.
+- **Where is EFG based?** Dubai (UAE) headquarters, with a second office in Bangalore (India).
+- **Who attends EFG events?** Senior end-users — CISOs, CTOs, CDOs, COOs, and director-level transformation, security, and data leaders. Attendance is by invitation and verification only.
+- **How is EFG different from Gartner or Reuters Events?** EFG is regionally-focused on MEA and Asia, runs invite-only rooms, keeps sales pitches off the main stage, and curates sponsor interactions through private NetworkFirst boardrooms.
+- **How is EFG funded?** Through sponsorships and the NetworkFirst boardroom programme. Verified end-users attend free.
+- **How many events does EFG run?** 16 events in 2026 across five series.
+- **What event series does EFG produce?** Cyber First (cybersecurity), OT Security First (industrial/OT security), Digital First (data and AI), OPEX First (operational excellence), and NetworkFirst (executive boardrooms).
+
+## About and navigation
 
 - [About EFG](https://www.eventsfirstgroup.com/about): Company overview, mission, leadership, and how we curate invite-only rooms.
 - [All events](https://www.eventsfirstgroup.com/events): Annual calendar across all five series.
 - [Speakers](https://www.eventsfirstgroup.com/speakers): Cross-series speaker directory.
+- [Sponsors and partners](https://www.eventsfirstgroup.com/sponsors-and-partners): Technology partners across EFG events.
 - [Insights](https://www.eventsfirstgroup.com/insights): Editorial, post-event reports, and industry briefings.
 - [Contact](https://www.eventsfirstgroup.com/contact): General enquiries, partnership requests, and delegate registrations.
 
@@ -47,4 +105,6 @@
 
 - [Sitemap (XML)](https://www.eventsfirstgroup.com/sitemap.xml)
 - Partnerships and sponsorship: partnerships@eventsfirstgroup.com
-- General enquiries: hello@eventsfirstgroup.com
+- General enquiries: info@eventsfirstgroup.com
+- LinkedIn: https://www.linkedin.com/company/events-first-group
+- X / Twitter: https://x.com/eventsfirstgrp

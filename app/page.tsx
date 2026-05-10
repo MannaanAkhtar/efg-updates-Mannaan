@@ -73,13 +73,43 @@ const organizationJsonLd = {
   url: BASE_URL,
   logo: `${BASE_URL}/events-first-group_logo_alt.svg`,
   description:
-    "B2B technology event company producing invite-only cybersecurity, OT security, AI, and operational excellence summits for CISOs, CTOs, CDOs, and senior transformation leaders across the Middle East, Africa, and Asia.",
-  foundingDate: "2018",
+    "B2B technology event company headquartered in Dubai with an office in Bangalore. Produces invite-only cybersecurity, OT security, AI, and operational excellence summits for CISOs, CTOs, CDOs, and senior transformation leaders across the Middle East, Africa, and Asia.",
+  foundingDate: "2023",
+  founders: [
+    { "@type": "Person", name: "Yasir Rauf" },
+    { "@type": "Person", name: "Shyam Reddy" },
+  ],
+  numberOfEmployees: {
+    "@type": "QuantitativeValue",
+    minValue: 20,
+    maxValue: 50,
+  },
   address: {
     "@type": "PostalAddress",
     addressLocality: "Dubai",
     addressCountry: "AE",
   },
+  location: [
+    {
+      "@type": "Place",
+      name: "Events First Group HQ — Dubai",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Dubai",
+        addressCountry: "AE",
+      },
+    },
+    {
+      "@type": "Place",
+      name: "Events First Group — Bangalore",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Bangalore",
+        addressRegion: "Karnataka",
+        addressCountry: "IN",
+      },
+    },
+  ],
   sameAs: [
     "https://www.linkedin.com/company/events-first-group",
     "https://x.com/eventsfirstgrp",
