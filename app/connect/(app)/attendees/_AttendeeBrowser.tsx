@@ -30,6 +30,8 @@ interface Props {
   attendees: Row[];
 }
 
+const PAGE_SIZE = 20;
+
 export function AttendeeBrowser({ eventId, eventName, eventDate, attendees }: Props) {
   const [query, setQuery] = useState("");
   const [industries, setIndustries] = useState<string[]>([]);
@@ -38,6 +40,7 @@ export function AttendeeBrowser({ eventId, eventName, eventDate, attendees }: Pr
   const [savedViews, setSavedViews] = useState<SavedView[]>([]);
   const [showSavePrompt, setShowSavePrompt] = useState(false);
   const [newViewLabel, setNewViewLabel] = useState("");
+  const [page, setPage] = useState(1);
 
   // Persist saved views in localStorage, scoped per event.
   const STORAGE_KEY = `connect.savedViews.${eventId}`;
@@ -92,6 +95,17 @@ export function AttendeeBrowser({ eventId, eventName, eventDate, attendees }: Pr
       return true;
     });
   }, [attendees, query, industries, countries, seniorities]);
+
+  // Reset to page 1 whenever filters change or filtered length changes
+  useEffect(() => {
+    setPage(1);
+  }, [query, industries, countries, seniorities]);
+
+  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const safePage = Math.min(page, pageCount);
+  const pageStart = (safePage - 1) * PAGE_SIZE;
+  const pageEnd = Math.min(pageStart + PAGE_SIZE, filtered.length);
+  const paged = filtered.slice(pageStart, pageEnd);
 
   function toggleFromList<T>(arr: T[], setArr: (v: T[]) => void, value: T) {
     if (arr.includes(value)) setArr(arr.filter((x) => x !== value));
@@ -296,13 +310,13 @@ export function AttendeeBrowser({ eventId, eventName, eventDate, attendees }: Pr
               <tr className="border-b border-gray-border text-left text-[10.5px] uppercase tracking-[0.14em] text-white-muted">
                 <th className="px-5 py-3 font-medium">Attendee</th>
                 <th className="hidden px-5 py-3 font-medium md:table-cell">Company</th>
-                <th className="hidden px-5 py-3 font-medium lg:table-cell">Industry</th>
+                <th className="hidden px-5 py-3 font-medium md:table-cell">Industry</th>
                 <th className="hidden px-5 py-3 font-medium sm:table-cell">Country</th>
                 <th className="hidden px-5 py-3 font-medium md:table-cell">Seniority</th>
               </tr>
             </thead>
             <tbody>
-              {filtered.map((a) => (
+              {paged.map((a) => (
                 <tr key={a.id} className="border-b border-gray-border last:border-b-0">
                   <td className="px-5 py-3">
                     <div className="font-medium text-white">{a.name}</div>
@@ -311,7 +325,7 @@ export function AttendeeBrowser({ eventId, eventName, eventDate, attendees }: Pr
                   <td className="hidden px-5 py-3 text-white-dim md:table-cell">
                     {a.company}
                   </td>
-                  <td className="hidden px-5 py-3 text-white-muted lg:table-cell">
+                  <td className="hidden px-5 py-3 text-white-muted md:table-cell">
                     {a.industry}
                   </td>
                   <td className="hidden px-5 py-3 text-white-muted sm:table-cell">
@@ -326,6 +340,37 @@ export function AttendeeBrowser({ eventId, eventName, eventDate, attendees }: Pr
           </table>
         )}
       </div>
+
+      {/* Pagination */}
+      {filtered.length > PAGE_SIZE && (
+        <div className="flex items-center justify-between pt-1">
+          <div className="text-[12px] text-white-muted">
+            Showing <span className="text-white-dim">{pageStart + 1}–{pageEnd}</span> of{" "}
+            <span className="text-white-dim">{filtered.length}</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={safePage === 1}
+              className="rounded-md border border-gray-border bg-black-card px-3 py-1.5 text-[12px] text-white-dim transition hover:border-gray-border-hover hover:text-white disabled:opacity-30 disabled:hover:border-gray-border disabled:hover:text-white-dim"
+            >
+              Previous
+            </button>
+            <span className="px-2 text-[12px] text-white-muted tabular-nums">
+              Page {safePage} of {pageCount}
+            </span>
+            <button
+              type="button"
+              onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
+              disabled={safePage === pageCount}
+              className="rounded-md border border-gray-border bg-black-card px-3 py-1.5 text-[12px] text-white-dim transition hover:border-gray-border-hover hover:text-white disabled:opacity-30 disabled:hover:border-gray-border disabled:hover:text-white-dim"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
