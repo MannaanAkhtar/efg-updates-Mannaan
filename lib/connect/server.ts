@@ -257,21 +257,26 @@ export async function ensureDemoUser(): Promise<{ email: string; password: strin
     });
   }
 
-  // 2. Ensure the profile exists.
-  const { data: existingProfile } = await admin
+  // 2. Always upsert the profile so it points to the current demo org —
+  //    handles stale state from earlier demos (e.g., previous run pointed
+  //    Sara at a different org).
+  const { error: profileErr } = await admin
     .from("connect_user_profiles")
-    .select("user_id")
-    .eq("user_id", userId)
-    .maybeSingle();
+    .upsert(
+      {
+        user_id: userId,
+        organization_id: DEMO_ORG_ID,
+        full_name: "Sara Al-Qahtani",
+        job_title: "Field Marketing Lead, MENA",
+        role: "owner",
+      },
+      { onConflict: "user_id" },
+    );
 
-  if (!existingProfile) {
-    await admin.from("connect_user_profiles").insert({
-      user_id: userId,
-      organization_id: DEMO_ORG_ID,
-      full_name: "Sara Al-Qahtani",
-      job_title: "Field Marketing Lead, MENA",
-      role: "owner",
-    });
+  if (profileErr) {
+    throw new Error(
+      `Could not write demo profile: ${profileErr.message}. Check that the Darktrace organisation row exists in connect_organizations.`,
+    );
   }
 
   return { email: DEMO_USER_EMAIL, password: DEMO_USER_PASSWORD };

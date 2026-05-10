@@ -15,13 +15,15 @@ export default function ConditionalNavigation() {
     }
   }, []);
 
-  // Don't show navigation on admin, standalone client pages, or blaze-webinar subdomain
+  // Don't show navigation on admin, standalone client pages, the Connect
+  // sponsor portal, or branded subdomains.
   if (
     pathname?.startsWith("/admin") ||
     pathname?.startsWith("/braze") ||
     pathname?.startsWith("/sonicwall") ||
     pathname?.startsWith("/clevertap") ||
     pathname?.startsWith("/bigleap") ||
+    pathname?.startsWith("/connect") ||
     isSubdomain
   ) {
     return null;

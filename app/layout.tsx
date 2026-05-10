@@ -4,7 +4,7 @@ import "./globals.css";
 import SmoothScrollProvider from "@/components/effects/SmoothScrollProvider";
 import CursorGlow from "@/components/effects/CursorGlow";
 import ConditionalNavigation from "@/components/ui/ConditionalNavigation";
-import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import ConditionalWhatsApp from "@/components/ui/ConditionalWhatsApp";
 
 // Plus Jakarta Sans, The voice that commands the room
 // Geometric, clean, commanding, pure precision at display sizes
@@ -165,7 +165,7 @@ export default function RootLayout({
           <CursorGlow />
           <ConditionalNavigation />
           <main id="main-content" style={{ position: "relative" }}>{children}</main>
-          <WhatsAppButton />
+          <ConditionalWhatsApp />
         </SmoothScrollProvider>
       </body>
     </html>
