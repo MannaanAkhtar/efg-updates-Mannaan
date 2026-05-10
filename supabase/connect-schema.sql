@@ -107,12 +107,15 @@ create table if not exists connect_attendees (
   seniority             text check (seniority in ('c_suite', 'svp_evp', 'vp', 'director', 'head', 'manager', 'other')),
   registered_at         timestamptz default now(),
   checked_in_at         timestamptz,
-  consent_share_with_sponsors boolean default true
+  consent_share_with_sponsors boolean default true,
+  approved_at           timestamptz,
+  approved_by           uuid
 );
 
 create index if not exists idx_connect_attendees_event on connect_attendees(event_id);
 create index if not exists idx_connect_attendees_country on connect_attendees(event_id, country);
 create index if not exists idx_connect_attendees_industry on connect_attendees(event_id, industry);
+create index if not exists idx_connect_attendees_approved on connect_attendees(event_id, approved_at);
 
 -- ─── LEADS (captured at sponsor booth post-event) ───────────────────────────
 create table if not exists connect_leads (

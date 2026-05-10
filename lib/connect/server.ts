@@ -166,6 +166,8 @@ export async function getSponsorshipDetail(
   return sponsorship;
 }
 
+// Sponsor-facing: only returns attendees the admin has explicitly approved
+// for sponsor visibility. Admin-side queries should use a separate helper.
 export async function listEventAttendees(eventId: string): Promise<Attendee[]> {
   const supabase = await createConnectServerClient();
   const { data, error } = await supabase
@@ -173,6 +175,7 @@ export async function listEventAttendees(eventId: string): Promise<Attendee[]> {
     .select("*")
     .eq("event_id", eventId)
     .eq("consent_share_with_sponsors", true)
+    .not("approved_at", "is", null)
     .order("registered_at", { ascending: false });
   if (error) {
     console.error("listEventAttendees error:", error);
