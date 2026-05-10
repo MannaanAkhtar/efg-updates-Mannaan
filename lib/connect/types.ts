@@ -9,7 +9,7 @@ export type Series =
 
 export type SponsorshipStatus = "draft" | "confirmed" | "active" | "completed" | "cancelled";
 export type EventStatus = "upcoming" | "active" | "completed" | "cancelled";
-export type Tier = "platinum" | "gold" | "silver" | "bronze" | "associate";
+export type Tier = "platinum" | "gold" | "silver" | "bronze" | "associate" | "supporting";
 export type DeliverableStatus = "not_started" | "in_progress" | "complete" | "overdue";
 export type Seniority = "c_suite" | "svp_evp" | "vp" | "director" | "head" | "manager" | "other";
 export type IntentLevel = "hot" | "warm" | "cold";
@@ -159,6 +159,7 @@ export const TIER_LABEL: Record<Tier, string> = {
   silver: "Silver",
   bronze: "Bronze",
   associate: "Associate",
+  supporting: "Supporting",
 };
 
 export const SENIORITY_LABEL: Record<Seniority, string> = {

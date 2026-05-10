@@ -219,7 +219,8 @@ export async function listOrgSignals(orgId: string): Promise<IntelligenceSignal[
 export const DEMO_USER_EMAIL = "demo.sara@efgconnect.local";
 export const DEMO_USER_PASSWORD =
   process.env.CONNECT_DEMO_PASSWORD ?? "EFGConnect2026!";
-const PALO_ALTO_ORG_ID = "22222222-0000-0000-0000-000000000001";
+// Darktrace MEA — real Gold sponsor of OT Security First Virtual Boardroom MENA.
+const DEMO_ORG_ID = "22222222-0000-0000-0000-000000000003";
 
 export async function ensureDemoUser(): Promise<{ email: string; password: string }> {
   const admin = createConnectAdminClient();
@@ -242,6 +243,8 @@ export async function ensureDemoUser(): Promise<{ email: string; password: strin
         demo: true,
       },
     });
+    // Variable rebound so the rest of the function works against the new user.
+    void created;
     if (createErr || !created.user) {
       throw new Error(`Failed to create demo user: ${createErr?.message ?? "unknown"}`);
     }
@@ -264,7 +267,7 @@ export async function ensureDemoUser(): Promise<{ email: string; password: strin
   if (!existingProfile) {
     await admin.from("connect_user_profiles").insert({
       user_id: userId,
-      organization_id: PALO_ALTO_ORG_ID,
+      organization_id: DEMO_ORG_ID,
       full_name: "Sara Al-Qahtani",
       job_title: "Field Marketing Lead, MENA",
       role: "owner",

@@ -58,7 +58,7 @@ export function DemoLoginButton() {
         className="w-full rounded-lg border border-gray-border-hover bg-black-card px-4 py-3 text-[13px] font-medium text-white transition-all hover:border-orange/40 hover:bg-black-card-hover disabled:opacity-50"
         style={{ fontFamily: "var(--font-outfit)" }}
       >
-        {pending ? "Signing in..." : "Sign in as Sara → Palo Alto MENA"}
+        {pending ? "Signing in..." : "Sign in as Sara → Darktrace MEA"}
       </button>
       {error && (
         <div className="mt-3 rounded-lg border border-red-500/20 bg-red-500/5 px-3 py-2 text-[12px] text-red-300">

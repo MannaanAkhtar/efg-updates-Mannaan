@@ -116,8 +116,9 @@ export default async function LoginPage({
           className="mb-4 text-[12.5px] leading-relaxed text-white-dim"
           style={{ fontFamily: "var(--font-outfit)" }}
         >
-          For tomorrow&apos;s walkthrough — sign in instantly as Sara
-          Al-Qahtani, Field Marketing at Palo Alto Networks MENA.
+          Preview the sponsor experience — sign in as Sara Al-Qahtani, Field
+          Marketing at Darktrace MEA, who are sponsoring OT Security First
+          Virtual Boardroom MENA on 19 May 2026.
         </p>
         <DemoLoginButton />
       </div>

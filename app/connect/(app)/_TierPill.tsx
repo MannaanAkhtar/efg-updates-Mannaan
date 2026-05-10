@@ -26,6 +26,11 @@ const STYLES: Record<Tier, { bg: string; border: string; text: string }> = {
     border: "rgba(255,255,255,0.10)",
     text: "var(--white-dim)",
   },
+  supporting: {
+    bg: "rgba(255,255,255,0.03)",
+    border: "rgba(255,255,255,0.12)",
+    text: "var(--white-dim)",
+  },
 };
 
 export function TierPill({ tier, size = "sm" }: { tier: Tier; size?: "sm" | "md" }) {
