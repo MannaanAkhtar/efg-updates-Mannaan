@@ -6,6 +6,13 @@
 -- SPONSORS, SPONSORS_PLATINUM, etc.). Extracted via repo scan and normalised
 -- here into connect_organizations + connect_sponsorships.
 --
+-- Policy (per Ateeq): only ingest sponsors that are EXPLICITLY listed with a
+-- sponsor title on the event page (e.g. OT VB MENA's OTVB_SPONSORS_2026,
+-- Process Intelligence's SPONSORS_PLATINUM). MARQUEE / "Our Partners" rows
+-- are historical or series-wide — they're NOT edition sponsorships and are
+-- skipped. "Past Series Sponsors" blocks (e.g. OPEX Saudi 2026) are also
+-- skipped.
+--
 -- Tier normalisation (across the three different vocabularies):
 --   platinum            → platinum
 --   gold / strategic    → gold
@@ -150,68 +157,16 @@ with sponsorship_data (org_slug, event_id, tier) as (values
   ('cyber-world',                     'eee00000-0000-0000-0000-000000000011'::uuid, 'supporting'),
   ('cyber-security-council',          'eee00000-0000-0000-0000-000000000011'::uuid, 'supporting'),
 
-  -- ── opex-first/saudi-2026 ──────────────────────────────────────────────
-  ('rics',                            'eee00000-0000-0000-0000-000000000007'::uuid, 'supporting'),
-  ('iqs',                             'eee00000-0000-0000-0000-000000000007'::uuid, 'supporting'),
-  ('celonis',                         'eee00000-0000-0000-0000-000000000007'::uuid, 'supporting'),
-  ('profit-co',                       'eee00000-0000-0000-0000-000000000007'::uuid, 'supporting'),
-  ('botteq',                          'eee00000-0000-0000-0000-000000000007'::uuid, 'supporting'),
-  ('re-sand',                         'eee00000-0000-0000-0000-000000000007'::uuid, 'supporting'),
-  ('aris',                            'eee00000-0000-0000-0000-000000000007'::uuid, 'supporting'),
-  ('sap-signavio',                    'eee00000-0000-0000-0000-000000000007'::uuid, 'supporting'),
-  ('kafaa',                           'eee00000-0000-0000-0000-000000000007'::uuid, 'supporting'),
-  ('minds-advisory',                  'eee00000-0000-0000-0000-000000000007'::uuid, 'supporting'),
-  ('agile-consulting',                'eee00000-0000-0000-0000-000000000007'::uuid, 'supporting'),
-  ('israr',                           'eee00000-0000-0000-0000-000000000007'::uuid, 'supporting'),
-  ('moxo',                            'eee00000-0000-0000-0000-000000000007'::uuid, 'supporting'),
-  ('ss-c-blue-prism',                 'eee00000-0000-0000-0000-000000000007'::uuid, 'supporting'),
-  ('abu-dhabi-university',            'eee00000-0000-0000-0000-000000000007'::uuid, 'supporting'),
-  ('ey',                              'eee00000-0000-0000-0000-000000000007'::uuid, 'supporting'),
-
   -- ── opex-first/process-intelligence (PILOT EVENT for ARIS) ────────────
-  ('aris',                            'eee00000-0000-0000-0000-000000000002'::uuid, 'platinum'),
+  -- SPONSORS_PLATINUM array — explicit Platinum sponsor block.
+  ('aris',                            'eee00000-0000-0000-0000-000000000002'::uuid, 'platinum')
 
-  -- ── data-ai-first/kuwait-2026 (Digital First Kuwait) ──────────────────
-  ('abu-dhabi-university',            'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('acronis',                         'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('adgm-academy',                    'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('akamai',                          'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('amiviz',                          'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('bitdefender',                     'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('celonis',                         'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('claroty',                         'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('cpx',                             'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('dragos',                          'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('ey',                              'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('fortinet',                        'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('gbm',                             'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('google-cloud-security',           'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('group-ib',                        'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('kaspersky',                       'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('manageengine',                    'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('palo-alto-networks',              'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('sentinelone',                     'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('sonicwall',                       'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('anomali',                         'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('beacon-red',                      'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('cerebra',                         'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('corelight',                       'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('cyberknight',                     'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('deepinfo',                        'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('dts-solutions',                   'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('ec-council',                      'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('gafai',                           'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('gorilla-technology',              'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('keysight-technologies',           'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('nozomi-networks',                 'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('opswat',                          'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('pentera',                         'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('secureworks',                     'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('securonix',                       'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('tenable',                         'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('wallix',                          'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('xage',                            'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting'),
-  ('yokogawa',                        'eee00000-0000-0000-0000-000000000004'::uuid, 'supporting')
+  -- NOTE: OPEX Saudi 2026 and Digital First Kuwait 2026 are intentionally
+  -- omitted. OPEX Saudi's array is labelled "Past Series Sponsors" — not
+  -- current edition sponsorships. Digital First Kuwait's "Our Partners"
+  -- marquee rows are series-wide affiliates, not edition sponsors.
+  -- Per Ateeq: only ingest sponsors that the page explicitly titles as
+  -- sponsors with a tier (like OT VB MENA and Process Intelligence do).
 )
 insert into connect_sponsorships (organization_id, event_id, tier, status)
 select o.id, sd.event_id, sd.tier, 'active'
