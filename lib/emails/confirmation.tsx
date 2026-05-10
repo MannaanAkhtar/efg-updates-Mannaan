@@ -148,7 +148,7 @@ export const ConfirmationEmail: React.FC<ConfirmationEmailProps> = ({
                           Hosted by Events First Group • Powered by {sponsorName}
                         </p>
                         <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: 11, margin: 0 }}>
-                          <a href="https://eventsfirstgroup.com" style={{ color: 'rgba(255,255,255,0.3)', textDecoration: 'none' }}>eventsfirstgroup.com</a>
+                          <a href="https://www.eventsfirstgroup.com" style={{ color: 'rgba(255,255,255,0.3)', textDecoration: 'none' }}>eventsfirstgroup.com</a>
                         </p>
                       </td>
                     </tr>

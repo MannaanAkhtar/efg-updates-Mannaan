@@ -8,7 +8,7 @@ const openSans = Open_Sans({
   display: "swap",
 });
 
-const BASE_URL = "https://eventsfirstgroup.com";
+const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/clevertap2`;
 // TODO: replace with a designed 1200×630 share card once available.
 // CleverTap brand logo used as best available event-specific asset for now.

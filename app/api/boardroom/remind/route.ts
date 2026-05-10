@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
     const errors: string[] = [];
 
     for (const reg of registrations) {
-      const joinUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://eventsfirstgroup.com"}/boardroom/${roomName}?token=${reg.join_token}`;
+      const joinUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.eventsfirstgroup.com"}/boardroom/${roomName}?token=${reg.join_token}`;
 
       try {
         await resend.emails.send({
@@ -283,7 +283,7 @@ function generateReminderEmail(params: ReminderEmailParams): string {
                 Hosted by Events First Group • Powered by ${sponsorName}
               </p>
               <p style="color: rgba(255,255,255,0.2); font-size: 11px; margin: 0;">
-                <a href="https://eventsfirstgroup.com" style="color: rgba(255,255,255,0.3); text-decoration: none;">eventsfirstgroup.com</a>
+                <a href="https://www.eventsfirstgroup.com" style="color: rgba(255,255,255,0.3); text-decoration: none;">eventsfirstgroup.com</a>
               </p>
             </td>
           </tr>

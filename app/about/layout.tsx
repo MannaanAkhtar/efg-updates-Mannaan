@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
 
-const BASE_URL = "https://eventsfirstgroup.com";
+const BASE_URL = "https://www.eventsfirstgroup.com";
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/team-fun-1.jpg";
 
 export const metadata: Metadata = {

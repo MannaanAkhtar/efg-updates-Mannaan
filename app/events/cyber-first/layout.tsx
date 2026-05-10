@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
 import { SeriesFactBlock } from "@/components/seo/FactBlock";
 
-const BASE_URL = "https://eventsfirstgroup.com";
+const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/cyber-first`;
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0030.JPG";
 
 export const metadata: Metadata = {
-  title: "Cyber First | CISO Summit Dubai & Middle East | Cybersecurity Conference",
+  title: "Cyber First | CISO & Cybersecurity Summit Series MEA",
   description:
     "The premier CISO summit series across Dubai, Kuwait, Saudi Arabia, India and Kenya. For CISOs and security leaders. Register or sponsor now.",
   keywords: [

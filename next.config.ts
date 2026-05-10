@@ -34,6 +34,16 @@ const nextConfig: NextConfig = {
       { source: "/general-trading/:path*", destination: "/", permanent: true },
       { source: "/it-products/:path*", destination: "/", permanent: true },
       { source: "/technical-service/:path*", destination: "/", permanent: true },
+      // Legacy WordPress URLs surfaced by GSC as 404s
+      { source: "/home", destination: "/", permanent: true },
+      { source: "/home/", destination: "/", permanent: true },
+      { source: "/privacy-policy", destination: "/privacy", permanent: true },
+      { source: "/privacy-policy/", destination: "/privacy", permanent: true },
+      { source: "/testimonials/:path*", destination: "/", permanent: true },
+      { source: "/testimonials_cat/:path*", destination: "/", permanent: true },
+      { source: "/service/:path*", destination: "/about", permanent: true },
+      { source: "/service_cat/:path*", destination: "/about", permanent: true },
+      { source: "/event_category/:path*", destination: "/events", permanent: true },
     ];
   },
   async headers() {

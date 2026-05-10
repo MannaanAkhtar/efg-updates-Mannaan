@@ -24,7 +24,7 @@ function EventHighlightsSchema({ videos }: { videos: { id: string; title: string
         publisher: {
           "@type": "Organization",
           name: "Events First Group",
-          url: "https://eventsfirstgroup.com",
+          url: "https://www.eventsfirstgroup.com",
         },
       },
     })),

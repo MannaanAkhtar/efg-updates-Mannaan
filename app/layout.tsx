@@ -36,7 +36,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://eventsfirstgroup.com"),
+  metadataBase: new URL("https://www.eventsfirstgroup.com"),
   title: {
     default: "Events First Group | Cybersecurity & Technology Summits, Middle East, Africa & Asia",
     template: "%s | Events First Group",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     title: "Events First Group | Cybersecurity & Technology Summits, Middle East, Africa & Asia",
     description:
       "Executive cybersecurity, OT security, AI, and operational excellence summits across the Middle East, Africa & Asia. Invite-only events for CISOs, CDOs & enterprise leaders.",
-    url: "https://eventsfirstgroup.com",
+    url: "https://www.eventsfirstgroup.com",
     siteName: "Events First Group",
     images: [
       {
@@ -92,12 +92,12 @@ const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Events First Group",
-  url: "https://eventsfirstgroup.com",
+  url: "https://www.eventsfirstgroup.com",
   potentialAction: {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: "https://eventsfirstgroup.com/insights?search={search_term_string}",
+      urlTemplate: "https://www.eventsfirstgroup.com/insights?search={search_term_string}",
     },
     "query-input": "required name=search_term_string",
   },
@@ -108,7 +108,7 @@ const organizationJsonLd = {
   "@type": "Organization",
   name: "Events First Group",
   alternateName: "EFG",
-  url: "https://eventsfirstgroup.com",
+  url: "https://www.eventsfirstgroup.com",
   logo: "https://efg-final.s3.eu-north-1.amazonaws.com/Events+First+logo+icon-01.svg",
   description:
     "Events First Group designs executive-grade technology summits across the Middle East, Africa, and Asia. Cyber First, OT Security First, Opex First, and Digital First.",

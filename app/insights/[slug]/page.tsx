@@ -1237,9 +1237,9 @@ export default function ArticleDetailPage() {
       />
       <BreadcrumbSchema
         items={[
-          { name: "Home", url: "https://eventsfirstgroup.com" },
-          { name: "Insights", url: "https://eventsfirstgroup.com/insights" },
-          { name: post.title, url: `https://eventsfirstgroup.com/insights/${slug}` },
+          { name: "Home", url: "https://www.eventsfirstgroup.com" },
+          { name: "Insights", url: "https://www.eventsfirstgroup.com/insights" },
+          { name: post.title, url: `https://www.eventsfirstgroup.com/insights/${slug}` },
         ]}
       />
 

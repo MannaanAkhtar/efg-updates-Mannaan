@@ -1141,7 +1141,7 @@ function CleverTapFooter() {
         <div style={{ height: 1, background: "rgba(0,0,0,0.06)", marginBottom: 12 }} />
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
           <p style={{ fontFamily: "var(--font-opensans)", fontSize: 11, color: CT_SLATE, margin: 0 }}>&copy; {new Date().getFullYear()} CleverTap. All rights reserved.</p>
-          <p style={{ fontFamily: "var(--font-opensans)", fontSize: 11, color: CT_SLATE, margin: 0 }}>Produced by <a href="https://eventsfirstgroup.com" target="_blank" rel="noopener noreferrer" style={{ color: CT_RED, textDecoration: "none", fontWeight: 500 }}>Events First Group</a></p>
+          <p style={{ fontFamily: "var(--font-opensans)", fontSize: 11, color: CT_SLATE, margin: 0 }}>Produced by <a href="https://www.eventsfirstgroup.com" target="_blank" rel="noopener noreferrer" style={{ color: CT_RED, textDecoration: "none", fontWeight: 500 }}>Events First Group</a></p>
         </div>
       </div>
     </footer>

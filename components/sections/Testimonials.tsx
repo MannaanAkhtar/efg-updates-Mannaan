@@ -22,7 +22,7 @@ function TestimonialVideoSchema({ videos }: { videos: { id: string; label: strin
         thumbnailUrl: `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`,
         embedUrl: `https://www.youtube.com/embed/${video.id}`,
         uploadDate: "2025-01-01",
-        publisher: { "@type": "Organization", name: "Events First Group", url: "https://eventsfirstgroup.com" },
+        publisher: { "@type": "Organization", name: "Events First Group", url: "https://www.eventsfirstgroup.com" },
       },
     })),
   };

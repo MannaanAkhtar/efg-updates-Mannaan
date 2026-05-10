@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
 import { EventFactBlock } from "@/components/seo/FactBlock";
 
-const BASE_URL = "https://eventsfirstgroup.com";
+const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/cyber-first/kenya-2026`;
 // TODO: replace with a designed 1200×630 share card (logo + event title + Nairobi/July 2026 + skyline)
 // once available. Today this uses the Nairobi cityscape hero asset, which previews far better on

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
 import { SeriesFactBlock } from "@/components/seo/FactBlock";
 
-const BASE_URL = "https://eventsfirstgroup.com";
+const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/opex-first`;
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0290.JPG";
 

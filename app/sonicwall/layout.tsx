@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const BASE_URL = "https://eventsfirstgroup.com";
+const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/sonicwall`;
 // TODO: replace with a designed 1200×630 share card once available.
 // Hero image used as the best available event-specific asset for now.

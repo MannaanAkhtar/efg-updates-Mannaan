@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
 import { EventFactBlock } from "@/components/seo/FactBlock";
 
-const BASE_URL = "https://eventsfirstgroup.com";
+const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/opex-first/saudi-2026`;
 // TODO: replace with a designed 1200×630 share card (event title + date + Riyadh + 2nd Edition badge)
 // once available, e.g. `${S3}/og/opex-first-saudi-2026-share.png`. Today this is the bare logo,

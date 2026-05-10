@@ -7,7 +7,6 @@ import { useParams } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import type { SpeakerWithEvents } from "@/lib/supabase/types";
 import { Footer } from "@/components/sections";
-import { PersonSchema, BreadcrumbSchema } from "@/lib/schemas";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CONSTANTS
@@ -556,28 +555,6 @@ export default function SpeakerDetailPage() {
 
   return (
     <div>
-      {/* JSON-LD Structured Data */}
-      {speaker && (
-        <>
-          <PersonSchema
-            name={speaker.name}
-            title={speaker.title || undefined}
-            organization={speaker.organization || undefined}
-            bio={speaker.bio || undefined}
-            image={speaker.image_url || undefined}
-            linkedIn={speaker.linkedin_url || undefined}
-            slug={slug}
-          />
-          <BreadcrumbSchema
-            items={[
-              { name: "Home", url: "https://eventsfirstgroup.com" },
-              { name: "Speakers", url: "https://eventsfirstgroup.com/speakers" },
-              { name: speaker.name, url: `https://eventsfirstgroup.com/speakers/${slug}` },
-            ]}
-          />
-        </>
-      )}
-
       {/* ── HEADER SECTION ── */}
       <section
         style={{

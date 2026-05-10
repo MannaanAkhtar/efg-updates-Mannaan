@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-const BASE_URL = "https://eventsfirstgroup.com";
+const BASE_URL = "https://www.eventsfirstgroup.com";
 
 export const metadata: Metadata = {
   title: "Terms of Service | Events First Group",

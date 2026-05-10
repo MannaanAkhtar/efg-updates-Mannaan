@@ -15,13 +15,13 @@ import {
 } from "@/components/sections";
 import SectionTransition from "@/components/effects/SectionTransition";
 
-const BASE_URL = "https://eventsfirstgroup.com";
+const BASE_URL = "https://www.eventsfirstgroup.com";
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0290.JPG";
 
 export const metadata: Metadata = {
-  title: "Cybersecurity Summits & CISO Conferences | Events First Group, MEA & Asia",
+  title: "Cybersecurity & AI Summits MEA, Asia | Events First Group",
   description:
-    "Executive cybersecurity, OT security, AI, and operational excellence summits across the Middle East, Africa & Asia. Invite-only events for CISOs, CDOs & enterprise leaders. 16 events in 2026.",
+    "Executive cybersecurity, OT security & AI summits across Middle East, Africa & Asia. Invite-only events for CISOs & technology leaders. 16 events in 2026.",
   keywords: [
     "cybersecurity summit middle east",
     "CISO conference",
@@ -65,14 +65,61 @@ export const metadata: Metadata = {
   },
 };
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Events First Group",
+  legalName: "Events First Group LLC",
+  url: BASE_URL,
+  logo: `${BASE_URL}/events-first-group_logo_alt.svg`,
+  description:
+    "B2B technology event company producing invite-only cybersecurity, OT security, AI, and operational excellence summits for CISOs, CTOs, CDOs, and senior transformation leaders across the Middle East, Africa, and Asia.",
+  foundingDate: "2018",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Dubai",
+    addressCountry: "AE",
+  },
+  sameAs: [
+    "https://www.linkedin.com/company/events-first-group",
+    "https://x.com/eventsfirstgrp",
+  ],
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales",
+    email: "info@eventsfirstgroup.com",
+    areaServed: ["AE", "SA", "KW", "QA", "OM", "BH", "IN", "KE", "ZA"],
+    availableLanguage: ["English"],
+  },
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Events First Group",
+  url: BASE_URL,
+  publisher: {
+    "@type": "Organization",
+    name: "Events First Group",
+  },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${BASE_URL}/insights?search={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
+};
+
 const eventSeriesJsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "EventSeries",
     name: "Cyber First",
     description: "Invite-only cybersecurity summit series for CISOs across the Middle East, Africa, and Asia",
-    url: "https://eventsfirstgroup.com/events/cyber-first",
-    organizer: { "@type": "Organization", name: "Events First Group", url: "https://eventsfirstgroup.com" },
+    url: "https://www.eventsfirstgroup.com/events/cyber-first",
+    organizer: { "@type": "Organization", name: "Events First Group", url: "https://www.eventsfirstgroup.com" },
     subEvent: [
       { "@type": "Event", name: "Cyber First Kuwait 2026", startDate: "2026-06-09", location: { "@type": "Place", name: "Jumeirah Messilah Beach Hotel", address: { "@type": "PostalAddress", addressLocality: "Kuwait City", addressCountry: "KW" } } },
       { "@type": "Event", name: "Cyber First India 2026", startDate: "2026-10-10", location: { "@type": "Place", name: "New Delhi", address: { "@type": "PostalAddress", addressLocality: "New Delhi", addressCountry: "IN" } } },
@@ -84,8 +131,8 @@ const eventSeriesJsonLd = [
     "@type": "EventSeries",
     name: "Digital First",
     description: "Premier Data & AI leadership summit series for CDOs and enterprise leaders in the Middle East",
-    url: "https://eventsfirstgroup.com/events/data-ai-first",
-    organizer: { "@type": "Organization", name: "Events First Group", url: "https://eventsfirstgroup.com" },
+    url: "https://www.eventsfirstgroup.com/events/data-ai-first",
+    organizer: { "@type": "Organization", name: "Events First Group", url: "https://www.eventsfirstgroup.com" },
     subEvent: [
       { "@type": "Event", name: "Digital First Kuwait 2026", startDate: "2026-06-10", location: { "@type": "Place", name: "Jumeirah Messilah Beach Hotel", address: { "@type": "PostalAddress", addressLocality: "Kuwait City", addressCountry: "KW" } } },
     ],
@@ -95,8 +142,8 @@ const eventSeriesJsonLd = [
     "@type": "EventSeries",
     name: "OPEX First",
     description: "Operational excellence conference for COOs and transformation architects in Saudi Arabia and the GCC",
-    url: "https://eventsfirstgroup.com/events/opex-first",
-    organizer: { "@type": "Organization", name: "Events First Group", url: "https://eventsfirstgroup.com" },
+    url: "https://www.eventsfirstgroup.com/events/opex-first",
+    organizer: { "@type": "Organization", name: "Events First Group", url: "https://www.eventsfirstgroup.com" },
     subEvent: [
       { "@type": "Event", name: "OPEX First Saudi 2026", startDate: "2026-09-15", location: { "@type": "Place", name: "Riyadh", address: { "@type": "PostalAddress", addressLocality: "Riyadh", addressCountry: "SA" } } },
     ],
@@ -106,8 +153,8 @@ const eventSeriesJsonLd = [
     "@type": "EventSeries",
     name: "OT Security First",
     description: "The region's only dedicated OT security and critical infrastructure cybersecurity summit",
-    url: "https://eventsfirstgroup.com/events/ot-security-first",
-    organizer: { "@type": "Organization", name: "Events First Group", url: "https://eventsfirstgroup.com" },
+    url: "https://www.eventsfirstgroup.com/events/ot-security-first",
+    organizer: { "@type": "Organization", name: "Events First Group", url: "https://www.eventsfirstgroup.com" },
     subEvent: [
       { "@type": "Event", name: "OT Security First Jubail 2026", startDate: "2026-10-07", location: { "@type": "Place", name: "Jubail", address: { "@type": "PostalAddress", addressLocality: "Jubail", addressCountry: "SA" } } },
     ],
@@ -117,7 +164,15 @@ const eventSeriesJsonLd = [
 export default function Home() {
   return (
     <div>
-      {/* EventSeries structured data for Google rich results */}
+      {/* Organization + WebSite + EventSeries structured data for Google + AI engines */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
       {eventSeriesJsonLd.map((schema, i) => (
         <script
           key={i}

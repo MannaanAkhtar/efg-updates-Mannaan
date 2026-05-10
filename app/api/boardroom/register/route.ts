@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
     if (resendKey) {
       try {
         const resend = new Resend(resendKey);
-        const joinUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://eventsfirstgroup.com"}/boardroom/${roomName}?token=${joinToken}`;
+        const joinUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.eventsfirstgroup.com"}/boardroom/${roomName}?token=${joinToken}`;
         
         const eventDate = boardroom?.scheduled_time 
           ? new Date(boardroom.scheduled_time)
@@ -356,7 +356,7 @@ function generateConfirmationEmail(params: EmailTemplateParams): string {
                 Hosted by Events First Group • Powered by ${sponsorName}
               </p>
               <p style="color: rgba(255,255,255,0.2); font-size: 11px; margin: 0;">
-                <a href="https://eventsfirstgroup.com" style="color: rgba(255,255,255,0.3); text-decoration: none;">eventsfirstgroup.com</a>
+                <a href="https://www.eventsfirstgroup.com" style="color: rgba(255,255,255,0.3); text-decoration: none;">eventsfirstgroup.com</a>
               </p>
             </td>
           </tr>

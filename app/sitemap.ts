@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
-const BASE_URL = "https://eventsfirstgroup.com";
+const BASE_URL = "https://www.eventsfirstgroup.com";
 
 // Create Supabase client only if credentials are available
 function getSupabaseClient(): SupabaseClient | null {

@@ -17,7 +17,7 @@ const VALID_TYPES = [
 ];
 
 const ALLOWED_ORIGINS = [
-  "https://eventsfirstgroup.com",
+  "https://www.eventsfirstgroup.com",
   "https://www.eventsfirstgroup.com",
   "https://braze-webinar.eventsfirstgroup.com",
   "https://braze-webinar-2.eventsfirstgroup.com",

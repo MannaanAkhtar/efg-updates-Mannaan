@@ -3,7 +3,7 @@
  * These can be used in both server and client components
  */
 
-const BASE_URL = "https://eventsfirstgroup.com";
+const BASE_URL = "https://www.eventsfirstgroup.com";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PERSON SCHEMA (for speakers)

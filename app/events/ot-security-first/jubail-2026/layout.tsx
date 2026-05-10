@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
 import { EventFactBlock } from "@/components/seo/FactBlock";
 
-const BASE_URL = "https://eventsfirstgroup.com";
+const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/ot-security-first/jubail-2026`;
 const OG_IMAGE = `${BASE_URL}/og-default.png`;
 

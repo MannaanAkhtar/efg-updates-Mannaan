@@ -2869,7 +2869,7 @@ function BigLeapFooter() {
           <p style={{ fontFamily: FONT, fontSize: 11, fontWeight: 500, color: TBL_SLATE, margin: 0 }}>
             Produced by{" "}
             <a
-              href="https://eventsfirstgroup.com"
+              href="https://www.eventsfirstgroup.com"
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: TBL_RED, textDecoration: "none", fontWeight: 700 }}

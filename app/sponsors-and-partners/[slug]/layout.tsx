@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { createClient } from "@supabase/supabase-js";
 
-const BASE_URL = "https://eventsfirstgroup.com";
+const BASE_URL = "https://www.eventsfirstgroup.com";
 const DEFAULT_OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0290.JPG";
 
 // Create Supabase client for server-side metadata generation
@@ -15,10 +15,11 @@ function getSupabaseClient() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  const { slug } = await params;
   const supabase = getSupabaseClient();
-  
+
   if (!supabase) {
     return {
       title: "Partner | Events First Group",
@@ -30,7 +31,7 @@ export async function generateMetadata({
     const { data: sponsor } = await supabase
       .from("sponsors")
       .select("name, description, logo_url, website_url")
-      .eq("slug", params.slug)
+      .eq("slug", slug)
       .single();
 
     if (!sponsor) {
@@ -50,12 +51,12 @@ export async function generateMetadata({
       title,
       description,
       alternates: {
-        canonical: `${BASE_URL}/sponsors-and-partners/${params.slug}`,
+        canonical: `${BASE_URL}/sponsors-and-partners/${slug}`,
       },
       openGraph: {
         title: `${sponsor.name} | Events First Group Partner`,
         description,
-        url: `${BASE_URL}/sponsors-and-partners/${params.slug}`,
+        url: `${BASE_URL}/sponsors-and-partners/${slug}`,
         siteName: "Events First Group",
         images: [
           {

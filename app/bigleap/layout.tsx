@@ -8,7 +8,7 @@ const manrope = Manrope({
   display: "swap",
 });
 
-const BASE_URL = "https://eventsfirstgroup.com";
+const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/bigleap`;
 
 export const metadata: Metadata = {

@@ -432,9 +432,9 @@ export default function SponsorDetailPage() {
           />
           <BreadcrumbSchema
             items={[
-              { name: "Home", url: "https://eventsfirstgroup.com" },
-              { name: "Sponsors & Partners", url: "https://eventsfirstgroup.com/sponsors-and-partners" },
-              { name: sponsor.name, url: `https://eventsfirstgroup.com/sponsors-and-partners/${slug}` },
+              { name: "Home", url: "https://www.eventsfirstgroup.com" },
+              { name: "Sponsors & Partners", url: "https://www.eventsfirstgroup.com/sponsors-and-partners" },
+              { name: sponsor.name, url: `https://www.eventsfirstgroup.com/sponsors-and-partners/${slug}` },
             ]}
           />
         </>

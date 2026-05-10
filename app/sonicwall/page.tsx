@@ -1177,7 +1177,7 @@ function SonicWallFooter() {
             &copy; {new Date().getFullYear()} SonicWall Inc. All rights reserved.
           </p>
           <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "#aaa", margin: 0 }}>
-            Produced by <a href="https://eventsfirstgroup.com" target="_blank" rel="noopener noreferrer" style={{ color: SW_ORANGE, textDecoration: "none", fontWeight: 500 }}>Events First Group</a>
+            Produced by <a href="https://www.eventsfirstgroup.com" target="_blank" rel="noopener noreferrer" style={{ color: SW_ORANGE, textDecoration: "none", fontWeight: 500 }}>Events First Group</a>
           </p>
         </div>
       </div>

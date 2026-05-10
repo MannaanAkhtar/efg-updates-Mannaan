@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import { BreadcrumbSchema } from "@/lib/schemas";
 
-const BASE_URL = "https://eventsfirstgroup.com";
+const BASE_URL = "https://www.eventsfirstgroup.com";
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0045.JPG";
 
 export const metadata: Metadata = {
-  title: "Speakers | Industry Experts & Thought Leaders | Events First Group",
+  title: "Speakers — CISOs & Industry Leaders | Events First Group",
   description:
     "Meet the CISOs, CTOs, CDOs, and industry practitioners who speak at Events First Group summits. 200+ speakers from leading enterprises across the Middle East and beyond.",
   keywords: [
