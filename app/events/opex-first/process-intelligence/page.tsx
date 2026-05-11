@@ -989,7 +989,6 @@ const SPONSORS: SponsorItem[] = [
     url: "https://www.ariscommunity.com/",
     surface: "dark",
     innerBg: "linear-gradient(165deg, #1c1722 0%, #100b15 100%)",
-    ambientGlow: "radial-gradient(ellipse 70% 55% at center 65%, rgba(255, 92, 161, 0.22), transparent 75%)",
     logoMaxHeight: 110,
   },
   {
