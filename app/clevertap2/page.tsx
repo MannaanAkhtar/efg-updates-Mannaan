@@ -212,7 +212,7 @@ function HeroSection() {
             <h1 style={{ fontFamily: "var(--font-opensans)", fontSize: "clamp(24px, 4.4vw, 44px)", lineHeight: 1.1, letterSpacing: "-1.8px", color: CT_BLACK, margin: "0 0 clamp(12px, 2vh, 22px)", textShadow: "0 1px 2px rgba(255,255,255,0.5)" }}>
               <span style={{ display: "block", overflow: "hidden" }}><span className="ct-title-line" style={{ display: "block", fontWeight: 800, opacity: 0 }}>Beyond Automation:</span></span>
               <span style={{ display: "block", overflow: "hidden" }}><span className="ct-title-line" style={{ display: "block", fontWeight: 800, opacity: 0 }}><span style={{ color: CT_BLUE }}>How AI Agents Deliver</span></span></span>
-              <span style={{ display: "block", overflow: "hidden" }}><span className="ct-title-line" style={{ display: "block", fontWeight: 800, opacity: 0, fontSize: "0.6em" }}>True 1:1 Engagement at Scale</span></span>
+              <span style={{ display: "block", overflow: "hidden" }}><span className="ct-title-line" style={{ display: "block", fontWeight: 800, opacity: 0 }}>True 1:1 Engagement at Scale</span></span>
             </h1>
 
             {/* Tagline */}
