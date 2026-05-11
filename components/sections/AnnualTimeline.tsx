@@ -489,6 +489,8 @@ export default function AnnualTimeline() {
               {SERIES_FILTERS.map((filter) => (
                 <button
                   key={filter.value}
+                  type="button"
+                  suppressHydrationWarning
                   onClick={() => setActiveSeries(filter.value)}
                   className={`filter-pill ${mounted && activeSeries === filter.value ? 'active' : ''}`}
                   style={{
@@ -531,6 +533,8 @@ export default function AnnualTimeline() {
               {visibleMonths.map((month) => (
                 <button
                   key={month.abbr}
+                  type="button"
+                  suppressHydrationWarning
                   onClick={() => scrollToMonth(month.index)}
                   className={`month-pill ${activeMonth === month.index ? 'active' : ''}`}
                 >
@@ -614,7 +618,7 @@ export default function AnnualTimeline() {
           ) : (
             <div className="timeline-empty">
               <p>No events found for this filter.</p>
-              <button onClick={() => setActiveSeries("all")}>Show All Events</button>
+              <button type="button" suppressHydrationWarning onClick={() => setActiveSeries("all")}>Show All Events</button>
             </div>
           )}
         </motion.div>
