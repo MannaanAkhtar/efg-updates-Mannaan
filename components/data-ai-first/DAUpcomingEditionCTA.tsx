@@ -15,15 +15,15 @@ const TABS = [
   {
     key: "attend",
     label: "Attend",
-    heading: "Digital First\nKuwait",
+    heading: "Digital First\nGCC",
     description:
-      "The leadership summit dedicated to building AI-driven organizations. Join us in Kuwait.",
+      "The leadership summit dedicated to building AI-driven organizations. Join the next edition of Digital First across the GCC.",
     perks: [
       { icon: "users", text: "Invite-only, C-suite audience" },
       { icon: "calendar", text: "Full-day immersive programme" },
       { icon: "shield", text: "Exclusive networking reception" },
     ],
-    trust: "200+ senior leaders expected at Digital First Kuwait",
+    trust: "200+ senior leaders expected at the next Digital First edition",
     fields: [
       { name: "name", label: "Full Name", type: "text", placeholder: "Your full name" },
       { name: "email", label: "Work Email", type: "email", placeholder: "you@company.com" },
@@ -190,7 +190,7 @@ export default function DAUpcomingEditionCTA() {
       company: formData.company || "",
       job_title: formData.title || "",
       phone: combinedPhone,
-      event_name: "Digital First Kuwait 2026",
+      event_name: "Digital First (Series General Interest)",
       metadata: meta,
     });
 
@@ -541,7 +541,7 @@ export default function DAUpcomingEditionCTA() {
                       </h3>
                       <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "#606060", maxWidth: 300, margin: "0 auto 20px", lineHeight: 1.6 }}>
                         {activeTab === "attend"
-                          ? "We\u2019ll notify you when full registration opens for Digital First Kuwait. Expect early-bird access and the full agenda in your inbox."
+                          ? "We\u2019ll notify you when the next Digital First edition is announced. Expect early-bird access and the full agenda in your inbox."
                           : "Our team will review your submission and get back to you within 2 working hours."}
                       </p>
                       <button

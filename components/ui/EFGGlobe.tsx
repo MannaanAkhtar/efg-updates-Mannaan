@@ -8,13 +8,13 @@ import createGlobe from "cobe"
 // ─── Upcoming Event Locations ────────────────────────────────────────────────
 const EFG_MARKERS = [
   // Ordered by event date (June → October → Coming Soon)
+  { id: "dubai", location: [25.20, 55.27] as [number, number], name: "Dubai (HQ)", series: "Events First Group", color: "#C9935A", href: "/about" },
   { id: "kuwait", location: [29.38, 47.99] as [number, number], name: "Kuwait City", series: "Cyber First", color: "#01BBF5", href: "/events/cyber-first/kuwait-2026" },
-  { id: "delhi", location: [28.61, 77.21] as [number, number], name: "New Delhi", series: "Cyber First", color: "#01BBF5", href: "/events/cyber-first/india-2026" },
   { id: "nairobi", location: [-1.29, 36.82] as [number, number], name: "Nairobi", series: "Cyber First", color: "#01BBF5", href: "/events/cyber-first/kenya-2026" },
   { id: "riyadh", location: [24.71, 46.68] as [number, number], name: "Riyadh", series: "OPEX First", color: "#7C3AED", href: "/events/opex-first/saudi-2026" },
-  { id: "doha", location: [25.29, 51.53] as [number, number], name: "Doha", series: "Digital First", color: "#0F735E", href: "/events/data-ai-first/qatar-2026" },
-  { id: "muscat", location: [23.59, 58.54] as [number, number], name: "Muscat", series: "Cyber First", color: "#01BBF5", href: "/events/cyber-first/oman-2026" },
+  { id: "doha", location: [25.29, 51.53] as [number, number], name: "Doha", series: "Cyber First", color: "#01BBF5", href: "/events/cyber-first/qatar-2026" },
   { id: "jubail", location: [27.01, 49.66] as [number, number], name: "Jubail", series: "OT Security", color: "#D34B9A", href: "/events/ot-security-first/jubail-2026" },
+  { id: "muscat", location: [23.59, 58.41] as [number, number], name: "Muscat", series: "OT Security", color: "#D34B9A", href: "/events/ot-security-first/oman-2026" },
   { id: "johannesburg", location: [-26.20, 28.04] as [number, number], name: "Johannesburg", series: "OT Security", color: "#D34B9A", href: "/events/ot-security-first/johannesburg-2026" },
   { id: "singapore", location: [1.35, 103.82] as [number, number], name: "Singapore", series: "OT Security", color: "#D34B9A", href: "/events" },
 ]

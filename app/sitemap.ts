@@ -95,12 +95,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
-      url: `${BASE_URL}/events/cyber-first/india-2026`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
       url: `${BASE_URL}/events/cyber-first/kenya-2026`,
       lastModified: new Date(),
       changeFrequency: "weekly",
@@ -118,19 +112,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/events/data-ai-first/kuwait-2026`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    // Digital First, Coming Soon
-    {
-      url: `${BASE_URL}/events/data-ai-first/qatar-2026`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
     },
     // OPEX First
     {
@@ -154,18 +135,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Cyber First, Coming Soon
     {
       url: `${BASE_URL}/events/cyber-first/qatar-2026`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/events/cyber-first/oman-2026`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/events/cyber-first/ksa-2026`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,

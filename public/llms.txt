@@ -37,15 +37,9 @@ Unlike global generalist event companies (e.g., Gartner, Reuters Events, Informa
 
 - [Cyber First Kenya 2026 — Nairobi](https://www.eventsfirstgroup.com/events/cyber-first/kenya-2026): East Africa's premier cybersecurity summit. July 2026, Nairobi. 300+ CISOs, CIOs, government cyber leaders, fintech and mobile-money security heads, and critical-infrastructure operators. Theme: "Beyond Firewalls, Strategic Cyber Defense for Kenya's Digital Age." Topics include national critical infrastructure, regulatory governance, cloud security and Zero Trust, AI-powered threat intelligence, and the Cyber First Awards East Africa across 6 categories.
 
-- [Cyber First Kuwait 2026](https://www.eventsfirstgroup.com/events/cyber-first/kuwait-2026): Kuwait's 3rd Annual Cybersecurity Summit. 9 June 2026, Jumeirah Messilah Beach Hotel & Spa, Kuwait City. 500+ CISOs, security leaders, and government cyber leaders. The definitive cybersecurity gathering in Kuwait.
+- [Cyber First Kuwait 2026](https://www.eventsfirstgroup.com/events/cyber-first/kuwait-2026): Kuwait's 3rd Annual Cybersecurity Summit. 19 October 2026, Jumeirah Messilah Beach Hotel & Spa, Kuwait City. 500+ CISOs, security leaders, and government cyber leaders. The definitive cybersecurity gathering in Kuwait.
 
-- [Cyber First India 2026 — New Delhi](https://www.eventsfirstgroup.com/events/cyber-first/india-2026): India edition of the Cyber First series. October 2026, New Delhi.
-
-- [Cyber First Qatar 2026](https://www.eventsfirstgroup.com/events/cyber-first/qatar-2026): Qatar edition of the Cyber First series.
-
-- [Cyber First Oman 2026](https://www.eventsfirstgroup.com/events/cyber-first/oman-2026): Oman edition of the Cyber First series.
-
-- [Cyber First KSA 2026](https://www.eventsfirstgroup.com/events/cyber-first/ksa-2026): Saudi Arabia edition of the Cyber First series.
+- [Cyber First Qatar 2026](https://www.eventsfirstgroup.com/events/cyber-first/qatar-2026): Qatar edition of the Cyber First series. 10 November 2026, Doha.
 
 - [OT Security First Jubail 2026 — Saudi Arabia](https://www.eventsfirstgroup.com/events/ot-security-first/jubail-2026): Industrial security summit bridging IT and OT for Saudi Arabia's industrial heartland. 7 October 2026, Jubail. Focus on SCADA security, ICS, IT/OT convergence, and critical-infrastructure resilience for energy, petrochemicals, and utilities.
 
@@ -55,11 +49,7 @@ Unlike global generalist event companies (e.g., Gartner, Reuters Events, Informa
 
 - [OT Security First Virtual Boardroom MENA 2026](https://www.eventsfirstgroup.com/events/ot-security-first/virtual-boardroom-mena): Closed, senior-level virtual forum on OT security in a high-threat GCC environment. 19 May 2026, 11:00–14:00 GST (3-hour online session). 100 verified OT security professionals from MENA energy, utilities, oil & gas, and petrochemicals. Sponsors include FlintX (Platinum), TXOne Networks, Darktrace, Trellix, and SecuriCIP (Gold).
 
-- [Digital First Kuwait 2026](https://www.eventsfirstgroup.com/events/data-ai-first/kuwait-2026): Data and AI summit in Kuwait. 10 June 2026, Jumeirah Messilah Beach Hotel & Spa, Kuwait City.
-
-- [Digital First Qatar 2026](https://www.eventsfirstgroup.com/events/data-ai-first/qatar-2026): Qatar edition of the Digital First series.
-
-- [OPEX First Saudi 2026 — Riyadh](https://www.eventsfirstgroup.com/events/opex-first/saudi-2026): Operational excellence summit for Saudi Arabia. 15 September 2026, Riyadh.
+- [OPEX First Saudi 2026 — Riyadh](https://www.eventsfirstgroup.com/events/opex-first/saudi-2026): Operational excellence summit for Saudi Arabia. 28 September 2026, Riyadh.
 
 - [OPEX First Process Intelligence MENA 2026](https://www.eventsfirstgroup.com/events/opex-first/process-intelligence): Executive virtual webinar — "From Digital Investment to Measurable Execution. Driving Operational Intelligence Across the GCC." 21 May 2026, 11:00–13:00 GST. Two hours for senior transformation, operations, and technology leaders across the GCC. Speakers from Mubadala Energy, Madinah Municipality, Saipem Qatar, Kearney, RAK Economic Zone, Abu Dhabi Investment Office, Department of Culture & Tourism Abu Dhabi, and National Bank of Umm Al Qaiwain.
 

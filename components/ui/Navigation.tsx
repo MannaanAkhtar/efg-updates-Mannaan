@@ -23,11 +23,8 @@ const eventSeries = [
     color: "#01BBF5",
     editions: [
       { href: "/events/cyber-first/kuwait-2026", label: "Kuwait" },
-      { href: "/events/cyber-first/india-2026", label: "New Delhi" },
       { href: "/events/cyber-first/kenya-2026", label: "Nairobi" },
       { href: "/events/cyber-first/qatar-2026", label: "Qatar" },
-      { href: "/events/cyber-first/oman-2026", label: "Oman" },
-      { href: "/events/cyber-first/ksa-2026", label: "KSA" },
     ]
   },
   {
@@ -45,10 +42,7 @@ const eventSeries = [
     href: "/events/data-ai-first",
     label: "Digital First",
     color: "#0F735E",
-    editions: [
-      { href: "/events/data-ai-first/kuwait-2026", label: "Kuwait" },
-      { href: "/events/data-ai-first/qatar-2026", label: "Qatar" },
-    ]
+    editions: [],
   },
   {
     href: "/events/opex-first",
@@ -285,6 +279,8 @@ export default function Navigation() {
 
           {/* Mobile Hamburger */}
           <button
+            type="button"
+            suppressHydrationWarning
             className="lg:hidden relative w-[22px] h-[22px] flex flex-col justify-center items-center gap-[5px]"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
@@ -331,6 +327,8 @@ export default function Navigation() {
           >
             {/* Close Button */}
             <button
+              type="button"
+              suppressHydrationWarning
               className="absolute top-[22px] right-[clamp(20px,4vw,60px)]"
               onClick={() => setIsMobileMenuOpen(false)}
               aria-label="Close menu"

@@ -19,19 +19,6 @@ const upcomingEvents = [
     image: "https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?w=900&q=80",
     href: "/events/cyber-first/kuwait-2026",
   },
-  {
-    id: "data-ai-kuwait",
-    series: "Digital First",
-    seriesColor: "#0F735E",
-    edition: "",
-    title: "Digital First Kuwait",
-    date: new Date("2026-06-10"),
-    dateDisplay: "June 10, 2026",
-    location: "Kuwait City, Kuwait",
-    venue: "Venue TBA",
-    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=900&q=80",
-    href: "/events/data-ai-first/kuwait-2026",
-  },
 ];
 
 // Calculate days until event

@@ -3,6 +3,18 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { allEvents, type EventItem } from "./AnnualTimeline";
+
+const ORANGE = "#E8651A";
+const GOLD = "#C9935A";
+
+function deriveNext(now: number): { flagship: EventItem | null; boardroom: EventItem | null } {
+  const future = allEvents.filter((e) => e.date.getTime() > now).sort((a, b) => a.date.getTime() - b.date.getTime());
+  return {
+    flagship: future.find((e) => e.series !== "NetworkFirst") ?? null,
+    boardroom: future.find((e) => e.series === "NetworkFirst") ?? null,
+  };
+}
 
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com";
 const CFK = `${S3}/events/Cyber%20First%20Kuwait%202025/filemail_photos`;
@@ -67,13 +79,6 @@ const heroSlides: HeroSlide[] = [
   },
 ];
 
-// Next event data for the countdown
-const nextEvent = {
-  name: "Cyber First Kuwait",
-  location: "Kuwait City, Kuwait",
-  date: new Date("2026-06-09T09:00:00"),
-};
-
 // Slideshow timing
 const SLIDE_DURATION = 5500; // 5.5 seconds, enough to read the headline
 const CROSSFADE_DURATION = 1.2; // 1.2 second crossfade
@@ -82,6 +87,13 @@ export default function HeroSectionMobile() {
   const [scrollY, setScrollY] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const heroRef = useRef<HTMLElement>(null);
+
+  // Auto-rolling ticker picks: refresh every 60s so a passed event hands off to the next
+  const [picks, setPicks] = useState(() => deriveNext(Date.now()));
+  useEffect(() => {
+    const id = setInterval(() => setPicks(deriveNext(Date.now())), 60_000);
+    return () => clearInterval(id);
+  }, []);
 
   const imageSources = heroSlides.map((s) => s.image);
   const activeSlide = heroSlides[activeIndex];
@@ -423,97 +435,27 @@ export default function HeroSectionMobile() {
 
       {/* ═══════════════════════════════════════════════════════════════
           COUNTDOWN TICKER, Fixed at viewport bottom
+          Two stacked rows: NetworkFirst boardroom (gold) + flagship event (orange).
+          Auto-rolls when an event date passes.
           ═══════════════════════════════════════════════════════════════ */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 1.5 }}
-        className="absolute bottom-0 left-0 right-0 z-10"
-        style={{
-          background: "rgba(10, 10, 10, 0.7)",
-          backdropFilter: "blur(16px)",
-          WebkitBackdropFilter: "blur(16px)",
-          borderTop: "1px solid rgba(255, 255, 255, 0.06)",
-          padding: "12px 0",
-        }}
-      >
-        {/* ── DESKTOP ticker ── */}
-        <div
-          className="hidden sm:flex items-center justify-between"
+      {(picks.flagship || picks.boardroom) && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 1.5 }}
+          className="absolute bottom-0 left-0 right-0 z-10"
           style={{
-            maxWidth: 1320,
-            margin: "0 auto",
-            padding: "0 clamp(20px, 4vw, 60px)",
+            background: "rgba(10, 10, 10, 0.85)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+            borderTop: "1px solid rgba(255, 255, 255, 0.06)",
           }}
         >
-          {/* Left side: Event info */}
-          <div className="flex items-center gap-3">
-            <span className="relative flex h-2 w-2">
-              <span
-                className="absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping"
-                style={{ background: "var(--orange)", animationDuration: "2s" }}
-              />
-              <span
-                className="relative inline-flex rounded-full h-2 w-2"
-                style={{ background: "var(--orange)" }}
-              />
-            </span>
-            <span style={{ fontSize: 10, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--white-muted)", fontFamily: "var(--font-outfit)" }}>
-              Next Up
-            </span>
-            <span style={{ color: "rgba(255,255,255,0.2)" }}>|</span>
-            <span style={{ fontSize: 14, fontWeight: 600, color: "var(--white)", fontFamily: "var(--font-display)" }}>
-              {nextEvent.name}
-            </span>
-            <span style={{ fontSize: 13, color: "var(--white-dim)", fontFamily: "var(--font-outfit)" }}>
-              · {nextEvent.location}
-            </span>
-          </div>
-          <div className="flex items-center gap-6">
-            <CountdownDisplay date={nextEvent.date} />
-            <Link
-              href="/events/cyber-first/kuwait-2026"
-              className="transition-colors duration-300 flex items-center gap-1"
-              style={{ fontSize: 13, fontWeight: 600, color: "var(--orange)", fontFamily: "var(--font-outfit)" }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = "var(--orange-bright)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = "var(--orange)"; }}
-            >
-              Register <span>→</span>
-            </Link>
-          </div>
-        </div>
-
-        {/* ── MOBILE ticker, compact two-row layout ── */}
-        <div
-          className="flex sm:hidden items-center justify-between"
-          style={{ padding: "0 20px" }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
-            <span className="relative flex h-2 w-2" style={{ flexShrink: 0 }}>
-              <span className="absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping" style={{ background: "var(--orange)", animationDuration: "2s" }} />
-              <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "var(--orange)" }} />
-            </span>
-            <div style={{ minWidth: 0 }}>
-              <p style={{ fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 600, color: "#fff", margin: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                {nextEvent.name}
-              </p>
-              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 10, color: "rgba(255,255,255,0.4)", margin: 0 }}>
-                {nextEvent.location}
-              </p>
-            </div>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
-            <CountdownDisplay date={nextEvent.date} compact />
-            <Link
-              href="/events/cyber-first/kuwait-2026"
-              className="hero-mobile-register"
-              style={{ fontSize: 12, fontWeight: 600, color: "var(--orange)", fontFamily: "var(--font-outfit)", whiteSpace: "nowrap", transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)" }}
-            >
-              Register →
-            </Link>
-          </div>
-        </div>
-      </motion.div>
+          {picks.boardroom && <MobileTickerRow event={picks.boardroom} badge="Boardroom" accent={GOLD} />}
+          {picks.boardroom && picks.flagship && <div style={{ height: 1, background: "rgba(255,255,255,0.06)" }} />}
+          {picks.flagship && <MobileTickerRow event={picks.flagship} badge="Next Event" accent={ORANGE} />}
+        </motion.div>
+      )}
 
       {/* Shimmer animation keyframes */}
       <style jsx global>{`
@@ -567,6 +509,49 @@ function HeroImage({
           transition: "filter 0.5s ease",
         }}
       />
+    </div>
+  );
+}
+
+/**
+ * MobileTickerRow — one row of the split countdown ticker (boardroom OR flagship).
+ * Renders pulse dot + badge + event name (truncated on phone) + countdown + register link.
+ */
+function MobileTickerRow({ event, badge, accent }: { event: EventItem; badge: string; accent: string }) {
+  return (
+    <div style={{ padding: "10px clamp(16px, 4vw, 28px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+      {/* Left: pulse + badge + event info */}
+      <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0, flex: "1 1 auto" }}>
+        <span className="relative flex h-2 w-2" style={{ flexShrink: 0 }}>
+          <span className="absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping" style={{ background: accent, animationDuration: "2s" }} />
+          <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: accent }} />
+        </span>
+        <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: accent, fontFamily: "var(--font-outfit)", flexShrink: 0, whiteSpace: "nowrap" }}>
+          {badge}
+        </span>
+        <span style={{ color: "rgba(255,255,255,0.15)", flexShrink: 0 }}>|</span>
+        <div style={{ minWidth: 0, overflow: "hidden" }}>
+          <p style={{ fontFamily: "var(--font-display)", fontSize: 12, fontWeight: 600, color: "#fff", margin: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+            {event.title}
+          </p>
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 10, color: "rgba(255,255,255,0.45)", margin: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+            {event.location}
+          </p>
+        </div>
+      </div>
+
+      {/* Right: countdown + register */}
+      <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
+        <CountdownDisplay date={event.date} compact />
+        <Link
+          href={event.href}
+          style={{ fontSize: 11, fontWeight: 600, color: accent, fontFamily: "var(--font-outfit)", whiteSpace: "nowrap", textDecoration: "none", transition: "opacity 0.3s ease" }}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+        >
+          Register →
+        </Link>
+      </div>
     </div>
   );
 }

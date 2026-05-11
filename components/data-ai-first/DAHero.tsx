@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import SeriesTickerBar from "@/components/ui/SeriesTickerBar";
 import { DotMatrixGrid, NeuralConstellation } from "@/components/effects";
 import { EMERALD, EMERALD_BRIGHT, EASE } from "./constants";
 
@@ -161,22 +160,8 @@ export default function DAHero() {
           style={{ marginTop: 40 }}
         >
           <HeroButton href="#content">Explore the Series</HeroButton>
-          <HeroButton primary href="/events/data-ai-first/kuwait-2026#register">
-            Register for Kuwait
-          </HeroButton>
         </motion.div>
       </div>
-
-      {/* Ticker Bar */}
-      <SeriesTickerBar
-        accentColor={EMERALD}
-        eventName="Digital First Kuwait"
-        location="Kuwait City, Kuwait"
-        targetDate={new Date("2026-06-10T09:00:00")}
-        ctaText="Register"
-        ctaHref="/events/data-ai-first/kuwait-2026#register"
-        angularRadius={false}
-      />
     </section>
   );
 }

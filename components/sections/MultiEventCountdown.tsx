@@ -29,15 +29,6 @@ const upcomingEvents: UpcomingEvent[] = [
     href: "/events/cyber-first/kuwait-2026",
   },
   {
-    id: "data-first-kuwait",
-    series: "Digital First",
-    seriesColor: "#0F735E",
-    title: "Digital First Kuwait",
-    date: new Date("2026-06-10T09:00:00"),
-    location: "Kuwait City, Kuwait",
-    href: "/events/data-ai-first/kuwait-2026",
-  },
-  {
     id: "ot-security-jubail",
     series: "OT Security First",
     seriesColor: "#D34B9A",

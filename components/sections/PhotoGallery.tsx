@@ -294,6 +294,8 @@ function Tile({
 }) {
   return (
     <motion.button
+      type="button"
+      suppressHydrationWarning
       onClick={onClick}
       whileHover={{ scale: 1.0 }}
       style={{
@@ -480,6 +482,8 @@ function Panel({
 
         {/* Prev / Next arrows */}
         <button
+          type="button"
+          suppressHydrationWarning
           onClick={onPrev}
           style={{
             position: "absolute",
@@ -504,6 +508,8 @@ function Panel({
           ‹
         </button>
         <button
+          type="button"
+          suppressHydrationWarning
           onClick={onNext}
           style={{
             position: "absolute",
@@ -595,6 +601,8 @@ function Panel({
             </p>
           </div>
           <button
+            type="button"
+            suppressHydrationWarning
             onClick={onClose}
             style={{
               background: "none",
@@ -630,6 +638,8 @@ function Panel({
           {category.images.map((img, i) => (
             <button
               key={i}
+              type="button"
+              suppressHydrationWarning
               onClick={() => onThumb(i)}
               style={{
                 position: "relative",

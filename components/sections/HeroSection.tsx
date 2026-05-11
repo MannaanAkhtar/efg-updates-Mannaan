@@ -5,16 +5,27 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import HeroSectionMobile from "./HeroSectionMobile";
+import { allEvents, type EventItem } from "./AnnualTimeline";
 
 // Lazy-load globe to avoid SSR issues with WebGL
 const EFGGlobe = dynamic(() => import("@/components/ui/EFGGlobe"), { ssr: false });
 
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 const ORANGE = "#E8651A";
-const NEXT_EVENT = { name: "Cyber First Kuwait", date: new Date("2026-06-09T09:00:00+03:00"), location: "Kuwait City" };
+const GOLD = "#C9935A";
+
+// Pick the next upcoming flagship event and the next upcoming NetworkFirst boardroom.
+// Re-derived on a 60s interval so the ticker auto-rolls when an event passes.
+function deriveNext(now: number): { flagship: EventItem | null; boardroom: EventItem | null } {
+  const future = allEvents.filter((e) => e.date.getTime() > now).sort((a, b) => a.date.getTime() - b.date.getTime());
+  return {
+    flagship: future.find((e) => e.series !== "NetworkFirst") ?? null,
+    boardroom: future.find((e) => e.series === "NetworkFirst") ?? null,
+  };
+}
 
 // ─── Countdown ───────────────────────────────────────────────────────────────
-function CountdownDisplay({ date }: { date: Date }) {
+function CountdownDisplay({ date, accent = ORANGE }: { date: Date; accent?: string }) {
   const [t, setT] = useState({ d: 0, h: 0, m: 0, s: 0 });
   useEffect(() => {
     const tick = () => {
@@ -34,20 +45,64 @@ function CountdownDisplay({ date }: { date: Date }) {
       ].map((u, i) => (
         <div key={u.l} className="flex items-center gap-1">
           <div className="flex items-baseline gap-0.5">
-            <span className="tabular-nums" style={{ fontSize: 24, fontWeight: 700, color: "white", fontFamily: "var(--font-display)", minWidth: 32, textAlign: "center" }}>
+            <span className="tabular-nums" style={{ fontSize: 22, fontWeight: 700, color: "white", fontFamily: "var(--font-display)", minWidth: 30, textAlign: "center" }}>
               {String(u.v).padStart(2, "0")}
             </span>
-            <span style={{ fontSize: 11, textTransform: "uppercase", color: "rgba(255,255,255,0.7)", fontFamily: "var(--font-outfit)", fontWeight: 600, letterSpacing: "0.06em" }}>{u.l}</span>
+            <span style={{ fontSize: 10, textTransform: "uppercase", color: "rgba(255,255,255,0.7)", fontFamily: "var(--font-outfit)", fontWeight: 600, letterSpacing: "0.06em" }}>{u.l}</span>
           </div>
-          {i < 3 && <span style={{ color: `${ORANGE}40`, fontSize: 18 }}>:</span>}
+          {i < 3 && <span style={{ color: `${accent}40`, fontSize: 16 }}>:</span>}
         </div>
       ))}
     </div>
   );
 }
 
+// ─── Half of the split ticker (one side: boardroom OR flagship) ──────────────
+function TickerHalf({ event, badge, accent }: { event: EventItem; badge: string; accent: string }) {
+  return (
+    <div className="hero-ticker-half" style={{ flex: 1, minWidth: 0, display: "flex", alignItems: "center", gap: 14, padding: "14px clamp(16px, 2vw, 28px)" }}>
+      {/* Pulse dot + badge */}
+      <div className="flex items-center gap-2" style={{ flexShrink: 0 }}>
+        <span className="relative flex h-2 w-2">
+          <span className="absolute inline-flex h-full w-full rounded-full animate-ping" style={{ background: accent, opacity: 0.75 }} />
+          <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: accent }} />
+        </span>
+        <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: accent, whiteSpace: "nowrap" }}>{badge}</span>
+      </div>
+
+      {/* Event info — truncates if too long */}
+      <span className="hero-ticker-event-info" style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.55)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", minWidth: 0, flex: "1 1 auto" }}>
+        {event.title} · {event.location}
+      </span>
+
+      {/* Countdown */}
+      <div style={{ flexShrink: 0 }}>
+        <CountdownDisplay date={event.date} accent={accent} />
+      </div>
+
+      {/* Register */}
+      <Link
+        href={event.href}
+        style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, color: accent, textDecoration: "none", display: "flex", alignItems: "center", gap: 4, transition: "opacity 0.3s ease", flexShrink: 0, whiteSpace: "nowrap" }}
+        onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+      >
+        Register
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+      </Link>
+    </div>
+  );
+}
+
 // ─── Main Hero ───────────────────────────────────────────────────────────────
 export default function HeroSection() {
+  // Auto-rolling ticker picks: refresh every 60s so a passed event hands off to the next
+  const [picks, setPicks] = useState(() => deriveNext(Date.now()));
+  useEffect(() => {
+    const id = setInterval(() => setPicks(deriveNext(Date.now())), 60_000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <>
     {/* Mobile/Tablet: Original slideshow hero */}
@@ -128,41 +183,22 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* ─── Bottom Countdown Bar ─── */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 1.5, ease: EASE }}
-        className="absolute bottom-0 left-0 right-0"
-        style={{ zIndex: 20, background: "rgba(10,10,10,0.85)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", borderTop: "1px solid rgba(255,255,255,0.06)" }}
-      >
-        <div className="hero-bottom-bar flex items-center justify-between flex-wrap gap-4" style={{ maxWidth: 1400, margin: "0 auto", padding: "16px clamp(24px, 4vw, 60px)" }}>
-          {/* Event info */}
-          <div className="flex items-center gap-3">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="absolute inline-flex h-full w-full rounded-full animate-ping" style={{ background: ORANGE, opacity: 0.75 }} />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5" style={{ background: ORANGE }} />
-            </span>
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: ORANGE }}>Next Event</span>
-            <span style={{ color: "rgba(255,255,255,0.12)", margin: "0 4px" }}>|</span>
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.5)" }}>{NEXT_EVENT.name} · {NEXT_EVENT.location}</span>
+      {/* ─── Bottom Countdown Bar (split: NetworkFirst boardroom | flagship event) ─── */}
+      {(picks.flagship || picks.boardroom) && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 1.5, ease: EASE }}
+          className="absolute bottom-0 left-0 right-0"
+          style={{ zIndex: 20, background: "rgba(10,10,10,0.85)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        >
+          <div className="hero-bottom-bar" style={{ maxWidth: 1400, margin: "0 auto", display: "flex", alignItems: "stretch" }}>
+            {picks.boardroom && <TickerHalf event={picks.boardroom} badge="Boardroom" accent={GOLD} />}
+            {picks.boardroom && picks.flagship && <div className="hero-ticker-divider" style={{ width: 1, background: "rgba(255,255,255,0.08)", flexShrink: 0 }} />}
+            {picks.flagship && <TickerHalf event={picks.flagship} badge="Next Event" accent={ORANGE} />}
           </div>
-
-          {/* Countdown */}
-          <CountdownDisplay date={NEXT_EVENT.date} />
-
-          {/* Register link */}
-          <Link
-            href="/events"
-            style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, color: ORANGE, textDecoration: "none", display: "flex", alignItems: "center", gap: 6, transition: "opacity 0.3s ease" }}
-            onMouseEnter={(e) => e.currentTarget.style.opacity = "0.7"}
-            onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}
-          >
-            Register
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-          </Link>
-        </div>
-      </motion.div>
+        </motion.div>
+      )}
 
       {/* CSS */}
       <style jsx global>{`
@@ -176,8 +212,13 @@ export default function HeroSection() {
           .hero-mobile-view { display: block !important; }
           .hero-desktop-view { display: none !important; }
         }
+        @media (max-width: 1100px) {
+          .hero-ticker-event-info { display: none; }
+        }
         @media (max-width: 640px) {
-          .hero-bottom-bar { flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 12px !important; }
+          .hero-bottom-bar { flex-direction: column !important; }
+          .hero-ticker-divider { width: 100% !important; height: 1px !important; }
+          .hero-ticker-half { padding: 12px 20px !important; }
         }
       `}</style>
     </section>

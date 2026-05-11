@@ -8,15 +8,6 @@ import { EMERALD, EMERALD_BRIGHT, EASE, WIDE } from "./constants";
 
 const cities = [
   {
-    name: "Kuwait City",
-    country: "Kuwait",
-    date: "June 10, 2026",
-    status: "LAUNCHING",
-    active: true,
-    href: "/events/data-ai-first/kuwait-2026",
-    image: "https://images.unsplash.com/photo-1578895101408-1a36b834405b?w=600&q=80",
-  },
-  {
     name: "Abu Dhabi",
     country: "UAE",
     date: "2027",

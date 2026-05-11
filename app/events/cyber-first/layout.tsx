@@ -102,12 +102,9 @@ export default function CyberFirstLayout({
         description="Cyber First is the definitive cybersecurity summit series by Events First Group, convening CISOs, government cyber leaders, regulators, and enterprise security executives across the Middle East, India, and East Africa. Each edition is invitation-only and free for qualified end-users."
         audience={["CISOs", "CIOs", "Government cyber leaders", "Regulators", "Critical-infrastructure operators", "Banking and fintech security heads", "Telecom and digital infrastructure security leaders"]}
         editions={[
-          { name: "Cyber First Kuwait 2026 (3rd Annual)", city: "Kuwait City", country: "Kuwait", date: "9 June 2026", url: `${BASE_URL}/events/cyber-first/kuwait-2026` },
+          { name: "Cyber First Kuwait 2026 (3rd Annual)", city: "Kuwait City", country: "Kuwait", date: "19 October 2026", url: `${BASE_URL}/events/cyber-first/kuwait-2026` },
           { name: "Cyber First Kenya 2026, Nairobi Edition", city: "Nairobi", country: "Kenya", date: "July 2026", url: `${BASE_URL}/events/cyber-first/kenya-2026` },
-          { name: "Cyber First Qatar 2026", city: "Doha", country: "Qatar", date: "22 September 2026", url: `${BASE_URL}/events/cyber-first/qatar-2026` },
-          { name: "Digital Resilience KSA 2026", city: "Riyadh", country: "Saudi Arabia", date: "10 October 2026", url: `${BASE_URL}/events/cyber-first/ksa-2026` },
-          { name: "Cyber First India 2026, Delhi Edition", city: "New Delhi", country: "India", date: "10 October 2026", url: `${BASE_URL}/events/cyber-first/india-2026` },
-          { name: "Cyber First Oman 2026", city: "Muscat", country: "Oman", date: "13 October 2026", url: `${BASE_URL}/events/cyber-first/oman-2026` },
+          { name: "Cyber First Qatar 2026", city: "Doha", country: "Qatar", date: "10 November 2026", url: `${BASE_URL}/events/cyber-first/qatar-2026` },
         ]}
         url={PAGE_URL}
       />

@@ -93,10 +93,7 @@ export default function DataAIFirstLayout({
         seriesName="Digital First (Data & AI First)"
         description="Digital First is the premier Data & AI leadership summit series by Events First Group, convening CDOs, AI architects, data scientists, and enterprise transformation executives across the GCC. Each edition is invitation-only and free for qualified end-users."
         audience={["Chief Data Officers (CDOs)", "Chief AI Officers", "AI architects", "Data scientists", "Heads of analytics", "Digital transformation directors", "Enterprise AI executives"]}
-        editions={[
-          { name: "Digital First Kuwait 2026, Data & AI Summit", city: "Kuwait City", country: "Kuwait", date: "10 June 2026", url: `${BASE_URL}/events/data-ai-first/kuwait-2026` },
-          { name: "Digital First Qatar 2026", city: "Doha", country: "Qatar", date: "23 September 2026", url: `${BASE_URL}/events/data-ai-first/qatar-2026` },
-        ]}
+        editions={[]}
         url={PAGE_URL}
       />
       {children}

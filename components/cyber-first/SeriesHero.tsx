@@ -15,12 +15,9 @@ const KUWAIT_DATE = new Date("2026-06-09T09:00:00+03:00");
 // ─── Edition Timeline ────────────────────────────────────────────────────────
 const editions = [
   { id: "uae", label: "UAE", status: "completed", href: "/events/cyber-first" },
-  { id: "kuwait", label: "Kuwait", status: "next", href: "/events/cyber-first/kuwait-2026" },
-  { id: "india", label: "India", status: "upcoming", href: "/events/cyber-first/india-2026" },
   { id: "kenya", label: "Kenya", status: "upcoming", href: "/events/cyber-first/kenya-2026" },
+  { id: "kuwait", label: "Kuwait", status: "next", href: "/events/cyber-first/kuwait-2026" },
   { id: "qatar", label: "Qatar", status: "upcoming", href: "/events/cyber-first/qatar-2026" },
-  { id: "oman", label: "Oman", status: "upcoming", href: "/events/cyber-first/oman-2026" },
-  { id: "ksa", label: "KSA", status: "upcoming", href: "/events/cyber-first/ksa-2026" },
 ];
 
 // ─── Stats (for trust strip below hero) ──────────────────────────────────────

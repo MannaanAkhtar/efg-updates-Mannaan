@@ -152,20 +152,8 @@ const eventSeriesJsonLd = [
     url: "https://www.eventsfirstgroup.com/events/cyber-first",
     organizer: { "@type": "Organization", name: "Events First Group", url: "https://www.eventsfirstgroup.com" },
     subEvent: [
-      { "@type": "Event", name: "Cyber First Kuwait 2026", startDate: "2026-06-09", location: { "@type": "Place", name: "Jumeirah Messilah Beach Hotel", address: { "@type": "PostalAddress", addressLocality: "Kuwait City", addressCountry: "KW" } } },
-      { "@type": "Event", name: "Cyber First India 2026", startDate: "2026-10-10", location: { "@type": "Place", name: "New Delhi", address: { "@type": "PostalAddress", addressLocality: "New Delhi", addressCountry: "IN" } } },
+      { "@type": "Event", name: "Cyber First Kuwait 2026", startDate: "2026-10-19", location: { "@type": "Place", name: "Jumeirah Messilah Beach Hotel", address: { "@type": "PostalAddress", addressLocality: "Kuwait City", addressCountry: "KW" } } },
       { "@type": "Event", name: "Cyber First East Africa 2026", startDate: "2026-07-08", location: { "@type": "Place", name: "Nairobi", address: { "@type": "PostalAddress", addressLocality: "Nairobi", addressCountry: "KE" } } },
-    ],
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "EventSeries",
-    name: "Digital First",
-    description: "Premier Data & AI leadership summit series for CDOs and enterprise leaders in the Middle East",
-    url: "https://www.eventsfirstgroup.com/events/data-ai-first",
-    organizer: { "@type": "Organization", name: "Events First Group", url: "https://www.eventsfirstgroup.com" },
-    subEvent: [
-      { "@type": "Event", name: "Digital First Kuwait 2026", startDate: "2026-06-10", location: { "@type": "Place", name: "Jumeirah Messilah Beach Hotel", address: { "@type": "PostalAddress", addressLocality: "Kuwait City", addressCountry: "KW" } } },
     ],
   },
   {
@@ -176,7 +164,7 @@ const eventSeriesJsonLd = [
     url: "https://www.eventsfirstgroup.com/events/opex-first",
     organizer: { "@type": "Organization", name: "Events First Group", url: "https://www.eventsfirstgroup.com" },
     subEvent: [
-      { "@type": "Event", name: "OPEX First Saudi 2026", startDate: "2026-09-15", location: { "@type": "Place", name: "Riyadh", address: { "@type": "PostalAddress", addressLocality: "Riyadh", addressCountry: "SA" } } },
+      { "@type": "Event", name: "OPEX First Saudi 2026", startDate: "2026-09-28", location: { "@type": "Place", name: "Riyadh", address: { "@type": "PostalAddress", addressLocality: "Riyadh", addressCountry: "SA" } } },
     ],
   },
   {
