@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async rewrites() {
+    return [
+      // Public, brand-aligned URL for the CleverTap webinar.
+      // /clevertap2 remains the working/sandbox path; the public URL serves the same page.
+      { source: "/beyond-automation-by-clevertap", destination: "/clevertap2" },
+    ];
+  },
   async redirects() {
     return [
       // Old site URLs → new equivalents (301 permanent)

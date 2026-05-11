@@ -35,7 +35,7 @@ const allEvents: EventItem[] = [
     location: "Virtual",
     venue: "Virtual",
     attendees: "15-20",
-    href: "#",
+    href: "/beyond-automation-by-clevertap",
     status: "open",
   },
   {

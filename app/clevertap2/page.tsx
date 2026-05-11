@@ -19,10 +19,10 @@ const CT_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverT
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const TAKEAWAYS = [
-  { heading: "Operationalizing Trust at Scale", desc: "Turning strategy into repeatable workflows with real-time triggers and smart segmentation." },
+  { heading: "From Segments to Individuals", desc: "See how AI moves beyond rules and averages to deliver personalization that's decided in real time — for every customer, every time." },
   { heading: "Real-World Engagement Playbooks", desc: "Examples from fintech, ecommerce, telco, and subscription brands on proactive, context-aware customer engagement." },
-  { heading: "Live Demo: From Strategy to Execution", desc: "A hands-on walkthrough of building a retention campaign end to end." },
-  { heading: "Retention Strategy Powered by Trust", desc: "How trust-based retention drives measurable impact on churn, NPS, and customer lifetime value." },
+  { heading: "AI Agents That Act, Not Just Assist", desc: "Watch Decision, Creative, and Action Agents work together to orchestrate personalized journeys your team couldn't build manually." },
+  { heading: "Built for Your Market", desc: "Practical, product-first insights for growth and marketing teams operating in Middle East's high-growth, high-pressure environment." },
 ];
 
 const AGENDA = [
@@ -34,7 +34,7 @@ const AGENDA = [
   { time: "11:57 AM", duration: "15 min", title: "Closing Remarks & Next Steps", presenter: "Moderator + Panelists" },
 ];
 
-const OVERVIEW_WORDS = "Is trust the missing piece in your retention strategy?".split(" ");
+const OVERVIEW_WORDS = "Every customer is different. Your marketing should be too.".split(" ");
 
 // ─── COUNTDOWN ──────────────────────────────────────────────────────────────
 const CountdownDisplay = memo(function CountdownDisplay({ target }: { target: string }) {
@@ -210,14 +210,14 @@ function HeroSection() {
 
             {/* Title */}
             <h1 style={{ fontFamily: "var(--font-opensans)", fontSize: "clamp(24px, 4.4vw, 44px)", lineHeight: 1.1, letterSpacing: "-1.8px", color: CT_BLACK, margin: "0 0 clamp(12px, 2vh, 22px)", textShadow: "0 1px 2px rgba(255,255,255,0.5)" }}>
-              <span style={{ display: "block", overflow: "hidden" }}><span className="ct-title-line" style={{ display: "block", fontWeight: 800, opacity: 0 }}>Engaging Customers in</span></span>
-              <span style={{ display: "block", overflow: "hidden" }}><span className="ct-title-line" style={{ display: "block", fontWeight: 800, opacity: 0 }}><span style={{ color: CT_BLUE }}>Uncertain Times</span></span></span>
-              <span style={{ display: "block", overflow: "hidden" }}><span className="ct-title-line" style={{ display: "block", fontWeight: 800, opacity: 0, fontSize: "0.6em" }}>How Middle East Brands Are Making Retention Their Growth Strategy</span></span>
+              <span style={{ display: "block", overflow: "hidden" }}><span className="ct-title-line" style={{ display: "block", fontWeight: 800, opacity: 0 }}>Beyond Automation:</span></span>
+              <span style={{ display: "block", overflow: "hidden" }}><span className="ct-title-line" style={{ display: "block", fontWeight: 800, opacity: 0 }}><span style={{ color: CT_BLUE }}>How AI Agents Deliver</span></span></span>
+              <span style={{ display: "block", overflow: "hidden" }}><span className="ct-title-line" style={{ display: "block", fontWeight: 800, opacity: 0, fontSize: "0.6em" }}>True 1:1 Engagement at Scale</span></span>
             </h1>
 
             {/* Tagline */}
             <p className="ct-hero-stagger" style={{ fontFamily: "var(--font-opensans)", fontSize: "clamp(13px, 1.3vw, 16px)", fontWeight: 400, color: CT_CADET, margin: "0 0 clamp(16px, 3vh, 28px)", lineHeight: 1.7, opacity: 0, maxWidth: 460 }}>
-              A peer-led session for marketing, CRM, and growth leaders across Middle East.
+              An invite-only session for marketing, CRM, and growth leaders across Middle East.
             </p>
 
             {/* Meta strip — liquid glass */}
@@ -445,7 +445,7 @@ function OverviewSection() {
             <div className="ct-ov-divider" style={{ width: 48, height: 2, background: CT_RED, borderRadius: 1, transform: "scaleX(0)", marginBottom: 20 }} />
 
             <p style={{ fontFamily: "var(--font-opensans)", fontSize: 14, color: CT_SLATE, lineHeight: 1.7, margin: "0 0 28px" }}>
-              Relevance builds trust. Trust builds revenue.
+              See how AI Agents make true 1:1 personalization possible — across every channel, every moment.
             </p>
 
           </div>
@@ -480,10 +480,10 @@ function OverviewSection() {
                 </svg>
 
                 <p className="ct-ov-para" style={{ fontFamily: "var(--font-opensans)", fontSize: "clamp(14px, 1.3vw, 15.5px)", fontWeight: 400, color: CT_CADET, lineHeight: 1.85, margin: "0 0 18px", opacity: 0 }}>
-                  The brands customers trust most are the ones that stay <span style={{ color: CT_BLACK, fontWeight: 600 }}>present, relevant, and helpful</span>. In this webinar, senior marketing and CRM leaders share how they are shifting from promotional, broadcast-style messaging to personalised, context-aware engagement that deepens customer relationships.
+                  Across Middle East, currency shifts and tightening wallets have made one thing clear: <span style={{ color: CT_BLACK, fontWeight: 600 }}>losing existing customers costs more than acquiring new ones</span>. The brands winning in this environment aren&apos;t spending more on acquisition — they&apos;re deepening relationships with customers they already have.
                 </p>
                 <p className="ct-ov-para" style={{ fontFamily: "var(--font-opensans)", fontSize: "clamp(14px, 1.3vw, 15.5px)", fontWeight: 400, color: CT_CADET, lineHeight: 1.85, margin: "0 0 22px", opacity: 0 }}>
-                  You will leave with a clear framework for making <span style={{ color: CT_BLACK, fontWeight: 600 }}>retention a trust-building strategy</span>, not just a cost metric.
+                  In this webinar, see how <span style={{ color: CT_BLACK, fontWeight: 600 }}>CleverAI™&apos;s Decisioning Engine and Agentic Universe</span> turns every customer interaction from a guess into a decision — with AI Agents that think, act, and collaborate to deliver true 1:1 personalization at scale.
                 </p>
 
                 {/* Bottom accent */}

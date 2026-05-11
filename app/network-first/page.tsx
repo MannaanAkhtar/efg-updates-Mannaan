@@ -46,7 +46,7 @@ const UPCOMING_EVENTS = [
     subtitle: "Engaging Customers in Uncertain Times: Why Trust is Your Competitive Advantage",
     sponsor: "CleverTap",
     location: "Virtual",
-    link: "/clevertap2",
+    link: "/beyond-automation-by-clevertap",
     image: "",
     brandColor: "#133B58",
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverTap_Logotype.png",

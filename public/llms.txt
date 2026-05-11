@@ -68,6 +68,7 @@ Unlike global generalist event companies (e.g., Gartner, Reuters Events, Informa
 ## NetworkFirst — virtual roundtables and boardrooms
 
 - [Braze Virtual Roundtable](https://vroundtable-braze.eventsfirstgroup.com): Invite-only customer-engagement boardroom hosted with Braze.
+- [CleverTap Virtual Roundtable — Beyond Automation](https://www.eventsfirstgroup.com/beyond-automation-by-clevertap): "Beyond Automation: How AI Agents Deliver True 1:1 Engagement at Scale." 10 June 2026 (online). An invite-only 90-minute session for marketing, CRM, and growth leaders across Middle East, hosted with CleverTap.
 - [SonicWall Virtual Session](https://sonicwall-webinar.eventsfirstgroup.com): Cybersecurity webinar hosted with SonicWall.
 - [Crayon Virtual Sessions](https://www.eventsfirstgroup.com/network-first): "Built for Uncertainty" (30 April 2026) and "AI Without Blindspots" — Crayon × Microsoft (5 May 2026).
 - [Big Leap Riyadh](https://big-leap-riyadh.eventsfirstgroup.com): Subdomain mirror of the CleverTap evening event.

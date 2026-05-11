@@ -9,39 +9,42 @@ const openSans = Open_Sans({
 });
 
 const BASE_URL = "https://www.eventsfirstgroup.com";
-const PAGE_URL = `${BASE_URL}/clevertap2`;
+// Public, brand-aligned URL. /clevertap2 stays accessible as a sandbox path
+// (via the next.config.ts rewrite) but canonical + OG + JSON-LD point here.
+const PAGE_URL = `${BASE_URL}/beyond-automation-by-clevertap`;
 // TODO: replace with a designed 1200×630 share card once available.
 // CleverTap brand logo used as best available event-specific asset for now.
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverTap_Logotype.png";
 
 export const metadata: Metadata = {
-  title: "Engaging Customers in Uncertain Times | CleverTap x EFG",
+  title: "Beyond Automation: AI Agents at Scale | CleverTap x EFG",
   description:
-    "A 90-minute virtual roundtable for marketing and CRM leaders. Relevance builds trust. Trust builds revenue. June 10, 2026.",
+    "A 90-minute virtual roundtable for marketing and CRM leaders. See how AI Agents deliver true 1:1 personalization across every channel. June 10, 2026.",
   keywords: [
     "CleverTap webinar",
-    "customer engagement",
-    "retention strategy",
+    "AI agents marketing",
+    "1:1 personalization",
+    "agentic AI",
+    "CleverAI Decisioning Engine",
     "CRM leaders",
-    "personalisation",
     "lifecycle engagement",
-    "customer trust",
+    "customer retention Middle East",
   ],
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "Engaging Customers in Uncertain Times: Why Trust is Your Competitive Advantage",
-    description: "Relevance builds trust. Trust builds revenue. June 10, 2026 — 90 min virtual roundtable.",
+    title: "Beyond Automation: How AI Agents Deliver True 1:1 Engagement at Scale",
+    description: "See how AI Agents make true 1:1 personalization possible — across every channel, every moment. June 10, 2026 — 90 min virtual roundtable.",
     url: PAGE_URL,
     siteName: "Events First Group",
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Engaging Customers in Uncertain Times — CleverTap × EFG, 10 June 2026" }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Beyond Automation: AI Agents at Scale — CleverTap × EFG, 10 June 2026" }],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
-    title: "Engaging Customers in Uncertain Times — CleverTap × EFG",
-    description: "Relevance builds trust. Trust builds revenue. June 10, 2026 — 90 min virtual roundtable.",
+    title: "Beyond Automation: AI Agents at Scale — CleverTap × EFG",
+    description: "See how AI Agents make true 1:1 personalization possible — across every channel, every moment. June 10, 2026 — 90 min virtual roundtable.",
     images: [OG_IMAGE],
   },
 };
@@ -55,8 +58,8 @@ export default function CleverTapLayout({ children }: { children: React.ReactNod
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Event",
-            name: "Engaging Customers in Uncertain Times: Why Trust is Your Competitive Advantage",
-            description: "A 90-minute virtual roundtable for marketing and CRM leaders on customer engagement strategy.",
+            name: "Beyond Automation: How AI Agents Deliver True 1:1 Engagement at Scale",
+            description: "A 90-minute virtual roundtable for marketing, CRM, and growth leaders on AI Agents and true 1:1 personalization, powered by CleverAI's Decisioning Engine and Agentic Universe.",
             startDate: "2026-06-10T11:00:00+04:00",
             endDate: "2026-06-10T12:30:00+04:00",
             eventStatus: "https://schema.org/EventScheduled",
