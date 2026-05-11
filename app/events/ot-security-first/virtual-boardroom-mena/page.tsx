@@ -230,6 +230,7 @@ const OTVB_SPEAKERS = [
     name: "Ahmed Fathalla",
     title: "Senior Manager, OT Systems & Cybersecurity",
     org: "SecuriCIP",
+    flag: "https://flagcdn.com/w40/eg.png",
     photo: `${S3}/Speakers-photos/Ahmed_Fathalla.png`,
   },
   {
@@ -301,13 +302,13 @@ const OTVB_SPONSORS_2026: { name: string; logo: string; url: string; tier: "plat
   {
     name: "SecuriCIP",
     logo: `${S3}/sponsors-logo/SecuriCIP.png`,
-    url: "#",
+    url: "https://www.linkedin.com/company/securicip/",
     tier: "gold",
   },
   {
     name: "Rilian",
     logo: `${S3}/logos/Corrected+Rilian+Logo+-+Black.png`,
-    url: "#",
+    url: "https://www.rilian.com/",
     tier: "supporting",
   },
   {
