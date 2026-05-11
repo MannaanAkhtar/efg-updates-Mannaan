@@ -849,6 +849,18 @@ const SPEAKERS = [
     org: "Mubadala Energy",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Butti.png",
   },
+  {
+    name: "Ayham Alzaaim",
+    title: "Senior Vice President, Middle East & Turkey",
+    org: "ARIS",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/AyhamAlzaaim.png",
+  },
+  {
+    name: "Cezmi Eroglu",
+    title: "Director – Solution Architecture – Middle East & Turkey",
+    org: "ARIS",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/CezmiEroglu.png",
+  },
 ];
 
 function SpeakersSection() {
@@ -958,13 +970,44 @@ function SpeakersSection() {
 }
 
 // ─── SPONSORS ────────────────────────────────────────────────────────────────
-const SPONSORS_PLATINUM = [
+type SponsorItem = {
+  name: string;
+  tier: "Platinum" | "Gold";
+  logo: string;
+  url: string;
+  surface: "dark" | "light";
+  innerBg: string;
+  ambientGlow?: string;
+  logoMaxHeight?: number;
+};
+
+const SPONSORS: SponsorItem[] = [
   {
     name: "ARIS",
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/ARIS-logo-crppd.svg",
+    tier: "Platinum",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/ARIS_RGB_Logo_WhitePink.png",
     url: "https://www.ariscommunity.com/",
+    surface: "dark",
+    innerBg: "linear-gradient(165deg, #1c1722 0%, #100b15 100%)",
+    ambientGlow: "radial-gradient(ellipse 70% 55% at center 65%, rgba(255, 92, 161, 0.22), transparent 75%)",
+    logoMaxHeight: 110,
+  },
+  {
+    name: "Celonis",
+    tier: "Gold",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Celonis_Logo.png",
+    url: "https://www.celonis.com/",
+    surface: "light",
+    innerBg: "linear-gradient(165deg, #f4ead3 0%, #e6dcc0 100%)",
   },
 ];
+
+const TIER_METALLIC: Record<"Platinum" | "Gold", { strong: string; soft: string; label: string }> = {
+  Platinum: { strong: "rgba(229, 228, 226, 0.9)", soft: "rgba(229, 228, 226, 0.5)", label: "rgba(229, 228, 226, 0.85)" },
+  Gold: { strong: "rgba(201, 147, 90, 0.95)", soft: "rgba(201, 147, 90, 0.5)", label: "rgba(201, 147, 90, 0.85)" },
+};
+
+const TIER_ORDER: Array<"Platinum" | "Gold"> = ["Platinum", "Gold"];
 
 function SponsorsSection() {
   const ref = useRef<HTMLElement>(null);
@@ -972,11 +1015,11 @@ function SponsorsSection() {
 
   return (
     <section ref={ref} id="sponsors" style={{ background: `linear-gradient(180deg, ${BG} 0%, ${BG_DARK} 50%, ${BG} 100%)`, padding: "clamp(48px, 6vw, 80px) 0", position: "relative", overflow: "hidden" }}>
-      {/* Background glows */}
+      {/* Background glow */}
       <div style={{ position: "absolute", top: "20%", left: "50%", transform: "translateX(-50%)", width: "60%", height: "70%", background: `radial-gradient(ellipse, ${V}10, transparent 70%)`, pointerEvents: "none" }} />
 
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
-        {/* Header */}
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -993,65 +1036,91 @@ function SponsorsSection() {
           </h2>
         </motion.div>
 
-        {/* Platinum tier */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
-          style={{ marginBottom: 32 }}
-        >
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 28 }}>
-            <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, rgba(229, 228, 226, 0.6))` }} />
-            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "4px", textTransform: "uppercase", color: "rgba(229, 228, 226, 0.85)" }}>Platinum Sponsor</span>
-            <span style={{ width: 40, height: 1, background: `linear-gradient(270deg, transparent, rgba(229, 228, 226, 0.6))` }} />
-          </div>
+        {/* Tier groups: shared label above each row of cards, so adding more sponsors per tier just adds cards */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 44 }}>
+          {TIER_ORDER.map((tier, tierIdx) => {
+            const tierSponsors = SPONSORS.filter(s => s.tier === tier);
+            if (tierSponsors.length === 0) return null;
+            const m = TIER_METALLIC[tier];
 
-          <div style={{ display: "grid", gridTemplateColumns: `repeat(${Math.min(SPONSORS_PLATINUM.length, 2)}, minmax(0, 1fr))`, gap: 24, justifyContent: "center", maxWidth: 420, margin: "0 auto" }}>
-            {SPONSORS_PLATINUM.map((sponsor, i) => (
-              <motion.a
-                key={sponsor.name}
-                href={sponsor.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${sponsor.name} — Platinum Sponsor`}
-                initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-                animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-                transition={{ duration: 0.7, delay: 0.25 + i * 0.12, ease: EASE }}
-                className="opex-pi-sponsor-card"
-                style={{
-                  borderRadius: 24,
-                  padding: 2,
-                  background: `linear-gradient(160deg, rgba(229, 228, 226, 0.55), ${V_BRIGHT}40, rgba(255,255,255,0.08), rgba(229, 228, 226, 0.4))`,
-                  boxShadow: `0 24px 70px rgba(0,0,0,0.55), 0 0 30px ${V}18`,
-                  textDecoration: "none",
-                  display: "block",
-                  transition: "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
-                }}
+            return (
+              <motion.div
+                key={tier}
+                initial={{ opacity: 0, y: 24 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.15 + tierIdx * 0.15, ease: EASE }}
+                style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}
               >
-                <div style={{
-                  borderRadius: 22,
-                  background: "linear-gradient(165deg, #f7f7f5 0%, #e8e8e3 100%)",
-                  padding: "20px 28px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minHeight: 110,
-                  position: "relative",
-                  overflow: "hidden",
-                }}>
-                  {/* Inner shine */}
-                  <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent)", pointerEvents: "none" }} />
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={sponsor.logo}
-                    alt={`${sponsor.name} logo`}
-                    style={{ maxWidth: "100%", maxHeight: 75, width: "auto", height: "auto", objectFit: "contain", display: "block" }}
-                  />
+                {/* Tier label — sits above the row of cards in this tier */}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 24 }}>
+                  <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${m.soft})` }} />
+                  <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "4px", textTransform: "uppercase", color: m.label }}>{tier} Sponsor{tierSponsors.length > 1 ? "s" : ""}</span>
+                  <span style={{ width: 40, height: 1, background: `linear-gradient(270deg, transparent, ${m.soft})` }} />
                 </div>
-              </motion.a>
-            ))}
-          </div>
-        </motion.div>
+
+                {/* Row of sponsor cards in this tier */}
+                <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 24, width: "100%" }}>
+                  {tierSponsors.map((sponsor, i) => {
+                    const shineColor = sponsor.surface === "dark" ? "rgba(255,255,255,0.32)" : "rgba(255,255,255,0.9)";
+                    return (
+                      <motion.a
+                        key={sponsor.name}
+                        href={sponsor.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${sponsor.name} — ${sponsor.tier} Sponsor`}
+                        initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+                        animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+                        transition={{ duration: 0.7, delay: 0.25 + tierIdx * 0.15 + i * 0.1, ease: EASE }}
+                        className="opex-pi-sponsor-card"
+                        style={{
+                          flex: "1 1 280px",
+                          maxWidth: 520,
+                          minWidth: 260,
+                          borderRadius: 24,
+                          padding: 2,
+                          background: `linear-gradient(160deg, ${m.strong} 0%, ${V_BRIGHT}30 35%, rgba(255,255,255,0.06) 65%, ${m.soft} 100%)`,
+                          boxShadow: `0 24px 70px rgba(0,0,0,0.55), 0 0 30px ${V}1f`,
+                          textDecoration: "none",
+                          display: "block",
+                          transition: "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
+                        }}
+                      >
+                        <div style={{
+                          borderRadius: 22,
+                          background: sponsor.innerBg,
+                          padding: "26px 32px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          minHeight: 140,
+                          position: "relative",
+                          overflow: "hidden",
+                        }}>
+                          {/* Top edge shine */}
+                          <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: `linear-gradient(90deg, transparent, ${shineColor}, transparent)`, pointerEvents: "none" }} />
+
+                          {/* Optional ambient glow behind logo (brand-coloured wash for dark-surface logos) */}
+                          {sponsor.ambientGlow && (
+                            <div style={{ position: "absolute", inset: 0, background: sponsor.ambientGlow, pointerEvents: "none" }} />
+                          )}
+
+                          {/* Logo */}
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={sponsor.logo}
+                            alt={`${sponsor.name} logo`}
+                            style={{ maxWidth: "100%", maxHeight: sponsor.logoMaxHeight ?? 80, width: "auto", height: "auto", objectFit: "contain", display: "block", position: "relative", zIndex: 2 }}
+                          />
+                        </div>
+                      </motion.a>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
 
       {/* Bottom border */}
