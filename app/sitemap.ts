@@ -253,9 +253,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.7,
     },
-    // CleverTap landing page
+    // CleverTap landing page (public URL — /clevertap2 is the sandbox path served by the same file)
     {
-      url: `${BASE_URL}/clevertap2`,
+      url: `${BASE_URL}/beyond-automation-by-clevertap`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.6,
