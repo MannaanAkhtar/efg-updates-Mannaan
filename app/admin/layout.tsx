@@ -91,6 +91,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: "/admin/events", label: "Events", icon: "📅" },
     { href: "/admin/users", label: "Users", icon: "👥" },
     { href: "/admin/sponsors", label: "Sponsors", icon: "🏢" },
+    { href: "/admin/connect", label: "Connect", icon: "🤝" },
   ]
 
   if (isSuperAdmin) {

@@ -80,6 +80,32 @@ export async function getConnectSession() {
   return { supabase, user: data.user };
 }
 
+// Admin guard for /admin/connect/* — checks the user is logged in AND has
+// is_admin=true on the main `profiles` table (the same table that gates
+// /admin/*). Returns a service-role client so admin queries bypass RLS.
+export async function requireConnectAdmin() {
+  const supabase = await createConnectServerClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    redirect("/login");
+  }
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("is_admin, full_name")
+    .eq("user_id", user.id)
+    .single();
+
+  if (!profile?.is_admin) {
+    redirect("/portal");
+  }
+
+  return {
+    admin: createConnectAdminClient(),
+    user: { id: user.id, email: user.email ?? "", name: profile.full_name ?? "" },
+  };
+}
+
 // ─── CONTEXT FOR THE CURRENT SPONSOR USER ───────────────────────────────────
 
 export interface ConnectContext {
