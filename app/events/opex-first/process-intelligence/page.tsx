@@ -1012,10 +1012,10 @@ const SPONSORS: SponsorItem[] = [
   },
 ];
 
-const TIER_METALLIC: Record<SponsorTier, { strong: string; soft: string; label: string; cardMaxWidth: number }> = {
-  Platinum: { strong: "rgba(229, 228, 226, 0.9)", soft: "rgba(229, 228, 226, 0.5)", label: "rgba(229, 228, 226, 0.85)", cardMaxWidth: 520 },
-  Gold: { strong: "rgba(201, 147, 90, 0.95)", soft: "rgba(201, 147, 90, 0.5)", label: "rgba(201, 147, 90, 0.85)", cardMaxWidth: 520 },
-  "Media Partner": { strong: "rgba(176, 196, 222, 0.9)", soft: "rgba(176, 196, 222, 0.5)", label: "rgba(176, 196, 222, 0.85)", cardMaxWidth: 360 },
+const TIER_METALLIC: Record<SponsorTier, { strong: string; soft: string; label: string; glow: string; cardMaxWidth: number }> = {
+  Platinum: { strong: "rgba(229, 228, 226, 0.9)", soft: "rgba(229, 228, 226, 0.5)", label: "rgba(229, 228, 226, 0.85)", glow: "rgba(229, 228, 226, 0.32)", cardMaxWidth: 380 },
+  Gold: { strong: "rgba(201, 147, 90, 0.95)", soft: "rgba(201, 147, 90, 0.5)", label: "rgba(201, 147, 90, 0.85)", glow: "rgba(201, 147, 90, 0.42)", cardMaxWidth: 380 },
+  "Media Partner": { strong: "rgba(176, 196, 222, 0.9)", soft: "rgba(176, 196, 222, 0.5)", label: "rgba(176, 196, 222, 0.85)", glow: "rgba(176, 196, 222, 0.32)", cardMaxWidth: 340 },
 };
 
 const TIER_ORDER: SponsorTier[] = ["Platinum", "Gold", "Media Partner"];
@@ -1085,43 +1085,111 @@ function SponsorsSection() {
                         transition={{ duration: 0.7, delay: 0.25 + tierIdx * 0.15 + i * 0.1, ease: EASE }}
                         className="opex-pi-sponsor-card"
                         style={{
-                          flex: "1 1 280px",
+                          flex: "0 1 auto",
+                          width: "100%",
                           maxWidth: m.cardMaxWidth,
-                          minWidth: 260,
+                          minWidth: 240,
                           borderRadius: 24,
                           padding: 2,
                           background: `linear-gradient(160deg, ${m.strong} 0%, ${V_BRIGHT}30 35%, rgba(255,255,255,0.06) 65%, ${m.soft} 100%)`,
+                          backgroundSize: "220% 220%",
                           boxShadow: `0 24px 70px rgba(0,0,0,0.55), 0 0 30px ${V}1f`,
                           textDecoration: "none",
                           display: "block",
                           transition: "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
-                        }}
+                          ["--card-glow" as string]: m.glow,
+                        } as React.CSSProperties}
                       >
                         <div style={{
                           borderRadius: 22,
                           background: sponsor.innerBg,
-                          padding: "26px 32px",
+                          padding: "30px 28px",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          minHeight: 140,
+                          minHeight: 170,
                           position: "relative",
                           overflow: "hidden",
+                          // Skeuo recessed panel: inset top highlight + bottom shadow + subtle side gradients
+                          boxShadow: sponsor.surface === "dark"
+                            ? "inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.55), inset 1px 0 0 rgba(255,255,255,0.04), inset -1px 0 0 rgba(0,0,0,0.3)"
+                            : "inset 0 1px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(0,0,0,0.12), inset 1px 0 0 rgba(255,255,255,0.4), inset -1px 0 0 rgba(0,0,0,0.06)",
                         }}>
-                          {/* Top edge shine */}
-                          <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: `linear-gradient(90deg, transparent, ${shineColor}, transparent)`, pointerEvents: "none" }} />
+                          {/* Glass: top translucent sheen — fades from light to transparent over the top half */}
+                          <div style={{
+                            position: "absolute",
+                            inset: 0,
+                            background: sponsor.surface === "dark"
+                              ? "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 28%, transparent 58%)"
+                              : "linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.2) 28%, transparent 58%)",
+                            pointerEvents: "none",
+                            zIndex: 1,
+                          }} />
+
+                          {/* Glass: diagonal glint — soft elliptical highlight in upper-left */}
+                          <div style={{
+                            position: "absolute",
+                            top: "-30%",
+                            left: "-20%",
+                            width: "70%",
+                            height: "120%",
+                            background: sponsor.surface === "dark"
+                              ? "radial-gradient(ellipse at top left, rgba(255,255,255,0.14), transparent 60%)"
+                              : "radial-gradient(ellipse at top left, rgba(255,255,255,0.55), transparent 60%)",
+                            transform: "rotate(-15deg)",
+                            pointerEvents: "none",
+                            zIndex: 1,
+                          }} />
+
+                          {/* Skeuo: bottom depth shadow — gives the floor of the recess a soft fall-off */}
+                          <div style={{
+                            position: "absolute",
+                            inset: 0,
+                            background: sponsor.surface === "dark"
+                              ? "linear-gradient(0deg, rgba(0,0,0,0.35) 0%, transparent 38%)"
+                              : "linear-gradient(0deg, rgba(0,0,0,0.10) 0%, transparent 38%)",
+                            pointerEvents: "none",
+                            zIndex: 1,
+                          }} />
+
+                          {/* Top edge shine hairline */}
+                          <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: `linear-gradient(90deg, transparent, ${shineColor}, transparent)`, pointerEvents: "none", zIndex: 2 }} />
+
+                          {/* Bottom edge shadow hairline */}
+                          <div style={{
+                            position: "absolute",
+                            bottom: 0,
+                            left: "10%",
+                            right: "10%",
+                            height: 1,
+                            background: sponsor.surface === "dark"
+                              ? "linear-gradient(90deg, transparent, rgba(0,0,0,0.6), transparent)"
+                              : "linear-gradient(90deg, transparent, rgba(0,0,0,0.18), transparent)",
+                            pointerEvents: "none",
+                            zIndex: 2,
+                          }} />
 
                           {/* Optional ambient glow behind logo (brand-coloured wash for dark-surface logos) */}
                           {sponsor.ambientGlow && (
-                            <div style={{ position: "absolute", inset: 0, background: sponsor.ambientGlow, pointerEvents: "none" }} />
+                            <div style={{ position: "absolute", inset: 0, background: sponsor.ambientGlow, pointerEvents: "none", zIndex: 1 }} />
                           )}
+
+                          {/* Hover shine sweep — diagonal bright strip that travels across on hover */}
+                          <div className="opex-pi-shine" aria-hidden="true" />
+
+                          {/* Inner highlight ring — appears on hover, traces the inner panel edge */}
+                          <div className="opex-pi-inner-ring" aria-hidden="true" />
+
+                          {/* Corner facet — tiny metallic chevron in top-right for a tactile, machined feel */}
+                          <div className="opex-pi-corner-facet" aria-hidden="true" style={{ background: `linear-gradient(135deg, ${m.label} 0%, transparent 60%)` }} />
 
                           {/* Logo */}
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={sponsor.logo}
                             alt={`${sponsor.name} logo`}
-                            style={{ maxWidth: "100%", maxHeight: sponsor.logoMaxHeight ?? 80, width: "auto", height: "auto", objectFit: "contain", display: "block", position: "relative", zIndex: 2 }}
+                            className="opex-pi-sponsor-logo"
+                            style={{ maxWidth: "100%", maxHeight: sponsor.logoMaxHeight ?? 80, width: "auto", height: "auto", objectFit: "contain", display: "block", position: "relative", zIndex: 3 }}
                           />
                         </div>
                       </motion.a>
@@ -1138,7 +1206,86 @@ function SponsorsSection() {
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent 10%, ${V}15, transparent 90%)` }} />
 
       <style jsx global>{`
-        .opex-pi-sponsor-card:hover { transform: translateY(-4px); box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 40px ${V}28 !important; }
+        @keyframes opex-pi-frame-shimmer {
+          0%   { background-position: 0% 50%; }
+          50%  { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        @keyframes opex-pi-shine-sweep {
+          0%   { transform: translateX(-160%) skewX(-18deg); opacity: 0; }
+          15%  { opacity: 1; }
+          85%  { opacity: 1; }
+          100% { transform: translateX(260%) skewX(-18deg); opacity: 0; }
+        }
+        .opex-pi-sponsor-card {
+          animation: opex-pi-frame-shimmer 14s ease-in-out infinite;
+        }
+        .opex-pi-sponsor-card:hover {
+          transform: translateY(-6px);
+          box-shadow:
+            0 36px 90px rgba(0,0,0,0.62),
+            0 0 60px var(--card-glow, ${V}28),
+            0 0 0 1px rgba(255,255,255,0.08) inset !important;
+        }
+        .opex-pi-sponsor-logo {
+          transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
+        }
+        .opex-pi-sponsor-card:hover .opex-pi-sponsor-logo {
+          transform: scale(1.045);
+          filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35));
+        }
+        .opex-pi-shine {
+          position: absolute;
+          top: -10%;
+          left: 0;
+          width: 38%;
+          height: 130%;
+          background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.40) 50%, transparent 100%);
+          transform: translateX(-160%) skewX(-18deg);
+          pointer-events: none;
+          z-index: 4;
+          opacity: 0;
+          filter: blur(2px);
+        }
+        .opex-pi-sponsor-card:hover .opex-pi-shine {
+          animation: opex-pi-shine-sweep 1.1s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        }
+        .opex-pi-inner-ring {
+          position: absolute;
+          inset: 6px;
+          border-radius: 18px;
+          border: 1px solid var(--card-glow, rgba(255,255,255,0.18));
+          opacity: 0;
+          transform: scale(0.985);
+          transition: opacity 0.45s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+          pointer-events: none;
+          z-index: 2;
+        }
+        .opex-pi-sponsor-card:hover .opex-pi-inner-ring {
+          opacity: 1;
+          transform: scale(1);
+        }
+        .opex-pi-corner-facet {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 56px;
+          height: 56px;
+          clip-path: polygon(100% 0, 100% 60%, 40% 0);
+          opacity: 0.55;
+          pointer-events: none;
+          z-index: 2;
+          transition: opacity 0.5s ease;
+        }
+        .opex-pi-sponsor-card:hover .opex-pi-corner-facet {
+          opacity: 0.85;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .opex-pi-sponsor-card,
+          .opex-pi-sponsor-card:hover .opex-pi-shine {
+            animation: none !important;
+          }
+        }
       `}</style>
     </section>
   );
