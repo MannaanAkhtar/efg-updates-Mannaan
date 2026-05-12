@@ -970,9 +970,11 @@ function SpeakersSection() {
 }
 
 // ─── SPONSORS ────────────────────────────────────────────────────────────────
+type SponsorTier = "Platinum" | "Gold" | "Media Partner";
+
 type SponsorItem = {
   name: string;
-  tier: "Platinum" | "Gold";
+  tier: SponsorTier;
   logo: string;
   url: string;
   surface: "dark" | "light";
@@ -999,14 +1001,24 @@ const SPONSORS: SponsorItem[] = [
     surface: "light",
     innerBg: "linear-gradient(165deg, #f4ead3 0%, #e6dcc0 100%)",
   },
+  {
+    name: "Times of AI",
+    tier: "Media Partner",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Timesofai-02.png",
+    url: "https://timesofai.com/",
+    surface: "dark",
+    innerBg: "linear-gradient(165deg, #1c1722 0%, #100b15 100%)",
+    logoMaxHeight: 110,
+  },
 ];
 
-const TIER_METALLIC: Record<"Platinum" | "Gold", { strong: string; soft: string; label: string }> = {
-  Platinum: { strong: "rgba(229, 228, 226, 0.9)", soft: "rgba(229, 228, 226, 0.5)", label: "rgba(229, 228, 226, 0.85)" },
-  Gold: { strong: "rgba(201, 147, 90, 0.95)", soft: "rgba(201, 147, 90, 0.5)", label: "rgba(201, 147, 90, 0.85)" },
+const TIER_METALLIC: Record<SponsorTier, { strong: string; soft: string; label: string; cardMaxWidth: number }> = {
+  Platinum: { strong: "rgba(229, 228, 226, 0.9)", soft: "rgba(229, 228, 226, 0.5)", label: "rgba(229, 228, 226, 0.85)", cardMaxWidth: 520 },
+  Gold: { strong: "rgba(201, 147, 90, 0.95)", soft: "rgba(201, 147, 90, 0.5)", label: "rgba(201, 147, 90, 0.85)", cardMaxWidth: 520 },
+  "Media Partner": { strong: "rgba(176, 196, 222, 0.9)", soft: "rgba(176, 196, 222, 0.5)", label: "rgba(176, 196, 222, 0.85)", cardMaxWidth: 360 },
 };
 
-const TIER_ORDER: Array<"Platinum" | "Gold"> = ["Platinum", "Gold"];
+const TIER_ORDER: SponsorTier[] = ["Platinum", "Gold", "Media Partner"];
 
 function SponsorsSection() {
   const ref = useRef<HTMLElement>(null);
@@ -1053,7 +1065,7 @@ function SponsorsSection() {
                 {/* Tier label — sits above the row of cards in this tier */}
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 24 }}>
                   <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${m.soft})` }} />
-                  <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "4px", textTransform: "uppercase", color: m.label }}>{tier} Sponsor{tierSponsors.length > 1 ? "s" : ""}</span>
+                  <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "4px", textTransform: "uppercase", color: m.label }}>{tier === "Media Partner" ? (tierSponsors.length > 1 ? "Media Partners" : "Media Partner") : `${tier} Sponsor${tierSponsors.length > 1 ? "s" : ""}`}</span>
                   <span style={{ width: 40, height: 1, background: `linear-gradient(270deg, transparent, ${m.soft})` }} />
                 </div>
 
@@ -1074,7 +1086,7 @@ function SponsorsSection() {
                         className="opex-pi-sponsor-card"
                         style={{
                           flex: "1 1 280px",
-                          maxWidth: 520,
+                          maxWidth: m.cardMaxWidth,
                           minWidth: 260,
                           borderRadius: 24,
                           padding: 2,
