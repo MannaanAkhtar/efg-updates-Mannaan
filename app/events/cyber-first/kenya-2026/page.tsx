@@ -228,6 +228,7 @@ const CFK_SPONSORS_2026: { name: string; logo: string; url: string; tier: "strat
   { name: "QuantumSynapse", logo: `${S3}/logos/QuantumSynapse-1.png`, url: "https://quantumsynapse.ai/", tier: "panel" },
   { name: "Cryptoken Media", logo: `${S3}/sponsors-logo/cryptoken_media.png`, url: "https://cryptoken.media/", tier: "media" },
   { name: "TEX Afrika Media", logo: `${S3}/sponsors-logo/tex_afrika_media.png`, url: "https://www.texafrica.com/", tier: "media" },
+  { name: "IT News Africa", logo: `${S3}/logos/IT+NEWS+LOGO.png`, url: "https://www.itnewsafrica.com/", tier: "media" },
 ];
 
 // Kenya Advisory Board (key government & policy leaders from brochure)
@@ -1358,7 +1359,7 @@ function ConferenceChair() {
                 </p>
               </div>
 
-              <button onClick={() => setExpanded(!expanded)} className="cfk-stmt-btn"
+              <button type="button" suppressHydrationWarning onClick={() => setExpanded(!expanded)} className="cfk-stmt-btn"
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 8, marginTop: 20,
                   fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600,
@@ -2606,6 +2607,8 @@ function AdvisoryMobileMarquee() {
       <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 20 }}>
         {Array.from({ length: totalPages }).map((_, i) => (
           <button
+            type="button"
+            suppressHydrationWarning
             key={i}
             onClick={() => setPage(i)}
             style={{
@@ -5855,6 +5858,8 @@ function VrMobileMarquee({ inView }: { inView: boolean }) {
       <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 20 }}>
         {Array.from({ length: totalPages }).map((_, i) => (
           <button
+            type="button"
+            suppressHydrationWarning
             key={i}
             onClick={() => setPage(i)}
             style={{
@@ -6149,7 +6154,7 @@ function AwardsSection() {
                     </div>
                   </div>
 
-                  <button type="submit" className="cfk-nominate-btn" style={{ width: "100%", padding: "16px 32px", borderRadius: 14, background: `linear-gradient(135deg, ${GOLD}, ${GOLD_BRIGHT})`, border: "none", color: "#0A0A0A", fontFamily: "var(--font-display)", fontSize: 14, fontWeight: 700, letterSpacing: "-0.2px", cursor: "pointer", transition: "all 0.35s cubic-bezier(0.16,1,0.3,1)", boxShadow: `0 4px 24px ${GOLD}25`, position: "relative", overflow: "hidden" }}>
+                  <button type="submit" suppressHydrationWarning className="cfk-nominate-btn" style={{ width: "100%", padding: "16px 32px", borderRadius: 14, background: `linear-gradient(135deg, ${GOLD}, ${GOLD_BRIGHT})`, border: "none", color: "#0A0A0A", fontFamily: "var(--font-display)", fontSize: 14, fontWeight: 700, letterSpacing: "-0.2px", cursor: "pointer", transition: "all 0.35s cubic-bezier(0.16,1,0.3,1)", boxShadow: `0 4px 24px ${GOLD}25`, position: "relative", overflow: "hidden" }}>
                     <span style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 8 }}>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" /></svg>
                       Submit Nomination
