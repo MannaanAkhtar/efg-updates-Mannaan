@@ -1125,7 +1125,7 @@ function SponsorsSection() {
                           padding: 2,
                           background: `linear-gradient(160deg, ${m.strong} 0%, ${V_BRIGHT}30 35%, rgba(255,255,255,0.06) 65%, ${m.soft} 100%)`,
                           backgroundSize: "220% 220%",
-                          boxShadow: `0 24px 70px rgba(0,0,0,0.55), 0 0 30px ${V}1f`,
+                          boxShadow: `0 18px 42px rgba(0,0,0,0.5), 0 0 20px ${V}1a`,
                           textDecoration: "none",
                           display: "block",
                           transition: "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
@@ -1250,13 +1250,19 @@ function SponsorsSection() {
           100% { transform: translateX(260%) skewX(-18deg); opacity: 0; }
         }
         .opex-pi-sponsor-card {
-          animation: opex-pi-frame-shimmer 14s ease-in-out infinite;
+          /* GPU layer + paint containment: hover transforms become cheap composites instead of full repaints */
+          will-change: transform;
+          transform: translateZ(0);
+          contain: layout paint;
+          /* Slower idle shimmer: halves paint frequency without removing the effect */
+          animation: opex-pi-frame-shimmer 24s ease-in-out infinite;
         }
         .opex-pi-sponsor-card:hover {
-          transform: translateY(-6px);
+          transform: translateY(-6px) translateZ(0);
+          /* Lighter shadow blur radii: 90→55 and 60→36 — still premium, far cheaper to paint */
           box-shadow:
-            0 36px 90px rgba(0,0,0,0.62),
-            0 0 60px var(--card-glow, ${V}28),
+            0 28px 55px rgba(0,0,0,0.55),
+            0 0 36px var(--card-glow, ${V}28),
             0 0 0 1px rgba(255,255,255,0.08) inset !important;
         }
         .opex-pi-sponsor-logo {
@@ -2459,8 +2465,17 @@ export default function ProcessIntelligenceMENA() {
   if (!mounted) return null;
 
   return (
-    <div style={{ background: BG }}>
+    <div className="opex-pi-page" style={{ background: BG }}>
       <style jsx global>{`
+        /* ─── Scroll performance: skip rendering offscreen sections ─── */
+        .opex-pi-page > section {
+          content-visibility: auto;
+          contain-intrinsic-size: auto 800px;
+        }
+        .opex-pi-page > section:first-of-type {
+          content-visibility: visible;
+        }
+
         /* Override InquiryForm accent to violet-mint */
         #register {
           --orange: ${V};
