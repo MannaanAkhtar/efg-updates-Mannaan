@@ -163,17 +163,6 @@ const CONTACTS_TEAM = [
 
 const OTVB_SPEAKERS = [
   {
-    name: "H.E. Dr. Mohamed Al Kuwaiti",
-    title: "Head of Cyber Security",
-    org: "United Arab Emirates Government",
-    flag: "https://flagcdn.com/w40/ae.png",
-    photo: `${S3}/boardroom/MohamedAlKuwaiti.jpg`,
-    photoPosition: "center 20%",
-    photoScale: 1.4,
-    featured: true,
-    bio: "H.E. Dr. Mohamed Al Kuwaiti serves as the Head of Cyber Security for the United Arab Emirates Government, a role he has held since H.E\u2019s appointment by the UAE Cabinet in 2020. In this capacity, Dr. Al Kuwaiti leads the UAE Cyber Security Council (CSC), where H.E is responsible for shaping and executing the nation\u2019s comprehensive cybersecurity strategy, ensuring the protection and resilience of the UAE\u2019s digital infrastructure, and advancing the UAE\u2019s vision to become the world\u2019s most trusted digital hub.",
-  },
-  {
     name: "Vijay Velayutham",
     title: "Principal Information Security Officer",
     org: "UAE Ministry of Energy & Infrastructure",
@@ -201,6 +190,13 @@ const OTVB_SPEAKERS = [
     org: "Oman LNG LLC",
     flag: "https://flagcdn.com/w40/om.png",
     photo: `${S3}/boardroom/NasserAlAlawi.png`,
+  },
+  {
+    name: "Feroz Khan",
+    title: "Head of IT Security, Compliance and Projects",
+    org: "TotalEnergies",
+    flag: "https://flagcdn.com/w40/ae.png",
+    photo: `${S3}/Speakers-photos/feroz_khan.png`,
   },
   {
     name: "Samir Mokthar",
@@ -1414,7 +1410,7 @@ function WhoWillBeInRoom() {
 // ─── AGENDA ─────────────────────────────────────────────────────────────────
 
 const AGENDA_ITEMS: { time: string; segment: string; subtitle?: string; type: "opening" | "panel" | "sponsor" | "qa" | "raffle" | "closing"; confirmed?: boolean }[] = [
-  { time: "11:00 - 11:10 AM", segment: "Welcome & Opening Remarks by UAE Cyber Security Council", type: "opening" },
+  { time: "11:00 - 11:10 AM", segment: "Welcome & Opening Remarks", type: "opening" },
   { time: "11:10 - 11:30 AM", segment: "Panel 01 | Securing Critical Infrastructure at a National Level: From Strategy to Operational Reality", type: "panel" },
   { time: "11:30 - 11:45 AM", segment: "Awareness Presentation 1 — FlintX", subtitle: "AI in Critical Infrastructure SecOps: What's Actually Deployable Today (Tech Talk)", type: "sponsor", confirmed: true },
   { time: "11:45 - 12:00 PM", segment: "Awareness Presentation 2 — Trellix", subtitle: "Reaction to Readiness: Building Resilience for OT Systems in 2026 (Tech Talk)", type: "sponsor", confirmed: true },
