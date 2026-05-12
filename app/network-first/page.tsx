@@ -37,6 +37,22 @@ const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 
 const UPCOMING_EVENTS = [
   {
+    date: "June 9th, 2026",
+    month: "JUN",
+    day: "09",
+    year: "2026",
+    time: "09:30 – 13:30 GST",
+    title: "Unlock the Power of Modern FP&A",
+    subtitle: "A premium roundtable on modern Financial Planning & Analysis",
+    sponsor: "Jedox | PlanPulse",
+    location: "The Ritz Carlton JBR, Dubai",
+    link: "https://www.jedox.com/en/events/unlock-the-power-of-modern-fpa-2026/",
+    image: "",
+    brandColor: "#1A2A52",
+    brandLogo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 72'%3E%3Ctext x='110' y='52' font-family='Arial Black,Helvetica,sans-serif' font-weight='900' font-style='italic' font-size='48' fill='%231A2A52' text-anchor='middle'%3Ejedox.%3C/text%3E%3C/svg%3E",
+    lightCard: true,
+  },
+  {
     date: "June 10th, 2026",
     month: "JUN",
     day: "10",
@@ -50,6 +66,22 @@ const UPCOMING_EVENTS = [
     image: "",
     brandColor: "#133B58",
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverTap_Logotype.png",
+  },
+  {
+    date: "June 16th, 2026",
+    month: "JUN",
+    day: "16",
+    year: "2026",
+    time: "09:30 – 13:30 GST",
+    title: "Next-Generation S&OP",
+    subtitle: "Aligning Data, Plans & Decisions for IBP-ready enterprises",
+    sponsor: "Jedox | Keansa",
+    location: "Taj Jumeirah Lakes Towers, Dubai",
+    link: "https://www.jedox.com/en/events/beyond-sop-unlocking-the-power-of-ibp/",
+    image: "",
+    brandColor: "#1A2A52",
+    brandLogo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 72'%3E%3Ctext x='110' y='52' font-family='Arial Black,Helvetica,sans-serif' font-weight='900' font-style='italic' font-size='48' fill='%231A2A52' text-anchor='middle'%3Ejedox.%3C/text%3E%3C/svg%3E",
+    lightCard: true,
   },
   {
     date: "May 13th, 2026",
@@ -1956,15 +1988,22 @@ function UpcomingSection() {
                           ) : (
                             <div style={{
                               width: "100%", height: "100%",
-                              background: `linear-gradient(135deg, ${(e as Record<string, string>).brandColor || "#222"}dd 0%, ${(e as Record<string, string>).brandColor || "#222"}88 40%, #0a0a0a 100%)`,
+                              background: (e as Record<string, unknown>).lightCard === true
+                                ? `linear-gradient(45deg, #0F1E3F 0%, #1A2A52 30%, #2B3E6E 55%, #C9D9EE 85%, #FFFFFF 100%)`
+                                : `linear-gradient(135deg, ${(e as Record<string, string>).brandColor || "#222"}dd 0%, ${(e as Record<string, string>).brandColor || "#222"}88 40%, #0a0a0a 100%)`,
                               display: "flex", alignItems: "center", justifyContent: "center",
                               position: "relative",
                             }}>
                               {(e as Record<string, string>).brandLogo && (
                                 // eslint-disable-next-line @next/next/no-img-element
-                                <img src={(e as Record<string, string>).brandLogo} alt="" style={{ height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Braze" ? 50 : 72, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+                                <img src={(e as Record<string, string>).brandLogo} alt="" style={{
+                                  height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Braze" ? 50 : 72,
+                                  width: "auto",
+                                  opacity: 0.85,
+                                  filter: "brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.35))"
+                                }} />
                               )}
-                              {/* Radial glow */}
+                              {/* Radial glow — accent on the navy portion */}
                               <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 80% at 30% 30%, ${(e as Record<string, string>).brandColor || "#222"}30, transparent 60%)` }} />
                             </div>
                           )}

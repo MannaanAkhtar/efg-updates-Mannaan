@@ -25,6 +25,20 @@ export type EventItem = {
 
 export const allEvents: EventItem[] = [
   {
+    id: "networkfirst-jedox-fpa",
+    series: "NetworkFirst",
+    seriesColor: "#C9935A",
+    edition: "",
+    title: "Unlock the Power of Modern FP&A",
+    date: new Date("2026-06-09"),
+    dateDisplay: "June 9, 2026",
+    location: "Dubai",
+    venue: "The Ritz Carlton JBR",
+    attendees: "15-20",
+    href: "https://www.jedox.com/en/events/unlock-the-power-of-modern-fpa-2026/",
+    status: "open",
+  },
+  {
     id: "networkfirst-clevertap",
     series: "NetworkFirst",
     seriesColor: "#C9935A",
@@ -36,6 +50,20 @@ export const allEvents: EventItem[] = [
     venue: "Virtual",
     attendees: "15-20",
     href: "/beyond-automation-by-clevertap",
+    status: "open",
+  },
+  {
+    id: "networkfirst-jedox-sop",
+    series: "NetworkFirst",
+    seriesColor: "#C9935A",
+    edition: "",
+    title: "Next-Generation S&OP",
+    date: new Date("2026-06-16"),
+    dateDisplay: "June 16, 2026",
+    location: "Dubai",
+    venue: "Taj Jumeirah Lakes Towers",
+    attendees: "15-20",
+    href: "https://www.jedox.com/en/events/beyond-sop-unlocking-the-power-of-ibp/",
     status: "open",
   },
   {
