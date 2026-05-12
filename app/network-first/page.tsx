@@ -1967,11 +1967,11 @@ function UpcomingSection() {
                           {e.image ? (
                             <>
                               <img src={e.image} alt="" className="nf-card-img" />
-                              {(e as Record<string, string>).brandLogo && (
+                              {(e as unknown as Record<string, string>).brandLogo && (
                                 <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
                                   {/* eslint-disable-next-line @next/next/no-img-element */}
                                   <img
-                                    src={(e as Record<string, string>).brandLogo}
+                                    src={(e as unknown as Record<string, string>).brandLogo}
                                     alt=""
                                     style={{
                                       height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Braze" ? 50 : 72,
@@ -1990,13 +1990,13 @@ function UpcomingSection() {
                               width: "100%", height: "100%",
                               background: (e as Record<string, unknown>).lightCard === true
                                 ? `linear-gradient(45deg, #0F1E3F 0%, #1A2A52 30%, #2B3E6E 55%, #C9D9EE 85%, #FFFFFF 100%)`
-                                : `linear-gradient(135deg, ${(e as Record<string, string>).brandColor || "#222"}dd 0%, ${(e as Record<string, string>).brandColor || "#222"}88 40%, #0a0a0a 100%)`,
+                                : `linear-gradient(135deg, ${(e as unknown as Record<string, string>).brandColor || "#222"}dd 0%, ${(e as unknown as Record<string, string>).brandColor || "#222"}88 40%, #0a0a0a 100%)`,
                               display: "flex", alignItems: "center", justifyContent: "center",
                               position: "relative",
                             }}>
-                              {(e as Record<string, string>).brandLogo && (
+                              {(e as unknown as Record<string, string>).brandLogo && (
                                 // eslint-disable-next-line @next/next/no-img-element
-                                <img src={(e as Record<string, string>).brandLogo} alt="" style={{
+                                <img src={(e as unknown as Record<string, string>).brandLogo} alt="" style={{
                                   height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Braze" ? 50 : 72,
                                   width: "auto",
                                   opacity: 0.85,
@@ -2004,11 +2004,11 @@ function UpcomingSection() {
                                 }} />
                               )}
                               {/* Radial glow — accent on the navy portion */}
-                              <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 80% at 30% 30%, ${(e as Record<string, string>).brandColor || "#222"}30, transparent 60%)` }} />
+                              <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 80% at 30% 30%, ${(e as unknown as Record<string, string>).brandColor || "#222"}30, transparent 60%)` }} />
                             </div>
                           )}
                           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%)" }} />
-                          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${(e as Record<string, string>).brandColor ? (e as Record<string, string>).brandColor + "60" : GOLD_50}, transparent)` }} />
+                          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${(e as unknown as Record<string, string>).brandColor ? (e as unknown as Record<string, string>).brandColor + "60" : GOLD_50}, transparent)` }} />
                           {isFirst && (
                             <div style={{ position: "absolute", top: 12, left: 12, zIndex: 4, display: "inline-flex", alignItems: "center", gap: 5, padding: "4px 10px", background: "rgba(201,147,90,0.2)", border: `1px solid ${GOLD}40`, borderRadius: 50, backdropFilter: "blur(8px)" }}>
                               <span style={{ width: 5, height: 5, borderRadius: "50%", background: GOLD, boxShadow: `0 0 8px ${GOLD}` }} />
