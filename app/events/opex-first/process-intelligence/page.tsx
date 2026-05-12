@@ -873,6 +873,13 @@ const SPEAKERS = [
     org: "Arab National Bank",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulrahman_Alonaizan.png",
   },
+  {
+    name: "Miodrag Vidakovic",
+    title: "Applied AI Director",
+    org: "Celonis",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Miodrag_Vidakovic.png",
+    photoTBD: true,
+  },
 ];
 
 function SpeakersSection() {
@@ -929,23 +936,77 @@ function SpeakersSection() {
                 display: "flex",
                 flexDirection: "column" as const,
               }}>
-                {/* Photo */}
+                {/* Photo (or TBD placeholder) */}
                 <div style={{ height: 280, overflow: "hidden", position: "relative" }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={speaker.photo}
-                    alt={speaker.name}
-                    style={{
+                  {(speaker as { photoTBD?: boolean }).photoTBD ? (
+                    <div style={{
                       width: "100%",
                       height: "100%",
-                      objectFit: "cover",
-                      objectPosition: "center top",
-                      transition: "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)",
-                      ...((speaker as { photoStyle?: React.CSSProperties }).photoStyle || {}),
-                    }}
-                  />
-                  <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, transparent 40%, ${BG_DARK}ee 100%)`, pointerEvents: "none" }} />
-                  <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${V}10, transparent 50%)`, pointerEvents: "none" }} />
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: `radial-gradient(ellipse 110% 80% at 50% 30%, ${V}30, transparent 60%), linear-gradient(165deg, ${BG_CARD} 0%, ${BG_DARK} 70%, ${V_DIM}25 100%)`,
+                      position: "relative",
+                    }}>
+                      {/* Initials */}
+                      <span style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: 84,
+                        fontWeight: 700,
+                        color: "rgba(255,255,255,0.18)",
+                        letterSpacing: "-3px",
+                        lineHeight: 1,
+                        userSelect: "none",
+                      }}>
+                        {speaker.name.split(" ").map(n => n[0]).slice(0, 2).join("")}
+                      </span>
+                      {/* Faint ring decor */}
+                      <div style={{
+                        position: "absolute",
+                        width: 180,
+                        height: 180,
+                        borderRadius: "50%",
+                        border: `1px dashed ${V}25`,
+                        top: "50%", left: "50%",
+                        transform: "translate(-50%, -55%)",
+                        pointerEvents: "none",
+                      }} />
+                      {/* Caption */}
+                      <span style={{
+                        position: "absolute",
+                        bottom: 18,
+                        left: 0,
+                        right: 0,
+                        textAlign: "center",
+                        fontFamily: "var(--font-outfit)",
+                        fontSize: 9.5,
+                        fontWeight: 600,
+                        letterSpacing: "2.5px",
+                        textTransform: "uppercase",
+                        color: `${MINT}80`,
+                      }}>
+                        Photo coming soon
+                      </span>
+                    </div>
+                  ) : (
+                    <>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={speaker.photo}
+                        alt={speaker.name}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          objectPosition: "center top",
+                          transition: "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)",
+                          ...((speaker as { photoStyle?: React.CSSProperties }).photoStyle || {}),
+                        }}
+                      />
+                      <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, transparent 40%, ${BG_DARK}ee 100%)`, pointerEvents: "none" }} />
+                      <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${V}10, transparent 50%)`, pointerEvents: "none" }} />
+                    </>
+                  )}
                 </div>
 
                 {/* Info */}
@@ -1009,10 +1070,11 @@ const SPONSORS: SponsorItem[] = [
   {
     name: "Celonis",
     tier: "Gold",
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Celonis_Logo.png",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Celonis_Full_Logo_White_RGB_w400.png",
     url: "https://www.celonis.com/",
-    surface: "light",
-    innerBg: "linear-gradient(165deg, #f4ead3 0%, #e6dcc0 100%)",
+    surface: "dark",
+    innerBg: "linear-gradient(165deg, #1c1722 0%, #100b15 100%)",
+    logoMaxHeight: 110,
   },
   {
     name: "Times of AI",
