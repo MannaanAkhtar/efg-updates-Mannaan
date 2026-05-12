@@ -1617,7 +1617,7 @@ function SpeakersSection() {
                     </p>
 
                     {/* Flag pill */}
-                    {"flag" in speaker && speaker.flag && (
+                    {Boolean("flag" in speaker && speaker.flag) && (
                       <div style={{
                         position: "absolute",
                         top: "clamp(28px, 3vw, 44px)",
@@ -1628,14 +1628,14 @@ function SpeakersSection() {
                         boxShadow: `0 4px 12px rgba(0,0,0,0.5), 0 0 12px rgba(232,107,184,0.25)`,
                       }}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={speaker.flag as string} alt="" style={{ display: "block", height: 18, width: "auto", borderRadius: 4 }} />
+                        <img src={(speaker as { flag?: string }).flag} alt="" style={{ display: "block", height: 18, width: "auto", borderRadius: 4 }} />
                       </div>
                     )}
 
                     <div style={{ width: 60, height: 2, background: `linear-gradient(90deg, ${C_BRIGHT}, ${CYAN})`, borderRadius: 2, marginBottom: 20, boxShadow: `0 0 12px ${C_BRIGHT}40` }} />
-                    {"bio" in speaker && speaker.bio && (
+                    {Boolean("bio" in speaker && (speaker as { bio?: string }).bio) && (
                       <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.72)", margin: 0, lineHeight: 1.8 }}>
-                        {speaker.bio as string}
+                        {(speaker as { bio?: string }).bio}
                       </p>
                     )}
                   </div>
@@ -1810,7 +1810,7 @@ function SpeakersSection() {
                         </p>
 
                         {/* Country flag pill — bottom-right corner */}
-                        {"flag" in speaker && speaker.flag && (
+                        {Boolean("flag" in speaker && speaker.flag) && (
                           <div style={{
                             position: "absolute",
                             right: 14,
@@ -1821,7 +1821,7 @@ function SpeakersSection() {
                             boxShadow: `0 4px 12px rgba(0,0,0,0.5), 0 0 10px rgba(${accentRgb},0.25)`,
                           }}>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={speaker.flag as string} alt="" style={{ display: "block", height: 16, width: "auto", borderRadius: 4 }} />
+                            <img src={(speaker as { flag?: string }).flag} alt="" style={{ display: "block", height: 16, width: "auto", borderRadius: 4 }} />
                           </div>
                         )}
                       </div>
