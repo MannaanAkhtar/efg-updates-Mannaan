@@ -3142,6 +3142,248 @@ function WhoAttends() {
   );
 }
 
+// ─── EVENT SPONSORS — Confirmed for Saudi 2026 ─────────────────────────────
+type S26SponsorTier = "Associate";
+
+type S26SponsorItem = {
+  name: string;
+  tier: S26SponsorTier;
+  logo: string;
+  url: string;
+  surface: "dark" | "light";
+  innerBg: string;
+  logoMaxHeight?: number;
+};
+
+const SPONSORS_2026: S26SponsorItem[] = [
+  {
+    name: "ARIS",
+    tier: "Associate",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/ARIS_RGB_Logo_WhitePink.png",
+    url: "https://www.ariscommunity.com/",
+    surface: "dark",
+    innerBg: "linear-gradient(165deg, #1c1722 0%, #100b15 100%)",
+    logoMaxHeight: 126,
+  },
+];
+
+const S26_TIER_METALLIC: Record<S26SponsorTier, { strong: string; soft: string; label: string; glow: string; cardMaxWidth: number; displayLabel: string }> = {
+  Associate: {
+    // Warm steel + violet wash — distinct from Platinum's pure silver so future tiers stack visually
+    strong: "rgba(196, 181, 253, 0.85)",
+    soft: "rgba(196, 181, 253, 0.45)",
+    label: "rgba(220, 210, 250, 0.88)",
+    glow: "rgba(159, 106, 255, 0.28)",
+    cardMaxWidth: 320,
+    displayLabel: "Associate Sponsor",
+  },
+};
+
+const S26_TIER_ORDER: S26SponsorTier[] = ["Associate"];
+
+function EventSponsors() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section ref={ref} id="event-sponsors" className="opex-cv" style={{ background: `linear-gradient(180deg, ${BG_DARK} 0%, ${BG} 50%, ${BG_DARK} 100%)`, padding: "clamp(48px, 6vw, 80px) 0", position: "relative", overflow: "hidden" }}>
+      {/* Background glow */}
+      <div style={{ position: "absolute", top: "20%", left: "50%", transform: "translateX(-50%)", width: "60%", height: "70%", background: `radial-gradient(ellipse, ${V}10, transparent 70%)`, pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        {/* Section header */}
+        <SectionEyebrow inView={inView} label="Confirmed for Saudi 2026" centered />
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ textAlign: "center" }}>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 4vw, 44px)", letterSpacing: "-1.5px", color: "rgba(255,255,255,0.92)", lineHeight: 1.15, margin: 0 }}>
+            Powered by <span className="opex-violet-shimmer">industry leaders</span>
+          </h2>
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: FAINT, margin: "16px auto 0", maxWidth: 580 }}>
+            The first confirmed partners for Saudi 2026. More sponsors will be announced in waves.
+          </p>
+        </motion.div>
+
+        {/* Tier groups */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 44, marginTop: 48 }}>
+          {S26_TIER_ORDER.map((tier, tierIdx) => {
+            const tierSponsors = SPONSORS_2026.filter(s => s.tier === tier);
+            if (tierSponsors.length === 0) return null;
+            const m = S26_TIER_METALLIC[tier];
+
+            return (
+              <motion.div
+                key={tier}
+                initial={{ opacity: 0, y: 24 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.15 + tierIdx * 0.15, ease: EASE }}
+                style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}
+              >
+                {/* Tier label */}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 24 }}>
+                  <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${m.soft})` }} />
+                  <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "4px", textTransform: "uppercase", color: m.label }}>
+                    {m.displayLabel}
+                  </span>
+                  <span style={{ width: 40, height: 1, background: `linear-gradient(270deg, transparent, ${m.soft})` }} />
+                </div>
+
+                {/* Row of sponsor cards */}
+                <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 24, width: "100%" }}>
+                  {tierSponsors.map((sponsor, i) => {
+                    const shineColor = sponsor.surface === "dark" ? "rgba(255,255,255,0.32)" : "rgba(255,255,255,0.9)";
+                    return (
+                      <motion.a
+                        key={sponsor.name}
+                        href={sponsor.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${sponsor.name} — ${sponsor.tier} Sponsor`}
+                        initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+                        animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+                        transition={{ duration: 0.7, delay: 0.25 + tierIdx * 0.15 + i * 0.1, ease: EASE }}
+                        className="opex-s26-sponsor-card"
+                        style={{
+                          flex: "0 1 auto",
+                          width: "100%",
+                          maxWidth: m.cardMaxWidth,
+                          minWidth: 220,
+                          borderRadius: 22,
+                          padding: 2,
+                          background: `linear-gradient(160deg, ${m.strong} 0%, ${V_BRIGHT}30 35%, rgba(255,255,255,0.06) 65%, ${m.soft} 100%)`,
+                          backgroundSize: "220% 220%",
+                          boxShadow: `0 18px 42px rgba(0,0,0,0.5), 0 0 20px ${V}1a`,
+                          textDecoration: "none",
+                          display: "block",
+                          transition: "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
+                          ["--card-glow" as string]: m.glow,
+                        } as React.CSSProperties}
+                      >
+                        <div style={{
+                          borderRadius: 20,
+                          background: sponsor.innerBg,
+                          padding: "6px 12px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          minHeight: 138,
+                          position: "relative",
+                          overflow: "hidden",
+                          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.55), inset 1px 0 0 rgba(255,255,255,0.04), inset -1px 0 0 rgba(0,0,0,0.3)",
+                        }}>
+                          {/* Glass top sheen */}
+                          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 28%, transparent 58%)", pointerEvents: "none", zIndex: 1 }} />
+                          {/* Diagonal glint */}
+                          <div style={{ position: "absolute", top: "-30%", left: "-20%", width: "70%", height: "120%", background: "radial-gradient(ellipse at top left, rgba(255,255,255,0.14), transparent 60%)", transform: "rotate(-15deg)", pointerEvents: "none", zIndex: 1 }} />
+                          {/* Bottom depth shadow */}
+                          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(0deg, rgba(0,0,0,0.35) 0%, transparent 38%)", pointerEvents: "none", zIndex: 1 }} />
+                          {/* Top + bottom hairlines */}
+                          <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: `linear-gradient(90deg, transparent, ${shineColor}, transparent)`, pointerEvents: "none", zIndex: 2 }} />
+                          <div style={{ position: "absolute", bottom: 0, left: "10%", right: "10%", height: 1, background: "linear-gradient(90deg, transparent, rgba(0,0,0,0.6), transparent)", pointerEvents: "none", zIndex: 2 }} />
+                          {/* Hover shine sweep */}
+                          <div className="opex-s26-shine" aria-hidden="true" />
+                          {/* Inner highlight ring */}
+                          <div className="opex-s26-inner-ring" aria-hidden="true" />
+                          {/* Corner facet */}
+                          <div className="opex-s26-corner-facet" aria-hidden="true" style={{ background: `linear-gradient(135deg, ${m.label} 0%, transparent 60%)` }} />
+                          {/* Logo */}
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={sponsor.logo}
+                            alt={`${sponsor.name} logo`}
+                            style={{ maxWidth: "100%", maxHeight: sponsor.logoMaxHeight ?? 80, width: "auto", height: "auto", objectFit: "contain", display: "block", position: "relative", zIndex: 3 }}
+                          />
+                        </div>
+                      </motion.a>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      <style jsx global>{`
+        @keyframes opex-s26-frame-shimmer {
+          0%   { background-position: 0% 50%; }
+          50%  { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        @keyframes opex-s26-shine-sweep {
+          0%   { transform: translateX(-160%) skewX(-18deg); opacity: 0; }
+          15%  { opacity: 1; }
+          85%  { opacity: 1; }
+          100% { transform: translateX(260%) skewX(-18deg); opacity: 0; }
+        }
+        .opex-s26-sponsor-card {
+          will-change: transform;
+          transform: translateZ(0);
+          contain: layout paint;
+          animation: opex-s26-frame-shimmer 24s ease-in-out infinite;
+        }
+        .opex-s26-sponsor-card:hover {
+          transform: translateY(-6px) translateZ(0);
+          box-shadow:
+            0 28px 55px rgba(0,0,0,0.55),
+            0 0 36px var(--card-glow, ${V}28),
+            0 0 0 1px rgba(255,255,255,0.08) inset !important;
+        }
+        .opex-s26-shine {
+          position: absolute;
+          top: -10%;
+          left: 0;
+          width: 38%;
+          height: 130%;
+          background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.40) 50%, transparent 100%);
+          transform: translateX(-160%) skewX(-18deg);
+          pointer-events: none;
+          z-index: 4;
+          opacity: 0;
+          filter: blur(2px);
+        }
+        .opex-s26-sponsor-card:hover .opex-s26-shine {
+          animation: opex-s26-shine-sweep 1.1s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        }
+        .opex-s26-inner-ring {
+          position: absolute;
+          inset: 6px;
+          border-radius: 18px;
+          border: 1px solid var(--card-glow, rgba(255,255,255,0.18));
+          opacity: 0;
+          transform: scale(0.985);
+          transition: opacity 0.45s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+          pointer-events: none;
+          z-index: 2;
+        }
+        .opex-s26-sponsor-card:hover .opex-s26-inner-ring {
+          opacity: 1;
+          transform: scale(1);
+        }
+        .opex-s26-corner-facet {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 56px;
+          height: 56px;
+          clip-path: polygon(100% 0, 100% 60%, 40% 0);
+          opacity: 0.55;
+          pointer-events: none;
+          z-index: 2;
+          transition: opacity 0.5s ease;
+        }
+        .opex-s26-sponsor-card:hover .opex-s26-corner-facet {
+          opacity: 0.85;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .opex-s26-sponsor-card,
+          .opex-s26-sponsor-card:hover .opex-s26-shine {
+            animation: none !important;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
+
 // ─── Past Series Sponsors — marquee strip (homepage style) ─────────────────
 function SeriesSponsors() {
   const ref = useRef<HTMLElement>(null);
@@ -5355,6 +5597,7 @@ export default function OpexFirstSaudi2026Page() {
       <MarketPulse />
       <FocusAreas />
       {/* <Speakers /> hidden until photos confirmed — restore once URLs are in */}
+      <EventSponsors />
       <Agenda />
       <WhoAttends />
       <SeriesSponsors />
