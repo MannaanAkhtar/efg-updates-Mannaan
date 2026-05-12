@@ -34,6 +34,27 @@ const AGENDA = [
   { time: "11:55 AM", duration: "5 min", title: "Closing Remarks", presenter: "Wrap-up and next steps" },
 ];
 
+const SPEAKERS = [
+  {
+    name: "Mohammad Tannous",
+    role: "Regional Director, MEA & Turkey",
+    org: "CleverTap",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tannous.png",
+  },
+  {
+    name: "Arpita Porwal",
+    role: "Business Lead",
+    org: "CleverTap",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Arpita.png",
+  },
+  {
+    name: "Rohan Patil",
+    role: "Growth & Retention Expert",
+    org: "CleverTap",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Rohan.png",
+  },
+];
+
 const OVERVIEW_WORDS = "Every customer is different. Your marketing should be too.".split(" ");
 
 // ─── COUNTDOWN ──────────────────────────────────────────────────────────────
@@ -961,6 +982,167 @@ function AgendaSection() {
   );
 }
 
+// ─── SPEAKERS ────────────────────────────────────────────────────────────────
+function SpeakersSection() {
+  const ref = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  useGSAP(() => {
+    if (!inView) return;
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    if (headerRef.current) {
+      const dashes = headerRef.current.querySelectorAll(".ct-sp-dash");
+      const kicker = headerRef.current.querySelector(".ct-sp-kicker");
+      const heading = headerRef.current.querySelector(".ct-sp-heading");
+      const sub = headerRef.current.querySelector(".ct-sp-sub");
+      tl.fromTo(dashes, { scaleX: 0 }, { scaleX: 1, duration: 0.5, stagger: 0.05 }, 0)
+        .fromTo(kicker, { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.5 }, 0.1)
+        .fromTo(heading, { opacity: 0, filter: "blur(6px)", y: 8 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.65 }, 0.15);
+      if (sub) tl.fromTo(sub, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.5 }, 0.35);
+    }
+    if (cardsRef.current) {
+      const cards = cardsRef.current.querySelectorAll(".ct-sp-card");
+      tl.fromTo(cards, { opacity: 0, y: 24, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, stagger: 0.1, ease: "power2.out" }, 0.3);
+    }
+  }, [inView]);
+
+  return (
+    <section ref={ref} id="speakers" style={{
+      background: CT_WHITE, padding: "clamp(56px, 7vw, 80px) 0", position: "relative", overflow: "hidden",
+    }}>
+      {/* Subtle aurora bg */}
+      <div style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+        background: `
+          radial-gradient(ellipse 60% 50% at 20% 30%, rgba(19,59,88,0.06) 0%, transparent 60%),
+          radial-gradient(ellipse 55% 50% at 80% 70%, rgba(59,130,246,0.05) 0%, transparent 60%)
+        `,
+      }} />
+      {/* Hairlines top + bottom */}
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, transparent, rgba(19,59,88,0.06), transparent)" }} />
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, transparent, rgba(19,59,88,0.06), transparent)" }} />
+
+      <style>{`
+        .ct-sp-card {
+          position: relative;
+          background: ${CT_WHITE};
+          border-radius: 18px;
+          overflow: hidden;
+          box-shadow: 0 1px 0 rgba(255,255,255,0.7) inset, 0 14px 32px rgba(19,59,88,0.08), 0 2px 6px rgba(0,0,0,0.03), 0 0 0 1px rgba(19,59,88,0.06);
+          transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s cubic-bezier(0.22,1,0.36,1);
+          display: flex; flex-direction: column;
+        }
+        .ct-sp-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 1px 0 rgba(255,255,255,0.7) inset, 0 28px 56px rgba(19,59,88,0.16), 0 6px 14px rgba(0,0,0,0.05), 0 0 0 1px rgba(19,59,88,0.1);
+        }
+        .ct-sp-photo-wrap { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: linear-gradient(160deg, #e8eef4 0%, #d4dde8 100%); }
+        .ct-sp-photo { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; transition: transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+        .ct-sp-card:hover .ct-sp-photo { transform: scale(1.04); }
+        .ct-sp-photo-mask {
+          position: absolute; inset: 0; pointer-events: none;
+          background: linear-gradient(180deg, transparent 45%, rgba(0,13,38,0.15) 65%, rgba(0,13,38,0.78) 100%);
+        }
+        .ct-sp-org-chip {
+          position: absolute; top: 14px; left: 14px; z-index: 2;
+          font-family: var(--font-opensans); font-size: 9.5px; font-weight: 700;
+          letter-spacing: 1.6px; text-transform: uppercase; color: ${CT_WHITE};
+          background: rgba(255,255,255,0.18);
+          backdrop-filter: blur(10px) saturate(1.3); -webkit-backdrop-filter: blur(10px) saturate(1.3);
+          padding: 6px 12px; border-radius: 999px;
+          border: 1px solid rgba(255,255,255,0.25);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 14px rgba(0,0,0,0.18);
+        }
+        .ct-sp-name-overlay {
+          position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 20px 16px;
+          z-index: 2;
+        }
+        .ct-sp-name {
+          font-family: var(--font-opensans); font-weight: 800;
+          font-size: clamp(17px, 1.7vw, 21px); letter-spacing: -0.6px;
+          color: ${CT_WHITE}; line-height: 1.15; margin: 0 0 4px;
+          text-shadow: 0 2px 12px rgba(0,0,0,0.35);
+        }
+        .ct-sp-role {
+          font-family: var(--font-opensans); font-size: 12px; font-weight: 500;
+          color: rgba(255,255,255,0.88); line-height: 1.4; margin: 0;
+          text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+        }
+        .ct-sp-footer {
+          display: flex; align-items: center; gap: 10px;
+          padding: 14px 20px; background: ${CT_WHITE};
+          border-top: 1px solid rgba(19,59,88,0.08);
+        }
+        .ct-sp-mark {
+          width: 6px; height: 6px; border-radius: 50%;
+          background: ${CT_RED}; box-shadow: 0 0 8px ${CT_RED}60;
+        }
+        .ct-sp-footer-text {
+          font-family: var(--font-opensans); font-size: 11px; font-weight: 600;
+          letter-spacing: 1.5px; text-transform: uppercase; color: ${CT_BLUE}; margin: 0;
+        }
+        @media (max-width: 900px) {
+          .ct-sp-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 560px) {
+          .ct-sp-grid { grid-template-columns: 1fr !important; max-width: 340px; margin-left: auto !important; margin-right: auto !important; }
+        }
+      `}</style>
+
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
+        {/* Centered header */}
+        <div ref={headerRef} style={{ textAlign: "center", marginBottom: "clamp(40px, 5vw, 56px)" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+            <div className="ct-sp-dash" style={{ width: 28, height: 2, background: CT_BLUE, borderRadius: 1, transform: "scaleX(0)" }} />
+            <span className="ct-sp-kicker" style={{ fontFamily: "var(--font-opensans)", fontSize: 10, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: CT_BLUE, opacity: 0 }}>Speakers</span>
+            <div className="ct-sp-dash" style={{ width: 28, height: 2, background: CT_BLUE, borderRadius: 1, transform: "scaleX(0)" }} />
+          </div>
+          <h2 className="ct-sp-heading" style={{
+            fontFamily: "var(--font-opensans)", fontWeight: 700,
+            fontSize: "clamp(28px, 3.5vw, 42px)", letterSpacing: "-1.5px",
+            color: CT_BLACK, lineHeight: 1.15, margin: "0 0 14px", opacity: 0,
+          }}>Meet the Speakers</h2>
+          <p className="ct-sp-sub" style={{
+            fontFamily: "var(--font-opensans)", fontSize: 14, color: CT_SLATE,
+            lineHeight: 1.7, margin: "0 auto", opacity: 0, maxWidth: 540,
+          }}>The CleverTap voices leading the conversation on AI-driven engagement across the Middle East.</p>
+        </div>
+
+        {/* Speaker grid — photo-led editorial cards */}
+        <div ref={cardsRef} className="ct-sp-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "clamp(18px, 2.4vw, 26px)" }}>
+          {SPEAKERS.map((s) => (
+            <div key={s.name} className="ct-sp-card" style={{ opacity: 0 }}>
+              <div className="ct-sp-photo-wrap">
+                {/* Org chip floating top-left */}
+                <span className="ct-sp-org-chip">{s.org}</span>
+
+                {/* Portrait */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="ct-sp-photo" src={s.photo} alt={s.name} loading="lazy" />
+
+                {/* Bottom gradient mask + name overlay */}
+                <div className="ct-sp-photo-mask" />
+                <div className="ct-sp-name-overlay">
+                  <h3 className="ct-sp-name">{s.name}</h3>
+                  <p className="ct-sp-role">{s.role}</p>
+                </div>
+              </div>
+
+              {/* Footer band */}
+              <div className="ct-sp-footer">
+                <span className="ct-sp-mark" />
+                <p className="ct-sp-footer-text">Webinar Panelist</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── ABOUT CLEVERTAP ─────────────────────────────────────────────────────────
 function AboutSection() {
   const ref = useRef<HTMLElement>(null);
@@ -1201,6 +1383,7 @@ export default function CleverTapPage() {
       <HeroSection />
       <OverviewSection />
       <TakeawaysSection />
+      <SpeakersSection />
       <AgendaSection />
       <AboutSection />
       <CleverTapFooter />
