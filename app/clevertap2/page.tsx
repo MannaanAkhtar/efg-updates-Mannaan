@@ -26,12 +26,12 @@ const TAKEAWAYS = [
 ];
 
 const AGENDA = [
-  { time: "11:03 AM", duration: "5 min", title: "Welcome & Ground Rules", presenter: "Event Host / Moderator" },
-  { time: "11:03 AM", duration: "10 min", title: "Keynote", presenter: "Mohammad Tannous", highlight: true },
-  { time: "11:13 AM", duration: "20 min", title: "Panel Discussion", presenter: "Mohammad Tannous + Panelists", highlight: true },
-  { time: "11:33 AM", duration: "12 min", title: "Teaser Demo", presenter: "Growth & Retention Consultant" },
-  { time: "11:45 AM", duration: "12 min", title: "Audience Q&A", presenter: "Moderator + Panelists" },
-  { time: "11:57 AM", duration: "15 min", title: "Closing Remarks & Next Steps", presenter: "Moderator + Panelists" },
+  { time: "11:00 AM", duration: "5 min", title: "Welcome", presenter: "Event Host opens the session" },
+  { time: "11:05 AM", duration: "10 min", title: "Keynote", presenter: "How AI Agents Deliver True 1:1 Engagement at Scale", highlight: true },
+  { time: "11:15 AM", duration: "20 min", title: "Panel Discussion", presenter: "Insight-Led, AI-Driven: How Middle East's Top Brands are Driving Growth and Retention", highlight: true },
+  { time: "11:35 AM", duration: "10 min", title: "Tech Spotlight", presenter: "AI-powered Growth & Retention in Action" },
+  { time: "11:45 AM", duration: "10 min", title: "Audience Q&A", presenter: "Open floor with moderator + panelists" },
+  { time: "11:55 AM", duration: "5 min", title: "Closing Remarks", presenter: "Wrap-up and next steps" },
 ];
 
 const OVERVIEW_WORDS = "Every customer is different. Your marketing should be too.".split(" ");
@@ -1201,7 +1201,7 @@ export default function CleverTapPage() {
       <HeroSection />
       <OverviewSection />
       <TakeawaysSection />
-      {/* <AgendaSection /> — hidden for now */}
+      <AgendaSection />
       <AboutSection />
       <CleverTapFooter />
     </div>
