@@ -23,6 +23,7 @@ export default function ConditionalNavigation() {
     pathname?.startsWith("/clevertap") ||
     pathname?.startsWith("/beyond-automation-by-clevertap") ||
     pathname?.startsWith("/bigleap") ||
+    pathname?.startsWith("/seagate") ||
     isSubdomain
   ) {
     return null;
