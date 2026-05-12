@@ -861,6 +861,18 @@ const SPEAKERS = [
     org: "ARIS",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/CezmiEroglu.png",
   },
+  {
+    name: "Zamir Chaudhry",
+    title: "CEO Advisor – Strategic & GRC Transformation",
+    org: "Walaa Insurance",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Zamir_Chaudhry.png",
+  },
+  {
+    name: "Abdulrahman Alonaizan",
+    title: "Chief Business Continuity Officer",
+    org: "Arab National Bank",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulrahman_Alonaizan.png",
+  },
 ];
 
 function SpeakersSection() {
@@ -981,6 +993,7 @@ type SponsorItem = {
   innerBg: string;
   ambientGlow?: string;
   logoMaxHeight?: number;
+  logoFilter?: string; // CSS filter applied to logo, e.g. "brightness(0) invert(1)" to recolor dark logo to white
 };
 
 const SPONSORS: SponsorItem[] = [
@@ -1009,6 +1022,25 @@ const SPONSORS: SponsorItem[] = [
     surface: "dark",
     innerBg: "linear-gradient(165deg, #1c1722 0%, #100b15 100%)",
     logoMaxHeight: 110,
+  },
+  {
+    name: "CapitalBayNews",
+    tier: "Media Partner",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/CapitalbaynewsLogo.svg",
+    url: "https://www.capitalbay.news/",
+    surface: "dark",
+    innerBg: "linear-gradient(165deg, #1c1722 0%, #100b15 100%)",
+    logoMaxHeight: 110,
+  },
+  {
+    name: "Times of Blockchain",
+    tier: "Media Partner",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Times-OF-Blockchain-1.svg",
+    url: "https://www.timesofblockchain.com/",
+    surface: "dark",
+    innerBg: "linear-gradient(165deg, #1c1722 0%, #100b15 100%)",
+    logoMaxHeight: 110,
+    logoFilter: "brightness(0) invert(1)",
   },
 ];
 
@@ -1065,7 +1097,7 @@ function SponsorsSection() {
                 {/* Tier label — sits above the row of cards in this tier */}
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 24 }}>
                   <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${m.soft})` }} />
-                  <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "4px", textTransform: "uppercase", color: m.label }}>{tier === "Media Partner" ? (tierSponsors.length > 1 ? "Media Partners" : "Media Partner") : `${tier} Sponsor${tierSponsors.length > 1 ? "s" : ""}`}</span>
+                  <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "4px", textTransform: "uppercase", color: m.label }}>{tier === "Media Partner" ? (tierSponsors.length > 1 ? "Media Partners" : "Media Partner") : tier === "Gold" ? `Lead Process Intelligence Sponsor${tierSponsors.length > 1 ? "s" : ""}` : tier === "Platinum" ? `Platinum - Lead Process Excellence Sponsor${tierSponsors.length > 1 ? "s" : ""}` : `${tier} Sponsor${tierSponsors.length > 1 ? "s" : ""}`}</span>
                   <span style={{ width: 40, height: 1, background: `linear-gradient(270deg, transparent, ${m.soft})` }} />
                 </div>
 
@@ -1189,7 +1221,7 @@ function SponsorsSection() {
                             src={sponsor.logo}
                             alt={`${sponsor.name} logo`}
                             className="opex-pi-sponsor-logo"
-                            style={{ maxWidth: "100%", maxHeight: sponsor.logoMaxHeight ?? 80, width: "auto", height: "auto", objectFit: "contain", display: "block", position: "relative", zIndex: 3 }}
+                            style={{ maxWidth: "100%", maxHeight: sponsor.logoMaxHeight ?? 80, width: "auto", height: "auto", objectFit: "contain", display: "block", position: "relative", zIndex: 3, ["--logo-filter" as string]: sponsor.logoFilter ?? "none" } as React.CSSProperties}
                           />
                         </div>
                       </motion.a>
@@ -1228,11 +1260,12 @@ function SponsorsSection() {
             0 0 0 1px rgba(255,255,255,0.08) inset !important;
         }
         .opex-pi-sponsor-logo {
+          filter: var(--logo-filter, none);
           transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
         }
         .opex-pi-sponsor-card:hover .opex-pi-sponsor-logo {
           transform: scale(1.045);
-          filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35));
+          filter: var(--logo-filter, none) drop-shadow(0 6px 16px rgba(0,0,0,0.35));
         }
         .opex-pi-shine {
           position: absolute;
