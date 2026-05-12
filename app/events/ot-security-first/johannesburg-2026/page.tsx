@@ -1119,12 +1119,12 @@ function AboutSection() {
                   letterSpacing: "-0.5px",
                   textShadow: `0 2px 20px rgba(0,0,0,0.4), 0 0 30px ${CYAN}20`,
                 }}>
-                  Be a part of the <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontWeight: 800 }}>Cyber First Movement</span> and lead the charge toward a strategic, resilient and innovative economy.
+                  Be a part of <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontWeight: 800 }}>OT Security First Africa</span> and lead the charge toward securing the systems that power our economy.
                 </p>
               </div>
 
               {/* RIGHT — CTA button */}
-              <Link
+              <a
                 href="#register"
                 className="otsf-movement-btn"
                 style={{
@@ -1155,7 +1155,7 @@ function AboutSection() {
               >
                 Register your interest
                 <span style={{ fontSize: 16, lineHeight: 1 }}>→</span>
-              </Link>
+              </a>
             </div>
           </div>
         </motion.div>
@@ -3499,74 +3499,6 @@ function VenueSection() {
   );
 }
 
-// ─── REGISTRATION / CTA SECTION ──────────────────────────────────────────────
-function RegistrationSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
-  return (
-    <section id="register" ref={ref} style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative" }}>
-      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 50% at 50% 100%, ${C}08, transparent 70%)`, pointerEvents: "none" }} />
-      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 40% 40% at 30% 80%, ${C}06, transparent 60%)`, pointerEvents: "none" }} />
-
-      <div style={{ maxWidth: 700, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", textAlign: "center", position: "relative" }}>
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }}>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(36px, 5vw, 56px)", letterSpacing: "-2px", color: "white", lineHeight: 1.1, margin: "0 0 16px" }}>
-            Join Us in<br /><span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Johannesburg</span>
-          </h2>
-          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 17, color: "rgba(255,255,255,0.75)", lineHeight: 1.7, marginBottom: 40, maxWidth: 500, margin: "0 auto 40px" }}>
-            Be part of Africa&apos;s defining industrial cybersecurity conversation. Secure your place at OT Security First South Africa.
-          </p>
-          <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-            <Link
-              href="/contact"
-              className="otsf-cta-primary"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                padding: "18px 40px",
-                borderRadius: 50,
-                background: `linear-gradient(135deg, ${C}, ${CYAN})`,
-                color: "white",
-                fontFamily: "var(--font-outfit)",
-                fontSize: 16,
-                fontWeight: 700,
-                textDecoration: "none",
-                boxShadow: `0 0 40px ${CYAN}33, 0 4px 20px ${C}33`,
-                transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-              }}
-            >
-              Register Now <span>→</span>
-            </Link>
-            <Link
-              href="/contact"
-              className="otsf-cta-ghost"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                padding: "18px 40px",
-                borderRadius: 50,
-                background: "transparent",
-                color: "white",
-                fontFamily: "var(--font-outfit)",
-                fontSize: 16,
-                fontWeight: 500,
-                textDecoration: "none",
-                border: "1px solid rgba(255,255,255,0.2)",
-                transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-              }}
-            >
-              Contact Us
-            </Link>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
 // ─── MAIN PAGE COMPONENT ─────────────────────────────────────────────────────
 export default function OTSecurityFirstJohannesburg2026() {
   const [mounted, setMounted] = useState(false);
@@ -3577,18 +3509,19 @@ export default function OTSecurityFirstJohannesburg2026() {
   return (
     <>
       <EventNavigation />
-      <main style={{
+      <main className="otsf-jhb-page" style={{
         background: `linear-gradient(160deg, ${BG_DARK} 0%, ${BG} 30%, #0c1030 60%, ${BG_CARD} 100%)`,
         color: "white",
         position: "relative",
         overflow: "hidden",
       }}>
-        {/* Global liquid blobs + noise — behind all sections */}
-        <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0 }}>
-          <div style={{ position: "absolute", top: "5%", right: "0%", width: 600, height: 600, borderRadius: "40% 60% 55% 45% / 55% 40% 60% 45%", background: `linear-gradient(135deg, ${C}22, ${CYAN}12, ${C}18)`, filter: "blur(70px)", opacity: 0.5 }} />
-          <div style={{ position: "absolute", top: "30%", left: "-5%", width: 500, height: 500, borderRadius: "55% 45% 40% 60% / 45% 55% 45% 55%", background: `linear-gradient(225deg, ${CYAN}18, ${C}10, ${CYAN}1c)`, filter: "blur(80px)", opacity: 0.45 }} />
-          <div style={{ position: "absolute", top: "65%", right: "5%", width: 550, height: 550, borderRadius: "45% 55% 60% 40% / 60% 45% 55% 45%", background: `linear-gradient(145deg, ${C}20, ${CYAN}10, ${C}16)`, filter: "blur(70px)", opacity: 0.4 }} />
-          <div style={{ position: "absolute", bottom: "5%", left: "10%", width: 450, height: 450, borderRadius: "55% 45% 40% 60% / 45% 55% 45% 55%", background: `radial-gradient(circle, ${CYAN}15, transparent 70%)`, filter: "blur(80px)", opacity: 0.4 }} />
+        {/* Global liquid blobs + noise — position: fixed so the GPU only composites a viewport-sized layer (vs ~25,000px tall page).
+            Promoted to its own composited layer via translateZ(0) + will-change so it isn't redrawn on every scroll frame. */}
+        <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0, willChange: "transform", transform: "translateZ(0)" }}>
+          <div style={{ position: "absolute", top: "5%", right: "0%", width: 600, height: 600, borderRadius: "40% 60% 55% 45% / 55% 40% 60% 45%", background: `linear-gradient(135deg, ${C}22, ${CYAN}12, ${C}18)`, filter: "blur(50px)", opacity: 0.5 }} />
+          <div style={{ position: "absolute", top: "30%", left: "-5%", width: 500, height: 500, borderRadius: "55% 45% 40% 60% / 45% 55% 45% 55%", background: `linear-gradient(225deg, ${CYAN}18, ${C}10, ${CYAN}1c)`, filter: "blur(60px)", opacity: 0.45 }} />
+          <div style={{ position: "absolute", top: "65%", right: "5%", width: 550, height: 550, borderRadius: "45% 55% 60% 40% / 60% 45% 55% 45%", background: `linear-gradient(145deg, ${C}20, ${CYAN}10, ${C}16)`, filter: "blur(50px)", opacity: 0.4 }} />
+          <div style={{ position: "absolute", bottom: "5%", left: "10%", width: 450, height: 450, borderRadius: "55% 45% 40% 60% / 45% 55% 45% 55%", background: `radial-gradient(circle, ${CYAN}15, transparent 70%)`, filter: "blur(60px)", opacity: 0.4 }} />
           {/* Noise */}
           <div style={{ position: "absolute", inset: 0, opacity: 0.025, mixBlendMode: "overlay", backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundSize: "128px 128px" }} />
         </div>
@@ -3604,7 +3537,7 @@ export default function OTSecurityFirstJohannesburg2026() {
           <SponsorsSection />
           <GallerySection />
           <AwardsSection />
-          <section id="inquiry" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
+          <section id="register" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
             {/* Ambient orbs — match other sections */}
             <div style={{ position: "absolute", top: "10%", left: "-5%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${CYAN}12 0%, transparent 70%)`, filter: "blur(70px)", pointerEvents: "none" }} />
             <div style={{ position: "absolute", bottom: "10%", right: "-5%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${C}10 0%, transparent 70%)`, filter: "blur(70px)", pointerEvents: "none" }} />
@@ -3619,38 +3552,50 @@ export default function OTSecurityFirstJohannesburg2026() {
       </main>
 
       <style jsx global>{`
+        /* ─── Scroll performance: skip rendering of offscreen sections.
+              The browser uses the contain-intrinsic-size estimate while a section is
+              far below the viewport, then renders it just before it scrolls into view.
+              Hero stays normal so the LCP element renders instantly. ───────── */
+        .otsf-jhb-page section {
+          content-visibility: auto;
+          contain-intrinsic-size: auto 800px;
+        }
+        .otsf-jhb-page > div > section:first-of-type {
+          content-visibility: visible;
+        }
+
         /* ─── Override InquiryForm for this page ─────────────────── */
-        #inquiry {
+        #register {
           --orange: ${C_BRIGHT};
           --orange-bright: ${C};
           --orange-glow: rgba(211,75,154,0.35);
         }
-        #inquiry #get-involved {
+        #register #get-involved {
           background: transparent !important;
         }
         /* Active tab pill only — target by background property, not color */
-        #inquiry #get-involved button[style*="background: var(--orange)"],
-        #inquiry #get-involved button[style*="background:var(--orange)"] {
+        #register #get-involved button[style*="background: var(--orange)"],
+        #register #get-involved button[style*="background:var(--orange)"] {
           background: linear-gradient(135deg, ${C_BRIGHT}, ${CYAN}) !important;
           border-color: transparent !important;
         }
-        #inquiry #get-involved button[type="submit"] {
+        #register #get-involved button[type="submit"] {
           background: linear-gradient(135deg, ${C_BRIGHT}, ${CYAN}) !important;
           border: none !important;
         }
-        #inquiry #get-involved button[type="submit"]:hover {
+        #register #get-involved button[type="submit"]:hover {
           background: linear-gradient(135deg, ${C}, #4DD9FF) !important;
           box-shadow: 0 12px 40px rgba(211,75,154,0.3) !important;
         }
-        #inquiry #get-involved .flex.items-center.gap-3 > div:first-child {
+        #register #get-involved .flex.items-center.gap-3 > div:first-child {
           background: rgba(211,75,154,0.06) !important;
           border-color: rgba(211,75,154,0.12) !important;
         }
-        #inquiry #get-involved .inquiry-split > div:last-child > div {
+        #register #get-involved .inquiry-split > div:last-child > div {
           background: rgba(13,18,51,0.6) !important;
           border-color: rgba(211,75,154,0.08) !important;
         }
-        #inquiry #get-involved .flex.items-center.gap-3 > span:first-child {
+        #register #get-involved .flex.items-center.gap-3 > span:first-child {
           background: linear-gradient(90deg, ${C_BRIGHT}, ${CYAN}) !important;
         }
 
