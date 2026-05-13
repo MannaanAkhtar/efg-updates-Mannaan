@@ -333,16 +333,13 @@ const PARTICLES = (() => {
 function HeroSection() {
   const ref = useRef<HTMLElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
-  // Hero is always above the fold — trigger reveal on mount instead of via
-  // IntersectionObserver. On some laptops the WebGL shader (MeshGradient)
-  // pauses the browser's transition pipeline mid-animation, causing
-  // `useInView` to fire after some elements are already transitioning,
-  // leaving the headline stuck at opacity 0.
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const id = requestAnimationFrame(() => setInView(true));
-    return () => cancelAnimationFrame(id);
-  }, []);
+  // Hero content is always visible by default (no inView/opacity gating).
+  // The reveal is now a pure CSS @keyframes animation with no JS state, so
+  // even if the animation fails (WebKit backdrop-filter composite layer
+  // issues at desktop widths on macOS), elements fall back to their natural
+  // visible state. Previously the inView-flip-then-transition pipeline
+  // was leaving the kicker + headline + date marker stuck at opacity 0
+  // on macOS Brave/Safari at desktop widths.
 
   const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (!spotlightRef.current) return;
@@ -490,8 +487,6 @@ function HeroSection() {
           textAlign: "center",
           zIndex: 1,
           pointerEvents: "none",
-          opacity: inView ? 1 : 0,
-          transition: "opacity 1.6s 0.5s ease",
         }}
       >
         <span style={{
@@ -533,7 +528,6 @@ function HeroSection() {
         <div style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
           gap: 16, flexWrap: "wrap",
-          opacity: inView ? 1 : 0, transition: "opacity 0.9s ease",
         }}>
           {/* Kicker pill */}
           <div style={{
@@ -591,44 +585,20 @@ function HeroSection() {
             overflowWrap: "break-word",
             hyphens: "auto",
           }}>
-            <span style={{
-              display: "block",
-              opacity: inView ? 1 : 0,
-              transform: inView ? "translateY(0)" : "translateY(28px)",
-              transition: "opacity 0.9s 0.15s cubic-bezier(0.22,1,0.36,1), transform 0.9s 0.15s cubic-bezier(0.22,1,0.36,1)",
-            }}>Powering</span>
-            <span style={{
-              display: "block",
-              opacity: inView ? 1 : 0,
-              transform: inView ? "translateY(0)" : "translateY(28px)",
-              transition: "opacity 0.9s 0.28s cubic-bezier(0.22,1,0.36,1), transform 0.9s 0.28s cubic-bezier(0.22,1,0.36,1)",
-            }}>the future of</span>
-            <span style={{
-              display: "block",
-              color: SG_ORANGE,
-              opacity: inView ? 1 : 0,
-              transform: inView ? "translateY(0)" : "translateY(28px)",
-              transition: "opacity 0.9s 0.42s cubic-bezier(0.22,1,0.36,1), transform 0.9s 0.42s cubic-bezier(0.22,1,0.36,1)",
-            }}>mass capacity</span>
-            <span style={{
-              display: "block",
-              opacity: inView ? 1 : 0,
-              transform: inView ? "translateY(0)" : "translateY(28px)",
-              transition: "opacity 0.9s 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.9s 0.55s cubic-bezier(0.22,1,0.36,1)",
-            }}>storage.</span>
+            <span className="sg-h1-word sg-h1-word-1" style={{ display: "block" }}>Powering</span>
+            <span className="sg-h1-word sg-h1-word-2" style={{ display: "block" }}>the future of</span>
+            <span className="sg-h1-word sg-h1-word-3" style={{ display: "block", color: SG_ORANGE }}>mass capacity</span>
+            <span className="sg-h1-word sg-h1-word-4" style={{ display: "block" }}>storage.</span>
           </h1>
 
           {/* RIGHT: editorial pullquote — REAL italic via serif fallback */}
           <div
-            className="sg-hero-pullquote"
+            className="sg-hero-pullquote sg-hero-reveal sg-hero-reveal-pullquote"
             style={{
               position: "relative",
               paddingLeft: "clamp(22px, 2.4vw, 36px)",
               paddingRight: "clamp(16px, 2vw, 24px)",
               paddingBlock: "clamp(8px, 1.4vh, 14px)",
-              opacity: inView ? 1 : 0,
-              transform: inView ? "translateY(0)" : "translateY(20px)",
-              transition: "opacity 1.1s 0.55s cubic-bezier(0.22,1,0.36,1), transform 1.1s 0.55s cubic-bezier(0.22,1,0.36,1)",
             }}
           >
             {/* Soft reading-surface — radial wash + blur behind the text only */}
@@ -707,9 +677,6 @@ function HeroSection() {
           padding: "clamp(16px, 2vh, 24px) 0 0",
           display: "flex", alignItems: "center", justifyContent: "space-between",
           gap: "clamp(20px, 3vw, 40px)", flexWrap: "wrap",
-          opacity: inView ? 1 : 0,
-          transform: inView ? "translateY(0)" : "translateY(14px)",
-          transition: "opacity 1s 0.7s cubic-bezier(0.22,1,0.36,1), transform 1s 0.7s cubic-bezier(0.22,1,0.36,1)",
         }}>
           {/* Top rule */}
           <span aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 15%, ${SG_ORANGE}55 50%, rgba(255,255,255,0.08) 85%, transparent 100%)` }} />
@@ -740,6 +707,31 @@ function HeroSection() {
       </div>
 
       <style jsx global>{`
+        /* ── Hero reveal: pure-CSS, falls back to visible if animation fails ──
+           Each element's NATURAL state is the visible end-state. The animation
+           only specifies the FROM keyframe — if the browser fails to run the
+           animation (WebKit composite-layer issues, etc.), the element renders
+           at its declared style which is the visible end-state. */
+        @keyframes sg-hero-fade-up {
+          from { opacity: 0; transform: translateY(28px); }
+        }
+        @keyframes sg-hero-fade-up-small {
+          from { opacity: 0; transform: translateY(14px); }
+        }
+        .sg-h1-word { animation: sg-hero-fade-up 0.9s cubic-bezier(0.22,1,0.36,1) both; }
+        .sg-h1-word-1 { animation-delay: 0.15s; }
+        .sg-h1-word-2 { animation-delay: 0.28s; }
+        .sg-h1-word-3 { animation-delay: 0.42s; }
+        .sg-h1-word-4 { animation-delay: 0.55s; }
+        .sg-hero-reveal-pullquote {
+          animation: sg-hero-fade-up-small 1.1s 0.55s cubic-bezier(0.22,1,0.36,1) both;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .sg-h1-word, .sg-hero-reveal-pullquote {
+            animation: none !important;
+          }
+        }
+
         /* Particle drift along J-curve */
         @keyframes sg-particle-float {
           0%   { transform: translate(0, 0); }
