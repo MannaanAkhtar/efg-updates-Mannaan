@@ -22,24 +22,24 @@ const OG_IMAGE = `${BASE_URL}/seagate-brand/seagate-pms.png`;
 export const metadata: Metadata = {
   title: "Seagate Executive Roundtable | Mass Capacity Storage & Mozaic 4+",
   description:
-    "An invitation-only Seagate executive roundtable on the future of mass capacity storage, Mozaic 4+ technology, and the data centre of tomorrow. 10 June 2026, Riyadh.",
+    "An invitation-only Seagate executive roundtable on the future of mass capacity storage, Mozaic 4+ technology, and the data centre of tomorrow. 11 June 2026, Dubai.",
   keywords: [
     "Seagate roundtable",
     "Mozaic 4+",
     "mass capacity storage",
-    "data centre storage Saudi Arabia",
+    "data centre storage UAE",
     "Seagate Technology",
     "enterprise storage executive event",
-    "data centre infrastructure Riyadh",
+    "data centre infrastructure Dubai",
   ],
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: "Seagate Executive Roundtable — Powering the Future of Mass Capacity Storage",
     description:
-      "Join Seagate Technology leadership for an invitation-only roundtable on Mozaic 4+ and the future of data centre storage. 10 June 2026, Riyadh.",
+      "Join Seagate Technology leadership for an invitation-only roundtable on Mozaic 4+ and the future of data centre storage. 11 June 2026, Dubai.",
     url: PAGE_URL,
     siteName: "Events First Group",
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Seagate Executive Roundtable — Riyadh, 10 June 2026" }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Seagate Executive Roundtable — Dubai, 11 June 2026" }],
     locale: "en_US",
     type: "website",
   },
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
     title: "Seagate Executive Roundtable — Mass Capacity Storage & Mozaic 4+",
-    description: "Invitation-only roundtable. 10 June 2026, Riyadh.",
+    description: "Invitation-only roundtable. 11 June 2026, Dubai.",
     images: [OG_IMAGE],
   },
 };
@@ -64,14 +64,14 @@ export default function SeagateLayout({ children }: { children: React.ReactNode 
             name: "Seagate Executive Roundtable — Powering the Future of Mass Capacity Storage",
             description:
               "An invitation-only executive roundtable on Seagate's Mozaic 4+ technology and the future of mass capacity storage for the data centre.",
-            startDate: "2026-06-10T10:30:00+03:00",
-            endDate: "2026-06-10T14:30:00+03:00",
+            startDate: "2026-06-11T10:30:00+04:00",
+            endDate: "2026-06-11T14:30:00+04:00",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {
               "@type": "Place",
-              name: "Riyadh, Saudi Arabia",
-              address: { "@type": "PostalAddress", addressLocality: "Riyadh", addressCountry: "SA" },
+              name: "Dubai, United Arab Emirates",
+              address: { "@type": "PostalAddress", addressLocality: "Dubai", addressCountry: "AE" },
             },
             image: [OG_IMAGE],
             organizer: { "@type": "Organization", name: "Events First Group", url: BASE_URL },

@@ -36,7 +36,7 @@ const SG_HAIRLINE = "rgba(10,14,18,0.10)";
 
 const LOGO_2C_NEG = "https://efg-final.s3.eu-north-1.amazonaws.com/logos/seagate_2c_horizontal_neg1.png"; // green swoosh + white wordmark (for dark bg)
 
-const EVENT_TARGET = "2026-06-10T10:30:00+03:00";
+const EVENT_TARGET = "2026-06-11T10:30:00+04:00";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const TAKEAWAYS = [
@@ -542,9 +542,9 @@ function HeroSection() {
             color: "rgba(255,255,255,0.55)",
           }}>
             <span style={{ width: 24, height: 1, background: `linear-gradient(90deg, transparent, ${SG_ORANGE})` }} />
-            <span>Riyadh</span>
+            <span>Dubai</span>
             <span style={{ color: SG_ORANGE, opacity: 0.7 }}>·</span>
-            <span style={{ color: SG_WHITE }}>10 June 2026</span>
+            <span style={{ color: SG_WHITE }}>11 June 2026</span>
           </div>
         </div>
 
@@ -704,10 +704,10 @@ function HeroSection() {
           }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
               <span style={{ width: 5, height: 5, borderRadius: "50%", background: SG_ORANGE, boxShadow: `0 0 8px ${SG_ORANGE}` }} />
-              10:30 – 13:35 AST
+              10:30 – 13:35 GST
             </span>
             <span style={{ color: "rgba(255,255,255,0.18)" }}>/</span>
-            <span>Riyadh, Saudi Arabia</span>
+            <span>Dubai, UAE</span>
             <span style={{ color: "rgba(255,255,255,0.18)" }}>/</span>
             <span style={{ color: "rgba(255,255,255,0.55)" }}>In-Person · Invite-Only</span>
           </div>
@@ -1550,9 +1550,9 @@ function AgendaSection() {
             opacity: inView ? 1 : 0,
             transition: "opacity 1.2s 0.25s ease",
           }}>
-            <span>10 Jun 2026</span>
+            <span>11 Jun 2026</span>
             <span aria-hidden style={{ width: 18, height: 1, background: "rgba(10,14,18,0.2)" }} />
-            <span>Riyadh</span>
+            <span>Dubai</span>
           </div>
         </div>
 
@@ -1902,9 +1902,9 @@ function RegisterSection() {
   const [form, setForm] = useState({
     fullName: "", email: "", phone: "", company: "", jobTitle: "", message: "",
   });
-  // Default to Saudi Arabia (+966) since the event is in Riyadh
-  const saudiIndex = COUNTRY_CODES.findIndex((c) => c.country === "SA");
-  const [country, setCountry] = useState<CountryCode>(COUNTRY_CODES[saudiIndex >= 0 ? saudiIndex : 0]);
+  // Default to UAE (+971) since the event is in Dubai
+  const uaeIndex = COUNTRY_CODES.findIndex((c) => c.country === "AE");
+  const [country, setCountry] = useState<CountryCode>(COUNTRY_CODES[uaeIndex >= 0 ? uaeIndex : 0]);
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -1928,7 +1928,7 @@ function RegisterSection() {
       company: form.company,
       job_title: form.jobTitle,
       phone: `${country.code} ${form.phone}`,
-      event_name: "Seagate Executive Roundtable — Riyadh 2026",
+      event_name: "Seagate Executive Roundtable — Dubai 2026",
       metadata: { message: form.message },
     });
     setLoading(false);
