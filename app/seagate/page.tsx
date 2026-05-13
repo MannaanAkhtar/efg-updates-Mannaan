@@ -320,7 +320,16 @@ const PARTICLES = (() => {
 function HeroSection() {
   const ref = useRef<HTMLElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  // Hero is always above the fold — trigger reveal on mount instead of via
+  // IntersectionObserver. On some laptops the WebGL shader (MeshGradient)
+  // pauses the browser's transition pipeline mid-animation, causing
+  // `useInView` to fire after some elements are already transitioning,
+  // leaving the headline stuck at opacity 0.
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setInView(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
 
   const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (!spotlightRef.current) return;
@@ -2514,10 +2523,6 @@ function SeagateFooter() {
 
 // ─── Main Page ───────────────────────────────────────────────────────────────
 export default function SeagatePage() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
-
   return (
     <div style={{
       background: SG_WHITE,
