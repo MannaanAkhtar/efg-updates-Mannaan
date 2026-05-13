@@ -47,6 +47,55 @@ const THESIS = [
   },
 ];
 
+type ReportEntry = {
+  edition: string;
+  year: string;
+  title: string;
+  subtitle: string;
+  url: string;
+  filename: string;
+  logo?: string; // white-version logo (transparent bg); falls back to text title when absent
+  logoScale?: number; // per-logo visual scale multiplier (transform: scale) — doesn't affect layout
+};
+
+const POST_EVENT_REPORTS: ReportEntry[] = [
+  {
+    edition: "Kuwait",
+    year: "2025",
+    title: "Cyber First Kuwait",
+    subtitle: "2025 Edition",
+    url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/PER+-+Cyber+First+Kuwait+2025+Edition.pdf",
+    filename: "Cyber-First-Kuwait-2025-Report.pdf",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/efg_logo/Cyber_kuwait.png",
+    logoScale: 1.7,
+  },
+  {
+    edition: "Qatar",
+    year: "2025",
+    title: "Cyber First Qatar",
+    subtitle: "2025 Edition",
+    url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/PER+-+Cyber+First+Qatar+2025+Edition.pdf",
+    filename: "Cyber-First-Qatar-2025-Report.pdf",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/efg_logo/cyber_qatar.png",
+    logoScale: 1.7,
+  },
+  {
+    edition: "UAE",
+    year: "2026",
+    title: "Cyber First UAE",
+    subtitle: "2026 Edition",
+    url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/Post+Event+Report+Cyber+First+UAE_compressed+(1).pdf",
+    filename: "Cyber-First-UAE-2026-Report.pdf",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/efg_logo/cyber_uae.png",
+    logoScale: 1.7,
+  },
+];
+
+// Build the same-origin download proxy URL so the browser triggers a
+// Content-Disposition: attachment download instead of an in-tab preview.
+const buildReportDownloadUrl = (url: string, filename: string) =>
+  `/api/download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
+
 const HERO_SERVICES = [
   { label: "Summits", desc: "Seven executive editions across the Gulf, Africa & South Asia" },
   { label: "Access", desc: "Invite-only CISO rooms & curated one-to-one introductions" },
@@ -1337,6 +1386,327 @@ function ThesisPhoto({ src, alt, aspect, location, tagline, year, translateX = 0
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
+// 1B. POST-EVENT REPORTS — downloadable PDFs from past editions
+// ═════════════════════════════════════════════════════════════════════════════
+function PostEventReports() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <section ref={ref} id="reports" style={{
+      position: "relative",
+      padding: "clamp(36px, 4.5vw, 64px) 0",
+    }}>
+      <div style={{
+        maxWidth: 1280, margin: "0 auto",
+        padding: "0 clamp(20px, 4vw, 60px)",
+        position: "relative",
+      }}>
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: EASE }}
+          style={{ marginBottom: "clamp(36px, 5vw, 56px)", maxWidth: 760 }}
+        >
+          <span style={{
+            display: "inline-flex", alignItems: "center", gap: 10,
+            fontFamily: "var(--font-outfit)",
+            fontSize: 11, fontWeight: 600,
+            letterSpacing: "0.32em", textTransform: "uppercase",
+            color: CYAN,
+            marginBottom: 16,
+          }}>
+            <span aria-hidden style={{ width: 22, height: 1, background: CYAN }} />
+            Post-Event Intelligence
+          </span>
+          <h2 style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(32px, 4.8vw, 56px)",
+            fontWeight: 700,
+            color: "white",
+            letterSpacing: "-0.022em",
+            lineHeight: 1.05,
+            margin: 0,
+          }}>
+            Reports from the room.
+          </h2>
+          <p style={{
+            margin: "16px 0 0",
+            fontFamily: "var(--font-outfit)",
+            fontSize: "clamp(14px, 1.1vw, 16px)",
+            fontWeight: 400,
+            color: MUTE,
+            lineHeight: 1.6,
+            maxWidth: 580,
+          }}>
+            Official post-event reports from each Cyber First edition — takeaways, on-stage themes, and sponsor coverage. Available as PDF.
+          </p>
+        </motion.div>
+
+        {/* 3-card grid */}
+        <div className="cf-reports-grid" style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "clamp(16px, 2vw, 28px)",
+        }}>
+          {POST_EVENT_REPORTS.map((report, i) => (
+            <motion.a
+              key={report.url}
+              href={buildReportDownloadUrl(report.url, report.filename)}
+              download={report.filename}
+              className="cf-report-card"
+              initial={{ opacity: 0, y: 18 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.1 + i * 0.08, ease: EASE }}
+              style={{
+                position: "relative",
+                display: "flex", flexDirection: "column",
+                padding: "clamp(16px, 1.6vw, 22px)",
+                /* GLASS — semi-translucent with diagonal tone shift; backdrop-blur captures PageAtmosphere */
+                background: `linear-gradient(165deg, rgba(22, 24, 30, 0.55) 0%, rgba(10, 11, 14, 0.65) 100%)`,
+                backdropFilter: "blur(28px) saturate(180%)",
+                WebkitBackdropFilter: "blur(28px) saturate(180%)",
+                border: `1px solid rgba(255, 255, 255, 0.08)`,
+                borderRadius: 16,
+                textDecoration: "none",
+                color: "white",
+                overflow: "hidden",
+                minHeight: 260,
+                transition: "border-color 0.4s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease, backdrop-filter 0.4s ease",
+                /* SKEU — layered depth: inset top-edge light, inset bottom shadow, multi-tier outer shadows */
+                boxShadow: [
+                  "inset 0 1px 0 rgba(255, 255, 255, 0.14)",   // glass top-edge reflection
+                  "inset 0 -1px 0 rgba(0, 0, 0, 0.4)",          // dark inner bottom
+                  "0 1px 2px rgba(0, 0, 0, 0.45)",              // tight contact shadow
+                  "0 10px 28px rgba(0, 0, 0, 0.30)",            // mid-depth
+                  "0 28px 56px rgba(0, 0, 0, 0.32)",            // ambient
+                ].join(", "),
+              }}
+            >
+              {/* GLASS SHEEN — diagonal light reflection across the surface */}
+              <span aria-hidden style={{
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 28%, transparent 50%, transparent 75%, rgba(255,255,255,0.03) 100%)",
+                pointerEvents: "none",
+              }} />
+
+              {/* INNER BEVEL — hairline ring inside the border, suggests glass thickness */}
+              <span aria-hidden style={{
+                position: "absolute",
+                inset: 1,
+                borderRadius: 15,
+                boxShadow: "inset 0 0 0 1px rgba(255, 255, 255, 0.025)",
+                pointerEvents: "none",
+              }} />
+
+              {/* Top hairline accent — fading cyan */}
+              <span aria-hidden style={{
+                position: "absolute", top: 0, left: "8%", right: "8%", height: 1,
+                background: `linear-gradient(90deg, transparent 0%, ${CYAN} 50%, transparent 100%)`,
+                opacity: 0.7,
+              }} />
+
+              {/* Bottom hairline accent — mirror, subtler */}
+              <span aria-hidden style={{
+                position: "absolute", bottom: 0, left: "20%", right: "20%", height: 1,
+                background: `linear-gradient(90deg, transparent 0%, ${CYAN}55 50%, transparent 100%)`,
+              }} />
+
+              {/* TOP META — Issue index left | PDF chip right */}
+              <div style={{
+                display: "flex", justifyContent: "space-between", alignItems: "center",
+                gap: 10,
+                marginBottom: "clamp(10px, 1.2vh, 14px)",
+              }}>
+                <span style={{
+                  display: "inline-flex", alignItems: "baseline", gap: 8,
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 10, fontWeight: 600,
+                  letterSpacing: "0.28em", textTransform: "uppercase",
+                  color: MUTE,
+                }}>
+                  <span style={{
+                    fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
+                    fontStyle: "italic", fontWeight: 400,
+                    fontSize: 13,
+                    letterSpacing: "normal", textTransform: "none",
+                    color: CYAN,
+                  }}>
+                    №
+                  </span>
+                  {(i + 1).toString().padStart(2, "0")} · Cyber First
+                </span>
+                <span style={{
+                  display: "inline-flex", alignItems: "center", gap: 5,
+                  padding: "3px 9px",
+                  borderRadius: 999,
+                  border: `1px solid ${RULE}`,
+                  background: "rgba(255,255,255,0.02)",
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 9, fontWeight: 600,
+                  letterSpacing: "0.24em", textTransform: "uppercase",
+                  color: FAINT,
+                }}>
+                  PDF
+                </span>
+              </div>
+
+              {/* LOGO ZONE — compact card, logo dominant */}
+              <div style={{
+                position: "relative",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                minHeight: 100,
+                marginBottom: "clamp(10px, 1.4vh, 14px)",
+              }}>
+                {/* Soft cyan halo */}
+                <div aria-hidden style={{
+                  position: "absolute", inset: "-20% -10%",
+                  background: `radial-gradient(ellipse 50% 60% at 50% 50%, ${CYAN}14 0%, transparent 70%)`,
+                  filter: "blur(20px)",
+                  pointerEvents: "none",
+                }} />
+                {report.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={report.logo}
+                    alt={report.title}
+                    className="cf-report-logo"
+                    style={{
+                      position: "relative",
+                      maxHeight: 100,
+                      maxWidth: "85%",
+                      width: "auto",
+                      objectFit: "contain",
+                      filter: "drop-shadow(0 4px 16px rgba(1,187,245,0.20))",
+                      transform: "scale(var(--logo-scale, 1))",
+                      transition: "transform 0.5s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease",
+                      // CSS variable consumed by the transform above + the hover multiplier in <style jsx>
+                      ["--logo-scale" as string]: String(report.logoScale ?? 1),
+                    } as React.CSSProperties}
+                  />
+                ) : (
+                  <div style={{ position: "relative", textAlign: "center" }}>
+                    <h3 style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(18px, 1.6vw, 22px)",
+                      fontWeight: 700,
+                      letterSpacing: "-0.02em",
+                      lineHeight: 1.1,
+                      color: "white",
+                      margin: 0,
+                    }}>
+                      {report.title}
+                    </h3>
+                  </div>
+                )}
+              </div>
+
+              {/* Centered hairline — short, with cyan tick */}
+              <div aria-hidden style={{
+                display: "flex", alignItems: "center", justifyContent: "center",
+                gap: 7,
+                marginBottom: 10,
+              }}>
+                <span style={{ width: 18, height: 1, background: RULE }} />
+                <span style={{
+                  width: 3, height: 3, borderRadius: "50%",
+                  background: CYAN, boxShadow: `0 0 6px ${CYAN}99`,
+                }} />
+                <span style={{ width: 18, height: 1, background: RULE }} />
+              </div>
+
+              {/* EDITION TITLE + italic Georgia subtitle */}
+              <div style={{ textAlign: "center", marginBottom: "auto" }}>
+                <h3 style={{
+                  margin: 0,
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(14px, 1.1vw, 16px)",
+                  fontWeight: 700,
+                  letterSpacing: "0.04em",
+                  textTransform: "uppercase",
+                  color: "white",
+                }}>
+                  {report.edition} <span style={{ color: CYAN, fontWeight: 700 }}>·</span> {report.year}
+                </h3>
+              </div>
+
+              {/* CTA FOOTER */}
+              <div style={{
+                marginTop: "clamp(12px, 1.6vh, 18px)",
+                paddingTop: 12,
+                borderTop: `1px solid ${RULE}`,
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+              }}>
+                <span style={{
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 11.5, fontWeight: 600,
+                  letterSpacing: "0.12em", textTransform: "uppercase",
+                  color: "white",
+                }}>
+                  Download Report
+                </span>
+                <span aria-hidden className="cf-report-arrow" style={{
+                  display: "inline-flex", alignItems: "center", justifyContent: "center",
+                  width: 34, height: 34, borderRadius: 8,
+                  border: `1px solid ${CYAN}33`,
+                  background: `${CYAN}0d`,
+                  color: CYAN, lineHeight: 1,
+                  transition: "background 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1)",
+                }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                  </svg>
+                </span>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+      </div>
+
+      <style jsx global>{`
+        .cf-report-card:hover {
+          border-color: ${CYAN}66 !important;
+          transform: translateY(-3px);
+          backdrop-filter: blur(34px) saturate(200%) !important;
+          -webkit-backdrop-filter: blur(34px) saturate(200%) !important;
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.18),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.45),
+            inset 0 0 0 1px rgba(1, 187, 245, 0.10),
+            0 1px 2px rgba(0, 0, 0, 0.45),
+            0 14px 36px rgba(1, 187, 245, 0.16),
+            0 28px 64px rgba(0, 0, 0, 0.38) !important;
+        }
+        .cf-report-card:hover .cf-report-logo {
+          transform: scale(calc(var(--logo-scale, 1) * 1.04)) !important;
+          filter: drop-shadow(0 6px 24px rgba(1, 187, 245, 0.40)) !important;
+        }
+        .cf-report-card:hover .cf-report-arrow {
+          background: ${CYAN} !important;
+          border-color: ${CYAN} !important;
+          color: ${INK} !important;
+          transform: translateY(2px);
+          box-shadow: 0 6px 16px rgba(1, 187, 245, 0.40);
+        }
+        @media (max-width: 900px) {
+          .cf-reports-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .cf-reports-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
 // 2. THESIS
 // ═════════════════════════════════════════════════════════════════════════════
 function Thesis() {
@@ -1344,7 +1714,7 @@ function Thesis() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="thesis" style={{ background: "transparent", padding: "clamp(40px, 5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} id="thesis" style={{ background: "transparent", padding: "clamp(36px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
       <SectionAmbient />
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 1 }}>
         <SectionMark num="02" label="The Thesis" />
@@ -1834,7 +2204,7 @@ function InMotion() {
   ];
 
   return (
-    <section ref={ref} id="past" style={{ background: "transparent", padding: "clamp(48px, 6vw, 84px) 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} id="past" style={{ background: "transparent", padding: "clamp(36px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
       <SectionAmbient />
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 1 }}>
         <SectionMark num="03" label="The Past" />
@@ -2040,7 +2410,7 @@ function Arc() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="arc" style={{ background: "transparent", padding: "clamp(48px, 6vw, 84px) 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} id="arc" style={{ background: "transparent", padding: "clamp(36px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
       <SectionAmbient />
       {/* Faint horizontal rule top */}
       <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: `linear-gradient(90deg, transparent, ${CYAN}30, transparent)` }} />
@@ -2681,7 +3051,7 @@ function TheRoom() {
   const maxPct = Math.max(...ROLE_MIX.map((r) => r.pct));
 
   return (
-    <section ref={ref} id="room" style={{ background: "transparent", padding: "clamp(48px, 6vw, 84px) 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} id="room" style={{ background: "transparent", padding: "clamp(36px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
       <SectionAmbient />
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 1 }}>
         <SectionMark num="05" label="The Room" />
@@ -3195,7 +3565,7 @@ function Engage() {
   };
 
   return (
-    <section ref={ref} id="engage" style={{ background: "transparent", padding: "clamp(48px, 6vw, 84px) 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} id="engage" style={{ background: "transparent", padding: "clamp(36px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
       <SectionAmbient />
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 1 }}>
         <SectionMark num="06" label="How to Engage" />
@@ -3492,7 +3862,7 @@ function ProofSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="proof" style={{ background: "transparent", padding: "clamp(48px, 6vw, 84px) 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} id="proof" style={{ background: "transparent", padding: "clamp(36px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
         <SectionMark num="07" label="Proof" />
 
@@ -4172,7 +4542,7 @@ function JoinCta() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="contact" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 68px) 0 clamp(32px, 3.5vw, 56px)", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} id="contact" style={{ background: "transparent", padding: "clamp(36px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
       {/* Background network echo */}
       <div style={{ position: "absolute", inset: 0, opacity: 0.35 }}>
         <NetworkMesh />
@@ -4390,7 +4760,7 @@ function CrossSell() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} style={{ background: "transparent", padding: "clamp(48px, 5vw, 72px) 0", borderTop: `1px solid ${RULE}`, position: "relative", overflow: "hidden" }}>
+    <section ref={ref} style={{ background: "transparent", padding: "clamp(36px, 4.5vw, 64px) 0", borderTop: `1px solid ${RULE}`, position: "relative", overflow: "hidden" }}>
       <SectionAmbient />
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 1 }}>
         <SectionMark num="09" label="Our Other Series" />
@@ -4769,6 +5139,7 @@ export default function CyberFirstPage() {
         <PageAtmosphere />
         <div style={{ position: "relative", zIndex: 1 }}>
           <HeroStats />
+          <PostEventReports />
           <Thesis />
           <InMotion />
           <Arc />
