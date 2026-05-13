@@ -267,6 +267,12 @@ const OTVB_SPEAKERS = [
     org: "Oman Airports Management Company",
     photo: `${S3}/Speakers-photos/Ahmed_Al_Bahoor.png`,
   },
+  {
+    name: "Ibrahim Abuawwad",
+    title: "VP Cybersecurity & Technology",
+    org: "Mitsui E&P",
+    photo: `${S3}/Speakers-photos/Ibrahim_abuawwad.png`,
+  },
 ];
 
 // ─── EVENT SPONSORS 2026 ────────────────────────────────────────────────────
