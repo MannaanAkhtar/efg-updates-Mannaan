@@ -152,7 +152,7 @@ const eventSeriesJsonLd = [
     url: "https://www.eventsfirstgroup.com/events/cyber-first",
     organizer: { "@type": "Organization", name: "Events First Group", url: "https://www.eventsfirstgroup.com" },
     subEvent: [
-      { "@type": "Event", name: "Cyber First Kuwait 2026", startDate: "2026-10-19", location: { "@type": "Place", name: "Jumeirah Messilah Beach Hotel", address: { "@type": "PostalAddress", addressLocality: "Kuwait City", addressCountry: "KW" } } },
+      { "@type": "Event", name: "Cyber First Kuwait 2026", startDate: "2026-10-14", location: { "@type": "Place", name: "Jumeirah Messilah Beach Hotel", address: { "@type": "PostalAddress", addressLocality: "Kuwait City", addressCountry: "KW" } } },
       { "@type": "Event", name: "Cyber First East Africa 2026", startDate: "2026-07-08", location: { "@type": "Place", name: "Nairobi", address: { "@type": "PostalAddress", addressLocality: "Nairobi", addressCountry: "KE" } } },
     ],
   },

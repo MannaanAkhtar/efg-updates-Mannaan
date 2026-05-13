@@ -26,7 +26,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const WP = "https://cyberfirstseries.com/wp-content/uploads";
 const S3 =
   "https://efg-final.s3.eu-north-1.amazonaws.com/speakers/cyber-first-kuwait";
-const EVENT_DATE = new Date("2026-10-19T08:00:00+03:00");
+const EVENT_DATE = new Date("2026-10-14T08:00:00+03:00");
 
 // ─── Countdown ───────────────────────────────────────────────────────────────
 function useCountdown(target: Date) {
@@ -577,7 +577,7 @@ function HeroSection() {
           >
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT }} />
             <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: C_BRIGHT }}>
-              3rd Annual · 19 Oct 2026
+              3rd Annual · 14 Oct 2026
             </span>
           </motion.div>
 
@@ -4765,7 +4765,7 @@ function Venue() {
 
   const venueDetails = [
     { icon: "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0zM12 13a3 3 0 100-6 3 3 0 000 6z", label: "Location", value: "Kuwait City, Kuwait" },
-    { icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z", label: "Date", value: "Monday, 19 October 2026" },
+    { icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z", label: "Date", value: "Wednesday, 14 October 2026" },
     { icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", label: "Time", value: "8:00 AM, 5:00 PM (GST+3)" },
     { icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z", label: "Format", value: "Full-day conference + networking" },
   ];
@@ -5330,7 +5330,7 @@ function RegistrationSection() {
 
               {/* Event details */}
               <div className="flex flex-wrap items-center gap-2" style={{ marginTop: 12 }}>
-                {["3rd Edition", "October 19, 2026", "Jumeirah Messilah Beach Hotel"].map(
+                {["3rd Edition", "October 14, 2026", "Jumeirah Messilah Beach Hotel"].map(
                   (item, index, arr) => (
                     <span key={item} className="flex items-center gap-2">
                       <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "#707070" }}>

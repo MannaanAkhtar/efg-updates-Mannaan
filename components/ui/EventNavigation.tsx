@@ -22,7 +22,7 @@ const EVENT_CONFIGS: Record<string, {
     shortName: "Cyber First",
     color: "#01BBF5",
     colorBright: "#4DD4FF",
-    date: "19 October 2026",
+    date: "14 October 2026",
     location: "Kuwait City",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/cyber-first-kuwait-white.svg",
     navLinks: [

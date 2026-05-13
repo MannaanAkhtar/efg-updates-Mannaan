@@ -24,7 +24,7 @@ const S3_LOGOS = `${S3}/sponsors-logo`;
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 const EDITIONS_2026 = [
-  { city: "Kuwait City", country: "Kuwait", date: "19 October 2026", edition: "3rd Edition", href: "/events/cyber-first/kuwait-2026", status: "open", venue: "Jumeirah Messilah Beach Hotel", image: "https://efg-final.s3.eu-north-1.amazonaws.com/venues/jumeirah-messilah-kuwait.jpg", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/cyber-first-kuwait-white.svg" },
+  { city: "Kuwait City", country: "Kuwait", date: "14 October 2026", edition: "3rd Edition", href: "/events/cyber-first/kuwait-2026", status: "open", venue: "Jumeirah Messilah Beach Hotel", image: "https://efg-final.s3.eu-north-1.amazonaws.com/venues/jumeirah-messilah-kuwait.jpg", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/cyber-first-kuwait-white.svg" },
   { city: "Nairobi", country: "Kenya", date: "08 July 2026", edition: "1st Edition", href: "/events/cyber-first/kenya-2026", status: "open", venue: "Venue TBA", image: "https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/kenya-cyber.png", logo: "/Cyber-First-East-Africa-Logo-01.png" },
   { city: "Doha", country: "Qatar", date: "10 November 2026", edition: "2nd Edition", href: "/events/cyber-first/qatar-2026", status: "soon", venue: "Venue TBA", image: "", logo: "" },
 ];
