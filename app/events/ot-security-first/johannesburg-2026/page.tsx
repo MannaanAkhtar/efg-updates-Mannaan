@@ -22,8 +22,9 @@ import {
   submitForm,
   isWorkEmail,
   COUNTRY_CODES,
+  validatePhone,
 } from "@/lib/form-helpers";
-import type { FormType } from "@/lib/form-helpers";
+import type { FormType, CountryCode } from "@/lib/form-helpers";
 
 // ─── Design Tokens (matching VB MENA magenta/cyan) ──────────────────────────
 const C = "#D34B9A";           // Magenta
@@ -41,6 +42,32 @@ const S3_LOGOS = `${S3}/sponsors-logo`;
 
 // Event date: 26 August 2026
 const EVENT_DATE = new Date("2026-08-26T08:30:00+02:00");
+
+// ─── Post-Event Reports data ─────────────────────────────────────────────────
+type ReportEntry = {
+  edition: string;
+  year: string;
+  title: string;
+  url: string;
+  filename: string;
+  logo?: string;
+  logoScale?: number;
+};
+
+const POST_EVENT_REPORTS: ReportEntry[] = [
+  {
+    edition: "UAE",
+    year: "2026",
+    title: "OT Security First UAE",
+    url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/Post+Event+Report+-+OT+Security+First+2026.pdf",
+    filename: "OT-Security-First-UAE-2026-Report.pdf",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Untitled-2-01.png",
+    logoScale: 1.1,
+  },
+];
+
+const buildReportDownloadUrl = (url: string, filename: string) =>
+  `/api/download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
 
 // ─── Countdown Hook ──────────────────────────────────────────────────────────
 function useCountdown(target: Date) {
@@ -1507,6 +1534,764 @@ function DriversCarousel() {
         </button>
       </div>
     </div>
+  );
+}
+
+// ─── POST-EVENT REPORTS — downloadable PDFs from past editions ──────────────
+function OTSfPostEventReports() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  // ── Delegate-list request form state ─────────────────────────────────────
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState<CountryCode>(
+    COUNTRY_CODES.find((c) => c.country === "ZA") || COUNTRY_CODES[0]
+  );
+  const [phoneTouched, setPhoneTouched] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [submitError, setSubmitError] = useState("");
+
+  // Digit count for current phone, used by live validity hint
+  const phoneDigits = phone.replace(/[\s\-()]/g, "");
+  const phoneDigitsLen = phoneDigits.length;
+  const phoneIsValid = phoneDigitsLen > 0 && validatePhone(phone, countryCode) === null;
+
+  // Live-validate phone whenever phone or country code changes (after first interaction)
+  useEffect(() => {
+    if (!phoneTouched) return;
+    const err = validatePhone(phone, countryCode);
+    setErrors((prev) => {
+      const next = { ...prev };
+      if (err) next.phone = err; else delete next.phone;
+      return next;
+    });
+  }, [phone, countryCode, phoneTouched]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const newErrors: Record<string, string> = {};
+    if (!fullName.trim()) newErrors.fullName = "Full name is required";
+    if (!email.trim()) newErrors.email = "Work email is required";
+    else if (!isWorkEmail(email.trim())) newErrors.email = "Please use your work email — free providers are not accepted";
+    if (!jobTitle.trim()) newErrors.jobTitle = "Job title is required";
+    const phoneErr = validatePhone(phone, countryCode);
+    if (phoneErr) newErrors.phone = phoneErr;
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) {
+      setPhoneTouched(true);
+      return;
+    }
+
+    setSubmitState("submitting");
+    setSubmitError("");
+    const res = await submitForm({
+      type: "contact",
+      full_name: fullName.trim(),
+      email: email.trim(),
+      job_title: jobTitle.trim(),
+      phone: `${countryCode.code} ${phone.trim()}`,
+      event_name: "OT Security First Africa 2026 — Johannesburg",
+      metadata: {
+        "Event Page": "OT Security First Africa 2026 — Johannesburg",
+        "Request Type": "Delegate List",
+        "Page Section": "Post-Event Reports",
+      },
+    });
+    if (res.success) {
+      setSubmitState("success");
+      setFullName(""); setEmail(""); setJobTitle(""); setPhone("");
+    } else {
+      setSubmitState("error");
+      setSubmitError(res.error || "Something went wrong. Please try again.");
+    }
+  };
+
+  return (
+    <section ref={ref} id="reports" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        {/* Header — centered, matching Why Now / Market Drivers convention */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: EASE }}
+          style={{ textAlign: "center", marginBottom: "clamp(28px, 3.5vw, 44px)" }}
+        >
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 20 }}>
+            <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${C_BRIGHT})` }} />
+            <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "4px" }}>Post-Event Intelligence</span>
+            <span style={{ width: 40, height: 1, background: `linear-gradient(270deg, transparent, ${C_BRIGHT})` }} />
+          </div>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4.5vw, 52px)", lineHeight: 1.05, letterSpacing: "-2px", color: "white", margin: "0 0 16px" }}>
+            Reports from the <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>room.</span>
+          </h2>
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400, color: "rgba(255,255,255,0.6)", lineHeight: 1.6, maxWidth: 640, margin: "0 auto" }}>
+            Official post-event reports from each OT Security First edition — takeaways, on-stage themes, and sponsor coverage. Available as PDF.
+          </p>
+        </motion.div>
+
+        {/* Side-by-side layout: report cards left · request form right */}
+        <div className="otsf-jhb-reports-layout">
+          {/* Card column */}
+          <div className="otsf-jhb-reports-grid">
+          {POST_EVENT_REPORTS.map((report, i) => (
+            <motion.a
+              key={report.url}
+              href={buildReportDownloadUrl(report.url, report.filename)}
+              download={report.filename}
+              className="otsf-jhb-report-card"
+              initial={{ opacity: 0, y: 18 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.15 + i * 0.08, ease: EASE }}
+              style={{
+                position: "relative",
+                display: "flex", flexDirection: "column",
+                padding: "clamp(16px, 1.6vw, 22px)",
+                background: `linear-gradient(165deg, rgba(30, 18, 38, 0.55) 0%, rgba(12, 8, 24, 0.65) 100%)`,
+                backdropFilter: "blur(28px) saturate(180%)",
+                WebkitBackdropFilter: "blur(28px) saturate(180%)",
+                border: `1px solid rgba(255, 255, 255, 0.08)`,
+                borderRadius: 16,
+                textDecoration: "none",
+                color: "white",
+                overflow: "hidden",
+                minHeight: 260,
+                transition: "border-color 0.4s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease, backdrop-filter 0.4s ease",
+                boxShadow: [
+                  "inset 0 1px 0 rgba(255, 255, 255, 0.14)",
+                  "inset 0 -1px 0 rgba(0, 0, 0, 0.4)",
+                  "0 1px 2px rgba(0, 0, 0, 0.45)",
+                  "0 10px 28px rgba(0, 0, 0, 0.30)",
+                  "0 28px 56px rgba(0, 0, 0, 0.32)",
+                ].join(", "),
+                ["--logo-scale" as string]: String(report.logoScale ?? 1),
+              } as React.CSSProperties}
+            >
+              {/* Glass sheen */}
+              <span aria-hidden style={{
+                position: "absolute", inset: 0, pointerEvents: "none",
+                background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 28%, transparent 50%, transparent 75%, rgba(255,255,255,0.03) 100%)",
+              }} />
+              {/* Inner bevel */}
+              <span aria-hidden style={{
+                position: "absolute", inset: 1, borderRadius: 15, pointerEvents: "none",
+                boxShadow: "inset 0 0 0 1px rgba(255, 255, 255, 0.025)",
+              }} />
+              {/* Top hairline — magenta-to-cyan, matching page accent gradients */}
+              <span aria-hidden style={{
+                position: "absolute", top: 0, left: "8%", right: "8%", height: 1,
+                background: `linear-gradient(90deg, transparent 0%, ${C_BRIGHT} 30%, ${CYAN} 70%, transparent 100%)`,
+                opacity: 0.7,
+              }} />
+              {/* Bottom hairline */}
+              <span aria-hidden style={{
+                position: "absolute", bottom: 0, left: "20%", right: "20%", height: 1,
+                background: `linear-gradient(90deg, transparent 0%, ${C_BRIGHT}55 50%, transparent 100%)`,
+              }} />
+
+              {/* Top meta */}
+              <div style={{
+                display: "flex", justifyContent: "space-between", alignItems: "center",
+                gap: 10, marginBottom: "clamp(10px, 1.2vh, 14px)",
+                position: "relative", zIndex: 1,
+              }}>
+                <span style={{
+                  display: "inline-flex", alignItems: "baseline", gap: 8,
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 10, fontWeight: 600,
+                  letterSpacing: "0.28em", textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.55)",
+                }}>
+                  <span style={{
+                    fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
+                    fontStyle: "italic", fontWeight: 400, fontSize: 13,
+                    letterSpacing: "normal", textTransform: "none",
+                    color: C_BRIGHT,
+                  }}>№</span>
+                  {(i + 1).toString().padStart(2, "0")} · OT Security First
+                </span>
+                <span style={{
+                  display: "inline-flex", alignItems: "center", gap: 5,
+                  padding: "3px 9px", borderRadius: 999,
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: "rgba(255,255,255,0.02)",
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 9, fontWeight: 600,
+                  letterSpacing: "0.24em", textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.35)",
+                }}>PDF</span>
+              </div>
+
+              {/* Logo zone */}
+              <div style={{
+                position: "relative",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                minHeight: 100,
+                marginBottom: "clamp(10px, 1.4vh, 14px)",
+                zIndex: 1,
+              }}>
+                <div aria-hidden style={{
+                  position: "absolute", inset: "-20% -10%",
+                  background: `radial-gradient(ellipse 50% 60% at 50% 50%, ${C}26 0%, transparent 70%)`,
+                  filter: "blur(20px)",
+                  pointerEvents: "none",
+                }} />
+                {report.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={report.logo}
+                    alt={report.title}
+                    className="otsf-jhb-report-logo"
+                    style={{
+                      position: "relative",
+                      maxHeight: 100,
+                      maxWidth: "85%",
+                      width: "auto",
+                      objectFit: "contain",
+                      filter: `drop-shadow(0 4px 16px ${C}33)`,
+                      transform: "scale(var(--logo-scale, 1))",
+                      transition: "transform 0.5s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease",
+                    }}
+                  />
+                ) : (
+                  <h3 style={{
+                    position: "relative",
+                    fontFamily: "var(--font-display)", fontSize: "clamp(18px, 1.6vw, 22px)",
+                    fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.1,
+                    color: "white", margin: 0, textAlign: "center",
+                  }}>{report.title}</h3>
+                )}
+              </div>
+
+              {/* Centered hairline */}
+              <div aria-hidden style={{
+                display: "flex", alignItems: "center", justifyContent: "center",
+                gap: 7, marginBottom: 10,
+                position: "relative", zIndex: 1,
+              }}>
+                <span style={{ width: 18, height: 1, background: "rgba(255,255,255,0.08)" }} />
+                <span style={{
+                  width: 3, height: 3, borderRadius: "50%",
+                  background: C_BRIGHT, boxShadow: `0 0 6px ${C_BRIGHT}99`,
+                }} />
+                <span style={{ width: 18, height: 1, background: "rgba(255,255,255,0.08)" }} />
+              </div>
+
+              {/* Edition title */}
+              <div style={{ textAlign: "center", marginBottom: "auto", position: "relative", zIndex: 1 }}>
+                <h3 style={{
+                  margin: 0,
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(14px, 1.1vw, 16px)",
+                  fontWeight: 700, letterSpacing: "0.04em",
+                  textTransform: "uppercase", color: "white",
+                }}>
+                  {report.edition} <span style={{ color: C_BRIGHT, fontWeight: 700 }}>·</span> {report.year}
+                </h3>
+              </div>
+
+              {/* CTA footer */}
+              <div style={{
+                marginTop: "clamp(12px, 1.6vh, 18px)",
+                paddingTop: 12,
+                borderTop: "1px solid rgba(255,255,255,0.08)",
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+                position: "relative", zIndex: 1,
+              }}>
+                <span style={{
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 11.5, fontWeight: 600,
+                  letterSpacing: "0.12em", textTransform: "uppercase",
+                  color: "white",
+                }}>Download Report</span>
+                <span aria-hidden className="otsf-jhb-report-arrow" style={{
+                  display: "inline-flex", alignItems: "center", justifyContent: "center",
+                  width: 34, height: 34, borderRadius: 8,
+                  border: `1px solid ${C}33`,
+                  background: `${C}0d`,
+                  color: C_BRIGHT, lineHeight: 1,
+                  transition: "background 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1)",
+                }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                  </svg>
+                </span>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+
+        {/* ─── Delegate-list request form ──────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.35, ease: EASE }}
+          className="otsf-jhb-delegate-form-wrap"
+        >
+          <div className="otsf-jhb-delegate-form-card">
+            {/* Decorative top hairline */}
+            <span aria-hidden className="otsf-jhb-delegate-hairline" />
+
+            <div className="otsf-jhb-delegate-header">
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                <span style={{ width: 24, height: 1, background: C_BRIGHT }} />
+                <span style={{
+                  fontFamily: "var(--font-dm)",
+                  fontSize: 10, fontWeight: 700,
+                  letterSpacing: "0.32em", textTransform: "uppercase",
+                  color: C_BRIGHT,
+                }}>Request the Delegate List</span>
+              </div>
+              <h3 style={{
+                margin: 0,
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(20px, 2.4vw, 28px)",
+                fontWeight: 700,
+                letterSpacing: "-0.5px",
+                color: "white",
+                lineHeight: 1.2,
+              }}>
+                Get the full attendee roster.
+              </h3>
+              <p style={{
+                margin: "10px 0 0",
+                fontFamily: "var(--font-outfit)",
+                fontSize: "clamp(13px, 1vw, 14px)",
+                fontWeight: 400,
+                color: "rgba(255,255,255,0.55)",
+                lineHeight: 1.6,
+                maxWidth: 520,
+              }}>
+                Share your details and we&apos;ll send the curated delegate list to your work email — CISOs, Heads of OT, plant leaders and decision-makers attending the Johannesburg edition.
+              </p>
+            </div>
+
+            {submitState === "success" ? (
+              <div className="otsf-jhb-delegate-success">
+                <div style={{
+                  display: "inline-flex", alignItems: "center", justifyContent: "center",
+                  width: 56, height: 56, borderRadius: "50%",
+                  background: `linear-gradient(135deg, ${C}, ${CYAN})`,
+                  marginBottom: 14,
+                  boxShadow: `0 8px 24px ${C}40`,
+                }}>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <h4 style={{
+                  margin: "0 0 8px",
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(18px, 1.8vw, 22px)",
+                  fontWeight: 700,
+                  color: "white",
+                }}>Request received.</h4>
+                <p style={{
+                  margin: 0,
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 14,
+                  color: "rgba(255,255,255,0.6)",
+                  maxWidth: 380,
+                }}>
+                  We&apos;ll send the delegate list to your work email within 1 business day.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} noValidate className="otsf-jhb-delegate-form-fields">
+                {/* Honeypot */}
+                <input type="text" name="website" tabIndex={-1} autoComplete="off"
+                  style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} />
+
+                <div className="otsf-jhb-delegate-row">
+                  <label className="otsf-jhb-delegate-field">
+                    <span className="otsf-jhb-delegate-label">Full Name</span>
+                    <input
+                      type="text"
+                      value={fullName}
+                      onChange={(e) => { setFullName(e.target.value); if (errors.fullName) setErrors({ ...errors, fullName: "" }); }}
+                      placeholder="Your full name"
+                      autoComplete="name"
+                      className="otsf-jhb-delegate-input"
+                      aria-invalid={!!errors.fullName}
+                    />
+                    {errors.fullName && <span className="otsf-jhb-delegate-err">{errors.fullName}</span>}
+                  </label>
+
+                  <label className="otsf-jhb-delegate-field">
+                    <span className="otsf-jhb-delegate-label">Work Email</span>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors({ ...errors, email: "" }); }}
+                      placeholder="name@company.com"
+                      autoComplete="email"
+                      className="otsf-jhb-delegate-input"
+                      aria-invalid={!!errors.email}
+                    />
+                    {errors.email && <span className="otsf-jhb-delegate-err">{errors.email}</span>}
+                  </label>
+                </div>
+
+                <div className="otsf-jhb-delegate-row">
+                  <label className="otsf-jhb-delegate-field">
+                    <span className="otsf-jhb-delegate-label">Job Title</span>
+                    <input
+                      type="text"
+                      value={jobTitle}
+                      onChange={(e) => { setJobTitle(e.target.value); if (errors.jobTitle) setErrors({ ...errors, jobTitle: "" }); }}
+                      placeholder="CISO, Head of OT, Plant Director…"
+                      autoComplete="organization-title"
+                      className="otsf-jhb-delegate-input"
+                      aria-invalid={!!errors.jobTitle}
+                    />
+                    {errors.jobTitle && <span className="otsf-jhb-delegate-err">{errors.jobTitle}</span>}
+                  </label>
+
+                  <label className="otsf-jhb-delegate-field">
+                    <span className="otsf-jhb-delegate-label">
+                      Phone
+                      <span className="otsf-jhb-delegate-hint-inline">
+                        {countryCode.length} digits expected
+                      </span>
+                    </span>
+                    <div className="otsf-jhb-delegate-phone-row">
+                      <select
+                        value={`${countryCode.country}-${countryCode.code}`}
+                        onChange={(e) => {
+                          const [country, code] = e.target.value.split("-");
+                          const found = COUNTRY_CODES.find((c) => c.country === country && c.code === code);
+                          if (found) {
+                            setCountryCode(found);
+                            // Trim phone if the new country expects fewer digits
+                            setPhone((prev) => prev.replace(/\D/g, "").slice(0, found.length));
+                          }
+                        }}
+                        className="otsf-jhb-delegate-cc"
+                        aria-label="Country code"
+                      >
+                        {COUNTRY_CODES.map((c) => (
+                          <option key={`${c.country}-${c.code}`} value={`${c.country}-${c.code}`}>
+                            {c.country} {c.code}
+                          </option>
+                        ))}
+                      </select>
+                      <div className="otsf-jhb-delegate-phone-input-wrap">
+                        <input
+                          type="tel"
+                          inputMode="numeric"
+                          value={phone}
+                          onChange={(e) => {
+                            // Digits only; hard-cap at the country's expected digit count
+                            const digits = e.target.value.replace(/\D/g, "").slice(0, countryCode.length);
+                            setPhone(digits);
+                          }}
+                          onBlur={() => setPhoneTouched(true)}
+                          placeholder={countryCode.placeholder}
+                          autoComplete="tel-national"
+                          maxLength={countryCode.length}
+                          className="otsf-jhb-delegate-input otsf-jhb-delegate-phone-input"
+                          aria-invalid={!!errors.phone}
+                        />
+                        {phoneTouched && phoneIsValid && (
+                          <span aria-hidden className="otsf-jhb-delegate-phone-check">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    {phoneTouched && !phoneIsValid && phoneDigitsLen > 0 && !errors.phone && (
+                      <span className="otsf-jhb-delegate-phone-progress">
+                        {phoneDigitsLen} / {countryCode.length} digits
+                      </span>
+                    )}
+                    {errors.phone && <span className="otsf-jhb-delegate-err">{errors.phone}</span>}
+                  </label>
+                </div>
+
+                {submitError && (
+                  <div className="otsf-jhb-delegate-submit-err">{submitError}</div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={submitState === "submitting"}
+                  className="otsf-jhb-delegate-submit"
+                >
+                  {submitState === "submitting" ? "Sending…" : "Send me the delegate list"}
+                  {submitState !== "submitting" && (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 8 }}>
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  )}
+                </button>
+                <p className="otsf-jhb-delegate-hint">
+                  We respect your inbox. Used only to send the delegate list and edition follow-ups.
+                </p>
+              </form>
+            )}
+          </div>
+        </motion.div>
+        </div>{/* /reports-layout */}
+      </div>
+
+      <style jsx global>{`
+        .otsf-jhb-report-card:hover {
+          border-color: ${C_BRIGHT}66 !important;
+          transform: translateY(-3px);
+          backdrop-filter: blur(34px) saturate(200%) !important;
+          -webkit-backdrop-filter: blur(34px) saturate(200%) !important;
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.18),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.45),
+            inset 0 0 0 1px ${C}1a,
+            0 1px 2px rgba(0, 0, 0, 0.45),
+            0 14px 36px ${C}29,
+            0 28px 64px rgba(0, 0, 0, 0.38) !important;
+        }
+        .otsf-jhb-report-card:hover .otsf-jhb-report-logo {
+          transform: scale(calc(var(--logo-scale, 1) * 1.04)) !important;
+          filter: drop-shadow(0 6px 24px ${C}66) !important;
+        }
+        .otsf-jhb-report-card:hover .otsf-jhb-report-arrow {
+          background: ${C_BRIGHT} !important;
+          border-color: ${C_BRIGHT} !important;
+          color: white !important;
+          transform: translateY(2px);
+          box-shadow: 0 6px 16px ${C}66;
+        }
+        /* ─── Side-by-side layout: cards left, form right ─────────────── */
+        .otsf-jhb-reports-layout {
+          display: grid;
+          grid-template-columns: minmax(280px, 360px) 1fr;
+          gap: clamp(20px, 3vw, 40px);
+          align-items: start;
+        }
+        .otsf-jhb-reports-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: clamp(16px, 2vw, 28px);
+        }
+        @media (max-width: 880px) {
+          .otsf-jhb-reports-layout {
+            grid-template-columns: 1fr !important;
+          }
+          .otsf-jhb-reports-grid {
+            max-width: 420px;
+            margin: 0 auto;
+          }
+        }
+
+        /* ─── Delegate-list request form ──────────────────────────────────── */
+        .otsf-jhb-delegate-form-wrap {
+          display: flex;
+          justify-content: stretch;
+        }
+        .otsf-jhb-delegate-form-card {
+          position: relative;
+          width: 100%;
+          padding: clamp(24px, 3vw, 36px);
+          background: linear-gradient(165deg, rgba(30, 18, 38, 0.55) 0%, rgba(12, 8, 24, 0.65) 100%);
+          backdrop-filter: blur(28px) saturate(180%);
+          -webkit-backdrop-filter: blur(28px) saturate(180%);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 18px;
+          overflow: hidden;
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.14),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+            0 1px 2px rgba(0, 0, 0, 0.45),
+            0 14px 36px rgba(0, 0, 0, 0.30),
+            0 32px 64px rgba(0, 0, 0, 0.32);
+        }
+        .otsf-jhb-delegate-hairline {
+          position: absolute;
+          top: 0; left: 8%; right: 8%; height: 1px;
+          background: linear-gradient(90deg, transparent 0%, ${C_BRIGHT} 30%, ${CYAN} 70%, transparent 100%);
+          opacity: 0.75;
+        }
+        .otsf-jhb-delegate-header {
+          margin-bottom: clamp(20px, 2.5vw, 28px);
+          position: relative; z-index: 1;
+        }
+        .otsf-jhb-delegate-form-fields {
+          position: relative; z-index: 1;
+          display: flex; flex-direction: column;
+          gap: clamp(14px, 1.8vw, 18px);
+        }
+        .otsf-jhb-delegate-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: clamp(12px, 1.6vw, 18px);
+        }
+        .otsf-jhb-delegate-field {
+          display: flex; flex-direction: column;
+          gap: 6px;
+        }
+        .otsf-jhb-delegate-label {
+          font-family: var(--font-outfit);
+          font-size: 11px; font-weight: 600;
+          letter-spacing: 0.16em; text-transform: uppercase;
+          color: rgba(255,255,255,0.55);
+          display: flex;
+          align-items: baseline;
+          gap: 10px;
+        }
+        .otsf-jhb-delegate-hint-inline {
+          font-size: 10px;
+          font-weight: 500;
+          letter-spacing: 0.06em;
+          text-transform: none;
+          color: rgba(255,255,255,0.35);
+        }
+        .otsf-jhb-delegate-phone-input-wrap {
+          position: relative;
+          flex: 1;
+        }
+        .otsf-jhb-delegate-phone-check {
+          position: absolute;
+          right: 12px;
+          top: 50%;
+          transform: translateY(-50%);
+          display: inline-flex;
+          align-items: center; justify-content: center;
+          width: 22px; height: 22px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, ${C}, ${CYAN});
+          color: white;
+          box-shadow: 0 2px 8px ${C}40;
+          pointer-events: none;
+        }
+        .otsf-jhb-delegate-phone-progress {
+          font-family: var(--font-outfit);
+          font-size: 11px;
+          color: rgba(255,255,255,0.45);
+          font-variant-numeric: tabular-nums;
+          margin-top: 2px;
+        }
+        .otsf-jhb-delegate-input {
+          width: 100%;
+          padding: 12px 14px;
+          background: rgba(0,0,0,0.25);
+          border: 1px solid rgba(255,255,255,0.10);
+          border-radius: 10px;
+          color: white;
+          font-family: var(--font-outfit);
+          font-size: 14.5px;
+          line-height: 1.4;
+          outline: none;
+          transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+        }
+        .otsf-jhb-delegate-input::placeholder {
+          color: rgba(255,255,255,0.30);
+        }
+        .otsf-jhb-delegate-input:focus {
+          border-color: ${C_BRIGHT};
+          background: rgba(0,0,0,0.35);
+          box-shadow: 0 0 0 3px ${C}26;
+        }
+        .otsf-jhb-delegate-input[aria-invalid="true"] {
+          border-color: rgba(255,80,80,0.6);
+        }
+        .otsf-jhb-delegate-phone-row {
+          display: flex;
+          gap: 8px;
+        }
+        .otsf-jhb-delegate-cc {
+          padding: 12px 10px;
+          background: rgba(0,0,0,0.25);
+          border: 1px solid rgba(255,255,255,0.10);
+          border-radius: 10px;
+          color: white;
+          font-family: var(--font-outfit);
+          font-size: 14px;
+          outline: none;
+          cursor: pointer;
+          max-width: 110px;
+          transition: border-color 0.25s ease, background 0.25s ease;
+        }
+        .otsf-jhb-delegate-cc:focus {
+          border-color: ${C_BRIGHT};
+          box-shadow: 0 0 0 3px ${C}26;
+        }
+        .otsf-jhb-delegate-cc option {
+          background: #0d1233;
+          color: white;
+        }
+        .otsf-jhb-delegate-phone-input {
+          flex: 1;
+          width: 100%;
+          padding-right: 40px;
+        }
+        .otsf-jhb-delegate-err {
+          font-family: var(--font-outfit);
+          font-size: 12px;
+          color: #ff7a7a;
+          margin-top: 2px;
+        }
+        .otsf-jhb-delegate-submit-err {
+          padding: 12px 14px;
+          border-radius: 10px;
+          background: rgba(255, 80, 80, 0.10);
+          border: 1px solid rgba(255, 80, 80, 0.30);
+          color: #ff9a9a;
+          font-family: var(--font-outfit);
+          font-size: 13.5px;
+        }
+        .otsf-jhb-delegate-submit {
+          display: inline-flex;
+          align-items: center; justify-content: center;
+          padding: 14px 24px;
+          border-radius: 12px;
+          border: 1px solid transparent;
+          background: linear-gradient(135deg, ${C}, ${CYAN});
+          color: white;
+          font-family: var(--font-outfit);
+          font-size: 14px; font-weight: 700;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          cursor: pointer;
+          align-self: flex-start;
+          transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease, filter 0.25s ease;
+          box-shadow: 0 8px 20px ${C}33, inset 0 1px 0 rgba(255,255,255,0.18);
+        }
+        .otsf-jhb-delegate-submit:hover:not(:disabled) {
+          transform: translateY(-1px);
+          filter: brightness(1.08);
+          box-shadow: 0 12px 28px ${C}4d, inset 0 1px 0 rgba(255,255,255,0.22);
+        }
+        .otsf-jhb-delegate-submit:disabled {
+          opacity: 0.55;
+          cursor: not-allowed;
+        }
+        .otsf-jhb-delegate-hint {
+          font-family: var(--font-outfit);
+          font-size: 12px;
+          color: rgba(255,255,255,0.35);
+          margin: 4px 0 0;
+        }
+        .otsf-jhb-delegate-success {
+          position: relative; z-index: 1;
+          text-align: center;
+          padding: clamp(20px, 3vw, 32px) 0;
+        }
+        @media (max-width: 640px) {
+          .otsf-jhb-delegate-row {
+            grid-template-columns: 1fr !important;
+          }
+          .otsf-jhb-delegate-submit {
+            width: 100%;
+            justify-content: center;
+          }
+        }
+      `}</style>
+    </section>
   );
 }
 
@@ -3528,6 +4313,7 @@ export default function OTSecurityFirstJohannesburg2026() {
         <div style={{ position: "relative", zIndex: 1 }}>
           <HeroSection />
           <AboutSection />
+          <OTSfPostEventReports />
           <MarketDriversSection />
           <FocusAreas />
           <SpeakersSection />

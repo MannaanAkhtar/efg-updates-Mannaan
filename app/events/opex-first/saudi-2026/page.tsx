@@ -38,6 +38,40 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const EVENT_DATE = new Date("2026-09-15T09:00:00+03:00");
 const EFG_LOGO = "/events-first-group_logo_alt.svg";
 const OPEX_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OPEX+FIRST+logo-1.png";
+
+// ─── Post-Event Reports data ─────────────────────────────────────────────────
+type ReportEntry = {
+  edition: string;
+  year: string;
+  title: string;
+  url: string;
+  filename: string;
+  logo?: string;
+  logoScale?: number;
+};
+
+const POST_EVENT_REPORTS: ReportEntry[] = [
+  {
+    edition: "KSA",
+    year: "2025",
+    title: "OPEX First KSA",
+    url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/OPEX+First+KSA+2025+-+Post+Event+Report.pdf",
+    filename: "OPEX-First-KSA-2025-Report.pdf",
+    // logo: TODO — KSA edition logo URL goes here
+  },
+  {
+    edition: "UAE",
+    year: "2026",
+    title: "OPEX First UAE",
+    url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/Opex+UAE+Post+Event+Report_compressed.pdf",
+    filename: "OPEX-First-UAE-2026-Report.pdf",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/efg_logo/opex_uae.png",
+    logoScale: 1.7,
+  },
+];
+
+const buildReportDownloadUrl = (url: string, filename: string) =>
+  `/api/download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
 const BOARDROOM = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/boardrooms";
 
 const HERO_BG = "https://efg-final.s3.eu-north-1.amazonaws.com/gallery/magnific_make-this-a-high-quality-_2901874874.png";
@@ -781,6 +815,805 @@ function OpexVideoCard({ videoId, title }: { videoId: string; title: string }) {
         </>
       )}
     </div>
+  );
+}
+
+// ─── POST-EVENT REPORTS — downloadable PDFs from past editions ──────────────
+function OpexSaudiPostEventReports() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  // ── Delegate-list request form state ─────────────────────────────────────
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState<CountryCode>(
+    COUNTRY_CODES.find((c) => c.country === "SA") || COUNTRY_CODES[0]
+  );
+  const [phoneTouched, setPhoneTouched] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [submitError, setSubmitError] = useState("");
+
+  const phoneDigits = phone.replace(/[\s\-()]/g, "");
+  const phoneDigitsLen = phoneDigits.length;
+  const phoneIsValid = phoneDigitsLen > 0 && validatePhone(phone, countryCode) === null;
+
+  useEffect(() => {
+    if (!phoneTouched) return;
+    const err = validatePhone(phone, countryCode);
+    setErrors((prev) => {
+      const next = { ...prev };
+      if (err) next.phone = err; else delete next.phone;
+      return next;
+    });
+  }, [phone, countryCode, phoneTouched]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const newErrors: Record<string, string> = {};
+    if (!fullName.trim()) newErrors.fullName = "Full name is required";
+    if (!email.trim()) newErrors.email = "Work email is required";
+    else if (!isWorkEmail(email.trim())) newErrors.email = "Please use your work email — free providers are not accepted";
+    if (!jobTitle.trim()) newErrors.jobTitle = "Job title is required";
+    const phoneErr = validatePhone(phone, countryCode);
+    if (phoneErr) newErrors.phone = phoneErr;
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) {
+      setPhoneTouched(true);
+      return;
+    }
+
+    setSubmitState("submitting");
+    setSubmitError("");
+    const res = await submitForm({
+      type: "contact",
+      full_name: fullName.trim(),
+      email: email.trim(),
+      job_title: jobTitle.trim(),
+      phone: `${countryCode.code} ${phone.trim()}`,
+      event_name: "OPEX First KSA 2026 — Riyadh",
+      metadata: {
+        "Event Page": "OPEX First KSA 2026 — Riyadh",
+        "Request Type": "Delegate List",
+        "Page Section": "Post-Event Reports",
+      },
+    });
+    if (res.success) {
+      setSubmitState("success");
+      setFullName(""); setEmail(""); setJobTitle(""); setPhone("");
+    } else {
+      setSubmitState("error");
+      setSubmitError(res.error || "Something went wrong. Please try again.");
+    }
+  };
+
+  return (
+    <section ref={ref} className="opex-per-section" id="reports">
+      <div className="opex-per-glow" />
+      <div className="opex-per-container">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: EASE }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
+            <span style={{ width: 24, height: 2, background: V, borderRadius: 1 }} />
+            <span style={{ fontFamily: "var(--font-dm)", fontSize: 12, fontWeight: 500, letterSpacing: "2.5px", textTransform: "uppercase", color: V_BRIGHT }}>
+              Post-Event Intelligence
+            </span>
+          </div>
+        </motion.div>
+
+        <motion.h2
+          className="opex-per-heading"
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
+        >
+          Reports from the room.
+        </motion.h2>
+
+        <motion.p
+          className="opex-per-subtitle"
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: EASE, delay: 0.15 }}
+        >
+          Official post-event reports from each OPEX First edition — takeaways, on-stage themes, and sponsor coverage. Available as PDF.
+        </motion.p>
+
+        {/* Side-by-side layout: reports left · request form right */}
+        <div className="opex-per-layout">
+        <div className="opex-per-grid">
+          {POST_EVENT_REPORTS.map((report, i) => (
+            <motion.a
+              key={report.url}
+              href={buildReportDownloadUrl(report.url, report.filename)}
+              download={report.filename}
+              className="opex-per-card"
+              initial={{ opacity: 0, y: 18 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.25 + i * 0.08, ease: EASE }}
+              style={{
+                ["--logo-scale" as string]: String(report.logoScale ?? 1),
+              } as React.CSSProperties}
+            >
+              <span aria-hidden className="opex-per-sheen" />
+              <span aria-hidden className="opex-per-bevel" />
+              <span aria-hidden className="opex-per-hairline-top" />
+              <span aria-hidden className="opex-per-hairline-bottom" />
+
+              <div className="opex-per-meta">
+                <span className="opex-per-index">
+                  <span className="opex-per-no">№</span>
+                  {(i + 1).toString().padStart(2, "0")} · OPEX First
+                </span>
+                <span className="opex-per-pdf">PDF</span>
+              </div>
+
+              <div className="opex-per-logo-zone">
+                <div aria-hidden className="opex-per-logo-halo" />
+                {report.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={report.logo} alt={report.title} className="opex-per-logo" />
+                ) : (
+                  <h3 className="opex-per-logo-text">{report.title}</h3>
+                )}
+              </div>
+
+              <div aria-hidden className="opex-per-divider">
+                <span className="opex-per-divider-line" />
+                <span className="opex-per-divider-dot" />
+                <span className="opex-per-divider-line" />
+              </div>
+
+              <div className="opex-per-edition-wrap">
+                <h3 className="opex-per-edition">
+                  {report.edition} <span className="opex-per-sep">·</span> {report.year}
+                </h3>
+              </div>
+
+              <div className="opex-per-footer">
+                <span className="opex-per-cta-label">Download Report</span>
+                <span aria-hidden className="opex-per-arrow">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                  </svg>
+                </span>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+
+        {/* ─── Delegate-list request form ──────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.35, ease: EASE }}
+          className="opex-per-form-wrap"
+        >
+          <div className="opex-per-form-card">
+            <span aria-hidden className="opex-per-form-hairline" />
+
+            <div className="opex-per-form-header">
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                <span style={{ width: 24, height: 1, background: V_BRIGHT }} />
+                <span style={{
+                  fontFamily: "var(--font-dm)",
+                  fontSize: 10, fontWeight: 700,
+                  letterSpacing: "0.32em", textTransform: "uppercase",
+                  color: V_BRIGHT,
+                }}>Request the Delegate List</span>
+              </div>
+              <h3 style={{
+                margin: 0,
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(20px, 2.4vw, 28px)",
+                fontWeight: 700,
+                letterSpacing: "-0.5px",
+                color: "white",
+                lineHeight: 1.2,
+              }}>
+                Get the full attendee roster.
+              </h3>
+              <p style={{
+                margin: "10px 0 0",
+                fontFamily: "var(--font-outfit)",
+                fontSize: "clamp(13px, 1vw, 14px)",
+                fontWeight: 400,
+                color: "rgba(255,255,255,0.55)",
+                lineHeight: 1.6,
+                maxWidth: 520,
+              }}>
+                Share your details and we&apos;ll send the curated delegate list to your work email — COOs, transformation leaders, and operational excellence decision-makers attending the Riyadh edition.
+              </p>
+            </div>
+
+            {submitState === "success" ? (
+              <div className="opex-per-form-success">
+                <div style={{
+                  display: "inline-flex", alignItems: "center", justifyContent: "center",
+                  width: 56, height: 56, borderRadius: "50%",
+                  background: `linear-gradient(135deg, ${V}, ${V_BRIGHT})`,
+                  marginBottom: 14,
+                  boxShadow: `0 8px 24px ${V}66`,
+                }}>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <h4 style={{
+                  margin: "0 0 8px",
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(18px, 1.8vw, 22px)",
+                  fontWeight: 700,
+                  color: "white",
+                }}>Request received.</h4>
+                <p style={{
+                  margin: 0,
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 14,
+                  color: "rgba(255,255,255,0.6)",
+                  maxWidth: 380,
+                }}>
+                  We&apos;ll send the delegate list to your work email within 1 business day.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} noValidate className="opex-per-form-fields">
+                <input type="text" name="website" tabIndex={-1} autoComplete="off"
+                  style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} />
+
+                <div className="opex-per-form-row">
+                  <label className="opex-per-form-field">
+                    <span className="opex-per-form-label">Full Name</span>
+                    <input
+                      type="text"
+                      value={fullName}
+                      onChange={(e) => { setFullName(e.target.value); if (errors.fullName) setErrors({ ...errors, fullName: "" }); }}
+                      placeholder="Your full name"
+                      autoComplete="name"
+                      className="opex-per-form-input"
+                      aria-invalid={!!errors.fullName}
+                    />
+                    {errors.fullName && <span className="opex-per-form-err">{errors.fullName}</span>}
+                  </label>
+
+                  <label className="opex-per-form-field">
+                    <span className="opex-per-form-label">Work Email</span>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors({ ...errors, email: "" }); }}
+                      placeholder="name@company.com"
+                      autoComplete="email"
+                      className="opex-per-form-input"
+                      aria-invalid={!!errors.email}
+                    />
+                    {errors.email && <span className="opex-per-form-err">{errors.email}</span>}
+                  </label>
+                </div>
+
+                <div className="opex-per-form-row">
+                  <label className="opex-per-form-field">
+                    <span className="opex-per-form-label">Job Title</span>
+                    <input
+                      type="text"
+                      value={jobTitle}
+                      onChange={(e) => { setJobTitle(e.target.value); if (errors.jobTitle) setErrors({ ...errors, jobTitle: "" }); }}
+                      placeholder="COO, Head of Excellence, VP Transformation…"
+                      autoComplete="organization-title"
+                      className="opex-per-form-input"
+                      aria-invalid={!!errors.jobTitle}
+                    />
+                    {errors.jobTitle && <span className="opex-per-form-err">{errors.jobTitle}</span>}
+                  </label>
+
+                  <label className="opex-per-form-field">
+                    <span className="opex-per-form-label">
+                      Phone
+                      <span className="opex-per-form-hint-inline">
+                        {countryCode.length} digits expected
+                      </span>
+                    </span>
+                    <div className="opex-per-form-phone-row">
+                      <select
+                        value={`${countryCode.country}-${countryCode.code}`}
+                        onChange={(e) => {
+                          const [country, code] = e.target.value.split("-");
+                          const found = COUNTRY_CODES.find((c) => c.country === country && c.code === code);
+                          if (found) {
+                            setCountryCode(found);
+                            setPhone((prev) => prev.replace(/\D/g, "").slice(0, found.length));
+                          }
+                        }}
+                        className="opex-per-form-cc"
+                        aria-label="Country code"
+                      >
+                        {COUNTRY_CODES.map((c) => (
+                          <option key={`${c.country}-${c.code}`} value={`${c.country}-${c.code}`}>
+                            {c.country} {c.code}
+                          </option>
+                        ))}
+                      </select>
+                      <div className="opex-per-form-phone-wrap">
+                        <input
+                          type="tel"
+                          inputMode="numeric"
+                          value={phone}
+                          onChange={(e) => {
+                            const digits = e.target.value.replace(/\D/g, "").slice(0, countryCode.length);
+                            setPhone(digits);
+                          }}
+                          onBlur={() => setPhoneTouched(true)}
+                          placeholder={countryCode.placeholder}
+                          autoComplete="tel-national"
+                          maxLength={countryCode.length}
+                          className="opex-per-form-input opex-per-form-phone-input"
+                          aria-invalid={!!errors.phone}
+                        />
+                        {phoneTouched && phoneIsValid && (
+                          <span aria-hidden className="opex-per-form-phone-check">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    {phoneTouched && !phoneIsValid && phoneDigitsLen > 0 && !errors.phone && (
+                      <span className="opex-per-form-phone-progress">
+                        {phoneDigitsLen} / {countryCode.length} digits
+                      </span>
+                    )}
+                    {errors.phone && <span className="opex-per-form-err">{errors.phone}</span>}
+                  </label>
+                </div>
+
+                {submitError && (
+                  <div className="opex-per-form-submit-err">{submitError}</div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={submitState === "submitting"}
+                  className="opex-per-form-submit"
+                >
+                  {submitState === "submitting" ? "Sending…" : "Send me the delegate list"}
+                  {submitState !== "submitting" && (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 8 }}>
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  )}
+                </button>
+                <p className="opex-per-form-hint">
+                  We respect your inbox. Used only to send the delegate list and edition follow-ups.
+                </p>
+              </form>
+            )}
+          </div>
+        </motion.div>
+        </div>{/* /opex-per-layout */}
+      </div>
+
+      <style jsx global>{`
+        .opex-per-section {
+          background: ${BG_DARK};
+          padding: clamp(56px, 7vw, 90px) 0 clamp(40px, 5vw, 60px);
+          position: relative; overflow: hidden;
+        }
+        .opex-per-glow {
+          position: absolute; inset: 0; pointer-events: none;
+          background:
+            radial-gradient(ellipse 80% 50% at 50% 20%, ${V}18 0%, transparent 60%),
+            radial-gradient(ellipse 60% 40% at 80% 80%, ${V_BRIGHT}0c 0%, transparent 50%);
+        }
+        .opex-per-container {
+          max-width: 1320px; margin: 0 auto;
+          padding: 0 clamp(20px, 4vw, 40px); position: relative;
+        }
+        .opex-per-heading {
+          font-family: var(--font-display); font-weight: 800;
+          font-size: clamp(28px, 3.5vw, 44px); letter-spacing: -1.5px;
+          color: #fff; line-height: 1.15; margin: 0 0 8px;
+        }
+        .opex-per-subtitle {
+          font-family: var(--font-outfit); font-weight: 300;
+          font-size: clamp(14px, 1.2vw, 16px); color: rgba(255,255,255,0.45);
+          line-height: 1.7; margin: 0 0 clamp(28px, 3.5vw, 40px); max-width: 580px;
+        }
+        /* Side-by-side layout: cards left, form right */
+        .opex-per-layout {
+          display: grid;
+          grid-template-columns: minmax(260px, 340px) 1fr;
+          gap: clamp(20px, 3vw, 40px);
+          align-items: start;
+        }
+        .opex-per-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: clamp(14px, 1.6vw, 20px);
+        }
+        .opex-per-card {
+          position: relative;
+          display: flex; flex-direction: column;
+          padding: clamp(16px, 1.6vw, 22px);
+          background: linear-gradient(165deg, rgba(28, 22, 50, 0.55) 0%, rgba(12, 10, 36, 0.65) 100%);
+          backdrop-filter: blur(28px) saturate(180%);
+          -webkit-backdrop-filter: blur(28px) saturate(180%);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 16px;
+          text-decoration: none;
+          color: #fff;
+          overflow: hidden;
+          min-height: 260px;
+          transition: border-color 0.4s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease, backdrop-filter 0.4s ease;
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.14),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+            0 1px 2px rgba(0, 0, 0, 0.45),
+            0 10px 28px rgba(0, 0, 0, 0.30),
+            0 28px 56px rgba(0, 0, 0, 0.32);
+        }
+        .opex-per-sheen {
+          position: absolute; inset: 0; pointer-events: none;
+          background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 28%, transparent 50%, transparent 75%, rgba(255,255,255,0.03) 100%);
+        }
+        .opex-per-bevel {
+          position: absolute; inset: 1px; border-radius: 15px; pointer-events: none;
+          box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
+        }
+        .opex-per-hairline-top {
+          position: absolute; top: 0; left: 8%; right: 8%; height: 1px;
+          background: linear-gradient(90deg, transparent 0%, ${V_BRIGHT} 50%, transparent 100%);
+          opacity: 0.7;
+        }
+        .opex-per-hairline-bottom {
+          position: absolute; bottom: 0; left: 20%; right: 20%; height: 1px;
+          background: linear-gradient(90deg, transparent 0%, ${V_BRIGHT}55 50%, transparent 100%);
+        }
+        .opex-per-meta {
+          display: flex; justify-content: space-between; align-items: center;
+          gap: 10px; margin-bottom: clamp(10px, 1.2vh, 14px);
+          position: relative; z-index: 1;
+        }
+        .opex-per-index {
+          display: inline-flex; align-items: baseline; gap: 8px;
+          font-family: var(--font-outfit);
+          font-size: 10px; font-weight: 600;
+          letter-spacing: 0.28em; text-transform: uppercase;
+          color: rgba(255,255,255,0.55);
+        }
+        .opex-per-no {
+          font-family: Georgia, "Cambria", "Times New Roman", serif;
+          font-style: italic; font-weight: 400; font-size: 13px;
+          letter-spacing: normal; text-transform: none;
+          color: ${V_BRIGHT};
+        }
+        .opex-per-pdf {
+          display: inline-flex; align-items: center; gap: 5px;
+          padding: 3px 9px; border-radius: 999px;
+          border: 1px solid rgba(255,255,255,0.08);
+          background: rgba(255,255,255,0.02);
+          font-family: var(--font-outfit);
+          font-size: 9px; font-weight: 600;
+          letter-spacing: 0.24em; text-transform: uppercase;
+          color: rgba(255,255,255,0.35);
+        }
+        .opex-per-logo-zone {
+          position: relative;
+          display: flex; align-items: center; justify-content: center;
+          min-height: 100px;
+          margin-bottom: clamp(10px, 1.4vh, 14px);
+          z-index: 1;
+        }
+        .opex-per-logo-halo {
+          position: absolute; inset: -20% -10%;
+          background: radial-gradient(ellipse 50% 60% at 50% 50%, ${V}26 0%, transparent 70%);
+          filter: blur(20px);
+          pointer-events: none;
+        }
+        .opex-per-logo {
+          position: relative;
+          max-height: 100px; max-width: 85%;
+          width: auto; object-fit: contain;
+          filter: drop-shadow(0 4px 16px ${V}33);
+          transform: scale(var(--logo-scale, 1));
+          transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+        }
+        .opex-per-logo-text {
+          position: relative;
+          font-family: var(--font-display); font-size: clamp(18px, 1.6vw, 22px);
+          font-weight: 700; letter-spacing: -0.02em; line-height: 1.1;
+          color: #fff; margin: 0; text-align: center;
+        }
+        .opex-per-divider {
+          display: flex; align-items: center; justify-content: center;
+          gap: 7px; margin-bottom: 10px;
+          position: relative; z-index: 1;
+        }
+        .opex-per-divider-line {
+          width: 18px; height: 1px;
+          background: rgba(255,255,255,0.08);
+        }
+        .opex-per-divider-dot {
+          width: 3px; height: 3px; border-radius: 50%;
+          background: ${V_BRIGHT};
+          box-shadow: 0 0 6px ${V_BRIGHT}99;
+        }
+        .opex-per-edition-wrap {
+          text-align: center; margin-bottom: auto;
+          position: relative; z-index: 1;
+        }
+        .opex-per-edition {
+          margin: 0;
+          font-family: var(--font-display);
+          font-size: clamp(14px, 1.1vw, 16px);
+          font-weight: 700; letter-spacing: 0.04em;
+          text-transform: uppercase; color: #fff;
+        }
+        .opex-per-sep {
+          color: ${V_BRIGHT}; font-weight: 700;
+        }
+        .opex-per-footer {
+          margin-top: clamp(12px, 1.6vh, 18px);
+          padding-top: 12px;
+          border-top: 1px solid rgba(255,255,255,0.08);
+          display: flex; align-items: center; justify-content: space-between;
+          position: relative; z-index: 1;
+        }
+        .opex-per-cta-label {
+          font-family: var(--font-outfit);
+          font-size: 11.5px; font-weight: 600;
+          letter-spacing: 0.12em; text-transform: uppercase;
+          color: #fff;
+        }
+        .opex-per-arrow {
+          display: inline-flex; align-items: center; justify-content: center;
+          width: 34px; height: 34px; border-radius: 8px;
+          border: 1px solid ${V}33;
+          background: ${V}0d;
+          color: ${V_BRIGHT};
+          line-height: 1;
+          transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1);
+        }
+        .opex-per-card:hover {
+          border-color: ${V_BRIGHT}66 !important;
+          transform: translateY(-3px);
+          backdrop-filter: blur(34px) saturate(200%);
+          -webkit-backdrop-filter: blur(34px) saturate(200%);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.18),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.45),
+            inset 0 0 0 1px ${V}1a,
+            0 1px 2px rgba(0, 0, 0, 0.45),
+            0 14px 36px ${V}29,
+            0 28px 64px rgba(0, 0, 0, 0.38);
+        }
+        .opex-per-card:hover .opex-per-logo {
+          transform: scale(calc(var(--logo-scale, 1) * 1.04));
+          filter: drop-shadow(0 6px 24px ${V}66);
+        }
+        .opex-per-card:hover .opex-per-arrow {
+          background: ${V_BRIGHT};
+          border-color: ${V_BRIGHT};
+          color: #fff;
+          transform: translateY(2px);
+          box-shadow: 0 6px 16px ${V}66;
+        }
+        @media (max-width: 880px) {
+          .opex-per-layout {
+            grid-template-columns: 1fr !important;
+          }
+          .opex-per-grid {
+            max-width: 420px;
+            margin: 0 auto;
+          }
+        }
+
+        /* ─── Delegate-list request form (right side of split layout) ───── */
+        .opex-per-form-wrap {
+          display: flex;
+          justify-content: stretch;
+        }
+        .opex-per-form-card {
+          position: relative;
+          width: 100%;
+          padding: clamp(24px, 3vw, 36px);
+          background: linear-gradient(165deg, rgba(28, 22, 50, 0.55) 0%, rgba(12, 10, 36, 0.65) 100%);
+          backdrop-filter: blur(28px) saturate(180%);
+          -webkit-backdrop-filter: blur(28px) saturate(180%);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 18px;
+          overflow: hidden;
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.14),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+            0 1px 2px rgba(0, 0, 0, 0.45),
+            0 14px 36px rgba(0, 0, 0, 0.30),
+            0 32px 64px rgba(0, 0, 0, 0.32);
+        }
+        .opex-per-form-hairline {
+          position: absolute;
+          top: 0; left: 8%; right: 8%; height: 1px;
+          background: linear-gradient(90deg, transparent 0%, ${V_BRIGHT} 50%, transparent 100%);
+          opacity: 0.75;
+        }
+        .opex-per-form-header {
+          margin-bottom: clamp(20px, 2.5vw, 28px);
+          position: relative; z-index: 1;
+        }
+        .opex-per-form-fields {
+          position: relative; z-index: 1;
+          display: flex; flex-direction: column;
+          gap: clamp(14px, 1.8vw, 18px);
+        }
+        .opex-per-form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: clamp(12px, 1.6vw, 18px);
+        }
+        .opex-per-form-field {
+          display: flex; flex-direction: column;
+          gap: 6px;
+        }
+        .opex-per-form-label {
+          font-family: var(--font-outfit);
+          font-size: 11px; font-weight: 600;
+          letter-spacing: 0.16em; text-transform: uppercase;
+          color: rgba(255,255,255,0.55);
+          display: flex;
+          align-items: baseline;
+          gap: 10px;
+        }
+        .opex-per-form-hint-inline {
+          font-size: 10px;
+          font-weight: 500;
+          letter-spacing: 0.06em;
+          text-transform: none;
+          color: rgba(255,255,255,0.35);
+        }
+        .opex-per-form-input {
+          width: 100%;
+          padding: 12px 14px;
+          background: rgba(0,0,0,0.25);
+          border: 1px solid rgba(255,255,255,0.10);
+          border-radius: 10px;
+          color: white;
+          font-family: var(--font-outfit);
+          font-size: 14.5px;
+          line-height: 1.4;
+          outline: none;
+          transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+        }
+        .opex-per-form-input::placeholder {
+          color: rgba(255,255,255,0.30);
+        }
+        .opex-per-form-input:focus {
+          border-color: ${V_BRIGHT};
+          background: rgba(0,0,0,0.35);
+          box-shadow: 0 0 0 3px ${V}40;
+        }
+        .opex-per-form-input[aria-invalid="true"] {
+          border-color: rgba(255,80,80,0.6);
+        }
+        .opex-per-form-phone-row {
+          display: flex;
+          gap: 8px;
+        }
+        .opex-per-form-cc {
+          padding: 12px 10px;
+          background: rgba(0,0,0,0.25);
+          border: 1px solid rgba(255,255,255,0.10);
+          border-radius: 10px;
+          color: white;
+          font-family: var(--font-outfit);
+          font-size: 14px;
+          outline: none;
+          cursor: pointer;
+          max-width: 110px;
+          transition: border-color 0.25s ease, background 0.25s ease;
+        }
+        .opex-per-form-cc:focus {
+          border-color: ${V_BRIGHT};
+          box-shadow: 0 0 0 3px ${V}40;
+        }
+        .opex-per-form-cc option {
+          background: ${BG_CARD};
+          color: white;
+        }
+        .opex-per-form-phone-wrap {
+          position: relative;
+          flex: 1;
+        }
+        .opex-per-form-phone-input {
+          flex: 1;
+          width: 100%;
+          padding-right: 40px;
+        }
+        .opex-per-form-phone-check {
+          position: absolute;
+          right: 12px;
+          top: 50%;
+          transform: translateY(-50%);
+          display: inline-flex;
+          align-items: center; justify-content: center;
+          width: 22px; height: 22px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, ${V}, ${V_BRIGHT});
+          color: white;
+          box-shadow: 0 2px 8px ${V}66;
+          pointer-events: none;
+        }
+        .opex-per-form-phone-progress {
+          font-family: var(--font-outfit);
+          font-size: 11px;
+          color: rgba(255,255,255,0.45);
+          font-variant-numeric: tabular-nums;
+          margin-top: 2px;
+        }
+        .opex-per-form-err {
+          font-family: var(--font-outfit);
+          font-size: 12px;
+          color: #ff7a7a;
+          margin-top: 2px;
+        }
+        .opex-per-form-submit-err {
+          padding: 12px 14px;
+          border-radius: 10px;
+          background: rgba(255, 80, 80, 0.10);
+          border: 1px solid rgba(255, 80, 80, 0.30);
+          color: #ff9a9a;
+          font-family: var(--font-outfit);
+          font-size: 13.5px;
+        }
+        .opex-per-form-submit {
+          display: inline-flex;
+          align-items: center; justify-content: center;
+          padding: 14px 24px;
+          border-radius: 12px;
+          border: 1px solid transparent;
+          background: linear-gradient(135deg, ${V}, ${V_BRIGHT});
+          color: white;
+          font-family: var(--font-outfit);
+          font-size: 14px; font-weight: 700;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          cursor: pointer;
+          align-self: flex-start;
+          transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease, filter 0.25s ease;
+          box-shadow: 0 8px 20px ${V}40, inset 0 1px 0 rgba(255,255,255,0.18);
+        }
+        .opex-per-form-submit:hover:not(:disabled) {
+          transform: translateY(-1px);
+          filter: brightness(1.08);
+          box-shadow: 0 12px 28px ${V}66, inset 0 1px 0 rgba(255,255,255,0.22);
+        }
+        .opex-per-form-submit:disabled {
+          opacity: 0.55;
+          cursor: not-allowed;
+        }
+        .opex-per-form-hint {
+          font-family: var(--font-outfit);
+          font-size: 12px;
+          color: rgba(255,255,255,0.35);
+          margin: 4px 0 0;
+        }
+        .opex-per-form-success {
+          position: relative; z-index: 1;
+          text-align: center;
+          padding: clamp(20px, 3vw, 32px) 0;
+        }
+        @media (max-width: 640px) {
+          .opex-per-form-row { grid-template-columns: 1fr !important; }
+          .opex-per-form-submit { width: 100%; justify-content: center; }
+        }
+      `}</style>
+    </section>
   );
 }
 
@@ -5593,6 +6426,7 @@ export default function OpexFirstSaudi2026Page() {
   return (
     <main style={{ background: BG_DARK, color: "white", overflow: "hidden" }}>
       <Hero />
+      <OpexSaudiPostEventReports />
       <EventOverview />
       <MarketPulse />
       <FocusAreas />

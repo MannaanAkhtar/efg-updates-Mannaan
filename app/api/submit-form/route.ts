@@ -350,10 +350,11 @@ export async function POST(request: NextRequest) {
         const typeLabel =
           type.charAt(0).toUpperCase() + type.slice(1);
 
+        const eventSuffix = event_name ? ` · ${event_name}` : "";
         await resend.emails.send({
           from: "EFG Forms <onboarding@resend.dev>",
           to: NOTIFICATION_EMAIL,
-          subject: `New ${typeLabel} Inquiry, ${full_name} from ${company || "N/A"}`,
+          subject: `New ${typeLabel} Inquiry, ${full_name} from ${company || "N/A"}${eventSuffix}`,
           html: buildEmailHtml({
             type,
             full_name,
