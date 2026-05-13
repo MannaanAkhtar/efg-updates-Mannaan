@@ -11,6 +11,7 @@ import {
   OpexAwards,
   OpexUpcomingEditionCTA,
   OpexExploreOtherSeries,
+  OpexPostEventReports,
 } from "@/components/opex-first";
 import OpexYouTubeShorts from "@/components/opex-first/OpexYouTubeShorts";
 import { Footer } from "@/components/sections";
@@ -35,6 +36,11 @@ export default function OpexFirstPage() {
       <OpexSeriesJourney />
 
       <SectionTransition variant="pulse" color={VIOLET} />
+
+      {/* 3B. Post-Event Reports, Downloadable PDFs */}
+      <OpexPostEventReports />
+
+      <SectionTransition variant="sweep" color={VIOLET} />
 
       {/* 4. Key Themes, 10 topics + market stats */}
       <OpexKeyThemes />

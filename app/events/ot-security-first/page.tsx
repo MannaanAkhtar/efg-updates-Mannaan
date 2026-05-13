@@ -1335,6 +1335,347 @@ function ThesisPhoto({ src, alt, aspect, location, tagline, year, translateX = 0
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
+// 1B. POST-EVENT REPORTS — downloadable PDFs from past editions
+// ═════════════════════════════════════════════════════════════════════════════
+type ReportEntry = {
+  edition: string;
+  year: string;
+  title: string;
+  subtitle: string;
+  url: string;
+  filename: string;
+  logo?: string;
+  logoScale?: number;
+};
+
+const POST_EVENT_REPORTS: ReportEntry[] = [
+  {
+    edition: "Abu Dhabi",
+    year: "2026",
+    title: "OT Security First Abu Dhabi",
+    subtitle: "2026 Edition",
+    url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/Post+Event+Report+-+OT+Security+First+2026.pdf",
+    filename: "OT-Security-First-Abu-Dhabi-2026-Report.pdf",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Untitled-2-01.png",
+    logoScale: 1.1,
+  },
+];
+
+const buildReportDownloadUrl = (url: string, filename: string) =>
+  `/api/download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
+
+function PostEventReports() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <section ref={ref} id="reports" style={{
+      position: "relative",
+      padding: "clamp(36px, 4.5vw, 64px) 0",
+    }}>
+      <div style={{
+        maxWidth: 1280, margin: "0 auto",
+        padding: "0 clamp(20px, 4vw, 60px)",
+        position: "relative",
+      }}>
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: EASE }}
+          style={{ marginBottom: "clamp(36px, 5vw, 56px)", maxWidth: 760 }}
+        >
+          <span style={{
+            display: "inline-flex", alignItems: "center", gap: 10,
+            fontFamily: "var(--font-outfit)",
+            fontSize: 11, fontWeight: 600,
+            letterSpacing: "0.32em", textTransform: "uppercase",
+            color: OT_CRIMSON,
+            marginBottom: 16,
+          }}>
+            <span aria-hidden style={{ width: 22, height: 1, background: OT_CRIMSON }} />
+            Post-Event Intelligence
+          </span>
+          <h2 style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(32px, 4.8vw, 56px)",
+            fontWeight: 700,
+            color: "white",
+            letterSpacing: "-0.022em",
+            lineHeight: 1.05,
+            margin: 0,
+          }}>
+            Reports from the room.
+          </h2>
+          <p style={{
+            margin: "16px 0 0",
+            fontFamily: "var(--font-outfit)",
+            fontSize: "clamp(14px, 1.1vw, 16px)",
+            fontWeight: 400,
+            color: MUTE,
+            lineHeight: 1.6,
+            maxWidth: 580,
+          }}>
+            Official post-event reports from each OT Security First edition — takeaways, on-stage themes, and sponsor coverage. Available as PDF.
+          </p>
+        </motion.div>
+
+        {/* Card grid — single card centered for now */}
+        <div className="otsf-reports-grid" style={{
+          display: "grid",
+          gridTemplateColumns: "minmax(280px, 420px)",
+          justifyContent: "start",
+          gap: "clamp(16px, 2vw, 28px)",
+        }}>
+          {POST_EVENT_REPORTS.map((report, i) => (
+            <motion.a
+              key={report.url}
+              href={buildReportDownloadUrl(report.url, report.filename)}
+              download={report.filename}
+              className="otsf-report-card"
+              initial={{ opacity: 0, y: 18 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.1 + i * 0.08, ease: EASE }}
+              style={{
+                position: "relative",
+                display: "flex", flexDirection: "column",
+                padding: "clamp(16px, 1.6vw, 22px)",
+                background: `linear-gradient(165deg, rgba(30, 18, 26, 0.55) 0%, rgba(12, 8, 14, 0.65) 100%)`,
+                backdropFilter: "blur(28px) saturate(180%)",
+                WebkitBackdropFilter: "blur(28px) saturate(180%)",
+                border: `1px solid rgba(255, 255, 255, 0.08)`,
+                borderRadius: 16,
+                textDecoration: "none",
+                color: "white",
+                overflow: "hidden",
+                minHeight: 260,
+                transition: "border-color 0.4s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease, backdrop-filter 0.4s ease",
+                boxShadow: [
+                  "inset 0 1px 0 rgba(255, 255, 255, 0.14)",
+                  "inset 0 -1px 0 rgba(0, 0, 0, 0.4)",
+                  "0 1px 2px rgba(0, 0, 0, 0.45)",
+                  "0 10px 28px rgba(0, 0, 0, 0.30)",
+                  "0 28px 56px rgba(0, 0, 0, 0.32)",
+                ].join(", "),
+              }}
+            >
+              {/* Glass sheen */}
+              <span aria-hidden style={{
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 28%, transparent 50%, transparent 75%, rgba(255,255,255,0.03) 100%)",
+                pointerEvents: "none",
+              }} />
+
+              {/* Inner bevel ring */}
+              <span aria-hidden style={{
+                position: "absolute",
+                inset: 1,
+                borderRadius: 15,
+                boxShadow: "inset 0 0 0 1px rgba(255, 255, 255, 0.025)",
+                pointerEvents: "none",
+              }} />
+
+              {/* Top hairline accent */}
+              <span aria-hidden style={{
+                position: "absolute", top: 0, left: "8%", right: "8%", height: 1,
+                background: `linear-gradient(90deg, transparent 0%, ${OT_CRIMSON} 50%, transparent 100%)`,
+                opacity: 0.7,
+              }} />
+
+              {/* Bottom hairline accent */}
+              <span aria-hidden style={{
+                position: "absolute", bottom: 0, left: "20%", right: "20%", height: 1,
+                background: `linear-gradient(90deg, transparent 0%, ${OT_CRIMSON}55 50%, transparent 100%)`,
+              }} />
+
+              {/* Top meta */}
+              <div style={{
+                display: "flex", justifyContent: "space-between", alignItems: "center",
+                gap: 10,
+                marginBottom: "clamp(10px, 1.2vh, 14px)",
+              }}>
+                <span style={{
+                  display: "inline-flex", alignItems: "baseline", gap: 8,
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 10, fontWeight: 600,
+                  letterSpacing: "0.28em", textTransform: "uppercase",
+                  color: MUTE,
+                }}>
+                  <span style={{
+                    fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
+                    fontStyle: "italic", fontWeight: 400,
+                    fontSize: 13,
+                    letterSpacing: "normal", textTransform: "none",
+                    color: OT_CRIMSON,
+                  }}>
+                    №
+                  </span>
+                  {(i + 1).toString().padStart(2, "0")} · OT Security First
+                </span>
+                <span style={{
+                  display: "inline-flex", alignItems: "center", gap: 5,
+                  padding: "3px 9px",
+                  borderRadius: 999,
+                  border: `1px solid ${RULE}`,
+                  background: "rgba(255,255,255,0.02)",
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 9, fontWeight: 600,
+                  letterSpacing: "0.24em", textTransform: "uppercase",
+                  color: FAINT,
+                }}>
+                  PDF
+                </span>
+              </div>
+
+              {/* Logo zone */}
+              <div style={{
+                position: "relative",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                minHeight: 100,
+                marginBottom: "clamp(10px, 1.4vh, 14px)",
+              }}>
+                <div aria-hidden style={{
+                  position: "absolute", inset: "-20% -10%",
+                  background: `radial-gradient(ellipse 50% 60% at 50% 50%, ${OT_CRIMSON}14 0%, transparent 70%)`,
+                  filter: "blur(20px)",
+                  pointerEvents: "none",
+                }} />
+                {report.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={report.logo}
+                    alt={report.title}
+                    className="otsf-report-logo"
+                    style={{
+                      position: "relative",
+                      maxHeight: 100,
+                      maxWidth: "85%",
+                      width: "auto",
+                      objectFit: "contain",
+                      filter: "drop-shadow(0 4px 16px rgba(211,75,154,0.20))",
+                      transform: "scale(var(--logo-scale, 1))",
+                      transition: "transform 0.5s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease",
+                      ["--logo-scale" as string]: String(report.logoScale ?? 1),
+                    } as React.CSSProperties}
+                  />
+                ) : (
+                  <div style={{ position: "relative", textAlign: "center" }}>
+                    <h3 style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(18px, 1.6vw, 22px)",
+                      fontWeight: 700,
+                      letterSpacing: "-0.02em",
+                      lineHeight: 1.1,
+                      color: "white",
+                      margin: 0,
+                    }}>
+                      {report.title}
+                    </h3>
+                  </div>
+                )}
+              </div>
+
+              {/* Centered hairline with crimson tick */}
+              <div aria-hidden style={{
+                display: "flex", alignItems: "center", justifyContent: "center",
+                gap: 7,
+                marginBottom: 10,
+              }}>
+                <span style={{ width: 18, height: 1, background: RULE }} />
+                <span style={{
+                  width: 3, height: 3, borderRadius: "50%",
+                  background: OT_CRIMSON, boxShadow: `0 0 6px ${OT_CRIMSON}99`,
+                }} />
+                <span style={{ width: 18, height: 1, background: RULE }} />
+              </div>
+
+              {/* Edition title */}
+              <div style={{ textAlign: "center", marginBottom: "auto" }}>
+                <h3 style={{
+                  margin: 0,
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(14px, 1.1vw, 16px)",
+                  fontWeight: 700,
+                  letterSpacing: "0.04em",
+                  textTransform: "uppercase",
+                  color: "white",
+                }}>
+                  {report.edition} <span style={{ color: OT_CRIMSON, fontWeight: 700 }}>·</span> {report.year}
+                </h3>
+              </div>
+
+              {/* CTA footer */}
+              <div style={{
+                marginTop: "clamp(12px, 1.6vh, 18px)",
+                paddingTop: 12,
+                borderTop: `1px solid ${RULE}`,
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+              }}>
+                <span style={{
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 11.5, fontWeight: 600,
+                  letterSpacing: "0.12em", textTransform: "uppercase",
+                  color: "white",
+                }}>
+                  Download Report
+                </span>
+                <span aria-hidden className="otsf-report-arrow" style={{
+                  display: "inline-flex", alignItems: "center", justifyContent: "center",
+                  width: 34, height: 34, borderRadius: 8,
+                  border: `1px solid ${OT_CRIMSON}33`,
+                  background: `${OT_CRIMSON}0d`,
+                  color: OT_CRIMSON, lineHeight: 1,
+                  transition: "background 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1)",
+                }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                  </svg>
+                </span>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+      </div>
+
+      <style jsx global>{`
+        .otsf-report-card:hover {
+          border-color: ${OT_CRIMSON}66 !important;
+          transform: translateY(-3px);
+          backdrop-filter: blur(34px) saturate(200%) !important;
+          -webkit-backdrop-filter: blur(34px) saturate(200%) !important;
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.18),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.45),
+            inset 0 0 0 1px rgba(211, 75, 154, 0.10),
+            0 1px 2px rgba(0, 0, 0, 0.45),
+            0 14px 36px rgba(211, 75, 154, 0.16),
+            0 28px 64px rgba(0, 0, 0, 0.38) !important;
+        }
+        .otsf-report-card:hover .otsf-report-logo {
+          transform: scale(calc(var(--logo-scale, 1) * 1.04)) !important;
+          filter: drop-shadow(0 6px 24px rgba(211, 75, 154, 0.40)) !important;
+        }
+        .otsf-report-card:hover .otsf-report-arrow {
+          background: ${OT_CRIMSON} !important;
+          border-color: ${OT_CRIMSON} !important;
+          color: white !important;
+          transform: translateY(2px);
+          box-shadow: 0 6px 16px rgba(211, 75, 154, 0.40);
+        }
+        @media (max-width: 600px) {
+          .otsf-reports-grid {
+            grid-template-columns: 1fr !important;
+            justify-content: stretch !important;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
 // 2. THESIS
 // ═════════════════════════════════════════════════════════════════════════════
 function Thesis() {
@@ -5015,6 +5356,7 @@ export default function OTSecurityFirstPage() {
         <PageAtmosphere />
         <div style={{ position: "relative", zIndex: 1 }}>
           <HeroStats />
+          <PostEventReports />
           <Thesis />
           <InMotion />
           <Arc />
