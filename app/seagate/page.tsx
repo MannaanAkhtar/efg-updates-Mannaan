@@ -423,7 +423,7 @@ function HeroSection() {
               key={i}
               cx={p.cx}
               cy={p.cy}
-              r={p.r * 0.22}
+              r={round4(p.r * 0.22)}
               fill={p.color}
               opacity={p.opacity}
               style={style}
