@@ -295,6 +295,10 @@ function makeRng(seed: number) {
 
 // 130 particles along a sweeping J-curve, Seagate hero flow
 const PARTICLE_PALETTE = ["#75C04F", "#3FB99B", "#5FE8A0", "#A8E667", "#FFC56B", "#7CD8B8"];
+// Round to 4 decimal places — Math.sin/multiply differ by 1 ULP across V8 builds
+// (Node vs Chrome), which would trigger a React hydration mismatch and discard
+// the SSR'd tree (visible flash/flicker). Rounding makes serialized values stable.
+const round4 = (n: number) => Math.round(n * 10000) / 10000;
 const PARTICLES = (() => {
   const rng = makeRng(20260610);
   const total = 130;
@@ -312,7 +316,16 @@ const PARTICLES = (() => {
     const delay = rng() * 6;
     const duration = 4 + rng() * 6;
     const drift = (rng() - 0.5) * 14;
-    arr.push({ cx, cy, r, color, opacity, delay, duration, drift });
+    arr.push({
+      cx: round4(cx),
+      cy: round4(cy),
+      r: round4(r),
+      color,
+      opacity: round4(opacity),
+      delay: round4(delay),
+      duration: round4(duration),
+      drift: round4(drift),
+    });
   }
   return arr;
 })();
