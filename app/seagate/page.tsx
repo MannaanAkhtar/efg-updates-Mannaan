@@ -1,12 +1,20 @@
 "use client";
 
 import React, { useRef, useState, useEffect, memo } from "react";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useInView } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { MeshGradient } from "@paper-design/shaders-react";
 import { submitForm, COUNTRY_CODES, validatePhone, type CountryCode } from "@/lib/form-helpers";
+
+// Lazy-load the WebGL shader runtime so it doesn't ship in the initial JS bundle.
+// Hero falls back to its dark gradient bg until the shader hydrates.
+const MeshGradient = dynamic(
+  () => import("@paper-design/shaders-react").then((m) => m.MeshGradient),
+  { ssr: false }
+);
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -191,14 +199,21 @@ function SeagateNav() {
       display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24,
     }}>
       {/* Logo */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <a href="#top" aria-label="Seagate" style={{ display: "inline-flex", alignItems: "center", textDecoration: "none" }}>
-        <img src={LOGO_2C_NEG} alt="Seagate" style={{
-          height: "clamp(44px, 5vw, 64px)",
-          width: "auto",
-          marginBlock: "clamp(-20px, -1.5vw, -13px)",
-          filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.25))",
-        }} />
+        <Image
+          src={LOGO_2C_NEG}
+          alt="Seagate"
+          width={320}
+          height={64}
+          priority
+          unoptimized={false}
+          style={{
+            height: "clamp(44px, 5vw, 64px)",
+            width: "auto",
+            marginBlock: "clamp(-20px, -1.5vw, -13px)",
+            filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.25))",
+          }}
+        />
       </a>
 
       {/* Section links — desktop */}
@@ -885,17 +900,15 @@ function StatementSection() {
         zIndex: 0,
         pointerEvents: "none",
       }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           ref={bgRef}
           src="https://efg-final.s3.eu-north-1.amazonaws.com/logos/seagate_bg.png"
           alt=""
+          fill
+          sizes="(max-width: 768px) 100vw, 90vw"
           style={{
-            width: "100%",
-            height: "100%",
             objectFit: "contain",
             objectPosition: "center center",
-            display: "block",
             willChange: "transform",
           }}
         />
@@ -1317,13 +1330,13 @@ function SpeakersSection() {
                   boxShadow: "0 1px 2px rgba(10,14,18,0.06), 0 8px 24px rgba(10,14,18,0.07)",
                   transition: "box-shadow 0.7s cubic-bezier(0.22,1,0.36,1)",
                 }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={s.photo}
                     alt={s.name}
                     className="sg-speaker-photo"
+                    fill
+                    sizes="(max-width: 760px) 280px, 310px"
                     style={{
-                      width: "100%", height: "100%",
                       objectFit: "cover", objectPosition: "center 18%",
                       transform: inView ? "scale(1)" : "scale(1.08)",
                       transition: `transform 1.8s ${0.3 + i * 0.12}s cubic-bezier(0.22,1,0.36,1), filter 0.6s ease`,
@@ -1725,12 +1738,17 @@ function AboutSection() {
             transform: inView ? "translateY(0)" : "translateY(20px)",
             transition: "opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1)",
           }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={LOGO_2C_NEG} alt="Seagate" style={{
-              height: "clamp(64px, 6.8vw, 96px)", width: "auto",
-              marginBottom: "clamp(26px, 3vw, 38px)",
-              filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.4))",
-            }} />
+            <Image
+              src={LOGO_2C_NEG}
+              alt="Seagate"
+              width={480}
+              height={96}
+              style={{
+                height: "clamp(64px, 6.8vw, 96px)", width: "auto",
+                marginBottom: "clamp(26px, 3vw, 38px)",
+                filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.4))",
+              }}
+            />
 
             <span style={{
               display: "inline-flex", alignItems: "center", gap: 10,
@@ -1828,14 +1846,13 @@ function AboutSection() {
               width: "100%",
               overflow: "visible",
             }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="https://efg-final.s3.eu-north-1.amazonaws.com/logos/seagate_bg1.png"
                 alt="Seagate brand visual"
+                fill
+                sizes="(max-width: 900px) 480px, 560px"
                 style={{
-                  width: "100%", height: "100%",
                   objectFit: "contain", objectPosition: "center center",
-                  display: "block",
                   transform: "scale(1.7)",
                   transformOrigin: "center center",
                   filter: "drop-shadow(0 24px 48px rgba(113, 181, 63, 0.18))",
@@ -2478,8 +2495,13 @@ function SeagateFooter() {
         flexWrap: "wrap", gap: 20,
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={LOGO_2C_NEG} alt="Seagate" style={{ height: 38, width: "auto", opacity: 0.95 }} />
+          <Image
+            src={LOGO_2C_NEG}
+            alt="Seagate"
+            width={190}
+            height={38}
+            style={{ height: 38, width: "auto", opacity: 0.95 }}
+          />
           <span style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>© Seagate Technology LLC. All rights reserved.</span>
         </div>
         <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", margin: 0 }}>
