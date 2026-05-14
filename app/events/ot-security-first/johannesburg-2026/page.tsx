@@ -6,6 +6,7 @@ import {
   useInView,
   useMotionValue,
   useSpring,
+  AnimatePresence,
 } from "framer-motion";
 import Link from "next/link";
 import { gsap } from "gsap";
@@ -68,6 +69,29 @@ const POST_EVENT_REPORTS: ReportEntry[] = [
 
 const buildReportDownloadUrl = (url: string, filename: string) =>
   `/api/download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
+
+// ─── Delegate Preview (teaser for the request form) ──────────────────────────
+type DelegatePreviewEntry = { name: string; title: string; company: string };
+
+const DELEGATE_PREVIEW: DelegatePreviewEntry[] = [
+  { name: "Ramy Hossam Abbas", title: "Leader Cybersecurity", company: "Honeywell" },
+  { name: "Umniya Mahmoud", title: "Senior Information Security Specialist", company: "Abu Dhabi Ports Group" },
+  { name: "Shafiullah Ismail", title: "Senior VP & Head of ISR", company: "Mubadala Capital" },
+  { name: "Mohamed Al Katheeri", title: "Vice President Digital", company: "ADNOC Group" },
+  { name: "Alexandr Chipovoy", title: "CyberSec Director (CISO)", company: "Ministry of Energy (Kazakhstan)" },
+  { name: "Ayat Khair", title: "Project Manager", company: "Cyber Falcon" },
+  { name: "Abdulkader Sunelwala", title: "OT Security Consultant", company: "DP World" },
+  { name: "Walid Raafat", title: "Director — Internal Audit, Risk Management & Compliance", company: "Zayed University" },
+  { name: "Shaikha Aldhaheri", title: "Senior Instrumentation & Control Specialist", company: "TAQA Water Solutions" },
+  { name: "Daniel Laxtrem", title: "Head of Information Security Department", company: "JSC AEDC" },
+];
+const DELEGATE_VISIBLE_COUNT = 5;
+
+const delegateInitials = (name: string) => {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+};
 
 // ─── Countdown Hook ──────────────────────────────────────────────────────────
 function useCountdown(target: Date) {
@@ -289,13 +313,13 @@ const STRATEGIC_THEMES = [
 
 // Facts & Figures from brochure
 const FACTS_FIGURES = [
-  { stat: "94%", label: "of industrial organizations experienced at least one intrusion in the past 12 months" },
-  { stat: "$4.5M", label: "average cost of an OT cyber incident (up 28% from 2024)" },
-  { stat: "47 days", label: "average downtime following a major OT security breach" },
-  { stat: "82%", label: "of attacks on critical infrastructure originated from ransomware groups" },
-  { stat: "61%", label: "of African energy and utilities sectors lack basic OT network segmentation" },
-  { stat: "23%", label: "of organizations have real-time OT threat detection capabilities" },
-  { stat: "19.5%", label: "projected CAGR OT security market from 2025–2030" },
+  { value: "94", suffix: "%", label: "of industrial organizations experienced at least one intrusion in the past 12 months" },
+  { value: "$4.5", suffix: "M", label: "average cost of an OT cyber incident (up 28% from 2024)" },
+  { value: "47", suffix: "DAYS", label: "average downtime following a major OT security breach" },
+  { value: "82", suffix: "%", label: "of attacks on critical infrastructure originated from ransomware groups" },
+  { value: "61", suffix: "%", label: "of African energy and utilities sectors lack basic OT network segmentation" },
+  { value: "23", suffix: "%", label: "of organizations have real-time OT threat detection capabilities" },
+  { value: "19.5", suffix: "%", label: "projected CAGR OT security market from 2025–2030" },
 ];
 
 // Market Drivers from brochure
@@ -344,10 +368,10 @@ const TARGET_INDUSTRIES = [
 
 // Event Snapshot
 const EVENT_SNAPSHOT = [
-  { stat: "200+", label: "Delegates", img: `${S3}/events/Cyber+First+Kuwait+2025/filemail_photos/cyber21-04-160.jpg` },
+  { stat: "200+", label: "Delegates", img: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0394.JPG` },
   { stat: "20+", label: "Industry Speakers", img: `${S3}/Good/4N8A0122.JPG` },
   { stat: "10+", label: "Conference Sessions", img: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0398.JPG` },
-  { stat: "10+", label: "Technology Providers", img: `${S3}/events/Cyber+First+Kuwait+2025/filemail_photos/cyber21-04-410.jpg` },
+  { stat: "10+", label: "Technology Providers", img: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0397.JPG` },
   { stat: "10+", label: "Media Partners", img: `${S3}/Good/4N8A9900.JPG` },
   { stat: "5", label: "Awards", img: `${S3}/Good/4N8A0330.JPG` },
 ];
@@ -361,23 +385,23 @@ const AWARDS_DATA = [
   { title: "Public Sector / Critical Infrastructure Protection Award", desc: "For a government entity, regulator, or state-owned enterprise showing leadership in securing national critical infrastructure." },
 ];
 
-// Gallery — 8 unique shots spanning 5 different EFG events
-const GALLERY: { src: string; alt: string; area: string; rotate?: number; lift?: boolean }[] = [
-  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0420.JPG`, alt: "OT Security First UAE — panel", area: "hero" },
-  { src: `${S3}/events/Cyber+First+Kuwait+2025/filemail_photos/cyber21-04-430.jpg`, alt: "Cyber First Kuwait — executive ceremony", area: "a", rotate: -1.5, lift: true },
-  { src: `${S3}/events/Opex+First+UAE/4N8A1848.JPG`, alt: "OPEX First UAE — delegate audience", area: "b" },
-  { src: `${S3}/events/Cyber+First+Kuwait+2025/filemail_photos/cyber21-04-550.jpg`, alt: "Cyber First Kuwait — keynote", area: "c", rotate: 1 },
-  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0397.JPG`, alt: "OT Security First UAE — exhibition", area: "d" },
-  { src: `${S3}/cyber-first-kenya/cyber21-04-504.jpg`, alt: "Cyber First Kenya — speakers", area: "e", rotate: -1, lift: true },
-  { src: `${S3}/events/Opex+First+UAE/4N8A1702.JPG`, alt: "OPEX First UAE — executive panel", area: "f" },
-  { src: `${S3}/Good/4N8A0200.JPG`, alt: "EFG awards recognition", area: "g", rotate: 0.8 },
+// Gallery — all photos from the OT Security First UAE 2026 edition
+const GALLERY: { src: string; alt: string; label: string; area: string; rotate?: number; lift?: boolean }[] = [
+  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0510.JPG`, alt: "OT Security First UAE — panel discussion", label: "Panel Discussion", area: "hero" },
+  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0487.JPG`, alt: "OT Security First UAE — main session", label: "Main Session", area: "a", rotate: -1.5, lift: true },
+  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0811.JPG`, alt: "OT Security First UAE — on floor", label: "On Floor", area: "b" },
+  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0683.JPG`, alt: "OT Security First UAE — networking", label: "Networking", area: "c", rotate: 1 },
+  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0820.JPG`, alt: "OT Security First UAE — partner exhibition", label: "Partner Exhibition", area: "d" },
+  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0394.JPG`, alt: "OT Security First UAE — industry speakers", label: "Industry Speakers", area: "e", rotate: -1, lift: true },
+  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0894.JPG`, alt: "OT Security First UAE — executive panel", label: "Executive Panel", area: "f" },
+  { src: `${S3}/Good/4N8A0200.JPG`, alt: "OT Security First UAE — awards recognition", label: "Awards Recognition", area: "g", rotate: 0.8 },
 ];
 
 // Contact details — updated from brochure
 const CONTACTS = {
   speaking: { name: "Sanjana Venugopal", title: "Senior Conference Producer", phone: "+971 54 571 4377", email: "sanjana@eventsfirstgroup.com", photo: `${S3}/about-us-photos/Sanjana-Venugopal-new.jpg` },
   sponsorship: [
-    { name: "Kausar Noor", title: "Partnership Manager", phone: "+971 54 571 4377", email: "kausar@eventsfirstgroup.com", photo: `${S3}/about-us-photos/Kausar-Noor.jpg` },
+    { name: "Mohammed Danish", title: "Partnership Manager", phone: "+971 56 553 5513", email: "danish@eventsfirstgroup.com", photo: `${S3}/team/danish.png` },
     { name: "Mayur Methi", title: "Partnership Manager", phone: "+971 54 571 4377", email: "mayur@eventsfirstgroup.com", photo: `${S3}/about-us-photos/Mayur-Methi.png` },
   ],
 };
@@ -655,7 +679,8 @@ function HeroSection() {
 
 // ─── FACTS & FIGURES BAR ────────────────────────────────────────────────────
 // Stat card — skeuomorphic + liquid glass hybrid
-function StatCard({ stat, label, featured = false, large = false }: { stat: string; label: string; featured?: boolean; large?: boolean }) {
+function StatCard({ value, suffix, label, featured = false, large = false }: { value: string; suffix: string; label: string; featured?: boolean; large?: boolean }) {
+  const suffixColor = featured ? CYAN : C_BRIGHT;
   return (
     <div className="otsf-stat-premium" style={{
       borderRadius: 24,
@@ -716,23 +741,40 @@ function StatCard({ stat, label, featured = false, large = false }: { stat: stri
         {/* Bottom reflection — liquid glass pool effect */}
         <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${featured ? `${CYAN}40` : "rgba(255,255,255,0.12)"}, transparent)` }} />
 
-        {/* Stat number */}
+        {/* Stat number — Kenya-style: big bold value + smaller accent suffix, baseline-aligned */}
         <span style={{
-          fontFamily: "var(--font-display)",
-          fontWeight: 800,
-          fontSize: large ? "clamp(48px, 5.5vw, 76px)" : "clamp(30px, 3vw, 42px)",
-          color: featured ? CYAN : "white",
-          letterSpacing: "-2.5px",
-          display: "block",
-          // Skeuomorphic text — subtle bottom depth + top highlight + glow
-          textShadow: featured
-            ? `0 0 30px ${CYAN}60, 0 2px 0 rgba(0,0,0,0.4), 0 -1px 0 rgba(255,255,255,0.1)`
-            : `0 2px 0 rgba(0,0,0,0.4), 0 -1px 0 rgba(255,255,255,0.06), 0 0 20px ${C}25`,
-          lineHeight: 0.95,
+          display: "inline-flex",
+          alignItems: "baseline",
+          justifyContent: large ? "flex-start" : "center",
           position: "relative",
           zIndex: 2,
+          lineHeight: 0.95,
         }}>
-          {stat}
+          <span style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 800,
+            fontSize: large ? "clamp(64px, 8vw, 110px)" : "clamp(48px, 6vw, 72px)",
+            color: "white",
+            letterSpacing: "-3px",
+            // Skeuomorphic text — subtle bottom depth + top highlight + glow
+            textShadow: featured
+              ? `0 0 30px ${CYAN}60, 0 2px 0 rgba(0,0,0,0.4), 0 -1px 0 rgba(255,255,255,0.1)`
+              : `0 2px 0 rgba(0,0,0,0.4), 0 -1px 0 rgba(255,255,255,0.06), 0 0 20px ${C}25`,
+            lineHeight: 1,
+          }}>
+            {value}
+          </span>
+          <span style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 700,
+            fontSize: large ? "clamp(32px, 4vw, 52px)" : "clamp(24px, 3vw, 36px)",
+            color: suffixColor,
+            letterSpacing: "-1px",
+            marginLeft: 4,
+            textShadow: `0 0 18px ${suffixColor}55, 0 2px 0 rgba(0,0,0,0.4)`,
+          }}>
+            {suffix}
+          </span>
         </span>
 
         {/* Label */}
@@ -939,7 +981,7 @@ function AboutSection() {
             animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
             transition={{ duration: 0.9, delay: 0.4, ease: EASE }}
           >
-            <StatCard stat={heroStat.stat} label={heroStat.label} featured large />
+            <StatCard value={heroStat.value} suffix={heroStat.suffix} label={heroStat.label} featured large />
           </motion.div>
 
           {/* Paragraph 2 */}
@@ -972,7 +1014,7 @@ function AboutSection() {
             style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(16px, 2vw, 24px)" }}
             className="otsf-stats-pair"
           >
-            {statsPair1.map((s) => <StatCard key={s.label} stat={s.stat} label={s.label} />)}
+            {statsPair1.map((s) => <StatCard key={s.label} value={s.value} suffix={s.suffix} label={s.label} />)}
           </motion.div>
 
           {/* Paragraph 3 — pull quote style (italic) */}
@@ -1007,7 +1049,7 @@ function AboutSection() {
             style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(16px, 2vw, 24px)" }}
             className="otsf-stats-pair"
           >
-            {statsPair2.map((s) => <StatCard key={s.label} stat={s.stat} label={s.label} />)}
+            {statsPair2.map((s) => <StatCard key={s.label} value={s.value} suffix={s.suffix} label={s.label} />)}
           </motion.div>
 
           {/* Paragraph 4 */}
@@ -1040,7 +1082,7 @@ function AboutSection() {
             style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(16px, 2vw, 24px)" }}
             className="otsf-stats-pair"
           >
-            {statsPair3.map((s) => <StatCard key={s.label} stat={s.stat} label={s.label} />)}
+            {statsPair3.map((s) => <StatCard key={s.label} value={s.value} suffix={s.suffix} label={s.label} />)}
           </motion.div>
 
           {/* Closing narrative */}
@@ -1554,6 +1596,20 @@ function OTSfPostEventReports() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [submitError, setSubmitError] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // Lock body scroll + ESC-to-close while modal is open
+  useEffect(() => {
+    if (!modalOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setModalOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [modalOpen]);
 
   // Digit count for current phone, used by live validity hint
   const phoneDigits = phone.replace(/[\s\-()]/g, "");
@@ -1836,39 +1892,35 @@ function OTSfPostEventReports() {
             {/* Decorative top hairline */}
             <span aria-hidden className="otsf-jhb-delegate-hairline" />
 
-            <div className="otsf-jhb-delegate-header">
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-                <span style={{ width: 24, height: 1, background: C_BRIGHT }} />
-                <span style={{
-                  fontFamily: "var(--font-dm)",
-                  fontSize: 10, fontWeight: 700,
-                  letterSpacing: "0.32em", textTransform: "uppercase",
-                  color: C_BRIGHT,
-                }}>Request the Delegate List</span>
+            {submitState !== "success" && (
+              <div className="otsf-jhb-delegate-preview">
+                <div className="otsf-jhb-delegate-preview-head">
+                  <span className="otsf-jhb-delegate-preview-eyebrow">Confirmed Delegates · Preview</span>
+                  <span className="otsf-jhb-delegate-preview-pill">200+ attending</span>
+                </div>
+                <ul className="otsf-jhb-delegate-preview-list">
+                  {DELEGATE_PREVIEW.map((d, i) => {
+                    const isBlurred = i >= DELEGATE_VISIBLE_COUNT;
+                    return (
+                      <li
+                        key={d.name}
+                        className={`otsf-jhb-delegate-preview-row${isBlurred ? " is-blurred" : ""}`}
+                        aria-hidden={isBlurred}
+                      >
+                        <span className="otsf-jhb-delegate-preview-avatar">{delegateInitials(d.name)}</span>
+                        <span className="otsf-jhb-delegate-preview-meta">
+                          <span className="otsf-jhb-delegate-preview-name">{d.name}</span>
+                          <span className="otsf-jhb-delegate-preview-role">
+                            {d.title} <span className="otsf-jhb-delegate-preview-dot">·</span>{" "}
+                            <span className="otsf-jhb-delegate-preview-co">{d.company}</span>
+                          </span>
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
-              <h3 style={{
-                margin: 0,
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(20px, 2.4vw, 28px)",
-                fontWeight: 700,
-                letterSpacing: "-0.5px",
-                color: "white",
-                lineHeight: 1.2,
-              }}>
-                Get the full attendee roster.
-              </h3>
-              <p style={{
-                margin: "10px 0 0",
-                fontFamily: "var(--font-outfit)",
-                fontSize: "clamp(13px, 1vw, 14px)",
-                fontWeight: 400,
-                color: "rgba(255,255,255,0.55)",
-                lineHeight: 1.6,
-                maxWidth: 520,
-              }}>
-                Share your details and we&apos;ll send the curated delegate list to your work email — CISOs, Heads of OT, plant leaders and decision-makers attending the Johannesburg edition.
-              </p>
-            </div>
+            )}
 
             {submitState === "success" ? (
               <div className="otsf-jhb-delegate-success">
@@ -1901,7 +1953,110 @@ function OTSfPostEventReports() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} noValidate className="otsf-jhb-delegate-form-fields">
+              <button
+                type="button"
+                onClick={() => setModalOpen(true)}
+                className="otsf-jhb-delegate-cta-link"
+              >
+                <span>Request the full delegate list</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            )}
+          </div>
+        </motion.div>
+        </div>{/* /reports-layout */}
+      </div>
+
+      {/* ─── Request Form Modal ─────────────────────────────────────────── */}
+      <AnimatePresence>
+        {modalOpen && (
+          <motion.div
+            className="otsf-jhb-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22 }}
+            onClick={() => setModalOpen(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="otsf-jhb-modal-title"
+          >
+            <motion.div
+              className="otsf-jhb-modal-card"
+              initial={{ opacity: 0, y: 24, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 24, scale: 0.96 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setModalOpen(false)}
+                className="otsf-jhb-modal-close"
+                aria-label="Close request form"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+
+              <span aria-hidden className="otsf-jhb-modal-hairline" />
+
+              <div className="otsf-jhb-modal-header">
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                  <span style={{ width: 24, height: 1, background: C_BRIGHT }} />
+                  <span style={{
+                    fontFamily: "var(--font-dm)",
+                    fontSize: 10, fontWeight: 700,
+                    letterSpacing: "0.32em", textTransform: "uppercase",
+                    color: C_BRIGHT,
+                  }}>Request the Delegate List</span>
+                </div>
+                <h3 id="otsf-jhb-modal-title" style={{
+                  margin: 0,
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(20px, 2.4vw, 26px)",
+                  fontWeight: 700,
+                  letterSpacing: "-0.5px",
+                  color: "white",
+                  lineHeight: 1.2,
+                }}>
+                  Get the full attendee roster.
+                </h3>
+                <p style={{
+                  margin: "10px 0 0",
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 13,
+                  color: "rgba(255,255,255,0.55)",
+                  lineHeight: 1.55,
+                }}>
+                  Share your details and we&apos;ll send the curated delegate list to your work email within 1 business day.
+                </p>
+              </div>
+
+              {submitState === "success" ? (
+                <div className="otsf-jhb-modal-success">
+                  <div className="otsf-jhb-modal-success-check">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </div>
+                  <h4>Request received.</h4>
+                  <p>We&apos;ll send the delegate list to your work email within 1 business day.</p>
+                  <button
+                    type="button"
+                    onClick={() => setModalOpen(false)}
+                    className="otsf-jhb-modal-done"
+                  >
+                    Done
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} noValidate className="otsf-jhb-delegate-form-fields">
                 {/* Honeypot */}
                 <input type="text" name="website" tabIndex={-1} autoComplete="off"
                   style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} />
@@ -2034,12 +2189,12 @@ function OTSfPostEventReports() {
                 <p className="otsf-jhb-delegate-hint">
                   We respect your inbox. Used only to send the delegate list and edition follow-ups.
                 </p>
-              </form>
-            )}
-          </div>
-        </motion.div>
-        </div>{/* /reports-layout */}
-      </div>
+                </form>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <style jsx global>{`
         .otsf-jhb-report-card:hover {
@@ -2096,7 +2251,7 @@ function OTSfPostEventReports() {
         .otsf-jhb-delegate-form-card {
           position: relative;
           width: 100%;
-          padding: clamp(24px, 3vw, 36px);
+          padding: clamp(16px, 1.8vw, 22px);
           background: linear-gradient(165deg, rgba(30, 18, 38, 0.55) 0%, rgba(12, 8, 24, 0.65) 100%);
           backdrop-filter: blur(28px) saturate(180%);
           -webkit-backdrop-filter: blur(28px) saturate(180%);
@@ -2117,8 +2272,274 @@ function OTSfPostEventReports() {
           opacity: 0.75;
         }
         .otsf-jhb-delegate-header {
-          margin-bottom: clamp(20px, 2.5vw, 28px);
+          margin-bottom: clamp(18px, 2.2vw, 24px);
           position: relative; z-index: 1;
+        }
+        /* ── Delegate preview teaser ─────────────────────────────────────── */
+        .otsf-jhb-delegate-preview {
+          position: relative; z-index: 1;
+          margin-bottom: clamp(12px, 1.4vw, 16px);
+          padding: clamp(10px, 1.2vw, 14px) clamp(12px, 1.4vw, 16px);
+          background: linear-gradient(180deg, rgba(255,255,255,0.028) 0%, rgba(255,255,255,0.010) 100%);
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 14px;
+          overflow: hidden;
+        }
+        .otsf-jhb-delegate-preview-head {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          margin-bottom: clamp(7px, 0.8vw, 10px);
+          padding-bottom: clamp(7px, 0.8vw, 10px);
+          border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .otsf-jhb-delegate-preview-eyebrow {
+          font-family: var(--font-dm);
+          font-size: 10px; font-weight: 700;
+          letter-spacing: 0.26em; text-transform: uppercase;
+          color: rgba(255,255,255,0.65);
+        }
+        .otsf-jhb-delegate-preview-pill {
+          display: inline-flex; align-items: center;
+          padding: 4px 10px; border-radius: 999px;
+          border: 1px solid ${C}55;
+          background: ${C}1a;
+          font-family: var(--font-outfit);
+          font-size: 10px; font-weight: 700;
+          letter-spacing: 0.12em; text-transform: uppercase;
+          color: ${C_BRIGHT};
+          white-space: nowrap;
+        }
+        .otsf-jhb-delegate-preview-list {
+          list-style: none;
+          margin: 0; padding: 0;
+          display: flex; flex-direction: column;
+        }
+        .otsf-jhb-delegate-preview-row {
+          display: flex; align-items: center;
+          gap: clamp(8px, 0.9vw, 11px);
+          padding: clamp(4px, 0.5vw, 6px) 0;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .otsf-jhb-delegate-preview-row:last-child {
+          border-bottom: none;
+        }
+        .otsf-jhb-delegate-preview-row.is-blurred {
+          filter: blur(5.5px);
+          opacity: 0.72;
+          user-select: none;
+          pointer-events: none;
+        }
+        .otsf-jhb-delegate-preview-avatar {
+          flex: 0 0 auto;
+          display: inline-flex;
+          align-items: center; justify-content: center;
+          width: 28px; height: 28px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, ${C} 0%, ${CYAN} 100%);
+          font-family: var(--font-display);
+          font-size: 10.5px; font-weight: 700;
+          letter-spacing: 0.02em;
+          color: white;
+          text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.25),
+            0 2px 6px rgba(0,0,0,0.35);
+        }
+        .otsf-jhb-delegate-preview-meta {
+          display: flex; flex-direction: column;
+          gap: 2px;
+          min-width: 0; flex: 1;
+        }
+        .otsf-jhb-delegate-preview-name {
+          font-family: var(--font-display);
+          font-size: clamp(12.5px, 0.95vw, 14px);
+          font-weight: 700;
+          color: white;
+          letter-spacing: -0.01em;
+          line-height: 1.25;
+          white-space: nowrap;
+          overflow: hidden; text-overflow: ellipsis;
+        }
+        .otsf-jhb-delegate-preview-role {
+          font-family: var(--font-outfit);
+          font-size: clamp(10.5px, 0.82vw, 11.5px);
+          font-weight: 400;
+          color: rgba(255,255,255,0.55);
+          line-height: 1.3;
+        }
+        .otsf-jhb-delegate-preview-dot {
+          color: ${C_BRIGHT};
+          font-weight: 700;
+          padding: 0 2px;
+        }
+        .otsf-jhb-delegate-preview-co {
+          color: rgba(255,255,255,0.78);
+          font-weight: 600;
+        }
+        .otsf-jhb-delegate-preview-cta {
+          margin: clamp(12px, 1.3vw, 14px) 0 0;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          font-family: var(--font-outfit);
+          font-size: 12px;
+          font-weight: 600;
+          color: ${C_BRIGHT};
+          letter-spacing: 0.02em;
+        }
+        .otsf-jhb-delegate-preview-cta svg {
+          flex: 0 0 auto;
+          animation: otsf-jhb-cta-bob 1.8s ease-in-out infinite;
+        }
+        @keyframes otsf-jhb-cta-bob {
+          0%, 100% { transform: translateY(0); opacity: 0.9; }
+          50%      { transform: translateY(3px); opacity: 1; }
+        }
+        @media (max-width: 540px) {
+          .otsf-jhb-delegate-preview-name { white-space: normal; }
+          .otsf-jhb-delegate-preview-avatar { width: 30px; height: 30px; font-size: 11.5px; }
+        }
+        /* ── CTA text-link (opens modal) ─────────────────────────────────── */
+        .otsf-jhb-delegate-cta-link {
+          position: relative; z-index: 1;
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          margin: 0;
+          padding: 4px 0 2px;
+          background: none;
+          border: none;
+          border-bottom: 1px solid ${C_BRIGHT}55;
+          border-radius: 0;
+          font-family: var(--font-outfit);
+          font-size: clamp(12.5px, 0.95vw, 13.5px);
+          font-weight: 600;
+          letter-spacing: 0.02em;
+          color: ${C_BRIGHT};
+          cursor: pointer;
+          text-transform: none;
+          transition: color 0.3s ease, border-color 0.3s ease;
+        }
+        .otsf-jhb-delegate-cta-link:hover {
+          color: white;
+          border-color: ${C_BRIGHT};
+        }
+        .otsf-jhb-delegate-cta-link svg {
+          transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+        }
+        .otsf-jhb-delegate-cta-link:hover svg {
+          transform: translateX(3px);
+        }
+
+        /* ── Modal overlay + card ────────────────────────────────────────── */
+        .otsf-jhb-modal-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: clamp(16px, 3vw, 32px);
+          background: rgba(4, 2, 10, 0.78);
+          backdrop-filter: blur(14px) saturate(140%);
+          -webkit-backdrop-filter: blur(14px) saturate(140%);
+        }
+        .otsf-jhb-modal-card {
+          position: relative;
+          width: 100%;
+          max-width: 580px;
+          max-height: calc(100vh - clamp(32px, 6vw, 64px));
+          overflow-y: auto;
+          padding: clamp(24px, 3vw, 36px);
+          background: linear-gradient(165deg, rgba(30, 18, 38, 0.92) 0%, rgba(12, 8, 24, 0.96) 100%);
+          border: 1px solid rgba(255,255,255,0.10);
+          border-radius: 20px;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.16),
+            inset 0 -1px 0 rgba(0,0,0,0.45),
+            0 24px 56px rgba(0,0,0,0.55),
+            0 48px 96px rgba(0,0,0,0.45);
+        }
+        .otsf-jhb-modal-hairline {
+          position: absolute;
+          top: 0; left: 8%; right: 8%; height: 1px;
+          background: linear-gradient(90deg, transparent 0%, ${C_BRIGHT} 30%, ${CYAN} 70%, transparent 100%);
+          opacity: 0.8;
+        }
+        .otsf-jhb-modal-close {
+          position: absolute;
+          top: 14px; right: 14px;
+          display: inline-flex;
+          align-items: center; justify-content: center;
+          width: 32px; height: 32px;
+          border-radius: 8px;
+          border: 1px solid rgba(255,255,255,0.10);
+          background: rgba(255,255,255,0.04);
+          color: rgba(255,255,255,0.7);
+          cursor: pointer;
+          transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+        }
+        .otsf-jhb-modal-close:hover {
+          color: white;
+          border-color: ${C_BRIGHT}66;
+          background: ${C}1a;
+          transform: rotate(90deg);
+        }
+        .otsf-jhb-modal-header {
+          margin-bottom: clamp(18px, 2vw, 22px);
+          padding-right: 36px; /* avoid overlap with close X */
+        }
+        .otsf-jhb-modal-success {
+          display: flex; flex-direction: column;
+          align-items: center; text-align: center;
+          padding: clamp(8px, 1vw, 12px) 0 4px;
+        }
+        .otsf-jhb-modal-success-check {
+          display: inline-flex;
+          align-items: center; justify-content: center;
+          width: 56px; height: 56px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, ${C}, ${CYAN});
+          margin-bottom: 16px;
+          box-shadow: 0 8px 24px ${C}40;
+        }
+        .otsf-jhb-modal-success h4 {
+          margin: 0 0 8px;
+          font-family: var(--font-display);
+          font-size: clamp(18px, 1.8vw, 22px);
+          font-weight: 700;
+          color: white;
+        }
+        .otsf-jhb-modal-success p {
+          margin: 0 0 22px;
+          font-family: var(--font-outfit);
+          font-size: 14px;
+          color: rgba(255,255,255,0.6);
+          line-height: 1.55;
+          max-width: 380px;
+        }
+        .otsf-jhb-modal-done {
+          padding: 10px 28px;
+          background: linear-gradient(135deg, ${C} 0%, ${C_BRIGHT} 100%);
+          border: 1px solid ${C_BRIGHT}55;
+          border-radius: 10px;
+          color: white;
+          font-family: var(--font-outfit);
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          cursor: pointer;
+          transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .otsf-jhb-modal-done:hover {
+          transform: translateY(-1px);
+          filter: brightness(1.08);
+        }
+        @media (max-width: 540px) {
+          .otsf-jhb-modal-card { padding: 22px 18px; border-radius: 16px; }
+          .otsf-jhb-modal-header { padding-right: 30px; }
         }
         .otsf-jhb-delegate-form-fields {
           position: relative; z-index: 1;
@@ -2376,8 +2797,8 @@ function FocusAreas() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={`${S3}/events/Cyber+First+Kuwait+2025/Kuwait+Photos/Kuwait+Photos/4X9A1744.jpg`}
-            alt="Cyber First Kuwait delegates networking at an EFG summit"
+            src={`${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0572.JPG`}
+            alt="OT Security First UAE — delegates and main session"
             loading="lazy"
             width={1680}
             height={720}
@@ -3527,7 +3948,31 @@ function GallerySection() {
                   transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
               />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(8,10,12,0.6), transparent 50%)", pointerEvents: "none" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(8,10,12,0.78) 0%, rgba(8,10,12,0.15) 45%, transparent 70%)", pointerEvents: "none" }} />
+              {/* Label */}
+              <div
+                className="otsf-gallery-label"
+                style={{
+                  position: "absolute",
+                  left: "clamp(12px, 1.4vw, 18px)",
+                  right: "clamp(12px, 1.4vw, 18px)",
+                  bottom: "clamp(12px, 1.4vw, 16px)",
+                  zIndex: 2,
+                  pointerEvents: "none",
+                }}
+              >
+                <span style={{
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 11,
+                  fontWeight: 600,
+                  color: "white",
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  textShadow: "0 2px 8px rgba(0,0,0,0.6)",
+                }}>
+                  {img.label}
+                </span>
+              </div>
             </motion.div>
           ))}
         </div>
