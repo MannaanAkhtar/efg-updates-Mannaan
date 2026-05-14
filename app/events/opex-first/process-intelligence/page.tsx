@@ -82,16 +82,88 @@ const TARGET_INDUSTRIES = [
   "Manufacturing",
 ];
 
-const AGENDA = [
-  { time: "11:00 - 11:10", title: "Opening Remarks", desc: "Setting the stage for the webinar by framing the regional macro shift from digital investment to operational execution and ROI accountability." },
-  { time: "11:10 - 11:30", title: "Panel 1: Why Digital Transformation Needs Process Intelligence", desc: "Exploring the growing disconnect between digital investment and operational performance, and why process intelligence is the critical bridge between strategy and execution.", subtopics: ["The Visibility Gap: Why most GCC enterprises still lack a unified, data-driven view of how their processes actually run.", "From Deployment to Value Realisation: Connecting technology investments to tangible business outcomes.", "Building a Process-Centric Culture: Embedding process intelligence into transformation governance."] },
-  { time: "11:30 - 11:40", title: "Enterprise / Government Keynote", desc: "A senior government or enterprise leader will share a first-hand account of how their organisation is applying process intelligence principles to drive operational performance." },
-  { time: "11:40 - 12:00", title: "Panel 2: From Process Mining to Operational Efficiency", desc: "How process mining technologies are being deployed across GCC enterprises to drive measurable efficiency gains, with real-world lessons and quantifiable results.", subtopics: ["End-to-End Process Transparency: Using system data to reveal how work truly flows across departments.", "Connecting Process KPIs to Business Outcomes: Moving beyond process mapping to KPI-driven dashboards.", "Scaling from Pilot to Enterprise Standard: Overcoming the data integration, stakeholder, and change management challenges."] },
-  { time: "12:00 - 12:10", title: "Sponsor Presentation 1", desc: "A focused presentation from a leading process intelligence or automation vendor, showcasing regional case studies and measurable impact." },
-  { time: "12:10 - 12:30", title: "Panel 3: AI, Automation, and the Future of Process Intelligence", desc: "How AI, intelligent automation, and process intelligence are converging to create a new paradigm for enterprise operations.", subtopics: ["From Reactive Automation to Predictive Intelligence: Evolving beyond rule-based RPA to AI-powered systems.", "Generative AI and LLMs in Process Optimisation: Practical applications of GenAI for natural language process querying.", "Governance and Trust in AI-Driven Decisions: Building governance frameworks that ensure AI-driven process decisions are explainable."] },
-  { time: "12:30 - 12:40", title: "Sponsor Presentation 2", desc: "A focused presentation from a complementary technology vendor, demonstrating how their solutions integrate with process intelligence." },
-  { time: "12:40 - 12:50", title: "Sponsor Presentation 3", desc: "A final sponsor presentation highlighting innovative approaches to enterprise process transformation." },
-  { time: "12:50 - 13:00", title: "Closing Remarks and Raffle", desc: "A concise wrap-up synthesising the key insights from the session, reinforcing the strategic importance of process intelligence for GCC enterprises." },
+type AgendaPerson = { name: string; title: string; org: string };
+
+const AGENDA: {
+  time: string;
+  title: string;
+  desc: string;
+  subtopics?: string[];
+  topic?: string;
+  moderator?: AgendaPerson;
+  speakers?: AgendaPerson[];
+}[] = [
+  {
+    time: "11:00 - 11:10",
+    title: "Opening Remarks",
+    desc: "Setting the stage for the webinar by framing the regional macro shift from digital investment to operational execution and ROI accountability.",
+  },
+  {
+    time: "11:10 - 11:30",
+    title: "Panel 1: Why Digital Transformation Needs Process Intelligence",
+    desc: "Exploring the growing disconnect between digital investment and operational performance, and why process intelligence is the critical bridge between strategy and execution.",
+    moderator: { name: "Zamir Chaudhry", title: "CEO Advisor – Strategic & GRC Transformation", org: "Walaa Insurance" },
+    speakers: [
+      { name: "Dr. Mohammad Khalaf Alghamdi, Ph.D.", title: "Deputy Mayor for Strategy & Transformation", org: "Madinah Municipality" },
+      { name: "Suvo Chatterjee", title: "Director of Business Excellence & Transformation | Strategy & Planning", org: "Ras Al Khaimah Economic Zone – Government of Ras Al Khaimah" },
+      { name: "Miodrag Vidakovic", title: "Applied AI Director", org: "CELONIS" },
+      { name: "Butti Al Mazrouei", title: "Head of Supply Chain Management", org: "Mubadala Energy" },
+    ],
+  },
+  {
+    time: "11:30 - 11:40",
+    title: "Enterprise / Government Keynote",
+    desc: "A senior government or enterprise leader will share a first-hand account of how their organisation is applying process intelligence principles to drive operational performance.",
+    speakers: [{ name: "To Be Confirmed", title: "", org: "" }],
+  },
+  {
+    time: "11:40 - 12:00",
+    title: "Panel 2: From Process Mining to Operational Efficiency",
+    desc: "How process mining technologies are being deployed across GCC enterprises to drive measurable efficiency gains, with real-world lessons and quantifiable results.",
+    moderator: { name: "Neil Evans", title: "Head of Energy", org: "QS Arabia" },
+    speakers: [
+      { name: "Eng. Meshal Aldeasy", title: "Strategic Planning and Execution Advisor", org: "Confidential" },
+      { name: "Abdelkader Nessib", title: "IT Operations / Cybersecurity & Digital Transformation Advisor", org: "Saipem Qatar" },
+      { name: "Danyal Nasser Anwar", title: "Process Improvement Unit Head", org: "Department of Culture & Tourism" },
+      { name: "Mohamed Hamed", title: "Head of Strategy", org: "National Bank of Umm Al Qaiwain" },
+    ],
+  },
+  {
+    time: "12:00 - 12:10",
+    title: "Sponsor Presentation 1",
+    desc: "",
+    topic: "AI-Ready Processes: Why Your AI Strategy Starts with Process Intelligence",
+    speakers: [{ name: "Cezmi Eroglu", title: "Director, AI Solution Architecture", org: "ARIS" }],
+  },
+  {
+    time: "12:10 - 12:30",
+    title: "Panel 3: AI, Automation, and the Future of Process Intelligence",
+    desc: "How AI, intelligent automation, and process intelligence are converging to create a new paradigm for enterprise operations.",
+    moderator: { name: "Zamir Chaudhry", title: "CEO Advisor – Strategic & GRC Transformation", org: "Walaa Insurance" },
+    speakers: [
+      { name: "Ismail Ibrahim Al Janahi", title: "Procurement – Section Head", org: "Abu Dhabi Investment Office" },
+      { name: "Abdulrahman Alonaizan", title: "Chief Business Continuity Office", org: "Arab National Bank" },
+      { name: "Ayham Alzaaim", title: "Senior Vice President, Middle East & Turkey", org: "ARIS" },
+    ],
+  },
+  {
+    time: "12:30 - 12:40",
+    title: "Sponsor Presentation 2",
+    desc: "",
+    topic: "The Agentic Engine: Using Process Intelligence to Drive Reliable AI at Scale",
+    speakers: [{ name: "Miodrag Vidakovic", title: "Applied AI Director", org: "CELONIS" }],
+  },
+  {
+    time: "12:40 - 12:50",
+    title: "Sponsor Presentation 3",
+    desc: "",
+    speakers: [{ name: "To Be Confirmed", title: "", org: "" }],
+  },
+  {
+    time: "12:50 - 13:00",
+    title: "Closing Remarks & Raffle",
+    desc: "A concise wrap-up synthesising the key insights from the session, reinforcing the strategic importance of process intelligence for GCC enterprises.",
+  },
 ];
 
 const S3_TEAM = "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos";
@@ -812,12 +884,6 @@ const SPEAKERS = [
     title: "IT Operations & Infrastructure Manager / Cybersecurity & Digital Transformation Advisor",
     org: "Saipem Qatar",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdelkader.png",
-  },
-  {
-    name: "Ben Kite",
-    title: "Senior Executive Leader – Defence, Intelligence, Cyber, Security & Resilience",
-    org: "Kearney",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ben_Kite.png",
   },
   {
     name: "Mohamed Hamed",
@@ -2082,7 +2148,100 @@ function AgendaSection() {
                             {/* Gradient separator */}
                             <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, rgba(${rgb},0.3), transparent)`, marginBottom: 6 }} />
 
-                            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: "rgba(255,255,255,0.42)", lineHeight: 1.6, margin: 0, display: "-webkit-box", WebkitLineClamp: isExpanded ? 99 : 2, WebkitBoxOrient: "vertical" as const, overflow: "hidden" }}>{item.desc}</p>
+                            {item.desc && (
+                              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: "rgba(255,255,255,0.42)", lineHeight: 1.6, margin: 0, display: "-webkit-box", WebkitLineClamp: isExpanded ? 99 : 2, WebkitBoxOrient: "vertical" as const, overflow: "hidden" }}>{item.desc}</p>
+                            )}
+
+                            {(item.topic || item.moderator || (item.speakers && item.speakers.length > 0)) && (() => {
+                              const labelStyle: React.CSSProperties = {
+                                fontFamily: "var(--font-outfit)",
+                                fontSize: 9,
+                                fontWeight: 700,
+                                letterSpacing: "0.18em",
+                                textTransform: "uppercase",
+                                color: `rgba(${rgb},0.85)`,
+                                margin: "0 0 6px",
+                              };
+                              const personRow = (p: AgendaPerson, idx: number) => (
+                                <div key={idx} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
+                                  <span aria-hidden style={{
+                                    flexShrink: 0,
+                                    width: 4, height: 4, borderRadius: "50%",
+                                    background: `rgba(${rgb},0.55)`,
+                                    marginTop: 8,
+                                  }} />
+                                  <div style={{ flex: 1, minWidth: 0 }}>
+                                    <div style={{
+                                      fontFamily: "var(--font-outfit)",
+                                      fontSize: 12.5,
+                                      fontWeight: 700,
+                                      color: "rgba(255,255,255,0.94)",
+                                      lineHeight: 1.3,
+                                    }}>{p.name}</div>
+                                    {p.title && (
+                                      <p style={{
+                                        fontFamily: "var(--font-outfit)",
+                                        fontSize: 11.5,
+                                        fontWeight: 400,
+                                        color: "rgba(255,255,255,0.55)",
+                                        margin: "2px 0 0",
+                                        lineHeight: 1.35,
+                                      }}>{p.title}</p>
+                                    )}
+                                    {p.org && (
+                                      <p style={{
+                                        fontFamily: "var(--font-outfit)",
+                                        fontSize: 11.5,
+                                        fontWeight: 500,
+                                        color: `rgba(${rgb},0.85)`,
+                                        margin: "1px 0 0",
+                                        lineHeight: 1.35,
+                                      }}>{p.org}</p>
+                                    )}
+                                  </div>
+                                </div>
+                              );
+                              const speakerCount = item.speakers?.length ?? 0;
+                              const speakerLabel = speakerCount === 1 ? "Speaker" : "Speakers";
+                              return (
+                                <div style={{ marginTop: item.desc ? 10 : 4, paddingTop: item.desc ? 10 : 0, borderTop: item.desc ? `1px solid rgba(${rgb},0.1)` : "none" }}>
+                                  {item.topic && (
+                                    <p style={{
+                                      fontFamily: "var(--font-outfit)",
+                                      fontSize: 12,
+                                      fontWeight: 400,
+                                      fontStyle: "italic",
+                                      color: "rgba(255,255,255,0.62)",
+                                      margin: "0 0 10px",
+                                      lineHeight: 1.5,
+                                    }}>
+                                      &ldquo;{item.topic}&rdquo;
+                                    </p>
+                                  )}
+                                  {item.moderator && (
+                                    <div style={{ marginBottom: speakerCount > 0 ? 10 : 0 }}>
+                                      <p style={labelStyle}>Moderator</p>
+                                      {personRow(item.moderator, 0)}
+                                    </div>
+                                  )}
+                                  {item.speakers && speakerCount > 0 && (
+                                    <div>
+                                      <p style={labelStyle}>{speakerLabel}</p>
+                                      <div
+                                        className="opex-agenda-speakers-grid"
+                                        style={{
+                                          display: "grid",
+                                          gridTemplateColumns: speakerCount > 1 ? "repeat(2, minmax(0, 1fr))" : "1fr",
+                                          gap: "8px 16px",
+                                        }}
+                                      >
+                                        {item.speakers.map((s, idx) => personRow(s, idx))}
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })()}
 
                             {hasSubtopics && (
                               <>
@@ -2136,6 +2295,9 @@ function AgendaSection() {
         .opex-agenda-node { animation: opex-node-pulse 3s ease-in-out infinite; }
         @media (max-width: 768px) {
           .opex-agenda-split { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 520px) {
+          .opex-agenda-speakers-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>
