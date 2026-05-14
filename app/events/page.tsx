@@ -107,6 +107,23 @@ const allEvents = [
     status: "open" as SeriesStatus,
   },
   {
+    id: "networkfirst-seagate",
+    category: "networkfirst",
+    title: "Seagate Executive Roundtable",
+    tagline: "Powering the Future of Mass Capacity Storage",
+    description: "An invitation-only Seagate Technology roundtable on Mozaic 4+, higher density, and a 40% energy cut versus conventional drives.",
+    color: "#C9935A",
+    image: "",
+    href: "/seagate",
+    date: "2026-06-11",
+    nextDate: "11 June 2026",
+    nextCity: "Dubai",
+    editions: "",
+    regions: "Dubai",
+    attendees: "15-20",
+    status: "open" as SeriesStatus,
+  },
+  {
     id: "networkfirst-jedox-sop",
     category: "networkfirst",
     title: "Next-Generation S&OP",
@@ -314,20 +331,41 @@ const allEvents = [
 // Backward-compat alias for components that reference seriesData (e.g. EventsCTA dots)
 const seriesData = allEvents;
 
+// Map allEvents.category → human-readable series name for display.
+const SERIES_DISPLAY_NAMES: Record<string, string> = {
+  "networkfirst": "NetworkFirst",
+  "ot-security-first": "OT Security First",
+  "cyber-first": "Cyber First",
+  "opex-first": "OPEX First",
+  "data-ai-first": "Digital First",
+  "bigleap": "The Big Leap",
+};
+
+// Pick the next upcoming event from allEvents (earliest future date).
+// Falls back to the latest entry if no future events exist so the
+// "Up Next" spotlight still has something to render.
+const _nextUpcoming = (() => {
+  const now = Date.now();
+  const byDate = [...allEvents].sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
+  return byDate.find((e) => new Date(e.date).getTime() > now) ?? byDate[byDate.length - 1];
+})();
+
 const NEXT_EVENT = {
-  series: "OT Security First",
-  seriesColor: "#D34B9A",
-  edition: "VIRTUAL BOARDROOM",
-  title: "OT Security Virtual Boardroom MENA",
-  date: new Date("2026-05-19"),
-  location: "Virtual",
-  venue: "Virtual",
-  attendees: "100 Verified Professionals",
-  href: "/events/ot-security-first/virtual-boardroom-mena",
+  series: SERIES_DISPLAY_NAMES[_nextUpcoming.category] ?? _nextUpcoming.category,
+  seriesColor: _nextUpcoming.color,
+  edition: _nextUpcoming.editions || "Invite-Only",
+  title: _nextUpcoming.title,
+  date: new Date(_nextUpcoming.date),
+  location: _nextUpcoming.nextCity,
+  venue: _nextUpcoming.nextCity,
+  attendees: _nextUpcoming.attendees,
+  href: _nextUpcoming.href,
   image:
+    _nextUpcoming.image ||
     "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=800&q=80",
-  description:
-    "A closed, senior-level virtual forum on OT security in a high-threat GCC environment — 100 verified professionals across energy, utilities, oil & gas, and petrochemicals.",
+  description: _nextUpcoming.description,
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -767,7 +805,7 @@ function EventsHero() {
               {"  "}·{"  "}
               {NEXT_EVENT.title}
               {"  "}·{"  "}
-              9 Jun 2026
+              {NEXT_EVENT.date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
             </span>
 
             <span
@@ -1989,7 +2027,7 @@ function EventsUpNext() {
                 <line x1="8" y1="2" x2="8" y2="6" />
                 <line x1="3" y1="10" x2="21" y2="10" />
               </svg>
-              9 June 2026
+              {ev.date.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}
             </span>
             <span
               style={{
