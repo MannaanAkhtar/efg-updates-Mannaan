@@ -1422,17 +1422,101 @@ function WhoWillBeInRoom() {
 
 // ─── AGENDA ─────────────────────────────────────────────────────────────────
 
-const AGENDA_ITEMS: { time: string; segment: string; subtitle?: string; type: "opening" | "panel" | "sponsor" | "qa" | "raffle" | "closing"; confirmed?: boolean }[] = [
+type AgendaPerson = { name: string; title: string; org: string; sponsor?: boolean };
+
+const AGENDA_ITEMS: {
+  time: string;
+  segment: string;
+  subtitle?: string;
+  type: "opening" | "panel" | "sponsor" | "qa" | "raffle" | "closing";
+  confirmed?: boolean;
+  moderator?: AgendaPerson;
+  speakers?: AgendaPerson[];
+}[] = [
   { time: "11:00 - 11:10 AM", segment: "Welcome & Opening Remarks", type: "opening" },
-  { time: "11:10 - 11:30 AM", segment: "Panel 01 | Securing Critical Infrastructure at a National Level: From Strategy to Operational Reality", type: "panel" },
-  { time: "11:30 - 11:45 AM", segment: "Awareness Presentation 1 — FlintX", subtitle: "AI in Critical Infrastructure SecOps: What's Actually Deployable Today (Tech Talk)", type: "sponsor", confirmed: true },
-  { time: "11:45 - 12:00 PM", segment: "Awareness Presentation 2 — Trellix", subtitle: "Reaction to Readiness: Building Resilience for OT Systems in 2026 (Tech Talk)", type: "sponsor", confirmed: true },
-  { time: "12:00 - 12:20 PM", segment: "Panel 02 | Hidden OT Exposure Across Critical Infrastructure: Vendor Access, Unmanaged Connections & Shared Control Networks", type: "panel" },
-  { time: "12:20 - 12:35 PM", segment: "Awareness Presentation 3 — TXOne Networks", subtitle: "Protecting Unpatchable OT Systems: A Practical Framework for Resilience (Tech Talk)", type: "sponsor", confirmed: true },
-  { time: "12:35 - 12:50 PM", segment: "Awareness Presentation 4 — Darktrace", subtitle: "Beyond Visibility: Driving Risk-Informed OT Defense in Converged Environments (Tech Talk)", type: "sponsor", confirmed: true },
-  { time: "12:50 - 01:10 PM", segment: "Panel 03 | When Disruption Is the Goal: How OT Attacks Are Evolving Across Critical Infrastructure and What Response Looks Like Now", type: "panel" },
-  { time: "01:10 - 01:25 PM", segment: "Awareness Presentation 5 — SecuriCIP", subtitle: "Vulnerability Management Inside OT Environments: Challenges and Solutions (SecuriLERT) (Tech Talk)", type: "sponsor", confirmed: true },
-  { time: "01:25 - 01:40 PM", segment: "Awareness Presentation 6 — Sponsor TBC", subtitle: "Tech Talk", type: "sponsor" },
+  {
+    time: "11:10 - 11:30 AM",
+    segment: "Panel 01 | Securing Critical Infrastructure at a National Level: From Strategy to Operational Reality",
+    type: "panel",
+    moderator: { name: "Nicholas Jones", title: "EMEIA Cybersecurity Oil & Gas Lead", org: "EY" },
+    speakers: [
+      { name: "Vijay Velayutham", title: "Principal Information Security Officer", org: "UAE Ministry of Energy" },
+      { name: "Ali Alsadadi", title: "Chief of Information Technology", org: "Bahrain Ministry of Oil" },
+      { name: "Ahmed Mohammed Abdallah Albarrak", title: "OT Cybersecurity Operation Project Management Group Head", org: "Saudi Aramco" },
+      { name: "Ahmed AL Bahdoor", title: "Head of Cyber Security", org: "Oman Airports Management Company" },
+      { name: "Samir Mokthar", title: "Founder & CEO", org: "FlintX", sponsor: true },
+    ],
+  },
+  {
+    time: "11:30 - 11:45 AM",
+    segment: "Awareness Presentation 1 — FlintX",
+    subtitle: "AI in Critical Infrastructure SecOps: What's Actually Deployable Today (Tech Talk)",
+    type: "sponsor",
+    confirmed: true,
+    speakers: [{ name: "Samir Mokthar", title: "Founder & CEO", org: "FlintX" }],
+  },
+  {
+    time: "11:45 - 12:00 PM",
+    segment: "Awareness Presentation 2 — Trellix",
+    subtitle: "Reaction to Readiness: Building Resilience for OT Systems in 2026 (Tech Talk)",
+    type: "sponsor",
+    confirmed: true,
+    speakers: [{ name: "Mo Cashman", title: "Global Field CTO", org: "Trellix" }],
+  },
+  {
+    time: "12:00 - 12:20 PM",
+    segment: "Panel 02 | Hidden OT Exposure Across Critical Infrastructure: Vendor Access, Unmanaged Connections & Shared Control Networks",
+    type: "panel",
+    moderator: { name: "Nisheet Saxena", title: "IT / OT Cybersecurity and Crisis Resilience Advisor", org: "Confidential" },
+    speakers: [
+      { name: "Dr. Shaheela Banu", title: "Information Security & Compliance Officer", org: "Kuwait Gulf Oil Company (KGOC)" },
+      { name: "Nasser Salim Al Alawi", title: "OT Cybersecurity Manager", org: "Oman LNG" },
+      { name: "Manish Kumar Thakur", title: "OT Network & Cybersecurity Manager", org: "Kent (Global Innovation & Digital Engineering)" },
+    ],
+  },
+  {
+    time: "12:20 - 12:35 PM",
+    segment: "Awareness Presentation 3 — TXOne Networks",
+    subtitle: "Protecting Unpatchable OT Systems: A Practical Framework for Resilience (Tech Talk)",
+    type: "sponsor",
+    confirmed: true,
+    speakers: [{ name: "Anand GP", title: "Regional Sales Engineer & OT Cybersecurity Consultant", org: "TXOne Networks" }],
+  },
+  {
+    time: "12:35 - 12:50 PM",
+    segment: "Awareness Presentation 4 — Darktrace",
+    subtitle: "Beyond Visibility: Driving Risk-Informed OT Defense in Converged Environments (Tech Talk)",
+    type: "sponsor",
+    confirmed: true,
+    speakers: [{ name: "Syed Shahabuddin", title: "Regional OT Solutions Architect, EMEA / APAC", org: "Darktrace" }],
+  },
+  {
+    time: "12:50 - 01:10 PM",
+    segment: "Panel 03 | When Disruption Is the Goal: How OT Attacks Are Evolving Across Critical Infrastructure and What Response Looks Like Now",
+    type: "panel",
+    moderator: { name: "Nicholas Jones", title: "EMEIA Cybersecurity Oil & Gas Lead", org: "EY" },
+    speakers: [
+      { name: "Thomas Philip", title: "Head of Digital & AI", org: "Petrotec" },
+      { name: "Nisheet Saxena", title: "IT / OT Cybersecurity and Crisis Resilience Advisor", org: "Confidential" },
+      { name: "Feroz Khan", title: "Head of IT Security, Compliance and Projects", org: "TotalEnergies" },
+      { name: "Ibrahim Abuawwad", title: "VP Cybersecurity & Technology", org: "Mitsui E&P" },
+      { name: "Yahya Alazri", title: "Expert", org: "Oman National CERT" },
+    ],
+  },
+  {
+    time: "01:10 - 01:25 PM",
+    segment: "Awareness Presentation 5 — SecuriCIP",
+    subtitle: "Vulnerability Management Inside OT Environments: Challenges and Solutions (SecuriLERT) (Tech Talk)",
+    type: "sponsor",
+    confirmed: true,
+    speakers: [{ name: "Ahmed Fathalla", title: "Senior Manager, OT Systems & Cybersecurity", org: "SecuriCIP" }],
+  },
+  {
+    time: "01:25 - 01:40 PM",
+    segment: "Awareness Presentation 6 — Sponsor TBC",
+    subtitle: "Tech Talk",
+    type: "sponsor",
+  },
   { time: "01:40 - 01:50 PM", segment: "Live Q & A Session", type: "qa" },
   { time: "01:50 - 02:00 PM", segment: "Raffle Draw & Closing Remarks", type: "raffle" },
 ];
@@ -2881,6 +2965,85 @@ function AgendaSection() {
                           }}>Tech Talk</span>
                         )}
                       </div>
+
+                      {(item.moderator || (item.speakers && item.speakers.length > 0)) && (() => {
+                        const labelStyle: React.CSSProperties = {
+                          fontFamily: "var(--font-outfit)",
+                          fontSize: 9,
+                          fontWeight: 700,
+                          letterSpacing: "0.18em",
+                          textTransform: "uppercase",
+                          color: `rgba(${typeStyle.rgb},0.85)`,
+                          margin: "0 0 6px",
+                        };
+                        const personRow = (p: AgendaPerson, idx: number, total: number) => (
+                          <div key={idx} style={{ display: "flex", gap: 8, alignItems: "flex-start", marginTop: idx === 0 ? 0 : 6 }}>
+                            <span aria-hidden style={{
+                              flexShrink: 0,
+                              width: 4, height: 4, borderRadius: "50%",
+                              background: `rgba(${typeStyle.rgb},0.55)`,
+                              marginTop: 8,
+                            }} />
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 6, lineHeight: 1.3 }}>
+                                <span style={{
+                                  fontFamily: "var(--font-outfit)",
+                                  fontSize: 12.5,
+                                  fontWeight: 700,
+                                  color: "rgba(255,255,255,0.94)",
+                                }}>{p.name}</span>
+                                {p.sponsor && (
+                                  <span style={{
+                                    padding: "1px 6px",
+                                    borderRadius: 4,
+                                    background: `rgba(${typeStyle.rgb},0.16)`,
+                                    border: `1px solid rgba(${typeStyle.rgb},0.32)`,
+                                    fontFamily: "var(--font-outfit)",
+                                    fontSize: 8.5,
+                                    fontWeight: 700,
+                                    letterSpacing: "0.1em",
+                                    textTransform: "uppercase",
+                                    color: typeStyle.color,
+                                  }}>Sponsor Speaker</span>
+                                )}
+                              </div>
+                              <p style={{
+                                fontFamily: "var(--font-outfit)",
+                                fontSize: 11.5,
+                                fontWeight: 400,
+                                color: "rgba(255,255,255,0.6)",
+                                margin: "2px 0 0",
+                                lineHeight: 1.35,
+                              }}>{p.title}</p>
+                              <p style={{
+                                fontFamily: "var(--font-outfit)",
+                                fontSize: 11.5,
+                                fontWeight: 500,
+                                color: `rgba(${typeStyle.rgb},0.85)`,
+                                margin: "1px 0 0",
+                                lineHeight: 1.35,
+                              }}>{p.org}</p>
+                            </div>
+                          </div>
+                        );
+                        const speakerLabel = item.speakers && item.speakers.length === 1 && item.type === "sponsor" ? "Speaker" : "Speakers";
+                        return (
+                          <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                            {item.moderator && (
+                              <div style={{ marginBottom: item.speakers && item.speakers.length > 0 ? 12 : 0 }}>
+                                <p style={labelStyle}>Moderator</p>
+                                {personRow(item.moderator, 0, 1)}
+                              </div>
+                            )}
+                            {item.speakers && item.speakers.length > 0 && (
+                              <div>
+                                <p style={labelStyle}>{speakerLabel}</p>
+                                {item.speakers.map((s, idx) => personRow(s, idx, item.speakers!.length))}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })()}
                     </div>
                   </div>
                 </motion.div>
