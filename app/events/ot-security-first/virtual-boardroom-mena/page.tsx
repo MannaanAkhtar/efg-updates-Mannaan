@@ -163,6 +163,13 @@ const CONTACTS_TEAM = [
 
 const OTVB_SPEAKERS = [
   {
+    name: "Ahmed M. Al-Barrak",
+    title: "OT Cybersecurity Operation Project Management Group Head",
+    org: "Saudi Aramco",
+    flag: "https://flagcdn.com/w40/sa.png",
+    photo: `${S3}/Speakers-photos/Ahmed_Mohammed_AbdallahAlbarrak.png`,
+  },
+  {
     name: "Vijay Velayutham",
     title: "Principal Information Security Officer",
     org: "UAE Ministry of Energy & Infrastructure",
