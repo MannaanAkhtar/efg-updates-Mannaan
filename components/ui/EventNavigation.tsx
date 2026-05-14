@@ -63,7 +63,7 @@ const EVENT_CONFIGS: Record<string, {
     shortName: "OT Security First Africa",
     color: "#D34B9A",
     colorBright: "#E86BB8",
-    date: "26 Aug 2026",
+    date: "27 Aug 2026",
     location: "Johannesburg, SA",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Untitled-2-01.png",
     navLinks: [

@@ -95,7 +95,7 @@ export default function OTSecurityFirstLayout({
         audience={["OT/ICS security leaders", "Plant CISOs", "Engineering directors", "Energy and utilities security heads", "Petrochemicals and oil & gas security executives", "Mining and transport security leaders", "Critical-infrastructure operators"]}
         editions={[
           { name: "OT Security Virtual Forum MENA 2026", city: "MENA Region", country: "Online", date: "19 May 2026", url: `${BASE_URL}/events/ot-security-first/virtual-boardroom-mena` },
-          { name: "OT Security First Africa 2026, Johannesburg", city: "Johannesburg", country: "South Africa", date: "26 August 2026", url: `${BASE_URL}/events/ot-security-first/johannesburg-2026` },
+          { name: "OT Security First Africa 2026, Johannesburg", city: "Johannesburg", country: "South Africa", date: "27 August 2026", url: `${BASE_URL}/events/ot-security-first/johannesburg-2026` },
           { name: "OT Security Jubail 2026", city: "Jubail", country: "Saudi Arabia", date: "7 October 2026", url: `${BASE_URL}/events/ot-security-first/jubail-2026` },
           { name: "OT Security Oman 2026", city: "Muscat", country: "Oman", date: "14 October 2026", url: `${BASE_URL}/events/ot-security-first/oman-2026` },
         ]}

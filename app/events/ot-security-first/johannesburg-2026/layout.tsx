@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title:
     "OT Security First Africa 2026 | Johannesburg — Uncompromised OT Security",
   description:
-    "Africa's premier OT/ICS security summit, Johannesburg, 26 August 2026. 200+ delegates and 20+ speakers from energy, utilities, and critical infrastructure.",
+    "Africa's premier OT/ICS security summit, Johannesburg, 27 August 2026. 200+ delegates and 20+ speakers from energy, utilities, and critical infrastructure.",
   keywords: [
     "OT security conference South Africa 2026",
     "industrial cybersecurity summit Johannesburg",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "OT Security First Africa 2026 — Johannesburg",
     description:
-      "Uncompromised OT Security. 200+ delegates, 26 August 2026, Johannesburg. Protecting what Powers our World.",
+      "Uncompromised OT Security. 200+ delegates, 27 August 2026, Johannesburg. Protecting what Powers our World.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "OT Security First Africa 2026 — Johannesburg",
     description:
-      "Uncompromised OT Security. 200+ delegates, 26 August 2026, Johannesburg.",
+      "Uncompromised OT Security. 200+ delegates, 27 August 2026, Johannesburg.",
     images: [OG_IMAGE],
   },
 };
@@ -83,8 +83,8 @@ export default function OTSecurityFirstJohannesburgLayout({
             name: "OT Security First Africa 2026 — Johannesburg",
             description:
               "Uncompromised OT Security - Protecting what Powers our World. Cross-sector collaboration between technology experts, OT leaders, government and policy makers.",
-            startDate: "2026-08-26T08:30:00+02:00",
-            endDate: "2026-08-26T18:00:00+02:00",
+            startDate: "2026-08-27T08:30:00+02:00",
+            endDate: "2026-08-27T18:00:00+02:00",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode:
               "https://schema.org/OfflineEventAttendanceMode",
@@ -128,7 +128,7 @@ export default function OTSecurityFirstJohannesburgLayout({
                 name: "When is OT Security First Africa 2026?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "OT Security First Africa 2026 takes place on 26 August 2026 in Johannesburg, South Africa.",
+                  text: "OT Security First Africa 2026 takes place on 27 August 2026 in Johannesburg, South Africa.",
                 },
               },
               {
@@ -170,7 +170,7 @@ export default function OTSecurityFirstJohannesburgLayout({
       <EventFactBlock
         eventName="OT Security First Africa 2026, Johannesburg"
         series="OT Security First"
-        date="26 August 2026"
+        date="27 August 2026"
         city="Johannesburg"
         country="South Africa"
         format="in-person"

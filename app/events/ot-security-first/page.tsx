@@ -25,7 +25,7 @@ const S3_LOGOS = `${S3}/sponsors-logo`;
 // ─── DATA ────────────────────────────────────────────────────────────────────
 const EDITIONS_2026 = [
   { city: "OT MENA", country: "Regional Virtual", date: "TBC 2026", edition: "Virtual Boardroom", href: "/events/ot-security-first/virtual-boardroom-mena", status: "open", venue: "Virtual · MENA", image: `${S3}/Good/4N8A0290.JPG`, logo: "" },
-  { city: "Johannesburg", country: "South Africa", date: "26 August 2026", edition: "1st Edition · Africa", href: "/events/ot-security-first/johannesburg-2026", status: "open", venue: "Johannesburg", image: `${S3}/events/OT%20Security%20First%20UAE%202025/OT%20First%20UAE%20Photos/4N8A0412.JPG`, logo: "" },
+  { city: "Johannesburg", country: "South Africa", date: "27 August 2026", edition: "1st Edition · Africa", href: "/events/ot-security-first/johannesburg-2026", status: "open", venue: "Johannesburg", image: `${S3}/events/OT%20Security%20First%20UAE%202025/OT%20First%20UAE%20Photos/4N8A0412.JPG`, logo: "" },
   { city: "Jubail", country: "Saudi Arabia", date: "07 October 2026", edition: "1st Edition", href: "/events/ot-security-first/jubail-2026", status: "soon", venue: "Jubail Industrial City", image: "", logo: "" },
   { city: "Muscat", country: "Oman", date: "TBC 2026", edition: "1st Edition", href: "/events/ot-security-first/oman-2026", status: "soon", venue: "Venue TBA", image: "", logo: "" },
 ];

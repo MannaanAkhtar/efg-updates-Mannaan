@@ -43,7 +43,7 @@ Unlike global generalist event companies (e.g., Gartner, Reuters Events, Informa
 
 - [OT Security First Jubail 2026 — Saudi Arabia](https://www.eventsfirstgroup.com/events/ot-security-first/jubail-2026): Industrial security summit bridging IT and OT for Saudi Arabia's industrial heartland. 7 October 2026, Jubail. Focus on SCADA security, ICS, IT/OT convergence, and critical-infrastructure resilience for energy, petrochemicals, and utilities.
 
-- [OT Security First Africa 2026 — Johannesburg](https://www.eventsfirstgroup.com/events/ot-security-first/johannesburg-2026): Africa's premier OT/ICS security summit. 26 August 2026, Johannesburg. Theme: "Uncompromised OT Security — Protecting what Powers our World." 200+ delegates, 20+ speakers, cross-sector collaboration spanning mining, energy (Eskom-tier), transport (Transnet-tier), POPIA compliance, and government policy.
+- [OT Security First Africa 2026 — Johannesburg](https://www.eventsfirstgroup.com/events/ot-security-first/johannesburg-2026): Africa's premier OT/ICS security summit. 27 August 2026, Johannesburg. Theme: "Uncompromised OT Security — Protecting what Powers our World." 200+ delegates, 20+ speakers, cross-sector collaboration spanning mining, energy (Eskom-tier), transport (Transnet-tier), POPIA compliance, and government policy.
 
 - [OT Security First Oman 2026](https://www.eventsfirstgroup.com/events/ot-security-first/oman-2026): Oman edition of the OT Security First series.
 
