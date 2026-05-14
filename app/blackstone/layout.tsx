@@ -12,8 +12,10 @@ const montserrat = Montserrat({
 
 const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/blackstone`;
-// TODO: replace with a designed 1200×630 share card once available.
-const OG_IMAGE = `${BASE_URL}/events-first-group_logo_alt.svg`;
+
+// The /blackstone/opengraph-image.tsx route auto-generates the 1200x630
+// share card (Blackstone logo + title) and is wired in automatically by
+// Next.js — no need to set `openGraph.images` or `twitter.images` here.
 
 export const metadata: Metadata = {
   title: "Executive Roundtable Riyadh | Empowering Saudi Public Sector Through Agentic AI",
@@ -36,7 +38,6 @@ export const metadata: Metadata = {
       "Invitation-only executive roundtable on agentic AI for Saudi public sector. Hosted by Blackstone eIT with OutSystems. 10 June 2026, Fairmont Riyadh.",
     url: PAGE_URL,
     siteName: "Events First Group",
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Executive Roundtable Riyadh — 10 June 2026" }],
     locale: "en_US",
     type: "website",
   },
@@ -45,7 +46,6 @@ export const metadata: Metadata = {
     site: "@eventsfirstgrp",
     title: "Executive Roundtable Riyadh — Agentic AI for Saudi Public Sector",
     description: "Invitation-only roundtable. 10 June 2026, Fairmont Riyadh.",
-    images: [OG_IMAGE],
   },
 };
 
@@ -70,7 +70,7 @@ export default function BlackstoneLayout({ children }: { children: React.ReactNo
               name: "Fairmont Riyadh",
               address: { "@type": "PostalAddress", addressLocality: "Riyadh", addressCountry: "SA" },
             },
-            image: [OG_IMAGE],
+            image: [`${PAGE_URL}/opengraph-image`],
             organizer: { "@type": "Organization", name: "Events First Group", url: BASE_URL },
             sponsor: { "@type": "Organization", name: "OutSystems", url: "https://www.outsystems.com/" },
             offers: {
