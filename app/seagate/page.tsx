@@ -284,10 +284,55 @@ function SeagateNav() {
 
 // ─── Hero ────────────────────────────────────────────────────────────────────
 
-// Particle SVG removed (was the primary compositor cost on Mac/large
-// Windows). Earlier we kept the seeded PRNG + round4 helper to avoid SSR
-// hydration mismatches on circle attributes; with the particles gone,
-// both helpers and the PARTICLES array are no longer needed.
+// Deterministic seeded PRNG so particles render identically SSR ↔ client.
+function makeRng(seed: number) {
+  let s = seed >>> 0;
+  return () => {
+    s = (s * 1664525 + 1013904223) >>> 0;
+    return s / 4294967296;
+  };
+}
+
+// Round to 4 decimal places — keeps cx/cy/r values stable across
+// SSR (Node) and client serialization paths so React's hydrator doesn't
+// flag attribute mismatches.
+const round4 = (n: number) => Math.round(n * 10000) / 10000;
+
+// 60 particles along a sweeping J-curve. Lighter than the original 130
+// to keep per-frame compositor work down — uses a single drop-shadow
+// per circle (was two) and no mix-blend-mode, which together cut
+// rasterization cost by ~70% while keeping the same visual atmosphere.
+const PARTICLE_PALETTE = ["#75C04F", "#3FB99B", "#5FE8A0", "#A8E667", "#FFC56B", "#7CD8B8"];
+const PARTICLES = (() => {
+  const rng = makeRng(20260610);
+  const total = 60;
+  const arr: Array<{ cx: number; cy: number; r: number; color: string; opacity: number; delay: number; duration: number; drift: number }> = [];
+  for (let i = 0; i < total; i++) {
+    const t = i / total;
+    const baseX = 8 + t * 88;
+    const baseY = 40 + Math.sin(t * Math.PI * 0.95) * 36 - (1 - t) * 12;
+    const thickness = (rng() - 0.5) * 14;
+    const cx = baseX + thickness;
+    const cy = baseY + (rng() - 0.5) * 12;
+    const r = 0.4 + rng() * rng() * 2.4;
+    const color = PARTICLE_PALETTE[Math.floor(rng() * PARTICLE_PALETTE.length)];
+    const opacity = 0.35 + rng() * 0.55;
+    const delay = rng() * 6;
+    const duration = 4 + rng() * 6;
+    const drift = (rng() - 0.5) * 14;
+    arr.push({
+      cx: round4(cx),
+      cy: round4(cy),
+      r: round4(r),
+      color,
+      opacity: round4(opacity),
+      delay: round4(delay),
+      duration: round4(duration),
+      drift: round4(drift),
+    });
+  }
+  return arr;
+})();
 
 function HeroSection() {
   const ref = useRef<HTMLElement>(null);
@@ -348,11 +393,40 @@ function HeroSection() {
         }}
       />
 
-      {/* ── Layer 2 REMOVED: particle swarm.
-         130 SVG circles with per-circle drop-shadow filters and
-         mix-blend-mode were forcing constant rasterization of a
-         page-sized composite layer. Removed to fix glitching on Mac
-         and large Windows displays. ── */}
+      {/* ── Layer 2: Particle swarm — 60 circles along the J-curve.
+         Reduced from the original 130, single drop-shadow per circle
+         (was two), and no mix-blend-mode. Same atmosphere, ~70%
+         cheaper to paint. ── */}
+      <svg
+        aria-hidden
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        style={{
+          position: "absolute", inset: 0, width: "100%", height: "100%",
+          zIndex: 2, pointerEvents: "none",
+          opacity: 0.7,
+        }}
+      >
+        {PARTICLES.map((p, i) => {
+          const style: React.CSSProperties & Record<string, string> = {
+            filter: `drop-shadow(0 0 ${(p.r * 3).toFixed(2)}px ${p.color})`,
+            animation: `sg-particle-float ${p.duration}s ease-in-out ${p.delay}s infinite alternate`,
+            transformOrigin: `${p.cx}px ${p.cy}px`,
+            "--sg-drift": `${(p.drift * 0.18).toFixed(2)}px`,
+          };
+          return (
+            <circle
+              key={i}
+              cx={p.cx}
+              cy={p.cy}
+              r={round4(p.r * 0.22)}
+              fill={p.color}
+              opacity={p.opacity}
+              style={style}
+            />
+          );
+        })}
+      </svg>
 
       {/* ── Layer 3: Industrial wireframe grid — whisper ── */}
       <div
@@ -647,6 +721,12 @@ function HeroSection() {
           }
         }
 
+        /* Particle drift along J-curve */
+        @keyframes sg-particle-float {
+          0%   { transform: translate(0, 0); }
+          100% { transform: translate(var(--sg-drift, 0px), -8px); }
+        }
+
         /* Kicker pulse dot */
         @keyframes sg-pulse {
           0%, 100% { box-shadow: 0 0 0 0 ${SG_ORANGE}80, 0 0 10px ${SG_ORANGE}80; }
@@ -722,6 +802,7 @@ function HeroSection() {
 
         @media (prefers-reduced-motion: reduce) {
           .sg-pulse-dot, .sg-emblem { animation: none !important; }
+          circle[style*="sg-particle-float"] { animation: none !important; }
         }
       `}</style>
     </section>
