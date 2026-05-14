@@ -284,74 +284,25 @@ function SeagateNav() {
 
 // ─── Hero ────────────────────────────────────────────────────────────────────
 
-// Deterministic seeded PRNG so particles render identically SSR ↔ client
-function makeRng(seed: number) {
-  let s = seed >>> 0;
-  return () => {
-    s = (s * 1664525 + 1013904223) >>> 0;
-    return s / 4294967296;
-  };
-}
-
-// 130 particles along a sweeping J-curve, Seagate hero flow
-const PARTICLE_PALETTE = ["#75C04F", "#3FB99B", "#5FE8A0", "#A8E667", "#FFC56B", "#7CD8B8"];
-// Round to 4 decimal places — Math.sin/multiply differ by 1 ULP across V8 builds
-// (Node vs Chrome), which would trigger a React hydration mismatch and discard
-// the SSR'd tree (visible flash/flicker). Rounding makes serialized values stable.
-const round4 = (n: number) => Math.round(n * 10000) / 10000;
-const PARTICLES = (() => {
-  const rng = makeRng(20260610);
-  const total = 130;
-  const arr: Array<{ cx: number; cy: number; r: number; color: string; opacity: number; delay: number; duration: number; drift: number }> = [];
-  for (let i = 0; i < total; i++) {
-    const t = i / total;
-    const baseX = 8 + t * 88;
-    const baseY = 40 + Math.sin(t * Math.PI * 0.95) * 36 - (1 - t) * 12;
-    const thickness = (rng() - 0.5) * 14;
-    const cx = baseX + thickness;
-    const cy = baseY + (rng() - 0.5) * 12;
-    const r = 0.4 + rng() * rng() * 2.4;
-    const color = PARTICLE_PALETTE[Math.floor(rng() * PARTICLE_PALETTE.length)];
-    const opacity = 0.35 + rng() * 0.55;
-    const delay = rng() * 6;
-    const duration = 4 + rng() * 6;
-    const drift = (rng() - 0.5) * 14;
-    arr.push({
-      cx: round4(cx),
-      cy: round4(cy),
-      r: round4(r),
-      color,
-      opacity: round4(opacity),
-      delay: round4(delay),
-      duration: round4(duration),
-      drift: round4(drift),
-    });
-  }
-  return arr;
-})();
+// Particle SVG removed (was the primary compositor cost on Mac/large
+// Windows). Earlier we kept the seeded PRNG + round4 helper to avoid SSR
+// hydration mismatches on circle attributes; with the particles gone,
+// both helpers and the PARTICLES array are no longer needed.
 
 function HeroSection() {
   const ref = useRef<HTMLElement>(null);
-  const spotlightRef = useRef<HTMLDivElement>(null);
   // Hero content is always visible by default (no inView/opacity gating).
-  // The reveal is now a pure CSS @keyframes animation with no JS state, so
-  // even if the animation fails (WebKit backdrop-filter composite layer
-  // issues at desktop widths on macOS), elements fall back to their natural
-  // visible state. Previously the inView-flip-then-transition pipeline
-  // was leaving the kicker + headline + date marker stuck at opacity 0
-  // on macOS Brave/Safari at desktop widths.
-
-  const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    if (!spotlightRef.current) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    spotlightRef.current.style.setProperty("--sg-mx", `${x}%`);
-    spotlightRef.current.style.setProperty("--sg-my", `${y}%`);
-  };
+  // The reveal is a pure CSS @keyframes animation with no JS state.
+  //
+  // Cursor-follow spotlight REMOVED — the mousemove handler was updating
+  // a CSS variable on every tick, forcing the compositor to repaint a
+  // page-sized radial-gradient layer. Combined with the particle SVG +
+  // backdrop-filter on the pullquote, it caused composite layers to drop
+  // frames on Mac and large Windows displays (headline letters
+  // momentarily disappearing, image artifacts in the next section).
 
   return (
-    <section ref={ref} id="top" onMouseMove={onMouseMove} style={{
+    <section ref={ref} id="top" style={{
       position: "relative", overflow: "hidden",
       background: "#000000",
       minHeight: "100svh",
@@ -397,37 +348,11 @@ function HeroSection() {
         }}
       />
 
-      {/* ── Layer 2: Particle swarm — flowing J-curve ── */}
-      <svg
-        aria-hidden
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-        style={{
-          position: "absolute", inset: 0, width: "100%", height: "100%",
-          zIndex: 2, pointerEvents: "none", mixBlendMode: "screen",
-          opacity: 0.75,
-        }}
-      >
-        {PARTICLES.map((p, i) => {
-          const style: React.CSSProperties & Record<string, string> = {
-            filter: `drop-shadow(0 0 ${(p.r * 2.5).toFixed(2)}px ${p.color}) drop-shadow(0 0 ${(p.r * 5).toFixed(2)}px ${p.color}60)`,
-            animation: `sg-particle-float ${p.duration}s ease-in-out ${p.delay}s infinite alternate`,
-            transformOrigin: `${p.cx}px ${p.cy}px`,
-            "--sg-drift": `${(p.drift * 0.18).toFixed(2)}px`,
-          };
-          return (
-            <circle
-              key={i}
-              cx={p.cx}
-              cy={p.cy}
-              r={round4(p.r * 0.22)}
-              fill={p.color}
-              opacity={p.opacity}
-              style={style}
-            />
-          );
-        })}
-      </svg>
+      {/* ── Layer 2 REMOVED: particle swarm.
+         130 SVG circles with per-circle drop-shadow filters and
+         mix-blend-mode were forcing constant rasterization of a
+         page-sized composite layer. Removed to fix glitching on Mac
+         and large Windows displays. ── */}
 
       {/* ── Layer 3: Industrial wireframe grid — whisper ── */}
       <div
@@ -463,17 +388,7 @@ function HeroSection() {
       <div aria-hidden style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.18) 22%, rgba(0,0,0,0) 42%, rgba(0,0,0,0) 58%, rgba(0,0,0,0.35) 78%, rgba(0,0,0,0.88) 100%)`, zIndex: 3, pointerEvents: "none" }} />
       <div aria-hidden style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 90% 100% at 50% 50%, transparent 38%, rgba(0,0,0,0.55) 100%)`, zIndex: 3, pointerEvents: "none" }} />
 
-      {/* Cursor-follow spotlight */}
-      <div
-        ref={spotlightRef}
-        aria-hidden
-        style={{
-          position: "absolute", inset: 0, pointerEvents: "none",
-          background: `radial-gradient(600px circle at var(--sg-mx, 50%) var(--sg-my, 35%), ${SG_ORANGE}14 0%, transparent 45%)`,
-          transition: "background 0.4s ease-out",
-          zIndex: 3,
-        }}
-      />
+      {/* Cursor-follow spotlight REMOVED — see top of HeroSection for rationale. */}
 
       {/* ── GHOST EMBLEM: massive "4+" outline behind everything (signature) ── */}
       <div
@@ -601,15 +516,15 @@ function HeroSection() {
               paddingBlock: "clamp(8px, 1.4vh, 14px)",
             }}
           >
-            {/* Soft reading-surface — radial wash + blur behind the text only */}
+            {/* Soft reading-surface — solid radial wash (backdrop-filter
+               removed; was forcing per-frame compositor re-rasterization
+               whenever the mesh-gradient underneath changed). */}
             <span
               aria-hidden
               style={{
                 position: "absolute",
                 inset: "-6% -8% -6% -2%",
-                background: `radial-gradient(ellipse 80% 90% at 35% 50%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.32) 45%, transparent 80%)`,
-                backdropFilter: "blur(6px) saturate(1.1)",
-                WebkitBackdropFilter: "blur(6px) saturate(1.1)",
+                background: `radial-gradient(ellipse 80% 90% at 35% 50%, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.0) 85%)`,
                 borderRadius: 12,
                 pointerEvents: "none",
                 zIndex: 0,
@@ -732,12 +647,6 @@ function HeroSection() {
           }
         }
 
-        /* Particle drift along J-curve */
-        @keyframes sg-particle-float {
-          0%   { transform: translate(0, 0); }
-          100% { transform: translate(var(--sg-drift, 0px), -8px); }
-        }
-
         /* Kicker pulse dot */
         @keyframes sg-pulse {
           0%, 100% { box-shadow: 0 0 0 0 ${SG_ORANGE}80, 0 0 10px ${SG_ORANGE}80; }
@@ -813,7 +722,6 @@ function HeroSection() {
 
         @media (prefers-reduced-motion: reduce) {
           .sg-pulse-dot, .sg-emblem { animation: none !important; }
-          circle[style*="sg-particle-float"] { animation: none !important; }
         }
       `}</style>
     </section>
@@ -828,10 +736,13 @@ function StatementSection() {
   const headerRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
-  const bgRef = useRef<HTMLImageElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-60px" });
 
-  // Reveal timeline — fires when section enters viewport
+  // Reveal timeline — fires when section enters viewport.
+  // Dropped expensive filter:blur and clip-path animations — both forced
+  // per-frame compositor work and were among the heaviest paints on the
+  // page. Replaced with opacity + translateY which the browser can keep
+  // on a GPU layer without re-rasterizing.
   useGSAP(() => {
     if (!inView) return;
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
@@ -844,13 +755,13 @@ function StatementSection() {
         .fromTo(kicker, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.5 }, 0.1);
     }
 
-    // Heading — word-by-word blur reveal
+    // Heading — word-by-word opacity + y reveal (no filter:blur)
     if (headingRef.current) {
       const words = headingRef.current.querySelectorAll(".sg-reveal-word");
       tl.fromTo(
         words,
-        { opacity: 0.05, filter: "blur(8px)", y: 8 },
-        { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.55, stagger: 0.05, ease: "power2.out" },
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.55, stagger: 0.05, ease: "power2.out" },
         0.2
       );
     }
@@ -861,39 +772,25 @@ function StatementSection() {
       if (divider) tl.fromTo(divider, { scaleX: 0 }, { scaleX: 1, duration: 0.6, transformOrigin: "center" }, 0.7);
     }
 
-    // Body paragraphs — clip-path reveal + stagger
+    // Body paragraphs — opacity + y stagger (no clip-path)
     if (bodyRef.current) {
       const paras = bodyRef.current.querySelectorAll(".sg-ov-para");
       const callout = bodyRef.current.querySelector(".sg-ov-callout");
       tl.fromTo(
         paras,
-        { clipPath: "inset(0 0 30% 0)", opacity: 0, y: 14 },
-        { clipPath: "inset(0 0 0% 0)", opacity: 1, y: 0, duration: 0.75, stagger: 0.12 },
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.65, stagger: 0.12 },
         0.8
       );
       if (callout) tl.fromTo(callout, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5 }, 1.15);
     }
   }, [inView]);
 
-  // Scroll-linked background parallax — image drifts upward + subtle scale-out for depth
-  useGSAP(() => {
-    if (!bgRef.current || !sectionRef.current) return;
-    gsap.fromTo(
-      bgRef.current,
-      { yPercent: 12, scale: 1.08 },
-      {
-        yPercent: -12,
-        scale: 1,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
-        },
-      }
-    );
-  }, []);
+  // Scroll-linked background parallax REMOVED.
+  // The fromTo({ yPercent: 12, scale: 1.08 } → { yPercent: -12, scale: 1 })
+  // with scrub: 1 on a huge background image was the primary cause of the
+  // mid-page glitch — every scroll tick re-transformed an 1800×1100 PNG
+  // and forced the section to re-rasterize. Background is now static.
 
   return (
     <section ref={sectionRef} id="overview" style={{
@@ -915,7 +812,6 @@ function StatementSection() {
         pointerEvents: "none",
       }}>
         <Image
-          ref={bgRef}
           src="https://efg-final.s3.eu-north-1.amazonaws.com/logos/seagate_bg.png"
           alt=""
           fill
@@ -923,22 +819,22 @@ function StatementSection() {
           style={{
             objectFit: "contain",
             objectPosition: "center center",
-            willChange: "transform",
           }}
         />
       </div>
 
-      {/* Strong soft backdrop directly behind text — full readability over the image */}
+      {/* Solid readability wash behind the text — no filter:blur (image
+         itself is already blurred + dimmed above). Just a soft bone-tinted
+         radial that keeps the headline + body crisp. */}
       <div aria-hidden style={{
         position: "absolute",
         top: "50%", left: "50%",
         transform: "translate(-50%, -50%)",
-        width: "min(85%, 900px)",
-        height: "min(75%, 560px)",
-        background: `radial-gradient(ellipse 60% 60% at 50% 50%, ${SG_BONE}f5 0%, ${SG_BONE}e0 45%, ${SG_BONE}80 70%, transparent 90%)`,
+        width: "min(95%, 1080px)",
+        height: "min(82%, 640px)",
+        background: `radial-gradient(ellipse 55% 55% at 50% 50%, ${SG_BONE} 0%, ${SG_BONE}f0 35%, ${SG_BONE}b8 60%, ${SG_BONE}60 78%, transparent 92%)`,
         zIndex: 1,
         pointerEvents: "none",
-        filter: "blur(30px)",
       }} />
 
       <div style={{
@@ -1026,7 +922,6 @@ function StatementSection() {
             lineHeight: 1.75,
             margin: "0 0 14px",
             opacity: 0,
-            clipPath: "inset(0 0 30% 0)",
             letterSpacing: "-0.003em",
           }}>
             Seagate offers the most reliable data storage solutions in the world — high-capacity drives that consume{" "}
@@ -1049,7 +944,6 @@ function StatementSection() {
             lineHeight: 1.75,
             margin: "0 0 32px",
             opacity: 0,
-            clipPath: "inset(0 0 30% 0)",
             letterSpacing: "-0.003em",
           }}>
             More data in a single drive. Better efficiency. Built for the era of mass capacity.
@@ -2194,7 +2088,7 @@ function RegisterSection() {
                     <input
                       id="sg-fullName" name="fullName" type="text" required
                       placeholder="Your full name"
-                      value={form.fullName} onChange={handleChange}
+                      value={form.fullName} onChange={handleChange} suppressHydrationWarning
                     />
                   </div>
                   <div className="sg-form-field">
@@ -2202,7 +2096,7 @@ function RegisterSection() {
                     <input
                       id="sg-email" name="email" type="email" required
                       placeholder="you@company.com"
-                      value={form.email} onChange={handleChange}
+                      value={form.email} onChange={handleChange} suppressHydrationWarning
                     />
                   </div>
                 </div>
@@ -2213,6 +2107,7 @@ function RegisterSection() {
                   <div className="sg-form-phone">
                     <select
                       aria-label="Country code"
+                      suppressHydrationWarning
                       value={`${country.code}|${country.country}`}
                       onChange={(e) => {
                         const [code, c] = e.target.value.split("|");
@@ -2230,7 +2125,7 @@ function RegisterSection() {
                       id="sg-phone" name="phone" type="tel" required
                       placeholder={country.placeholder}
                       maxLength={country.length}
-                      value={form.phone} onChange={handleChange}
+                      value={form.phone} onChange={handleChange} suppressHydrationWarning
                     />
                   </div>
                   {phoneError && <p className="sg-form-error">{phoneError}</p>}
@@ -2243,7 +2138,7 @@ function RegisterSection() {
                     <input
                       id="sg-company" name="company" type="text" required
                       placeholder="Company name"
-                      value={form.company} onChange={handleChange}
+                      value={form.company} onChange={handleChange} suppressHydrationWarning
                     />
                   </div>
                   <div className="sg-form-field">
@@ -2251,7 +2146,7 @@ function RegisterSection() {
                     <input
                       id="sg-title" name="jobTitle" type="text" required
                       placeholder="Your role"
-                      value={form.jobTitle} onChange={handleChange}
+                      value={form.jobTitle} onChange={handleChange} suppressHydrationWarning
                     />
                   </div>
                 </div>
@@ -2262,7 +2157,7 @@ function RegisterSection() {
                   <textarea
                     id="sg-message" name="message" rows={3}
                     placeholder="Anything you'd like us to know..."
-                    value={form.message} onChange={handleChange}
+                    value={form.message} onChange={handleChange} suppressHydrationWarning
                   />
                 </div>
 
@@ -2512,14 +2407,30 @@ function SeagateFooter() {
           <Image
             src={LOGO_2C_NEG}
             alt="Seagate"
-            width={190}
-            height={38}
-            style={{ height: 38, width: "auto", opacity: 0.95 }}
+            width={260}
+            height={52}
+            style={{ height: 52, width: "auto", opacity: 0.95 }}
           />
-          <span style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>© Seagate Technology LLC. All rights reserved.</span>
         </div>
-        <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", margin: 0 }}>
-          Produced by <a href="https://www.eventsfirstgroup.com" target="_blank" rel="noopener noreferrer" style={{ color: SG_ORANGE, textDecoration: "none", fontWeight: 500 }}>Events First Group</a>
+        <p style={{
+          fontSize: 12, color: "rgba(255,255,255,0.4)", margin: 0,
+          display: "inline-flex", alignItems: "center", gap: 10,
+        }}>
+          Produced by
+          <a
+            href="https://www.eventsfirstgroup.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Events First Group"
+            style={{ display: "inline-flex", alignItems: "center", textDecoration: "none" }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/events-first-group_logo_alt.svg"
+              alt="Events First Group"
+              style={{ height: 36, width: "auto", opacity: 0.85 }}
+            />
+          </a>
         </p>
       </div>
     </footer>
