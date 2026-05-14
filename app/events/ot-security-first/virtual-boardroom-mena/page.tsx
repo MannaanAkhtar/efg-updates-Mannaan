@@ -2976,8 +2976,8 @@ function AgendaSection() {
                           color: `rgba(${typeStyle.rgb},0.85)`,
                           margin: "0 0 6px",
                         };
-                        const personRow = (p: AgendaPerson, idx: number, total: number) => (
-                          <div key={idx} style={{ display: "flex", gap: 8, alignItems: "flex-start", marginTop: idx === 0 ? 0 : 6 }}>
+                        const personRow = (p: AgendaPerson, idx: number) => (
+                          <div key={idx} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
                             <span aria-hidden style={{
                               flexShrink: 0,
                               width: 4, height: 4, borderRadius: "50%",
@@ -3026,19 +3026,29 @@ function AgendaSection() {
                             </div>
                           </div>
                         );
-                        const speakerLabel = item.speakers && item.speakers.length === 1 && item.type === "sponsor" ? "Speaker" : "Speakers";
+                        const speakerCount = item.speakers?.length ?? 0;
+                        const speakerLabel = speakerCount === 1 && item.type === "sponsor" ? "Speaker" : "Speakers";
                         return (
                           <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                             {item.moderator && (
-                              <div style={{ marginBottom: item.speakers && item.speakers.length > 0 ? 12 : 0 }}>
+                              <div style={{ marginBottom: speakerCount > 0 ? 12 : 0 }}>
                                 <p style={labelStyle}>Moderator</p>
-                                {personRow(item.moderator, 0, 1)}
+                                {personRow(item.moderator, 0)}
                               </div>
                             )}
-                            {item.speakers && item.speakers.length > 0 && (
+                            {item.speakers && speakerCount > 0 && (
                               <div>
                                 <p style={labelStyle}>{speakerLabel}</p>
-                                {item.speakers.map((s, idx) => personRow(s, idx, item.speakers!.length))}
+                                <div
+                                  className="otvm-agenda-speakers-grid"
+                                  style={{
+                                    display: "grid",
+                                    gridTemplateColumns: speakerCount > 1 ? "repeat(2, minmax(0, 1fr))" : "1fr",
+                                    gap: "10px 18px",
+                                  }}
+                                >
+                                  {item.speakers.map((s, idx) => personRow(s, idx))}
+                                </div>
                               </div>
                             )}
                           </div>
@@ -3071,6 +3081,9 @@ function AgendaSection() {
       <style jsx global>{`
         @media (max-width: 760px) {
           .otvm-agenda-cols { grid-template-columns: 1fr !important; gap: 0 !important; }
+        }
+        @media (max-width: 520px) {
+          .otvm-agenda-speakers-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>
