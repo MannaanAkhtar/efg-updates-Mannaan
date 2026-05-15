@@ -328,555 +328,584 @@ function HeroSection() {
     <section id="top" style={{
       position: "relative",
       overflow: "hidden",
-      background: CREAM,
+      background: BS_WHITE,
       color: INK,
-      height: "100svh",
-      maxHeight: "100svh",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "space-between",
-      paddingTop: "clamp(96px, 11vh, 130px)",
-      paddingBottom: "clamp(20px, 2.6vh, 32px)",
+      paddingTop: "clamp(120px, 14vh, 170px)",
+      paddingBottom: "clamp(64px, 9vh, 110px)",
       paddingLeft: "clamp(24px, 5vw, 64px)",
       paddingRight: "clamp(24px, 5vw, 64px)",
     }}>
-      {/* ── L0: warm mesh wash — bolder red dawn + visible yellow + warm cream base ── */}
+      {/* ── Cool gradient wash — Blackstone-leaning tones. White diagonal base
+            fading to soft silver-blue + cyan glow upper-left + navy hint
+            bottom-right + light-blue accent upper-right. The red CTA and
+            "Agentic AI" headline pop sharply against the cool field. ── */}
       <div aria-hidden style={{
         position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none",
         background: `
-          radial-gradient(ellipse 75% 60% at 92% 8%, ${OS_RED}4d 0%, ${OS_RED}26 22%, ${OS_RED}0a 48%, transparent 68%),
-          radial-gradient(ellipse 55% 45% at 8% 95%, ${OS_YELLOW}3d 0%, ${OS_YELLOW}1f 28%, ${OS_YELLOW}0a 50%, transparent 68%),
-          radial-gradient(ellipse 45% 35% at 50% 100%, ${OS_RED}1f 0%, transparent 60%),
-          radial-gradient(ellipse 85% 60% at 50% 50%, ${BS_WHITE}cc 0%, transparent 65%),
-          linear-gradient(170deg, #FAF5F0 0%, #F6F0EA 35%, ${CREAM} 65%, #F4ECE5 100%)
+          radial-gradient(ellipse 55% 40% at 6% 10%, ${BS_CYAN}26 0%, ${BS_CYAN}0d 38%, transparent 72%),
+          radial-gradient(ellipse 50% 38% at 96% 92%, ${BS_NAVY}1f 0%, ${BS_NAVY}08 36%, transparent 68%),
+          radial-gradient(ellipse 40% 30% at 92% 12%, ${BS_LIGHT_BLUE}14 0%, transparent 65%),
+          linear-gradient(165deg, ${BS_WHITE} 0%, #F4F8FC 50%, #E8F0F8 100%)
         `,
       }} />
 
-      {/* ── L0b: central red halo behind the headline — anchors visual weight ── */}
-      <div aria-hidden style={{
-        position: "absolute", top: "32%", left: "50%",
-        transform: "translateX(-50%)",
-        width: "50%", height: "40%",
-        background: `radial-gradient(ellipse 60% 50% at 50% 50%, ${OS_RED}1a 0%, ${OS_RED}0a 35%, transparent 65%)`,
-        filter: "blur(50px)",
-        pointerEvents: "none",
-        zIndex: 0,
-      }} />
-
-      {/* ── L1a: large decorative OutSystems ring — upper-right sculptural element ── */}
-      <div aria-hidden style={{
-        position: "absolute", top: "-18vmin", right: "-14vmin",
-        width: "62vmin", height: "62vmin",
-        borderRadius: "50%",
-        border: `1.5px solid ${OS_RED}`,
-        opacity: 0.08,
-        pointerEvents: "none",
-        zIndex: 1,
-      }}>
-        {/* Inner concentric ring */}
-        <div style={{
-          position: "absolute", inset: "9%",
-          borderRadius: "50%",
-          border: `1.5px solid ${OS_RED}`,
-          opacity: 0.7,
-        }} />
-        {/* Innermost ring — even finer */}
-        <div style={{
-          position: "absolute", inset: "22%",
-          borderRadius: "50%",
-          border: `1px solid ${OS_RED}`,
-          opacity: 0.5,
-        }} />
-      </div>
-
-      {/* ── L1b: second OutSystems ring — lower-left sculptural counterweight ── */}
-      <div aria-hidden style={{
-        position: "absolute", bottom: "-12vmin", left: "-10vmin",
-        width: "46vmin", height: "46vmin",
-        borderRadius: "50%",
-        border: `1.5px solid ${OS_RED}`,
-        opacity: 0.06,
-        pointerEvents: "none",
-        zIndex: 1,
-      }}>
-        <div style={{
-          position: "absolute", inset: "10%",
-          borderRadius: "50%",
-          border: `1.5px solid ${OS_RED}`,
-          opacity: 0.7,
-        }} />
-        <div style={{
-          position: "absolute", inset: "25%",
-          borderRadius: "50%",
-          border: `1px solid ${OS_RED}`,
-          opacity: 0.5,
-        }} />
-      </div>
-
-      {/* ── L1c: OutSystems ring micropattern — geometric language across the canvas ── */}
-      <div aria-hidden style={{
-        position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
-        backgroundImage: `
-          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='3' fill='none' stroke='%23F22800' stroke-width='1' opacity='0.5'/></svg>")
-        `,
-        backgroundSize: "44px 44px",
-        WebkitMaskImage: "radial-gradient(ellipse 78% 68% at 50% 48%, transparent 22%, rgba(0,0,0,0.4) 80%, rgba(0,0,0,0.6) 100%)",
-        maskImage: "radial-gradient(ellipse 78% 68% at 50% 48%, transparent 22%, rgba(0,0,0,0.4) 80%, rgba(0,0,0,0.6) 100%)",
-        opacity: 0.4,
-      }} />
-
-      {/* ── L1d: satellite ring — small editorial accent upper-left ── */}
-      <div className="bs-hero-satellite" aria-hidden style={{
-        position: "absolute",
-        top: "clamp(150px, 18vh, 220px)",
-        left: "clamp(28px, 5vw, 80px)",
-        width: 64, height: 64,
-        borderRadius: "50%",
-        border: `1.5px solid ${OS_RED}55`,
-        boxShadow: `0 0 0 1px ${OS_RED}1a, inset 0 0 0 4px ${BS_WHITE}, inset 0 0 0 5px ${OS_RED}33`,
-        zIndex: 1,
-        pointerEvents: "none",
-      }}>
-        {/* Inner ring */}
-        <div style={{
-          position: "absolute", inset: 16,
-          borderRadius: "50%",
-          background: OS_RED,
-          opacity: 0.85,
-        }} />
-      </div>
-
-      {/* ── L1e: yellow accent satellite — small dot lower-right for OS secondary hue ── */}
-      <div className="bs-hero-yellow-mark" aria-hidden style={{
-        position: "absolute",
-        top: "clamp(160px, 22vh, 260px)",
-        right: "clamp(32px, 6vw, 96px)",
-        width: 10, height: 10,
-        borderRadius: "50%",
-        background: OS_YELLOW,
-        boxShadow: `0 0 0 4px ${OS_YELLOW}26, 0 0 12px ${OS_YELLOW}66`,
-        zIndex: 1,
-      }} />
-
-      {/* ── L2b: editorial side marker — bottom-left vertical caption, red accent ── */}
-      <div className="bs-hero-side-marker" aria-hidden style={{
-        position: "absolute",
-        bottom: "clamp(140px, 18vh, 200px)",
-        left: "clamp(24px, 4vw, 48px)",
-        zIndex: 4,
-        writingMode: "vertical-rl",
-        transform: "rotate(180deg)",
-        fontFamily: "var(--font-cabin), system-ui, sans-serif",
-        fontSize: 10,
-        fontWeight: 700,
-        letterSpacing: "0.42em",
-        textTransform: "uppercase",
-        color: OS_RED,
-        display: "inline-flex",
+      {/* ── 2-column hero grid — asymmetric (text 1.15fr / event card 1fr) ── */}
+      <div className="bs-hero-grid" style={{
+        position: "relative", zIndex: 2,
+        maxWidth: 1280,
+        margin: "0 auto",
+        display: "grid",
+        gridTemplateColumns: "1.15fr 1fr",
+        gap: "clamp(40px, 6vw, 96px)",
         alignItems: "center",
-        gap: 10,
       }}>
-        <span style={{ display: "inline-block", width: 12, height: 1, background: OS_RED }} />
-        Vision 2030 · Agentic AI
-      </div>
 
-      {/* ── Content stack — auto margins absorb empty space so it sits centered between nav and bottom block ── */}
-      <div style={{
-        position: "relative", zIndex: 3,
-        width: "100%",
-        maxWidth: 1100,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        textAlign: "center",
-        gap: "clamp(16px, 2.4vh, 28px)",
-        margin: "auto 0",
-      }}>
-        {/* Eyebrow — light glass instrument: white surface, red accents, OutSystems home */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: EASE }}
-          style={{
-            position: "relative",
-            display: "inline-flex", alignItems: "center", gap: 12,
-            padding: "10px 22px 10px 18px",
-            borderRadius: 999,
-            background: `linear-gradient(180deg, ${BS_WHITE} 0%, #FAF7F4 100%)`,
-            border: `1px solid ${GRAY_300}`,
-            boxShadow: `
-              0 1px 0 0 rgba(255,255,255,1) inset,
-              0 -1px 0 0 ${OS_RED}26 inset,
-              0 1px 2px rgba(14,14,16,0.05),
-              0 10px 26px rgba(14,14,16,0.08),
-              0 0 32px ${OS_RED}1f
-            `,
-            fontFamily: "var(--font-cabin), system-ui, sans-serif",
-            fontSize: "clamp(11px, 0.95vw, 12.5px)",
-            fontWeight: 600,
-            letterSpacing: "0.28em",
-            textTransform: "uppercase",
-            color: CHARCOAL,
-          }}
-        >
-          {/* Specular top highlight — crisp engraved light catch */}
-          <span aria-hidden style={{
-            position: "absolute",
-            top: 1, left: "14%", right: "14%",
-            height: 1,
-            background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 50%, transparent 100%)`,
-            borderRadius: 999,
-            pointerEvents: "none",
-          }} />
-          {/* Under-rim red glow accent */}
-          <span aria-hidden style={{
-            position: "absolute",
-            bottom: 1, left: "22%", right: "22%",
-            height: 0.5,
-            background: `linear-gradient(90deg, transparent 0%, ${OS_RED}66 50%, transparent 100%)`,
-            borderRadius: 999,
-            pointerEvents: "none",
-          }} />
-
-          {/* Pulsing red dot */}
-          <span className="bs-eyebrow-dot" style={{
-            position: "relative",
-            width: 7, height: 7, borderRadius: "50%",
-            background: OS_RED,
-            boxShadow: `0 0 0 0 ${OS_RED}55, 0 0 0 2px ${BS_WHITE}, 0 0 0 3px ${OS_RED}33`,
-          }} />
-          <span>Riyadh</span>
-          <span aria-hidden style={{
-            display: "inline-block",
-            width: 3, height: 3, borderRadius: "50%",
-            background: OS_RED,
-            opacity: 0.55,
-          }} />
-          <span style={{ color: INK, fontWeight: 700, letterSpacing: "0.22em" }}>10 June 2026</span>
-        </motion.div>
-
-        {/* Monumental headline — Cabin, ink black, with solid OS red on "Agentic AI." */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.0, delay: 0.15, ease: EASE }}
-          style={{
-            fontFamily: "var(--font-cabin), system-ui, sans-serif",
-            fontSize: "clamp(38px, 6.2vw, 88px)",
-            fontWeight: 700,
-            color: INK,
-            letterSpacing: "-0.035em",
-            lineHeight: 1.02,
-            margin: 0,
-            textWrap: "balance" as "balance",
-          }}
-        >
-          Empowering Saudi
-          <br />
-          Public Sector through
-          <br />
-          <span style={{ color: OS_RED, fontWeight: 700 }}>
-            Agentic AI.
-          </span>
-        </motion.h1>
-
-        {/* One supporting line — Noto Sans, OS' long-format face */}
-        <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.4, ease: EASE }}
-          style={{
-            margin: 0,
-            fontFamily: "var(--font-noto-sans), system-ui, sans-serif",
-            fontSize: "clamp(14px, 1.15vw, 18px)",
-            fontWeight: 400,
-            lineHeight: 1.55,
-            color: GRAY_700,
-            maxWidth: 620,
-            letterSpacing: "-0.005em",
-            textWrap: "balance" as "balance",
-          }}
-        >
-          An invitation-only executive roundtable on scaling agentic AI for Saudi Vision 2030. Hosted by {BRAND_HOST} with {BRAND_SPONSOR}.
-        </motion.p>
-
-        {/* Single CTA — flat solid OutSystems red, matching outsystems.com style */}
-        <motion.a
-          href="#register"
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.6, ease: EASE }}
-          className="bs-hero-cta"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 10,
-            marginTop: "clamp(8px, 1.6vh, 16px)",
-            padding: "14px 30px",
-            borderRadius: 999,
-            background: OS_RED,
-            color: BS_WHITE,
-            fontFamily: "var(--font-cabin), system-ui, sans-serif",
-            fontSize: 14.5,
-            fontWeight: 700,
-            letterSpacing: "0.01em",
-            textDecoration: "none",
-            boxShadow: `0 2px 6px ${OS_RED}1f, 0 4px 14px ${OS_RED}1a`,
-            transition: "background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease",
-          }}
-        >
-          Request invitation
-          <span aria-hidden style={{ fontSize: 15, marginTop: -1 }}>→</span>
-        </motion.a>
-      </div>
-
-      {/* ── Hero bottom block: partnership lockup, then meta+countdown ribbon ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.7, ease: EASE }}
-        style={{
-          position: "relative",
-          zIndex: 3,
-          flex: "0 0 auto",
-          width: "100%",
-          maxWidth: 1320,
-          margin: "0 auto",
+        {/* ─── LEFT: headline + subhead + CTAs + host lockup ─── */}
+        <div style={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "stretch",
-          gap: "clamp(14px, 1.8vh, 22px)",
-        }}
-      >
-        {/* Partnership lockup — twin WHITE cards (OutSystems home), each logo on
-            its preferred light surface with a brand-color hairline accent. */}
-        <div className="bs-hero-partnership" style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "clamp(20px, 3vw, 40px)",
-          flexWrap: "wrap",
+          gap: "clamp(20px, 2.4vw, 32px)",
         }}>
-          {/* HOSTED BY — Blackstone (white card, cyan hairline accent, dark CMYK logo) */}
-          <div style={{
-            display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
-          }}>
+          {/* Announcement chip — simple, no skeu */}
+          <motion.span
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE }}
+            style={{
+              alignSelf: "flex-start",
+              display: "inline-flex", alignItems: "center", gap: 10,
+              padding: "7px 16px 7px 12px",
+              borderRadius: 999,
+              background: `${OS_RED}0f`,
+              border: `1px solid ${OS_RED}33`,
+              fontFamily: "var(--font-cabin), system-ui, sans-serif",
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: OS_RED_DARK,
+            }}
+          >
+            <span aria-hidden style={{
+              width: 6, height: 6, borderRadius: "50%",
+              background: OS_RED,
+            }} />
+            Invitation-only · 10 June 2026
+          </motion.span>
+
+          {/* Headline — Cabin, big, ink with solid OS_RED on "Agentic AI" */}
+          <motion.h1
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.12, ease: EASE }}
+            style={{
+              fontFamily: "var(--font-cabin), system-ui, sans-serif",
+              fontSize: "clamp(40px, 5.4vw, 76px)",
+              fontWeight: 700,
+              color: INK,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.02,
+              margin: 0,
+              textWrap: "balance" as "balance",
+            }}
+          >
+            Empowering Saudi Public Sector through{" "}
+            <span style={{ color: OS_RED, fontWeight: 700 }}>Agentic AI.</span>
+          </motion.h1>
+
+          {/* Subhead — Noto Sans, gray, longer-form sentence */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.28, ease: EASE }}
+            style={{
+              margin: 0,
+              fontFamily: "var(--font-noto-sans), system-ui, sans-serif",
+              fontSize: "clamp(15px, 1.2vw, 19px)",
+              fontWeight: 400,
+              lineHeight: 1.6,
+              color: GRAY_700,
+              maxWidth: 580,
+              letterSpacing: "-0.003em",
+            }}
+          >
+            An invitation-only executive roundtable on scaling agentic AI for Saudi Vision 2030. Hosted by {BRAND_HOST} with {BRAND_SPONSOR}.
+          </motion.p>
+
+          {/* CTA row — primary red button + secondary text link, OS-style */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.42, ease: EASE }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 20,
+              flexWrap: "wrap",
+              marginTop: "clamp(4px, 0.8vw, 8px)",
+            }}
+          >
+            <a
+              href="#register"
+              className="bs-hero-cta"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                padding: "14px 30px",
+                borderRadius: 999,
+                background: OS_RED,
+                color: BS_WHITE,
+                fontFamily: "var(--font-cabin), system-ui, sans-serif",
+                fontSize: 15,
+                fontWeight: 700,
+                letterSpacing: "0.01em",
+                textDecoration: "none",
+                boxShadow: `0 2px 6px ${OS_RED}1f, 0 4px 14px ${OS_RED}1a`,
+                transition: "background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease",
+              }}
+            >
+              Request invitation
+              <span aria-hidden style={{ fontSize: 15, marginTop: -1 }}>→</span>
+            </a>
+            <a
+              href="#agenda"
+              className="bs-hero-link"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                fontFamily: "var(--font-cabin), system-ui, sans-serif",
+                fontSize: 14,
+                fontWeight: 700,
+                color: CHARCOAL,
+                textDecoration: "none",
+                letterSpacing: "0.01em",
+                transition: "color 0.2s ease, gap 0.2s ease",
+              }}
+            >
+              View agenda
+              <span aria-hidden style={{ fontSize: 14 }}>→</span>
+            </a>
+          </motion.div>
+
+          {/* Host lockup — compact inline row, no cards, no chrome */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.56, ease: EASE }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "clamp(16px, 2vw, 28px)",
+              flexWrap: "wrap",
+              marginTop: "clamp(8px, 1.6vw, 16px)",
+              paddingTop: "clamp(20px, 2.4vw, 32px)",
+              borderTop: `1px solid ${GRAY_300}`,
+            }}
+          >
             <span style={{
               fontFamily: "var(--font-cabin), system-ui, sans-serif",
-              fontSize: 10, fontWeight: 700,
-              letterSpacing: "0.32em", textTransform: "uppercase",
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
               color: GRAY_500,
-              display: "inline-flex", alignItems: "center", gap: 8,
             }}>
-              <BlackstoneHex size={10} color={BS_NAVY} strokeWidth={2} />
               Hosted by
             </span>
-            <div style={{
-              position: "relative",
-              padding: "14px 22px",
-              borderRadius: 14,
-              background: `linear-gradient(180deg, ${BS_WHITE} 0%, #FAF7F4 100%)`,
-              border: `1px solid ${GRAY_300}`,
-              boxShadow: `
-                0 1px 0 0 rgba(255,255,255,1) inset,
-                0 -1px 0 0 ${BS_NAVY}14 inset,
-                0 1px 2px rgba(14,14,16,0.04),
-                0 12px 28px rgba(14,14,16,0.08)
-              `,
-            }}>
-              {/* Top specular highlight */}
-              <span aria-hidden style={{
-                position: "absolute",
-                top: 1, left: "14%", right: "14%",
-                height: 1,
-                background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 50%, transparent 100%)`,
-                borderRadius: 14,
-                pointerEvents: "none",
-              }} />
-              {/* Bottom navy hairline accent — Blackstone signature */}
-              <span aria-hidden style={{
-                position: "absolute",
-                bottom: 0, left: "20%", right: "20%",
-                height: 1,
-                background: `linear-gradient(90deg, transparent 0%, ${BS_NAVY} 50%, transparent 100%)`,
-                pointerEvents: "none",
-              }} />
-              {/* Corner brackets — navy */}
-              {[
-                { top: 6, left: 6, borderTop: true, borderLeft: true },
-                { top: 6, right: 6, borderTop: true, borderRight: true },
-                { bottom: 6, left: 6, borderBottom: true, borderLeft: true },
-                { bottom: 6, right: 6, borderBottom: true, borderRight: true },
-              ].map((pos, i) => (
-                <span key={i} aria-hidden style={{
-                  position: "absolute",
-                  ...pos,
-                  width: 6, height: 6,
-                  borderTop: pos.borderTop ? `1px solid ${BS_NAVY}44` : undefined,
-                  borderBottom: pos.borderBottom ? `1px solid ${BS_NAVY}44` : undefined,
-                  borderLeft: pos.borderLeft ? `1px solid ${BS_NAVY}44` : undefined,
-                  borderRight: pos.borderRight ? `1px solid ${BS_NAVY}44` : undefined,
-                  pointerEvents: "none",
-                }} />
-              ))}
-              <BlackstoneLogomark size={42} dark />
-            </div>
+            <span style={{ display: "inline-flex", alignItems: "center", height: 36, lineHeight: 0 }}>
+              <BlackstoneLogomark size={36} dark />
+            </span>
+            <span aria-hidden style={{
+              width: 1, height: 24,
+              background: GRAY_300,
+            }} />
             <span style={{
               fontFamily: "var(--font-cabin), system-ui, sans-serif",
-              fontSize: 11.5, fontWeight: 400, fontStyle: "italic",
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
               color: GRAY_500,
-              letterSpacing: "0.01em",
-              marginTop: 6,
-            }}>Digital-first. Data-informed. AI-enabled.</span>
-          </div>
+            }}>
+              with
+            </span>
+            <span style={{ display: "inline-flex", alignItems: "center", height: 36, lineHeight: 0 }}>
+              <OutSystemsLogomark size={28} dark />
+            </span>
+          </motion.div>
+        </div>
 
-          {/* Hairline divider */}
-          <span aria-hidden className="bs-hero-partnership-seam" style={{
-            width: 1, height: 90,
-            background: `linear-gradient(180deg, transparent 0%, ${GRAY_300} 30%, ${GRAY_300} 70%, transparent 100%)`,
+        {/* ─── RIGHT: compact event details card — the hero "asset" ─── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24, scale: 0.99 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 1.0, delay: 0.3, ease: EASE }}
+          className="bs-hero-event-card"
+          style={{
+            position: "relative",
+            padding: "clamp(24px, 2.6vw, 32px)",
+            borderRadius: 18,
+            // Layered surface: top-left light catch + diagonal sheen +
+            // vertical gradient base. The card now reads like real material
+            // catching a virtual upper-left light source.
+            background: `
+              radial-gradient(ellipse 60% 40% at 15% 10%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.0) 65%),
+              linear-gradient(135deg, transparent 0%, transparent 48%, rgba(255,255,255,0.55) 50%, transparent 52%, transparent 100%),
+              linear-gradient(180deg, #FFFFFF 0%, #FDFBF8 60%, #F6F2EC 100%)
+            `,
+            border: `1px solid ${GRAY_300}`,
+            // Expanded skeu shadow stack with outer rim light:
+            //   inset top white (2px) = stronger specular along upper edge
+            //   inset bottom dark (2px) = pronounced underside seal
+            //   inset 0 0 0 1px white = inner frame ring (the bevel)
+            //   outer 0 0 0 1px white = sub-pixel rim light (raised glass)
+            //   four stacked outer drops = real lift, multi-distance
+            boxShadow: `
+              0 2px 0 0 rgba(255,255,255,1) inset,
+              0 -2px 0 0 rgba(14,14,16,0.06) inset,
+              0 0 0 1px rgba(255,255,255,0.8) inset,
+              0 0 0 1px rgba(255,255,255,0.9),
+              0 1px 2px rgba(14,14,16,0.05),
+              0 6px 14px rgba(14,14,16,0.06),
+              0 18px 40px rgba(14,14,16,0.08),
+              0 32px 72px rgba(14,14,16,0.1),
+              0 56px 120px rgba(14,14,16,0.05)
+            `,
+            display: "flex",
+            flexDirection: "column",
+            gap: "clamp(14px, 1.6vw, 18px)",
+            overflow: "hidden",
+          }}
+        >
+          {/* Subtle paper-texture noise overlay — tactile feel, very faint */}
+          <span aria-hidden style={{
+            position: "absolute", inset: 0,
+            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>")`,
+            opacity: 0.04,
+            mixBlendMode: "multiply",
+            pointerEvents: "none",
+            zIndex: 0,
           }} />
 
-          {/* WITH — OutSystems (white card, red hairline accent, dark logo — OS home) */}
+          {/* Top accent bar — slightly thicker (3px) with internal gradient
+              + bottom inset = looks like a 3D channel, not a flat sticker. */}
+          <span aria-hidden style={{
+            position: "absolute",
+            top: 0, left: 0, right: 0,
+            height: 3,
+            background: `linear-gradient(90deg, ${OS_RED} 0%, ${OS_RED}cc 40%, ${BS_CYAN}cc 70%, ${BS_CYAN} 100%)`,
+            boxShadow: `
+              0 1px 0 0 rgba(255,255,255,0.5) inset,
+              0 -1px 0 0 rgba(0,0,0,0.15) inset,
+              0 1px 4px ${OS_RED}33
+            `,
+            pointerEvents: "none",
+            zIndex: 3,
+          }} />
+          {/* Specular highlight directly under the accent bar */}
+          <span aria-hidden style={{
+            position: "absolute",
+            top: 3,
+            left: "10%", right: "10%",
+            height: 1.5,
+            background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 50%, transparent 100%)`,
+            pointerEvents: "none",
+            zIndex: 2,
+          }} />
+          {/* Soft red bloom under the upper accent — colored edge lighting up the card */}
+          <span aria-hidden style={{
+            position: "absolute",
+            top: -16, left: "15%", right: "15%",
+            height: 70,
+            background: `radial-gradient(ellipse 70% 100% at 50% 100%, ${OS_RED}12 0%, ${OS_RED}06 40%, transparent 70%)`,
+            filter: "blur(10px)",
+            pointerEvents: "none",
+            zIndex: 0,
+          }} />
+
+
+          {/* Top row: category chip + AST chip — single compact row */}
           <div style={{
-            display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
+            position: "relative",
+            zIndex: 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 10,
+            marginTop: 2,
           }}>
             <span style={{
               fontFamily: "var(--font-cabin), system-ui, sans-serif",
-              fontSize: 10, fontWeight: 700,
-              letterSpacing: "0.32em", textTransform: "uppercase",
+              fontSize: 10.5,
+              fontWeight: 700,
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
               color: GRAY_500,
+              textShadow: `0 1px 0 rgba(255,255,255,0.85)`,
               display: "inline-flex", alignItems: "center", gap: 8,
             }}>
-              <OutSystemsRing size={11} color={OS_RED} strokeWidth={2.4} />
-              With
+              <span aria-hidden style={{
+                width: 6, height: 6, borderRadius: "50%",
+                background: OS_RED,
+                boxShadow: `
+                  0 1px 0 0 rgba(255,255,255,0.5) inset,
+                  0 -1px 0 0 rgba(0,0,0,0.2) inset,
+                  0 0 0 2px ${OS_RED}1a,
+                  0 0 4px ${OS_RED}55
+                `,
+              }} />
+              Executive Roundtable
             </span>
-            <div style={{
-              position: "relative",
-              padding: "14px 22px",
-              borderRadius: 14,
-              background: `linear-gradient(180deg, ${BS_WHITE} 0%, #FAF7F4 100%)`,
+            <span style={{
+              fontFamily: "var(--font-cabin), system-ui, sans-serif",
+              fontSize: 10,
+              fontWeight: 700,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: GRAY_500,
+              padding: "3px 8px",
+              borderRadius: 5,
+              background: `linear-gradient(180deg, #FFFFFF 0%, #F4F0EA 100%)`,
               border: `1px solid ${GRAY_300}`,
               boxShadow: `
-                0 1px 0 0 rgba(255,255,255,1) inset,
-                0 -1px 0 0 ${OS_RED}26 inset,
-                0 1px 2px rgba(14,14,16,0.04),
-                0 12px 28px rgba(14,14,16,0.08),
-                0 0 36px ${OS_RED}14
+                0 1px 0 0 rgba(255,255,255,0.9) inset,
+                0 -1px 0 0 rgba(14,14,16,0.04) inset,
+                0 1px 1px rgba(14,14,16,0.04)
+              `,
+              textShadow: `0 1px 0 rgba(255,255,255,0.9)`,
+            }}>
+              AST
+            </span>
+          </div>
+
+          {/* Date + time block — letterpress-style embossed "10" + supporting lines */}
+          <div style={{
+            position: "relative",
+            zIndex: 1,
+            display: "flex",
+            alignItems: "baseline",
+            gap: 14,
+          }}>
+            <span style={{
+              fontFamily: "var(--font-cabin), system-ui, sans-serif",
+              fontSize: "clamp(56px, 6vw, 80px)",
+              fontWeight: 700,
+              color: INK,
+              letterSpacing: "-0.045em",
+              lineHeight: 0.88,
+              fontVariantNumeric: "tabular-nums",
+              // Letterpress: white highlight above + darker shadow below =
+              // the numeral feels pressed into the card surface, not painted.
+              textShadow: `
+                0 1px 0 rgba(255,255,255,0.9),
+                0 -1px 0 rgba(14,14,16,0.05),
+                0 2px 4px rgba(14,14,16,0.06)
               `,
             }}>
-              {/* Top specular highlight */}
-              <span aria-hidden style={{
-                position: "absolute",
-                top: 1, left: "14%", right: "14%",
-                height: 1,
-                background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 50%, transparent 100%)`,
-                borderRadius: 14,
-                pointerEvents: "none",
-              }} />
-              {/* Bottom red hairline accent — OutSystems signature, stronger than Blackstone */}
-              <span aria-hidden style={{
-                position: "absolute",
-                bottom: 0, left: "16%", right: "16%",
-                height: 1.5,
-                background: `linear-gradient(90deg, transparent 0%, ${OS_RED} 50%, transparent 100%)`,
-                boxShadow: `0 0 8px ${OS_RED}66`,
-                pointerEvents: "none",
-              }} />
-              {/* Corner brackets — red */}
-              {[
-                { top: 6, left: 6, borderTop: true, borderLeft: true },
-                { top: 6, right: 6, borderTop: true, borderRight: true },
-                { bottom: 6, left: 6, borderBottom: true, borderLeft: true },
-                { bottom: 6, right: 6, borderBottom: true, borderRight: true },
-              ].map((pos, i) => (
-                <span key={i} aria-hidden style={{
-                  position: "absolute",
-                  ...pos,
-                  width: 6, height: 6,
-                  borderTop: pos.borderTop ? `1px solid ${OS_RED}66` : undefined,
-                  borderBottom: pos.borderBottom ? `1px solid ${OS_RED}66` : undefined,
-                  borderLeft: pos.borderLeft ? `1px solid ${OS_RED}66` : undefined,
-                  borderRight: pos.borderRight ? `1px solid ${OS_RED}66` : undefined,
-                  pointerEvents: "none",
-                }} />
-              ))}
-              <OutSystemsLogomark size={36} dark />
-            </div>
-            <span style={{
-              fontFamily: "var(--font-cabin), system-ui, sans-serif",
-              fontSize: 11.5, fontWeight: 400, fontStyle: "italic",
-              color: GRAY_500,
-              letterSpacing: "0.01em",
-              marginTop: 6,
-            }}>A Future with No Limits.</span>
-          </div>
-        </div>
-
-        {/* Meta + countdown strip — light variant */}
-        <div className="bs-hero-meta" style={{
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "clamp(14px, 2.4vw, 32px)",
-          padding: "clamp(14px, 1.8vh, 20px) 0",
-          borderTop: `1px solid ${GRAY_300}`,
-          borderBottom: `1px solid ${GRAY_300}`,
-        }}>
-          <div style={{
-            display: "flex", flexWrap: "wrap", alignItems: "center",
-            gap: "clamp(14px, 2vw, 28px)",
-            fontFamily: "var(--font-cabin), system-ui, sans-serif",
-            fontSize: 12.5,
-            fontWeight: 500,
-            color: GRAY_700,
-            letterSpacing: "0.02em",
-          }}>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-              <span style={{ width: 5, height: 5, borderRadius: "50%", background: OS_RED, boxShadow: `0 0 8px ${OS_RED}55` }} />
-              10:00 – 14:20 AST
+              10
             </span>
-            <span style={{ color: GRAY_300 }}>/</span>
-            <span>Fairmont Riyadh</span>
-            <span style={{ color: GRAY_300 }}>/</span>
-            <span style={{ color: GRAY_500 }}>15–20 senior IT executives</span>
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 3,
+            }}>
+              <span style={{
+                fontFamily: "var(--font-cabin), system-ui, sans-serif",
+                fontSize: "clamp(20px, 2.1vw, 26px)",
+                fontWeight: 700,
+                color: OS_RED,
+                letterSpacing: "0.02em",
+                textTransform: "uppercase",
+                lineHeight: 1,
+                textShadow: `0 1px 0 rgba(255,255,255,0.85), 0 0 12px ${OS_RED}1a`,
+              }}>
+                June 2026
+              </span>
+              <span style={{
+                fontFamily: "var(--font-cabin), system-ui, sans-serif",
+                fontSize: "clamp(13px, 1.05vw, 15px)",
+                fontWeight: 500,
+                color: GRAY_700,
+                letterSpacing: "0.01em",
+                lineHeight: 1.2,
+                fontVariantNumeric: "tabular-nums",
+                textShadow: `0 1px 0 rgba(255,255,255,0.8)`,
+              }}>
+                Wed · 10:00 — 14:20
+              </span>
+            </div>
           </div>
 
+          {/* Engraved divider — a thin dark line above a thin light line
+              gives a carved-channel feel rather than a flat hairline. */}
+          <span aria-hidden style={{
+            position: "relative",
+            height: 2, width: "100%",
+            background: `linear-gradient(90deg, transparent 0%, rgba(14,14,16,0.08) 20%, rgba(14,14,16,0.08) 80%, transparent 100%)`,
+            boxShadow: `0 1px 0 0 rgba(255,255,255,0.9)`,
+          }} />
+
+          {/* Compact info rows: Venue + Audience — each glyph sits in a small
+              embossed well with refined press-in skeu: stronger inset, light
+              specular at top, dual-layer well floor. */}
           <div style={{
-            display: "inline-flex", alignItems: "center", gap: "clamp(10px, 1.4vw, 16px)",
+            position: "relative",
+            zIndex: 1,
+            display: "flex",
+            flexDirection: "column",
+            gap: 12,
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <span aria-hidden style={{
+                position: "relative",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 30, height: 30,
+                borderRadius: 8,
+                background: `
+                  radial-gradient(ellipse 60% 50% at 50% 30%, rgba(255,255,255,0.6) 0%, transparent 60%),
+                  linear-gradient(180deg, #E8F0F7 0%, #DCE6F0 100%)
+                `,
+                boxShadow: `
+                  0 1px 0 0 rgba(255,255,255,0.95) inset,
+                  0 2px 3px rgba(11,31,59,0.12) inset,
+                  0 -1px 0 0 ${BS_NAVY}1a inset,
+                  0 1px 0 0 rgba(255,255,255,0.85)
+                `,
+                border: `1px solid ${BS_NAVY}26`,
+                flexShrink: 0,
+              }}>
+                <BlackstoneHex size={13} color={BS_NAVY} strokeWidth={2.2} />
+              </span>
+              <span style={{
+                fontFamily: "var(--font-cabin), system-ui, sans-serif",
+                fontSize: "clamp(13.5px, 1.1vw, 15.5px)",
+                fontWeight: 600,
+                color: INK,
+                letterSpacing: "-0.005em",
+                lineHeight: 1.3,
+                textShadow: `0 1px 0 rgba(255,255,255,0.7)`,
+              }}>
+                Fairmont Riyadh
+                <span style={{ color: GRAY_500, fontWeight: 400, marginLeft: 6 }}>· Riyadh, KSA</span>
+              </span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <span aria-hidden style={{
+                position: "relative",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 30, height: 30,
+                borderRadius: 8,
+                background: `
+                  radial-gradient(ellipse 60% 50% at 50% 30%, rgba(255,255,255,0.6) 0%, transparent 60%),
+                  linear-gradient(180deg, #FFEFE9 0%, #FFE0D3 100%)
+                `,
+                boxShadow: `
+                  0 1px 0 0 rgba(255,255,255,0.95) inset,
+                  0 2px 3px ${OS_RED}1a inset,
+                  0 -1px 0 0 ${OS_RED}26 inset,
+                  0 1px 0 0 rgba(255,255,255,0.85)
+                `,
+                border: `1px solid ${OS_RED}3d`,
+                flexShrink: 0,
+              }}>
+                <OutSystemsRing size={14} color={OS_RED} strokeWidth={2.4} />
+              </span>
+              <span style={{
+                fontFamily: "var(--font-cabin), system-ui, sans-serif",
+                fontSize: "clamp(13.5px, 1.1vw, 15.5px)",
+                fontWeight: 600,
+                color: INK,
+                letterSpacing: "-0.005em",
+                lineHeight: 1.3,
+                textShadow: `0 1px 0 rgba(255,255,255,0.7)`,
+              }}>
+                15–20 senior IT executives
+              </span>
+            </div>
+          </div>
+
+          {/* Engraved divider — a thin dark line above a thin light line
+              gives a carved-channel feel rather than a flat hairline. */}
+          <span aria-hidden style={{
+            position: "relative",
+            height: 2, width: "100%",
+            background: `linear-gradient(90deg, transparent 0%, rgba(14,14,16,0.08) 20%, rgba(14,14,16,0.08) 80%, transparent 100%)`,
+            boxShadow: `0 1px 0 0 rgba(255,255,255,0.9)`,
+          }} />
+
+          {/* Countdown — inline, compact, with subtly engraved numerals */}
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 10,
           }}>
             <span style={{
               fontFamily: "var(--font-cabin), system-ui, sans-serif",
-              fontSize: 10, fontWeight: 700,
-              letterSpacing: "0.32em", textTransform: "uppercase",
+              fontSize: 10.5,
+              fontWeight: 700,
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
               color: GRAY_500,
-            }}>Starts in</span>
-            {([
-              { v: cd.d, l: "Days" },
-              { v: cd.h, l: "Hrs" },
-              { v: cd.m, l: "Min" },
-              { v: cd.s, l: "Sec" },
-            ]).map(({ v, l }, i) => (
-              <span key={i} style={{
-                display: "inline-flex", alignItems: "baseline", gap: 4,
-                fontFamily: "var(--font-cabin), system-ui, sans-serif",
-                fontVariantNumeric: "tabular-nums",
-              }}>
-                <span style={{
-                  fontSize: 16, fontWeight: 700, color: INK, letterSpacing: "-0.01em",
+              textShadow: `0 1px 0 rgba(255,255,255,0.8)`,
+            }}>
+              Starts in
+            </span>
+            <div style={{
+              display: "inline-flex",
+              alignItems: "baseline",
+              gap: "clamp(10px, 1.2vw, 14px)",
+              padding: "8px 12px",
+              borderRadius: 8,
+              background: `linear-gradient(180deg, #F7F4F0 0%, #F2EDE6 100%)`,
+              boxShadow: `
+                0 1px 0 0 rgba(255,255,255,0.95) inset,
+                0 1px 2px rgba(14,14,16,0.06) inset,
+                0 1px 0 0 rgba(255,255,255,0.9)
+              `,
+              border: `1px solid ${GRAY_300}`,
+            }}>
+              {([
+                { v: cd.d, l: "D" },
+                { v: cd.h, l: "H" },
+                { v: cd.m, l: "M" },
+                { v: cd.s, l: "S" },
+              ]).map(({ v, l }, i) => (
+                <span key={i} style={{
+                  display: "inline-flex", alignItems: "baseline", gap: 3,
+                  fontFamily: "var(--font-cabin), system-ui, sans-serif",
+                  fontVariantNumeric: "tabular-nums",
                 }}>
-                  {String(v).padStart(2, "0")}
+                  <span style={{
+                    fontSize: "clamp(17px, 1.5vw, 20px)",
+                    fontWeight: 700,
+                    color: INK,
+                    letterSpacing: "-0.015em",
+                    textShadow: `0 1px 0 rgba(255,255,255,0.7)`,
+                  }}>
+                    {String(v).padStart(2, "0")}
+                  </span>
+                  <span style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    letterSpacing: "0.14em",
+                    color: GRAY_500,
+                  }}>
+                    {l}
+                  </span>
                 </span>
-                <span style={{
-                  fontSize: 9.5, fontWeight: 600, letterSpacing: "0.18em",
-                  textTransform: "uppercase", color: GRAY_500,
-                }}>{l}</span>
-              </span>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+
+      </div>
 
       <style jsx global>{`
         .bs-hero-cta:hover {
@@ -884,21 +913,15 @@ function HeroSection() {
           transform: translateY(-1px);
           box-shadow: 0 3px 8px ${OS_RED}33, 0 8px 22px ${OS_RED}26;
         }
-        @keyframes bs-eyebrow-pulse {
-          0%, 100% { box-shadow: 0 0 0 0 ${OS_RED}55, 0 0 0 2px ${BS_WHITE}, 0 0 0 3px ${OS_RED}33; }
-          50%      { box-shadow: 0 0 0 5px ${OS_RED}00, 0 0 0 2px ${BS_WHITE}, 0 0 0 3px ${OS_RED}66; }
-        }
-        .bs-eyebrow-dot {
-          animation: bs-eyebrow-pulse 2.4s ${EASE.join(",")} infinite;
+        .bs-hero-link:hover {
+          color: ${OS_RED} !important;
+          gap: 10px !important;
         }
         @media (max-width: 880px) {
-          .bs-hero-side-marker { display: none !important; }
-          .bs-hero-satellite { display: none !important; }
-          .bs-hero-yellow-mark { display: none !important; }
-        }
-        @media (max-width: 760px) {
-          .bs-hero-meta { justify-content: flex-start !important; }
-          .bs-hero-partnership-seam { display: none !important; }
+          .bs-hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: clamp(40px, 6vw, 56px) !important;
+          }
         }
       `}</style>
     </section>
@@ -1050,100 +1073,24 @@ function JourneyCanvas() {
   return (
     <section style={{
       position: "relative",
-      background: CREAM,
+      background: BS_WHITE,
       // Outer breathing room (top + bottom buffer) — inner sections only carry
       // a small bottom/top buffer of their own to space the two content blocks.
       padding: "clamp(72px, 9vw, 120px) 0 clamp(72px, 9vw, 120px)",
       overflow: "hidden",
     }}>
-      {/* ── Unified warm wash spanning the full canvas. Layers (back→front): ──
-            1. Red halo at top-right (Overview's identity).
-            2. Soft red wash at vertical centre (under the Takeaways headline).
-            3. Cyan accent low-left (Blackstone host signature, lifted from Overview).
-            4. Yellow accent bottom-right (Takeaways' warmth carried in).
-            5. Continuous linear gradient CREAM → warm → warmer, top to bottom. */}
+      {/* ── Cool gradient wash — matches the hero direction: Blackstone-leaning
+            tones, white diagonal silver-blue base + cyan glow upper-left + navy
+            hint lower-right + light-blue accent upper-right. Atmosphere only,
+            no decorative chrome (no hex sculptures, no ring micropattern). ── */}
       <div aria-hidden style={{
         position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none",
         background: `
-          radial-gradient(ellipse 50% 25% at 92% 6%, ${OS_RED}1f 0%, ${OS_RED}0a 35%, transparent 65%),
-          radial-gradient(ellipse 60% 22% at 50% 58%, ${OS_RED}12 0%, ${OS_RED}06 45%, transparent 70%),
-          radial-gradient(ellipse 35% 22% at 6% 78%, ${BS_CYAN}14 0%, transparent 60%),
-          radial-gradient(ellipse 40% 20% at 90% 95%, ${OS_YELLOW}0e 0%, transparent 60%),
-          linear-gradient(180deg, ${CREAM} 0%, #F8F2EC 50%, #F4ECE3 100%)
+          radial-gradient(ellipse 55% 40% at 6% 8%, ${BS_CYAN}26 0%, ${BS_CYAN}0d 38%, transparent 72%),
+          radial-gradient(ellipse 50% 38% at 96% 94%, ${BS_NAVY}1f 0%, ${BS_NAVY}08 36%, transparent 68%),
+          radial-gradient(ellipse 40% 30% at 92% 10%, ${BS_LIGHT_BLUE}14 0%, transparent 65%),
+          linear-gradient(165deg, ${BS_WHITE} 0%, #F4F8FC 50%, #E8F0F8 100%)
         `,
-      }} />
-
-      {/* ── Faint Blackstone hex sculpture — straddles the seam between the two
-            content blocks (vertical mid-canvas, lower-left). Quiet host signature. ── */}
-      <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style={{
-        position: "absolute",
-        top: "42%", left: "-6vmin",
-        width: "32vmin", height: "32vmin",
-        opacity: 0.06,
-        pointerEvents: "none",
-        zIndex: 1,
-      }}>
-        <polygon points="50,3 92,26 92,74 50,97 8,74 8,26" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
-        <polygon points="50,20 78,35 78,65 50,80 22,65 22,35" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
-      </svg>
-
-      {/* ── Second hex sculpture — upper-right, mirrored. Subtle but symmetric. ── */}
-      <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style={{
-        position: "absolute",
-        top: "-4vmin", right: "-7vmin",
-        width: "26vmin", height: "26vmin",
-        opacity: 0.045,
-        pointerEvents: "none",
-        zIndex: 1,
-      }}>
-        <polygon points="50,3 92,26 92,74 50,97 8,74 8,26" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
-        <polygon points="50,20 78,35 78,65 50,80 22,65 22,35" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
-      </svg>
-
-      {/* ── Central hex "chapter divider" — floats in the seam zone between the
-            two content blocks, acts as a quiet ornamental flourish that ties them
-            together as one published canvas. ── */}
-      <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style={{
-        position: "absolute",
-        top: "50%", left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "clamp(180px, 14vw, 240px)",
-        height: "clamp(180px, 14vw, 240px)",
-        opacity: 0.05,
-        pointerEvents: "none",
-        zIndex: 1,
-      }}>
-        <polygon points="50,3 92,26 92,74 50,97 8,74 8,26" fill="none" stroke={BS_NAVY} strokeWidth="0.5" />
-        <polygon points="50,15 80,32 80,68 50,85 20,68 20,32" fill="none" stroke={BS_NAVY} strokeWidth="0.5" />
-        <polygon points="50,28 70,40 70,60 50,72 30,60 30,40" fill="none" stroke={BS_CYAN} strokeWidth="0.4" />
-        <circle cx="50" cy="50" r="1.6" fill={BS_CYAN} />
-      </svg>
-
-      {/* ── Soft cyan halo at the dead-center seam — pairs with the hex above ── */}
-      <div aria-hidden style={{
-        position: "absolute",
-        top: "50%", left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "clamp(280px, 22vw, 380px)",
-        height: "clamp(280px, 22vw, 380px)",
-        borderRadius: "50%",
-        background: `radial-gradient(circle, ${BS_CYAN}14 0%, ${BS_CYAN}06 35%, transparent 65%)`,
-        filter: "blur(40px)",
-        pointerEvents: "none",
-        zIndex: 0,
-      }} />
-
-      {/* ── OutSystems ring micropattern — same vocabulary as the hero, spans
-            the full canvas. Center-mask keeps it from competing with content. ── */}
-      <div aria-hidden style={{
-        position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
-        backgroundImage: `
-          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='3' fill='none' stroke='%23F22800' stroke-width='1' opacity='0.45'/></svg>")
-        `,
-        backgroundSize: "44px 44px",
-        WebkitMaskImage: "radial-gradient(ellipse 65% 40% at 50% 50%, transparent 20%, rgba(0,0,0,0.35) 75%, rgba(0,0,0,0.55) 100%)",
-        maskImage: "radial-gradient(ellipse 65% 40% at 50% 50%, transparent 20%, rgba(0,0,0,0.35) 75%, rgba(0,0,0,0.55) 100%)",
-        opacity: 0.32,
       }} />
 
       {/* ── Content: the two sections stacked, both with transparent backgrounds ── */}
@@ -2619,113 +2566,23 @@ function ProgrammeCanvas() {
   return (
     <section style={{
       position: "relative",
-      background: CREAM,
+      background: BS_WHITE,
       // Outer breathing room — inner sections carry only small seam buffers.
       padding: "clamp(72px, 9vw, 120px) 0 clamp(72px, 9vw, 120px)",
       overflow: "hidden",
     }}>
-      {/* ── Unified warm wash spanning the full canvas. Layers (back→front):
-            1. Red halo at top-right (programme identity).
-            2. Soft red wash at vertical centre (warmth at the seam).
-            3. Cyan accent low-left (Blackstone host signature).
-            4. Yellow accent bottom-right (afternoon warmth).
-            5. Continuous linear gradient CREAM → warm → warmer, top to bottom. */}
+      {/* ── Cool gradient wash — matches the hero direction: Blackstone-leaning
+            tones, white diagonal silver-blue base + cyan glow upper-left + navy
+            hint lower-right + light-blue accent upper-right. Atmosphere only,
+            no decorative chrome (no hex sculptures, no ring micropattern). ── */}
       <div aria-hidden style={{
         position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none",
         background: `
-          radial-gradient(ellipse 50% 25% at 92% 6%, ${OS_RED}1f 0%, ${OS_RED}0a 35%, transparent 65%),
-          radial-gradient(ellipse 60% 22% at 50% 58%, ${OS_RED}12 0%, ${OS_RED}06 45%, transparent 70%),
-          radial-gradient(ellipse 35% 22% at 6% 78%, ${BS_CYAN}14 0%, transparent 60%),
-          radial-gradient(ellipse 40% 20% at 92% 96%, ${OS_YELLOW}0e 0%, transparent 60%),
-          linear-gradient(180deg, ${CREAM} 0%, #F8F2EC 50%, #F4ECE3 100%)
+          radial-gradient(ellipse 55% 40% at 6% 8%, ${BS_CYAN}26 0%, ${BS_CYAN}0d 38%, transparent 72%),
+          radial-gradient(ellipse 50% 38% at 96% 94%, ${BS_NAVY}1f 0%, ${BS_NAVY}08 36%, transparent 68%),
+          radial-gradient(ellipse 40% 30% at 92% 10%, ${BS_LIGHT_BLUE}14 0%, transparent 65%),
+          linear-gradient(165deg, ${BS_WHITE} 0%, #F4F8FC 50%, #E8F0F8 100%)
         `,
-      }} />
-
-      {/* ── Faint Blackstone hex sculpture — straddles the seam between Agenda
-            and About (vertical mid-canvas, lower-left). Quiet host signature. ── */}
-      <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style={{
-        position: "absolute",
-        top: "42%", left: "-6vmin",
-        width: "32vmin", height: "32vmin",
-        opacity: 0.06,
-        pointerEvents: "none",
-        zIndex: 1,
-      }}>
-        <polygon points="50,3 92,26 92,74 50,97 8,74 8,26" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
-        <polygon points="50,20 78,35 78,65 50,80 22,65 22,35" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
-      </svg>
-
-      {/* ── Second hex sculpture — upper-right. Mirrors JourneyCanvas. ── */}
-      <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style={{
-        position: "absolute",
-        top: "-4vmin", right: "-7vmin",
-        width: "26vmin", height: "26vmin",
-        opacity: 0.045,
-        pointerEvents: "none",
-        zIndex: 1,
-      }}>
-        <polygon points="50,3 92,26 92,74 50,97 8,74 8,26" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
-        <polygon points="50,20 78,35 78,65 50,80 22,65 22,35" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
-      </svg>
-
-      {/* ── Third hex sculpture — bottom-right, smaller. Adds visual symmetry
-            with the JourneyCanvas vocabulary, anchoring the canvas corners. ── */}
-      <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style={{
-        position: "absolute",
-        bottom: "-3vmin", right: "12%",
-        width: "18vmin", height: "18vmin",
-        opacity: 0.04,
-        pointerEvents: "none",
-        zIndex: 1,
-      }}>
-        <polygon points="50,3 92,26 92,74 50,97 8,74 8,26" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
-        <polygon points="50,20 78,35 78,65 50,80 22,65 22,35" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
-      </svg>
-
-      {/* ── Central hex "chapter divider" — floats in the seam zone between
-            Agenda and About, acts as a quiet ornamental flourish that ties them
-            together as one published canvas. Same vocabulary as JourneyCanvas. ── */}
-      <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style={{
-        position: "absolute",
-        top: "50%", left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "clamp(180px, 14vw, 240px)",
-        height: "clamp(180px, 14vw, 240px)",
-        opacity: 0.05,
-        pointerEvents: "none",
-        zIndex: 1,
-      }}>
-        <polygon points="50,3 92,26 92,74 50,97 8,74 8,26" fill="none" stroke={BS_NAVY} strokeWidth="0.5" />
-        <polygon points="50,15 80,32 80,68 50,85 20,68 20,32" fill="none" stroke={BS_NAVY} strokeWidth="0.5" />
-        <polygon points="50,28 70,40 70,60 50,72 30,60 30,40" fill="none" stroke={BS_CYAN} strokeWidth="0.4" />
-        <circle cx="50" cy="50" r="1.6" fill={BS_CYAN} />
-      </svg>
-
-      {/* ── Soft cyan halo at the seam — pairs with the chapter-divider hex ── */}
-      <div aria-hidden style={{
-        position: "absolute",
-        top: "50%", left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "clamp(280px, 22vw, 380px)",
-        height: "clamp(280px, 22vw, 380px)",
-        borderRadius: "50%",
-        background: `radial-gradient(circle, ${BS_CYAN}14 0%, ${BS_CYAN}06 35%, transparent 65%)`,
-        filter: "blur(40px)",
-        pointerEvents: "none",
-        zIndex: 0,
-      }} />
-
-      {/* ── OutSystems ring micropattern — same vocabulary as the hero, spans
-            the full canvas. Center-mask keeps it from competing with content. ── */}
-      <div aria-hidden style={{
-        position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
-        backgroundImage: `
-          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='3' fill='none' stroke='%23F22800' stroke-width='1' opacity='0.45'/></svg>")
-        `,
-        backgroundSize: "44px 44px",
-        WebkitMaskImage: "radial-gradient(ellipse 65% 40% at 50% 50%, transparent 20%, rgba(0,0,0,0.35) 75%, rgba(0,0,0,0.55) 100%)",
-        maskImage: "radial-gradient(ellipse 65% 40% at 50% 50%, transparent 20%, rgba(0,0,0,0.35) 75%, rgba(0,0,0,0.55) 100%)",
-        opacity: 0.3,
       }} />
 
       {/* ── Content: the two sections stacked, both with transparent backgrounds ── */}
@@ -3205,13 +3062,24 @@ function AboutSection() {
               position: "relative",
               padding: "clamp(32px, 3vw, 48px)",
               borderRadius: 20,
-              background: BS_WHITE,
-              border: `1px solid ${GRAY_300}`,
+              // Layered red-tinted gradient surface — mirrors the Blackstone
+              // card's compositional vocabulary (corner light highlight + brand
+              // tint radial + diagonal base) but in the OS_RED palette on a
+              // light surface so it stays OS-faithful, not dark glass.
+              background: `
+                radial-gradient(ellipse 80% 60% at 22% 8%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.5) 28%, transparent 60%),
+                radial-gradient(ellipse 70% 55% at 85% 100%, ${OS_RED}1f 0%, ${OS_RED}08 35%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 100% 0%, ${OS_RED}14 0%, transparent 55%),
+                linear-gradient(168deg, ${BS_WHITE} 0%, #FFF8F5 45%, #FBEFE9 100%)
+              `,
+              border: `1px solid ${OS_RED}33`,
               boxShadow: `
-                0 1px 0 0 rgba(255,255,255,1) inset,
+                0 1.5px 0 0 rgba(255,255,255,1) inset,
+                0 -1.5px 0 0 ${OS_RED}1a inset,
+                0 0 0 1px ${OS_RED}1a inset,
                 0 1px 3px rgba(14,14,16,0.04),
                 0 24px 56px rgba(14,14,16,0.08),
-                0 0 60px ${OS_RED}14
+                0 0 80px ${OS_RED}22
               `,
               display: "flex",
               flexDirection: "column",
