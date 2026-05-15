@@ -114,21 +114,6 @@ const UPCOMING_EVENTS = [
     lightCard: true,
   },
   {
-    date: "May 13th, 2026",
-    month: "MAY",
-    day: "13",
-    year: "2026",
-    time: "11:00 AM GST",
-    title: "SonicWall Virtual Roundtable",
-    subtitle: "Beyond the Firewall: Strategic Security Conversations",
-    sponsor: "SonicWall",
-    location: "Virtual",
-    link: "https://sonicwall-webinar.eventsfirstgroup.com/",
-    image: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/sonicwall_hero.png",
-    brandColor: "#FF6B35",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Sonicwall_Logo_RGB_Orange_Sonic+Dark.png",
-  },
-  {
     date: "May 19th, 2026",
     month: "MAY",
     day: "19",
@@ -243,6 +228,19 @@ type PastEvent = {
 };
 
 const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    sponsor: "SonicWall",
+    title: "SonicWall Virtual Roundtable",
+    subtitle: "Beyond the Firewall: Strategic Security Conversations",
+    month: "MAY",
+    date: "13 May",
+    venue: "Virtual",
+    time: "11:00 AM GST",
+    image: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/sonicwall_hero.png",
+    brandColor: "#FF6B35",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Sonicwall_Logo_RGB_Orange_Sonic+Dark.png",
+    link: "https://sonicwall-webinar.eventsfirstgroup.com/",
+  },
   {
     sponsor: "CleverTap",
     title: "The Big Leap Connect, Riyadh",
