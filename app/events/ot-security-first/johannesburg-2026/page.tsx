@@ -531,7 +531,7 @@ function HeroSection() {
           </div>
         </motion.div>
 
-        {/* Main Headline */}
+        {/* Main Headline — twin halves separated by a gradient slash, constrained to left column */}
         <motion.h1
           initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -539,36 +539,50 @@ function HeroSection() {
           style={{
             fontFamily: "var(--font-display)",
             fontWeight: 800,
-            fontSize: "clamp(38px, 7vw, 88px)",
-            lineHeight: 0.95,
-            letterSpacing: "-0.04em",
-            margin: "0 0 12px",
+            fontSize: "clamp(32px, 4.4vw, 60px)",
+            lineHeight: 1.02,
+            letterSpacing: "-0.035em",
+            margin: "0 0 26px",
             filter: `drop-shadow(0 4px 30px ${C}20)`,
+            display: "flex",
+            flexDirection: "column",
+            gap: "clamp(6px, 0.9vw, 14px)",
+            maxWidth: "min(560px, 44vw)",
           }}
         >
-          Uncompromised<br />
-          <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-            OT Security
+          <span style={{ display: "block" }}>
+            Uncompromised<br />
+            <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              OT Security
+            </span>
+          </span>
+
+          {/* Diagonal gradient slash divider */}
+          <motion.span
+            initial={{ scaleY: 0, opacity: 0 }}
+            animate={{ scaleY: 1, opacity: 1 }}
+            transition={{ duration: 0.9, delay: 0.95, ease: [0.22, 1, 0.36, 1] }}
+            aria-hidden
+            style={{
+              display: "block",
+              width: "clamp(30px, 3vw, 44px)",
+              height: "clamp(2px, 0.24vw, 3px)",
+              background: `linear-gradient(90deg, ${C_BRIGHT} 0%, ${CYAN} 100%)`,
+              borderRadius: 2,
+              transform: "rotate(-58deg)",
+              transformOrigin: "left center",
+              marginLeft: "clamp(6px, 0.8vw, 12px)",
+              boxShadow: `0 0 18px ${C}55, 0 0 6px ${CYAN}66`,
+            }}
+          />
+
+          <span style={{ display: "block" }}>
+            Protecting what<br />
+            <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${CYAN} 0%, ${C_BRIGHT} 45%, ${CYAN} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              Powers our World
+            </span>
           </span>
         </motion.h1>
-
-        {/* Gradient accent line under title */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 1.2, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          style={{ width: 100, height: 3, background: `linear-gradient(90deg, ${C_BRIGHT}, ${CYAN})`, marginBottom: 20, borderRadius: 2, transformOrigin: "left", boxShadow: `0 0 14px ${C}40` }}
-        />
-
-        {/* Tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          style={{ fontFamily: "var(--font-outfit)", fontWeight: 400, fontSize: "clamp(16px, 1.5vw, 20px)", color: "rgba(255,255,255,0.65)", lineHeight: 1.6, maxWidth: 520, marginBottom: 36, letterSpacing: "0.2px" }}
-        >
-          Protecting what Powers our World
-        </motion.p>
 
         {/* Info badges — liquid glass pills with inner shine */}
         <motion.div
