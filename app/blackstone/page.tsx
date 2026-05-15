@@ -10,15 +10,35 @@ import { submitForm, COUNTRY_CODES, isWorkEmail, validatePhone } from "@/lib/for
 // Brand spec: 2026 V1.0 (see /blackstone eit/*.pdf in repo)
 // ═════════════════════════════════════════════════════════════════════════════
 
-// ─── Design tokens (Blackstone eIT brand) ───────────────────────────────────
-const BS_NAVY = "#0B1F3B";       // Deep Tech Navy — primary dark surface / authority
-const BS_CYAN = "#00C2FF";       // Electric Cyan — accent / innovation
+// ─── Design tokens (Blackstone eIT brand — secondary / host-attributed) ─────
+const BS_NAVY = "#0B1F3B";       // Deep Tech Navy — Blackstone surface (used on host cards)
+const BS_CYAN = "#00C2FF";       // Electric Cyan — Blackstone accent on host elements
 const BS_SILVER = "#F2F4F7";     // Soft Silver — neutral light surface
-const BS_WHITE = "#FFFFFF";      // Pure White — clarity
-const BS_BLACK = "#0A0A0A";      // Blackstone Black — deepest contrast
-const BS_GRAY = "#5A6B7C";       // Steel Gray — balanced neutral
-const BS_BLUE = "#145DA0";       // Professional Blue — trust
-const BS_LIGHT_BLUE = "#4DA3FF"; // Light Tech Blue — approachability
+const BS_WHITE = "#FFFFFF";      // Pure White
+const BS_BLACK = "#0A0A0A";      // Blackstone Black
+const BS_GRAY = "#5A6B7C";       // Steel Gray
+const BS_BLUE = "#145DA0";       // Professional Blue
+const BS_LIGHT_BLUE = "#4DA3FF"; // Light Tech Blue
+
+// ─── Design tokens (OutSystems brand — primary / page base) ─────────────────
+// Per OutSystems Brand Guidelines (external.2020-1.0): "light and elegance",
+// white-led background, red as main hue, yellow as secondary hue. The whole
+// page lives in this environment now.
+const OS_RED = "#F22800";        // Main hue — CTAs, headline accents, hairlines
+const OS_RED_BRIGHT = "#F85E40"; // Bright Red — hover state / glow
+const OS_RED_DARK = "#BB1100";   // Dark Red — pressed state / depth
+const OS_YELLOW = "#FDB515";     // Secondary CTA / highlight
+const OS_SPACE_BLUE = "#0A1E4E"; // OS' dark palette base — used as deepest text
+
+// ─── Light surface tokens (the page's true base palette) ────────────────────
+const CREAM = "#FAFAFA";         // Page background — Apple-style soft off-white
+const CREAM_WARM = "#F7F4F1";    // Warmer cream for layered surfaces
+const INK = "#0E0E10";           // Maximum-contrast text (headlines)
+const CHARCOAL = "#1A1A1A";      // Body text / dark UI chrome
+const GRAY_700 = "#39414A";      // OS dark gray — secondary text
+const GRAY_500 = "#80858C";      // OS regular gray — tertiary text
+const GRAY_300 = "#D7D9DC";      // Hairlines / dividers
+const GRAY_100 = "#F2F4F7";      // Faint surface tint (matches BS Soft Silver)
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const EVENT_DATE = new Date("2026-06-10T10:00:00+03:00");
@@ -135,13 +155,19 @@ function useCountdown(target: Date) {
 // ═════════════════════════════════════════════════════════════════════════════
 // LOGOMARK PLACEHOLDERS — swap when real SVGs land
 // ═════════════════════════════════════════════════════════════════════════════
-function BlackstoneLogomark({ size = 28 }: { size?: number; color?: string; accent?: string }) {
-  // Real Blackstone eIT wordmark (blue/cyan hex bracket + white "Blackstone eIT")
-  // served from S3 — designed for dark backgrounds. `size` controls rendered height.
+function BlackstoneLogomark({ size = 28, dark = false }: { size?: number; color?: string; accent?: string; dark?: boolean }) {
+  // Two Blackstone eIT logo variants:
+  //   default — light wordmark on transparent (designed for dark backgrounds)
+  //   dark    — CMYK dark wordmark (designed for white/cream backgrounds)
+  // `dark` is what we reach for on the OutSystems cream page surface; the
+  // default white variant is for the dark navy host badge chips.
+  const src = dark
+    ? "https://efg-final.s3.eu-north-1.amazonaws.com/logos/%28MAIN+LOGO%29+Blackstone+eIT+logo+CMYK.png"
+    : "https://efg-final.s3.eu-north-1.amazonaws.com/logos/BlackstoneeIT_logolight.png";
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="https://efg-final.s3.eu-north-1.amazonaws.com/logos/BlackstoneeIT_logolight.png"
+      src={src}
       alt="Blackstone eIT"
       style={{
         height: size,
@@ -153,21 +179,47 @@ function BlackstoneLogomark({ size = 28 }: { size?: number; color?: string; acce
   );
 }
 
-function OutSystemsLogomark({ size = 24 }: { size?: number; color?: string }) {
-  // Real OutSystems wordmark (red "O" + white "outsystems") served from S3.
-  // `size` controls the rendered height in px; aspect ratio is preserved.
+function OutSystemsLogomark({ size = 24, monochrome = false, dark = false }: { size?: number; color?: string; monochrome?: boolean; dark?: boolean }) {
+  // Three OutSystems logo variants:
+  //   default — red "O" + white wordmark (designed for dark backgrounds)
+  //   dark    — red "O" + dark wordmark (designed for white/cream backgrounds)
+  //   monochrome — all-white (fallback for cases where the red ring won't work)
+  // Per OutSystems brand guideline: "Do not use main logo on dark background";
+  // the `dark` variant is what we reach for on the cream page surface.
+  const src = dark
+    ? "https://efg-final.s3.eu-north-1.amazonaws.com/logos/outsystem_dark.png"
+    : "https://efg-final.s3.eu-north-1.amazonaws.com/logos/outsystems.png";
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="https://efg-final.s3.eu-north-1.amazonaws.com/logos/outsystems.png"
+      src={src}
       alt="OutSystems"
       style={{
         height: size,
         width: "auto",
         display: "inline-block",
         verticalAlign: "middle",
+        filter: monochrome ? "brightness(0) invert(1)" : undefined,
       }}
     />
+  );
+}
+
+// OutSystems iconic ring mark — circle with a small notch cut out at top-right.
+function OutSystemsRing({ size = 18, color = OS_RED, strokeWidth = 2.2 }: { size?: number; color?: string; strokeWidth?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+      <path d="M19.5 8.3 A9 9 0 1 0 20 12" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" />
+    </svg>
+  );
+}
+
+// Blackstone iconic hex mark — flat hex outline.
+function BlackstoneHex({ size = 18, color = BS_CYAN, strokeWidth = 2 }: { size?: number; color?: string; strokeWidth?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+      <polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinejoin="round" />
+    </svg>
   );
 }
 
@@ -186,29 +238,47 @@ function BlackstoneNav() {
   return (
     <nav style={{
       position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-      background: scrolled ? `${BS_NAVY}ee` : "transparent",
-      backdropFilter: scrolled ? "blur(12px)" : "none",
-      WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
-      borderBottom: scrolled ? `1px solid ${BS_CYAN}1a` : "1px solid transparent",
+      background: scrolled ? "rgba(250,250,250,0.92)" : "rgba(250,250,250,0.0)",
+      backdropFilter: scrolled ? "blur(14px) saturate(160%)" : "none",
+      WebkitBackdropFilter: scrolled ? "blur(14px) saturate(160%)" : "none",
+      borderBottom: scrolled ? `1px solid ${GRAY_300}` : "1px solid transparent",
       transition: "background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease",
     }}>
       <div style={{
         maxWidth: 1320, margin: "0 auto",
-        padding: "4px clamp(20px, 4vw, 56px)",
+        padding: "14px clamp(20px, 4vw, 56px) 14px clamp(12px, 1.6vw, 24px)",
         display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16,
+        minHeight: 72,
       }}>
-        <a href="#top" aria-label={`${BRAND_HOST} home`} style={{ display: "inline-flex", textDecoration: "none" }}>
-          <BlackstoneLogomark size={56} color={BS_WHITE} accent={BS_CYAN} />
+        {/* Logo lockup — Blackstone + OutSystems, both dark-on-light variants
+            sitting directly on the cream nav, separated by a subtle hairline.
+            Each logo wrapped in a fixed-height flex cell so they share a baseline
+            even though the PNGs have different internal padding. */}
+        <a href="#top" aria-label={`${BRAND_HOST} × ${BRAND_SPONSOR}`} style={{
+          display: "inline-flex", alignItems: "center", gap: 10,
+          textDecoration: "none",
+          lineHeight: 0,
+        }}>
+          <span style={{ display: "inline-flex", alignItems: "center", height: 40 }}>
+            <BlackstoneLogomark size={40} dark />
+          </span>
+          <span aria-hidden style={{
+            width: 1, height: 28,
+            background: `linear-gradient(180deg, transparent 0%, ${GRAY_300} 30%, ${GRAY_300} 70%, transparent 100%)`,
+          }} />
+          <span style={{ display: "inline-flex", alignItems: "center", height: 40 }}>
+            <OutSystemsLogomark size={30} dark />
+          </span>
         </a>
 
         <div className="bs-nav-links" style={{ display: "flex", alignItems: "center", gap: "clamp(20px, 2vw, 32px)" }}>
           {["Overview", "Takeaways", "Speakers", "Agenda", "About"].map((label) => (
             <a key={label} href={`#${label.toLowerCase()}`} style={{
-              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-              fontSize: 13, fontWeight: 500,
-              color: "rgba(255,255,255,0.72)",
+              fontFamily: "var(--font-cabin), system-ui, sans-serif",
+              fontSize: 13.5, fontWeight: 600,
+              color: GRAY_700,
               textDecoration: "none",
-              letterSpacing: "0.02em",
+              letterSpacing: "0.01em",
               transition: "color 0.3s ease",
             }} className="bs-nav-link">{label}</a>
           ))}
@@ -216,23 +286,27 @@ function BlackstoneNav() {
 
         <a href="#register" className="bs-nav-cta" style={{
           display: "inline-flex", alignItems: "center", gap: 8,
-          padding: "10px 20px", borderRadius: 999,
-          background: `linear-gradient(135deg, ${BS_CYAN}, ${BS_LIGHT_BLUE})`,
-          color: BS_NAVY,
-          fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-          fontSize: 12.5, fontWeight: 700,
-          letterSpacing: "0.04em",
+          padding: "11px 22px", borderRadius: 999,
+          background: OS_RED,
+          color: BS_WHITE,
+          fontFamily: "var(--font-cabin), system-ui, sans-serif",
+          fontSize: 13, fontWeight: 700,
+          letterSpacing: "0.01em",
           textDecoration: "none",
-          boxShadow: `0 6px 20px ${BS_CYAN}33`,
-          transition: "transform 0.3s ease, box-shadow 0.3s ease",
+          boxShadow: `0 2px 6px ${OS_RED}1f, 0 4px 12px ${OS_RED}14`,
+          transition: "background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease",
         }}>
           Request Invitation <span aria-hidden>→</span>
         </a>
       </div>
 
       <style jsx global>{`
-        .bs-nav-link:hover { color: ${BS_WHITE} !important; }
-        .bs-nav-cta:hover { transform: translateY(-1px); box-shadow: 0 10px 28px ${BS_CYAN}55; }
+        .bs-nav-link:hover { color: ${OS_RED} !important; }
+        .bs-nav-cta:hover {
+          background: ${OS_RED_DARK};
+          transform: translateY(-1px);
+          box-shadow: 0 3px 8px ${OS_RED}33, 0 6px 16px ${OS_RED}26;
+        }
         @media (max-width: 780px) {
           .bs-nav-links { display: none !important; }
         }
@@ -242,8 +316,10 @@ function BlackstoneNav() {
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-// HERO — Apple-style: monumental, centered, minimal
-// One headline. Lots of breathing room. One soft cyan halo. Nothing else.
+// HERO — OutSystems-led: cream surface, monumental Cabin headline, solid red
+// accent on "Agentic AI.", red CTA. Blackstone present as the host badge via
+// a small dark navy chip wrapping its logo — equal twin badge to OutSystems'.
+// Apple-style restraint: one soft red dawn-glow, otherwise pure whitespace.
 // ═════════════════════════════════════════════════════════════════════════════
 function HeroSection() {
   const cd = useCountdown(EVENT_DATE);
@@ -252,7 +328,8 @@ function HeroSection() {
     <section id="top" style={{
       position: "relative",
       overflow: "hidden",
-      background: "transparent",
+      background: CREAM,
+      color: INK,
       height: "100svh",
       maxHeight: "100svh",
       display: "flex",
@@ -264,41 +341,145 @@ function HeroSection() {
       paddingLeft: "clamp(24px, 5vw, 64px)",
       paddingRight: "clamp(24px, 5vw, 64px)",
     }}>
-      {/* ── Layer 0: ambient gradient orbs (static, no animation) ── */}
+      {/* ── L0: warm mesh wash — bolder red dawn + visible yellow + warm cream base ── */}
       <div aria-hidden style={{
-        position: "absolute", top: "-18%", left: "-12%",
-        width: "75%", height: "95%",
-        background: `radial-gradient(ellipse 50% 50% at 50% 50%, ${BS_CYAN}cc 0%, ${BS_CYAN}66 22%, ${BS_CYAN}26 48%, ${BS_CYAN}0a 68%, transparent 80%)`,
-        filter: "blur(30px)",
-        pointerEvents: "none",
-        zIndex: 0,
+        position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none",
+        background: `
+          radial-gradient(ellipse 75% 60% at 92% 8%, ${OS_RED}4d 0%, ${OS_RED}26 22%, ${OS_RED}0a 48%, transparent 68%),
+          radial-gradient(ellipse 55% 45% at 8% 95%, ${OS_YELLOW}3d 0%, ${OS_YELLOW}1f 28%, ${OS_YELLOW}0a 50%, transparent 68%),
+          radial-gradient(ellipse 45% 35% at 50% 100%, ${OS_RED}1f 0%, transparent 60%),
+          radial-gradient(ellipse 85% 60% at 50% 50%, ${BS_WHITE}cc 0%, transparent 65%),
+          linear-gradient(170deg, #FAF5F0 0%, #F6F0EA 35%, ${CREAM} 65%, #F4ECE5 100%)
+        `,
       }} />
+
+      {/* ── L0b: central red halo behind the headline — anchors visual weight ── */}
       <div aria-hidden style={{
-        position: "absolute", bottom: "-25%", right: "-14%",
-        width: "80%", height: "95%",
-        background: `radial-gradient(ellipse 50% 50% at 50% 50%, ${BS_BLUE}e6 0%, ${BS_BLUE}80 22%, ${BS_BLUE}33 48%, ${BS_BLUE}14 68%, transparent 80%)`,
-        filter: "blur(38px)",
+        position: "absolute", top: "32%", left: "50%",
+        transform: "translateX(-50%)",
+        width: "50%", height: "40%",
+        background: `radial-gradient(ellipse 60% 50% at 50% 50%, ${OS_RED}1a 0%, ${OS_RED}0a 35%, transparent 65%)`,
+        filter: "blur(50px)",
         pointerEvents: "none",
         zIndex: 0,
       }} />
 
-      {/* ── Layer 1: hex grid (CSS background, static) ── */}
+      {/* ── L1a: large decorative OutSystems ring — upper-right sculptural element ── */}
+      <div aria-hidden style={{
+        position: "absolute", top: "-18vmin", right: "-14vmin",
+        width: "62vmin", height: "62vmin",
+        borderRadius: "50%",
+        border: `1.5px solid ${OS_RED}`,
+        opacity: 0.08,
+        pointerEvents: "none",
+        zIndex: 1,
+      }}>
+        {/* Inner concentric ring */}
+        <div style={{
+          position: "absolute", inset: "9%",
+          borderRadius: "50%",
+          border: `1.5px solid ${OS_RED}`,
+          opacity: 0.7,
+        }} />
+        {/* Innermost ring — even finer */}
+        <div style={{
+          position: "absolute", inset: "22%",
+          borderRadius: "50%",
+          border: `1px solid ${OS_RED}`,
+          opacity: 0.5,
+        }} />
+      </div>
+
+      {/* ── L1b: second OutSystems ring — lower-left sculptural counterweight ── */}
+      <div aria-hidden style={{
+        position: "absolute", bottom: "-12vmin", left: "-10vmin",
+        width: "46vmin", height: "46vmin",
+        borderRadius: "50%",
+        border: `1.5px solid ${OS_RED}`,
+        opacity: 0.06,
+        pointerEvents: "none",
+        zIndex: 1,
+      }}>
+        <div style={{
+          position: "absolute", inset: "10%",
+          borderRadius: "50%",
+          border: `1.5px solid ${OS_RED}`,
+          opacity: 0.7,
+        }} />
+        <div style={{
+          position: "absolute", inset: "25%",
+          borderRadius: "50%",
+          border: `1px solid ${OS_RED}`,
+          opacity: 0.5,
+        }} />
+      </div>
+
+      {/* ── L1c: OutSystems ring micropattern — geometric language across the canvas ── */}
       <div aria-hidden style={{
         position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
         backgroundImage: `
-          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 64'><polygon points='14,2 42,2 55,32 42,62 14,62 1,32' fill='none' stroke='%2300C2FF' stroke-width='0.9' opacity='0.35'/></svg>")
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='3' fill='none' stroke='%23F22800' stroke-width='1' opacity='0.5'/></svg>")
         `,
-        backgroundSize: "94px 108px",
-        WebkitMaskImage: "radial-gradient(ellipse 90% 85% at 50% 50%, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0.35) 75%, transparent 100%)",
-        maskImage: "radial-gradient(ellipse 90% 85% at 50% 50%, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0.35) 75%, transparent 100%)",
-        opacity: 0.65,
+        backgroundSize: "44px 44px",
+        WebkitMaskImage: "radial-gradient(ellipse 78% 68% at 50% 48%, transparent 22%, rgba(0,0,0,0.4) 80%, rgba(0,0,0,0.6) 100%)",
+        maskImage: "radial-gradient(ellipse 78% 68% at 50% 48%, transparent 22%, rgba(0,0,0,0.4) 80%, rgba(0,0,0,0.6) 100%)",
+        opacity: 0.4,
       }} />
 
-      {/* ── Layer 2: bottom vignette for readability ── */}
-      <div aria-hidden style={{
-        position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none",
-        background: `linear-gradient(180deg, transparent 0%, transparent 55%, ${BS_NAVY}cc 85%, ${BS_NAVY} 100%)`,
+      {/* ── L1d: satellite ring — small editorial accent upper-left ── */}
+      <div className="bs-hero-satellite" aria-hidden style={{
+        position: "absolute",
+        top: "clamp(150px, 18vh, 220px)",
+        left: "clamp(28px, 5vw, 80px)",
+        width: 64, height: 64,
+        borderRadius: "50%",
+        border: `1.5px solid ${OS_RED}55`,
+        boxShadow: `0 0 0 1px ${OS_RED}1a, inset 0 0 0 4px ${BS_WHITE}, inset 0 0 0 5px ${OS_RED}33`,
+        zIndex: 1,
+        pointerEvents: "none",
+      }}>
+        {/* Inner ring */}
+        <div style={{
+          position: "absolute", inset: 16,
+          borderRadius: "50%",
+          background: OS_RED,
+          opacity: 0.85,
+        }} />
+      </div>
+
+      {/* ── L1e: yellow accent satellite — small dot lower-right for OS secondary hue ── */}
+      <div className="bs-hero-yellow-mark" aria-hidden style={{
+        position: "absolute",
+        top: "clamp(160px, 22vh, 260px)",
+        right: "clamp(32px, 6vw, 96px)",
+        width: 10, height: 10,
+        borderRadius: "50%",
+        background: OS_YELLOW,
+        boxShadow: `0 0 0 4px ${OS_YELLOW}26, 0 0 12px ${OS_YELLOW}66`,
+        zIndex: 1,
       }} />
+
+      {/* ── L2b: editorial side marker — bottom-left vertical caption, red accent ── */}
+      <div className="bs-hero-side-marker" aria-hidden style={{
+        position: "absolute",
+        bottom: "clamp(140px, 18vh, 200px)",
+        left: "clamp(24px, 4vw, 48px)",
+        zIndex: 4,
+        writingMode: "vertical-rl",
+        transform: "rotate(180deg)",
+        fontFamily: "var(--font-cabin), system-ui, sans-serif",
+        fontSize: 10,
+        fontWeight: 700,
+        letterSpacing: "0.42em",
+        textTransform: "uppercase",
+        color: OS_RED,
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 10,
+      }}>
+        <span style={{ display: "inline-block", width: 12, height: 1, background: OS_RED }} />
+        Vision 2030 · Agentic AI
+      </div>
 
       {/* ── Content stack — auto margins absorb empty space so it sits centered between nav and bottom block ── */}
       <div style={{
@@ -312,7 +493,7 @@ function HeroSection() {
         gap: "clamp(16px, 2.4vh, 28px)",
         margin: "auto 0",
       }}>
-        {/* Eyebrow — glass-skeumorphic location · date pill */}
+        {/* Eyebrow — light glass instrument: white surface, red accents, OutSystems home */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -322,60 +503,69 @@ function HeroSection() {
             display: "inline-flex", alignItems: "center", gap: 12,
             padding: "10px 22px 10px 18px",
             borderRadius: 999,
-            background: `linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 55%, rgba(255,255,255,0.02) 100%)`,
-            backdropFilter: "blur(18px) saturate(160%)",
-            WebkitBackdropFilter: "blur(18px) saturate(160%)",
-            border: `1px solid rgba(255,255,255,0.14)`,
+            background: `linear-gradient(180deg, ${BS_WHITE} 0%, #FAF7F4 100%)`,
+            border: `1px solid ${GRAY_300}`,
             boxShadow: `
-              0 1px 0 0 rgba(255,255,255,0.22) inset,
-              0 -1px 0 0 rgba(0,0,0,0.18) inset,
-              0 0 0 1px ${BS_CYAN}1f inset,
-              0 14px 32px rgba(0,0,0,0.35),
-              0 0 28px ${BS_CYAN}22
+              0 1px 0 0 rgba(255,255,255,1) inset,
+              0 -1px 0 0 ${OS_RED}26 inset,
+              0 1px 2px rgba(14,14,16,0.05),
+              0 10px 26px rgba(14,14,16,0.08),
+              0 0 32px ${OS_RED}1f
             `,
-            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+            fontFamily: "var(--font-cabin), system-ui, sans-serif",
             fontSize: "clamp(11px, 0.95vw, 12.5px)",
             fontWeight: 600,
             letterSpacing: "0.28em",
             textTransform: "uppercase",
-            color: "rgba(255,255,255,0.88)",
+            color: CHARCOAL,
           }}
         >
-          {/* Specular top highlight — skeumorphic light catch */}
+          {/* Specular top highlight — crisp engraved light catch */}
           <span aria-hidden style={{
             position: "absolute",
-            top: 1, left: "12%", right: "12%",
+            top: 1, left: "14%", right: "14%",
             height: 1,
-            background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%)`,
+            background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 50%, transparent 100%)`,
+            borderRadius: 999,
+            pointerEvents: "none",
+          }} />
+          {/* Under-rim red glow accent */}
+          <span aria-hidden style={{
+            position: "absolute",
+            bottom: 1, left: "22%", right: "22%",
+            height: 0.5,
+            background: `linear-gradient(90deg, transparent 0%, ${OS_RED}66 50%, transparent 100%)`,
             borderRadius: 999,
             pointerEvents: "none",
           }} />
 
-          <span className="bs-pulse-dot" style={{
+          {/* Pulsing red dot */}
+          <span className="bs-eyebrow-dot" style={{
+            position: "relative",
             width: 7, height: 7, borderRadius: "50%",
-            background: BS_CYAN,
-            boxShadow: `0 0 10px ${BS_CYAN}, 0 0 4px ${BS_CYAN}cc inset`,
+            background: OS_RED,
+            boxShadow: `0 0 0 0 ${OS_RED}55, 0 0 0 2px ${BS_WHITE}, 0 0 0 3px ${OS_RED}33`,
           }} />
           <span>Riyadh</span>
           <span aria-hidden style={{
             display: "inline-block",
             width: 3, height: 3, borderRadius: "50%",
-            background: `${BS_CYAN}aa`,
-            boxShadow: `0 0 6px ${BS_CYAN}66`,
+            background: OS_RED,
+            opacity: 0.55,
           }} />
-          <span style={{ color: BS_WHITE, fontWeight: 700, letterSpacing: "0.22em" }}>10 June 2026</span>
+          <span style={{ color: INK, fontWeight: 700, letterSpacing: "0.22em" }}>10 June 2026</span>
         </motion.div>
 
-        {/* Monumental headline — three lines, generous leading, balanced */}
+        {/* Monumental headline — Cabin, ink black, with solid OS red on "Agentic AI." */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.0, delay: 0.15, ease: EASE }}
           style={{
-            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-            fontSize: "clamp(36px, 6vw, 84px)",
+            fontFamily: "var(--font-cabin), system-ui, sans-serif",
+            fontSize: "clamp(38px, 6.2vw, 88px)",
             fontWeight: 700,
-            color: BS_WHITE,
+            color: INK,
             letterSpacing: "-0.035em",
             lineHeight: 1.02,
             margin: 0,
@@ -386,29 +576,23 @@ function HeroSection() {
           <br />
           Public Sector through
           <br />
-          <span style={{
-            background: `linear-gradient(180deg, ${BS_CYAN} 0%, ${BS_LIGHT_BLUE} 100%)`,
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-            fontWeight: 800,
-          }}>
+          <span style={{ color: OS_RED, fontWeight: 700 }}>
             Agentic AI.
           </span>
         </motion.h1>
 
-        {/* One supporting line — Apple sub-headline cadence */}
+        {/* One supporting line — Noto Sans, OS' long-format face */}
         <motion.p
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.4, ease: EASE }}
           style={{
             margin: 0,
-            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+            fontFamily: "var(--font-noto-sans), system-ui, sans-serif",
             fontSize: "clamp(14px, 1.15vw, 18px)",
             fontWeight: 400,
-            lineHeight: 1.5,
-            color: "rgba(255,255,255,0.7)",
+            lineHeight: 1.55,
+            color: GRAY_700,
             maxWidth: 620,
             letterSpacing: "-0.005em",
             textWrap: "balance" as "balance",
@@ -417,7 +601,7 @@ function HeroSection() {
           An invitation-only executive roundtable on scaling agentic AI for Saudi Vision 2030. Hosted by {BRAND_HOST} with {BRAND_SPONSOR}.
         </motion.p>
 
-        {/* Single CTA — premium pill, just one action */}
+        {/* Single CTA — flat solid OutSystems red, matching outsystems.com style */}
         <motion.a
           href="#register"
           initial={{ opacity: 0, y: 14 }}
@@ -427,19 +611,19 @@ function HeroSection() {
           style={{
             display: "inline-flex",
             alignItems: "center",
-            gap: 12,
+            gap: 10,
             marginTop: "clamp(8px, 1.6vh, 16px)",
-            padding: "14px 28px",
+            padding: "14px 30px",
             borderRadius: 999,
-            background: BS_WHITE,
-            color: BS_NAVY,
-            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-            fontSize: 13.5,
+            background: OS_RED,
+            color: BS_WHITE,
+            fontFamily: "var(--font-cabin), system-ui, sans-serif",
+            fontSize: 14.5,
             fontWeight: 700,
-            letterSpacing: "0.02em",
+            letterSpacing: "0.01em",
             textDecoration: "none",
-            boxShadow: `0 1px 0 0 rgba(255,255,255,0.6) inset, 0 12px 36px ${BS_CYAN}33`,
-            transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            boxShadow: `0 2px 6px ${OS_RED}1f, 0 4px 14px ${OS_RED}1a`,
+            transition: "background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease",
           }}
         >
           Request invitation
@@ -447,7 +631,7 @@ function HeroSection() {
         </motion.a>
       </div>
 
-      {/* ── Hero bottom block: meta + countdown ribbon, then host lockup ── */}
+      {/* ── Hero bottom block: partnership lockup, then meta+countdown ribbon ── */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -465,40 +649,171 @@ function HeroSection() {
           gap: "clamp(14px, 1.8vh, 22px)",
         }}
       >
-        {/* Host lockup — Hosted by / With */}
-        <div style={{
+        {/* Partnership lockup — twin WHITE cards (OutSystems home), each logo on
+            its preferred light surface with a brand-color hairline accent. */}
+        <div className="bs-hero-partnership" style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          gap: "clamp(20px, 3.5vw, 44px)",
+          gap: "clamp(20px, 3vw, 40px)",
           flexWrap: "wrap",
         }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 14 }}>
+          {/* HOSTED BY — Blackstone (white card, cyan hairline accent, dark CMYK logo) */}
+          <div style={{
+            display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
+          }}>
             <span style={{
-              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-              fontSize: 10,
-              fontWeight: 600,
-              letterSpacing: "0.32em",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.35)",
-            }}>Hosted by</span>
-            <BlackstoneLogomark size={50} color={BS_WHITE} accent={BS_CYAN} />
+              fontFamily: "var(--font-cabin), system-ui, sans-serif",
+              fontSize: 10, fontWeight: 700,
+              letterSpacing: "0.32em", textTransform: "uppercase",
+              color: GRAY_500,
+              display: "inline-flex", alignItems: "center", gap: 8,
+            }}>
+              <BlackstoneHex size={10} color={BS_NAVY} strokeWidth={2} />
+              Hosted by
+            </span>
+            <div style={{
+              position: "relative",
+              padding: "14px 22px",
+              borderRadius: 14,
+              background: `linear-gradient(180deg, ${BS_WHITE} 0%, #FAF7F4 100%)`,
+              border: `1px solid ${GRAY_300}`,
+              boxShadow: `
+                0 1px 0 0 rgba(255,255,255,1) inset,
+                0 -1px 0 0 ${BS_NAVY}14 inset,
+                0 1px 2px rgba(14,14,16,0.04),
+                0 12px 28px rgba(14,14,16,0.08)
+              `,
+            }}>
+              {/* Top specular highlight */}
+              <span aria-hidden style={{
+                position: "absolute",
+                top: 1, left: "14%", right: "14%",
+                height: 1,
+                background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 50%, transparent 100%)`,
+                borderRadius: 14,
+                pointerEvents: "none",
+              }} />
+              {/* Bottom navy hairline accent — Blackstone signature */}
+              <span aria-hidden style={{
+                position: "absolute",
+                bottom: 0, left: "20%", right: "20%",
+                height: 1,
+                background: `linear-gradient(90deg, transparent 0%, ${BS_NAVY} 50%, transparent 100%)`,
+                pointerEvents: "none",
+              }} />
+              {/* Corner brackets — navy */}
+              {[
+                { top: 6, left: 6, borderTop: true, borderLeft: true },
+                { top: 6, right: 6, borderTop: true, borderRight: true },
+                { bottom: 6, left: 6, borderBottom: true, borderLeft: true },
+                { bottom: 6, right: 6, borderBottom: true, borderRight: true },
+              ].map((pos, i) => (
+                <span key={i} aria-hidden style={{
+                  position: "absolute",
+                  ...pos,
+                  width: 6, height: 6,
+                  borderTop: pos.borderTop ? `1px solid ${BS_NAVY}44` : undefined,
+                  borderBottom: pos.borderBottom ? `1px solid ${BS_NAVY}44` : undefined,
+                  borderLeft: pos.borderLeft ? `1px solid ${BS_NAVY}44` : undefined,
+                  borderRight: pos.borderRight ? `1px solid ${BS_NAVY}44` : undefined,
+                  pointerEvents: "none",
+                }} />
+              ))}
+              <BlackstoneLogomark size={42} dark />
+            </div>
+            <span style={{
+              fontFamily: "var(--font-cabin), system-ui, sans-serif",
+              fontSize: 11.5, fontWeight: 400, fontStyle: "italic",
+              color: GRAY_500,
+              letterSpacing: "0.01em",
+              marginTop: 6,
+            }}>Digital-first. Data-informed. AI-enabled.</span>
           </div>
-          <span aria-hidden style={{ width: 1, height: 22, background: "rgba(255,255,255,0.12)" }} />
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 14 }}>
+
+          {/* Hairline divider */}
+          <span aria-hidden className="bs-hero-partnership-seam" style={{
+            width: 1, height: 90,
+            background: `linear-gradient(180deg, transparent 0%, ${GRAY_300} 30%, ${GRAY_300} 70%, transparent 100%)`,
+          }} />
+
+          {/* WITH — OutSystems (white card, red hairline accent, dark logo — OS home) */}
+          <div style={{
+            display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
+          }}>
             <span style={{
-              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-              fontSize: 10,
-              fontWeight: 600,
-              letterSpacing: "0.32em",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.35)",
-            }}>With</span>
-            <OutSystemsLogomark size={40} color={BS_WHITE} />
+              fontFamily: "var(--font-cabin), system-ui, sans-serif",
+              fontSize: 10, fontWeight: 700,
+              letterSpacing: "0.32em", textTransform: "uppercase",
+              color: GRAY_500,
+              display: "inline-flex", alignItems: "center", gap: 8,
+            }}>
+              <OutSystemsRing size={11} color={OS_RED} strokeWidth={2.4} />
+              With
+            </span>
+            <div style={{
+              position: "relative",
+              padding: "14px 22px",
+              borderRadius: 14,
+              background: `linear-gradient(180deg, ${BS_WHITE} 0%, #FAF7F4 100%)`,
+              border: `1px solid ${GRAY_300}`,
+              boxShadow: `
+                0 1px 0 0 rgba(255,255,255,1) inset,
+                0 -1px 0 0 ${OS_RED}26 inset,
+                0 1px 2px rgba(14,14,16,0.04),
+                0 12px 28px rgba(14,14,16,0.08),
+                0 0 36px ${OS_RED}14
+              `,
+            }}>
+              {/* Top specular highlight */}
+              <span aria-hidden style={{
+                position: "absolute",
+                top: 1, left: "14%", right: "14%",
+                height: 1,
+                background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 50%, transparent 100%)`,
+                borderRadius: 14,
+                pointerEvents: "none",
+              }} />
+              {/* Bottom red hairline accent — OutSystems signature, stronger than Blackstone */}
+              <span aria-hidden style={{
+                position: "absolute",
+                bottom: 0, left: "16%", right: "16%",
+                height: 1.5,
+                background: `linear-gradient(90deg, transparent 0%, ${OS_RED} 50%, transparent 100%)`,
+                boxShadow: `0 0 8px ${OS_RED}66`,
+                pointerEvents: "none",
+              }} />
+              {/* Corner brackets — red */}
+              {[
+                { top: 6, left: 6, borderTop: true, borderLeft: true },
+                { top: 6, right: 6, borderTop: true, borderRight: true },
+                { bottom: 6, left: 6, borderBottom: true, borderLeft: true },
+                { bottom: 6, right: 6, borderBottom: true, borderRight: true },
+              ].map((pos, i) => (
+                <span key={i} aria-hidden style={{
+                  position: "absolute",
+                  ...pos,
+                  width: 6, height: 6,
+                  borderTop: pos.borderTop ? `1px solid ${OS_RED}66` : undefined,
+                  borderBottom: pos.borderBottom ? `1px solid ${OS_RED}66` : undefined,
+                  borderLeft: pos.borderLeft ? `1px solid ${OS_RED}66` : undefined,
+                  borderRight: pos.borderRight ? `1px solid ${OS_RED}66` : undefined,
+                  pointerEvents: "none",
+                }} />
+              ))}
+              <OutSystemsLogomark size={36} dark />
+            </div>
+            <span style={{
+              fontFamily: "var(--font-cabin), system-ui, sans-serif",
+              fontSize: 11.5, fontWeight: 400, fontStyle: "italic",
+              color: GRAY_500,
+              letterSpacing: "0.01em",
+              marginTop: 6,
+            }}>A Future with No Limits.</span>
           </div>
         </div>
 
-        {/* Meta + countdown strip */}
+        {/* Meta + countdown strip — light variant */}
         <div className="bs-hero-meta" style={{
           display: "flex",
           flexWrap: "wrap",
@@ -506,36 +821,36 @@ function HeroSection() {
           justifyContent: "space-between",
           gap: "clamp(14px, 2.4vw, 32px)",
           padding: "clamp(14px, 1.8vh, 20px) 0",
-          borderTop: `1px solid ${BS_CYAN}26`,
-          borderBottom: `1px solid ${BS_CYAN}26`,
+          borderTop: `1px solid ${GRAY_300}`,
+          borderBottom: `1px solid ${GRAY_300}`,
         }}>
           <div style={{
             display: "flex", flexWrap: "wrap", alignItems: "center",
             gap: "clamp(14px, 2vw, 28px)",
-            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+            fontFamily: "var(--font-cabin), system-ui, sans-serif",
             fontSize: 12.5,
             fontWeight: 500,
-            color: "rgba(255,255,255,0.72)",
+            color: GRAY_700,
             letterSpacing: "0.02em",
           }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-              <span style={{ width: 5, height: 5, borderRadius: "50%", background: BS_CYAN, boxShadow: `0 0 8px ${BS_CYAN}` }} />
+              <span style={{ width: 5, height: 5, borderRadius: "50%", background: OS_RED, boxShadow: `0 0 8px ${OS_RED}55` }} />
               10:00 – 14:20 AST
             </span>
-            <span style={{ color: "rgba(255,255,255,0.18)" }}>/</span>
+            <span style={{ color: GRAY_300 }}>/</span>
             <span>Fairmont Riyadh</span>
-            <span style={{ color: "rgba(255,255,255,0.18)" }}>/</span>
-            <span style={{ color: "rgba(255,255,255,0.5)" }}>15–20 senior IT executives</span>
+            <span style={{ color: GRAY_300 }}>/</span>
+            <span style={{ color: GRAY_500 }}>15–20 senior IT executives</span>
           </div>
 
           <div style={{
             display: "inline-flex", alignItems: "center", gap: "clamp(10px, 1.4vw, 16px)",
           }}>
             <span style={{
-              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+              fontFamily: "var(--font-cabin), system-ui, sans-serif",
               fontSize: 10, fontWeight: 700,
               letterSpacing: "0.32em", textTransform: "uppercase",
-              color: "rgba(255,255,255,0.4)",
+              color: GRAY_500,
             }}>Starts in</span>
             {([
               { v: cd.d, l: "Days" },
@@ -545,17 +860,17 @@ function HeroSection() {
             ]).map(({ v, l }, i) => (
               <span key={i} style={{
                 display: "inline-flex", alignItems: "baseline", gap: 4,
-                fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+                fontFamily: "var(--font-cabin), system-ui, sans-serif",
                 fontVariantNumeric: "tabular-nums",
               }}>
                 <span style={{
-                  fontSize: 16, fontWeight: 700, color: BS_WHITE, letterSpacing: "-0.01em",
+                  fontSize: 16, fontWeight: 700, color: INK, letterSpacing: "-0.01em",
                 }}>
                   {String(v).padStart(2, "0")}
                 </span>
                 <span style={{
                   fontSize: 9.5, fontWeight: 600, letterSpacing: "0.18em",
-                  textTransform: "uppercase", color: "rgba(255,255,255,0.42)",
+                  textTransform: "uppercase", color: GRAY_500,
                 }}>{l}</span>
               </span>
             ))}
@@ -565,13 +880,25 @@ function HeroSection() {
 
       <style jsx global>{`
         .bs-hero-cta:hover {
-          transform: translateY(-2px);
-          box-shadow:
-            0 1px 0 0 rgba(255,255,255,0.6) inset,
-            0 18px 48px ${BS_CYAN}55;
+          background: ${OS_RED_DARK};
+          transform: translateY(-1px);
+          box-shadow: 0 3px 8px ${OS_RED}33, 0 8px 22px ${OS_RED}26;
+        }
+        @keyframes bs-eyebrow-pulse {
+          0%, 100% { box-shadow: 0 0 0 0 ${OS_RED}55, 0 0 0 2px ${BS_WHITE}, 0 0 0 3px ${OS_RED}33; }
+          50%      { box-shadow: 0 0 0 5px ${OS_RED}00, 0 0 0 2px ${BS_WHITE}, 0 0 0 3px ${OS_RED}66; }
+        }
+        .bs-eyebrow-dot {
+          animation: bs-eyebrow-pulse 2.4s ${EASE.join(",")} infinite;
+        }
+        @media (max-width: 880px) {
+          .bs-hero-side-marker { display: none !important; }
+          .bs-hero-satellite { display: none !important; }
+          .bs-hero-yellow-mark { display: none !important; }
         }
         @media (max-width: 760px) {
           .bs-hero-meta { justify-content: flex-start !important; }
+          .bs-hero-partnership-seam { display: none !important; }
         }
       `}</style>
     </section>
@@ -713,7 +1040,126 @@ function SectionHeading({
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-// OVERVIEW — Why this matters
+// JOURNEY CANVAS — single shared atmosphere that holds BOTH Overview and
+// Takeaways as one continuous canvas. The ambient washes, ring micropattern,
+// hex sculpture, and linear-gradient tone-shift all live on this wrapper —
+// so there's no seam between "Why this matters" and "What you'll take away".
+// Each inner <section> renders content only (transparent background).
+// ═════════════════════════════════════════════════════════════════════════════
+function JourneyCanvas() {
+  return (
+    <section style={{
+      position: "relative",
+      background: CREAM,
+      // Outer breathing room (top + bottom buffer) — inner sections only carry
+      // a small bottom/top buffer of their own to space the two content blocks.
+      padding: "clamp(72px, 9vw, 120px) 0 clamp(72px, 9vw, 120px)",
+      overflow: "hidden",
+    }}>
+      {/* ── Unified warm wash spanning the full canvas. Layers (back→front): ──
+            1. Red halo at top-right (Overview's identity).
+            2. Soft red wash at vertical centre (under the Takeaways headline).
+            3. Cyan accent low-left (Blackstone host signature, lifted from Overview).
+            4. Yellow accent bottom-right (Takeaways' warmth carried in).
+            5. Continuous linear gradient CREAM → warm → warmer, top to bottom. */}
+      <div aria-hidden style={{
+        position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none",
+        background: `
+          radial-gradient(ellipse 50% 25% at 92% 6%, ${OS_RED}1f 0%, ${OS_RED}0a 35%, transparent 65%),
+          radial-gradient(ellipse 60% 22% at 50% 58%, ${OS_RED}12 0%, ${OS_RED}06 45%, transparent 70%),
+          radial-gradient(ellipse 35% 22% at 6% 78%, ${BS_CYAN}14 0%, transparent 60%),
+          radial-gradient(ellipse 40% 20% at 90% 95%, ${OS_YELLOW}0e 0%, transparent 60%),
+          linear-gradient(180deg, ${CREAM} 0%, #F8F2EC 50%, #F4ECE3 100%)
+        `,
+      }} />
+
+      {/* ── Faint Blackstone hex sculpture — straddles the seam between the two
+            content blocks (vertical mid-canvas, lower-left). Quiet host signature. ── */}
+      <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style={{
+        position: "absolute",
+        top: "42%", left: "-6vmin",
+        width: "32vmin", height: "32vmin",
+        opacity: 0.06,
+        pointerEvents: "none",
+        zIndex: 1,
+      }}>
+        <polygon points="50,3 92,26 92,74 50,97 8,74 8,26" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
+        <polygon points="50,20 78,35 78,65 50,80 22,65 22,35" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
+      </svg>
+
+      {/* ── Second hex sculpture — upper-right, mirrored. Subtle but symmetric. ── */}
+      <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style={{
+        position: "absolute",
+        top: "-4vmin", right: "-7vmin",
+        width: "26vmin", height: "26vmin",
+        opacity: 0.045,
+        pointerEvents: "none",
+        zIndex: 1,
+      }}>
+        <polygon points="50,3 92,26 92,74 50,97 8,74 8,26" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
+        <polygon points="50,20 78,35 78,65 50,80 22,65 22,35" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
+      </svg>
+
+      {/* ── Central hex "chapter divider" — floats in the seam zone between the
+            two content blocks, acts as a quiet ornamental flourish that ties them
+            together as one published canvas. ── */}
+      <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style={{
+        position: "absolute",
+        top: "50%", left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: "clamp(180px, 14vw, 240px)",
+        height: "clamp(180px, 14vw, 240px)",
+        opacity: 0.05,
+        pointerEvents: "none",
+        zIndex: 1,
+      }}>
+        <polygon points="50,3 92,26 92,74 50,97 8,74 8,26" fill="none" stroke={BS_NAVY} strokeWidth="0.5" />
+        <polygon points="50,15 80,32 80,68 50,85 20,68 20,32" fill="none" stroke={BS_NAVY} strokeWidth="0.5" />
+        <polygon points="50,28 70,40 70,60 50,72 30,60 30,40" fill="none" stroke={BS_CYAN} strokeWidth="0.4" />
+        <circle cx="50" cy="50" r="1.6" fill={BS_CYAN} />
+      </svg>
+
+      {/* ── Soft cyan halo at the dead-center seam — pairs with the hex above ── */}
+      <div aria-hidden style={{
+        position: "absolute",
+        top: "50%", left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: "clamp(280px, 22vw, 380px)",
+        height: "clamp(280px, 22vw, 380px)",
+        borderRadius: "50%",
+        background: `radial-gradient(circle, ${BS_CYAN}14 0%, ${BS_CYAN}06 35%, transparent 65%)`,
+        filter: "blur(40px)",
+        pointerEvents: "none",
+        zIndex: 0,
+      }} />
+
+      {/* ── OutSystems ring micropattern — same vocabulary as the hero, spans
+            the full canvas. Center-mask keeps it from competing with content. ── */}
+      <div aria-hidden style={{
+        position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
+        backgroundImage: `
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='3' fill='none' stroke='%23F22800' stroke-width='1' opacity='0.45'/></svg>")
+        `,
+        backgroundSize: "44px 44px",
+        WebkitMaskImage: "radial-gradient(ellipse 65% 40% at 50% 50%, transparent 20%, rgba(0,0,0,0.35) 75%, rgba(0,0,0,0.55) 100%)",
+        maskImage: "radial-gradient(ellipse 65% 40% at 50% 50%, transparent 20%, rgba(0,0,0,0.35) 75%, rgba(0,0,0,0.55) 100%)",
+        opacity: 0.32,
+      }} />
+
+      {/* ── Content: the two sections stacked, both with transparent backgrounds ── */}
+      <div style={{ position: "relative", zIndex: 2 }}>
+        <OverviewSection />
+        <TakeawaysSection />
+      </div>
+    </section>
+  );
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// OVERVIEW — Why this matters (OutSystems-base light theme)
+// Cream surface, Cabin display, solid OS red accent on "AI pilots", white body
+// card with red hairlines. Blackstone signal kept minimal (a thin navy seam).
+// Renders content only — atmosphere is painted by <JourneyCanvas>.
 // ═════════════════════════════════════════════════════════════════════════════
 function OverviewSection() {
   const ref = useRef(null);
@@ -730,36 +1176,13 @@ function OverviewSection() {
     <section id="overview" ref={ref} style={{
       position: "relative",
       background: "transparent",
-      padding: "clamp(60px, 7vw, 96px) 0",
-      overflow: "hidden",
+      // Just internal content rhythm — the outer breathing room (top buffer)
+      // and the unified atmosphere come from <JourneyCanvas>, the parent that
+      // wraps both this section and Takeaways as one continuous canvas.
+      padding: "0 0 clamp(40px, 5vw, 60px)",
+      overflow: "visible",
     }}>
-      {/* ── Cinematic stage light: single off-screen cyan beam from the upper-right ── */}
-      <div aria-hidden style={{
-        position: "absolute",
-        top: "-20%",
-        right: "-25%",
-        width: "60%",
-        height: "140%",
-        background: `radial-gradient(ellipse 40% 50% at 50% 50%, ${BS_CYAN}33 0%, ${BS_CYAN}10 30%, transparent 60%)`,
-        filter: "blur(60px)",
-        transform: "rotate(-18deg)",
-        pointerEvents: "none",
-        zIndex: 0,
-      }} />
-
-      {/* ── Faint vertical light streak running through the centre — adds depth without clutter ── */}
-      <div aria-hidden style={{
-        position: "absolute",
-        top: 0, bottom: 0,
-        left: "50%", transform: "translateX(-50%)",
-        width: "70%", maxWidth: 1100,
-        background: `radial-gradient(ellipse 60% 50% at 50% 50%, ${BS_BLUE}1a 0%, transparent 70%)`,
-        filter: "blur(80px)",
-        pointerEvents: "none",
-        zIndex: 0,
-      }} />
-
-      {/* ── Letterbox film-frame markers — kept; signature of the section ── */}
+      {/* (No ambient overlays here — JourneyCanvas paints the shared atmosphere.) */}
 
       {/* ── Content ── */}
       <div style={{
@@ -779,102 +1202,89 @@ function OverviewSection() {
           transition={{ duration: 0.9, ease: EASE }}
           style={{ display: "flex", flexDirection: "column", gap: "clamp(20px, 2.4vw, 32px)" }}
         >
-          {/* Glass-skeu eyebrow pill — refined with hex icon (Blackstone motif) */}
+          {/* Eyebrow — white pill with red ring icon (matches hero eyebrow language) */}
           <span style={{
             position: "relative",
             alignSelf: "flex-start",
             display: "inline-flex", alignItems: "center", gap: 11,
             padding: "9px 18px 9px 14px",
             borderRadius: 999,
-            background: `linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 55%, rgba(255,255,255,0.02) 100%)`,
-            backdropFilter: "blur(16px) saturate(160%)",
-            WebkitBackdropFilter: "blur(16px) saturate(160%)",
-            border: `1px solid rgba(255,255,255,0.14)`,
+            background: `linear-gradient(180deg, ${BS_WHITE} 0%, #FAF7F4 100%)`,
+            border: `1px solid ${GRAY_300}`,
             boxShadow: `
-              0 1px 0 0 rgba(255,255,255,0.22) inset,
-              0 0 0 1px ${BS_CYAN}1f inset,
-              0 12px 28px rgba(0,0,0,0.32),
-              0 0 24px ${BS_CYAN}22
+              0 1px 0 0 rgba(255,255,255,1) inset,
+              0 -1px 0 0 ${OS_RED}1a inset,
+              0 4px 12px rgba(14,14,16,0.05),
+              0 0 24px ${OS_RED}14
             `,
-            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+            fontFamily: "var(--font-cabin), system-ui, sans-serif",
             fontSize: 11,
             fontWeight: 700,
             letterSpacing: "0.32em",
             textTransform: "uppercase",
-            color: "rgba(255,255,255,0.88)",
+            color: CHARCOAL,
           }}>
-            {/* Skeu specular */}
+            {/* Specular */}
             <span aria-hidden style={{
               position: "absolute",
-              top: 1, left: "14%", right: "14%",
+              top: 1, left: "16%", right: "16%",
               height: 1,
-              background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%)`,
+              background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 50%, transparent 100%)`,
               pointerEvents: "none",
             }} />
-            {/* Tiny hex icon — picks up the Blackstone bracket motif */}
-            <span aria-hidden style={{
-              width: 9, height: 10,
-              clipPath: "polygon(25% 5%, 75% 5%, 98% 50%, 75% 95%, 25% 95%, 2% 50%)",
-              background: BS_CYAN,
-              boxShadow: `0 0 8px ${BS_CYAN}`,
-              flexShrink: 0,
-            }} />
+            <OutSystemsRing size={11} color={OS_RED} strokeWidth={2.4} />
+            <BlackstoneHex size={10} color={BS_NAVY} strokeWidth={2} />
             Why this matters
           </span>
 
-          {/* Cinematic headline */}
+          {/* Cinematic headline — Cabin, ink, solid OS red accent on "AI pilots" */}
           <h2 style={{
-            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+            fontFamily: "var(--font-cabin), system-ui, sans-serif",
             fontSize: "clamp(32px, 4.4vw, 64px)",
             fontWeight: 700,
-            letterSpacing: "-0.03em",
+            letterSpacing: "-0.025em",
             lineHeight: 1.04,
-            color: BS_WHITE,
+            color: INK,
             margin: 0,
             textWrap: "balance" as "balance",
           }}>
             The roadmap from{" "}
-            <span style={{
-              background: `linear-gradient(180deg, ${BS_CYAN} 0%, ${BS_LIGHT_BLUE} 100%)`,
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              fontWeight: 800,
-            }}>AI pilots</span>{" "}
+            <span style={{ color: OS_RED, fontWeight: 700 }}>AI pilots</span>{" "}
             to agentic public services.
           </h2>
 
-          {/* Italic serif lead — the scene-setter, Apple editorial cadence */}
+          {/* Italic Cabin lead — red left bar */}
           <p style={{
-            fontFamily: "Georgia, 'Cambria', 'Times New Roman', serif",
+            fontFamily: "var(--font-cabin), system-ui, sans-serif",
             fontStyle: "italic",
             fontSize: "clamp(17px, 1.5vw, 22px)",
             fontWeight: 400,
             lineHeight: 1.45,
-            color: "rgba(255,255,255,0.86)",
+            color: GRAY_700,
             margin: 0,
             paddingLeft: "clamp(16px, 1.4vw, 22px)",
-            borderLeft: `2px solid ${BS_CYAN}77`,
+            borderLeft: `2px solid ${OS_RED}`,
             maxWidth: 540,
           }}>
-            The question is no longer <span style={{ color: BS_WHITE, fontStyle: "normal", fontWeight: 600 }}>whether</span> AI will reshape Saudi government —{" "}
-            <span style={{ color: BS_CYAN, fontStyle: "normal", fontWeight: 600 }}>but how quickly, and at what scale.</span>
+            The question is no longer{" "}
+            <span style={{ color: INK, fontStyle: "normal", fontWeight: 600 }}>whether</span> AI will reshape Saudi government —{" "}
+            <span style={{ color: OS_RED, fontStyle: "normal", fontWeight: 700 }}>but how quickly, and at what scale.</span>
           </p>
         </motion.div>
 
-        {/* ─── RIGHT: the supporting argument inside an elevated glass-skeu panel ─── */}
+        {/* ─── RIGHT: white body card with red top hairline ─── */}
         <motion.div
           initial={{ opacity: 0, y: 30, scale: 0.985 }}
           animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 1.0, delay: 0.2, ease: EASE }}
           style={{ position: "relative" }}
         >
-          {/* Soft cyan halo behind the card — gives it cinematic lift */}
+          {/* Soft red halo behind the card */}
           <div aria-hidden style={{
             position: "absolute",
-            inset: "-30px",
-            background: `radial-gradient(ellipse 60% 50% at 50% 50%, ${BS_CYAN}1f 0%, transparent 65%)`,
-            filter: "blur(36px)",
+            inset: "-32px",
+            background: `radial-gradient(ellipse 55% 50% at 50% 50%, ${OS_RED}14 0%, transparent 65%)`,
+            filter: "blur(40px)",
             zIndex: 0,
             pointerEvents: "none",
           }} />
@@ -883,41 +1293,60 @@ function OverviewSection() {
             position: "relative",
             zIndex: 1,
             padding: "clamp(30px, 3.2vw, 48px)",
-            borderRadius: 20,
-            background: `linear-gradient(165deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 60%, rgba(0,0,0,0.18) 100%)`,
-            backdropFilter: "blur(20px) saturate(150%)",
-            WebkitBackdropFilter: "blur(20px) saturate(150%)",
-            border: `1px solid rgba(255,255,255,0.10)`,
+            borderRadius: 18,
+            background: BS_WHITE,
+            border: `1px solid ${GRAY_300}`,
             boxShadow: `
-              0 1px 0 0 rgba(255,255,255,0.16) inset,
-              0 -1px 0 0 rgba(0,0,0,0.18) inset,
-              0 0 0 1px ${BS_CYAN}14 inset,
-              0 24px 60px rgba(0,0,0,0.45),
-              0 0 60px ${BS_CYAN}1a
+              0 1px 0 0 rgba(255,255,255,1) inset,
+              0 1px 3px rgba(14,14,16,0.04),
+              0 24px 60px rgba(14,14,16,0.08),
+              0 0 48px ${OS_RED}10
             `,
             display: "flex",
             flexDirection: "column",
             gap: 22,
             overflow: "hidden",
           }}>
-            {/* Top-edge cyan→blue gradient hairline */}
+            {/* Top-edge red hairline — OutSystems signature */}
             <span aria-hidden style={{
               position: "absolute",
-              top: 0, left: "8%", right: "8%",
-              height: 1.5,
-              background: `linear-gradient(90deg, transparent 0%, ${BS_CYAN} 30%, ${BS_LIGHT_BLUE} 70%, transparent 100%)`,
+              top: 0, left: "10%", right: "10%",
+              height: 2,
+              background: `linear-gradient(90deg, transparent 0%, ${OS_RED} 50%, transparent 100%)`,
+              boxShadow: `0 0 10px ${OS_RED}55`,
               pointerEvents: "none",
             }} />
-            {/* Skeu specular highlight */}
+            {/* Tri-band Blackstone under-stripe — navy→cyan→navy. Both host
+                accents in a single 1px stripe under the OS red top hairline. */}
             <span aria-hidden style={{
               position: "absolute",
-              top: 1.5, left: "20%", right: "20%",
+              top: 4, left: "22%", right: "22%",
               height: 1,
-              background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.42) 50%, transparent 100%)`,
+              background: `linear-gradient(90deg, transparent 0%, ${BS_NAVY}66 25%, ${BS_CYAN}88 50%, ${BS_NAVY}66 75%, transparent 100%)`,
+              pointerEvents: "none",
+            }} />
+            {/* Tiny cyan glow dot at dead-centre of the under-stripe — host watermark seal */}
+            <span aria-hidden style={{
+              position: "absolute",
+              top: 2,
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: 5, height: 5,
+              borderRadius: "50%",
+              background: BS_CYAN,
+              boxShadow: `0 0 8px ${BS_CYAN}cc, 0 0 0 2px ${BS_CYAN}22`,
+              pointerEvents: "none",
+            }} />
+            {/* Bottom-edge thin navy hairline — Blackstone "leftover" signature */}
+            <span aria-hidden style={{
+              position: "absolute",
+              bottom: 0, left: "30%", right: "30%",
+              height: 1,
+              background: `linear-gradient(90deg, transparent 0%, ${BS_NAVY}66 50%, transparent 100%)`,
               pointerEvents: "none",
             }} />
 
-            {/* Cinematic corner brackets — film-frame mark on each corner */}
+            {/* Corner brackets — red */}
             {[
               { top: 14, left: 14, borderTop: true, borderLeft: true },
               { top: 14, right: 14, borderTop: true, borderRight: true },
@@ -927,34 +1356,64 @@ function OverviewSection() {
               <span key={i} aria-hidden style={{
                 position: "absolute",
                 ...pos,
-                width: 14, height: 14,
-                borderTop: pos.borderTop ? `1.5px solid ${BS_CYAN}99` : undefined,
-                borderBottom: pos.borderBottom ? `1.5px solid ${BS_CYAN}99` : undefined,
-                borderLeft: pos.borderLeft ? `1.5px solid ${BS_CYAN}99` : undefined,
-                borderRight: pos.borderRight ? `1.5px solid ${BS_CYAN}99` : undefined,
+                width: 12, height: 12,
+                borderTop: pos.borderTop ? `1.5px solid ${OS_RED}55` : undefined,
+                borderBottom: pos.borderBottom ? `1.5px solid ${OS_RED}55` : undefined,
+                borderLeft: pos.borderLeft ? `1.5px solid ${OS_RED}55` : undefined,
+                borderRight: pos.borderRight ? `1.5px solid ${OS_RED}55` : undefined,
                 pointerEvents: "none",
               }} />
             ))}
 
-            {/* Small label inside the panel */}
+            {/* ── Blackstone "publisher's seal" — small hex watermark at top-right of
+                the body card. Reads as a host signature stamp on OS-framed content. ── */}
+            <span aria-hidden style={{
+              position: "absolute",
+              top: 18,
+              right: 38,
+              width: 32,
+              height: 32,
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              pointerEvents: "none",
+              opacity: 0.85,
+            }}>
+              <span style={{
+                position: "absolute",
+                inset: 0,
+                borderRadius: "50%",
+                background: `radial-gradient(circle, ${BS_CYAN}33 0%, transparent 65%)`,
+                filter: "blur(4px)",
+              }} />
+              <svg viewBox="0 0 24 24" width={22} height={22} style={{ position: "relative" }}>
+                <polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="none" stroke={BS_NAVY} strokeWidth="1.4" strokeLinejoin="round" />
+                <polygon points="12,7 17,9.5 17,14.5 12,17 7,14.5 7,9.5" fill="none" stroke={BS_NAVY} strokeWidth="0.9" strokeLinejoin="round" opacity="0.55" />
+                <circle cx="12" cy="12" r="1.1" fill={BS_CYAN} />
+              </svg>
+            </span>
+
+            {/* Small label inside the panel — red hairline + hex icon, signals
+                "OutSystems frames it / Blackstone supplies the context" */}
             <span style={{
-              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+              fontFamily: "var(--font-cabin), system-ui, sans-serif",
               fontSize: 10,
               fontWeight: 700,
               letterSpacing: "0.32em",
               textTransform: "uppercase",
-              color: BS_CYAN,
+              color: OS_RED,
               display: "inline-flex", alignItems: "center", gap: 10,
             }}>
-              <span aria-hidden style={{ width: 18, height: 1, background: BS_CYAN, opacity: 0.7 }} />
+              <span aria-hidden style={{ width: 18, height: 1, background: OS_RED, opacity: 0.8 }} />
+              <BlackstoneHex size={10} color={BS_NAVY} strokeWidth={2} />
               Context
             </span>
 
             <p style={{
-              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+              fontFamily: "var(--font-noto-sans), system-ui, sans-serif",
               fontSize: "clamp(15px, 1.15vw, 17px)",
               lineHeight: 1.7,
-              color: "rgba(255,255,255,0.82)",
+              color: GRAY_700,
               margin: 0,
             }}>
               Saudi Arabia&apos;s public sector stands at an inflection point. Vision 2030 has set
@@ -962,46 +1421,44 @@ function OverviewSection() {
               proof-of-concept into the production fabric of citizen services.
             </p>
 
-            {/* Inline pullquote — structural rest stop between paragraphs */}
+            {/* Inline pullquote — soft red-tinted sub-card */}
             <div style={{
               position: "relative",
               padding: "clamp(14px, 1.4vw, 18px) clamp(18px, 2vw, 24px)",
               borderRadius: 12,
-              background: `linear-gradient(135deg, ${BS_CYAN}0f 0%, ${BS_BLUE}0a 100%)`,
-              border: `1px solid ${BS_CYAN}26`,
-              boxShadow: `
-                0 1px 0 0 rgba(255,255,255,0.08) inset,
-                0 0 24px ${BS_CYAN}14
-              `,
+              background: `linear-gradient(135deg, ${OS_RED}0a 0%, ${OS_YELLOW}05 100%)`,
+              border: `1px solid ${OS_RED}33`,
+              boxShadow: `0 1px 0 0 rgba(255,255,255,0.6) inset`,
             }}>
               <span aria-hidden style={{
                 position: "absolute",
-                top: "20%", bottom: "20%", left: -1,
-                width: 2.5,
-                background: `linear-gradient(180deg, transparent 0%, ${BS_CYAN} 50%, transparent 100%)`,
-                boxShadow: `0 0 10px ${BS_CYAN}66`,
+                top: "18%", bottom: "18%", left: -1,
+                width: 3,
+                background: `linear-gradient(180deg, transparent 0%, ${OS_RED} 50%, transparent 100%)`,
+                boxShadow: `0 0 8px ${OS_RED}66`,
+                borderRadius: 999,
               }} />
               <p style={{
-                fontFamily: "Georgia, 'Cambria', 'Times New Roman', serif",
+                fontFamily: "var(--font-cabin), system-ui, sans-serif",
                 fontStyle: "italic",
                 fontSize: "clamp(15px, 1.25vw, 18px)",
                 fontWeight: 400,
                 lineHeight: 1.5,
-                color: BS_WHITE,
+                color: INK,
                 margin: 0,
                 letterSpacing: "-0.005em",
               }}>
                 The work now is{" "}
-                <span style={{ fontStyle: "normal", fontWeight: 700, color: BS_CYAN, fontFamily: "var(--font-montserrat), system-ui, sans-serif", letterSpacing: 0 }}>past the slideware</span>
+                <span style={{ fontStyle: "normal", fontWeight: 700, color: OS_RED, letterSpacing: 0 }}>past the slideware</span>
                 {" "}— into the operating model.
               </p>
             </div>
 
             <p style={{
-              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+              fontFamily: "var(--font-noto-sans), system-ui, sans-serif",
               fontSize: "clamp(15px, 1.15vw, 17px)",
               lineHeight: 1.7,
-              color: "rgba(255,255,255,0.72)",
+              color: GRAY_700,
               margin: 0,
             }}>
               This invite-only roundtable convenes a focused circle of senior IT leaders, CDOs and
@@ -1019,60 +1476,70 @@ function OverviewSection() {
               gap: 12,
             }}>
               <span style={{
-                fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+                fontFamily: "var(--font-cabin), system-ui, sans-serif",
                 fontSize: 10,
                 fontWeight: 700,
                 letterSpacing: "0.32em",
                 textTransform: "uppercase",
-                color: "rgba(255,255,255,0.55)",
+                color: GRAY_500,
                 whiteSpace: "nowrap",
+                display: "inline-flex", alignItems: "center", gap: 8,
               }}>
+                <BlackstoneHex size={10} color={BS_NAVY} strokeWidth={2} />
                 Focus areas
               </span>
               <span aria-hidden style={{
                 flex: 1, height: 1,
-                background: `linear-gradient(90deg, rgba(255,255,255,0.18) 0%, transparent 100%)`,
+                background: `linear-gradient(90deg, ${GRAY_300} 0%, transparent 100%)`,
               }} />
             </div>
 
-            {/* Glass-skeu tag pills — premium treatment */}
+            {/* Tag pills — white with red dot, OutSystems clean style */}
             <div style={{
               display: "flex", flexWrap: "wrap", gap: 10,
               marginTop: -8,
             }}>
-              {TAGS.map((t, i) => (
-                <motion.span
-                  key={t}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.55 + i * 0.06, ease: EASE }}
-                  style={{
-                    position: "relative",
-                    display: "inline-flex", alignItems: "center", gap: 7,
-                    padding: "7px 14px 7px 12px",
-                    borderRadius: 999,
-                    background: `linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 100%)`,
-                    border: `1px solid rgba(255,255,255,0.12)`,
-                    boxShadow: `
-                      0 1px 0 0 rgba(255,255,255,0.20) inset,
-                      0 0 0 1px ${BS_CYAN}1a inset,
-                      0 6px 16px rgba(0,0,0,0.28)
-                    `,
-                    fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-                    fontSize: 12,
-                    fontWeight: 600,
-                    letterSpacing: "0.03em",
-                    color: BS_WHITE,
-                  }}
-                >
-                  <span aria-hidden style={{
-                    width: 5, height: 5, borderRadius: "50%",
-                    background: BS_CYAN,
-                    boxShadow: `0 0 6px ${BS_CYAN}aa`,
-                  }} />
-                  {t}
-                </motion.span>
-              ))}
+              {TAGS.map((t, i) => {
+                // "Vision 2030 aligned" — the Saudi-government-coded tag — gets the
+                // Blackstone host signature (navy hex) instead of the OS red dot.
+                const isHostTag = t === "Vision 2030 aligned";
+                return (
+                  <motion.span
+                    key={t}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.55 + i * 0.06, ease: EASE }}
+                    style={{
+                      position: "relative",
+                      display: "inline-flex", alignItems: "center", gap: 7,
+                      padding: "7px 14px 7px 12px",
+                      borderRadius: 999,
+                      background: BS_WHITE,
+                      border: `1px solid ${GRAY_300}`,
+                      boxShadow: `
+                        0 1px 0 0 rgba(255,255,255,1) inset,
+                        0 1px 2px rgba(14,14,16,0.04)
+                      `,
+                      fontFamily: "var(--font-cabin), system-ui, sans-serif",
+                      fontSize: 12,
+                      fontWeight: 600,
+                      letterSpacing: "0.03em",
+                      color: CHARCOAL,
+                    }}
+                  >
+                    {isHostTag ? (
+                      <BlackstoneHex size={9} color={BS_NAVY} strokeWidth={2} />
+                    ) : (
+                      <span aria-hidden style={{
+                        width: 5, height: 5, borderRadius: "50%",
+                        background: OS_RED,
+                        boxShadow: `0 0 0 2px ${OS_RED}1f`,
+                      }} />
+                    )}
+                    {t}
+                  </motion.span>
+                );
+              })}
             </div>
           </div>
         </motion.div>
@@ -1094,49 +1561,27 @@ function TakeawaysSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-120px" });
 
-  // Editorial theme keywords paired with each takeaway sentence
+  // Editorial theme keywords paired with each takeaway sentence.
+  // `host` flags which card carries the Blackstone leftover signature (hex glyph
+  // instead of red ring) — applied to the "Trust" theme since governance maps
+  // most directly to the host's Saudi public-sector context.
   const ITEMS = [
-    { theme: "Scale", text: "Moving from AI pilots to scalable, agentic government services." },
-    { theme: "Trust", text: "Balancing innovation, governance and trust in agentic AI adoption." },
-    { theme: "Impact", text: "Driving citizen impact and operational efficiency through automation and AI." },
+    { theme: "Scale", text: "Moving from AI pilots to scalable, agentic government services.", host: false },
+    { theme: "Trust", text: "Balancing innovation, governance and trust in agentic AI adoption.", host: true },
+    { theme: "Impact", text: "Driving citizen impact and operational efficiency through automation and AI.", host: false },
   ];
 
   return (
     <section id="takeaways" ref={ref} style={{
       position: "relative",
       background: "transparent",
-      padding: "clamp(60px, 7vw, 96px) 0",
-      overflow: "hidden",
+      // Just internal content rhythm — the outer breathing room (bottom buffer)
+      // and the unified atmosphere come from <JourneyCanvas>, the parent that
+      // wraps both Overview and this section as one continuous canvas.
+      padding: "clamp(40px, 5vw, 60px) 0 0",
+      overflow: "visible",
     }}>
-      {/* ── Overhead cyan stage-light spotlight (from top centre, fanning down) ── */}
-      <div aria-hidden style={{
-        position: "absolute",
-        top: "-30%",
-        left: "50%",
-        transform: "translateX(-50%)",
-        width: "85%",
-        height: "100%",
-        background: `radial-gradient(ellipse 40% 60% at 50% 50%, ${BS_CYAN}33 0%, ${BS_CYAN}10 35%, transparent 65%)`,
-        filter: "blur(60px)",
-        pointerEvents: "none",
-        zIndex: 0,
-      }} />
-
-      {/* ── Faint blue floor wash (anchors the bottom, gives stage-floor feel) ── */}
-      <div aria-hidden style={{
-        position: "absolute",
-        bottom: "-30%",
-        left: "50%",
-        transform: "translateX(-50%)",
-        width: "90%",
-        height: "55%",
-        background: `radial-gradient(ellipse 50% 50% at 50% 50%, ${BS_BLUE}22 0%, transparent 70%)`,
-        filter: "blur(70px)",
-        pointerEvents: "none",
-        zIndex: 0,
-      }} />
-
-      {/* ── Letterbox film-frame markers (section signature, consistent with Overview) ── */}
+      {/* (No ambient overlays here — JourneyCanvas paints the shared atmosphere.) */}
 
       {/* ── Content ── */}
       <div style={{
@@ -1154,81 +1599,71 @@ function TakeawaysSection() {
             flexDirection: "column",
             alignItems: "center",
             gap: "clamp(18px, 2.2vw, 28px)",
-            marginBottom: "clamp(36px, 4.5vw, 56px)",
+            marginBottom: "clamp(40px, 5vw, 64px)",
             textAlign: "center",
           }}
         >
-          {/* Glass-skeu eyebrow pill (matches Overview vocabulary — hex icon, same skeu specs) */}
+          {/* Eyebrow — white pill with red specular under-rim (matches Overview vocabulary) */}
           <span style={{
             position: "relative",
             display: "inline-flex", alignItems: "center", gap: 11,
             padding: "9px 18px 9px 14px",
             borderRadius: 999,
-            background: `linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 55%, rgba(255,255,255,0.02) 100%)`,
-            backdropFilter: "blur(16px) saturate(160%)",
-            WebkitBackdropFilter: "blur(16px) saturate(160%)",
-            border: `1px solid rgba(255,255,255,0.14)`,
+            background: `linear-gradient(180deg, ${BS_WHITE} 0%, #FAF7F4 100%)`,
+            border: `1px solid ${GRAY_300}`,
             boxShadow: `
-              0 1px 0 0 rgba(255,255,255,0.22) inset,
-              0 0 0 1px ${BS_CYAN}1f inset,
-              0 12px 28px rgba(0,0,0,0.32),
-              0 0 24px ${BS_CYAN}22
+              0 1px 0 0 rgba(255,255,255,1) inset,
+              0 -1px 0 0 ${OS_RED}1a inset,
+              0 4px 12px rgba(14,14,16,0.05),
+              0 0 24px ${OS_RED}14
             `,
-            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+            fontFamily: "var(--font-cabin), system-ui, sans-serif",
             fontSize: 11,
             fontWeight: 700,
             letterSpacing: "0.32em",
             textTransform: "uppercase",
-            color: "rgba(255,255,255,0.88)",
+            color: CHARCOAL,
           }}>
+            {/* Specular */}
             <span aria-hidden style={{
               position: "absolute",
-              top: 1, left: "14%", right: "14%",
+              top: 1, left: "16%", right: "16%",
               height: 1,
-              background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%)`,
+              background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 50%, transparent 100%)`,
               pointerEvents: "none",
             }} />
-            <span aria-hidden style={{
-              width: 9, height: 10,
-              clipPath: "polygon(25% 5%, 75% 5%, 98% 50%, 75% 95%, 25% 95%, 2% 50%)",
-              background: BS_CYAN,
-              boxShadow: `0 0 8px ${BS_CYAN}`,
-              flexShrink: 0,
-            }} />
+            <OutSystemsRing size={11} color={OS_RED} strokeWidth={2.4} />
+            <BlackstoneHex size={10} color={BS_NAVY} strokeWidth={2} />
             What you&apos;ll take away
           </span>
 
-          {/* Centered cinematic headline */}
+          {/* Centered cinematic headline — Cabin, ink, solid OS red accent */}
           <h2 style={{
-            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+            fontFamily: "var(--font-cabin), system-ui, sans-serif",
             fontSize: "clamp(34px, 4.6vw, 68px)",
             fontWeight: 700,
             letterSpacing: "-0.03em",
             lineHeight: 1.05,
-            color: BS_WHITE,
+            color: INK,
             margin: 0,
-            maxWidth: 900,
+            maxWidth: 920,
             textWrap: "balance" as "balance",
           }}>
             Three conversations{" "}
-            <span style={{
-              background: `linear-gradient(180deg, ${BS_CYAN} 0%, ${BS_LIGHT_BLUE} 100%)`,
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              fontWeight: 800,
-            }}>worth your morning.</span>
+            <span style={{ color: OS_RED, fontWeight: 700 }}>
+              worth your morning.
+            </span>
           </h2>
 
-          {/* Supporting line — Apple sub-headline cadence */}
+          {/* Supporting line — Noto Sans, GRAY_700 (matches Overview body cadence) */}
           <p style={{
             margin: 0,
-            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-            fontSize: "clamp(14px, 1.1vw, 17px)",
+            fontFamily: "var(--font-noto-sans), system-ui, sans-serif",
+            fontSize: "clamp(15px, 1.15vw, 17px)",
             fontWeight: 400,
-            lineHeight: 1.55,
-            color: "rgba(255,255,255,0.62)",
-            maxWidth: 560,
+            lineHeight: 1.6,
+            color: GRAY_700,
+            maxWidth: 600,
             letterSpacing: "-0.003em",
           }}>
             Three working themes shaped around what senior Saudi public-sector leaders actually need to decide on this year.
@@ -1241,7 +1676,7 @@ function TakeawaysSection() {
           gridTemplateColumns: "repeat(3, 1fr)",
           gap: "clamp(20px, 2.4vw, 30px)",
         }} className="bs-takeaways-grid">
-          {ITEMS.map(({ theme, text }, i) => (
+          {ITEMS.map(({ theme, text, host }, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 28, scale: 0.985 }}
@@ -1250,94 +1685,77 @@ function TakeawaysSection() {
               className="bs-takeaway-card"
               style={{
                 position: "relative",
-                padding: "clamp(18px, 1.7vw, 24px)",
+                padding: "clamp(22px, 2.2vw, 32px) clamp(20px, 1.9vw, 26px) clamp(20px, 2vw, 28px)",
                 borderRadius: 16,
-                // Multi-layer refractive glass — radial dome highlight + linear bevel + tinted refraction
-                background: `
-                  radial-gradient(ellipse 80% 60% at 22% 8%, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.04) 28%, transparent 55%),
-                  radial-gradient(ellipse 70% 50% at 80% 100%, ${BS_CYAN}1f 0%, transparent 55%),
-                  linear-gradient(168deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 45%, rgba(0,0,0,0.18) 100%)
-                `,
-                backdropFilter: "blur(30px) saturate(180%) brightness(1.06)",
-                WebkitBackdropFilter: "blur(30px) saturate(180%) brightness(1.06)",
-                border: `1px solid rgba(255,255,255,0.14)`,
+                background: BS_WHITE,
+                border: `1px solid ${GRAY_300}`,
                 boxShadow: `
-                  0 1.5px 0 0 rgba(255,255,255,0.28) inset,
-                  0 -1.5px 0 0 rgba(0,0,0,0.24) inset,
-                  0 0 0 1px ${BS_CYAN}1f inset,
-                  0 1px 2px rgba(0,0,0,0.18) inset,
-                  0 24px 56px rgba(0,0,0,0.5),
-                  0 0 70px ${BS_CYAN}1f,
-                  0 0 1px rgba(255,255,255,0.06)
+                  0 1px 0 0 rgba(255,255,255,1) inset,
+                  0 1px 3px rgba(14,14,16,0.04),
+                  0 16px 38px rgba(14,14,16,0.06),
+                  0 0 32px ${OS_RED}0a
                 `,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
                 textAlign: "center",
-                gap: "clamp(12px, 1.4vw, 18px)",
-                minHeight: "clamp(170px, 13vw, 210px)",
+                gap: "clamp(10px, 1.2vw, 14px)",
+                minHeight: "clamp(160px, 12vw, 190px)",
                 overflow: "hidden",
                 transition: "transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease",
               }}
             >
-              {/* Top-edge cyan→blue gradient hairline */}
+              {/* Top-edge red hairline — OutSystems signature (same as Overview body card) */}
               <span aria-hidden style={{
                 position: "absolute",
-                top: 0, left: "8%", right: "8%",
-                height: 1.5,
-                background: `linear-gradient(90deg, transparent 0%, ${BS_CYAN} 30%, ${BS_LIGHT_BLUE} 70%, transparent 100%)`,
-                pointerEvents: "none",
-                zIndex: 2,
-              }} />
-              {/* Skeu specular highlight directly under top hairline */}
-              <span aria-hidden style={{
-                position: "absolute",
-                top: 1.5, left: "20%", right: "20%",
-                height: 1,
-                background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%)`,
+                top: 0, left: "10%", right: "10%",
+                height: 2,
+                background: `linear-gradient(90deg, transparent 0%, ${OS_RED} 50%, transparent 100%)`,
+                boxShadow: `0 0 10px ${OS_RED}55`,
                 pointerEvents: "none",
                 zIndex: 2,
               }} />
 
-              {/* Diagonal sheen band — the "liquid glass" moving light reflection */}
+              {/* Parallel navy under-stripe ONLY on the "host" card — Blackstone leftover signature */}
+              {host && (
+                <span aria-hidden style={{
+                  position: "absolute",
+                  top: 4, left: "22%", right: "22%",
+                  height: 1,
+                  background: `linear-gradient(90deg, transparent 0%, ${BS_NAVY}66 50%, transparent 100%)`,
+                  pointerEvents: "none",
+                  zIndex: 2,
+                }} />
+              )}
+
+              {/* Diagonal sheen band — moves on hover. Blackstone-blue tint, so the
+                  shimmer reads as the host's "leftover" moment inside an OS-framed card. */}
               <span aria-hidden className="bs-takeaway-sheen" style={{
                 position: "absolute",
                 top: "-30%",
                 left: "-30%",
                 width: "60%",
                 height: "200%",
-                background: `linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.05) 42%, rgba(255,255,255,0.14) 50%, rgba(255,255,255,0.05) 58%, transparent 100%)`,
+                background: `linear-gradient(110deg, transparent 0%, ${BS_CYAN}10 38%, ${BS_CYAN}1f 48%, ${BS_LIGHT_BLUE}14 56%, transparent 100%)`,
                 transform: "rotate(8deg)",
                 pointerEvents: "none",
                 zIndex: 1,
                 transition: "transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease",
               }} />
 
-              {/* Bottom-edge dark seal — completes the skeumorphic bevel */}
+              {/* ─── Watermark numeral — partly clipped at bottom-right. Tint follows
+                    the card's affiliation: navy on the host (Trust), OS-red elsewhere. ─── */}
               <span aria-hidden style={{
                 position: "absolute",
-                bottom: 0, left: "12%", right: "12%",
-                height: 1,
-                background: `linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 50%, transparent 100%)`,
-                pointerEvents: "none",
-                zIndex: 2,
-              }} />
-
-              {/* ─── BACKGROUND watermark numeral — partly clipped at bottom-right ─── */}
-              <span aria-hidden style={{
-                position: "absolute",
-                bottom: "-0.16em",
-                right: "-0.06em",
-                fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-                fontWeight: 800,
-                fontSize: "clamp(110px, 12vw, 160px)",
+                bottom: "-0.18em",
+                right: "-0.05em",
+                fontFamily: "var(--font-cabin), system-ui, sans-serif",
+                fontWeight: 700,
+                fontSize: "clamp(92px, 10vw, 140px)",
                 lineHeight: 0.85,
-                letterSpacing: "-0.06em",
-                background: `linear-gradient(160deg, ${BS_CYAN}33 0%, ${BS_CYAN}1a 40%, ${BS_BLUE}0d 100%)`,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
+                letterSpacing: "-0.05em",
+                color: host ? `${BS_NAVY}14` : `${OS_RED}10`,
                 pointerEvents: "none",
                 userSelect: "none",
                 zIndex: 0,
@@ -1346,7 +1764,7 @@ function TakeawaysSection() {
                 {String(i + 1).padStart(2, "0")}
               </span>
 
-              {/* Cinematic corner brackets */}
+              {/* Corner brackets — red (Overview vocabulary) */}
               {[
                 { top: 14, left: 14, borderTop: true, borderLeft: true },
                 { top: 14, right: 14, borderTop: true, borderRight: true },
@@ -1357,45 +1775,52 @@ function TakeawaysSection() {
                   position: "absolute",
                   ...pos,
                   width: 12, height: 12,
-                  borderTop: pos.borderTop ? `1.5px solid ${BS_CYAN}88` : undefined,
-                  borderBottom: pos.borderBottom ? `1.5px solid ${BS_CYAN}88` : undefined,
-                  borderLeft: pos.borderLeft ? `1.5px solid ${BS_CYAN}88` : undefined,
-                  borderRight: pos.borderRight ? `1.5px solid ${BS_CYAN}88` : undefined,
+                  borderTop: pos.borderTop ? `1.5px solid ${OS_RED}55` : undefined,
+                  borderBottom: pos.borderBottom ? `1.5px solid ${OS_RED}55` : undefined,
+                  borderLeft: pos.borderLeft ? `1.5px solid ${OS_RED}55` : undefined,
+                  borderRight: pos.borderRight ? `1.5px solid ${OS_RED}55` : undefined,
                   pointerEvents: "none",
                   zIndex: 2,
                 }} />
               ))}
 
-              {/* Theme keyword (italic Georgia serif, cyan — centered, with hairline on each side) */}
+              {/* Theme keyword — italic Cabin, OS_RED, with hairlines either side */}
               <span style={{
                 position: "relative",
                 zIndex: 1,
-                fontFamily: "Georgia, 'Cambria', 'Times New Roman', serif",
+                fontFamily: "var(--font-cabin), system-ui, sans-serif",
                 fontStyle: "italic",
                 fontSize: "clamp(15px, 1.2vw, 18px)",
-                fontWeight: 400,
+                fontWeight: 500,
                 letterSpacing: "0.04em",
-                color: BS_CYAN,
+                color: host ? BS_NAVY : OS_RED,
                 textTransform: "lowercase",
                 display: "inline-flex", alignItems: "center", gap: 10,
               }}>
-                <span aria-hidden style={{ width: 14, height: 1, background: `linear-gradient(90deg, transparent, ${BS_CYAN})` }} />
+                <span aria-hidden style={{
+                  width: 16, height: 1,
+                  background: `linear-gradient(90deg, transparent, ${host ? BS_NAVY : OS_RED})`,
+                }} />
                 {theme}
-                <span aria-hidden style={{ width: 14, height: 1, background: `linear-gradient(90deg, ${BS_CYAN}, transparent)` }} />
+                <span aria-hidden style={{
+                  width: 16, height: 1,
+                  background: `linear-gradient(90deg, ${host ? BS_NAVY : OS_RED}, transparent)`,
+                }} />
               </span>
 
-              {/* Body — centered, sits over the watermark numeral */}
+              {/* Body — Cabin medium, ink, centered */}
               <p style={{
                 position: "relative",
                 zIndex: 1,
-                fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-                fontSize: "clamp(17px, 1.4vw, 21px)",
+                fontFamily: "var(--font-cabin), system-ui, sans-serif",
+                fontSize: "clamp(17px, 1.45vw, 22px)",
                 fontWeight: 500,
-                lineHeight: 1.45,
-                color: BS_WHITE,
+                lineHeight: 1.4,
+                color: INK,
                 margin: 0,
-                letterSpacing: "-0.01em",
+                letterSpacing: "-0.012em",
                 textWrap: "balance" as "balance",
+                maxWidth: 280,
               }}>
                 {text}
               </p>
@@ -1407,14 +1832,12 @@ function TakeawaysSection() {
       <style jsx global>{`
         .bs-takeaway-card:hover {
           transform: translateY(-6px);
-          border-color: rgba(255,255,255,0.22) !important;
+          border-color: ${OS_RED}44 !important;
           box-shadow:
-            0 1.5px 0 0 rgba(255,255,255,0.32) inset,
-            0 -1.5px 0 0 rgba(0,0,0,0.26) inset,
-            0 0 0 1px ${BS_CYAN}33 inset,
-            0 1px 2px rgba(0,0,0,0.18) inset,
-            0 32px 70px rgba(0,0,0,0.55),
-            0 0 100px ${BS_CYAN}3a !important;
+            0 1px 0 0 rgba(255,255,255,1) inset,
+            0 1px 3px rgba(14,14,16,0.04),
+            0 28px 70px rgba(14,14,16,0.10),
+            0 0 70px ${OS_RED}1f !important;
         }
         .bs-takeaway-card:hover .bs-takeaway-sheen {
           transform: translateX(260%) rotate(8deg) !important;
@@ -1437,7 +1860,17 @@ function SpeakerCard({ s, idx, inView }: { s: Speaker; idx: number; inView: bool
     .slice(0, 2)
     .join("")
     .toUpperCase();
-  const companyColor = s.company === "Blackstone eIT" ? BS_CYAN : BS_LIGHT_BLUE;
+  const isHost = s.company === "Blackstone eIT";
+  // Host (Blackstone) keeps the cyan/blue treatment; OutSystems speakers carry
+  // their own brand red so the two affiliations are unmistakable at a glance.
+  const companyColor = isHost ? BS_CYAN : OS_RED;
+  // Middle-stop accent used on the outer hex frame gradient — must harmonize
+  // with `companyColor` so the frame doesn't go red→blue→red on OS cards.
+  const companyAccent = isHost ? BS_LIGHT_BLUE : OS_RED_BRIGHT;
+  // Deep tonal base for the card body & inner hex backdrop — Blackstone navy
+  // for the host, a deep wine-red for OutSystems. This is the difference between
+  // a "black-blue" card and a "black-red" card.
+  const companyDeep = isHost ? BS_NAVY : "#3D0B00";
   const HEX_CLIP = "polygon(25% 5%, 75% 5%, 98% 50%, 75% 95%, 25% 95%, 2% 50%)";
 
   return (
@@ -1451,25 +1884,31 @@ function SpeakerCard({ s, idx, inView }: { s: Speaker; idx: number; inView: bool
       className="bs-speaker-card"
       aria-label={`${s.name} on LinkedIn`}
       style={{
+        // Per-card CSS vars — picked up by the global :hover rule so each
+        // card glows in its own brand color rather than a hardcoded cyan.
+        ["--bs-card-glow" as string]: `${companyColor}3d`,
+        ["--bs-card-border" as string]: `${companyColor}55`,
         position: "relative",
         padding: "clamp(24px, 2.2vw, 32px) clamp(22px, 2vw, 28px) clamp(20px, 1.8vw, 26px)",
         borderRadius: 18,
-        // Liquid-glass + skeu refractive composite (same vocabulary as Takeaways cards)
+        // Liquid-glass + skeu refractive composite — tinted by company so each
+        // card reads as either "black-blue" (Blackstone) or "black-red" (OutSystems).
         background: `
-          radial-gradient(ellipse 80% 60% at 22% 8%, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.04) 28%, transparent 55%),
-          radial-gradient(ellipse 70% 50% at 80% 100%, ${companyColor}1f 0%, transparent 55%),
-          linear-gradient(168deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 45%, rgba(0,0,0,0.18) 100%)
+          radial-gradient(ellipse 80% 60% at 22% 8%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 28%, transparent 55%),
+          radial-gradient(ellipse 70% 50% at 80% 100%, ${companyColor}3a 0%, ${companyColor}14 35%, transparent 60%),
+          radial-gradient(ellipse 60% 90% at 50% 50%, ${companyDeep}55 0%, ${companyDeep}22 50%, transparent 85%),
+          linear-gradient(168deg, ${companyDeep}66 0%, ${BS_BLACK}cc 100%)
         `,
         backdropFilter: "blur(30px) saturate(180%) brightness(1.06)",
         WebkitBackdropFilter: "blur(30px) saturate(180%) brightness(1.06)",
-        border: `1px solid rgba(255,255,255,0.14)`,
+        border: `1px solid ${companyColor}33`,
         boxShadow: `
-          0 1.5px 0 0 rgba(255,255,255,0.28) inset,
-          0 -1.5px 0 0 rgba(0,0,0,0.24) inset,
-          0 0 0 1px ${companyColor}1f inset,
+          0 1.5px 0 0 rgba(255,255,255,0.22) inset,
+          0 -1.5px 0 0 rgba(0,0,0,0.32) inset,
+          0 0 0 1px ${companyColor}33 inset,
           0 1px 2px rgba(0,0,0,0.18) inset,
           0 24px 56px rgba(0,0,0,0.5),
-          0 0 70px ${companyColor}1f
+          0 0 70px ${companyColor}33
         `,
         display: "flex",
         flexDirection: "column",
@@ -1577,14 +2016,14 @@ function SpeakerCard({ s, idx, inView }: { s: Speaker; idx: number; inView: bool
         <div style={{
           position: "absolute", inset: 0,
           clipPath: HEX_CLIP,
-          background: `linear-gradient(140deg, ${companyColor}, ${BS_LIGHT_BLUE}55, ${companyColor})`,
+          background: `linear-gradient(140deg, ${companyColor}, ${companyAccent}55, ${companyColor})`,
           boxShadow: `0 12px 28px rgba(0,0,0,0.4)`,
         }} />
         {/* Inner hex containing the photo (3px frame) */}
         <div style={{
           position: "absolute", inset: 3,
           clipPath: HEX_CLIP,
-          background: `linear-gradient(135deg, ${BS_NAVY}, ${BS_BLACK})`,
+          background: `linear-gradient(135deg, ${companyDeep}, ${BS_BLACK})`,
           display: "flex", alignItems: "center", justifyContent: "center",
           fontFamily: "var(--font-montserrat), system-ui, sans-serif",
           fontWeight: 700,
@@ -1833,14 +2272,14 @@ function SpeakersSection() {
       <style jsx global>{`
         .bs-speaker-card:hover {
           transform: translateY(-6px);
-          border-color: rgba(255,255,255,0.22) !important;
+          border-color: var(--bs-card-border, rgba(255,255,255,0.22)) !important;
           box-shadow:
             0 1.5px 0 0 rgba(255,255,255,0.32) inset,
             0 -1.5px 0 0 rgba(0,0,0,0.26) inset,
             0 0 0 1px rgba(255,255,255,0.18) inset,
             0 1px 2px rgba(0,0,0,0.18) inset,
             0 32px 70px rgba(0,0,0,0.55),
-            0 0 100px rgba(0, 194, 255, 0.24) !important;
+            0 0 100px var(--bs-card-glow, rgba(0, 194, 255, 0.24)) !important;
         }
         .bs-speaker-card:hover .bs-speaker-sheen {
           transform: translateX(280%) rotate(8deg) !important;
@@ -1864,25 +2303,32 @@ function SpeakersSection() {
 // ═════════════════════════════════════════════════════════════════════════════
 // AGENDA — 9 items run of show
 // ═════════════════════════════════════════════════════════════════════════════
-function agendaTypeStyle(type: AgendaItem["type"]) {
+// `kind` drives the card's visual treatment on the OutSystems-base cream surface:
+//   - host    → Blackstone-led session (navy hex glyph + cyan tri-band under-stripe)
+//   - os      → OutSystems-led session (red ring glyph + red hairlines + brackets)
+//   - soft    → OS-attributed but lighter (welcome / closing) — softened red
+//   - neutral → logistics / break — gray dot, minimal chrome
+function agendaTypeStyle(type: AgendaItem["type"]): {
+  label: string; color: string; kind: "host" | "os" | "soft" | "neutral";
+} {
   switch (type) {
     case "keynote":
-      return { label: "Keynote", color: BS_CYAN };
+      return { label: "Keynote", color: OS_RED, kind: "os" };
     case "feature":
-      return { label: "Featured", color: BS_LIGHT_BLUE };
+      return { label: "Featured · Host session", color: BS_NAVY, kind: "host" };
     case "panel":
-      return { label: "Panel", color: BS_CYAN };
+      return { label: "Panel", color: OS_RED, kind: "os" };
     case "demo":
-      return { label: "Live demo", color: BS_LIGHT_BLUE };
+      return { label: "Live demo", color: OS_RED, kind: "os" };
     case "welcome":
-      return { label: "Welcome", color: "rgba(255,255,255,0.55)" };
+      return { label: "Welcome", color: OS_RED, kind: "soft" };
     case "closing":
-      return { label: "Closing", color: "rgba(255,255,255,0.55)" };
+      return { label: "Closing", color: OS_RED, kind: "soft" };
     case "break":
-      return { label: "Break", color: "rgba(255,255,255,0.42)" };
+      return { label: "Break", color: GRAY_500, kind: "neutral" };
     case "logistics":
     default:
-      return { label: "Networking", color: "rgba(255,255,255,0.42)" };
+      return { label: "Networking", color: GRAY_500, kind: "neutral" };
   }
 }
 
@@ -1915,37 +2361,41 @@ function AgendaColumn({
         gap: "clamp(14px, 1.6vw, 22px)",
       }}
     >
-      {/* Column header — editorial: italic Georgia label + Montserrat time range + hairline */}
+      {/* Column header — italic Cabin label in ink + small uppercase time range
+          with an accent hairline. Same editorial vocabulary as Overview's lead. */}
       <div style={{
         display: "flex", flexDirection: "column",
-        gap: 8,
-        marginBottom: "clamp(6px, 1vh, 12px)",
+        gap: 10,
+        marginBottom: "clamp(8px, 1vh, 14px)",
       }}>
         <span style={{
-          fontFamily: "Georgia, 'Cambria', 'Times New Roman', serif",
+          fontFamily: "var(--font-cabin), system-ui, sans-serif",
           fontStyle: "italic",
-          fontSize: "clamp(28px, 3.4vw, 44px)",
-          fontWeight: 400,
-          color: accentColor,
-          letterSpacing: "-0.02em",
+          fontSize: "clamp(30px, 3.6vw, 48px)",
+          fontWeight: 500,
+          color: INK,
+          letterSpacing: "-0.025em",
           lineHeight: 1,
           textTransform: "lowercase",
+          display: "inline-flex", alignItems: "baseline", gap: 8,
         }}>
-          {label}.
+          {label}
+          <span style={{ color: accentColor, fontStyle: "normal", fontWeight: 700 }}>.</span>
         </span>
         <span style={{
-          fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+          fontFamily: "var(--font-cabin), system-ui, sans-serif",
           fontSize: 11,
           fontWeight: 700,
           letterSpacing: "0.32em",
           textTransform: "uppercase",
-          color: "rgba(255,255,255,0.55)",
+          color: GRAY_500,
           display: "inline-flex", alignItems: "center", gap: 12,
           fontVariantNumeric: "tabular-nums",
         }}>
           <span aria-hidden style={{
-            width: 24, height: 1,
+            width: 28, height: 1,
             background: `linear-gradient(90deg, ${accentColor}, transparent)`,
+            boxShadow: `0 0 4px ${accentColor}44`,
           }} />
           {timeRange}
         </span>
@@ -1959,7 +2409,7 @@ function AgendaColumn({
   );
 }
 
-// ─── Reusable: a single agenda card ───
+// ─── Reusable: a single agenda card (OutSystems-base light theme) ───
 function AgendaCard({
   item,
   idx,
@@ -1971,9 +2421,11 @@ function AgendaCard({
   inView: boolean;
   columnDelay: number;
 }) {
-  const HEX_CLIP = "polygon(25% 5%, 75% 5%, 98% 50%, 75% 95%, 25% 95%, 2% 50%)";
   const type = agendaTypeStyle(item.type);
-  const isAccented = type.color === BS_CYAN || type.color === BS_LIGHT_BLUE;
+  const isHost = type.kind === "host";       // Blackstone-led — navy + cyan flourish
+  const isOS = type.kind === "os";           // OutSystems-led — full red treatment
+  const isSoft = type.kind === "soft";       // OS-attributed but lighter (welcome / closing)
+  const isNeutral = type.kind === "neutral"; // logistics / break — gray, minimal
 
   return (
     <motion.div
@@ -1983,112 +2435,145 @@ function AgendaCard({
       className="bs-agenda-card"
       style={{
         position: "relative",
-        padding: "clamp(18px, 1.8vw, 24px)",
+        padding: isNeutral
+          ? "clamp(14px, 1.4vw, 18px) clamp(16px, 1.6vw, 22px)"
+          : "clamp(18px, 1.8vw, 24px) clamp(20px, 2vw, 26px)",
         borderRadius: 14,
-        background: `
-          radial-gradient(ellipse 80% 60% at 20% 0%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 30%, transparent 60%),
-          linear-gradient(165deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 60%, rgba(0,0,0,0.18) 100%)
-        `,
-        backdropFilter: "blur(20px) saturate(150%)",
-        WebkitBackdropFilter: "blur(20px) saturate(150%)",
-        border: `1px solid rgba(255,255,255,0.08)`,
-        boxShadow: `
-          0 1px 0 0 rgba(255,255,255,0.16) inset,
-          0 -1px 0 0 rgba(0,0,0,0.16) inset,
-          0 0 0 1px ${isAccented ? type.color + "1a" : BS_CYAN + "10"} inset,
-          0 14px 30px rgba(0,0,0,0.28)
-        `,
+        background: BS_WHITE,
+        border: `1px solid ${isNeutral ? GRAY_300 : `${type.color}33`}`,
+        boxShadow: isNeutral
+          ? `0 1px 0 0 rgba(255,255,255,1) inset, 0 1px 2px rgba(14,14,16,0.03)`
+          : `
+              0 1px 0 0 rgba(255,255,255,1) inset,
+              0 1px 3px rgba(14,14,16,0.04),
+              0 12px 28px rgba(14,14,16,0.06),
+              0 0 28px ${type.color}10
+            `,
         overflow: "hidden",
         transition: "transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease",
         display: "flex",
         flexDirection: "column",
-        gap: 10,
+        gap: isNeutral ? 6 : 10,
       }}
     >
-      {/* Top hairline */}
-      <span aria-hidden style={{
-        position: "absolute", top: 0, left: "6%", right: "6%", height: 1.5,
-        background: isAccented
-          ? `linear-gradient(90deg, transparent 0%, ${type.color} 50%, transparent 100%)`
-          : `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.16) 50%, transparent 100%)`,
-        pointerEvents: "none",
-      }} />
-      {/* Specular */}
-      <span aria-hidden style={{
-        position: "absolute", top: 1.5, left: "18%", right: "18%", height: 1,
-        background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.42) 50%, transparent 100%)`,
-        pointerEvents: "none",
-      }} />
-
-      {/* Top row: hex bullet + time range + type pill */}
-      <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+      {/* Top hairline — colored for accented items, very faint for neutral */}
+      {!isNeutral && (
         <span aria-hidden style={{
-          display: "inline-block",
-          width: 10, height: 12,
-          clipPath: HEX_CLIP,
-          background: isAccented
-            ? `linear-gradient(135deg, ${type.color}, ${BS_LIGHT_BLUE})`
-            : `${BS_NAVY}`,
-          border: isAccented ? "none" : `1.5px solid ${BS_CYAN}aa`,
-          boxShadow: isAccented ? `0 0 10px ${type.color}aa` : "none",
-          flexShrink: 0,
+          position: "absolute", top: 0, left: "8%", right: "8%",
+          height: isOS ? 2 : 1.5,
+          background: `linear-gradient(90deg, transparent 0%, ${type.color} 50%, transparent 100%)`,
+          boxShadow: `0 0 8px ${type.color}44`,
+          pointerEvents: "none",
         }} />
+      )}
+
+      {/* Host tri-band Blackstone signature: navy → cyan → navy under-stripe */}
+      {isHost && (
+        <span aria-hidden style={{
+          position: "absolute", top: 4, left: "22%", right: "22%",
+          height: 1,
+          background: `linear-gradient(90deg, transparent 0%, ${BS_NAVY}66 25%, ${BS_CYAN}88 50%, ${BS_NAVY}66 75%, transparent 100%)`,
+          pointerEvents: "none",
+        }} />
+      )}
+
+      {/* Corner brackets — only on host / OS cards (skipped for soft and neutral) */}
+      {(isHost || isOS) && [
+        { top: 10, left: 10, borderTop: true, borderLeft: true },
+        { top: 10, right: 10, borderTop: true, borderRight: true },
+      ].map((pos, i) => (
+        <span key={i} aria-hidden style={{
+          position: "absolute",
+          ...pos,
+          width: 9, height: 9,
+          borderTop: pos.borderTop ? `1.5px solid ${type.color}55` : undefined,
+          borderLeft: pos.borderLeft ? `1.5px solid ${type.color}55` : undefined,
+          borderRight: pos.borderRight ? `1.5px solid ${type.color}55` : undefined,
+          pointerEvents: "none",
+        }} />
+      ))}
+
+      {/* Top row: glyph bullet (hex/ring/dot) + time range + type pill */}
+      <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+        {/* Glyph chooses brand: hex for host, ring for OS, dot for neutral */}
+        <span aria-hidden style={{
+          display: "inline-flex", alignItems: "center", justifyContent: "center",
+          width: 16, height: 16,
+          flexShrink: 0,
+        }}>
+          {isHost ? (
+            <BlackstoneHex size={14} color={BS_NAVY} strokeWidth={2.2} />
+          ) : (isOS || isSoft) ? (
+            <OutSystemsRing size={14} color={type.color} strokeWidth={2.4} />
+          ) : (
+            <span style={{
+              width: 6, height: 6, borderRadius: "50%",
+              background: type.color, opacity: 0.6,
+            }} />
+          )}
+        </span>
         <span style={{
-          fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-          fontSize: "clamp(13px, 1.05vw, 15px)",
+          fontFamily: "var(--font-cabin), system-ui, sans-serif",
+          fontSize: isNeutral ? "clamp(12.5px, 1vw, 14px)" : "clamp(13px, 1.05vw, 15px)",
           fontWeight: 700,
-          color: BS_WHITE,
+          color: isNeutral ? GRAY_500 : INK,
           letterSpacing: "-0.005em",
           fontVariantNumeric: "tabular-nums",
         }}>
-          {item.start} <span style={{ color: "rgba(255,255,255,0.3)", fontWeight: 500 }}>–</span> {item.end}
+          {item.start} <span style={{ color: GRAY_300, fontWeight: 500 }}>–</span> {item.end}
         </span>
         <span style={{
           marginLeft: "auto",
-          fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+          fontFamily: "var(--font-cabin), system-ui, sans-serif",
           fontSize: 9,
           fontWeight: 700,
           letterSpacing: "0.24em",
           textTransform: "uppercase",
-          color: isAccented ? type.color : "rgba(255,255,255,0.55)",
-          padding: "3.5px 9px",
+          color: type.color,
+          padding: isNeutral ? "3px 8px" : "3.5px 10px",
           borderRadius: 999,
-          background: isAccented
-            ? `linear-gradient(180deg, ${type.color}1f 0%, ${type.color}0a 100%)`
-            : "rgba(255,255,255,0.04)",
-          border: isAccented
-            ? `1px solid ${type.color}55`
-            : `1px solid rgba(255,255,255,0.08)`,
-          boxShadow: isAccented
-            ? `0 1px 0 0 rgba(255,255,255,0.14) inset, 0 0 10px ${type.color}33`
-            : `0 1px 0 0 rgba(255,255,255,0.08) inset`,
+          background: isNeutral
+            ? "transparent"
+            : isHost
+              ? `linear-gradient(180deg, ${BS_CYAN}1a 0%, ${BS_NAVY}0a 100%)`
+              : `linear-gradient(180deg, ${type.color}14 0%, ${type.color}05 100%)`,
+          border: isNeutral
+            ? `1px solid ${GRAY_300}`
+            : `1px solid ${type.color}44`,
+          boxShadow: isNeutral
+            ? "none"
+            : isHost
+              ? `0 1px 0 0 rgba(255,255,255,0.8) inset, 0 0 10px ${BS_CYAN}33`
+              : `0 1px 0 0 rgba(255,255,255,0.8) inset, 0 0 8px ${type.color}22`,
         }}>
           {type.label}
         </span>
       </div>
 
-      {/* Title */}
+      {/* Title — Cabin, ink (smaller for neutral logistics rows) */}
       <h3 style={{
-        fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-        fontSize: "clamp(15.5px, 1.3vw, 19px)",
-        fontWeight: 700,
-        color: BS_WHITE,
+        fontFamily: "var(--font-cabin), system-ui, sans-serif",
+        fontSize: isNeutral
+          ? "clamp(14px, 1.1vw, 16px)"
+          : "clamp(16px, 1.4vw, 20px)",
+        fontWeight: isNeutral ? 600 : 700,
+        color: isNeutral ? GRAY_700 : INK,
         margin: 0,
-        letterSpacing: "-0.015em",
+        letterSpacing: "-0.018em",
         lineHeight: 1.25,
         textWrap: "balance" as "balance",
       }}>
         {item.title}
       </h3>
 
-      {/* Subtitle */}
+      {/* Subtitle — italic Cabin, GRAY_700 */}
       {item.subtitle && (
         <p style={{
-          fontFamily: "Georgia, 'Cambria', 'Times New Roman', serif",
+          fontFamily: "var(--font-cabin), system-ui, sans-serif",
           fontStyle: "italic",
           fontSize: "clamp(13px, 1.05vw, 15.5px)",
           fontWeight: 400,
-          color: "rgba(255,255,255,0.78)",
+          color: GRAY_700,
           margin: 0,
           lineHeight: 1.45,
           letterSpacing: "-0.005em",
@@ -2097,22 +2582,23 @@ function AgendaCard({
         </p>
       )}
 
-      {/* Owner */}
+      {/* Owner — Noto Sans body line with a tinted bullet */}
       {item.owner && (
         <p style={{
           margin: 0,
           display: "inline-flex", alignItems: "center", gap: 9,
-          fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+          fontFamily: "var(--font-noto-sans), system-ui, sans-serif",
           fontSize: "clamp(11.5px, 0.9vw, 13px)",
           fontWeight: 500,
-          color: "rgba(255,255,255,0.6)",
-          lineHeight: 1.4,
+          color: GRAY_500,
+          lineHeight: 1.45,
         }}>
           <span aria-hidden style={{
             width: 5, height: 5, borderRadius: "50%",
-            background: isAccented ? type.color : BS_CYAN,
-            boxShadow: `0 0 6px ${isAccented ? type.color : BS_CYAN}aa`,
+            background: type.color,
+            boxShadow: `0 0 0 2px ${type.color}1f`,
             flexShrink: 0,
+            opacity: isNeutral ? 0.6 : 1,
           }} />
           {item.owner}
         </p>
@@ -2121,11 +2607,139 @@ function AgendaCard({
   );
 }
 
+// ═════════════════════════════════════════════════════════════════════════════
+// PROGRAMME CANVAS — single shared atmosphere wrapping BOTH the Agenda
+// ("Run of show") and the About section ("Behind the table") as one
+// continuous canvas. Mirrors the JourneyCanvas pattern at the top of the page:
+// ambient washes, hex sculptures, central chapter-divider hex, and ring
+// micropattern live on this wrapper, so the boundary between the two
+// content blocks disappears.
+// ═════════════════════════════════════════════════════════════════════════════
+function ProgrammeCanvas() {
+  return (
+    <section style={{
+      position: "relative",
+      background: CREAM,
+      // Outer breathing room — inner sections carry only small seam buffers.
+      padding: "clamp(72px, 9vw, 120px) 0 clamp(72px, 9vw, 120px)",
+      overflow: "hidden",
+    }}>
+      {/* ── Unified warm wash spanning the full canvas. Layers (back→front):
+            1. Red halo at top-right (programme identity).
+            2. Soft red wash at vertical centre (warmth at the seam).
+            3. Cyan accent low-left (Blackstone host signature).
+            4. Yellow accent bottom-right (afternoon warmth).
+            5. Continuous linear gradient CREAM → warm → warmer, top to bottom. */}
+      <div aria-hidden style={{
+        position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none",
+        background: `
+          radial-gradient(ellipse 50% 25% at 92% 6%, ${OS_RED}1f 0%, ${OS_RED}0a 35%, transparent 65%),
+          radial-gradient(ellipse 60% 22% at 50% 58%, ${OS_RED}12 0%, ${OS_RED}06 45%, transparent 70%),
+          radial-gradient(ellipse 35% 22% at 6% 78%, ${BS_CYAN}14 0%, transparent 60%),
+          radial-gradient(ellipse 40% 20% at 92% 96%, ${OS_YELLOW}0e 0%, transparent 60%),
+          linear-gradient(180deg, ${CREAM} 0%, #F8F2EC 50%, #F4ECE3 100%)
+        `,
+      }} />
+
+      {/* ── Faint Blackstone hex sculpture — straddles the seam between Agenda
+            and About (vertical mid-canvas, lower-left). Quiet host signature. ── */}
+      <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style={{
+        position: "absolute",
+        top: "42%", left: "-6vmin",
+        width: "32vmin", height: "32vmin",
+        opacity: 0.06,
+        pointerEvents: "none",
+        zIndex: 1,
+      }}>
+        <polygon points="50,3 92,26 92,74 50,97 8,74 8,26" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
+        <polygon points="50,20 78,35 78,65 50,80 22,65 22,35" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
+      </svg>
+
+      {/* ── Second hex sculpture — upper-right. Mirrors JourneyCanvas. ── */}
+      <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style={{
+        position: "absolute",
+        top: "-4vmin", right: "-7vmin",
+        width: "26vmin", height: "26vmin",
+        opacity: 0.045,
+        pointerEvents: "none",
+        zIndex: 1,
+      }}>
+        <polygon points="50,3 92,26 92,74 50,97 8,74 8,26" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
+        <polygon points="50,20 78,35 78,65 50,80 22,65 22,35" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
+      </svg>
+
+      {/* ── Third hex sculpture — bottom-right, smaller. Adds visual symmetry
+            with the JourneyCanvas vocabulary, anchoring the canvas corners. ── */}
+      <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style={{
+        position: "absolute",
+        bottom: "-3vmin", right: "12%",
+        width: "18vmin", height: "18vmin",
+        opacity: 0.04,
+        pointerEvents: "none",
+        zIndex: 1,
+      }}>
+        <polygon points="50,3 92,26 92,74 50,97 8,74 8,26" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
+        <polygon points="50,20 78,35 78,65 50,80 22,65 22,35" fill="none" stroke={BS_NAVY} strokeWidth="0.6" />
+      </svg>
+
+      {/* ── Central hex "chapter divider" — floats in the seam zone between
+            Agenda and About, acts as a quiet ornamental flourish that ties them
+            together as one published canvas. Same vocabulary as JourneyCanvas. ── */}
+      <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style={{
+        position: "absolute",
+        top: "50%", left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: "clamp(180px, 14vw, 240px)",
+        height: "clamp(180px, 14vw, 240px)",
+        opacity: 0.05,
+        pointerEvents: "none",
+        zIndex: 1,
+      }}>
+        <polygon points="50,3 92,26 92,74 50,97 8,74 8,26" fill="none" stroke={BS_NAVY} strokeWidth="0.5" />
+        <polygon points="50,15 80,32 80,68 50,85 20,68 20,32" fill="none" stroke={BS_NAVY} strokeWidth="0.5" />
+        <polygon points="50,28 70,40 70,60 50,72 30,60 30,40" fill="none" stroke={BS_CYAN} strokeWidth="0.4" />
+        <circle cx="50" cy="50" r="1.6" fill={BS_CYAN} />
+      </svg>
+
+      {/* ── Soft cyan halo at the seam — pairs with the chapter-divider hex ── */}
+      <div aria-hidden style={{
+        position: "absolute",
+        top: "50%", left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: "clamp(280px, 22vw, 380px)",
+        height: "clamp(280px, 22vw, 380px)",
+        borderRadius: "50%",
+        background: `radial-gradient(circle, ${BS_CYAN}14 0%, ${BS_CYAN}06 35%, transparent 65%)`,
+        filter: "blur(40px)",
+        pointerEvents: "none",
+        zIndex: 0,
+      }} />
+
+      {/* ── OutSystems ring micropattern — same vocabulary as the hero, spans
+            the full canvas. Center-mask keeps it from competing with content. ── */}
+      <div aria-hidden style={{
+        position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
+        backgroundImage: `
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='3' fill='none' stroke='%23F22800' stroke-width='1' opacity='0.45'/></svg>")
+        `,
+        backgroundSize: "44px 44px",
+        WebkitMaskImage: "radial-gradient(ellipse 65% 40% at 50% 50%, transparent 20%, rgba(0,0,0,0.35) 75%, rgba(0,0,0,0.55) 100%)",
+        maskImage: "radial-gradient(ellipse 65% 40% at 50% 50%, transparent 20%, rgba(0,0,0,0.35) 75%, rgba(0,0,0,0.55) 100%)",
+        opacity: 0.3,
+      }} />
+
+      {/* ── Content: the two sections stacked, both with transparent backgrounds ── */}
+      <div style={{ position: "relative", zIndex: 2 }}>
+        <AgendaSection />
+        <AboutSection />
+      </div>
+    </section>
+  );
+}
+
 function AgendaSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-120px" });
-
-  const HEX_CLIP = "polygon(25% 5%, 75% 5%, 98% 50%, 75% 95%, 25% 95%, 2% 50%)";
 
   // ── Split by time of day. Items at/after 12:00 → afternoon. ──
   const morningItems = AGENDA.filter((item) => {
@@ -2141,43 +2755,13 @@ function AgendaSection() {
     <section id="agenda" ref={ref} style={{
       position: "relative",
       background: "transparent",
-      padding: "clamp(60px, 7vw, 96px) 0",
-      overflow: "hidden",
+      // Only a small bottom buffer — outer rhythm and shared atmosphere are
+      // provided by <ProgrammeCanvas>, the parent that wraps this section
+      // together with About as one continuous canvas.
+      padding: "0 0 clamp(40px, 5vw, 60px)",
+      overflow: "visible",
     }}>
-      {/* ── Two tonal washes — cooler cyan on the LEFT (morning), warmer cyan→blue on the RIGHT (afternoon) ── */}
-      <div aria-hidden style={{
-        position: "absolute",
-        top: "-10%", left: "-12%",
-        width: "55%", height: "85%",
-        background: `radial-gradient(ellipse 50% 50% at 50% 50%, ${BS_CYAN}3a 0%, ${BS_CYAN}14 35%, transparent 70%)`,
-        filter: "blur(80px)",
-        pointerEvents: "none",
-        zIndex: 0,
-      }} />
-      <div aria-hidden style={{
-        position: "absolute",
-        bottom: "-15%", right: "-12%",
-        width: "55%", height: "85%",
-        background: `radial-gradient(ellipse 50% 50% at 50% 50%, ${BS_BLUE}55 0%, ${BS_BLUE}1f 35%, transparent 70%)`,
-        filter: "blur(80px)",
-        pointerEvents: "none",
-        zIndex: 0,
-      }} />
-
-      {/* ── Center vertical light beam — the "divider" between morning and afternoon, glows through the centre ── */}
-      <div aria-hidden style={{
-        position: "absolute",
-        top: "8%", bottom: "8%",
-        left: "50%",
-        transform: "translateX(-50%)",
-        width: "min(320px, 30%)",
-        background: `radial-gradient(ellipse 40% 60% at 50% 50%, ${BS_CYAN}22 0%, transparent 65%)`,
-        filter: "blur(50px)",
-        pointerEvents: "none",
-        zIndex: 0,
-      }} />
-
-      {/* ── Letterbox frame markers ── */}
+      {/* (No ambient overlays here — ProgrammeCanvas paints the shared atmosphere.) */}
 
       {/* ── Content ── */}
       <div style={{
@@ -2195,78 +2779,67 @@ function AgendaSection() {
             flexDirection: "column",
             alignItems: "flex-start",
             gap: "clamp(18px, 2.2vw, 28px)",
-            marginBottom: "clamp(36px, 4.5vw, 56px)",
+            marginBottom: "clamp(40px, 5vw, 64px)",
             maxWidth: 820,
           }}
         >
-          {/* Glass-skeu eyebrow pill */}
+          {/* Eyebrow — white pill with red specular under-rim (matches JourneyCanvas vocabulary) */}
           <span style={{
             position: "relative",
             display: "inline-flex", alignItems: "center", gap: 11,
             padding: "9px 18px 9px 14px",
             borderRadius: 999,
-            background: `linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 55%, rgba(255,255,255,0.02) 100%)`,
-            backdropFilter: "blur(16px) saturate(160%)",
-            WebkitBackdropFilter: "blur(16px) saturate(160%)",
-            border: `1px solid rgba(255,255,255,0.14)`,
+            background: `linear-gradient(180deg, ${BS_WHITE} 0%, #FAF7F4 100%)`,
+            border: `1px solid ${GRAY_300}`,
             boxShadow: `
-              0 1px 0 0 rgba(255,255,255,0.22) inset,
-              0 0 0 1px ${BS_CYAN}1f inset,
-              0 12px 28px rgba(0,0,0,0.32),
-              0 0 24px ${BS_CYAN}22
+              0 1px 0 0 rgba(255,255,255,1) inset,
+              0 -1px 0 0 ${OS_RED}1a inset,
+              0 4px 12px rgba(14,14,16,0.05),
+              0 0 24px ${OS_RED}14
             `,
-            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+            fontFamily: "var(--font-cabin), system-ui, sans-serif",
             fontSize: 11,
             fontWeight: 700,
             letterSpacing: "0.32em",
             textTransform: "uppercase",
-            color: "rgba(255,255,255,0.88)",
+            color: CHARCOAL,
           }}>
             <span aria-hidden style={{
               position: "absolute",
-              top: 1, left: "14%", right: "14%",
+              top: 1, left: "16%", right: "16%",
               height: 1,
-              background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%)`,
+              background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 50%, transparent 100%)`,
               pointerEvents: "none",
             }} />
-            <span aria-hidden style={{
-              width: 9, height: 10,
-              clipPath: HEX_CLIP,
-              background: BS_CYAN,
-              boxShadow: `0 0 8px ${BS_CYAN}`,
-              flexShrink: 0,
-            }} />
+            <OutSystemsRing size={11} color={OS_RED} strokeWidth={2.4} />
+            <BlackstoneHex size={10} color={BS_NAVY} strokeWidth={2} />
             Run of show · 10 June 2026
           </span>
 
           <h2 style={{
-            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-            fontSize: "clamp(32px, 4.4vw, 64px)",
+            fontFamily: "var(--font-cabin), system-ui, sans-serif",
+            fontSize: "clamp(34px, 4.6vw, 68px)",
             fontWeight: 700,
             letterSpacing: "-0.03em",
             lineHeight: 1.04,
-            color: BS_WHITE,
+            color: INK,
             margin: 0,
             textWrap: "balance" as "balance",
           }}>
             A focused morning.{" "}
-            <span style={{
-              background: `linear-gradient(180deg, ${BS_CYAN} 0%, ${BS_LIGHT_BLUE} 100%)`,
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              fontWeight: 800,
-            }}>Lunch to keep talking.</span>
+            <span style={{ color: OS_RED, fontWeight: 700 }}>
+              Lunch to keep talking.
+            </span>
           </h2>
 
           <p style={{
             margin: 0,
-            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-            fontSize: "clamp(14px, 1.1vw, 17px)",
+            fontFamily: "var(--font-noto-sans), system-ui, sans-serif",
+            fontSize: "clamp(15px, 1.15vw, 17px)",
             fontWeight: 400,
-            lineHeight: 1.55,
-            color: "rgba(255,255,255,0.62)",
-            maxWidth: 640,
+            lineHeight: 1.6,
+            color: GRAY_700,
+            maxWidth: 660,
             letterSpacing: "-0.003em",
           }}>
             10:00–14:20 AST · Fairmont Riyadh. Three substantive talks, a working demo and a panel — then we sit down together over lunch.
@@ -2281,7 +2854,8 @@ function AgendaSection() {
           gap: "clamp(36px, 4.5vw, 72px)",
           alignItems: "start",
         }} className="bs-agenda-grid">
-          {/* Vertical cyan divider beam between morning + afternoon */}
+          {/* Vertical OS_RED divider hairline between morning + afternoon, with
+              a small navy nub at center as the dual-brand seam marker. */}
           <div aria-hidden className="bs-agenda-divider" style={{
             position: "absolute",
             top: "20px",
@@ -2289,29 +2863,43 @@ function AgendaSection() {
             left: "50%",
             transform: "translateX(-50%)",
             width: 1,
-            background: `linear-gradient(180deg, transparent 0%, ${BS_CYAN}55 12%, ${BS_CYAN}55 88%, transparent 100%)`,
-            boxShadow: `0 0 14px ${BS_CYAN}44`,
+            background: `linear-gradient(180deg, transparent 0%, ${OS_RED}55 12%, ${OS_RED}55 88%, transparent 100%)`,
+            boxShadow: `0 0 10px ${OS_RED}33`,
             pointerEvents: "none",
           }} />
+          {/* Centre seam marker — small hex glyph stamping the divider mid-point */}
+          <span aria-hidden className="bs-agenda-divider" style={{
+            position: "absolute",
+            top: "50%", left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 22, height: 22,
+            background: CREAM,
+            borderRadius: "50%",
+            display: "inline-flex", alignItems: "center", justifyContent: "center",
+            pointerEvents: "none",
+            boxShadow: `0 0 0 1px ${OS_RED}22, 0 4px 10px rgba(14,14,16,0.06)`,
+          }}>
+            <BlackstoneHex size={11} color={BS_NAVY} strokeWidth={2.2} />
+          </span>
 
-          {/* ── LEFT: Morning column ── */}
+          {/* ── LEFT: Morning column (OutSystems-led majority) ── */}
           <AgendaColumn
             label="Morning"
             timeRange="10:00 – 12:00"
             items={morningItems}
             inView={inView}
             startDelay={0.15}
-            accentColor={BS_CYAN}
+            accentColor={OS_RED}
           />
 
-          {/* ── RIGHT: Afternoon column ── */}
+          {/* ── RIGHT: Afternoon column (mixed sessions, panel + closing) ── */}
           <AgendaColumn
             label="Afternoon"
             timeRange="12:00 – 14:20"
             items={afternoonItems}
             inView={inView}
             startDelay={0.4}
-            accentColor={BS_LIGHT_BLUE}
+            accentColor={OS_RED}
           />
         </div>
       </div>
@@ -2319,13 +2907,11 @@ function AgendaSection() {
       <style jsx global>{`
         .bs-agenda-card:hover {
           transform: translateY(-3px);
-          border-color: rgba(255,255,255,0.14) !important;
           box-shadow:
-            0 1.5px 0 0 rgba(255,255,255,0.22) inset,
-            0 -1.5px 0 0 rgba(0,0,0,0.2) inset,
-            0 0 0 1px ${BS_CYAN}26 inset,
-            0 24px 50px rgba(0,0,0,0.42),
-            0 0 60px ${BS_CYAN}26 !important;
+            0 1px 0 0 rgba(255,255,255,1) inset,
+            0 1px 3px rgba(14,14,16,0.04),
+            0 18px 40px rgba(14,14,16,0.08),
+            0 0 40px ${OS_RED}1a !important;
         }
         @media (max-width: 880px) {
           .bs-agenda-grid {
@@ -2350,78 +2936,20 @@ function AboutSection() {
 
   const HEX_CLIP = "polygon(25% 5%, 75% 5%, 98% 50%, 75% 95%, 25% 95%, 2% 50%)";
 
-  const blocks: Array<{
-    label: string;
-    title: string;
-    logo: React.ReactNode;
-    body: string;
-    href: string;
-    accent: string;
-  }> = [
-    {
-      label: "hosted by",
-      title: BRAND_HOST,
-      logo: <BlackstoneLogomark size={64} color={BS_WHITE} accent={BS_CYAN} />,
-      body: `${BRAND_HOST} is a digital transformation and enterprise technology partner working with public sector and large enterprise clients across the Kingdom. Through deep expertise in low-code, AI, agentic systems and mission-critical platforms, the firm helps institutions ship outcomes — not just experiments — at the pace Vision 2030 demands.`,
-      href: "https://blackstoneeit.com/",
-      accent: BS_CYAN,
-    },
-    {
-      label: "with",
-      title: BRAND_SPONSOR,
-      logo: <OutSystemsLogomark size={52} color={BS_WHITE} />,
-      body: `${BRAND_SPONSOR} is the global leader in high-performance application development, powering AI-era software for governments and enterprises worldwide. Its platform unifies AI, low-code and mission-critical engineering — letting institutions move from idea to in-production citizen service in weeks, with the security, governance and scale public sector requires.`,
-      href: "https://www.outsystems.com/",
-      accent: BS_LIGHT_BLUE,
-    },
-  ];
+  const HOST_BODY = `${BRAND_HOST} is a digital transformation and enterprise technology partner working with public sector and large enterprise clients across the Kingdom. Through deep expertise in low-code, AI, agentic systems and mission-critical platforms, the firm helps institutions ship outcomes — not just experiments — at the pace Vision 2030 demands.`;
+  const SPONSOR_BODY = `${BRAND_SPONSOR} is the global leader in high-performance application development, powering AI-era software for governments and enterprises worldwide. Its platform unifies AI, low-code and mission-critical engineering — letting institutions move from idea to in-production citizen service in weeks, with the security, governance and scale public sector requires.`;
 
   return (
     <section id="about" ref={ref} style={{
       position: "relative",
       background: "transparent",
-      padding: "clamp(60px, 7vw, 96px) 0",
-      overflow: "hidden",
+      // Only a small top buffer — outer rhythm and shared atmosphere are
+      // provided by <ProgrammeCanvas>, the parent that wraps Agenda and this
+      // section together as one continuous canvas.
+      padding: "clamp(40px, 5vw, 60px) 0 0",
+      overflow: "visible",
     }}>
-      {/* ── Twin overhead spotlights — cyan illuminates the LEFT (Blackstone), light-blue illuminates the RIGHT (OutSystems) ── */}
-      <div aria-hidden style={{
-        position: "absolute",
-        top: "-25%",
-        left: "5%",
-        width: "45%",
-        height: "120%",
-        background: `radial-gradient(ellipse 35% 50% at 50% 50%, ${BS_CYAN}3a 0%, ${BS_CYAN}14 35%, transparent 65%)`,
-        filter: "blur(70px)",
-        pointerEvents: "none",
-        zIndex: 0,
-      }} />
-      <div aria-hidden style={{
-        position: "absolute",
-        top: "-25%",
-        right: "5%",
-        width: "45%",
-        height: "120%",
-        background: `radial-gradient(ellipse 35% 50% at 50% 50%, ${BS_LIGHT_BLUE}33 0%, ${BS_LIGHT_BLUE}10 35%, transparent 65%)`,
-        filter: "blur(70px)",
-        pointerEvents: "none",
-        zIndex: 0,
-      }} />
-
-      {/* ── Faint blue floor wash ── */}
-      <div aria-hidden style={{
-        position: "absolute",
-        bottom: "-30%",
-        left: "50%",
-        transform: "translateX(-50%)",
-        width: "90%",
-        height: "50%",
-        background: `radial-gradient(ellipse 60% 50% at 50% 50%, ${BS_BLUE}1f 0%, transparent 70%)`,
-        filter: "blur(70px)",
-        pointerEvents: "none",
-        zIndex: 0,
-      }} />
-
-      {/* ── Letterbox frame markers (signature) ── */}
+      {/* (No ambient overlays here — ProgrammeCanvas paints the shared atmosphere.) */}
 
       {/* ── Content ── */}
       <div style={{
@@ -2439,252 +2967,390 @@ function AboutSection() {
             flexDirection: "column",
             alignItems: "center",
             gap: "clamp(18px, 2.2vw, 28px)",
-            marginBottom: "clamp(36px, 4.5vw, 56px)",
+            marginBottom: "clamp(40px, 5vw, 64px)",
             textAlign: "center",
           }}
         >
-          {/* Glass-skeu eyebrow pill */}
+          {/* Eyebrow — white pill, OS ring + Blackstone hex glyphs (JourneyCanvas vocab) */}
           <span style={{
             position: "relative",
             display: "inline-flex", alignItems: "center", gap: 11,
             padding: "9px 18px 9px 14px",
             borderRadius: 999,
-            background: `linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 55%, rgba(255,255,255,0.02) 100%)`,
-            backdropFilter: "blur(16px) saturate(160%)",
-            WebkitBackdropFilter: "blur(16px) saturate(160%)",
-            border: `1px solid rgba(255,255,255,0.14)`,
+            background: `linear-gradient(180deg, ${BS_WHITE} 0%, #FAF7F4 100%)`,
+            border: `1px solid ${GRAY_300}`,
             boxShadow: `
-              0 1px 0 0 rgba(255,255,255,0.22) inset,
-              0 0 0 1px ${BS_CYAN}1f inset,
-              0 12px 28px rgba(0,0,0,0.32),
-              0 0 24px ${BS_CYAN}22
+              0 1px 0 0 rgba(255,255,255,1) inset,
+              0 -1px 0 0 ${OS_RED}1a inset,
+              0 4px 12px rgba(14,14,16,0.05),
+              0 0 24px ${OS_RED}14
             `,
-            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+            fontFamily: "var(--font-cabin), system-ui, sans-serif",
             fontSize: 11,
             fontWeight: 700,
             letterSpacing: "0.32em",
             textTransform: "uppercase",
-            color: "rgba(255,255,255,0.88)",
+            color: CHARCOAL,
           }}>
             <span aria-hidden style={{
               position: "absolute",
-              top: 1, left: "14%", right: "14%",
+              top: 1, left: "16%", right: "16%",
               height: 1,
-              background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%)`,
+              background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 50%, transparent 100%)`,
               pointerEvents: "none",
             }} />
-            <span aria-hidden style={{
-              width: 9, height: 10,
-              clipPath: HEX_CLIP,
-              background: BS_CYAN,
-              boxShadow: `0 0 8px ${BS_CYAN}`,
-              flexShrink: 0,
-            }} />
+            <OutSystemsRing size={11} color={OS_RED} strokeWidth={2.4} />
+            <BlackstoneHex size={10} color={BS_NAVY} strokeWidth={2} />
             Behind the table
           </span>
 
-          {/* Headline */}
+          {/* Headline — Cabin, ink, solid OS red on "the hosts." */}
           <h2 style={{
-            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+            fontFamily: "var(--font-cabin), system-ui, sans-serif",
             fontSize: "clamp(34px, 4.6vw, 68px)",
             fontWeight: 700,
             letterSpacing: "-0.03em",
             lineHeight: 1.05,
-            color: BS_WHITE,
+            color: INK,
             margin: 0,
             maxWidth: 900,
             textWrap: "balance" as "balance",
           }}>
             About{" "}
-            <span style={{
-              background: `linear-gradient(180deg, ${BS_CYAN} 0%, ${BS_LIGHT_BLUE} 100%)`,
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              fontWeight: 800,
-            }}>the hosts.</span>
+            <span style={{ color: OS_RED, fontWeight: 700 }}>
+              the hosts.
+            </span>
           </h2>
 
-          {/* Supporting line */}
+          {/* Supporting line — Noto Sans, GRAY_700 */}
           <p style={{
             margin: 0,
-            fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-            fontSize: "clamp(14px, 1.1vw, 17px)",
+            fontFamily: "var(--font-noto-sans), system-ui, sans-serif",
+            fontSize: "clamp(15px, 1.15vw, 17px)",
             fontWeight: 400,
-            lineHeight: 1.55,
-            color: "rgba(255,255,255,0.62)",
-            maxWidth: 600,
+            lineHeight: 1.6,
+            color: GRAY_700,
+            maxWidth: 640,
             letterSpacing: "-0.003em",
           }}>
             Two organisations convening this morning — one rooted in the Kingdom&apos;s public-sector transformation, one powering the global AI-era platform behind it.
           </p>
         </motion.div>
 
-        {/* 2-column host grid */}
+        {/* 2-column host grid — left card is Blackstone (kept as dark glass per user
+            direction), right card is OutSystems (white card, OS-led treatment).
+            The visual asymmetry is deliberate: each house keeps its own surface. */}
         <div style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: "clamp(22px, 2.6vw, 36px)",
         }} className="bs-about-grid">
-          {blocks.map((b, i) => (
-            <motion.div
-              key={b.title}
-              initial={{ opacity: 0, y: 28, scale: 0.985 }}
-              animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-              transition={{ duration: 0.9, delay: 0.25 + i * 0.15, ease: EASE }}
-              className="bs-about-card"
+
+          {/* ─── LEFT: Blackstone eIT — translucent cyan-tinted glass host capsule.
+                The background is intentionally light/translucent (per user
+                preference) so we set readable dark text/logo/CTA colors below
+                rather than relying on a dark base for contrast. ─── */}
+          <motion.div
+            initial={{ opacity: 0, y: 28, scale: 0.985 }}
+            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+            transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
+            className="bs-about-card bs-about-card-host"
+            style={{
+              position: "relative",
+              padding: "clamp(32px, 3vw, 48px)",
+              borderRadius: 20,
+              background: `
+                radial-gradient(ellipse 80% 60% at 22% 8%, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.04) 28%, transparent 55%),
+                radial-gradient(ellipse 70% 50% at 80% 100%, ${BS_CYAN}1f 0%, transparent 55%),
+                linear-gradient(168deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 45%, rgba(0,0,0,0.18) 100%)
+              `,
+              backdropFilter: "blur(30px) saturate(180%) brightness(1.06)",
+              WebkitBackdropFilter: "blur(30px) saturate(180%) brightness(1.06)",
+              border: `1px solid rgba(255,255,255,0.14)`,
+              boxShadow: `
+                0 1.5px 0 0 rgba(255,255,255,0.28) inset,
+                0 -1.5px 0 0 rgba(0,0,0,0.24) inset,
+                0 0 0 1px ${BS_CYAN}1f inset,
+                0 1px 2px rgba(0,0,0,0.18) inset,
+                0 24px 56px rgba(0,0,0,0.5),
+                0 0 80px ${BS_CYAN}1f
+              `,
+              display: "flex",
+              flexDirection: "column",
+              gap: "clamp(20px, 2.2vw, 28px)",
+              overflow: "hidden",
+              transition: "transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease",
+            }}
+          >
+            {/* Top hairline — cyan accent */}
+            <span aria-hidden style={{
+              position: "absolute", top: 0, left: "8%", right: "8%", height: 1.5,
+              background: `linear-gradient(90deg, transparent 0%, ${BS_CYAN} 50%, transparent 100%)`,
+              pointerEvents: "none", zIndex: 3,
+            }} />
+            {/* Specular highlight */}
+            <span aria-hidden style={{
+              position: "absolute", top: 1.5, left: "20%", right: "20%", height: 1,
+              background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%)`,
+              pointerEvents: "none", zIndex: 3,
+            }} />
+            {/* Bottom-edge dark seal */}
+            <span aria-hidden style={{
+              position: "absolute", bottom: 0, left: "12%", right: "12%", height: 1,
+              background: `linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 50%, transparent 100%)`,
+              pointerEvents: "none", zIndex: 3,
+            }} />
+
+            {/* Cinematic corner brackets — cyan */}
+            {[
+              { top: 14, left: 14, borderTop: true, borderLeft: true },
+              { top: 14, right: 14, borderTop: true, borderRight: true },
+              { bottom: 14, left: 14, borderBottom: true, borderLeft: true },
+              { bottom: 14, right: 14, borderBottom: true, borderRight: true },
+            ].map((pos, idx) => (
+              <span key={idx} aria-hidden style={{
+                position: "absolute",
+                ...pos,
+                width: 14, height: 14,
+                borderTop: pos.borderTop ? `1.5px solid ${BS_CYAN}aa` : undefined,
+                borderBottom: pos.borderBottom ? `1.5px solid ${BS_CYAN}aa` : undefined,
+                borderLeft: pos.borderLeft ? `1.5px solid ${BS_CYAN}aa` : undefined,
+                borderRight: pos.borderRight ? `1.5px solid ${BS_CYAN}aa` : undefined,
+                pointerEvents: "none", zIndex: 3,
+              }} />
+            ))}
+
+            {/* Editorial label — italic serif, cyan */}
+            <span style={{
+              position: "relative", zIndex: 2,
+              fontFamily: "Georgia, 'Cambria', 'Times New Roman', serif",
+              fontStyle: "italic",
+              fontSize: "clamp(15px, 1.2vw, 18px)",
+              fontWeight: 400,
+              color: BS_CYAN,
+              letterSpacing: "0.04em",
+              display: "inline-flex", alignItems: "center", gap: 12,
+            }}>
+              <span aria-hidden style={{ width: 18, height: 1, background: `linear-gradient(90deg, transparent, ${BS_CYAN})` }} />
+              hosted by
+            </span>
+
+            {/* Logo — dark Blackstone variant (CMYK) for readability on the
+                translucent surface sitting over the cream page. */}
+            <div style={{
+              position: "relative", zIndex: 2,
+              display: "inline-flex",
+              alignItems: "center",
+              minHeight: 68,
+            }}>
+              <BlackstoneLogomark size={64} dark />
+            </div>
+
+            {/* Body — navy/charcoal for legibility on translucent glass */}
+            <p style={{
+              position: "relative", zIndex: 2,
+              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+              fontSize: "clamp(14.5px, 1.1vw, 16.5px)",
+              lineHeight: 1.7,
+              color: BS_NAVY,
+              margin: 0,
+              letterSpacing: "-0.003em",
+            }}>
+              {HOST_BODY}
+            </p>
+
+            {/* Visit website — glass-skeu cyan CTA pill (navy text for readability) */}
+            <a
+              href="https://blackstoneeit.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bs-about-cta bs-about-cta-host"
               style={{
-                position: "relative",
-                padding: "clamp(32px, 3vw, 48px)",
-                borderRadius: 20,
-                // Liquid-glass + skeu refractive composite — full vocabulary
-                background: `
-                  radial-gradient(ellipse 80% 60% at 22% 8%, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.04) 28%, transparent 55%),
-                  radial-gradient(ellipse 70% 50% at 80% 100%, ${b.accent}1f 0%, transparent 55%),
-                  linear-gradient(168deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 45%, rgba(0,0,0,0.18) 100%)
-                `,
-                backdropFilter: "blur(30px) saturate(180%) brightness(1.06)",
-                WebkitBackdropFilter: "blur(30px) saturate(180%) brightness(1.06)",
-                border: `1px solid rgba(255,255,255,0.14)`,
-                boxShadow: `
-                  0 1.5px 0 0 rgba(255,255,255,0.28) inset,
-                  0 -1.5px 0 0 rgba(0,0,0,0.24) inset,
-                  0 0 0 1px ${b.accent}1f inset,
-                  0 1px 2px rgba(0,0,0,0.18) inset,
-                  0 24px 56px rgba(0,0,0,0.5),
-                  0 0 80px ${b.accent}1f
-                `,
-                display: "flex",
-                flexDirection: "column",
-                gap: "clamp(20px, 2.2vw, 28px)",
-                overflow: "hidden",
-                transition: "transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease",
-              }}
-            >
-              {/* Top hairline — brand accent */}
-              <span aria-hidden style={{
-                position: "absolute",
-                top: 0, left: "8%", right: "8%", height: 1.5,
-                background: `linear-gradient(90deg, transparent 0%, ${b.accent} 50%, transparent 100%)`,
-                pointerEvents: "none",
-                zIndex: 3,
-              }} />
-              {/* Specular highlight */}
-              <span aria-hidden style={{
-                position: "absolute",
-                top: 1.5, left: "20%", right: "20%", height: 1,
-                background: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%)`,
-                pointerEvents: "none",
-                zIndex: 3,
-              }} />
-              {/* Bottom-edge dark seal */}
-              <span aria-hidden style={{
-                position: "absolute",
-                bottom: 0, left: "12%", right: "12%", height: 1,
-                background: `linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 50%, transparent 100%)`,
-                pointerEvents: "none",
-                zIndex: 3,
-              }} />
-
-              {/* Cinematic corner brackets — in brand accent */}
-              {[
-                { top: 14, left: 14, borderTop: true, borderLeft: true },
-                { top: 14, right: 14, borderTop: true, borderRight: true },
-                { bottom: 14, left: 14, borderBottom: true, borderLeft: true },
-                { bottom: 14, right: 14, borderBottom: true, borderRight: true },
-              ].map((pos, idx) => (
-                <span key={idx} aria-hidden style={{
-                  position: "absolute",
-                  ...pos,
-                  width: 14, height: 14,
-                  borderTop: pos.borderTop ? `1.5px solid ${b.accent}aa` : undefined,
-                  borderBottom: pos.borderBottom ? `1.5px solid ${b.accent}aa` : undefined,
-                  borderLeft: pos.borderLeft ? `1.5px solid ${b.accent}aa` : undefined,
-                  borderRight: pos.borderRight ? `1.5px solid ${b.accent}aa` : undefined,
-                  pointerEvents: "none",
-                  zIndex: 3,
-                }} />
-              ))}
-
-              {/* Editorial label — italic Georgia serif (matches Takeaways vocabulary) */}
-              <span style={{
                 position: "relative", zIndex: 2,
-                fontFamily: "Georgia, 'Cambria', 'Times New Roman', serif",
-                fontStyle: "italic",
-                fontSize: "clamp(15px, 1.2vw, 18px)",
-                fontWeight: 400,
-                color: b.accent,
-                letterSpacing: "0.04em",
-                display: "inline-flex", alignItems: "center", gap: 12,
-              }}>
-                <span aria-hidden style={{ width: 18, height: 1, background: `linear-gradient(90deg, transparent, ${b.accent})` }} />
-                {b.label}
-              </span>
-
-              {/* Logo — anchor element */}
-              <div style={{
-                position: "relative", zIndex: 2,
+                marginTop: "auto",
+                alignSelf: "flex-start",
                 display: "inline-flex",
                 alignItems: "center",
-                minHeight: 68,
-              }}>
-                {b.logo}
-              </div>
-
-              {/* Body */}
-              <p style={{
-                position: "relative", zIndex: 2,
+                gap: 9,
+                padding: "10px 18px",
+                borderRadius: 999,
+                background: `linear-gradient(180deg, ${BS_CYAN}33 0%, ${BS_CYAN}14 100%)`,
+                border: `1px solid ${BS_CYAN}99`,
+                boxShadow: `
+                  0 1px 0 0 rgba(255,255,255,0.4) inset,
+                  0 0 16px ${BS_CYAN}33
+                `,
                 fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-                fontSize: "clamp(14.5px, 1.1vw, 16.5px)",
-                lineHeight: 1.7,
-                color: "rgba(255,255,255,0.78)",
-                margin: 0,
-                letterSpacing: "-0.003em",
-              }}>
-                {b.body}
-              </p>
+                fontSize: 12,
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: BS_NAVY,
+                textDecoration: "none",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease",
+              }}
+            >
+              Visit website
+              <span aria-hidden style={{ fontSize: 14, marginTop: -1 }}>↗</span>
+            </a>
+          </motion.div>
 
-              {/* Visit website — glass-skeu CTA pill */}
-              <a
-                href={b.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bs-about-cta"
-                style={{
-                  position: "relative", zIndex: 2,
-                  marginTop: "auto",
-                  alignSelf: "flex-start",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 9,
-                  padding: "10px 18px",
-                  borderRadius: 999,
-                  background: `linear-gradient(180deg, ${b.accent}26 0%, ${b.accent}0a 100%)`,
-                  border: `1px solid ${b.accent}66`,
-                  boxShadow: `
-                    0 1px 0 0 rgba(255,255,255,0.18) inset,
-                    0 0 16px ${b.accent}33
-                  `,
-                  fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-                  fontSize: 12,
-                  fontWeight: 700,
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  color: BS_WHITE,
-                  textDecoration: "none",
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease",
-                }}
-              >
-                Visit website
-                <span aria-hidden style={{ fontSize: 14, marginTop: -1 }}>↗</span>
-              </a>
-            </motion.div>
-          ))}
+          {/* ─── RIGHT: OutSystems — white sponsor card (OS-led light treatment) ─── */}
+          <motion.div
+            initial={{ opacity: 0, y: 28, scale: 0.985 }}
+            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+            transition={{ duration: 0.9, delay: 0.4, ease: EASE }}
+            className="bs-about-card bs-about-card-sponsor"
+            style={{
+              position: "relative",
+              padding: "clamp(32px, 3vw, 48px)",
+              borderRadius: 20,
+              background: BS_WHITE,
+              border: `1px solid ${GRAY_300}`,
+              boxShadow: `
+                0 1px 0 0 rgba(255,255,255,1) inset,
+                0 1px 3px rgba(14,14,16,0.04),
+                0 24px 56px rgba(14,14,16,0.08),
+                0 0 60px ${OS_RED}14
+              `,
+              display: "flex",
+              flexDirection: "column",
+              gap: "clamp(20px, 2.2vw, 28px)",
+              overflow: "hidden",
+              transition: "transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease",
+            }}
+          >
+            {/* Top hairline — OS_RED, signature */}
+            <span aria-hidden style={{
+              position: "absolute",
+              top: 0, left: "8%", right: "8%", height: 2,
+              background: `linear-gradient(90deg, transparent 0%, ${OS_RED} 50%, transparent 100%)`,
+              boxShadow: `0 0 10px ${OS_RED}55`,
+              pointerEvents: "none",
+              zIndex: 3,
+            }} />
+
+            {/* Cinematic corner brackets — red */}
+            {[
+              { top: 14, left: 14, borderTop: true, borderLeft: true },
+              { top: 14, right: 14, borderTop: true, borderRight: true },
+              { bottom: 14, left: 14, borderBottom: true, borderLeft: true },
+              { bottom: 14, right: 14, borderBottom: true, borderRight: true },
+            ].map((pos, idx) => (
+              <span key={idx} aria-hidden style={{
+                position: "absolute",
+                ...pos,
+                width: 14, height: 14,
+                borderTop: pos.borderTop ? `1.5px solid ${OS_RED}66` : undefined,
+                borderBottom: pos.borderBottom ? `1.5px solid ${OS_RED}66` : undefined,
+                borderLeft: pos.borderLeft ? `1.5px solid ${OS_RED}66` : undefined,
+                borderRight: pos.borderRight ? `1.5px solid ${OS_RED}66` : undefined,
+                pointerEvents: "none",
+                zIndex: 3,
+              }} />
+            ))}
+
+            {/* OS publisher's mark — small ring stamp at top-right, mirrors the
+                Blackstone hex seal on the Overview body card. */}
+            <span aria-hidden style={{
+              position: "absolute",
+              top: 18, right: 38,
+              width: 32, height: 32,
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              pointerEvents: "none",
+              opacity: 0.85,
+              zIndex: 3,
+            }}>
+              <span style={{
+                position: "absolute", inset: 0,
+                borderRadius: "50%",
+                background: `radial-gradient(circle, ${OS_RED}1f 0%, transparent 65%)`,
+                filter: "blur(4px)",
+              }} />
+              <OutSystemsRing size={20} color={OS_RED} strokeWidth={2.4} />
+            </span>
+
+            {/* Editorial label — italic Cabin, OS_RED */}
+            <span style={{
+              position: "relative", zIndex: 2,
+              fontFamily: "var(--font-cabin), system-ui, sans-serif",
+              fontStyle: "italic",
+              fontSize: "clamp(15px, 1.2vw, 18px)",
+              fontWeight: 500,
+              color: OS_RED,
+              letterSpacing: "0.02em",
+              display: "inline-flex", alignItems: "center", gap: 12,
+            }}>
+              <span aria-hidden style={{ width: 22, height: 1, background: `linear-gradient(90deg, transparent, ${OS_RED})` }} />
+              with
+            </span>
+
+            {/* Logo — DARK OutSystems variant (red ring + dark wordmark) for cream surface */}
+            <div style={{
+              position: "relative", zIndex: 2,
+              display: "inline-flex",
+              alignItems: "center",
+              minHeight: 68,
+            }}>
+              <OutSystemsLogomark size={52} dark />
+            </div>
+
+            {/* Body — Noto Sans, INK */}
+            <p style={{
+              position: "relative", zIndex: 2,
+              fontFamily: "var(--font-noto-sans), system-ui, sans-serif",
+              fontSize: "clamp(14.5px, 1.1vw, 16.5px)",
+              lineHeight: 1.7,
+              color: GRAY_700,
+              margin: 0,
+              letterSpacing: "-0.003em",
+            }}>
+              {SPONSOR_BODY}
+            </p>
+
+            {/* Visit website — flat solid OS_RED button (matches hero CTA) */}
+            <a
+              href="https://www.outsystems.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bs-about-cta bs-about-cta-sponsor"
+              style={{
+                position: "relative", zIndex: 2,
+                marginTop: "auto",
+                alignSelf: "flex-start",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 9,
+                padding: "12px 22px",
+                borderRadius: 999,
+                background: OS_RED,
+                border: `1px solid ${OS_RED}`,
+                boxShadow: `
+                  0 1px 0 0 rgba(255,255,255,0.18) inset,
+                  0 8px 18px ${OS_RED}33,
+                  0 0 0 1px ${OS_RED}55
+                `,
+                fontFamily: "var(--font-cabin), system-ui, sans-serif",
+                fontSize: 13,
+                fontWeight: 700,
+                letterSpacing: "0.06em",
+                color: BS_WHITE,
+                textDecoration: "none",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease",
+              }}
+            >
+              Visit website
+              <span aria-hidden style={{ fontSize: 14, marginTop: -1 }}>↗</span>
+            </a>
+          </motion.div>
+
         </div>
       </div>
 
       <style jsx global>{`
-        .bs-about-card:hover {
+        .bs-about-card-host:hover {
           transform: translateY(-6px);
           border-color: rgba(255,255,255,0.22) !important;
           box-shadow:
@@ -2693,10 +3359,24 @@ function AboutSection() {
             0 0 0 1px rgba(255,255,255,0.18) inset,
             0 1px 2px rgba(0,0,0,0.18) inset,
             0 32px 70px rgba(0,0,0,0.55),
-            0 0 100px rgba(0, 194, 255, 0.24) !important;
+            0 0 100px ${BS_CYAN}3d !important;
         }
-        .bs-about-cta:hover {
+        .bs-about-card-sponsor:hover {
+          transform: translateY(-6px);
+          border-color: ${OS_RED}55 !important;
+          box-shadow:
+            0 1px 0 0 rgba(255,255,255,1) inset,
+            0 1px 3px rgba(14,14,16,0.04),
+            0 32px 70px rgba(14,14,16,0.10),
+            0 0 80px ${OS_RED}22 !important;
+        }
+        .bs-about-cta-host:hover {
           transform: translateY(-1px);
+          background: linear-gradient(180deg, ${BS_CYAN}3d 0%, ${BS_CYAN}14 100%) !important;
+        }
+        .bs-about-cta-sponsor:hover {
+          transform: translateY(-1px);
+          background: ${OS_RED_DARK} !important;
         }
         @media (max-width: 880px) {
           .bs-about-grid { grid-template-columns: 1fr !important; }
@@ -3330,7 +4010,24 @@ function BlackstoneFooter() {
         display: "flex", alignItems: "center", justifyContent: "space-between",
         flexWrap: "wrap", gap: 24,
       }}>
-        <BlackstoneLogomark size={44} color={BS_WHITE} accent={BS_CYAN} />
+        {/* Dual-brand lockup: Blackstone (host) + OutSystems (sponsor) on the
+            dark page bottom, separated by a hairline divider — mirrors the
+            navigation logo treatment at the top of the page. */}
+        <div style={{
+          display: "inline-flex", alignItems: "center", gap: 16,
+          lineHeight: 0,
+        }}>
+          <span style={{ display: "inline-flex", alignItems: "center", height: 44 }}>
+            <BlackstoneLogomark size={44} />
+          </span>
+          <span aria-hidden style={{
+            width: 1, height: 32,
+            background: `linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.22) 30%, rgba(255,255,255,0.22) 70%, transparent 100%)`,
+          }} />
+          <span style={{ display: "inline-flex", alignItems: "center", height: 44 }}>
+            <OutSystemsLogomark size={34} />
+          </span>
+        </div>
         <p style={{
           fontSize: 12, color: "rgba(255,255,255,0.42)", margin: 0,
           display: "inline-flex", alignItems: "center", gap: 10,
@@ -3383,11 +4080,9 @@ export default function BlackstonePage() {
     }}>
       <BlackstoneNav />
       <HeroSection />
-      <OverviewSection />
-      <TakeawaysSection />
+      <JourneyCanvas />
       <SpeakersSection />
-      <AgendaSection />
-      <AboutSection />
+      <ProgrammeCanvas />
       <RegisterSection />
       <BlackstoneFooter />
     </div>

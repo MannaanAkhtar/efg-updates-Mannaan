@@ -1,12 +1,31 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Cabin, Noto_Sans } from "next/font/google";
 
-// Brand-mandated typeface (per Blackstone eIT 2026 V1.0 brand guidelines).
-// Scoped to /blackstone via this layout so the site-wide font stack is untouched.
+// Blackstone eIT brand typeface — used on Blackstone-attributed surfaces only
+// (host badges, agenda items where Blackstone owns, etc).
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
   variable: "--font-montserrat",
+  display: "swap",
+});
+
+// OutSystems primary typeface — Cabin. Used for ALL page-level display type
+// (the OutSystems base of the design).
+const cabin = Cabin({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-cabin",
+  display: "swap",
+});
+
+// OutSystems long-format typeface — Noto Sans. Used for body copy.
+const notoSans = Noto_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-noto-sans",
   display: "swap",
 });
 
@@ -51,7 +70,7 @@ export const metadata: Metadata = {
 
 export default function BlackstoneLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={montserrat.variable}>
+    <div className={`${montserrat.variable} ${cabin.variable} ${notoSans.variable}`}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
