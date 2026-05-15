@@ -78,6 +78,7 @@ type Speaker = {
   photoTBD?: boolean;
   bio?: string;
   linkedin?: string;
+  photoZoom?: number;
 };
 
 const SPEAKERS: Speaker[] = [
@@ -96,6 +97,23 @@ const SPEAKERS: Speaker[] = [
     role: "Panelist",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Arnab_Majumder.png",
     linkedin: "https://www.linkedin.com/in/arnab-majumder-26340839/",
+  },
+  {
+    name: "Okan Horasan",
+    title: "Country Manager",
+    org: "Seagate Technology",
+    role: "Panelist",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Okan_Horasan.png",
+    linkedin: "https://www.linkedin.com/in/okan-horasan-11b8892b/",
+  },
+  {
+    name: "Allan Bilek",
+    title: "Country Manager",
+    org: "Seagate Technology",
+    role: "Panelist",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Allan_Bilek.png",
+    linkedin: "https://www.linkedin.com/in/allanbilekbusiness/",
+    photoZoom: 1.22,
   },
 ];
 
@@ -1280,16 +1298,15 @@ function SpeakersSection() {
             opacity: inView ? 1 : 0,
             transition: "opacity 1.2s 0.15s ease",
           }}>
-            <span>Two seats · One conversation</span>
+            <span>Four perspectives · One conversation</span>
           </div>
         </div>
 
         {/* Portrait grid — luxury magazine spread */}
         <div className="sg-speaker-grid" style={{
           display: "grid",
-          gridTemplateColumns: "repeat(2, 1fr)",
-          gap: "clamp(16px, 2vw, 32px)",
-          maxWidth: 620,
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: "clamp(14px, 1.8vw, 28px)",
           margin: "0 auto",
         }}>
           {SPEAKERS.map((s, i) => {
@@ -1327,7 +1344,7 @@ function SpeakersSection() {
                     sizes="(max-width: 760px) 280px, 310px"
                     style={{
                       objectFit: "cover", objectPosition: "center 18%",
-                      transform: inView ? "scale(1)" : "scale(1.08)",
+                      transform: inView ? `scale(${s.photoZoom ?? 1})` : `scale(${(s.photoZoom ?? 1) * 1.08})`,
                       transition: `transform 1.8s ${0.3 + i * 0.12}s cubic-bezier(0.22,1,0.36,1), filter 0.6s ease`,
                     }}
                   />
@@ -1455,7 +1472,13 @@ function SpeakersSection() {
         .sg-speaker-card:hover .sg-speaker-underline {
           width: 32px !important;
         }
-        @media (max-width: 760px) {
+        @media (max-width: 1024px) {
+          .sg-speaker-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            max-width: 620px !important;
+          }
+        }
+        @media (max-width: 560px) {
           .sg-speaker-grid {
             grid-template-columns: 1fr !important;
             gap: clamp(20px, 4vw, 28px) !important;
