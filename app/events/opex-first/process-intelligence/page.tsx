@@ -943,8 +943,13 @@ const SPEAKERS = [
     name: "Miodrag Vidakovic",
     title: "Applied AI Director",
     org: "Celonis",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Miodrag_Vidakovic.png",
-    photoTBD: true,
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Miodrag_Celonis.png",
+  },
+  {
+    name: "Neil Evans",
+    title: "Head of Energy",
+    org: "Q5 Arabia",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Neil_Evans.png",
   },
 ];
 
