@@ -163,13 +163,6 @@ const CONTACTS_TEAM = [
 
 const OTVB_SPEAKERS = [
   {
-    name: "Ahmed M. Al-Barrak",
-    title: "OT Cybersecurity Operation Project Management Group Head",
-    org: "Saudi Aramco",
-    flag: "https://flagcdn.com/w40/sa.png",
-    photo: `${S3}/Speakers-photos/Ahmed_Mohammed_AbdallahAlbarrak.png`,
-  },
-  {
     name: "Vijay Velayutham",
     title: "Principal Information Security Officer",
     org: "UAE Ministry of Energy & Infrastructure",
@@ -1442,7 +1435,6 @@ const AGENDA_ITEMS: {
     speakers: [
       { name: "Vijay Velayutham", title: "Principal Information Security Officer", org: "UAE Ministry of Energy" },
       { name: "Ali Alsadadi", title: "Chief of Information Technology", org: "Bahrain Ministry of Oil" },
-      { name: "Ahmed Mohammed Abdallah Albarrak", title: "OT Cybersecurity Operation Project Management Group Head", org: "Saudi Aramco" },
       { name: "Ahmed AL Bahdoor", title: "Head of Cyber Security", org: "Oman Airports Management Company" },
       { name: "Samir Mokthar", title: "Founder & CEO", org: "FlintX", sponsor: true },
     ],
