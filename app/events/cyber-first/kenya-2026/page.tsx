@@ -939,11 +939,16 @@ function HeroSection() {
               ))}
             </div>
 
-            {/* Community Partner — mobile only (inline, compact) */}
+            {/* Community Partners — mobile only (inline, compact) */}
             <div className="cfk-community-mobile" style={{ display: "none", flexDirection: "column", alignItems: "flex-start", gap: 6, marginTop: 8 }}>
-              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 8, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: KENYA_ACCENT }}>Community Partner</span>
-              <div style={{ background: "white", borderRadius: 6, padding: "6px 12px", boxShadow: "0 2px 12px rgba(0,0,0,0.3)" }}>
-                <img src="https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/gafai_blue_Global_Alliance_for_Artificial_Intelligence.png" alt="GAFAI" style={{ height: 22, objectFit: "contain" }} />
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 8, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: KENYA_ACCENT }}>Community Partners</span>
+              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <div style={{ background: "white", borderRadius: 6, padding: "6px 12px", boxShadow: "0 2px 12px rgba(0,0,0,0.3)" }}>
+                  <img src="https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/gafai_blue_Global_Alliance_for_Artificial_Intelligence.png" alt="GAFAI" style={{ height: 22, objectFit: "contain", display: "block" }} />
+                </div>
+                <div style={{ background: "white", borderRadius: 6, padding: "6px 12px", boxShadow: "0 2px 12px rgba(0,0,0,0.3)" }}>
+                  <img src="https://efg-final.s3.eu-north-1.amazonaws.com/logos/African_Centre_Security_colour.png" alt="African Centre for Security" style={{ height: 22, objectFit: "contain", display: "block" }} />
+                </div>
               </div>
             </div>
           </motion.div>
@@ -1102,7 +1107,7 @@ function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Community Partner - GAFAI (Bottom Right) */}
+      {/* Community Partners - GAFAI + African Centre for Security (Bottom Right) */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -1127,19 +1132,33 @@ function HeroSection() {
           textTransform: "uppercase",
           color: KENYA_ACCENT,
         }}>
-          Community Partner
+          Community Partners
         </span>
-        <div style={{
-          background: "white",
-          borderRadius: 8,
-          padding: "clamp(8px, 1.2vw, 14px) clamp(12px, 1.8vw, 22px)",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
-        }}>
-          <img
-            src="https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/gafai_blue_Global_Alliance_for_Artificial_Intelligence.png"
-            alt="Global Alliance for Artificial Intelligence (GAFAI)"
-            style={{ height: "clamp(26px, 3.5vw, 39px)", objectFit: "contain" }}
-          />
+        <div style={{ display: "flex", alignItems: "center", gap: "clamp(8px, 1vw, 14px)" }}>
+          <div style={{
+            background: "white",
+            borderRadius: 8,
+            padding: "clamp(8px, 1.2vw, 14px) clamp(12px, 1.8vw, 22px)",
+            boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+          }}>
+            <img
+              src="https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/gafai_blue_Global_Alliance_for_Artificial_Intelligence.png"
+              alt="Global Alliance for Artificial Intelligence (GAFAI)"
+              style={{ height: "clamp(26px, 3.5vw, 39px)", objectFit: "contain", display: "block" }}
+            />
+          </div>
+          <div style={{
+            background: "white",
+            borderRadius: 8,
+            padding: "clamp(8px, 1.2vw, 14px) clamp(12px, 1.8vw, 22px)",
+            boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+          }}>
+            <img
+              src="https://efg-final.s3.eu-north-1.amazonaws.com/logos/African_Centre_Security_colour.png"
+              alt="African Centre for Security"
+              style={{ height: "clamp(26px, 3.5vw, 39px)", objectFit: "contain", display: "block" }}
+            />
+          </div>
         </div>
       </motion.div>
 
