@@ -2319,7 +2319,7 @@ function SpeakersSection() {
             maxWidth: 580,
             letterSpacing: "-0.003em",
           }}>
-            A focused circle of voices from {BRAND_SPONSOR} and {BRAND_HOST}.
+            A focused circle of voices from {BRAND_SPONSOR} and {BRAND_HOST} — moderating the conversation and bringing the field experience to the room.
           </p>
         </motion.div>
 
@@ -2398,6 +2398,82 @@ function agendaTypeStyle(type: AgendaItem["type"]): {
   }
 }
 
+// ─── Reusable: a column of agenda items grouped under a session label ───
+function AgendaColumn({
+  label,
+  timeRange,
+  items,
+  inView,
+  startDelay,
+  accentColor,
+}: {
+  label: string;
+  timeRange: string;
+  items: AgendaItem[];
+  inView: boolean;
+  startDelay: number;
+  accentColor: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.9, delay: startDelay, ease: EASE }}
+      style={{
+        position: "relative",
+        zIndex: 1,
+        display: "flex",
+        flexDirection: "column",
+        gap: "clamp(14px, 1.6vw, 22px)",
+      }}
+    >
+      {/* Column header — italic Cabin label in ink + small uppercase time range
+          with an accent hairline. Same editorial vocabulary as Overview's lead. */}
+      <div style={{
+        display: "flex", flexDirection: "column",
+        gap: 10,
+        marginBottom: "clamp(8px, 1vh, 14px)",
+      }}>
+        <span style={{
+          fontFamily: "var(--font-cabin), system-ui, sans-serif",
+          fontStyle: "italic",
+          fontSize: "clamp(30px, 3.6vw, 48px)",
+          fontWeight: 500,
+          color: INK,
+          letterSpacing: "-0.025em",
+          lineHeight: 1,
+          textTransform: "lowercase",
+          display: "inline-flex", alignItems: "baseline", gap: 8,
+        }}>
+          {label}
+        </span>
+        <span style={{
+          fontFamily: "var(--font-cabin), system-ui, sans-serif",
+          fontSize: 11,
+          fontWeight: 700,
+          letterSpacing: "0.32em",
+          textTransform: "uppercase",
+          color: GRAY_500,
+          display: "inline-flex", alignItems: "center", gap: 12,
+          fontVariantNumeric: "tabular-nums",
+        }}>
+          <span aria-hidden style={{
+            width: 28, height: 1,
+            background: `linear-gradient(90deg, ${accentColor}, transparent)`,
+            boxShadow: `0 0 4px ${accentColor}44`,
+          }} />
+          {timeRange}
+        </span>
+      </div>
+
+      {/* Stacked cards */}
+      {items.map((item, i) => (
+        <AgendaCard key={i} item={item} idx={i} inView={inView} columnDelay={startDelay} />
+      ))}
+    </motion.div>
+  );
+}
+
 // ─── Reusable: a single agenda card (OutSystems-base light theme) ───
 function AgendaCard({
   item,
@@ -2425,8 +2501,8 @@ function AgendaCard({
       style={{
         position: "relative",
         padding: isNeutral
-          ? "clamp(10px, 1vw, 14px) clamp(14px, 1.4vw, 18px)"
-          : "clamp(14px, 1.4vw, 18px) clamp(16px, 1.6vw, 22px)",
+          ? "clamp(14px, 1.4vw, 18px) clamp(16px, 1.6vw, 22px)"
+          : "clamp(18px, 1.8vw, 24px) clamp(20px, 2vw, 26px)",
         borderRadius: 14,
         background: BS_WHITE,
         border: `1px solid ${isNeutral ? GRAY_300 : `${type.color}33`}`,
@@ -2442,7 +2518,7 @@ function AgendaCard({
         transition: "transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease",
         display: "flex",
         flexDirection: "column",
-        gap: isNeutral ? 4 : 7,
+        gap: isNeutral ? 6 : 10,
       }}
     >
       {/* Top hairline — colored for accented items, very faint for neutral */}
@@ -2640,6 +2716,16 @@ function AgendaSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-120px" });
 
+  // ── Split by time of day. Items at/after 12:00 → afternoon. ──
+  const morningItems = AGENDA.filter((item) => {
+    const [h] = item.start.split(":").map(Number);
+    return h < 12;
+  });
+  const afternoonItems = AGENDA.filter((item) => {
+    const [h] = item.start.split(":").map(Number);
+    return h >= 12;
+  });
+
   return (
     <section id="agenda" ref={ref} style={{
       position: "relative",
@@ -2647,7 +2733,7 @@ function AgendaSection() {
       // Only a small bottom buffer — outer rhythm and shared atmosphere are
       // provided by <ProgrammeCanvas>, the parent that wraps this section
       // together with About as one continuous canvas.
-      padding: "0 0 clamp(28px, 3.5vw, 44px)",
+      padding: "0 0 clamp(40px, 5vw, 60px)",
       overflow: "visible",
     }}>
       {/* (No ambient overlays here — ProgrammeCanvas paints the shared atmosphere.) */}
@@ -2667,8 +2753,8 @@ function AgendaSection() {
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
-            gap: "clamp(14px, 1.6vw, 22px)",
-            marginBottom: "clamp(24px, 3vw, 40px)",
+            gap: "clamp(18px, 2.2vw, 28px)",
+            marginBottom: "clamp(40px, 5vw, 64px)",
             maxWidth: 820,
           }}
         >
@@ -2731,31 +2817,66 @@ function AgendaSection() {
             maxWidth: 660,
             letterSpacing: "-0.003em",
           }}>
-            10:00–14:20 AST · Fairmont Riyadh. Two substantive talks — then we sit down together over lunch.
+            10:00–14:20 AST · Fairmont Riyadh. Two substantive talks, a working demo and a panel — then we sit down together over lunch.
           </p>
         </motion.div>
 
         {/* ─── Morning + Afternoon split layout ─── */}
-        {/* Single continuous agenda column — no morning/afternoon split,
-            no vertical divider. Cards stack in chronological order. */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.15, ease: EASE }}
-          style={{
-            position: "relative",
-            maxWidth: 760,
-            margin: "0 auto",
-            display: "flex",
-            flexDirection: "column",
-            gap: "clamp(10px, 1.1vw, 14px)",
-          }}
-          className="bs-agenda-list"
-        >
-          {AGENDA.map((item, i) => (
-            <AgendaCard key={i} item={item} idx={i} inView={inView} columnDelay={0.15} />
-          ))}
-        </motion.div>
+        <div style={{
+          position: "relative",
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "clamp(36px, 4.5vw, 72px)",
+          alignItems: "start",
+        }} className="bs-agenda-grid">
+          {/* Vertical OS_RED divider hairline between morning + afternoon, with
+              a small navy nub at center as the dual-brand seam marker. */}
+          <div aria-hidden className="bs-agenda-divider" style={{
+            position: "absolute",
+            top: "20px",
+            bottom: "20px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: 1,
+            background: `linear-gradient(180deg, transparent 0%, ${OS_RED}55 12%, ${OS_RED}55 88%, transparent 100%)`,
+            boxShadow: `0 0 10px ${OS_RED}33`,
+            pointerEvents: "none",
+          }} />
+          {/* Centre seam marker — small hex glyph stamping the divider mid-point */}
+          <span aria-hidden className="bs-agenda-divider" style={{
+            position: "absolute",
+            top: "50%", left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 22, height: 22,
+            background: CREAM,
+            borderRadius: "50%",
+            display: "inline-flex", alignItems: "center", justifyContent: "center",
+            pointerEvents: "none",
+            boxShadow: `0 0 0 1px ${OS_RED}22, 0 4px 10px rgba(14,14,16,0.06)`,
+          }}>
+            <BlackstoneHex size={11} color={BS_NAVY} strokeWidth={2.2} />
+          </span>
+
+          {/* ── LEFT: Morning column (OutSystems-led majority) ── */}
+          <AgendaColumn
+            label="Morning"
+            timeRange="10:00 – 12:00"
+            items={morningItems}
+            inView={inView}
+            startDelay={0.15}
+            accentColor={OS_RED}
+          />
+
+          {/* ── RIGHT: Afternoon column (mixed sessions, panel + closing) ── */}
+          <AgendaColumn
+            label="Afternoon"
+            timeRange="12:00 – 14:20"
+            items={afternoonItems}
+            inView={inView}
+            startDelay={0.4}
+            accentColor={OS_RED}
+          />
+        </div>
       </div>
 
       <style jsx global>{`
@@ -2768,8 +2889,12 @@ function AgendaSection() {
             0 0 40px ${OS_RED}1a !important;
         }
         @media (max-width: 880px) {
-          .bs-agenda-list {
-            max-width: 100% !important;
+          .bs-agenda-grid {
+            grid-template-columns: 1fr !important;
+            gap: clamp(36px, 6vw, 56px) !important;
+          }
+          .bs-agenda-divider {
+            display: none !important;
           }
         }
       `}</style>
@@ -3515,7 +3640,7 @@ function RegisterSection() {
             color: "rgba(255,255,255,0.68)",
             maxWidth: 440,
           }}>
-            Every request is reviewed to keep the room intimate.
+            Every request is reviewed to keep the room intimate — typically 15–20 senior IT executives from Saudi public-sector entities.
           </p>
 
         </motion.div>
