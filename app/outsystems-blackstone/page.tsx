@@ -571,20 +571,22 @@ function HeroSection() {
 
         {/* ─── RIGHT: compact event details card — the hero "asset" ─── */}
         <motion.div
-          initial={{ opacity: 0, y: 24, scale: 0.99, rotateY: -16 }}
-          animate={{ opacity: 1, y: 0, scale: 1, rotateY: -9 }}
+          initial={{ opacity: 0, y: 24, scale: 0.99, rotateY: -16, rotateX: 0 }}
+          animate={{ opacity: 1, y: 0, scale: 1, rotateY: -9, rotateX: 2 }}
+          whileHover={{ rotateY: -14, rotateX: 5, scale: 1.03, y: -8 }}
           transition={{ duration: 1.2, delay: 0.3, ease: EASE }}
           className="bs-hero-event-card"
           style={{
             position: "relative",
             padding: "clamp(30px, 3.2vw, 44px)",
             borderRadius: 20,
-            // 3D tilt: left edge recedes into the page, right edge comes
-            // forward toward the viewer. Perspective on this element keeps
-            // the card's own depth without disturbing the rest of the hero.
+            // 3D tilt — fixed: left edge recedes into the page, right edge
+            // comes forward toward the viewer. Hover deepens the tilt and
+            // lifts the card. Perspective stays on this element so the rest
+            // of the hero is unaffected.
             transformStyle: "preserve-3d",
             transformOrigin: "85% center",
-            transform: "perspective(1400px) rotateY(-9deg) rotateX(2deg)",
+            transformPerspective: 1400,
             willChange: "transform",
             // Blackstone surface — deep navy gradient with a cool top-left
             // light catch + a faint cyan glow lower-right. Reads as the host
