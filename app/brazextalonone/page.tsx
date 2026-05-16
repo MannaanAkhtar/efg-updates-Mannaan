@@ -133,11 +133,6 @@ export default function Braze3LandingPage() {
         }
         .braze3-input::placeholder { color: ${INK_FAINT}; }
 
-        /* ── Tablet (≤1024) ── */
-        @media (max-width: 1024px) {
-          .braze3-hero-supergraphic { width: 75% !important; }
-        }
-
         /* ── Mobile (≤768) ── */
         @media (max-width: 768px) {
           .braze3-nav-links { display: none !important; }
@@ -147,15 +142,14 @@ export default function Braze3LandingPage() {
 
           .braze3-hero {
             min-height: auto !important;
-            padding: 90px 20px 56px !important;
+            padding: 80px 18px 44px !important;
           }
           .braze3-hero-eyebrow { font-size: clamp(10px, 2.8vw, 12px) !important; }
-          .braze3-hero h1 { font-size: clamp(28px, 7.8vw, 40px) !important; }
-          .braze3-hero-subline { font-size: clamp(13px, 3.4vw, 16px) !important; }
-          .braze3-hero-meta { gap: 6px !important; }
+          .braze3-hero h1 { font-size: clamp(26px, 7.4vw, 38px) !important; line-height: 1.12 !important; }
+          .braze3-hero-subline { font-size: clamp(13px, 3.4vw, 15px) !important; line-height: 1.5 !important; }
+          .braze3-hero-meta { gap: 4px !important; row-gap: 8px !important; }
           .braze3-hero-meta > span:not(:first-child) { font-size: 12px !important; }
           .braze3-scroll-indicator { display: none !important; }
-          .braze3-hero-supergraphic { width: 120% !important; right: -30% !important; opacity: 0.45 !important; }
 
           .braze3-overview { padding: 48px 0 !important; }
           .braze3-overview-body p,
@@ -189,8 +183,26 @@ export default function Braze3LandingPage() {
 
         /* ── Small mobile (≤480) ── */
         @media (max-width: 480px) {
-          .braze3-hero { padding: 80px 16px 44px !important; }
-          .braze3-hero-supergraphic { opacity: 0.35 !important; }
+          .braze3-hero { padding: 76px 14px 38px !important; }
+          .braze3-hero-supergraphic { opacity: 0.6 !important; }
+          .braze3-hero h1 { font-size: clamp(22px, 7vw, 30px) !important; }
+          .braze3-hero-subline { font-size: 13px !important; }
+          .braze3-hero-meta > span:not(:first-child) { font-size: 11px !important; }
+          .braze3-overview { padding: 40px 0 !important; }
+          .braze3-overview h2 { font-size: clamp(22px, 6vw, 28px) !important; }
+          .braze3-pullquote { padding: 26px 30px 26px 46px !important; }
+          .braze3-areas { padding: 40px 0 !important; }
+          .braze3-areas h2 { font-size: clamp(22px, 6vw, 28px) !important; }
+          .braze3-area-row { padding: 10px 14px !important; gap: 10px !important; }
+          .braze3-area-row .braze3-area-plinth { width: 32px !important; height: 32px !important; }
+          .braze3-area-row .braze3-area-num { font-size: 12px !important; }
+          .braze3-hosted { padding: 40px 0 !important; }
+          .braze3-hosted-card { padding: 28px 16px !important; gap: 18px !important; }
+          .braze3-hosted-logo-wrap { padding: 20px 16px !important; }
+          .braze3-register { padding: 40px 0 !important; }
+          .braze3-form-container { padding: 22px 16px !important; }
+          .braze3-footer { padding: 12px 0 !important; }
+          .braze3-footer-inner { padding: 0 16px !important; }
         }
 
         .braze3-country-dropdown::-webkit-scrollbar { width: 6px; }
@@ -627,21 +639,6 @@ function HeroSection() {
         />
       </motion.div>
 
-
-      {/* Soft bottom fade into next section */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: 0,
-          height: 120,
-          pointerEvents: "none",
-          zIndex: 1,
-          background: `linear-gradient(180deg, transparent 0%, ${CREAM} 100%)`,
-        }}
-      />
 
       {/* Grain texture for premium depth */}
       <div
