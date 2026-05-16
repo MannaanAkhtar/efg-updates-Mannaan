@@ -77,7 +77,7 @@ const UPCOMING_EVENTS = [
     subtitle: "Empowering Saudi Public Sector through Agentic AI",
     sponsor: "Blackstone eIT",
     location: "Fairmont Riyadh",
-    link: "/blackstone",
+    link: "/outsystems-blackstone",
     image: "",
     brandColor: "#0B1F3B",
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/BlackstoneeIT_logolight.png",

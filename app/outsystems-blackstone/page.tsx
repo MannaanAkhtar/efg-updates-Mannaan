@@ -259,15 +259,15 @@ function BlackstoneNav() {
           textDecoration: "none",
           lineHeight: 0,
         }}>
-          <span className="bs-nav-logo bs-nav-logo-bs" style={{ display: "inline-flex", alignItems: "center", height: 40 }}>
-            <BlackstoneLogomark size={40} dark />
+          <span className="bs-nav-logo bs-nav-logo-os" style={{ display: "inline-flex", alignItems: "center", height: 40 }}>
+            <OutSystemsLogomark size={30} dark />
           </span>
           <span aria-hidden className="bs-nav-divider" style={{
             width: 1, height: 28,
             background: `linear-gradient(180deg, transparent 0%, ${GRAY_300} 30%, ${GRAY_300} 70%, transparent 100%)`,
           }} />
-          <span className="bs-nav-logo bs-nav-logo-os" style={{ display: "inline-flex", alignItems: "center", height: 40 }}>
-            <OutSystemsLogomark size={30} dark />
+          <span className="bs-nav-logo bs-nav-logo-bs" style={{ display: "inline-flex", alignItems: "center", height: 40 }}>
+            <BlackstoneLogomark size={40} dark />
           </span>
         </a>
 
@@ -433,7 +433,7 @@ function HeroSection() {
             }}
           >
             Empowering Saudi Public Sector through{" "}
-            <span style={{ color: OS_RED, fontWeight: 700 }}>Agentic AI.</span>
+            <span style={{ color: OS_RED, fontWeight: 700 }}>Agentic AI</span>
           </motion.h1>
 
           {/* Subhead — Noto Sans, gray, longer-form sentence */}
@@ -1316,7 +1316,7 @@ function OverviewSection() {
           }}>
             The roadmap from{" "}
             <span style={{ color: OS_RED, fontWeight: 700 }}>AI pilots</span>{" "}
-            to agentic public services.
+            to agentic public services
           </h2>
 
           {/* Italic Cabin lead — red left bar */}
@@ -1527,8 +1527,8 @@ function OverviewSection() {
               color: GRAY_700,
               margin: 0,
             }}>
-              This invite-only roundtable convenes a focused circle of senior IT leaders, CDOs and
-              digital transformation heads with the {BRAND_HOST} and {BRAND_SPONSOR} teams —
+              This invite-only roundtable convenes a focused circle of senior IT executives,
+              technology decision-makers and digital transformation leaders with the {BRAND_SPONSOR} and {BRAND_HOST} teams —
               where agentic AI is already delivering measurable citizen impact, where it stalls,
               and how Saudi institutions can build the governance, talent and architecture to
               scale it responsibly.
@@ -1717,7 +1717,7 @@ function TakeawaysSection() {
           }}>
             Three conversations{" "}
             <span style={{ color: OS_RED, fontWeight: 700 }}>
-              worth your morning.
+              worth your morning
             </span>
           </h2>
 
@@ -2305,7 +2305,7 @@ function SpeakersSection() {
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
               fontWeight: 800,
-            }}>panelists.</span>
+            }}>panelists</span>
           </h2>
 
           {/* Supporting line */}
@@ -2319,7 +2319,7 @@ function SpeakersSection() {
             maxWidth: 580,
             letterSpacing: "-0.003em",
           }}>
-            A focused circle of voices from {BRAND_HOST} and {BRAND_SPONSOR} — moderating the conversation and bringing the field experience to the room.
+            A focused circle of voices from {BRAND_SPONSOR} and {BRAND_HOST}.
           </p>
         </motion.div>
 
@@ -2367,7 +2367,7 @@ function SpeakersSection() {
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-// AGENDA — 9 items run of show
+// AGENDA — 9 items
 // ═════════════════════════════════════════════════════════════════════════════
 // `kind` drives the card's visual treatment on the OutSystems-base cream surface:
 //   - host    → Blackstone-led session (navy hex glyph + cyan tri-band under-stripe)
@@ -2446,7 +2446,6 @@ function AgendaColumn({
           display: "inline-flex", alignItems: "baseline", gap: 8,
         }}>
           {label}
-          <span style={{ color: accentColor, fontStyle: "normal", fontWeight: 700 }}>.</span>
         </span>
         <span style={{
           fontFamily: "var(--font-cabin), system-ui, sans-serif",
@@ -2675,7 +2674,7 @@ function AgendaCard({
 
 // ═════════════════════════════════════════════════════════════════════════════
 // PROGRAMME CANVAS — single shared atmosphere wrapping BOTH the Agenda
-// ("Run of show") and the About section ("Behind the table") as one
+// and the About section ("Behind the table") as one
 // continuous canvas. Mirrors the JourneyCanvas pattern at the top of the page:
 // ambient washes, hex sculptures, central chapter-divider hex, and ring
 // micropattern live on this wrapper, so the boundary between the two
@@ -2789,7 +2788,7 @@ function AgendaSection() {
             }} />
             <OutSystemsRing size={11} color={OS_RED} strokeWidth={2.4} />
             <BlackstoneHex size={10} color={BS_NAVY} strokeWidth={2} />
-            Run of show · 10 June 2026
+            Agenda · 10 June 2026
           </span>
 
           <h2 style={{
@@ -2802,9 +2801,9 @@ function AgendaSection() {
             margin: 0,
             textWrap: "balance" as "balance",
           }}>
-            A focused morning.{" "}
+            A focused morning{" "}
             <span style={{ color: OS_RED, fontWeight: 700 }}>
-              Lunch to keep talking.
+              Lunch to keep talking
             </span>
           </h2>
 
@@ -2818,7 +2817,7 @@ function AgendaSection() {
             maxWidth: 660,
             letterSpacing: "-0.003em",
           }}>
-            10:00–14:20 AST · Fairmont Riyadh. Three substantive talks, a working demo and a panel — then we sit down together over lunch.
+            10:00–14:20 AST · Fairmont Riyadh. Two substantive talks — then we sit down together over lunch.
           </p>
         </motion.div>
 
@@ -2912,8 +2911,16 @@ function AboutSection() {
 
   const HEX_CLIP = "polygon(25% 5%, 75% 5%, 98% 50%, 75% 95%, 25% 95%, 2% 50%)";
 
-  const HOST_BODY = `${BRAND_HOST} is a digital transformation and enterprise technology partner working with public sector and large enterprise clients across the Kingdom. Through deep expertise in low-code, AI, agentic systems and mission-critical platforms, the firm helps institutions ship outcomes — not just experiments — at the pace Vision 2030 demands.`;
-  const SPONSOR_BODY = `${BRAND_SPONSOR} is the global leader in high-performance application development, powering AI-era software for governments and enterprises worldwide. Its platform unifies AI, low-code and mission-critical engineering — letting institutions move from idea to in-production citizen service in weeks, with the security, governance and scale public sector requires.`;
+  const HOST_BODY: string[] = [
+    `${BRAND_HOST} is an SI and ISV leader providing innovative customized technology solutions to help our customers become digital-first, data-informed, and AI-enabled companies.`,
+    `Headquartered in Seattle, with a regional headquarter in the UAE and six global offices, the company is an established strategic partner to public sector organizations and private enterprises, helping them navigate the complexities of an increasingly digital and AI-driven technology landscape.`,
+    `${BRAND_HOST} is a trusted partner to more than 1,000 enterprises across diverse industries and over 50 government entities. We build resilient, AI-ready infrastructure across cloud, private cloud, and on-premises environments; establish trusted and scalable data foundations, and deliver intelligent applications and AI-augmented workflows that enhance agility and drive measurable business outcomes.`,
+  ];
+  const SPONSOR_BODY: string[] = [
+    `${BRAND_SPONSOR} is a leading AI Development Platform built for the enterprise. Global organizations trust ${BRAND_SPONSOR} to rapidly build mission-critical apps and agents, modernize legacy processes with agentic systems, and govern their entire AI portfolio across complex regulatory environments, all on a unified platform.`,
+    `${BRAND_SPONSOR} is consistently recognized as a leader in enterprise software development by Gartner, IDC, and Forrester, and ranked #1 in Customer Satisfaction by users on G2. Business leaders, IT executives and developers choose ${BRAND_SPONSOR} to accelerate internal innovation without compromising reliability and security.`,
+    `The ${BRAND_SPONSOR} ecosystem includes more than 85 million end users, over 600 partners, and thousands of active customers in 75+ countries across 20+ industries.`,
+  ];
 
   return (
     <section id="about" ref={ref} style={{
@@ -2994,7 +3001,7 @@ function AboutSection() {
           }}>
             About{" "}
             <span style={{ color: OS_RED, fontWeight: 700 }}>
-              the hosts.
+              the hosts
             </span>
           </h2>
 
@@ -3009,7 +3016,7 @@ function AboutSection() {
             maxWidth: 640,
             letterSpacing: "-0.003em",
           }}>
-            Two organisations convening this morning — one rooted in the Kingdom&apos;s public-sector transformation, one powering the global AI-era platform behind it.
+            Two organisations convening this morning — one powering the AI-era platform across the Kingdom, the other making transformation real.
           </p>
         </motion.div>
 
@@ -3022,14 +3029,13 @@ function AboutSection() {
           gap: "clamp(22px, 2.6vw, 36px)",
         }} className="bs-about-grid">
 
-          {/* ─── LEFT: Blackstone eIT — translucent cyan-tinted glass host capsule.
-                The background is intentionally light/translucent (per user
-                preference) so we set readable dark text/logo/CTA colors below
-                rather than relying on a dark base for contrast. ─── */}
+          {/* ─── RIGHT (was LEFT): Blackstone eIT — translucent cyan-tinted glass card.
+                Rendered visually on the right via CSS `order` so OutSystems takes
+                the left "hosted by" slot. Kept in JSX order for legibility. ─── */}
           <motion.div
             initial={{ opacity: 0, y: 28, scale: 0.985 }}
             animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-            transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
+            transition={{ duration: 0.9, delay: 0.4, ease: EASE }}
             className="bs-about-card bs-about-card-host"
             style={{
               position: "relative",
@@ -3108,7 +3114,7 @@ function AboutSection() {
               display: "inline-flex", alignItems: "center", gap: 12,
             }}>
               <span aria-hidden style={{ width: 18, height: 1, background: `linear-gradient(90deg, transparent, ${BS_CYAN})` }} />
-              hosted by
+              with
             </span>
 
             {/* Logo — dark Blackstone variant (CMYK) for readability on the
@@ -3123,17 +3129,24 @@ function AboutSection() {
             </div>
 
             {/* Body — navy/charcoal for legibility on translucent glass */}
-            <p style={{
+            <div style={{
               position: "relative", zIndex: 2,
-              fontFamily: "var(--font-montserrat), system-ui, sans-serif",
-              fontSize: "clamp(14.5px, 1.1vw, 16.5px)",
-              lineHeight: 1.7,
-              color: BS_NAVY,
-              margin: 0,
-              letterSpacing: "-0.003em",
+              display: "flex", flexDirection: "column",
+              gap: "clamp(12px, 1vw, 16px)",
             }}>
-              {HOST_BODY}
-            </p>
+              {HOST_BODY.map((para, i) => (
+                <p key={i} style={{
+                  fontFamily: "var(--font-montserrat), system-ui, sans-serif",
+                  fontSize: "clamp(14.5px, 1.1vw, 16.5px)",
+                  lineHeight: 1.7,
+                  color: BS_NAVY,
+                  margin: 0,
+                  letterSpacing: "-0.003em",
+                }}>
+                  {para}
+                </p>
+              ))}
+            </div>
 
             {/* Visit website — glass-skeu cyan CTA pill (navy text for readability) */}
             <a
@@ -3171,11 +3184,12 @@ function AboutSection() {
             </a>
           </motion.div>
 
-          {/* ─── RIGHT: OutSystems — white sponsor card (OS-led light treatment) ─── */}
+          {/* ─── LEFT (was RIGHT): OutSystems — white card, now the primary
+                "hosted by" position. Promoted to first via CSS `order`. ─── */}
           <motion.div
             initial={{ opacity: 0, y: 28, scale: 0.985 }}
             animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-            transition={{ duration: 0.9, delay: 0.4, ease: EASE }}
+            transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
             className="bs-about-card bs-about-card-sponsor"
             style={{
               position: "relative",
@@ -3271,7 +3285,7 @@ function AboutSection() {
               display: "inline-flex", alignItems: "center", gap: 12,
             }}>
               <span aria-hidden style={{ width: 22, height: 1, background: `linear-gradient(90deg, transparent, ${OS_RED})` }} />
-              with
+              hosted by
             </span>
 
             {/* Logo — DARK OutSystems variant (red ring + dark wordmark) for cream surface */}
@@ -3285,17 +3299,24 @@ function AboutSection() {
             </div>
 
             {/* Body — Noto Sans, INK */}
-            <p style={{
+            <div style={{
               position: "relative", zIndex: 2,
-              fontFamily: "var(--font-noto-sans), system-ui, sans-serif",
-              fontSize: "clamp(14.5px, 1.1vw, 16.5px)",
-              lineHeight: 1.7,
-              color: GRAY_700,
-              margin: 0,
-              letterSpacing: "-0.003em",
+              display: "flex", flexDirection: "column",
+              gap: "clamp(12px, 1vw, 16px)",
             }}>
-              {SPONSOR_BODY}
-            </p>
+              {SPONSOR_BODY.map((para, i) => (
+                <p key={i} style={{
+                  fontFamily: "var(--font-noto-sans), system-ui, sans-serif",
+                  fontSize: "clamp(14.5px, 1.1vw, 16.5px)",
+                  lineHeight: 1.7,
+                  color: GRAY_700,
+                  margin: 0,
+                  letterSpacing: "-0.003em",
+                }}>
+                  {para}
+                </p>
+              ))}
+            </div>
 
             {/* Visit website — flat solid OS_RED button (matches hero CTA) */}
             <a
@@ -3337,6 +3358,13 @@ function AboutSection() {
       </div>
 
       <style jsx global>{`
+        /* Visual order: OutSystems (sponsor) renders on the left as the
+           "hosted by", Blackstone (host classnames preserved) on the right
+           as the "with" partner. Works for both the 2-col grid and the
+           stacked mobile layout. */
+        .bs-about-grid .bs-about-card-sponsor { order: 0; }
+        .bs-about-grid .bs-about-card-host { order: 1; }
+
         .bs-about-card-host:hover {
           transform: translateY(-6px);
           border-color: rgba(255,255,255,0.22) !important;
@@ -3583,7 +3611,7 @@ function RegisterSection() {
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
               fontWeight: 800,
-            }}>invitation only.</span>
+            }}>invitation only</span>
           </h2>
 
           {/* Italic Georgia editorial lead */}
@@ -3612,7 +3640,7 @@ function RegisterSection() {
             color: "rgba(255,255,255,0.68)",
             maxWidth: 440,
           }}>
-            The {BRAND_HOST} team reviews every request to keep the room intimate — typically 15–20 senior IT executives from Saudi public-sector entities.
+            Every request is reviewed to keep the room intimate.
           </p>
 
         </motion.div>
@@ -3665,7 +3693,7 @@ function RegisterSection() {
                 margin: "0 0 12px 0",
                 letterSpacing: "-0.02em",
               }}>
-                Request received.
+                Request received
               </h3>
               <p style={{
                 fontFamily: "var(--font-montserrat), system-ui, sans-serif",
@@ -4005,14 +4033,14 @@ function BlackstoneFooter() {
           lineHeight: 0,
         }}>
           <span style={{ display: "inline-flex", alignItems: "center", height: 44 }}>
-            <BlackstoneLogomark size={44} />
+            <OutSystemsLogomark size={34} />
           </span>
           <span aria-hidden style={{
             width: 1, height: 32,
             background: `linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.22) 30%, rgba(255,255,255,0.22) 70%, transparent 100%)`,
           }} />
           <span style={{ display: "inline-flex", alignItems: "center", height: 44 }}>
-            <OutSystemsLogomark size={34} />
+            <BlackstoneLogomark size={44} />
           </span>
         </div>
         <p style={{

@@ -114,7 +114,7 @@ const allEvents = [
     description: "An invitation-only executive roundtable hosted by Blackstone eIT with OutSystems — exploring how agentic AI scales digital government for Saudi Vision 2030.",
     color: "#C9935A",
     image: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/BlackstoneeIT_logolight.png",
-    href: "/blackstone",
+    href: "/outsystems-blackstone",
     date: "2026-06-10",
     nextDate: "10 June 2026",
     nextCity: "Riyadh",

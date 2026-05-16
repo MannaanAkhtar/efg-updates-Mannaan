@@ -30,9 +30,9 @@ const notoSans = Noto_Sans({
 });
 
 const BASE_URL = "https://www.eventsfirstgroup.com";
-const PAGE_URL = `${BASE_URL}/blackstone`;
+const PAGE_URL = `${BASE_URL}/outsystems-blackstone`;
 
-// The /blackstone/opengraph-image.tsx route auto-generates the 1200x630
+// The /outsystems-blackstone/opengraph-image.tsx route auto-generates the 1200x630
 // share card (Blackstone logo + title) and is wired in automatically by
 // Next.js — no need to set `openGraph.images` or `twitter.images` here.
 

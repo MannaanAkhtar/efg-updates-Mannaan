@@ -63,7 +63,7 @@ export const allEvents: EventItem[] = [
     location: "Riyadh",
     venue: "Fairmont Riyadh",
     attendees: "15-20",
-    href: "/blackstone",
+    href: "/outsystems-blackstone",
     status: "open",
   },
   {
