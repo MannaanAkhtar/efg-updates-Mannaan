@@ -241,6 +241,7 @@ export function getSourceCategory(): string {
   if (h.startsWith("big-leap-riyadh.")) return "The Big Leap Connect Riyadh";
   if (h.startsWith("sonicwall-webinar.")) return "SonicWall Virtual Roundtable";
 
+  if (p.startsWith("/brazextalonone")) return "Braze x Talon.One Webinar — Earned, not automated";
   if (p.startsWith("/braze2")) return "Braze Virtual Roundtable 2";
   if (p.startsWith("/braze")) return "Braze Virtual Roundtable";
   if (p.startsWith("/bigleap")) return "The Big Leap Connect Riyadh";

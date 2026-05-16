@@ -114,6 +114,22 @@ const UPCOMING_EVENTS = [
     lightCard: true,
   },
   {
+    // PLACEHOLDER — date/time to be confirmed by Braze x Talon.One
+    date: "TBA",
+    month: "JUN",
+    day: "18",
+    year: "2026",
+    time: "TBA",
+    title: "Earned, not automated",
+    subtitle: "What happens to brand loyalty when AI becomes the decision-maker?",
+    sponsor: "Braze x Talon.One",
+    location: "Virtual",
+    link: "/brazextalonone",
+    image: "",
+    brandColor: "#300266",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/brazextalon.png",
+  },
+  {
     date: "May 19th, 2026",
     month: "MAY",
     day: "19",
@@ -2002,7 +2018,7 @@ function UpcomingSection() {
                                     src={(e as unknown as Record<string, string>).brandLogo}
                                     alt=""
                                     style={{
-                                      height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Braze" ? 50 : 72,
+                                      height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Braze x Talon.One" ? 190 : e.sponsor === "Braze" ? 50 : 72,
                                       width: "auto",
                                       opacity: 0.85,
                                       ...(e.sponsor === "Braze"
@@ -2025,7 +2041,7 @@ function UpcomingSection() {
                               {(e as unknown as Record<string, string>).brandLogo && (
                                 // eslint-disable-next-line @next/next/no-img-element
                                 <img src={(e as unknown as Record<string, string>).brandLogo} alt="" style={{
-                                  height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Braze" ? 50 : 72,
+                                  height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Braze x Talon.One" ? 190 : e.sponsor === "Braze" ? 50 : 72,
                                   width: "auto",
                                   opacity: 0.85,
                                   filter: "brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.35))"
@@ -2357,7 +2373,7 @@ function PastBoardroomsShowcase() {
                                       src={e.brandLogo}
                                       alt=""
                                       style={{
-                                        height: e.sponsor === "Braze" ? 50 : 72,
+                                        height: e.sponsor === "Braze x Talon.One" ? 190 : e.sponsor === "Braze" ? 50 : 72,
                                         width: "auto",
                                         opacity: 0.85,
                                         ...(e.sponsor === "Braze"
@@ -2377,7 +2393,7 @@ function PastBoardroomsShowcase() {
                               }}>
                                 {e.brandLogo && (
                                   // eslint-disable-next-line @next/next/no-img-element
-                                  <img src={e.brandLogo} alt="" style={{ height: e.sponsor === "Braze" ? 50 : 72, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+                                  <img src={e.brandLogo} alt="" style={{ height: e.sponsor === "Braze x Talon.One" ? 190 : e.sponsor === "Braze" ? 50 : 72, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
                                 )}
                                 <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 80% at 30% 30%, ${e.brandColor || "#222"}30, transparent 60%)` }} />
                               </div>
