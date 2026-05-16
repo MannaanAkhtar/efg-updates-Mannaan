@@ -114,12 +114,11 @@ const UPCOMING_EVENTS = [
     lightCard: true,
   },
   {
-    // PLACEHOLDER — date/time to be confirmed by Braze x Talon.One
-    date: "TBA",
+    date: "June 18th, 2026",
     month: "JUN",
     day: "18",
     year: "2026",
-    time: "TBA",
+    time: "11:00 AM GST",
     title: "Earned, not automated",
     subtitle: "What happens to brand loyalty when AI becomes the decision-maker?",
     sponsor: "Braze x Talon.One",

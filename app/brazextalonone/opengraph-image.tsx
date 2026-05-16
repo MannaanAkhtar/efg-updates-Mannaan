@@ -250,7 +250,7 @@ export default async function Image() {
                   display: "flex",
                 }}
               >
-                Coming soon
+                18 June 2026
               </div>
             </div>
           </div>

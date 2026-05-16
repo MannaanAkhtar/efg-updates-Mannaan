@@ -32,13 +32,10 @@ const FONT = "'Aribau Grotesk', sans-serif";
 const LOCKUP_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/logos/brazextalon.png";
 const LOCKUP_LOGO_NAV = "https://efg-final.s3.eu-north-1.amazonaws.com/logos/brazextalon1.png";
 
-// PLACEHOLDER — swap with the real webinar date/time once confirmed.
-// Format: ISO-8601 with timezone offset. Currently set to a future date so
-// the countdown ticks visibly. The displayed date/time chips render "TBA"
-// strings while the countdown reads from this constant.
-const EVENT_DATE = new Date("2026-07-15T11:00:00+04:00");
-const EVENT_DATE_LABEL = "Date TBA";
-const EVENT_TIME_LABEL = "Time TBA";
+// Confirmed: 18 June 2026, 11:00 AM GST (+04:00).
+const EVENT_DATE = new Date("2026-06-18T11:00:00+04:00");
+const EVENT_DATE_LABEL = "18 June 2026";
+const EVENT_TIME_LABEL = "11:00 AM GST";
 
 // ─── Content (verbatim from brief — do not modify) ──────────────────────────
 const EYEBROW = "Earned, not automated:";
@@ -74,7 +71,11 @@ const CTA_LABEL = "Join the discussion";
 export default function Braze3LandingPage() {
   return (
     <div style={{ background: CREAM, fontFamily: FONT }}>
-      <style jsx global>{`
+      {/* Plain <style> element — avoids the styled-jsx hashing mismatch
+          that Next.js App Router client components can hit during hydration.
+          All selectors below use explicit .braze3-* class names, so we don't
+          need styled-jsx's auto-scoping anyway. */}
+      <style dangerouslySetInnerHTML={{ __html: `
         @font-face {
           font-family: 'Aribau Grotesk';
           src: url('/fonts/AribauGrotesk-Light.woff2') format('woff2');
@@ -177,7 +178,12 @@ export default function Braze3LandingPage() {
           .braze3-form-grid { grid-template-columns: 1fr !important; }
           .braze3-form-container { padding: 28px 20px !important; }
 
-          .braze3-footer-inner { flex-direction: column !important; text-align: center !important; gap: 14px !important; }
+          .braze3-footer-inner { gap: 12px !important; padding: 0 12px !important; }
+          .braze3-footer-left { gap: 4px !important; }
+          .braze3-footer-logo { height: clamp(88px, 24vw, 130px) !important; }
+          .braze3-footer-copyright { font-size: 10px !important; white-space: nowrap !important; }
+          .braze3-footer-produced { font-size: 10px !important; gap: 6px !important; flex-shrink: 0 !important; }
+          .braze3-footer-efg { height: 20px !important; }
           .braze3-footer { padding: 6px 0 6px !important; }
         }
 
@@ -201,15 +207,19 @@ export default function Braze3LandingPage() {
           .braze3-hosted-logo-wrap { padding: 20px 16px !important; }
           .braze3-register { padding: 40px 0 !important; }
           .braze3-form-container { padding: 22px 16px !important; }
-          .braze3-footer { padding: 12px 0 !important; }
-          .braze3-footer-inner { padding: 0 16px !important; }
+          .braze3-footer { padding: 4px 0 !important; }
+          .braze3-footer-inner { padding: 0 10px !important; gap: 8px !important; }
+          .braze3-footer-logo { height: clamp(72px, 22vw, 98px) !important; }
+          .braze3-footer-copyright { font-size: 9px !important; }
+          .braze3-footer-produced { font-size: 9px !important; gap: 5px !important; }
+          .braze3-footer-efg { height: 16px !important; }
         }
 
         .braze3-country-dropdown::-webkit-scrollbar { width: 6px; }
         .braze3-country-dropdown::-webkit-scrollbar-track { background: transparent; }
         .braze3-country-dropdown::-webkit-scrollbar-thumb { background: ${LINE}; border-radius: 3px; }
         .braze3-country-dropdown::-webkit-scrollbar-thumb:hover { background: ${INK_FAINT}; }
-      `}</style>
+      `}} />
 
       <BrazeNav />
       <HeroSection />
@@ -2399,25 +2409,44 @@ function BrazeFooter() {
           zIndex: 2,
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+        <div
+          className="braze3-footer-left"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            gap: 4,
+          }}
+        >
           <Image
             src={LOCKUP_LOGO}
             alt="Braze x Talon"
             width={480}
             height={104}
-            style={{ height: "clamp(88px, 9.5vw, 124px)", width: "auto" }}
+            className="braze3-footer-logo"
+            style={{ height: "clamp(88px, 9.5vw, 124px)", width: "auto", display: "block" }}
             unoptimized
           />
-          <span style={{ fontFamily: FONT, fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.85)" }}>
-            © {new Date().getFullYear()} Braze, Inc. All rights reserved.
+          <span
+            className="braze3-footer-copyright"
+            style={{
+              fontFamily: FONT,
+              fontSize: 12,
+              fontWeight: 500,
+              color: "rgba(255,255,255,0.85)",
+            }}
+          >
+            © 2026 Braze, Inc. All rights reserved.
           </span>
         </div>
 
         <p
+          className="braze3-footer-produced"
           style={{
             margin: 0,
-            display: "inline-flex",
+            display: "flex",
             alignItems: "center",
+            justifyContent: "center",
             gap: 10,
             fontFamily: FONT,
             fontSize: 12,
@@ -2426,7 +2455,7 @@ function BrazeFooter() {
             letterSpacing: "0.04em",
           }}
         >
-          Produced by
+          <span>Produced by</span>
           <a
             href="https://www.eventsfirstgroup.com"
             target="_blank"
@@ -2438,7 +2467,8 @@ function BrazeFooter() {
             <img
               src="/events-first-group_logo_alt.svg"
               alt="Events First Group"
-              style={{ height: 32, width: "auto", opacity: 0.95, filter: "brightness(0) invert(1)" }}
+              className="braze3-footer-efg"
+              style={{ height: 32, width: "auto", opacity: 0.95, filter: "brightness(0) invert(1)", display: "block" }}
             />
           </a>
         </p>
