@@ -141,12 +141,12 @@ export default function Braze3LandingPage() {
           .braze3-nav-logo { height: clamp(64px, 16vw, 96px) !important; width: auto !important; }
 
           .braze3-hero {
-            min-height: auto !important;
-            padding: 80px 18px 44px !important;
+            min-height: 100svh !important;
+            padding: 110px 18px 96px !important;
           }
-          .braze3-hero-eyebrow { font-size: clamp(10px, 2.8vw, 12px) !important; }
-          .braze3-hero h1 { font-size: clamp(26px, 7.4vw, 38px) !important; line-height: 1.12 !important; }
-          .braze3-hero-subline { font-size: clamp(13px, 3.4vw, 15px) !important; line-height: 1.5 !important; }
+          .braze3-hero-eyebrow { font-size: clamp(11px, 3vw, 14px) !important; }
+          .braze3-hero h1 { font-size: clamp(30px, 8.4vw, 46px) !important; line-height: 1.1 !important; }
+          .braze3-hero-subline { font-size: clamp(14px, 3.6vw, 17px) !important; line-height: 1.55 !important; }
           .braze3-hero-meta { gap: 4px !important; row-gap: 8px !important; }
           .braze3-hero-meta > span:not(:first-child) { font-size: 12px !important; }
           .braze3-scroll-indicator { display: none !important; }
@@ -183,10 +183,10 @@ export default function Braze3LandingPage() {
 
         /* ── Small mobile (≤480) ── */
         @media (max-width: 480px) {
-          .braze3-hero { padding: 76px 14px 38px !important; }
+          .braze3-hero { padding: 100px 14px 88px !important; min-height: 100svh !important; }
           .braze3-hero-supergraphic { opacity: 0.6 !important; }
-          .braze3-hero h1 { font-size: clamp(22px, 7vw, 30px) !important; }
-          .braze3-hero-subline { font-size: 13px !important; }
+          .braze3-hero h1 { font-size: clamp(26px, 8vw, 36px) !important; }
+          .braze3-hero-subline { font-size: 14px !important; }
           .braze3-hero-meta > span:not(:first-child) { font-size: 11px !important; }
           .braze3-overview { padding: 40px 0 !important; }
           .braze3-overview h2 { font-size: clamp(22px, 6vw, 28px) !important; }
