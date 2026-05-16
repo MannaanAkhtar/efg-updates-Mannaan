@@ -81,6 +81,7 @@ const UPCOMING_EVENTS = [
     image: "",
     brandColor: "#0B1F3B",
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/BlackstoneeIT_logolight.png",
+    brandLogoTop: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/outsystems.png",
   },
   {
     date: "June 11th, 2026",
@@ -2038,13 +2039,33 @@ function UpcomingSection() {
                               position: "relative",
                             }}>
                               {(e as unknown as Record<string, string>).brandLogo && (
-                                // eslint-disable-next-line @next/next/no-img-element
-                                <img src={(e as unknown as Record<string, string>).brandLogo} alt="" style={{
-                                  height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Braze x Talon.One" ? 190 : e.sponsor === "Braze" ? 50 : 72,
-                                  width: "auto",
-                                  opacity: 0.85,
-                                  filter: "brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.35))"
-                                }} />
+                                (e as unknown as Record<string, string>).brandLogoTop ? (
+                                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, zIndex: 2 }}>
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img src={(e as unknown as Record<string, string>).brandLogoTop} alt="" style={{
+                                      height: 56,
+                                      width: "auto",
+                                      opacity: 0.85,
+                                      filter: "brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.35))",
+                                    }} />
+                                    <span aria-hidden style={{ width: 28, height: 1, background: "rgba(255,255,255,0.22)" }} />
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img src={(e as unknown as Record<string, string>).brandLogo} alt="" style={{
+                                      height: 56,
+                                      width: "auto",
+                                      opacity: 0.85,
+                                      filter: "brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.35))",
+                                    }} />
+                                  </div>
+                                ) : (
+                                  // eslint-disable-next-line @next/next/no-img-element
+                                  <img src={(e as unknown as Record<string, string>).brandLogo} alt="" style={{
+                                    height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Braze x Talon.One" ? 190 : e.sponsor === "Braze" ? 50 : 72,
+                                    width: "auto",
+                                    opacity: 0.85,
+                                    filter: "brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.35))"
+                                  }} />
+                                )
                               )}
                               {/* Radial glow — accent on the navy portion */}
                               <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 80% at 30% 30%, ${(e as unknown as Record<string, string>).brandColor || "#222"}30, transparent 60%)` }} />
@@ -2391,8 +2412,18 @@ function PastBoardroomsShowcase() {
                                 position: "relative",
                               }}>
                                 {e.brandLogo && (
-                                  // eslint-disable-next-line @next/next/no-img-element
-                                  <img src={e.brandLogo} alt="" style={{ height: e.sponsor === "Braze x Talon.One" ? 190 : e.sponsor === "Braze" ? 50 : 72, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+                                  (e as unknown as Record<string, string>).brandLogoTop ? (
+                                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 7, zIndex: 2 }}>
+                                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                                      <img src={(e as unknown as Record<string, string>).brandLogoTop} alt="" style={{ height: 48, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+                                      <span aria-hidden style={{ width: 24, height: 1, background: "rgba(255,255,255,0.2)" }} />
+                                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                                      <img src={e.brandLogo} alt="" style={{ height: 48, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+                                    </div>
+                                  ) : (
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img src={e.brandLogo} alt="" style={{ height: e.sponsor === "Braze x Talon.One" ? 190 : e.sponsor === "Braze" ? 50 : 72, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+                                  )
                                 )}
                                 <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 80% at 30% 30%, ${e.brandColor || "#222"}30, transparent 60%)` }} />
                               </div>

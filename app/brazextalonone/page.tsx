@@ -30,7 +30,7 @@ const PAD = "0 clamp(20px, 4vw, 60px)";
 const FONT = "'Aribau Grotesk', sans-serif";
 
 const LOCKUP_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/logos/brazextalon.png";
-const LOCKUP_LOGO_NAV = "https://efg-final.s3.eu-north-1.amazonaws.com/logos/brazextalon1.png";
+const LOCKUP_LOGO_NAV = "https://efg-final.s3.eu-north-1.amazonaws.com/logos/brazeone.png";
 
 // Confirmed: 18 June 2026, 11:00 AM GST (+04:00).
 const EVENT_DATE = new Date("2026-06-18T11:00:00+04:00");
@@ -139,7 +139,7 @@ export default function Braze3LandingPage() {
           .braze3-nav-links { display: none !important; }
           .braze3-nav-cta-desktop { display: none !important; }
           .braze3-nav-burger { display: flex !important; }
-          .braze3-nav-logo { height: clamp(64px, 16vw, 96px) !important; width: auto !important; }
+          .braze3-nav-logo { height: clamp(36px, 9vw, 48px) !important; width: auto !important; }
 
           .braze3-hero {
             min-height: 100svh !important;
@@ -180,7 +180,7 @@ export default function Braze3LandingPage() {
 
           .braze3-footer-inner { gap: 12px !important; padding: 0 12px !important; }
           .braze3-footer-left { gap: 4px !important; }
-          .braze3-footer-logo { height: clamp(88px, 24vw, 130px) !important; }
+          .braze3-footer-logo { height: clamp(36px, 10vw, 54px) !important; }
           .braze3-footer-copyright { font-size: 10px !important; white-space: nowrap !important; }
           .braze3-footer-produced { font-size: 10px !important; gap: 6px !important; flex-shrink: 0 !important; }
           .braze3-footer-efg { height: 20px !important; }
@@ -209,7 +209,7 @@ export default function Braze3LandingPage() {
           .braze3-form-container { padding: 22px 16px !important; }
           .braze3-footer { padding: 4px 0 !important; }
           .braze3-footer-inner { padding: 0 10px !important; gap: 8px !important; }
-          .braze3-footer-logo { height: clamp(72px, 22vw, 98px) !important; }
+          .braze3-footer-logo { height: clamp(32px, 9vw, 46px) !important; }
           .braze3-footer-copyright { font-size: 9px !important; }
           .braze3-footer-produced { font-size: 9px !important; gap: 5px !important; }
           .braze3-footer-efg { height: 16px !important; }
@@ -271,10 +271,10 @@ function BrazeNav() {
           left: 0,
           right: 0,
           zIndex: 10000,
-          background: scrolled ? "rgba(255, 247, 238, 0.92)" : "transparent",
+          background: scrolled ? `${B_DARK_PURPLE}eb` : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: scrolled ? `1px solid ${LINE_SOFT}` : "1px solid transparent",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "1px solid transparent",
           height: scrolled ? 60 : 72,
           display: "flex",
           alignItems: "center",
@@ -304,7 +304,7 @@ function BrazeNav() {
               width={320}
               height={68}
               className="braze3-nav-logo"
-              style={{ height: "clamp(84px, 9.5vw, 124px)", width: "auto" }}
+              style={{ height: "clamp(44px, 4.5vw, 60px)", width: "auto" }}
               priority
               unoptimized
             />
@@ -327,7 +327,7 @@ function BrazeNav() {
                   fontFamily: FONT,
                   fontSize: 14,
                   fontWeight: 600,
-                  color: INK,
+                  color: "white",
                   textDecoration: "none",
                   transition: "opacity 0.2s ease",
                 }}
@@ -391,17 +391,17 @@ function BrazeNav() {
             }}
           >
             <motion.span
-              style={{ position: "absolute", width: 22, height: 1.5, background: INK, borderRadius: 2 }}
+              style={{ position: "absolute", width: 22, height: 1.5, background: "white", borderRadius: 2 }}
               animate={{ rotate: mobileOpen ? 45 : 0, y: mobileOpen ? 0 : -6 }}
               transition={{ duration: 0.3 }}
             />
             <motion.span
-              style={{ position: "absolute", width: 22, height: 1.5, background: INK, borderRadius: 2 }}
+              style={{ position: "absolute", width: 22, height: 1.5, background: "white", borderRadius: 2 }}
               animate={{ opacity: mobileOpen ? 0 : 1 }}
               transition={{ duration: 0.3 }}
             />
             <motion.span
-              style={{ position: "absolute", width: 22, height: 1.5, background: INK, borderRadius: 2 }}
+              style={{ position: "absolute", width: 22, height: 1.5, background: "white", borderRadius: 2 }}
               animate={{ rotate: mobileOpen ? -45 : 0, y: mobileOpen ? 0 : 6 }}
               transition={{ duration: 0.3 }}
             />
@@ -641,10 +641,10 @@ function HeroSection() {
         }}
       >
         <Image
-          src="/brazextalonone/hero-bg.png"
+          src="/brazextalonone/hero-bg-c.png"
           alt=""
           fill
-          style={{ objectFit: "cover", objectPosition: "center" }}
+          style={{ objectFit: "cover", objectPosition: "right center" }}
           priority
         />
       </motion.div>
@@ -694,18 +694,16 @@ function HeroSection() {
               alignSelf: "flex-start",
               padding: "8px 16px",
               borderRadius: 50,
-              border: `1px solid ${LINE}`,
-              background: "rgba(255,255,255,0.85)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
+              border: `1px solid rgba(255,255,255,0.18)`,
+              background: B_PURPLE,
               fontFamily: FONT,
               fontSize: 11,
               fontWeight: 700,
-              color: INK,
+              color: CREAM,
               letterSpacing: "2.5px",
               textTransform: "uppercase",
               marginBottom: 28,
-              boxShadow: "0 2px 14px rgba(48,2,102,0.06)",
+              boxShadow: `0 2px 14px ${B_PURPLE}40`,
             }}
           >
             <span
@@ -713,7 +711,7 @@ function HeroSection() {
                 width: 6,
                 height: 6,
                 borderRadius: "50%",
-                background: B_RED,
+                background: CREAM,
                 animation: "braze3-pulse-dot 2.4s ease-in-out infinite",
               }}
             />
@@ -1076,143 +1074,6 @@ function OverviewSection() {
             </strong>
             {PARAGRAPH_2_POST}
           </motion.p>
-
-          {/* Paragraph 3 elevated as pull quote — content unchanged, skeumorphic treatment */}
-          <motion.div
-            className="braze3-pullquote"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.34, ease: EASE }}
-            style={{
-              position: "relative",
-              padding: "34px 40px 34px 56px",
-              borderRadius: 20,
-              background: `
-                radial-gradient(ellipse 80% 60% at 22% 8%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.5) 28%, transparent 60%),
-                radial-gradient(ellipse 70% 55% at 92% 100%, ${B_PINK}26 0%, ${B_PINK}0d 35%, transparent 60%),
-                radial-gradient(ellipse 50% 40% at 100% 0%, ${B_ORANGE}14 0%, transparent 55%),
-                linear-gradient(168deg, #FFFFFF 0%, #FFFBF8 45%, #FFF0EC 100%)
-              `,
-              border: "1px solid rgba(48, 2, 102, 0.08)",
-              boxShadow: `
-                0 1.5px 0 0 rgba(255,255,255,1) inset,
-                0 -1.5px 0 0 rgba(48,2,102,0.05) inset,
-                0 0 0 1px rgba(255,255,255,0.6) inset,
-                0 1px 3px rgba(48,2,102,0.04),
-                0 22px 56px rgba(48,2,102,0.09),
-                0 0 80px ${B_PINK}26
-              `,
-              marginTop: 16,
-              marginBottom: 16,
-              overflow: "hidden",
-            }}
-          >
-            {/* Paper-texture noise overlay */}
-            <div
-              aria-hidden
-              style={{
-                position: "absolute",
-                inset: 0,
-                opacity: 0.05,
-                pointerEvents: "none",
-                mixBlendMode: "multiply",
-                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-                backgroundSize: "128px 128px",
-                borderRadius: "inherit",
-              }}
-            />
-
-            {/* Top specular highlight hairline */}
-            <div
-              aria-hidden
-              style={{
-                position: "absolute",
-                top: 0,
-                left: "10%",
-                right: "10%",
-                height: 1,
-                background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.95) 50%, transparent)",
-                pointerEvents: "none",
-              }}
-            />
-
-            {/* Embossed channel — recessed groove behind the rail */}
-            <span
-              aria-hidden
-              style={{
-                position: "absolute",
-                top: 28,
-                bottom: 28,
-                left: 26,
-                width: 8,
-                borderRadius: 6,
-                background: "rgba(48, 2, 102, 0.04)",
-                boxShadow: `
-                  inset 1px 0 0 rgba(48,2,102,0.08),
-                  inset -1px 0 0 rgba(255,255,255,0.8)
-                `,
-              }}
-            />
-
-            {/* Heat-gradient rail — sits in the channel with its own glow */}
-            <span
-              aria-hidden
-              style={{
-                position: "absolute",
-                top: 30,
-                bottom: 30,
-                left: 28,
-                width: 4,
-                borderRadius: 4,
-                background: HEAT1,
-                boxShadow: `
-                  0 0 14px ${B_PINK}aa,
-                  0 0 28px ${B_ORANGE}55,
-                  inset 0 1px 0 rgba(255,255,255,0.7)
-                `,
-              }}
-            />
-
-            {/* Opening quote ornament in heat gradient */}
-            <span
-              aria-hidden
-              style={{
-                position: "absolute",
-                top: 14,
-                right: 30,
-                fontFamily: FONT,
-                fontWeight: 900,
-                fontSize: 64,
-                lineHeight: 1,
-                color: "transparent",
-                background: HEAT1,
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                opacity: 0.22,
-                letterSpacing: "-0.05em",
-                pointerEvents: "none",
-                userSelect: "none",
-              }}
-            >
-              &ldquo;
-            </span>
-
-            <p
-              style={{
-                fontFamily: FONT,
-                fontSize: "clamp(15px, 1.2vw, 18px)",
-                fontWeight: 500,
-                lineHeight: 1.6,
-                color: INK,
-                margin: 0,
-                position: "relative",
-                zIndex: 2,
-                textShadow: "0 1px 0 rgba(255,255,255,0.6)",
-              }}
-            >
-              {PARAGRAPH_3}
-            </p>
-          </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -1719,7 +1580,8 @@ function HostedBySection() {
             Hosted by
           </span>
 
-          {/* Embossed plaque holding the logo */}
+          {/* Embossed plaque holding the logo — Braze purple so the white
+              logo reads cleanly against it. */}
           <div
             className="braze3-hosted-logo-wrap"
             style={{
@@ -1728,19 +1590,18 @@ function HostedBySection() {
               padding: "32px 44px",
               borderRadius: 20,
               background: `
-                radial-gradient(ellipse 70% 50% at 25% 10%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.6) 35%, transparent 65%),
-                linear-gradient(160deg, #FFFFFF 0%, #FFFAF5 100%)
+                radial-gradient(ellipse 70% 50% at 25% 10%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 35%, transparent 65%),
+                linear-gradient(160deg, ${B_PURPLE} 0%, ${B_DARK_PURPLE} 100%)
               `,
-              border: "1px solid rgba(48, 2, 102, 0.07)",
+              border: `1px solid ${B_DARK_PURPLE}`,
               boxShadow: `
-                0 2px 0 0 rgba(255,255,255,1) inset,
-                0 -1px 0 0 rgba(48,2,102,0.05) inset,
-                0 0 0 1px rgba(255,255,255,0.7) inset,
-                inset 0 1px 3px rgba(48,2,102,0.05),
-                0 1px 1px rgba(255,255,255,0.9),
-                0 8px 22px rgba(48,2,102,0.08),
-                0 18px 42px rgba(48,2,102,0.06),
-                0 0 36px ${B_PINK}26
+                0 1.5px 0 0 rgba(255,255,255,0.22) inset,
+                0 -1.5px 0 0 rgba(0,0,0,0.32) inset,
+                0 0 0 1px rgba(255,255,255,0.1) inset,
+                inset 0 1px 3px rgba(0,0,0,0.18),
+                0 8px 22px rgba(48,2,102,0.22),
+                0 18px 42px rgba(48,2,102,0.18),
+                0 0 36px ${B_PURPLE}40
               `,
               overflow: "hidden",
             }}
@@ -1755,7 +1616,7 @@ function HostedBySection() {
                 right: "25%",
                 height: 10,
                 borderRadius: "50%",
-                background: "linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0))",
+                background: "linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0))",
                 filter: "blur(3px)",
                 pointerEvents: "none",
               }}
@@ -1770,23 +1631,6 @@ function HostedBySection() {
             />
           </div>
 
-          <h3
-            style={{
-              fontFamily: FONT,
-              fontWeight: 700,
-              fontSize: "clamp(16px, 1.5vw, 20px)",
-              color: INK,
-              margin: 0,
-              textAlign: "center",
-              maxWidth: 560,
-              lineHeight: 1.45,
-              position: "relative",
-              zIndex: 2,
-              textShadow: "0 1px 0 rgba(255,255,255,0.7)",
-            }}
-          >
-            A virtual roundtable for loyalty, CRM, digital, and customer experience leaders.
-          </h3>
         </motion.div>
       </div>
     </section>
@@ -2419,12 +2263,12 @@ function BrazeFooter() {
           }}
         >
           <Image
-            src={LOCKUP_LOGO}
+            src={LOCKUP_LOGO_NAV}
             alt="Braze x Talon"
             width={480}
             height={104}
             className="braze3-footer-logo"
-            style={{ height: "clamp(88px, 9.5vw, 124px)", width: "auto", display: "block" }}
+            style={{ height: "clamp(40px, 4.2vw, 56px)", width: "auto", display: "block" }}
             unoptimized
           />
           <span

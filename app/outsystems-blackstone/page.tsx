@@ -571,43 +571,48 @@ function HeroSection() {
 
         {/* ─── RIGHT: compact event details card — the hero "asset" ─── */}
         <motion.div
-          initial={{ opacity: 0, y: 24, scale: 0.99 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1.0, delay: 0.3, ease: EASE }}
+          initial={{ opacity: 0, y: 24, scale: 0.99, rotateY: -16 }}
+          animate={{ opacity: 1, y: 0, scale: 1, rotateY: -9 }}
+          transition={{ duration: 1.2, delay: 0.3, ease: EASE }}
           className="bs-hero-event-card"
           style={{
             position: "relative",
-            padding: "clamp(24px, 2.6vw, 32px)",
-            borderRadius: 18,
-            // Layered surface: top-left light catch + diagonal sheen +
-            // vertical gradient base. The card now reads like real material
-            // catching a virtual upper-left light source.
+            padding: "clamp(30px, 3.2vw, 44px)",
+            borderRadius: 20,
+            // 3D tilt: left edge recedes into the page, right edge comes
+            // forward toward the viewer. Perspective on this element keeps
+            // the card's own depth without disturbing the rest of the hero.
+            transformStyle: "preserve-3d",
+            transformOrigin: "85% center",
+            transform: "perspective(1400px) rotateY(-9deg) rotateX(2deg)",
+            willChange: "transform",
+            // Blackstone surface — deep navy gradient with a cool top-left
+            // light catch + a faint cyan glow lower-right. Reads as the host
+            // brand's signature dark glass.
             background: `
-              radial-gradient(ellipse 60% 40% at 15% 10%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.0) 65%),
-              linear-gradient(135deg, transparent 0%, transparent 48%, rgba(255,255,255,0.55) 50%, transparent 52%, transparent 100%),
-              linear-gradient(180deg, #FFFFFF 0%, #FDFBF8 60%, #F6F2EC 100%)
+              radial-gradient(ellipse 60% 40% at 15% 10%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.0) 60%),
+              radial-gradient(ellipse 65% 50% at 88% 92%, ${BS_CYAN}1f 0%, transparent 60%),
+              linear-gradient(135deg, transparent 0%, transparent 48%, rgba(255,255,255,0.06) 50%, transparent 52%, transparent 100%),
+              linear-gradient(180deg, #112B4D 0%, ${BS_NAVY} 60%, #061328 100%)
             `,
-            border: `1px solid ${GRAY_300}`,
-            // Expanded skeu shadow stack with outer rim light:
-            //   inset top white (2px) = stronger specular along upper edge
-            //   inset bottom dark (2px) = pronounced underside seal
-            //   inset 0 0 0 1px white = inner frame ring (the bevel)
-            //   outer 0 0 0 1px white = sub-pixel rim light (raised glass)
-            //   four stacked outer drops = real lift, multi-distance
+            border: `1px solid ${BS_CYAN}33`,
+            // Skeu shadow stack adapted for dark surface + 3D tilt. The
+            // longer/heavier drops to the LEFT reinforce the receding side
+            // (left edge goes into the page), so the card reads as physically
+            // tilted, not just flat.
             boxShadow: `
-              0 2px 0 0 rgba(255,255,255,1) inset,
-              0 -2px 0 0 rgba(14,14,16,0.06) inset,
-              0 0 0 1px rgba(255,255,255,0.8) inset,
-              0 0 0 1px rgba(255,255,255,0.9),
-              0 1px 2px rgba(14,14,16,0.05),
-              0 6px 14px rgba(14,14,16,0.06),
-              0 18px 40px rgba(14,14,16,0.08),
-              0 32px 72px rgba(14,14,16,0.1),
-              0 56px 120px rgba(14,14,16,0.05)
+              0 1.5px 0 0 rgba(255,255,255,0.18) inset,
+              0 -1.5px 0 0 rgba(0,0,0,0.4) inset,
+              0 0 0 1px ${BS_CYAN}1f inset,
+              -2px 1px 2px rgba(14,14,16,0.08),
+              -8px 6px 18px rgba(14,14,16,0.16),
+              -20px 18px 44px rgba(14,14,16,0.22),
+              -36px 32px 80px rgba(11,31,59,0.34),
+              0 0 100px ${BS_CYAN}22
             `,
             display: "flex",
             flexDirection: "column",
-            gap: "clamp(14px, 1.6vw, 18px)",
+            gap: "clamp(16px, 1.8vw, 22px)",
             overflow: "hidden",
           }}
         >
@@ -622,16 +627,17 @@ function HeroSection() {
           }} />
 
           {/* Top accent bar — slightly thicker (3px) with internal gradient
-              + bottom inset = looks like a 3D channel, not a flat sticker. */}
+              + bottom inset = looks like a 3D channel, not a flat sticker.
+              Now Blackstone-signature: navy → cyan → navy. */}
           <span aria-hidden style={{
             position: "absolute",
             top: 0, left: 0, right: 0,
             height: 3,
-            background: `linear-gradient(90deg, ${OS_RED} 0%, ${OS_RED}cc 40%, ${BS_CYAN}cc 70%, ${BS_CYAN} 100%)`,
+            background: `linear-gradient(90deg, ${BS_NAVY} 0%, ${BS_CYAN}cc 50%, ${BS_NAVY} 100%)`,
             boxShadow: `
               0 1px 0 0 rgba(255,255,255,0.5) inset,
               0 -1px 0 0 rgba(0,0,0,0.15) inset,
-              0 1px 4px ${OS_RED}33
+              0 1px 4px ${BS_CYAN}33
             `,
             pointerEvents: "none",
             zIndex: 3,
@@ -646,12 +652,12 @@ function HeroSection() {
             pointerEvents: "none",
             zIndex: 2,
           }} />
-          {/* Soft red bloom under the upper accent — colored edge lighting up the card */}
+          {/* Soft cyan bloom under the upper accent — Blackstone glow on the edge */}
           <span aria-hidden style={{
             position: "absolute",
             top: -16, left: "15%", right: "15%",
             height: 70,
-            background: `radial-gradient(ellipse 70% 100% at 50% 100%, ${OS_RED}12 0%, ${OS_RED}06 40%, transparent 70%)`,
+            background: `radial-gradient(ellipse 70% 100% at 50% 100%, ${BS_CYAN}14 0%, ${BS_CYAN}07 40%, transparent 70%)`,
             filter: "blur(10px)",
             pointerEvents: "none",
             zIndex: 0,
@@ -674,18 +680,18 @@ function HeroSection() {
               fontWeight: 700,
               letterSpacing: "0.28em",
               textTransform: "uppercase",
-              color: GRAY_500,
-              textShadow: `0 1px 0 rgba(255,255,255,0.85)`,
+              color: "rgba(255,255,255,0.62)",
+              textShadow: `0 1px 0 rgba(0,0,0,0.4)`,
               display: "inline-flex", alignItems: "center", gap: 8,
             }}>
               <span aria-hidden style={{
                 width: 6, height: 6, borderRadius: "50%",
-                background: OS_RED,
+                background: BS_CYAN,
                 boxShadow: `
                   0 1px 0 0 rgba(255,255,255,0.5) inset,
                   0 -1px 0 0 rgba(0,0,0,0.2) inset,
-                  0 0 0 2px ${OS_RED}1a,
-                  0 0 4px ${OS_RED}55
+                  0 0 0 2px ${BS_CYAN}26,
+                  0 0 4px ${BS_CYAN}66
                 `,
               }} />
               Executive Roundtable
@@ -696,17 +702,17 @@ function HeroSection() {
               fontWeight: 700,
               letterSpacing: "0.18em",
               textTransform: "uppercase",
-              color: GRAY_500,
+              color: "rgba(255,255,255,0.72)",
               padding: "3px 8px",
               borderRadius: 5,
-              background: `linear-gradient(180deg, #FFFFFF 0%, #F4F0EA 100%)`,
-              border: `1px solid ${GRAY_300}`,
+              background: `linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.18) 100%)`,
+              border: `1px solid ${BS_CYAN}33`,
               boxShadow: `
-                0 1px 0 0 rgba(255,255,255,0.9) inset,
-                0 -1px 0 0 rgba(14,14,16,0.04) inset,
-                0 1px 1px rgba(14,14,16,0.04)
+                0 1px 0 0 rgba(255,255,255,0.08) inset,
+                0 -1px 0 0 rgba(0,0,0,0.3) inset,
+                0 1px 1px rgba(0,0,0,0.12)
               `,
-              textShadow: `0 1px 0 rgba(255,255,255,0.9)`,
+              textShadow: `0 1px 0 rgba(0,0,0,0.4)`,
             }}>
               AST
             </span>
@@ -722,18 +728,20 @@ function HeroSection() {
           }}>
             <span className="bs-event-date" style={{
               fontFamily: "var(--font-cabin), system-ui, sans-serif",
-              fontSize: "clamp(56px, 6vw, 80px)",
+              fontSize: "clamp(64px, 7vw, 96px)",
               fontWeight: 700,
-              color: INK,
+              color: BS_WHITE,
               letterSpacing: "-0.045em",
               lineHeight: 0.88,
               fontVariantNumeric: "tabular-nums",
-              // Letterpress: white highlight above + darker shadow below =
-              // the numeral feels pressed into the card surface, not painted.
+              // Letterpress on dark: deep top shadow + faint bottom highlight
+              // gives the numeral an embossed feel on the navy surface, plus
+              // a soft cyan glow for the brand signature.
               textShadow: `
-                0 1px 0 rgba(255,255,255,0.9),
-                0 -1px 0 rgba(14,14,16,0.05),
-                0 2px 4px rgba(14,14,16,0.06)
+                0 -1px 0 rgba(0,0,0,0.45),
+                0 1px 0 rgba(255,255,255,0.12),
+                0 2px 6px rgba(0,0,0,0.35),
+                0 0 24px ${BS_CYAN}33
               `,
             }}>
               10
@@ -745,13 +753,13 @@ function HeroSection() {
             }}>
               <span className="bs-event-month" style={{
                 fontFamily: "var(--font-cabin), system-ui, sans-serif",
-                fontSize: "clamp(20px, 2.1vw, 26px)",
+                fontSize: "clamp(22px, 2.4vw, 30px)",
                 fontWeight: 700,
-                color: OS_RED,
+                color: BS_CYAN,
                 letterSpacing: "0.02em",
                 textTransform: "uppercase",
                 lineHeight: 1,
-                textShadow: `0 1px 0 rgba(255,255,255,0.85), 0 0 12px ${OS_RED}1a`,
+                textShadow: `0 1px 0 rgba(0,0,0,0.4), 0 0 14px ${BS_CYAN}55`,
               }}>
                 June 2026
               </span>
@@ -759,24 +767,24 @@ function HeroSection() {
                 fontFamily: "var(--font-cabin), system-ui, sans-serif",
                 fontSize: "clamp(13px, 1.05vw, 15px)",
                 fontWeight: 500,
-                color: GRAY_700,
+                color: "rgba(255,255,255,0.7)",
                 letterSpacing: "0.01em",
                 lineHeight: 1.2,
                 fontVariantNumeric: "tabular-nums",
-                textShadow: `0 1px 0 rgba(255,255,255,0.8)`,
+                textShadow: `0 1px 0 rgba(0,0,0,0.4)`,
               }}>
                 Wed · 10:00 — 14:20
               </span>
             </div>
           </div>
 
-          {/* Engraved divider — a thin dark line above a thin light line
-              gives a carved-channel feel rather than a flat hairline. */}
+          {/* Engraved divider on navy — thin dark recess above + thin light
+              highlight below = carved-channel feel on the dark surface. */}
           <span aria-hidden style={{
             position: "relative",
             height: 2, width: "100%",
-            background: `linear-gradient(90deg, transparent 0%, rgba(14,14,16,0.08) 20%, rgba(14,14,16,0.08) 80%, transparent 100%)`,
-            boxShadow: `0 1px 0 0 rgba(255,255,255,0.9)`,
+            background: `linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.4) 20%, rgba(0,0,0,0.4) 80%, transparent 100%)`,
+            boxShadow: `0 1px 0 0 rgba(255,255,255,0.08)`,
           }} />
 
           {/* Compact info rows: Venue + Audience — each glyph sits in a small
@@ -795,34 +803,34 @@ function HeroSection() {
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                width: 30, height: 30,
-                borderRadius: 8,
+                width: 34, height: 34,
+                borderRadius: 9,
                 background: `
-                  radial-gradient(ellipse 60% 50% at 50% 30%, rgba(255,255,255,0.6) 0%, transparent 60%),
-                  linear-gradient(180deg, #E8F0F7 0%, #DCE6F0 100%)
+                  radial-gradient(ellipse 60% 50% at 50% 30%, rgba(255,255,255,0.06) 0%, transparent 60%),
+                  linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(0,0,0,0.25) 100%)
                 `,
                 boxShadow: `
-                  0 1px 0 0 rgba(255,255,255,0.95) inset,
-                  0 2px 3px rgba(11,31,59,0.12) inset,
-                  0 -1px 0 0 ${BS_NAVY}1a inset,
-                  0 1px 0 0 rgba(255,255,255,0.85)
+                  0 1px 0 0 rgba(255,255,255,0.1) inset,
+                  0 2px 3px rgba(0,0,0,0.3) inset,
+                  0 -1px 0 0 rgba(0,0,0,0.4) inset,
+                  0 1px 0 0 rgba(255,255,255,0.06)
                 `,
-                border: `1px solid ${BS_NAVY}26`,
+                border: `1px solid ${BS_CYAN}3d`,
                 flexShrink: 0,
               }}>
-                <BlackstoneHex size={13} color={BS_NAVY} strokeWidth={2.2} />
+                <BlackstoneHex size={13} color={BS_CYAN} strokeWidth={2.2} />
               </span>
               <span className="bs-event-info-row" style={{
                 fontFamily: "var(--font-cabin), system-ui, sans-serif",
-                fontSize: "clamp(13.5px, 1.1vw, 15.5px)",
+                fontSize: "clamp(14.5px, 1.2vw, 17px)",
                 fontWeight: 600,
-                color: INK,
+                color: BS_WHITE,
                 letterSpacing: "-0.005em",
                 lineHeight: 1.3,
-                textShadow: `0 1px 0 rgba(255,255,255,0.7)`,
+                textShadow: `0 1px 0 rgba(0,0,0,0.4)`,
               }}>
                 Fairmont Riyadh
-                <span style={{ color: GRAY_500, fontWeight: 400, marginLeft: 6 }}>· Riyadh, KSA</span>
+                <span style={{ color: "rgba(255,255,255,0.55)", fontWeight: 400, marginLeft: 6 }}>· Riyadh, KSA</span>
               </span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -831,44 +839,44 @@ function HeroSection() {
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                width: 30, height: 30,
-                borderRadius: 8,
+                width: 34, height: 34,
+                borderRadius: 9,
                 background: `
-                  radial-gradient(ellipse 60% 50% at 50% 30%, rgba(255,255,255,0.6) 0%, transparent 60%),
-                  linear-gradient(180deg, #FFEFE9 0%, #FFE0D3 100%)
+                  radial-gradient(ellipse 60% 50% at 50% 30%, rgba(255,255,255,0.06) 0%, transparent 60%),
+                  linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(0,0,0,0.25) 100%)
                 `,
                 boxShadow: `
-                  0 1px 0 0 rgba(255,255,255,0.95) inset,
-                  0 2px 3px ${OS_RED}1a inset,
-                  0 -1px 0 0 ${OS_RED}26 inset,
-                  0 1px 0 0 rgba(255,255,255,0.85)
+                  0 1px 0 0 rgba(255,255,255,0.1) inset,
+                  0 2px 3px rgba(0,0,0,0.3) inset,
+                  0 -1px 0 0 rgba(0,0,0,0.4) inset,
+                  0 1px 0 0 rgba(255,255,255,0.06)
                 `,
-                border: `1px solid ${OS_RED}3d`,
+                border: `1px solid ${BS_CYAN}3d`,
                 flexShrink: 0,
               }}>
-                <OutSystemsRing size={14} color={OS_RED} strokeWidth={2.4} />
+                <OutSystemsRing size={14} color={BS_CYAN} strokeWidth={2.4} />
               </span>
               <span className="bs-event-info-row" style={{
                 fontFamily: "var(--font-cabin), system-ui, sans-serif",
-                fontSize: "clamp(13.5px, 1.1vw, 15.5px)",
+                fontSize: "clamp(14.5px, 1.2vw, 17px)",
                 fontWeight: 600,
-                color: INK,
+                color: BS_WHITE,
                 letterSpacing: "-0.005em",
                 lineHeight: 1.3,
-                textShadow: `0 1px 0 rgba(255,255,255,0.7)`,
+                textShadow: `0 1px 0 rgba(0,0,0,0.4)`,
               }}>
                 15–20 senior IT executives
               </span>
             </div>
           </div>
 
-          {/* Engraved divider — a thin dark line above a thin light line
-              gives a carved-channel feel rather than a flat hairline. */}
+          {/* Engraved divider on navy — thin dark recess above + thin light
+              highlight below = carved-channel feel on the dark surface. */}
           <span aria-hidden style={{
             position: "relative",
             height: 2, width: "100%",
-            background: `linear-gradient(90deg, transparent 0%, rgba(14,14,16,0.08) 20%, rgba(14,14,16,0.08) 80%, transparent 100%)`,
-            boxShadow: `0 1px 0 0 rgba(255,255,255,0.9)`,
+            background: `linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.4) 20%, rgba(0,0,0,0.4) 80%, transparent 100%)`,
+            boxShadow: `0 1px 0 0 rgba(255,255,255,0.08)`,
           }} />
 
           {/* Countdown — inline on desktop; stacks on mobile so the tray gets
@@ -885,8 +893,8 @@ function HeroSection() {
               fontWeight: 700,
               letterSpacing: "0.28em",
               textTransform: "uppercase",
-              color: GRAY_500,
-              textShadow: `0 1px 0 rgba(255,255,255,0.8)`,
+              color: "rgba(255,255,255,0.6)",
+              textShadow: `0 1px 0 rgba(0,0,0,0.4)`,
               flexShrink: 0,
             }}>
               Starts in
@@ -898,13 +906,13 @@ function HeroSection() {
               gap: "clamp(10px, 1.2vw, 14px)",
               padding: "8px 12px",
               borderRadius: 8,
-              background: `linear-gradient(180deg, #F7F4F0 0%, #F2EDE6 100%)`,
+              background: `linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(0,0,0,0.3) 100%)`,
               boxShadow: `
-                0 1px 0 0 rgba(255,255,255,0.95) inset,
-                0 1px 2px rgba(14,14,16,0.06) inset,
-                0 1px 0 0 rgba(255,255,255,0.9)
+                0 1px 0 0 rgba(255,255,255,0.1) inset,
+                0 1px 2px rgba(0,0,0,0.3) inset,
+                0 1px 0 0 rgba(255,255,255,0.06)
               `,
-              border: `1px solid ${GRAY_300}`,
+              border: `1px solid ${BS_CYAN}33`,
             }}>
               {([
                 { v: cd.d, l: "D" },
@@ -918,11 +926,11 @@ function HeroSection() {
                   fontVariantNumeric: "tabular-nums",
                 }}>
                   <span className="bs-event-countdown-num" style={{
-                    fontSize: "clamp(17px, 1.5vw, 20px)",
+                    fontSize: "clamp(19px, 1.7vw, 23px)",
                     fontWeight: 700,
-                    color: INK,
+                    color: BS_WHITE,
                     letterSpacing: "-0.015em",
-                    textShadow: `0 1px 0 rgba(255,255,255,0.7)`,
+                    textShadow: `0 1px 0 rgba(0,0,0,0.4)`,
                   }}>
                     {String(v).padStart(2, "0")}
                   </span>
@@ -930,7 +938,7 @@ function HeroSection() {
                     fontSize: 10,
                     fontWeight: 700,
                     letterSpacing: "0.14em",
-                    color: GRAY_500,
+                    color: "rgba(255,255,255,0.5)",
                   }}>
                     {l}
                   </span>
@@ -997,11 +1005,14 @@ function HeroSection() {
           .bs-hero-hostlockup-os img { height: clamp(18px, 5vw, 24px) !important; }
           .bs-hero-hostlockup-bs { height: clamp(26px, 7vw, 34px) !important; }
           .bs-hero-hostlockup-bs img { height: clamp(26px, 7vw, 34px) !important; }
-          /* Event card — fluid padding, fluid type, fluid wells. */
+          /* Event card — fluid padding, fluid type, fluid wells.
+             Kill the 3D tilt on mobile (card stacks below text — tilt would
+             read as broken layout, not depth). */
           .bs-hero-event-card {
             padding: clamp(16px, 4.5vw, 22px) !important;
             gap: clamp(10px, 3vw, 14px) !important;
             border-radius: clamp(12px, 3.5vw, 16px) !important;
+            transform: none !important;
           }
           .bs-hero-event-card .bs-event-date {
             font-size: clamp(44px, 13vw, 58px) !important;
