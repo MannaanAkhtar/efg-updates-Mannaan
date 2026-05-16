@@ -254,19 +254,19 @@ function BlackstoneNav() {
             sitting directly on the cream nav, separated by a subtle hairline.
             Each logo wrapped in a fixed-height flex cell so they share a baseline
             even though the PNGs have different internal padding. */}
-        <a href="#top" aria-label={`${BRAND_HOST} × ${BRAND_SPONSOR}`} style={{
+        <a href="#top" aria-label={`${BRAND_HOST} × ${BRAND_SPONSOR}`} className="bs-nav-lockup" style={{
           display: "inline-flex", alignItems: "center", gap: 10,
           textDecoration: "none",
           lineHeight: 0,
         }}>
-          <span style={{ display: "inline-flex", alignItems: "center", height: 40 }}>
+          <span className="bs-nav-logo bs-nav-logo-bs" style={{ display: "inline-flex", alignItems: "center", height: 40 }}>
             <BlackstoneLogomark size={40} dark />
           </span>
-          <span aria-hidden style={{
+          <span aria-hidden className="bs-nav-divider" style={{
             width: 1, height: 28,
             background: `linear-gradient(180deg, transparent 0%, ${GRAY_300} 30%, ${GRAY_300} 70%, transparent 100%)`,
           }} />
-          <span style={{ display: "inline-flex", alignItems: "center", height: 40 }}>
+          <span className="bs-nav-logo bs-nav-logo-os" style={{ display: "inline-flex", alignItems: "center", height: 40 }}>
             <OutSystemsLogomark size={30} dark />
           </span>
         </a>
@@ -293,10 +293,14 @@ function BlackstoneNav() {
           fontSize: 13, fontWeight: 700,
           letterSpacing: "0.01em",
           textDecoration: "none",
+          whiteSpace: "nowrap",
+          flexShrink: 0,
           boxShadow: `0 2px 6px ${OS_RED}1f, 0 4px 12px ${OS_RED}14`,
           transition: "background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease",
         }}>
-          Request Invitation <span aria-hidden>→</span>
+          <span className="bs-nav-cta-full">Request Invitation</span>
+          <span className="bs-nav-cta-short" style={{ display: "none" }}>Register</span>
+          <span aria-hidden>→</span>
         </a>
       </div>
 
@@ -309,6 +313,23 @@ function BlackstoneNav() {
         }
         @media (max-width: 780px) {
           .bs-nav-links { display: none !important; }
+        }
+        @media (max-width: 520px) {
+          /* Nav lockup + CTA scale fluidly from 320px → 520px so the row
+             never crowds itself or wraps the CTA to two lines. */
+          .bs-nav-lockup { gap: clamp(6px, 2vw, 10px) !important; }
+          .bs-nav-logo-bs { height: clamp(26px, 7.5vw, 36px) !important; }
+          .bs-nav-logo-bs img { height: clamp(26px, 7.5vw, 36px) !important; }
+          .bs-nav-logo-os { height: clamp(26px, 7.5vw, 36px) !important; }
+          .bs-nav-logo-os img { height: clamp(18px, 5.2vw, 26px) !important; }
+          .bs-nav-divider { height: clamp(18px, 5vw, 24px) !important; }
+          .bs-nav-cta {
+            padding: clamp(6px, 1.8vw, 9px) clamp(9px, 2.8vw, 14px) !important;
+            font-size: clamp(10px, 2.8vw, 12.5px) !important;
+            gap: clamp(4px, 1.4vw, 6px) !important;
+          }
+          .bs-nav-cta-full { display: none !important; }
+          .bs-nav-cta-short { display: inline !important; }
         }
       `}</style>
     </nav>
@@ -325,7 +346,7 @@ function HeroSection() {
   const cd = useCountdown(EVENT_DATE);
 
   return (
-    <section id="top" style={{
+    <section id="top" className="bs-hero-section" style={{
       position: "relative",
       overflow: "hidden",
       background: BS_WHITE,
@@ -361,13 +382,14 @@ function HeroSection() {
       }}>
 
         {/* ─── LEFT: headline + subhead + CTAs + host lockup ─── */}
-        <div style={{
+        <div className="bs-hero-stack" style={{
           display: "flex",
           flexDirection: "column",
           gap: "clamp(20px, 2.4vw, 32px)",
         }}>
           {/* Announcement chip — simple, no skeu */}
           <motion.span
+            className="bs-hero-chip"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: EASE }}
@@ -384,6 +406,7 @@ function HeroSection() {
               letterSpacing: "0.18em",
               textTransform: "uppercase",
               color: OS_RED_DARK,
+              whiteSpace: "nowrap",
             }}
           >
             <span aria-hidden style={{
@@ -429,7 +452,7 @@ function HeroSection() {
               letterSpacing: "-0.003em",
             }}
           >
-            An invitation-only executive roundtable on scaling agentic AI for Saudi Vision 2030. Hosted by {BRAND_HOST} with {BRAND_SPONSOR}.
+            An invitation-only executive roundtable on scaling agentic AI for Saudi Vision 2030. Hosted by {BRAND_SPONSOR} and {BRAND_HOST}.
           </motion.p>
 
           {/* CTA row — primary red button + secondary text link, OS-style */}
@@ -489,51 +512,60 @@ function HeroSection() {
             </a>
           </motion.div>
 
-          {/* Host lockup — compact inline row, no cards, no chrome */}
+          {/* Host lockup — OutSystems first, then Blackstone, joined by "and".
+              Structure: a "Hosted by" label + a row containing both logos and
+              the "and" connector. On mobile, the label sits on its own line
+              above the logos so the two logos stay together on one row. */}
           <motion.div
+            className="bs-hero-hostlockup"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.56, ease: EASE }}
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "clamp(16px, 2vw, 28px)",
+              gap: "clamp(12px, 2vw, 22px)",
               flexWrap: "wrap",
               marginTop: "clamp(8px, 1.6vw, 16px)",
               paddingTop: "clamp(20px, 2.4vw, 32px)",
               borderTop: `1px solid ${GRAY_300}`,
             }}
           >
-            <span style={{
+            <span className="bs-hero-hostlockup-label" style={{
               fontFamily: "var(--font-cabin), system-ui, sans-serif",
               fontSize: 11,
               fontWeight: 700,
               letterSpacing: "0.28em",
               textTransform: "uppercase",
               color: GRAY_500,
+              flexShrink: 0,
             }}>
               Hosted by
             </span>
-            <span style={{ display: "inline-flex", alignItems: "center", height: 36, lineHeight: 0 }}>
-              <BlackstoneLogomark size={36} dark />
-            </span>
-            <span aria-hidden style={{
-              width: 1, height: 24,
-              background: GRAY_300,
-            }} />
-            <span style={{
-              fontFamily: "var(--font-cabin), system-ui, sans-serif",
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: "0.28em",
-              textTransform: "uppercase",
-              color: GRAY_500,
+            <div className="bs-hero-hostlockup-logos" style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "clamp(10px, 1.6vw, 18px)",
+              flexWrap: "nowrap",
             }}>
-              with
-            </span>
-            <span style={{ display: "inline-flex", alignItems: "center", height: 36, lineHeight: 0 }}>
-              <OutSystemsLogomark size={28} dark />
-            </span>
+              <span className="bs-hero-hostlockup-os" style={{ display: "inline-flex", alignItems: "center", height: 32, lineHeight: 0, flexShrink: 0 }}>
+                <OutSystemsLogomark size={28} dark />
+              </span>
+              <span className="bs-hero-hostlockup-and" style={{
+                fontFamily: "var(--font-cabin), system-ui, sans-serif",
+                fontSize: 11,
+                fontWeight: 700,
+                letterSpacing: "0.28em",
+                textTransform: "uppercase",
+                color: GRAY_500,
+                flexShrink: 0,
+              }}>
+                and
+              </span>
+              <span className="bs-hero-hostlockup-bs" style={{ display: "inline-flex", alignItems: "center", height: 36, lineHeight: 0, flexShrink: 0 }}>
+                <BlackstoneLogomark size={36} dark />
+              </span>
+            </div>
           </motion.div>
         </div>
 
@@ -688,7 +720,7 @@ function HeroSection() {
             alignItems: "baseline",
             gap: 14,
           }}>
-            <span style={{
+            <span className="bs-event-date" style={{
               fontFamily: "var(--font-cabin), system-ui, sans-serif",
               fontSize: "clamp(56px, 6vw, 80px)",
               fontWeight: 700,
@@ -711,7 +743,7 @@ function HeroSection() {
               flexDirection: "column",
               gap: 3,
             }}>
-              <span style={{
+              <span className="bs-event-month" style={{
                 fontFamily: "var(--font-cabin), system-ui, sans-serif",
                 fontSize: "clamp(20px, 2.1vw, 26px)",
                 fontWeight: 700,
@@ -723,7 +755,7 @@ function HeroSection() {
               }}>
                 June 2026
               </span>
-              <span style={{
+              <span className="bs-event-time" style={{
                 fontFamily: "var(--font-cabin), system-ui, sans-serif",
                 fontSize: "clamp(13px, 1.05vw, 15px)",
                 fontWeight: 500,
@@ -758,7 +790,7 @@ function HeroSection() {
             gap: 12,
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <span aria-hidden style={{
+              <span aria-hidden className="bs-event-info-well" style={{
                 position: "relative",
                 display: "inline-flex",
                 alignItems: "center",
@@ -780,7 +812,7 @@ function HeroSection() {
               }}>
                 <BlackstoneHex size={13} color={BS_NAVY} strokeWidth={2.2} />
               </span>
-              <span style={{
+              <span className="bs-event-info-row" style={{
                 fontFamily: "var(--font-cabin), system-ui, sans-serif",
                 fontSize: "clamp(13.5px, 1.1vw, 15.5px)",
                 fontWeight: 600,
@@ -794,7 +826,7 @@ function HeroSection() {
               </span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <span aria-hidden style={{
+              <span aria-hidden className="bs-event-info-well" style={{
                 position: "relative",
                 display: "inline-flex",
                 alignItems: "center",
@@ -816,7 +848,7 @@ function HeroSection() {
               }}>
                 <OutSystemsRing size={14} color={OS_RED} strokeWidth={2.4} />
               </span>
-              <span style={{
+              <span className="bs-event-info-row" style={{
                 fontFamily: "var(--font-cabin), system-ui, sans-serif",
                 fontSize: "clamp(13.5px, 1.1vw, 15.5px)",
                 fontWeight: 600,
@@ -839,8 +871,9 @@ function HeroSection() {
             boxShadow: `0 1px 0 0 rgba(255,255,255,0.9)`,
           }} />
 
-          {/* Countdown — inline, compact, with subtly engraved numerals */}
-          <div style={{
+          {/* Countdown — inline on desktop; stacks on mobile so the tray gets
+              full card width instead of overflowing past the right edge. */}
+          <div className="bs-event-countdown" style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -854,12 +887,14 @@ function HeroSection() {
               textTransform: "uppercase",
               color: GRAY_500,
               textShadow: `0 1px 0 rgba(255,255,255,0.8)`,
+              flexShrink: 0,
             }}>
               Starts in
             </span>
-            <div style={{
+            <div className="bs-event-countdown-tray" style={{
               display: "inline-flex",
               alignItems: "baseline",
+              justifyContent: "space-between",
               gap: "clamp(10px, 1.2vw, 14px)",
               padding: "8px 12px",
               borderRadius: 8,
@@ -882,7 +917,7 @@ function HeroSection() {
                   fontFamily: "var(--font-cabin), system-ui, sans-serif",
                   fontVariantNumeric: "tabular-nums",
                 }}>
-                  <span style={{
+                  <span className="bs-event-countdown-num" style={{
                     fontSize: "clamp(17px, 1.5vw, 20px)",
                     fontWeight: 700,
                     color: INK,
@@ -891,7 +926,7 @@ function HeroSection() {
                   }}>
                     {String(v).padStart(2, "0")}
                   </span>
-                  <span style={{
+                  <span className="bs-event-countdown-label" style={{
                     fontSize: 10,
                     fontWeight: 700,
                     letterSpacing: "0.14em",
@@ -921,6 +956,90 @@ function HeroSection() {
           .bs-hero-grid {
             grid-template-columns: 1fr !important;
             gap: clamp(40px, 6vw, 56px) !important;
+          }
+        }
+        @media (max-width: 520px) {
+          /* Every value below uses clamp(vw) so the hero scales smoothly
+             across all small-screen sizes (320px → 520px) instead of
+             snapping to a single fixed mobile size. */
+          .bs-hero-section {
+            padding-top: clamp(80px, 22vw, 110px) !important;
+            padding-bottom: clamp(40px, 12vw, 64px) !important;
+          }
+          .bs-hero-stack {
+            gap: clamp(14px, 4.5vw, 22px) !important;
+          }
+          /* Chip — full label "Invitation-only · 10 June 2026" fluid-fits. */
+          .bs-hero-chip {
+            font-size: clamp(9px, 2.6vw, 11.5px) !important;
+            letter-spacing: 0.14em !important;
+            padding: clamp(5px, 1.5vw, 7px) clamp(10px, 3vw, 14px) !important;
+            gap: clamp(6px, 2vw, 9px) !important;
+          }
+          /* Host lockup — label gets its own row, both logos stay on next row. */
+          .bs-hero-hostlockup {
+            gap: clamp(8px, 2.5vw, 12px) !important;
+            padding-top: clamp(14px, 4.2vw, 22px) !important;
+          }
+          .bs-hero-hostlockup-label {
+            font-size: clamp(9px, 2.5vw, 11px) !important;
+            letter-spacing: 0.22em !important;
+            flex-basis: 100% !important;
+          }
+          .bs-hero-hostlockup-and {
+            font-size: clamp(9px, 2.5vw, 11px) !important;
+            letter-spacing: 0.22em !important;
+          }
+          .bs-hero-hostlockup-logos { gap: clamp(10px, 3vw, 14px) !important; }
+          /* Per-logo fluid sizing preserves Blackstone-larger-than-OutSystems
+             ratio since BS PNG has more whitespace padding around its mark. */
+          .bs-hero-hostlockup-os { height: clamp(20px, 5.5vw, 26px) !important; }
+          .bs-hero-hostlockup-os img { height: clamp(18px, 5vw, 24px) !important; }
+          .bs-hero-hostlockup-bs { height: clamp(26px, 7vw, 34px) !important; }
+          .bs-hero-hostlockup-bs img { height: clamp(26px, 7vw, 34px) !important; }
+          /* Event card — fluid padding, fluid type, fluid wells. */
+          .bs-hero-event-card {
+            padding: clamp(16px, 4.5vw, 22px) !important;
+            gap: clamp(10px, 3vw, 14px) !important;
+            border-radius: clamp(12px, 3.5vw, 16px) !important;
+          }
+          .bs-hero-event-card .bs-event-date {
+            font-size: clamp(44px, 13vw, 58px) !important;
+          }
+          .bs-hero-event-card .bs-event-month {
+            font-size: clamp(16px, 4.5vw, 20px) !important;
+          }
+          .bs-hero-event-card .bs-event-year {
+            font-size: clamp(12px, 3vw, 14px) !important;
+          }
+          .bs-hero-event-card .bs-event-time {
+            font-size: clamp(11px, 3vw, 13px) !important;
+          }
+          .bs-hero-event-card .bs-event-info-row {
+            font-size: clamp(12px, 3.4vw, 14px) !important;
+          }
+          .bs-hero-event-card .bs-event-info-well {
+            width: clamp(22px, 6vw, 28px) !important;
+            height: clamp(22px, 6vw, 28px) !important;
+          }
+          /* Countdown — stack on mobile, fluid tile sizing. */
+          .bs-event-countdown {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: clamp(5px, 1.4vw, 8px) !important;
+          }
+          .bs-event-countdown-tray {
+            display: flex !important;
+            justify-content: space-between !important;
+            width: 100% !important;
+            padding: clamp(6px, 1.8vw, 9px) clamp(8px, 2.5vw, 12px) !important;
+            gap: clamp(4px, 1.4vw, 8px) !important;
+          }
+          .bs-event-countdown-tray .bs-event-countdown-num {
+            font-size: clamp(14px, 4vw, 18px) !important;
+          }
+          .bs-event-countdown-tray .bs-event-countdown-label {
+            font-size: clamp(8px, 2.4vw, 10px) !important;
           }
         }
       `}</style>
