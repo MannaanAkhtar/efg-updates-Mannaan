@@ -57,7 +57,7 @@ export const allEvents: EventItem[] = [
     series: "NetworkFirst",
     seriesColor: "#C9935A",
     edition: "",
-    title: "Blackstone eIT Executive Roundtable",
+    title: "OutSystems | Blackstone eIT Executive Roundtable",
     date: new Date("2026-06-10"),
     dateDisplay: "June 10, 2026",
     location: "Riyadh",

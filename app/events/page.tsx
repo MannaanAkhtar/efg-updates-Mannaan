@@ -109,7 +109,7 @@ const allEvents = [
   {
     id: "networkfirst-blackstone",
     category: "networkfirst",
-    title: "Blackstone eIT Executive Roundtable",
+    title: "OutSystems | Blackstone eIT Executive Roundtable",
     tagline: "Agentic AI for Saudi Public Sector",
     description: "An invitation-only executive roundtable hosted by Blackstone eIT with OutSystems — exploring how agentic AI scales digital government for Saudi Vision 2030.",
     color: "#C9935A",
