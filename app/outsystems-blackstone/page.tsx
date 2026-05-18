@@ -83,6 +83,14 @@ const SPEAKERS: Speaker[] = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Wajih_Yahaouyi_Blackstone.png",
   },
   {
+    name: "Youness Soulayman",
+    role: "Speaker",
+    title: "CTO & Executive Director",
+    company: "Blackstone eIT",
+    linkedin: "https://www.linkedin.com/in/younesszahir/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Youness_Soulayman_Blackstone.png",
+  },
+  {
     name: "Omar Istaitieh",
     role: "Speaker",
     title: "Lead Solution Architect",
@@ -115,8 +123,8 @@ const AGENDA: AgendaItem[] = [
   { start: "11:05", end: "11:35", title: "Opening Keynote", subtitle: "From Digital Government to AI-Enabled Public Services: Scaling Secure, Citizen-Centric Innovation", owner: "Mohamed Shaaban · Senior Account Executive · OutSystems", type: "keynote" },
   { start: "11:35", end: "12:00", title: "From Digital First to AI Enabled: A Roadmap for Building Enterprise AI Capabilities", subtitle: "Blackstone eIT session", owner: "Wajih Yahyaoui · Managing Partner · Blackstone eIT", type: "feature" },
   { start: "12:00", end: "12:15", title: "Coffee Break & Prayer", type: "break" },
-  { start: "12:15", end: "12:45", title: "Applied Government Use Cases", subtitle: "Agentic AI in Action: Live Demo of Government Use Cases", owner: "Omar Istaitieh · Lead Solution Architect · OutSystems", type: "demo" },
-  { start: "12:45", end: "13:05", title: "Panel Discussion", owner: "Moderator + Panelists", type: "panel" },
+  { start: "12:15", end: "12:45", title: "Delivering Governed, AI-Driven Public Services for Secure, Citizen-Centric Outcomes at Scale", subtitle: "OutSystems session", owner: "Omar Istaitieh · Lead Solution Architect · OutSystems", type: "demo" },
+  { start: "12:45", end: "13:05", title: "Panel Discussion", subtitle: "Scaling Trusted Agentic AI for Saudi Vision 2030: From Strategy to National Impact", owner: "Moderator + Panelists", type: "panel" },
   { start: "13:05", end: "13:20", title: "Closing Remarks & Q&A", owner: "Event Host / Moderator", type: "closing" },
   { start: "13:20", end: "—",     title: "Networking Lunch", owner: "All Delegates", type: "logistics" },
 ];
