@@ -163,6 +163,20 @@ const CONTACTS_TEAM = [
 
 const OTVB_SPEAKERS = [
   {
+    name: "Abdul Hakeem Al Alawi",
+    title: "CISO",
+    org: "Oman LNG",
+    flag: "https://flagcdn.com/w40/om.png",
+    photo: `${S3}/Speakers-photos/ABDUL_HAKEEM_ALALAWI.png`,
+  },
+  {
+    name: "Mohammad Alqadoumi",
+    title: "OT Automation and Cybersecurity Manager",
+    org: "ENOC",
+    flag: "https://flagcdn.com/w40/ae.png",
+    photo: `${S3}/Speakers-photos/Mohammad_enoc.png`,
+  },
+  {
     name: "Vijay Velayutham",
     title: "Principal Information Security Officer",
     org: "UAE Ministry of Energy & Infrastructure",
@@ -1426,9 +1440,17 @@ const AGENDA_ITEMS: {
   moderator?: AgendaPerson;
   speakers?: AgendaPerson[];
 }[] = [
-  { time: "11:00 - 11:10 AM", segment: "Welcome & Opening Remarks", type: "opening" },
+  { time: "11:00 - 11:05 AM", segment: "Welcome & Opening Remarks by EFG", type: "opening" },
   {
-    time: "11:10 - 11:30 AM",
+    time: "11:05 - 11:15 AM",
+    segment: "Keynote Session",
+    subtitle: "Securing critical energy infrastructure by strengthening IT-OT cyber resilience against modern threats.",
+    type: "opening",
+    confirmed: true,
+    speakers: [{ name: "Abdul Hakeem Al Alawi", title: "CISO", org: "Oman LNG" }],
+  },
+  {
+    time: "11:15 - 11:35 AM",
     segment: "Panel 01 | Securing Critical Infrastructure at a National Level: From Strategy to Operational Reality",
     type: "panel",
     moderator: { name: "Nicholas Jones", title: "EMEIA Cybersecurity Oil & Gas Lead", org: "EY" },
@@ -1440,7 +1462,7 @@ const AGENDA_ITEMS: {
     ],
   },
   {
-    time: "11:30 - 11:45 AM",
+    time: "11:35 - 11:50 AM",
     segment: "Awareness Presentation 1 — FlintX",
     subtitle: "AI in Critical Infrastructure SecOps: What's Actually Deployable Today (Tech Talk)",
     type: "sponsor",
@@ -1448,7 +1470,7 @@ const AGENDA_ITEMS: {
     speakers: [{ name: "Samir Mokthar", title: "Founder & CEO", org: "FlintX" }],
   },
   {
-    time: "11:45 - 12:00 PM",
+    time: "11:50 AM - 12:05 PM",
     segment: "Awareness Presentation 2 — Trellix",
     subtitle: "Reaction to Readiness: Building Resilience for OT Systems in 2026 (Tech Talk)",
     type: "sponsor",
@@ -1456,7 +1478,7 @@ const AGENDA_ITEMS: {
     speakers: [{ name: "Mo Cashman", title: "Global Field CTO", org: "Trellix" }],
   },
   {
-    time: "12:00 - 12:20 PM",
+    time: "12:05 - 12:25 PM",
     segment: "Panel 02 | Hidden OT Exposure Across Critical Infrastructure: Vendor Access, Unmanaged Connections & Shared Control Networks",
     type: "panel",
     moderator: { name: "Nisheet Saxena", title: "IT / OT Cybersecurity and Crisis Resilience Advisor", org: "Confidential" },
@@ -1464,10 +1486,11 @@ const AGENDA_ITEMS: {
       { name: "Dr. Shaheela Banu", title: "Information Security & Compliance Officer", org: "Kuwait Gulf Oil Company (KGOC)" },
       { name: "Nasser Salim Al Alawi", title: "OT Cybersecurity Manager", org: "Oman LNG" },
       { name: "Manish Kumar Thakur", title: "OT Network & Cybersecurity Manager", org: "Kent (Global Innovation & Digital Engineering)" },
+      { name: "Mohammad Alqadoumi", title: "OT Automation and Cybersecurity Manager", org: "ENOC" },
     ],
   },
   {
-    time: "12:20 - 12:35 PM",
+    time: "12:25 - 12:40 PM",
     segment: "Awareness Presentation 3 — TXOne Networks",
     subtitle: "Protecting Unpatchable OT Systems: A Practical Framework for Resilience (Tech Talk)",
     type: "sponsor",
@@ -1475,7 +1498,7 @@ const AGENDA_ITEMS: {
     speakers: [{ name: "Anand GP", title: "Regional Sales Engineer & OT Cybersecurity Consultant", org: "TXOne Networks" }],
   },
   {
-    time: "12:35 - 12:50 PM",
+    time: "12:40 - 12:55 PM",
     segment: "Awareness Presentation 4 — Darktrace",
     subtitle: "Beyond Visibility: Driving Risk-Informed OT Defense in Converged Environments (Tech Talk)",
     type: "sponsor",
@@ -1483,7 +1506,7 @@ const AGENDA_ITEMS: {
     speakers: [{ name: "Syed Shahabuddin", title: "Regional OT Solutions Architect, EMEA / APAC", org: "Darktrace" }],
   },
   {
-    time: "12:50 - 01:10 PM",
+    time: "12:55 - 01:15 PM",
     segment: "Panel 03 | When Disruption Is the Goal: How OT Attacks Are Evolving Across Critical Infrastructure and What Response Looks Like Now",
     type: "panel",
     moderator: { name: "Nicholas Jones", title: "EMEIA Cybersecurity Oil & Gas Lead", org: "EY" },
@@ -1496,21 +1519,15 @@ const AGENDA_ITEMS: {
     ],
   },
   {
-    time: "01:10 - 01:25 PM",
+    time: "01:15 - 01:30 PM",
     segment: "Awareness Presentation 5 — SecuriCIP",
     subtitle: "Vulnerability Management Inside OT Environments: Challenges and Solutions (SecuriLERT) (Tech Talk)",
     type: "sponsor",
     confirmed: true,
     speakers: [{ name: "Ahmed Fathalla", title: "Senior Manager, OT Systems & Cybersecurity", org: "SecuriCIP" }],
   },
-  {
-    time: "01:25 - 01:40 PM",
-    segment: "Awareness Presentation 6 — Sponsor TBC",
-    subtitle: "Tech Talk",
-    type: "sponsor",
-  },
-  { time: "01:40 - 01:50 PM", segment: "Live Q & A Session", type: "qa" },
-  { time: "01:50 - 02:00 PM", segment: "Raffle Draw & Closing Remarks", type: "raffle" },
+  { time: "01:30 - 01:45 PM", segment: "Live Q & A Session", type: "qa" },
+  { time: "01:45 - 02:00 PM", segment: "Raffle Draw & Closing Remarks", type: "raffle" },
 ];
 
 const AGENDA_TYPE_COLORS: Record<string, { color: string; rgb: string }> = {
