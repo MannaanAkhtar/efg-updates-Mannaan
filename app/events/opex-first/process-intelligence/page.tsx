@@ -114,7 +114,8 @@ const AGENDA: {
     time: "11:30 - 11:40",
     title: "Enterprise / Government Keynote",
     desc: "A senior government or enterprise leader will share a first-hand account of how their organisation is applying process intelligence principles to drive operational performance.",
-    speakers: [{ name: "To Be Confirmed", title: "", org: "" }],
+    topic: "Empowering Resilience: Leveraging AI for Enhanced Crisis Response and Continuity",
+    speakers: [{ name: "Abdulrahman Alonaizan", title: "Chief Business Continuity Officer", org: "Arab National Bank" }],
   },
   {
     time: "11:40 - 12:00",

@@ -170,11 +170,11 @@ const OTVB_SPEAKERS = [
     photo: `${S3}/Speakers-photos/ABDUL_HAKEEM_ALALAWI.png`,
   },
   {
-    name: "Mohammad Alqadoumi",
-    title: "OT Automation and Cybersecurity Manager",
-    org: "ENOC",
-    flag: "https://flagcdn.com/w40/ae.png",
-    photo: `${S3}/Speakers-photos/Mohammad_enoc.png`,
+    name: "Ali Abdulla Hasan Alsadadi",
+    title: "Chief of Information Technology",
+    org: "Ministry of Oil & Environment Bahrain",
+    flag: "https://flagcdn.com/w40/bh.png",
+    photo: `${S3}/boardroom/Ali+Abdulla+Hasan+Alsadadi.png`,
   },
   {
     name: "Vijay Velayutham",
@@ -192,18 +192,17 @@ const OTVB_SPEAKERS = [
     photoPosition: "center 20%",
   },
   {
-    name: "Ali Abdulla Hasan Alsadadi",
-    title: "Chief of Information Technology",
-    org: "Ministry of Oil & Environment Bahrain",
-    flag: "https://flagcdn.com/w40/bh.png",
-    photo: `${S3}/boardroom/Ali+Abdulla+Hasan+Alsadadi.png`,
-  },
-  {
     name: "Nasser Salim Al Alawi",
     title: "OT Cybersecurity Manager",
     org: "Oman LNG LLC",
     flag: "https://flagcdn.com/w40/om.png",
     photo: `${S3}/boardroom/NasserAlAlawi.png`,
+  },
+  {
+    name: "Ahmed Al Bahdoor",
+    title: "Head of Cyber Security",
+    org: "Oman Airports Management Company",
+    photo: `${S3}/Speakers-photos/Ahmed_Al_Bahoor.png`,
   },
   {
     name: "Feroz Khan",
@@ -217,6 +216,13 @@ const OTVB_SPEAKERS = [
     title: "Founder & CEO",
     org: "FlintX",
     photo: `${S3}/Speakers-photos/Samir+Mokthar.png`,
+  },
+  {
+    name: "Mohammad Alqadoumi",
+    title: "OT Automation and Cybersecurity Manager",
+    org: "ENOC",
+    flag: "https://flagcdn.com/w40/ae.png",
+    photo: `${S3}/Speakers-photos/Mohammad_enoc.png`,
   },
   {
     name: "Anand GP",
@@ -274,12 +280,6 @@ const OTVB_SPEAKERS = [
     title: "EMEIA Cybersecurity Oil & Gas Lead",
     org: "EY",
     photo: `${S3}/Speakers-photos/Nicholas_Jones.png`,
-  },
-  {
-    name: "Ahmed Al Bahdoor",
-    title: "Head of Cyber Security",
-    org: "Oman Airports Management Company",
-    photo: `${S3}/Speakers-photos/Ahmed_Al_Bahoor.png`,
   },
   {
     name: "Ibrahim Abuawwad",
