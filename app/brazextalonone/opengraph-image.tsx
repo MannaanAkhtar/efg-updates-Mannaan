@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 export const alt =
-  "Earned, not automated — What happens to brand loyalty when AI becomes the decision-maker? | Braze x Talon.One";
+  "Earned, not automated — What happens to brand loyalty when AI becomes the decision-maker? | Braze x Talon.One Virtual Roundtable";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -85,7 +85,7 @@ export default async function Image() {
           }}
         />
 
-        {/* HEADER — Webinar chip */}
+        {/* HEADER — Virtual Roundtable chip */}
         <div
           style={{
             display: "flex",
@@ -99,13 +99,13 @@ export default async function Image() {
               display: "flex",
               alignItems: "center",
               gap: 10,
-              padding: "10px 20px",
+              padding: "10px 22px",
               borderRadius: 50,
               border: "1px solid rgba(48,2,102,0.12)",
               background: "rgba(255,255,255,0.85)",
               fontSize: 18,
               fontWeight: 700,
-              letterSpacing: 4,
+              letterSpacing: 3,
               textTransform: "uppercase",
               color: INK,
             }}
@@ -119,7 +119,7 @@ export default async function Image() {
                 display: "flex",
               }}
             />
-            Webinar
+            Virtual Roundtable
           </div>
         </div>
 

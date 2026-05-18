@@ -10,21 +10,21 @@ export const metadata: Metadata = {
     icon: "/braze/braze-logo-purple.png",
   },
   title:
-    "Earned, not automated — What happens to brand loyalty when AI becomes the decision-maker? | Braze x Talon.One Webinar",
+    "Earned, not automated — What happens to brand loyalty when AI becomes the decision-maker? | Braze x Talon.One Virtual Roundtable",
   description:
-    "A virtual webinar bringing together loyalty, CRM, digital, and customer experience leaders to explore how brands can stay relevant, differentiated, and trusted in an AI-mediated marketplace.",
+    "A virtual roundtable bringing together loyalty, CRM, digital, and customer experience leaders to explore how brands can stay relevant, differentiated, and trusted in an AI-mediated marketplace.",
   openGraph: {
     title:
       "Earned, not automated — Brand loyalty in an AI-mediated marketplace | Braze x Talon.One",
     description:
-      "What happens to brand loyalty when AI becomes the decision-maker? A virtual webinar for loyalty, CRM, digital and customer experience leaders.",
+      "What happens to brand loyalty when AI becomes the decision-maker? A virtual roundtable for loyalty, CRM, digital and customer experience leaders.",
   },
   twitter: {
     card: "summary_large_image",
     title:
       "Earned, not automated — Brand loyalty when AI becomes the decision-maker",
     description:
-      "Virtual webinar. Loyalty, CRM, digital, and customer experience leaders.",
+      "Virtual roundtable. Loyalty, CRM, digital, and customer experience leaders.",
   },
 };
 

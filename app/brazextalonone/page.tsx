@@ -715,7 +715,7 @@ function HeroSection() {
                 animation: "braze3-pulse-dot 2.4s ease-in-out infinite",
               }}
             />
-            Webinar
+            Virtual Roundtable
           </motion.span>
 
           {/* Eyebrow — "Earned, not automated:" */}
@@ -726,13 +726,14 @@ function HeroSection() {
             transition={{ duration: 0.7, delay: 0.18, ease: EASE }}
             style={{
               fontFamily: FONT,
-              fontSize: "clamp(13px, 1.2vw, 16px)",
+              fontSize: "clamp(16px, 1.55vw, 20px)",
               fontWeight: 700,
-              color: B_RED,
+              color: "#ffffff",
               letterSpacing: "0.04em",
               textTransform: "none",
               marginBottom: 18,
               display: "inline-block",
+              textShadow: "0 1px 14px rgba(0,0,0,0.18)",
             }}
           >
             {EYEBROW}
@@ -749,9 +750,10 @@ function HeroSection() {
               fontSize: "clamp(30px, 4.4vw, 60px)",
               lineHeight: 1.08,
               letterSpacing: "-0.025em",
-              color: INK,
+              color: "#ffffff",
               margin: "0 0 28px",
               maxWidth: 760,
+              textShadow: "0 2px 28px rgba(0,0,0,0.22)",
             }}
           >
             {HEADLINE}
@@ -768,9 +770,10 @@ function HeroSection() {
               fontSize: "clamp(15px, 1.2vw, 18px)",
               fontWeight: 400,
               lineHeight: 1.55,
-              color: INK_SOFT,
+              color: "rgba(255,255,255,0.92)",
               margin: "0 0 28px",
               maxWidth: 620,
+              textShadow: "0 1px 18px rgba(0,0,0,0.2)",
             }}
           >
             {PARAGRAPH_3}
@@ -794,8 +797,8 @@ function HeroSection() {
               {
                 icon: (
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                    <rect x="2" y="3" width="12" height="11" rx="1.5" stroke={INK} strokeWidth="1.2" />
-                    <path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" stroke={INK} strokeWidth="1.2" strokeLinecap="round" />
+                    <rect x="2" y="3" width="12" height="11" rx="1.5" stroke="#ffffff" strokeWidth="1.2" />
+                    <path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" stroke="#ffffff" strokeWidth="1.2" strokeLinecap="round" />
                   </svg>
                 ),
                 text: EVENT_DATE_LABEL,
@@ -803,8 +806,8 @@ function HeroSection() {
               {
                 icon: (
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                    <circle cx="8" cy="8" r="6" stroke={INK} strokeWidth="1.2" />
-                    <path d="M8 4.5V8l2.5 1.5" stroke={INK} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="8" cy="8" r="6" stroke="#ffffff" strokeWidth="1.2" />
+                    <path d="M8 4.5V8l2.5 1.5" stroke="#ffffff" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 ),
                 text: EVENT_TIME_LABEL,
@@ -812,8 +815,8 @@ function HeroSection() {
               {
                 icon: (
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                    <rect x="2" y="3" width="12" height="9" rx="1.5" stroke={INK} strokeWidth="1.2" />
-                    <circle cx="8" cy="7.5" r="2" stroke={INK} strokeWidth="1.2" />
+                    <rect x="2" y="3" width="12" height="9" rx="1.5" stroke="#ffffff" strokeWidth="1.2" />
+                    <circle cx="8" cy="7.5" r="2" stroke="#ffffff" strokeWidth="1.2" />
                   </svg>
                 ),
                 text: "Virtual",
@@ -821,7 +824,7 @@ function HeroSection() {
             ].map((item, i) => (
               <React.Fragment key={i}>
                 {i > 0 && (
-                  <span style={{ width: 1, height: 16, background: LINE, margin: "0 16px" }} />
+                  <span style={{ width: 1, height: 16, background: "rgba(255,255,255,0.45)", margin: "0 16px" }} />
                 )}
                 <span
                   style={{
@@ -831,8 +834,9 @@ function HeroSection() {
                     fontFamily: FONT,
                     fontSize: 14,
                     fontWeight: 600,
-                    color: INK,
+                    color: "#ffffff",
                     letterSpacing: "0.01em",
+                    textShadow: "0 1px 12px rgba(0,0,0,0.22)",
                   }}
                 >
                   {item.icon}
@@ -899,22 +903,23 @@ function HeroSection() {
                 fontFamily: FONT,
                 fontSize: 13,
                 fontWeight: 700,
-                color: INK_SOFT,
+                color: "rgba(255,255,255,0.85)",
                 textDecoration: "none",
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 6,
                 transition: "color 0.3s ease",
-                borderBottom: `1px solid ${LINE}`,
+                borderBottom: `1px solid rgba(255,255,255,0.45)`,
                 paddingBottom: 2,
+                textShadow: "0 1px 10px rgba(0,0,0,0.2)",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.color = INK;
-                e.currentTarget.style.borderBottomColor = INK;
+                e.currentTarget.style.color = "#ffffff";
+                e.currentTarget.style.borderBottomColor = "#ffffff";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.color = INK_SOFT;
-                e.currentTarget.style.borderBottomColor = LINE;
+                e.currentTarget.style.color = "rgba(255,255,255,0.85)";
+                e.currentTarget.style.borderBottomColor = "rgba(255,255,255,0.45)";
               }}
             >
               Read overview
