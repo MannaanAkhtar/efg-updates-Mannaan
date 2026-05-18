@@ -57,16 +57,29 @@ const TAKEAWAYS = [
   },
 ];
 
-const AGENDA = [
-  { start: "10:30", end: "11:00", duration: "30 min", segment: "Guest Arrival, Registration & Welcome Coffee", owner: "Event Operations Team", type: "neutral" as const },
-  { start: "11:00", end: "11:05", duration: "5 min",  segment: "Welcome Remarks & House Keeping", owner: "Event Host / Moderator", type: "neutral" as const },
-  { start: "11:05", end: "11:35", duration: "30 min", segment: "Opening Keynote Presentation", owner: "Lead Speaker / Sponsor", type: "feature" as const },
-  { start: "11:35", end: "12:05", duration: "30 min", segment: "Featured Presentation", owner: "Industry Speaker / Sponsor", type: "feature" as const },
-  { start: "12:05", end: "12:30", duration: "25 min", segment: "Networking Coffee Break", owner: "All Delegates", type: "break" as const },
-  { start: "12:30", end: "13:00", duration: "30 min", segment: "Panel Discussion", owner: "Moderator + Panelists", type: "feature" as const },
-  { start: "13:00", end: "13:30", duration: "30 min", segment: "Sponsor Product Demonstration", owner: "Sponsor Presenter", type: "neutral" as const },
-  { start: "13:30", end: "13:35", duration: "5 min",  segment: "Closing Remarks & Vote of Thanks", owner: "Event Host / Moderator", type: "neutral" as const },
-  { start: "13:35", end: "—",     duration: "—",      segment: "Networking Lunch", owner: "All Delegates", type: "break" as const },
+type AgendaRow = {
+  start: string;
+  end: string;
+  duration: string;
+  segment: string;
+  subtitle?: string;
+  description?: string;
+  owner: string;
+  type: "neutral" | "feature" | "break";
+};
+
+const AGENDA: AgendaRow[] = [
+  { start: "10:00", end: "10:30", duration: "30 min", segment: "Guest Arrival, Registration & Welcome Coffee", owner: "Event Operations Team", type: "neutral" },
+  { start: "10:30", end: "10:35", duration: "5 min",  segment: "Welcome Remarks & Opening Notes", owner: "Event Host", type: "neutral" },
+  { start: "10:35", end: "11:00", duration: "25 min", segment: "Opening Executive Keynote", subtitle: "The Future of Enterprise Infrastructure in the AI Era", owner: "Featured Industry Speaker", type: "feature" },
+  { start: "11:00", end: "11:30", duration: "30 min", segment: "Seagate Executive Leadership Session", subtitle: "Tomorrow’s Data Infrastructure Delivered Today", owner: "Seagate Leadership Team", type: "feature" },
+  { start: "11:30", end: "12:00", duration: "30 min", segment: "Executive Experience Showcase & Immersive Illusion Performance", owner: "Special Segment", type: "feature" },
+  { start: "12:00", end: "12:15", duration: "15 min", segment: "Networking Coffee Break", owner: "All Delegates", type: "break" },
+  { start: "12:15", end: "12:45", duration: "30 min", segment: "Deployment Experience Discussion", subtitle: "Scaling Enterprise Storage & Infrastructure for AI-Driven Growth", owner: "Seagate Infrastructure Experts", type: "feature" },
+  { start: "12:45", end: "13:15", duration: "30 min", segment: "Executive Leadership Discussion", subtitle: "Building AI-Ready Infrastructure Without Exploding Cost, Complexity, and Energy Consumption", description: "A leadership conversation on scaling enterprise infrastructure for the next era of AI, cloud, and data growth.", owner: "Moderator + Industry Leaders", type: "feature" },
+  { start: "13:15", end: "13:30", duration: "15 min", segment: "Executive Q&A & Audience Discussion", owner: "Moderator + Panelists", type: "neutral" },
+  { start: "13:30", end: "13:35", duration: "5 min",  segment: "Closing Remarks & Vote of Thanks", owner: "Event Host / Moderator", type: "neutral" },
+  { start: "13:35", end: "—",     duration: "—",      segment: "Executive Networking Lunch", owner: "All Delegates", type: "break" },
 ];
 
 type Speaker = {
@@ -209,11 +222,9 @@ function SeagateNav() {
     <header style={{
       position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
       padding: "clamp(12px, 1.6vw, 18px) clamp(20px, 4vw, 56px)",
-      background: scrolled ? "rgba(5,7,10,0.82)" : "transparent",
-      backdropFilter: scrolled ? "blur(20px) saturate(1.4)" : "none",
-      WebkitBackdropFilter: scrolled ? "blur(20px) saturate(1.4)" : "none",
+      background: scrolled ? "rgba(5,7,10,0.94)" : "transparent",
       borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
-      transition: "all 0.35s cubic-bezier(0.22,1,0.36,1)",
+      transition: "background 0.35s ease, border-color 0.35s ease",
       display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24,
     }}>
       {/* Logo */}
@@ -581,21 +592,21 @@ function HeroSection() {
           {/* LEFT: stacked uppercase display title */}
           <h1 style={{
             fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
-            fontSize: "clamp(26px, 5.4vw, 76px)",
+            fontSize: "clamp(22px, 4.6vw, 64px)",
             fontWeight: 700,
             color: SG_WHITE,
-            letterSpacing: "-0.034em",
-            lineHeight: 0.96,
+            letterSpacing: "-0.028em",
+            lineHeight: 0.98,
             margin: 0,
             textAlign: "left",
             textTransform: "uppercase",
             overflowWrap: "break-word",
             hyphens: "auto",
           }}>
-            <span className="sg-h1-word sg-h1-word-1" style={{ display: "block" }}>Powering</span>
-            <span className="sg-h1-word sg-h1-word-2" style={{ display: "block" }}>the future of</span>
-            <span className="sg-h1-word sg-h1-word-3" style={{ display: "block", color: SG_ORANGE }}>mass capacity</span>
-            <span className="sg-h1-word sg-h1-word-4" style={{ display: "block" }}>storage.</span>
+            <span className="sg-h1-word sg-h1-word-1" style={{ display: "block" }}>Executive Infrastructure</span>
+            <span className="sg-h1-word sg-h1-word-2" style={{ display: "block" }}>Leadership Boardroom</span>
+            <span className="sg-h1-word sg-h1-word-3" style={{ display: "block", fontSize: "0.42em", fontWeight: 500, letterSpacing: "0.06em", color: "rgba(255,255,255,0.7)", marginTop: "0.18em", marginBottom: "0.05em" }}>in Partnership with</span>
+            <span className="sg-h1-word sg-h1-word-4" style={{ display: "block", color: SG_ORANGE }}>Seagate</span>
           </h1>
 
           {/* RIGHT: editorial pullquote — REAL italic via serif fallback */}
@@ -653,7 +664,7 @@ function HeroSection() {
               maxWidth: 540,
               textShadow: "0 1px 2px rgba(0,0,0,0.7), 0 0 18px rgba(0,0,0,0.55)",
             }}>
-              The data centre of tomorrow, <span style={{ color: SG_GREEN_BRIGHT, fontStyle: "italic", fontWeight: 400, textShadow: "0 1px 2px rgba(0,0,0,0.7), 0 0 14px rgba(0,0,0,0.6)" }}>in one room.</span>
+              Tomorrow&rsquo;s Data Infrastructure <span style={{ color: SG_GREEN_BRIGHT, fontStyle: "italic", fontWeight: 400, textShadow: "0 1px 2px rgba(0,0,0,0.7), 0 0 14px rgba(0,0,0,0.6)" }}>Delivered Today</span>
             </p>
 
             {/* Supporting paragraph — Söhne Breit */}
@@ -672,7 +683,7 @@ function HeroSection() {
               textShadow: "0 1px 2px rgba(0,0,0,0.6)",
               textWrap: "pretty" as "pretty",
             }}>
-              An invitation-only Seagate Technology roundtable on Mozaic 4+, higher density, and a 40% energy cut versus conventional drives.
+              Powering the infrastructure behind enterprise growth, cloud expansion, and AI-scale data environments.
             </p>
           </div>
         </div>
@@ -828,10 +839,10 @@ function HeroSection() {
 }
 
 // ─── Statement Section — parallax background + word-reveal (SonicWall-style) ─
-const OVERVIEW_WORDS = "Reliable storage, built for the era of mass capacity.".split(" ");
+const OVERVIEW_WORDS = "The Next Wave of Enterprise Infrastructure Is Already Here".split(" ");
 
 function StatementSection() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
@@ -892,62 +903,55 @@ function StatementSection() {
   // and forced the section to re-rasterize. Background is now static.
 
   return (
-    <section ref={sectionRef} id="overview" style={{
-      background: SG_BONE,
-      minHeight: "72svh",
+    <div ref={sectionRef} id="overview" style={{
+      background: "transparent",
       display: "flex", flexDirection: "column", justifyContent: "center",
-      padding: "clamp(40px, 5vh, 64px) 0 clamp(24px, 3vh, 40px)",
+      padding: "clamp(56px, 7vh, 88px) 0 clamp(72px, 9vh, 110px)",
       position: "relative",
-      overflow: "hidden",
     }}>
-      {/* Background image — HUGE, anchored slightly below center (wrapper handles positioning, img handles parallax) */}
+      {/* Statement-specific accents — ambient halos only; wrapper handles base BG + frame */}
+      {/* Ambient orange accent (upper right) */}
       <div aria-hidden style={{
         position: "absolute",
-        top: "62%", left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "min(140vw, 1800px)",
-        height: "min(140%, 1100px)",
-        zIndex: 0,
+        top: "-15%", right: "-12%",
+        width: "60%", height: "85%",
+        background: `radial-gradient(ellipse 60% 55% at 50% 50%, ${SG_ORANGE}1a 0%, ${SG_ORANGE}08 35%, transparent 70%)`,
+        filter: "blur(50px)",
         pointerEvents: "none",
-      }}>
-        <Image
-          src="https://efg-final.s3.eu-north-1.amazonaws.com/logos/seagate_bg.png"
-          alt=""
-          fill
-          sizes="(max-width: 768px) 100vw, 90vw"
-          style={{
-            objectFit: "contain",
-            objectPosition: "center center",
-          }}
-        />
-      </div>
-
-      {/* Solid readability wash behind the text — no filter:blur (image
-         itself is already blurred + dimmed above). Just a soft bone-tinted
-         radial that keeps the headline + body crisp. */}
-      <div aria-hidden style={{
-        position: "absolute",
-        top: "50%", left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "min(95%, 1080px)",
-        height: "min(82%, 640px)",
-        background: `radial-gradient(ellipse 55% 55% at 50% 50%, ${SG_BONE} 0%, ${SG_BONE}f0 35%, ${SG_BONE}b8 60%, ${SG_BONE}60 78%, transparent 92%)`,
-        zIndex: 1,
-        pointerEvents: "none",
+        zIndex: 2,
+        transform: "translateZ(0)",
+        willChange: "transform",
       }} />
 
-      <div style={{
-        maxWidth: 860, margin: "0 auto",
+      {/* Ambient teal counter-glow (lower left) */}
+      <div aria-hidden style={{
+        position: "absolute",
+        bottom: "-18%", left: "-12%",
+        width: "60%", height: "75%",
+        background: `radial-gradient(ellipse 55% 50% at 50% 50%, ${SG_GREEN_BRIGHT}14 0%, ${SG_GREEN_BRIGHT}06 35%, transparent 70%)`,
+        filter: "blur(50px)",
+        pointerEvents: "none",
+        zIndex: 2,
+        transform: "translateZ(0)",
+        willChange: "transform",
+      }} />
+
+      <div className="sg-ov-wrap" style={{
+        maxWidth: 1280, margin: "0 auto",
         padding: "0 clamp(20px, 5vw, 56px)",
-        position: "relative", zIndex: 3,
-        textAlign: "center",
+        position: "relative", zIndex: 5,
+        width: "100%",
       }}>
-        {/* Header — dashes flank kicker */}
-        <div ref={headerRef} style={{ marginBottom: 28 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16, justifyContent: "center" }}>
+        {/* Cinematic title block — centred, full-width */}
+        <div ref={headerRef} className="sg-ov-title" style={{
+          textAlign: "center",
+          maxWidth: 960,
+          margin: "0 auto clamp(36px, 5vh, 56px)",
+        }}>
+          <div className="sg-ov-kicker-row" style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 18, justifyContent: "center" }}>
             <div className="sg-ov-dash" style={{
-              width: 32, height: 2,
-              background: SG_ORANGE,
+              width: 40, height: 2,
+              background: `linear-gradient(90deg, transparent, ${SG_ORANGE})`,
               borderRadius: 1,
               transform: "scaleX(0)",
               transformOrigin: "right center",
@@ -956,117 +960,216 @@ function StatementSection() {
               display: "inline-flex", alignItems: "center",
               padding: "7px 16px",
               borderRadius: 999,
-              background: "rgba(255,255,255,0.62)",
-              border: "1px solid rgba(10,14,18,0.06)",
-              backdropFilter: "blur(14px) saturate(1.3)",
-              WebkitBackdropFilter: "blur(14px) saturate(1.3)",
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.75), 0 1px 2px rgba(10,14,18,0.04), 0 6px 18px rgba(10,14,18,0.05)",
+              background: "rgba(255,255,255,0.06)",
+              border: "1px solid rgba(255,255,255,0.12)",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 1px 2px rgba(0,0,0,0.25)",
               fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
               fontSize: 11, fontWeight: 600,
               letterSpacing: "0.36em", textTransform: "uppercase",
               color: SG_ORANGE,
               opacity: 0,
             }}>
-              The Conversation
+              Why This Matters
             </span>
             <div className="sg-ov-dash" style={{
-              width: 32, height: 2,
-              background: SG_ORANGE,
+              width: 40, height: 2,
+              background: `linear-gradient(90deg, ${SG_ORANGE}, transparent)`,
               borderRadius: 1,
               transform: "scaleX(0)",
               transformOrigin: "left center",
             }} />
           </div>
 
-          {/* Heading — word-by-word blur reveal */}
+          {/* Heading — cinematic, word-by-word blur reveal */}
           <div ref={headingRef} style={{
             display: "flex", flexWrap: "wrap",
             justifyContent: "center",
-            gap: "0 clamp(8px, 1vw, 14px)",
-            marginBottom: 22,
+            gap: "0 clamp(10px, 1.2vw, 18px)",
+            marginBottom: 20,
+            textWrap: "balance" as "balance",
           }}>
-            {OVERVIEW_WORDS.map((word, i) => (
-              <span key={i} className="sg-reveal-word" style={{
-                fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
-                fontSize: "clamp(28px, 4vw, 52px)",
-                fontWeight: 600,
-                letterSpacing: "-0.026em",
-                lineHeight: 1.1,
-                color: SG_NAVY,
-                display: "inline-block",
-                opacity: 0,
-              }}>
-                {word}
-              </span>
-            ))}
+            {OVERVIEW_WORDS.map((word, i) => {
+              const isGreen = word === "Enterprise" || word === "Infrastructure";
+              return (
+                <span key={i} className="sg-reveal-word" style={{
+                  fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                  fontSize: "clamp(28px, 4.2vw, 56px)",
+                  fontWeight: 600,
+                  letterSpacing: "-0.028em",
+                  lineHeight: 1.04,
+                  display: "inline-block",
+                  opacity: 0,
+                  background: isGreen
+                    ? `linear-gradient(180deg, ${SG_GREEN_BRIGHT} 0%, ${SG_GREEN_BRIGHT} 55%, ${SG_TEAL} 100%)`
+                    : "linear-gradient(180deg, #ffffff 0%, #ffffff 55%, rgba(255,255,255,0.86) 100%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  color: "transparent",
+                  filter: isGreen
+                    ? `drop-shadow(0 2px 24px rgba(0,0,0,0.42)) drop-shadow(0 0 18px ${SG_GREEN_BRIGHT}55)`
+                    : "drop-shadow(0 2px 24px rgba(0,0,0,0.42))",
+                }}>
+                  {word}
+                </span>
+              );
+            })}
           </div>
 
-          {/* Gradient divider — grows from center */}
+          {/* Gradient divider — grows from centre */}
           <div className="sg-ov-divider" style={{
-            width: 56, height: 2,
+            width: 64, height: 2,
             background: `linear-gradient(90deg, ${SG_ORANGE}, ${SG_GREEN_BRIGHT})`,
             borderRadius: 1,
             margin: "0 auto",
             transform: "scaleX(0)",
+            transformOrigin: "center",
           }} />
         </div>
 
-        {/* Body — clip-path reveal paragraphs */}
-        <div ref={bodyRef} style={{ maxWidth: 720, margin: "0 auto" }}>
+        {/* Body — single intro line + 4-col pressure strip + Mozaic tag */}
+        <div ref={bodyRef} className="sg-ov-body-col" style={{
+          maxWidth: 980,
+          margin: "0 auto",
+          textAlign: "center",
+        }}>
           <p className="sg-ov-para" style={{
             fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
-            fontSize: "clamp(14px, 1.15vw, 16.5px)",
+            fontSize: "clamp(15px, 1.25vw, 18px)",
             fontWeight: 400,
-            color: SG_GRAY_DEEP,
-            lineHeight: 1.75,
-            margin: "0 0 14px",
+            color: "rgba(255,255,255,0.85)",
+            lineHeight: 1.65,
+            margin: "0 auto 36px",
             opacity: 0,
-            letterSpacing: "-0.003em",
+            letterSpacing: "-0.005em",
+            maxWidth: 760,
           }}>
-            Seagate offers the most reliable data storage solutions in the world — high-capacity drives that consume{" "}
+            AI workloads, cloud expansion, and exponential data growth are forcing enterprises to{" "}
             <span style={{
               fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
               fontStyle: "italic",
               fontWeight: 500,
-              color: SG_NAVY,
-              fontSize: "1.06em",
+              color: SG_WHITE,
+              fontSize: "1.08em",
             }}>
-              40% less energy
+              rethink infrastructure at scale
             </span>
-            {" "}than conventional alternatives.
-          </p>
-          <p className="sg-ov-para" style={{
-            fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
-            fontSize: "clamp(14px, 1.15vw, 16.5px)",
-            fontWeight: 400,
-            color: SG_GRAY_DEEP,
-            lineHeight: 1.75,
-            margin: "0 0 32px",
-            opacity: 0,
-            letterSpacing: "-0.003em",
-          }}>
-            More data in a single drive. Better efficiency. Built for the era of mass capacity.
+            .
           </p>
 
-          {/* Liquid-glass callout — Mozaic 4+ */}
+          {/* Pressure points — 4-col strategy strip */}
+          <div className="sg-ov-para sg-ov-pressures" style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+            gap: 0,
+            margin: "0 auto 36px",
+            maxWidth: 920,
+            borderTop: "1px solid rgba(255,255,255,0.12)",
+            borderBottom: "1px solid rgba(255,255,255,0.12)",
+            paddingBlock: "clamp(20px, 2.6vh, 28px)",
+            opacity: 0,
+            position: "relative",
+          }}>
+            {/* Top hairline accent that grows on section reveal */}
+            <span aria-hidden style={{
+              position: "absolute", top: -1, left: "50%", transform: "translateX(-50%)",
+              width: "min(80%, 360px)", height: 1,
+              background: `linear-gradient(90deg, transparent 0%, ${SG_ORANGE}aa 50%, transparent 100%)`,
+              pointerEvents: "none",
+            }} />
+            {[
+              { n: "01", label: "AI-Driven Growth" },
+              { n: "02", label: "Operational Complexity" },
+              { n: "03", label: "Rising Energy Costs" },
+              { n: "04", label: "Scale Without Replacement" },
+            ].map((p, i) => (
+              <div key={p.n} className="sg-ov-pressure" style={{
+                padding: "clamp(4px, 0.6vh, 6px) clamp(10px, 1.4vw, 20px)",
+                textAlign: "left",
+                borderRight: i < 3 ? "1px solid rgba(255,255,255,0.08)" : "none",
+                display: "flex", flexDirection: "column", gap: 10,
+                position: "relative",
+                transition: "background 0.35s ease",
+              }}>
+                {/* Per-cell top indicator rail — animates orange on hover */}
+                <span aria-hidden className="sg-ov-pressure-rail" style={{
+                  position: "absolute", top: -1, left: "8%", right: "8%",
+                  height: 2,
+                  background: SG_ORANGE,
+                  borderRadius: 1,
+                  opacity: 0,
+                  transform: "scaleX(0)",
+                  transformOrigin: "center",
+                  transition: "opacity 0.4s ease, transform 0.45s cubic-bezier(0.22,1,0.36,1)",
+                  pointerEvents: "none",
+                }} />
+                <span className="sg-ov-pressure-num" style={{
+                  fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                  fontSize: 10.5, fontWeight: 600,
+                  letterSpacing: "0.24em", textTransform: "uppercase",
+                  color: SG_ORANGE,
+                  transition: "color 0.3s ease, text-shadow 0.3s ease",
+                }}>
+                  {p.n}
+                </span>
+                <span className="sg-ov-pressure-label" style={{
+                  fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                  fontSize: "clamp(13px, 1.05vw, 15px)",
+                  fontWeight: 500,
+                  color: "rgba(255,255,255,0.92)",
+                  letterSpacing: "-0.008em",
+                  lineHeight: 1.32,
+                  transition: "color 0.3s ease, transform 0.35s cubic-bezier(0.22,1,0.36,1)",
+                }}>
+                  {p.label}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <p className="sg-ov-para" style={{
+            fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
+            fontStyle: "italic",
+            fontSize: "clamp(14.5px, 1.15vw, 17px)",
+            fontWeight: 400,
+            color: "rgba(255,255,255,0.78)",
+            lineHeight: 1.6,
+            margin: "0 auto 32px",
+            opacity: 0,
+            letterSpacing: "0",
+            maxWidth: 720,
+          }}>
+            <span aria-hidden style={{
+              display: "inline-block",
+              width: 18, height: 1,
+              background: `${SG_ORANGE}99`,
+              verticalAlign: "middle",
+              marginRight: 12,
+              marginBottom: 3,
+            }} />
+            This executive boardroom brings together enterprise technology leaders to discuss how organizations can build scalable, energy-efficient, and future-ready infrastructure strategies.
+          </p>
+
+          {/* Liquid-glass callout — Mozaic 4+ (dark) */}
           <div className="sg-ov-callout" style={{
             display: "inline-flex", alignItems: "center", gap: 12,
-            padding: "13px 26px", borderRadius: 999,
-            background: "linear-gradient(145deg, rgba(255,255,255,0.55) 0%, rgba(240,238,232,0.45) 50%, rgba(255,235,210,0.35) 100%)",
-            border: "1px solid rgba(255,255,255,0.6)",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(0,0,0,0.04), 0 6px 24px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04)",
+            padding: "14px 28px", borderRadius: 999,
+            background: `linear-gradient(145deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 45%, ${SG_ORANGE}1c 100%)`,
+            border: "1px solid rgba(255,255,255,0.14)",
+            boxShadow: `inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.32), 0 10px 32px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.22), 0 0 0 0 ${SG_ORANGE}00`,
             opacity: 0,
+            transition: "transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease, background 0.4s ease",
           }}>
             <span style={{
               width: 8, height: 8, borderRadius: "50%",
               background: SG_ORANGE,
-              boxShadow: `0 0 6px ${SG_ORANGE}80, 0 0 12px ${SG_ORANGE}30`,
+              boxShadow: `0 0 6px ${SG_ORANGE}cc, 0 0 14px ${SG_ORANGE}66`,
               animation: "sgCalloutPulse 2.4s ease-in-out infinite",
             }} />
             <span style={{
               fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
               fontSize: 13, fontWeight: 500,
-              color: SG_NAVY, letterSpacing: "0.005em",
+              color: "rgba(255,255,255,0.92)", letterSpacing: "0.005em",
             }}>
               Featuring a Mozaic 4+ Technology Deep-Dive
             </span>
@@ -1079,27 +1182,127 @@ function StatementSection() {
           0%, 100% { box-shadow: 0 0 6px ${SG_ORANGE}80, 0 0 12px ${SG_ORANGE}30; }
           50% { box-shadow: 0 0 9px ${SG_ORANGE}aa, 0 0 18px ${SG_ORANGE}50; }
         }
+        /* Pressure cell hover — orange rail slides in, number brightens, label nudges right */
+        .sg-ov-pressure:hover {
+          background: rgba(255,255,255,0.025);
+        }
+        .sg-ov-pressure:hover .sg-ov-pressure-rail {
+          opacity: 1;
+          transform: scaleX(1);
+        }
+        .sg-ov-pressure:hover .sg-ov-pressure-num {
+          color: ${SG_ORANGE};
+          text-shadow: 0 0 10px ${SG_ORANGE}55;
+        }
+        .sg-ov-pressure:hover .sg-ov-pressure-label {
+          color: #ffffff;
+          transform: translateX(2px);
+        }
+        /* Mozaic callout — premium lift on hover */
+        .sg-ov-callout:hover {
+          transform: translateY(-1px);
+          background: linear-gradient(145deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 45%, ${SG_ORANGE}22 100%) !important;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.32), 0 14px 38px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.28), 0 0 28px ${SG_ORANGE}22 !important;
+        }
+        @media (max-width: 860px) {
+          .sg-ov-pressures {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            row-gap: 18px !important;
+          }
+          .sg-ov-pressure {
+            border-right: none !important;
+          }
+          .sg-ov-pressure:nth-child(odd) {
+            border-right: 1px solid rgba(255,255,255,0.08) !important;
+          }
+        }
+        @media (max-width: 540px) {
+          .sg-ov-pressures {
+            grid-template-columns: 1fr !important;
+          }
+          .sg-ov-pressure,
+          .sg-ov-pressure:nth-child(odd) {
+            border-right: none !important;
+            border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+            padding-bottom: 14px !important;
+          }
+          .sg-ov-pressure:last-child {
+            border-bottom: none !important;
+            padding-bottom: 0 !important;
+          }
+          .sg-ov-body-col {
+            max-width: 100% !important;
+          }
+        }
       `}</style>
-    </section>
+    </div>
   );
 }
 
 // ─── Takeaways Section ──────────────────────────────────────────────────────
 function TakeawaysSection() {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="takeaways" style={{
-      background: SG_WHITE,
-      padding: "clamp(64px, 8vh, 96px) 0",
+    <div ref={ref} id="takeaways" style={{
+      background: "transparent",
+      padding: "clamp(72px, 9vh, 110px) 0 clamp(72px, 9vh, 112px)",
       position: "relative",
-      overflow: "hidden",
     }}>
+      {/* Takeaways-specific anchor — Massive luminous orb, upper-right (boardroom skylight) */}
+      <div aria-hidden style={{
+        position: "absolute",
+        top: "-30%", right: "-15%",
+        width: "min(900px, 70vw)",
+        height: "min(900px, 70vw)",
+        borderRadius: "50%",
+        background: `radial-gradient(circle at 35% 35%, ${SG_GREEN_BRIGHT}10 0%, ${SG_TEAL}08 28%, ${SG_GREEN_BRIGHT}03 55%, transparent 78%)`,
+        filter: "blur(40px)",
+        pointerEvents: "none",
+        zIndex: 0,
+        transform: "translateZ(0)",
+        willChange: "transform",
+      }} />
+
+      {/* Layer 2 — Architectural concentric rings, lower-left (premium watch-face anchor) */}
+      <div aria-hidden style={{
+        position: "absolute",
+        bottom: "-45%", left: "-22%",
+        width: "min(900px, 75vw)",
+        height: "min(900px, 75vw)",
+        borderRadius: "50%",
+        border: "1px solid rgba(255,255,255,0.04)",
+        pointerEvents: "none",
+        zIndex: 0,
+      }} />
+      <div aria-hidden style={{
+        position: "absolute",
+        bottom: "-35%", left: "-12%",
+        width: "min(700px, 60vw)",
+        height: "min(700px, 60vw)",
+        borderRadius: "50%",
+        border: "1px solid rgba(255,255,255,0.05)",
+        pointerEvents: "none",
+        zIndex: 0,
+      }} />
+      <div aria-hidden style={{
+        position: "absolute",
+        bottom: "-22%", left: "-2%",
+        width: "min(500px, 42vw)",
+        height: "min(500px, 42vw)",
+        borderRadius: "50%",
+        border: `1px solid ${SG_ORANGE}14`,
+        pointerEvents: "none",
+        zIndex: 0,
+      }} />
+
+
       <div style={{
         maxWidth: 1080, margin: "0 auto",
         padding: "0 clamp(20px, 5vw, 72px)",
         position: "relative", width: "100%",
+        zIndex: 3,
       }}>
         {/* Single confident headline — left-aligned */}
         <h2 style={{
@@ -1108,7 +1311,7 @@ function TakeawaysSection() {
           fontWeight: 600,
           letterSpacing: "-0.034em",
           lineHeight: 1.06,
-          color: SG_NAVY,
+          color: SG_WHITE,
           margin: 0,
           maxWidth: 680,
           textWrap: "balance" as "balance",
@@ -1133,7 +1336,7 @@ function TakeawaysSection() {
           listStyle: "none",
           margin: "clamp(20px, 3vh, 36px) 0 0",
           padding: 0,
-          borderTop: `1px solid rgba(10,14,18,0.12)`,
+          borderTop: `1px solid rgba(255,255,255,0.10)`,
         }}>
           {TAKEAWAYS.map((t, i) => (
             <li
@@ -1146,10 +1349,10 @@ function TakeawaysSection() {
                 gap: "clamp(16px, 2.4vw, 40px)",
                 alignItems: "baseline",
                 padding: "clamp(14px, 2.2vh, 24px) 0",
-                borderBottom: `1px solid rgba(10,14,18,0.12)`,
+                borderBottom: `1px solid rgba(255,255,255,0.10)`,
                 opacity: inView ? 1 : 0,
                 transform: inView ? "translateY(0)" : "translateY(20px)",
-                transition: `opacity 0.9s ${0.25 + i * 0.12}s cubic-bezier(0.22,1,0.36,1), transform 0.9s ${0.25 + i * 0.12}s cubic-bezier(0.22,1,0.36,1)`,
+                transition: `opacity 0.9s ${0.25 + i * 0.12}s cubic-bezier(0.22,1,0.36,1), transform 0.9s ${0.25 + i * 0.12}s cubic-bezier(0.22,1,0.36,1), background 0.4s ease`,
               }}
             >
               {/* Hover sweep */}
@@ -1158,6 +1361,7 @@ function TakeawaysSection() {
                 left: 0, right: 0, bottom: -1,
                 height: 1,
                 background: SG_ORANGE,
+                boxShadow: `0 0 12px ${SG_ORANGE}88`,
                 transform: "scaleX(0)",
                 transformOrigin: "left center",
                 transition: "transform 0.7s cubic-bezier(0.22,1,0.36,1)",
@@ -1169,10 +1373,11 @@ function TakeawaysSection() {
                   fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
                   fontSize: "clamp(36px, 4vw, 64px)",
                   fontWeight: 200,
-                  color: SG_NAVY,
+                  color: "rgba(255,255,255,0.95)",
                   letterSpacing: "-0.05em",
                   lineHeight: 0.92,
                   fontVariantNumeric: "tabular-nums",
+                  textShadow: "0 2px 18px rgba(0,0,0,0.45)",
                 }}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -1182,6 +1387,7 @@ function TakeawaysSection() {
                   fontWeight: 200,
                   color: SG_ORANGE,
                   lineHeight: 1,
+                  textShadow: `0 0 12px ${SG_ORANGE}55`,
                 }}>
                   /
                 </span>
@@ -1193,7 +1399,7 @@ function TakeawaysSection() {
                   fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
                   fontSize: "clamp(15px, 1.7vw, 22px)",
                   fontWeight: 600,
-                  color: SG_NAVY,
+                  color: SG_WHITE,
                   letterSpacing: "-0.024em",
                   lineHeight: 1.16,
                   margin: "0 0 clamp(4px, 0.8vh, 8px)",
@@ -1206,7 +1412,7 @@ function TakeawaysSection() {
                   fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
                   fontSize: "clamp(12.5px, 0.95vw, 14.5px)",
                   fontWeight: 400,
-                  color: SG_GRAY_DEEP,
+                  color: "rgba(255,255,255,0.7)",
                   lineHeight: 1.55,
                   letterSpacing: "-0.003em",
                   maxWidth: 620,
@@ -1220,6 +1426,12 @@ function TakeawaysSection() {
       </div>
 
       <style jsx global>{`
+        .sg-takeaway-row {
+          background: transparent;
+        }
+        .sg-takeaway-row:hover {
+          background: rgba(255,255,255,0.02);
+        }
         .sg-takeaway-row:hover .sg-takeaway-sweep {
           transform: scaleX(1) !important;
         }
@@ -1230,7 +1442,7 @@ function TakeawaysSection() {
           }
         }
       `}</style>
-    </section>
+    </div>
   );
 }
 
@@ -1241,10 +1453,9 @@ function SpeakersSection() {
 
   return (
     <section ref={ref} id="speakers" style={{
-      background: SG_BONE,
+      background: "transparent",
       padding: "clamp(64px, 8vh, 96px) 0",
       position: "relative",
-      overflow: "hidden",
     }}>
       <div style={{
         maxWidth: 1240, margin: "0 auto",
@@ -1262,7 +1473,7 @@ function SpeakersSection() {
           {/* Gradient hairline divider — fades at edges for premium feel */}
           <div aria-hidden style={{
             position: "absolute", left: 0, right: 0, bottom: 0, height: 1,
-            background: "linear-gradient(90deg, transparent 0%, rgba(10,14,18,0.18) 20%, rgba(10,14,18,0.22) 50%, rgba(10,14,18,0.18) 80%, transparent 100%)",
+            background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.14) 20%, rgba(255,255,255,0.20) 50%, rgba(255,255,255,0.14) 80%, transparent 100%)",
             transform: inView ? "scaleX(1)" : "scaleX(0.4)",
             transformOrigin: "center",
             opacity: inView ? 1 : 0,
@@ -1280,7 +1491,7 @@ function SpeakersSection() {
               fontWeight: 600,
               letterSpacing: "-0.034em",
               lineHeight: 0.98,
-              color: SG_NAVY,
+              color: SG_WHITE,
               margin: 0,
               textTransform: "uppercase",
             }}>
@@ -1293,7 +1504,7 @@ function SpeakersSection() {
             fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
             fontSize: 10.5, fontWeight: 500,
             letterSpacing: "0.28em", textTransform: "uppercase",
-            color: "rgba(10,14,18,0.5)",
+            color: "rgba(255,255,255,0.55)",
             display: "inline-flex", alignItems: "center", gap: 12,
             opacity: inView ? 1 : 0,
             transition: "opacity 1.2s 0.15s ease",
@@ -1333,7 +1544,7 @@ function SpeakersSection() {
                   overflow: "hidden",
                   borderRadius: 4,
                   background: `linear-gradient(165deg, ${SG_NAVY} 0%, ${SG_NAVY_DEEP} 100%)`,
-                  boxShadow: "0 1px 2px rgba(10,14,18,0.06), 0 8px 24px rgba(10,14,18,0.07)",
+                  boxShadow: "0 1px 2px rgba(0,0,0,0.35), 0 12px 32px rgba(0,0,0,0.45)",
                   transition: "box-shadow 0.7s cubic-bezier(0.22,1,0.36,1)",
                 }}>
                   <Image
@@ -1387,10 +1598,8 @@ function SpeakersSection() {
                   <div className="sg-speaker-link" style={{
                     position: "absolute", top: 14, right: 14,
                     width: 36, height: 36, borderRadius: "50%",
-                    background: "rgba(255,255,255,0.16)",
-                    backdropFilter: "blur(10px)",
-                    WebkitBackdropFilter: "blur(10px)",
-                    border: "1px solid rgba(255,255,255,0.22)",
+                    background: "rgba(0,0,0,0.45)",
+                    border: "1px solid rgba(255,255,255,0.26)",
                     display: "flex", alignItems: "center", justifyContent: "center",
                     opacity: 0,
                     transform: "translate(-4px, 4px)",
@@ -1409,7 +1618,7 @@ function SpeakersSection() {
                     fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
                     fontSize: "clamp(15px, 1.2vw, 17px)",
                     fontWeight: 600,
-                    color: SG_NAVY,
+                    color: SG_WHITE,
                     letterSpacing: "-0.024em",
                     lineHeight: 1.12,
                     display: "inline-block",
@@ -1429,7 +1638,7 @@ function SpeakersSection() {
                     fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
                     fontSize: "clamp(10px, 0.72vw, 11px)",
                     fontWeight: 500,
-                    color: SG_NAVY,
+                    color: "rgba(255,255,255,0.85)",
                     lineHeight: 1.4,
                     letterSpacing: "-0.005em",
                     maxWidth: 280,
@@ -1441,7 +1650,7 @@ function SpeakersSection() {
                     fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
                     fontStyle: "italic", fontWeight: 400,
                     fontSize: "clamp(10px, 0.72vw, 11px)",
-                    color: SG_GRAY,
+                    color: "rgba(255,255,255,0.6)",
                     lineHeight: 1.4,
                   }}>
                     {s.org}
@@ -1460,8 +1669,8 @@ function SpeakersSection() {
         }
         .sg-speaker-card:hover .sg-speaker-photo-wrap {
           box-shadow:
-            0 2px 4px rgba(10, 14, 18, 0.08),
-            0 24px 48px rgba(10, 14, 18, 0.16) !important;
+            0 2px 4px rgba(0, 0, 0, 0.45),
+            0 28px 56px rgba(0, 0, 0, 0.55) !important;
         }
         .sg-speaker-card:hover .sg-speaker-link {
           opacity: 1 !important;
@@ -1497,10 +1706,9 @@ function AgendaSection() {
 
   return (
     <section ref={ref} id="agenda" style={{
-      background: SG_WHITE,
+      background: "transparent",
       padding: "clamp(64px, 8vh, 96px) 0",
-      borderTop: `1px solid ${SG_HAIRLINE}`,
-      position: "relative", overflow: "hidden",
+      position: "relative",
     }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(20px, 4vw, 56px)", position: "relative" }}>
 
@@ -1515,7 +1723,7 @@ function AgendaSection() {
           {/* Gradient hairline divider — matches Speakers section */}
           <div aria-hidden style={{
             position: "absolute", left: 0, right: 0, bottom: 0, height: 1,
-            background: "linear-gradient(90deg, transparent 0%, rgba(10,14,18,0.18) 15%, rgba(10,14,18,0.22) 50%, rgba(10,14,18,0.18) 85%, transparent 100%)",
+            background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.14) 15%, rgba(255,255,255,0.20) 50%, rgba(255,255,255,0.14) 85%, transparent 100%)",
             transform: inView ? "scaleX(1)" : "scaleX(0.4)",
             transformOrigin: "center",
             opacity: inView ? 1 : 0,
@@ -1536,7 +1744,7 @@ function AgendaSection() {
               fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
               fontSize: "clamp(26px, 3.6vw, 44px)", fontWeight: 600,
               letterSpacing: "-0.028em", lineHeight: 1.04,
-              color: SG_NAVY, margin: 0,
+              color: SG_WHITE, margin: 0,
             }}>
               How the day unfolds.
             </h2>
@@ -1545,7 +1753,7 @@ function AgendaSection() {
               fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
               fontStyle: "italic", fontWeight: 400,
               fontSize: "clamp(13px, 1vw, 14.5px)",
-              color: SG_GRAY,
+              color: "rgba(255,255,255,0.62)",
               lineHeight: 1.5,
             }}>
               Four hours, one table.
@@ -1558,108 +1766,156 @@ function AgendaSection() {
             fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
             fontSize: 10.5, fontWeight: 500,
             letterSpacing: "0.28em", textTransform: "uppercase",
-            color: "rgba(10,14,18,0.5)",
+            color: "rgba(255,255,255,0.55)",
             opacity: inView ? 1 : 0,
             transition: "opacity 1.2s 0.25s ease",
           }}>
             <span>11 Jun 2026</span>
-            <span aria-hidden style={{ width: 18, height: 1, background: "rgba(10,14,18,0.2)" }} />
+            <span aria-hidden style={{ width: 18, height: 1, background: "rgba(255,255,255,0.22)" }} />
             <span>Dubai</span>
           </div>
         </div>
 
-        {/* Rows */}
-        <div className="sg-agenda">
-          {AGENDA.map((item, i) => {
+        {/* Rows — 2-column split */}
+        {(() => {
+          const splitAt = Math.ceil(AGENDA.length / 2);
+          const renderRow = (item: AgendaRow, originalIdx: number, isLastInCol: boolean) => {
             const isFeature = item.type === "feature";
             const isBreak = item.type === "break";
             return (
-              <div key={i} className={`sg-agenda-row${isFeature ? " is-feature" : ""}${isBreak ? " is-break" : ""}`} style={{
-                display: "grid",
-                gridTemplateColumns: "2px 170px 1fr 200px",
-                gap: "clamp(14px, 2vw, 32px)",
-                alignItems: "stretch",
-                padding: "clamp(12px, 1.6vh, 18px) clamp(8px, 1vw, 14px)",
-                borderBottom: `1px solid ${SG_HAIRLINE}`,
-                opacity: inView ? 1 : 0,
-                transform: inView ? "translateY(0)" : "translateY(10px)",
-                transition: `opacity 0.6s cubic-bezier(0.22,1,0.36,1) ${0.15 + i * 0.05}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${0.15 + i * 0.05}s, background 0.35s ease`,
-                position: "relative",
-              }}>
-                {/* Left marker — orange for feature, hairline for neutral, transparent for break */}
+              <div
+                key={originalIdx}
+                className={`sg-agenda-row${isFeature ? " is-feature" : ""}${isBreak ? " is-break" : ""}`}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "2px 1fr",
+                  gap: "clamp(14px, 1.8vw, 22px)",
+                  alignItems: "stretch",
+                  padding: "clamp(14px, 1.8vh, 20px) clamp(10px, 1.2vw, 16px)",
+                  borderBottom: isLastInCol ? "none" : "1px solid rgba(255,255,255,0.10)",
+                  opacity: inView ? 1 : 0,
+                  transform: inView ? "translateY(0)" : "translateY(10px)",
+                  transition: `opacity 0.6s cubic-bezier(0.22,1,0.36,1) ${0.15 + originalIdx * 0.05}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${0.15 + originalIdx * 0.05}s, background 0.35s ease`,
+                  position: "relative",
+                }}
+              >
+                {/* Left rail marker */}
                 <div aria-hidden className="sg-agenda-marker" style={{
                   alignSelf: "stretch",
-                  background: isFeature ? SG_ORANGE : isBreak ? "transparent" : "rgba(10,14,18,0.10)",
+                  background: isFeature ? SG_ORANGE : isBreak ? "transparent" : "rgba(255,255,255,0.12)",
                   borderRadius: 1,
                 }} />
 
-                {/* Time block */}
-                <div className="sg-agenda-time" style={{ paddingTop: 2 }}>
-                  <span className="sg-agenda-time-main" style={{
-                    fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
-                    fontSize: "clamp(17px, 1.4vw, 20px)", fontWeight: 600,
-                    color: isBreak ? SG_GRAY : SG_NAVY,
-                    fontVariantNumeric: "tabular-nums", letterSpacing: "-0.012em",
-                    transition: "color 0.3s ease",
-                  }}>
-                    {item.start}
-                    {item.end !== "—" && <span style={{ color: SG_GRAY, fontWeight: 400 }}> – {item.end}</span>}
-                  </span>
-                  <span style={{
-                    display: "block", marginTop: 5,
-                    fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
-                    fontSize: 10, fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase",
-                    color: "rgba(10,14,18,0.42)",
-                  }}>
-                    {item.duration}
-                  </span>
-                </div>
-
-                {/* Segment block */}
-                <div className="sg-agenda-segment" style={{ paddingTop: 2 }}>
-                  <h3 style={{
-                    margin: 0,
-                    fontFamily: isBreak
-                      ? `Georgia, "Cambria", "Times New Roman", serif`
-                      : "var(--font-sohne-breit), system-ui, sans-serif",
-                    fontStyle: isBreak ? "italic" : "normal",
-                    fontSize: isFeature ? "clamp(17px, 1.5vw, 21px)" : "clamp(15px, 1.3vw, 18px)",
-                    fontWeight: isFeature ? 600 : isBreak ? 400 : 500,
-                    color: isBreak ? SG_GRAY_DEEP : SG_NAVY,
-                    letterSpacing: "-0.018em", lineHeight: 1.28,
-                  }}>
-                    {item.segment}
-                  </h3>
-                  {isFeature && (
-                    <span style={{
-                      display: "inline-flex", alignItems: "center", gap: 8,
-                      marginTop: 8,
+                <div style={{ minWidth: 0, display: "flex", flexDirection: "column", gap: 10 }}>
+                  {/* Top row: time range + duration label */}
+                  <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+                    <span className="sg-agenda-time-main" style={{
                       fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
-                      fontSize: 9.5, fontWeight: 600, letterSpacing: "0.3em", textTransform: "uppercase",
-                      color: SG_ORANGE,
+                      fontSize: "clamp(16px, 1.3vw, 18.5px)", fontWeight: 600,
+                      color: isBreak ? "rgba(255,255,255,0.5)" : SG_WHITE,
+                      fontVariantNumeric: "tabular-nums", letterSpacing: "-0.012em",
+                      transition: "color 0.3s ease",
                     }}>
-                      <span aria-hidden style={{ width: 14, height: 1, background: SG_ORANGE }} />
-                      Featured
+                      {item.start}
+                      {item.end !== "—" && <span style={{ color: "rgba(255,255,255,0.5)", fontWeight: 400 }}> – {item.end}</span>}
                     </span>
-                  )}
-                </div>
+                    <span style={{
+                      fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                      fontSize: 9.5, fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase",
+                      color: "rgba(255,255,255,0.5)",
+                    }}>
+                      {item.duration}
+                    </span>
+                  </div>
 
-                {/* Owner */}
-                <div className="sg-agenda-owner" style={{ textAlign: "right", paddingTop: 4 }}>
-                  <span style={{
-                    fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
-                    fontSize: "clamp(11.5px, 0.95vw, 13px)", fontWeight: 400,
-                    color: isBreak ? SG_GRAY : SG_GRAY_DEEP,
-                    letterSpacing: "-0.005em",
-                    lineHeight: 1.4,
-                  }}>
-                    {item.owner}
-                  </span>
+                  {/* Segment heading + optional subtitle + optional description */}
+                  <div>
+                    <h3 style={{
+                      margin: 0,
+                      fontFamily: isBreak
+                        ? `Georgia, "Cambria", "Times New Roman", serif`
+                        : "var(--font-sohne-breit), system-ui, sans-serif",
+                      fontStyle: isBreak ? "italic" : "normal",
+                      fontSize: isFeature ? "clamp(16px, 1.35vw, 19px)" : "clamp(14.5px, 1.2vw, 17px)",
+                      fontWeight: isFeature ? 600 : isBreak ? 400 : 500,
+                      color: isBreak ? "rgba(255,255,255,0.62)" : SG_WHITE,
+                      letterSpacing: "-0.018em", lineHeight: 1.32,
+                    }}>
+                      {item.segment}
+                    </h3>
+                    {item.subtitle && (
+                      <p style={{
+                        margin: "6px 0 0",
+                        fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
+                        fontStyle: "italic",
+                        fontSize: "clamp(13px, 1.05vw, 15px)",
+                        fontWeight: 400,
+                        color: "rgba(255,255,255,0.72)",
+                        letterSpacing: "-0.008em",
+                        lineHeight: 1.42,
+                      }}>
+                        {item.subtitle}
+                      </p>
+                    )}
+                    {item.description && (
+                      <p style={{
+                        margin: "8px 0 0",
+                        fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                        fontSize: "clamp(11.5px, 0.95vw, 13px)",
+                        fontWeight: 400,
+                        color: "rgba(255,255,255,0.62)",
+                        letterSpacing: "-0.003em",
+                        lineHeight: 1.55,
+                      }}>
+                        {item.description}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Bottom row: featured badge (left) + owner (right) */}
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", marginTop: 2 }}>
+                    {isFeature ? (
+                      <span style={{
+                        display: "inline-flex", alignItems: "center", gap: 8,
+                        fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                        fontSize: 9.5, fontWeight: 600, letterSpacing: "0.3em", textTransform: "uppercase",
+                        color: SG_ORANGE,
+                      }}>
+                        <span aria-hidden style={{ width: 14, height: 1, background: SG_ORANGE }} />
+                        Featured
+                      </span>
+                    ) : <span aria-hidden />}
+                    <span style={{
+                      fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                      fontSize: "clamp(11px, 0.9vw, 12.5px)", fontWeight: 400,
+                      color: isBreak ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.72)",
+                      letterSpacing: "-0.005em",
+                      lineHeight: 1.4,
+                      textAlign: "right",
+                    }}>
+                      {item.owner}
+                    </span>
+                  </div>
                 </div>
               </div>
             );
-          })}
-        </div>
+          };
+
+          return (
+            <div className="sg-agenda sg-agenda-cols" style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "clamp(16px, 2.4vw, 36px)",
+            }}>
+              <div>
+                {AGENDA.slice(0, splitAt).map((item, j) => renderRow(item, j, j === splitAt - 1))}
+              </div>
+              <div>
+                {AGENDA.slice(splitAt).map((item, j) => renderRow(item, j + splitAt, j === AGENDA.length - splitAt - 1))}
+              </div>
+            </div>
+          );
+        })()}
 
         {/* Closing footnote — italic Georgia, gentle */}
         <p style={{
@@ -1667,7 +1923,7 @@ function AgendaSection() {
           fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
           fontStyle: "italic", fontWeight: 400,
           fontSize: "clamp(11.5px, 0.9vw, 12.5px)",
-          color: "rgba(10,14,18,0.4)",
+          color: "rgba(255,255,255,0.45)",
           textAlign: "center",
           letterSpacing: "0.005em",
           opacity: inView ? 1 : 0,
@@ -1679,28 +1935,24 @@ function AgendaSection() {
 
       <style jsx global>{`
         .sg-agenda-row:hover {
-          background: rgba(113, 181, 63, 0.025);
+          background: rgba(143, 224, 96, 0.06);
         }
         .sg-agenda-row.is-feature:hover {
-          background: rgba(113, 181, 63, 0.05);
+          background: rgba(143, 224, 96, 0.10);
         }
         .sg-agenda-row:hover .sg-agenda-time-main {
           color: ${SG_ORANGE} !important;
         }
+        @media (max-width: 860px) {
+          .sg-agenda-cols {
+            grid-template-columns: 1fr !important;
+            gap: 0 !important;
+          }
+        }
         @media (max-width: 760px) {
           .sg-agenda-row {
-            grid-template-columns: 2px 1fr !important;
-            row-gap: 6px !important;
-            column-gap: 14px !important;
-            padding: clamp(11px, 2.4vw, 14px) clamp(6px, 1vw, 10px) !important;
-          }
-          .sg-agenda-time, .sg-agenda-segment {
-            grid-column: 2 !important;
-          }
-          .sg-agenda-owner {
-            grid-column: 2 !important;
-            text-align: left !important;
-            margin-top: 2px;
+            padding: clamp(12px, 2.4vw, 16px) clamp(6px, 1vw, 10px) !important;
+            column-gap: 12px !important;
           }
           .sg-agenda-header {
             gap: 16px !important;
@@ -1718,18 +1970,19 @@ function AboutSection() {
 
   return (
     <section ref={ref} id="about" style={{
-      background: `linear-gradient(180deg, ${SG_BLACK} 0%, ${SG_NAVY} 55%, ${SG_NAVY_DEEP} 100%)`,
+      background: "transparent",
       padding: "clamp(64px, 8vh, 96px) 0",
-      position: "relative", overflow: "hidden",
+      position: "relative",
     }}>
       {/* Ambient lime halo — behind the right image */}
       <div aria-hidden style={{
         position: "absolute", top: "50%", right: "-5%",
-        transform: "translateY(-50%)",
+        transform: "translateY(-50%) translateZ(0)",
         width: "55%", height: "75%",
         background: `radial-gradient(ellipse 60% 60% at 50% 50%, ${SG_ORANGE}1c 0%, ${SG_TEAL}0d 35%, transparent 70%)`,
         pointerEvents: "none",
-        filter: "blur(60px)",
+        filter: "blur(40px)",
+        willChange: "transform",
       }} />
       {/* Subtle counter-glow bottom-left */}
       <div aria-hidden style={{
@@ -1820,9 +2073,7 @@ function AboutSection() {
                 color: SG_WHITE, textDecoration: "none",
                 padding: "13px 22px", borderRadius: 999,
                 border: "1px solid rgba(255,255,255,0.22)",
-                background: "rgba(255,255,255,0.03)",
-                backdropFilter: "blur(8px)",
-                WebkitBackdropFilter: "blur(8px)",
+                background: "rgba(255,255,255,0.05)",
                 transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
               }}
             >
@@ -1846,8 +2097,10 @@ function AboutSection() {
             <div aria-hidden style={{
               position: "absolute", inset: "-8%",
               background: `radial-gradient(ellipse 60% 55% at 50% 50%, ${SG_ORANGE}22 0%, ${SG_TEAL}10 40%, transparent 75%)`,
-              filter: "blur(40px)",
+              filter: "blur(30px)",
               pointerEvents: "none",
+              transform: "translateZ(0)",
+              willChange: "transform",
             }} />
 
             <div style={{
@@ -1950,17 +2203,19 @@ function RegisterSection() {
 
   return (
     <section ref={ref} id="register" style={{
-      background: SG_BONE,
+      background: "transparent",
       padding: "clamp(64px, 8vh, 96px) 0",
-      position: "relative", overflow: "hidden",
+      position: "relative",
     }}>
       {/* Subtle ambient — lime kiss in top-right */}
       <div aria-hidden style={{
         position: "absolute", top: "-15%", right: "-10%",
         width: "55%", height: "75%",
         background: `radial-gradient(ellipse 60% 60% at 50% 50%, ${SG_ORANGE}10 0%, ${SG_TEAL}06 40%, transparent 75%)`,
-        filter: "blur(60px)",
+        filter: "blur(40px)",
         pointerEvents: "none",
+        transform: "translateZ(0)",
+        willChange: "transform",
       }} />
 
       <div style={{
@@ -1995,7 +2250,7 @@ function RegisterSection() {
               fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
               fontSize: "clamp(32px, 4.4vw, 56px)", fontWeight: 600,
               letterSpacing: "-0.03em", lineHeight: 1.02,
-              color: SG_NAVY, margin: 0, maxWidth: 480,
+              color: SG_WHITE, margin: 0, maxWidth: 480,
             }}>
               Reserve your seat.
             </h2>
@@ -2006,7 +2261,7 @@ function RegisterSection() {
               fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
               fontStyle: "italic", fontWeight: 400,
               fontSize: "clamp(13.5px, 1.05vw, 15px)",
-              color: SG_GRAY,
+              color: "rgba(255,255,255,0.65)",
               lineHeight: 1.55,
             }}>
               An invitation-only conversation on the future of mass-capacity storage.
@@ -2018,7 +2273,7 @@ function RegisterSection() {
               fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
               fontSize: "clamp(13px, 1.05vw, 14.5px)",
               fontWeight: 400,
-              color: SG_GRAY_DEEP,
+              color: "rgba(255,255,255,0.78)",
               lineHeight: 1.72,
               letterSpacing: "-0.003em",
             }}>
@@ -2030,7 +2285,7 @@ function RegisterSection() {
               maxWidth: 280,
               height: 1,
               margin: "clamp(28px, 3.4vh, 38px) 0 clamp(20px, 2.4vh, 26px)",
-              background: "linear-gradient(90deg, rgba(10,14,18,0.18) 0%, rgba(10,14,18,0.10) 60%, transparent 100%)",
+              background: "linear-gradient(90deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.10) 60%, transparent 100%)",
               transform: inView ? "scaleX(1)" : "scaleX(0.4)",
               transformOrigin: "left",
               opacity: inView ? 1 : 0,
@@ -2050,7 +2305,7 @@ function RegisterSection() {
                   fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
                   fontSize: "clamp(13px, 1vw, 14px)",
                   fontWeight: 500,
-                  color: SG_NAVY,
+                  color: "rgba(255,255,255,0.92)",
                   letterSpacing: "-0.005em",
                   opacity: inView ? 1 : 0,
                   transform: inView ? "translateX(0)" : "translateX(-8px)",
@@ -2075,18 +2330,18 @@ function RegisterSection() {
             </ul>
           </div>
 
-          {/* RIGHT — Custom Seagate form */}
+          {/* RIGHT — Custom Seagate form (kept light as a focal action card) */}
           <div className="sg-register-form" style={{
             background: `linear-gradient(180deg, ${SG_WHITE} 0%, #FAFAF7 100%)`,
             borderRadius: 20,
             padding: "clamp(28px, 3vw, 40px)",
             boxShadow: [
-              "inset 0 1px 0 rgba(255,255,255,0.9)",
-              "0 1px 2px rgba(10,14,18,0.04)",
-              "0 12px 32px rgba(10,14,18,0.06)",
-              "0 32px 80px rgba(10,14,18,0.10)",
+              "inset 0 1px 0 rgba(255,255,255,0.95)",
+              "0 1px 3px rgba(0,0,0,0.25)",
+              "0 16px 48px rgba(0,0,0,0.4)",
+              "0 40px 96px rgba(0,0,0,0.45)",
             ].join(", "),
-            border: "1px solid rgba(10,14,18,0.06)",
+            border: "1px solid rgba(255,255,255,0.12)",
             position: "relative",
             opacity: inView ? 1 : 0,
             transform: inView ? "translateY(0)" : "translateY(20px)",
@@ -2551,12 +2806,81 @@ export default function SeagatePage() {
     }}>
       <SeagateNav />
       <HeroSection />
-      <StatementSection />
-      <TakeawaysSection />
-      <SpeakersSection />
-      <AgendaSection />
-      <AboutSection />
-      <RegisterSection />
+
+      {/* Unified dark zone — single section, single BG, continuous flow across all sections */}
+      <section className="sg-dark-zone" style={{
+        background: `
+          radial-gradient(ellipse 45% 12% at 80% 4%, rgba(55, 115, 85, 0.22) 0%, transparent 65%),
+          radial-gradient(ellipse 50% 14% at 18% 14%, rgba(30, 80, 55, 0.18) 0%, transparent 62%),
+          radial-gradient(ellipse 60% 14% at 50% 22%, ${SG_TEAL}10 0%, transparent 68%),
+          radial-gradient(ellipse 42% 14% at 82% 32%, rgba(55, 120, 90, 0.20) 0%, transparent 65%),
+          radial-gradient(ellipse 48% 14% at 22% 42%, rgba(35, 90, 65, 0.18) 0%, transparent 65%),
+          radial-gradient(ellipse 38% 12% at 70% 52%, ${SG_ORANGE}10 0%, transparent 65%),
+          radial-gradient(ellipse 55% 14% at 30% 60%, rgba(40, 100, 75, 0.18) 0%, transparent 65%),
+          radial-gradient(ellipse 45% 14% at 78% 70%, rgba(55, 120, 90, 0.20) 0%, transparent 65%),
+          radial-gradient(ellipse 60% 14% at 50% 80%, ${SG_TEAL}10 0%, transparent 68%),
+          radial-gradient(ellipse 50% 14% at 20% 88%, rgba(35, 90, 65, 0.18) 0%, transparent 65%),
+          radial-gradient(ellipse 40% 12% at 70% 96%, ${SG_ORANGE}14 0%, transparent 65%),
+          linear-gradient(180deg, #060d0a 0%, #04080a 50%, #02060a 100%)
+        `,
+        position: "relative",
+        overflow: "hidden",
+        borderTop: "1px solid rgba(255,255,255,0.06)",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        // GPU-composite: rasterize the heavy mesh gradient ONCE, just translate on scroll.
+        // Avoids per-frame repaints of 11 radial layers + linear base.
+        transform: "translateZ(0)",
+        WebkitTransform: "translateZ(0)",
+      }}>
+        {/* Wrapper-level grain noise — luxury film texture spanning all dark sections */}
+        <div aria-hidden style={{
+          position: "absolute", inset: 0,
+          backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' seed='5'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")`,
+          backgroundSize: "200px 200px",
+          opacity: 0.035,
+          pointerEvents: "none",
+          zIndex: 1,
+          // GPU-composite: tile pattern only paints once into the layer.
+          transform: "translateZ(0)",
+          WebkitTransform: "translateZ(0)",
+        }} />
+
+        {/* Wrapper-level edge vignette — frames the whole dark zone */}
+        <div aria-hidden style={{
+          position: "absolute", inset: 0,
+          background: "radial-gradient(ellipse 95% 95% at 50% 50%, transparent 0%, transparent 65%, rgba(2,5,8,0.4) 92%, rgba(1,3,6,0.7) 100%)",
+          pointerEvents: "none",
+          zIndex: 1,
+        }} />
+
+        {/* Top hairline — at the very top of the dark zone (just under Hero) */}
+        <div aria-hidden style={{
+          position: "absolute",
+          top: 0, left: "20%", right: "20%",
+          height: 1,
+          background: `linear-gradient(90deg, transparent 0%, ${SG_ORANGE}66 50%, transparent 100%)`,
+          pointerEvents: "none",
+          zIndex: 2,
+        }} />
+
+        {/* Bottom hairline — at the very bottom of the dark zone */}
+        <div aria-hidden style={{
+          position: "absolute",
+          bottom: 0, left: "20%", right: "20%",
+          height: 1,
+          background: `linear-gradient(90deg, transparent 0%, ${SG_GREEN_BRIGHT}55 50%, transparent 100%)`,
+          pointerEvents: "none",
+          zIndex: 2,
+        }} />
+
+        <StatementSection />
+        <TakeawaysSection />
+        <SpeakersSection />
+        <AgendaSection />
+        <AboutSection />
+        <RegisterSection />
+      </section>
+
       <SeagateFooter />
     </div>
   );
