@@ -951,6 +951,12 @@ const SPEAKERS = [
     org: "Q5 Arabia",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Neil_Evans.png",
   },
+  {
+    name: "Sridhar Rajakumar",
+    title: "Business Transformation Management Advisor, SAP EMEA",
+    org: "SAP MENA LLC",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sridhar_Rajakumar.png",
+  },
 ];
 
 function SpeakersSection() {
