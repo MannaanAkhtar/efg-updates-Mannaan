@@ -3698,6 +3698,453 @@ function WhoShouldAttend() {
   );
 }
 
+// ─── EVENT SPONSORS 2026 ────────────────────────────────────────────────────
+// Current-event sponsors, grouped by tier. As more sign on, append to this
+// list with the appropriate `tier` and render tiers will populate
+// automatically (strategic at the top, then platinum / gold / supporting).
+const EVENT_SPONSORS_2026: {
+  name: string;
+  logo: string;
+  url?: string;
+  tier: "strategic" | "platinum" | "gold" | "supporting" | "media";
+  scale?: number;        // multiplier on the tier's default logo height
+  keepColor?: boolean;   // skip the brightness(0) invert(1) white treatment
+}[] = [
+  {
+    name: "Waterfall Security Solutions",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Waterfall_logo_white.png",
+    url: "https://waterfall-security.com/",
+    tier: "strategic",
+    keepColor: true,
+  },
+  {
+    name: "Times of AI",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Timesofai-02.png",
+    url: "https://timesofai.com/",
+    tier: "media",
+    scale: 1.55,
+  },
+  {
+    name: "CapitalBayNews",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/CapitalbaynewsLogo.svg",
+    url: "https://www.capitalbay.news/",
+    tier: "media",
+    keepColor: true,
+  },
+  {
+    name: "Times of Blockchain",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Times-OF-Blockchain-1.svg",
+    url: "https://www.timesofblockchain.com/",
+    tier: "media",
+  },
+  {
+    name: "TEX Afrika Media",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/tex_afrika_media.png",
+    url: "https://www.texafrica.com/",
+    tier: "media",
+    keepColor: true,
+  },
+];
+
+const TIER_LABEL: Record<typeof EVENT_SPONSORS_2026[number]["tier"], string> = {
+  strategic: "Strategic Sponsor",
+  platinum: "Platinum Sponsors",
+  gold: "Gold Sponsors",
+  supporting: "Supporting Sponsors",
+  media: "Media Partners",
+};
+
+function EventSponsorsSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const tiers: (keyof typeof TIER_LABEL)[] = ["strategic", "platinum", "gold", "supporting", "media"];
+  const activeTiers = tiers.filter((t) => EVENT_SPONSORS_2026.some((s) => s.tier === t));
+
+  if (activeTiers.length === 0) return null;
+
+  return (
+    <section ref={ref} id="event-sponsors" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative" }}>
+      {/* Ambient accent glows */}
+      <div style={{ position: "absolute", top: "20%", left: "-5%", width: 420, height: 420, borderRadius: "50%", background: `radial-gradient(circle, ${CYAN}10 0%, transparent 70%)`, filter: "blur(80px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "20%", right: "-5%", width: 420, height: 420, borderRadius: "50%", background: `radial-gradient(circle, ${C}10 0%, transparent 70%)`, filter: "blur(80px)", pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: EASE }}
+          style={{ marginBottom: 48, textAlign: "center" }}
+        >
+          <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: CYAN, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>
+            2026 Sponsors
+          </span>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", lineHeight: 1.05, letterSpacing: "-2px", color: "white", margin: "0 0 16px" }}>
+            Backed by industry{" "}
+            <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              leaders
+            </span>
+          </h2>
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 16, fontWeight: 400, color: "rgba(255,255,255,0.5)", lineHeight: 1.7, margin: "0 auto", maxWidth: 600 }}>
+            The organisations powering OT Security First Africa 2026.
+          </p>
+        </motion.div>
+
+        {/* Tier groups */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(40px, 5vw, 64px)" }}>
+          {activeTiers.map((tier, tIdx) => {
+            const sponsorsInTier = EVENT_SPONSORS_2026.filter((s) => s.tier === tier);
+            const isStrategic = tier === "strategic";
+            // Strategic tier renders one prominent centered card; lower tiers
+            // render as multi-column grids so they read as "rows of sponsors".
+            const cols = isStrategic ? 1 : Math.min(sponsorsInTier.length, 4);
+            const cardMaxWidth = isStrategic ? 360 : 240;
+
+            return (
+              <motion.div
+                key={tier}
+                initial={{ opacity: 0, y: 24 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.75, delay: 0.15 + tIdx * 0.1, ease: EASE }}
+                style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}
+              >
+                {/* Tier label */}
+                <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                  <span style={{ width: 28, height: 1, background: `linear-gradient(90deg, transparent, ${isStrategic ? C_BRIGHT : CYAN})` }} />
+                  <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: isStrategic ? C_BRIGHT : CYAN, textTransform: "uppercase", letterSpacing: "4px" }}>
+                    {TIER_LABEL[tier]}
+                  </span>
+                  <span style={{ width: 28, height: 1, background: `linear-gradient(270deg, transparent, ${isStrategic ? C_BRIGHT : CYAN})` }} />
+                </div>
+
+                {/* Sponsor cards */}
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: `repeat(${cols}, minmax(180px, ${cardMaxWidth}px))`,
+                    gap: 20,
+                    justifyContent: "center",
+                    width: "100%",
+                  }}
+                  className="otsf-event-sponsors-grid"
+                >
+                  {sponsorsInTier.map((sponsor, i) => {
+                    const accent = isStrategic ? C_BRIGHT : (i % 2 === 0 ? CYAN : C_BRIGHT);
+                    const accentRgb = isStrategic ? "232,107,184" : (i % 2 === 0 ? "0,201,255" : "232,107,184");
+                    const padding = isStrategic ? "clamp(22px, 2.4vw, 32px) clamp(24px, 2.6vw, 36px)" : "clamp(20px, 2.4vw, 28px) clamp(18px, 2vw, 24px)";
+                    const logoHeight = isStrategic ? "clamp(64px, 7vw, 96px)" : "clamp(40px, 4.5vw, 60px)";
+
+                    const inner = (
+                      <div className="otsf-event-sponsor-wrap" style={{ position: "relative" }}>
+                        {/* Ambient outer glow — blurs freely without being clipped */}
+                        <div
+                          className="otsf-event-sponsor-glow"
+                          aria-hidden
+                          style={{
+                            position: "absolute",
+                            inset: -20,
+                            borderRadius: 36,
+                            background: `radial-gradient(ellipse 75% 60% at 50% 50%, rgba(${accentRgb},0.22) 0%, transparent 70%)`,
+                            filter: "blur(26px)",
+                            opacity: 0.55,
+                            pointerEvents: "none",
+                            transition: "opacity 0.55s ease",
+                            zIndex: 0,
+                          }}
+                        />
+
+                        {/* ── Outer skeu plinth — display tray under the bezel. Gives the
+                              card a "mounted on a surface" feel rather than floating flat.
+                              Polished dark base with a raised rim light + carved underside. */}
+                        <div
+                          className="otsf-event-sponsor-plinth"
+                          style={{
+                            position: "relative",
+                            zIndex: 1,
+                            padding: isStrategic ? 8 : 6,
+                            borderRadius: 26,
+                            background: `linear-gradient(180deg, rgba(28,30,58,0.95) 0%, rgba(14,16,38,1) 100%)`,
+                            boxShadow: `
+                              0 1.5px 0 0 rgba(255,255,255,0.08) inset,
+                              0 -1.5px 0 0 rgba(0,0,0,0.55) inset,
+                              0 0 0 1px rgba(255,255,255,0.04) inset,
+                              0 28px 70px rgba(0,0,0,0.55),
+                              0 8px 24px rgba(0,0,0,0.4),
+                              0 0 48px rgba(${accentRgb},0.18)
+                            `,
+                            transition: "transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease",
+                            overflow: "visible",
+                          }}
+                        >
+                          {/* Plinth top-edge specular catch */}
+                          <span aria-hidden style={{
+                            position: "absolute",
+                            top: 1,
+                            left: "14%",
+                            right: "14%",
+                            height: 1,
+                            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.45) 50%, transparent)",
+                            pointerEvents: "none",
+                            zIndex: 6,
+                          }} />
+
+                          {/* Embossed rivets at the plinth corners (strategic tier only) */}
+                          {isStrategic && (
+                            <>
+                              {[
+                                { top: 7, left: 7 },
+                                { top: 7, right: 7 },
+                                { bottom: 7, left: 7 },
+                                { bottom: 7, right: 7 },
+                              ].map((pos, idx) => (
+                                <span
+                                  key={`rivet-${idx}`}
+                                  aria-hidden
+                                  style={{
+                                    position: "absolute",
+                                    ...pos,
+                                    width: 5,
+                                    height: 5,
+                                    borderRadius: "50%",
+                                    background: `radial-gradient(circle at 35% 30%, rgba(255,255,255,0.7) 0%, rgba(140,140,160,0.5) 30%, rgba(20,22,42,1) 100%)`,
+                                    boxShadow: `0 1px 1px rgba(0,0,0,0.7), 0 0 0 0.5px rgba(0,0,0,0.6), inset 0 0.5px 0 rgba(255,255,255,0.35)`,
+                                    pointerEvents: "none",
+                                    zIndex: 7,
+                                  }}
+                                />
+                              ))}
+                            </>
+                          )}
+
+                          {/* Metallic bezel — polished metal frame */}
+                          <div
+                            style={{
+                              position: "relative",
+                              padding: 1.5,
+                              borderRadius: 20,
+                              background: `linear-gradient(135deg, rgba(${accentRgb},0.7) 0%, rgba(${accentRgb},0.22) 18%, rgba(255,255,255,0.16) 38%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.14) 62%, rgba(${accentRgb},0.22) 82%, rgba(${accentRgb},0.65) 100%)`,
+                              boxShadow: `0 0 0 1px rgba(0,0,0,0.45), 0 0 28px rgba(${accentRgb},0.18)`,
+                              transition: "box-shadow 0.5s ease",
+                            }}
+                            className="otsf-event-sponsor-card"
+                          >
+                            {/* Inner specular highlight ring on the bezel */}
+                            <div
+                              aria-hidden
+                              style={{
+                                position: "absolute",
+                                inset: 1.5,
+                                borderRadius: 18,
+                                pointerEvents: "none",
+                                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.05)",
+                                zIndex: 3,
+                              }}
+                            />
+
+                            {/* Recessed channel — thin dark groove between bezel and panel */}
+                            <div
+                              aria-hidden
+                              style={{
+                                position: "absolute",
+                                inset: 1.5,
+                                borderRadius: 18,
+                                pointerEvents: "none",
+                                boxShadow: `inset 0 0 0 1.5px rgba(0,0,0,0.55)`,
+                                zIndex: 4,
+                              }}
+                            />
+
+                            <div
+                              style={{
+                                position: "relative",
+                                borderRadius: 18,
+                                background: `linear-gradient(165deg, rgba(18,22,52,0.96) 0%, rgba(12,14,34,0.98) 50%, rgba(8,10,26,1) 100%)`,
+                                padding,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                minHeight: isStrategic ? 130 : 110,
+                                overflow: "hidden",
+                                // Embossed inset — panel reads as a plate pressed into the bezel
+                                boxShadow: `inset 0 2px 4px rgba(0,0,0,0.5), inset 0 -2px 2px rgba(255,255,255,0.04), inset 0 0 30px rgba(0,0,0,0.35)`,
+                              }}
+                            >
+                              {/* Hover shine sweep — diagonal bright bar that crosses on hover */}
+                              <div
+                                className="otsf-event-sponsor-shine"
+                                aria-hidden
+                                style={{
+                                  position: "absolute",
+                                  top: 0,
+                                  left: "-80%",
+                                  width: "55%",
+                                  height: "100%",
+                                  background: `linear-gradient(100deg, transparent, rgba(255,255,255,0.08) 50%, transparent)`,
+                                  transform: "skewX(-22deg)",
+                                  pointerEvents: "none",
+                                  transition: "left 1.2s cubic-bezier(0.22, 1, 0.36, 1)",
+                                  zIndex: 4,
+                                }}
+                              />
+
+                              {/* Top reflection line — bright brand-tinted hairline */}
+                              <div aria-hidden style={{ position: "absolute", top: 0, left: "8%", right: "8%", height: 1, background: `linear-gradient(90deg, transparent 8%, ${accent}dd 50%, transparent 92%)`, boxShadow: `0 0 14px ${accent}66`, pointerEvents: "none", zIndex: 5 }} />
+
+                              {/* Top inner-edge specular hairline (white catch under the brand line) */}
+                              <div aria-hidden style={{ position: "absolute", top: 2, left: "14%", right: "14%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.32) 50%, transparent)", pointerEvents: "none", zIndex: 5 }} />
+
+                              {/* Corner brackets — cinematic L-shapes (strategic tier only) */}
+                              {isStrategic && (
+                                <>
+                                  {[
+                                    { top: 12, left: 12, borderTop: true, borderLeft: true },
+                                    { top: 12, right: 12, borderTop: true, borderRight: true },
+                                    { bottom: 12, left: 12, borderBottom: true, borderLeft: true },
+                                    { bottom: 12, right: 12, borderBottom: true, borderRight: true },
+                                  ].map((pos, idx) => (
+                                    <span
+                                      key={idx}
+                                      aria-hidden
+                                      style={{
+                                        position: "absolute",
+                                        ...pos,
+                                        width: 12,
+                                        height: 12,
+                                        borderTop: pos.borderTop ? `1.5px solid ${accent}99` : undefined,
+                                        borderBottom: pos.borderBottom ? `1.5px solid ${accent}99` : undefined,
+                                        borderLeft: pos.borderLeft ? `1.5px solid ${accent}99` : undefined,
+                                        borderRight: pos.borderRight ? `1.5px solid ${accent}99` : undefined,
+                                        pointerEvents: "none",
+                                        zIndex: 5,
+                                      }}
+                                    />
+                                  ))}
+                                </>
+                              )}
+
+                              {/* Brushed-metal vertical micro-texture */}
+                              <div
+                                aria-hidden
+                                style={{
+                                  position: "absolute",
+                                  inset: 0,
+                                  opacity: 0.08,
+                                  mixBlendMode: "overlay",
+                                  backgroundImage: "repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 3px)",
+                                  pointerEvents: "none",
+                                  zIndex: 0,
+                                }}
+                              />
+
+                              {/* Film grain — very faint */}
+                              <div
+                                aria-hidden
+                                style={{
+                                  position: "absolute",
+                                  inset: 0,
+                                  opacity: 0.05,
+                                  mixBlendMode: "overlay",
+                                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                                  backgroundSize: "180px 180px",
+                                  pointerEvents: "none",
+                                  zIndex: 0,
+                                }}
+                              />
+
+                              {/* Logo — universal white treatment to match the dark card
+                                  unless the sponsor has keepColor (original colors stay).
+                                  `scale` enlarges the logo via transform so the layout box
+                                  (and the card around it) stays the tier's default size. */}
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={sponsor.logo}
+                                alt={`${sponsor.name} logo`}
+                                style={{
+                                  maxHeight: logoHeight,
+                                  maxWidth: "100%",
+                                  height: logoHeight,
+                                  width: "auto",
+                                  objectFit: "contain",
+                                  position: "relative",
+                                  zIndex: 2,
+                                  filter: sponsor.keepColor ? "none" : "brightness(0) invert(1)",
+                                  transform: sponsor.scale ? `scale(${sponsor.scale})` : undefined,
+                                  transformOrigin: "center",
+                                }}
+                                loading="lazy"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+
+                    // Sponsor name label rendered below the card — matches the
+                    // VB MENA sponsor card pattern (centered, muted Outfit text).
+                    const nameLabel = (
+                      <div style={{
+                        marginTop: 14,
+                        textAlign: "center",
+                        fontFamily: "var(--font-outfit)",
+                        fontSize: 12,
+                        fontWeight: 500,
+                        color: "rgba(255,255,255,0.5)",
+                        letterSpacing: "0.4px",
+                      }}>
+                        {sponsor.name}
+                      </div>
+                    );
+
+                    return sponsor.url ? (
+                      <a key={sponsor.name} href={sponsor.url} target="_blank" rel="noopener noreferrer" style={{ display: "block", textDecoration: "none" }}>
+                        {inner}
+                        {nameLabel}
+                      </a>
+                    ) : (
+                      <div key={sponsor.name}>
+                        {inner}
+                        {nameLabel}
+                      </div>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      <style jsx global>{`
+        .otsf-event-sponsor-plinth {
+          transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease;
+        }
+        .otsf-event-sponsor-wrap:hover .otsf-event-sponsor-plinth {
+          transform: translateY(-6px);
+          box-shadow:
+            0 1.5px 0 0 rgba(255,255,255,0.12) inset,
+            0 -1.5px 0 0 rgba(0,0,0,0.6) inset,
+            0 0 0 1px rgba(255,255,255,0.06) inset,
+            0 38px 90px rgba(0,0,0,0.65),
+            0 12px 32px rgba(0,0,0,0.5),
+            0 0 70px rgba(232,107,184,0.32) !important;
+        }
+        .otsf-event-sponsor-wrap:hover .otsf-event-sponsor-glow {
+          opacity: 0.9 !important;
+        }
+        .otsf-event-sponsor-wrap:hover .otsf-event-sponsor-shine {
+          left: 130% !important;
+        }
+        @media (max-width: 768px) {
+          .otsf-event-sponsors-grid {
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
+
 // ─── SPONSORS SECTION, Dual Marquee ─────────────────────────────────────────
 function SponsorsSection() {
   const ref = useRef(null);
@@ -4776,6 +5223,7 @@ export default function OTSecurityFirstJohannesburg2026() {
           <MarketDriversSection />
           <FocusAreas />
           <SpeakersSection />
+          <EventSponsorsSection />
           <OTTestimonials />
           <EventSnapshotSection />
           <WhoShouldAttend />

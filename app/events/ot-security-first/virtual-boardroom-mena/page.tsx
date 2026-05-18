@@ -334,6 +334,12 @@ const OTVB_SPONSORS_2026: { name: string; logo: string; url: string; tier: "plat
     tier: "supporting",
   },
   {
+    name: "Certes",
+    logo: `${S3}/logos/certes.png`,
+    url: "https://certes.ai/",
+    tier: "supporting",
+  },
+  {
     name: "Times of AI",
     logo: `${S3}/logos/Timesofai-02.png`,
     url: "https://timesofai.com/",
