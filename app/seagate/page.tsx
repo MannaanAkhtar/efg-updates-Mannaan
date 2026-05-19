@@ -375,16 +375,29 @@ function HeroSection() {
   // backdrop-filter on the pullquote, it caused composite layers to drop
   // frames on Mac and large Windows displays (headline letters
   // momentarily disappearing, image artifacts in the next section).
+  //
+  // Perf gate: useInView with a generous bottom margin so we KEEP the
+  // mesh + particles mounted while the hero is even partially visible,
+  // but UNMOUNT/PAUSE them entirely once the user scrolls past. The
+  // MeshGradient is a WebGL canvas running every frame; the 60-particle
+  // SVG runs CSS keyframe animations on every circle. Hiding them when
+  // scrolled away is the single biggest scroll-smoothness win.
+  const heroActive = useInView(ref, { margin: "0px 0px -10% 0px" });
 
   return (
-    <section ref={ref} id="top" style={{
-      position: "relative", overflow: "hidden",
-      background: "#000000",
-      minHeight: "100svh",
-      display: "flex", flexDirection: "column", justifyContent: "center",
-      paddingTop: "clamp(96px, 11vh, 130px)",
-      paddingBottom: "clamp(36px, 5vh, 60px)",
-    }}>
+    <section
+      ref={ref}
+      id="top"
+      data-hero-active={heroActive ? "true" : "false"}
+      style={{
+        position: "relative", overflow: "hidden",
+        background: "#000000",
+        minHeight: "100svh",
+        display: "flex", flexDirection: "column", justifyContent: "center",
+        paddingTop: "clamp(96px, 11vh, 130px)",
+        paddingBottom: "clamp(36px, 5vh, 60px)",
+      }}
+    >
       {/* ── Layer -1: Hero photograph — Exos chassis anchored right, ambient anchor (not subject) ── */}
       <Image
         src="https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/seagate_harware-hero.jpg"
@@ -405,15 +418,18 @@ function HeroSection() {
       {/* ── Layer 0: Mesh gradient — softened so it tints the photo without dominating.
             mix-blend-mode dropped: it was forcing the entire stack to recomposite
             every scroll frame. Plain opacity gives a close-enough look without the
-            per-frame cost. ── */}
-      <MeshGradient
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 0, opacity: 0.38 }}
-        colors={["#000000", "#020806", "#0a2418", "#1f5a32", "#3FB99B"]}
-        speed={0.32}
-        distortion={0.7}
-        swirl={0.55}
-        grainOverlay={0.05}
-      />
+            per-frame cost. Only rendered while hero is in view — once scrolled
+            past, the WebGL canvas unmounts so it stops eating GPU cycles. ── */}
+      {heroActive && (
+        <MeshGradient
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 0, opacity: 0.38 }}
+          colors={["#000000", "#020806", "#0a2418", "#1f5a32", "#3FB99B"]}
+          speed={0.32}
+          distortion={0.7}
+          swirl={0.55}
+          grainOverlay={0.05}
+        />
+      )}
 
       {/* ── Layer 0b: Left-anchored dark gradient — pushes the photo back, keeps headline column readable ── */}
       <div
@@ -461,39 +477,50 @@ function HeroSection() {
       />
 
       {/* ── Layer 2: Particle swarm — 60 circles along the J-curve.
-         Reduced from the original 130, single drop-shadow per circle
-         (was two), and no mix-blend-mode. Same atmosphere, ~70%
-         cheaper to paint. ── */}
-      <svg
-        aria-hidden
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-        style={{
-          position: "absolute", inset: 0, width: "100%", height: "100%",
-          zIndex: 2, pointerEvents: "none",
-          opacity: 0.7,
-        }}
-      >
-        {PARTICLES.map((p, i) => {
-          const style: React.CSSProperties & Record<string, string> = {
-            filter: `drop-shadow(0 0 ${(p.r * 3).toFixed(2)}px ${p.color})`,
-            animation: `sg-particle-float ${p.duration}s ease-in-out ${p.delay}s infinite alternate`,
-            transformOrigin: `${p.cx}px ${p.cy}px`,
-            "--sg-drift": `${(p.drift * 0.18).toFixed(2)}px`,
-          };
-          return (
-            <circle
-              key={i}
-              cx={p.cx}
-              cy={p.cy}
-              r={round4(p.r * 0.22)}
-              fill={p.color}
-              opacity={p.opacity}
-              style={style}
-            />
-          );
-        })}
-      </svg>
+         Per-particle drop-shadow REMOVED: it was forcing the compositor
+         to rasterize 60 separate filter passes every frame. Replaced
+         with a single SVG <filter> referenced once via filter="url(#sg-glow)"
+         on the wrapping <g> — the browser rasterizes the glow once and
+         caches the result. Also gated by heroActive so the whole SVG
+         drops out of the render tree when scrolled past. ── */}
+      {heroActive && (
+        <svg
+          aria-hidden
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          style={{
+            position: "absolute", inset: 0, width: "100%", height: "100%",
+            zIndex: 2, pointerEvents: "none",
+            opacity: 0.7,
+          }}
+        >
+          <defs>
+            <filter id="sg-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="0.5" />
+            </filter>
+          </defs>
+          <g filter="url(#sg-glow)">
+            {PARTICLES.map((p, i) => {
+              const style: React.CSSProperties & Record<string, string> = {
+                animation: `sg-particle-float ${p.duration}s ease-in-out ${p.delay}s infinite alternate`,
+                transformOrigin: `${p.cx}px ${p.cy}px`,
+                "--sg-drift": `${(p.drift * 0.18).toFixed(2)}px`,
+              };
+              return (
+                <circle
+                  key={i}
+                  cx={p.cx}
+                  cy={p.cy}
+                  r={round4(p.r * 0.32)}
+                  fill={p.color}
+                  opacity={p.opacity}
+                  style={style}
+                />
+              );
+            })}
+          </g>
+        </svg>
+      )}
 
       {/* ── Layer 3: Industrial wireframe grid — whisper ── */}
       <div
@@ -842,6 +869,16 @@ function HeroSection() {
           50% { transform: translate(-50%, -50%) scale(1.022); }
         }
         .sg-emblem { animation: sg-emblem-breath 10s ease-in-out infinite; }
+
+        /* Perf gate: when the hero is scrolled out of view, pause every
+           continuous animation inside it so the browser stops burning
+           main-thread + compositor cycles on stuff the user can't see. */
+        [data-hero-active="false"] .sg-pulse-dot,
+        [data-hero-active="false"] .sg-emblem,
+        [data-hero-active="false"] .sg-slash,
+        [data-hero-active="false"] circle {
+          animation-play-state: paused !important;
+        }
 
         /* Hero CTAs */
         .sg-cta-primary:hover {
