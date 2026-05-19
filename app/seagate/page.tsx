@@ -1893,7 +1893,7 @@ function AgendaSection() {
             opacity: inView ? 1 : 0,
             transition: "opacity 1.2s 0.25s ease",
           }}>
-            <span>11 Jun 2026</span>
+            <span>17 Jun 2026</span>
             <span aria-hidden style={{ width: 18, height: 1, background: "rgba(255,255,255,0.22)" }} />
             <span>Dubai</span>
           </div>
