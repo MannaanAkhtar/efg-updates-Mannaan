@@ -36,7 +36,7 @@ const SG_HAIRLINE = "rgba(10,14,18,0.10)";
 
 const LOGO_2C_NEG = "https://efg-final.s3.eu-north-1.amazonaws.com/logos/seagate_2c_horizontal_neg1.png"; // green swoosh + white wordmark (for dark bg)
 
-const EVENT_TARGET = "2026-06-11T10:30:00+04:00";
+const EVENT_TARGET = "2026-06-17T10:30:00+04:00";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const TAKEAWAYS = [
@@ -187,6 +187,7 @@ const NAV_LINKS = [
   { id: "speakers", label: "Speakers" },
   { id: "agenda", label: "Agenda" },
   { id: "about", label: "About" },
+  { id: "venue", label: "Venue" },
 ];
 
 function SeagateNav() {
@@ -384,14 +385,51 @@ function HeroSection() {
       paddingTop: "clamp(96px, 11vh, 130px)",
       paddingBottom: "clamp(36px, 5vh, 60px)",
     }}>
-      {/* ── Layer 0: Mesh gradient — vivid green/teal swirls on pure black ── */}
+      {/* ── Layer -1: Hero photograph — Exos chassis anchored right, ambient anchor (not subject) ── */}
+      <Image
+        src="https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/seagate_harware-hero.jpg"
+        alt=""
+        aria-hidden
+        fill
+        priority
+        sizes="100vw"
+        style={{
+          objectFit: "cover",
+          objectPosition: "right center",
+          zIndex: 0,
+          opacity: 0.94,
+          filter: "saturate(108%) contrast(106%) brightness(98%)",
+        }}
+      />
+
+      {/* ── Layer 0: Mesh gradient — softened so it tints the photo without dominating.
+            mix-blend-mode dropped: it was forcing the entire stack to recomposite
+            every scroll frame. Plain opacity gives a close-enough look without the
+            per-frame cost. ── */}
       <MeshGradient
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 0 }}
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 0, opacity: 0.38 }}
         colors={["#000000", "#020806", "#0a2418", "#1f5a32", "#3FB99B"]}
         speed={0.32}
         distortion={0.7}
         swirl={0.55}
-        grainOverlay={0.08}
+        grainOverlay={0.05}
+      />
+
+      {/* ── Layer 0b: Left-anchored dark gradient — pushes the photo back, keeps headline column readable ── */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute", inset: 0, zIndex: 0,
+          background: `linear-gradient(90deg,
+            rgba(0,0,0,0.96) 0%,
+            rgba(0,0,0,0.88) 16%,
+            rgba(0,0,0,0.55) 36%,
+            rgba(0,0,0,0.22) 58%,
+            rgba(0,0,0,0.08) 78%,
+            rgba(0,0,0,0) 100%
+          )`,
+          pointerEvents: "none",
+        }}
       />
 
       {/* ── Layer 1: Diagonal teal slash — Seagate hero signature cut ── */}
@@ -559,11 +597,12 @@ function HeroSection() {
             <span className="sg-pulse-dot" style={{ width: 6, height: 6, borderRadius: "50%", background: SG_ORANGE, boxShadow: `0 0 12px ${SG_ORANGE}80` }} />
             <span style={{
               fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
-              fontSize: 10.5, fontWeight: 600,
-              letterSpacing: "0.28em", textTransform: "uppercase",
-              color: "rgba(255,255,255,0.78)",
+              fontSize: "clamp(11px, 0.92vw, 13px)",
+              fontWeight: 600,
+              letterSpacing: "0.04em",
+              color: "rgba(255,255,255,0.88)",
             }}>
-              Executive Roundtable · Invite-Only
+              Executive Infrastructure Leadership Boardroom <span style={{ color: "rgba(255,255,255,0.55)", fontWeight: 500 }}>in Partnership with</span> Seagate
             </span>
           </div>
 
@@ -578,113 +617,147 @@ function HeroSection() {
             <span style={{ width: 24, height: 1, background: `linear-gradient(90deg, transparent, ${SG_ORANGE})` }} />
             <span>Dubai</span>
             <span style={{ color: SG_ORANGE, opacity: 0.7 }}>·</span>
-            <span style={{ color: SG_WHITE }}>11 June 2026</span>
+            <span style={{ color: SG_WHITE }}>17 June 2026</span>
           </div>
         </div>
 
-        {/* ─── MAIN SPLIT: stacked headline LEFT · pullquote RIGHT ─────── */}
-        <div className="sg-hero-split" style={{
-          display: "grid",
-          gridTemplateColumns: "1.15fr 1fr",
-          gap: "clamp(32px, 5vw, 80px)",
-          alignItems: "center",
+        {/* ─── MAIN: single left-anchored headline column ─────────────────
+            Editorial treatment — Söhne Breit display weight for the
+            statement, italic Georgia accent in Seagate green. Boardroom
+            feel, not billboard. Right side stays open so the chassis
+            reads as ambient anchor. ─── */}
+        <div className="sg-hero-headline" style={{
+          maxWidth: "min(920px, 68vw)",
+          position: "relative",
         }}>
-          {/* LEFT: stacked uppercase display title */}
+          {/* Thin green hairline accent — boardroom signature */}
+          <span
+            aria-hidden
+            style={{
+              display: "block",
+              width: "clamp(48px, 6vw, 78px)",
+              height: 2,
+              background: `linear-gradient(90deg, ${SG_ORANGE}, ${SG_TEAL})`,
+              borderRadius: 2,
+              marginBottom: "clamp(20px, 2.4vh, 30px)",
+              boxShadow: `0 0 12px ${SG_ORANGE}55`,
+            }}
+          />
+
+          {/* H1 — mixed-case Söhne Breit + italic Georgia accent */}
           <h1 style={{
             fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
-            fontSize: "clamp(22px, 4.6vw, 64px)",
-            fontWeight: 700,
+            fontSize: "clamp(28px, 4.4vw, 62px)",
+            fontWeight: 500,
             color: SG_WHITE,
-            letterSpacing: "-0.028em",
-            lineHeight: 0.98,
+            letterSpacing: "-0.02em",
+            lineHeight: 1.04,
             margin: 0,
             textAlign: "left",
-            textTransform: "uppercase",
-            overflowWrap: "break-word",
-            hyphens: "auto",
+            textShadow: "0 2px 24px rgba(0,0,0,0.65), 0 0 1px rgba(0,0,0,0.4)",
+            textWrap: "balance" as "balance",
           }}>
-            <span className="sg-h1-word sg-h1-word-1" style={{ display: "block" }}>Executive Infrastructure</span>
-            <span className="sg-h1-word sg-h1-word-2" style={{ display: "block" }}>Leadership Boardroom</span>
-            <span className="sg-h1-word sg-h1-word-3" style={{ display: "block", fontSize: "0.42em", fontWeight: 500, letterSpacing: "0.06em", color: "rgba(255,255,255,0.7)", marginTop: "0.18em", marginBottom: "0.05em" }}>in Partnership with</span>
-            <span className="sg-h1-word sg-h1-word-4" style={{ display: "block", color: SG_ORANGE }}>Seagate</span>
+            <span className="sg-h1-word sg-h1-word-1" style={{ display: "block" }}>
+              Tomorrow&rsquo;s Data Infrastructure
+            </span>
+            <span
+              className="sg-h1-word sg-h1-word-2"
+              style={{
+                display: "block",
+                fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
+                fontStyle: "italic",
+                fontWeight: 400,
+                color: SG_GREEN_BRIGHT,
+                fontSize: "1.08em",
+                letterSpacing: "-0.012em",
+                marginTop: "0.16em",
+                textShadow: "0 1px 2px rgba(0,0,0,0.7), 0 0 16px rgba(0,0,0,0.55)",
+              }}
+            >
+              Delivered Today
+            </span>
           </h1>
 
-          {/* RIGHT: editorial pullquote — REAL italic via serif fallback */}
-          <div
-            className="sg-hero-pullquote sg-hero-reveal sg-hero-reveal-pullquote"
+          {/* Subheading */}
+          <p
+            className="sg-hero-reveal-pullquote"
             style={{
-              position: "relative",
-              paddingLeft: "clamp(22px, 2.4vw, 36px)",
-              paddingRight: "clamp(16px, 2vw, 24px)",
-              paddingBlock: "clamp(8px, 1.4vh, 14px)",
-            }}
-          >
-            {/* Soft reading-surface — solid radial wash (backdrop-filter
-               removed; was forcing per-frame compositor re-rasterization
-               whenever the mesh-gradient underneath changed). */}
-            <span
-              aria-hidden
-              style={{
-                position: "absolute",
-                inset: "-6% -8% -6% -2%",
-                background: `radial-gradient(ellipse 80% 90% at 35% 50%, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.0) 85%)`,
-                borderRadius: 12,
-                pointerEvents: "none",
-                zIndex: 0,
-              }}
-            />
-
-            {/* Vertical green accent line */}
-            <span
-              aria-hidden
-              style={{
-                position: "absolute",
-                left: 0, top: "6%", bottom: "6%",
-                width: 2,
-                background: `linear-gradient(180deg, transparent 0%, ${SG_ORANGE}aa 18%, ${SG_ORANGE} 50%, ${SG_ORANGE}aa 82%, transparent 100%)`,
-                boxShadow: `0 0 18px ${SG_ORANGE}55`,
-                borderRadius: 2,
-                zIndex: 1,
-              }}
-            />
-
-            {/* Editorial pullquote — REAL italic from a serif typeface (Söhne Breit has no italic) */}
-            <p style={{
-              position: "relative",
-              zIndex: 1,
-              fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
-              fontWeight: 400,
-              fontStyle: "italic",
-              fontSize: "clamp(24px, 3vw, 44px)",
-              lineHeight: 1.18,
-              letterSpacing: "-0.012em",
-              color: "#FFFFFF",
-              margin: 0,
-              textWrap: "balance" as "balance",
-              maxWidth: 540,
-              textShadow: "0 1px 2px rgba(0,0,0,0.7), 0 0 18px rgba(0,0,0,0.55)",
-            }}>
-              Tomorrow&rsquo;s Data Infrastructure <span style={{ color: SG_GREEN_BRIGHT, fontStyle: "italic", fontWeight: 400, textShadow: "0 1px 2px rgba(0,0,0,0.7), 0 0 14px rgba(0,0,0,0.6)" }}>Delivered Today</span>
-            </p>
-
-            {/* Supporting paragraph — Söhne Breit */}
-            <p style={{
-              position: "relative",
-              zIndex: 1,
-              marginTop: "clamp(18px, 2.4vh, 26px)",
+              marginTop: "clamp(22px, 2.8vh, 34px)",
               marginBottom: 0,
               fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
-              fontSize: "clamp(13px, 1.1vw, 15.5px)",
+              fontSize: "clamp(13.5px, 1.05vw, 16px)",
               fontWeight: 400,
-              lineHeight: 1.65,
+              lineHeight: 1.62,
               letterSpacing: "0.005em",
               color: "rgba(255,255,255,0.78)",
-              maxWidth: 500,
+              maxWidth: 560,
               textShadow: "0 1px 2px rgba(0,0,0,0.6)",
               textWrap: "pretty" as "pretty",
-            }}>
-              Powering the infrastructure behind enterprise growth, cloud expansion, and AI-scale data environments.
-            </p>
+            }}
+          >
+            Powering the infrastructure behind enterprise growth, cloud expansion, and AI-scale data environments.
+          </p>
+
+          {/* ── CTA row — primary action + ghost secondary ── */}
+          <div
+            className="sg-hero-cta-row sg-hero-reveal-pullquote"
+            style={{
+              marginTop: "clamp(28px, 3.4vh, 40px)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "clamp(14px, 1.4vw, 22px)",
+              flexWrap: "wrap",
+            }}
+          >
+            <a
+              href="#register"
+              className="sg-cta-primary"
+              style={{
+                position: "relative",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                padding: "14px 22px",
+                borderRadius: 999,
+                fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                fontSize: "clamp(12.5px, 0.95vw, 14px)",
+                fontWeight: 600,
+                letterSpacing: "0.04em",
+                color: "#0A0E12",
+                background: `linear-gradient(135deg, ${SG_GREEN_BRIGHT} 0%, ${SG_ORANGE} 100%)`,
+                textDecoration: "none",
+                boxShadow: `0 8px 24px ${SG_ORANGE}40, 0 2px 6px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.35)`,
+                transition: "transform 0.25s ease, box-shadow 0.25s ease",
+              }}
+            >
+              Request Invitation
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+
+            <a
+              href="#agenda"
+              className="sg-cta-ghost"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                padding: "13px 20px",
+                borderRadius: 999,
+                fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                fontSize: "clamp(12.5px, 0.95vw, 14px)",
+                fontWeight: 500,
+                letterSpacing: "0.04em",
+                color: "rgba(255,255,255,0.88)",
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.18)",
+                textDecoration: "none",
+                transition: "background 0.25s ease, border-color 0.25s ease, color 0.25s ease",
+              }}
+            >
+              View Agenda
+            </a>
           </div>
         </div>
 
@@ -769,6 +842,20 @@ function HeroSection() {
           50% { transform: translate(-50%, -50%) scale(1.022); }
         }
         .sg-emblem { animation: sg-emblem-breath 10s ease-in-out infinite; }
+
+        /* Hero CTAs */
+        .sg-cta-primary:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 12px 32px ${SG_ORANGE}60, 0 4px 10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.45);
+        }
+        .sg-cta-primary:active {
+          transform: translateY(0);
+        }
+        .sg-cta-ghost:hover {
+          background: rgba(255,255,255,0.08);
+          border-color: rgba(255,255,255,0.3);
+          color: #FFFFFF;
+        }
 
         /* Responsive: stack the split on narrow screens */
         @media (max-width: 880px) {
@@ -1218,17 +1305,16 @@ function StatementSection() {
         }
         @media (max-width: 540px) {
           .sg-ov-pressures {
-            grid-template-columns: 1fr !important;
+            /* Stay in a 2x2 matrix on mobile — labels are short enough to fit. */
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            row-gap: 14px !important;
           }
-          .sg-ov-pressure,
-          .sg-ov-pressure:nth-child(odd) {
+          .sg-ov-pressure {
             border-right: none !important;
-            border-bottom: 1px solid rgba(255,255,255,0.08) !important;
-            padding-bottom: 14px !important;
+            padding: clamp(2px, 0.4vh, 4px) clamp(8px, 2.5vw, 12px) !important;
           }
-          .sg-ov-pressure:last-child {
-            border-bottom: none !important;
-            padding-bottom: 0 !important;
+          .sg-ov-pressure:nth-child(odd) {
+            border-right: 1px solid rgba(255,255,255,0.08) !important;
           }
           .sg-ov-body-col {
             max-width: 100% !important;
@@ -1710,7 +1796,7 @@ function AgendaSection() {
       padding: "clamp(64px, 8vh, 96px) 0",
       position: "relative",
     }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(20px, 4vw, 56px)", position: "relative" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 56px)", position: "relative" }}>
 
         {/* Editorial header — kicker + heading + italic subtitle (left) | date/venue meta (right) */}
         <div className="sg-agenda-header" style={{
@@ -1904,12 +1990,23 @@ function AgendaSection() {
           return (
             <div className="sg-agenda sg-agenda-cols" style={{
               display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "clamp(16px, 2.4vw, 36px)",
+              gridTemplateColumns: "1fr 1px 1fr",
+              columnGap: "clamp(36px, 5vw, 72px)",
+              position: "relative",
             }}>
               <div>
                 {AGENDA.slice(0, splitAt).map((item, j) => renderRow(item, j, j === splitAt - 1))}
               </div>
+              {/* Center hairline — fades in at top and bottom */}
+              <div
+                aria-hidden
+                className="sg-agenda-divider"
+                style={{
+                  width: 1,
+                  alignSelf: "stretch",
+                  background: `linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.10) 12%, rgba(255,255,255,0.10) 88%, transparent 100%)`,
+                }}
+              />
               <div>
                 {AGENDA.slice(splitAt).map((item, j) => renderRow(item, j + splitAt, j === AGENDA.length - splitAt - 1))}
               </div>
@@ -1946,7 +2043,10 @@ function AgendaSection() {
         @media (max-width: 860px) {
           .sg-agenda-cols {
             grid-template-columns: 1fr !important;
-            gap: 0 !important;
+            column-gap: 0 !important;
+          }
+          .sg-agenda-divider {
+            display: none !important;
           }
         }
         @media (max-width: 760px) {
@@ -2029,35 +2129,48 @@ function AboutSection() {
             <h2 style={{
               fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
               fontSize: "clamp(26px, 3.6vw, 44px)", fontWeight: 600,
-              letterSpacing: "-0.028em", lineHeight: 1.06,
-              color: SG_WHITE, margin: 0, maxWidth: 560,
+              letterSpacing: "-0.028em", lineHeight: 1.1,
+              color: SG_WHITE, margin: 0, maxWidth: 580,
             }}>
-              Storage that scales with the data you can&apos;t afford to lose.
+              Storage That Scales With the Data You Can&rsquo;t Afford to Lose
             </h2>
 
             <p style={{
-              margin: "clamp(14px, 1.8vh, 20px) 0 0",
-              maxWidth: 520,
+              margin: "clamp(16px, 2vh, 22px) 0 0",
+              maxWidth: 540,
               fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
               fontStyle: "italic", fontWeight: 400,
-              fontSize: "clamp(13.5px, 1.05vw, 15px)",
-              color: "rgba(255,255,255,0.72)",
+              fontSize: "clamp(14px, 1.1vw, 16px)",
+              color: "rgba(255,255,255,0.78)",
               lineHeight: 1.55,
             }}>
-              Four decades of building the infrastructure beneath the data-driven world.
+              For more than four decades, Seagate has helped build the infrastructure powering the world&rsquo;s data-driven economy.
             </p>
 
             <p style={{
               marginTop: "clamp(20px, 2.4vh, 28px)",
-              maxWidth: 540,
+              maxWidth: 560,
               fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
               fontSize: "clamp(13px, 1.05vw, 14.5px)",
               fontWeight: 400,
-              color: "rgba(255,255,255,0.68)",
+              color: "rgba(255,255,255,0.7)",
               lineHeight: 1.72,
               letterSpacing: "-0.003em",
             }}>
-              From hyperscale data centres to the AI workloads reshaping every industry, Seagate&apos;s high-capacity drives power the world&apos;s most demanding storage. The Mozaic 4+ platform marks the next leap — more data per drive, dramatically lower energy consumption.
+              From hyperscale data centres to AI workloads reshaping every industry, Seagate&rsquo;s high-capacity storage technologies support some of the world&rsquo;s most demanding enterprise environments — delivering scalability, reliability, and efficiency at global scale.
+            </p>
+
+            <p style={{
+              marginTop: "clamp(16px, 2vh, 22px)",
+              maxWidth: 560,
+              fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+              fontSize: "clamp(13px, 1.05vw, 14.5px)",
+              fontWeight: 400,
+              color: "rgba(255,255,255,0.7)",
+              lineHeight: 1.72,
+              letterSpacing: "-0.003em",
+            }}>
+              The next evolution arrives with Mozaic 4+ technology — enabling more data per drive, lower power consumption, and infrastructure designed for the era of mass capacity.
             </p>
 
             <a
@@ -2126,6 +2239,103 @@ function AboutSection() {
             </div>
           </div>
         </div>
+
+        {/* ─── Full-width stats row — below the 2-col grid ─── */}
+        <div
+          className="sg-about-stats"
+          style={{
+            marginTop: "clamp(48px, 6vh, 76px)",
+            paddingTop: "clamp(36px, 4vh, 48px)",
+            borderTop: "1px solid rgba(255,255,255,0.08)",
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap: "clamp(28px, 3.4vw, 56px)",
+          }}
+        >
+          {[
+            { value: "40%", suffix: "", label: "of the world's data is stored on Seagate drives" },
+            { value: "40%", suffix: "Less Energy", label: "compared to conventional storage alternatives" },
+            { value: "7-Year", suffix: "Technology Span", label: "built for long-term infrastructure planning" },
+            { value: "100TB", suffix: "Pathway", label: "scalable upgrade path from 30–50TB toward next-generation capacity" },
+          ].map((s, i) => (
+            <div
+              key={i}
+              className="sg-about-stat"
+              style={{
+                position: "relative",
+                paddingTop: 18,
+                opacity: inView ? 1 : 0,
+                transform: inView ? "translateY(0)" : "translateY(14px)",
+                transition: `opacity 0.8s cubic-bezier(0.22,1,0.36,1) ${0.2 + i * 0.08}s, transform 0.8s cubic-bezier(0.22,1,0.36,1) ${0.2 + i * 0.08}s`,
+              }}
+            >
+              {/* Top hairline — green→teal accent */}
+              <span
+                aria-hidden
+                style={{
+                  position: "absolute", top: 0, left: 0,
+                  width: 38, height: 2,
+                  background: `linear-gradient(90deg, ${SG_ORANGE}, ${SG_TEAL})`,
+                  borderRadius: 2,
+                  boxShadow: `0 0 10px ${SG_ORANGE}45`,
+                }}
+              />
+
+              {/* Value + suffix on shared baseline */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "baseline",
+                  gap: 10,
+                  flexWrap: "wrap",
+                  rowGap: 2,
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                    fontSize: "clamp(28px, 3.4vw, 44px)",
+                    fontWeight: 700,
+                    letterSpacing: "-0.025em",
+                    lineHeight: 1.02,
+                    color: SG_GREEN_BRIGHT,
+                  }}
+                >
+                  {s.value}
+                </span>
+                {s.suffix && (
+                  <span
+                    style={{
+                      fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                      fontSize: "clamp(13px, 1.05vw, 15.5px)",
+                      fontWeight: 600,
+                      letterSpacing: "0.005em",
+                      color: "rgba(255,255,255,0.86)",
+                    }}
+                  >
+                    {s.suffix}
+                  </span>
+                )}
+              </div>
+
+              {/* Descriptor line */}
+              <p
+                style={{
+                  margin: "12px 0 0",
+                  fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                  fontSize: "clamp(12px, 0.95vw, 13.5px)",
+                  fontWeight: 400,
+                  lineHeight: 1.55,
+                  letterSpacing: "0.003em",
+                  color: "rgba(255,255,255,0.62)",
+                  textWrap: "pretty" as "pretty",
+                }}
+              >
+                {s.label}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
 
       <style jsx global>{`
@@ -2146,6 +2356,229 @@ function AboutSection() {
             max-width: 420px;
             margin: 0 auto;
           }
+        }
+        @media (max-width: 980px) {
+          .sg-about-stats {
+            grid-template-columns: repeat(2, 1fr) !important;
+            row-gap: clamp(28px, 4vh, 36px) !important;
+          }
+        }
+        @media (max-width: 520px) {
+          .sg-about-stats {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── Venue Section — full-bleed image with editorial overlay ────────────────
+function VenueSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <section
+      ref={ref as React.RefObject<HTMLDivElement>}
+      id="venue"
+      style={{
+        position: "relative",
+        height: "clamp(420px, 60vh, 600px)",
+        overflow: "hidden",
+        marginTop: "clamp(40px, 6vh, 72px)",
+      }}
+    >
+      {/* Background image — full-bleed. Lazy-loaded (below the fold by ~5
+          sections) + GPU-composited so the photo rasterizes once into its
+          own layer instead of repainting on scroll. */}
+      <Image
+        src="https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Vida_Hotel.png"
+        alt="Vida Hotel — Skyline Ballroom, Dubai Mall"
+        fill
+        loading="lazy"
+        sizes="100vw"
+        style={{
+          objectFit: "cover",
+          objectPosition: "center center",
+          filter: "saturate(105%) contrast(104%) brightness(96%)",
+          transform: "translateZ(0)",
+          WebkitTransform: "translateZ(0)",
+        }}
+      />
+
+      {/* Left-to-right dark gradient — keeps the bottom-left text legible */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: `linear-gradient(95deg,
+            rgba(0,0,0,0.86) 0%,
+            rgba(0,0,0,0.7) 22%,
+            rgba(0,0,0,0.4) 44%,
+            rgba(0,0,0,0.12) 66%,
+            rgba(0,0,0,0) 88%
+          )`,
+          pointerEvents: "none",
+          transform: "translateZ(0)",
+          WebkitTransform: "translateZ(0)",
+        }}
+      />
+
+      {/* Top + bottom soft fades — blends with the dark zone above and the register section below */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: `linear-gradient(180deg,
+            rgba(2,6,10,0.55) 0%,
+            transparent 22%,
+            transparent 70%,
+            rgba(2,6,10,0.6) 100%
+          )`,
+          pointerEvents: "none",
+          transform: "translateZ(0)",
+          WebkitTransform: "translateZ(0)",
+        }}
+      />
+
+      {/* Text overlay — bottom-left, anchored to maxWidth grid */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          alignItems: "flex-end",
+          pointerEvents: "none",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 1240,
+            margin: "0 auto",
+            padding: "clamp(36px, 5.5vh, 64px) clamp(20px, 4vw, 56px)",
+            width: "100%",
+          }}
+        >
+          {/* Green hairline accent — page micro-pattern */}
+          <span
+            aria-hidden
+            style={{
+              display: "block",
+              width: "clamp(40px, 4vw, 56px)",
+              height: 2,
+              background: `linear-gradient(90deg, ${SG_ORANGE}, ${SG_TEAL})`,
+              borderRadius: 2,
+              marginBottom: "clamp(16px, 2vh, 22px)",
+              boxShadow: `0 0 12px ${SG_ORANGE}55`,
+              opacity: inView ? 1 : 0,
+              transform: inView ? "translateY(0)" : "translateY(12px)",
+              transition: "opacity 0.8s 0.1s cubic-bezier(0.22,1,0.36,1), transform 0.8s 0.1s cubic-bezier(0.22,1,0.36,1)",
+            }}
+          />
+
+          {/* Kicker */}
+          <span
+            style={{
+              display: "block",
+              fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: "0.32em",
+              textTransform: "uppercase",
+              color: SG_ORANGE,
+              marginBottom: "clamp(12px, 1.6vh, 16px)",
+              textShadow: "0 1px 2px rgba(0,0,0,0.6)",
+              opacity: inView ? 1 : 0,
+              transform: inView ? "translateY(0)" : "translateY(12px)",
+              transition: "opacity 0.8s 0.2s cubic-bezier(0.22,1,0.36,1), transform 0.8s 0.2s cubic-bezier(0.22,1,0.36,1)",
+            }}
+          >
+            Venue
+          </span>
+
+          {/* Venue name */}
+          <h2
+            style={{
+              fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+              fontSize: "clamp(34px, 5vw, 68px)",
+              fontWeight: 700,
+              letterSpacing: "-0.028em",
+              lineHeight: 1.02,
+              color: SG_WHITE,
+              margin: 0,
+              textShadow: "0 2px 24px rgba(0,0,0,0.7), 0 1px 3px rgba(0,0,0,0.5)",
+              opacity: inView ? 1 : 0,
+              transform: inView ? "translateY(0)" : "translateY(16px)",
+              transition: "opacity 0.95s 0.32s cubic-bezier(0.22,1,0.36,1), transform 0.95s 0.32s cubic-bezier(0.22,1,0.36,1)",
+            }}
+          >
+            Vida Hotel
+          </h2>
+
+          {/* Subline — italic Georgia editorial */}
+          <p
+            style={{
+              margin: "clamp(8px, 1.2vh, 12px) 0 0",
+              fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
+              fontStyle: "italic",
+              fontWeight: 400,
+              fontSize: "clamp(16px, 1.6vw, 24px)",
+              color: SG_GREEN_BRIGHT,
+              letterSpacing: "-0.005em",
+              lineHeight: 1.3,
+              textShadow: "0 1px 4px rgba(0,0,0,0.6)",
+              opacity: inView ? 1 : 0,
+              transform: inView ? "translateY(0)" : "translateY(14px)",
+              transition: "opacity 0.95s 0.44s cubic-bezier(0.22,1,0.36,1), transform 0.95s 0.44s cubic-bezier(0.22,1,0.36,1)",
+            }}
+          >
+            Skyline Ballroom · Dubai Mall
+          </p>
+
+          {/* Map link */}
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Vida+Dubai+Mall"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="sg-venue-map-cta"
+            style={{
+              pointerEvents: "auto",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              marginTop: "clamp(20px, 2.6vh, 28px)",
+              padding: "11px 18px",
+              borderRadius: 999,
+              fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+              fontSize: 12.5,
+              fontWeight: 500,
+              letterSpacing: "0.04em",
+              color: "rgba(255,255,255,0.86)",
+              textDecoration: "none",
+              background: "rgba(20,28,32,0.55)",
+              border: "1px solid rgba(255,255,255,0.22)",
+              transition: "background 0.3s ease, border-color 0.3s ease, color 0.3s ease",
+              opacity: inView ? 1 : 0,
+              transform: inView ? "translateY(0)" : "translateY(12px)",
+              transitionDelay: "0.56s",
+            }}
+          >
+            View on Map
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M7 17L17 7M9 7h8v8" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .sg-venue-map-cta:hover {
+          background: rgba(255, 255, 255, 0.12) !important;
+          border-color: rgba(255, 255, 255, 0.36) !important;
+          color: #ffffff !important;
         }
       `}</style>
     </section>
@@ -2878,6 +3311,7 @@ export default function SeagatePage() {
         <SpeakersSection />
         <AgendaSection />
         <AboutSection />
+        <VenueSection />
         <RegisterSection />
       </section>
 

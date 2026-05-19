@@ -84,9 +84,9 @@ const UPCOMING_EVENTS = [
     brandLogoTop: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/outsystems.png",
   },
   {
-    date: "June 11th, 2026",
+    date: "June 17th, 2026",
     month: "JUN",
-    day: "11",
+    day: "17",
     year: "2026",
     time: "10:30 – 14:30 GST",
     title: "Seagate Executive Roundtable",
