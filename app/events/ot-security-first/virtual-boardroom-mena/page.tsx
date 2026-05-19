@@ -46,8 +46,8 @@ function useCountdown(target: Date) {
         s: Math.floor((diff / 1000) % 60),
       });
     };
-    tick();
     const id = setInterval(tick, 1000);
+    tick();
     return () => clearInterval(id);
   }, [target]);
   return t;
