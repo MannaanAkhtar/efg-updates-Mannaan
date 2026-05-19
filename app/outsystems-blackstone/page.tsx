@@ -121,12 +121,13 @@ const AGENDA: AgendaItem[] = [
   { start: "10:00", end: "11:00", title: "Registration, Welcome Coffee & Networking", owner: "Doors open 10:00 · Programme starts 10:30", type: "logistics" },
   { start: "11:00", end: "11:05", title: "Welcome Remarks & Introduction", owner: "Joyce Raad · Senior Partner Alliances Manager · OutSystems", type: "welcome" },
   { start: "11:05", end: "11:35", title: "Delivering Governed, AI-Driven Public Services for Secure, Citizen-Centric Outcomes at Scale", subtitle: "Opening Keynote", owner: "Mohamed Shaaban · Senior Account Executive · OutSystems", type: "keynote" },
-  { start: "11:35", end: "12:00", title: "From Digital First to AI Enabled: A Roadmap for Building Enterprise AI Capabilities", subtitle: "Blackstone eIT session", owner: "Wajih Yahyaoui · Managing Partner · Blackstone eIT", type: "feature" },
-  { start: "12:00", end: "12:15", title: "Coffee Break & Prayer", type: "break" },
-  { start: "12:15", end: "12:45", title: "Applied Government Use Cases", subtitle: "Agentic AI in Action: Live Demo of Government Use Cases", owner: "Omar Istaitieh · Lead Solution Architect · OutSystems", type: "demo" },
-  { start: "12:45", end: "13:05", title: "Panel Discussion", subtitle: "Scaling Trusted Agentic AI for Saudi Vision 2030: From Strategy to National Impact", owner: "Moderator + Panelists", type: "panel" },
-  { start: "13:05", end: "13:20", title: "Closing Remarks & Q&A", owner: "Event Host / Moderator", type: "closing" },
-  { start: "13:20", end: "—",     title: "Networking Lunch", owner: "All Delegates", type: "logistics" },
+  { start: "11:35", end: "12:05", title: "From Digital First to AI Enabled: A Roadmap for Building Enterprise AI Capabilities", subtitle: "Blackstone eIT session", owner: "Wajih Yahyaoui · Managing Partner · Blackstone eIT", type: "feature" },
+  { start: "12:05", end: "12:20", title: "Coffee Break & Prayer", type: "break" },
+  { start: "12:20", end: "12:50", title: "Applied Government Use Cases", subtitle: "Agentic AI in Action: Live Demo of Government Use Cases", owner: "Omar Istaitieh · Lead Solution Architect · OutSystems", type: "demo" },
+  { start: "12:50", end: "13:10", title: "Panel Discussion", subtitle: "Scaling Trusted Agentic AI for Saudi Vision 2030: From Strategy to National Impact", owner: "Moderator + Panelists", type: "panel" },
+  { start: "13:10", end: "13:15", title: "Vote of Thanks", owner: "Wajih Yahyaoui · Managing Partner · Blackstone eIT", type: "welcome" },
+  { start: "13:15", end: "13:30", title: "Closing Remarks & Q&A", owner: "Event Host / Moderator", type: "closing" },
+  { start: "13:30", end: "—",     title: "Networking Lunch", owner: "All Delegates", type: "logistics" },
 ];
 
 // ═════════════════════════════════════════════════════════════════════════════
