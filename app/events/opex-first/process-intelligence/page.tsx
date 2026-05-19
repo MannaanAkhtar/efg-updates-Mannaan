@@ -112,7 +112,7 @@ const AGENDA: {
   },
   {
     time: "11:30 - 11:40",
-    title: "Enterprise / Government Keynote",
+    title: "Keynote",
     desc: "A senior government or enterprise leader will share a first-hand account of how their organisation is applying process intelligence principles to drive operational performance.",
     topic: "Empowering Resilience: Leveraging AI for Enhanced Crisis Response and Continuity",
     speakers: [{ name: "Abdulrahman Alonaizan", title: "Chief Business Continuity Officer", org: "Arab National Bank" }],
@@ -127,6 +127,7 @@ const AGENDA: {
       { name: "Abdelkader Nessib", title: "IT Operations / Cybersecurity & Digital Transformation Advisor", org: "Saipem Qatar" },
       { name: "Danyal Nasser Anwar", title: "Process Improvement Unit Head", org: "Department of Culture & Tourism" },
       { name: "Mohamed Hamed", title: "Head of Strategy", org: "National Bank of Umm Al Qaiwain" },
+      { name: "Sridhar Rajakumar", title: "Business Transformation Management Advisor, SAP EMEA", org: "SAP MENA LLC" },
     ],
   },
   {
