@@ -814,7 +814,7 @@ function HeroSection() {
               10:30 – 13:35 GST
             </span>
             <span style={{ color: "rgba(255,255,255,0.18)" }}>/</span>
-            <span>Dubai, UAE</span>
+            <span>Vida Hotel, Skyline Ballroom, Dubai Mall, UAE</span>
             <span style={{ color: "rgba(255,255,255,0.18)" }}>/</span>
             <span style={{ color: "rgba(255,255,255,0.55)" }}>In-Person · Invite-Only</span>
           </div>
