@@ -2818,6 +2818,11 @@ function RegisterSection() {
                         const c = COUNTRY_CODES.find((c) => c.country === e.target.value);
                         if (c) {
                           setCountry(c);
+                          // Truncate phone to new country's max digit length
+                          setForm((p) => ({
+                            ...p,
+                            phone: p.phone.replace(/\D/g, "").slice(0, c.length),
+                          }));
                           setPhoneError(null);
                         }
                       }}
@@ -2842,10 +2847,20 @@ function RegisterSection() {
                     <input
                       name="phone"
                       type="tel"
+                      inputMode="numeric"
+                      autoComplete="tel-national"
                       value={form.phone}
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        // Strip non-digits + cap at country's required digit count
+                        const digits = e.target.value
+                          .replace(/\D/g, "")
+                          .slice(0, country.length);
+                        setForm((p) => ({ ...p, phone: digits }));
+                        setPhoneError(null);
+                      }}
                       required
-                      placeholder="5X XXX XXXX"
+                      maxLength={country.length}
+                      placeholder={country.placeholder}
                       style={{
                         flex: 1,
                         padding: "12px 14px",
@@ -2856,10 +2871,13 @@ function RegisterSection() {
                         fontSize: 14,
                         color: PP_NAVY,
                         outline: "none",
+                        fontVariantNumeric: "tabular-nums",
                       }}
                     />
                   </div>
-                  {phoneError && (
+
+                  {/* Digit-count hint (or error if validation fails on submit) */}
+                  {phoneError ? (
                     <p
                       style={{
                         margin: "6px 0 0",
@@ -2869,6 +2887,23 @@ function RegisterSection() {
                       }}
                     >
                       {phoneError}
+                    </p>
+                  ) : (
+                    <p
+                      style={{
+                        margin: "6px 0 0",
+                        fontFamily: "var(--font-outfit), system-ui, sans-serif",
+                        fontSize: 11.5,
+                        color:
+                          form.phone.length === country.length
+                            ? PP_CYAN_DEEP
+                            : PP_GRAY,
+                        letterSpacing: "0.04em",
+                        fontVariantNumeric: "tabular-nums",
+                      }}
+                    >
+                      {form.phone.length} / {country.length} digits &middot;{" "}
+                      {country.name}
                     </p>
                   )}
                 </div>
