@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title:
     "The Next Chapter in Human and Agentic Security | Proofpoint Executive Roundtable",
   description:
-    "An invitation-only Proofpoint executive roundtable on AI-powered agentic workspaces and the future of human + AI security. 16 & 23 June 2026, JW Marriott Riyadh.",
+    "An invitation-only Proofpoint executive roundtable on AI-powered agentic workspaces and the future of human + AI security. 16 June 2026, JW Marriott Riyadh.",
   keywords: [
     "Proofpoint",
     "agentic security",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title:
       "The Next Chapter in Human and Agentic Security — Proofpoint Executive Roundtable",
     description:
-      "Invitation-only Proofpoint roundtable for senior security leaders on agentic-era risk and human-centric defence. 16 & 23 June 2026, Riyadh.",
+      "Invitation-only Proofpoint roundtable for senior security leaders on agentic-era risk and human-centric defence. 16 June 2026, Riyadh.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Proofpoint Executive Roundtable — Riyadh, 16 & 23 June 2026",
+        alt: "Proofpoint Executive Roundtable — Riyadh, 16 June 2026",
       },
     ],
     locale: "en_US",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
     title: "The Next Chapter in Human and Agentic Security — Proofpoint",
-    description: "Invitation-only roundtable. 16 & 23 June 2026, Riyadh.",
+    description: "Invitation-only roundtable. 16 June 2026, Riyadh.",
     images: [OG_IMAGE],
   },
 };
@@ -64,7 +64,7 @@ export default function ProofpointLayout({
             description:
               "An invitation-only Proofpoint executive roundtable on the rise of AI-powered agentic workspaces and what they mean for security.",
             startDate: "2026-06-16T10:30:00+03:00",
-            endDate: "2026-06-23T14:30:00+03:00",
+            endDate: "2026-06-16T14:30:00+03:00",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {

@@ -767,7 +767,7 @@ function HeroSection() {
               color: PP_NAVY_INK,
             }}
           >
-            <span>16 &amp; 23 June 2026</span>
+            <span>16 June 2026</span>
             <span style={{ color: PP_CYAN }}>·</span>
             <span>10:30 – 13:35 AST</span>
             <span style={{ color: PP_CYAN }}>·</span>
@@ -1557,7 +1557,7 @@ function AgendaSection() {
               gap: 12,
             }}
           >
-            <span>16 &amp; 23 Jun 2026</span>
+            <span>16 Jun 2026</span>
             <span style={{ width: 18, height: 1, background: PP_GRAY_LIGHT }} />
             <span>Riyadh · AST</span>
           </div>
@@ -2317,7 +2317,7 @@ function VenueSection() {
                     marginBottom: 6,
                   }}
                 >
-                  Dates
+                  Date
                 </div>
                 <div
                   style={{
@@ -2329,7 +2329,7 @@ function VenueSection() {
                     fontVariantNumeric: "tabular-nums",
                   }}
                 >
-                  16 &amp; 23 Jun 2026
+                  16 Jun 2026
                 </div>
               </div>
 
@@ -2546,7 +2546,7 @@ function RegisterSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   const SPECS = [
-    { label: "Dates", value: "16 & 23 Jun 2026" },
+    { label: "Date", value: "16 Jun 2026" },
     { label: "Time", value: "10:30 – 13:35 AST" },
     { label: "Venue", value: "JW Marriott Riyadh" },
     { label: "Format", value: "Invite-only roundtable" },
