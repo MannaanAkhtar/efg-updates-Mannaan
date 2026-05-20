@@ -383,6 +383,12 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/George_Rugero.png",
     linkedin: "https://www.linkedin.com/in/george-rugero-4770299/",
   },
+  {
+    name: "Shiphrah Wairima",
+    title: "President - Kenya",
+    org: "Global Council for Responsible AI (GCRAI)",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/shiphrah_wairima.png",
+  },
 ];
 
 // Kenya Speakers (from brochure)
@@ -431,9 +437,9 @@ const SPEAKERS = [
   },
   {
     name: "Shiphrah Wairima",
-    title: "President, Kenya Chapter",
-    org: "Global Council for Responsible AI",
-    photo: null,
+    title: "President - Kenya",
+    org: "Global Council for Responsible AI (GCRAI)",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/shiphrah_wairima.png",
   },
   {
     name: "Dr Aprielle Moraa",
@@ -2699,22 +2705,31 @@ function AdvisoryBoard() {
     if (window.innerWidth < 768) return;
 
     const track = trackRef.current;
-    const leftPanel = Math.min(500, window.innerWidth * 0.35);
-    const scrollWidth = track.scrollWidth - (window.innerWidth - leftPanel);
+
+    // Dynamic scroll-distance calc — re-evaluates on every
+    // ScrollTrigger.refresh() (window resize, font-load shift, card
+    // count change). Wrapping the end + x targets in functions lets
+    // invalidateOnRefresh pick up the new track.scrollWidth without
+    // a full re-mount.
+    const getScrollWidth = () => {
+      const leftPanel = Math.min(500, window.innerWidth * 0.35);
+      return track.scrollWidth - (window.innerWidth - leftPanel);
+    };
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
         start: "top top",
-        end: `+=${scrollWidth * 1.5}`,
+        end: () => `+=${getScrollWidth() * 1.5}`,
         pin: true,
         scrub: 0.8,
         anticipatePin: 1,
+        invalidateOnRefresh: true,
       },
     });
 
     tl.to(track, {
-      x: -scrollWidth,
+      x: () => -getScrollWidth(),
       ease: "none",
     });
   }, { scope: sectionRef });
