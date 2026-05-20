@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import {
   motion,
   useInView,
@@ -732,6 +733,16 @@ export default function CyberFirstKenya2026() {
           transform: translateY(-2px) !important;
           box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15) !important;
         }
+        /* Request Resources hero dropdown */
+        .cfk-req-ghost:hover {
+          transform: translateY(-2px);
+          background: rgba(255,255,255,0.12) !important;
+          border-color: rgba(255,255,255,0.3) !important;
+          color: white !important;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 8px 24px rgba(0,0,0,0.3) !important;
+        }
+        .cfk-req-menu-item:hover { background: ${C_BRIGHT}1a !important; }
+        .cfk-req-menu-item:focus-visible { outline: none; background: ${C_BRIGHT}22 !important; }
         
         /* Hero badge hover */
         .cfk-hero-badge:hover {
@@ -896,6 +907,34 @@ export default function CyberFirstKenya2026() {
 // ─── HERO SECTION ────────────────────────────────────────────────────────────
 function HeroSection() {
   const cd = useCountdown(EVENT_DATE);
+  const [resourceMenuOpen, setResourceMenuOpen] = useState(false);
+  const resourceMenuRef = useRef<HTMLDivElement>(null);
+
+  // Click-outside + ESC closes the resources dropdown
+  useEffect(() => {
+    if (!resourceMenuOpen) return;
+    const onClick = (e: MouseEvent) => {
+      if (resourceMenuRef.current && !resourceMenuRef.current.contains(e.target as Node)) {
+        setResourceMenuOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setResourceMenuOpen(false);
+    };
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [resourceMenuOpen]);
+
+  const openRequest = (type: "Past Event Report" | "Delegate List") => {
+    setResourceMenuOpen(false);
+    window.dispatchEvent(
+      new CustomEvent("cfk-2026:open-request", { detail: { type } }),
+    );
+  };
 
   return (
     <section className="cfk-hero" style={{ position: "relative", minHeight: "100dvh", overflow: "hidden", background: "#0A0608" }}>
@@ -1085,31 +1124,182 @@ function HeroSection() {
             Reserve Your Seat <span>→</span>
           </a>
           
-          {/* Become a Sponsor */}
-          <a
-            href="#enquire"
-            onClick={(e) => { e.preventDefault(); document.getElementById("enquire")?.scrollIntoView({ behavior: "smooth" }); }}
-            style={{ 
-              display: "inline-flex", 
-              alignItems: "center", 
-              padding: "clamp(12px, 1.5vw, 16px) clamp(22px, 2.8vw, 32px)",
-              borderRadius: 50,
-              background: "rgba(255,255,255,0.06)",
-              color: "rgba(255,255,255,0.9)",
-              fontFamily: "var(--font-outfit)",
-              fontSize: "clamp(13px, 1.1vw, 15px)",
-              fontWeight: 500,
-              textDecoration: "none", 
-              border: "1px solid rgba(255,255,255,0.18)", 
-              cursor: "pointer", 
-              transition: "all 0.3s ease",
-              backdropFilter: "blur(10px)",
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.12)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)"; }}
-          >
-            Become a Sponsor
-          </a>
+          {/* Resources dropdown — opens the request-form modal with either
+              "Past Event Report" or "Delegate List" pre-selected. */}
+          <div ref={resourceMenuRef} style={{ position: "relative", display: "inline-block" }}>
+            <button
+              type="button"
+              onClick={() => setResourceMenuOpen((o) => !o)}
+              aria-haspopup="menu"
+              aria-expanded={resourceMenuOpen}
+              className="cfk-req-ghost"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                padding: "clamp(12px, 1.5vw, 16px) clamp(22px, 2.8vw, 32px)",
+                borderRadius: 50,
+                background: "rgba(255,255,255,0.06)",
+                color: "rgba(255,255,255,0.9)",
+                fontFamily: "var(--font-outfit)",
+                fontSize: "clamp(13px, 1.1vw, 15px)",
+                fontWeight: 500,
+                border: "1px solid rgba(255,255,255,0.18)",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              Request Resources
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{
+                  transform: resourceMenuOpen ? "rotate(0)" : "rotate(180deg)",
+                  transition: "transform 0.25s ease",
+                  opacity: 0.8,
+                }}
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+
+            <AnimatePresence>
+              {resourceMenuOpen && (
+                <motion.div
+                  role="menu"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 6 }}
+                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                  style={{
+                    position: "absolute",
+                    bottom: "calc(100% + 10px)",
+                    left: 0,
+                    minWidth: 320,
+                    padding: 6,
+                    borderRadius: 18,
+                    background: "rgba(20, 6, 8, 0.92)",
+                    border: `1px solid ${C_BRIGHT}3a`,
+                    backdropFilter: "blur(18px) saturate(180%)",
+                    WebkitBackdropFilter: "blur(18px) saturate(180%)",
+                    boxShadow:
+                      "0 22px 50px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06)",
+                    zIndex: 30,
+                  }}
+                >
+                  {/* Past Event Report */}
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={() => openRequest("Past Event Report")}
+                    className="cfk-req-menu-item"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      padding: "12px 14px",
+                      borderRadius: 12,
+                      background: "transparent",
+                      border: "none",
+                      width: "100%",
+                      textAlign: "left",
+                      cursor: "pointer",
+                      color: "white",
+                      transition: "background 0.2s ease",
+                    }}
+                  >
+                    <span style={{
+                      width: 36, height: 36, borderRadius: "50%",
+                      background: `${C_BRIGHT}26`,
+                      border: `1px solid ${C_BRIGHT}55`,
+                      display: "inline-flex", alignItems: "center", justifyContent: "center",
+                      flexShrink: 0,
+                    }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <line x1="12" y1="18" x2="12" y2="12" />
+                        <polyline points="9 15 12 18 15 15" />
+                      </svg>
+                    </span>
+                    <span style={{ flex: 1, minWidth: 0 }}>
+                      <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 600, color: "white", lineHeight: 1.25 }}>
+                        Past Event Report
+                      </span>
+                      <span style={{ display: "block", marginTop: 2, fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.55)" }}>
+                        Request the PDF report from a past edition
+                      </span>
+                    </span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </button>
+
+                  <div style={{ height: 1, background: "rgba(255,255,255,0.06)", margin: "2px 10px" }} />
+
+                  {/* Delegate List */}
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={() => openRequest("Delegate List")}
+                    className="cfk-req-menu-item"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      padding: "12px 14px",
+                      borderRadius: 12,
+                      background: "transparent",
+                      border: "none",
+                      width: "100%",
+                      textAlign: "left",
+                      cursor: "pointer",
+                      color: "white",
+                      transition: "background 0.2s ease",
+                    }}
+                  >
+                    <span style={{
+                      width: 36, height: 36, borderRadius: "50%",
+                      background: `${C_BRIGHT}26`,
+                      border: `1px solid ${C_BRIGHT}55`,
+                      display: "inline-flex", alignItems: "center", justifyContent: "center",
+                      flexShrink: 0,
+                    }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                      </svg>
+                    </span>
+                    <span style={{ flex: 1, minWidth: 0 }}>
+                      <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 600, color: "white", lineHeight: 1.25 }}>
+                        Delegate List
+                      </span>
+                      <span style={{ display: "block", marginTop: 2, fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.55)" }}>
+                        Request the confirmed attendee roster
+                      </span>
+                    </span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </motion.div>
       </div>
 
@@ -5954,12 +6144,11 @@ function VrMobileMarquee({ inView }: { inView: boolean }) {
   );
 }
 
-// ─── POST-EVENT REPORTS — downloadable PDFs from past editions ──────────────
+// ─── POST-EVENT REPORTS — modal-only (hero dropdown opens this) ─────────────
 function CfkPostEventReports() {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
 
-  // ── Delegate-list request form state ─────────────────────────────────────
+  // ── Request form state ────────────────────────────────────────────────────
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [jobTitle, setJobTitle] = useState("");
@@ -5971,6 +6160,65 @@ function CfkPostEventReports() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [submitError, setSubmitError] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  // Mount flag so the portal target (document.body) is only used after hydration.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+  // Tracks which resource is being requested — drives the modal copy + metadata.
+  type RequestKind = "Delegate List" | "Past Event Report";
+  const [requestType, setRequestType] = useState<RequestKind>("Delegate List");
+  // When requesting a Past Event Report, the user picks which edition's PDF.
+  const [selectedReportUrl, setSelectedReportUrl] = useState<string>(
+    POST_EVENT_REPORTS[0]?.url ?? "",
+  );
+
+  // Lock body scroll + ESC-to-close while modal is open
+  useEffect(() => {
+    if (!modalOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setModalOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [modalOpen]);
+
+  // Listen for the hero dropdown opening the modal with a chosen request type
+  useEffect(() => {
+    const onOpenRequest = (e: Event) => {
+      const detail = (e as CustomEvent<{ type?: RequestKind }>).detail;
+      if (detail?.type === "Past Event Report" || detail?.type === "Delegate List") {
+        setRequestType(detail.type);
+        setSubmitState("idle");
+        setSubmitError("");
+        setErrors({});
+        setModalOpen(true);
+      }
+    };
+    window.addEventListener("cfk-2026:open-request", onOpenRequest);
+    return () => window.removeEventListener("cfk-2026:open-request", onOpenRequest);
+  }, []);
+
+  const modalCopy =
+    requestType === "Past Event Report"
+      ? {
+          kicker: "Request the Past Event Report",
+          title: "Get the post-event report.",
+          subtitle:
+            "Share your details and we’ll send the curated delegate list to your work email.",
+          success:
+            "We’ll email the post-event report PDF to your work email within 1 business day.",
+        }
+      : {
+          kicker: "Request the Delegate List",
+          title: "Get the full attendee roster.",
+          subtitle:
+            "Share your details and we’ll send the curated delegate list to your work email.",
+          success:
+            "We’ll send the delegate list to your work email within 1 business day.",
+        };
 
   const phoneDigits = phone.replace(/[\s\-()]/g, "");
   const phoneDigitsLen = phoneDigits.length;
@@ -5995,11 +6243,16 @@ function CfkPostEventReports() {
     if (!jobTitle.trim()) newErrors.jobTitle = "Job title is required";
     const phoneErr = validatePhone(phone, countryCode);
     if (phoneErr) newErrors.phone = phoneErr;
+    if (!selectedReportUrl) {
+      newErrors.report = "Please select an edition";
+    }
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) {
       setPhoneTouched(true);
       return;
     }
+
+    const selectedReport = POST_EVENT_REPORTS.find((r) => r.url === selectedReportUrl);
 
     setSubmitState("submitting");
     setSubmitError("");
@@ -6012,8 +6265,14 @@ function CfkPostEventReports() {
       event_name: "Cyber First Kenya 2026 — Nairobi",
       metadata: {
         "Event Page": "Cyber First Kenya 2026 — Nairobi",
-        "Request Type": "Delegate List",
+        "Request Type": requestType,
         "Page Section": "Post-Event Reports",
+        ...(selectedReport && {
+          "Selected Edition": `${selectedReport.title} ${selectedReport.year}`,
+          ...(requestType === "Past Event Report" && {
+            "Selected Report URL": selectedReport.url,
+          }),
+        }),
       },
     });
     if (res.success) {
@@ -6026,576 +6285,389 @@ function CfkPostEventReports() {
   };
 
   return (
-    <section ref={ref} className="cfk-per-section" id="reports">
-      <div className="cfk-per-glow" />
-      <div className="cfk-per-container">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: EASE }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
-            <span style={{ width: 24, height: 2, background: C, borderRadius: 1 }} />
-            <span style={{ fontFamily: "var(--font-dm)", fontSize: 12, fontWeight: 500, letterSpacing: "2.5px", textTransform: "uppercase", color: C }}>
-              Post-Event Intelligence
-            </span>
-          </div>
-        </motion.div>
+    <section ref={ref} id="reports" aria-hidden style={{ padding: 0, margin: 0, height: 0, overflow: "hidden" }}>
 
-        <motion.h2
-          className="cfk-per-heading"
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
-        >
-          Reports from the room.
-        </motion.h2>
-
-        <motion.p
-          className="cfk-per-subtitle"
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: EASE, delay: 0.15 }}
-        >
-          Official post-event reports from each Cyber First edition — takeaways, on-stage themes, and sponsor coverage. Available as PDF.
-        </motion.p>
-
-        <div className="cfk-per-grid">
-          {POST_EVENT_REPORTS.map((report, i) => (
-            <motion.a
-              key={report.url}
-              href={buildReportDownloadUrl(report.url, report.filename)}
-              download={report.filename}
-              className="cfk-per-card"
-              initial={{ opacity: 0, y: 18 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.25 + i * 0.08, ease: EASE }}
-              style={{
-                ["--logo-scale" as string]: String(report.logoScale ?? 1),
-              } as React.CSSProperties}
+      {/* ─── Request Form Modal — portalled to <body> so the popup
+          overlays the whole viewport (not constrained to this section) ── */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {modalOpen && (
+            <motion.div
+              className="cfk-req-modal-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22 }}
+              onClick={() => setModalOpen(false)}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="cfk-req-modal-title"
             >
-              {/* Glass sheen */}
-              <span aria-hidden className="cfk-per-sheen" />
-              {/* Inner bevel */}
-              <span aria-hidden className="cfk-per-bevel" />
-              {/* Top hairline accent */}
-              <span aria-hidden className="cfk-per-hairline-top" />
-              {/* Bottom hairline accent */}
-              <span aria-hidden className="cfk-per-hairline-bottom" />
+              <motion.div
+                className="cfk-req-modal-card"
+                initial={{ opacity: 0, y: 24, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 24, scale: 0.96 }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(false)}
+                  className="cfk-req-modal-close"
+                  aria-label="Close request form"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
 
-              {/* Top meta — issue index + PDF chip */}
-              <div className="cfk-per-meta">
-                <span className="cfk-per-index">
-                  <span className="cfk-per-no">№</span>
-                  {(i + 1).toString().padStart(2, "0")} · Cyber First
-                </span>
-                <span className="cfk-per-pdf">PDF</span>
-              </div>
+                <span aria-hidden className="cfk-req-modal-hairline" />
 
-              {/* Logo zone */}
-              <div className="cfk-per-logo-zone">
-                <div aria-hidden className="cfk-per-logo-halo" />
-                {report.logo ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={report.logo} alt={report.title} className="cfk-per-logo" />
+                <div className="cfk-req-modal-header">
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                    <span style={{ width: 24, height: 1, background: C_BRIGHT }} />
+                    <span style={{
+                      fontFamily: "var(--font-dm)",
+                      fontSize: 10, fontWeight: 700,
+                      letterSpacing: "0.32em", textTransform: "uppercase",
+                      color: C_BRIGHT,
+                    }}>{modalCopy.kicker}</span>
+                  </div>
+                  <h3 id="cfk-req-modal-title" style={{
+                    margin: 0,
+                    fontFamily: "var(--font-display)",
+                    fontSize: "clamp(20px, 2.4vw, 26px)",
+                    fontWeight: 700,
+                    letterSpacing: "-0.5px",
+                    color: "white",
+                    lineHeight: 1.2,
+                  }}>
+                    {modalCopy.title}
+                  </h3>
+                  <p style={{
+                    margin: "10px 0 0",
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 13,
+                    color: "rgba(255,255,255,0.55)",
+                    lineHeight: 1.55,
+                  }}>
+                    {modalCopy.subtitle}
+                  </p>
+                </div>
+
+                {submitState === "success" ? (
+                  <div className="cfk-req-modal-success">
+                    <div className="cfk-req-modal-success-check">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    </div>
+                    <h4>Request received.</h4>
+                    <p>{modalCopy.success}</p>
+                    <button
+                      type="button"
+                      onClick={() => setModalOpen(false)}
+                      className="cfk-req-modal-done"
+                    >
+                      Done
+                    </button>
+                  </div>
                 ) : (
-                  <h3 className="cfk-per-logo-text">{report.title}</h3>
-                )}
-              </div>
+                  <form onSubmit={handleSubmit} noValidate className="cfk-req-form-fields">
+                    {/* Honeypot */}
+                    <input type="text" name="website" tabIndex={-1} autoComplete="off"
+                      style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} />
 
-              {/* Centered hairline with maroon tick */}
-              <div aria-hidden className="cfk-per-divider">
-                <span className="cfk-per-divider-line" />
-                <span className="cfk-per-divider-dot" />
-                <span className="cfk-per-divider-line" />
-              </div>
-
-              {/* Edition title */}
-              <div className="cfk-per-edition-wrap">
-                <h3 className="cfk-per-edition">
-                  {report.edition} <span className="cfk-per-sep">·</span> {report.year}
-                </h3>
-              </div>
-
-              {/* CTA footer */}
-              <div className="cfk-per-footer">
-                <span className="cfk-per-cta-label">Download Report</span>
-                <span aria-hidden className="cfk-per-arrow">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                    <polyline points="14 2 14 8 20 8" />
-                  </svg>
-                </span>
-              </div>
-            </motion.a>
-          ))}
-        </div>
-
-        {/* ─── Delegate-list request form ──────────────────────────────────── */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.35, ease: EASE }}
-          className="cfk-per-form-wrap"
-        >
-          <div className="cfk-per-form-card">
-            <span aria-hidden className="cfk-per-form-hairline" />
-
-            <div className="cfk-per-form-header">
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-                <span style={{ width: 24, height: 1, background: C_BRIGHT }} />
-                <span style={{
-                  fontFamily: "var(--font-dm)",
-                  fontSize: 10, fontWeight: 700,
-                  letterSpacing: "0.32em", textTransform: "uppercase",
-                  color: C_BRIGHT,
-                }}>Request the Delegate List</span>
-              </div>
-              <h3 style={{
-                margin: 0,
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(20px, 2.4vw, 28px)",
-                fontWeight: 700,
-                letterSpacing: "-0.5px",
-                color: "white",
-                lineHeight: 1.2,
-              }}>
-                Get the full attendee roster.
-              </h3>
-              <p style={{
-                margin: "10px 0 0",
-                fontFamily: "var(--font-outfit)",
-                fontSize: "clamp(13px, 1vw, 14px)",
-                fontWeight: 400,
-                color: "rgba(255,255,255,0.55)",
-                lineHeight: 1.6,
-                maxWidth: 520,
-              }}>
-                Share your details and we&apos;ll send the curated delegate list to your work email — CISOs, Heads of IT/Security, and decision-makers attending the Nairobi edition.
-              </p>
-            </div>
-
-            {submitState === "success" ? (
-              <div className="cfk-per-form-success">
-                <div style={{
-                  display: "inline-flex", alignItems: "center", justifyContent: "center",
-                  width: 56, height: 56, borderRadius: "50%",
-                  background: `linear-gradient(135deg, ${C}, ${C_BRIGHT})`,
-                  marginBottom: 14,
-                  boxShadow: `0 8px 24px ${C}66`,
-                }}>
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                </div>
-                <h4 style={{
-                  margin: "0 0 8px",
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(18px, 1.8vw, 22px)",
-                  fontWeight: 700,
-                  color: "white",
-                }}>Request received.</h4>
-                <p style={{
-                  margin: 0,
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 14,
-                  color: "rgba(255,255,255,0.6)",
-                  maxWidth: 380,
-                }}>
-                  We&apos;ll send the delegate list to your work email within 1 business day.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} noValidate className="cfk-per-form-fields">
-                <input type="text" name="website" tabIndex={-1} autoComplete="off"
-                  style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} />
-
-                <div className="cfk-per-form-row">
-                  <label className="cfk-per-form-field">
-                    <span className="cfk-per-form-label">Full Name</span>
-                    <input
-                      type="text"
-                      value={fullName}
-                      onChange={(e) => { setFullName(e.target.value); if (errors.fullName) setErrors({ ...errors, fullName: "" }); }}
-                      placeholder="Your full name"
-                      autoComplete="name"
-                      className="cfk-per-form-input"
-                      aria-invalid={!!errors.fullName}
-                    />
-                    {errors.fullName && <span className="cfk-per-form-err">{errors.fullName}</span>}
-                  </label>
-
-                  <label className="cfk-per-form-field">
-                    <span className="cfk-per-form-label">Work Email</span>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors({ ...errors, email: "" }); }}
-                      placeholder="name@company.com"
-                      autoComplete="email"
-                      className="cfk-per-form-input"
-                      aria-invalid={!!errors.email}
-                    />
-                    {errors.email && <span className="cfk-per-form-err">{errors.email}</span>}
-                  </label>
-                </div>
-
-                <div className="cfk-per-form-row">
-                  <label className="cfk-per-form-field">
-                    <span className="cfk-per-form-label">Job Title</span>
-                    <input
-                      type="text"
-                      value={jobTitle}
-                      onChange={(e) => { setJobTitle(e.target.value); if (errors.jobTitle) setErrors({ ...errors, jobTitle: "" }); }}
-                      placeholder="CISO, Head of IT, CIO…"
-                      autoComplete="organization-title"
-                      className="cfk-per-form-input"
-                      aria-invalid={!!errors.jobTitle}
-                    />
-                    {errors.jobTitle && <span className="cfk-per-form-err">{errors.jobTitle}</span>}
-                  </label>
-
-                  <label className="cfk-per-form-field">
-                    <span className="cfk-per-form-label">
-                      Phone
-                      <span className="cfk-per-form-hint-inline">
-                        {countryCode.length} digits expected
-                      </span>
-                    </span>
-                    <div className="cfk-per-form-phone-row">
-                      <select
-                        value={`${countryCode.country}-${countryCode.code}`}
-                        onChange={(e) => {
-                          const [country, code] = e.target.value.split("-");
-                          const found = COUNTRY_CODES.find((c) => c.country === country && c.code === code);
-                          if (found) {
-                            setCountryCode(found);
-                            setPhone((prev) => prev.replace(/\D/g, "").slice(0, found.length));
-                          }
-                        }}
-                        className="cfk-per-form-cc"
-                        aria-label="Country code"
-                      >
-                        {COUNTRY_CODES.map((c) => (
-                          <option key={`${c.country}-${c.code}`} value={`${c.country}-${c.code}`}>
-                            {c.country} {c.code}
-                          </option>
-                        ))}
-                      </select>
-                      <div className="cfk-per-form-phone-wrap">
-                        <input
-                          type="tel"
-                          inputMode="numeric"
-                          value={phone}
+                    {/* Edition picker — used by both Delegate List and Past Event Report requests */}
+                    <div className="cfk-req-form-row">
+                      <label className="cfk-req-form-field" style={{ flex: "1 1 100%" }}>
+                        <span className="cfk-req-form-label">Select Edition</span>
+                        <select
+                          value={selectedReportUrl}
                           onChange={(e) => {
-                            const digits = e.target.value.replace(/\D/g, "").slice(0, countryCode.length);
-                            setPhone(digits);
+                            setSelectedReportUrl(e.target.value);
+                            if (errors.report) setErrors({ ...errors, report: "" });
                           }}
-                          onBlur={() => setPhoneTouched(true)}
-                          placeholder={countryCode.placeholder}
-                          autoComplete="tel-national"
-                          maxLength={countryCode.length}
-                          className="cfk-per-form-input cfk-per-form-phone-input"
-                          aria-invalid={!!errors.phone}
+                          className="cfk-req-form-input cfk-req-form-report-select"
+                          aria-invalid={!!errors.report}
+                        >
+                          {POST_EVENT_REPORTS.map((r) => (
+                            <option key={r.url} value={r.url}>
+                              {r.title} {r.year}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.report && <span className="cfk-req-form-err">{errors.report}</span>}
+                      </label>
+                    </div>
+
+                    <div className="cfk-req-form-row">
+                      <label className="cfk-req-form-field">
+                        <span className="cfk-req-form-label">Full Name</span>
+                        <input
+                          type="text"
+                          value={fullName}
+                          onChange={(e) => { setFullName(e.target.value); if (errors.fullName) setErrors({ ...errors, fullName: "" }); }}
+                          placeholder="Your full name"
+                          autoComplete="name"
+                          className="cfk-req-form-input"
+                          aria-invalid={!!errors.fullName}
                         />
-                        {phoneTouched && phoneIsValid && (
-                          <span aria-hidden className="cfk-per-form-phone-check">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                              <polyline points="20 6 9 17 4 12" />
-                            </svg>
+                        {errors.fullName && <span className="cfk-req-form-err">{errors.fullName}</span>}
+                      </label>
+
+                      <label className="cfk-req-form-field">
+                        <span className="cfk-req-form-label">Work Email</span>
+                        <input
+                          type="email"
+                          value={email}
+                          onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors({ ...errors, email: "" }); }}
+                          placeholder="name@company.com"
+                          autoComplete="email"
+                          className="cfk-req-form-input"
+                          aria-invalid={!!errors.email}
+                        />
+                        {errors.email && <span className="cfk-req-form-err">{errors.email}</span>}
+                      </label>
+                    </div>
+
+                    <div className="cfk-req-form-row">
+                      <label className="cfk-req-form-field">
+                        <span className="cfk-req-form-label">Job Title</span>
+                        <input
+                          type="text"
+                          value={jobTitle}
+                          onChange={(e) => { setJobTitle(e.target.value); if (errors.jobTitle) setErrors({ ...errors, jobTitle: "" }); }}
+                          placeholder="CISO, Head of IT, CIO…"
+                          autoComplete="organization-title"
+                          className="cfk-req-form-input"
+                          aria-invalid={!!errors.jobTitle}
+                        />
+                        {errors.jobTitle && <span className="cfk-req-form-err">{errors.jobTitle}</span>}
+                      </label>
+
+                      <label className="cfk-req-form-field">
+                        <span className="cfk-req-form-label">
+                          Phone
+                          <span className="cfk-req-form-hint-inline">
+                            {countryCode.length} digits expected
+                          </span>
+                        </span>
+                        <div className="cfk-req-form-phone-row">
+                          <select
+                            value={`${countryCode.country}-${countryCode.code}`}
+                            onChange={(e) => {
+                              const [country, code] = e.target.value.split("-");
+                              const found = COUNTRY_CODES.find((c) => c.country === country && c.code === code);
+                              if (found) {
+                                setCountryCode(found);
+                                setPhone((prev) => prev.replace(/\D/g, "").slice(0, found.length));
+                              }
+                            }}
+                            className="cfk-req-form-cc"
+                            aria-label="Country code"
+                          >
+                            {COUNTRY_CODES.map((c) => (
+                              <option key={`${c.country}-${c.code}`} value={`${c.country}-${c.code}`}>
+                                {c.country} {c.code}
+                              </option>
+                            ))}
+                          </select>
+                          <div className="cfk-req-form-phone-wrap">
+                            <input
+                              type="tel"
+                              inputMode="numeric"
+                              value={phone}
+                              onChange={(e) => {
+                                const digits = e.target.value.replace(/\D/g, "").slice(0, countryCode.length);
+                                setPhone(digits);
+                              }}
+                              onBlur={() => setPhoneTouched(true)}
+                              placeholder={countryCode.placeholder}
+                              autoComplete="tel-national"
+                              maxLength={countryCode.length}
+                              className="cfk-req-form-input cfk-req-form-phone-input"
+                              aria-invalid={!!errors.phone}
+                            />
+                            {phoneTouched && phoneIsValid && (
+                              <span aria-hidden className="cfk-req-form-phone-check">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                  <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        {phoneTouched && !phoneIsValid && phoneDigitsLen > 0 && !errors.phone && (
+                          <span className="cfk-req-form-phone-progress">
+                            {phoneDigitsLen} / {countryCode.length} digits
                           </span>
                         )}
-                      </div>
+                        {errors.phone && <span className="cfk-req-form-err">{errors.phone}</span>}
+                      </label>
                     </div>
-                    {phoneTouched && !phoneIsValid && phoneDigitsLen > 0 && !errors.phone && (
-                      <span className="cfk-per-form-phone-progress">
-                        {phoneDigitsLen} / {countryCode.length} digits
-                      </span>
+
+                    {submitError && (
+                      <div className="cfk-req-form-submit-err">{submitError}</div>
                     )}
-                    {errors.phone && <span className="cfk-per-form-err">{errors.phone}</span>}
-                  </label>
-                </div>
 
-                {submitError && (
-                  <div className="cfk-per-form-submit-err">{submitError}</div>
+                    <button
+                      type="submit"
+                      disabled={submitState === "submitting"}
+                      className="cfk-req-form-submit"
+                    >
+                      {submitState === "submitting"
+                        ? "Sending…"
+                        : requestType === "Past Event Report"
+                        ? "Send me the report"
+                        : "Send me the delegate list"}
+                      {submitState !== "submitting" && (
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 8 }}>
+                          <line x1="5" y1="12" x2="19" y2="12" />
+                          <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                      )}
+                    </button>
+                    <p className="cfk-req-form-hint">
+                      We respect your inbox. Used only to send the delegate list and edition follow-ups.
+                    </p>
+                  </form>
                 )}
-
-                <button
-                  type="submit"
-                  disabled={submitState === "submitting"}
-                  className="cfk-per-form-submit"
-                >
-                  {submitState === "submitting" ? "Sending…" : "Send me the delegate list"}
-                  {submitState !== "submitting" && (
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 8 }}>
-                      <line x1="5" y1="12" x2="19" y2="12" />
-                      <polyline points="12 5 19 12 12 19" />
-                    </svg>
-                  )}
-                </button>
-                <p className="cfk-per-form-hint">
-                  We respect your inbox. Used only to send the delegate list and edition follow-ups.
-                </p>
-              </form>
-            )}
-          </div>
-        </motion.div>
-      </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body,
+      )}
 
       <style jsx global>{`
-        .cfk-per-section {
-          background: #0A0608;
-          padding: clamp(56px, 7vw, 90px) 0 clamp(40px, 5vw, 60px);
-          position: relative; overflow: hidden;
-        }
-        .cfk-per-glow {
-          position: absolute; inset: 0; pointer-events: none;
-          background:
-            radial-gradient(ellipse 80% 50% at 50% 20%, ${C}15 0%, transparent 60%),
-            radial-gradient(ellipse 60% 40% at 80% 80%, ${KENYA_ACCENT}08 0%, transparent 50%);
-        }
-        .cfk-per-container {
-          max-width: 1320px; margin: 0 auto;
-          padding: 0 clamp(20px, 4vw, 40px); position: relative;
-        }
-        .cfk-per-heading {
-          font-family: var(--font-display); font-weight: 800;
-          font-size: clamp(28px, 3.5vw, 44px); letter-spacing: -1.5px;
-          color: #fff; line-height: 1.15; margin: 0 0 8px;
-        }
-        .cfk-per-subtitle {
-          font-family: var(--font-outfit); font-weight: 300;
-          font-size: clamp(14px, 1.2vw, 16px); color: rgba(255,255,255,0.45);
-          line-height: 1.7; margin: 0 0 clamp(28px, 3.5vw, 40px); max-width: 580px;
-        }
-        .cfk-per-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: clamp(16px, 2vw, 28px);
-        }
-        .cfk-per-card {
-          position: relative;
-          display: flex; flex-direction: column;
-          padding: clamp(16px, 1.6vw, 22px);
-          background: linear-gradient(165deg, rgba(28, 14, 16, 0.55) 0%, rgba(12, 8, 10, 0.65) 100%);
-          backdrop-filter: blur(28px) saturate(180%);
-          -webkit-backdrop-filter: blur(28px) saturate(180%);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 16px;
-          text-decoration: none;
-          color: #fff;
-          overflow: hidden;
-          min-height: 260px;
-          transition: border-color 0.4s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease, backdrop-filter 0.4s ease;
-          box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.14),
-            inset 0 -1px 0 rgba(0, 0, 0, 0.4),
-            0 1px 2px rgba(0, 0, 0, 0.45),
-            0 10px 28px rgba(0, 0, 0, 0.30),
-            0 28px 56px rgba(0, 0, 0, 0.32);
-        }
-        .cfk-per-sheen {
-          position: absolute; inset: 0; pointer-events: none;
-          background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 28%, transparent 50%, transparent 75%, rgba(255,255,255,0.03) 100%);
-        }
-        .cfk-per-bevel {
-          position: absolute; inset: 1px; border-radius: 15px; pointer-events: none;
-          box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
-        }
-        .cfk-per-hairline-top {
-          position: absolute; top: 0; left: 8%; right: 8%; height: 1px;
-          background: linear-gradient(90deg, transparent 0%, ${C_BRIGHT} 50%, transparent 100%);
-          opacity: 0.7;
-        }
-        .cfk-per-hairline-bottom {
-          position: absolute; bottom: 0; left: 20%; right: 20%; height: 1px;
-          background: linear-gradient(90deg, transparent 0%, ${C_BRIGHT}55 50%, transparent 100%);
-        }
-        .cfk-per-meta {
-          display: flex; justify-content: space-between; align-items: center;
-          gap: 10px; margin-bottom: clamp(10px, 1.2vh, 14px);
-          position: relative; z-index: 1;
-        }
-        .cfk-per-index {
-          display: inline-flex; align-items: baseline; gap: 8px;
-          font-family: var(--font-outfit);
-          font-size: 10px; font-weight: 600;
-          letter-spacing: 0.28em; text-transform: uppercase;
-          color: rgba(255,255,255,0.55);
-        }
-        .cfk-per-no {
-          font-family: Georgia, "Cambria", "Times New Roman", serif;
-          font-style: italic; font-weight: 400; font-size: 13px;
-          letter-spacing: normal; text-transform: none;
-          color: ${C_BRIGHT};
-        }
-        .cfk-per-pdf {
-          display: inline-flex; align-items: center; gap: 5px;
-          padding: 3px 9px; border-radius: 999px;
-          border: 1px solid rgba(255,255,255,0.08);
-          background: rgba(255,255,255,0.02);
-          font-family: var(--font-outfit);
-          font-size: 9px; font-weight: 600;
-          letter-spacing: 0.24em; text-transform: uppercase;
-          color: rgba(255,255,255,0.35);
-        }
-        .cfk-per-logo-zone {
-          position: relative;
-          display: flex; align-items: center; justify-content: center;
-          min-height: 100px;
-          margin-bottom: clamp(10px, 1.4vh, 14px);
-          z-index: 1;
-        }
-        .cfk-per-logo-halo {
-          position: absolute; inset: -20% -10%;
-          background: radial-gradient(ellipse 50% 60% at 50% 50%, ${C}26 0%, transparent 70%);
-          filter: blur(20px);
-          pointer-events: none;
-        }
-        .cfk-per-logo {
-          position: relative;
-          max-height: 100px; max-width: 85%;
-          width: auto; object-fit: contain;
-          filter: drop-shadow(0 4px 16px ${C}33);
-          transform: scale(var(--logo-scale, 1));
-          transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
-        }
-        .cfk-per-logo-text {
-          position: relative;
-          font-family: var(--font-display); font-size: clamp(18px, 1.6vw, 22px);
-          font-weight: 700; letter-spacing: -0.02em; line-height: 1.1;
-          color: #fff; margin: 0; text-align: center;
-        }
-        .cfk-per-divider {
-          display: flex; align-items: center; justify-content: center;
-          gap: 7px; margin-bottom: 10px;
-          position: relative; z-index: 1;
-        }
-        .cfk-per-divider-line {
-          width: 18px; height: 1px;
-          background: rgba(255,255,255,0.08);
-        }
-        .cfk-per-divider-dot {
-          width: 3px; height: 3px; border-radius: 50%;
-          background: ${C_BRIGHT};
-          box-shadow: 0 0 6px ${C_BRIGHT}99;
-        }
-        .cfk-per-edition-wrap {
-          text-align: center; margin-bottom: auto;
-          position: relative; z-index: 1;
-        }
-        .cfk-per-edition {
-          margin: 0;
-          font-family: var(--font-display);
-          font-size: clamp(14px, 1.1vw, 16px);
-          font-weight: 700; letter-spacing: 0.04em;
-          text-transform: uppercase; color: #fff;
-        }
-        .cfk-per-sep {
-          color: ${C_BRIGHT}; font-weight: 700;
-        }
-        .cfk-per-footer {
-          margin-top: clamp(12px, 1.6vh, 18px);
-          padding-top: 12px;
-          border-top: 1px solid rgba(255,255,255,0.08);
-          display: flex; align-items: center; justify-content: space-between;
-          position: relative; z-index: 1;
-        }
-        .cfk-per-cta-label {
-          font-family: var(--font-outfit);
-          font-size: 11.5px; font-weight: 600;
-          letter-spacing: 0.12em; text-transform: uppercase;
-          color: #fff;
-        }
-        .cfk-per-arrow {
-          display: inline-flex; align-items: center; justify-content: center;
-          width: 34px; height: 34px; border-radius: 8px;
-          border: 1px solid ${C}33;
-          background: ${C}0d;
-          color: ${C_BRIGHT};
-          line-height: 1;
-          transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1);
-        }
-        .cfk-per-card:hover {
-          border-color: ${C_BRIGHT}66 !important;
-          transform: translateY(-3px);
-          backdrop-filter: blur(34px) saturate(200%);
-          -webkit-backdrop-filter: blur(34px) saturate(200%);
-          box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.18),
-            inset 0 -1px 0 rgba(0, 0, 0, 0.45),
-            inset 0 0 0 1px ${C}1a,
-            0 1px 2px rgba(0, 0, 0, 0.45),
-            0 14px 36px ${C}29,
-            0 28px 64px rgba(0, 0, 0, 0.38);
-        }
-        .cfk-per-card:hover .cfk-per-logo {
-          transform: scale(calc(var(--logo-scale, 1) * 1.04));
-          filter: drop-shadow(0 6px 24px ${C}66);
-        }
-        .cfk-per-card:hover .cfk-per-arrow {
-          background: ${C_BRIGHT};
-          border-color: ${C_BRIGHT};
-          color: #fff;
-          transform: translateY(2px);
-          box-shadow: 0 6px 16px ${C}66;
-        }
-        @media (max-width: 900px) {
-          .cfk-per-grid { grid-template-columns: 1fr 1fr !important; }
-        }
-        @media (max-width: 600px) {
-          .cfk-per-grid { grid-template-columns: 1fr !important; }
-        }
-
-        /* ─── Delegate-list request form (below cards, centered) ─────────── */
-        .cfk-per-form-wrap {
-          margin-top: clamp(36px, 5vw, 60px);
+        /* ── Modal overlay + card ────────────────────────────────────────── */
+        .cfk-req-modal-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
           display: flex;
+          align-items: center;
           justify-content: center;
+          padding: clamp(16px, 3vw, 32px);
+          background: rgba(4, 2, 4, 0.78);
+          backdrop-filter: blur(14px) saturate(140%);
+          -webkit-backdrop-filter: blur(14px) saturate(140%);
         }
-        .cfk-per-form-card {
+        .cfk-req-modal-card {
           position: relative;
           width: 100%;
-          max-width: 760px;
+          max-width: 580px;
+          max-height: calc(100vh - clamp(32px, 6vw, 64px));
+          overflow-y: auto;
           padding: clamp(24px, 3vw, 36px);
-          background: linear-gradient(165deg, rgba(28, 14, 16, 0.55) 0%, rgba(12, 8, 10, 0.65) 100%);
-          backdrop-filter: blur(28px) saturate(180%);
-          -webkit-backdrop-filter: blur(28px) saturate(180%);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 18px;
-          overflow: hidden;
+          background: linear-gradient(165deg, rgba(38, 18, 22, 0.94) 0%, rgba(16, 8, 10, 0.97) 100%);
+          border: 1px solid rgba(255,255,255,0.10);
+          border-radius: 20px;
           box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.14),
-            inset 0 -1px 0 rgba(0, 0, 0, 0.4),
-            0 1px 2px rgba(0, 0, 0, 0.45),
-            0 14px 36px rgba(0, 0, 0, 0.30),
-            0 32px 64px rgba(0, 0, 0, 0.32);
+            inset 0 1px 0 rgba(255,255,255,0.16),
+            inset 0 -1px 0 rgba(0,0,0,0.45),
+            0 24px 56px rgba(0,0,0,0.55),
+            0 48px 96px rgba(0,0,0,0.45);
         }
-        .cfk-per-form-hairline {
+        .cfk-req-modal-hairline {
           position: absolute;
           top: 0; left: 8%; right: 8%; height: 1px;
-          background: linear-gradient(90deg, transparent 0%, ${C_BRIGHT} 50%, transparent 100%);
-          opacity: 0.75;
+          background: linear-gradient(90deg, transparent 0%, ${C_BRIGHT} 30%, ${KENYA_ACCENT} 70%, transparent 100%);
+          opacity: 0.8;
         }
-        .cfk-per-form-header {
-          margin-bottom: clamp(20px, 2.5vw, 28px);
-          position: relative; z-index: 1;
+        .cfk-req-modal-close {
+          position: absolute;
+          top: 14px; right: 14px;
+          display: inline-flex;
+          align-items: center; justify-content: center;
+          width: 32px; height: 32px;
+          border-radius: 8px;
+          border: 1px solid rgba(255,255,255,0.10);
+          background: rgba(255,255,255,0.04);
+          color: rgba(255,255,255,0.7);
+          cursor: pointer;
+          transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
         }
-        .cfk-per-form-fields {
+        .cfk-req-modal-close:hover {
+          color: white;
+          border-color: ${C_BRIGHT}66;
+          background: ${C}1a;
+          transform: rotate(90deg);
+        }
+        .cfk-req-modal-header {
+          margin-bottom: clamp(18px, 2vw, 22px);
+          padding-right: 36px;
+        }
+        .cfk-req-modal-success {
+          display: flex; flex-direction: column;
+          align-items: center; text-align: center;
+          padding: clamp(8px, 1vw, 12px) 0 4px;
+        }
+        .cfk-req-modal-success-check {
+          display: inline-flex;
+          align-items: center; justify-content: center;
+          width: 56px; height: 56px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, ${C}, ${C_BRIGHT});
+          margin-bottom: 16px;
+          box-shadow: 0 8px 24px ${C}66;
+        }
+        .cfk-req-modal-success h4 {
+          margin: 0 0 8px;
+          font-family: var(--font-display);
+          font-size: clamp(18px, 1.8vw, 22px);
+          font-weight: 700;
+          color: white;
+        }
+        .cfk-req-modal-success p {
+          margin: 0 0 22px;
+          font-family: var(--font-outfit);
+          font-size: 14px;
+          color: rgba(255,255,255,0.6);
+          line-height: 1.55;
+          max-width: 380px;
+        }
+        .cfk-req-modal-done {
+          padding: 10px 28px;
+          background: linear-gradient(135deg, ${C} 0%, ${C_BRIGHT} 100%);
+          border: 1px solid ${C_BRIGHT}55;
+          border-radius: 10px;
+          color: white;
+          font-family: var(--font-outfit);
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          cursor: pointer;
+          transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .cfk-req-modal-done:hover {
+          transform: translateY(-1px);
+          filter: brightness(1.08);
+        }
+        @media (max-width: 540px) {
+          .cfk-req-modal-card { padding: 22px 18px; border-radius: 16px; }
+          .cfk-req-modal-header { padding-right: 30px; }
+        }
+
+        /* ── Form fields ─────────────────────────────────────────────────── */
+        .cfk-req-form-fields {
           position: relative; z-index: 1;
           display: flex; flex-direction: column;
           gap: clamp(14px, 1.8vw, 18px);
         }
-        .cfk-per-form-row {
+        .cfk-req-form-row {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: clamp(12px, 1.6vw, 18px);
         }
-        .cfk-per-form-field {
+        .cfk-req-form-field {
           display: flex; flex-direction: column;
           gap: 6px;
         }
-        .cfk-per-form-label {
+        .cfk-req-form-label {
           font-family: var(--font-outfit);
           font-size: 11px; font-weight: 600;
           letter-spacing: 0.16em; text-transform: uppercase;
@@ -6604,72 +6676,18 @@ function CfkPostEventReports() {
           align-items: baseline;
           gap: 10px;
         }
-        .cfk-per-form-hint-inline {
+        .cfk-req-form-hint-inline {
           font-size: 10px;
           font-weight: 500;
           letter-spacing: 0.06em;
           text-transform: none;
           color: rgba(255,255,255,0.35);
         }
-        .cfk-per-form-input {
-          width: 100%;
-          padding: 12px 14px;
-          background: rgba(0,0,0,0.25);
-          border: 1px solid rgba(255,255,255,0.10);
-          border-radius: 10px;
-          color: white;
-          font-family: var(--font-outfit);
-          font-size: 14.5px;
-          line-height: 1.4;
-          outline: none;
-          transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
-        }
-        .cfk-per-form-input::placeholder {
-          color: rgba(255,255,255,0.30);
-        }
-        .cfk-per-form-input:focus {
-          border-color: ${C_BRIGHT};
-          background: rgba(0,0,0,0.35);
-          box-shadow: 0 0 0 3px ${C}40;
-        }
-        .cfk-per-form-input[aria-invalid="true"] {
-          border-color: rgba(255,80,80,0.6);
-        }
-        .cfk-per-form-phone-row {
-          display: flex;
-          gap: 8px;
-        }
-        .cfk-per-form-cc {
-          padding: 12px 10px;
-          background: rgba(0,0,0,0.25);
-          border: 1px solid rgba(255,255,255,0.10);
-          border-radius: 10px;
-          color: white;
-          font-family: var(--font-outfit);
-          font-size: 14px;
-          outline: none;
-          cursor: pointer;
-          max-width: 110px;
-          transition: border-color 0.25s ease, background 0.25s ease;
-        }
-        .cfk-per-form-cc:focus {
-          border-color: ${C_BRIGHT};
-          box-shadow: 0 0 0 3px ${C}40;
-        }
-        .cfk-per-form-cc option {
-          background: #1a0a0d;
-          color: white;
-        }
-        .cfk-per-form-phone-wrap {
+        .cfk-req-form-phone-wrap {
           position: relative;
           flex: 1;
         }
-        .cfk-per-form-phone-input {
-          flex: 1;
-          width: 100%;
-          padding-right: 40px;
-        }
-        .cfk-per-form-phone-check {
+        .cfk-req-form-phone-check {
           position: absolute;
           right: 12px;
           top: 50%;
@@ -6683,20 +6701,89 @@ function CfkPostEventReports() {
           box-shadow: 0 2px 8px ${C}66;
           pointer-events: none;
         }
-        .cfk-per-form-phone-progress {
+        .cfk-req-form-phone-progress {
           font-family: var(--font-outfit);
           font-size: 11px;
           color: rgba(255,255,255,0.45);
           font-variant-numeric: tabular-nums;
           margin-top: 2px;
         }
-        .cfk-per-form-err {
+        .cfk-req-form-input {
+          width: 100%;
+          padding: 12px 14px;
+          background: rgba(0,0,0,0.30);
+          border: 1px solid rgba(255,255,255,0.10);
+          border-radius: 10px;
+          color: white;
+          font-family: var(--font-outfit);
+          font-size: 14.5px;
+          line-height: 1.4;
+          outline: none;
+          transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+        }
+        .cfk-req-form-input::placeholder {
+          color: rgba(255,255,255,0.30);
+        }
+        .cfk-req-form-input:focus {
+          border-color: ${C_BRIGHT};
+          background: rgba(0,0,0,0.40);
+          box-shadow: 0 0 0 3px ${C}33;
+        }
+        .cfk-req-form-input[aria-invalid="true"] {
+          border-color: rgba(255,80,80,0.6);
+        }
+        /* Edition picker — native select with a custom maroon chevron */
+        .cfk-req-form-report-select {
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          padding-right: 40px;
+          background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1l5 5 5-5' stroke='%23B52230' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+          background-repeat: no-repeat;
+          background-position: right 14px center;
+          cursor: pointer;
+        }
+        .cfk-req-form-report-select option {
+          background: #1a0e10;
+          color: white;
+        }
+        .cfk-req-form-phone-row {
+          display: flex;
+          gap: 8px;
+        }
+        .cfk-req-form-cc {
+          padding: 12px 10px;
+          background: rgba(0,0,0,0.30);
+          border: 1px solid rgba(255,255,255,0.10);
+          border-radius: 10px;
+          color: white;
+          font-family: var(--font-outfit);
+          font-size: 14px;
+          outline: none;
+          cursor: pointer;
+          max-width: 110px;
+          transition: border-color 0.25s ease, background 0.25s ease;
+        }
+        .cfk-req-form-cc:focus {
+          border-color: ${C_BRIGHT};
+          box-shadow: 0 0 0 3px ${C}33;
+        }
+        .cfk-req-form-cc option {
+          background: #1a0e10;
+          color: white;
+        }
+        .cfk-req-form-phone-input {
+          flex: 1;
+          width: 100%;
+          padding-right: 40px;
+        }
+        .cfk-req-form-err {
           font-family: var(--font-outfit);
           font-size: 12px;
           color: #ff7a7a;
           margin-top: 2px;
         }
-        .cfk-per-form-submit-err {
+        .cfk-req-form-submit-err {
           padding: 12px 14px;
           border-radius: 10px;
           background: rgba(255, 80, 80, 0.10);
@@ -6705,7 +6792,7 @@ function CfkPostEventReports() {
           font-family: var(--font-outfit);
           font-size: 13.5px;
         }
-        .cfk-per-form-submit {
+        .cfk-req-form-submit {
           display: inline-flex;
           align-items: center; justify-content: center;
           padding: 14px 24px;
@@ -6720,33 +6807,28 @@ function CfkPostEventReports() {
           cursor: pointer;
           align-self: flex-start;
           transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease, filter 0.25s ease;
-          box-shadow: 0 8px 20px ${C}40, inset 0 1px 0 rgba(255,255,255,0.18);
+          box-shadow: 0 8px 20px ${C}55, inset 0 1px 0 rgba(255,255,255,0.18);
         }
-        .cfk-per-form-submit:hover:not(:disabled) {
+        .cfk-req-form-submit:hover:not(:disabled) {
           transform: translateY(-1px);
           filter: brightness(1.08);
-          box-shadow: 0 12px 28px ${C}66, inset 0 1px 0 rgba(255,255,255,0.22);
+          box-shadow: 0 12px 28px ${C}77, inset 0 1px 0 rgba(255,255,255,0.22);
         }
-        .cfk-per-form-submit:disabled {
+        .cfk-req-form-submit:disabled {
           opacity: 0.55;
           cursor: not-allowed;
         }
-        .cfk-per-form-hint {
+        .cfk-req-form-hint {
           font-family: var(--font-outfit);
           font-size: 12px;
           color: rgba(255,255,255,0.35);
           margin: 4px 0 0;
         }
-        .cfk-per-form-success {
-          position: relative; z-index: 1;
-          text-align: center;
-          padding: clamp(20px, 3vw, 32px) 0;
-        }
         @media (max-width: 640px) {
-          .cfk-per-form-row {
+          .cfk-req-form-row {
             grid-template-columns: 1fr !important;
           }
-          .cfk-per-form-submit {
+          .cfk-req-form-submit {
             width: 100%;
             justify-content: center;
           }

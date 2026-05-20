@@ -1,11 +1,14 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { createPortal } from "react-dom";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Footer } from "@/components/sections";
 import InquiryForm from "@/components/sections/InquiryForm";
 import CyberFirstCloudsBg from "@/components/effects/CyberFirstCloudsBg";
+import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
+import type { CountryCode } from "@/lib/form-helpers";
 
 // ─── DESIGN TOKENS ───────────────────────────────────────────────────────────
 const CYAN = "#01BBF5";
@@ -90,11 +93,6 @@ const POST_EVENT_REPORTS: ReportEntry[] = [
     logoScale: 1.7,
   },
 ];
-
-// Build the same-origin download proxy URL so the browser triggers a
-// Content-Disposition: attachment download instead of an in-tab preview.
-const buildReportDownloadUrl = (url: string, filename: string) =>
-  `/api/download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
 
 const HERO_SERVICES = [
   { label: "Summits", desc: "Seven executive editions across the Gulf, Africa & South Asia" },
@@ -421,6 +419,35 @@ function NetworkMesh() {
 // 1. HERO — Two-anchor composition (top + bottom blocks, shader breathes middle)
 // ═════════════════════════════════════════════════════════════════════════════
 function Hero() {
+  const [resourceMenuOpen, setResourceMenuOpen] = useState(false);
+  const resourceMenuRef = useRef<HTMLDivElement>(null);
+
+  // Click-outside + ESC closes the resources dropdown
+  useEffect(() => {
+    if (!resourceMenuOpen) return;
+    const onClick = (e: MouseEvent) => {
+      if (resourceMenuRef.current && !resourceMenuRef.current.contains(e.target as Node)) {
+        setResourceMenuOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setResourceMenuOpen(false);
+    };
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [resourceMenuOpen]);
+
+  const openRequest = (type: "Past Event Report" | "Delegate List") => {
+    setResourceMenuOpen(false);
+    window.dispatchEvent(
+      new CustomEvent("cf-series:open-request", { detail: { type } }),
+    );
+  };
+
   return (
     <section style={{ position: "relative", minHeight: "100svh", background: INK, overflow: "hidden", color: "white", display: "flex", flexDirection: "column", justifyContent: "center" }}>
       {/* Shader */}
@@ -891,6 +918,188 @@ function Hero() {
                 transition: "transform 0.4s cubic-bezier(0.22,1,0.36,1)",
               }}>→</span>
             </Link>
+
+            {/* Third CTA — Request Resources dropdown (opens modal form) */}
+            <div ref={resourceMenuRef} style={{ position: "relative", display: "inline-block" }}>
+              <button
+                type="button"
+                onClick={() => setResourceMenuOpen((o) => !o)}
+                aria-haspopup="menu"
+                aria-expanded={resourceMenuOpen}
+                className="cf-hero-next cf-hero-resources"
+                style={{
+                  position: "relative",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 10,
+                  padding: "12px 20px",
+                  borderRadius: 999,
+                  background: "rgba(255,255,255,0.025)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  backdropFilter: "blur(14px) saturate(1.3)",
+                  WebkitBackdropFilter: "blur(14px) saturate(1.3)",
+                  boxShadow: `inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 14px rgba(0,0,0,0.25)`,
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 13.5,
+                  fontWeight: 500,
+                  color: "rgba(255,255,255,0.82)",
+                  letterSpacing: "0.015em",
+                  cursor: "pointer",
+                  transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
+                  overflow: "hidden",
+                }}
+              >
+                <span aria-hidden style={{ position: "absolute", top: 0, left: "20%", right: "20%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent)", pointerEvents: "none" }} />
+                <span style={{ position: "relative", zIndex: 2 }}>Request Resources</span>
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{
+                    position: "relative",
+                    zIndex: 2,
+                    color: CYAN,
+                    transform: resourceMenuOpen ? "rotate(0)" : "rotate(180deg)",
+                    transition: "transform 0.25s ease",
+                    opacity: 0.85,
+                  }}
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+
+              <AnimatePresence>
+                {resourceMenuOpen && (
+                  <motion.div
+                    role="menu"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 6 }}
+                    transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                    style={{
+                      position: "absolute",
+                      bottom: "calc(100% + 10px)",
+                      left: 0,
+                      minWidth: 320,
+                      padding: 6,
+                      borderRadius: 18,
+                      background: "rgba(10, 12, 18, 0.92)",
+                      border: `1px solid ${CYAN}33`,
+                      backdropFilter: "blur(18px) saturate(180%)",
+                      WebkitBackdropFilter: "blur(18px) saturate(180%)",
+                      boxShadow:
+                        "0 22px 50px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06)",
+                      zIndex: 30,
+                    }}
+                  >
+                    {/* Past Event Report */}
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={() => openRequest("Past Event Report")}
+                      className="cf-hero-menu-item"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 12,
+                        padding: "12px 14px",
+                        borderRadius: 12,
+                        background: "transparent",
+                        border: "none",
+                        width: "100%",
+                        textAlign: "left",
+                        cursor: "pointer",
+                        color: "white",
+                        transition: "background 0.2s ease",
+                      }}
+                    >
+                      <span style={{
+                        width: 36, height: 36, borderRadius: "50%",
+                        background: `${CYAN}22`,
+                        border: `1px solid ${CYAN}55`,
+                        display: "inline-flex", alignItems: "center", justifyContent: "center",
+                        flexShrink: 0,
+                      }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={CYAN} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                          <polyline points="14 2 14 8 20 8" />
+                          <line x1="12" y1="18" x2="12" y2="12" />
+                          <polyline points="9 15 12 18 15 15" />
+                        </svg>
+                      </span>
+                      <span style={{ flex: 1, minWidth: 0 }}>
+                        <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 600, color: "white", lineHeight: 1.25 }}>
+                          Past Event Report
+                        </span>
+                        <span style={{ display: "block", marginTop: 2, fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.55)" }}>
+                          Request the PDF report from a past edition
+                        </span>
+                      </span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                      </svg>
+                    </button>
+
+                    <div style={{ height: 1, background: "rgba(255,255,255,0.06)", margin: "2px 10px" }} />
+
+                    {/* Delegate List */}
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={() => openRequest("Delegate List")}
+                      className="cf-hero-menu-item"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 12,
+                        padding: "12px 14px",
+                        borderRadius: 12,
+                        background: "transparent",
+                        border: "none",
+                        width: "100%",
+                        textAlign: "left",
+                        cursor: "pointer",
+                        color: "white",
+                        transition: "background 0.2s ease",
+                      }}
+                    >
+                      <span style={{
+                        width: 36, height: 36, borderRadius: "50%",
+                        background: `${CYAN}22`,
+                        border: `1px solid ${CYAN}55`,
+                        display: "inline-flex", alignItems: "center", justifyContent: "center",
+                        flexShrink: 0,
+                      }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={CYAN} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                          <circle cx="9" cy="7" r="4" />
+                          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                      </span>
+                      <span style={{ flex: 1, minWidth: 0 }}>
+                        <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 600, color: "white", lineHeight: 1.25 }}>
+                          Delegate List
+                        </span>
+                        <span style={{ display: "block", marginTop: 2, fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.55)" }}>
+                          Request the confirmed attendee roster
+                        </span>
+                      </span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                      </svg>
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -1058,6 +1267,8 @@ function Hero() {
           transform: translateY(-1px);
         }
         .cf-hero-next:hover .cf-hero-next-arrow { transform: translateX(4px); }
+        .cf-hero-menu-item:hover { background: ${CYAN}14 !important; }
+        .cf-hero-menu-item:focus-visible { outline: none; background: ${CYAN}1f !important; }
         .cf-hero-service { cursor: default; }
         .cf-hero-service:hover .cf-service-chip {
           transform: translateY(-2px);
@@ -1451,10 +1662,17 @@ function PostEventReports() {
           gap: "clamp(16px, 2vw, 28px)",
         }}>
           {POST_EVENT_REPORTS.map((report, i) => (
-            <motion.a
+            <motion.button
               key={report.url}
-              href={buildReportDownloadUrl(report.url, report.filename)}
-              download={report.filename}
+              type="button"
+              onClick={() => {
+                document.querySelector("section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                window.dispatchEvent(
+                  new CustomEvent("cf-series:open-request", {
+                    detail: { type: "Past Event Report", reportUrl: report.url },
+                  }),
+                );
+              }}
               className="cf-report-card"
               initial={{ opacity: 0, y: 18 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -1463,6 +1681,10 @@ function PostEventReports() {
                 position: "relative",
                 display: "flex", flexDirection: "column",
                 padding: "clamp(16px, 1.6vw, 22px)",
+                textAlign: "left",
+                font: "inherit",
+                cursor: "pointer",
+                width: "100%",
                 /* GLASS — semi-translucent with diagonal tone shift; backdrop-blur captures PageAtmosphere */
                 background: `linear-gradient(165deg, rgba(22, 24, 30, 0.55) 0%, rgba(10, 11, 14, 0.65) 100%)`,
                 backdropFilter: "blur(28px) saturate(180%)",
@@ -1645,7 +1867,7 @@ function PostEventReports() {
                   letterSpacing: "0.12em", textTransform: "uppercase",
                   color: "white",
                 }}>
-                  Download Report
+                  Request Report
                 </span>
                 <span aria-hidden className="cf-report-arrow" style={{
                   display: "inline-flex", alignItems: "center", justifyContent: "center",
@@ -1656,12 +1878,12 @@ function PostEventReports() {
                   transition: "background 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1)",
                 }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
                   </svg>
                 </span>
               </div>
-            </motion.a>
+            </motion.button>
           ))}
         </div>
       </div>
@@ -1688,7 +1910,7 @@ function PostEventReports() {
           background: ${CYAN} !important;
           border-color: ${CYAN} !important;
           color: ${INK} !important;
-          transform: translateY(2px);
+          transform: translateX(3px);
           box-shadow: 0 6px 16px rgba(1, 187, 245, 0.40);
         }
         @media (max-width: 900px) {
@@ -5113,6 +5335,603 @@ function CrossSell() {
 // ═════════════════════════════════════════════════════════════════════════════
 // PAGE
 // ═════════════════════════════════════════════════════════════════════════════
+// ═════════════════════════════════════════════════════════════════════════════
+// REQUEST RESOURCES MODAL — opened by the hero dropdown via a custom event
+// ═════════════════════════════════════════════════════════════════════════════
+function CfRequestResourcesModal() {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState<CountryCode>(
+    COUNTRY_CODES.find((c) => c.country === "AE") || COUNTRY_CODES[0]
+  );
+  const [phoneTouched, setPhoneTouched] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [submitError, setSubmitError] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
+  type RequestKind = "Delegate List" | "Past Event Report";
+  const [requestType, setRequestType] = useState<RequestKind>("Past Event Report");
+  const [selectedReportUrl, setSelectedReportUrl] = useState<string>(
+    POST_EVENT_REPORTS[0]?.url ?? "",
+  );
+
+  // Lock body scroll + ESC-to-close while modal is open
+  useEffect(() => {
+    if (!modalOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setModalOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [modalOpen]);
+
+  // Listen for the hero dropdown — or a report card — opening the modal
+  useEffect(() => {
+    const onOpenRequest = (e: Event) => {
+      const detail = (e as CustomEvent<{ type?: RequestKind; reportUrl?: string }>).detail;
+      if (detail?.type === "Past Event Report" || detail?.type === "Delegate List") {
+        setRequestType(detail.type);
+        if (detail.reportUrl && POST_EVENT_REPORTS.some((r) => r.url === detail.reportUrl)) {
+          setSelectedReportUrl(detail.reportUrl);
+        }
+        setSubmitState("idle");
+        setSubmitError("");
+        setErrors({});
+        setModalOpen(true);
+      }
+    };
+    window.addEventListener("cf-series:open-request", onOpenRequest);
+    return () => window.removeEventListener("cf-series:open-request", onOpenRequest);
+  }, []);
+
+  const modalCopy =
+    requestType === "Past Event Report"
+      ? {
+          kicker: "Request the Past Event Report",
+          title: "Get the post-event report.",
+          subtitle:
+            "Share your details and we’ll send the curated delegate list to your work email.",
+          success:
+            "We’ll email the post-event report PDF to your work email within 1 business day.",
+        }
+      : {
+          kicker: "Request the Delegate List",
+          title: "Get the full attendee roster.",
+          subtitle:
+            "Share your details and we’ll send the curated delegate list to your work email.",
+          success:
+            "We’ll send the delegate list to your work email within 1 business day.",
+        };
+
+  const phoneDigits = phone.replace(/[\s\-()]/g, "");
+  const phoneDigitsLen = phoneDigits.length;
+  const phoneIsValid = phoneDigitsLen > 0 && validatePhone(phone, countryCode) === null;
+
+  useEffect(() => {
+    if (!phoneTouched) return;
+    const err = validatePhone(phone, countryCode);
+    setErrors((prev) => {
+      const next = { ...prev };
+      if (err) next.phone = err; else delete next.phone;
+      return next;
+    });
+  }, [phone, countryCode, phoneTouched]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const newErrors: Record<string, string> = {};
+    if (!fullName.trim()) newErrors.fullName = "Full name is required";
+    if (!email.trim()) newErrors.email = "Work email is required";
+    else if (!isWorkEmail(email.trim())) newErrors.email = "Please use your work email — free providers are not accepted";
+    if (!jobTitle.trim()) newErrors.jobTitle = "Job title is required";
+    const phoneErr = validatePhone(phone, countryCode);
+    if (phoneErr) newErrors.phone = phoneErr;
+    if (!selectedReportUrl) newErrors.report = "Please select an edition";
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) {
+      setPhoneTouched(true);
+      return;
+    }
+
+    const selectedReport = POST_EVENT_REPORTS.find((r) => r.url === selectedReportUrl);
+
+    setSubmitState("submitting");
+    setSubmitError("");
+    const res = await submitForm({
+      type: "contact",
+      full_name: fullName.trim(),
+      email: email.trim(),
+      job_title: jobTitle.trim(),
+      phone: `${countryCode.code} ${phone.trim()}`,
+      event_name: "Cyber First (series)",
+      metadata: {
+        "Event Page": "Cyber First — Series",
+        "Request Type": requestType,
+        "Page Section": "Hero — Request Resources",
+        ...(selectedReport && {
+          "Selected Edition": `${selectedReport.title} ${selectedReport.year}`,
+          ...(requestType === "Past Event Report" && {
+            "Selected Report URL": selectedReport.url,
+          }),
+        }),
+      },
+    });
+    if (res.success) {
+      setSubmitState("success");
+      setFullName(""); setEmail(""); setJobTitle(""); setPhone("");
+    } else {
+      setSubmitState("error");
+      setSubmitError(res.error || "Something went wrong. Please try again.");
+    }
+  };
+
+  if (!mounted) return null;
+
+  return createPortal(
+    <AnimatePresence>
+      {modalOpen && (
+        <motion.div
+          className="cf-req-modal-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.22 }}
+          onClick={() => setModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="cf-req-modal-title"
+        >
+          <motion.div
+            className="cf-req-modal-card"
+            initial={{ opacity: 0, y: 24, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 24, scale: 0.96 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setModalOpen(false)}
+              className="cf-req-modal-close"
+              aria-label="Close request form"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+
+            <span aria-hidden className="cf-req-modal-hairline" />
+
+            <div className="cf-req-modal-header">
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                <span style={{ width: 24, height: 1, background: CYAN }} />
+                <span style={{
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 10, fontWeight: 700,
+                  letterSpacing: "0.32em", textTransform: "uppercase",
+                  color: CYAN,
+                }}>{modalCopy.kicker}</span>
+              </div>
+              <h3 id="cf-req-modal-title" style={{
+                margin: 0,
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(20px, 2.4vw, 26px)",
+                fontWeight: 700,
+                letterSpacing: "-0.5px",
+                color: "white",
+                lineHeight: 1.2,
+              }}>
+                {modalCopy.title}
+              </h3>
+              <p style={{
+                margin: "10px 0 0",
+                fontFamily: "var(--font-outfit)",
+                fontSize: 13,
+                color: "rgba(255,255,255,0.55)",
+                lineHeight: 1.55,
+              }}>
+                {modalCopy.subtitle}
+              </p>
+            </div>
+
+            {submitState === "success" ? (
+              <div className="cf-req-modal-success">
+                <div className="cf-req-modal-success-check">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <h4>Request received.</h4>
+                <p>{modalCopy.success}</p>
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(false)}
+                  className="cf-req-modal-done"
+                >
+                  Done
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} noValidate className="cf-req-form-fields">
+                {/* Honeypot */}
+                <input type="text" name="website" tabIndex={-1} autoComplete="off"
+                  style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} />
+
+                <div className="cf-req-form-row">
+                  <label className="cf-req-form-field" style={{ flex: "1 1 100%" }}>
+                    <span className="cf-req-form-label">Select Edition</span>
+                    <select
+                      value={selectedReportUrl}
+                      onChange={(e) => {
+                        setSelectedReportUrl(e.target.value);
+                        if (errors.report) setErrors({ ...errors, report: "" });
+                      }}
+                      className="cf-req-form-input cf-req-form-report-select"
+                      aria-invalid={!!errors.report}
+                    >
+                      {POST_EVENT_REPORTS.map((r) => (
+                        <option key={r.url} value={r.url}>
+                          {r.title} {r.year}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.report && <span className="cf-req-form-err">{errors.report}</span>}
+                  </label>
+                </div>
+
+                <div className="cf-req-form-row">
+                  <label className="cf-req-form-field">
+                    <span className="cf-req-form-label">Full Name</span>
+                    <input
+                      type="text"
+                      value={fullName}
+                      onChange={(e) => { setFullName(e.target.value); if (errors.fullName) setErrors({ ...errors, fullName: "" }); }}
+                      placeholder="Your full name"
+                      autoComplete="name"
+                      className="cf-req-form-input"
+                      aria-invalid={!!errors.fullName}
+                    />
+                    {errors.fullName && <span className="cf-req-form-err">{errors.fullName}</span>}
+                  </label>
+
+                  <label className="cf-req-form-field">
+                    <span className="cf-req-form-label">Work Email</span>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors({ ...errors, email: "" }); }}
+                      placeholder="name@company.com"
+                      autoComplete="email"
+                      className="cf-req-form-input"
+                      aria-invalid={!!errors.email}
+                    />
+                    {errors.email && <span className="cf-req-form-err">{errors.email}</span>}
+                  </label>
+                </div>
+
+                <div className="cf-req-form-row">
+                  <label className="cf-req-form-field">
+                    <span className="cf-req-form-label">Job Title</span>
+                    <input
+                      type="text"
+                      value={jobTitle}
+                      onChange={(e) => { setJobTitle(e.target.value); if (errors.jobTitle) setErrors({ ...errors, jobTitle: "" }); }}
+                      placeholder="CISO, Head of IT, CIO…"
+                      autoComplete="organization-title"
+                      className="cf-req-form-input"
+                      aria-invalid={!!errors.jobTitle}
+                    />
+                    {errors.jobTitle && <span className="cf-req-form-err">{errors.jobTitle}</span>}
+                  </label>
+
+                  <label className="cf-req-form-field">
+                    <span className="cf-req-form-label">
+                      Phone
+                      <span className="cf-req-form-hint-inline">
+                        {countryCode.length} digits expected
+                      </span>
+                    </span>
+                    <div className="cf-req-form-phone-row">
+                      <select
+                        value={`${countryCode.country}-${countryCode.code}`}
+                        onChange={(e) => {
+                          const [country, code] = e.target.value.split("-");
+                          const found = COUNTRY_CODES.find((c) => c.country === country && c.code === code);
+                          if (found) {
+                            setCountryCode(found);
+                            setPhone((p) => p.replace(/\D/g, "").slice(0, found.length));
+                          }
+                        }}
+                        className="cf-req-form-cc"
+                        aria-label="Country code"
+                      >
+                        {COUNTRY_CODES.map((c) => (
+                          <option key={`${c.country}-${c.code}`} value={`${c.country}-${c.code}`}>
+                            {c.country} {c.code}
+                          </option>
+                        ))}
+                      </select>
+                      <div className="cf-req-form-phone-wrap">
+                        <input
+                          type="tel"
+                          inputMode="numeric"
+                          value={phone}
+                          onChange={(e) => {
+                            const digits = e.target.value.replace(/\D/g, "").slice(0, countryCode.length);
+                            setPhone(digits);
+                          }}
+                          onBlur={() => setPhoneTouched(true)}
+                          placeholder={countryCode.placeholder}
+                          autoComplete="tel-national"
+                          maxLength={countryCode.length}
+                          className="cf-req-form-input cf-req-form-phone-input"
+                          aria-invalid={!!errors.phone}
+                        />
+                        {phoneTouched && phoneIsValid && (
+                          <span aria-hidden className="cf-req-form-phone-check">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    {phoneTouched && !phoneIsValid && phoneDigitsLen > 0 && !errors.phone && (
+                      <span className="cf-req-form-phone-progress">
+                        {phoneDigitsLen} / {countryCode.length} digits
+                      </span>
+                    )}
+                    {errors.phone && <span className="cf-req-form-err">{errors.phone}</span>}
+                  </label>
+                </div>
+
+                {submitError && (
+                  <div className="cf-req-form-submit-err">{submitError}</div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={submitState === "submitting"}
+                  className="cf-req-form-submit"
+                >
+                  {submitState === "submitting"
+                    ? "Sending…"
+                    : requestType === "Past Event Report"
+                    ? "Send me the report"
+                    : "Send me the delegate list"}
+                  {submitState !== "submitting" && (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 8 }}>
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  )}
+                </button>
+                <p className="cf-req-form-hint">
+                  We respect your inbox. Used only to send the requested resource and edition follow-ups.
+                </p>
+              </form>
+            )}
+
+            <style jsx global>{`
+              .cf-req-modal-overlay {
+                position: fixed; inset: 0; z-index: 9999;
+                display: flex; align-items: center; justify-content: center;
+                padding: clamp(16px, 3vw, 32px);
+                background: rgba(2, 4, 8, 0.78);
+                backdrop-filter: blur(14px) saturate(140%);
+                -webkit-backdrop-filter: blur(14px) saturate(140%);
+              }
+              .cf-req-modal-card {
+                position: relative;
+                width: 100%; max-width: 580px;
+                max-height: calc(100vh - clamp(32px, 6vw, 64px));
+                overflow-y: auto;
+                padding: clamp(24px, 3vw, 36px);
+                background: linear-gradient(165deg, rgba(14, 22, 36, 0.94) 0%, rgba(6, 10, 18, 0.97) 100%);
+                border: 1px solid rgba(255,255,255,0.10);
+                border-radius: 20px;
+                box-shadow:
+                  inset 0 1px 0 rgba(255,255,255,0.16),
+                  inset 0 -1px 0 rgba(0,0,0,0.45),
+                  0 24px 56px rgba(0,0,0,0.55),
+                  0 48px 96px rgba(0,0,0,0.45);
+              }
+              .cf-req-modal-hairline {
+                position: absolute; top: 0; left: 8%; right: 8%; height: 1px;
+                background: linear-gradient(90deg, transparent 0%, ${CYAN} 50%, transparent 100%);
+                opacity: 0.8;
+              }
+              .cf-req-modal-close {
+                position: absolute; top: 14px; right: 14px;
+                display: inline-flex; align-items: center; justify-content: center;
+                width: 32px; height: 32px; border-radius: 8px;
+                border: 1px solid rgba(255,255,255,0.10);
+                background: rgba(255,255,255,0.04);
+                color: rgba(255,255,255,0.7); cursor: pointer;
+                transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+              }
+              .cf-req-modal-close:hover {
+                color: white; border-color: ${CYAN}66; background: ${CYAN}1a; transform: rotate(90deg);
+              }
+              .cf-req-modal-header {
+                margin-bottom: clamp(18px, 2vw, 22px);
+                padding-right: 36px;
+              }
+              .cf-req-modal-success {
+                display: flex; flex-direction: column;
+                align-items: center; text-align: center;
+                padding: clamp(8px, 1vw, 12px) 0 4px;
+              }
+              .cf-req-modal-success-check {
+                display: inline-flex; align-items: center; justify-content: center;
+                width: 56px; height: 56px; border-radius: 50%;
+                background: linear-gradient(135deg, ${CYAN_DIM}, ${CYAN});
+                margin-bottom: 16px; box-shadow: 0 8px 24px ${CYAN}66;
+              }
+              .cf-req-modal-success h4 {
+                margin: 0 0 8px;
+                font-family: var(--font-display);
+                font-size: clamp(18px, 1.8vw, 22px);
+                font-weight: 700; color: white;
+              }
+              .cf-req-modal-success p {
+                margin: 0 0 22px;
+                font-family: var(--font-outfit);
+                font-size: 14px; color: rgba(255,255,255,0.6);
+                line-height: 1.55; max-width: 380px;
+              }
+              .cf-req-modal-done {
+                padding: 10px 28px;
+                background: linear-gradient(135deg, ${CYAN_DIM} 0%, ${CYAN} 100%);
+                border: 1px solid ${CYAN}55; border-radius: 10px;
+                color: ${INK}; font-family: var(--font-outfit);
+                font-size: 13px; font-weight: 700;
+                letter-spacing: 0.04em; cursor: pointer;
+                transition: transform 0.3s ease, filter 0.3s ease;
+              }
+              .cf-req-modal-done:hover { transform: translateY(-1px); filter: brightness(1.08); }
+              @media (max-width: 540px) {
+                .cf-req-modal-card { padding: 22px 18px; border-radius: 16px; }
+                .cf-req-modal-header { padding-right: 30px; }
+              }
+              .cf-req-form-fields {
+                position: relative; z-index: 1;
+                display: flex; flex-direction: column;
+                gap: clamp(14px, 1.8vw, 18px);
+              }
+              .cf-req-form-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: clamp(12px, 1.6vw, 18px);
+              }
+              .cf-req-form-field { display: flex; flex-direction: column; gap: 6px; }
+              .cf-req-form-label {
+                font-family: var(--font-outfit);
+                font-size: 11px; font-weight: 600;
+                letter-spacing: 0.16em; text-transform: uppercase;
+                color: rgba(255,255,255,0.55);
+                display: flex; align-items: baseline; gap: 10px;
+              }
+              .cf-req-form-hint-inline {
+                font-size: 10px; font-weight: 500;
+                letter-spacing: 0.06em; text-transform: none;
+                color: rgba(255,255,255,0.35);
+              }
+              .cf-req-form-phone-wrap { position: relative; flex: 1; }
+              .cf-req-form-phone-check {
+                position: absolute; right: 12px; top: 50%;
+                transform: translateY(-50%);
+                display: inline-flex; align-items: center; justify-content: center;
+                width: 22px; height: 22px; border-radius: 50%;
+                background: linear-gradient(135deg, ${CYAN_DIM}, ${CYAN});
+                color: white; box-shadow: 0 2px 8px ${CYAN}66; pointer-events: none;
+              }
+              .cf-req-form-phone-progress {
+                font-family: var(--font-outfit); font-size: 11px;
+                color: rgba(255,255,255,0.45);
+                font-variant-numeric: tabular-nums; margin-top: 2px;
+              }
+              .cf-req-form-input {
+                width: 100%; padding: 12px 14px;
+                background: rgba(0,0,0,0.30);
+                border: 1px solid rgba(255,255,255,0.10);
+                border-radius: 10px; color: white;
+                font-family: var(--font-outfit);
+                font-size: 14.5px; line-height: 1.4;
+                outline: none;
+                transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+              }
+              .cf-req-form-input::placeholder { color: rgba(255,255,255,0.30); }
+              .cf-req-form-input:focus {
+                border-color: ${CYAN};
+                background: rgba(0,0,0,0.40);
+                box-shadow: 0 0 0 3px ${CYAN}33;
+              }
+              .cf-req-form-input[aria-invalid="true"] { border-color: rgba(255,80,80,0.6); }
+              .cf-req-form-report-select {
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                padding-right: 40px;
+                background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1l5 5 5-5' stroke='%2301BBF5' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+                background-repeat: no-repeat;
+                background-position: right 14px center;
+                cursor: pointer;
+              }
+              .cf-req-form-report-select option { background: #0a0f18; color: white; }
+              .cf-req-form-phone-row { display: flex; gap: 8px; }
+              .cf-req-form-cc {
+                padding: 12px 10px;
+                background: rgba(0,0,0,0.30);
+                border: 1px solid rgba(255,255,255,0.10);
+                border-radius: 10px; color: white;
+                font-family: var(--font-outfit);
+                font-size: 14px; outline: none;
+                cursor: pointer; max-width: 110px;
+                transition: border-color 0.25s ease, background 0.25s ease;
+              }
+              .cf-req-form-cc:focus {
+                border-color: ${CYAN};
+                box-shadow: 0 0 0 3px ${CYAN}33;
+              }
+              .cf-req-form-cc option { background: #0a0f18; color: white; }
+              .cf-req-form-phone-input { flex: 1; width: 100%; padding-right: 40px; }
+              .cf-req-form-err {
+                font-family: var(--font-outfit);
+                font-size: 12px; color: #ff7a7a; margin-top: 2px;
+              }
+              .cf-req-form-submit-err {
+                padding: 12px 14px; border-radius: 10px;
+                background: rgba(255, 80, 80, 0.10);
+                border: 1px solid rgba(255, 80, 80, 0.30);
+                color: #ff9a9a;
+                font-family: var(--font-outfit); font-size: 13.5px;
+              }
+              .cf-req-form-submit {
+                display: inline-flex;
+                align-items: center; justify-content: center;
+                padding: 14px 24px; border-radius: 12px;
+                border: 1px solid transparent;
+                background: linear-gradient(135deg, ${CYAN_DIM}, ${CYAN});
+                color: ${INK}; font-family: var(--font-outfit);
+                font-size: 14px; font-weight: 700;
+                letter-spacing: 0.04em; text-transform: uppercase;
+                cursor: pointer; align-self: flex-start;
+                transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease, filter 0.25s ease;
+                box-shadow: 0 8px 20px ${CYAN}55, inset 0 1px 0 rgba(255,255,255,0.18);
+              }
+              .cf-req-form-submit:hover:not(:disabled) {
+                transform: translateY(-1px);
+                filter: brightness(1.08);
+                box-shadow: 0 12px 28px ${CYAN}77, inset 0 1px 0 rgba(255,255,255,0.22);
+              }
+              .cf-req-form-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+              .cf-req-form-hint {
+                font-family: var(--font-outfit);
+                font-size: 12px; color: rgba(255,255,255,0.35); margin: 4px 0 0;
+              }
+              @media (max-width: 640px) {
+                .cf-req-form-row { grid-template-columns: 1fr !important; }
+                .cf-req-form-submit { width: 100%; justify-content: center; }
+              }
+            `}</style>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>,
+    document.body,
+  );
+}
+
 export default function CyberFirstPage() {
   // Smooth scroll for anchor links
   useEffect(() => {
@@ -5151,6 +5970,7 @@ export default function CyberFirstPage() {
         </div>
       </div>
       <Footer />
+      <CfRequestResourcesModal />
     </div>
   );
 }

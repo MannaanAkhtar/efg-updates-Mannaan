@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { POST_EVENT_REPORTS } from "./postEventReportsData";
 
 const VIOLET = "#7C3AED";
 const VIOLET_BRIGHT = "#9F67FF";
@@ -10,42 +11,6 @@ const RULE = "rgba(124,58,237,0.18)";
 const MUTE = "#9b96b8";
 const FAINT = "#6b6786";
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-type ReportEntry = {
-  edition: string;
-  year: string;
-  title: string;
-  subtitle: string;
-  url: string;
-  filename: string;
-  logo?: string;
-  logoScale?: number;
-};
-
-const POST_EVENT_REPORTS: ReportEntry[] = [
-  {
-    edition: "KSA",
-    year: "2025",
-    title: "OPEX First KSA",
-    subtitle: "2025 Edition",
-    url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/OPEX+First+KSA+2025+-+Post+Event+Report.pdf",
-    filename: "OPEX-First-KSA-2025-Report.pdf",
-    // logo: TODO — KSA edition logo URL goes here
-  },
-  {
-    edition: "UAE",
-    year: "2026",
-    title: "OPEX First UAE",
-    subtitle: "2026 Edition",
-    url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/Opex+UAE+Post+Event+Report_compressed.pdf",
-    filename: "OPEX-First-UAE-2026-Report.pdf",
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/efg_logo/opex_uae.png",
-    logoScale: 1.7,
-  },
-];
-
-const buildReportDownloadUrl = (url: string, filename: string) =>
-  `/api/download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
 
 export default function OpexPostEventReports() {
   const ref = useRef<HTMLElement>(null);
@@ -157,17 +122,24 @@ export default function OpexPostEventReports() {
           className="opex-reports-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
+            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
             gap: "clamp(16px, 2vw, 28px)",
-            maxWidth: 880,
+            maxWidth: 1200,
             margin: "0 auto",
           }}
         >
           {POST_EVENT_REPORTS.map((report, i) => (
-            <motion.a
+            <motion.button
               key={report.url}
-              href={buildReportDownloadUrl(report.url, report.filename)}
-              download={report.filename}
+              type="button"
+              onClick={() => {
+                document.querySelector("section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                window.dispatchEvent(
+                  new CustomEvent("opex-series:open-request", {
+                    detail: { type: "Past Event Report", reportUrl: report.url },
+                  }),
+                );
+              }}
               className="opex-report-card"
               initial={{ opacity: 0, y: 18 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
@@ -177,6 +149,10 @@ export default function OpexPostEventReports() {
                 display: "flex",
                 flexDirection: "column",
                 padding: "clamp(16px, 1.6vw, 22px)",
+                textAlign: "left",
+                font: "inherit",
+                cursor: "pointer",
+                width: "100%",
                 background: `linear-gradient(165deg, rgba(28, 22, 50, 0.55) 0%, rgba(12, 10, 36, 0.65) 100%)`,
                 backdropFilter: "blur(28px) saturate(180%)",
                 WebkitBackdropFilter: "blur(28px) saturate(180%)",
@@ -432,7 +408,7 @@ export default function OpexPostEventReports() {
                     color: "white",
                   }}
                 >
-                  Download Report
+                  Request Report
                 </span>
                 <span
                   aria-hidden
@@ -462,12 +438,12 @@ export default function OpexPostEventReports() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
                   </svg>
                 </span>
               </div>
-            </motion.a>
+            </motion.button>
           ))}
         </div>
       </div>
@@ -504,10 +480,15 @@ export default function OpexPostEventReports() {
           background: ${VIOLET} !important;
           border-color: ${VIOLET} !important;
           color: white !important;
-          transform: translateY(2px);
+          transform: translateX(3px);
           box-shadow: 0 6px 16px rgba(124, 58, 237, 0.4);
         }
-        @media (max-width: 700px) {
+        @media (max-width: 1000px) {
+          .opex-reports-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+          }
+        }
+        @media (max-width: 600px) {
           .opex-reports-grid {
             grid-template-columns: 1fr !important;
           }

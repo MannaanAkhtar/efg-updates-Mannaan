@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import {
   motion,
   useInView,
@@ -57,11 +58,21 @@ type ReportEntry = {
 
 const POST_EVENT_REPORTS: ReportEntry[] = [
   {
-    edition: "UAE",
+    edition: "Abu Dhabi",
     year: "2026",
-    title: "OT Security First UAE",
+    title: "OT Abu Dhabi 2026",
     url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/Post+Event+Report+-+OT+Security+First+2026.pdf",
-    filename: "OT-Security-First-UAE-2026-Report.pdf",
+    filename: "OT-Security-First-Abu-Dhabi-2026-Report.pdf",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Untitled-2-01.png",
+    logoScale: 1.1,
+  },
+  {
+    edition: "MENA Webinar",
+    year: "2026",
+    title: "OT First MENA Webinar 2026",
+    // TODO: replace with the real S3 URL once the report PDF is uploaded.
+    url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/Post+Event+Report+-+OT+First+MENA+Webinar+2026.pdf",
+    filename: "OT-First-MENA-Webinar-2026-Report.pdf",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Untitled-2-01.png",
     logoScale: 1.1,
   },
@@ -455,6 +466,34 @@ const OT_SHORTS = [
 // ─── HERO SECTION ────────────────────────────────────────────────────────────
 function HeroSection() {
   const cd = useCountdown(EVENT_DATE);
+  const [resourceMenuOpen, setResourceMenuOpen] = useState(false);
+  const resourceMenuRef = useRef<HTMLDivElement>(null);
+
+  // Click-outside + ESC closes the resources dropdown
+  useEffect(() => {
+    if (!resourceMenuOpen) return;
+    const onClick = (e: MouseEvent) => {
+      if (resourceMenuRef.current && !resourceMenuRef.current.contains(e.target as Node)) {
+        setResourceMenuOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setResourceMenuOpen(false);
+    };
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [resourceMenuOpen]);
+
+  const openRequest = (type: "Past Event Report" | "Delegate List") => {
+    setResourceMenuOpen(false);
+    window.dispatchEvent(
+      new CustomEvent("otsf-jhb:open-request", { detail: { type } }),
+    );
+  };
 
   return (
     <section id="overview" className="otsf-hero" style={{ position: "relative", minHeight: "100vh", overflow: "hidden", background: BG_DARK }}>
@@ -629,17 +668,172 @@ function HeroSection() {
           }}>
             Register Now →
           </a>
-          <a href="#contact" className="otsf-cta-ghost" style={{
-            display: "inline-flex", alignItems: "center", gap: 8, padding: "16px 36px", borderRadius: 50,
-            background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.75)",
-            fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 500, textDecoration: "none",
-            border: "1px solid rgba(255,255,255,0.12)", transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
-            cursor: "pointer", position: "relative", overflow: "hidden",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 16px rgba(0,0,0,0.2)",
-            backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
-          }}>
-            Sponsor This Forum
-          </a>
+          {/* Resources dropdown — opens the request-form modal with either
+              "Past Event Report" or "Delegate List" pre-selected. */}
+          <div ref={resourceMenuRef} style={{ position: "relative", display: "inline-block" }}>
+            <button
+              type="button"
+              onClick={() => setResourceMenuOpen((o) => !o)}
+              aria-haspopup="menu"
+              aria-expanded={resourceMenuOpen}
+              className="otsf-cta-ghost"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 10, padding: "16px 28px", borderRadius: 50,
+                background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.85)",
+                fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 500,
+                border: "1px solid rgba(255,255,255,0.12)", transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+                cursor: "pointer", position: "relative", overflow: "hidden",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 16px rgba(0,0,0,0.2)",
+                backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
+              }}
+            >
+              Request Resources
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{
+                  transform: resourceMenuOpen ? "rotate(0)" : "rotate(180deg)",
+                  transition: "transform 0.25s ease",
+                  opacity: 0.8,
+                }}
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+
+            <AnimatePresence>
+              {resourceMenuOpen && (
+                <motion.div
+                  role="menu"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 6 }}
+                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                  style={{
+                    position: "absolute",
+                    bottom: "calc(100% + 10px)",
+                    left: 0,
+                    minWidth: 320,
+                    padding: 6,
+                    borderRadius: 18,
+                    background: "rgba(8, 20, 40, 0.88)",
+                    border: `1px solid rgba(0, 201, 255, 0.22)`,
+                    backdropFilter: "blur(18px) saturate(180%)",
+                    WebkitBackdropFilter: "blur(18px) saturate(180%)",
+                    boxShadow:
+                      "0 22px 50px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06)",
+                    zIndex: 30,
+                  }}
+                >
+                  {/* Past Event Report */}
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={() => openRequest("Past Event Report")}
+                    className="otsf-jhb-hero-menu-item"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      padding: "12px 14px",
+                      borderRadius: 12,
+                      background: "transparent",
+                      border: "none",
+                      width: "100%",
+                      textAlign: "left",
+                      cursor: "pointer",
+                      color: "white",
+                      transition: "background 0.2s ease",
+                    }}
+                  >
+                    <span style={{
+                      width: 36, height: 36, borderRadius: "50%",
+                      background: `${CYAN}22`,
+                      border: `1px solid ${CYAN}44`,
+                      display: "inline-flex", alignItems: "center", justifyContent: "center",
+                      flexShrink: 0,
+                    }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={CYAN} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <line x1="12" y1="18" x2="12" y2="12" />
+                        <polyline points="9 15 12 18 15 15" />
+                      </svg>
+                    </span>
+                    <span style={{ flex: 1, minWidth: 0 }}>
+                      <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 600, color: "white", lineHeight: 1.25 }}>
+                        Past Event Report
+                      </span>
+                      <span style={{ display: "block", marginTop: 2, fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.55)" }}>
+                        Request the PDF report from a past edition
+                      </span>
+                    </span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </button>
+
+                  <div style={{ height: 1, background: "rgba(255,255,255,0.06)", margin: "2px 10px" }} />
+
+                  {/* Delegate List */}
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={() => openRequest("Delegate List")}
+                    className="otsf-jhb-hero-menu-item"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      padding: "12px 14px",
+                      borderRadius: 12,
+                      background: "transparent",
+                      border: "none",
+                      width: "100%",
+                      textAlign: "left",
+                      cursor: "pointer",
+                      color: "white",
+                      transition: "background 0.2s ease",
+                    }}
+                  >
+                    <span style={{
+                      width: 36, height: 36, borderRadius: "50%",
+                      background: `${CYAN}22`,
+                      border: `1px solid ${CYAN}44`,
+                      display: "inline-flex", alignItems: "center", justifyContent: "center",
+                      flexShrink: 0,
+                    }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={CYAN} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                      </svg>
+                    </span>
+                    <span style={{ flex: 1, minWidth: 0 }}>
+                      <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 600, color: "white", lineHeight: 1.25 }}>
+                        Delegate List
+                      </span>
+                      <span style={{ display: "block", marginTop: 2, fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.55)" }}>
+                        Request the confirmed attendee roster
+                      </span>
+                    </span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </motion.div>
       </div>
 
@@ -680,6 +874,8 @@ function HeroSection() {
       <style jsx global>{`
         .otsf-cta-primary:hover { transform: translateY(-3px); box-shadow: 0 0 60px ${CYAN}59, 0 8px 32px ${C}40 !important; background: linear-gradient(135deg, ${C_BRIGHT}, ${CYAN}) !important; }
         .otsf-cta-ghost:hover { transform: translateY(-2px); background: rgba(255,255,255,0.1) !important; border-color: rgba(255,255,255,0.3) !important; color: white !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 8px 24px rgba(0,0,0,0.3) !important; }
+        .otsf-jhb-hero-menu-item:hover { background: rgba(0, 201, 255, 0.08) !important; }
+        .otsf-jhb-hero-menu-item:focus-visible { outline: none; background: rgba(0, 201, 255, 0.12) !important; }
         .otsf-pulse-dot { animation: otsf-pulse 2s ease-in-out infinite; }
         @keyframes otsf-pulse { 0%,100% { box-shadow: 0 0 8px ${CYAN}, 0 0 4px ${CYAN}; } 50% { box-shadow: 0 0 16px ${CYAN}, 0 0 8px ${CYAN}, 0 0 24px ${CYAN}40; } }
         @media (max-width: 768px) {
@@ -1611,6 +1807,16 @@ function OTSfPostEventReports() {
   const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [submitError, setSubmitError] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  // Mount flag so the portal target (document.body) is only used after hydration.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+  // Tracks which resource is being requested — drives the modal copy + metadata.
+  type RequestKind = "Delegate List" | "Past Event Report";
+  const [requestType, setRequestType] = useState<RequestKind>("Delegate List");
+  // When requesting a Past Event Report, the user picks which edition's PDF.
+  const [selectedReportUrl, setSelectedReportUrl] = useState<string>(
+    POST_EVENT_REPORTS[0]?.url ?? "",
+  );
 
   // Lock body scroll + ESC-to-close while modal is open
   useEffect(() => {
@@ -1624,6 +1830,42 @@ function OTSfPostEventReports() {
       window.removeEventListener("keydown", onKey);
     };
   }, [modalOpen]);
+
+  // Listen for the hero dropdown opening the modal with a chosen request type
+  useEffect(() => {
+    const onOpenRequest = (e: Event) => {
+      const detail = (e as CustomEvent<{ type?: RequestKind }>).detail;
+      if (detail?.type === "Past Event Report" || detail?.type === "Delegate List") {
+        setRequestType(detail.type);
+        setSubmitState("idle");
+        setSubmitError("");
+        setErrors({});
+        setModalOpen(true);
+      }
+    };
+    window.addEventListener("otsf-jhb:open-request", onOpenRequest);
+    return () => window.removeEventListener("otsf-jhb:open-request", onOpenRequest);
+  }, []);
+
+  // Modal copy — derived from the current request type
+  const modalCopy =
+    requestType === "Past Event Report"
+      ? {
+          kicker: "Request the Past Event Report",
+          title: "Get the post-event report.",
+          subtitle:
+            "Share your details and we’ll send the curated delegate list to your work email.",
+          success:
+            "We’ll email the post-event report PDF to your work email within 1 business day.",
+        }
+      : {
+          kicker: "Request the Delegate List",
+          title: "Get the full attendee roster.",
+          subtitle:
+            "Share your details and we’ll send the curated delegate list to your work email.",
+          success:
+            "We’ll send the delegate list to your work email within 1 business day.",
+        };
 
   // Digit count for current phone, used by live validity hint
   const phoneDigits = phone.replace(/[\s\-()]/g, "");
@@ -1650,11 +1892,16 @@ function OTSfPostEventReports() {
     if (!jobTitle.trim()) newErrors.jobTitle = "Job title is required";
     const phoneErr = validatePhone(phone, countryCode);
     if (phoneErr) newErrors.phone = phoneErr;
+    if (!selectedReportUrl) {
+      newErrors.report = "Please select an edition";
+    }
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) {
       setPhoneTouched(true);
       return;
     }
+
+    const selectedReport = POST_EVENT_REPORTS.find((r) => r.url === selectedReportUrl);
 
     setSubmitState("submitting");
     setSubmitError("");
@@ -1667,8 +1914,14 @@ function OTSfPostEventReports() {
       event_name: "OT Security First Africa 2026 — Johannesburg",
       metadata: {
         "Event Page": "OT Security First Africa 2026 — Johannesburg",
-        "Request Type": "Delegate List",
+        "Request Type": requestType,
         "Page Section": "Post-Event Reports",
+        ...(selectedReport && {
+          "Selected Edition": selectedReport.title,
+          ...(requestType === "Past Event Report" && {
+            "Selected Report URL": selectedReport.url,
+          }),
+        }),
       },
     });
     if (res.success) {
@@ -1681,314 +1934,15 @@ function OTSfPostEventReports() {
   };
 
   return (
-    <section ref={ref} id="reports" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
-        {/* Header — centered, matching Why Now / Market Drivers convention */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: EASE }}
-          style={{ textAlign: "center", marginBottom: "clamp(28px, 3.5vw, 44px)" }}
-        >
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 20 }}>
-            <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${C_BRIGHT})` }} />
-            <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "4px" }}>Post-Event Intelligence</span>
-            <span style={{ width: 40, height: 1, background: `linear-gradient(270deg, transparent, ${C_BRIGHT})` }} />
-          </div>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4.5vw, 52px)", lineHeight: 1.05, letterSpacing: "-2px", color: "white", margin: "0 0 16px" }}>
-            Reports from the <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>room.</span>
-          </h2>
-          <p style={{ fontFamily: "var(--font-outfit)", fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400, color: "rgba(255,255,255,0.6)", lineHeight: 1.6, maxWidth: 640, margin: "0 auto" }}>
-            Official post-event reports from each OT Security First edition — takeaways, on-stage themes, and sponsor coverage. Available as PDF.
-          </p>
-        </motion.div>
+    <section ref={ref} id="reports" aria-hidden style={{ padding: 0, margin: 0, height: 0, overflow: "hidden" }}>
 
-        {/* Side-by-side layout: report cards left · request form right */}
-        <div className="otsf-jhb-reports-layout">
-          {/* Card column */}
-          <div className="otsf-jhb-reports-grid">
-          {POST_EVENT_REPORTS.map((report, i) => (
-            <motion.a
-              key={report.url}
-              href={buildReportDownloadUrl(report.url, report.filename)}
-              download={report.filename}
-              className="otsf-jhb-report-card"
-              initial={{ opacity: 0, y: 18 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.15 + i * 0.08, ease: EASE }}
-              style={{
-                position: "relative",
-                display: "flex", flexDirection: "column",
-                padding: "clamp(16px, 1.6vw, 22px)",
-                background: `linear-gradient(165deg, rgba(30, 18, 38, 0.55) 0%, rgba(12, 8, 24, 0.65) 100%)`,
-                backdropFilter: "blur(28px) saturate(180%)",
-                WebkitBackdropFilter: "blur(28px) saturate(180%)",
-                border: `1px solid rgba(255, 255, 255, 0.08)`,
-                borderRadius: 16,
-                textDecoration: "none",
-                color: "white",
-                overflow: "hidden",
-                minHeight: 260,
-                transition: "border-color 0.4s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease, backdrop-filter 0.4s ease",
-                boxShadow: [
-                  "inset 0 1px 0 rgba(255, 255, 255, 0.14)",
-                  "inset 0 -1px 0 rgba(0, 0, 0, 0.4)",
-                  "0 1px 2px rgba(0, 0, 0, 0.45)",
-                  "0 10px 28px rgba(0, 0, 0, 0.30)",
-                  "0 28px 56px rgba(0, 0, 0, 0.32)",
-                ].join(", "),
-                ["--logo-scale" as string]: String(report.logoScale ?? 1),
-              } as React.CSSProperties}
-            >
-              {/* Glass sheen */}
-              <span aria-hidden style={{
-                position: "absolute", inset: 0, pointerEvents: "none",
-                background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 28%, transparent 50%, transparent 75%, rgba(255,255,255,0.03) 100%)",
-              }} />
-              {/* Inner bevel */}
-              <span aria-hidden style={{
-                position: "absolute", inset: 1, borderRadius: 15, pointerEvents: "none",
-                boxShadow: "inset 0 0 0 1px rgba(255, 255, 255, 0.025)",
-              }} />
-              {/* Top hairline — magenta-to-cyan, matching page accent gradients */}
-              <span aria-hidden style={{
-                position: "absolute", top: 0, left: "8%", right: "8%", height: 1,
-                background: `linear-gradient(90deg, transparent 0%, ${C_BRIGHT} 30%, ${CYAN} 70%, transparent 100%)`,
-                opacity: 0.7,
-              }} />
-              {/* Bottom hairline */}
-              <span aria-hidden style={{
-                position: "absolute", bottom: 0, left: "20%", right: "20%", height: 1,
-                background: `linear-gradient(90deg, transparent 0%, ${C_BRIGHT}55 50%, transparent 100%)`,
-              }} />
-
-              {/* Top meta */}
-              <div style={{
-                display: "flex", justifyContent: "space-between", alignItems: "center",
-                gap: 10, marginBottom: "clamp(10px, 1.2vh, 14px)",
-                position: "relative", zIndex: 1,
-              }}>
-                <span style={{
-                  display: "inline-flex", alignItems: "baseline", gap: 8,
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 10, fontWeight: 600,
-                  letterSpacing: "0.28em", textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.55)",
-                }}>
-                  <span style={{
-                    fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
-                    fontStyle: "italic", fontWeight: 400, fontSize: 13,
-                    letterSpacing: "normal", textTransform: "none",
-                    color: C_BRIGHT,
-                  }}>№</span>
-                  {(i + 1).toString().padStart(2, "0")} · OT Security First
-                </span>
-                <span style={{
-                  display: "inline-flex", alignItems: "center", gap: 5,
-                  padding: "3px 9px", borderRadius: 999,
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  background: "rgba(255,255,255,0.02)",
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 9, fontWeight: 600,
-                  letterSpacing: "0.24em", textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.35)",
-                }}>PDF</span>
-              </div>
-
-              {/* Logo zone */}
-              <div style={{
-                position: "relative",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                minHeight: 100,
-                marginBottom: "clamp(10px, 1.4vh, 14px)",
-                zIndex: 1,
-              }}>
-                <div aria-hidden style={{
-                  position: "absolute", inset: "-20% -10%",
-                  background: `radial-gradient(ellipse 50% 60% at 50% 50%, ${C}26 0%, transparent 70%)`,
-                  filter: "blur(20px)",
-                  pointerEvents: "none",
-                }} />
-                {report.logo ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={report.logo}
-                    alt={report.title}
-                    className="otsf-jhb-report-logo"
-                    style={{
-                      position: "relative",
-                      maxHeight: 100,
-                      maxWidth: "85%",
-                      width: "auto",
-                      objectFit: "contain",
-                      filter: `drop-shadow(0 4px 16px ${C}33)`,
-                      transform: "scale(var(--logo-scale, 1))",
-                      transition: "transform 0.5s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease",
-                    }}
-                  />
-                ) : (
-                  <h3 style={{
-                    position: "relative",
-                    fontFamily: "var(--font-display)", fontSize: "clamp(18px, 1.6vw, 22px)",
-                    fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.1,
-                    color: "white", margin: 0, textAlign: "center",
-                  }}>{report.title}</h3>
-                )}
-              </div>
-
-              {/* Centered hairline */}
-              <div aria-hidden style={{
-                display: "flex", alignItems: "center", justifyContent: "center",
-                gap: 7, marginBottom: 10,
-                position: "relative", zIndex: 1,
-              }}>
-                <span style={{ width: 18, height: 1, background: "rgba(255,255,255,0.08)" }} />
-                <span style={{
-                  width: 3, height: 3, borderRadius: "50%",
-                  background: C_BRIGHT, boxShadow: `0 0 6px ${C_BRIGHT}99`,
-                }} />
-                <span style={{ width: 18, height: 1, background: "rgba(255,255,255,0.08)" }} />
-              </div>
-
-              {/* Edition title */}
-              <div style={{ textAlign: "center", marginBottom: "auto", position: "relative", zIndex: 1 }}>
-                <h3 style={{
-                  margin: 0,
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(14px, 1.1vw, 16px)",
-                  fontWeight: 700, letterSpacing: "0.04em",
-                  textTransform: "uppercase", color: "white",
-                }}>
-                  {report.edition} <span style={{ color: C_BRIGHT, fontWeight: 700 }}>·</span> {report.year}
-                </h3>
-              </div>
-
-              {/* CTA footer */}
-              <div style={{
-                marginTop: "clamp(12px, 1.6vh, 18px)",
-                paddingTop: 12,
-                borderTop: "1px solid rgba(255,255,255,0.08)",
-                display: "flex", alignItems: "center", justifyContent: "space-between",
-                position: "relative", zIndex: 1,
-              }}>
-                <span style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 11.5, fontWeight: 600,
-                  letterSpacing: "0.12em", textTransform: "uppercase",
-                  color: "white",
-                }}>Download Report</span>
-                <span aria-hidden className="otsf-jhb-report-arrow" style={{
-                  display: "inline-flex", alignItems: "center", justifyContent: "center",
-                  width: 34, height: 34, borderRadius: 8,
-                  border: `1px solid ${C}33`,
-                  background: `${C}0d`,
-                  color: C_BRIGHT, lineHeight: 1,
-                  transition: "background 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1)",
-                }}>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                    <polyline points="14 2 14 8 20 8" />
-                  </svg>
-                </span>
-              </div>
-            </motion.a>
-          ))}
-        </div>
-
-        {/* ─── Delegate-list request form ──────────────────────────────────── */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.35, ease: EASE }}
-          className="otsf-jhb-delegate-form-wrap"
-        >
-          <div className="otsf-jhb-delegate-form-card">
-            {/* Decorative top hairline */}
-            <span aria-hidden className="otsf-jhb-delegate-hairline" />
-
-            {submitState !== "success" && (
-              <div className="otsf-jhb-delegate-preview">
-                <div className="otsf-jhb-delegate-preview-head">
-                  <span className="otsf-jhb-delegate-preview-eyebrow">Confirmed Delegates · Preview</span>
-                  <span className="otsf-jhb-delegate-preview-pill">200+ attending</span>
-                </div>
-                <ul className="otsf-jhb-delegate-preview-list">
-                  {DELEGATE_PREVIEW.map((d, i) => {
-                    const isBlurred = i >= DELEGATE_VISIBLE_COUNT;
-                    return (
-                      <li
-                        key={d.name}
-                        className={`otsf-jhb-delegate-preview-row${isBlurred ? " is-blurred" : ""}`}
-                        aria-hidden={isBlurred}
-                      >
-                        <span className="otsf-jhb-delegate-preview-avatar">{delegateInitials(d.name)}</span>
-                        <span className="otsf-jhb-delegate-preview-meta">
-                          <span className="otsf-jhb-delegate-preview-name">{d.name}</span>
-                          <span className="otsf-jhb-delegate-preview-role">
-                            {d.title} <span className="otsf-jhb-delegate-preview-dot">·</span>{" "}
-                            <span className="otsf-jhb-delegate-preview-co">{d.company}</span>
-                          </span>
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            )}
-
-            {submitState === "success" ? (
-              <div className="otsf-jhb-delegate-success">
-                <div style={{
-                  display: "inline-flex", alignItems: "center", justifyContent: "center",
-                  width: 56, height: 56, borderRadius: "50%",
-                  background: `linear-gradient(135deg, ${C}, ${CYAN})`,
-                  marginBottom: 14,
-                  boxShadow: `0 8px 24px ${C}40`,
-                }}>
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                </div>
-                <h4 style={{
-                  margin: "0 0 8px",
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(18px, 1.8vw, 22px)",
-                  fontWeight: 700,
-                  color: "white",
-                }}>Request received.</h4>
-                <p style={{
-                  margin: 0,
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 14,
-                  color: "rgba(255,255,255,0.6)",
-                  maxWidth: 380,
-                }}>
-                  We&apos;ll send the delegate list to your work email within 1 business day.
-                </p>
-              </div>
-            ) : (
-              <button
-                type="button"
-                onClick={() => setModalOpen(true)}
-                className="otsf-jhb-delegate-cta-link"
-              >
-                <span>Request the full delegate list</span>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </button>
-            )}
-          </div>
-        </motion.div>
-        </div>{/* /reports-layout */}
-      </div>
-
-      {/* ─── Request Form Modal ─────────────────────────────────────────── */}
-      <AnimatePresence>
-        {modalOpen && (
-          <motion.div
-            className="otsf-jhb-modal-overlay"
+      {/* ─── Request Form Modal — portalled to <body> so the popup
+          overlays the whole viewport (not constrained to this section) ── */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {modalOpen && (
+            <motion.div
+              className="otsf-jhb-modal-overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -2028,7 +1982,7 @@ function OTSfPostEventReports() {
                     fontSize: 10, fontWeight: 700,
                     letterSpacing: "0.32em", textTransform: "uppercase",
                     color: C_BRIGHT,
-                  }}>Request the Delegate List</span>
+                  }}>{modalCopy.kicker}</span>
                 </div>
                 <h3 id="otsf-jhb-modal-title" style={{
                   margin: 0,
@@ -2039,7 +1993,7 @@ function OTSfPostEventReports() {
                   color: "white",
                   lineHeight: 1.2,
                 }}>
-                  Get the full attendee roster.
+                  {modalCopy.title}
                 </h3>
                 <p style={{
                   margin: "10px 0 0",
@@ -2048,7 +2002,7 @@ function OTSfPostEventReports() {
                   color: "rgba(255,255,255,0.55)",
                   lineHeight: 1.55,
                 }}>
-                  Share your details and we&apos;ll send the curated delegate list to your work email within 1 business day.
+                  {modalCopy.subtitle}
                 </p>
               </div>
 
@@ -2060,7 +2014,7 @@ function OTSfPostEventReports() {
                     </svg>
                   </div>
                   <h4>Request received.</h4>
-                  <p>We&apos;ll send the delegate list to your work email within 1 business day.</p>
+                  <p>{modalCopy.success}</p>
                   <button
                     type="button"
                     onClick={() => setModalOpen(false)}
@@ -2074,6 +2028,29 @@ function OTSfPostEventReports() {
                 {/* Honeypot */}
                 <input type="text" name="website" tabIndex={-1} autoComplete="off"
                   style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} />
+
+                {/* Edition picker — used by both Delegate List and Past Event Report requests */}
+                <div className="otsf-jhb-delegate-row">
+                  <label className="otsf-jhb-delegate-field" style={{ flex: "1 1 100%" }}>
+                    <span className="otsf-jhb-delegate-label">Select Edition</span>
+                    <select
+                      value={selectedReportUrl}
+                      onChange={(e) => {
+                        setSelectedReportUrl(e.target.value);
+                        if (errors.report) setErrors({ ...errors, report: "" });
+                      }}
+                      className="otsf-jhb-delegate-input otsf-jhb-delegate-report-select"
+                      aria-invalid={!!errors.report}
+                    >
+                      {POST_EVENT_REPORTS.map((r) => (
+                        <option key={r.url} value={r.url}>
+                          {r.title}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.report && <span className="otsf-jhb-delegate-err">{errors.report}</span>}
+                  </label>
+                </div>
 
                 <div className="otsf-jhb-delegate-row">
                   <label className="otsf-jhb-delegate-field">
@@ -2192,7 +2169,11 @@ function OTSfPostEventReports() {
                   disabled={submitState === "submitting"}
                   className="otsf-jhb-delegate-submit"
                 >
-                  {submitState === "submitting" ? "Sending…" : "Send me the delegate list"}
+                  {submitState === "submitting"
+                    ? "Sending…"
+                    : requestType === "Past Event Report"
+                    ? "Send me the report"
+                    : "Send me the delegate list"}
                   {submitState !== "submitting" && (
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 8 }}>
                       <line x1="5" y1="12" x2="19" y2="12" />
@@ -2207,8 +2188,10 @@ function OTSfPostEventReports() {
               )}
             </motion.div>
           </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body,
+      )}
 
       <style jsx global>{`
         .otsf-jhb-report-card:hover {
@@ -2633,6 +2616,21 @@ function OTSfPostEventReports() {
         }
         .otsf-jhb-delegate-input[aria-invalid="true"] {
           border-color: rgba(255,80,80,0.6);
+        }
+        /* Past Event Report picker — native select with a custom cyan chevron */
+        .otsf-jhb-delegate-report-select {
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          padding-right: 40px;
+          background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1l5 5 5-5' stroke='%2300C9FF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+          background-repeat: no-repeat;
+          background-position: right 14px center;
+          cursor: pointer;
+        }
+        .otsf-jhb-delegate-report-select option {
+          background: #1a1228;
+          color: white;
         }
         .otsf-jhb-delegate-phone-row {
           display: flex;

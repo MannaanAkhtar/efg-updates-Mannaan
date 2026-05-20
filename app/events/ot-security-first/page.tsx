@@ -1,11 +1,14 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { createPortal } from "react-dom";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Footer } from "@/components/sections";
 import InquiryForm from "@/components/sections/InquiryForm";
 import { MeshGradient } from "@paper-design/shaders-react";
+import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
+import type { CountryCode } from "@/lib/form-helpers";
 
 // ─── DESIGN TOKENS ───────────────────────────────────────────────────────────
 const OT_CRIMSON = "#D34B9A";
@@ -371,6 +374,35 @@ function NetworkMesh() {
 function Hero() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+
+  const [resourceMenuOpen, setResourceMenuOpen] = useState(false);
+  const resourceMenuRef = useRef<HTMLDivElement>(null);
+
+  // Click-outside + ESC closes the resources dropdown
+  useEffect(() => {
+    if (!resourceMenuOpen) return;
+    const onClick = (e: MouseEvent) => {
+      if (resourceMenuRef.current && !resourceMenuRef.current.contains(e.target as Node)) {
+        setResourceMenuOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setResourceMenuOpen(false);
+    };
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [resourceMenuOpen]);
+
+  const openRequest = (type: "Past Event Report" | "Delegate List") => {
+    setResourceMenuOpen(false);
+    window.dispatchEvent(
+      new CustomEvent("otsf-series:open-request", { detail: { type } }),
+    );
+  };
 
   return (
     <section style={{ position: "relative", minHeight: "100svh", background: INK, overflow: "hidden", color: "white", display: "flex", flexDirection: "column", justifyContent: "center" }}>
@@ -798,6 +830,188 @@ function Hero() {
                 transition: "transform 0.4s cubic-bezier(0.22,1,0.36,1)",
               }}>→</span>
             </Link>
+
+            {/* Third CTA — Request Resources dropdown (opens modal form) */}
+            <div ref={resourceMenuRef} style={{ position: "relative", display: "inline-block" }}>
+              <button
+                type="button"
+                onClick={() => setResourceMenuOpen((o) => !o)}
+                aria-haspopup="menu"
+                aria-expanded={resourceMenuOpen}
+                className="otsf-hero-next otsf-hero-resources"
+                style={{
+                  position: "relative",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 10,
+                  padding: "12px 20px",
+                  borderRadius: 999,
+                  background: "rgba(255,255,255,0.025)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  backdropFilter: "blur(14px) saturate(1.3)",
+                  WebkitBackdropFilter: "blur(14px) saturate(1.3)",
+                  boxShadow: `inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 14px rgba(0,0,0,0.25)`,
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 13.5,
+                  fontWeight: 500,
+                  color: "rgba(255,255,255,0.82)",
+                  letterSpacing: "0.015em",
+                  cursor: "pointer",
+                  transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
+                  overflow: "hidden",
+                }}
+              >
+                <span aria-hidden style={{ position: "absolute", top: 0, left: "20%", right: "20%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent)", pointerEvents: "none" }} />
+                <span style={{ position: "relative", zIndex: 2 }}>Request Resources</span>
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{
+                    position: "relative",
+                    zIndex: 2,
+                    color: OT_CRIMSON,
+                    transform: resourceMenuOpen ? "rotate(0)" : "rotate(180deg)",
+                    transition: "transform 0.25s ease",
+                    opacity: 0.85,
+                  }}
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+
+              <AnimatePresence>
+                {resourceMenuOpen && (
+                  <motion.div
+                    role="menu"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 6 }}
+                    transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                    style={{
+                      position: "absolute",
+                      bottom: "calc(100% + 10px)",
+                      left: 0,
+                      minWidth: 320,
+                      padding: 6,
+                      borderRadius: 18,
+                      background: "rgba(18, 10, 16, 0.92)",
+                      border: `1px solid ${OT_CRIMSON}33`,
+                      backdropFilter: "blur(18px) saturate(180%)",
+                      WebkitBackdropFilter: "blur(18px) saturate(180%)",
+                      boxShadow:
+                        "0 22px 50px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06)",
+                      zIndex: 30,
+                    }}
+                  >
+                    {/* Past Event Report */}
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={() => openRequest("Past Event Report")}
+                      className="otsf-hero-menu-item"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 12,
+                        padding: "12px 14px",
+                        borderRadius: 12,
+                        background: "transparent",
+                        border: "none",
+                        width: "100%",
+                        textAlign: "left",
+                        cursor: "pointer",
+                        color: "white",
+                        transition: "background 0.2s ease",
+                      }}
+                    >
+                      <span style={{
+                        width: 36, height: 36, borderRadius: "50%",
+                        background: `${OT_CRIMSON}22`,
+                        border: `1px solid ${OT_CRIMSON}55`,
+                        display: "inline-flex", alignItems: "center", justifyContent: "center",
+                        flexShrink: 0,
+                      }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={OT_CRIMSON} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                          <polyline points="14 2 14 8 20 8" />
+                          <line x1="12" y1="18" x2="12" y2="12" />
+                          <polyline points="9 15 12 18 15 15" />
+                        </svg>
+                      </span>
+                      <span style={{ flex: 1, minWidth: 0 }}>
+                        <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 600, color: "white", lineHeight: 1.25 }}>
+                          Past Event Report
+                        </span>
+                        <span style={{ display: "block", marginTop: 2, fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.55)" }}>
+                          Request the PDF report from a past edition
+                        </span>
+                      </span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                      </svg>
+                    </button>
+
+                    <div style={{ height: 1, background: "rgba(255,255,255,0.06)", margin: "2px 10px" }} />
+
+                    {/* Delegate List */}
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={() => openRequest("Delegate List")}
+                      className="otsf-hero-menu-item"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 12,
+                        padding: "12px 14px",
+                        borderRadius: 12,
+                        background: "transparent",
+                        border: "none",
+                        width: "100%",
+                        textAlign: "left",
+                        cursor: "pointer",
+                        color: "white",
+                        transition: "background 0.2s ease",
+                      }}
+                    >
+                      <span style={{
+                        width: 36, height: 36, borderRadius: "50%",
+                        background: `${OT_CRIMSON}22`,
+                        border: `1px solid ${OT_CRIMSON}55`,
+                        display: "inline-flex", alignItems: "center", justifyContent: "center",
+                        flexShrink: 0,
+                      }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={OT_CRIMSON} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                          <circle cx="9" cy="7" r="4" />
+                          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                      </span>
+                      <span style={{ flex: 1, minWidth: 0 }}>
+                        <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 600, color: "white", lineHeight: 1.25 }}>
+                          Delegate List
+                        </span>
+                        <span style={{ display: "block", marginTop: 2, fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.55)" }}>
+                          Request the confirmed attendee roster
+                        </span>
+                      </span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                      </svg>
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </motion.div>
       </div>
 
@@ -964,6 +1178,8 @@ function Hero() {
           transform: translateY(-1px);
         }
         .otsf-hero-next:hover .otsf-hero-next-arrow { transform: translateX(4px); }
+        .otsf-hero-menu-item:hover { background: ${OT_CRIMSON}14 !important; }
+        .otsf-hero-menu-item:focus-visible { outline: none; background: ${OT_CRIMSON}1f !important; }
         @media (max-width: 960px) {
           .otsf-hero-split {
             grid-template-columns: 1fr !important;
@@ -1359,10 +1575,16 @@ const POST_EVENT_REPORTS: ReportEntry[] = [
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Untitled-2-01.png",
     logoScale: 1.1,
   },
+  {
+    edition: "MENA Webinar",
+    year: "2026",
+    title: "OT First MENA Webinar",
+    subtitle: "2026 Edition",
+    // TODO: replace with the real S3 URL once the report PDF is uploaded.
+    url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/OT+First+MENA+Webinar+2026+-+Post+Event+Report.pdf",
+    filename: "OT-First-MENA-Webinar-2026-Report.pdf",
+  },
 ];
-
-const buildReportDownloadUrl = (url: string, filename: string) =>
-  `/api/download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
 
 function PostEventReports() {
   const ref = useRef<HTMLElement>(null);
@@ -1420,18 +1642,25 @@ function PostEventReports() {
           </p>
         </motion.div>
 
-        {/* Card grid — single card centered for now */}
+        {/* Card grid */}
         <div className="otsf-reports-grid" style={{
           display: "grid",
-          gridTemplateColumns: "minmax(280px, 420px)",
-          justifyContent: "start",
+          gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
           gap: "clamp(16px, 2vw, 28px)",
+          maxWidth: 880,
         }}>
           {POST_EVENT_REPORTS.map((report, i) => (
-            <motion.a
+            <motion.button
               key={report.url}
-              href={buildReportDownloadUrl(report.url, report.filename)}
-              download={report.filename}
+              type="button"
+              onClick={() => {
+                document.querySelector("section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                window.dispatchEvent(
+                  new CustomEvent("otsf-series:open-request", {
+                    detail: { type: "Past Event Report", reportUrl: report.url },
+                  }),
+                );
+              }}
               className="otsf-report-card"
               initial={{ opacity: 0, y: 18 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -1440,6 +1669,10 @@ function PostEventReports() {
                 position: "relative",
                 display: "flex", flexDirection: "column",
                 padding: "clamp(16px, 1.6vw, 22px)",
+                textAlign: "left",
+                font: "inherit",
+                cursor: "pointer",
+                width: "100%",
                 background: `linear-gradient(165deg, rgba(30, 18, 26, 0.55) 0%, rgba(12, 8, 14, 0.65) 100%)`,
                 backdropFilter: "blur(28px) saturate(180%)",
                 WebkitBackdropFilter: "blur(28px) saturate(180%)",
@@ -1618,7 +1851,7 @@ function PostEventReports() {
                   letterSpacing: "0.12em", textTransform: "uppercase",
                   color: "white",
                 }}>
-                  Download Report
+                  Request Report
                 </span>
                 <span aria-hidden className="otsf-report-arrow" style={{
                   display: "inline-flex", alignItems: "center", justifyContent: "center",
@@ -1629,12 +1862,12 @@ function PostEventReports() {
                   transition: "background 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1)",
                 }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
                   </svg>
                 </span>
               </div>
-            </motion.a>
+            </motion.button>
           ))}
         </div>
       </div>
@@ -1661,7 +1894,7 @@ function PostEventReports() {
           background: ${OT_CRIMSON} !important;
           border-color: ${OT_CRIMSON} !important;
           color: white !important;
-          transform: translateY(2px);
+          transform: translateX(3px);
           box-shadow: 0 6px 16px rgba(211, 75, 154, 0.40);
         }
         @media (max-width: 600px) {
@@ -5330,6 +5563,603 @@ function CrossSell() {
 // ═════════════════════════════════════════════════════════════════════════════
 // PAGE
 // ═════════════════════════════════════════════════════════════════════════════
+// ═════════════════════════════════════════════════════════════════════════════
+// REQUEST RESOURCES MODAL — opened by the hero dropdown or report cards
+// ═════════════════════════════════════════════════════════════════════════════
+function OtsfRequestResourcesModal() {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState<CountryCode>(
+    COUNTRY_CODES.find((c) => c.country === "AE") || COUNTRY_CODES[0]
+  );
+  const [phoneTouched, setPhoneTouched] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [submitError, setSubmitError] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
+  type RequestKind = "Delegate List" | "Past Event Report";
+  const [requestType, setRequestType] = useState<RequestKind>("Past Event Report");
+  const [selectedReportUrl, setSelectedReportUrl] = useState<string>(
+    POST_EVENT_REPORTS[0]?.url ?? "",
+  );
+
+  // Lock body scroll + ESC-to-close while modal is open
+  useEffect(() => {
+    if (!modalOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setModalOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [modalOpen]);
+
+  // Listen for the hero dropdown — or a report card — opening the modal
+  useEffect(() => {
+    const onOpenRequest = (e: Event) => {
+      const detail = (e as CustomEvent<{ type?: RequestKind; reportUrl?: string }>).detail;
+      if (detail?.type === "Past Event Report" || detail?.type === "Delegate List") {
+        setRequestType(detail.type);
+        if (detail.reportUrl && POST_EVENT_REPORTS.some((r) => r.url === detail.reportUrl)) {
+          setSelectedReportUrl(detail.reportUrl);
+        }
+        setSubmitState("idle");
+        setSubmitError("");
+        setErrors({});
+        setModalOpen(true);
+      }
+    };
+    window.addEventListener("otsf-series:open-request", onOpenRequest);
+    return () => window.removeEventListener("otsf-series:open-request", onOpenRequest);
+  }, []);
+
+  const modalCopy =
+    requestType === "Past Event Report"
+      ? {
+          kicker: "Request the Past Event Report",
+          title: "Get the post-event report.",
+          subtitle:
+            "Share your details and we’ll send the curated delegate list to your work email.",
+          success:
+            "We’ll email the post-event report PDF to your work email within 1 business day.",
+        }
+      : {
+          kicker: "Request the Delegate List",
+          title: "Get the full attendee roster.",
+          subtitle:
+            "Share your details and we’ll send the curated delegate list to your work email.",
+          success:
+            "We’ll send the delegate list to your work email within 1 business day.",
+        };
+
+  const phoneDigits = phone.replace(/[\s\-()]/g, "");
+  const phoneDigitsLen = phoneDigits.length;
+  const phoneIsValid = phoneDigitsLen > 0 && validatePhone(phone, countryCode) === null;
+
+  useEffect(() => {
+    if (!phoneTouched) return;
+    const err = validatePhone(phone, countryCode);
+    setErrors((prev) => {
+      const next = { ...prev };
+      if (err) next.phone = err; else delete next.phone;
+      return next;
+    });
+  }, [phone, countryCode, phoneTouched]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const newErrors: Record<string, string> = {};
+    if (!fullName.trim()) newErrors.fullName = "Full name is required";
+    if (!email.trim()) newErrors.email = "Work email is required";
+    else if (!isWorkEmail(email.trim())) newErrors.email = "Please use your work email — free providers are not accepted";
+    if (!jobTitle.trim()) newErrors.jobTitle = "Job title is required";
+    const phoneErr = validatePhone(phone, countryCode);
+    if (phoneErr) newErrors.phone = phoneErr;
+    if (!selectedReportUrl) newErrors.report = "Please select an edition";
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) {
+      setPhoneTouched(true);
+      return;
+    }
+
+    const selectedReport = POST_EVENT_REPORTS.find((r) => r.url === selectedReportUrl);
+
+    setSubmitState("submitting");
+    setSubmitError("");
+    const res = await submitForm({
+      type: "contact",
+      full_name: fullName.trim(),
+      email: email.trim(),
+      job_title: jobTitle.trim(),
+      phone: `${countryCode.code} ${phone.trim()}`,
+      event_name: "OT Security First (series)",
+      metadata: {
+        "Event Page": "OT Security First — Series",
+        "Request Type": requestType,
+        "Page Section": "Hero — Request Resources",
+        ...(selectedReport && {
+          "Selected Edition": `${selectedReport.title} ${selectedReport.year}`,
+          ...(requestType === "Past Event Report" && {
+            "Selected Report URL": selectedReport.url,
+          }),
+        }),
+      },
+    });
+    if (res.success) {
+      setSubmitState("success");
+      setFullName(""); setEmail(""); setJobTitle(""); setPhone("");
+    } else {
+      setSubmitState("error");
+      setSubmitError(res.error || "Something went wrong. Please try again.");
+    }
+  };
+
+  if (!mounted) return null;
+
+  return createPortal(
+    <AnimatePresence>
+      {modalOpen && (
+        <motion.div
+          className="otsf-req-modal-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.22 }}
+          onClick={() => setModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="otsf-req-modal-title"
+        >
+          <motion.div
+            className="otsf-req-modal-card"
+            initial={{ opacity: 0, y: 24, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 24, scale: 0.96 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setModalOpen(false)}
+              className="otsf-req-modal-close"
+              aria-label="Close request form"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+
+            <span aria-hidden className="otsf-req-modal-hairline" />
+
+            <div className="otsf-req-modal-header">
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                <span style={{ width: 24, height: 1, background: OT_CRIMSON }} />
+                <span style={{
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 10, fontWeight: 700,
+                  letterSpacing: "0.32em", textTransform: "uppercase",
+                  color: OT_CRIMSON,
+                }}>{modalCopy.kicker}</span>
+              </div>
+              <h3 id="otsf-req-modal-title" style={{
+                margin: 0,
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(20px, 2.4vw, 26px)",
+                fontWeight: 700,
+                letterSpacing: "-0.5px",
+                color: "white",
+                lineHeight: 1.2,
+              }}>
+                {modalCopy.title}
+              </h3>
+              <p style={{
+                margin: "10px 0 0",
+                fontFamily: "var(--font-outfit)",
+                fontSize: 13,
+                color: "rgba(255,255,255,0.55)",
+                lineHeight: 1.55,
+              }}>
+                {modalCopy.subtitle}
+              </p>
+            </div>
+
+            {submitState === "success" ? (
+              <div className="otsf-req-modal-success">
+                <div className="otsf-req-modal-success-check">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <h4>Request received.</h4>
+                <p>{modalCopy.success}</p>
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(false)}
+                  className="otsf-req-modal-done"
+                >
+                  Done
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} noValidate className="otsf-req-form-fields">
+                {/* Honeypot */}
+                <input type="text" name="website" tabIndex={-1} autoComplete="off"
+                  style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} />
+
+                <div className="otsf-req-form-row">
+                  <label className="otsf-req-form-field" style={{ flex: "1 1 100%" }}>
+                    <span className="otsf-req-form-label">Select Edition</span>
+                    <select
+                      value={selectedReportUrl}
+                      onChange={(e) => {
+                        setSelectedReportUrl(e.target.value);
+                        if (errors.report) setErrors({ ...errors, report: "" });
+                      }}
+                      className="otsf-req-form-input otsf-req-form-report-select"
+                      aria-invalid={!!errors.report}
+                    >
+                      {POST_EVENT_REPORTS.map((r) => (
+                        <option key={r.url} value={r.url}>
+                          {r.title} {r.year}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.report && <span className="otsf-req-form-err">{errors.report}</span>}
+                  </label>
+                </div>
+
+                <div className="otsf-req-form-row">
+                  <label className="otsf-req-form-field">
+                    <span className="otsf-req-form-label">Full Name</span>
+                    <input
+                      type="text"
+                      value={fullName}
+                      onChange={(e) => { setFullName(e.target.value); if (errors.fullName) setErrors({ ...errors, fullName: "" }); }}
+                      placeholder="Your full name"
+                      autoComplete="name"
+                      className="otsf-req-form-input"
+                      aria-invalid={!!errors.fullName}
+                    />
+                    {errors.fullName && <span className="otsf-req-form-err">{errors.fullName}</span>}
+                  </label>
+
+                  <label className="otsf-req-form-field">
+                    <span className="otsf-req-form-label">Work Email</span>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors({ ...errors, email: "" }); }}
+                      placeholder="name@company.com"
+                      autoComplete="email"
+                      className="otsf-req-form-input"
+                      aria-invalid={!!errors.email}
+                    />
+                    {errors.email && <span className="otsf-req-form-err">{errors.email}</span>}
+                  </label>
+                </div>
+
+                <div className="otsf-req-form-row">
+                  <label className="otsf-req-form-field">
+                    <span className="otsf-req-form-label">Job Title</span>
+                    <input
+                      type="text"
+                      value={jobTitle}
+                      onChange={(e) => { setJobTitle(e.target.value); if (errors.jobTitle) setErrors({ ...errors, jobTitle: "" }); }}
+                      placeholder="CISO, Head of OT, Plant Director…"
+                      autoComplete="organization-title"
+                      className="otsf-req-form-input"
+                      aria-invalid={!!errors.jobTitle}
+                    />
+                    {errors.jobTitle && <span className="otsf-req-form-err">{errors.jobTitle}</span>}
+                  </label>
+
+                  <label className="otsf-req-form-field">
+                    <span className="otsf-req-form-label">
+                      Phone
+                      <span className="otsf-req-form-hint-inline">
+                        {countryCode.length} digits expected
+                      </span>
+                    </span>
+                    <div className="otsf-req-form-phone-row">
+                      <select
+                        value={`${countryCode.country}-${countryCode.code}`}
+                        onChange={(e) => {
+                          const [country, code] = e.target.value.split("-");
+                          const found = COUNTRY_CODES.find((c) => c.country === country && c.code === code);
+                          if (found) {
+                            setCountryCode(found);
+                            setPhone((p) => p.replace(/\D/g, "").slice(0, found.length));
+                          }
+                        }}
+                        className="otsf-req-form-cc"
+                        aria-label="Country code"
+                      >
+                        {COUNTRY_CODES.map((c) => (
+                          <option key={`${c.country}-${c.code}`} value={`${c.country}-${c.code}`}>
+                            {c.country} {c.code}
+                          </option>
+                        ))}
+                      </select>
+                      <div className="otsf-req-form-phone-wrap">
+                        <input
+                          type="tel"
+                          inputMode="numeric"
+                          value={phone}
+                          onChange={(e) => {
+                            const digits = e.target.value.replace(/\D/g, "").slice(0, countryCode.length);
+                            setPhone(digits);
+                          }}
+                          onBlur={() => setPhoneTouched(true)}
+                          placeholder={countryCode.placeholder}
+                          autoComplete="tel-national"
+                          maxLength={countryCode.length}
+                          className="otsf-req-form-input otsf-req-form-phone-input"
+                          aria-invalid={!!errors.phone}
+                        />
+                        {phoneTouched && phoneIsValid && (
+                          <span aria-hidden className="otsf-req-form-phone-check">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    {phoneTouched && !phoneIsValid && phoneDigitsLen > 0 && !errors.phone && (
+                      <span className="otsf-req-form-phone-progress">
+                        {phoneDigitsLen} / {countryCode.length} digits
+                      </span>
+                    )}
+                    {errors.phone && <span className="otsf-req-form-err">{errors.phone}</span>}
+                  </label>
+                </div>
+
+                {submitError && (
+                  <div className="otsf-req-form-submit-err">{submitError}</div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={submitState === "submitting"}
+                  className="otsf-req-form-submit"
+                >
+                  {submitState === "submitting"
+                    ? "Sending…"
+                    : requestType === "Past Event Report"
+                    ? "Send me the report"
+                    : "Send me the delegate list"}
+                  {submitState !== "submitting" && (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 8 }}>
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  )}
+                </button>
+                <p className="otsf-req-form-hint">
+                  We respect your inbox. Used only to send the requested resource and edition follow-ups.
+                </p>
+              </form>
+            )}
+
+            <style jsx global>{`
+              .otsf-req-modal-overlay {
+                position: fixed; inset: 0; z-index: 9999;
+                display: flex; align-items: center; justify-content: center;
+                padding: clamp(16px, 3vw, 32px);
+                background: rgba(4, 2, 6, 0.78);
+                backdrop-filter: blur(14px) saturate(140%);
+                -webkit-backdrop-filter: blur(14px) saturate(140%);
+              }
+              .otsf-req-modal-card {
+                position: relative;
+                width: 100%; max-width: 580px;
+                max-height: calc(100vh - clamp(32px, 6vw, 64px));
+                overflow-y: auto;
+                padding: clamp(24px, 3vw, 36px);
+                background: linear-gradient(165deg, rgba(30, 14, 26, 0.94) 0%, rgba(12, 6, 12, 0.97) 100%);
+                border: 1px solid rgba(255,255,255,0.10);
+                border-radius: 20px;
+                box-shadow:
+                  inset 0 1px 0 rgba(255,255,255,0.16),
+                  inset 0 -1px 0 rgba(0,0,0,0.45),
+                  0 24px 56px rgba(0,0,0,0.55),
+                  0 48px 96px rgba(0,0,0,0.45);
+              }
+              .otsf-req-modal-hairline {
+                position: absolute; top: 0; left: 8%; right: 8%; height: 1px;
+                background: linear-gradient(90deg, transparent 0%, ${OT_CRIMSON} 50%, transparent 100%);
+                opacity: 0.8;
+              }
+              .otsf-req-modal-close {
+                position: absolute; top: 14px; right: 14px;
+                display: inline-flex; align-items: center; justify-content: center;
+                width: 32px; height: 32px; border-radius: 8px;
+                border: 1px solid rgba(255,255,255,0.10);
+                background: rgba(255,255,255,0.04);
+                color: rgba(255,255,255,0.7); cursor: pointer;
+                transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+              }
+              .otsf-req-modal-close:hover {
+                color: white; border-color: ${OT_CRIMSON}66; background: ${OT_CRIMSON}1a; transform: rotate(90deg);
+              }
+              .otsf-req-modal-header {
+                margin-bottom: clamp(18px, 2vw, 22px);
+                padding-right: 36px;
+              }
+              .otsf-req-modal-success {
+                display: flex; flex-direction: column;
+                align-items: center; text-align: center;
+                padding: clamp(8px, 1vw, 12px) 0 4px;
+              }
+              .otsf-req-modal-success-check {
+                display: inline-flex; align-items: center; justify-content: center;
+                width: 56px; height: 56px; border-radius: 50%;
+                background: linear-gradient(135deg, ${OT_CRIMSON_DIM}, ${OT_CRIMSON});
+                margin-bottom: 16px; box-shadow: 0 8px 24px ${OT_CRIMSON}66;
+              }
+              .otsf-req-modal-success h4 {
+                margin: 0 0 8px;
+                font-family: var(--font-display);
+                font-size: clamp(18px, 1.8vw, 22px);
+                font-weight: 700; color: white;
+              }
+              .otsf-req-modal-success p {
+                margin: 0 0 22px;
+                font-family: var(--font-outfit);
+                font-size: 14px; color: rgba(255,255,255,0.6);
+                line-height: 1.55; max-width: 380px;
+              }
+              .otsf-req-modal-done {
+                padding: 10px 28px;
+                background: linear-gradient(135deg, ${OT_CRIMSON_DIM} 0%, ${OT_CRIMSON} 100%);
+                border: 1px solid ${OT_CRIMSON}55; border-radius: 10px;
+                color: white; font-family: var(--font-outfit);
+                font-size: 13px; font-weight: 700;
+                letter-spacing: 0.04em; cursor: pointer;
+                transition: transform 0.3s ease, filter 0.3s ease;
+              }
+              .otsf-req-modal-done:hover { transform: translateY(-1px); filter: brightness(1.08); }
+              @media (max-width: 540px) {
+                .otsf-req-modal-card { padding: 22px 18px; border-radius: 16px; }
+                .otsf-req-modal-header { padding-right: 30px; }
+              }
+              .otsf-req-form-fields {
+                position: relative; z-index: 1;
+                display: flex; flex-direction: column;
+                gap: clamp(14px, 1.8vw, 18px);
+              }
+              .otsf-req-form-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: clamp(12px, 1.6vw, 18px);
+              }
+              .otsf-req-form-field { display: flex; flex-direction: column; gap: 6px; }
+              .otsf-req-form-label {
+                font-family: var(--font-outfit);
+                font-size: 11px; font-weight: 600;
+                letter-spacing: 0.16em; text-transform: uppercase;
+                color: rgba(255,255,255,0.55);
+                display: flex; align-items: baseline; gap: 10px;
+              }
+              .otsf-req-form-hint-inline {
+                font-size: 10px; font-weight: 500;
+                letter-spacing: 0.06em; text-transform: none;
+                color: rgba(255,255,255,0.35);
+              }
+              .otsf-req-form-phone-wrap { position: relative; flex: 1; }
+              .otsf-req-form-phone-check {
+                position: absolute; right: 12px; top: 50%;
+                transform: translateY(-50%);
+                display: inline-flex; align-items: center; justify-content: center;
+                width: 22px; height: 22px; border-radius: 50%;
+                background: linear-gradient(135deg, ${OT_CRIMSON_DIM}, ${OT_CRIMSON});
+                color: white; box-shadow: 0 2px 8px ${OT_CRIMSON}66; pointer-events: none;
+              }
+              .otsf-req-form-phone-progress {
+                font-family: var(--font-outfit); font-size: 11px;
+                color: rgba(255,255,255,0.45);
+                font-variant-numeric: tabular-nums; margin-top: 2px;
+              }
+              .otsf-req-form-input {
+                width: 100%; padding: 12px 14px;
+                background: rgba(0,0,0,0.30);
+                border: 1px solid rgba(255,255,255,0.10);
+                border-radius: 10px; color: white;
+                font-family: var(--font-outfit);
+                font-size: 14.5px; line-height: 1.4;
+                outline: none;
+                transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+              }
+              .otsf-req-form-input::placeholder { color: rgba(255,255,255,0.30); }
+              .otsf-req-form-input:focus {
+                border-color: ${OT_CRIMSON};
+                background: rgba(0,0,0,0.40);
+                box-shadow: 0 0 0 3px ${OT_CRIMSON}33;
+              }
+              .otsf-req-form-input[aria-invalid="true"] { border-color: rgba(255,80,80,0.6); }
+              .otsf-req-form-report-select {
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                padding-right: 40px;
+                background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1l5 5 5-5' stroke='%23D34B9A' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+                background-repeat: no-repeat;
+                background-position: right 14px center;
+                cursor: pointer;
+              }
+              .otsf-req-form-report-select option { background: #150a14; color: white; }
+              .otsf-req-form-phone-row { display: flex; gap: 8px; }
+              .otsf-req-form-cc {
+                padding: 12px 10px;
+                background: rgba(0,0,0,0.30);
+                border: 1px solid rgba(255,255,255,0.10);
+                border-radius: 10px; color: white;
+                font-family: var(--font-outfit);
+                font-size: 14px; outline: none;
+                cursor: pointer; max-width: 110px;
+                transition: border-color 0.25s ease, background 0.25s ease;
+              }
+              .otsf-req-form-cc:focus {
+                border-color: ${OT_CRIMSON};
+                box-shadow: 0 0 0 3px ${OT_CRIMSON}33;
+              }
+              .otsf-req-form-cc option { background: #150a14; color: white; }
+              .otsf-req-form-phone-input { flex: 1; width: 100%; padding-right: 40px; }
+              .otsf-req-form-err {
+                font-family: var(--font-outfit);
+                font-size: 12px; color: #ff7a7a; margin-top: 2px;
+              }
+              .otsf-req-form-submit-err {
+                padding: 12px 14px; border-radius: 10px;
+                background: rgba(255, 80, 80, 0.10);
+                border: 1px solid rgba(255, 80, 80, 0.30);
+                color: #ff9a9a;
+                font-family: var(--font-outfit); font-size: 13.5px;
+              }
+              .otsf-req-form-submit {
+                display: inline-flex;
+                align-items: center; justify-content: center;
+                padding: 14px 24px; border-radius: 12px;
+                border: 1px solid transparent;
+                background: linear-gradient(135deg, ${OT_CRIMSON_DIM}, ${OT_CRIMSON});
+                color: white; font-family: var(--font-outfit);
+                font-size: 14px; font-weight: 700;
+                letter-spacing: 0.04em; text-transform: uppercase;
+                cursor: pointer; align-self: flex-start;
+                transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease, filter 0.25s ease;
+                box-shadow: 0 8px 20px ${OT_CRIMSON}55, inset 0 1px 0 rgba(255,255,255,0.18);
+              }
+              .otsf-req-form-submit:hover:not(:disabled) {
+                transform: translateY(-1px);
+                filter: brightness(1.08);
+                box-shadow: 0 12px 28px ${OT_CRIMSON}77, inset 0 1px 0 rgba(255,255,255,0.22);
+              }
+              .otsf-req-form-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+              .otsf-req-form-hint {
+                font-family: var(--font-outfit);
+                font-size: 12px; color: rgba(255,255,255,0.35); margin: 4px 0 0;
+              }
+              @media (max-width: 640px) {
+                .otsf-req-form-row { grid-template-columns: 1fr !important; }
+                .otsf-req-form-submit { width: 100%; justify-content: center; }
+              }
+            `}</style>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>,
+    document.body,
+  );
+}
+
 export default function OTSecurityFirstPage() {
   // Smooth scroll for anchor links
   useEffect(() => {
@@ -5368,6 +6198,7 @@ export default function OTSecurityFirstPage() {
         </div>
       </div>
       <Footer />
+      <OtsfRequestResourcesModal />
     </div>
   );
 }

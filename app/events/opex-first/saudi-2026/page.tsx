@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { preload } from "react-dom";
-import { motion, useInView } from "framer-motion";
+import { preload, createPortal } from "react-dom";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -67,6 +67,14 @@ const POST_EVENT_REPORTS: ReportEntry[] = [
     filename: "OPEX-First-UAE-2026-Report.pdf",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/efg_logo/opex_uae.png",
     logoScale: 1.7,
+  },
+  {
+    edition: "Process Intelligence Webinar",
+    year: "2026",
+    title: "Process Intelligence Webinar",
+    // TODO: replace with the real S3 URL once the report PDF is uploaded.
+    url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/Process+Intelligence+Webinar+2026+-+Post+Event+Report.pdf",
+    filename: "OPEX-Process-Intelligence-Webinar-2026-Report.pdf",
   },
 ];
 
@@ -453,6 +461,33 @@ function typeColor(type: AgendaItem["type"]) {
 function Hero() {
   // Preload the LCP hero background — React dedupes, so calling on each render is safe
   preload(HERO_BG, { as: "image", fetchPriority: "high" });
+
+  // Request Resources dropdown (opens the popup form via custom event)
+  const [resourceMenuOpen, setResourceMenuOpen] = useState(false);
+  const resourceMenuRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!resourceMenuOpen) return;
+    const onClick = (e: MouseEvent) => {
+      if (resourceMenuRef.current && !resourceMenuRef.current.contains(e.target as Node)) {
+        setResourceMenuOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setResourceMenuOpen(false);
+    };
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [resourceMenuOpen]);
+  const openRequest = (type: "Past Event Report" | "Delegate List") => {
+    setResourceMenuOpen(false);
+    window.dispatchEvent(
+      new CustomEvent("opex-saudi:open-request", { detail: { type } }),
+    );
+  };
   const cd = useCountdown(EVENT_DATE);
 
   return (
@@ -711,34 +746,180 @@ function Hero() {
               Register Now
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </a>
-            <button
-              type="button"
-              className="opex-cta-ghost"
-              onClick={() => {
-                if (typeof window === "undefined") return;
-                window.dispatchEvent(new CustomEvent("efg:set-form-tab", { detail: "sponsor" }));
-                document.querySelector("#register")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 10,
-                padding: "16px 30px",
-                borderRadius: 999,
-                background: "rgba(255,255,255,0.04)",
-                color: "rgba(255,255,255,0.92)",
-                fontFamily: "var(--font-outfit)",
-                fontSize: 15,
-                fontWeight: 500,
-                letterSpacing: "0.3px",
-                border: "1px solid rgba(255,255,255,0.22)",
-                cursor: "pointer",
-                backdropFilter: "blur(10px)",
-                transition: "all 0.35s cubic-bezier(0.22,1,0.36,1)",
-              }}
-            >
-              Become a Sponsor
-            </button>
+            {/* Request Resources dropdown — opens the popup form modal with
+                either Past Event Report or Delegate List preselected */}
+            <div ref={resourceMenuRef} style={{ position: "relative", display: "inline-block" }}>
+              <button
+                type="button"
+                className="opex-cta-ghost"
+                onClick={() => setResourceMenuOpen((o) => !o)}
+                aria-haspopup="menu"
+                aria-expanded={resourceMenuOpen}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 10,
+                  padding: "16px 26px",
+                  borderRadius: 999,
+                  background: "rgba(255,255,255,0.04)",
+                  color: "rgba(255,255,255,0.92)",
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 15,
+                  fontWeight: 500,
+                  letterSpacing: "0.3px",
+                  border: "1px solid rgba(255,255,255,0.22)",
+                  cursor: "pointer",
+                  backdropFilter: "blur(10px)",
+                  transition: "all 0.35s cubic-bezier(0.22,1,0.36,1)",
+                }}
+              >
+                Request Resources
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{
+                    transform: resourceMenuOpen ? "rotate(0)" : "rotate(180deg)",
+                    transition: "transform 0.25s ease",
+                    opacity: 0.85,
+                  }}
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+
+              <AnimatePresence>
+                {resourceMenuOpen && (
+                  <motion.div
+                    role="menu"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 6 }}
+                    transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                    style={{
+                      position: "absolute",
+                      bottom: "calc(100% + 10px)",
+                      left: 0,
+                      minWidth: 320,
+                      padding: 6,
+                      borderRadius: 18,
+                      background: "rgba(12, 8, 24, 0.88)",
+                      border: `1px solid ${V_BRIGHT}38`,
+                      backdropFilter: "blur(18px) saturate(180%)",
+                      WebkitBackdropFilter: "blur(18px) saturate(180%)",
+                      boxShadow:
+                        "0 22px 50px rgba(0,0,0,0.50), inset 0 1px 0 rgba(255,255,255,0.06)",
+                      zIndex: 30,
+                    }}
+                  >
+                    {/* Past Event Report */}
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={() => openRequest("Past Event Report")}
+                      className="opex-saudi-hero-menu-item"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 12,
+                        padding: "12px 14px",
+                        borderRadius: 12,
+                        background: "transparent",
+                        border: "none",
+                        width: "100%",
+                        textAlign: "left",
+                        cursor: "pointer",
+                        color: "white",
+                        transition: "background 0.2s ease",
+                      }}
+                    >
+                      <span style={{
+                        width: 36, height: 36, borderRadius: "50%",
+                        background: `${V}33`,
+                        border: `1px solid ${V_BRIGHT}55`,
+                        display: "inline-flex", alignItems: "center", justifyContent: "center",
+                        flexShrink: 0,
+                      }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={V_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                          <polyline points="14 2 14 8 20 8" />
+                          <line x1="12" y1="18" x2="12" y2="12" />
+                          <polyline points="9 15 12 18 15 15" />
+                        </svg>
+                      </span>
+                      <span style={{ flex: 1, minWidth: 0 }}>
+                        <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 600, color: "white", lineHeight: 1.25 }}>
+                          Past Event Report
+                        </span>
+                        <span style={{ display: "block", marginTop: 2, fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.55)" }}>
+                          Request the PDF report from a past edition
+                        </span>
+                      </span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                      </svg>
+                    </button>
+
+                    <div style={{ height: 1, background: "rgba(255,255,255,0.06)", margin: "2px 10px" }} />
+
+                    {/* Delegate List */}
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={() => openRequest("Delegate List")}
+                      className="opex-saudi-hero-menu-item"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 12,
+                        padding: "12px 14px",
+                        borderRadius: 12,
+                        background: "transparent",
+                        border: "none",
+                        width: "100%",
+                        textAlign: "left",
+                        cursor: "pointer",
+                        color: "white",
+                        transition: "background 0.2s ease",
+                      }}
+                    >
+                      <span style={{
+                        width: 36, height: 36, borderRadius: "50%",
+                        background: `${V}33`,
+                        border: `1px solid ${V_BRIGHT}55`,
+                        display: "inline-flex", alignItems: "center", justifyContent: "center",
+                        flexShrink: 0,
+                      }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={V_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                          <circle cx="9" cy="7" r="4" />
+                          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                      </span>
+                      <span style={{ flex: 1, minWidth: 0 }}>
+                        <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 600, color: "white", lineHeight: 1.25 }}>
+                          Delegate List
+                        </span>
+                        <span style={{ display: "block", marginTop: 2, fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.55)" }}>
+                          Request the confirmed attendee roster
+                        </span>
+                      </span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                      </svg>
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -835,6 +1016,60 @@ function OpexSaudiPostEventReports() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [submitError, setSubmitError] = useState("");
+  // ── Modal popup state (mirrors Johannesburg's pattern) ────────────────────
+  const [modalOpen, setModalOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+  type RequestKind = "Delegate List" | "Past Event Report";
+  const [requestType, setRequestType] = useState<RequestKind>("Delegate List");
+  const [selectedReportUrl, setSelectedReportUrl] = useState<string>(
+    POST_EVENT_REPORTS[0]?.url ?? "",
+  );
+
+  // Lock body scroll + ESC closes the modal while it's open
+  useEffect(() => {
+    if (!modalOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setModalOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [modalOpen]);
+
+  // Hero dropdown dispatches this event to open the popup with a chosen type
+  useEffect(() => {
+    const onOpenRequest = (e: Event) => {
+      const detail = (e as CustomEvent<{ type?: RequestKind }>).detail;
+      if (detail?.type === "Past Event Report" || detail?.type === "Delegate List") {
+        setRequestType(detail.type);
+        setSubmitState("idle");
+        setSubmitError("");
+        setErrors({});
+        setModalOpen(true);
+      }
+    };
+    window.addEventListener("opex-saudi:open-request", onOpenRequest);
+    return () => window.removeEventListener("opex-saudi:open-request", onOpenRequest);
+  }, []);
+
+  // Modal copy adapts to the chosen request type
+  const modalCopy =
+    requestType === "Past Event Report"
+      ? {
+          kicker: "Request the Past Event Report",
+          title: "Get the post-event report.",
+          subtitle:
+            "Share your details and we’ll send the curated delegate list to your work email.",
+        }
+      : {
+          kicker: "Request the Delegate List",
+          title: "Get the full attendee roster.",
+          subtitle:
+            "Share your details and we’ll send the curated delegate list to your work email.",
+        };
 
   const phoneDigits = phone.replace(/[\s\-()]/g, "");
   const phoneDigitsLen = phoneDigits.length;
@@ -859,11 +1094,16 @@ function OpexSaudiPostEventReports() {
     if (!jobTitle.trim()) newErrors.jobTitle = "Job title is required";
     const phoneErr = validatePhone(phone, countryCode);
     if (phoneErr) newErrors.phone = phoneErr;
+    if (!selectedReportUrl) {
+      newErrors.report = "Please select an edition";
+    }
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) {
       setPhoneTouched(true);
       return;
     }
+
+    const selectedReport = POST_EVENT_REPORTS.find((r) => r.url === selectedReportUrl);
 
     setSubmitState("submitting");
     setSubmitError("");
@@ -876,8 +1116,14 @@ function OpexSaudiPostEventReports() {
       event_name: "OPEX First KSA 2026 — Riyadh",
       metadata: {
         "Event Page": "OPEX First KSA 2026 — Riyadh",
-        "Request Type": "Delegate List",
+        "Request Type": requestType,
         "Page Section": "Post-Event Reports",
+        ...(selectedReport && {
+          "Selected Edition": `${selectedReport.title} ${selectedReport.year}`,
+          ...(requestType === "Past Event Report" && {
+            "Selected Report URL": selectedReport.url,
+          }),
+        }),
       },
     });
     if (res.success) {
@@ -890,315 +1136,278 @@ function OpexSaudiPostEventReports() {
   };
 
   return (
-    <section ref={ref} className="opex-per-section" id="reports">
-      <div className="opex-per-glow" />
-      <div className="opex-per-container">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: EASE }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
-            <span style={{ width: 24, height: 2, background: V, borderRadius: 1 }} />
-            <span style={{ fontFamily: "var(--font-dm)", fontSize: 12, fontWeight: 500, letterSpacing: "2.5px", textTransform: "uppercase", color: V_BRIGHT }}>
-              Post-Event Intelligence
-            </span>
-          </div>
-        </motion.div>
-
-        <motion.h2
-          className="opex-per-heading"
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
-        >
-          Reports from the room.
-        </motion.h2>
-
-        <motion.p
-          className="opex-per-subtitle"
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: EASE, delay: 0.15 }}
-        >
-          Official post-event reports from each OPEX First edition — takeaways, on-stage themes, and sponsor coverage. Available as PDF.
-        </motion.p>
-
-        {/* Side-by-side layout: reports left · request form right */}
-        <div className="opex-per-layout">
-        <div className="opex-per-grid">
-          {POST_EVENT_REPORTS.map((report, i) => (
-            <motion.a
-              key={report.url}
-              href={buildReportDownloadUrl(report.url, report.filename)}
-              download={report.filename}
-              className="opex-per-card"
-              initial={{ opacity: 0, y: 18 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.25 + i * 0.08, ease: EASE }}
-              style={{
-                ["--logo-scale" as string]: String(report.logoScale ?? 1),
-              } as React.CSSProperties}
+    <section ref={ref} id="reports" aria-hidden style={{ padding: 0, margin: 0, height: 0, overflow: "hidden" }}>
+      {/* ─── Request Form Modal — portalled to <body> so the popup
+          overlays the whole viewport regardless of this section's box ── */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {modalOpen && (
+            <motion.div
+              className="opex-per-modal-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22 }}
+              onClick={() => setModalOpen(false)}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="opex-saudi-modal-title"
             >
-              <span aria-hidden className="opex-per-sheen" />
-              <span aria-hidden className="opex-per-bevel" />
-              <span aria-hidden className="opex-per-hairline-top" />
-              <span aria-hidden className="opex-per-hairline-bottom" />
+              <motion.div
+                className="opex-per-modal-card"
+                initial={{ opacity: 0, y: 24, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 24, scale: 0.96 }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(false)}
+                  className="opex-per-modal-close"
+                  aria-label="Close request form"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
 
-              <div className="opex-per-meta">
-                <span className="opex-per-index">
-                  <span className="opex-per-no">№</span>
-                  {(i + 1).toString().padStart(2, "0")} · OPEX First
-                </span>
-                <span className="opex-per-pdf">PDF</span>
-              </div>
+                <div className="opex-per-form-header">
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                    <span style={{ width: 24, height: 1, background: V_BRIGHT }} />
+                    <span style={{
+                      fontFamily: "var(--font-dm)",
+                      fontSize: 10, fontWeight: 700,
+                      letterSpacing: "0.32em", textTransform: "uppercase",
+                      color: V_BRIGHT,
+                    }}>{modalCopy.kicker}</span>
+                  </div>
+                  <h3 id="opex-saudi-modal-title" style={{
+                    margin: 0,
+                    fontFamily: "var(--font-display)",
+                    fontSize: "clamp(20px, 2.4vw, 26px)",
+                    fontWeight: 700,
+                    letterSpacing: "-0.5px",
+                    color: "white",
+                    lineHeight: 1.2,
+                  }}>
+                    {modalCopy.title}
+                  </h3>
+                  <p style={{
+                    margin: "10px 0 0",
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 13,
+                    color: "rgba(255,255,255,0.55)",
+                    lineHeight: 1.55,
+                  }}>
+                    {modalCopy.subtitle}
+                  </p>
+                </div>
 
-              <div className="opex-per-logo-zone">
-                <div aria-hidden className="opex-per-logo-halo" />
-                {report.logo ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={report.logo} alt={report.title} className="opex-per-logo" />
+                {submitState === "success" ? (
+                  <div className="opex-per-form-success" style={{ textAlign: "center", padding: "24px 0 8px" }}>
+                    <div style={{
+                      display: "inline-flex", alignItems: "center", justifyContent: "center",
+                      width: 56, height: 56, borderRadius: "50%",
+                      background: `linear-gradient(135deg, ${V}, ${V_BRIGHT})`,
+                      marginBottom: 14,
+                      boxShadow: `0 8px 24px ${V}66`,
+                    }}>
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    </div>
+                    <h4 style={{
+                      margin: "0 0 8px",
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(18px, 1.8vw, 22px)",
+                      fontWeight: 700,
+                      color: "white",
+                    }}>Request received.</h4>
+                    <p style={{
+                      margin: "0 auto",
+                      fontFamily: "var(--font-outfit)",
+                      fontSize: 14,
+                      color: "rgba(255,255,255,0.6)",
+                      maxWidth: 380,
+                    }}>
+                      {requestType === "Past Event Report"
+                        ? "We’ll email the post-event report PDF to your work email within 1 business day."
+                        : "We’ll send the delegate list to your work email within 1 business day."}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setModalOpen(false)}
+                      className="opex-per-modal-done"
+                    >
+                      Done
+                    </button>
+                  </div>
                 ) : (
-                  <h3 className="opex-per-logo-text">{report.title}</h3>
-                )}
-              </div>
+                  <form onSubmit={handleSubmit} noValidate className="opex-per-form-fields">
+                    {/* Honeypot */}
+                    <input type="text" name="website" tabIndex={-1} autoComplete="off"
+                      style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} />
 
-              <div aria-hidden className="opex-per-divider">
-                <span className="opex-per-divider-line" />
-                <span className="opex-per-divider-dot" />
-                <span className="opex-per-divider-line" />
-              </div>
-
-              <div className="opex-per-edition-wrap">
-                <h3 className="opex-per-edition">
-                  {report.edition} <span className="opex-per-sep">·</span> {report.year}
-                </h3>
-              </div>
-
-              <div className="opex-per-footer">
-                <span className="opex-per-cta-label">Download Report</span>
-                <span aria-hidden className="opex-per-arrow">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                    <polyline points="14 2 14 8 20 8" />
-                  </svg>
-                </span>
-              </div>
-            </motion.a>
-          ))}
-        </div>
-
-        {/* ─── Delegate-list request form ──────────────────────────────────── */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.35, ease: EASE }}
-          className="opex-per-form-wrap"
-        >
-          <div className="opex-per-form-card">
-            <span aria-hidden className="opex-per-form-hairline" />
-
-            <div className="opex-per-form-header">
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-                <span style={{ width: 24, height: 1, background: V_BRIGHT }} />
-                <span style={{
-                  fontFamily: "var(--font-dm)",
-                  fontSize: 10, fontWeight: 700,
-                  letterSpacing: "0.32em", textTransform: "uppercase",
-                  color: V_BRIGHT,
-                }}>Request the Delegate List</span>
-              </div>
-              <h3 style={{
-                margin: 0,
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(20px, 2.4vw, 28px)",
-                fontWeight: 700,
-                letterSpacing: "-0.5px",
-                color: "white",
-                lineHeight: 1.2,
-              }}>
-                Get the full attendee roster.
-              </h3>
-              <p style={{
-                margin: "10px 0 0",
-                fontFamily: "var(--font-outfit)",
-                fontSize: "clamp(13px, 1vw, 14px)",
-                fontWeight: 400,
-                color: "rgba(255,255,255,0.55)",
-                lineHeight: 1.6,
-                maxWidth: 520,
-              }}>
-                Share your details and we&apos;ll send the curated delegate list to your work email — COOs, transformation leaders, and operational excellence decision-makers attending the Riyadh edition.
-              </p>
-            </div>
-
-            {submitState === "success" ? (
-              <div className="opex-per-form-success">
-                <div style={{
-                  display: "inline-flex", alignItems: "center", justifyContent: "center",
-                  width: 56, height: 56, borderRadius: "50%",
-                  background: `linear-gradient(135deg, ${V}, ${V_BRIGHT})`,
-                  marginBottom: 14,
-                  boxShadow: `0 8px 24px ${V}66`,
-                }}>
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                </div>
-                <h4 style={{
-                  margin: "0 0 8px",
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(18px, 1.8vw, 22px)",
-                  fontWeight: 700,
-                  color: "white",
-                }}>Request received.</h4>
-                <p style={{
-                  margin: 0,
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 14,
-                  color: "rgba(255,255,255,0.6)",
-                  maxWidth: 380,
-                }}>
-                  We&apos;ll send the delegate list to your work email within 1 business day.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} noValidate className="opex-per-form-fields">
-                <input type="text" name="website" tabIndex={-1} autoComplete="off"
-                  style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} />
-
-                <div className="opex-per-form-row">
-                  <label className="opex-per-form-field">
-                    <span className="opex-per-form-label">Full Name</span>
-                    <input
-                      type="text"
-                      value={fullName}
-                      onChange={(e) => { setFullName(e.target.value); if (errors.fullName) setErrors({ ...errors, fullName: "" }); }}
-                      placeholder="Your full name"
-                      autoComplete="name"
-                      className="opex-per-form-input"
-                      aria-invalid={!!errors.fullName}
-                    />
-                    {errors.fullName && <span className="opex-per-form-err">{errors.fullName}</span>}
-                  </label>
-
-                  <label className="opex-per-form-field">
-                    <span className="opex-per-form-label">Work Email</span>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors({ ...errors, email: "" }); }}
-                      placeholder="name@company.com"
-                      autoComplete="email"
-                      className="opex-per-form-input"
-                      aria-invalid={!!errors.email}
-                    />
-                    {errors.email && <span className="opex-per-form-err">{errors.email}</span>}
-                  </label>
-                </div>
-
-                <div className="opex-per-form-row">
-                  <label className="opex-per-form-field">
-                    <span className="opex-per-form-label">Job Title</span>
-                    <input
-                      type="text"
-                      value={jobTitle}
-                      onChange={(e) => { setJobTitle(e.target.value); if (errors.jobTitle) setErrors({ ...errors, jobTitle: "" }); }}
-                      placeholder="COO, Head of Excellence, VP Transformation…"
-                      autoComplete="organization-title"
-                      className="opex-per-form-input"
-                      aria-invalid={!!errors.jobTitle}
-                    />
-                    {errors.jobTitle && <span className="opex-per-form-err">{errors.jobTitle}</span>}
-                  </label>
-
-                  <label className="opex-per-form-field">
-                    <span className="opex-per-form-label">
-                      Phone
-                      <span className="opex-per-form-hint-inline">
-                        {countryCode.length} digits expected
-                      </span>
-                    </span>
-                    <div className="opex-per-form-phone-row">
-                      <select
-                        value={`${countryCode.country}-${countryCode.code}`}
-                        onChange={(e) => {
-                          const [country, code] = e.target.value.split("-");
-                          const found = COUNTRY_CODES.find((c) => c.country === country && c.code === code);
-                          if (found) {
-                            setCountryCode(found);
-                            setPhone((prev) => prev.replace(/\D/g, "").slice(0, found.length));
-                          }
-                        }}
-                        className="opex-per-form-cc"
-                        aria-label="Country code"
-                      >
-                        {COUNTRY_CODES.map((c) => (
-                          <option key={`${c.country}-${c.code}`} value={`${c.country}-${c.code}`}>
-                            {c.country} {c.code}
-                          </option>
-                        ))}
-                      </select>
-                      <div className="opex-per-form-phone-wrap">
-                        <input
-                          type="tel"
-                          inputMode="numeric"
-                          value={phone}
+                    {/* Edition picker — used by both Delegate List and Past Event Report requests */}
+                    <div className="opex-per-form-row">
+                      <label className="opex-per-form-field" style={{ flex: "1 1 100%" }}>
+                        <span className="opex-per-form-label">Select Edition</span>
+                        <select
+                          value={selectedReportUrl}
                           onChange={(e) => {
-                            const digits = e.target.value.replace(/\D/g, "").slice(0, countryCode.length);
-                            setPhone(digits);
+                            setSelectedReportUrl(e.target.value);
+                            if (errors.report) setErrors({ ...errors, report: "" });
                           }}
-                          onBlur={() => setPhoneTouched(true)}
-                          placeholder={countryCode.placeholder}
-                          autoComplete="tel-national"
-                          maxLength={countryCode.length}
-                          className="opex-per-form-input opex-per-form-phone-input"
-                          aria-invalid={!!errors.phone}
+                          className="opex-per-form-input opex-per-form-report-select"
+                          aria-invalid={!!errors.report}
+                        >
+                          {POST_EVENT_REPORTS.map((r) => (
+                            <option key={r.url} value={r.url}>
+                              {r.title} {r.year}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.report && <span className="opex-per-form-err">{errors.report}</span>}
+                      </label>
+                    </div>
+
+                    <div className="opex-per-form-row">
+                      <label className="opex-per-form-field">
+                        <span className="opex-per-form-label">Full Name</span>
+                        <input
+                          type="text"
+                          value={fullName}
+                          onChange={(e) => { setFullName(e.target.value); if (errors.fullName) setErrors({ ...errors, fullName: "" }); }}
+                          placeholder="Your full name"
+                          autoComplete="name"
+                          className="opex-per-form-input"
+                          aria-invalid={!!errors.fullName}
                         />
-                        {phoneTouched && phoneIsValid && (
-                          <span aria-hidden className="opex-per-form-phone-check">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                              <polyline points="20 6 9 17 4 12" />
-                            </svg>
+                        {errors.fullName && <span className="opex-per-form-err">{errors.fullName}</span>}
+                      </label>
+
+                      <label className="opex-per-form-field">
+                        <span className="opex-per-form-label">Work Email</span>
+                        <input
+                          type="email"
+                          value={email}
+                          onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors({ ...errors, email: "" }); }}
+                          placeholder="name@company.com"
+                          autoComplete="email"
+                          className="opex-per-form-input"
+                          aria-invalid={!!errors.email}
+                        />
+                        {errors.email && <span className="opex-per-form-err">{errors.email}</span>}
+                      </label>
+                    </div>
+
+                    <div className="opex-per-form-row">
+                      <label className="opex-per-form-field">
+                        <span className="opex-per-form-label">Job Title</span>
+                        <input
+                          type="text"
+                          value={jobTitle}
+                          onChange={(e) => { setJobTitle(e.target.value); if (errors.jobTitle) setErrors({ ...errors, jobTitle: "" }); }}
+                          placeholder="COO, Head of Excellence, VP Transformation…"
+                          autoComplete="organization-title"
+                          className="opex-per-form-input"
+                          aria-invalid={!!errors.jobTitle}
+                        />
+                        {errors.jobTitle && <span className="opex-per-form-err">{errors.jobTitle}</span>}
+                      </label>
+
+                      <label className="opex-per-form-field">
+                        <span className="opex-per-form-label">
+                          Phone
+                          <span className="opex-per-form-hint-inline">
+                            {countryCode.length} digits expected
+                          </span>
+                        </span>
+                        <div className="opex-per-form-phone-row">
+                          <select
+                            value={`${countryCode.country}-${countryCode.code}`}
+                            onChange={(e) => {
+                              const [country, code] = e.target.value.split("-");
+                              const found = COUNTRY_CODES.find((c) => c.country === country && c.code === code);
+                              if (found) {
+                                setCountryCode(found);
+                                setPhone((prev) => prev.replace(/\D/g, "").slice(0, found.length));
+                              }
+                            }}
+                            className="opex-per-form-cc"
+                            aria-label="Country code"
+                          >
+                            {COUNTRY_CODES.map((c) => (
+                              <option key={`${c.country}-${c.code}`} value={`${c.country}-${c.code}`}>
+                                {c.country} {c.code}
+                              </option>
+                            ))}
+                          </select>
+                          <div className="opex-per-form-phone-wrap">
+                            <input
+                              type="tel"
+                              inputMode="numeric"
+                              value={phone}
+                              onChange={(e) => {
+                                const digits = e.target.value.replace(/\D/g, "").slice(0, countryCode.length);
+                                setPhone(digits);
+                              }}
+                              onBlur={() => setPhoneTouched(true)}
+                              placeholder={countryCode.placeholder}
+                              autoComplete="tel-national"
+                              maxLength={countryCode.length}
+                              className="opex-per-form-input opex-per-form-phone-input"
+                              aria-invalid={!!errors.phone}
+                            />
+                            {phoneTouched && phoneIsValid && (
+                              <span aria-hidden className="opex-per-form-phone-check">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                  <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        {phoneTouched && !phoneIsValid && phoneDigitsLen > 0 && !errors.phone && (
+                          <span className="opex-per-form-phone-progress">
+                            {phoneDigitsLen} / {countryCode.length} digits
                           </span>
                         )}
-                      </div>
+                        {errors.phone && <span className="opex-per-form-err">{errors.phone}</span>}
+                      </label>
                     </div>
-                    {phoneTouched && !phoneIsValid && phoneDigitsLen > 0 && !errors.phone && (
-                      <span className="opex-per-form-phone-progress">
-                        {phoneDigitsLen} / {countryCode.length} digits
-                      </span>
+
+                    {submitError && (
+                      <div className="opex-per-form-submit-err">{submitError}</div>
                     )}
-                    {errors.phone && <span className="opex-per-form-err">{errors.phone}</span>}
-                  </label>
-                </div>
 
-                {submitError && (
-                  <div className="opex-per-form-submit-err">{submitError}</div>
+                    <button
+                      type="submit"
+                      disabled={submitState === "submitting"}
+                      className="opex-per-form-submit"
+                    >
+                      {submitState === "submitting"
+                        ? "Sending…"
+                        : requestType === "Past Event Report"
+                        ? "Send me the report"
+                        : "Send me the delegate list"}
+                      {submitState !== "submitting" && (
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 8 }}>
+                          <line x1="5" y1="12" x2="19" y2="12" />
+                          <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                      )}
+                    </button>
+                  </form>
                 )}
-
-                <button
-                  type="submit"
-                  disabled={submitState === "submitting"}
-                  className="opex-per-form-submit"
-                >
-                  {submitState === "submitting" ? "Sending…" : "Send me the delegate list"}
-                  {submitState !== "submitting" && (
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 8 }}>
-                      <line x1="5" y1="12" x2="19" y2="12" />
-                      <polyline points="12 5 19 12 12 19" />
-                    </svg>
-                  )}
-                </button>
-                <p className="opex-per-form-hint">
-                  We respect your inbox. Used only to send the delegate list and edition follow-ups.
-                </p>
-              </form>
-            )}
-          </div>
-        </motion.div>
-        </div>{/* /opex-per-layout */}
-      </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body,
+      )}
 
       <style jsx global>{`
         .opex-per-section {
@@ -1497,6 +1706,85 @@ function OpexSaudiPostEventReports() {
           border-color: ${V_BRIGHT};
           background: rgba(0,0,0,0.35);
           box-shadow: 0 0 0 3px ${V}40;
+        }
+        /* Edition picker — custom violet chevron */
+        .opex-per-form-report-select {
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          padding-right: 40px;
+          background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1l5 5 5-5' stroke='%239F6AFF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+          background-repeat: no-repeat;
+          background-position: right 14px center;
+          cursor: pointer;
+        }
+        .opex-per-form-report-select option {
+          background: #14101e;
+          color: white;
+        }
+        /* Modal popup — viewport-fixed overlay + centred card */
+        .opex-per-modal-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: clamp(16px, 3vw, 32px);
+          background: rgba(4, 2, 10, 0.78);
+          backdrop-filter: blur(14px) saturate(140%);
+          -webkit-backdrop-filter: blur(14px) saturate(140%);
+        }
+        .opex-per-modal-card {
+          position: relative;
+          width: 100%;
+          max-width: 580px;
+          max-height: calc(100vh - clamp(32px, 6vw, 64px));
+          overflow-y: auto;
+          padding: clamp(24px, 3vw, 36px);
+          background: linear-gradient(165deg, rgba(28, 18, 50, 0.94) 0%, rgba(10, 8, 22, 0.96) 100%);
+          border: 1px solid rgba(255,255,255,0.10);
+          border-radius: 20px;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.16),
+            inset 0 -1px 0 rgba(0,0,0,0.45),
+            0 24px 56px rgba(0,0,0,0.55),
+            0 48px 96px rgba(0,0,0,0.45);
+        }
+        .opex-per-modal-close {
+          position: absolute;
+          top: 14px; right: 14px;
+          width: 34px; height: 34px;
+          display: inline-flex; align-items: center; justify-content: center;
+          border-radius: 8px;
+          background: rgba(255,255,255,0.06);
+          border: 1px solid rgba(255,255,255,0.08);
+          color: rgba(255,255,255,0.75);
+          cursor: pointer;
+          transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+        .opex-per-modal-close:hover {
+          background: rgba(255,255,255,0.10);
+          color: white;
+          border-color: rgba(255,255,255,0.16);
+        }
+        .opex-per-modal-done {
+          margin-top: 22px;
+          padding: 12px 26px;
+          border-radius: 999px;
+          background: rgba(255,255,255,0.08);
+          border: 1px solid rgba(255,255,255,0.16);
+          color: white;
+          font-family: var(--font-outfit);
+          font-size: 13px;
+          font-weight: 600;
+          letter-spacing: 0.04em;
+          cursor: pointer;
+          transition: background 0.25s ease, border-color 0.25s ease;
+        }
+        .opex-per-modal-done:hover {
+          background: rgba(255,255,255,0.14);
+          border-color: rgba(255,255,255,0.24);
         }
         .opex-per-form-input[aria-invalid="true"] {
           border-color: rgba(255,80,80,0.6);
@@ -6497,6 +6785,8 @@ export default function OpexFirstSaudi2026Page() {
           color: white;
           transform: translateY(-2px);
         }
+        .opex-saudi-hero-menu-item:hover { background: ${V}1f !important; }
+        .opex-saudi-hero-menu-item:focus-visible { outline: none; background: ${V}33 !important; }
         .opex-focus-card:hover {
           transform: translateY(-6px);
         }

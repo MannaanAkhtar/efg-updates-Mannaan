@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import SeriesTickerBar from "@/components/ui/SeriesTickerBar";
 
@@ -19,6 +19,34 @@ const heroStats = [
 const focusBadges = ["PROCESS EXCELLENCE", "DIGITAL TRANSFORMATION", "SUSTAINABILITY"];
 
 export default function OpexHero() {
+  const [resourceMenuOpen, setResourceMenuOpen] = useState(false);
+  const resourceMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!resourceMenuOpen) return;
+    const onClick = (e: MouseEvent) => {
+      if (resourceMenuRef.current && !resourceMenuRef.current.contains(e.target as Node)) {
+        setResourceMenuOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setResourceMenuOpen(false);
+    };
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [resourceMenuOpen]);
+
+  const openRequest = (type: "Past Event Report" | "Delegate List") => {
+    setResourceMenuOpen(false);
+    window.dispatchEvent(
+      new CustomEvent("opex-series:open-request", { detail: { type } }),
+    );
+  };
+
   return (
     <section
       className="relative w-full overflow-hidden"
@@ -202,6 +230,185 @@ export default function OpexHero() {
             View Upcoming Edition →
           </HeroButton>
           <HeroButton href="/sponsors-and-partners">Become a Sponsor →</HeroButton>
+
+          {/* Third CTA — Request Resources dropdown (opens modal form) */}
+          <div ref={resourceMenuRef} style={{ position: "relative", display: "inline-block" }}>
+            <button
+              type="button"
+              onClick={() => setResourceMenuOpen((o) => !o)}
+              aria-haspopup="menu"
+              aria-expanded={resourceMenuOpen}
+              className="opex-hero-resources"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                padding: "14px 28px",
+                borderRadius: 50,
+                background: "transparent",
+                border: `1px solid ${VIOLET}`,
+                fontFamily: "var(--font-outfit)",
+                fontSize: 14,
+                fontWeight: 500,
+                color: VIOLET,
+                cursor: "pointer",
+                transitionDuration: "0.3s",
+              }}
+            >
+              <span>Request Resources</span>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{
+                  transform: resourceMenuOpen ? "rotate(0)" : "rotate(180deg)",
+                  transition: "transform 0.25s ease",
+                  opacity: 0.85,
+                }}
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+
+            <AnimatePresence>
+              {resourceMenuOpen && (
+                <motion.div
+                  role="menu"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 6 }}
+                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                  style={{
+                    position: "absolute",
+                    bottom: "calc(100% + 10px)",
+                    left: 0,
+                    minWidth: 320,
+                    padding: 6,
+                    borderRadius: 18,
+                    background: "rgba(14, 10, 28, 0.94)",
+                    border: `1px solid ${VIOLET}55`,
+                    backdropFilter: "blur(18px) saturate(180%)",
+                    WebkitBackdropFilter: "blur(18px) saturate(180%)",
+                    boxShadow:
+                      "0 22px 50px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06)",
+                    zIndex: 30,
+                    textAlign: "left",
+                  }}
+                >
+                  {/* Past Event Report */}
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={() => openRequest("Past Event Report")}
+                    className="opex-hero-menu-item"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      padding: "12px 14px",
+                      borderRadius: 12,
+                      background: "transparent",
+                      border: "none",
+                      width: "100%",
+                      textAlign: "left",
+                      cursor: "pointer",
+                      color: "white",
+                      transition: "background 0.2s ease",
+                    }}
+                  >
+                    <span style={{
+                      width: 36, height: 36, borderRadius: "50%",
+                      background: `${VIOLET}33`,
+                      border: `1px solid ${VIOLET_BRIGHT}55`,
+                      display: "inline-flex", alignItems: "center", justifyContent: "center",
+                      flexShrink: 0,
+                    }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={VIOLET_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <line x1="12" y1="18" x2="12" y2="12" />
+                        <polyline points="9 15 12 18 15 15" />
+                      </svg>
+                    </span>
+                    <span style={{ flex: 1, minWidth: 0 }}>
+                      <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 600, color: "white", lineHeight: 1.25 }}>
+                        Past Event Report
+                      </span>
+                      <span style={{ display: "block", marginTop: 2, fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.55)" }}>
+                        Request the PDF report from a past edition
+                      </span>
+                    </span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </button>
+
+                  <div style={{ height: 1, background: "rgba(255,255,255,0.06)", margin: "2px 10px" }} />
+
+                  {/* Delegate List */}
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={() => openRequest("Delegate List")}
+                    className="opex-hero-menu-item"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      padding: "12px 14px",
+                      borderRadius: 12,
+                      background: "transparent",
+                      border: "none",
+                      width: "100%",
+                      textAlign: "left",
+                      cursor: "pointer",
+                      color: "white",
+                      transition: "background 0.2s ease",
+                    }}
+                  >
+                    <span style={{
+                      width: 36, height: 36, borderRadius: "50%",
+                      background: `${VIOLET}33`,
+                      border: `1px solid ${VIOLET_BRIGHT}55`,
+                      display: "inline-flex", alignItems: "center", justifyContent: "center",
+                      flexShrink: 0,
+                    }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={VIOLET_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                      </svg>
+                    </span>
+                    <span style={{ flex: 1, minWidth: 0 }}>
+                      <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 600, color: "white", lineHeight: 1.25 }}>
+                        Delegate List
+                      </span>
+                      <span style={{ display: "block", marginTop: 2, fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.55)" }}>
+                        Request the confirmed attendee roster
+                      </span>
+                    </span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </button>
+
+                  <style jsx global>{`
+                    .opex-hero-menu-item:hover { background: ${VIOLET}26 !important; }
+                    .opex-hero-menu-item:focus-visible { outline: none; background: ${VIOLET}3a !important; }
+                    .opex-hero-resources:hover { background: ${VIOLET}15 !important; }
+                  `}</style>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </motion.div>
 
         {/* Animated Stats */}

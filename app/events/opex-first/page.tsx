@@ -12,6 +12,7 @@ import {
   OpexUpcomingEditionCTA,
   OpexExploreOtherSeries,
   OpexPostEventReports,
+  OpexRequestResourcesModal,
 } from "@/components/opex-first";
 import OpexYouTubeShorts from "@/components/opex-first/OpexYouTubeShorts";
 import { Footer } from "@/components/sections";
@@ -94,6 +95,9 @@ export default function OpexFirstPage() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Request Resources modal (portalled to body, triggered by hero dropdown + cards) */}
+      <OpexRequestResourcesModal />
     </div>
   );
 }

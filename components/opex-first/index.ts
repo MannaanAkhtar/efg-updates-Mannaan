@@ -9,5 +9,6 @@ export { default as OpexSponsors } from "./OpexSponsors";
 export { default as OpexGallery } from "./OpexGallery";
 export { default as OpexAwards } from "./OpexAwards";
 export { default as OpexPostEventReports } from "./OpexPostEventReports";
+export { default as OpexRequestResourcesModal } from "./OpexRequestResourcesModal";
 export { default as OpexUpcomingEditionCTA } from "./OpexUpcomingEditionCTA";
 export { default as OpexExploreOtherSeries } from "./OpexExploreOtherSeries";
