@@ -2835,7 +2835,7 @@ function RegisterSection() {
                     >
                       {COUNTRY_CODES.map((c) => (
                         <option key={c.country} value={c.country}>
-                          {c.flag} {c.code}
+                          {c.country} {c.code}
                         </option>
                       ))}
                     </select>
