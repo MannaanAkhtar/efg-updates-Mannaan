@@ -157,12 +157,6 @@ const AGENDA: {
   },
   {
     time: "12:40 - 12:50",
-    title: "Sponsor Presentation 3",
-    desc: "",
-    speakers: [{ name: "To Be Confirmed", title: "", org: "" }],
-  },
-  {
-    time: "12:50 - 13:00",
     title: "Closing Remarks & Raffle",
     desc: "A concise wrap-up synthesising the key insights from the session, reinforcing the strategic importance of process intelligence for GCC enterprises.",
   },
