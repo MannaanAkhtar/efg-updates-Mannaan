@@ -26,7 +26,7 @@ const PP_GRAY_LIGHT = "#E5EBF2";  // Borders, hairlines
 const PP_GRAY = "#5A6B85";        // Secondary text
 const PP_HAIRLINE = "rgba(14,37,65,0.10)";
 
-const EVENT_TARGET = "2026-06-16T10:30:00+03:00"; // AST (Arabia Standard Time)
+const EVENT_TARGET = "2026-06-23T10:30:00+03:00"; // AST (Arabia Standard Time)
 
 // White Proofpoint favicon mark — used on Proofpoint-led timeline markers
 const PFPT_FAVICON =
@@ -76,7 +76,7 @@ const SPEAKERS = [
     org: "Proofpoint",
     linkedin: "https://www.linkedin.com/in/abdullah-aljandal-47373547/",
     initials: "AA",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdullah_Aljandal.png",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdullah+Aljandal.jpg",
   },
   {
     name: "Elias Samarani",
@@ -120,7 +120,7 @@ const AGENDA: AgendaRow[] = [
   { start: "11:35", end: "12:05", duration: "30 min", segment: "Featured Presentation", owner: "Industry Speaker · Proofpoint", type: "feature" },
   { start: "12:05", end: "12:30", duration: "25 min", segment: "Networking Coffee Break", owner: "All Delegates", type: "break" },
   { start: "12:30", end: "13:00", duration: "30 min", segment: "Panel Discussion", owner: "Moderator + Panelists", type: "panel" },
-  { start: "13:00", end: "13:30", duration: "30 min", segment: "Sponsor Product Demonstration", owner: "Proofpoint Presenter", type: "demo" },
+  { start: "13:00", end: "13:30", duration: "30 min", segment: "Proofpoint Live Innovation Demonstrations", owner: "Proofpoint Presenter", type: "demo" },
   { start: "13:30", end: "13:35", duration: "5 min",  segment: "Closing Remarks & Vote of Thanks", owner: "Event Host / Moderator", type: "closing" },
   { start: "13:35", end: "—",     duration: "—",      segment: "Networking Lunch", owner: "All Delegates", type: "logistics" },
 ];
@@ -767,7 +767,7 @@ function HeroSection() {
               color: PP_NAVY_INK,
             }}
           >
-            <span>16 June 2026</span>
+            <span>23 June 2026</span>
             <span style={{ color: PP_CYAN }}>·</span>
             <span>10:30 – 13:35 AST</span>
             <span style={{ color: PP_CYAN }}>·</span>
@@ -1557,7 +1557,7 @@ function AgendaSection() {
               gap: 12,
             }}
           >
-            <span>16 Jun 2026</span>
+            <span>23 Jun 2026</span>
             <span style={{ width: 18, height: 1, background: PP_GRAY_LIGHT }} />
             <span>Riyadh · AST</span>
           </div>
@@ -2329,7 +2329,7 @@ function VenueSection() {
                     fontVariantNumeric: "tabular-nums",
                   }}
                 >
-                  16 Jun 2026
+                  23 Jun 2026
                 </div>
               </div>
 
@@ -2546,7 +2546,7 @@ function RegisterSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   const SPECS = [
-    { label: "Date", value: "16 Jun 2026" },
+    { label: "Date", value: "23 Jun 2026" },
     { label: "Time", value: "10:30 – 13:35 AST" },
     { label: "Venue", value: "JW Marriott Riyadh" },
     { label: "Format", value: "Invite-only roundtable" },
