@@ -26,6 +26,7 @@ export default function ConditionalNavigation() {
     pathname?.startsWith("/seagate") ||
     pathname?.startsWith("/outsystems-blackstone") ||
     pathname?.startsWith("/proofpoint") ||
+    pathname?.startsWith("/ifs") ||
     isSubdomain
   ) {
     return null;
