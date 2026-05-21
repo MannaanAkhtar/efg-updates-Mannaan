@@ -39,7 +39,7 @@ const PAGE_URL = `${BASE_URL}/outsystems-blackstone`;
 export const metadata: Metadata = {
   title: "Executive Roundtable Riyadh | Empowering Saudi Public Sector Through Agentic AI",
   description:
-    "An invitation-only executive roundtable hosted by Blackstone eIT with OutSystems — exploring how agentic AI scales digital government for Saudi Vision 2030. 10 June 2026, Fairmont Riyadh.",
+    "An invitation-only executive roundtable hosted by Blackstone eIT with OutSystems — exploring how agentic AI scales digital government for Saudi Vision 2030. 24 June 2026, Fairmont Riyadh.",
   keywords: [
     "Blackstone eIT",
     "OutSystems",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Executive Roundtable Riyadh — Empowering Saudi Public Sector Through Agentic AI",
     description:
-      "Invitation-only executive roundtable on agentic AI for Saudi public sector. Hosted by Blackstone eIT with OutSystems. 10 June 2026, Fairmont Riyadh.",
+      "Invitation-only executive roundtable on agentic AI for Saudi public sector. Hosted by Blackstone eIT with OutSystems. 24 June 2026, Fairmont Riyadh.",
     url: PAGE_URL,
     siteName: "Events First Group",
     locale: "en_US",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
     title: "Executive Roundtable Riyadh — Agentic AI for Saudi Public Sector",
-    description: "Invitation-only roundtable. 10 June 2026, Fairmont Riyadh.",
+    description: "Invitation-only roundtable. 24 June 2026, Fairmont Riyadh.",
   },
 };
 
@@ -80,8 +80,8 @@ export default function BlackstoneLayout({ children }: { children: React.ReactNo
             name: "Executive Roundtable Riyadh — Empowering Saudi Public Sector Through Agentic AI",
             description:
               "An invitation-only executive roundtable on agentic AI for Saudi public sector. Hosted by Blackstone eIT with OutSystems.",
-            startDate: "2026-06-10T10:00:00+03:00",
-            endDate: "2026-06-10T14:20:00+03:00",
+            startDate: "2026-06-24T10:00:00+03:00",
+            endDate: "2026-06-24T14:20:00+03:00",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {

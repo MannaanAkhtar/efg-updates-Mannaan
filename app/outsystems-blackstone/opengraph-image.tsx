@@ -181,7 +181,7 @@ export default async function Image() {
               Date
             </div>
             <div style={{ fontSize: 26, fontWeight: 600, display: "flex" }}>
-              10 June 2026
+              24 June 2026
             </div>
           </div>
           <div

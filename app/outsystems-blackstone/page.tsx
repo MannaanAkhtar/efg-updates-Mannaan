@@ -41,7 +41,7 @@ const GRAY_300 = "#D7D9DC";      // Hairlines / dividers
 const GRAY_100 = "#F2F4F7";      // Faint surface tint (matches BS Soft Silver)
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-const EVENT_DATE = new Date("2026-06-10T10:00:00+03:00");
+const EVENT_DATE = new Date("2026-06-24T10:00:00+03:00");
 
 // ─── Brand naming (strict per guideline) ─────────────────────────────────────
 // "Blackstone eIT" — capital B, lowercase e, uppercase IT. Never deviate.
@@ -414,7 +414,7 @@ function HeroSection() {
               width: 6, height: 6, borderRadius: "50%",
               background: OS_RED,
             }} />
-            Invitation-only · 10 June 2026
+            Invitation-only · 24 June 2026
           </motion.span>
 
           {/* Headline — Cabin, big, ink with solid OS_RED on "Agentic AI" */}
@@ -747,7 +747,7 @@ function HeroSection() {
                 0 0 24px ${BS_CYAN}33
               `,
             }}>
-              10
+              24
             </span>
             <div style={{
               display: "flex",
@@ -980,7 +980,7 @@ function HeroSection() {
           .bs-hero-stack {
             gap: clamp(14px, 4.5vw, 22px) !important;
           }
-          /* Chip — full label "Invitation-only · 10 June 2026" fluid-fits. */
+          /* Chip — full label "Invitation-only · 24 June 2026" fluid-fits. */
           .bs-hero-chip {
             font-size: clamp(9px, 2.6vw, 11.5px) !important;
             letter-spacing: 0.14em !important;
@@ -2802,7 +2802,7 @@ function AgendaSection() {
             }} />
             <OutSystemsRing size={11} color={OS_RED} strokeWidth={2.4} />
             <BlackstoneHex size={10} color={BS_NAVY} strokeWidth={2} />
-            Agenda · 10 June 2026
+            Agenda · 24 June 2026
           </span>
 
           <h2 style={{
@@ -3461,7 +3461,7 @@ function RegisterSection() {
       job_title: jobTitle.trim(),
       company: company.trim(),
       phone: `${countryCode} ${phone.trim()}`,
-      event_name: "Executive Roundtable Riyadh — Blackstone eIT × OutSystems · 10 June 2026",
+      event_name: "Executive Roundtable Riyadh — Blackstone eIT × OutSystems · 24 June 2026",
       website,
       metadata: notes.trim() ? { notes: notes.trim() } : undefined,
     });
