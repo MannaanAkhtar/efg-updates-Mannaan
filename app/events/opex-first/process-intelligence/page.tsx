@@ -1116,7 +1116,7 @@ function SpeakersSection() {
 }
 
 // ─── SPONSORS ────────────────────────────────────────────────────────────────
-type SponsorTier = "Platinum" | "Gold" | "Media Partner";
+type SponsorTier = "Platinum" | "Gold" | "Panel" | "Media Partner";
 
 type SponsorItem = {
   name: string;
@@ -1148,6 +1148,15 @@ const SPONSORS: SponsorItem[] = [
     surface: "dark",
     innerBg: "linear-gradient(165deg, #1c1722 0%, #100b15 100%)",
     logoMaxHeight: 110,
+  },
+  {
+    name: "SAP",
+    tier: "Panel",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/SAP+logo-01.png",
+    url: "https://www.sap.com/",
+    surface: "dark",
+    innerBg: "linear-gradient(165deg, #1c1722 0%, #100b15 100%)",
+    logoMaxHeight: 140,
   },
   {
     name: "Times of AI",
@@ -1182,10 +1191,11 @@ const SPONSORS: SponsorItem[] = [
 const TIER_METALLIC: Record<SponsorTier, { strong: string; soft: string; label: string; glow: string; cardMaxWidth: number }> = {
   Platinum: { strong: "rgba(229, 228, 226, 0.9)", soft: "rgba(229, 228, 226, 0.5)", label: "rgba(229, 228, 226, 0.85)", glow: "rgba(229, 228, 226, 0.32)", cardMaxWidth: 380 },
   Gold: { strong: "rgba(201, 147, 90, 0.95)", soft: "rgba(201, 147, 90, 0.5)", label: "rgba(201, 147, 90, 0.85)", glow: "rgba(201, 147, 90, 0.42)", cardMaxWidth: 380 },
+  Panel: { strong: "rgba(159, 106, 255, 0.95)", soft: "rgba(159, 106, 255, 0.5)", label: "rgba(159, 106, 255, 0.85)", glow: "rgba(159, 106, 255, 0.38)", cardMaxWidth: 360 },
   "Media Partner": { strong: "rgba(176, 196, 222, 0.9)", soft: "rgba(176, 196, 222, 0.5)", label: "rgba(176, 196, 222, 0.85)", glow: "rgba(176, 196, 222, 0.32)", cardMaxWidth: 340 },
 };
 
-const TIER_ORDER: SponsorTier[] = ["Platinum", "Gold", "Media Partner"];
+const TIER_ORDER: SponsorTier[] = ["Platinum", "Gold", "Panel", "Media Partner"];
 
 function SponsorsSection() {
   const ref = useRef<HTMLElement>(null);
@@ -1232,7 +1242,7 @@ function SponsorsSection() {
                 {/* Tier label — sits above the row of cards in this tier */}
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 24 }}>
                   <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${m.soft})` }} />
-                  <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "4px", textTransform: "uppercase", color: m.label }}>{tier === "Media Partner" ? (tierSponsors.length > 1 ? "Media Partners" : "Media Partner") : tier === "Gold" ? `Lead Process Intelligence Sponsor${tierSponsors.length > 1 ? "s" : ""}` : tier === "Platinum" ? `Platinum - Lead Process Excellence Sponsor${tierSponsors.length > 1 ? "s" : ""}` : `${tier} Sponsor${tierSponsors.length > 1 ? "s" : ""}`}</span>
+                  <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "4px", textTransform: "uppercase", color: m.label }}>{tier === "Media Partner" ? (tierSponsors.length > 1 ? "Media Partners" : "Media Partner") : tier === "Gold" ? `Lead Process Intelligence Sponsor${tierSponsors.length > 1 ? "s" : ""}` : tier === "Platinum" ? `Platinum - Lead Process Excellence Sponsor${tierSponsors.length > 1 ? "s" : ""}` : tier === "Panel" ? `Panel Sponsor${tierSponsors.length > 1 ? "s" : ""}` : `${tier} Sponsor${tierSponsors.length > 1 ? "s" : ""}`}</span>
                   <span style={{ width: 40, height: 1, background: `linear-gradient(270deg, transparent, ${m.soft})` }} />
                 </div>
 
