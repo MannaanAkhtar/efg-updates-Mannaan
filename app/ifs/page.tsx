@@ -409,7 +409,7 @@ function IfsNav() {
             letterSpacing: "0.32em", textTransform: "uppercase",
             color: IFS_MUTE,
           }}>
-            Executive Briefing · Riyadh
+            Executive Roundtable · Riyadh
           </span>
         </a>
 
@@ -842,7 +842,7 @@ function HeroSection() {
                 maxWidth: 540,
               }}
             >
-              How logistics leaders gain visibility, test scenarios, and act fast when
+              Learn how logistics leaders gain visibility, test scenarios, and act fast when
               volatility hits.
             </motion.p>
 
