@@ -26,7 +26,7 @@ const PP_GRAY_LIGHT = "#E5EBF2";  // Borders, hairlines
 const PP_GRAY = "#5A6B85";        // Secondary text
 const PP_HAIRLINE = "rgba(14,37,65,0.10)";
 
-const EVENT_TARGET = "2026-06-16T10:30:00+03:00"; // AST (Arabia Standard Time)
+const EVENT_TARGET = "2026-06-16T10:30:00+03:00"; // KSA (UTC+3)
 
 // White Proofpoint favicon mark — used on Proofpoint-led timeline markers
 const PFPT_FAVICON =
@@ -753,7 +753,7 @@ function HeroSection() {
           >
             <span>16 June 2026</span>
             <span style={{ color: PP_CYAN }}>·</span>
-            <span>10:30 – 13:35 AST</span>
+            <span>10:30 – 13:35 KSA time</span>
             <span style={{ color: PP_CYAN }}>·</span>
             <span>JW Marriott Riyadh</span>
             <span style={{ color: PP_CYAN }}>·</span>
@@ -1547,7 +1547,7 @@ function AgendaSection() {
           >
             <span>16 Jun 2026</span>
             <span style={{ width: 18, height: 1, background: PP_GRAY_LIGHT }} />
-            <span>Riyadh · AST</span>
+            <span>Riyadh · KSA time</span>
           </div>
         </div>
 
@@ -2345,7 +2345,7 @@ function VenueSection() {
                     fontVariantNumeric: "tabular-nums",
                   }}
                 >
-                  10:30 &ndash; 13:35 AST
+                  10:30 &ndash; 13:35 KSA time
                 </div>
               </div>
             </div>
@@ -2535,7 +2535,7 @@ function RegisterSection() {
 
   const SPECS = [
     { label: "Date", value: "16 Jun 2026" },
-    { label: "Time", value: "10:30 – 13:35 AST" },
+    { label: "Time", value: "10:30 – 13:35 KSA time" },
     { label: "Venue", value: "JW Marriott Riyadh" },
     { label: "Format", value: "Invite-only roundtable" },
   ];
