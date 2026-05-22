@@ -25,11 +25,18 @@ const TAKEAWAYS = [
   { heading: "Built for Your Market", desc: "Practical, product-first insights for growth and marketing teams operating in Middle East's high-growth, high-pressure environment." },
 ];
 
-const AGENDA = [
+const AGENDA: {
+  time: string;
+  duration: string;
+  title: string;
+  presenter: string;
+  highlight?: boolean;
+  speakers?: string;
+}[] = [
   { time: "11:00 AM", duration: "5 min", title: "Welcome", presenter: "Event Host opens the session" },
-  { time: "11:05 AM", duration: "10 min", title: "Keynote", presenter: "How AI Agents Deliver True 1:1 Engagement at Scale", highlight: true },
-  { time: "11:15 AM", duration: "20 min", title: "Panel Discussion", presenter: "Insight-Led, AI-Driven: How Middle East's Top Brands are Driving Growth and Retention", highlight: true },
-  { time: "11:35 AM", duration: "10 min", title: "Tech Spotlight", presenter: "AI-powered Growth & Retention in Action" },
+  { time: "11:05 AM", duration: "10 min", title: "Keynote", presenter: "How AI Agents Deliver True 1:1 Engagement at Scale", highlight: true, speakers: "Arpita Porwal" },
+  { time: "11:15 AM", duration: "20 min", title: "Panel Discussion", presenter: "Insight-Led, AI-Driven: How Middle East's Top Brands are Driving Growth and Retention", highlight: true, speakers: "Mohammad Tannous, Mohammed Dauleh, Niraj Patel" },
+  { time: "11:35 AM", duration: "10 min", title: "Tech Spotlight", presenter: "AI-powered Growth & Retention in Action", speakers: "Rohan Patil" },
   { time: "11:45 AM", duration: "10 min", title: "Audience Q&A", presenter: "Open floor with moderator + panelists" },
   { time: "11:55 AM", duration: "5 min", title: "Closing Remarks", presenter: "Wrap-up and next steps" },
 ];
@@ -52,6 +59,18 @@ const SPEAKERS = [
     role: "Growth & Retention Expert",
     org: "CleverTap",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Rohan.png",
+  },
+  {
+    name: "Niraj Patel",
+    role: "Growth Marketer",
+    org: "Americana Restaurants",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Niraj_Patel.png",
+  },
+  {
+    name: "Mohammed Dauleh",
+    role: "PMP, E-Commerce & Online Business Expert",
+    org: "Kulud Pharmacy",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed_Dauleh.png",
   },
 ];
 
@@ -968,6 +987,29 @@ function AgendaSection() {
                             fontFamily: "var(--font-opensans)", fontSize: "clamp(12px, 1.1vw, 13.5px)",
                             fontWeight: 400, color: CT_SLATE, margin: 0, lineHeight: 1.5,
                           }}>{item.presenter}</p>
+                          {item.speakers && (
+                            <p style={{
+                              fontFamily: "var(--font-opensans)",
+                              fontSize: "clamp(11.5px, 1.05vw, 13px)",
+                              fontWeight: 600,
+                              color: CT_BLUE,
+                              margin: "8px 0 0",
+                              lineHeight: 1.5,
+                              letterSpacing: "-0.005em",
+                            }}>
+                              <span style={{
+                                fontWeight: 700,
+                                fontSize: 9.5,
+                                letterSpacing: "1.2px",
+                                textTransform: "uppercase",
+                                color: CT_SLATE,
+                                marginRight: 8,
+                              }}>
+                                {item.speakers.includes(",") ? "Speakers" : "Speaker"}
+                              </span>
+                              {item.speakers}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>
