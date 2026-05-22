@@ -26,7 +26,7 @@ const PP_GRAY_LIGHT = "#E5EBF2";  // Borders, hairlines
 const PP_GRAY = "#5A6B85";        // Secondary text
 const PP_HAIRLINE = "rgba(14,37,65,0.10)";
 
-const EVENT_TARGET = "2026-06-23T10:30:00+03:00"; // AST (Arabia Standard Time)
+const EVENT_TARGET = "2026-06-16T10:30:00+03:00"; // AST (Arabia Standard Time)
 
 // White Proofpoint favicon mark — used on Proofpoint-led timeline markers
 const PFPT_FAVICON =
@@ -38,9 +38,9 @@ const PFPT_LOGO_DARK =
 const PFPT_LOGO_LIGHT =
   "https://efg-final.s3.eu-north-1.amazonaws.com/logos/proofpoint_whitelogo.png";
 
-// Crowne Plaza Riyadh RDC venue photo
-const CROWNE_PLAZA_PHOTO =
-  "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/crowne-plaza-riyadh.jpg";
+// JW Marriott Riyadh venue photo
+const JW_RIYADH_PHOTO =
+  "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/jw_riyad.webp";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const NAV_LINKS = [
@@ -71,36 +71,20 @@ const TOPICS = [
 
 const SPEAKERS = [
   {
-    name: "Abdullah Aljandal",
-    role: "Sales Director & Saudi Country Manager",
+    name: "Elie El-Fallah",
+    role: "Regional Sales Leader, Sales Middle East & Turkey",
     org: "Proofpoint",
-    linkedin: "https://www.linkedin.com/in/abdullah-aljandal-47373547/",
-    initials: "AA",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdullah+Aljandal.jpg",
+    linkedin: "https://www.linkedin.com/in/eliefallah/",
+    initials: "EF",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Elie_El_Fallah.png",
   },
   {
-    name: "Elias Samarani",
-    role: "Head of Technical Sales, Emerging Markets",
+    name: "Tia Assaf",
+    role: "Regional Security Consultant",
     org: "Proofpoint",
-    linkedin: "https://www.linkedin.com/in/elias-samarani-b9ab8223/",
-    initials: "ES",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Elias_Samarani.png",
-  },
-  {
-    name: "Mustafa Maarouf",
-    role: "Senior Security Engineer",
-    org: "Proofpoint",
-    linkedin: "https://www.linkedin.com/in/mustafa-maarouf07/",
-    initials: "MM",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mustafa_Maarouf.png",
-  },
-  {
-    name: "Hashim Luai",
-    role: "Senior Security Engineer",
-    org: "Proofpoint",
-    linkedin: "https://www.linkedin.com/in/hashim-luai-a604b917/",
-    initials: "HL",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hashim_Lua.png",
+    linkedin: "https://www.linkedin.com/in/tia-assaf-699052ba/",
+    initials: "TA",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tia_Assaf.png",
   },
 ];
 
@@ -767,11 +751,11 @@ function HeroSection() {
               color: PP_NAVY_INK,
             }}
           >
-            <span>23 June 2026</span>
+            <span>16 June 2026</span>
             <span style={{ color: PP_CYAN }}>·</span>
             <span>10:30 – 13:35 AST</span>
             <span style={{ color: PP_CYAN }}>·</span>
-            <span>Crowne Plaza Riyadh</span>
+            <span>JW Marriott Riyadh</span>
             <span style={{ color: PP_CYAN }}>·</span>
             <span style={{ color: PP_GRAY }}>In-Person · Invite-Only</span>
           </div>
@@ -1265,6 +1249,7 @@ function SpeakersSection() {
               key={s.name}
               className="pp-speaker-card"
               style={{
+                gridColumn: i === 0 ? 2 : 3,
                 background: `linear-gradient(180deg, ${PP_NAVY} 0%, ${PP_NAVY_DEEP} 100%)`,
                 border: `1px solid rgba(0,180,240,0.20)`,
                 borderRadius: 20,
@@ -1464,6 +1449,9 @@ function SpeakersSection() {
           .pp-speakers-grid {
             grid-template-columns: repeat(2, 1fr) !important;
           }
+          .pp-speakers-grid > .pp-speaker-card {
+            grid-column: auto !important;
+          }
         }
         @media (max-width: 540px) {
           .pp-speakers-grid {
@@ -1557,7 +1545,7 @@ function AgendaSection() {
               gap: 12,
             }}
           >
-            <span>23 Jun 2026</span>
+            <span>16 Jun 2026</span>
             <span style={{ width: 18, height: 1, background: PP_GRAY_LIGHT }} />
             <span>Riyadh · AST</span>
           </div>
@@ -2275,7 +2263,7 @@ function VenueSection() {
                 margin: 0,
               }}
             >
-              Crowne Plaza Riyadh<span style={{ color: PP_CYAN }}>.</span>
+              JW Marriott Riyadh<span style={{ color: PP_CYAN }}>.</span>
             </h2>
 
             <p
@@ -2289,7 +2277,7 @@ function VenueSection() {
                 lineHeight: 1.3,
               }}
             >
-              RDC Hotel &amp; Convention by IHG · Riyadh, Saudi Arabia
+              Riyadh, Saudi Arabia
             </p>
 
             {/* Fact grid — dates + time from the brief */}
@@ -2329,7 +2317,7 @@ function VenueSection() {
                     fontVariantNumeric: "tabular-nums",
                   }}
                 >
-                  23 Jun 2026
+                  16 Jun 2026
                 </div>
               </div>
 
@@ -2363,7 +2351,7 @@ function VenueSection() {
             </div>
 
             <a
-              href="https://www.google.com/maps/search/?api=1&query=Crowne+Plaza+Riyadh+RDC+Hotel+%26+Convention+by+IHG"
+              href="https://www.google.com/maps/search/?api=1&query=JW+Marriott+Riyadh"
               target="_blank"
               rel="noopener noreferrer"
               className="pp-venue-map-cta"
@@ -2417,8 +2405,8 @@ function VenueSection() {
             }}
           >
             <img
-              src={CROWNE_PLAZA_PHOTO}
-              alt="Crowne Plaza Riyadh"
+              src={JW_RIYADH_PHOTO}
+              alt="JW Marriott Riyadh"
               loading="lazy"
               className="pp-venue-img"
               style={{
@@ -2484,7 +2472,7 @@ function VenueSection() {
                     textShadow: "0 2px 10px rgba(0,0,0,0.45)",
                   }}
                 >
-                  Crowne Plaza Riyadh
+                  JW Marriott Riyadh
                 </div>
               </div>
               <span
@@ -2546,9 +2534,9 @@ function RegisterSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   const SPECS = [
-    { label: "Date", value: "23 Jun 2026" },
+    { label: "Date", value: "16 Jun 2026" },
     { label: "Time", value: "10:30 – 13:35 AST" },
-    { label: "Venue", value: "Crowne Plaza Riyadh" },
+    { label: "Venue", value: "JW Marriott Riyadh" },
     { label: "Format", value: "Invite-only roundtable" },
   ];
 
@@ -3147,7 +3135,7 @@ function ProofpointFooter() {
 // ═════════════════════════════════════════════════════════════════════════════
 // PAGE
 // ═════════════════════════════════════════════════════════════════════════════
-export default function ProofpointPage() {
+export default function Proofpoint2Page() {
   return (
     <div
       style={{
