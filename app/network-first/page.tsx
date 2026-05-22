@@ -183,7 +183,7 @@ const UPCOMING_EVENTS = [
     title: "Proofpoint Executive Roundtable",
     subtitle: "The Next Chapter in Human and Agentic Security",
     sponsor: "Proofpoint",
-    location: "JW Marriott Riyadh",
+    location: "Crowne Plaza Riyadh",
     link: "/proofpoint",
     image: "",
     brandColor: "#0E2541",

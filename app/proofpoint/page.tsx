@@ -38,9 +38,9 @@ const PFPT_LOGO_DARK =
 const PFPT_LOGO_LIGHT =
   "https://efg-final.s3.eu-north-1.amazonaws.com/logos/proofpoint_whitelogo.png";
 
-// JW Marriott Riyadh venue photo
-const JW_RIYADH_PHOTO =
-  "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/jw_riyad.webp";
+// Crowne Plaza Riyadh RDC venue photo
+const CROWNE_PLAZA_PHOTO =
+  "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/crowne-plaza-riyadh.jpg";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const NAV_LINKS = [
@@ -119,8 +119,8 @@ const AGENDA: AgendaRow[] = [
   { start: "11:05", end: "11:35", duration: "30 min", segment: "Opening Keynote Presentation", owner: "Lead Speaker · Proofpoint", type: "keynote" },
   { start: "11:35", end: "12:05", duration: "30 min", segment: "Featured Presentation", owner: "Industry Speaker · Proofpoint", type: "feature" },
   { start: "12:05", end: "12:30", duration: "25 min", segment: "Networking Coffee Break", owner: "All Delegates", type: "break" },
-  { start: "12:30", end: "13:00", duration: "30 min", segment: "Panel Discussion", owner: "Moderator + Panelists", type: "panel" },
-  { start: "13:00", end: "13:30", duration: "30 min", segment: "Proofpoint Live Innovation Demonstrations", owner: "Proofpoint Presenter", type: "demo" },
+  { start: "12:30", end: "13:00", duration: "30 min", segment: "Proofpoint Live Innovation Demonstrations", owner: "Proofpoint Presenter", type: "demo" },
+  { start: "13:00", end: "13:30", duration: "30 min", segment: "Panel Discussion", owner: "Moderator + Panelists", type: "panel" },
   { start: "13:30", end: "13:35", duration: "5 min",  segment: "Closing Remarks & Vote of Thanks", owner: "Event Host / Moderator", type: "closing" },
   { start: "13:35", end: "—",     duration: "—",      segment: "Networking Lunch", owner: "All Delegates", type: "logistics" },
 ];
@@ -771,7 +771,7 @@ function HeroSection() {
             <span style={{ color: PP_CYAN }}>·</span>
             <span>10:30 – 13:35 AST</span>
             <span style={{ color: PP_CYAN }}>·</span>
-            <span>JW Marriott Riyadh</span>
+            <span>Crowne Plaza Riyadh</span>
             <span style={{ color: PP_CYAN }}>·</span>
             <span style={{ color: PP_GRAY }}>In-Person · Invite-Only</span>
           </div>
@@ -2275,7 +2275,7 @@ function VenueSection() {
                 margin: 0,
               }}
             >
-              JW Marriott Riyadh<span style={{ color: PP_CYAN }}>.</span>
+              Crowne Plaza Riyadh<span style={{ color: PP_CYAN }}>.</span>
             </h2>
 
             <p
@@ -2289,7 +2289,7 @@ function VenueSection() {
                 lineHeight: 1.3,
               }}
             >
-              Riyadh, Saudi Arabia
+              RDC Hotel &amp; Convention by IHG · Riyadh, Saudi Arabia
             </p>
 
             {/* Fact grid — dates + time from the brief */}
@@ -2363,7 +2363,7 @@ function VenueSection() {
             </div>
 
             <a
-              href="https://www.google.com/maps/search/?api=1&query=JW+Marriott+Riyadh"
+              href="https://www.google.com/maps/search/?api=1&query=Crowne+Plaza+Riyadh+RDC+Hotel+%26+Convention+by+IHG"
               target="_blank"
               rel="noopener noreferrer"
               className="pp-venue-map-cta"
@@ -2417,8 +2417,8 @@ function VenueSection() {
             }}
           >
             <img
-              src={JW_RIYADH_PHOTO}
-              alt="JW Marriott Riyadh"
+              src={CROWNE_PLAZA_PHOTO}
+              alt="Crowne Plaza Riyadh"
               loading="lazy"
               className="pp-venue-img"
               style={{
@@ -2484,7 +2484,7 @@ function VenueSection() {
                     textShadow: "0 2px 10px rgba(0,0,0,0.45)",
                   }}
                 >
-                  JW Marriott Riyadh
+                  Crowne Plaza Riyadh
                 </div>
               </div>
               <span
@@ -2548,7 +2548,7 @@ function RegisterSection() {
   const SPECS = [
     { label: "Date", value: "23 Jun 2026" },
     { label: "Time", value: "10:30 – 13:35 AST" },
-    { label: "Venue", value: "JW Marriott Riyadh" },
+    { label: "Venue", value: "Crowne Plaza Riyadh" },
     { label: "Format", value: "Invite-only roundtable" },
   ];
 

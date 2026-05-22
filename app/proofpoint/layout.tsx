@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title:
     "The Next Chapter in Human and Agentic Security | Proofpoint Executive Roundtable",
   description:
-    "An invitation-only Proofpoint executive roundtable on AI-powered agentic workspaces and the future of human + AI security. 23 June 2026, JW Marriott Riyadh.",
+    "An invitation-only Proofpoint executive roundtable on AI-powered agentic workspaces and the future of human + AI security. 23 June 2026, Crowne Plaza Riyadh.",
   keywords: [
     "Proofpoint",
     "agentic security",
@@ -69,7 +69,7 @@ export default function ProofpointLayout({
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {
               "@type": "Place",
-              name: "JW Marriott Riyadh",
+              name: "Crowne Plaza Riyadh RDC Hotel & Convention by IHG",
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Riyadh",
