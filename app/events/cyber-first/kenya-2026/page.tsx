@@ -269,6 +269,7 @@ const SUPPORTING_PARTNERS = [
 // Event Sponsors 2026 (confirmed partners for the Nairobi edition)
 const CFK_SPONSORS_2026: { name: string; logo: string; url: string; tier: "strategic" | "panel" | "media" }[] = [
   { name: "ManageEngine", logo: `${S3}/logos/ManageEngine.png`, url: "https://www.manageengine.com/", tier: "strategic" },
+  { name: "GTB", logo: `${S3}/logos/GTB_long_logo.png`, url: "https://gttb.com/", tier: "strategic" },
   { name: "INUA AI", logo: `${S3}/logos/INUA+AI+LOGO+3+white.png`, url: "https://inuaai.com/", tier: "panel" },
   { name: "QuantumSynapse", logo: `${S3}/logos/QuantumSynapse-1.png`, url: "https://quantumsynapse.ai/", tier: "panel" },
   { name: "Cryptoken Media", logo: `${S3}/sponsors-logo/cryptoken_media.png`, url: "https://cryptoken.media/", tier: "media" },
@@ -7567,7 +7568,7 @@ function Venue() {
       {/* Hero Image, Full Bleed, Immersive */}
       <div style={{ position: "relative", height: "55vh", minHeight: 460, overflow: "hidden" }}>
         <motion.div className="absolute inset-0" style={{ y: imgY, scale: imgScale }}>
-          <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1920&q=85" alt="Nairobi Kenya venue" className="w-full h-full object-cover" style={{ filter: "brightness(0.5) saturate(1.15)", minHeight: "130%" }} />
+          <img src="https://efg-final.s3.eu-north-1.amazonaws.com/gallery/Hyatt_Regency_Nairobi.webp" alt="Hyatt Regency Nairobi venue" className="w-full h-full object-cover" style={{ filter: "brightness(0.5) saturate(1.15)", minHeight: "130%" }} />
         </motion.div>
 
         <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, #050303 0%, rgba(5,3,3,0.7) 25%, rgba(5,3,3,0) 50%, rgba(5,3,3,0.2) 100%)" }} />
