@@ -170,14 +170,15 @@ function ScrambleText({ text, color, colorBright }: { text: string; color: strin
   );
 }
 
-// ─── Glossy Border Card (cursor-follow glow + 3D tilt) ───────────────────────
+// ─── Glossy Border Card (cursor-follow glow) ─────────────────────────────────
+// NOTE: previously this also had a 3D rotateX/rotateY tilt that followed the
+// mouse, combined with a continuous yoyo float on the same element. Those two
+// effects made the form inputs feel "unclickable" because the click target was
+// moving as the user reached for it. The cursor-follow border glow stays — it
+// only repositions a background gradient and doesn't transform the card.
 function GlossyCard({ children, color, colorBright, formCardRef }: { children: React.ReactNode; color: string; colorBright: string; formCardRef: React.RefObject<HTMLDivElement | null> }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [glowPos, setGlowPos] = useState({ x: 50, y: 50 });
-  const rotX = useMotionValue(0);
-  const rotY = useMotionValue(0);
-  const sRotX = useSpring(rotX, { stiffness: 200, damping: 25 });
-  const sRotY = useSpring(rotY, { stiffness: 200, damping: 25 });
 
   const handleMove = useCallback((e: React.MouseEvent) => {
     const rect = cardRef.current?.getBoundingClientRect();
@@ -185,14 +186,7 @@ function GlossyCard({ children, color, colorBright, formCardRef }: { children: R
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
     setGlowPos({ x: x * 100, y: y * 100 });
-    rotX.set((y - 0.5) * -10);
-    rotY.set((x - 0.5) * 10);
-  }, [rotX, rotY]);
-
-  const handleLeave = useCallback(() => {
-    rotX.set(0);
-    rotY.set(0);
-  }, [rotX, rotY]);
+  }, []);
 
   return (
     <motion.div
@@ -204,44 +198,41 @@ function GlossyCard({ children, color, colorBright, formCardRef }: { children: R
       animate={{ opacity: 1, x: 0, scale: 1 }}
       transition={{ duration: 1, delay: 0.5, ease: EASE }}
       onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
-      style={{ width: "100%", position: "relative", perspective: 1000, transformStyle: "preserve-3d" }}
+      style={{ width: "100%", position: "relative" }}
     >
-      <motion.div style={{ rotateX: sRotX, rotateY: sRotY, transformStyle: "preserve-3d" }}>
-        {/* Glossy border glow that follows cursor */}
-        <div style={{
-          position: "absolute", inset: -1, borderRadius: 21, zIndex: -1,
-          background: `radial-gradient(400px circle at ${glowPos.x}% ${glowPos.y}%, ${colorBright}45, transparent 60%)`,
-          transition: "background 0.15s ease",
-          opacity: 0.9,
-        }} />
-        {/* Animated sweep border */}
-        <div style={{
-          position: "absolute", inset: -1, borderRadius: 21, zIndex: -1,
-          backgroundImage: `linear-gradient(90deg, ${color}00, ${colorBright}30, ${color}00, ${colorBright}20, ${color}00)`,
-          backgroundSize: "300% 100%",
-          animation: "border-glow-rotate 4s linear infinite",
-          opacity: 0.5,
-        }} />
+      {/* Glossy border glow that follows cursor */}
+      <div style={{
+        position: "absolute", inset: -1, borderRadius: 21, zIndex: -1,
+        background: `radial-gradient(400px circle at ${glowPos.x}% ${glowPos.y}%, ${colorBright}45, transparent 60%)`,
+        transition: "background 0.15s ease",
+        opacity: 0.9,
+      }} />
+      {/* Animated sweep border */}
+      <div style={{
+        position: "absolute", inset: -1, borderRadius: 21, zIndex: -1,
+        backgroundImage: `linear-gradient(90deg, ${color}00, ${colorBright}30, ${color}00, ${colorBright}20, ${color}00)`,
+        backgroundSize: "300% 100%",
+        animation: "border-glow-rotate 4s linear infinite",
+        opacity: 0.5,
+      }} />
 
-        {/* Card body */}
-        <div style={{
-          background: "rgba(8,8,12,0.92)",
-          backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)",
-          border: `1px solid ${color}15`,
-          borderRadius: 20, padding: "32px 28px",
-          position: "relative", overflow: "hidden",
-          boxShadow: `0 30px 100px rgba(0,0,0,0.5), 0 0 80px ${color}06`,
-        }}>
-          {/* Top shimmer line */}
-          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${colorBright}35, transparent)` }} />
-          {/* Inner glow */}
-          <div className="absolute pointer-events-none" style={{ top: -60, left: "50%", transform: "translateX(-50%)", width: 250, height: 120, borderRadius: "50%", background: `radial-gradient(circle, ${color}12, transparent 70%)`, filter: "blur(40px)" }} />
-          {/* Hover shine sweep */}
-          <div className="cs-card-shine" style={{ position: "absolute", top: "-50%", left: "-50%", width: "200%", height: "200%", background: `linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.04) 45%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 55%, transparent 60%)`, transform: "translateX(-100%)", transition: "transform 0.7s ease", pointerEvents: "none" }} />
-          {children}
-        </div>
-      </motion.div>
+      {/* Card body */}
+      <div style={{
+        background: "rgba(8,8,12,0.92)",
+        backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)",
+        border: `1px solid ${color}15`,
+        borderRadius: 20, padding: "32px 28px",
+        position: "relative", overflow: "hidden",
+        boxShadow: `0 30px 100px rgba(0,0,0,0.5), 0 0 80px ${color}06`,
+      }}>
+        {/* Top shimmer line */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${colorBright}35, transparent)` }} />
+        {/* Inner glow */}
+        <div className="absolute pointer-events-none" style={{ top: -60, left: "50%", transform: "translateX(-50%)", width: 250, height: 120, borderRadius: "50%", background: `radial-gradient(circle, ${color}12, transparent 70%)`, filter: "blur(40px)" }} />
+        {/* Hover shine sweep */}
+        <div className="cs-card-shine" style={{ position: "absolute", top: "-50%", left: "-50%", width: "200%", height: "200%", background: `linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.04) 45%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 55%, transparent 60%)`, transform: "translateX(-100%)", transition: "transform 0.7s ease", pointerEvents: "none" }} />
+        {children}
+      </div>
     </motion.div>
   );
 }
@@ -281,7 +272,9 @@ export default function ComingSoonEvent({
     const ctx = gsap.context(() => {
       if (blob1Ref.current) gsap.to(blob1Ref.current, { x: 80, y: -50, scale: 1.3, duration: 9, ease: "sine.inOut", yoyo: true, repeat: -1 });
       if (blob2Ref.current) gsap.to(blob2Ref.current, { x: -60, y: 40, scale: 0.8, duration: 11, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 3 });
-      if (formCardRef.current) gsap.to(formCardRef.current, { y: -8, duration: 3.5, ease: "sine.inOut", yoyo: true, repeat: -1 });
+      // NOTE: previously also floated formCardRef (yoyo y: -8). Removed — the
+      // continuous movement combined with the 3D tilt below made the form
+      // inputs feel "unclickable" because the click target was moving.
     }, sectionRef);
     return () => ctx.revert();
   }, [mounted]);
