@@ -327,7 +327,17 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     name: "Raphael Gathecha",
     title: "Group Head of Cyber and Information Security (CISO)",
     org: "Letshego African Holdings Limited",
-    photo: null,
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Raphael_GathechaWambui.png",
+    // Source photo is already a tight headshot — undo the default 110%
+    // upscale + negative margins so the image renders at its natural
+    // framing inside the card.
+    photoStyle: {
+      width: "100%",
+      height: "100%",
+      marginLeft: 0,
+      marginTop: 0,
+      objectPosition: "center 20%",
+    },
     linkedin: "https://www.linkedin.com/in/raphael-gathecha-04ab60127/",
   },
   {
