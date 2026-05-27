@@ -278,6 +278,7 @@ const CFK_SPONSORS_2026: { name: string; logo: string; url: string; tier: "strat
 ];
 
 // Kenya Advisory Board (key government & policy leaders from brochure)
+// Order matches the official brochure speaker roster (rows 1-20).
 const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string | null; linkedin?: string; photoStyle?: React.CSSProperties }[] = [
   {
     name: "Colonel (Dr.) James Kimuyu",
@@ -287,74 +288,11 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     linkedin: "https://nc4.go.ke/",
   },
   {
-    name: "Rakesh Ravindran",
-    title: "Associate Director",
-    org: "Deloitte",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Rakesh_Ravindran.png",
-    linkedin: "https://ke.linkedin.com/in/rakesh-ravindran-6135081b",
-  },
-  {
-    name: "Kevin Kimani",
-    title: "GCISO",
-    org: "ASA International",
-    photo: null,
-    linkedin: "https://www.linkedin.com/in/kevin-kimani-ceh-cisa-aciarb-6a61aa17/",
-  },
-  {
-    name: "George Kisaka",
-    title: "VP",
-    org: "ISACA Kenya Chapter",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/GeorgeKisaka.png",
-    linkedin: "https://www.linkedin.com/in/gkisaka/?originalSubdomain=ke",
-  },
-  {
-    name: "Michael Etale",
-    title: "Chief Information Security Officer",
-    org: "Absa Bank",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Michael_Etale.jpg",
-    linkedin: "https://www.linkedin.com/in/michael-etale-cissp/",
-  },
-  {
-    name: "Geoffrey O. Ochieng",
-    title: "Global AI Delegate to Kenya",
-    org: "Global Alliance for Artificial Intelligence",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Geoffrey-Ochieng.png",
-    linkedin: "https://www.linkedin.com/in/geoffrey-o-ochieng%E2%84%A2%A2-85127a285/",
-  },
-  {
-    name: "Hussein Omar Hussein",
-    title: "Director IT and Digital",
-    org: "SBM Bank Kenya",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Hussein_Omar_Hussein.jpg",
-    linkedin: "https://www.linkedin.com/in/hussein-omar-hussein-hoh",
-  },
-  {
-    name: "Rosemary Koech-Kimwatu",
-    title: "Head of Data Protection",
-    org: "KCB Bank Group",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Rosemary_Koech_Kimwatu.jpg",
-    linkedin: "https://www.linkedin.com/in/rosemary-koech-kimwatu-47536520/",
-  },
-  {
-    name: "Frank K Muriuki",
-    title: "Lead - Information Security Officer",
-    org: "Kenyan Airports Authority",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Frank-Muriuki%C2%A0.png",
-    linkedin: "https://www.linkedin.com/in/frank-k-muriuki-66396842/",
-  },
-  {
-    name: "Peter Muhumuza",
-    title: "CISO",
-    org: "KCB Bank Uganda",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Peter_Muhumuza.jpg",
-    linkedin: "https://www.linkedin.com/in/peter-muhumuza-3aa95215/",
-  },
-  {
-    name: "Steven Mwesige",
-    title: "Ag. Chief Information Security Officer",
-    org: "Pearl Bank Uganda",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Steven_Mwesige.jpg",
-    linkedin: "https://www.linkedin.com/in/steven-mwesige/",
+    name: "Emmanuel Kimeu",
+    title: "Secretary, ICT - Security and Audit Control - State Department of ICT and Digital Economy",
+    org: "Ministry of Information, Communications and The Digital Economy",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Emmanuel_kimeu.png",
+    linkedin: "https://www.linkedin.com/in/emmanuel-kimeu-7490041b/",
   },
   {
     name: "Dr. Isabelle K",
@@ -365,18 +303,60 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     linkedin: "https://www.linkedin.com/in/dr-isabelle-k-459211142/",
   },
   {
-    name: "Emmanuel Kimeu",
-    title: "Secretary, ICT - Security and Audit Control - State Department of ICT and Digital Economy",
-    org: "Ministry of Information, Communications and The Digital Economy",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Emmanuel_kimeu.png",
-    linkedin: "https://www.linkedin.com/in/emmanuel-kimeu-7490041b/",
+    name: "Rosemary Koech-Kimwatu",
+    title: "Head of Data Protection",
+    org: "KCB Bank Group",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Rosemary_Koech_Kimwatu.jpg",
+    linkedin: "https://www.linkedin.com/in/rosemary-koech-kimwatu-47536520/",
   },
   {
-    name: "Mutheu Nyagah - Khimulu",
-    title: "Advisory Board Member",
-    org: "African Cyber Society",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Mutheu_NyagahKhimulu.png",
-    linkedin: "https://www.linkedin.com/in/mutheu-khimulu-law/",
+    name: "Kevin Kimani",
+    title: "GCISO",
+    org: "ASA International",
+    photo: null,
+    linkedin: "https://www.linkedin.com/in/kevin-kimani-ceh-cisa-aciarb-6a61aa17/",
+  },
+  {
+    name: "Michael Etale",
+    title: "Chief Information Security Officer",
+    org: "Absa Bank",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Michael_Etale.jpg",
+    linkedin: "https://www.linkedin.com/in/michael-etale-cissp/",
+  },
+  {
+    name: "Raphael Gathecha",
+    title: "Group Head of Cyber and Information Security (CISO)",
+    org: "Letshego African Holdings Limited",
+    photo: null,
+    linkedin: "https://www.linkedin.com/in/raphael-gathecha-04ab60127/",
+  },
+  {
+    name: "Peter Muhumuza",
+    title: "CISO",
+    org: "KCB Bank Uganda",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Peter_Muhumuza.jpg",
+    linkedin: "https://www.linkedin.com/in/peter-muhumuza-3aa95215/",
+  },
+  {
+    name: "Hussein Omar Hussein",
+    title: "Director IT and Digital",
+    org: "SBM Bank Kenya",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Hussein_Omar_Hussein.jpg",
+    linkedin: "https://www.linkedin.com/in/hussein-omar-hussein-hoh",
+  },
+  {
+    name: "Frank K Muriuki",
+    title: "Lead - Information Security Officer",
+    org: "Kenyan Airports Authority",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Frank-Muriuki%C2%A0.png",
+    linkedin: "https://www.linkedin.com/in/frank-k-muriuki-66396842/",
+  },
+  {
+    name: "Steven Mwesige",
+    title: "Ag. Chief Information Security Officer",
+    org: "Pearl Bank Uganda",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Steven_Mwesige.jpg",
+    linkedin: "https://www.linkedin.com/in/steven-mwesige/",
   },
   {
     name: "George Rugero",
@@ -386,10 +366,45 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     linkedin: "https://www.linkedin.com/in/george-rugero-4770299/",
   },
   {
+    name: "Mutheu Nyagah - Khimulu",
+    title: "Advisory Board Member",
+    org: "African Centre for Security",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Mutheu_NyagahKhimulu.png",
+    linkedin: "https://www.linkedin.com/in/mutheu-khimulu-law/",
+  },
+  {
+    name: "Bonface Asiligwa",
+    title: "President",
+    org: "ISACA Kenya Chapter",
+    photo: null,
+    linkedin: "https://www.linkedin.com/in/bonface-asiligwa-cissp-cisa-cism-crisc-cobit-cgeit-cdpse-75710648/",
+  },
+  {
+    name: "George Kisaka",
+    title: "Vice President",
+    org: "ISACA Kenya Chapter",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/GeorgeKisaka.png",
+    linkedin: "https://www.linkedin.com/in/gkisaka/?originalSubdomain=ke",
+  },
+  {
     name: "Shiphrah Wairima",
-    title: "President - Kenya",
-    org: "Global Council for Responsible AI (GCRAI)",
+    title: "President",
+    org: "Global Council for Responsible Artificial Intelligence (GCRAI)",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/shiphrah_wairima.png",
+  },
+  {
+    name: "Rakesh Ravindran",
+    title: "Associate Director",
+    org: "Deloitte",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Rakesh_Ravindran.png",
+    linkedin: "https://ke.linkedin.com/in/rakesh-ravindran-6135081b",
+  },
+  {
+    name: "Geoffrey O. Ochieng",
+    title: "Global AI Delegate to Kenya",
+    org: "Global Alliance for Artificial Intelligence (GAFAI)",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Geoffrey-Ochieng.png",
+    linkedin: "https://www.linkedin.com/in/geoffrey-o-ochieng%E2%84%A2%A2-85127a285/",
   },
 ];
 
@@ -1134,6 +1149,13 @@ function HeroSection() {
               aria-haspopup="menu"
               aria-expanded={resourceMenuOpen}
               className="cfk-req-ghost"
+              // Browser password managers (1Password, LastPass, etc.) inject
+              // `fdprocessedid` on buttons they consider form-adjacent. That
+              // attribute appears post-SSR but pre-hydration, so React flags a
+              // mismatch. We don't render anything dynamic in this button —
+              // suppressing the warning is safe and matches React's docs for
+              // third-party-injected attributes.
+              suppressHydrationWarning
               style={{
                 display: "inline-flex",
                 alignItems: "center",
