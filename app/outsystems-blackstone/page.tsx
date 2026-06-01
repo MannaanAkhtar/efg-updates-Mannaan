@@ -125,7 +125,7 @@ type AgendaItem = {
   title: string;
   subtitle?: string;
   owner?: string;
-  type: "logistics" | "welcome" | "keynote" | "feature" | "break" | "demo" | "panel" | "closing";
+  type: "logistics" | "welcome" | "keynote" | "feature" | "break" | "demo" | "panel" | "closing" | "recognition";
 };
 
 const AGENDA: AgendaItem[] = [
@@ -136,7 +136,7 @@ const AGENDA: AgendaItem[] = [
   { start: "12:05", end: "12:20", title: "Coffee Break & Prayer", type: "break" },
   { start: "12:20", end: "12:50", title: "Applied Government Use Cases", subtitle: "Agentic AI in Action: Live Demo of Government Use Cases", owner: "Omar Istaitieh · Lead Solution Architect · OutSystems", type: "demo" },
   { start: "12:50", end: "13:10", title: "Panel Discussion", subtitle: "Scaling Trusted Agentic AI for Saudi Vision 2030: From Strategy to National Impact", owner: "Moderator + Panelists", type: "panel" },
-  { start: "13:10", end: "13:15", title: "Recognition", owner: "Wajih Yahyaoui · Managing Partner · Blackstone eIT", type: "welcome" },
+  { start: "13:10", end: "13:15", title: "Vote of Thanks", owner: "Wajih Yahyaoui · Managing Partner · Blackstone eIT", type: "recognition" },
   { start: "13:15", end: "13:30", title: "Closing Remarks & Q&A", owner: "Event Host / Moderator", type: "closing" },
   { start: "13:30", end: "—",     title: "Networking Lunch", owner: "All Delegates", type: "logistics" },
 ];
@@ -2438,6 +2438,8 @@ function agendaTypeStyle(type: AgendaItem["type"]): {
       return { label: "Live demo", color: OS_RED, kind: "os" };
     case "welcome":
       return { label: "Welcome", color: OS_RED, kind: "soft" };
+    case "recognition":
+      return { label: "Recognition", color: OS_RED, kind: "soft" };
     case "closing":
       return { label: "Closing", color: OS_RED, kind: "soft" };
     case "break":
