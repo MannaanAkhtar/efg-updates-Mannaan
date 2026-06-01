@@ -109,14 +109,6 @@ const SPEAKERS: Speaker[] = [
     linkedin: "https://www.linkedin.com/in/omaristeatieh",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Omar_Istaitieh_OutSystems.png",
   },
-  {
-    name: "Nate Busa",
-    role: "Speaker",
-    title: "Director of AI and Automation",
-    company: "NEOM",
-    linkedin: "https://www.linkedin.com/in/natbusa/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nate_Busa.png",
-  },
 ];
 
 // ─── Key takeaways ───────────────────────────────────────────────────────────
@@ -144,7 +136,7 @@ const AGENDA: AgendaItem[] = [
   { start: "12:05", end: "12:20", title: "Coffee Break & Prayer", type: "break" },
   { start: "12:20", end: "12:50", title: "Applied Government Use Cases", subtitle: "Agentic AI in Action: Live Demo of Government Use Cases", owner: "Omar Istaitieh · Lead Solution Architect · OutSystems", type: "demo" },
   { start: "12:50", end: "13:10", title: "Panel Discussion", subtitle: "Scaling Trusted Agentic AI for Saudi Vision 2030: From Strategy to National Impact", owner: "Moderator + Panelists", type: "panel" },
-  { start: "13:10", end: "13:15", title: "Vote of Thanks", owner: "Wajih Yahyaoui · Managing Partner · Blackstone eIT", type: "welcome" },
+  { start: "13:10", end: "13:15", title: "Recognition", owner: "Wajih Yahyaoui · Managing Partner · Blackstone eIT", type: "welcome" },
   { start: "13:15", end: "13:30", title: "Closing Remarks & Q&A", owner: "Event Host / Moderator", type: "closing" },
   { start: "13:30", end: "—",     title: "Networking Lunch", owner: "All Delegates", type: "logistics" },
 ];
