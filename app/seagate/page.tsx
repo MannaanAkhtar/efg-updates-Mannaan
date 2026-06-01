@@ -128,6 +128,13 @@ const SPEAKERS: Speaker[] = [
     linkedin: "https://www.linkedin.com/in/allanbilekbusiness/",
     photoZoom: 1.22,
   },
+  {
+    name: "Hani Adnan Abdel Razeq",
+    title: "Director of Sustainability",
+    org: "AESG",
+    role: "Panelist",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hani_Adnan_Abdel_Razeq.png",
+  },
 ];
 
 // ─── Countdown ───────────────────────────────────────────────────────────────
