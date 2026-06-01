@@ -477,9 +477,6 @@ function Hero() {
           className="poka-event-strip"
         >
           {[
-            { label: "Format", value: "Executive Roundtable" },
-            { label: "Duration", value: "90 minutes" },
-            { label: "Seats", value: "Invitation only" },
             { label: "Date", value: "29 Jun 2026" },
           ].map((s) => (
             <div key={s.label} className="poka-event-strip__cell">
@@ -1739,27 +1736,23 @@ const PAGE_STYLES = `
   /* Event detail strip */
   .poka-event-strip {
     margin-top: clamp(20px, 2.5vw, 32px);
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: clamp(10px, 1.2vw, 16px) clamp(8px, 1vw, 14px);
-    padding: clamp(12px, 1.4vw, 16px) clamp(14px, 1.8vw, 20px);
-    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(10px, 1.2vw, 16px);
+    padding: clamp(10px, 1.2vw, 14px) clamp(18px, 2vw, 24px);
+    border-radius: 999px;
     background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.015) 100%);
     border: 1px solid rgba(255,255,255,0.10);
     backdrop-filter: blur(18px) saturate(140%);
     -webkit-backdrop-filter: blur(18px) saturate(140%);
     box-shadow: 0 18px 50px rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.06) inset;
-    width: 100%;
-    max-width: 680px;
+    width: auto;
   }
   .poka-event-strip__cell {
     position: relative;
-    display: flex; flex-direction: column; gap: 4px;
-    padding: 0 clamp(6px, 0.8vw, 10px);
+    display: inline-flex; align-items: baseline; gap: 10px;
+    padding: 0;
     min-width: 0;
-  }
-  .poka-event-strip__cell + .poka-event-strip__cell {
-    box-shadow: -1px 0 0 rgba(255,255,255,0.08);
   }
   .poka-event-strip__label {
     font-family: var(--font-outfit);
