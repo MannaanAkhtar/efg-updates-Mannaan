@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title:
     "Turn Your Frontline into a Strategic Growth Lever | Poka Executive Roundtable",
   description:
-    "Invitation-only virtual roundtable with Poka. How operations leaders close the execution gap across every shift, site and team — AI-augmented frontline work, connected-work strategy, KPI framework for frontline productivity.",
+    "Invitation-only executive roundtable with Poka. How operations leaders close the execution gap across every shift, site and team — AI-augmented frontline work, connected-work strategy, KPI framework for frontline productivity.",
   keywords: [
     "Poka",
     "connected worker platform",
@@ -21,7 +21,6 @@ export const metadata: Metadata = {
     "operational excellence",
     "continuous improvement",
     "executive roundtable",
-    "virtual roundtable",
     "IFS Poka",
   ],
   alternates: { canonical: PAGE_URL },
@@ -29,7 +28,7 @@ export const metadata: Metadata = {
     title:
       "Turn Your Frontline into a Strategic Growth Lever — Poka Executive Roundtable",
     description:
-      "Close the execution gap. Every shift. Every site. Every team. An invitation-only virtual roundtable with Poka.",
+      "Close the execution gap. Every shift. Every site. Every team. An invitation-only executive roundtable with Poka.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [
@@ -48,15 +47,15 @@ export const metadata: Metadata = {
     site: "@eventsfirstgrp",
     title:
       "Turn Your Frontline into a Strategic Growth Lever — Poka Executive Roundtable",
-    description: "Invitation-only virtual roundtable with Poka.",
+    description: "Invitation-only executive roundtable with Poka.",
     images: [OG_IMAGE],
   },
 };
 
-// Date taken from the Poka reference webinar (May 27, 10am ET / 4pm CET).
-// Keep in sync with EVENT_DATE_ISO in page.tsx.
-const EVENT_START_ISO = "2026-05-27T10:00:00-04:00";
-const EVENT_END_ISO = "2026-05-27T11:30:00-04:00";
+// Confirmed: 29 June 2026, in-person executive roundtable in Dubai (GST/UTC+4).
+// Default time 15:00 GST — keep in sync with EVENT_DATE_ISO in page.tsx.
+const EVENT_START_ISO = "2026-06-29T15:00:00+04:00";
+const EVENT_END_ISO = "2026-06-29T16:30:00+04:00";
 
 export default function PokaLayout({
   children,
@@ -73,15 +72,20 @@ export default function PokaLayout({
             "@type": "Event",
             name: "Turn Your Frontline into a Strategic Growth Lever — Poka Executive Roundtable",
             description:
-              "Invitation-only virtual roundtable on closing the execution gap across every shift, site and team. AI-augmented frontline work, connected-work strategy, and a KPI framework for frontline productivity.",
+              "Invitation-only executive roundtable on closing the execution gap across every shift, site and team. AI-augmented frontline work, connected-work strategy, and a KPI framework for frontline productivity.",
             startDate: EVENT_START_ISO,
             endDate: EVENT_END_ISO,
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode:
-              "https://schema.org/OnlineEventAttendanceMode",
+              "https://schema.org/OfflineEventAttendanceMode",
             location: {
-              "@type": "VirtualLocation",
-              url: PAGE_URL,
+              "@type": "Place",
+              name: "Dubai — venue TBA",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Dubai",
+                addressCountry: "AE",
+              },
             },
             image: [OG_IMAGE],
             organizer: {

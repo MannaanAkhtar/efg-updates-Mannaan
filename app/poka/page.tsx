@@ -56,10 +56,9 @@ const HERO_BG =
   "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Industrial_efficiency_in_action_Poka.png";
 const EFG_LOGO = "/events-first-group_logo_alt.svg";
 
-// Date is shown as TBA in the strip while the EFG team locks the slot, but the
-// countdown still ticks against this placeholder so the hero has live numbers.
-// Replace with the real date and update layout.tsx when confirmed.
-const EVENT_DATE_ISO = "2026-07-15T15:00:00+04:00";
+// Confirmed: 29 June 2026, in-person executive roundtable in Dubai (GST/UTC+4).
+// Time defaults to 15:00 GST — adjust here + in layout.tsx if it shifts.
+const EVENT_DATE_ISO = "2026-06-29T15:00:00+04:00";
 
 // â”€â”€â”€ Why attend â€” adapted from Poka's webinar themes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const TAKEAWAYS: { title: string; body: string }[] = [
@@ -410,7 +409,7 @@ function Hero() {
         >
           <span className="poka-hero-eyebrow__text">Executive Roundtable</span>
           <span aria-hidden className="poka-hero-eyebrow__dot" />
-          <span className="poka-hero-eyebrow__text">Virtual</span>
+          <span className="poka-hero-eyebrow__text">By Invitation</span>
         </motion.div>
 
         {/* Headline */}
@@ -478,10 +477,10 @@ function Hero() {
           className="poka-event-strip"
         >
           {[
-            { label: "Format", value: "Virtual roundtable" },
+            { label: "Format", value: "Executive Roundtable" },
             { label: "Duration", value: "90 minutes" },
             { label: "Seats", value: "Invitation only" },
-            { label: "Date", value: "TBA" },
+            { label: "Date", value: "29 Jun 2026" },
           ].map((s) => (
             <div key={s.label} className="poka-event-strip__cell">
               <span className="poka-event-strip__label">{s.label}</span>
@@ -1094,9 +1093,9 @@ function ReserveBlock() {
               <span aria-hidden className="poka-reserve-info__hairline" />
               <div className="poka-reserve-detail">
                 <span className="poka-reserve-detail__label">Format</span>
-                <span className="poka-reserve-detail__value">Virtual roundtable</span>
+                <span className="poka-reserve-detail__value">Executive Roundtable</span>
                 <span className="poka-reserve-detail__sub">
-                  90 minutes · Chatham House Rule
+                  29 Jun 2026 · Chatham House Rule
                 </span>
               </div>
               <div className="poka-reserve-detail">
