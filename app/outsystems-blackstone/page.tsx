@@ -30,6 +30,14 @@ const OS_RED_DARK = "#BB1100";   // Dark Red — pressed state / depth
 const OS_YELLOW = "#FDB515";     // Secondary CTA / highlight
 const OS_SPACE_BLUE = "#0A1E4E"; // OS' dark palette base — used as deepest text
 
+// ─── Guest speaker palette (anyone not from OutSystems / Blackstone) ────────
+// A single shared teal treatment for guest speakers — distinct from the cyan
+// (Blackstone) and red (OutSystems) tracks so all three affiliations read at
+// a glance, no matter which guest organisation.
+const GUEST_TEAL = "#14B8A6";
+const GUEST_TEAL_BRIGHT = "#5EEAD4";
+const GUEST_DEEP = "#0B3D3A";
+
 // ─── Light surface tokens (the page's true base palette) ────────────────────
 const CREAM = "#FAFAFA";         // Page background — Apple-style soft off-white
 const CREAM_WARM = "#F7F4F1";    // Warmer cream for layered surfaces
@@ -60,7 +68,10 @@ type Speaker = {
   name: string;
   role: "Moderator" | "Speaker" | "Co-Host";
   title: string;
-  company: "OutSystems" | "Blackstone eIT";
+  // "OutSystems" → red treatment, "Blackstone eIT" → cyan/navy treatment.
+  // Any other value renders as a generic guest speaker (teal accent + text
+  // wordmark). New guest affiliations don't need code changes.
+  company: "OutSystems" | "Blackstone eIT" | (string & {});
   linkedin: string;
   photo: string;
 };
@@ -97,6 +108,14 @@ const SPEAKERS: Speaker[] = [
     company: "OutSystems",
     linkedin: "https://www.linkedin.com/in/omaristeatieh",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Omar_Istaitieh_OutSystems.png",
+  },
+  {
+    name: "Nate Busa",
+    role: "Speaker",
+    title: "Director of AI and Automation",
+    company: "NEOM",
+    linkedin: "https://www.linkedin.com/in/natbusa/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nate_Busa.png",
   },
 ];
 
@@ -203,6 +222,28 @@ function OutSystemsLogomark({ size = 24, monochrome = false, dark = false }: { s
         filter: monochrome ? "brightness(0) invert(1)" : undefined,
       }}
     />
+  );
+}
+
+// Generic guest-speaker wordmark — used for any affiliation that isn't
+// OutSystems or Blackstone. We don't carry lockup assets for every guest
+// organisation, so the company name renders as text at the same on-card scale
+// as the other logomarks, tinted with the shared guest teal glow.
+function GuestLogomark({ name, size = 14 }: { name: string; size?: number }) {
+  return (
+    <span style={{
+      fontFamily: "var(--font-display)",
+      fontSize: size,
+      fontWeight: 800,
+      letterSpacing: "0.18em",
+      color: "rgba(255,255,255,0.94)",
+      lineHeight: 1,
+      textShadow: `0 0 18px ${GUEST_TEAL}55`,
+      textTransform: "uppercase",
+      whiteSpace: "nowrap",
+    }}>
+      {name}
+    </span>
   );
 }
 
@@ -1941,16 +1982,17 @@ function SpeakerCard({ s, idx, inView }: { s: Speaker; idx: number; inView: bool
     .join("")
     .toUpperCase();
   const isHost = s.company === "Blackstone eIT";
-  // Host (Blackstone) keeps the cyan/blue treatment; OutSystems speakers carry
-  // their own brand red so the two affiliations are unmistakable at a glance.
-  const companyColor = isHost ? BS_CYAN : OS_RED;
+  const isOs = s.company === "OutSystems";
+  const isGuest = !isHost && !isOs;
+  // Host (Blackstone) → cyan/blue. OutSystems → brand red. Anyone else
+  // (guest speaker — NEOM, future partners, panelists) → shared teal track.
+  const companyColor = isHost ? BS_CYAN : isGuest ? GUEST_TEAL : OS_RED;
   // Middle-stop accent used on the outer hex frame gradient — must harmonize
   // with `companyColor` so the frame doesn't go red→blue→red on OS cards.
-  const companyAccent = isHost ? BS_LIGHT_BLUE : OS_RED_BRIGHT;
+  const companyAccent = isHost ? BS_LIGHT_BLUE : isGuest ? GUEST_TEAL_BRIGHT : OS_RED_BRIGHT;
   // Deep tonal base for the card body & inner hex backdrop — Blackstone navy
-  // for the host, a deep wine-red for OutSystems. This is the difference between
-  // a "black-blue" card and a "black-red" card.
-  const companyDeep = isHost ? BS_NAVY : "#3D0B00";
+  // for the host, a deep wine-red for OutSystems, a deep teal for guests.
+  const companyDeep = isHost ? BS_NAVY : isGuest ? GUEST_DEEP : "#3D0B00";
   const HEX_CLIP = "polygon(25% 5%, 75% 5%, 98% 50%, 75% 95%, 25% 95%, 2% 50%)";
 
   return (
@@ -2171,10 +2213,12 @@ function SpeakerCard({ s, idx, inView }: { s: Speaker; idx: number; inView: bool
         justifyContent: "center",
         opacity: 0.92,
       }} aria-label={s.company}>
-        {s.company === "Blackstone eIT" ? (
+        {isHost ? (
           <BlackstoneLogomark size={38} />
-        ) : (
+        ) : isOs ? (
           <OutSystemsLogomark size={32} />
+        ) : (
+          <GuestLogomark name={s.company} size={16} />
         )}
       </div>
 
