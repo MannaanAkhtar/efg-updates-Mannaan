@@ -46,13 +46,13 @@ const NAV_LINKS = [
 
 const SPEAKERS = [
   {
-    name: "Philip Ashton",
-    role: "President, IFS.ai Logistics (by 7bridges)",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Philip_Ashton.png" as string | null,
-    initials: "PA",
-    linkedin: "https://www.linkedin.com/in/philip-ashton-76833247/",
+    name: "Mohammed Sa'Adeh",
+    role: "Senior Sales Director, IFS",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed_Saadeh.png" as string | null,
+    initials: "MS",
+    linkedin: "https://www.linkedin.com/in/mohammed-sa-adeh-76393a14/",
     bio:
-      "Philip founded 7bridges, the AI logistics platform that now powers IFS.ai Logistics following IFS's acquisition. With 15+ years across logistics, manufacturing, retail and aerospace, he focuses on applying data science to transport networks, freight cost control, and operational performance — now leading IFS.ai Logistics as the 7bridges intelligence layer extends into IFS's broader Industrial AI capability.",
+      "Mohammed works with senior leaders across Saudi Arabia and the wider Gulf to deploy IFS's industrial software for resilient, AI-enabled operations. He partners with customers on supply chain, asset, and service transformation programs designed to fit local operating conditions and regulatory context.",
   },
   {
     name: "Suliman Gaouda",
@@ -64,13 +64,13 @@ const SPEAKERS = [
       "Suliman leads Regional Vice President responsibilities for IFS Industrial AI, bringing IFS's AI-driven asset, service, and supply chain capabilities to industrial operators across the Middle East. His remit centres on the practical adoption of AI in real operations — moving teams past pilot fatigue and into measurable business outcomes.",
   },
   {
-    name: "Mohammed Sa'Adeh",
-    role: "Senior Sales Director, IFS",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed_Saadeh.png" as string | null,
-    initials: "MS",
-    linkedin: "https://www.linkedin.com/in/mohammed-sa-adeh-76393a14/",
+    name: "Philip Ashton",
+    role: "President, IFS.ai Logistics (by 7bridges)",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Philip_Ashton.png" as string | null,
+    initials: "PA",
+    linkedin: "https://www.linkedin.com/in/philip-ashton-76833247/",
     bio:
-      "Mohammed works with senior leaders across Saudi Arabia and the wider Gulf to deploy IFS's industrial software for resilient, AI-enabled operations. He partners with customers on supply chain, asset, and service transformation programs designed to fit local operating conditions and regulatory context.",
+      "Philip founded 7bridges, the AI logistics platform that now powers IFS.ai Logistics following IFS's acquisition. With 15+ years across logistics, manufacturing, retail and aerospace, he focuses on applying data science to transport networks, freight cost control, and operational performance — now leading IFS.ai Logistics as the 7bridges intelligence layer extends into IFS's broader Industrial AI capability.",
   },
 ];
 
@@ -96,8 +96,7 @@ const AGENDA_ITEMS = [
   "Visibility — surfacing true cost and service exposure.",
   "Simulation — running “what-if” scenarios before they hit the P&L.",
   "Execution — moving fast without 9–18 month programs.",
-  "Selected audience Q&A.",
-  "Closing notes & next steps.",
+  "Q&A.",
 ];
 
 const INDUSTRIES = [
