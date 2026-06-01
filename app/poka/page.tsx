@@ -22,30 +22,32 @@ import {
 // echoes a blueprint / line-of-sight feel without being on-the-nose.
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
-// â”€â”€â”€ Brand tokens â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-const BLUE = "#2563EB";        // Primary action
-const BLUE_DEEP = "#1E40AF";   // Hover / deeper
-const BLUE_GLOW = "#60A5FA";   // Highlights / glow
-const YELLOW = "#FACC15";      // Safety-vis accent
-const NAVY = "#0B1426";        // Grounding navy
-const NAVY_DEEP = "#070D1A";   // Deepest base
-const INK = "#020308";
+// ─── Brand tokens — IFS brand palette (mapped onto the existing Poka token names
+// so the entire page picks up the IFS purple template via this single block) ─
+const BLUE = "#8427E2";        // IFS Tier 2 · Purple — primary accent
+const BLUE_DEEP = "#360065";   // IFS Tier 1 · Dark Purple
+const BLUE_GLOW = "#CD92FF";   // IFS Tier 2 · Light Purple — highlights / glow
+const YELLOW = "#33FF94";      // IFS Tier 3 · Green — secondary CTA / highlight
+const NAVY = "#170430";        // IFS Tier 1 · Midnight Purple — page base
+const NAVY_DEEP = "#0A0218";   // Deepest darkening (off-spec, for footer/depth)
+const INK = "#0A0218";
 
-// Hero (dark) tokens
+// On-dark text tokens (formerly hero-only; now used across the whole page)
 const WHITE = "#FFFFFF";
-const FAINT = "rgba(255,255,255,0.55)";
+const FAINT = "rgba(255,255,255,0.52)";
 const MUTE = "rgba(255,255,255,0.78)";
-const HAIR = "rgba(255,255,255,0.10)";
+const HAIR = "rgba(255,255,255,0.08)";
 const HAIR_STRONG = "rgba(255,255,255,0.18)";
 
-// Light-section tokens
-const PAPER = "#FFFFFF";
-const PAPER_SOFT = "#F4F7FB";
-const INK_DARK = "#0B1426";
-const INK_BODY = "#1F2937";
-const INK_MUTE = "#4B5563";
-const INK_FAINT = "#9CA3AF";
-const LINE = "rgba(11,20,38,0.10)";
+// Section-surface tokens — repointed from light paper to dark IFS layers so
+// every existing "light section" component renders as a dark purple panel.
+const PAPER = "#170430";       // IFS Midnight Purple — was #FFFFFF
+const PAPER_SOFT = "#250146";  // IFS card surface — was #F4F7FB
+const INK_DARK = "#FFFFFF";    // Headings — flipped to white
+const INK_BODY = "rgba(255,255,255,0.85)";
+const INK_MUTE = "rgba(255,255,255,0.78)";
+const INK_FAINT = "rgba(255,255,255,0.55)";
+const LINE = "rgba(205,146,255,0.22)"; // IFS_BORDER — Light Purple at 22%
 
 // â”€â”€â”€ Assets â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const POKA_LOGO =
@@ -238,8 +240,8 @@ function TopBar() {
         zIndex: 100,
         padding: condensed ? "4px 0" : "8px 0",
         background: condensed
-          ? "rgba(255,255,255,0.92)"
-          : "linear-gradient(180deg, rgba(7,13,26,0.7) 0%, rgba(7,13,26,0) 100%)",
+          ? "rgba(10,2,24,0.92)"
+          : "linear-gradient(180deg, rgba(10,2,24,0.70) 0%, rgba(10,2,24,0) 100%)",
         backdropFilter: condensed ? "blur(18px) saturate(160%)" : "blur(6px)",
         WebkitBackdropFilter: condensed ? "blur(18px) saturate(160%)" : "blur(6px)",
         borderBottom: condensed
@@ -271,7 +273,7 @@ function TopBar() {
             textDecoration: "none",
           }}
         >
-          <PokaLogo height={72} tone={condensed ? "color" : "white"} />
+          <PokaLogo height={72} tone="white" />
         </a>
 
         <nav
@@ -531,8 +533,8 @@ function SectionHeader({
             width: 8,
             height: 8,
             borderRadius: "50%",
-            background: BLUE,
-            boxShadow: `0 0 12px ${BLUE}`,
+            background: BLUE_GLOW,
+            boxShadow: `0 0 12px ${BLUE_GLOW}`,
           }}
         />
         <span
@@ -541,9 +543,9 @@ function SectionHeader({
             fontSize: 11.5,
             letterSpacing: "0.28em",
             textTransform: "uppercase",
-            color: BLUE,
+            color: BLUE_GLOW,
             fontWeight: 700,
-            textShadow: theme === "dark" ? `0 0 14px ${BLUE}55` : "none",
+            textShadow: `0 0 14px ${BLUE_GLOW}55`,
           }}
         >
           {eyebrow}
@@ -600,7 +602,7 @@ function LearnAndWhy() {
             title={
               <>
                 In this roundtable,{" "}
-                <span style={{ color: BLUE }}>you&rsquo;ll learn</span>
+                <span style={{ color: BLUE_GLOW }}>you&rsquo;ll learn</span>
               </>
             }
             maxWidth={820}
@@ -724,7 +726,7 @@ function WhoForBlock() {
         title={
           <>
             Operations leaders accountable for{" "}
-            <span style={{ color: BLUE }}>execution at scale</span>
+            <span style={{ color: BLUE_GLOW }}>execution at scale</span>
           </>
         }
         maxWidth={820}
@@ -933,7 +935,7 @@ function Field({
         }}
       >
         {label}
-        {required && <span style={{ color: BLUE, marginLeft: 4 }}>*</span>}
+        {required && <span style={{ color: BLUE_GLOW, marginLeft: 4 }}>*</span>}
       </span>
       {children}
       {error && (
@@ -1044,8 +1046,8 @@ function ReserveBlock() {
     padding: "12px 14px",
     borderRadius: 10,
     border: `1px solid ${LINE}`,
-    background: PAPER,
-    color: INK_DARK,
+    background: "rgba(10,2,24,0.55)",
+    color: WHITE,
     fontFamily: "var(--font-outfit)",
     fontSize: 14.5,
     outline: "none",
@@ -1526,7 +1528,7 @@ function Footer() {
       <span aria-hidden className="poka-footer__hairline" />
       <div className="poka-footer__inner">
         <div className="poka-footer__poka-logo">
-          <PokaLogo height={72} />
+          <PokaLogo height={72} tone="white" />
         </div>
         <div className="poka-footer__right">
           <span className="poka-footer__initiative-label">An initiative by</span>
@@ -1781,21 +1783,21 @@ const PAGE_STYLES = `
     position: relative;
     padding: clamp(40px, 4.5vw, 68px) 0;
     background:
-      radial-gradient(ellipse 55% 50% at 12% 18%, rgba(37,99,235,0.10) 0%, rgba(37,99,235,0.03) 35%, transparent 70%),
-      radial-gradient(ellipse 50% 45% at 88% 82%, rgba(250,204,21,0.06) 0%, transparent 72%),
+      radial-gradient(ellipse 55% 50% at 12% 18%, rgba(132,39,226,0.30) 0%, rgba(132,39,226,0.10) 35%, transparent 70%),
+      radial-gradient(ellipse 50% 45% at 88% 82%, rgba(205,146,255,0.18) 0%, transparent 72%),
       linear-gradient(180deg, ${PAPER_SOFT} 0%, ${PAPER} 38%, ${PAPER} 62%, ${PAPER_SOFT} 100%);
     overflow: hidden;
     isolation: isolate;
   }
   .poka-light-section--alt {
     background:
-      radial-gradient(ellipse 55% 50% at 88% 18%, rgba(250,204,21,0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 45% at 12% 82%, rgba(37,99,235,0.08) 0%, transparent 72%),
+      radial-gradient(ellipse 55% 50% at 88% 18%, rgba(205,146,255,0.22) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 45% at 12% 82%, rgba(132,39,226,0.22) 0%, transparent 72%),
       linear-gradient(180deg, ${PAPER} 0%, ${PAPER_SOFT} 50%, ${PAPER} 100%);
   }
   .poka-light-section__dots {
     position: absolute; inset: 0; pointer-events: none;
-    background-image: radial-gradient(rgba(11,20,38,0.12) 1px, transparent 1.4px);
+    background-image: radial-gradient(rgba(205,146,255,0.18) 1px, transparent 1.4px);
     background-size: 28px 28px;
     opacity: 0.42;
     -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 25%, transparent 80%);
@@ -1861,14 +1863,16 @@ const PAGE_STYLES = `
     padding: clamp(26px, 2.6vw, 34px) clamp(24px, 2.4vw, 30px) clamp(22px, 2.3vw, 28px);
     border-radius: 20px;
     background:
-      linear-gradient(180deg, #ffffff 0%, #fafbfd 100%);
+      linear-gradient(180deg, rgba(37,1,70,0.85) 0%, rgba(23,4,48,0.85) 100%);
     border: 1px solid ${LINE};
     box-shadow:
-      0 1px 0 rgba(255,255,255,0.9) inset,
-      0 1px 2px rgba(11,20,38,0.04),
-      0 18px 44px rgba(11,20,38,0.06);
+      0 1px 0 rgba(205,146,255,0.16) inset,
+      0 1px 2px rgba(0,0,0,0.25),
+      0 18px 44px rgba(0,0,0,0.35);
     overflow: hidden;
     isolation: isolate;
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
     transition:
       transform 0.5s cubic-bezier(0.22,1,0.36,1),
       border-color 0.4s,
@@ -1876,29 +1880,29 @@ const PAGE_STYLES = `
   }
   .poka-takeaway-card:hover {
     transform: translateY(-4px);
-    border-color: rgba(37,99,235,0.28);
+    border-color: rgba(205,146,255,0.42);
     box-shadow:
-      0 1px 0 rgba(255,255,255,0.95) inset,
-      0 1px 2px rgba(11,20,38,0.04),
-      0 26px 60px rgba(11,20,38,0.10),
-      0 0 0 6px rgba(37,99,235,0.05);
+      0 1px 0 rgba(205,146,255,0.24) inset,
+      0 1px 2px rgba(0,0,0,0.25),
+      0 26px 60px rgba(0,0,0,0.45),
+      0 0 0 6px rgba(132,39,226,0.18);
   }
   /* Soft sheen sweeping across the card top — premium glassy feel */
   .poka-takeaway-card__sheen {
     position: absolute;
     inset: 0 0 auto 0;
     height: 60%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(180deg, rgba(205,146,255,0.10) 0%, rgba(205,146,255,0) 100%);
     pointer-events: none;
     z-index: 0;
   }
-  /* Decorative blue corner blur that brightens on hover */
+  /* Decorative purple corner blur that brightens on hover */
   .poka-takeaway-card__corner {
     position: absolute;
     top: -40px; right: -40px;
     width: 160px; height: 160px;
     border-radius: 50%;
-    background: radial-gradient(circle at center, rgba(37,99,235,0.12) 0%, rgba(37,99,235,0.04) 50%, transparent 75%);
+    background: radial-gradient(circle at center, rgba(205,146,255,0.20) 0%, rgba(205,146,255,0.06) 50%, transparent 75%);
     pointer-events: none;
     z-index: 0;
     transition: opacity 0.5s, transform 0.6s cubic-bezier(0.22,1,0.36,1);
@@ -1918,7 +1922,7 @@ const PAGE_STYLES = `
     font-size: 13px;
     letter-spacing: 0.18em;
     font-weight: 700;
-    color: rgba(37,99,235,0.65);
+    color: rgba(205,146,255,0.85);
     font-variant-numeric: tabular-nums;
   }
   .poka-takeaway-card__num::before {
@@ -1966,15 +1970,15 @@ const PAGE_STYLES = `
     position: relative;
     padding: clamp(40px, 4.5vw, 68px) 0;
     background:
-      radial-gradient(ellipse 55% 50% at 88% 18%, rgba(37,99,235,0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 45% at 12% 82%, rgba(250,204,21,0.05) 0%, transparent 72%),
+      radial-gradient(ellipse 55% 50% at 88% 18%, rgba(132,39,226,0.20) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 45% at 12% 82%, rgba(205,146,255,0.15) 0%, transparent 72%),
       linear-gradient(180deg, ${PAPER} 0%, ${PAPER_SOFT} 100%);
     overflow: hidden;
     isolation: isolate;
   }
   .poka-who-section__grid {
     position: absolute; inset: 0; pointer-events: none;
-    background-image: radial-gradient(rgba(37,99,235,0.12) 1px, transparent 1.4px);
+    background-image: radial-gradient(rgba(205,146,255,0.18) 1px, transparent 1.4px);
     background-size: 28px 28px;
     opacity: 0.40;
     -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 35%, transparent 80%);
@@ -2000,7 +2004,7 @@ const PAGE_STYLES = `
     grid-template-columns: 1fr 1fr;
     gap: clamp(12px, 1.4vw, 18px);
   }
-  /* Skeuomorphic outer bezel — pearl-metal gradient frame */
+  /* Skeuomorphic outer bezel — dark purple metallic frame (IFS theme) */
   .poka-who-card {
     position: relative;
     padding: 4px;
@@ -2008,21 +2012,21 @@ const PAGE_STYLES = `
     background:
       linear-gradient(
         165deg,
-        rgba(255,255,255,1) 0%,
-        rgba(221,229,242,0.95) 28%,
-        rgba(248,251,254,1) 52%,
-        rgba(221,229,242,0.92) 78%,
-        rgba(255,255,255,1) 100%
+        rgba(205,146,255,0.45) 0%,
+        rgba(132,39,226,0.30) 28%,
+        rgba(205,146,255,0.55) 52%,
+        rgba(132,39,226,0.30) 78%,
+        rgba(205,146,255,0.45) 100%
       );
     box-shadow:
-      /* Bezel inset highlights (top) */
-      0 1px 0 rgba(255,255,255,1) inset,
+      /* Bezel inset highlights (top) — light purple */
+      0 1px 0 rgba(205,146,255,0.55) inset,
       /* Bezel inset shadows (bottom) */
-      0 -1px 0 rgba(11,20,38,0.08) inset,
+      0 -1px 0 rgba(0,0,0,0.45) inset,
       /* Floating depth */
-      0 1px 2px rgba(11,20,38,0.04),
-      0 10px 24px rgba(11,20,38,0.08),
-      0 22px 44px rgba(11,20,38,0.06);
+      0 1px 2px rgba(0,0,0,0.30),
+      0 10px 24px rgba(0,0,0,0.35),
+      0 22px 44px rgba(0,0,0,0.30);
     transition:
       transform 0.55s cubic-bezier(0.22,1,0.36,1),
       box-shadow 0.5s;
@@ -2032,11 +2036,11 @@ const PAGE_STYLES = `
   .poka-who-card:hover {
     transform: translateY(-3px);
     box-shadow:
-      0 1px 0 rgba(255,255,255,1) inset,
-      0 -1px 0 rgba(37,99,235,0.18) inset,
-      0 2px 4px rgba(11,20,38,0.05),
-      0 18px 38px rgba(11,20,38,0.12),
-      0 28px 56px rgba(37,99,235,0.12);
+      0 1px 0 rgba(205,146,255,0.7) inset,
+      0 -1px 0 rgba(132,39,226,0.40) inset,
+      0 2px 4px rgba(0,0,0,0.30),
+      0 18px 38px rgba(0,0,0,0.45),
+      0 28px 56px rgba(132,39,226,0.30);
   }
 
   /* Inner glass panel — recessed into the bezel */
@@ -2047,30 +2051,30 @@ const PAGE_STYLES = `
     background:
       linear-gradient(
         180deg,
-        rgba(255,255,255,0.92) 0%,
-        rgba(248,250,253,0.78) 100%
+        rgba(37,1,70,0.92) 0%,
+        rgba(23,4,48,0.92) 100%
       );
     backdrop-filter: blur(22px) saturate(150%);
     -webkit-backdrop-filter: blur(22px) saturate(150%);
     /* Recessed: inner shadow + edge highlights */
     box-shadow:
-      0 1px 0 rgba(255,255,255,0.95) inset,
-      0 -1px 0 rgba(255,255,255,0.4) inset,
-      inset 0 0 0 1px rgba(11,20,38,0.06),
-      inset 0 2px 6px rgba(11,20,38,0.04);
+      0 1px 0 rgba(205,146,255,0.16) inset,
+      0 -1px 0 rgba(0,0,0,0.35) inset,
+      inset 0 0 0 1px rgba(205,146,255,0.10),
+      inset 0 2px 6px rgba(0,0,0,0.25);
     overflow: hidden;
     isolation: isolate;
   }
 
-  /* Curved glass reflection — top arc highlight */
+  /* Curved glass reflection — top arc highlight (purple-tinted) */
   .poka-who-card__reflection {
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 55%;
     background: linear-gradient(
       180deg,
-      rgba(255,255,255,0.55) 0%,
-      rgba(255,255,255,0.10) 60%,
+      rgba(205,146,255,0.18) 0%,
+      rgba(205,146,255,0.05) 60%,
       transparent 100%
     );
     border-radius: 16px 16px 0 0;
@@ -2086,7 +2090,7 @@ const PAGE_STYLES = `
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(255,255,255,1),
+      rgba(205,146,255,0.7),
       transparent
     );
     pointer-events: none;
@@ -2101,8 +2105,8 @@ const PAGE_STYLES = `
     border-radius: 50%;
     background: radial-gradient(
       circle at center,
-      rgba(37,99,235,0.14) 0%,
-      rgba(37,99,235,0.05) 50%,
+      rgba(205,146,255,0.20) 0%,
+      rgba(205,146,255,0.07) 50%,
       transparent 75%
     );
     pointer-events: none;
@@ -2126,7 +2130,7 @@ const PAGE_STYLES = `
     letter-spacing: -0.05em;
     line-height: 1;
     color: transparent;
-    background: linear-gradient(180deg, rgba(37,99,235,0.16) 0%, rgba(37,99,235,0.02) 100%);
+    background: linear-gradient(180deg, rgba(205,146,255,0.32) 0%, rgba(205,146,255,0.04) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -2150,7 +2154,7 @@ const PAGE_STYLES = `
     width: 3px;
     border-radius: 0 4px 4px 0;
     background: linear-gradient(180deg, ${BLUE} 0%, ${BLUE_GLOW} 100%);
-    box-shadow: 0 0 14px rgba(37,99,235,0.30);
+    box-shadow: 0 0 14px rgba(205,146,255,0.40);
     transform: scaleY(0);
     transform-origin: center;
     transition: transform 0.55s cubic-bezier(0.22,1,0.36,1);
@@ -2228,14 +2232,14 @@ const PAGE_STYLES = `
     font-size: 11.5px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: ${BLUE};
+    color: ${BLUE_GLOW};
     font-weight: 700;
   }
   .poka-facing-block__dot {
     width: 6px; height: 6px;
     border-radius: 50%;
-    background: ${BLUE};
-    box-shadow: 0 0 12px ${BLUE};
+    background: ${BLUE_GLOW};
+    box-shadow: 0 0 12px ${BLUE_GLOW};
   }
   .poka-facing-block__title {
     margin: 14px 0 clamp(28px, 3.4vw, 48px);
@@ -2283,8 +2287,8 @@ const PAGE_STYLES = `
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 70% 90% at 0% 50%, rgba(37,99,235,0.07) 0%, transparent 70%),
-      linear-gradient(90deg, rgba(37,99,235,0.04) 0%, transparent 60%);
+      radial-gradient(ellipse 70% 90% at 0% 50%, rgba(132,39,226,0.18) 0%, transparent 70%),
+      linear-gradient(90deg, rgba(132,39,226,0.10) 0%, transparent 60%);
     opacity: 0;
     transition: opacity 0.45s cubic-bezier(0.22,1,0.36,1);
     pointer-events: none;
@@ -2300,7 +2304,7 @@ const PAGE_STYLES = `
     left: 0; top: 18%; bottom: 18%;
     width: 3px;
     background: linear-gradient(180deg, ${BLUE} 0%, ${BLUE_GLOW} 100%);
-    box-shadow: 0 0 12px rgba(37,99,235,0.30);
+    box-shadow: 0 0 12px rgba(205,146,255,0.45);
     transform: scaleY(0);
     transform-origin: center;
     transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
@@ -2325,7 +2329,7 @@ const PAGE_STYLES = `
     transition: color 0.4s;
   }
   .poka-facing-cell:hover .poka-facing-cell__num {
-    color: ${BLUE_DEEP};
+    color: ${BLUE_GLOW};
   }
   .poka-facing-cell__text {
     position: relative; z-index: 2;
@@ -2374,14 +2378,14 @@ const PAGE_STYLES = `
     font-size: 11.5px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: ${BLUE};
+    color: ${BLUE_GLOW};
     font-weight: 700;
   }
   .poka-why-headline__dot {
     width: 8px; height: 8px;
     border-radius: 50%;
-    background: ${BLUE};
-    box-shadow: 0 0 12px ${BLUE};
+    background: ${BLUE_GLOW};
+    box-shadow: 0 0 12px ${BLUE_GLOW};
   }
   .poka-why-headline__title {
     margin: 0;
@@ -2390,7 +2394,7 @@ const PAGE_STYLES = `
     font-weight: 800;
     letter-spacing: -0.04em;
     line-height: 0.92;
-    color: ${BLUE};
+    color: ${BLUE_GLOW};
   }
   .poka-why-list {
     display: flex; flex-direction: column;
@@ -2431,7 +2435,7 @@ const PAGE_STYLES = `
   .poka-speakers-section {
     position: relative;
     padding: clamp(40px, 4.5vw, 68px) 0;
-    background: linear-gradient(180deg, #2A3340 0%, #232C39 100%);
+    background: linear-gradient(180deg, ${PAPER_SOFT} 0%, ${NAVY} 100%);
     overflow: hidden;
     isolation: isolate;
   }
@@ -2527,20 +2531,20 @@ const PAGE_STYLES = `
     font-style: italic;
   }
 
-  /* Reserve section (light) */
+  /* Reserve section (IFS purple) */
   .poka-reserve-section {
     position: relative;
     padding: clamp(40px, 4.5vw, 68px) 0 clamp(36px, 4vw, 60px);
     background:
-      radial-gradient(ellipse 55% 50% at 12% 18%, rgba(37,99,235,0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 45% at 88% 82%, rgba(250,204,21,0.05) 0%, transparent 72%),
+      radial-gradient(ellipse 55% 50% at 12% 18%, rgba(132,39,226,0.22) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 45% at 88% 82%, rgba(205,146,255,0.14) 0%, transparent 72%),
       linear-gradient(180deg, ${PAPER_SOFT} 0%, ${PAPER} 100%);
     overflow: hidden;
     isolation: isolate;
   }
   .poka-reserve-section__grid {
     position: absolute; inset: 0; pointer-events: none;
-    background-image: radial-gradient(rgba(37,99,235,0.10) 1px, transparent 1.4px);
+    background-image: radial-gradient(rgba(205,146,255,0.16) 1px, transparent 1.4px);
     background-size: 30px 30px;
     opacity: 0.32;
     -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 30%, transparent 80%);
@@ -2552,9 +2556,11 @@ const PAGE_STYLES = `
     display: flex; flex-direction: column;
     padding: clamp(18px, 1.8vw, 24px) clamp(20px, 2vw, 26px) clamp(20px, 2vw, 26px);
     border-radius: 16px;
-    background: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+    background: linear-gradient(180deg, rgba(37,1,70,0.85) 0%, rgba(23,4,48,0.85) 100%);
     border: 1px solid ${LINE};
-    box-shadow: 0 14px 36px rgba(11,20,38,0.07), 0 1px 0 rgba(255,255,255,0.85) inset;
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.35), 0 1px 0 rgba(205,146,255,0.16) inset;
     overflow: hidden;
     max-width: 460px;
   }
@@ -2578,7 +2584,7 @@ const PAGE_STYLES = `
     font-size: 10.5px;
     letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: ${BLUE_DEEP};
+    color: ${BLUE_GLOW};
     font-weight: 700;
   }
   .poka-reserve-detail__value {
@@ -2594,14 +2600,16 @@ const PAGE_STYLES = `
     color: ${INK_MUTE};
   }
 
-  /* Form panel (light) */
+  /* Form panel (IFS purple glass) */
   .poka-form-panel {
     position: relative;
     padding: clamp(24px, 3vw, 36px);
     border-radius: 20px;
-    background: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+    background: linear-gradient(180deg, rgba(37,1,70,0.92) 0%, rgba(23,4,48,0.92) 100%);
     border: 1px solid ${LINE};
-    box-shadow: 0 24px 60px rgba(11,20,38,0.10), inset 0 1px 0 rgba(255,255,255,0.85);
+    backdrop-filter: blur(22px) saturate(150%);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(205,146,255,0.18);
     overflow: hidden;
   }
   .poka-form-panel__hairline {
@@ -2650,19 +2658,18 @@ const PAGE_STYLES = `
   }
   .poka-footer__efg-logo {
     height: 36px; width: auto; display: block; opacity: 1;
-    filter: invert(1) hue-rotate(180deg);
   }
 
   /* Focus + selects */
   input:focus, select:focus, textarea:focus {
-    border-color: ${BLUE} !important;
-    background: ${PAPER} !important;
-    box-shadow: 0 0 0 3px ${BLUE}22 !important;
+    border-color: ${BLUE_GLOW} !important;
+    background: rgba(10,2,24,0.7) !important;
+    box-shadow: 0 0 0 3px rgba(132,39,226,0.30) !important;
   }
   select {
     appearance: none;
     -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%231E40AF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23CD92FF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 14px center;
     padding-right: 34px !important;
@@ -2753,7 +2760,7 @@ const PAGE_STYLES = `
     color: ${INK_BODY};
   }
   .poka-nav-links--dark a:hover {
-    color: ${BLUE_DEEP};
+    color: ${BLUE_GLOW};
   }
   @media (max-width: 1024px) {
     .poka-nav-links { display: none !important; }
