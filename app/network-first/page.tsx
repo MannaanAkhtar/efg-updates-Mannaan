@@ -194,6 +194,22 @@ const UPCOMING_EVENTS = [
     brandLogoTop: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/outsystems.png",
   },
   {
+    date: "June 29th, 2026",
+    month: "JUN",
+    day: "29",
+    year: "2026",
+    time: "15:00 GST",
+    title: "Poka Executive Roundtable",
+    subtitle: "Turn Your Frontline into a Strategic Growth Lever",
+    sponsor: "Poka",
+    location: "Dubai, UAE",
+    link: "/poka",
+    image: "",
+    brandColor: "#170430",
+    brandGradient: "linear-gradient(135deg, #8427E2 0%, #360065 45%, #170430 80%, #0A0218 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Poka-Logo-Colour.webp",
+  },
+  {
     date: "October 19th, 2026",
     month: "OCT",
     day: "19",
@@ -2076,7 +2092,7 @@ function UpcomingSection() {
                                     src={(e as unknown as Record<string, string>).brandLogo}
                                     alt=""
                                     style={{
-                                      height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Braze x Talon.One" ? 80 : e.sponsor === "Braze" ? 50 : 72,
+                                      height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Poka" ? 140 : e.sponsor === "Braze x Talon.One" ? 80 : e.sponsor === "Braze" ? 50 : 72,
                                       width: "auto",
                                       opacity: 0.85,
                                       ...(e.sponsor === "Braze"
@@ -2119,7 +2135,7 @@ function UpcomingSection() {
                                 ) : (
                                   // eslint-disable-next-line @next/next/no-img-element
                                   <img src={(e as unknown as Record<string, string>).brandLogo} alt="" style={{
-                                    height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Braze x Talon.One" ? 80 : e.sponsor === "Braze" ? 50 : 72,
+                                    height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Poka" ? 140 : e.sponsor === "Braze x Talon.One" ? 80 : e.sponsor === "Braze" ? 50 : 72,
                                     width: "auto",
                                     opacity: 0.85,
                                     filter: "brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.35))"
