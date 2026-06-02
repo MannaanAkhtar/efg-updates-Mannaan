@@ -2107,6 +2107,321 @@ function AgendaSection() {
   );
 }
 
+// ─── Video Preview Section (Youtube unlisted) ───────────────────────────────
+function VideoPreviewSection() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  const handlePlay = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    setHasStarted(true);
+    try { v.currentTime = 0; } catch {}
+    v.play().catch(() => {});
+  };
+
+  return (
+    <section ref={ref} id="video-preview" style={{
+      background: "transparent",
+      padding: "clamp(64px, 8vh, 96px) 0",
+      position: "relative",
+    }}>
+      {/* Ambient halo */}
+      <div aria-hidden style={{
+        position: "absolute", inset: 0,
+        background: `radial-gradient(ellipse 55% 50% at 50% 40%, ${SG_ORANGE}10 0%, ${SG_TEAL}06 40%, transparent 70%)`,
+        pointerEvents: "none",
+        filter: "blur(30px)",
+      }} />
+
+      <div style={{ maxWidth: 1180, margin: "0 auto", padding: "0 clamp(20px, 4vw, 56px)", position: "relative", zIndex: 2 }}>
+
+        {/* Split layout: video left · header+copy+cta right */}
+        <div className="sg-video-split" style={{
+          display: "grid",
+          gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
+          gap: "clamp(36px, 5vw, 72px)",
+          alignItems: "center",
+          maxWidth: 880,
+          margin: "0 auto",
+        }}>
+          {/* ── LEFT: portrait video ── */}
+          <div style={{
+            position: "relative",
+            opacity: inView ? 1 : 0,
+            transform: inView ? "translateY(0)" : "translateY(24px)",
+            transition: "opacity 1.1s 0.15s cubic-bezier(0.22,1,0.36,1), transform 1.1s 0.15s cubic-bezier(0.22,1,0.36,1)",
+            width: "100%",
+            maxWidth: "clamp(250px, 26vw, 350px)",
+            justifySelf: "center",
+          }}>
+          {/* Outer pearl bezel — phone-like */}
+          <div style={{
+            position: "relative",
+            padding: 3,
+            borderRadius: 28,
+            background: `linear-gradient(135deg, ${SG_ORANGE}55 0%, rgba(255,255,255,0.10) 30%, ${SG_TEAL}33 60%, rgba(255,255,255,0.04) 100%)`,
+            boxShadow: `0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.05) inset`,
+          }}>
+            {/* Inner recessed frame */}
+            <div style={{
+              position: "relative",
+              borderRadius: 25,
+              overflow: "hidden",
+              background: "#05070A",
+              boxShadow: `0 1px 0 rgba(255,255,255,0.06) inset, 0 -1px 0 rgba(0,0,0,0.4) inset`,
+            }}>
+              <div style={{
+                position: "relative",
+                width: "100%",
+                aspectRatio: "9 / 16",
+                background: "#000",
+              }}>
+                {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                <video
+                  ref={videoRef}
+                  controls={hasStarted}
+                  preload="auto"
+                  playsInline
+                  onPlay={() => setHasStarted(true)}
+                  onLoadedMetadata={(e) => {
+                    const v = e.currentTarget;
+                    if (hasStarted) return;
+                    // Seek to a frame ~7.1s in so the preview shows real content.
+                    try { v.currentTime = 7.1; } catch {}
+                  }}
+                  onSeeked={(e) => {
+                    // Only pause after the preview-frame seek — never after user clicks play.
+                    if (!hasStarted) e.currentTarget.pause();
+                  }}
+                  src="https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/seagate_video.mp4#t=7.1"
+                  style={{
+                    position: "absolute", inset: 0,
+                    width: "100%", height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
+
+                {/* YouTube-style play overlay — visible until first play */}
+                {!hasStarted && (
+                  <button
+                    type="button"
+                    onClick={handlePlay}
+                    aria-label="Play video"
+                    className="sg-video-overlay"
+                    style={{
+                      position: "absolute", inset: 0,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      background: "linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.32) 100%)",
+                      border: 0,
+                      cursor: "pointer",
+                      padding: 0,
+                      transition: "background 0.4s ease",
+                      zIndex: 3,
+                    }}
+                  >
+                    {/* Liquid-glass play button — true crystal lens */}
+                    <span aria-hidden className="sg-video-yt-btn" style={{
+                      position: "relative",
+                      display: "inline-flex", alignItems: "center", justifyContent: "center",
+                      width: "clamp(78px, 7.5vw, 108px)",
+                      height: "clamp(78px, 7.5vw, 108px)",
+                      borderRadius: "50%",
+                      background: "transparent",
+                      backdropFilter: "blur(2px)",
+                      WebkitBackdropFilter: "blur(2px)",
+                      // Sharp glass rim — bright top arc, faint bottom, plus outer drop shadow
+                      boxShadow: `
+                        0 22px 50px rgba(0,0,0,0.45),
+                        inset 0 0 0 1.5px rgba(255,255,255,0.55),
+                        inset 0 2px 1px rgba(255,255,255,0.85),
+                        inset 0 -2px 1px rgba(255,255,255,0.18),
+                        inset 6px 0 12px rgba(255,255,255,0.10),
+                        inset -6px 0 12px rgba(255,255,255,0.06)
+                      `,
+                      transition: "transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease, backdrop-filter 0.4s ease",
+                      overflow: "hidden",
+                    }}>
+                      {/* Faint outer halo (very subtle, kept for pulse only) */}
+                      <span aria-hidden className="sg-video-pulse" style={{
+                        position: "absolute", inset: -8,
+                        borderRadius: "50%",
+                        border: "1px solid rgba(255,255,255,0.22)",
+                        pointerEvents: "none",
+                      }} />
+
+                      {/* Sharp top specular highlight — the classic liquid-glass shine */}
+                      <span aria-hidden style={{
+                        position: "absolute",
+                        top: "6%", left: "20%", right: "20%",
+                        height: "22%",
+                        borderRadius: "50%",
+                        background: "linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.20) 60%, transparent 100%)",
+                        pointerEvents: "none",
+                      }} />
+
+                      {/* Crescent under-edge refraction */}
+                      <span aria-hidden style={{
+                        position: "absolute",
+                        bottom: "8%", left: "26%", right: "26%",
+                        height: "8%",
+                        borderRadius: "50%",
+                        background: "rgba(255,255,255,0.35)",
+                        filter: "blur(1.5px)",
+                        pointerEvents: "none",
+                      }} />
+
+                      {/* Tiny specular dot — like a pearl */}
+                      <span aria-hidden style={{
+                        position: "absolute",
+                        top: "14%", left: "62%",
+                        width: 7, height: 7,
+                        borderRadius: "50%",
+                        background: "rgba(255,255,255,0.95)",
+                        filter: "blur(0.6px)",
+                        pointerEvents: "none",
+                      }} />
+
+                      <svg
+                        width="32%" height="32%" viewBox="0 0 24 24"
+                        fill="#fff"
+                        style={{
+                          position: "relative",
+                          marginLeft: 4,
+                          filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.55))",
+                        }}
+                      >
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </span>
+                  </button>
+                )}
+              </div>
+
+              {/* Top reflection arc */}
+              <div aria-hidden style={{
+                position: "absolute", top: 0, left: "8%", right: "8%", height: 1,
+                background: `linear-gradient(90deg, transparent, ${SG_GREEN_BRIGHT}40, transparent)`,
+                pointerEvents: "none",
+              }} />
+            </div>
+          </div>
+          </div>
+
+          {/* ── RIGHT: editorial copy + CTA ── */}
+          <div style={{
+            opacity: inView ? 1 : 0,
+            transform: inView ? "translateY(0)" : "translateY(16px)",
+            transition: "opacity 1s 0.1s cubic-bezier(0.22,1,0.36,1), transform 1s 0.1s cubic-bezier(0.22,1,0.36,1)",
+            position: "relative",
+          }}>
+            {/* gradient hairline above eyebrow */}
+            <div aria-hidden style={{
+              width: 56, height: 1,
+              background: `linear-gradient(90deg, ${SG_ORANGE} 0%, transparent 100%)`,
+              marginBottom: 18,
+            }} />
+            <span style={{
+              display: "block", fontSize: 10.5, fontWeight: 600, letterSpacing: "0.28em", textTransform: "uppercase",
+              color: SG_ORANGE, marginBottom: 14,
+            }}>Youtube Unlisted</span>
+            <h2 style={{
+              fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+              fontSize: "clamp(26px, 3.6vw, 44px)", fontWeight: 600,
+              letterSpacing: "-0.028em", lineHeight: 1.04,
+              color: SG_WHITE, margin: 0,
+            }}>
+              Preview.
+            </h2>
+
+            {/* YouTube channel link */}
+            <div style={{
+              display: "flex", justifyContent: "flex-start",
+              marginTop: "clamp(22px, 2.8vh, 30px)",
+            }}>
+            <a
+              href="https://www.youtube.com/@AshRoseMagic"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 10,
+                padding: "10px 18px",
+                borderRadius: 999,
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.12)",
+                color: SG_WHITE, textDecoration: "none",
+                fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                fontSize: 12.5, fontWeight: 500,
+                letterSpacing: "0.04em",
+                transition: "background 0.4s ease, border-color 0.4s ease, transform 0.4s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(255,255,255,0.08)";
+                e.currentTarget.style.borderColor = `${SG_ORANGE}66`;
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(255,255,255,0.04)";
+                e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path d="M21.58 7.19a2.51 2.51 0 0 0-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42A2.51 2.51 0 0 0 2.42 7.19 26.2 26.2 0 0 0 2 12a26.2 26.2 0 0 0 .42 4.81 2.51 2.51 0 0 0 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42a2.51 2.51 0 0 0 1.77-1.77A26.2 26.2 0 0 0 22 12a26.2 26.2 0 0 0-.42-4.81Z" fill="#FF0000"/>
+                <path d="M10 15.02 15.5 12 10 8.98v6.04Z" fill="#fff"/>
+              </svg>
+              <span style={{ color: "rgba(255,255,255,0.85)" }}>Watch on YouTube</span>
+              <span aria-hidden style={{ color: "rgba(255,255,255,0.4)" }}>·</span>
+              <span style={{ color: SG_ORANGE, fontWeight: 600 }}>@AshRoseMagic</span>
+            </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        @keyframes sgYtPulse {
+          0%   { transform: scale(1);    opacity: 0.55; }
+          70%  { transform: scale(1.45); opacity: 0;    }
+          100% { transform: scale(1.45); opacity: 0;    }
+        }
+        .sg-video-pulse {
+          animation: sgYtPulse 2.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+        }
+        .sg-video-overlay:hover .sg-video-yt-btn {
+          transform: scale(1.07);
+          backdrop-filter: blur(3px) !important;
+          -webkit-backdrop-filter: blur(3px) !important;
+          box-shadow:
+            0 26px 60px rgba(0,0,0,0.55),
+            inset 0 0 0 1.5px rgba(255,255,255,0.75),
+            inset 0 2px 1px rgba(255,255,255,1),
+            inset 0 -2px 1px rgba(255,255,255,0.28),
+            inset 8px 0 14px rgba(255,255,255,0.14),
+            inset -8px 0 14px rgba(255,255,255,0.08) !important;
+        }
+        .sg-video-overlay:hover {
+          background: linear-gradient(180deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.22) 100%) !important;
+        }
+        @media (max-width: 860px) {
+          .sg-video-split {
+            grid-template-columns: 1fr !important;
+            gap: clamp(24px, 4vw, 36px) !important;
+            text-align: center;
+          }
+          .sg-video-split > div:last-child {
+            justify-items: center;
+            text-align: center;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
+
 // ─── About Seagate Section ──────────────────────────────────────────────────
 function AboutSection() {
   const ref = useRef<HTMLElement>(null);
@@ -3354,6 +3669,7 @@ export default function SeagatePage() {
         <TakeawaysSection />
         <SpeakersSection />
         <AgendaSection />
+        <VideoPreviewSection />
         <AboutSection />
         <VenueSection />
         <RegisterSection />
