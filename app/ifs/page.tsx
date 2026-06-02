@@ -47,7 +47,7 @@ const NAV_LINKS = [
 const SPEAKERS = [
   {
     name: "Mohammed Sa'Adeh",
-    role: "Senior Sales Director, IFS",
+    role: "Country Leader, Saudi Arabia",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed_Saadeh.png" as string | null,
     initials: "MS",
     linkedin: "https://www.linkedin.com/in/mohammed-sa-adeh-76393a14/",
