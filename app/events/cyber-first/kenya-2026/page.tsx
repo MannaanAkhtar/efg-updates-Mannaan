@@ -270,6 +270,7 @@ const SUPPORTING_PARTNERS = [
 const CFK_SPONSORS_2026: { name: string; logo: string; url: string; tier: "strategic" | "panel" | "media" }[] = [
   { name: "ManageEngine", logo: `${S3}/logos/ManageEngine.png`, url: "https://www.manageengine.com/", tier: "strategic" },
   { name: "GTB", logo: `${S3}/logos/GTB_long_logo.png`, url: "https://gttb.com/", tier: "strategic" },
+  { name: "Kaspersky", logo: `${S3}/sponsors-logo/kaspersky-logotype-green.png`, url: "https://www.kaspersky.com/", tier: "strategic" },
   { name: "INUA AI", logo: `${S3}/logos/INUA+AI+LOGO+3+white.png`, url: "https://inuaai.com/", tier: "panel" },
   { name: "QuantumSynapse", logo: `${S3}/logos/QuantumSynapse-1.png`, url: "https://quantumsynapse.ai/", tier: "panel" },
   { name: "Cryptoken Media", logo: `${S3}/sponsors-logo/cryptoken_media.png`, url: "https://cryptoken.media/", tier: "media" },
