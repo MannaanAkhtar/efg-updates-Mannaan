@@ -3707,6 +3707,7 @@ const EVENT_SPONSORS_2026: {
   tier: "strategic" | "platinum" | "gold" | "supporting" | "media";
   scale?: number;        // multiplier on the tier's default logo height
   keepColor?: boolean;   // skip the brightness(0) invert(1) white treatment
+  lightBg?: boolean;     // render a white inner panel (for logos with dark text)
 }[] = [
   {
     name: "Waterfall Security Solutions",
@@ -3714,6 +3715,29 @@ const EVENT_SPONSORS_2026: {
     url: "https://waterfall-security.com/",
     tier: "strategic",
     keepColor: true,
+  },
+  {
+    name: "Corrserve",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/corrserve.png",
+    url: "https://corrserve.co.za/",
+    tier: "gold",
+    keepColor: true,
+    lightBg: true,
+  },
+  {
+    name: "Forescout",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/forescout.png",
+    url: "https://www.forescout.com/",
+    tier: "gold",
+    keepColor: true,
+  },
+  {
+    name: "Keysight",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/keysight.png",
+    url: "https://www.keysight.com/us/en/home.html",
+    tier: "gold",
+    keepColor: true,
+    lightBg: true,
   },
   {
     name: "Times of AI",
@@ -3756,7 +3780,7 @@ function EventSponsorsSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const tiers: (keyof typeof TIER_LABEL)[] = ["strategic", "platinum", "gold", "supporting", "media"];
+  const tiers: (keyof typeof TIER_LABEL)[] = ["gold", "strategic", "platinum", "supporting", "media"];
   const activeTiers = tiers.filter((t) => EVENT_SPONSORS_2026.some((s) => s.tier === t));
 
   if (activeTiers.length === 0) return null;
@@ -3796,8 +3820,9 @@ function EventSponsorsSection() {
             const isStrategic = tier === "strategic";
             // Strategic tier renders one prominent centered card; lower tiers
             // render as multi-column grids so they read as "rows of sponsors".
+            const isGold = tier === "gold";
             const cols = isStrategic ? 1 : Math.min(sponsorsInTier.length, 4);
-            const cardMaxWidth = isStrategic ? 360 : 240;
+            const cardMaxWidth = isStrategic ? 360 : isGold ? 320 : 240;
 
             return (
               <motion.div
@@ -3808,13 +3833,18 @@ function EventSponsorsSection() {
                 style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}
               >
                 {/* Tier label */}
-                <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                  <span style={{ width: 28, height: 1, background: `linear-gradient(90deg, transparent, ${isStrategic ? C_BRIGHT : CYAN})` }} />
-                  <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: isStrategic ? C_BRIGHT : CYAN, textTransform: "uppercase", letterSpacing: "4px" }}>
-                    {TIER_LABEL[tier]}
-                  </span>
-                  <span style={{ width: 28, height: 1, background: `linear-gradient(270deg, transparent, ${isStrategic ? C_BRIGHT : CYAN})` }} />
-                </div>
+                {(() => {
+                  const tierAccent = isStrategic ? C_BRIGHT : isGold ? "#E8B845" : CYAN;
+                  return (
+                    <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                      <span style={{ width: 28, height: 1, background: `linear-gradient(90deg, transparent, ${tierAccent})` }} />
+                      <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: tierAccent, textTransform: "uppercase", letterSpacing: "4px" }}>
+                        {TIER_LABEL[tier]}
+                      </span>
+                      <span style={{ width: 28, height: 1, background: `linear-gradient(270deg, transparent, ${tierAccent})` }} />
+                    </div>
+                  );
+                })()}
 
                 {/* Sponsor cards */}
                 <div
@@ -3828,10 +3858,28 @@ function EventSponsorsSection() {
                   className="otsf-event-sponsors-grid"
                 >
                   {sponsorsInTier.map((sponsor, i) => {
-                    const accent = isStrategic ? C_BRIGHT : (i % 2 === 0 ? CYAN : C_BRIGHT);
-                    const accentRgb = isStrategic ? "232,107,184" : (i % 2 === 0 ? "0,201,255" : "232,107,184");
-                    const padding = isStrategic ? "clamp(22px, 2.4vw, 32px) clamp(24px, 2.6vw, 36px)" : "clamp(20px, 2.4vw, 28px) clamp(18px, 2vw, 24px)";
-                    const logoHeight = isStrategic ? "clamp(64px, 7vw, 96px)" : "clamp(40px, 4.5vw, 60px)";
+                    const GOLD = "#E8B845";
+                    const GOLD_RGB = "232,184,69";
+                    const accent = isStrategic
+                      ? C_BRIGHT
+                      : isGold
+                        ? GOLD
+                        : (i % 2 === 0 ? CYAN : C_BRIGHT);
+                    const accentRgb = isStrategic
+                      ? "232,107,184"
+                      : isGold
+                        ? GOLD_RGB
+                        : (i % 2 === 0 ? "0,201,255" : "232,107,184");
+                    const padding = isStrategic
+                      ? "clamp(22px, 2.4vw, 32px) clamp(24px, 2.6vw, 36px)"
+                      : isGold
+                        ? "clamp(28px, 3.2vw, 40px) clamp(24px, 2.6vw, 36px)"
+                        : "clamp(20px, 2.4vw, 28px) clamp(18px, 2vw, 24px)";
+                    const logoHeight = isStrategic
+                      ? "clamp(64px, 7vw, 96px)"
+                      : isGold
+                        ? "clamp(56px, 6vw, 84px)"
+                        : "clamp(40px, 4.5vw, 60px)";
 
                     const inner = (
                       <div className="otsf-event-sponsor-wrap" style={{ position: "relative" }}>
@@ -3957,15 +4005,19 @@ function EventSponsorsSection() {
                               style={{
                                 position: "relative",
                                 borderRadius: 18,
-                                background: `linear-gradient(165deg, rgba(18,22,52,0.96) 0%, rgba(12,14,34,0.98) 50%, rgba(8,10,26,1) 100%)`,
+                                background: sponsor.lightBg
+                                  ? `linear-gradient(165deg, #f8f0d8 0%, #efe3b9 35%, #e2d199 70%, #d4be7c 100%)`
+                                  : `linear-gradient(165deg, rgba(18,22,52,0.96) 0%, rgba(12,14,34,0.98) 50%, rgba(8,10,26,1) 100%)`,
                                 padding,
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                                minHeight: isStrategic ? 130 : 110,
+                                minHeight: isStrategic ? 130 : isGold ? 150 : 110,
                                 overflow: "hidden",
                                 // Embossed inset — panel reads as a plate pressed into the bezel
-                                boxShadow: `inset 0 2px 4px rgba(0,0,0,0.5), inset 0 -2px 2px rgba(255,255,255,0.04), inset 0 0 30px rgba(0,0,0,0.35)`,
+                                boxShadow: sponsor.lightBg
+                                  ? `inset 0 2px 4px rgba(110,70,20,0.18), inset 0 -2px 2px rgba(255,238,180,0.55), inset 0 0 30px rgba(150,100,30,0.10)`
+                                  : `inset 0 2px 4px rgba(0,0,0,0.5), inset 0 -2px 2px rgba(255,255,255,0.04), inset 0 0 30px rgba(0,0,0,0.35)`,
                               }}
                             >
                               {/* Hover shine sweep — diagonal bright bar that crosses on hover */}
@@ -3978,7 +4030,9 @@ function EventSponsorsSection() {
                                   left: "-80%",
                                   width: "55%",
                                   height: "100%",
-                                  background: `linear-gradient(100deg, transparent, rgba(255,255,255,0.08) 50%, transparent)`,
+                                  background: sponsor.lightBg
+                                    ? `linear-gradient(100deg, transparent, rgba(255,255,255,0.65) 50%, transparent)`
+                                    : `linear-gradient(100deg, transparent, rgba(255,255,255,0.08) 50%, transparent)`,
                                   transform: "skewX(-22deg)",
                                   pointerEvents: "none",
                                   transition: "left 1.2s cubic-bezier(0.22, 1, 0.36, 1)",
@@ -3989,8 +4043,34 @@ function EventSponsorsSection() {
                               {/* Top reflection line — bright brand-tinted hairline */}
                               <div aria-hidden style={{ position: "absolute", top: 0, left: "8%", right: "8%", height: 1, background: `linear-gradient(90deg, transparent 8%, ${accent}dd 50%, transparent 92%)`, boxShadow: `0 0 14px ${accent}66`, pointerEvents: "none", zIndex: 5 }} />
 
-                              {/* Top inner-edge specular hairline (white catch under the brand line) */}
-                              <div aria-hidden style={{ position: "absolute", top: 2, left: "14%", right: "14%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.32) 50%, transparent)", pointerEvents: "none", zIndex: 5 }} />
+                              {/* Top inner-edge specular hairline */}
+                              <div aria-hidden style={{ position: "absolute", top: 2, left: "14%", right: "14%", height: 1, background: sponsor.lightBg ? "linear-gradient(90deg, transparent, rgba(255,255,255,0.95) 50%, transparent)" : "linear-gradient(90deg, transparent, rgba(255,255,255,0.32) 50%, transparent)", pointerEvents: "none", zIndex: 5 }} />
+
+                              {/* Light-bg only — soft champagne pearl highlight at top */}
+                              {sponsor.lightBg && (
+                                <div aria-hidden style={{
+                                  position: "absolute",
+                                  top: 0, left: "12%", right: "12%",
+                                  height: "40%",
+                                  borderRadius: "50%",
+                                  background: "linear-gradient(180deg, rgba(255,248,220,0.95) 0%, rgba(255,238,180,0.20) 60%, transparent 100%)",
+                                  filter: "blur(8px)",
+                                  pointerEvents: "none",
+                                  zIndex: 1,
+                                }} />
+                              )}
+
+                              {/* Light-bg only — warm bronze bottom edge shadow for depth */}
+                              {sponsor.lightBg && (
+                                <div aria-hidden style={{
+                                  position: "absolute",
+                                  bottom: 0, left: "8%", right: "8%",
+                                  height: 1,
+                                  background: "linear-gradient(90deg, transparent, rgba(110,70,20,0.32) 50%, transparent)",
+                                  pointerEvents: "none",
+                                  zIndex: 5,
+                                }} />
+                              )}
 
                               {/* Corner brackets — cinematic L-shapes (strategic tier only) */}
                               {isStrategic && (
@@ -4027,9 +4107,11 @@ function EventSponsorsSection() {
                                 style={{
                                   position: "absolute",
                                   inset: 0,
-                                  opacity: 0.08,
+                                  opacity: sponsor.lightBg ? 0.14 : 0.08,
                                   mixBlendMode: "overlay",
-                                  backgroundImage: "repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 3px)",
+                                  backgroundImage: sponsor.lightBg
+                                    ? "repeating-linear-gradient(90deg, rgba(0,0,0,0.06) 0px, rgba(0,0,0,0.06) 1px, transparent 1px, transparent 3px)"
+                                    : "repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 3px)",
                                   pointerEvents: "none",
                                   zIndex: 0,
                                 }}
@@ -4041,8 +4123,8 @@ function EventSponsorsSection() {
                                 style={{
                                   position: "absolute",
                                   inset: 0,
-                                  opacity: 0.05,
-                                  mixBlendMode: "overlay",
+                                  opacity: sponsor.lightBg ? 0.08 : 0.05,
+                                  mixBlendMode: sponsor.lightBg ? "multiply" : "overlay",
                                   backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
                                   backgroundSize: "180px 180px",
                                   pointerEvents: "none",
