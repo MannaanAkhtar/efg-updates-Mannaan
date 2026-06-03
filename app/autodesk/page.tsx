@@ -434,10 +434,10 @@ function Hero() {
             className="ad-hero-headline"
             style={{
               fontFamily: DISPLAY, fontWeight: 800,
-              fontSize: "clamp(40px, 5.6vw, 80px)",
-              lineHeight: 0.96, letterSpacing: "-0.035em",
+              fontSize: "clamp(40px, 4.8vw, 68px)",
+              lineHeight: 1.0, letterSpacing: "-0.035em",
               margin: 0, color: WHITE,
-              maxWidth: 880,
+              maxWidth: 720,
             }}
           >
             Building with{" "}
@@ -448,22 +448,44 @@ function Hero() {
               boxDecorationBreak: "clone",
               WebkitBoxDecorationBreak: "clone" as never,
             }}>Confidence</span>
-            <br />
-            Data-Led Resilience<br />and Delivery Certainty
           </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            className="ad-hero-tagline"
+            style={{
+              marginTop: 28,
+              display: "flex", alignItems: "center", gap: 16,
+              maxWidth: 720,
+            }}
+          >
+            <span aria-hidden style={{
+              width: 36, height: 2, background: YELLOW, flexShrink: 0,
+            }} />
+            <span style={{
+              fontFamily: DISPLAY, fontWeight: 600,
+              fontSize: "clamp(17px, 1.55vw, 24px)",
+              color: "rgba(255,255,255,0.82)",
+              letterSpacing: "-0.012em", lineHeight: 1.25,
+            }}>
+              Data-Led Resilience and Delivery Certainty
+            </span>
+          </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.7, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
             className="ad-hero-sub"
             style={{
               fontFamily: BODY,
-              fontSize: "clamp(15px, 1.25vw, 18px)",
+              fontSize: "clamp(15px, 1.15vw, 17px)",
               fontWeight: 400, lineHeight: 1.55,
-              color: "rgba(255,255,255,0.78)",
-              margin: "32px 0 0",
-              maxWidth: 620,
+              color: "rgba(255,255,255,0.66)",
+              margin: "28px 0 0",
+              maxWidth: 560,
             }}
           >
             How connected data can help leaders improve confidence, protect margins,
@@ -1854,84 +1876,7 @@ function AboutSection() {
           and construction delivery, into asset operations and long-term performance.
         </motion.p>
 
-        {/* ── Contact strip — cinematic footer ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="ad-about-contact"
-          style={{
-            marginTop: "clamp(56px, 7vh, 88px)",
-            display: "grid",
-            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-            gap: 0,
-            borderTop: `1px solid ${HAIRLINE_DARK}`,
-            borderBottom: `1px solid ${HAIRLINE_DARK}`,
-          }}
-        >
-          {[
-            { label: "Website", value: "www.autodesk.com/ae", href: "https://www.autodesk.com/ae" },
-            { label: "Enquiries", value: "adele.coelho@autodesk.com", href: "mailto:adele.coelho@autodesk.com" },
-            { label: "Phone", value: "+971 55 4123499", href: "tel:+971554123499" },
-          ].map((c, i) => (
-            <a
-              key={c.label}
-              href={c.href}
-              target={c.href.startsWith("http") ? "_blank" : undefined}
-              rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="ad-about-contact-cell"
-              style={{
-                position: "relative",
-                display: "block",
-                padding: "28px 32px",
-                textDecoration: "none",
-                borderLeft: i === 0 ? "0" : `1px solid ${HAIRLINE_DARK}`,
-                transition: "background 0.3s ease",
-              }}
-            >
-              <div style={{
-                fontFamily: BODY, fontSize: 9.5, fontWeight: 700,
-                letterSpacing: "0.32em", textTransform: "uppercase",
-                color: SLATE, marginBottom: 10,
-              }}>{c.label}</div>
-              <div style={{
-                fontFamily: DISPLAY, fontWeight: 700,
-                fontSize: "clamp(14px, 1.1vw, 17px)",
-                color: BLACK, letterSpacing: "-0.008em",
-              }}>{c.value}</div>
-              {/* hover yellow rail */}
-              <span aria-hidden className="ad-about-contact-rail" style={{
-                position: "absolute",
-                left: 0, top: 0, bottom: 0,
-                width: 3, background: YELLOW,
-                transform: "scaleY(0)", transformOrigin: "top",
-                transition: "transform 0.4s cubic-bezier(0.22,1,0.36,1)",
-              }} />
-            </a>
-          ))}
-        </motion.div>
       </div>
-
-      <style jsx>{`
-        :global(.ad-about-contact-cell:hover) {
-          background: rgba(255,255,0,0.06);
-        }
-        :global(.ad-about-contact-cell:hover .ad-about-contact-rail) {
-          transform: scaleY(1) !important;
-        }
-        @media (max-width: 880px) {
-          :global(.ad-about-contact) {
-            grid-template-columns: 1fr !important;
-          }
-          :global(.ad-about-contact-cell) {
-            border-left: 0 !important;
-            border-top: 1px solid ${HAIRLINE_DARK} !important;
-          }
-          :global(.ad-about-contact-cell:first-child) {
-            border-top: 0 !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }
@@ -2514,13 +2459,6 @@ function Footer() {
       }}>
         <div className="ad-footer-marks" style={{ display: "flex", alignItems: "center", gap: 32, flexWrap: "wrap" }}>
           <AutodeskMark tone="white" height={32} />
-          <span aria-hidden style={{ width: 1, height: 32, background: HAIRLINE }} />
-          <div style={{
-            fontFamily: BODY, fontSize: 12, fontWeight: 400,
-            color: "rgba(255,255,255,0.55)", letterSpacing: "0.02em",
-          }}>
-            © 2026 Autodesk Inc. All rights reserved.
-          </div>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
