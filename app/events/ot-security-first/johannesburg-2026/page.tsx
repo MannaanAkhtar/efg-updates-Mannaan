@@ -3718,11 +3718,10 @@ const EVENT_SPONSORS_2026: {
   },
   {
     name: "Corrserve",
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/corrserve.png",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/corrserve1.png",
     url: "https://corrserve.co.za/",
     tier: "gold",
     keepColor: true,
-    lightBg: true,
   },
   {
     name: "Forescout",
