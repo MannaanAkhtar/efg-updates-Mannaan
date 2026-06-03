@@ -273,6 +273,27 @@ function MagneticButton({
 // Speakers from brochure
 const SPEAKERS = [
   {
+    name: "Len De Villiers",
+    title: "Group CTIO",
+    org: "Eskom Holdings",
+    linkedin: "https://www.linkedin.com/in/len-de-villiers-33592025/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Len+De+Villiers.png",
+  },
+  {
+    name: "Cathy Leso",
+    title: "CIO",
+    org: "Department of Mineral Resources",
+    linkedin: "https://www.linkedin.com/in/cathy-leso-b0507a55/",
+    photo: "",
+  },
+  {
+    name: "Rishi Hariram",
+    title: "CISO / Regional Head — Information Security (EMEA/APAC)",
+    org: "Anglo American",
+    linkedin: "https://www.linkedin.com/in/rishi-hariram-4307b329/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Rishi+Hariram.png",
+  },
+  {
     name: "Akash Makhan",
     title: "OT/IT Convergence (Digital Transformation)",
     org: "Eskom Holdings SOC Ltd",
@@ -280,18 +301,18 @@ const SPEAKERS = [
     photo: `${S3}/boardroom/Akash_Makhan.png`,
   },
   {
+    name: "Shane Naidoo",
+    title: "Executive Head of IT",
+    org: "Transnet",
+    linkedin: "",
+    photo: "",
+  },
+  {
     name: "Zanele Fikizolo",
     title: "Senior Advisor – IT Governance, Risk and Compliance",
     org: "Eskom Holdings SOC Ltd",
     linkedin: "https://www.linkedin.com/in/zanele-fikizolo-7b10413a/",
     photo: `${S3}/boardroom/Zanele_Fikizolo.png`,
-  },
-  {
-    name: "Muvhango Livhusha",
-    title: "Vice President",
-    org: "ISACA South Africa Chapter",
-    linkedin: "https://www.linkedin.com/in/muvhango-sipho-steven-livhusha-phd-candidate-mba-cisa-8566a61aa/",
-    photo: `${S3}/boardroom/Muvhango_Livhusha.png`,
   },
   {
     name: "Tendani Silima",
@@ -304,7 +325,36 @@ const SPEAKERS = [
     name: "Xolani Nzimande",
     title: "OT Cybersecurity Specialist",
     org: "Sasol",
+    linkedin: "https://www.linkedin.com/in/xolani-nzimande-3314bb1a/",
     photo: `${S3}/boardroom/Xolani_Nzimande.png`,
+  },
+  {
+    name: "Muvhango Livhusha",
+    title: "Vice President",
+    org: "ISACA South Africa Chapter",
+    linkedin: "https://www.linkedin.com/in/muvhango-sipho-steven-livhusha-phd-candidate-mba-cisa-8566a61aa/",
+    photo: `${S3}/boardroom/Muvhango_Livhusha.png`,
+  },
+  {
+    name: "Nthabiseng Mosupye",
+    title: "CTIO",
+    org: "Rand Water",
+    linkedin: "https://www.linkedin.com/in/nthabiseng-mosupye-86020829/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Nthabiseng+Mosupye.png",
+  },
+  {
+    name: "Prinesh Vythilingam",
+    title: "Group Head of Cyber Security",
+    org: "African Rainbow Minerals Limited",
+    linkedin: "https://www.linkedin.com/in/prineshkv/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Prinesh+Vythilingam.png",
+  },
+  {
+    name: "Andrew Chester",
+    title: "CISO",
+    org: "Valterra Platinum",
+    linkedin: "https://www.linkedin.com/in/za-andrewchester/",
+    photo: "",
   },
 ];
 
