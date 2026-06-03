@@ -210,6 +210,22 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Poka-Logo-Colour.webp",
   },
   {
+    date: "June 30th, 2026",
+    month: "JUN",
+    day: "30",
+    year: "2026",
+    time: "10:30 – 13:30 GST",
+    title: "Autodesk Executive Roundtable",
+    subtitle: "Building with Confidence: Data-Led Resilience and Delivery Certainty",
+    sponsor: "Autodesk",
+    location: "Marriott Palm Jumeirah, Dubai",
+    link: "/autodesk",
+    image: "",
+    brandColor: "#0A0A0A",
+    brandGradient: "linear-gradient(135deg, #8B7A00 0%, #3D3500 28%, #1A1700 52%, #0A0A05 78%, #000000 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/autodesk-logo-primary-rgb-white.svg",
+  },
+  {
     date: "October 19th, 2026",
     month: "OCT",
     day: "19",
@@ -3336,13 +3352,14 @@ function FinalCTA() {
                         {/* Full Name */}
                         <div>
                           <label style={labelStyle}>Full Name</label>
-                          <input type="text" value={formData.name || ""} onChange={(e) => handleChange("name", e.target.value)} placeholder="Your full name" required style={inputStyle} onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.4)"; }} onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.15)"; }} />
+                          <input suppressHydrationWarning type="text" value={formData.name || ""} onChange={(e) => handleChange("name", e.target.value)} placeholder="Your full name" required style={inputStyle} onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.4)"; }} onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.15)"; }} />
                         </div>
 
                         {/* Work Email */}
                         <div>
                           <label style={labelStyle}>Work Email</label>
                           <input
+                            suppressHydrationWarning
                             type="email"
                             value={formData.email || ""}
                             onChange={(e) => { handleChange("email", e.target.value); setEmailError(null); }}
@@ -3364,6 +3381,7 @@ function FinalCTA() {
                           <label style={labelStyle}>Phone Number</label>
                           <div style={{ display: "flex", gap: 8 }}>
                             <select
+                              suppressHydrationWarning
                               value={`${selectedCountry.code}|${selectedCountry.country}`}
                               onChange={(e) => {
                                 const [code, country] = e.target.value.split("|");
@@ -3379,6 +3397,7 @@ function FinalCTA() {
                               ))}
                             </select>
                             <input
+                              suppressHydrationWarning
                               type="tel"
                               value={formData.phone || ""}
                               onChange={(e) => { handleChange("phone", e.target.value); setPhoneError(null); }}
@@ -3399,19 +3418,20 @@ function FinalCTA() {
                         {/* Company */}
                         <div>
                           <label style={labelStyle}>Company</label>
-                          <input type="text" value={formData.company || ""} onChange={(e) => handleChange("company", e.target.value)} placeholder="Company name" required style={inputStyle} onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.4)"; }} onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.15)"; }} />
+                          <input suppressHydrationWarning type="text" value={formData.company || ""} onChange={(e) => handleChange("company", e.target.value)} placeholder="Company name" required style={inputStyle} onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.4)"; }} onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.15)"; }} />
                         </div>
 
                         {/* Job Title */}
                         <div>
                           <label style={labelStyle}>Job Title</label>
-                          <input type="text" value={formData.title || ""} onChange={(e) => handleChange("title", e.target.value)} placeholder="Your role" required style={inputStyle} onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.4)"; }} onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.15)"; }} />
+                          <input suppressHydrationWarning type="text" value={formData.title || ""} onChange={(e) => handleChange("title", e.target.value)} placeholder="Your role" required style={inputStyle} onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.4)"; }} onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(201,147,90,0.15)"; }} />
                         </div>
 
                         {/* Type of Boardroom */}
                         <div>
                           <label style={labelStyle}>Type of Boardroom</label>
                           <select
+                            suppressHydrationWarning
                             value={formData.boardroom_type || ""}
                             onChange={(e) => handleChange("boardroom_type", e.target.value)}
                             required
@@ -3427,6 +3447,7 @@ function FinalCTA() {
                         <div>
                           <label style={labelStyle}>Country</label>
                           <select
+                            suppressHydrationWarning
                             value={formData.country || ""}
                             onChange={(e) => handleChange("country", e.target.value)}
                             required
@@ -3445,6 +3466,7 @@ function FinalCTA() {
                         <div style={{ gridColumn: "1 / -1" }}>
                           <label style={labelStyle}>Message (Optional)</label>
                           <textarea
+                            suppressHydrationWarning
                             value={formData.message || ""}
                             onChange={(e) => handleChange("message", e.target.value)}
                             placeholder="Tell us about your objectives..."
@@ -3457,7 +3479,7 @@ function FinalCTA() {
                       </div>
 
                       {/* Honeypot */}
-                      <input type="text" name="website" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
+                      <input suppressHydrationWarning type="text" name="website" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
 
                       {formError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 13, margin: "12px 0 0" }}>{formError}</p>}
 

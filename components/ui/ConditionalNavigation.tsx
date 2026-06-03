@@ -29,6 +29,7 @@ export default function ConditionalNavigation() {
     pathname?.startsWith("/ifs") ||
     pathname?.startsWith("/blueyonder") ||
     pathname?.startsWith("/poka") ||
+    pathname?.startsWith("/autodesk") ||
     isSubdomain
   ) {
     return null;
