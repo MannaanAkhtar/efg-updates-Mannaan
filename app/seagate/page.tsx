@@ -70,16 +70,13 @@ type AgendaRow = {
 
 const AGENDA: AgendaRow[] = [
   { start: "10:00", end: "10:30", duration: "30 min", segment: "Guest Arrival, Registration & Welcome Coffee", owner: "Event Operations Team", type: "neutral" },
-  { start: "10:30", end: "10:35", duration: "5 min",  segment: "Welcome Remarks & Opening Notes", owner: "Event Host", type: "neutral" },
-  { start: "10:35", end: "11:00", duration: "25 min", segment: "Opening Executive Keynote", subtitle: "The Future of Enterprise Infrastructure in the AI Era", owner: "Featured Industry Speaker", type: "feature" },
-  { start: "11:00", end: "11:30", duration: "30 min", segment: "Seagate Executive Leadership Session", subtitle: "Tomorrow’s Data Infrastructure Delivered Today", owner: "Seagate Leadership Team", type: "feature" },
-  { start: "11:30", end: "12:00", duration: "30 min", segment: "Executive Experience Showcase & Immersive Illusion Performance", owner: "Special Segment", type: "feature" },
-  { start: "12:00", end: "12:15", duration: "15 min", segment: "Networking Coffee Break", owner: "All Delegates", type: "break" },
-  { start: "12:15", end: "12:45", duration: "30 min", segment: "Deployment Experience Discussion", subtitle: "Scaling Enterprise Storage & Infrastructure for AI-Driven Growth", owner: "Seagate Infrastructure Experts", type: "feature" },
-  { start: "12:45", end: "13:15", duration: "30 min", segment: "Executive Leadership Discussion", subtitle: "Building AI-Ready Infrastructure Without Exploding Cost, Complexity, and Energy Consumption", description: "A leadership conversation on scaling enterprise infrastructure for the next era of AI, cloud, and data growth.", owner: "Moderator + Industry Leaders", type: "feature" },
-  { start: "13:15", end: "13:30", duration: "15 min", segment: "Executive Q&A & Audience Discussion", owner: "Moderator + Panelists", type: "neutral" },
-  { start: "13:30", end: "13:35", duration: "5 min",  segment: "Closing Remarks & Vote of Thanks", owner: "Event Host / Moderator", type: "neutral" },
-  { start: "13:35", end: "—",     duration: "—",      segment: "Executive Networking Lunch", owner: "All Delegates", type: "break" },
+  { start: "10:30", end: "10:40", duration: "10 min", segment: "Welcome Remarks & Opening Notes", owner: "Event Host", type: "neutral" },
+  { start: "10:40", end: "11:00", duration: "20 min", segment: "Executive Keynote Address", owner: "To be confirmed", type: "feature" },
+  { start: "11:00", end: "11:30", duration: "30 min", segment: "Executive Leadership Session", owner: "Arnab Majumder", type: "feature" },
+  { start: "11:30", end: "12:00", duration: "30 min", segment: "Executive Engagement Session", subtitle: "Interactive executive networking and engagement experience", owner: "Ashley Rose — Mentalist", type: "feature" },
+  { start: "12:00", end: "12:20", duration: "20 min", segment: "Future Discussed Today", description: "Customer deployment experiences · Real-world use cases · Why Mosaic · Technology roadmap · Future storage innovations", owner: "Mohit Pandey", type: "feature" },
+  { start: "12:20", end: "13:15", duration: "55 min", segment: "Executive Networking Lunch", owner: "All Delegates", type: "break" },
+  { start: "13:15", end: "13:20", duration: "5 min",  segment: "Closing Remarks", owner: "Mohit Pandey · Moderator · Khazna Representative", type: "neutral" },
 ];
 
 type Speaker = {
@@ -821,7 +818,7 @@ function HeroSection() {
               10:30 – 13:35 GST
             </span>
             <span style={{ color: "rgba(255,255,255,0.18)" }}>/</span>
-            <span>Vida Hotel, Skyline Ballroom, Dubai Mall, UAE</span>
+            <span>Vida Dubai Mall, Skyline Ballroom, Downtown Dubai</span>
             <span style={{ color: "rgba(255,255,255,0.18)" }}>/</span>
             <span style={{ color: "rgba(255,255,255,0.55)" }}>In-Person · Invite-Only</span>
           </div>
@@ -2753,7 +2750,7 @@ function VenueSection() {
           own layer instead of repainting on scroll. */}
       <Image
         src="https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Vida_Hotel.png"
-        alt="Vida Hotel — Skyline Ballroom, Dubai Mall"
+        alt="Vida Dubai Mall — Skyline Ballroom, Downtown Dubai"
         fill
         loading="lazy"
         sizes="100vw"
@@ -2874,7 +2871,7 @@ function VenueSection() {
               transition: "opacity 0.95s 0.32s cubic-bezier(0.22,1,0.36,1), transform 0.95s 0.32s cubic-bezier(0.22,1,0.36,1)",
             }}
           >
-            Vida Hotel
+            Vida Dubai Mall
           </h2>
 
           {/* Subline — italic Georgia editorial */}
@@ -2894,7 +2891,7 @@ function VenueSection() {
               transition: "opacity 0.95s 0.44s cubic-bezier(0.22,1,0.36,1), transform 0.95s 0.44s cubic-bezier(0.22,1,0.36,1)",
             }}
           >
-            Skyline Ballroom · Dubai Mall
+            Skyline Ballroom · Downtown Dubai
           </p>
 
           {/* Map link */}
