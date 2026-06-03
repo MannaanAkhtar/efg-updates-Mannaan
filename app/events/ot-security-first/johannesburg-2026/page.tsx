@@ -280,6 +280,13 @@ const SPEAKERS = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Len+De+Villiers.png",
   },
   {
+    name: "Nthabiseng Mosupye",
+    title: "CTIO",
+    org: "Rand Water",
+    linkedin: "https://www.linkedin.com/in/nthabiseng-mosupye-86020829/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Nthabiseng+Mosupye.png",
+  },
+  {
     name: "Cathy Leso",
     title: "CIO",
     org: "Department of Mineral Resources",
@@ -334,13 +341,6 @@ const SPEAKERS = [
     org: "ISACA South Africa Chapter",
     linkedin: "https://www.linkedin.com/in/muvhango-sipho-steven-livhusha-phd-candidate-mba-cisa-8566a61aa/",
     photo: `${S3}/boardroom/Muvhango_Livhusha.png`,
-  },
-  {
-    name: "Nthabiseng Mosupye",
-    title: "CTIO",
-    org: "Rand Water",
-    linkedin: "https://www.linkedin.com/in/nthabiseng-mosupye-86020829/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Nthabiseng+Mosupye.png",
   },
   {
     name: "Prinesh Vythilingam",
