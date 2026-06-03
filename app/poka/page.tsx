@@ -272,7 +272,12 @@ function TopBar() {
             textDecoration: "none",
           }}
         >
-          <PokaLogo height={72} tone="white" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg"
+            alt="IFS"
+            style={{ height: 56, width: "auto", display: "block" }}
+          />
         </a>
 
         <nav
