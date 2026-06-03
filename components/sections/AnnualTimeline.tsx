@@ -25,20 +25,6 @@ export type EventItem = {
 
 export const allEvents: EventItem[] = [
   {
-    id: "networkfirst-jedox-fpa",
-    series: "NetworkFirst",
-    seriesColor: "#C9935A",
-    edition: "",
-    title: "Unlock the Power of Modern FP&A",
-    date: new Date("2026-06-09"),
-    dateDisplay: "June 9, 2026",
-    location: "Dubai",
-    venue: "The Ritz Carlton JBR",
-    attendees: "15-20",
-    href: "https://www.jedox.com/en/events/unlock-the-power-of-modern-fpa-2026/",
-    status: "open",
-  },
-  {
     id: "networkfirst-clevertap",
     series: "NetworkFirst",
     seriesColor: "#C9935A",
@@ -282,24 +268,54 @@ export const allEvents: EventItem[] = [
     seriesColor: "#D34B9A",
     edition: "3RD EDITION",
     title: "OT Security Oman",
-    date: new Date("2026-10-14"),
-    dateDisplay: "October 14, 2026",
+    date: new Date("2027-03-17"),
+    dateDisplay: "March 17, 2027",
     location: "Muscat, Oman",
     venue: "Venue TBA",
     attendees: "300+",
     href: "/events/ot-security-first",
     status: "soon",
   },
+  {
+    id: "cyber-first-mena",
+    series: "Cyber First",
+    seriesColor: "#01BBF5",
+    edition: "",
+    title: "Cyber First MENA",
+    date: new Date("2026-08-11"),
+    dateDisplay: "August 11, 2026",
+    location: "MENA Region",
+    venue: "Venue TBA",
+    attendees: "500+",
+    href: "/events/cyber-first",
+    status: "open",
+  },
+  {
+    id: "cyber-first-oman",
+    series: "Cyber First",
+    seriesColor: "#01BBF5",
+    edition: "1ST EDITION",
+    title: "Cyber First Oman",
+    date: new Date("2027-03-16"),
+    dateDisplay: "March 16, 2027",
+    location: "Muscat, Oman",
+    venue: "Venue TBA",
+    attendees: "300+",
+    href: "/events/cyber-first",
+    status: "soon",
+  },
 ];
 
-// Months with events
+// Months with events (ordered for display: 2026 months first, then 2027)
 const MONTHS = [
   { abbr: "APR", full: "April", index: 3 },
   { abbr: "MAY", full: "May", index: 4 },
   { abbr: "JUN", full: "June", index: 5 },
   { abbr: "JUL", full: "July", index: 6 },
+  { abbr: "AUG", full: "August", index: 7 },
   { abbr: "SEP", full: "September", index: 8 },
   { abbr: "OCT", full: "October", index: 9 },
+  { abbr: "MAR", full: "March", index: 2 },
 ];
 
 // Series filters
