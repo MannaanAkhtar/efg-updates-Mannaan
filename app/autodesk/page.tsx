@@ -348,13 +348,10 @@ function SectionHeader({ number, eyebrow, title, accent = YELLOW, dark = false }
 // =============================================================================
 function Hero() {
   const { days, hours, minutes, seconds, mounted } = useCountdown(EVENT_DATE_ISO);
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <section
       id="top"
-      ref={ref}
       className="ad-hero"
       style={{
         position: "relative",
@@ -412,7 +409,7 @@ function Hero() {
         <div>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="ad-hero-eyebrow"
             style={{
@@ -432,7 +429,7 @@ function Hero() {
 
           <motion.h1
             initial={{ opacity: 0, y: 28 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="ad-hero-headline"
             style={{
@@ -457,7 +454,7 @@ function Hero() {
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
             className="ad-hero-sub"
             style={{
@@ -476,7 +473,7 @@ function Hero() {
           {/* CTA + meta row */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
             style={{
               marginTop: 40,
@@ -539,7 +536,7 @@ function Hero() {
         {/* RIGHT: HELLO YELLOW premium ticket card */}
         <motion.aside
           initial={{ opacity: 0, x: 40 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           style={{
             position: "relative",
