@@ -170,8 +170,28 @@ function TopBar() {
           gap: 24,
         }}
       >
-        <a href="#top" aria-label="Autodesk roundtable, return to top" style={{ display: "inline-flex" }}>
-          <AutodeskMark tone="white" height={28} />
+        <a href="#top" aria-label="Events First Group — return to top" style={{ display: "inline-flex", alignItems: "center", gap: 14 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/events-first-group_logo_alt.svg"
+            alt="Events First Group"
+            style={{ height: 34, width: "auto", display: "block" }}
+          />
+          <span aria-hidden style={{ width: 1, height: 20, background: HAIRLINE }} />
+          <span style={{
+            display: "inline-flex", alignItems: "center", gap: 10,
+            fontFamily: BODY, fontSize: 9.5, fontWeight: 700,
+            letterSpacing: "0.32em", textTransform: "uppercase",
+            color: "rgba(255,255,255,0.55)",
+          }}>
+            In partnership with
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={AUTODESK_LOGO_WHITE}
+              alt="Autodesk"
+              style={{ height: 12, width: "auto", display: "block", opacity: 0.85 }}
+            />
+          </span>
         </a>
 
         {/* Desktop nav */}
@@ -218,7 +238,7 @@ function TopBar() {
               e.currentTarget.style.boxShadow = "none";
             }}
           >
-            Request Invitation
+            Register Interest
           </a>
         </nav>
 
@@ -290,7 +310,7 @@ function TopBar() {
               textDecoration: "none",
             }}
           >
-            Request Invitation
+            Register Interest
           </a>
         </div>
       )}
@@ -347,8 +367,6 @@ function SectionHeader({ number, eyebrow, title, accent = YELLOW, dark = false }
 // HERO — original layout, fit-to-screen
 // =============================================================================
 function Hero() {
-  const { days, hours, minutes, seconds, mounted } = useCountdown(EVENT_DATE_ISO);
-
   return (
     <section
       id="top"
@@ -366,32 +384,34 @@ function Hero() {
         alignItems: "center",
       }}
     >
-      {/* Subtle grid overlay */}
-      <div aria-hidden style={{
-        position: "absolute", inset: 0,
-        backgroundImage: `linear-gradient(${HAIRLINE} 1px, transparent 1px), linear-gradient(90deg, ${HAIRLINE} 1px, transparent 1px)`,
-        backgroundSize: "64px 64px",
-        maskImage: "linear-gradient(180deg, transparent 0%, black 30%, black 70%, transparent 100%)",
-        WebkitMaskImage: "linear-gradient(180deg, transparent 0%, black 30%, black 70%, transparent 100%)",
-        opacity: 0.6,
-      }} />
-
-      {/* Ghost Autodesk logo watermark — bottom-right of hero canvas */}
+      {/* Real BG image — UAE construction skyline (full visible) */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={AUTODESK_LOGO_WHITE}
+        src="https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/UAE_constructionskyline1.png"
         alt=""
         aria-hidden
         style={{
-          position: "absolute",
-          bottom: "4%", right: "-12%",
-          width: "42%", height: "auto",
-          maxWidth: 760,
-          opacity: 0.10,
-          pointerEvents: "none",
-          zIndex: 1,
+          position: "absolute", inset: 0,
+          width: "100%", height: "100%",
+          objectFit: "cover",
+          objectPosition: "center",
+          opacity: 0.95,
+          zIndex: 0,
         }}
       />
+      {/* Cinematic left-to-right gradient — heavy on left for headline legibility, fade to fully visible image on right */}
+      <div aria-hidden style={{
+        position: "absolute", inset: 0,
+        background: `linear-gradient(95deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.72) 30%, rgba(0,0,0,0.42) 55%, rgba(0,0,0,0.20) 78%, rgba(0,0,0,0.35) 100%)`,
+        zIndex: 0,
+      }} />
+      {/* Subtle bottom vignette for grounding */}
+      <div aria-hidden style={{
+        position: "absolute", left: 0, right: 0, bottom: 0,
+        height: "30%",
+        background: "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.45) 100%)",
+        zIndex: 0,
+      }} />
 
       <div style={{
         position: "relative",
@@ -440,14 +460,14 @@ function Hero() {
               maxWidth: 720,
             }}
           >
-            Building with{" "}
+            From Risk to{" "}
             <span style={{
               display: "inline-block",
               background: YELLOW, color: BLACK,
               padding: "0 12px",
               boxDecorationBreak: "clone",
               WebkitBoxDecorationBreak: "clone" as never,
-            }}>Confidence</span>
+            }}>Certainty</span>
           </motion.h1>
 
           <motion.div
@@ -457,12 +477,12 @@ function Hero() {
             className="ad-hero-tagline"
             style={{
               marginTop: 28,
-              display: "flex", alignItems: "center", gap: 16,
+              display: "flex", alignItems: "flex-start", gap: 16,
               maxWidth: 720,
             }}
           >
             <span aria-hidden style={{
-              width: 36, height: 2, background: YELLOW, flexShrink: 0,
+              width: 36, height: 2, background: YELLOW, flexShrink: 0, marginTop: 14,
             }} />
             <span style={{
               fontFamily: DISPLAY, fontWeight: 600,
@@ -470,7 +490,7 @@ function Hero() {
               color: "rgba(255,255,255,0.82)",
               letterSpacing: "-0.012em", lineHeight: 1.25,
             }}>
-              Data-Led Resilience and Delivery Certainty
+              How Data-Driven AECO Leaders Deliver with Confidence in an Uncertain Market
             </span>
           </motion.div>
 
@@ -483,13 +503,13 @@ function Hero() {
               fontFamily: BODY,
               fontSize: "clamp(15px, 1.15vw, 17px)",
               fontWeight: 400, lineHeight: 1.55,
-              color: "rgba(255,255,255,0.66)",
+              color: "rgba(255,255,255,0.72)",
               margin: "28px 0 0",
-              maxWidth: 560,
+              maxWidth: 580,
             }}
           >
-            How connected data can help leaders improve confidence, protect margins,
-            increase execution discipline and deliver projects with greater predictability.
+            A closed-door, invite-only roundtable for AECO leaders on connected data,
+            margin protection and delivery certainty. Final approval lies with EFG.
           </motion.p>
 
           {/* CTA + meta row */}
@@ -636,53 +656,35 @@ function Hero() {
             <span style={{
               fontFamily: BODY, fontSize: 10, fontWeight: 700,
               letterSpacing: "0.20em", textTransform: "uppercase",
-              color: BLACK, fontVariantNumeric: "tabular-nums",
-            }}>N° 0001</span>
+              color: "rgba(0,0,0,0.62)",
+            }}>Closed-Door · Invite-Only</span>
           </div>
 
-          {/* ── Card body ── */}
-          <div style={{ position: "relative", zIndex: 2, padding: "26px 28px 22px" }}>
-            {/* Countdown */}
+          {/* ── Card body — prominent time ── */}
+          <div style={{ position: "relative", zIndex: 2, padding: "24px 28px 20px", textAlign: "center" }}>
             <div style={{
               fontFamily: BODY, fontSize: 10.5, fontWeight: 700,
               letterSpacing: "0.36em", textTransform: "uppercase",
-              color: BLACK, marginBottom: 16,
-            }}>Roundtable begins in</div>
+              color: BLACK, marginBottom: 10,
+            }}>Roundtable Time</div>
 
             <div style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: 0,
+              fontFamily: DISPLAY, fontWeight: 800,
+              fontSize: "clamp(28px, 3vw, 44px)",
+              color: BLACK, lineHeight: 1,
+              letterSpacing: "-0.04em",
+              textShadow: "0 1px 0 rgba(255,255,255,0.45)",
               fontVariantNumeric: "tabular-nums",
+              whiteSpace: "nowrap",
             }}>
-              {[
-                { label: "Days", value: days },
-                { label: "Hrs", value: hours },
-                { label: "Min", value: minutes },
-                { label: "Sec", value: seconds },
-              ].map((t, i, arr) => (
-                <div key={t.label} style={{
-                  padding: "4px 8px",
-                  borderRight: i < arr.length - 1 ? `1px solid rgba(0,0,0,0.20)` : "none",
-                  textAlign: "center",
-                  position: "relative",
-                }}>
-                  <div style={{
-                    fontFamily: DISPLAY, fontWeight: 800,
-                    fontSize: "clamp(32px, 3.6vw, 48px)",
-                    color: BLACK, lineHeight: 1,
-                    letterSpacing: "-0.045em",
-                    textShadow: "0 1px 0 rgba(255,255,255,0.45)",
-                  }}>
-                    {mounted ? String(t.value).padStart(2, "0") : "00"}
-                  </div>
-                  <div style={{
-                    fontFamily: BODY, fontSize: 9.5, fontWeight: 700,
-                    letterSpacing: "0.30em", textTransform: "uppercase",
-                    color: "rgba(0,0,0,0.62)", marginTop: 8,
-                  }}>{t.label}</div>
-                </div>
-              ))}
+              10:30 — 13:30
+            </div>
+            <div style={{
+              fontFamily: BODY, fontSize: 10.5, fontWeight: 700,
+              letterSpacing: "0.30em", textTransform: "uppercase",
+              color: "rgba(0,0,0,0.62)", marginTop: 8,
+            }}>
+              GST · 3-hour Roundtable
             </div>
           </div>
 
@@ -736,7 +738,7 @@ function Hero() {
               { label: "Date", value: "Tue, 30 Jun 2026" },
               { label: "Location", value: "Marriott, Palm Jumeirah" },
               { label: "Format", value: "Physical Roundtable" },
-              { label: "Audience", value: "20–25 Executives" },
+              { label: "Audience", value: "20–25 AECO Execs" },
             ].map((it) => (
               <div key={it.label} style={{ position: "relative", paddingLeft: 12 }}>
                 {/* accent rail */}
@@ -751,8 +753,9 @@ function Hero() {
                 }}>{it.label}</div>
                 <div style={{
                   fontFamily: DISPLAY, fontWeight: 800,
-                  fontSize: "clamp(13px, 1.05vw, 15.5px)",
+                  fontSize: "clamp(12px, 0.95vw, 14.5px)",
                   color: BLACK, lineHeight: 1.25, letterSpacing: "-0.01em",
+                  whiteSpace: "nowrap",
                 }}>{it.value}</div>
               </div>
             ))}
@@ -761,22 +764,17 @@ function Hero() {
           {/* ── Bottom signature row ── */}
           <div style={{
             position: "relative", zIndex: 2,
-            display: "flex", alignItems: "center", justifyContent: "space-between",
+            display: "flex", alignItems: "center", justifyContent: "center",
             gap: 12,
             padding: "12px 28px",
             borderTop: `1px solid rgba(0,0,0,0.22)`,
             background: "rgba(0,0,0,0.04)",
           }}>
             <span style={{
-              fontFamily: BODY, fontSize: 9.5, fontWeight: 700,
+              fontFamily: BODY, fontSize: 10, fontWeight: 700,
               letterSpacing: "0.30em", textTransform: "uppercase",
               color: "rgba(0,0,0,0.72)",
-            }}>By Invitation Only</span>
-            <span style={{
-              fontFamily: BODY, fontSize: 9.5, fontWeight: 700,
-              letterSpacing: "0.20em", textTransform: "uppercase",
-              color: "rgba(0,0,0,0.72)", fontVariantNumeric: "tabular-nums",
-            }}>Autodesk × EFG</span>
+            }}>Final approval lies with EFG</span>
           </div>
         </motion.aside>
       </div>
@@ -1256,8 +1254,6 @@ function SpeakersSection() {
         }}>
           {SPEAKERS.map((sp, i) => {
             const role = "Moderator";
-            const session = "Fireside Chat";
-            const sessionTime = "11:05";
             return (
             <motion.article
               key={sp.name}
@@ -1295,14 +1291,6 @@ function SpeakersSection() {
                   color: WHITE,
                 }}>{role}</span>
                 <span aria-hidden style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.18)" }} />
-                <span style={{
-                  fontFamily: BODY, fontSize: 10, fontWeight: 700,
-                  letterSpacing: "0.22em", textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.50)",
-                  fontVariantNumeric: "tabular-nums",
-                }}>
-                  N° {String(i + 1).padStart(2, "0")} / {String(SPEAKERS.length).padStart(2, "0")}
-                </span>
               </div>
 
               {/* ── Portrait area ── */}
@@ -1398,39 +1386,6 @@ function SpeakersSection() {
                   color: "rgba(255,255,255,0.82)",
                   margin: "0 0 16px", lineHeight: 1.45,
                 }}>{sp.role}</p>
-
-                {/* Session reference — clickable jump to agenda */}
-                <a
-                  href="#agenda"
-                  style={{
-                    display: "flex", alignItems: "center", justifyContent: "space-between",
-                    gap: 8,
-                    padding: "12px 0",
-                    borderTop: `1px solid rgba(255,255,255,0.10)`,
-                    borderBottom: `1px solid rgba(255,255,255,0.10)`,
-                    textDecoration: "none",
-                    transition: "background 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,0,0.04)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
-                >
-                  <span style={{
-                    fontFamily: BODY, fontSize: 9.5, fontWeight: 700,
-                    letterSpacing: "0.32em", textTransform: "uppercase",
-                    color: "rgba(255,255,255,0.45)",
-                  }}>Speaking on</span>
-                  <span style={{
-                    fontFamily: DISPLAY, fontWeight: 700, fontSize: 13,
-                    color: WHITE, letterSpacing: "-0.005em",
-                  }}>
-                    {session}
-                    <span style={{
-                      marginLeft: 8,
-                      color: YELLOW, fontWeight: 800,
-                      fontVariantNumeric: "tabular-nums",
-                    }}>{sessionTime}</span>
-                  </span>
-                </a>
 
                 {/* Bottom row */}
                 <div style={{
@@ -1587,7 +1542,7 @@ function AgendaSection() {
         <SectionHeader
           number="04"
           eyebrow="Agenda"
-          title="How the day unfolds."
+          title="What's in store."
         />
 
         <div style={{
@@ -1598,7 +1553,7 @@ function AgendaSection() {
           {/* head row */}
           <div className="ad-agenda-row ad-agenda-head" style={{
             display: "grid",
-            gridTemplateColumns: "80px 80px 100px 1fr 1.2fr",
+            gridTemplateColumns: "80px 80px 100px 1fr",
             gap: 16,
             padding: "16px 24px",
             background: "rgba(255,255,255,0.04)",
@@ -1611,7 +1566,6 @@ function AgendaSection() {
             <span>End</span>
             <span>Duration</span>
             <span>Segment</span>
-            <span>Owner</span>
           </div>
 
           {/* body rows */}
@@ -1624,21 +1578,15 @@ function AgendaSection() {
               className="ad-agenda-row"
               style={{
                 display: "grid",
-                gridTemplateColumns: "80px 80px 100px 1fr 1.2fr",
+                gridTemplateColumns: "80px 80px 100px 1fr",
                 gap: 16,
                 padding: "20px 24px",
                 borderBottom: idx === AGENDA.length - 1 ? "0" : `1px solid ${HAIRLINE}`,
-                background: row.highlight ? "rgba(255,255,0,0.06)" : "transparent",
+                background: "transparent",
                 position: "relative",
                 alignItems: "center",
               }}
             >
-              {row.highlight && (
-                <span aria-hidden style={{
-                  position: "absolute", left: 0, top: 0, bottom: 0, width: 3,
-                  background: YELLOW,
-                }} />
-              )}
               <span className="ad-agenda-start" style={{
                 fontFamily: DISPLAY, fontWeight: 700,
                 fontSize: 15, color: WHITE,
@@ -1652,17 +1600,13 @@ function AgendaSection() {
               <span className="ad-agenda-duration" style={{
                 fontFamily: BODY, fontSize: 11, fontWeight: 600,
                 letterSpacing: "0.18em", textTransform: "uppercase",
-                color: row.highlight ? YELLOW : "rgba(255,255,255,0.55)",
+                color: "rgba(255,255,255,0.55)",
               }}>{row.duration}</span>
               <span className="ad-agenda-segment" style={{
                 fontFamily: DISPLAY, fontWeight: 700,
                 fontSize: "clamp(14px, 1.1vw, 16px)",
                 color: WHITE, letterSpacing: "-0.005em",
               }}>{row.segment}</span>
-              <span className="ad-agenda-owner" style={{
-                fontFamily: BODY, fontSize: 13, fontWeight: 400,
-                color: "rgba(255,255,255,0.72)", lineHeight: 1.4,
-              }}>{row.owner}</span>
             </motion.div>
           ))}
         </div>
@@ -2037,10 +1981,39 @@ function ReserveSection() {
                   fontFamily: BODY, fontSize: 12, fontWeight: 700,
                   letterSpacing: "0.32em", textTransform: "uppercase",
                   color: YELLOW, marginBottom: 10,
-                }}>Venue</div>
+                }}>Time</div>
                 <div style={{
                   fontFamily: DISPLAY, fontWeight: 700, fontSize: 18, color: WHITE,
-                }}>Marriott, Palm Jumeirah</div>
+                }}>10:30 AM – 1:30 PM GST</div>
+                <div style={{
+                  fontFamily: BODY, fontSize: 12, fontWeight: 500,
+                  color: "rgba(255,255,255,0.55)", marginTop: 4,
+                }}>3-hour roundtable, not a full day</div>
+              </div>
+            </div>
+
+            {/* Location strip with pin icon + valet parking */}
+            <div style={{
+              marginTop: 32, maxWidth: 560,
+              display: "flex", alignItems: "flex-start", gap: 14,
+              padding: "18px 20px",
+              border: `1px solid ${HAIRLINE}`,
+              borderRadius: 8,
+              background: "rgba(255,255,255,0.02)",
+            }}>
+              {/* Map pin SVG */}
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden style={{ flexShrink: 0, marginTop: 2 }}>
+                <path d="M12 2a8 8 0 0 0-8 8c0 5.4 7 11.4 7.3 11.6a1 1 0 0 0 1.4 0C13 21.4 20 15.4 20 10a8 8 0 0 0-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" fill={YELLOW} />
+              </svg>
+              <div>
+                <div style={{
+                  fontFamily: DISPLAY, fontWeight: 700, fontSize: 16, color: WHITE,
+                  letterSpacing: "-0.005em",
+                }}>Marriott, Palm Jumeirah · Dubai</div>
+                <div style={{
+                  fontFamily: BODY, fontSize: 12.5, fontWeight: 500,
+                  color: "rgba(255,255,255,0.62)", marginTop: 4,
+                }}>Valet parking available at the venue</div>
               </div>
             </div>
           </motion.div>
@@ -2084,7 +2057,7 @@ function ReserveSection() {
                   fontFamily: BODY, fontSize: 10, fontWeight: 700,
                   letterSpacing: "0.36em", textTransform: "uppercase",
                   color: BLACK,
-                }}>{status === "success" ? "Submitted" : "Request Invitation"}</span>
+                }}>{status === "success" ? "Submitted" : "Register Interest"}</span>
               </div>
               <span style={{
                 fontFamily: BODY, fontSize: 10, fontWeight: 700,
@@ -2338,7 +2311,7 @@ function ReserveSection() {
                 }}
               >
                 <span>
-                  {status === "submitting" ? "Submitting..." : "Request Invitation"}
+                  {status === "submitting" ? "Submitting..." : "Register Interest"}
                 </span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
                   <path d="M5 12h14M13 5l7 7-7 7" stroke={BLACK} strokeWidth="2.6" strokeLinecap="square" strokeLinejoin="miter" />

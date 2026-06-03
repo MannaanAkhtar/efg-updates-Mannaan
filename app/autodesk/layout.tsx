@@ -9,9 +9,9 @@ const OG_IMAGE =
 
 export const metadata: Metadata = {
   title:
-    "Building with Confidence: Data-Led Resilience and Delivery Certainty | Autodesk Executive Roundtable",
+    "From Risk to Certainty: How Data-Driven Leaders Deliver with Confidence in an Uncertain Market | Events First Group × Autodesk",
   description:
-    "Invitation-only executive roundtable with Autodesk. How connected data can help leaders improve confidence, protect margins, increase execution discipline and deliver projects with greater predictability.",
+    "Closed-door, invite-only executive roundtable for AECO leaders. How data-driven leaders deliver with confidence in an uncertain market. Hosted by Events First Group, sponsored by Autodesk. Final approval lies with EFG.",
   keywords: [
     "Autodesk",
     "AECO",
@@ -27,9 +27,9 @@ export const metadata: Metadata = {
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title:
-      "Building with Confidence: Data-Led Resilience and Delivery Certainty",
+      "From Risk to Certainty: How Data-Driven Leaders Deliver with Confidence in an Uncertain Market",
     description:
-      "Invitation-only executive roundtable with Autodesk on AECO resilience and delivery certainty.",
+      "Closed-door, invite-only AECO executive roundtable. Hosted by Events First Group, sponsored by Autodesk.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [
@@ -47,8 +47,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
     title:
-      "Building with Confidence: Data-Led Resilience and Delivery Certainty",
-    description: "Invitation-only executive roundtable with Autodesk.",
+      "From Risk to Certainty: How Data-Driven Leaders Deliver with Confidence",
+    description: "Closed-door, invite-only AECO executive roundtable.",
     images: [OG_IMAGE],
   },
 };
@@ -70,9 +70,9 @@ export default function AutodeskLayout({
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Event",
-            name: "Building with Confidence: Data-Led Resilience and Delivery Certainty — Autodesk Executive Roundtable",
+            name: "From Risk to Certainty: How Data-Driven Leaders Deliver with Confidence in an Uncertain Market — Executive Roundtable",
             description:
-              "Invitation-only Autodesk executive roundtable for AECO leaders on navigating disruption, supply-chain risk, and delivery certainty through connected data.",
+              "Closed-door, invite-only executive roundtable for AECO leaders. How data-driven leaders deliver with confidence in an uncertain market. Hosted by Events First Group, sponsored by Autodesk. Final approval lies with EFG.",
             startDate: EVENT_START_ISO,
             endDate: EVENT_END_ISO,
             eventStatus: "https://schema.org/EventScheduled",
