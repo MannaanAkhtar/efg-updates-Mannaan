@@ -109,6 +109,22 @@ const SPEAKERS: Speaker[] = [
     linkedin: "https://www.linkedin.com/in/omaristeatieh",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Omar_Istaitieh_OutSystems.png",
   },
+  {
+    name: "Thamer Alrowidhan",
+    role: "Speaker",
+    title: "Chief Information Security Officer (CISO)",
+    company: "Confidential (PIF)",
+    linkedin: "#",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Thamer_alrowidhan.png",
+  },
+  {
+    name: "Oleg Krylov",
+    role: "Speaker",
+    title: "Senior Director – Information, Communications and Technology",
+    company: "Confidential (PIF)",
+    linkedin: "#",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Oleg_Krylov.png",
+  },
 ];
 
 // ─── Key takeaways ───────────────────────────────────────────────────────────
@@ -1964,7 +1980,7 @@ function TakeawaysSection() {
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-// SPEAKERS — 4 speakers, no bios
+// SPEAKERS — 6 speakers, no bios
 // ═════════════════════════════════════════════════════════════════════════════
 function SpeakerCard({ s, idx, inView }: { s: Speaker; idx: number; inView: boolean }) {
   const initials = s.name
