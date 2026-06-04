@@ -40,7 +40,7 @@ const SPEAKERS = [
     name: "Naji Atallah",
     role: "Head of Industry, AECO and Manufacturing, EMEA Emerging",
     org: "Autodesk",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naji+Atallah.png" as string | null,
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naji_Atallah.png" as string | null,
     initials: "NA",
     linkedin: "https://www.linkedin.com/in/naji-atallah/",
   },
@@ -79,7 +79,6 @@ const NAV_LINKS = [
   { id: "speakers", label: "Speakers" },
   { id: "agenda", label: "Agenda" },
   { id: "about", label: "About Autodesk" },
-  { id: "reserve", label: "Reserve" },
 ];
 
 // =============================================================================
@@ -1012,18 +1011,6 @@ function TakeawaysSection() {
           title="What you'll walk away with."
         />
 
-        {/* Helper kicker — italic instruction line above the list */}
-        <p style={{
-          fontFamily: BODY, fontSize: 13, fontWeight: 400,
-          letterSpacing: "0.01em", lineHeight: 1.55,
-          color: "rgba(255,255,255,0.50)",
-          margin: "-32px 0 48px",
-          maxWidth: 520,
-          fontStyle: "italic",
-        }}>
-          Three action-oriented things attendees walk away with. Each one anchored to outcome, not aspiration.
-        </p>
-
         {/* ── Editorial numbered list ── */}
         <div style={{
           borderTop: `1px solid ${HAIRLINE}`,
@@ -1671,147 +1658,28 @@ function AboutSection() {
       id="about"
       style={{
         background: WHITE, color: BLACK,
-        padding: "clamp(96px, 12vh, 160px) 0 clamp(80px, 10vh, 128px)",
-        position: "relative",
-        overflow: "hidden",
+        padding: "clamp(80px, 10vh, 128px) 0",
       }}
     >
-      {/* ── Cinematic letterbox bars ── */}
-      <div aria-hidden style={{
-        position: "absolute", top: 0, left: 0, right: 0, height: 4,
-        background: YELLOW, zIndex: 4,
-      }} />
-      <div aria-hidden style={{
-        position: "absolute", bottom: 0, left: 0, right: 0, height: 1,
-        background: HAIRLINE_DARK, zIndex: 4,
-      }} />
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 48px)" }}>
+        <SectionHeader
+          number="05"
+          eyebrow="About Autodesk"
+          title="Changing how the world is designed and made."
+          dark
+        />
 
-      {/* ── Ambient backdrop ── */}
-      <div aria-hidden style={{
-        position: "absolute", inset: 0,
-        background: "radial-gradient(ellipse 100% 70% at 50% 40%, rgba(0,0,0,0.025) 0%, transparent 65%)",
-        pointerEvents: "none", zIndex: 0,
-      }} />
-      <div aria-hidden style={{
-        position: "absolute", inset: 0,
-        backgroundImage: `linear-gradient(${HAIRLINE_DARK} 1px, transparent 1px), linear-gradient(90deg, ${HAIRLINE_DARK} 1px, transparent 1px)`,
-        backgroundSize: "64px 64px",
-        maskImage: "radial-gradient(ellipse 75% 60% at 50% 50%, black 0%, transparent 85%)",
-        WebkitMaskImage: "radial-gradient(ellipse 75% 60% at 50% 50%, black 0%, transparent 85%)",
-        opacity: 0.45, zIndex: 0,
-      }} />
-
-      {/* ── Mega ghost Autodesk wordmark — center, very faint black ── */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={AUTODESK_LOGO_WHITE}
-        alt=""
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "50%", left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "92%", height: "auto",
-          maxWidth: 1600,
-          opacity: 0.045,
-          filter: "brightness(0)",
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
-      />
-
-      <div style={{
-        position: "relative", zIndex: 2,
-        maxWidth: 1280, margin: "0 auto",
-        padding: "0 clamp(20px, 4vw, 48px)",
-      }}>
-        {/* ── Masthead bar ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            display: "flex", alignItems: "center", gap: 16,
-            paddingBottom: 24, marginBottom: 40,
-            borderBottom: `1px solid ${HAIRLINE_DARK}`,
-          }}
-        >
-          <span style={{
-            fontFamily: DISPLAY, fontWeight: 800,
-            fontSize: "clamp(28px, 3.4vw, 52px)",
-            color: BLACK, lineHeight: 0.85,
-            letterSpacing: "-0.04em",
-            fontVariantNumeric: "tabular-nums",
-            position: "relative",
-          }}>
-            05
-            <span aria-hidden style={{
-              position: "absolute", top: "-6%", left: "-8%",
-              width: 14, height: 14, background: YELLOW,
-              zIndex: -1,
-            }} />
-          </span>
-          <span aria-hidden style={{ width: 1, height: 32, background: HAIRLINE_DARK }} />
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{
-              fontFamily: BODY, fontSize: 10.5, fontWeight: 700,
-              letterSpacing: "0.36em", textTransform: "uppercase",
-              color: BLACK, marginBottom: 4,
-            }}>About Autodesk</div>
-          </div>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={AUTODESK_LOGO_WHITE}
-            alt="Autodesk"
-            style={{ height: 20, width: "auto", opacity: 0.9, filter: "brightness(0)" }}
-          />
-        </motion.div>
-
-        {/* ── Cinematic headline ── */}
-        <motion.h2
-          initial={{ opacity: 0, y: 28 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.95, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            fontFamily: DISPLAY, fontWeight: 800,
-            fontSize: "clamp(36px, 5.6vw, 88px)",
-            lineHeight: 0.96, letterSpacing: "-0.04em",
-            color: BLACK, margin: 0,
-            maxWidth: 1100,
-          }}
-        >
-          Changing how the world is{" "}
-          <span style={{
-            display: "inline-block",
-            background: YELLOW, color: BLACK,
-            padding: "0 10px",
-            boxDecorationBreak: "clone",
-            WebkitBoxDecorationBreak: "clone" as never,
-          }}>designed</span>{" "}
-          and{" "}
-          <span style={{
-            display: "inline-block",
-            background: YELLOW, color: BLACK,
-            padding: "0 10px",
-            boxDecorationBreak: "clone",
-            WebkitBoxDecorationBreak: "clone" as never,
-          }}>made.</span>
-        </motion.h2>
-
-        {/* ── Lead paragraph — pull-quote with yellow rail ── */}
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.85, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           style={{
             fontFamily: BODY,
             fontSize: "clamp(16px, 1.35vw, 20px)",
             fontWeight: 400, lineHeight: 1.6,
             color: "rgba(0,0,0,0.78)",
-            margin: "48px 0 0",
+            margin: 0,
             maxWidth: 820,
-            paddingLeft: 20,
-            borderLeft: `3px solid ${YELLOW}`,
           }}
         >
           Autodesk is changing how the world is designed and made. Our connected data
@@ -1819,7 +1687,6 @@ function AboutSection() {
           and operations industries from early planning and design, through engineering
           and construction delivery, into asset operations and long-term performance.
         </motion.p>
-
       </div>
     </section>
   );
@@ -2059,11 +1926,13 @@ function ReserveSection() {
                   color: BLACK,
                 }}>{status === "success" ? "Submitted" : "Register Interest"}</span>
               </div>
-              <span style={{
-                fontFamily: BODY, fontSize: 10, fontWeight: 700,
-                letterSpacing: "0.22em", textTransform: "uppercase",
-                color: SLATE, fontVariantNumeric: "tabular-nums",
-              }}>{status === "success" ? "Confirmed" : "Form 01"}</span>
+              {status === "success" && (
+                <span style={{
+                  fontFamily: BODY, fontSize: 10, fontWeight: 700,
+                  letterSpacing: "0.22em", textTransform: "uppercase",
+                  color: SLATE, fontVariantNumeric: "tabular-nums",
+                }}>Confirmed</span>
+              )}
             </div>
 
             {/* Form body OR success state */}
@@ -2336,13 +2205,12 @@ function ReserveSection() {
               }}>By Invitation Only</span>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={AUTODESK_LOGO_WHITE}
-                alt=""
-                aria-hidden
+                src="/events-first-group_logo_alt.svg"
+                alt="Events First Group"
                 style={{
-                  height: 12, width: "auto",
+                  height: 18, width: "auto",
                   filter: "brightness(0)",
-                  opacity: 0.65,
+                  opacity: 0.75,
                 }}
               />
             </div>
