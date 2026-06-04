@@ -62,7 +62,7 @@ const SPEAKERS = [
   },
   {
     name: "Niraj Patel",
-    role: "Growth Marketer",
+    role: "Senior Marketing Manager",
     org: "Americana Restaurants",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Niraj_Patel.png",
   },
@@ -1125,11 +1125,26 @@ function SpeakersSection() {
           font-family: var(--font-opensans); font-size: 11px; font-weight: 600;
           letter-spacing: 1.5px; text-transform: uppercase; color: ${CT_BLUE}; margin: 0;
         }
+        .ct-sp-grid {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: stretch;
+        }
+        .ct-sp-grid > .ct-sp-card {
+          flex: 0 0 calc((100% - 2 * clamp(18px, 2.4vw, 26px)) / 3);
+          min-width: 0;
+        }
         @media (max-width: 900px) {
-          .ct-sp-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .ct-sp-grid > .ct-sp-card {
+            flex-basis: calc((100% - clamp(18px, 2.4vw, 26px)) / 2);
+          }
         }
         @media (max-width: 560px) {
-          .ct-sp-grid { grid-template-columns: 1fr !important; max-width: 340px; margin-left: auto !important; margin-right: auto !important; }
+          .ct-sp-grid > .ct-sp-card {
+            flex-basis: 100%;
+            max-width: 340px;
+          }
         }
       `}</style>
 
@@ -1153,7 +1168,7 @@ function SpeakersSection() {
         </div>
 
         {/* Speaker grid — photo-led editorial cards */}
-        <div ref={cardsRef} className="ct-sp-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "clamp(18px, 2.4vw, 26px)" }}>
+        <div ref={cardsRef} className="ct-sp-grid" style={{ gap: "clamp(18px, 2.4vw, 26px)" }}>
           {SPEAKERS.map((s) => (
             <div key={s.name} className="ct-sp-card" style={{ opacity: 0 }}>
               <div className="ct-sp-photo-wrap">
