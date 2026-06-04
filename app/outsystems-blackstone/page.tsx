@@ -190,8 +190,8 @@ function BlackstoneLogomark({ size = 28, dark = false }: { size?: number; color?
   // `dark` is what we reach for on the OutSystems cream page surface; the
   // default white variant is for the dark navy host badge chips.
   const src = dark
-    ? "https://efg-final.s3.eu-north-1.amazonaws.com/logos/%28MAIN+LOGO%29+Blackstone+eIT+logo+CMYK.png"
-    : "https://efg-final.s3.eu-north-1.amazonaws.com/logos/BlackstoneeIT_logolight.png";
+    ? "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Blackstone+eIT+Logo+Main+No+Slogan+RGB.png"
+    : "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Blackstone+eIT+Logo+Reversed+No+Slogan.png";
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
@@ -317,7 +317,7 @@ function BlackstoneNav() {
             background: `linear-gradient(180deg, transparent 0%, ${GRAY_300} 30%, ${GRAY_300} 70%, transparent 100%)`,
           }} />
           <span className="bs-nav-logo bs-nav-logo-bs" style={{ display: "inline-flex", alignItems: "center", height: 40 }}>
-            <BlackstoneLogomark size={40} dark />
+            <BlackstoneLogomark size={30} dark />
           </span>
         </a>
 
@@ -613,7 +613,7 @@ function HeroSection() {
                 and
               </span>
               <span className="bs-hero-hostlockup-bs" style={{ display: "inline-flex", alignItems: "center", height: 36, lineHeight: 0, flexShrink: 0 }}>
-                <BlackstoneLogomark size={36} dark />
+                <BlackstoneLogomark size={27} dark />
               </span>
             </div>
           </motion.div>
@@ -2180,7 +2180,7 @@ function SpeakerCard({ s, idx, inView }: { s: Speaker; idx: number; inView: bool
         </div>
       </div>
 
-      {/* Name */}
+      {/* Name — guest cards reserve 1 line of vertical space for consistent alignment */}
       <h3 style={{
         position: "relative",
         zIndex: 2,
@@ -2192,11 +2192,12 @@ function SpeakerCard({ s, idx, inView }: { s: Speaker; idx: number; inView: bool
         letterSpacing: "-0.015em",
         lineHeight: 1.2,
         textWrap: "balance" as "balance",
+        ...(isGuest ? { minHeight: "1.2em" } : {}),
       }}>
         {s.name}
       </h3>
 
-      {/* Title */}
+      {/* Title — guest cards reserve 3 lines of vertical space for consistent alignment */}
       <p style={{
         position: "relative",
         zIndex: 2,
@@ -2207,22 +2208,24 @@ function SpeakerCard({ s, idx, inView }: { s: Speaker; idx: number; inView: bool
         margin: 0,
         lineHeight: 1.4,
         textWrap: "balance" as "balance",
+        ...(isGuest ? { minHeight: "4.2em" } : {}),
       }}>
         {s.title}
       </p>
 
-      {/* Company logo — real Blackstone / OutSystems lockup */}
+      {/* Company logo — guest cards reserve a fixed 1-line block; BS/OS keep organic sizing */}
       <div style={{
         position: "relative",
         zIndex: 2,
         marginTop: 4,
-        display: "inline-flex",
+        display: isGuest ? "flex" : "inline-flex",
         alignItems: "center",
         justifyContent: "center",
         opacity: 0.92,
+        ...(isGuest ? { minHeight: 36 } : {}),
       }} aria-label={s.company}>
         {isHost ? (
-          <BlackstoneLogomark size={38} />
+          <BlackstoneLogomark size={28} />
         ) : isOs ? (
           <OutSystemsLogomark size={32} />
         ) : (
@@ -3193,7 +3196,7 @@ function AboutSection() {
               alignItems: "center",
               minHeight: 68,
             }}>
-              <BlackstoneLogomark size={64} dark />
+              <BlackstoneLogomark size={48} dark />
             </div>
 
             {/* Body — navy/charcoal for legibility on translucent glass */}
@@ -4108,7 +4111,7 @@ function BlackstoneFooter() {
             background: `linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.22) 30%, rgba(255,255,255,0.22) 70%, transparent 100%)`,
           }} />
           <span style={{ display: "inline-flex", alignItems: "center", height: 44 }}>
-            <BlackstoneLogomark size={44} />
+            <BlackstoneLogomark size={33} />
           </span>
         </div>
         <p style={{
