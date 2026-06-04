@@ -688,7 +688,7 @@ function Hero() {
               letterSpacing: "-0.005em",
             }}
           >
-            Operational Excellence — Where Leadership Vision Meets Technology Execution.
+            Vision to Value — Merging AI and Process Excellence.
           </motion.p>
 
           {/* Meta line */}

@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "OPEX First Saudi 2026 — 2nd Edition, Riyadh",
     description:
-      "Operational Excellence — Where Leadership Vision Meets Technology Execution. 28 September 2026, Riyadh.",
+      "Vision to Value — Merging AI and Process Excellence. 28 September 2026, Riyadh.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "OPEX First Saudi 2026 — 2nd Edition" }],
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
     title: "OPEX First Saudi 2026 — 2nd Edition, Riyadh",
-    description: "Operational Excellence — Where Leadership Vision Meets Technology Execution. 28 September 2026, Riyadh.",
+    description: "Vision to Value — Merging AI and Process Excellence. 28 September 2026, Riyadh.",
     images: [OG_IMAGE],
   },
 };
@@ -68,7 +68,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             "@type": "Event",
             name: "OPEX First Saudi 2026 — 2nd Edition",
             description:
-              "Operational Excellence — Where Leadership Vision Meets Technology Execution. The only platform dedicated to propelling operational excellence to new heights, convening visionary government leaders, C-suite executives, and global tech innovators across Saudi Arabia's Vision 2030 execution decade.",
+              "Vision to Value — Merging AI and Process Excellence. The only platform dedicated to propelling operational excellence to new heights, convening visionary government leaders, C-suite executives, and global tech innovators across Saudi Arabia's Vision 2030 execution decade.",
             startDate: "2026-09-28T09:00:00+03:00",
             endDate: "2026-09-28T17:00:00+03:00",
             eventStatus: "https://schema.org/EventScheduled",
