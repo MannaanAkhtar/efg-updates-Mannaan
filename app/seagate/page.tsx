@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useRef, useState, useEffect, memo } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { useInView } from "framer-motion";
+import { useInView, motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -93,6 +94,22 @@ type Speaker = {
 
 const SPEAKERS: Speaker[] = [
   {
+    name: "Hani Adnan Abdel Razeq",
+    title: "Director of Sustainability",
+    org: "AESG",
+    role: "Panelist",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hani_Adnan_Abdel_Razeq.png",
+    bio: "Hani is a sustainability and ESG advisor with extensive experience supporting major governmental and giga projects across Saudi Arabia and the UAE. He leads the integration of sustainability across the full project lifecycle—spanning housing, commercial real estate, industrial zones, and large-scale masterplans.\n\nHe has worked closely with Saudi ministries and regulatory bodies to shape national sustainability agendas, most notably contributing to the development and rollout of Mostadam, Saudi Arabia's national green building rating system. His work aligned the system with international benchmarks and Vision 2030 goals, establishing him as a trusted voice in policy and regulatory innovation.\n\nIn the UAE, Hani has supported federal and emirate-level entities in developing sustainability frameworks, ESG strategies, low-carbon pathways, and climate-resilient policies aligned with Net Zero 2050. He has also guided the application of LEED, Estidama, and bespoke sustainability systems across landmark masterplans and infrastructure projects.\n\nHani's expertise extends to corporate ESG implementation for government-related and private organizations, including ESG frameworks, materiality assessments, governance structures, KPIs, disclosures (GRI, TCFD, SASB), and decarbonization strategies.\n\nA recognised thought leader, Hani regularly speaks at regional and international forums, bringing cross-sector insight and systems thinking to drive meaningful sustainability transitions across the region's most ambitious developments.",
+  },
+  {
+    name: "Ali Khaled",
+    title: "Head of Data Quality",
+    org: "Leading Airline",
+    role: "Panelist",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ali+Khaled.jpg",
+    bio: "Ali is a technology and transformation leader with deep expertise in enterprise-scale Data, Analytics, and AI. He has built and scaled multiple engineering, data, and platform organizations, leading large-scale transformation programs that modernize technology landscapes, operating models, and ways of working across complex enterprises.\n\nHis experience spans the delivery of enterprise-grade data platforms, data governance capabilities, and analytics solutions that enable organizations to make confident, data-driven decisions at scale. Ali has led initiatives focused on data quality, observability, and performance across data estates exceeding 15 petabytes, supporting thousands of data workflows and mission-critical business processes. His work has helped organizations improve trust in data products while increasing the reliability, scalability, and efficiency of their data ecosystems.\n\nA strong advocate for trustworthy AI, Ali works closely on establishing quality, governance, and assurance practices for both traditional analytics and generative AI solutions. He has led the development of tools, frameworks, and operating models that help organizations assess, monitor, and improve the trustworthiness of AI-driven outcomes.\n\nKnown for bridging executive strategy and technical execution, Ali combines engineering leadership with a pragmatic approach to transformation, helping organizations unlock business value through modern data platforms, trusted AI, and sustainable digital innovation.",
+  },
+  {
     name: "Mohit Pandey",
     title: "Head of Sales — META (Middle East, Türkiye, Africa)",
     org: "Seagate Technology",
@@ -124,20 +141,6 @@ const SPEAKERS: Speaker[] = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Allan_Bilek.png",
     linkedin: "https://www.linkedin.com/in/allanbilekbusiness/",
     photoZoom: 1.22,
-  },
-  {
-    name: "Hani Adnan Abdel Razeq",
-    title: "Director of Sustainability",
-    org: "AESG",
-    role: "Panelist",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hani_Adnan_Abdel_Razeq.png",
-  },
-  {
-    name: "Ali Khaled",
-    title: "Head of Data Quality",
-    org: "Leading Airline",
-    role: "Panelist",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ali+Khaled.jpg",
   },
 ];
 
@@ -1585,6 +1588,43 @@ function SpeakersSection() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
+  // Bio modal state — only one speaker open at a time.
+  const [activeSpeaker, setActiveSpeaker] = useState<Speaker | null>(null);
+  // Track the trigger element so we can restore focus when the modal closes.
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+  // Mount flag so the portal target (document.body) is only used after hydration.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
+  // Body-scroll lock + Esc-to-close while the bio modal is open.
+  useEffect(() => {
+    if (!activeSpeaker) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setActiveSpeaker(null); };
+    window.addEventListener("keydown", onKey);
+    // Focus the close button on open for keyboard users.
+    const t = setTimeout(() => { closeBtnRef.current?.focus(); }, 30);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+      clearTimeout(t);
+    };
+  }, [activeSpeaker]);
+
+  // Restore focus to the originating card when the modal closes.
+  const handleCloseModal = () => {
+    setActiveSpeaker(null);
+    // Defer to next tick so the modal unmounts before refocusing.
+    setTimeout(() => { triggerRef.current?.focus(); triggerRef.current = null; }, 0);
+  };
+
+  const handleOpenBio = (s: Speaker, btn: HTMLButtonElement | null) => {
+    triggerRef.current = btn;
+    setActiveSpeaker(s);
+  };
+
   return (
     <section ref={ref} id="speakers" style={{
       background: "transparent",
@@ -1656,21 +1696,45 @@ function SpeakersSection() {
         }}>
           {SPEAKERS.map((s, i) => {
             const isModerator = s.role === "Moderator";
+            const hasLinkedin = Boolean(s.linkedin);
+            const hasBio = Boolean(s.bio);
+            const isInteractive = hasLinkedin || hasBio;
+            // Shared inline styles for the card wrapper (anchor / button / div all share these).
+            const cardStyle: React.CSSProperties = {
+              display: "block", textDecoration: "none",
+              position: "relative",
+              opacity: inView ? 1 : 0,
+              transform: inView ? "translateY(0)" : "translateY(24px)",
+              transition: `opacity 1.1s ${0.25 + i * 0.12}s cubic-bezier(0.22,1,0.36,1), transform 1.1s ${0.25 + i * 0.12}s cubic-bezier(0.22,1,0.36,1)`,
+              // Reset button defaults when the wrapper is a <button>.
+              padding: 0, border: 0, background: "transparent",
+              textAlign: "left", color: "inherit", font: "inherit",
+              width: "100%",
+              cursor: isInteractive ? "pointer" : "default",
+            };
+            // Pick the wrapping element based on what the speaker has:
+            //  • LinkedIn → anchor (opens profile in new tab — preserves existing behaviour).
+            //  • Bio only → button (opens the bio modal).
+            //  • Neither → static <div> (no hover affordance, no click target).
+            const WrapperTag: "a" | "button" | "div" = hasLinkedin ? "a" : hasBio ? "button" : "div";
+            const wrapperProps: React.HTMLAttributes<HTMLElement> & Record<string, unknown> = {
+              className: isInteractive ? "sg-speaker-card" : "sg-speaker-card sg-speaker-card--static",
+              style: cardStyle,
+            };
+            if (hasLinkedin) {
+              wrapperProps.href = s.linkedin;
+              wrapperProps.target = "_blank";
+              wrapperProps.rel = "noopener noreferrer";
+              wrapperProps["aria-label"] = `View ${s.name} on LinkedIn`;
+            } else if (hasBio) {
+              wrapperProps.type = "button";
+              wrapperProps["aria-label"] = `Read bio for ${s.name}`;
+              wrapperProps.onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+                handleOpenBio(s, e.currentTarget);
+              };
+            }
             return (
-              <a
-                key={s.name}
-                href={s.linkedin || "#"}
-                target={s.linkedin ? "_blank" : undefined}
-                rel="noopener noreferrer"
-                className="sg-speaker-card"
-                style={{
-                  display: "block", textDecoration: "none",
-                  position: "relative",
-                  opacity: inView ? 1 : 0,
-                  transform: inView ? "translateY(0)" : "translateY(24px)",
-                  transition: `opacity 1.1s ${0.25 + i * 0.12}s cubic-bezier(0.22,1,0.36,1), transform 1.1s ${0.25 + i * 0.12}s cubic-bezier(0.22,1,0.36,1)`,
-                }}
-              >
+              <WrapperTag key={s.name} {...wrapperProps as React.HTMLAttributes<HTMLElement>}>
                 {/* Portrait — 4:5 magazine ratio */}
                 <div className="sg-speaker-photo-wrap" style={{
                   position: "relative",
@@ -1790,11 +1854,133 @@ function SpeakersSection() {
                     {s.org}
                   </p>
                 </div>
-              </a>
+              </WrapperTag>
             );
           })}
         </div>
       </div>
+
+      {/* ─── Bio Modal — portalled to <body> so it overlays the full viewport.
+          Only mounts when a speaker without LinkedIn but WITH a bio is clicked. ── */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {activeSpeaker && (
+            <motion.div
+              className="sg-bio-modal-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22 }}
+              onClick={handleCloseModal}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="sg-bio-modal-title"
+            >
+              <motion.div
+                className="sg-bio-modal-card"
+                initial={{ opacity: 0, y: 24, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 24, scale: 0.96 }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  ref={closeBtnRef}
+                  type="button"
+                  onClick={handleCloseModal}
+                  className="sg-bio-modal-close"
+                  aria-label="Close speaker bio"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+
+                <span aria-hidden className="sg-bio-modal-hairline" />
+
+                {/* Header: portrait + name/title/org. */}
+                <div className="sg-bio-modal-header">
+                  <div className="sg-bio-modal-portrait">
+                    <Image
+                      src={activeSpeaker.photo}
+                      alt={activeSpeaker.name}
+                      fill
+                      sizes="100px"
+                      style={{
+                        objectFit: "cover",
+                        objectPosition: "center 18%",
+                        transform: `scale(${activeSpeaker.photoZoom ?? 1})`,
+                      }}
+                    />
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                      <span aria-hidden style={{ width: 18, height: 1, background: SG_ORANGE }} />
+                      <span style={{
+                        fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                        fontSize: 9.5, fontWeight: 600,
+                        letterSpacing: "0.32em", textTransform: "uppercase",
+                        color: SG_ORANGE,
+                      }}>
+                        {activeSpeaker.role}
+                      </span>
+                    </div>
+                    <h3 id="sg-bio-modal-title" style={{
+                      margin: 0,
+                      fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                      fontSize: "clamp(20px, 2.2vw, 26px)",
+                      fontWeight: 600,
+                      letterSpacing: "-0.028em",
+                      lineHeight: 1.12,
+                      color: SG_WHITE,
+                    }}>
+                      {activeSpeaker.name}
+                    </h3>
+                    <p style={{
+                      margin: "6px 0 2px",
+                      fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                      fontSize: 12.5, fontWeight: 500,
+                      color: "rgba(255,255,255,0.85)",
+                      lineHeight: 1.4,
+                      letterSpacing: "-0.005em",
+                    }}>
+                      {activeSpeaker.title}
+                    </p>
+                    <p style={{
+                      margin: 0,
+                      fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
+                      fontStyle: "italic", fontWeight: 400,
+                      fontSize: 12.5,
+                      color: "rgba(255,255,255,0.6)",
+                      lineHeight: 1.4,
+                    }}>
+                      {activeSpeaker.org}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Body: bio paragraphs, scrollable inside the card. */}
+                <div className="sg-bio-modal-body">
+                  {(activeSpeaker.bio ?? "").split("\n\n").map((para, idx) => (
+                    <p key={idx} style={{
+                      margin: idx === 0 ? "0 0 14px" : "0 0 14px",
+                      fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                      fontSize: 14,
+                      lineHeight: 1.6,
+                      color: "rgba(255,255,255,0.78)",
+                      letterSpacing: "-0.003em",
+                    }}>
+                      {para}
+                    </p>
+                  ))}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body,
+      )}
 
       <style jsx global>{`
         .sg-speaker-card:hover .sg-speaker-photo {
@@ -1815,6 +2001,12 @@ function SpeakersSection() {
         .sg-speaker-card:hover .sg-speaker-underline {
           width: 32px !important;
         }
+        /* Static cards (no linkedin AND no bio) keep their resting state — no hover lift. */
+        .sg-speaker-card--static { cursor: default !important; }
+        .sg-speaker-card--static:hover .sg-speaker-photo { transform: scale(${1}) !important; filter: none !important; }
+        .sg-speaker-card--static:hover .sg-speaker-photo-wrap { box-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 12px 32px rgba(0,0,0,0.45) !important; }
+        .sg-speaker-card--static:hover .sg-speaker-link { opacity: 0 !important; }
+        .sg-speaker-card--static:hover .sg-speaker-underline { width: 0 !important; }
         @media (max-width: 1024px) {
           .sg-speaker-grid {
             grid-template-columns: repeat(2, 1fr) !important;
@@ -1827,6 +2019,93 @@ function SpeakersSection() {
             gap: clamp(20px, 4vw, 28px) !important;
             max-width: 300px !important;
           }
+        }
+
+        /* ── Bio modal — overlay + card ──────────────────────────────────── */
+        .sg-bio-modal-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: clamp(16px, 3vw, 32px);
+          background: rgba(5, 7, 10, 0.78);
+          backdrop-filter: blur(14px) saturate(140%);
+          -webkit-backdrop-filter: blur(14px) saturate(140%);
+        }
+        .sg-bio-modal-card {
+          position: relative;
+          width: 100%;
+          max-width: 680px;
+          max-height: calc(100vh - clamp(32px, 6vw, 64px));
+          overflow-y: auto;
+          padding: clamp(24px, 3vw, 36px);
+          background: linear-gradient(165deg, ${SG_NAVY_DEEP} 0%, ${SG_NAVY} 100%);
+          border: 1px solid rgba(255,255,255,0.12);
+          border-radius: 16px;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.10),
+            inset 0 -1px 0 rgba(0,0,0,0.45),
+            0 24px 56px rgba(0,0,0,0.55),
+            0 48px 96px rgba(0,0,0,0.45);
+        }
+        .sg-bio-modal-hairline {
+          position: absolute;
+          top: 0; left: 8%; right: 8%; height: 1px;
+          background: linear-gradient(90deg, transparent 0%, ${SG_ORANGE} 30%, ${SG_GREEN_BRIGHT} 70%, transparent 100%);
+          opacity: 0.85;
+        }
+        .sg-bio-modal-close {
+          position: absolute;
+          top: 14px; right: 14px;
+          display: inline-flex;
+          align-items: center; justify-content: center;
+          width: 32px; height: 32px;
+          border-radius: 8px;
+          border: 1px solid rgba(255,255,255,0.12);
+          background: rgba(255,255,255,0.04);
+          color: rgba(255,255,255,0.75);
+          cursor: pointer;
+          transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+        }
+        .sg-bio-modal-close:hover,
+        .sg-bio-modal-close:focus-visible {
+          color: ${SG_WHITE};
+          border-color: ${SG_ORANGE};
+          background: rgba(113, 181, 63, 0.16);
+          transform: rotate(90deg);
+          outline: none;
+        }
+        .sg-bio-modal-header {
+          display: flex;
+          align-items: flex-start;
+          gap: clamp(16px, 2vw, 22px);
+          margin-bottom: clamp(18px, 2vw, 22px);
+          padding-right: 40px;
+        }
+        .sg-bio-modal-portrait {
+          position: relative;
+          flex: 0 0 auto;
+          width: clamp(72px, 8vw, 96px);
+          height: clamp(72px, 8vw, 96px);
+          border-radius: 8px;
+          overflow: hidden;
+          background: linear-gradient(165deg, ${SG_NAVY} 0%, ${SG_NAVY_DEEP} 100%);
+          box-shadow:
+            inset 0 0 0 1px rgba(255,255,255,0.08),
+            0 4px 14px rgba(0,0,0,0.45);
+        }
+        .sg-bio-modal-body {
+          padding-top: 4px;
+        }
+        .sg-bio-modal-body p:last-child {
+          margin-bottom: 0 !important;
+        }
+        @media (max-width: 540px) {
+          .sg-bio-modal-card { padding: 22px 18px; border-radius: 14px; }
+          .sg-bio-modal-header { padding-right: 32px; gap: 14px; }
+          .sg-bio-modal-portrait { width: 64px; height: 64px; }
         }
       `}</style>
     </section>
