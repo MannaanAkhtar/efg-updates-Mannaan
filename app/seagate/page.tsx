@@ -132,6 +132,13 @@ const SPEAKERS: Speaker[] = [
     role: "Panelist",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hani_Adnan_Abdel_Razeq.png",
   },
+  {
+    name: "Ali Khaled",
+    title: "Head of Data Quality",
+    org: "Leading Airline",
+    role: "Panelist",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ali+Khaled.jpg",
+  },
 ];
 
 // ─── Countdown ───────────────────────────────────────────────────────────────
