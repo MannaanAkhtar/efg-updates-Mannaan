@@ -84,7 +84,7 @@ const SPEAKERS = [
     org: "Proofpoint",
     linkedin: "https://www.linkedin.com/in/elias-samarani-b9ab8223/",
     initials: "ES",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Elias_Samarani.png",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Elias+Samarani.jpg",
   },
   {
     name: "Mustafa Maarouf",
@@ -92,7 +92,7 @@ const SPEAKERS = [
     org: "Proofpoint",
     linkedin: "https://www.linkedin.com/in/mustafa-maarouf07/",
     initials: "MM",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mustafa_Maarouf.png",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mustafa+Maarouf.jpg",
   },
   {
     name: "Hashim Luai",
@@ -100,7 +100,7 @@ const SPEAKERS = [
     org: "Proofpoint",
     linkedin: "https://www.linkedin.com/in/hashim-luai-a604b917/",
     initials: "HL",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hashim_Lua.png",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hashim+Lua.jpg",
   },
 ];
 
