@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import {
   motion,
   useInView,
@@ -12,10 +13,9 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Footer, InquiryForm } from "@/components/sections";
+import { Footer } from "@/components/sections";
 import { NeuralConstellation, DotMatrixGrid } from "@/components/effects";
 import EventNavigation from "@/components/ui/EventNavigation";
-import YouTubeShorts from "@/components/cyber-first/YouTubeShorts";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
 import type { FormType, CountryCode } from "@/lib/form-helpers";
 
@@ -27,6 +27,39 @@ const WP = "https://cyberfirstseries.com/wp-content/uploads";
 const S3 =
   "https://efg-final.s3.eu-north-1.amazonaws.com/speakers/cyber-first-kuwait";
 const EVENT_DATE = new Date("2026-10-14T08:00:00+03:00");
+
+// ─── Post-Event Reports data ─────────────────────────────────────────────────
+type ReportEntry = {
+  edition: string;
+  year: string;
+  title: string;
+  url: string;
+  filename: string;
+};
+
+const POST_EVENT_REPORTS: ReportEntry[] = [
+  {
+    edition: "Kuwait",
+    year: "2025",
+    title: "Cyber First Kuwait",
+    url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/PER+-+Cyber+First+Kuwait+2025+Edition.pdf",
+    filename: "Cyber-First-Kuwait-2025-Report.pdf",
+  },
+  {
+    edition: "Qatar",
+    year: "2025",
+    title: "Cyber First Qatar",
+    url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/PER+-+Cyber+First+Qatar+2025+Edition.pdf",
+    filename: "Cyber-First-Qatar-2025-Report.pdf",
+  },
+  {
+    edition: "UAE",
+    year: "2026",
+    title: "Cyber First UAE",
+    url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/Post+Event+Report+Cyber+First+UAE_compressed+(1).pdf",
+    filename: "Cyber-First-UAE-2026-Report.pdf",
+  },
+];
 
 // ─── Countdown ───────────────────────────────────────────────────────────────
 function useCountdown(target: Date) {
@@ -121,32 +154,75 @@ function Tilt({
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 // Only confirmed speakers with premium photos
-const SPEAKERS = [
-  {
-    name: "Faissal Al-Roumi",
-    title: "Executive Manager of Operational Risk",
-    org: "Burgan Bank",
-    photo: `${S3}/faissal-al-roumi-new.jpg`,
-  },
-  {
-    name: "Dr. Fai Ben Salamah",
-    title: "Cybersecurity Expert",
-    org: "Kuwait Technical College",
-    photo: `${S3}/dr-fai-ben-salamah-new.jpg`,
-  },
+type Speaker = {
+  name: string;
+  title: string;
+  org: string;
+  photo: string | null;
+  linkedin: string | null;
+};
+
+const SPEAKERS: Speaker[] = [
   {
     name: "Shaheela Banu A. Majeed",
     title: "Information Security & Compliance Officer & Auditor",
     org: "Oil & Gas / Confidential",
     photo: `${S3}/shaheela-majeed-new.jpg`,
+    linkedin: "https://www.linkedin.com/in/shaheela-banu/",
   },
   {
-    name: "Yousef El-Kourdi",
-    title: "Group Head of Information Technology",
-    org: "City Group Co. KSC",
+    name: "Mohamed Rushdhi",
+    title: "Head of Information Security Unit",
+    org: "The Industrial Bank of Kuwait",
+    photo: null,
+    linkedin: "https://www.linkedin.com/in/rushdhi-mohamed-information-security/",
+  },
+  {
+    name: "Omer Yildirim",
+    title: "SVP, Chief Technology Officer",
+    org: "Tiqmo",
+    photo: null,
+    linkedin: "https://www.linkedin.com/in/yildirimomer/",
+  },
+  {
+    name: "Dr Fai Ben Salamah",
+    title: "Cybersecurity Expert",
+    org: "Kuwait Technical College",
+    photo: `${S3}/dr-fai-ben-salamah-new.jpg`,
+    linkedin: "https://www.linkedin.com/in/dr-fai-ben-salamah-83113b1a0/",
+  },
+  {
+    name: "Faissal Al-Roumi",
+    title: "Executive Manager of Operational Risk",
+    org: "Burgan Bank",
+    photo: `${S3}/faissal-al-roumi-new.jpg`,
+    linkedin: "https://www.linkedin.com/in/faissal-al-roumi-mba-corp-0b2064112/",
+  },
+  {
+    name: "Rishabh R. Gaikwad",
+    title: "Head of Information Security & Data Governance",
+    org: "Alghanim Industries",
+    photo: null,
+    linkedin: "https://www.linkedin.com/in/dr-rishabh-r-gaikwad-88335638/",
+  },
+  {
+    name: "Eng. Yousef H. El-Kordi",
+    title: "Group Information Technology Director",
+    org: "City Group",
     photo: `${S3}/yousef-el-kourdi-new.jpg`,
+    linkedin: "https://www.linkedin.com/in/yousefelkordi/",
+  },
+  {
+    name: "Sumit Tekriwal",
+    title: "Head of Information Security Governance, Compliance and Privacy Unit",
+    org: "KIB",
+    photo: `${S3}/sumit-tekriwal.jpg`,
+    linkedin: "https://www.linkedin.com/in/sumittekriwal/",
   },
 ];
+
+// Kuwait 2025 photos used for the gallery + Key Topic panels (verified S3 URLs).
+const KW25 = "https://efg-final.s3.eu-north-1.amazonaws.com/events/Cyber+First+Kuwait+2025/Kuwait+Photos/Kuwait+Photos";
 
 const GALLERY: {
   src: string;
@@ -156,36 +232,36 @@ const GALLERY: {
   lift?: boolean;
 }[] = [
   {
-    src: `${WP}/2024/12/Cyber-First-Series-Pictures-and-Sponsors-28.jpg`,
-    alt: "Delegates networking on the floor",
+    src: `${KW25}/4X9A2256.jpg`,
+    alt: "Panel discussion on the main stage",
     area: "hero",
   },
   {
-    src: `${WP}/2024/12/Speakers-and-Event-pictures-22.png`,
-    alt: "Speaker on the main stage",
+    src: `${KW25}/4X9A1934.jpg`,
+    alt: "Inside the summit floor",
     area: "a",
     rotate: -1.5,
     lift: true,
   },
   {
-    src: `${WP}/2024/12/Cyber-First-Series-Pictures-and-Sponsors-30.jpg`,
+    src: `${KW25}/4X9A2164.jpg`,
     alt: "Speaker addressing delegates",
     area: "b",
   },
   {
-    src: `${WP}/2024/12/Cyber-First-Series-Pictures-and-Sponsors-29.jpg`,
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/kuwait/kuwait/cyber21-04-760.jpg",
     alt: "Panel session",
     area: "c",
     rotate: 1.2,
     lift: true,
   },
   {
-    src: `${WP}/2024/12/Speakers-and-Event-pictures-25.png`,
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/kuwait/kuwait/cyber21-04-87.jpg",
     alt: "Executive networking",
     area: "d",
   },
   {
-    src: `${WP}/2024/12/Speakers-and-Event-pictures-20.png`,
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/kuwait/kuwait/cyber21-04-713.jpg",
     alt: "Awards ceremony",
     area: "e",
   },
@@ -193,47 +269,55 @@ const GALLERY: {
 
 const FOCUS_AREAS = [
   {
-    title: "Cyber Leadership & Governance",
-    desc: "Elevating cybersecurity as a strategic business and national governance priority, strengthening regulatory alignment, executive accountability, and enterprise cyber risk frameworks.",
-    icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+    title: "AI-Powered Cyber Defense & Security Operations",
+    desc: "Leveraging AI and machine learning to detect, respond, and counter sophisticated threats — modernising the SOC with autonomous defence capabilities at machine speed.",
+    icon: "M12 2a4 4 0 014 4v1a2 2 0 012 2v1a2 2 0 01-2 2H8a2 2 0 01-2-2V9a2 2 0 012-2V6a4 4 0 014-4zM9 18h6M10 22h4",
+    image: `${KW25}/4X9A1519.jpg`,
     wide: true,
   },
   {
-    title: "AI & Emerging Threat Landscape",
-    desc: "Addressing how artificial intelligence is reshaping cyber threats and defence strategies while enabling secure adoption of AI-driven technologies across enterprise and government ecosystems.",
-    icon: "M12 2a4 4 0 014 4v1a2 2 0 012 2v1a2 2 0 01-2 2H8a2 2 0 01-2-2V9a2 2 0 012-2V6a4 4 0 014-4zM9 18h6M10 22h4",
-  },
-  {
-    title: "OT & Critical Infrastructure Security",
+    title: "Critical Infrastructure & OT Security",
     desc: "Strengthening protection of industrial control systems, utilities, energy infrastructure, and smart city platforms against targeted cyber attacks and operational disruptions.",
     icon: "M2 20h20M4 20V10l8-6 8 6v10M9 20v-4a3 3 0 016 0v4",
+    image: `${KW25}/4X9A1611.jpg`,
   },
   {
-    title: "Banking & Financial Cyber Resilience",
-    desc: "Enhancing resilience across digital banking, fintech innovation, fraud prevention, identity security, and regulatory compliance under evolving financial sector frameworks.",
-    icon: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z",
-    wide: true,
+    title: "Cloud Security & Zero Trust Architecture",
+    desc: "Securing hybrid and multi-cloud environments through Zero Trust principles, identity-first access controls, and continuous verification across the enterprise.",
+    icon: "M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z",
+    image: `${KW25}/4X9A1748.jpg`,
   },
   {
-    title: "Data Protection, Privacy & Digital Trust",
-    desc: "Advancing data sovereignty, regulatory compliance, privacy governance, and secure cross-border data management to build trusted digital ecosystems.",
-    icon: "M12 1a3 3 0 00-3 3v4a3 3 0 006 0V4a3 3 0 00-3-3zM19 10v2a7 7 0 01-14 0v-2M5 21h14M8 21v-4M16 21v-4",
-  },
-  {
-    title: "Threat Intelligence & Incident Response",
-    desc: "Advancing proactive threat detection, intelligence sharing, and rapid incident response capabilities to minimize breach impact and accelerate recovery.",
+    title: "Cyber Resilience & Incident Response",
+    desc: "Building enterprise-wide resilience frameworks, threat intelligence sharing, and rapid response capabilities to minimise breach impact and accelerate recovery.",
     icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z",
-  },
-  {
-    title: "Securing Digital Transformation",
-    desc: "Ensuring cybersecurity resilience across smart infrastructure, cloud transformation, and emerging digital technologies aligned with Kuwait Vision 2035.",
-    icon: "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z",
+    image: `${KW25}/4X9A1942.jpg`,
     wide: true,
   },
   {
-    title: "Regulatory Compliance & Risk Frameworks",
-    desc: "Navigating Kuwait's evolving regulatory landscape including CBK's Cyber & Operational Resilience Framework (CORF) and global standards.",
-    icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 14l2 2 4-4",
+    title: "Data Protection, Privacy & Compliance",
+    desc: "Advancing data sovereignty, regulatory compliance, privacy governance, and secure cross-border data management aligned with Kuwait's evolving frameworks.",
+    icon: "M12 1a3 3 0 00-3 3v4a3 3 0 006 0V4a3 3 0 00-3-3zM19 10v2a7 7 0 01-14 0v-2M5 21h14M8 21v-4M16 21v-4",
+    image: `${KW25}/4X9A2230.jpg`,
+  },
+  {
+    title: "Third-Party & Supply Chain Risk Management",
+    desc: "Managing the cascading risks of vendor ecosystems, supply chain dependencies, and software supply chain integrity in an interconnected digital economy.",
+    icon: "M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z",
+    image: `${KW25}/4X9A2200.jpg`,
+  },
+  {
+    title: "Identity Security & Access Governance",
+    desc: "Modernising identity architectures, privileged access management, and continuous identity verification to defend against credential-based and insider threats.",
+    icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z",
+    image: `${KW25}/4X9A2363.jpg`,
+    wide: true,
+  },
+  {
+    title: "Building Kuwait's Cybersecurity Workforce",
+    desc: "Developing national talent pipelines, upskilling existing teams, and partnering with academia to address the cybersecurity skills gap across Kuwait.",
+    icon: "M12 14l9-5-9-5-9 5 9 5zM12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998a12.078 12.078 0 01.665-6.479L12 14z",
+    image: `${KW25}/4X9A2498.jpg`,
   },
 ];
 
@@ -302,6 +386,22 @@ const SPONSORS = {
   ],
 };
 
+// Curated tier-display for the "Featured Sponsors" section — separate from the
+// full marquee. Two tiers, premium cards, gold accent on the top tier.
+// `lightBg: true` forces a white card background for logos that are dark-on-transparent.
+type FeaturedSponsor = { name: string; logo: string; lightBg?: boolean };
+const FEATURED_SPONSORS: { gold: FeaturedSponsor[]; strategic: FeaturedSponsor[] } = {
+  gold: [
+    { name: "Kaspersky", logo: `${S3_LOGOS}/kaspersky.png` },
+    { name: "Google Cloud Security", logo: `${S3_LOGOS}/Google-Cloud-Security.png`, lightBg: true },
+  ],
+  strategic: [
+    { name: "Akamai", logo: `${S3_LOGOS}/Akamai.png` },
+    { name: "ThreatLocker", logo: `${S3_LOGOS}/threatlocker.png` },
+    { name: "ManageEngine", logo: `${S3_LOGOS}/managengine1.png` },
+  ],
+};
+
 const AGENDA = [
   { time: "08:00 – 09:00", title: "Registration & Networking", type: "break" as const },
   { time: "09:00 – 09:10", title: "Opening Ceremony", subtitle: "Welcome Address by Events First Group (EFG)", type: "ceremony" as const },
@@ -360,19 +460,726 @@ const AWARDS_ELIGIBILITY = [
 ];
 
 const WHO_ATTEND_INDUSTRIES = [
-  { name: "Banking & Financial Services", pct: 28 },
-  { name: "Energy, Oil & Gas", pct: 22 },
-  { name: "Government & Public Sector", pct: 18 },
-  { name: "Telecom & Digital Infrastructure", pct: 12 },
-  { name: "Critical Infrastructure & Utilities", pct: 8 },
-  { name: "Healthcare & Essential Services", pct: 7 },
-  { name: "Retail & Digital Economy", pct: 5 },
+  { name: "Banking, Finance & Fintech", pct: 18 },
+  { name: "Government & Public Sector", pct: 16 },
+  { name: "Telecommunications & ISPs", pct: 12 },
+  { name: "Oil & Gas & Energy", pct: 12 },
+  { name: "Utilities & Critical Infrastructure", pct: 10 },
+  { name: "Technology, Cloud & IT Services", pct: 9 },
+  { name: "Healthcare & Pharmaceuticals", pct: 6 },
+  { name: "Manufacturing & Industrial (OT/ICS)", pct: 6 },
+  { name: "Transportation & Logistics", pct: 4 },
+  { name: "Retail & E-commerce", pct: 4 },
+  { name: "Education & Research Institutions", pct: 3 },
 ];
+
+// ─── POST-EVENT REPORTS — modal-only (hero dropdown opens this) ─────────────
+function CfkKwPostEventReports() {
+  const ref = useRef<HTMLElement>(null);
+
+  // ── Request form state ────────────────────────────────────────────────────
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState<CountryCode>(
+    COUNTRY_CODES.find((c) => c.country === "KW") || COUNTRY_CODES[0]
+  );
+  const [phoneTouched, setPhoneTouched] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [submitError, setSubmitError] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  // Mount flag so the portal target (document.body) is only used after hydration.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+  // Tracks which resource is being requested — drives the modal copy + metadata.
+  type RequestKind = "Delegate List" | "Past Event Report";
+  const [requestType, setRequestType] = useState<RequestKind>("Delegate List");
+  // When requesting a Past Event Report, the user picks which edition's PDF.
+  const [selectedReportUrl, setSelectedReportUrl] = useState<string>(
+    POST_EVENT_REPORTS[0]?.url ?? "",
+  );
+
+  // Lock body scroll + ESC-to-close while modal is open
+  useEffect(() => {
+    if (!modalOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setModalOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [modalOpen]);
+
+  // Listen for the hero dropdown opening the modal with a chosen request type
+  useEffect(() => {
+    const onOpenRequest = (e: Event) => {
+      const detail = (e as CustomEvent<{ type?: RequestKind }>).detail;
+      if (detail?.type === "Past Event Report" || detail?.type === "Delegate List") {
+        setRequestType(detail.type);
+        setSubmitState("idle");
+        setSubmitError("");
+        setErrors({});
+        setModalOpen(true);
+      }
+    };
+    window.addEventListener("cfk-2026:open-request", onOpenRequest);
+    return () => window.removeEventListener("cfk-2026:open-request", onOpenRequest);
+  }, []);
+
+  const modalCopy =
+    requestType === "Past Event Report"
+      ? {
+          kicker: "Request the Past Event Report",
+          title: "Get the post-event report.",
+          subtitle:
+            "Share your details and we’ll send the curated delegate list to your work email.",
+          success:
+            "We’ll email the post-event report PDF to your work email within 1 business day.",
+        }
+      : {
+          kicker: "Request the Delegate List",
+          title: "Get the full attendee roster.",
+          subtitle:
+            "Share your details and we’ll send the curated delegate list to your work email.",
+          success:
+            "We’ll send the delegate list to your work email within 1 business day.",
+        };
+
+  const phoneDigits = phone.replace(/[\s\-()]/g, "");
+  const phoneDigitsLen = phoneDigits.length;
+  const phoneIsValid = phoneDigitsLen > 0 && validatePhone(phone, countryCode) === null;
+
+  useEffect(() => {
+    if (!phoneTouched) return;
+    const err = validatePhone(phone, countryCode);
+    setErrors((prev) => {
+      const next = { ...prev };
+      if (err) next.phone = err; else delete next.phone;
+      return next;
+    });
+  }, [phone, countryCode, phoneTouched]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const newErrors: Record<string, string> = {};
+    if (!fullName.trim()) newErrors.fullName = "Full name is required";
+    if (!email.trim()) newErrors.email = "Work email is required";
+    else if (!isWorkEmail(email.trim())) newErrors.email = "Please use your work email — free providers are not accepted";
+    if (!jobTitle.trim()) newErrors.jobTitle = "Job title is required";
+    const phoneErr = validatePhone(phone, countryCode);
+    if (phoneErr) newErrors.phone = phoneErr;
+    if (!selectedReportUrl) {
+      newErrors.report = "Please select an edition";
+    }
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) {
+      setPhoneTouched(true);
+      return;
+    }
+
+    const selectedReport = POST_EVENT_REPORTS.find((r) => r.url === selectedReportUrl);
+
+    setSubmitState("submitting");
+    setSubmitError("");
+    const res = await submitForm({
+      type: "contact",
+      full_name: fullName.trim(),
+      email: email.trim(),
+      job_title: jobTitle.trim(),
+      phone: `${countryCode.code} ${phone.trim()}`,
+      event_name: "Cyber First Kuwait 2026",
+      metadata: {
+        "Event Page": "Cyber First Kuwait 2026",
+        "Request Type": requestType,
+        "Page Section": "Post-Event Reports",
+        ...(selectedReport && {
+          "Selected Edition": `${selectedReport.title} ${selectedReport.year}`,
+          ...(requestType === "Past Event Report" && {
+            "Selected Report URL": selectedReport.url,
+          }),
+        }),
+      },
+    });
+    if (res.success) {
+      setSubmitState("success");
+      setFullName(""); setEmail(""); setJobTitle(""); setPhone("");
+    } else {
+      setSubmitState("error");
+      setSubmitError(res.error || "Something went wrong. Please try again.");
+    }
+  };
+
+  return (
+    <section ref={ref} id="reports" aria-hidden style={{ padding: 0, margin: 0, height: 0, overflow: "hidden" }}>
+
+      {/* ─── Request Form Modal — portalled to <body> so the popup
+          overlays the whole viewport (not constrained to this section) ── */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {modalOpen && (
+            <motion.div
+              className="cfk-kw-req-modal-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22 }}
+              onClick={() => setModalOpen(false)}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="cfk-kw-req-modal-title"
+            >
+              <motion.div
+                className="cfk-kw-req-modal-card"
+                initial={{ opacity: 0, y: 24, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 24, scale: 0.96 }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(false)}
+                  className="cfk-kw-req-modal-close"
+                  aria-label="Close request form"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+
+                <span aria-hidden className="cfk-kw-req-modal-hairline" />
+
+                <div className="cfk-kw-req-modal-header">
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                    <span style={{ width: 24, height: 1, background: C_BRIGHT }} />
+                    <span style={{
+                      fontFamily: "var(--font-dm)",
+                      fontSize: 10, fontWeight: 700,
+                      letterSpacing: "0.32em", textTransform: "uppercase",
+                      color: C_BRIGHT,
+                    }}>{modalCopy.kicker}</span>
+                  </div>
+                  <h3 id="cfk-kw-req-modal-title" style={{
+                    margin: 0,
+                    fontFamily: "var(--font-display)",
+                    fontSize: "clamp(20px, 2.4vw, 26px)",
+                    fontWeight: 700,
+                    letterSpacing: "-0.5px",
+                    color: "white",
+                    lineHeight: 1.2,
+                  }}>
+                    {modalCopy.title}
+                  </h3>
+                  <p style={{
+                    margin: "10px 0 0",
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 13,
+                    color: "rgba(255,255,255,0.55)",
+                    lineHeight: 1.55,
+                  }}>
+                    {modalCopy.subtitle}
+                  </p>
+                </div>
+
+                {submitState === "success" ? (
+                  <div className="cfk-kw-req-modal-success">
+                    <div className="cfk-kw-req-modal-success-check">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    </div>
+                    <h4>Request received.</h4>
+                    <p>{modalCopy.success}</p>
+                    <button
+                      type="button"
+                      onClick={() => setModalOpen(false)}
+                      className="cfk-kw-req-modal-done"
+                    >
+                      Done
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} noValidate className="cfk-kw-req-form-fields">
+                    {/* Honeypot */}
+                    <input type="text" name="website" tabIndex={-1} autoComplete="off"
+                      style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} />
+
+                    {/* Edition picker — used by both Delegate List and Past Event Report requests */}
+                    <div className="cfk-kw-req-form-row">
+                      <label className="cfk-kw-req-form-field" style={{ flex: "1 1 100%" }}>
+                        <span className="cfk-kw-req-form-label">Select Edition</span>
+                        <select
+                          value={selectedReportUrl}
+                          onChange={(e) => {
+                            setSelectedReportUrl(e.target.value);
+                            if (errors.report) setErrors({ ...errors, report: "" });
+                          }}
+                          className="cfk-kw-req-form-input cfk-kw-req-form-report-select"
+                          aria-invalid={!!errors.report}
+                        >
+                          {POST_EVENT_REPORTS.map((r) => (
+                            <option key={r.url} value={r.url}>
+                              {r.title} {r.year}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.report && <span className="cfk-kw-req-form-err">{errors.report}</span>}
+                      </label>
+                    </div>
+
+                    <div className="cfk-kw-req-form-row">
+                      <label className="cfk-kw-req-form-field">
+                        <span className="cfk-kw-req-form-label">Full Name</span>
+                        <input
+                          type="text"
+                          value={fullName}
+                          onChange={(e) => { setFullName(e.target.value); if (errors.fullName) setErrors({ ...errors, fullName: "" }); }}
+                          placeholder="Your full name"
+                          autoComplete="name"
+                          className="cfk-kw-req-form-input"
+                          aria-invalid={!!errors.fullName}
+                        />
+                        {errors.fullName && <span className="cfk-kw-req-form-err">{errors.fullName}</span>}
+                      </label>
+
+                      <label className="cfk-kw-req-form-field">
+                        <span className="cfk-kw-req-form-label">Work Email</span>
+                        <input
+                          type="email"
+                          value={email}
+                          onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors({ ...errors, email: "" }); }}
+                          placeholder="name@company.com"
+                          autoComplete="email"
+                          className="cfk-kw-req-form-input"
+                          aria-invalid={!!errors.email}
+                        />
+                        {errors.email && <span className="cfk-kw-req-form-err">{errors.email}</span>}
+                      </label>
+                    </div>
+
+                    <div className="cfk-kw-req-form-row">
+                      <label className="cfk-kw-req-form-field">
+                        <span className="cfk-kw-req-form-label">Job Title</span>
+                        <input
+                          type="text"
+                          value={jobTitle}
+                          onChange={(e) => { setJobTitle(e.target.value); if (errors.jobTitle) setErrors({ ...errors, jobTitle: "" }); }}
+                          placeholder="CISO, Head of IT, CIO…"
+                          autoComplete="organization-title"
+                          className="cfk-kw-req-form-input"
+                          aria-invalid={!!errors.jobTitle}
+                        />
+                        {errors.jobTitle && <span className="cfk-kw-req-form-err">{errors.jobTitle}</span>}
+                      </label>
+
+                      <label className="cfk-kw-req-form-field">
+                        <span className="cfk-kw-req-form-label">
+                          Phone
+                          <span className="cfk-kw-req-form-hint-inline">
+                            {countryCode.length} digits expected
+                          </span>
+                        </span>
+                        <div className="cfk-kw-req-form-phone-row">
+                          <select
+                            value={`${countryCode.country}-${countryCode.code}`}
+                            onChange={(e) => {
+                              const [country, code] = e.target.value.split("-");
+                              const found = COUNTRY_CODES.find((c) => c.country === country && c.code === code);
+                              if (found) {
+                                setCountryCode(found);
+                                setPhone((prev) => prev.replace(/\D/g, "").slice(0, found.length));
+                              }
+                            }}
+                            className="cfk-kw-req-form-cc"
+                            aria-label="Country code"
+                          >
+                            {COUNTRY_CODES.map((c) => (
+                              <option key={`${c.country}-${c.code}`} value={`${c.country}-${c.code}`}>
+                                {c.country} {c.code}
+                              </option>
+                            ))}
+                          </select>
+                          <div className="cfk-kw-req-form-phone-wrap">
+                            <input
+                              type="tel"
+                              inputMode="numeric"
+                              value={phone}
+                              onChange={(e) => {
+                                const digits = e.target.value.replace(/\D/g, "").slice(0, countryCode.length);
+                                setPhone(digits);
+                              }}
+                              onBlur={() => setPhoneTouched(true)}
+                              placeholder={countryCode.placeholder}
+                              autoComplete="tel-national"
+                              maxLength={countryCode.length}
+                              className="cfk-kw-req-form-input cfk-kw-req-form-phone-input"
+                              aria-invalid={!!errors.phone}
+                            />
+                            {phoneTouched && phoneIsValid && (
+                              <span aria-hidden className="cfk-kw-req-form-phone-check">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                  <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        {phoneTouched && !phoneIsValid && phoneDigitsLen > 0 && !errors.phone && (
+                          <span className="cfk-kw-req-form-phone-progress">
+                            {phoneDigitsLen} / {countryCode.length} digits
+                          </span>
+                        )}
+                        {errors.phone && <span className="cfk-kw-req-form-err">{errors.phone}</span>}
+                      </label>
+                    </div>
+
+                    {submitError && (
+                      <div className="cfk-kw-req-form-submit-err">{submitError}</div>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={submitState === "submitting"}
+                      className="cfk-kw-req-form-submit"
+                    >
+                      {submitState === "submitting"
+                        ? "Sending…"
+                        : requestType === "Past Event Report"
+                        ? "Send me the report"
+                        : "Send me the delegate list"}
+                      {submitState !== "submitting" && (
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 8 }}>
+                          <line x1="5" y1="12" x2="19" y2="12" />
+                          <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                      )}
+                    </button>
+                    <p className="cfk-kw-req-form-hint">
+                      We respect your inbox. Used only to send the delegate list and edition follow-ups.
+                    </p>
+                  </form>
+                )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body,
+      )}
+
+      <style jsx global>{`
+        /* ── Modal overlay + card ────────────────────────────────────────── */
+        .cfk-kw-req-modal-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: clamp(16px, 3vw, 32px);
+          background: rgba(2, 6, 14, 0.78);
+          backdrop-filter: blur(14px) saturate(140%);
+          -webkit-backdrop-filter: blur(14px) saturate(140%);
+        }
+        .cfk-kw-req-modal-card {
+          position: relative;
+          width: 100%;
+          max-width: 580px;
+          max-height: calc(100vh - clamp(32px, 6vw, 64px));
+          overflow-y: auto;
+          padding: clamp(24px, 3vw, 36px);
+          background: linear-gradient(165deg, rgba(8, 18, 32, 0.94) 0%, rgba(4, 8, 16, 0.97) 100%);
+          border: 1px solid rgba(255,255,255,0.10);
+          border-radius: 20px;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.16),
+            inset 0 -1px 0 rgba(0,0,0,0.45),
+            0 24px 56px rgba(0,0,0,0.55),
+            0 48px 96px rgba(0,0,0,0.45);
+        }
+        .cfk-kw-req-modal-hairline {
+          position: absolute;
+          top: 0; left: 8%; right: 8%; height: 1px;
+          background: linear-gradient(90deg, transparent 0%, ${C} 30%, ${C_BRIGHT} 70%, transparent 100%);
+          opacity: 0.8;
+        }
+        .cfk-kw-req-modal-close {
+          position: absolute;
+          top: 14px; right: 14px;
+          display: inline-flex;
+          align-items: center; justify-content: center;
+          width: 32px; height: 32px;
+          border-radius: 8px;
+          border: 1px solid rgba(255,255,255,0.10);
+          background: rgba(255,255,255,0.04);
+          color: rgba(255,255,255,0.7);
+          cursor: pointer;
+          transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+        }
+        .cfk-kw-req-modal-close:hover {
+          color: white;
+          border-color: ${C_BRIGHT}66;
+          background: ${C}1a;
+          transform: rotate(90deg);
+        }
+        .cfk-kw-req-modal-header {
+          margin-bottom: clamp(18px, 2vw, 22px);
+          padding-right: 36px;
+        }
+        .cfk-kw-req-modal-success {
+          display: flex; flex-direction: column;
+          align-items: center; text-align: center;
+          padding: clamp(8px, 1vw, 12px) 0 4px;
+        }
+        .cfk-kw-req-modal-success-check {
+          display: inline-flex;
+          align-items: center; justify-content: center;
+          width: 56px; height: 56px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, ${C}, ${C_BRIGHT});
+          margin-bottom: 16px;
+          box-shadow: 0 8px 24px ${C}66;
+        }
+        .cfk-kw-req-modal-success h4 {
+          margin: 0 0 8px;
+          font-family: var(--font-display);
+          font-size: clamp(18px, 1.8vw, 22px);
+          font-weight: 700;
+          color: white;
+        }
+        .cfk-kw-req-modal-success p {
+          margin: 0 0 22px;
+          font-family: var(--font-outfit);
+          font-size: 14px;
+          color: rgba(255,255,255,0.6);
+          line-height: 1.55;
+          max-width: 380px;
+        }
+        .cfk-kw-req-modal-done {
+          padding: 10px 28px;
+          background: linear-gradient(135deg, ${C} 0%, ${C_BRIGHT} 100%);
+          border: 1px solid ${C_BRIGHT}55;
+          border-radius: 10px;
+          color: white;
+          font-family: var(--font-outfit);
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          cursor: pointer;
+          transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .cfk-kw-req-modal-done:hover {
+          transform: translateY(-1px);
+          filter: brightness(1.08);
+        }
+        @media (max-width: 540px) {
+          .cfk-kw-req-modal-card { padding: 22px 18px; border-radius: 16px; }
+          .cfk-kw-req-modal-header { padding-right: 30px; }
+        }
+
+        /* ── Form fields ─────────────────────────────────────────────────── */
+        .cfk-kw-req-form-fields {
+          position: relative; z-index: 1;
+          display: flex; flex-direction: column;
+          gap: clamp(14px, 1.8vw, 18px);
+        }
+        .cfk-kw-req-form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: clamp(12px, 1.6vw, 18px);
+        }
+        .cfk-kw-req-form-field {
+          display: flex; flex-direction: column;
+          gap: 6px;
+        }
+        .cfk-kw-req-form-label {
+          font-family: var(--font-outfit);
+          font-size: 11px; font-weight: 600;
+          letter-spacing: 0.16em; text-transform: uppercase;
+          color: rgba(255,255,255,0.55);
+          display: flex;
+          align-items: baseline;
+          gap: 10px;
+        }
+        .cfk-kw-req-form-hint-inline {
+          font-size: 10px;
+          font-weight: 500;
+          letter-spacing: 0.06em;
+          text-transform: none;
+          color: rgba(255,255,255,0.35);
+        }
+        .cfk-kw-req-form-phone-wrap {
+          position: relative;
+          flex: 1;
+        }
+        .cfk-kw-req-form-phone-check {
+          position: absolute;
+          right: 12px;
+          top: 50%;
+          transform: translateY(-50%);
+          display: inline-flex;
+          align-items: center; justify-content: center;
+          width: 22px; height: 22px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, ${C}, ${C_BRIGHT});
+          color: white;
+          box-shadow: 0 2px 8px ${C}66;
+          pointer-events: none;
+        }
+        .cfk-kw-req-form-phone-progress {
+          font-family: var(--font-outfit);
+          font-size: 11px;
+          color: rgba(255,255,255,0.45);
+          font-variant-numeric: tabular-nums;
+          margin-top: 2px;
+        }
+        .cfk-kw-req-form-input {
+          width: 100%;
+          padding: 12px 14px;
+          background: rgba(0,0,0,0.30);
+          border: 1px solid rgba(255,255,255,0.10);
+          border-radius: 10px;
+          color: white;
+          font-family: var(--font-outfit);
+          font-size: 14.5px;
+          line-height: 1.4;
+          outline: none;
+          transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+        }
+        .cfk-kw-req-form-input::placeholder {
+          color: rgba(255,255,255,0.30);
+        }
+        .cfk-kw-req-form-input:focus {
+          border-color: ${C_BRIGHT};
+          background: rgba(0,0,0,0.40);
+          box-shadow: 0 0 0 3px ${C}33;
+        }
+        .cfk-kw-req-form-input[aria-invalid="true"] {
+          border-color: rgba(255,80,80,0.6);
+        }
+        /* Edition picker — native select with a custom cyan chevron */
+        .cfk-kw-req-form-report-select {
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          padding-right: 40px;
+          background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1l5 5 5-5' stroke='%2301BBF5' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+          background-repeat: no-repeat;
+          background-position: right 14px center;
+          cursor: pointer;
+        }
+        .cfk-kw-req-form-report-select option {
+          background: #0a1320;
+          color: white;
+        }
+        .cfk-kw-req-form-phone-row {
+          display: flex;
+          gap: 8px;
+        }
+        .cfk-kw-req-form-cc {
+          padding: 12px 10px;
+          background: rgba(0,0,0,0.30);
+          border: 1px solid rgba(255,255,255,0.10);
+          border-radius: 10px;
+          color: white;
+          font-family: var(--font-outfit);
+          font-size: 14px;
+          outline: none;
+          cursor: pointer;
+          max-width: 110px;
+          transition: border-color 0.25s ease, background 0.25s ease;
+        }
+        .cfk-kw-req-form-cc:focus {
+          border-color: ${C_BRIGHT};
+          box-shadow: 0 0 0 3px ${C}33;
+        }
+        .cfk-kw-req-form-cc option {
+          background: #0a1320;
+          color: white;
+        }
+        .cfk-kw-req-form-phone-input {
+          flex: 1;
+          width: 100%;
+          padding-right: 40px;
+        }
+        .cfk-kw-req-form-err {
+          font-family: var(--font-outfit);
+          font-size: 12px;
+          color: #ff7a7a;
+          margin-top: 2px;
+        }
+        .cfk-kw-req-form-submit-err {
+          padding: 12px 14px;
+          border-radius: 10px;
+          background: rgba(255, 80, 80, 0.10);
+          border: 1px solid rgba(255, 80, 80, 0.30);
+          color: #ff9a9a;
+          font-family: var(--font-outfit);
+          font-size: 13.5px;
+        }
+        .cfk-kw-req-form-submit {
+          display: inline-flex;
+          align-items: center; justify-content: center;
+          padding: 14px 24px;
+          border-radius: 12px;
+          border: 1px solid transparent;
+          background: linear-gradient(135deg, ${C}, ${C_BRIGHT});
+          color: white;
+          font-family: var(--font-outfit);
+          font-size: 14px; font-weight: 700;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          cursor: pointer;
+          align-self: flex-start;
+          transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease, filter 0.25s ease;
+          box-shadow: 0 8px 20px ${C}55, inset 0 1px 0 rgba(255,255,255,0.18);
+        }
+        .cfk-kw-req-form-submit:hover:not(:disabled) {
+          transform: translateY(-1px);
+          filter: brightness(1.08);
+          box-shadow: 0 12px 28px ${C}77, inset 0 1px 0 rgba(255,255,255,0.22);
+        }
+        .cfk-kw-req-form-submit:disabled {
+          opacity: 0.55;
+          cursor: not-allowed;
+        }
+        .cfk-kw-req-form-hint {
+          font-family: var(--font-outfit);
+          font-size: 12px;
+          color: rgba(255,255,255,0.35);
+          margin: 4px 0 0;
+        }
+        @media (max-width: 640px) {
+          .cfk-kw-req-form-row {
+            grid-template-columns: 1fr !important;
+          }
+          .cfk-kw-req-form-submit {
+            width: 100%;
+            justify-content: center;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 export default function CyberFirstKuwait2026() {
   return (
-    <div style={{ background: "#050810" }}>
+    <div style={{
+      background: `
+        radial-gradient(ellipse 70% 20% at 15% 12%, ${C}12 0%, transparent 65%),
+        radial-gradient(ellipse 60% 18% at 88% 30%, ${C}0a 0%, transparent 65%),
+        radial-gradient(ellipse 65% 22% at 22% 52%, ${C}10 0%, transparent 65%),
+        radial-gradient(ellipse 60% 18% at 80% 70%, ${C}0a 0%, transparent 65%),
+        radial-gradient(ellipse 55% 20% at 18% 88%, ${C}0c 0%, transparent 65%),
+        linear-gradient(180deg, #050810 0%, #030608 55%, #000000 100%)
+      `,
+    }}>
       {/* Global Mobile Styles */}
       <style jsx global>{`
         /* Hero mobile */
@@ -450,11 +1257,11 @@ export default function CyberFirstKuwait2026() {
       
       <EventNavigation />
       <HeroSection />
-      <StatsBar />
       <MarketContext />
       <FocusAreas />
       <AdvisoryBoard />
       <Speakers />
+      <FeaturedSponsors />
       <AgendaTimeline />
       <SponsorsSection />
       <GrowthStory />
@@ -463,11 +1270,11 @@ export default function CyberFirstKuwait2026() {
       <WhatToExpect />
       <WhoShouldAttend />
       <AwardsSection />
-      <YouTubeShorts />
-      <SplitCTA />
+      <FromTheRoom />
+      <RegistrationSection />
       <ContactSection />
       <Venue />
-      <RegistrationSection />
+      <CfkKwPostEventReports />
       <Footer />
     </div>
   );
@@ -476,57 +1283,93 @@ export default function CyberFirstKuwait2026() {
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 function HeroSection() {
   const cd = useCountdown(EVENT_DATE);
+  const [resourceMenuOpen, setResourceMenuOpen] = useState(false);
+  const resourceMenuRef = useRef<HTMLDivElement>(null);
+
+  // Click-outside + ESC closes the resources dropdown
+  useEffect(() => {
+    if (!resourceMenuOpen) return;
+    const onClick = (e: MouseEvent) => {
+      if (resourceMenuRef.current && !resourceMenuRef.current.contains(e.target as Node)) {
+        setResourceMenuOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setResourceMenuOpen(false);
+    };
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [resourceMenuOpen]);
+
+  const openRequest = (type: "Past Event Report" | "Delegate List") => {
+    setResourceMenuOpen(false);
+    window.dispatchEvent(
+      new CustomEvent("cfk-2026:open-request", { detail: { type } }),
+    );
+  };
 
   return (
     <section
       className="cfk-hero-section"
       style={{
         position: "relative",
-        height: "100vh",
+        minHeight: "100dvh",
         overflow: "hidden",
         background: "#050810",
       }}
     >
-      {/* ═══ LAYER 0: Full-bleed background image ═══ */}
+      {/* ═══ LAYER 0: Full-bleed background image — Kuwait 2025 main hall ═══ */}
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://cyberfirstseries.com/wp-content/uploads/2024/12/Cyber-First-Series-Pictures-and-Sponsors-30.jpg"
-          alt="Cyber First Kuwait 2026 cybersecurity summit"
+          src="https://efg-final.s3.eu-north-1.amazonaws.com/events/Cyber+First+Kuwait+2025/Kuwait+Photos/Kuwait+Photos/4X9A1744.jpg"
+          alt="Cyber First Kuwait 2025 main hall — past edition"
           className="w-full h-full object-cover"
-          style={{ filter: "brightness(0.55) saturate(0.85)" }}
+          style={{ filter: "brightness(0.55) saturate(1.05) contrast(1.04)", objectPosition: "center" }}
         />
       </div>
 
-      {/* ═══ LAYER 1: Gradient overlays ═══ */}
-      {/* Left-to-right: dark on left for text readability, lighter on right to show image */}
+      {/* ═══ LAYER 1: Cinematic gradient stack ═══ */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(90deg, rgba(5,8,16,0.92) 0%, rgba(5,8,16,0.75) 35%, rgba(5,8,16,0.35) 60%, rgba(5,8,16,0.15) 100%)`,
+          background: `linear-gradient(90deg, rgba(5,8,16,0.94) 0%, rgba(5,8,16,0.82) 32%, rgba(5,8,16,0.40) 60%, rgba(5,8,16,0.15) 100%)`,
           zIndex: 1,
         }}
       />
-      {/* Top + bottom fade */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(to bottom, rgba(5,8,16,0.5) 0%, transparent 25%, transparent 70%, rgba(5,8,16,0.9) 100%)`,
+          background: `linear-gradient(to bottom, rgba(5,8,16,0.55) 0%, transparent 28%, transparent 65%, rgba(5,8,16,0.95) 100%)`,
+          zIndex: 1,
+        }}
+      />
+      {/* Radial cyan atmospheric glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 55% 45% at 22% 30%, ${C}18 0%, transparent 65%)`,
           zIndex: 1,
         }}
       />
 
       {/* ═══ LAYER 2: Atmospheric effects ═══ */}
-      <NeuralConstellation color={C} dotCount={30} connectionDistance={140} speed={0.2} opacity={0.06} />
-      <DotMatrixGrid color={C} opacity={0.012} spacing={36} />
+      <NeuralConstellation color={C} dotCount={32} connectionDistance={150} speed={0.18} opacity={0.07} />
+      <DotMatrixGrid color={C} opacity={0.014} spacing={36} />
 
-      {/* Cyber grid, faded across the section */}
+      {/* Cyber hairline grid */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: `linear-gradient(${C}04 1px, transparent 1px), linear-gradient(90deg, ${C}04 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(${C}05 1px, transparent 1px), linear-gradient(90deg, ${C}05 1px, transparent 1px)`,
           backgroundSize: "60px 60px",
-          opacity: 0.5,
+          maskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 75%)",
+          WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 75%)",
+          opacity: 0.55,
           zIndex: 2,
         }}
       />
@@ -543,217 +1386,406 @@ function HeroSection() {
       />
 
       {/* ═══ CONTENT ═══ */}
-      <div className="cfk-hero-content">
+      <div
+        className="cfk-hero-content"
+        style={{
+          position: "relative",
+          zIndex: 10,
+          minHeight: "100dvh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          maxWidth: 1320,
+          margin: "0 auto",
+          padding: "clamp(100px, 14vh, 140px) clamp(24px, 5vw, 80px) clamp(140px, 16vh, 180px)",
+        }}
+      >
+        {/* ═══ Top row — Edition mark (left) · Date+City badge (right) ═══ */}
         <div
+          className="cfk-hero-toprow"
           style={{
-            position: "relative",
-            zIndex: 10,
-            height: "100vh",
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            maxWidth: 1320,
-            margin: "0 auto",
-            padding: "0 clamp(24px, 5vw, 80px)",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+            marginBottom: "clamp(24px, 4vh, 44px)",
+            gap: 20,
           }}
         >
-          {/* Series eyebrow */}
-          {/* Edition Badge */}
+          {/* Series + Edition mark */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2, ease: EASE }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 10 }}
+          >
+            <span style={{
+              fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 800,
+              letterSpacing: "2.5px", textTransform: "uppercase", color: C_BRIGHT,
+            }}>
+              Cyber First Series
+            </span>
+            <div style={{
+              display: "inline-flex", alignItems: "center", gap: 12,
+              padding: "12px 22px",
+              borderRadius: 14,
+              background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.025) 100%)",
+              border: "1px solid rgba(255,255,255,0.12)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.25), 0 8px 32px rgba(0,0,0,0.4)",
+            }}>
+              <span style={{
+                width: 8, height: 8, borderRadius: 2, background: C,
+                boxShadow: `0 0 10px ${C}, 0 0 18px ${C}60`,
+              }} />
+              <span style={{
+                fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 700,
+                color: "white", letterSpacing: "-0.005em",
+              }}>
+                3rd Annual Edition
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Date + City glass badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="cfk-hero-datebadge"
+            style={{
+              display: "inline-flex", alignItems: "center", gap: 14,
+              padding: "12px 24px",
+              borderRadius: 50,
+              background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)",
+              border: "1px solid rgba(255,255,255,0.12)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 0 rgba(0,0,0,0.2), 0 8px 32px rgba(0,0,0,0.4)",
+            }}
+          >
+            <span style={{
+              width: 8, height: 8, borderRadius: "50%", background: C_BRIGHT,
+              boxShadow: `0 0 8px ${C_BRIGHT}, 0 0 16px ${C_BRIGHT}60`,
+            }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, letterSpacing: "1.2px", textTransform: "uppercase", color: "white" }}>
+              14 OCT 2026
+            </span>
+            <span style={{ width: 1, height: 16, background: "rgba(255,255,255,0.15)", borderRadius: 1 }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>
+              KUWAIT CITY
+            </span>
+          </motion.div>
+        </div>
+
+        {/* Main headline — split editorial */}
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}>
+          <h1 style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 800,
+            fontSize: "clamp(42px, 7vw, 90px)",
+            lineHeight: 0.9,
+            letterSpacing: "-0.03em",
+            color: "#FFFFFF",
+            margin: 0,
+          }}>
+            Cyber
+          </h1>
+          <h1 style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 800,
+            fontSize: "clamp(42px, 7vw, 90px)",
+            lineHeight: 0.9,
+            letterSpacing: "-0.03em",
+            color: C_BRIGHT,
+            margin: "0 0 clamp(12px, 2vh, 20px) 0",
+          }}>
+            Sovereignty
+          </h1>
+        </motion.div>
+
+        {/* Italic cyan subhead */}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 500,
+            fontStyle: "italic",
+            fontSize: "clamp(18px, 2.5vw, 30px)",
+            lineHeight: 1.2,
+            color: C_BRIGHT,
+            margin: "0 0 clamp(24px, 4vh, 36px) 0",
+            maxWidth: 540,
+          }}
+        >
+          Building National Cyber Resilience for a Digitally Sovereign Kuwait
+        </motion.h2>
+
+        {/* CTAs — primary + Request Resources dropdown */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}
+        >
+          {/* Reserve Your Seat */}
+          <a
+            href="#register"
+            onClick={(e) => { e.preventDefault(); document.getElementById("register")?.scrollIntoView({ behavior: "smooth" }); }}
             style={{
               display: "inline-flex",
               alignItems: "center",
-              alignSelf: "flex-start",
               gap: 8,
-              padding: "8px 16px",
-              borderRadius: 30,
-              background: `${C}15`,
-              border: `1px solid ${C}30`,
-              marginBottom: 24,
+              padding: "clamp(12px, 1.5vw, 16px) clamp(24px, 3vw, 36px)",
+              borderRadius: 50,
+              background: C,
+              color: "white",
+              fontFamily: "var(--font-outfit)",
+              fontSize: "clamp(13px, 1.1vw, 15px)",
+              fontWeight: 600,
+              textDecoration: "none",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              boxShadow: `0 4px 24px ${C}50`,
             }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = C_BRIGHT; e.currentTarget.style.transform = "translateY(-2px)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = C; e.currentTarget.style.transform = "translateY(0)"; }}
           >
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT }} />
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: C_BRIGHT }}>
-              3rd Annual · 14 Oct 2026
-            </span>
-          </motion.div>
+            Reserve Your Seat <span>→</span>
+          </a>
 
-          {/* Headline - Cleaner */}
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.3, ease: EASE }}
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 900,
-              fontSize: "clamp(36px, 5vw, 72px)",
-              lineHeight: 1.08,
-              letterSpacing: "-0.03em",
-              color: "#F0F2F5",
-              margin: "0 0 28px",
-              maxWidth: 650,
-            }}
-          >
-            Building National Cyber Resilience for a digitally{" "}
-            <span
-              className="cfk-shimmer"
+          {/* Request Resources dropdown */}
+          <div ref={resourceMenuRef} style={{ position: "relative", display: "inline-block" }}>
+            <button
+              type="button"
+              onClick={() => setResourceMenuOpen((o) => !o)}
+              aria-haspopup="menu"
+              aria-expanded={resourceMenuOpen}
+              className="cfk-req-ghost"
+              suppressHydrationWarning
               style={{
-                background: `linear-gradient(110deg, ${C_BRIGHT} 0%, #fff 50%, ${C_BRIGHT} 100%)`,
-                backgroundSize: "250% 100%",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                padding: "clamp(12px, 1.5vw, 16px) clamp(22px, 2.8vw, 32px)",
+                borderRadius: 50,
+                background: "rgba(255,255,255,0.06)",
+                color: "rgba(255,255,255,0.9)",
+                fontFamily: "var(--font-outfit)",
+                fontSize: "clamp(13px, 1.1vw, 15px)",
+                fontWeight: 500,
+                border: "1px solid rgba(255,255,255,0.18)",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                position: "relative",
+                overflow: "hidden",
               }}
             >
-              sovereign Kuwait
-            </span>
-          </motion.h1>
+              Request Resources
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{
+                  transform: resourceMenuOpen ? "rotate(0)" : "rotate(180deg)",
+                  transition: "transform 0.25s ease",
+                  opacity: 0.8,
+                }}
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
 
-          {/* Tagline - Shorter */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5, ease: EASE }}
-            style={{
-              fontFamily: "var(--font-outfit)",
-              fontWeight: 400,
-              fontSize: "clamp(15px, 1.4vw, 18px)",
-              color: "rgba(255,255,255,0.6)",
-              lineHeight: 1.6,
-              maxWidth: 440,
-              marginBottom: 32,
-            }}
-          >
-            Kuwait&apos;s premier cybersecurity summit for CISOs, government leaders, and enterprise security executives.
-          </motion.p>
-
-          {/* Location */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6, ease: EASE }}
-            style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 32 }}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
-            </svg>
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 500, color: "rgba(255,255,255,0.7)" }}>
-              Jumeirah Messilah Beach Hotel, Kuwait City
-            </span>
-          </motion.div>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 1.0, ease: EASE }}
-            style={{ display: "flex", gap: 12, flexWrap: "wrap" }}
-          >
-            <HeroCTA href="/contact" primary>Reserve Your Seat</HeroCTA>
-            <HeroCTA href="/contact">Become a Sponsor</HeroCTA>
-          </motion.div>
-        </div>
+            <AnimatePresence>
+              {resourceMenuOpen && (
+                <motion.div
+                  role="menu"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 6 }}
+                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                  style={{
+                    position: "absolute",
+                    bottom: "calc(100% + 10px)",
+                    left: 0,
+                    minWidth: 320,
+                    padding: 6,
+                    borderRadius: 18,
+                    background: "rgba(5, 8, 16, 0.92)",
+                    border: `1px solid ${C_BRIGHT}3a`,
+                    backdropFilter: "blur(18px) saturate(180%)",
+                    WebkitBackdropFilter: "blur(18px) saturate(180%)",
+                    boxShadow: "0 22px 50px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06)",
+                    zIndex: 30,
+                  }}
+                >
+                  <button
+                    role="menuitem"
+                    onClick={() => openRequest("Past Event Report")}
+                    style={{
+                      display: "flex", alignItems: "center", gap: 12,
+                      width: "100%", padding: "12px 14px",
+                      borderRadius: 12,
+                      background: "transparent",
+                      border: "none",
+                      color: "white",
+                      cursor: "pointer",
+                      transition: "background 0.2s ease",
+                      textAlign: "left",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = `${C}15`; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+                  >
+                    <span style={{
+                      width: 36, height: 36, borderRadius: 10,
+                      background: `${C}20`, border: `1px solid ${C}40`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      flexShrink: 0,
+                    }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <line x1="16" y1="13" x2="8" y2="13" />
+                        <line x1="16" y1="17" x2="8" y2="17" />
+                      </svg>
+                    </span>
+                    <span>
+                      <div style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 600 }}>Past Event Report</div>
+                      <div style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 400, color: "rgba(255,255,255,0.55)", marginTop: 2 }}>
+                        Highlights from Kuwait 2025
+                      </div>
+                    </span>
+                  </button>
+                  <button
+                    role="menuitem"
+                    onClick={() => openRequest("Delegate List")}
+                    style={{
+                      display: "flex", alignItems: "center", gap: 12,
+                      width: "100%", padding: "12px 14px",
+                      borderRadius: 12,
+                      background: "transparent",
+                      border: "none",
+                      color: "white",
+                      cursor: "pointer",
+                      transition: "background 0.2s ease",
+                      textAlign: "left",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = `${C}15`; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+                  >
+                    <span style={{
+                      width: 36, height: 36, borderRadius: 10,
+                      background: `${C}20`, border: `1px solid ${C}40`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      flexShrink: 0,
+                    }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                      </svg>
+                    </span>
+                    <span>
+                      <div style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 600 }}>Delegate List</div>
+                      <div style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 400, color: "rgba(255,255,255,0.55)", marginTop: 2 }}>
+                        Past attendees & job titles
+                      </div>
+                    </span>
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </motion.div>
       </div>
 
-      {/* ═══ BOTTOM BAR: 3rd Annual badge + Countdown ═══ */}
+      {/* ═══ BOTTOM BAR: refined premium countdown strip ═══ */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 1.3, ease: EASE }}
+        transition={{ duration: 0.7, delay: 1.0, ease: EASE }}
         className="absolute bottom-0 left-0 right-0"
         style={{
           zIndex: 20,
-          background: "rgba(5,8,16,0.90)",
-          backdropFilter: "blur(16px)",
-          WebkitBackdropFilter: "blur(16px)",
-          borderTop: `1px solid ${C}25`,
-          padding: "20px 0",
+          background: "linear-gradient(180deg, rgba(5,8,16,0.5) 0%, rgba(5,8,16,0.92) 50%, rgba(5,8,16,0.96) 100%)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          borderTop: `1px solid ${C}22`,
+          padding: "18px 0",
         }}
       >
         <div
-          className="cfk-bottom-bar flex items-center justify-between"
+          className="cfk-bottom-bar"
           style={{
+            display: "flex", alignItems: "center", justifyContent: "space-between",
             maxWidth: 1320,
             margin: "0 auto",
             padding: "0 clamp(24px, 5vw, 80px)",
+            gap: 24,
           }}
         >
-          {/* Left: 3rd Annual badge */}
-          <div className="cfk-bar-badge" style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span className="relative flex h-3 w-3" style={{ flexShrink: 0 }}>
-              <span
-                className="absolute inline-flex h-full w-full rounded-full animate-ping"
-                style={{ background: C, opacity: 0.75 }}
-              />
-              <span className="relative inline-flex rounded-full h-3 w-3" style={{ background: C }} />
+          {/* Left: venue */}
+          <div className="cfk-bar-venue" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
+            </svg>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, color: "white", letterSpacing: "0.01em" }}>
+              Jumeirah Messilah Beach Hotel
             </span>
-            <span
-              style={{
-                fontFamily: "var(--font-outfit)",
-                fontSize: 13,
-                fontWeight: 700,
-                letterSpacing: "2.5px",
-                textTransform: "uppercase",
-                color: C,
-              }}
-            >
-              3rd Annual
-            </span>
-            <span style={{ color: "rgba(255,255,255,0.15)", margin: "0 6px" }}>|</span>
-            <span
-              style={{
-                fontFamily: "var(--font-outfit)",
-                fontSize: 13,
-                fontWeight: 500,
-                color: "rgba(255,255,255,0.5)",
-              }}
-            >
-              Cyber First Series
+            <span style={{ color: "rgba(255,255,255,0.15)", margin: "0 4px" }}>·</span>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.55)" }}>
+              Kuwait City
             </span>
           </div>
 
-          {/* Center: Countdown */}
-          <div className="cfk-bar-countdown" style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          {/* Center: Premium countdown */}
+          <div className="cfk-bar-countdown" style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <span style={{
+              fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 700,
+              letterSpacing: "2.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.45)",
+            }}>
+              Begins in
+            </span>
             {[
               { v: cd.d, l: "Days" },
               { v: cd.h, l: "Hrs" },
               { v: cd.m, l: "Min" },
               { v: cd.s, l: "Sec" },
-            ].map((u, i) => (
-              <div key={u.l} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <div className="text-center">
+            ].map((u, i, arr) => (
+              <div key={u.l} style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                <div style={{ textAlign: "center" }}>
                   <span
                     className="tabular-nums"
                     style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: 32,
-                      fontWeight: 800,
-                      color: C_BRIGHT,
-                      letterSpacing: "-1px",
-                      lineHeight: 1,
+                      fontFamily: "var(--font-display)", fontSize: 26, fontWeight: 800,
+                      color: C_BRIGHT, letterSpacing: "-0.04em", lineHeight: 1,
+                      textShadow: `0 0 18px ${C_BRIGHT}40`,
                     }}
                   >
                     {String(u.v).padStart(2, "0")}
                   </span>
                   <span
                     style={{
-                      fontFamily: "var(--font-outfit)",
-                      fontSize: 10,
-                      fontWeight: 500,
-                      letterSpacing: "1.5px",
-                      textTransform: "uppercase",
-                      color: "#606060",
-                      display: "block",
-                      marginTop: 4,
+                      fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 600,
+                      letterSpacing: "2px", textTransform: "uppercase",
+                      color: "rgba(255,255,255,0.45)", display: "block", marginTop: 4,
                     }}
                   >
                     {u.l}
                   </span>
                 </div>
-                {i < 3 && (
-                  <span style={{ color: `${C}40`, fontSize: 24, fontWeight: 300, marginLeft: 6 }}>:</span>
+                {i < arr.length - 1 && (
+                  <span style={{ color: `${C}25`, fontSize: 18, fontWeight: 300, lineHeight: 0 }}>·</span>
                 )}
               </div>
             ))}
@@ -762,20 +1794,22 @@ function HeroSection() {
           {/* Right: CTA */}
           <Link
             href="#register"
-            className="cfk-bar-cta transition-all hover:scale-105"
+            className="cfk-bar-cta transition-all"
             style={{
-              padding: "14px 32px",
+              padding: "12px 26px",
               borderRadius: 50,
               background: C,
               fontFamily: "var(--font-outfit)",
-              fontSize: 15,
+              fontSize: 13,
               fontWeight: 600,
               color: "white",
               textDecoration: "none",
               boxShadow: `0 4px 20px ${C}40`,
+              letterSpacing: "0.01em",
+              display: "inline-flex", alignItems: "center", gap: 8,
             }}
           >
-            Register Now →
+            Register Now <span>→</span>
           </Link>
         </div>
       </motion.div>
@@ -791,311 +1825,43 @@ function HeroSection() {
         }
         .cfk-bar-cta:hover {
           background: ${C_BRIGHT} !important;
+          transform: translateY(-1px);
+        }
+        .cfk-req-ghost:hover {
+          background: rgba(255,255,255,0.10) !important;
+          border-color: rgba(255,255,255,0.28) !important;
+          transform: translateY(-2px);
+        }
+        @media (max-width: 960px) {
+          .cfk-hero-toprow {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 18px !important;
+          }
+          .cfk-hero-datebadge {
+            align-self: flex-start;
+          }
         }
         @media (max-width: 768px) {
-          .cfk-hero-content > div {
-            padding-top: 100px !important;
-            padding-bottom: 80px !important;
+          .cfk-hero-content {
+            padding-top: 110px !important;
+            padding-bottom: 200px !important;
           }
           .cfk-bottom-bar {
             flex-direction: column !important;
-            gap: 16px !important;
+            gap: 14px !important;
             text-align: center;
+            align-items: stretch !important;
           }
-          .cfk-bar-badge { justify-content: center; }
-          .cfk-bar-countdown { justify-content: center; }
-          .cfk-bar-cta { width: 100%; text-align: center; padding: 16px 32px !important; justify-content: center; }
+          .cfk-bar-venue { justify-content: center; flex-wrap: wrap; }
+          .cfk-bar-countdown { justify-content: center; flex-wrap: wrap; }
+          .cfk-bar-cta { width: 100%; text-align: center; justify-content: center; padding: 14px 26px !important; }
         }
       `}</style>
     </section>
   );
 }
 
-/** Hero CTA button */
-function HeroCTA({
-  children,
-  href,
-  primary,
-}: {
-  children: React.ReactNode;
-  href: string;
-  primary?: boolean;
-}) {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <Link
-      href={href}
-      className="inline-flex items-center gap-2"
-      style={{
-        padding: primary ? "14px 34px" : "14px 28px",
-        borderRadius: 50,
-        background: primary
-          ? hovered ? C_BRIGHT : C
-          : hovered ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.04)",
-        color: primary ? "#050810" : "rgba(255,255,255,0.8)",
-        fontFamily: "var(--font-outfit)",
-        fontSize: 14,
-        fontWeight: primary ? 700 : 500,
-        textDecoration: "none",
-        border: primary ? "none" : `1px solid rgba(255,255,255,0.15)`,
-        boxShadow: primary
-          ? hovered
-            ? `0 8px 40px ${C}50, 0 0 50px ${C}20`
-            : `0 4px 24px ${C}35`
-          : "none",
-        transform: hovered ? "translateY(-2px)" : "translateY(0)",
-        transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <span>{children}</span>
-      {primary && (
-        <span style={{ transition: "transform 0.3s", transform: hovered ? "translateX(3px)" : "translateX(0)" }}>→</span>
-      )}
-    </Link>
-  );
-}
-
-// ─── Stats bar ────────────────────────────────────────────────────────────────
-function StatsBar() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-  const items = [
-    { n: 350, suffix: "+", label: "Delegates", desc: "C-Suite & Directors", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75", highlight: true },
-    { n: 30, suffix: "+", label: "Speakers", desc: "Industry Leaders", icon: "M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" },
-    { n: 25, suffix: "", label: "Sponsors", desc: "Technology Partners", icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
-    { n: 1, suffix: "", label: "Day", desc: "Full Summit", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
-  ];
-  return (
-    <section
-      ref={ref}
-      style={{
-        position: "relative",
-        padding: "clamp(64px, 8vw, 100px) 0",
-        overflow: "hidden",
-        minHeight: "clamp(400px, 50vh, 550px)",
-      }}
-    >
-      {/* Background Image */}
-      <div className="absolute inset-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://cyberfirstseries.com/wp-content/uploads/2024/12/Cyber-First-Series-Pictures-and-Sponsors-29.jpg"
-          alt="Cyber First Kuwait 2026 cybersecurity summit"
-          className="w-full h-full object-cover"
-          style={{ filter: "brightness(0.25) saturate(0.7)" }}
-        />
-      </div>
-      
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(2,5,8,0.8) 0%, rgba(2,5,8,0.4) 50%, rgba(2,5,8,0.85) 100%)" }} />
-      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 60% 50% at 50% 50%, ${C}10, transparent 70%)` }} />
-      
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(20px,5vw,60px)", position: "relative", zIndex: 1 }}>
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: EASE }}
-          style={{ marginBottom: 40 }}
-        >
-          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "3px", textTransform: "uppercase", color: C_BRIGHT }}>
-            Summit Overview
-          </span>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4.5vw, 48px)", letterSpacing: "-2px", color: "white", lineHeight: 1.1, margin: "14px 0 0", maxWidth: 550 }}>
-            Securing Kuwait&apos;s
-            <br />
-            <span style={{ color: C_BRIGHT }}>Digital Future.</span>
-          </h2>
-        </motion.div>
-
-        {/* Stats Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
-          className="cfk-stats-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: 16,
-          }}
-        >
-        {items.map((s, i) => (
-          <motion.div
-            key={s.label}
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: i * 0.1, ease: EASE }}
-            whileHover={{ scale: 1.02, y: -4 }}
-            style={{
-              padding: s.highlight ? "28px 20px 24px" : "24px 16px 20px",
-              borderRadius: 20,
-              background: s.highlight 
-                ? `linear-gradient(145deg, ${C}20 0%, ${C}08 100%)`
-                : `linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))`,
-              border: `1px solid ${s.highlight ? `${C}40` : "rgba(255,255,255,0.08)"}`,
-              position: "relative",
-              overflow: "hidden",
-              boxShadow: s.highlight ? `0 8px 32px ${C}20, inset 0 1px 0 ${C}30` : "0 4px 20px rgba(0,0,0,0.2)",
-            }}
-          >
-            {/* Top glow for highlight */}
-            {s.highlight && (
-              <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 80% 50% at 50% 0%, ${C}15, transparent 60%)` }} />
-            )}
-            
-            {/* Top row: Icon + Badge */}
-            <div className="flex items-center justify-between" style={{ marginBottom: 14, position: "relative" }}>
-              <div style={{
-                width: s.highlight ? 44 : 36,
-                height: s.highlight ? 44 : 36,
-                borderRadius: 12,
-                background: s.highlight ? `${C}25` : "rgba(255,255,255,0.06)",
-                border: `1px solid ${s.highlight ? `${C}50` : "rgba(255,255,255,0.1)"}`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}>
-                <svg width={s.highlight ? 22 : 18} height={s.highlight ? 22 : 18} viewBox="0 0 24 24" fill="none" stroke={s.highlight ? C_BRIGHT : "rgba(255,255,255,0.5)"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d={s.icon} />
-                </svg>
-              </div>
-              <span style={{
-                padding: "4px 10px",
-                borderRadius: 20,
-                background: s.highlight ? `${C}20` : "rgba(255,255,255,0.05)",
-                border: `1px solid ${s.highlight ? `${C}30` : "rgba(255,255,255,0.08)"}`,
-                fontFamily: "var(--font-outfit)",
-                fontSize: 9,
-                fontWeight: 600,
-                color: s.highlight ? C_BRIGHT : "rgba(255,255,255,0.4)",
-                letterSpacing: "0.5px",
-              }}>
-                2026
-              </span>
-            </div>
-            
-            {/* Number */}
-            <div
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: s.highlight ? "clamp(40px,5vw,52px)" : "clamp(32px,4vw,40px)",
-                fontWeight: 900,
-                background: s.highlight 
-                  ? `linear-gradient(135deg, ${C_BRIGHT} 0%, white 100%)`
-                  : "white",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                letterSpacing: "-2px",
-                lineHeight: 1,
-                filter: s.highlight ? `drop-shadow(0 0 20px ${C}40)` : "none",
-                position: "relative",
-              }}
-            >
-              {inView ? <Counter to={s.n} suffix={s.suffix} /> : "0"}
-            </div>
-            
-            {/* Label */}
-            <div
-              style={{
-                fontFamily: "var(--font-outfit)",
-                fontSize: s.highlight ? 12 : 10,
-                fontWeight: 700,
-                color: s.highlight ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.6)",
-                letterSpacing: "1.5px",
-                textTransform: "uppercase",
-                marginTop: 8,
-                position: "relative",
-              }}
-            >
-              {s.label}
-            </div>
-            
-            {/* Description */}
-            <div
-              style={{
-                fontFamily: "var(--font-outfit)",
-                fontSize: 11,
-                fontWeight: 400,
-                color: s.highlight ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.3)",
-                marginTop: 4,
-                position: "relative",
-              }}
-            >
-              {s.desc}
-            </div>
-            
-            {/* Bottom accent */}
-            <div style={{
-              position: "absolute",
-              bottom: 0,
-              left: s.highlight ? 20 : 16,
-              right: s.highlight ? 20 : 16,
-              height: 2,
-              background: s.highlight 
-                ? `linear-gradient(90deg, transparent, ${C}60, transparent)`
-                : `linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)`,
-              borderRadius: 1,
-            }} />
-          </motion.div>
-        ))}
-        </motion.div>
-      </div>
-      <style jsx global>{`
-        @media (max-width: 900px) {
-          .cfk-stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
-        }
-        @media (max-width: 600px) {
-          .cfk-stats-grid { gap: 10px !important; }
-          .cfk-stats-grid > div { 
-            padding: 16px 14px 14px !important; 
-            border-radius: 16px !important;
-          }
-          /* Smaller icons on mobile */
-          .cfk-stats-grid > div > div:first-child > div:first-child {
-            width: 32px !important;
-            height: 32px !important;
-            border-radius: 8px !important;
-          }
-          .cfk-stats-grid > div > div:first-child > div:first-child svg {
-            width: 16px !important;
-            height: 16px !important;
-          }
-          /* Badge smaller */
-          .cfk-stats-grid > div > div:first-child > span {
-            padding: 3px 8px !important;
-            font-size: 8px !important;
-          }
-          /* Numbers smaller with less spacing */
-          .cfk-stats-grid > div > div:nth-child(2) {
-            font-size: 32px !important;
-            margin-top: 8px !important;
-          }
-          /* Labels */
-          .cfk-stats-grid > div > div:nth-child(3) {
-            font-size: 9px !important;
-            margin-top: 4px !important;
-          }
-          /* Description */
-          .cfk-stats-grid > div > div:nth-child(4) {
-            font-size: 10px !important;
-            margin-top: 2px !important;
-          }
-        }
-        @media (max-width: 380px) {
-          .cfk-stats-grid > div { padding: 14px 12px 12px !important; }
-          .cfk-stats-grid > div > div:nth-child(2) {
-            font-size: 28px !important;
-          }
-        }
-      `}</style>
-    </section>
-  );
-}
 
 // ─── Gallery ──────────────────────────────────────────────────────────────────
 function Gallery() {
@@ -1107,8 +1873,8 @@ function Gallery() {
     <section
       ref={ref}
       style={{
-        background: "#030810",
-        padding: "clamp(64px,8vw,120px) 0",
+        background: "transparent",
+        padding: "clamp(40px,5vw,72px) 0",
         overflow: "hidden",
         position: "relative",
       }}
@@ -1335,14 +2101,12 @@ function Gallery() {
 function MarketContext() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  
+
   const stats = [
-    { value: 1, suffix: "B+", label: "Kuwait Cyber Market by 2030", note: "Exceeding USD 1 billion", icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6", badge: "Vision 2035", highlight: true },
-    { value: 11, suffix: "%", label: "Market Growth Rate", note: "Strong double-digit expansion", icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z", badge: "By 2030" },
-    { value: 25, suffix: "%", label: "Cyber Workforce Demand", note: "Annual growth through 2030", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75", badge: "+25%" },
-    { value: 5, suffix: "M+", label: "Average Breach Cost", note: "Critical sectors by 2030", icon: "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z", badge: "Risk" },
+    { value: 300, suffix: "+", label: "Delegates", note: "CISOs & C-Suite Leaders", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75", badge: "Summit", highlight: true },
+    { value: 25, suffix: "+", label: "Speakers", note: "Industry & Government Leaders", icon: "M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z", badge: "Keynote" },
+    { value: 25, suffix: "", label: "Sponsors", note: "Technology Partners", icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z", badge: "Partners" },
+    { value: 1, suffix: "", label: "Day", note: "Full Executive Summit", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z", badge: "14 Oct" },
   ];
 
   return (
@@ -1351,31 +2115,26 @@ function MarketContext() {
       className="cfk-market-section"
       style={{
         position: "relative",
-        padding: "clamp(100px,12vw,160px) 0",
+        padding: "clamp(40px,5vw,72px) 0",
         overflow: "hidden",
-        background: "#020508",
+        background: "transparent",
       }}
     >
       {/* ═══ BACKGROUND LAYERS ═══ */}
-      {/* Parallax cyber grid background */}
-      <motion.div
+      {/* Static cyber grid background */}
+      <div
         className="absolute inset-0 pointer-events-none"
-        style={{ y: bgY }}
-      >
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `
-              linear-gradient(${C}08 1px, transparent 1px),
-              linear-gradient(90deg, ${C}08 1px, transparent 1px)
-            `,
-            backgroundSize: "80px 80px",
-            opacity: 0.4,
-          }}
-        />
-      </motion.div>
+        style={{
+          backgroundImage: `
+            linear-gradient(${C}08 1px, transparent 1px),
+            linear-gradient(90deg, ${C}08 1px, transparent 1px)
+          `,
+          backgroundSize: "80px 80px",
+          opacity: 0.4,
+        }}
+      />
 
-      {/* Central glow orb */}
+      {/* Central glow orb (static) */}
       <div
         className="absolute pointer-events-none cfk-market-orb"
         style={{
@@ -1387,164 +2146,140 @@ function MarketContext() {
         }}
       />
 
-      {/* Animated scan line */}
-      <div
-        className="absolute inset-0 pointer-events-none overflow-hidden"
-        style={{ opacity: 0.15 }}
-      >
-        <div
-          className="cfk-scanline"
-          style={{
-            position: "absolute",
-            left: 0,
-            right: 0,
-            height: 2,
-            background: `linear-gradient(90deg, transparent, ${C}, transparent)`,
-          }}
-        />
-      </div>
-
-      {/* Floating particles (deterministic to avoid hydration mismatch) */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(20)].map((_, i) => {
-          const seed = (n: number) => ((n * 9301 + 49297) % 233280) / 233280;
-          return (
-            <div
-              key={i}
-              className="cfk-particle"
-              style={{
-                position: "absolute",
-                width: seed(i * 7) * 4 + 2,
-                height: seed(i * 13) * 4 + 2,
-                borderRadius: "50%",
-                background: C,
-                left: `${seed(i * 17) * 100}%`,
-                top: `${seed(i * 23) * 100}%`,
-                opacity: seed(i * 29) * 0.5 + 0.1,
-                animationDelay: `${seed(i * 31) * 5}s`,
-                animationDuration: `${seed(i * 37) * 10 + 10}s`,
-              }}
-            />
-          );
-        })}
-      </div>
-
       {/* ═══ CONTENT ═══ */}
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px,5vw,80px)", position: "relative", zIndex: 1 }}>
-        {/* Section Header - Centered & Dramatic */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, ease: EASE }}
-          style={{ textAlign: "center", marginBottom: 80 }}
-        >
-          {/* Badge */}
+        {/* ═══ ROW 1: Overview text (left) · Video 1 (right) ═══ */}
+        <div className="cfk-eo-row cfk-eo-row-1">
+          {/* LEFT: eyebrow + title + paragraph */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={inView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
-            className="cfk-market-badge"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 10,
-              padding: "10px 24px",
-              borderRadius: 50,
-              background: `linear-gradient(135deg, ${C}20 0%, ${C}08 100%)`,
-              border: `1px solid ${C}40`,
-              marginBottom: 28,
-              boxShadow: `0 0 40px ${C}15, inset 0 1px 0 ${C}30`,
-            }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, ease: EASE }}
+            className="cfk-eo-text"
           >
-            <span
-              className="cfk-pulse-dot"
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={inView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
               style={{
-                width: 8,
-                height: 8,
-                borderRadius: "50%",
-                background: C_BRIGHT,
-                boxShadow: `0 0 12px ${C}`,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                padding: "10px 22px",
+                borderRadius: 50,
+                background: `linear-gradient(135deg, ${C}20 0%, ${C}08 100%)`,
+                border: `1px solid ${C}40`,
+                marginBottom: 24,
+                boxShadow: `0 0 40px ${C}15, inset 0 1px 0 ${C}30`,
               }}
-            />
-            <span
+            >
+              <span
+                className="cfk-pulse-dot"
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: "50%",
+                  background: C_BRIGHT,
+                  boxShadow: `0 0 12px ${C}`,
+                }}
+              />
+              <span
+                style={{
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 12,
+                  fontWeight: 700,
+                  letterSpacing: "3px",
+                  textTransform: "uppercase",
+                  color: C_BRIGHT,
+                }}
+              >
+                Event Overview
+              </span>
+            </motion.div>
+
+            {/* Title — left-aligned, sized for half-width column */}
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 900,
+                fontSize: "clamp(30px, 3.6vw, 52px)",
+                letterSpacing: "-1.5px",
+                lineHeight: 1.05,
+                margin: "0 0 22px",
+              }}
+            >
+              <span style={{ color: "white" }}>Cyber First Kuwait</span>
+              <br />
+              <span
+                className="cfk-title-glow"
+                style={{
+                  background: `linear-gradient(135deg, ${C_BRIGHT} 0%, ${C} 50%, #fff 100%)`,
+                  backgroundSize: "200% 200%",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  filter: `drop-shadow(0 0 30px ${C}50)`,
+                }}
+              >
+                Summit 2026
+              </span>
+            </motion.h2>
+
+            {/* Paragraph */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
               style={{
                 fontFamily: "var(--font-outfit)",
-                fontSize: 12,
-                fontWeight: 700,
-                letterSpacing: "3px",
-                textTransform: "uppercase",
-                color: C_BRIGHT,
+                fontWeight: 400,
+                fontSize: "clamp(15px, 1.1vw, 17px)",
+                color: "rgba(255,255,255,0.62)",
+                lineHeight: 1.7,
+                margin: 0,
               }}
             >
-              The Opportunity
-            </span>
+              Bringing together 300+ CISOs, cybersecurity leaders, government officials, technology executives, and business decision-makers for a high-impact forum focused on advancing Kuwait&apos;s cyber resilience and secure digital future. As Kuwait accelerates its digital transformation through cloud adoption, smart government services, AI innovation, 5G infrastructure, and Vision 2035 initiatives — cybersecurity has become a national priority.
+            </motion.p>
           </motion.div>
 
-          {/* Title with gradient */}
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+          {/* RIGHT: Video 1 — 2025 Edition */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 900,
-              fontSize: "clamp(32px, 5vw, 64px)",
-              letterSpacing: "-2px",
-              lineHeight: 1.1,
-              margin: "0 0 20px",
-              maxWidth: 900,
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
+            transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
+            className="cfk-eo-media"
           >
-            <span style={{ color: "white" }}>Kuwait&apos;s Cybersecurity Market</span>
-            <br />
-            <span
-              className="cfk-title-glow"
-              style={{
-                background: `linear-gradient(135deg, ${C_BRIGHT} 0%, ${C} 50%, #fff 100%)`,
-                backgroundSize: "200% 200%",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                filter: `drop-shadow(0 0 30px ${C}50)`,
-              }}
-            >
-              Is Accelerating
-            </span>
-          </motion.h2>
+            <KuwaitPastVideo videoId="gR-IUI7yJLg" title="Cyber First Kuwait — 3rd Edition" edition="2025 Edition" />
+          </motion.div>
+        </div>
 
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
+        {/* ═══ ROW 2: Video 2 (left) · 2x2 Stats (right) ═══ */}
+        <div className="cfk-eo-row cfk-eo-row-2">
+          {/* LEFT: Video 2 — 2024 Edition */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
-            style={{
-              fontFamily: "var(--font-outfit)",
-              fontWeight: 400,
-              fontSize: "clamp(16px, 1.5vw, 20px)",
-              color: "rgba(255,255,255,0.5)",
-              lineHeight: 1.7,
-              maxWidth: 650,
-              margin: "0 auto",
-            }}
+            transition={{ duration: 0.9, delay: 0.15, ease: EASE }}
+            className="cfk-eo-media"
           >
-            Vision 2035 is driving an unprecedented wave of digital transformation, and
-            with it, the imperative to secure every layer of the nation&apos;s critical infrastructure.
-          </motion.p>
-        </motion.div>
+            <KuwaitPastVideo videoId="wcEeU0UEl0o" title="Cyber First Kuwait — Event Highlights" edition="2024 Edition" />
+          </motion.div>
 
-        {/* Stats Grid - Premium Cards */}
-        <div
-          className="cfk-market-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: 20,
-          }}
-        >
-          {stats.map((s, i) => (
-            <MarketCard key={s.label} stat={s} delay={0.2 + i * 0.12} inView={inView} index={i} />
-          ))}
+          {/* RIGHT: 2x2 stats grid */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
+            className="cfk-eo-stats"
+          >
+            {stats.map((s, i) => (
+              <MarketCard key={s.label} stat={s} delay={0.3 + i * 0.1} inView={inView} index={i} />
+            ))}
+          </motion.div>
         </div>
 
         {/* Bottom accent line */}
@@ -1555,7 +2290,7 @@ function MarketContext() {
           style={{
             height: 1,
             background: `linear-gradient(90deg, transparent, ${C}40, ${C}, ${C}40, transparent)`,
-            marginTop: 80,
+            marginTop: 48,
             transformOrigin: "center",
           }}
         />
@@ -1563,52 +2298,174 @@ function MarketContext() {
 
       {/* ═══ CSS ═══ */}
       <style jsx global>{`
-        @keyframes cfkScanline {
-          0% { top: -2px; opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { top: 100%; opacity: 0; }
+        /* ═══ Split alternating rows ═══ */
+        .cfk-eo-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 48px;
+          align-items: center;
         }
-        .cfk-scanline {
-          animation: cfkScanline 4s ease-in-out infinite;
+        .cfk-eo-row-1 {
+          margin-bottom: 48px;
         }
-        @keyframes cfkParticle {
-          0%, 100% { transform: translateY(0) translateX(0); opacity: 0.2; }
-          50% { transform: translateY(-30px) translateX(10px); opacity: 0.6; }
+        .cfk-eo-text {
+          padding-right: 8px;
         }
-        .cfk-particle {
-          animation: cfkParticle 15s ease-in-out infinite;
+        .cfk-eo-media {
+          width: 100%;
         }
-        @keyframes cfkPulse {
-          0%, 100% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.3); opacity: 0.6; }
-        }
-        .cfk-pulse-dot {
-          animation: cfkPulse 2s ease-in-out infinite;
-        }
-        @keyframes cfkTitleGlow {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        .cfk-title-glow {
-          animation: cfkTitleGlow 4s ease-in-out infinite;
+        /* 2x2 stats grid on the right of Row 2 */
+        .cfk-eo-stats {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
         }
         @media (max-width: 1024px) {
-          .cfk-market-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+          .cfk-eo-row {
+            gap: 32px;
+          }
+        }
+        @media (max-width: 900px) {
+          .cfk-eo-row {
+            grid-template-columns: 1fr !important;
+            gap: 28px;
+          }
+          .cfk-eo-row-1 {
+            margin-bottom: 32px !important;
+          }
+          /* Mobile order: Row 1 [text → video1] (natural), Row 2 [video2 → stats] (natural) */
+          .cfk-eo-text {
+            padding-right: 0 !important;
           }
         }
         @media (max-width: 600px) {
-          .cfk-market-grid {
+          .cfk-eo-stats {
+            gap: 14px !important;
+          }
+        }
+        @media (max-width: 420px) {
+          .cfk-eo-stats {
             grid-template-columns: 1fr !important;
-            gap: 16px !important;
           }
-          .cfk-market-section {
-            padding: 80px 0 !important;
-          }
+        }
+        .cfk-past-video-card {
+          position: relative;
+          border-radius: 20px;
+          overflow: hidden;
+          aspect-ratio: 16 / 9;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid ${C}25;
+          box-shadow: 0 18px 50px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 80px ${C}05;
+          cursor: pointer;
+          transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.4s, box-shadow 0.4s;
+        }
+        .cfk-past-video-card:hover {
+          transform: translateY(-4px);
+          border-color: ${C_BRIGHT}55;
+          box-shadow: 0 24px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 100px ${C}15;
+        }
+        .cfk-past-video-thumb {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), filter 0.5s;
+        }
+        .cfk-past-video-card:hover .cfk-past-video-thumb {
+          transform: scale(1.04);
+          filter: brightness(1.05);
+        }
+        .cfk-past-video-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(5,8,16,0.15) 0%, rgba(5,8,16,0.25) 55%, rgba(5,8,16,0.78) 100%);
+          pointer-events: none;
+        }
+        .cfk-past-video-play {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 78px;
+          height: 78px;
+          border-radius: 50%;
+          background: rgba(255,255,255,0.92);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          backdrop-filter: blur(12px);
+          box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.4) inset;
+          transition: background 0.3s, transform 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+        .cfk-past-video-card:hover .cfk-past-video-play {
+          background: ${C};
+          transform: translate(-50%, -50%) scale(1.08);
+        }
+        .cfk-past-video-play svg {
+          fill: #0a1828;
+          transition: fill 0.3s;
+        }
+        .cfk-past-video-card:hover .cfk-past-video-play svg {
+          fill: white;
+        }
+        .cfk-past-video-label {
+          position: absolute;
+          left: 18px;
+          bottom: 18px;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 7px 14px;
+          border-radius: 50px;
+          background: rgba(5,8,16,0.7);
+          backdrop-filter: blur(12px);
+          border: 1px solid ${C}30;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 12px rgba(0,0,0,0.4);
         }
       `}</style>
     </section>
+  );
+}
+
+// ─── Past edition video card ─────────────────────────────────────────────────
+function KuwaitPastVideo({ videoId, title, edition }: { videoId: string; title: string; edition: string }) {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <div className="cfk-past-video-card" onClick={() => !playing && setPlaying(true)}>
+      {playing ? (
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+        />
+      ) : (
+        <>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            loading="lazy"
+            src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+            alt={title}
+            className="cfk-past-video-thumb"
+            onError={(e) => { (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`; }}
+          />
+          <div className="cfk-past-video-overlay" />
+          <div className="cfk-past-video-play">
+            <svg width="22" height="22" viewBox="0 0 24 24" style={{ marginLeft: 3 }}>
+              <polygon points="5,3 19,12 5,21" />
+            </svg>
+          </div>
+          <div className="cfk-past-video-label">
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 8px ${C_BRIGHT}` }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "white" }}>
+              {edition}
+            </span>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -1840,23 +2697,38 @@ function MarketCard({
 }
 
 // ─── Focus Areas ──────────────────────────────────────────────────────────────
+const KEY_TOPIC_ROTATE_MS = 6000;
+
 function FocusAreas() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [activeIdx, setActiveIdx] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const active = FOCUS_AREAS[activeIdx];
+
+  // Auto-rotate through topics until the visitor interacts.
+  // Pauses while the visitor is hovering the section, resumes on leave.
+  // Stops entirely once a tab has been manually clicked.
+  useEffect(() => {
+    if (!inView || isHovered || hasUserInteracted) return;
+    const id = window.setTimeout(() => {
+      setActiveIdx((prev) => (prev + 1) % FOCUS_AREAS.length);
+    }, KEY_TOPIC_ROTATE_MS);
+    return () => window.clearTimeout(id);
+  }, [activeIdx, isHovered, hasUserInteracted, inView]);
 
   return (
     <section
       ref={ref}
       style={{
-        background: "#030810",
-        padding: "clamp(64px,8vw,120px) 0",
+        background: "transparent",
+        padding: "clamp(40px,5vw,72px) 0",
         position: "relative",
         overflow: "hidden",
       }}
     >
-      {/* Atmospheric layers */}
+      {/* Static ambient glows */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: `radial-gradient(ellipse 50% 50% at 30% 40%, ${C}05, transparent 70%)` }}
@@ -1865,30 +2737,28 @@ function FocusAreas() {
         className="absolute inset-0 pointer-events-none"
         style={{ background: `radial-gradient(ellipse 40% 40% at 80% 60%, ${C}03, transparent 70%)` }}
       />
-      {/* Dot matrix */}
-      <DotMatrixGrid color={C} opacity={0.02} spacing={28} />
 
-      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px,4vw,60px)", position: "relative", zIndex: 1 }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px,4vw,60px)", position: "relative", zIndex: 1 }}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: EASE }}
-          style={{ textAlign: "center", marginBottom: 56 }}
+          style={{ textAlign: "center", marginBottom: 40 }}
         >
-          <div className="flex items-center justify-center gap-3" style={{ marginBottom: 16 }}>
+          <div className="flex items-center justify-center gap-3" style={{ marginBottom: 14 }}>
             <span style={{ width: 30, height: 1, background: C }} />
             <span
               style={{
                 fontFamily: "var(--font-outfit)",
                 fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "2.5px",
+                fontWeight: 700,
+                letterSpacing: "3px",
                 textTransform: "uppercase",
-                color: C,
+                color: C_BRIGHT,
               }}
             >
-              What We Cover
+              Key Topics
             </span>
             <span style={{ width: 30, height: 1, background: C }} />
           </div>
@@ -1896,351 +2766,391 @@ function FocusAreas() {
             style={{
               fontFamily: "var(--font-display)",
               fontWeight: 800,
-              fontSize: "clamp(28px,3.8vw,48px)",
+              fontSize: "clamp(28px,3.8vw,52px)",
               letterSpacing: "-1.5px",
               color: "white",
-              lineHeight: 1.08,
+              lineHeight: 1.05,
               margin: "16px 0 0",
             }}
           >
-            8 Strategic Focus Areas
+            Eight themes shaping Kuwait&apos;s
+            <br />
+            <span style={{ color: C_BRIGHT }}>cybersecurity agenda</span>
           </h2>
           <p
             style={{
               fontFamily: "var(--font-outfit)",
-              fontWeight: 300,
+              fontWeight: 400,
               fontSize: 16,
-              color: "#707070",
-              maxWidth: 520,
-              margin: "14px auto 0",
+              color: "rgba(255,255,255,0.5)",
+              maxWidth: 560,
+              margin: "18px auto 0",
               lineHeight: 1.6,
             }}
           >
-            Deep-dive sessions spanning the full spectrum of cybersecurity leadership challenges.
+            Select a theme to read the full focus.
           </p>
         </motion.div>
 
-        {/* Console: Card Grid Left + Detail Panel Right */}
+        {/* Editorial Tabs: vertical list (left) + detail panel (right) */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
-          className="cfk-focus-console"
-          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
+          className="cfk-key-tabs"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
-          {/* Left: 3-col card grid */}
-          <div
-            className="cfk-focus-cards"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 10,
-              alignContent: "start",
-            }}
-          >
-            {FOCUS_AREAS.map((area, i) => (
-              <FocusCard
-                key={area.title}
-                area={area}
-                index={i}
-                isActive={i === activeIdx}
-                onClick={() => setActiveIdx(i)}
-                delay={i * 0.04}
-                inView={inView}
-              />
-            ))}
+          {/* LEFT: Vertical list of titles */}
+          <div className="cfk-key-list" role="tablist" aria-label="Key Topics">
+            {FOCUS_AREAS.map((area, i) => {
+              const isActive = i === activeIdx;
+              const showProgress = isActive && !hasUserInteracted && inView;
+              return (
+                <button
+                  key={area.title}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  suppressHydrationWarning
+                  onClick={() => {
+                    setActiveIdx(i);
+                    setHasUserInteracted(true);
+                  }}
+                  className={`cfk-key-tab ${isActive ? "is-active" : ""}`}
+                >
+                  <span className="cfk-key-tab-indicator" aria-hidden="true" />
+                  <span className="cfk-key-tab-num">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="cfk-key-tab-title">{area.title}</span>
+                  {showProgress && (
+                    <span
+                      key={activeIdx}
+                      className={`cfk-key-tab-progress ${isHovered ? "is-paused" : ""}`}
+                      aria-hidden="true"
+                    />
+                  )}
+                </button>
+              );
+            })}
           </div>
 
-          {/* Right: Detail Panel */}
-          <div
-            className="cfk-focus-detail"
-            style={{
-              background: `${C}04`,
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border: `1px solid ${C}12`,
-              borderRadius: 18,
-              padding: "clamp(24px, 4vw, 40px) clamp(20px, 3vw, 36px)",
-              position: "relative",
-              overflow: "hidden",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              minHeight: 320,
-            }}
-          >
-            {/* Background glow */}
-            <div
-              className="absolute pointer-events-none"
-              style={{
-                width: 350,
-                height: 350,
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                background: `radial-gradient(ellipse at center, ${C}08, transparent 70%)`,
-                filter: "blur(40px)",
-              }}
-            />
+          {/* RIGHT: Detail Panel — image (left) + content (right), both swap on tab change */}
+          <div className="cfk-key-panel" role="tabpanel" aria-live="polite">
+            <div key={activeIdx} className="cfk-key-panel-inner">
+              {/* Image — Kuwait 2025 scene tied to this topic */}
+              <div className="cfk-key-panel-media">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={active.image} alt="" loading="lazy" />
+                <span className="cfk-key-panel-media-tag">Kuwait 2025</span>
+              </div>
 
-            {/* Large faded number watermark */}
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={`wm-${activeIdx}`}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.1 }}
-                transition={{ duration: 0.3 }}
-                className="absolute pointer-events-none select-none"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(100px, 20vw, 200px)",
-                  fontWeight: 900,
-                  color: `${C}06`,
-                  right: 16,
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  lineHeight: 1,
-                }}
-              >
-                {String(activeIdx + 1).padStart(2, "0")}
-              </motion.span>
-            </AnimatePresence>
-
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIdx}
-                initial={{ opacity: 0, x: 15 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -15 }}
-                transition={{ duration: 0.3, ease: EASE }}
-                style={{ position: "relative" }}
-              >
-                {/* Icon */}
-                <div
-                  style={{
-                    width: 52,
-                    height: 52,
-                    borderRadius: 14,
-                    background: `${C}12`,
-                    border: `1px solid ${C}25`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginBottom: 22,
-                  }}
-                >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke={C_BRIGHT}
-                    strokeWidth={1.5}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ filter: `drop-shadow(0 0 6px ${C}60)` }}
-                  >
-                    <path d={active.icon} />
-                  </svg>
-                </div>
-
-                {/* Track label */}
-                <span
-                  style={{
-                    fontFamily: "var(--font-outfit)",
-                    fontSize: 11,
-                    fontWeight: 600,
-                    color: C_BRIGHT,
-                    letterSpacing: "2px",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Focus Area {String(activeIdx + 1).padStart(2, "0")}
+              {/* Content */}
+              <div className="cfk-key-panel-content">
+                {/* Eyebrow */}
+                <span className="cfk-key-panel-eyebrow">
+                  Topic {String(activeIdx + 1).padStart(2, "0")} / {String(FOCUS_AREAS.length).padStart(2, "0")}
                 </span>
 
                 {/* Title */}
-                <h3
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "clamp(22px, 2.5vw, 28px)",
-                    fontWeight: 800,
-                    color: "white",
-                    margin: "10px 0 16px",
-                    letterSpacing: "-0.5px",
-                    lineHeight: 1.2,
-                  }}
-                >
-                  {active.title}
-                </h3>
+                <h3 className="cfk-key-panel-title">{active.title}</h3>
 
                 {/* Description */}
-                <p
-                  style={{
-                    fontFamily: "var(--font-outfit)",
-                    fontSize: 15,
-                    fontWeight: 300,
-                    color: "#909090",
-                    lineHeight: 1.8,
-                    margin: 0,
-                  }}
-                >
-                  {active.desc}
-                </p>
+                <p className="cfk-key-panel-desc">{active.desc}</p>
 
-                {/* Bottom accent bar */}
-                <div
-                  style={{
-                    width: 40,
-                    height: 3,
-                    background: `linear-gradient(90deg, ${C_BRIGHT}, ${C}60)`,
-                    borderRadius: 2,
-                    marginTop: 28,
-                  }}
-                />
-              </motion.div>
-            </AnimatePresence>
+                {/* Bottom accent */}
+                <span className="cfk-key-panel-bar" />
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>
 
       <style jsx global>{`
-        @media (max-width: 1024px) {
-          .cfk-focus-console {
-            grid-template-columns: 1fr !important;
-            gap: 20px !important;
+        .cfk-key-tabs {
+          display: grid;
+          grid-template-columns: minmax(420px, 0.52fr) 1fr;
+          gap: 28px;
+          align-items: stretch;
+        }
+        /* ── Left list — 2 columns ── */
+        .cfk-key-list {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 6px;
+          align-content: start;
+        }
+        .cfk-key-tab {
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          width: 100%;
+          padding: 12px 14px 12px 18px;
+          background: transparent;
+          border: 1px solid transparent;
+          text-align: left;
+          cursor: pointer;
+          transition: background 0.3s ease, border-color 0.3s ease;
+          border-radius: 10px;
+          overflow: hidden;
+        }
+        /* Active-tab auto-rotate progress bar */
+        .cfk-key-tab-progress {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          height: 2px;
+          width: 0%;
+          background: linear-gradient(90deg, ${C}, ${C_BRIGHT});
+          border-radius: 0 2px 2px 0;
+          animation: cfkKeyProgress ${KEY_TOPIC_ROTATE_MS}ms linear forwards;
+          box-shadow: 0 0 8px ${C_BRIGHT}66;
+        }
+        .cfk-key-tab-progress.is-paused {
+          animation-play-state: paused;
+        }
+        @keyframes cfkKeyProgress {
+          from { width: 0%; }
+          to { width: 100%; }
+        }
+        .cfk-key-tab:hover:not(.is-active) {
+          background: rgba(255,255,255,0.03);
+        }
+        .cfk-key-tab.is-active {
+          background: linear-gradient(90deg, ${C}12, ${C}04);
+          border-color: ${C}25;
+        }
+        .cfk-key-tab-indicator {
+          position: absolute;
+          left: 4px;
+          top: 10px;
+          bottom: 10px;
+          width: 2px;
+          background: ${C_BRIGHT};
+          border-radius: 2px;
+          opacity: 0;
+          transform: scaleY(0.4);
+          transform-origin: center;
+          transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1);
+          box-shadow: 0 0 8px ${C_BRIGHT}80;
+        }
+        .cfk-key-tab.is-active .cfk-key-tab-indicator {
+          opacity: 1;
+          transform: scaleY(1);
+        }
+        .cfk-key-tab-num {
+          font-family: var(--font-display);
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 1.5px;
+          color: rgba(255,255,255,0.22);
+          flex-shrink: 0;
+          transition: color 0.3s ease;
+          min-width: 20px;
+        }
+        .cfk-key-tab.is-active .cfk-key-tab-num,
+        .cfk-key-tab:hover .cfk-key-tab-num {
+          color: ${C_BRIGHT};
+        }
+        .cfk-key-tab-title {
+          font-family: var(--font-display);
+          font-size: 14px;
+          font-weight: 600;
+          color: rgba(255,255,255,0.5);
+          line-height: 1.35;
+          letter-spacing: -0.1px;
+          transition: color 0.3s ease;
+        }
+        .cfk-key-tab.is-active .cfk-key-tab-title {
+          color: white;
+          font-weight: 700;
+        }
+        .cfk-key-tab:hover:not(.is-active) .cfk-key-tab-title {
+          color: rgba(255,255,255,0.78);
+        }
+        /* ── Right panel — split image (left) + content (right) ── */
+        .cfk-key-panel {
+          position: relative;
+          border-radius: 18px;
+          background: linear-gradient(155deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.012) 100%);
+          border: 1px solid rgba(255,255,255,0.06);
+          padding: clamp(16px, 1.8vw, 22px);
+          min-height: 340px;
+          overflow: hidden;
+        }
+        .cfk-key-panel::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 32px;
+          right: 32px;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, ${C}40, transparent);
+          z-index: 2;
+        }
+        .cfk-key-panel-inner {
+          display: grid;
+          grid-template-columns: minmax(220px, 0.85fr) 1fr;
+          gap: clamp(18px, 2.2vw, 28px);
+          align-items: stretch;
+          width: 100%;
+          height: 100%;
+          animation: cfkKeyFade 0.45s cubic-bezier(0.16,1,0.3,1);
+        }
+        @keyframes cfkKeyFade {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        /* Image side */
+        .cfk-key-panel-media {
+          position: relative;
+          border-radius: 14px;
+          overflow: hidden;
+          min-height: 280px;
+          background: rgba(0,0,0,0.4);
+        }
+        .cfk-key-panel-media img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          filter: brightness(0.78) saturate(1.06);
+          animation:
+            cfkKeyMediaFade 0.7s ease-out forwards,
+            cfkKeyKenBurns 14s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate;
+          will-change: transform, opacity;
+        }
+        @keyframes cfkKeyMediaFade {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes cfkKeyKenBurns {
+          0%   { transform: scale(1.00) translate(0, 0); }
+          100% { transform: scale(1.08) translate(-2%, -1.2%); }
+        }
+        /* Respect reduced-motion preference */
+        @media (prefers-reduced-motion: reduce) {
+          .cfk-key-panel-media img {
+            animation: cfkKeyMediaFade 0.4s ease-out forwards;
           }
-          .cfk-focus-cards {
-            grid-template-columns: repeat(3, 1fr) !important;
+          .cfk-key-tab-progress {
+            animation: none;
+            width: 100%;
+            opacity: 0.4;
           }
         }
-        @media (max-width: 640px) {
-          .cfk-focus-console {
+        .cfk-key-panel-media::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(0,0,0,0.0) 55%, rgba(0,0,0,0.65) 100%);
+          pointer-events: none;
+        }
+        .cfk-key-panel-media-tag {
+          position: absolute;
+          left: 12px;
+          bottom: 12px;
+          padding: 5px 10px;
+          font-family: var(--font-outfit);
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: ${C_BRIGHT};
+          background: rgba(0,0,0,0.55);
+          border: 1px solid ${C}40;
+          border-radius: 6px;
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+          z-index: 1;
+        }
+        /* Content side */
+        .cfk-key-panel-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: clamp(8px, 1vw, 14px) clamp(4px, 0.8vw, 10px);
+          max-width: 520px;
+        }
+        .cfk-key-panel-eyebrow {
+          display: block;
+          font-family: var(--font-outfit);
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: 2.5px;
+          text-transform: uppercase;
+          color: ${C_BRIGHT};
+          margin-bottom: 8px;
+        }
+        .cfk-key-panel-title {
+          font-family: var(--font-display);
+          font-size: clamp(18px, 1.9vw, 24px);
+          font-weight: 800;
+          color: white;
+          letter-spacing: -0.4px;
+          line-height: 1.2;
+          margin: 0 0 14px;
+        }
+        .cfk-key-panel-desc {
+          font-family: var(--font-outfit);
+          font-size: clamp(13px, 1vw, 14.5px);
+          font-weight: 400;
+          color: rgba(255,255,255,0.55);
+          line-height: 1.65;
+          margin: 0;
+        }
+        .cfk-key-panel-bar {
+          display: block;
+          width: 36px;
+          height: 2px;
+          background: linear-gradient(90deg, ${C_BRIGHT}, ${C}40);
+          border-radius: 2px;
+          margin-top: 20px;
+        }
+        /* ── Responsive ── */
+        @media (max-width: 1024px) {
+          .cfk-key-tabs {
+            grid-template-columns: minmax(380px, 0.5fr) 1fr !important;
+            gap: 22px !important;
+          }
+          .cfk-key-panel-inner {
+            grid-template-columns: minmax(200px, 0.85fr) 1fr !important;
+            gap: 18px !important;
+          }
+        }
+        @media (max-width: 880px) {
+          .cfk-key-tabs {
             grid-template-columns: 1fr !important;
-            gap: 16px !important;
+            gap: 22px !important;
           }
-          .cfk-focus-cards {
-            grid-template-columns: repeat(3, 1fr) !important;
-            gap: 8px !important;
+          .cfk-key-panel {
+            min-height: auto;
           }
-          .cfk-focus-cards button {
-            padding: 12px 10px !important;
+          .cfk-key-panel-inner {
+            grid-template-columns: 1fr !important;
+            gap: 18px !important;
           }
-          .cfk-focus-cards button p {
-            font-size: 11px !important;
+          .cfk-key-panel-media {
+            min-height: 220px !important;
+            aspect-ratio: 16 / 9;
+          }
+        }
+        @media (max-width: 520px) {
+          .cfk-key-list {
+            grid-template-columns: 1fr !important;
+          }
+          .cfk-key-tab-title {
+            font-size: 13px;
+          }
+          .cfk-key-panel {
+            padding: 22px 20px !important;
+            min-height: 220px;
           }
         }
       `}</style>
     </section>
-  );
-}
-
-function FocusCard({
-  area,
-  index,
-  isActive,
-  onClick,
-  delay,
-  inView,
-}: {
-  area: (typeof FOCUS_AREAS)[number];
-  index: number;
-  isActive: boolean;
-  onClick: () => void;
-  delay: number;
-  inView: boolean;
-}) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <motion.button
-      initial={{ opacity: 0, y: 12 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: 0.3 + delay, ease: EASE }}
-      onClick={onClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="w-full text-left"
-      style={{
-        position: "relative",
-        padding: "16px 14px",
-        borderRadius: 14,
-        background: isActive
-          ? `${C}0A`
-          : isHovered
-            ? `${C}06`
-            : "rgba(255,255,255,0.015)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        border: isActive
-          ? `1px solid ${C}40`
-          : isHovered
-            ? `1px solid ${C}20`
-            : "1px solid rgba(255,255,255,0.04)",
-        cursor: "pointer",
-        overflow: "hidden",
-        transform: isActive ? "scale(1.03)" : isHovered ? "scale(1.01)" : "scale(1)",
-        boxShadow: isActive ? `0 8px 32px rgba(0,0,0,0.25), 0 0 20px ${C}10` : "none",
-        transition: "all 0.35s cubic-bezier(0.16,1,0.3,1)",
-      }}
-    >
-      {/* Active left accent */}
-      <div
-        className="absolute left-0 top-0 bottom-0"
-        style={{
-          width: 3,
-          borderRadius: "3px 0 0 3px",
-          background: C_BRIGHT,
-          opacity: isActive ? 1 : 0,
-          transition: "opacity 0.3s ease",
-        }}
-      />
-
-      {/* Active glow */}
-      {isActive && (
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            width: 80,
-            height: 60,
-            left: 0,
-            top: "50%",
-            transform: "translateY(-50%)",
-            background: `radial-gradient(ellipse at left center, ${C}15, transparent 70%)`,
-          }}
-        />
-      )}
-
-      {/* Number */}
-      <span
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: 11,
-          fontWeight: 700,
-          color: isActive ? C_BRIGHT : `${C}40`,
-          letterSpacing: "1px",
-          position: "relative",
-        }}
-      >
-        {String(index + 1).padStart(2, "0")}
-      </span>
-
-      {/* Title */}
-      <p
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: 13,
-          fontWeight: 600,
-          color: isActive ? "white" : isHovered ? "#c0c0c0" : "#808080",
-          margin: "6px 0 0",
-          lineHeight: 1.35,
-          transition: "color 0.2s",
-          position: "relative",
-        }}
-      >
-        {area.title}
-      </p>
-    </motion.button>
   );
 }
 
@@ -2249,7 +3159,7 @@ function GrowthStory() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <section ref={ref} style={{ background: "#020508", padding: "clamp(40px,5vw,72px) 0" }}>
+    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px,5vw,72px) 0" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px,5vw,80px)" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -2410,14 +3320,15 @@ function AtmosphereDivider() {
     <div ref={ref} style={{ position: "relative", height: "55vh", overflow: "hidden", background: "#020508" }}>
       <motion.div style={{ position: "absolute", inset: "-10%", y: bgY }}>
         <Image
-          src={`${WP}/2024/12/Cyber-First-Series-Pictures-and-Sponsors-28.jpg`}
-          alt="Cyber First delegates"
+          src={`${KW25}/4X9A2307.jpg`}
+          alt="Cyber First Kuwait delegates"
           fill
           sizes="100vw"
-          style={{ objectFit: "cover", objectPosition: "center 30%", filter: "brightness(0.45) saturate(0.7)" }}
+          style={{ objectFit: "cover", objectPosition: "center 30%", filter: "brightness(0.72) saturate(1)" }}
         />
       </motion.div>
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, #030810 0%, transparent 20%, transparent 80%, #030810 100%)" }} />
+      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 55% at center, rgba(3,8,16,0.55) 0%, rgba(3,8,16,0.25) 50%, transparent 80%)" }} />
       <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -2428,15 +3339,26 @@ function AtmosphereDivider() {
         >
           <div
             style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
               fontFamily: "var(--font-outfit)",
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 700,
               letterSpacing: "4px",
               textTransform: "uppercase",
-              color: `${C}90`,
-              marginBottom: 16,
+              color: "#ffffff",
+              padding: "8px 18px",
+              borderRadius: 999,
+              background: "rgba(3,8,16,0.55)",
+              border: `1px solid ${C}55`,
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+              marginBottom: 18,
+              textShadow: "0 1px 8px rgba(0,0,0,0.6)",
             }}
           >
+            <span style={{ width: 6, height: 6, borderRadius: 999, background: C, boxShadow: `0 0 10px ${C}` }} />
             Kuwait · 2026
           </div>
           <p
@@ -2464,212 +3386,413 @@ function Speakers() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <section ref={ref} style={{ background: "#030810", padding: "clamp(40px,5vw,72px) 0" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px,5vw,80px)" }}>
+    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px,5vw,72px) 0", position: "relative" }}>
+      <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 clamp(24px,4vw,64px)", position: "relative" }}>
+        {/* Header — centered, editorial */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: EASE }}
-          style={{ marginBottom: 48, display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}
+          style={{ textAlign: "center", marginBottom: 48 }}
         >
-          <div>
-            <span
-              style={{
-                display: "inline-block",
-                padding: "6px 16px",
-                borderRadius: 50,
-                background: `${C}12`,
-                border: `1px solid ${C}25`,
-                fontFamily: "var(--font-outfit)",
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "2.5px",
-                textTransform: "uppercase",
-                color: C_BRIGHT,
-                marginBottom: 20,
-              }}
-            >
+          <div className="flex items-center justify-center gap-3" style={{ marginBottom: 14 }}>
+            <span style={{ width: 30, height: 1, background: C }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: C_BRIGHT }}>
               The Faculty
             </span>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 800,
-                fontSize: "clamp(28px,3.8vw,52px)",
-                letterSpacing: "-2px",
-                color: "white",
-                lineHeight: 1.08,
-                margin: "0 0 8px",
-              }}
-            >
-              Who&apos;s Speaking
-            </h2>
-            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "#484848", margin: 0 }}>
-              Kuwait&apos;s most senior cybersecurity and technology leaders
-            </p>
+            <span style={{ width: 30, height: 1, background: C }} />
           </div>
-          <div style={{ padding: "10px 22px", borderRadius: 30, background: `${C}12`, border: `1px solid ${C}30` }}>
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 700, color: C }}>
-              More Speakers Coming Soon
-            </span>
-          </div>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 3.8vw, 52px)", letterSpacing: "-1.5px", color: "white", lineHeight: 1.05, margin: "16px 0 0" }}>
+            Who&apos;s Speaking
+          </h2>
+          <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 400, fontSize: 15, color: "rgba(255,255,255,0.5)", maxWidth: 560, margin: "16px auto 0", lineHeight: 1.6 }}>
+            Kuwait&apos;s most senior cybersecurity and technology leaders share the stage. More names announcing soon.
+          </p>
         </motion.div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 14 }}>
+        {/* Grid */}
+        <div className="cfk-speakers-grid">
           {SPEAKERS.map((s, i) => (
-            <SpeakerCard key={s.name} speaker={s} delay={0.025 * i} inView={inView} />
+            <SpeakerCard key={s.name} speaker={s} index={i} inView={inView} />
           ))}
+
+          {/* Ghost card — placeholder slot for upcoming speakers */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.06 * SPEAKERS.length, ease: EASE }}
+            className="cfk-speaker-ghost"
+            aria-hidden
+          >
+            <div className="cfk-speaker-ghost-photo">
+              <span className="cfk-speaker-ghost-wordmark">Coming Soon</span>
+            </div>
+            <div className="cfk-speaker-ghost-info">
+              <span className="cfk-speaker-ghost-kicker">More Names</span>
+              <span className="cfk-speaker-ghost-title">Announcing soon</span>
+            </div>
+          </motion.div>
         </div>
       </div>
+
+      <style jsx global>{`
+        .cfk-speakers-grid {
+          display: grid;
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+          gap: clamp(14px, 1.6vw, 22px);
+        }
+        @media (max-width: 1180px) {
+          .cfk-speakers-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+        }
+        @media (max-width: 900px) {
+          .cfk-speakers-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+        }
+        @media (max-width: 640px) {
+          .cfk-speakers-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+        }
+        @media (max-width: 420px) {
+          .cfk-speakers-grid { grid-template-columns: 1fr !important; }
+        }
+
+        /* ── Editorial spotlight card: photo zone (top) + info panel (bottom) ── */
+        .cfk-speaker-card {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          border-radius: 18px;
+          overflow: hidden;
+          background: #08111c;
+          border: 1px solid rgba(255,255,255,0.06);
+          text-decoration: none;
+          color: inherit;
+          transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.5s ease, box-shadow 0.5s ease;
+          will-change: transform;
+        }
+        .cfk-speaker-card.is-link { cursor: pointer; }
+        .cfk-speaker-card:hover {
+          transform: translateY(-4px);
+          border-color: ${C}35;
+          box-shadow: 0 20px 48px rgba(0,0,0,0.5), 0 0 0 1px ${C}20;
+        }
+
+        /* ── Photo zone — square, top of card, no overlay ── */
+        .cfk-speaker-photo-wrap {
+          position: relative;
+          aspect-ratio: 1;
+          overflow: hidden;
+          background: linear-gradient(160deg, #0e1a24 0%, #080b10 100%);
+        }
+        .cfk-speaker-photo {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center top;
+          filter: brightness(0.96) saturate(1.04);
+          transition: transform 0.9s cubic-bezier(0.16,1,0.3,1), filter 0.5s ease;
+        }
+        .cfk-speaker-card:hover .cfk-speaker-photo {
+          transform: scale(1.06);
+          filter: brightness(1.06) saturate(1.1);
+        }
+        .cfk-speaker-fallback {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background:
+            radial-gradient(ellipse 80% 60% at 50% 38%, ${C}24 0%, transparent 72%),
+            linear-gradient(160deg, #0e1a24 0%, #080b10 100%);
+        }
+        .cfk-speaker-fallback span {
+          font-family: var(--font-display);
+          font-size: clamp(48px, 6vw, 68px);
+          font-weight: 800;
+          color: ${C_BRIGHT};
+          opacity: 0.58;
+          letter-spacing: -2px;
+          text-shadow: 0 6px 26px ${C}70;
+        }
+
+        /* Count stamp — top-left of photo */
+        .cfk-speaker-num {
+          position: absolute;
+          top: 14px;
+          left: 14px;
+          padding: 5px 9px;
+          font-family: var(--font-display);
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: 1.5px;
+          color: ${C_BRIGHT};
+          background: rgba(0,0,0,0.55);
+          border: 1px solid ${C}30;
+          border-radius: 6px;
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          z-index: 2;
+        }
+
+        /* ── Info panel — separate zone below photo ── */
+        .cfk-speaker-info {
+          position: relative;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          padding: clamp(16px, 1.6vw, 22px);
+          background: linear-gradient(180deg, #0a141f 0%, #050a14 100%);
+          border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        /* Cyan hairline accent at the top edge of the info panel */
+        .cfk-speaker-info::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 14%;
+          right: 14%;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, ${C}66, ${C_BRIGHT}, ${C}66, transparent);
+          opacity: 0.55;
+          transition: opacity 0.5s ease;
+        }
+        .cfk-speaker-card:hover .cfk-speaker-info::before { opacity: 1; }
+
+        .cfk-speaker-name {
+          font-family: var(--font-display);
+          font-weight: 700;
+          font-size: clamp(15.5px, 1.4vw, 18px);
+          letter-spacing: -0.35px;
+          color: white;
+          line-height: 1.22;
+          margin: 0 0 6px;
+          min-height: 2.44em;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .cfk-speaker-title {
+          font-family: var(--font-outfit);
+          font-size: clamp(11px, 0.95vw, 13px);
+          font-weight: 400;
+          color: rgba(255,255,255,0.55);
+          line-height: 1.45;
+          margin: 0;
+          min-height: 2.9em;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        /* Footer — company chip + LinkedIn arrow */
+        .cfk-speaker-foot {
+          margin-top: auto;
+          padding-top: 12px;
+          border-top: 1px solid rgba(255,255,255,0.07);
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          transition: border-top-color 0.4s ease;
+        }
+        .cfk-speaker-card:hover .cfk-speaker-foot {
+          border-top-color: ${C}28;
+        }
+        .cfk-speaker-org {
+          flex: 1;
+          font-family: var(--font-outfit);
+          font-size: 9.5px;
+          font-weight: 700;
+          letter-spacing: 1.6px;
+          text-transform: uppercase;
+          color: ${C_BRIGHT};
+          line-height: 1.3;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .cfk-speaker-ln {
+          flex-shrink: 0;
+          width: 24px;
+          height: 24px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 6px;
+          background: rgba(0,0,0,0.32);
+          border: 1px solid ${C}30;
+          color: ${C_BRIGHT};
+          opacity: 0.75;
+          transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+        }
+        .cfk-speaker-card:hover .cfk-speaker-ln {
+          opacity: 1;
+          background: ${C}1a;
+          border-color: ${C_BRIGHT};
+          transform: scale(1.08);
+        }
+
+        /* ── Ghost card — matches split structure (photo zone + info zone) ── */
+        .cfk-speaker-ghost {
+          display: flex;
+          flex-direction: column;
+          border-radius: 18px;
+          border: 1.5px dashed ${C}30;
+          overflow: hidden;
+          background: linear-gradient(160deg, rgba(255,255,255,0.018) 0%, rgba(255,255,255,0.005) 100%);
+        }
+        .cfk-speaker-ghost-photo {
+          position: relative;
+          aspect-ratio: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .cfk-speaker-ghost-wordmark {
+          font-family: var(--font-display);
+          font-size: clamp(18px, 1.9vw, 24px);
+          font-weight: 800;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: ${C_BRIGHT};
+          text-align: center;
+          text-shadow: 0 4px 28px ${C}88, 0 0 1px ${C}40;
+          animation: cfkSpeakerGhostFade 2.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          padding: 0 16px;
+        }
+        @keyframes cfkSpeakerGhostFade {
+          0%, 100% { opacity: 1; }
+          50%      { opacity: 0.5; }
+        }
+        .cfk-speaker-ghost-info {
+          flex: 1;
+          padding: clamp(16px, 1.6vw, 22px);
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          align-items: center;
+          text-align: center;
+          border-top: 1px dashed ${C}25;
+          background: rgba(255,255,255,0.012);
+        }
+        .cfk-speaker-ghost-kicker {
+          font-family: var(--font-outfit);
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: 2.4px;
+          text-transform: uppercase;
+          color: ${C_BRIGHT};
+        }
+        .cfk-speaker-ghost-title {
+          font-family: var(--font-display);
+          font-size: clamp(15px, 1.4vw, 17px);
+          font-weight: 700;
+          color: rgba(255,255,255,0.72);
+          letter-spacing: -0.3px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .cfk-speaker-photo,
+          .cfk-speaker-card,
+          .cfk-speaker-ghost-dot {
+            animation: none !important;
+            transition: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
 
 function SpeakerCard({
   speaker,
-  delay,
+  index,
   inView,
 }: {
-  speaker: (typeof SPEAKERS)[0];
-  delay: number;
+  speaker: Speaker;
+  index: number;
   inView: boolean;
 }) {
   const [imgErr, setImgErr] = useState(false);
-  const [hovered, setHovered] = useState(false);
   const initials = speaker.name
+    .replace(/^(Dr|Eng|Mr|Ms|Mrs)\.?\s+/i, "")
     .split(" ")
     .filter(Boolean)
     .slice(0, 2)
     .map((w) => w[0])
     .join("")
     .toUpperCase();
-  return (
-    <Tilt max={6}>
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.55, delay, ease: EASE }}
-        onHoverStart={() => setHovered(true)}
-        onHoverEnd={() => setHovered(false)}
-        style={{
-          borderRadius: 20,
-          overflow: "hidden",
-          position: "relative",
-          cursor: "default",
-          boxShadow: hovered ? `0 0 0 1.5px ${C}50, 0 20px 60px rgba(1,187,245,0.12)` : "0 0 0 1px rgba(255,255,255,0.06)",
-          transition: "box-shadow 0.4s ease",
-        }}
-      >
-        <div
-          style={{
-            position: "relative",
-            width: "100%",
-            paddingBottom: "130%",
-            background: "linear-gradient(160deg, #0e1a24, #080b10)",
-            overflow: "hidden",
-          }}
-        >
-          {speaker.photo && !imgErr ? (
-            <Image
-              src={speaker.photo}
-              alt={speaker.name}
-              fill
-              sizes="240px"
-              style={{
-                objectFit: "cover",
-                objectPosition: "center top",
-                filter: hovered ? "grayscale(0%) brightness(1.05)" : "grayscale(15%) brightness(0.92)",
-                transform: hovered ? "scale(1.04)" : "scale(1)",
-                transition: "all 0.6s cubic-bezier(0.16,1,0.3,1)",
-              }}
-              onError={() => setImgErr(true)}
-            />
-          ) : (
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                background: `linear-gradient(160deg, ${C}14, #0d0d0d)`,
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 38,
-                  fontWeight: 900,
-                  color: C,
-                  opacity: 0.35,
-                  letterSpacing: "-1px",
-                }}
-              >
-                {initials}
-              </span>
-            </div>
-          )}
+  const hasLinkedin = !!speaker.linkedin;
+  const motionProps = {
+    initial: { opacity: 0, y: 24 },
+    animate: inView ? { opacity: 1, y: 0 } : {},
+    transition: { duration: 0.6, delay: 0.06 * index, ease: EASE },
+  };
 
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "linear-gradient(to top, rgba(3,8,16,0.95) 0%, rgba(3,8,16,0.65) 35%, rgba(3,8,16,0.1) 65%, transparent 100%)",
-            }}
+  const cardInner = (
+    <>
+      {/* Photo zone — top, clean, no text overlay */}
+      <div className="cfk-speaker-photo-wrap">
+        {speaker.photo && !imgErr ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={speaker.photo}
+            alt={speaker.name}
+            loading="lazy"
+            className="cfk-speaker-photo"
+            onError={() => setImgErr(true)}
           />
-
-          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "20px 18px 20px" }}>
-            <div
-              style={{
-                fontFamily: "var(--font-outfit)",
-                fontSize: 14,
-                fontWeight: 700,
-                color: "white",
-                lineHeight: 1.25,
-                marginBottom: 5,
-                letterSpacing: "-0.2px",
-              }}
-            >
-              {speaker.name}
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-outfit)",
-                fontSize: 10,
-                fontWeight: 500,
-                color: "rgba(255,255,255,0.42)",
-                lineHeight: 1.4,
-                marginBottom: 7,
-              }}
-            >
-              {speaker.title}
-            </div>
-            <div
-              style={{
-                display: "inline-block",
-                padding: "3px 9px",
-                borderRadius: 20,
-                background: `${C}18`,
-                border: `1px solid ${C}30`,
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 9,
-                  fontWeight: 700,
-                  color: C,
-                  letterSpacing: "0.3px",
-                }}
-              >
-                {speaker.org}
-              </span>
-            </div>
+        ) : (
+          <div className="cfk-speaker-fallback" aria-hidden>
+            <span>{initials}</span>
           </div>
+        )}
+
+        <span className="cfk-speaker-num" aria-hidden>
+          {String(index + 1).padStart(2, "0")}
+        </span>
+      </div>
+
+      {/* Info zone — separated panel below photo */}
+      <div className="cfk-speaker-info">
+        <h3 className="cfk-speaker-name">{speaker.name}</h3>
+        <p className="cfk-speaker-title">{speaker.title}</p>
+        <div className="cfk-speaker-foot">
+          <span className="cfk-speaker-org">{speaker.org}</span>
+          {hasLinkedin && (
+            <span aria-hidden className="cfk-speaker-ln">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 0h-14C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5V5c0-2.761-2.238-5-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z" />
+              </svg>
+            </span>
+          )}
         </div>
-      </motion.div>
-    </Tilt>
+      </div>
+    </>
+  );
+
+  if (hasLinkedin) {
+    return (
+      <motion.a
+        href={speaker.linkedin ?? "#"}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${speaker.name} on LinkedIn`}
+        className="cfk-speaker-card is-link"
+        {...motionProps}
+      >
+        {cardInner}
+      </motion.a>
+    );
+  }
+
+  return (
+    <motion.div className="cfk-speaker-card" {...motionProps}>
+      {cardInner}
+    </motion.div>
   );
 }
 
@@ -2702,6 +3825,272 @@ const MARQUEE_ROW_2 = [
   { name: "DREAM", logo: `${S3_LOGOS}/DREAM.png` },
 ];
 
+// ─── Featured Sponsors — tier-display before the full marquee ────────────────
+function FeaturedSponsors() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section
+      ref={ref}
+      style={{
+        background: "transparent",
+        padding: "clamp(40px,5vw,72px) 0",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 60% 50% at 50% 0%, ${C}06, transparent 70%)` }} />
+      <DotMatrixGrid color={C} opacity={0.015} spacing={30} />
+
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px,4vw,64px)", position: "relative", zIndex: 1 }}>
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: EASE }}
+          style={{ textAlign: "center", marginBottom: "clamp(40px, 4vw, 56px)" }}
+        >
+          <div className="flex items-center justify-center gap-3" style={{ marginBottom: 14 }}>
+            <span style={{ width: 30, height: 1, background: C }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: C_BRIGHT }}>
+              Backed By
+            </span>
+            <span style={{ width: 30, height: 1, background: C }} />
+          </div>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.8vw,48px)", letterSpacing: "-1.5px", color: "white", lineHeight: 1.08, margin: "16px 0 0" }}>
+            Featured Sponsors
+          </h2>
+          <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 400, fontSize: 15, color: "rgba(255,255,255,0.5)", maxWidth: 540, margin: "16px auto 0", lineHeight: 1.6 }}>
+            The technology leaders backing Cyber First Kuwait 2026.
+          </p>
+        </motion.div>
+
+        {/* ─── GOLD tier label ─── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
+          className="cfk-feat-tier-row cfk-feat-tier-row--gold"
+        >
+          <span className="cfk-feat-tier-line cfk-feat-tier-line--gold" />
+          <span className="cfk-feat-tier-label cfk-feat-tier-label--gold">Gold Sponsors</span>
+          <span className="cfk-feat-tier-line cfk-feat-tier-line--gold" />
+        </motion.div>
+
+        <div className="cfk-feat-grid cfk-feat-grid--gold">
+          {FEATURED_SPONSORS.gold.map((s, i) => (
+            <motion.div
+              key={s.name}
+              initial={{ opacity: 0, y: 28, scale: 0.96 }}
+              animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{ duration: 0.7, delay: 0.22 + i * 0.12, ease: EASE }}
+              className={`cfk-feat-card cfk-feat-card--gold${s.lightBg ? " is-light" : ""}`}
+              aria-label={`${s.name} — Gold Sponsor`}
+            >
+              <span aria-hidden className="cfk-feat-hairline cfk-feat-hairline--gold" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={s.logo} alt={`${s.name} logo`} loading="lazy" className="cfk-feat-logo" />
+            </motion.div>
+          ))}
+        </div>
+
+        {/* ─── STRATEGIC tier label ─── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.7, delay: 0.45, ease: EASE }}
+          className="cfk-feat-tier-row"
+          style={{ marginTop: "clamp(36px, 4vw, 60px)" }}
+        >
+          <span className="cfk-feat-tier-line" />
+          <span className="cfk-feat-tier-label">Strategic Partners</span>
+          <span className="cfk-feat-tier-line" />
+        </motion.div>
+
+        <div className="cfk-feat-grid cfk-feat-grid--strategic">
+          {FEATURED_SPONSORS.strategic.map((s, i) => (
+            <motion.div
+              key={s.name}
+              initial={{ opacity: 0, y: 24, scale: 0.96 }}
+              animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.5 + i * 0.08, ease: EASE }}
+              className={`cfk-feat-card cfk-feat-card--strategic${s.lightBg ? " is-light" : ""}`}
+              aria-label={`${s.name} — Strategic Partner`}
+            >
+              <span aria-hidden className="cfk-feat-hairline" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={s.logo} alt={`${s.name} logo`} loading="lazy" className="cfk-feat-logo" />
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <style jsx global>{`
+        /* ── Tier labels ── */
+        .cfk-feat-tier-row {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 18px;
+          margin-bottom: clamp(20px, 2.4vw, 32px);
+        }
+        .cfk-feat-tier-line {
+          flex: 0 1 90px;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, ${C}55, transparent);
+        }
+        .cfk-feat-tier-line--gold {
+          background: linear-gradient(90deg, transparent, rgba(212,168,75,0.6), transparent);
+        }
+        .cfk-feat-tier-label {
+          font-family: var(--font-outfit);
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 3.5px;
+          text-transform: uppercase;
+          color: ${C_BRIGHT};
+          text-shadow: 0 0 14px ${C}55;
+          white-space: nowrap;
+        }
+        .cfk-feat-tier-label--gold {
+          color: #D4A84B;
+          text-shadow: 0 0 16px rgba(212,168,75,0.55);
+        }
+
+        /* ── Card grids — narrower max-width so cards aren't cavernous ── */
+        .cfk-feat-grid {
+          display: grid;
+          gap: clamp(14px, 1.6vw, 22px);
+          justify-content: center;
+          margin: 0 auto;
+          width: 100%;
+        }
+        .cfk-feat-grid--gold {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          max-width: 640px;
+        }
+        .cfk-feat-grid--strategic {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          max-width: 820px;
+        }
+
+        /* ── Cards — wider aspect (less tall), tight padding so logos fill ── */
+        .cfk-feat-card {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          aspect-ratio: 5 / 2;
+          padding: clamp(14px, 1.4vw, 22px);
+          border-radius: 14px;
+          background: linear-gradient(165deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.012) 100%);
+          border: 1px solid rgba(255,255,255,0.06);
+          overflow: hidden;
+          transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.5s ease, box-shadow 0.5s ease;
+        }
+        .cfk-feat-card--gold {
+          aspect-ratio: 5 / 2.2;
+          padding: clamp(16px, 1.7vw, 26px);
+          border-color: rgba(212,168,75,0.22);
+        }
+        .cfk-feat-card:hover {
+          transform: translateY(-3px);
+          border-color: ${C}40;
+          box-shadow: 0 14px 32px rgba(0,0,0,0.4), 0 0 0 1px ${C}25;
+        }
+        .cfk-feat-card--gold:hover {
+          border-color: rgba(212,168,75,0.55);
+          box-shadow: 0 16px 36px rgba(0,0,0,0.45), 0 0 0 1px rgba(212,168,75,0.4);
+        }
+
+        /* Hairline accents */
+        .cfk-feat-hairline {
+          position: absolute;
+          top: 0;
+          left: 12%;
+          right: 12%;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, ${C}66, ${C_BRIGHT}, ${C}66, transparent);
+          opacity: 0.5;
+          transition: opacity 0.5s ease;
+        }
+        .cfk-feat-hairline--gold {
+          background: linear-gradient(90deg, transparent, rgba(212,168,75,0.7), rgba(255,235,200,0.95), rgba(212,168,75,0.7), transparent);
+          opacity: 0.7;
+        }
+        .cfk-feat-card:hover .cfk-feat-hairline { opacity: 1; }
+
+        /* ── White background variant for dark-on-transparent logos ── */
+        .cfk-feat-card.is-light {
+          background: #ffffff;
+          border-color: rgba(0,0,0,0.10);
+        }
+        .cfk-feat-card.is-light .cfk-feat-hairline { display: none; }
+        .cfk-feat-card.is-light:hover {
+          border-color: ${C};
+          box-shadow: 0 16px 36px rgba(0,0,0,0.55), 0 0 0 1px ${C}40;
+        }
+        /* Gold-tier light card keeps a warm gold border to mark its tier */
+        .cfk-feat-card--gold.is-light {
+          border-color: rgba(212,168,75,0.45);
+        }
+        .cfk-feat-card--gold.is-light:hover {
+          border-color: rgba(212,168,75,0.85);
+          box-shadow: 0 16px 36px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,168,75,0.55);
+        }
+        /* Don't dim dark logos via the brightness filter */
+        .cfk-feat-card.is-light .cfk-feat-logo {
+          filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12));
+        }
+        .cfk-feat-card.is-light:hover .cfk-feat-logo {
+          filter: drop-shadow(0 4px 8px rgba(0,0,0,0.18));
+        }
+
+        /* Logo — fills the card much more */
+        .cfk-feat-logo {
+          max-width: 100%;
+          max-height: 100%;
+          width: auto;
+          height: auto;
+          object-fit: contain;
+          filter: brightness(1.05) drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+          transition: filter 0.4s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1);
+        }
+        .cfk-feat-card:hover .cfk-feat-logo {
+          filter: brightness(1.15) drop-shadow(0 4px 14px rgba(0,0,0,0.55));
+          transform: scale(1.04);
+        }
+
+        /* Responsive */
+        @media (max-width: 720px) {
+          .cfk-feat-grid--gold {
+            grid-template-columns: 1fr !important;
+            max-width: 320px !important;
+          }
+          .cfk-feat-grid--strategic {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            max-width: 520px !important;
+          }
+        }
+        @media (max-width: 460px) {
+          .cfk-feat-grid--strategic {
+            grid-template-columns: 1fr !important;
+            max-width: 260px !important;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .cfk-feat-card,
+          .cfk-feat-logo {
+            transition: none !important;
+          }
+          .cfk-feat-card:hover .cfk-feat-logo { transform: none !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
 // ─── Sponsors Marquee ─────────────────────────────────────────────────────────
 function SponsorsSection() {
   const ref = useRef<HTMLElement>(null);
@@ -2712,8 +4101,8 @@ function SponsorsSection() {
       ref={ref}
       id="partners"
       style={{
-        background: "#020508",
-        padding: "clamp(48px, 6vw, 80px) 0",
+        background: "transparent",
+        padding: "clamp(40px,5vw,72px) 0",
         position: "relative",
         overflow: "hidden",
       }}
@@ -2755,7 +4144,7 @@ function SponsorsSection() {
                 color: C_BRIGHT,
               }}
             >
-              Trusted By Industry Leaders
+              Our Past Series
             </span>
             <span style={{ width: 30, height: 1, background: C }} />
           </div>
@@ -2771,7 +4160,7 @@ function SponsorsSection() {
               margin: "20px 0 0",
             }}
           >
-            Our Partners & Sponsors
+            Partners & Sponsors
           </h2>
 
           <p
@@ -2960,85 +4349,461 @@ function SponsorsSection() {
 function WhatToExpect() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const items = [
+
+  const stats: { value: string; suffix?: string; label: string }[] = [
+    { value: "1", label: "Day Event" },
+    { value: "300", suffix: "+", label: "Senior Decision-Makers" },
+    { value: "25", suffix: "+", label: "Expert Speakers & Industry Leaders" },
+  ];
+
+  const pillars: { num: string; title: string; desc: string }[] = [
     {
-      icon: "M12 3a9 9 0 110 18 9 9 0 010-18zm0 5a4 4 0 100 8 4 4 0 000-8zm0-3v2m0 14v2",
-      title: "4 High-Impact Panel Discussions",
-      desc: "National Cyber Resilience, AI-Driven Defense, OT/ICS Protection, and Data Privacy Governance.",
-      image: `${WP}/2024/12/Cyber-First-Series-Pictures-and-Sponsors-28.jpg`,
+      num: "01",
+      title: "Government & Regulatory Representation",
+      desc: "Direct insight from the policymakers and regulators shaping Kuwait's digital sovereignty agenda.",
     },
     {
-      icon: "M2 3h20v14H2V3zm6 18h8m-8-4h8",
-      title: "Live CTF / Hackathon",
-      desc: "Teams compete in real-time capture-the-flag scenarios, tested against simulated threat environments.",
-      image: `${WP}/2024/12/Cyber-First-Series-Pictures-and-Sponsors-29.jpg`,
+      num: "02",
+      title: "Executive Keynotes & Strategic Panel Discussions",
+      desc: "Boardroom-grade dialogue from the leaders writing the next chapter of national cyber strategy.",
     },
     {
-      icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
-      title: "Cyber Excellence Awards",
-      desc: "Recognising outstanding contributions to Kuwait's cybersecurity ecosystem across government and enterprise.",
-      image: `${WP}/2024/12/Cyber-First-Series-Pictures-and-Sponsors-30.jpg`,
+      num: "03",
+      title: "Real-World Case Studies & Success Stories",
+      desc: "Field-tested playbooks from practitioners who have lived through the breach — and built the defence.",
     },
     {
-      icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8zm14 14v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75",
-      title: "Executive Networking",
-      desc: "Curated roundtables connecting CISOs and decision-makers across banking, oil & gas, government, and telecom.",
-      image: `${WP}/2024/12/Cyber-First-Series-Pictures-and-Sponsors-28.jpg`,
+      num: "04",
+      title: "Interactive Networking Opportunities",
+      desc: "Curated introductions between the buyers, builders, and decision-makers reshaping the region.",
+    },
+    {
+      num: "05",
+      title: "Cybersecurity Technology Showcase",
+      desc: "The platforms, products, and partners defining the next era of enterprise defence.",
     },
   ];
+
   return (
-    <section ref={ref} style={{ background: "#030810", padding: "clamp(40px,5vw,72px) 0", position: "relative", overflow: "hidden" }}>
+    <section
+      ref={ref}
+      style={{
+        background: "transparent",
+        padding: "clamp(80px,9vw,140px) 0",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Whisper background grid for editorial depth */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: `radial-gradient(ellipse 50% 60% at 30% 20%, ${C}04 0%, transparent 70%)` }}
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: `radial-gradient(${C}06 1px, transparent 1px)`,
+          backgroundSize: "44px 44px",
+          maskImage: "radial-gradient(ellipse 70% 60% at center, black 0%, transparent 80%)",
+          WebkitMaskImage: "radial-gradient(ellipse 70% 60% at center, black 0%, transparent 80%)",
+          pointerEvents: "none",
+        }}
       />
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px,5vw,80px)", position: "relative" }}>
+
+      <div
+        style={{
+          maxWidth: 1180,
+          margin: "0 auto",
+          padding: "0 clamp(24px,5vw,80px)",
+          position: "relative",
+        }}
+      >
+        {/* ═══ Editorial header ═══ */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: EASE }}
-          style={{ marginBottom: 48 }}
+          transition={{ duration: 0.9, ease: EASE }}
+          style={{ marginBottom: 72 }}
         >
-          <span
+          <div
             style={{
-              display: "inline-block",
-              padding: "6px 16px",
-              borderRadius: 50,
-              background: `${C}12`,
-              border: `1px solid ${C}25`,
-              fontFamily: "var(--font-outfit)",
-              fontSize: 11,
-              fontWeight: 600,
-              letterSpacing: "2.5px",
-              textTransform: "uppercase",
-              color: C_BRIGHT,
-              marginBottom: 20,
+              display: "flex",
+              alignItems: "center",
+              gap: 18,
+              marginBottom: 32,
             }}
           >
-            Programme
-          </span>
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                fontFamily: "var(--font-outfit)",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "5px",
+                textTransform: "uppercase",
+                color: C_BRIGHT,
+              }}
+            >
+              <span style={{ width: 24, height: 1, background: C }} />
+              Programme
+            </span>
+            <span
+              style={{
+                flex: 1,
+                height: 1,
+                background: "linear-gradient(90deg, rgba(255,255,255,0.14) 0%, transparent 70%)",
+              }}
+            />
+          </div>
+
           <h2
             style={{
               fontFamily: "var(--font-display)",
               fontWeight: 800,
-              fontSize: "clamp(28px,3.8vw,52px)",
-              letterSpacing: "-2px",
+              fontSize: "clamp(40px, 5.6vw, 86px)",
+              letterSpacing: "-2.5px",
               color: "white",
-              lineHeight: 1.08,
+              lineHeight: 0.98,
               margin: 0,
+              maxWidth: 940,
             }}
           >
-            What to Expect at 2026
+            What to{" "}
+            <em
+              style={{
+                fontStyle: "italic",
+                fontWeight: 400,
+                color: C_BRIGHT,
+              }}
+            >
+              expect
+            </em>
+            <br />
+            at Cyber First Kuwait 2026.
           </h2>
         </motion.div>
-        <div className="cfk-expect-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 14 }}>
-          {items.map((it, i) => (
-            <ExpectCard key={it.title} item={it} index={i} inView={inView} />
+
+        {/* ═══ Hero stat trio ═══ */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
+          className="cfk-prog-stats"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "clamp(20px, 3vw, 56px)",
+            padding: "40px 0",
+            borderTop: "1px solid rgba(255,255,255,0.10)",
+            borderBottom: "1px solid rgba(255,255,255,0.10)",
+            marginBottom: 96,
+            position: "relative",
+          }}
+        >
+          {stats.map((s, i) => (
+            <motion.div
+              key={s.label}
+              initial={{ opacity: 0, y: 18 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.3 + i * 0.1, ease: EASE }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 14,
+                position: "relative",
+                paddingLeft: i === 0 ? 0 : "clamp(12px, 2vw, 28px)",
+                borderLeft: i === 0 ? "none" : "1px solid rgba(255,255,255,0.06)",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
+                <span
+                  className="tabular-nums"
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "clamp(56px, 7.2vw, 104px)",
+                    fontWeight: 800,
+                    letterSpacing: "-4px",
+                    color: "white",
+                    lineHeight: 0.9,
+                    textShadow: `0 0 60px ${C}25`,
+                  }}
+                >
+                  {s.value}
+                </span>
+                {s.suffix && (
+                  <span
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(28px, 3.6vw, 52px)",
+                      fontWeight: 700,
+                      color: C_BRIGHT,
+                      letterSpacing: "-1.5px",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {s.suffix}
+                  </span>
+                )}
+              </div>
+              <p
+                style={{
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 12,
+                  fontWeight: 500,
+                  letterSpacing: "2px",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.42)",
+                  margin: 0,
+                  maxWidth: 240,
+                  lineHeight: 1.4,
+                }}
+              >
+                {s.label}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* ═══ Numbered editorial pillars — 3-col grid ═══ */}
+        <div
+          className="cfk-prog-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "clamp(14px, 1.4vw, 22px)",
+          }}
+        >
+          {pillars.map((p, i) => (
+            <motion.div
+              key={p.num}
+              initial={{ opacity: 0, y: 22 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.55 + i * 0.08, ease: EASE }}
+              className="cfk-prog-pillar"
+              style={{
+                position: "relative",
+                padding: "30px 28px 32px",
+                minHeight: 240,
+                display: "flex",
+                flexDirection: "column",
+                gap: 16,
+                borderRadius: 18,
+                background:
+                  "linear-gradient(155deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.01) 55%, rgba(1,187,245,0.02) 100%)",
+                border: "1px solid rgba(255,255,255,0.06)",
+                backdropFilter: "blur(14px)",
+                WebkitBackdropFilter: "blur(14px)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), 0 18px 38px rgba(0,0,0,0.28)",
+                overflow: "hidden",
+                isolation: "isolate",
+              }}
+            >
+              {/* Ghost number background mark */}
+              <span
+                aria-hidden
+                className="cfk-prog-ghost"
+                style={{
+                  position: "absolute",
+                  top: -22,
+                  right: -8,
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(140px, 14vw, 200px)",
+                  fontWeight: 800,
+                  letterSpacing: "-8px",
+                  lineHeight: 1,
+                  background: `linear-gradient(180deg, ${C}14 0%, ${C}02 75%, transparent 100%)`,
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  pointerEvents: "none",
+                  zIndex: 0,
+                  transition: "all 0.5s cubic-bezier(0.16,1,0.3,1)",
+                }}
+              >
+                {p.num}
+              </span>
+
+              {/* Hairline top accent */}
+              <span
+                aria-hidden
+                className="cfk-prog-top-hair"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: 1,
+                  background: `linear-gradient(90deg, ${C}55 0%, transparent 60%)`,
+                  opacity: 0.6,
+                  transition: "opacity 0.45s cubic-bezier(0.16,1,0.3,1)",
+                  zIndex: 2,
+                }}
+              />
+
+              {/* Corner accents */}
+              <span
+                aria-hidden
+                className="cfk-prog-corner cfk-prog-corner-tl"
+                style={{
+                  position: "absolute",
+                  top: 10,
+                  left: 10,
+                  width: 14,
+                  height: 14,
+                  borderTop: `1px solid ${C}45`,
+                  borderLeft: `1px solid ${C}45`,
+                  borderTopLeftRadius: 4,
+                  opacity: 0.4,
+                  transition: "all 0.45s cubic-bezier(0.16,1,0.3,1)",
+                  zIndex: 2,
+                }}
+              />
+              <span
+                aria-hidden
+                className="cfk-prog-corner cfk-prog-corner-br"
+                style={{
+                  position: "absolute",
+                  bottom: 10,
+                  right: 10,
+                  width: 14,
+                  height: 14,
+                  borderBottom: `1px solid ${C}45`,
+                  borderRight: `1px solid ${C}45`,
+                  borderBottomRightRadius: 4,
+                  opacity: 0.4,
+                  transition: "all 0.45s cubic-bezier(0.16,1,0.3,1)",
+                  zIndex: 2,
+                }}
+              />
+
+              {/* Index row */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", position: "relative", zIndex: 3 }}>
+                <span
+                  className="cfk-prog-num"
+                  style={{
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: C_BRIGHT,
+                    letterSpacing: "3px",
+                    lineHeight: 1,
+                    textTransform: "uppercase",
+                    transition: "color 0.4s cubic-bezier(0.16,1,0.3,1)",
+                  }}
+                >
+                  No. {p.num}
+                </span>
+                <svg
+                  className="cfk-prog-arrow"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke={C_BRIGHT}
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{
+                    opacity: 0.35,
+                    transition: "all 0.45s cubic-bezier(0.16,1,0.3,1)",
+                  }}
+                >
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </div>
+
+              {/* Title */}
+              <h3
+                className="cfk-prog-title"
+                style={{
+                  position: "relative",
+                  zIndex: 3,
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(17px, 1.5vw, 22px)",
+                  fontWeight: 700,
+                  letterSpacing: "-0.6px",
+                  color: "white",
+                  lineHeight: 1.18,
+                  margin: 0,
+                  transition: "color 0.4s cubic-bezier(0.16,1,0.3,1)",
+                }}
+              >
+                {p.title}
+              </h3>
+
+              {/* Desc */}
+              <p
+                style={{
+                  position: "relative",
+                  zIndex: 3,
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 13,
+                  fontWeight: 400,
+                  color: "rgba(255,255,255,0.55)",
+                  lineHeight: 1.6,
+                  margin: 0,
+                }}
+              >
+                {p.desc}
+              </p>
+            </motion.div>
           ))}
         </div>
+
         <style jsx global>{`
-          @media (max-width: 768px) {
-            .cfk-expect-grid { grid-template-columns: 1fr !important; }
+          .cfk-prog-pillar {
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+          }
+          .cfk-prog-pillar:hover {
+            transform: translateY(-4px);
+            border-color: ${C}30 !important;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08),
+              0 24px 56px rgba(0, 0, 0, 0.45),
+              0 0 0 1px ${C}18;
+          }
+          .cfk-prog-pillar:hover .cfk-prog-ghost {
+            transform: translateY(-4px) scale(1.04);
+          }
+          .cfk-prog-pillar:hover .cfk-prog-top-hair {
+            opacity: 1;
+          }
+          .cfk-prog-pillar:hover .cfk-prog-corner {
+            opacity: 1;
+            border-color: ${C_BRIGHT}80 !important;
+          }
+          .cfk-prog-pillar:hover .cfk-prog-num {
+            color: ${C_BRIGHT};
+          }
+          .cfk-prog-pillar:hover .cfk-prog-arrow {
+            opacity: 1;
+            transform: translateX(6px);
+          }
+
+          @media (max-width: 880px) {
+            .cfk-prog-stats {
+              grid-template-columns: 1fr !important;
+              gap: 36px !important;
+            }
+            .cfk-prog-stats > div {
+              border-left: none !important;
+              padding-left: 0 !important;
+              border-top: 1px solid rgba(255, 255, 255, 0.06);
+              padding-top: 28px;
+            }
+            .cfk-prog-stats > div:first-child {
+              border-top: none;
+              padding-top: 0;
+            }
+            .cfk-prog-grid {
+              grid-template-columns: repeat(2, 1fr) !important;
+            }
+          }
+          @media (max-width: 560px) {
+            .cfk-prog-grid {
+              grid-template-columns: 1fr !important;
+            }
           }
         `}</style>
       </div>
@@ -3228,7 +4993,7 @@ function AgendaTimeline() {
       ref={ref}
       id="agenda"
       style={{
-        background: "linear-gradient(180deg, #020a14 0%, #03101c 35%, #040e18 65%, #020810 100%)",
+        background: "transparent",
         padding: "clamp(40px,5vw,72px) 0",
         position: "relative",
         overflow: "hidden",
@@ -3276,6 +5041,8 @@ function AgendaTimeline() {
             return (
               <button
                 key={f.key}
+                type="button"
+                suppressHydrationWarning
                 onClick={() => setActiveFilter(f.key)}
                 style={{
                   padding: "7px 20px",
@@ -3538,17 +5305,17 @@ function AgendaItem({
 
 // ─── Who Should Attend ───────────────────────────────────────────────────────
 const WHO_ATTEND_ROLES = [
-  { label: "Government & Regulatory Authorities", icon: "M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11m16-11v11" },
-  { label: "Chief Information Security Officers (CISOs)", icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
-  { label: "CIOs & IT Security Leaders", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M12 3a4 4 0 100 8 4 4 0 000-8z" },
-  { label: "Critical Infrastructure Operators", icon: "M22 12h-4l-3 9L9 3l-3 9H2" },
-  { label: "Oil & Gas & Energy Security Leaders", icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z" },
-  { label: "Banking & Financial Security Leaders", icon: "M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" },
-  { label: "Risk & Compliance Professionals", icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" },
-  { label: "Cybersecurity Technology Providers", icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" },
-  { label: "Security Operations Center (SOC) Directors", icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
-  { label: "AI & Emerging Technology Security Specialists", icon: "M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" },
-  { label: "Cloud & Data Protection Experts", icon: "M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" },
+  { label: "CISOs & Senior Cybersecurity Leaders", icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
+  { label: "CIOs, CTOs & IT Directors", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M12 3a4 4 0 100 8 4 4 0 000-8z" },
+  { label: "SOC Managers & Security Operations Teams", icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
+  { label: "Cloud, Network & Infrastructure Security Engineers", icon: "M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" },
+  { label: "Risk, Compliance & Data Protection Officers", icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" },
+  { label: "Government & Regulatory Authority Representatives", icon: "M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11m16-11v11" },
+  { label: "OT/ICS Security Professionals from Critical Sectors", icon: "M22 12h-4l-3 9L9 3l-3 9H2" },
+  { label: "Banking, Fintech & Telecom Security Heads", icon: "M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" },
+  { label: "CEOs, COOs & Business Decision-Makers", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" },
+  { label: "Cybersecurity Vendors, Consultants & MSSPs", icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" },
+  { label: "University Researchers & Educators", icon: "M12 14l9-5-9-5-9 5 9 5zM12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998a12.078 12.078 0 01.665-6.479L12 14z" },
 ];
 
 function WhoShouldAttend() {
@@ -3561,7 +5328,7 @@ function WhoShouldAttend() {
     <section
       ref={ref}
       style={{
-        background: "#030810",
+        background: "transparent",
         padding: "clamp(40px,5vw,72px) 0",
         position: "relative",
         overflow: "hidden",
@@ -3761,42 +5528,195 @@ function WhoShouldAttend() {
 }
 
 // ─── Advisory Board ───────────────────────────────────────────────────────────
-const ADVISORY_BOARD = [
-  {
-    name: "Faissal Al-Roumi",
-    title: "Executive Manager of Operational Risk",
-    org: "Burgan Bank",
-    photo: `${S3}/faissal-al-roumi-new.jpg`,
-  },
-  {
-    name: "Dr. Fai Ben Salamah",
-    title: "Cybersecurity Expert",
-    org: "Kuwait Technical College",
-    photo: `${S3}/dr-fai-ben-salamah-new.jpg`,
-  },
+type AdvisoryMember = {
+  name: string;
+  title: string;
+  org: string;
+  photo: string | null;
+  linkedin: string | null;
+};
+
+const ADVISORY_BOARD: AdvisoryMember[] = [
   {
     name: "Shaheela Banu A. Majeed",
     title: "Information Security & Compliance Officer & Auditor",
     org: "Oil & Gas / Confidential",
     photo: `${S3}/shaheela-majeed-new.jpg`,
+    linkedin: "https://www.linkedin.com/in/shaheela-banu/",
   },
   {
-    name: "Yousef El-Kourdi",
-    title: "Group Head of Information Technology",
-    org: "City Group Co. KSC",
+    name: "Mohamed Rushdhi",
+    title: "Head of Information Security Unit",
+    org: "The Industrial Bank of Kuwait",
+    photo: null,
+    linkedin: "https://www.linkedin.com/in/rushdhi-mohamed-information-security/",
+  },
+  {
+    name: "Dr Fai Ben Salamah",
+    title: "Cybersecurity Expert",
+    org: "Kuwait Technical College",
+    photo: `${S3}/dr-fai-ben-salamah-new.jpg`,
+    linkedin: "https://www.linkedin.com/in/dr-fai-ben-salamah-83113b1a0/",
+  },
+  {
+    name: "Rishabh R. Gaikwad",
+    title: "Head of Information Security & Data Governance",
+    org: "Alghanim Industries",
+    photo: null,
+    linkedin: "https://www.linkedin.com/in/dr-rishabh-r-gaikwad-88335638/",
+  },
+  {
+    name: "Eng. Yousef H. El-Kordi",
+    title: "Group Information Technology Director",
+    org: "City Group",
     photo: `${S3}/yousef-el-kourdi-new.jpg`,
+    linkedin: "https://www.linkedin.com/in/yousefelkordi/",
+  },
+  {
+    name: "Abdulmohsen Alsulaimi",
+    title: "Group Chief Technology Officer",
+    org: "Towell",
+    photo: null,
+    linkedin: null,
   },
 ];
+
+function getInitials(name: string): string {
+  return name
+    .replace(/^(Dr|Eng|Mr|Ms|Mrs)\.?\s+/i, "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
+}
 
 function AdvisoryBoard() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const railInnerRef = useRef<HTMLDivElement>(null);
+  // Lock the continuous drift while a manual smooth-scroll (dot click or end-reset) plays out.
+  const autoLockedRef = useRef(false);
+  // Page-based pagination — number of "scroll screens" needed, not per-card.
+  // Stays at 1 when everything fits → pagination hidden.
+  const [pageCount, setPageCount] = useState(1);
+  const [activePage, setActivePage] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Recompute pageCount whenever the rail width or content width changes.
+  useEffect(() => {
+    const rail = railInnerRef.current;
+    if (!rail) return;
+    const recalc = () => {
+      if (rail.clientWidth <= 0) return;
+      const pages = Math.max(1, Math.ceil(rail.scrollWidth / rail.clientWidth));
+      setPageCount(pages);
+    };
+    recalc();
+    const ro = new ResizeObserver(recalc);
+    ro.observe(rail);
+    return () => ro.disconnect();
+  }, []);
+
+  // Sync activePage to current scroll position.
+  useEffect(() => {
+    const rail = railInnerRef.current;
+    if (!rail) return;
+    let raf = 0;
+    const update = () => {
+      if (rail.clientWidth <= 0) return;
+      const page = Math.round(rail.scrollLeft / rail.clientWidth);
+      setActivePage(Math.max(0, Math.min(page, pageCount - 1)));
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
+    rail.addEventListener("scroll", onScroll, { passive: true });
+    update();
+    return () => {
+      rail.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, [pageCount]);
+
+  const scrollToPage = useCallback((page: number) => {
+    const rail = railInnerRef.current;
+    if (!rail) return;
+    autoLockedRef.current = true;
+    rail.scrollTo({
+      left: page * rail.clientWidth,
+      behavior: "smooth",
+    });
+    window.setTimeout(() => {
+      autoLockedRef.current = false;
+    }, 900);
+  }, []);
+
+  // Continuous auto-drift through the rail at a gentle constant speed.
+  // When it reaches the end, smooth-scrolls back to the first card and resumes.
+  // Pauses while hovered, respects prefers-reduced-motion, only runs once in view.
+  useEffect(() => {
+    if (!inView || isHovered) return;
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+    const rail = railInnerRef.current;
+    if (!rail) return;
+
+    const SPEED_PX_PER_SEC = 40;
+    let lastTime = performance.now();
+    let rafId = 0;
+    let resetTimer = 0;
+
+    const tick = (now: number) => {
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+
+      // Manual scrolls (dot clicks / end-reset) lock the tick so the smooth scroll wins.
+      if (autoLockedRef.current) {
+        rafId = requestAnimationFrame(tick);
+        return;
+      }
+
+      const maxScroll = rail.scrollWidth - rail.clientWidth;
+      if (maxScroll <= 0) {
+        rafId = requestAnimationFrame(tick);
+        return;
+      }
+
+      // Reached the end → smooth-glide back to the first card, then resume drift.
+      if (rail.scrollLeft >= maxScroll - 0.5) {
+        autoLockedRef.current = true;
+        rail.scrollTo({ left: 0, behavior: "smooth" });
+        resetTimer = window.setTimeout(() => {
+          autoLockedRef.current = false;
+          lastTime = performance.now();
+        }, 1400);
+        rafId = requestAnimationFrame(tick);
+        return;
+      }
+
+      rail.scrollLeft += SPEED_PX_PER_SEC * dt;
+      rafId = requestAnimationFrame(tick);
+    };
+
+    rafId = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.clearTimeout(resetTimer);
+    };
+  }, [inView, isHovered]);
 
   return (
     <section
       ref={ref}
       style={{
-        background: "linear-gradient(180deg, #020810 0%, #051018 100%)",
+        background: "transparent",
         padding: "clamp(40px, 5vw, 72px) 0",
         position: "relative",
         overflow: "hidden",
@@ -3829,90 +5749,833 @@ function AdvisoryBoard() {
           </p>
         </motion.div>
 
-        {/* Board Grid */}
+        {/* Horizontal scroll rail — section height stays fixed no matter how many advisors join */}
         <div
-          className="cfk-advisory-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(5, 1fr)",
-            gap: 20,
-          }}
+          className="cfk-advisor-rail"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
-          {ADVISORY_BOARD.map((member, i) => (
-            <motion.div
-              key={member.name}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + i * 0.08, ease: EASE }}
-              style={{
-                padding: "24px 16px",
-                borderRadius: 18,
-                background: `linear-gradient(145deg, ${C}08, rgba(255,255,255,0.02))`,
-                border: `1px solid ${C}15`,
-                textAlign: "center",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              {/* Glow */}
-              <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 80% 60% at 50% 0%, ${C}08, transparent 70%)` }} />
-              
-              {/* Photo */}
-              <div
-                style={{
-                  width: 80,
-                  height: 80,
-                  borderRadius: "50%",
-                  margin: "0 auto 16px",
-                  background: `linear-gradient(135deg, ${C}30, ${C}10)`,
-                  border: `2px solid ${C}40`,
-                  overflow: "hidden",
-                  position: "relative",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {member.photo ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={member.photo}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                    onError={(e) => { e.currentTarget.style.display = "none"; }}
-                  />
-                ) : (
-                  <span style={{ fontFamily: "var(--font-outfit)", fontSize: 24, fontWeight: 600, color: C_BRIGHT }}>
-                    {member.name.charAt(0)}
-                  </span>
-                )}
-              </div>
+          <div className="cfk-advisor-rail-inner" ref={railInnerRef}>
+            {ADVISORY_BOARD.map((member, i) => {
+              const hasLinkedin = !!member.linkedin;
+              const initials = getInitials(member.name);
+              const motionProps = {
+                initial: { opacity: 0, y: 18 },
+                animate: inView ? { opacity: 1, y: 0 } : {},
+                transition: { duration: 0.55, delay: 0.08 + i * 0.05, ease: EASE },
+              };
 
-              {/* Info */}
-              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, color: "white", margin: "0 0 4px", lineHeight: 1.3 }}>
-                {member.name}
-              </h3>
-              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.5)", margin: "0 0 4px", lineHeight: 1.4 }}>
-                {member.title}
-              </p>
-              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 10, color: C_BRIGHT, margin: 0, fontWeight: 500 }}>
-                {member.org}
-              </p>
-            </motion.div>
-          ))}
+              const cardInner = (
+                <>
+                  <span aria-hidden className="cfk-advisor-hairline" />
+
+                  {/* Numbered badge */}
+                  <span aria-hidden className="cfk-advisor-num">
+                    <span className="cfk-advisor-num-dot" />
+                    No. {String(i + 1).padStart(2, "0")}
+                  </span>
+
+                  <div className="cfk-advisor-frame">
+                    {member.photo ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={member.photo} alt={member.name} loading="lazy" className="cfk-advisor-photo" />
+                    ) : (
+                      <div className="cfk-advisor-fallback" aria-hidden>
+                        <span>{initials}</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <h3 className="cfk-advisor-name">{member.name}</h3>
+                  <p className="cfk-advisor-title">{member.title}</p>
+
+                  <div className="cfk-advisor-foot">
+                    <span className="cfk-advisor-org">{member.org}</span>
+                    {hasLinkedin && (
+                      <span aria-hidden className="cfk-advisor-ln">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M19 0h-14C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5V5c0-2.761-2.238-5-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z" />
+                        </svg>
+                      </span>
+                    )}
+                  </div>
+                </>
+              );
+
+              if (hasLinkedin) {
+                return (
+                  <motion.a
+                    key={member.name}
+                    href={member.linkedin ?? "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${member.name} on LinkedIn`}
+                    className="cfk-advisor-card is-link"
+                    {...motionProps}
+                  >
+                    {cardInner}
+                  </motion.a>
+                );
+              }
+              return (
+                <motion.div
+                  key={member.name}
+                  className="cfk-advisor-card"
+                  {...motionProps}
+                >
+                  {cardInner}
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Pagination dots — one per scroll page, only shown when there's something to scroll */}
+          {pageCount > 1 && (
+            <div className="cfk-advisor-pagination" role="tablist" aria-label="Advisor pagination">
+              {Array.from({ length: pageCount }).map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  role="tab"
+                  aria-selected={activePage === i}
+                  aria-label={`Page ${i + 1} of ${pageCount}`}
+                  onClick={() => scrollToPage(i)}
+                  suppressHydrationWarning
+                  className={`cfk-advisor-dot ${activePage === i ? "is-active" : ""}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Mobile responsive */}
       <style jsx global>{`
-        @media (max-width: 900px) {
-          .cfk-advisory-grid { grid-template-columns: repeat(3, 1fr) !important; }
+        /* ── Full-bleed rail — escapes the 1200px container, then pads from viewport edges ── */
+        .cfk-advisor-rail {
+          position: relative;
+          width: 100vw;
+          left: 50%;
+          right: 50%;
+          margin-left: -50vw;
+          margin-right: -50vw;
+          margin-top: 8px;
+          padding: 0 clamp(48px, 7vw, 140px);
+          box-sizing: border-box;
         }
-        @media (max-width: 600px) {
-          .cfk-advisory-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        .cfk-advisor-rail-inner {
+          display: flex;
+          gap: clamp(12px, 1.2vw, 18px);
+          overflow-x: auto;
+          overflow-y: visible;
+          padding: 6px 4px 12px;
+          /* No scroll-snap — it fights the continuous auto-drift by pulling each
+             sub-pixel increment back to the nearest snap point. Dot clicks still
+             land precisely via the explicit scrollTo call. */
+          scroll-behavior: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          /* Soft fade so cards visibly dissolve at the rail's right edge when there's more to scroll */
+          -webkit-mask-image: linear-gradient(90deg, black 0, black calc(100% - 32px), transparent 100%);
+          mask-image: linear-gradient(90deg, black 0, black calc(100% - 32px), transparent 100%);
+        }
+        .cfk-advisor-rail-inner::-webkit-scrollbar { display: none; }
+
+        /* ── Pagination dots ── */
+        .cfk-advisor-pagination {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 9px;
+          margin: clamp(22px, 2.4vw, 32px) 0 0;
+          padding: 0;
+        }
+        .cfk-advisor-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: rgba(255,255,255,0.18);
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          transition: width 0.45s cubic-bezier(0.16,1,0.3,1),
+                      background 0.3s ease,
+                      border-radius 0.45s ease,
+                      box-shadow 0.3s ease,
+                      transform 0.3s ease;
+        }
+        .cfk-advisor-dot:hover {
+          background: rgba(255,255,255,0.4);
+          transform: scale(1.15);
+        }
+        .cfk-advisor-dot.is-active {
+          background: ${C_BRIGHT};
+          width: 28px;
+          border-radius: 4px;
+          box-shadow: 0 0 14px ${C_BRIGHT}66, 0 0 0 1px ${C}30;
+          transform: none;
+        }
+        .cfk-advisor-dot:focus-visible {
+          outline: 2px solid ${C_BRIGHT};
+          outline-offset: 3px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .cfk-advisor-dot { transition: background 0.2s ease, width 0s !important; }
+        }
+
+        /* ── Compact "badge" card ── */
+        .cfk-advisor-card {
+          position: relative;
+          /* Sized so the 6-advisor lineup always overflows the rail at desktop widths,
+             which guarantees the continuous auto-scroll has something to scroll. */
+          flex: 0 0 clamp(248px, 22vw, 296px);
+          display: flex;
+          flex-direction: column;
+          padding: clamp(16px, 1.6vw, 20px);
+          border-radius: 16px;
+          background: linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.012) 100%);
+          border: 1px solid rgba(255,255,255,0.06);
+          text-decoration: none;
+          color: inherit;
+          overflow: hidden;
+          transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+        .cfk-advisor-card.is-link { cursor: pointer; }
+        .cfk-advisor-card:hover {
+          transform: translateY(-4px);
+          border-color: ${C}35;
+          box-shadow: 0 16px 36px rgba(0,0,0,0.4), 0 0 0 1px ${C}1f;
+        }
+
+        /* Top hairline accent — section signature */
+        .cfk-advisor-hairline {
+          position: absolute;
+          top: 0;
+          left: 14%;
+          right: 14%;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, ${C}66, ${C_BRIGHT}, ${C}66, transparent);
+          opacity: 0.55;
+          transition: opacity 0.4s ease;
+        }
+        .cfk-advisor-card:hover .cfk-advisor-hairline { opacity: 1; }
+
+        /* Numbered badge — liquid glass pill */
+        .cfk-advisor-num {
+          position: absolute;
+          top: 12px;
+          left: 12px;
+          z-index: 4;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 5px 9px;
+          border-radius: 999px;
+          background: rgba(4, 8, 14, 0.55);
+          border: 1px solid ${C}40;
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+          font-family: var(--font-outfit);
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 1.8px;
+          text-transform: uppercase;
+          color: white;
+        }
+        .cfk-advisor-num-dot {
+          width: 5px;
+          height: 5px;
+          border-radius: 999px;
+          background: ${C_BRIGHT};
+          box-shadow: 0 0 8px ${C_BRIGHT};
+        }
+        .cfk-advisor-card:hover .cfk-advisor-num {
+          border-color: ${C_BRIGHT}66;
+        }
+
+        /* Photo frame — small rounded square at top */
+        .cfk-advisor-frame {
+          position: relative;
+          aspect-ratio: 1;
+          border-radius: 12px;
+          overflow: hidden;
+          background: linear-gradient(160deg, #0e1a24, #080b10);
+          border: 1px solid rgba(255,255,255,0.07);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+          margin-bottom: clamp(12px, 1.2vw, 16px);
+        }
+        .cfk-advisor-photo {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center top;
+          filter: brightness(0.94) saturate(1.04);
+          transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), filter 0.4s ease;
+        }
+        .cfk-advisor-card:hover .cfk-advisor-photo {
+          transform: scale(1.05);
+          filter: brightness(1.06) saturate(1.1);
+        }
+        .cfk-advisor-fallback {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background:
+            radial-gradient(ellipse 80% 60% at 50% 40%, ${C}1f 0%, transparent 70%),
+            linear-gradient(160deg, #0e1a24 0%, #080b10 100%);
+        }
+        .cfk-advisor-fallback span {
+          font-family: var(--font-display);
+          font-size: clamp(36px, 4.4vw, 48px);
+          font-weight: 800;
+          color: ${C_BRIGHT};
+          opacity: 0.6;
+          letter-spacing: -1.5px;
+          text-shadow: 0 4px 18px ${C}66;
+        }
+
+        /* Name */
+        .cfk-advisor-name {
+          font-family: var(--font-display);
+          font-weight: 700;
+          font-size: clamp(14.5px, 1.3vw, 16px);
+          color: white;
+          margin: 0 0 6px;
+          letter-spacing: -0.3px;
+          line-height: 1.2;
+          min-height: 2.4em;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        /* Title — clamped to keep all cards visually equal-height */
+        .cfk-advisor-title {
+          font-family: var(--font-outfit);
+          font-size: clamp(11px, 0.95vw, 12px);
+          font-weight: 400;
+          color: rgba(255,255,255,0.55);
+          margin: 0 0 12px;
+          line-height: 1.4;
+          min-height: 3em;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        /* Footer divider + company + LinkedIn */
+        .cfk-advisor-foot {
+          margin-top: auto;
+          padding-top: 10px;
+          border-top: 1px solid rgba(255,255,255,0.07);
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          transition: border-top-color 0.4s ease;
+        }
+        .cfk-advisor-card:hover .cfk-advisor-foot {
+          border-top-color: ${C}28;
+        }
+        .cfk-advisor-org {
+          flex: 1;
+          font-family: var(--font-outfit);
+          font-size: 9.5px;
+          font-weight: 700;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: ${C_BRIGHT};
+          line-height: 1.3;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .cfk-advisor-ln {
+          flex-shrink: 0;
+          width: 24px;
+          height: 24px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 6px;
+          background: rgba(0,0,0,0.3);
+          border: 1px solid ${C}28;
+          color: ${C_BRIGHT};
+          opacity: 0.7;
+          transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+        }
+        .cfk-advisor-card:hover .cfk-advisor-ln {
+          opacity: 1;
+          background: ${C}1a;
+          border-color: ${C_BRIGHT};
+          transform: scale(1.06);
+        }
+
+        @media (max-width: 640px) {
+          .cfk-advisor-card { flex-basis: 188px !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .cfk-advisor-card,
+          .cfk-advisor-photo {
+            transition: none !important;
+          }
+          .cfk-advisor-card:hover .cfk-advisor-photo {
+            transform: none !important;
+          }
         }
       `}</style>
     </section>
+  );
+}
+
+// ─── From the Room — Editorial mosaic of CF voices ───────────────────────────
+const FROM_THE_ROOM_SHORTS: { id: string; videoId: string; label: string }[] = [
+  { id: "kw-room-1", videoId: "jPQFjwuohfI", label: "Cyber First Voice" },
+  { id: "kw-room-2", videoId: "c8sPwIo4Pis", label: "Cyber First Voice" },
+  { id: "kw-room-3", videoId: "2LoeDNqsem0", label: "Cyber First Voice" },
+  { id: "kw-room-4", videoId: "8C61dof_f3s", label: "Cyber First Voice" },
+  { id: "kw-room-5", videoId: "2-KXhfSeBdQ", label: "Cyber First Voice" },
+  { id: "kw-room-6", videoId: "2IwKmGEfOIo", label: "Cyber First Voice" },
+];
+
+// Height tiers cycle through 6 visual rhythms so the mosaic still reads
+// when more shorts are appended later.
+const ROOM_HEIGHTS = ["short", "tall", "hero", "tall", "short", "tall"] as const;
+type RoomHeight = (typeof ROOM_HEIGHTS)[number];
+
+function FromTheRoom() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section
+      ref={ref}
+      style={{
+        background: "#070A12",
+        padding: "clamp(72px, 9vw, 130px) 0 clamp(120px, 12vw, 180px)",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Background atmosphere */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: `radial-gradient(ellipse 60% 45% at 50% 0%, ${C}10, transparent 65%),
+                       radial-gradient(ellipse 40% 50% at 15% 100%, ${C}07, transparent 70%),
+                       radial-gradient(ellipse 35% 40% at 85% 80%, ${C_BRIGHT}06, transparent 70%)`,
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: `radial-gradient(${C}07 1px, transparent 1px)`,
+          backgroundSize: "44px 44px",
+          maskImage: "radial-gradient(ellipse 70% 60% at center, black 0%, transparent 80%)",
+          WebkitMaskImage: "radial-gradient(ellipse 70% 60% at center, black 0%, transparent 80%)",
+          opacity: 0.6,
+          pointerEvents: "none",
+        }}
+      />
+
+      <div
+        style={{
+          maxWidth: 1320,
+          margin: "0 auto",
+          padding: "0 clamp(24px, 4vw, 64px)",
+          position: "relative",
+        }}
+      >
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: EASE }}
+          style={{ marginBottom: 56, textAlign: "center" }}
+        >
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 14,
+              marginBottom: 18,
+            }}
+          >
+            <span style={{ width: 32, height: 1, background: `linear-gradient(90deg, transparent, ${C})` }} />
+            <span
+              style={{
+                fontFamily: "var(--font-outfit)",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "5px",
+                textTransform: "uppercase",
+                color: C_BRIGHT,
+              }}
+            >
+              From the Room
+            </span>
+            <span style={{ width: 32, height: 1, background: `linear-gradient(90deg, ${C}, transparent)` }} />
+          </div>
+
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: "clamp(32px, 4.4vw, 60px)",
+              letterSpacing: "-2px",
+              color: "white",
+              lineHeight: 1.05,
+              margin: "0 auto 14px",
+              maxWidth: 760,
+            }}
+          >
+            Hear it{" "}
+            <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>
+              from the room.
+            </em>
+          </h2>
+
+          <p
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontWeight: 400,
+              fontSize: "clamp(14px, 1.1vw, 16px)",
+              color: "rgba(255,255,255,0.5)",
+              lineHeight: 1.65,
+              maxWidth: 560,
+              margin: "0 auto",
+            }}
+          >
+            Unfiltered voices from CISOs, regulators, and security leaders who&apos;ve walked the Cyber First floor.
+          </p>
+        </motion.div>
+
+        {/* Mosaic showcase */}
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
+          className="cfk-room-showcase"
+        >
+          {FROM_THE_ROOM_SHORTS.map((s, i) => (
+            <RoomCard
+              key={s.id}
+              videoId={s.videoId}
+              label={s.label}
+              index={i}
+              tier={ROOM_HEIGHTS[i % ROOM_HEIGHTS.length] as RoomHeight}
+            />
+          ))}
+        </motion.div>
+      </div>
+
+      <style jsx global>{`
+        .cfk-room-showcase {
+          display: flex;
+          flex-wrap: nowrap;
+          gap: clamp(8px, 1vw, 16px);
+          align-items: center;
+          justify-content: center;
+          padding: 12px 4px;
+        }
+        @media (max-width: 1024px) {
+          .cfk-room-showcase {
+            overflow-x: auto;
+            justify-content: flex-start;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding: 12px clamp(8px, 3vw, 32px);
+            margin: 0 calc(-1 * clamp(24px, 4vw, 64px));
+          }
+          .cfk-room-showcase::-webkit-scrollbar {
+            display: none;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+function RoomCard({
+  videoId,
+  label,
+  index,
+  tier,
+}: {
+  videoId: string;
+  label: string;
+  index: number;
+  tier: RoomHeight;
+}) {
+  const [hovered, setHovered] = useState(false);
+  const [playing, setPlaying] = useState(false);
+
+  // Tier-driven dimensions — viewport-clamped so the full row fits the section.
+  const dims =
+    tier === "hero"
+      ? { w: "clamp(170px, 16.5vw, 240px)", h: "clamp(290px, 28vw, 410px)" }
+      : tier === "tall"
+      ? { w: "clamp(150px, 14.5vw, 210px)", h: "clamp(250px, 24vw, 350px)" }
+      : { w: "clamp(135px, 13vw, 190px)", h: "clamp(215px, 20vw, 300px)" };
+
+  const isHero = tier === "hero";
+
+  return (
+    <div
+      className="cfk-room-card-wrap"
+      style={{
+        width: dims.w,
+        height: dims.h,
+        flexShrink: 0,
+        scrollSnapAlign: "center",
+        transition: "transform 0.55s cubic-bezier(0.22,1,0.36,1)",
+        transform: hovered ? "translateY(-8px)" : "translateY(0)",
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Outer skeumorphic bezel */}
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          padding: 3,
+          borderRadius: 22,
+          background: isHero
+            ? `linear-gradient(160deg, ${C_BRIGHT}66 0%, ${C}33 40%, rgba(255,255,255,0.06) 75%, ${C}22 100%)`
+            : `linear-gradient(160deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 45%, ${C}1A 100%)`,
+          boxShadow: hovered
+            ? `0 26px 56px rgba(0,0,0,0.55), 0 0 0 1px ${C}40, 0 0 38px ${C}30`
+            : `0 16px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04)`,
+          transition: "box-shadow 0.5s cubic-bezier(0.22,1,0.36,1)",
+        }}
+      >
+        {/* Inner recessed panel */}
+        <div
+          style={{
+            position: "relative",
+            width: "100%",
+            height: "100%",
+            borderRadius: 19,
+            overflow: "hidden",
+            background: "#04070C",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 0 0 1px rgba(0,0,0,0.5)",
+            cursor: playing ? "default" : "pointer",
+          }}
+          onClick={() => !playing && setPlaying(true)}
+        >
+          {!playing ? (
+            <>
+              {/* Thumbnail — full brightness, no overlay */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+                alt={label}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center 28%",
+                  transform: hovered ? "scale(1.04)" : "scale(1)",
+                  transition: "transform 0.7s cubic-bezier(0.22,1,0.36,1)",
+                }}
+              />
+
+              {/* Glass reflection line on top */}
+              <span
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: "8%",
+                  right: "8%",
+                  height: 1,
+                  background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)",
+                  opacity: 0.5,
+                  zIndex: 3,
+                }}
+              />
+
+              {/* Top: voice index liquid-glass label */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: 12,
+                  left: 12,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: "5px 10px",
+                  borderRadius: 999,
+                  background: "rgba(4,8,14,0.55)",
+                  border: `1px solid ${C}40`,
+                  backdropFilter: "blur(10px)",
+                  WebkitBackdropFilter: "blur(10px)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12)",
+                  zIndex: 4,
+                }}
+              >
+                <span
+                  style={{
+                    width: 5,
+                    height: 5,
+                    borderRadius: 999,
+                    background: C_BRIGHT,
+                    boxShadow: `0 0 8px ${C_BRIGHT}`,
+                  }}
+                />
+                <span
+                  style={{
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 9,
+                    fontWeight: 700,
+                    letterSpacing: "2px",
+                    textTransform: "uppercase",
+                    color: "white",
+                  }}
+                >
+                  No. {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
+
+              {/* Hero badge — only on the hero tier */}
+              {isHero && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 12,
+                    right: 12,
+                    padding: "5px 10px",
+                    borderRadius: 999,
+                    background: `linear-gradient(135deg, ${C}, ${C_BRIGHT})`,
+                    boxShadow: `0 8px 22px ${C}55, inset 0 1px 0 rgba(255,255,255,0.25)`,
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 9,
+                    fontWeight: 700,
+                    letterSpacing: "2px",
+                    textTransform: "uppercase",
+                    color: "#04070C",
+                    zIndex: 4,
+                  }}
+                >
+                  Featured
+                </div>
+              )}
+
+              {/* Center: play button (Apple glass style) */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  zIndex: 4,
+                }}
+              >
+                <div
+                  style={{
+                    width: isHero ? 64 : 52,
+                    height: isHero ? 64 : 52,
+                    borderRadius: "50%",
+                    background: hovered ? `${C}EE` : "rgba(255,255,255,0.92)",
+                    boxShadow: hovered
+                      ? `0 14px 42px ${C}88, 0 0 0 1px ${C}55, inset 0 1px 0 rgba(255,255,255,0.5)`
+                      : "0 10px 30px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.55)",
+                    transform: hovered ? "scale(1.08)" : "scale(1)",
+                    transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <svg
+                    width={isHero ? 22 : 18}
+                    height={isHero ? 22 : 18}
+                    viewBox="0 0 16 18"
+                    fill="none"
+                    style={{ marginLeft: 2 }}
+                  >
+                    <path
+                      d="M14 9L2 17V1L14 9Z"
+                      fill={hovered ? "white" : "#04070C"}
+                      stroke={hovered ? "white" : "#04070C"}
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Bottom: meta ribbon */}
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: 14,
+                  left: 14,
+                  right: 14,
+                  zIndex: 4,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 4,
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 9,
+                    fontWeight: 600,
+                    letterSpacing: "2.5px",
+                    textTransform: "uppercase",
+                    color: "rgba(255,255,255,0.78)",
+                    textShadow: "0 1px 8px rgba(0,0,0,0.7)",
+                  }}
+                >
+                  {label}
+                </span>
+                <span
+                  aria-hidden
+                  style={{
+                    width: "100%",
+                    height: 1,
+                    background: `linear-gradient(90deg, ${C}AA 0%, ${C}22 60%, transparent 100%)`,
+                    opacity: hovered ? 1 : 0.45,
+                    transition: "opacity 0.45s cubic-bezier(0.22,1,0.36,1)",
+                  }}
+                />
+              </div>
+            </>
+          ) : (
+            <iframe
+              src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+              title={label}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                border: "none",
+              }}
+            />
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -3936,13 +6599,23 @@ function AwardsSection() {
     reason: "",
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [awardsSelectedCountry, setAwardsSelectedCountry] = useState<CountryCode>(COUNTRY_CODES[2]);
   const [awardsPhoneError, setAwardsPhoneError] = useState<string | null>(null);
   const [awardsEmailError, setAwardsEmailError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
+    setAwardsEmailError(null);
+    setAwardsPhoneError(null);
+
+    if (!formData.contactName.trim() || !formData.email.trim()) {
+      setSubmitError("Please complete the required fields.");
+      return;
+    }
     if (formData.email && !isWorkEmail(formData.email)) {
       setAwardsEmailError("Please use your work email address");
       return;
@@ -3952,7 +6625,29 @@ function AwardsSection() {
       setAwardsPhoneError(phoneErr);
       return;
     }
-    setFormSubmitted(true);
+
+    setIsSubmitting(true);
+    const res = await submitForm({
+      type: "awards",
+      full_name: formData.contactName.trim(),
+      email: formData.email.trim(),
+      company: formData.orgName.trim(),
+      phone: `${awardsSelectedCountry.code} ${formData.phone.trim()}`,
+      event_name: "Cyber First Kuwait 2026",
+      metadata: {
+        "Award Category": formData.category || "",
+        "Nominee Company": formData.orgName.trim(),
+        "Nomination Reason": formData.reason.trim(),
+        "Page Section": "Awards · Nomination Form",
+      },
+    });
+    setIsSubmitting(false);
+
+    if (res.success) {
+      setFormSubmitted(true);
+    } else {
+      setSubmitError(res.error || "Something went wrong. Please try again.");
+    }
   };
 
   const inputStyle = (field: string): React.CSSProperties => ({
@@ -4269,6 +6964,7 @@ function AwardsSection() {
                       onFocus={() => setFocusedField("orgName")}
                       onBlur={() => setFocusedField(null)}
                       style={inputStyle("orgName")}
+                      suppressHydrationWarning
                     />
                     <input
                       type="text"
@@ -4279,6 +6975,7 @@ function AwardsSection() {
                       onFocus={() => setFocusedField("contactName")}
                       onBlur={() => setFocusedField(null)}
                       style={inputStyle("contactName")}
+                      suppressHydrationWarning
                     />
                   </div>
                   <div style={{ marginBottom: 12 }}>
@@ -4291,6 +6988,7 @@ function AwardsSection() {
                       onFocus={() => setFocusedField("email")}
                       onBlur={() => { setFocusedField(null); if (formData.email && !isWorkEmail(formData.email)) setAwardsEmailError("Please use your work email address"); }}
                       style={inputStyle("email")}
+                      suppressHydrationWarning
                     />
                     {awardsEmailError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{awardsEmailError}</p>}
                   </div>
@@ -4302,6 +7000,7 @@ function AwardsSection() {
                         onFocus={() => setFocusedField("phone")}
                         onBlur={() => setFocusedField(null)}
                         style={{ ...inputStyle("phone"), width: 130, flexShrink: 0, appearance: "none" as const, cursor: "pointer" }}
+                        suppressHydrationWarning
                       >
                         {COUNTRY_CODES.map((cc) => (<option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>{cc.country} {cc.code}</option>))}
                       </select>
@@ -4314,6 +7013,7 @@ function AwardsSection() {
                         onBlur={() => setFocusedField(null)}
                         maxLength={awardsSelectedCountry.length}
                         style={{ ...inputStyle("phone"), flex: 1 }}
+                        suppressHydrationWarning
                       />
                     </div>
                     {awardsPhoneError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: "4px 0 0" }}>{awardsPhoneError}</p>}
@@ -4335,6 +7035,7 @@ function AwardsSection() {
                       cursor: "pointer",
                       color: formData.category ? "white" : "rgba(255,255,255,0.35)",
                     }}
+                    suppressHydrationWarning
                   >
                     <option value="" disabled style={{ color: "#555", background: "#111" }}>Select Award Category</option>
                     {AWARDS_DATA.map((a) => (
@@ -4358,10 +7059,13 @@ function AwardsSection() {
                       resize: "vertical",
                       minHeight: 80,
                     }}
+                    suppressHydrationWarning
                   />
 
                   <button
                     type="submit"
+                    suppressHydrationWarning
+                    disabled={isSubmitting}
                     style={{
                       padding: "14px 40px",
                       borderRadius: 12,
@@ -4372,10 +7076,12 @@ function AwardsSection() {
                       fontSize: 14,
                       fontWeight: 700,
                       letterSpacing: "-0.2px",
-                      cursor: "pointer",
+                      cursor: isSubmitting ? "not-allowed" : "pointer",
+                      opacity: isSubmitting ? 0.7 : 1,
                       transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)",
                     }}
                     onMouseEnter={(e) => {
+                      if (isSubmitting) return;
                       e.currentTarget.style.transform = "translateY(-2px)";
                       e.currentTarget.style.boxShadow = `0 12px 32px rgba(196,163,74,0.25)`;
                     }}
@@ -4384,8 +7090,18 @@ function AwardsSection() {
                       e.currentTarget.style.boxShadow = "none";
                     }}
                   >
-                    Submit Nomination
+                    {isSubmitting ? "Submitting…" : "Submit Nomination"}
                   </button>
+                  {submitError && (
+                    <p style={{
+                      color: "#ef4444",
+                      fontFamily: "var(--font-outfit)",
+                      fontSize: 12,
+                      margin: "10px 0 0",
+                    }}>
+                      {submitError}
+                    </p>
+                  )}
                 </form>
               ) : (
                 <motion.div
@@ -4443,132 +7159,6 @@ function AwardsSection() {
   );
 }
 
-// ─── Split CTA ────────────────────────────────────────────────────────────────
-function SplitCTA() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-
-  return (
-    <section
-      ref={ref}
-      style={{
-        position: "relative",
-        overflow: "hidden",
-        padding: "clamp(40px,5vw,72px) 0",
-      }}
-    >
-      {/* Background image */}
-      <div className="absolute inset-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://cyberfirstseries.com/wp-content/uploads/2024/12/Cyber-First-Series-Pictures-and-Sponsors-28.jpg"
-          alt="Cyber First Kuwait 2026 cybersecurity summit"
-          className="w-full h-full object-cover"
-          style={{ filter: "brightness(0.15) saturate(0.6)" }}
-        />
-      </div>
-      {/* Gradient overlays */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: "linear-gradient(to bottom, #030810 0%, transparent 20%, transparent 80%, #030810 100%)" }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: `radial-gradient(ellipse 60% 50% at 50% 50%, ${C}06, transparent 70%)` }}
-      />
-
-      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px,4vw,60px)", position: "relative", zIndex: 1 }}>
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: EASE }}
-          style={{ textAlign: "center", marginBottom: 8 }}
-        >
-          <div className="flex items-center justify-center gap-3" style={{ marginBottom: 16 }}>
-            <span style={{ width: 30, height: 1, background: C }} />
-            <span
-              style={{
-                fontFamily: "var(--font-outfit)",
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "2.5px",
-                textTransform: "uppercase",
-                color: C,
-              }}
-            >
-              Join Us
-            </span>
-            <span style={{ width: 30, height: 1, background: C }} />
-          </div>
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(28px,4vw,52px)",
-              letterSpacing: "-1.5px",
-              color: "white",
-              lineHeight: 1.08,
-              margin: "12px 0 0",
-            }}
-          >
-            Be Part of Cyber First Kuwait
-          </h2>
-        </motion.div>
-
-        {/* InquiryForm with overridden styles */}
-        <div className="cfk-form-wrapper" style={{ position: "relative", zIndex: 1 }}>
-          <InquiryForm defaultCountry="KW" eventName="Cyber First Kuwait 2026" />
-        </div>
-      </div>
-
-      <style jsx global>{`
-        /* Transparent background, let event photo show through */
-        .cfk-form-wrapper #get-involved {
-          background: transparent !important;
-        }
-        .cfk-form-wrapper #get-involved > .absolute {
-          display: none;
-        }
-
-        /* Glass morphism on form card */
-        .cfk-form-wrapper .inquiry-split > div:last-child {
-          background: rgba(5, 8, 16, 0.82) !important;
-          backdrop-filter: blur(32px) saturate(1.2) !important;
-          -webkit-backdrop-filter: blur(32px) saturate(1.2) !important;
-          border: 1px solid rgba(1, 187, 245, 0.15) !important;
-          box-shadow: 0 12px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06) !important;
-        }
-
-        /* Tab pills, Cyber themed cyan */
-        .cfk-form-wrapper button[style*="background: var(--orange)"] {
-          background: ${C} !important;
-          border-color: ${C} !important;
-        }
-
-        /* Form card ambient glow, cyan instead of orange */
-        .cfk-form-wrapper .inquiry-split > div:last-child > .absolute {
-          background: radial-gradient(ellipse, rgba(1,187,245,0.06) 0%, transparent 70%) !important;
-        }
-
-        /* Section label, cyan */
-        .cfk-form-wrapper [style*="var(--orange)"][style*="letter-spacing: 3px"] {
-          color: ${C} !important;
-        }
-
-        /* Perk icons, cyan tint */
-        .cfk-form-wrapper .inquiry-split svg {
-          color: ${C};
-        }
-
-        select option {
-          background: #0a1628;
-          color: white;
-        }
-      `}</style>
-    </section>
-  );
-}
 
 // ─── Contact Section ──────────────────────────────────────────────────────────
 const S3_TEAM = "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos";
@@ -4587,7 +7177,7 @@ const CFK_CONTACTS = {
       role: "Partnership Manager",
       phone: "+971 54 302 0244",
       email: "hassan@eventsfirstgroup.com",
-      photo: null,
+      photo: `${S3_TEAM}/hassan.jpg`,
     },
     {
       name: "Danish",
@@ -4607,146 +7197,353 @@ function ContactSection() {
     <section
       ref={ref}
       style={{
-        background: "linear-gradient(180deg, #020810 0%, #051220 100%)",
-        padding: "clamp(48px, 6vw, 80px) 0",
+        background: "#070A12",
+        padding: "clamp(56px, 6.5vw, 96px) 0 clamp(64px, 7vw, 110px)",
         position: "relative",
         overflow: "hidden",
       }}
     >
-      <div style={{ maxWidth: 1000, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
-        {/* Header */}
+      {/* Atmospheric background */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: `radial-gradient(ellipse 55% 45% at 50% 0%, ${C}10, transparent 65%),
+                       radial-gradient(ellipse 40% 50% at 12% 100%, ${C}06, transparent 70%),
+                       radial-gradient(ellipse 35% 40% at 88% 80%, ${C_BRIGHT}05, transparent 70%)`,
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: `radial-gradient(${C}07 1px, transparent 1px)`,
+          backgroundSize: "44px 44px",
+          maskImage: "radial-gradient(ellipse 70% 60% at center, black 0%, transparent 80%)",
+          WebkitMaskImage: "radial-gradient(ellipse 70% 60% at center, black 0%, transparent 80%)",
+          opacity: 0.55,
+          pointerEvents: "none",
+        }}
+      />
+
+      <div
+        style={{
+          maxWidth: 1180,
+          margin: "0 auto",
+          padding: "0 clamp(24px, 5vw, 80px)",
+          position: "relative",
+        }}
+      >
+        {/* ═══ Editorial header ═══ */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: EASE }}
-          style={{ textAlign: "center", marginBottom: 48 }}
+          transition={{ duration: 0.8, ease: EASE }}
+          style={{ marginBottom: 36 }}
         >
-          <div className="flex items-center justify-center gap-3">
-            <span style={{ width: 30, height: 1, background: C }} />
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", textTransform: "uppercase", color: C_BRIGHT }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 18, marginBottom: 20 }}>
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                fontFamily: "var(--font-outfit)",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "5px",
+                textTransform: "uppercase",
+                color: C_BRIGHT,
+              }}
+            >
+              <span style={{ width: 24, height: 1, background: C }} />
               Get in Touch
             </span>
-            <span style={{ width: 30, height: 1, background: C }} />
+            <span
+              style={{
+                flex: 1,
+                height: 1,
+                background: "linear-gradient(90deg, rgba(255,255,255,0.14) 0%, transparent 70%)",
+              }}
+            />
           </div>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 3.5vw, 44px)", letterSpacing: "-1.5px", color: "white", lineHeight: 1.1, margin: "16px 0 0" }}>
-            Contact Us
+
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: "clamp(28px, 3.6vw, 50px)",
+              letterSpacing: "-1.8px",
+              color: "white",
+              lineHeight: 1.02,
+              margin: 0,
+              maxWidth: 760,
+            }}
+          >
+            Speak with{" "}
+            <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>
+              the right team.
+            </em>
           </h2>
         </motion.div>
 
-        {/* Contact Grid */}
+        {/* ═══ Two-column editorial contact list ═══ */}
         <div
-          className="cfk-contact-grid"
-          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}
+          className="cfk-contact-cols"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "clamp(20px, 3vw, 56px)",
+          }}
         >
-          {/* Speaking Enquiries */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
-            style={{
-              padding: "32px",
-              borderRadius: 20,
-              background: `linear-gradient(145deg, ${C}08, rgba(255,255,255,0.02))`,
-              border: `1px solid ${C}20`,
-            }}
-          >
-            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: C_BRIGHT, marginBottom: 20 }}>
-              For Speaking Enquiries
-            </p>
-            <div className="flex items-center gap-4">
-              <div
-                style={{
-                  width: 72,
-                  height: 72,
-                  borderRadius: "50%",
-                  background: `linear-gradient(135deg, ${C}30, ${C}10)`,
-                  border: `2px solid ${C}40`,
-                  overflow: "hidden",
-                  flexShrink: 0,
-                }}
-              >
-                {CFK_CONTACTS.speaking.photo && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={CFK_CONTACTS.speaking.photo} alt={CFK_CONTACTS.speaking.name} className="w-full h-full object-cover" />
-                )}
-              </div>
-              <div>
-                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 18, color: "white", margin: "0 0 2px" }}>
-                  {CFK_CONTACTS.speaking.name}
-                </h3>
-                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: "rgba(255,255,255,0.5)", margin: "0 0 8px" }}>
-                  {CFK_CONTACTS.speaking.role}
-                </p>
-                <a href={`mailto:${CFK_CONTACTS.speaking.email}`} style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: C_BRIGHT, textDecoration: "none" }}>
-                  {CFK_CONTACTS.speaking.email}
-                </a>
-              </div>
-            </div>
-          </motion.div>
+          <ContactGroup
+            groupLabel="For Speaking Enquiries"
+            people={[CFK_CONTACTS.speaking]}
+            startDelay={0.18}
+            inView={inView}
+          />
 
-          {/* Sponsorship Enquiries */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2, ease: EASE }}
-            style={{
-              padding: "32px",
-              borderRadius: 20,
-              background: `linear-gradient(145deg, ${C}08, rgba(255,255,255,0.02))`,
-              border: `1px solid ${C}20`,
-            }}
-          >
-            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: C_BRIGHT, marginBottom: 20 }}>
-              For Sponsorship Enquiries
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              {CFK_CONTACTS.sponsorship.map((person) => (
-                <div key={person.name} className="flex items-center gap-3">
-                  <div
-                    style={{
-                      width: 48,
-                      height: 48,
-                      borderRadius: "50%",
-                      background: `linear-gradient(135deg, ${C}30, ${C}10)`,
-                      border: `1px solid ${C}30`,
-                      overflow: "hidden",
-                      flexShrink: 0,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {person.photo ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={person.photo} alt={person.name} className="w-full h-full object-cover" />
-                    ) : (
-                      <span style={{ fontFamily: "var(--font-outfit)", fontSize: 16, fontWeight: 600, color: C_BRIGHT }}>
-                        {person.name.charAt(0)}
-                      </span>
-                    )}
-                  </div>
-                  <div>
-                    <h4 style={{ fontFamily: "var(--font-outfit)", fontWeight: 600, fontSize: 14, color: "white", margin: 0 }}>
-                      {person.name}
-                    </h4>
-                    <a href={`mailto:${person.email}`} style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: "rgba(255,255,255,0.5)", textDecoration: "none" }}>
-                      {person.email}
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+          <ContactGroup
+            groupLabel="For Sponsorship Enquiries"
+            people={CFK_CONTACTS.sponsorship}
+            startDelay={0.28}
+            inView={inView}
+          />
         </div>
       </div>
 
-      {/* Mobile responsive */}
       <style jsx global>{`
-        @media (max-width: 768px) {
-          .cfk-contact-grid { grid-template-columns: 1fr !important; }
+        .cfk-contact-row {
+          transition: background 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .cfk-contact-row:hover {
+          background: linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0%, transparent 100%);
+        }
+        .cfk-contact-row:hover .cfk-contact-name {
+          color: ${C_BRIGHT};
+        }
+        .cfk-contact-link {
+          transition: color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .cfk-contact-link:hover {
+          color: ${C_BRIGHT} !important;
+        }
+        .cfk-contact-wa:hover {
+          background: rgba(37, 211, 102, 0.22) !important;
+          border-color: rgba(37, 211, 102, 0.55) !important;
+          transform: translateY(-1px);
+          box-shadow: 0 6px 14px rgba(37, 211, 102, 0.25);
+        }
+        @media (max-width: 820px) {
+          .cfk-contact-cols {
+            grid-template-columns: 1fr !important;
+            gap: 24px !important;
+          }
         }
       `}</style>
     </section>
+  );
+}
+
+function ContactGroup({
+  groupLabel,
+  people,
+  startDelay,
+  inView,
+}: {
+  groupLabel: string;
+  people: { name: string; role: string; email: string; phone?: string; photo?: string | null }[];
+  startDelay: number;
+  inView: boolean;
+}) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      {/* Group eyebrow */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, delay: startDelay, ease: EASE }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 14,
+          padding: "18px 0 22px",
+          borderTop: "1px solid rgba(255,255,255,0.08)",
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "var(--font-outfit)",
+            fontSize: 12,
+            fontWeight: 700,
+            color: C_BRIGHT,
+            letterSpacing: "4px",
+            textTransform: "uppercase",
+          }}
+        >
+          {groupLabel}
+        </span>
+        <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, ${C}30 0%, transparent 80%)` }} />
+      </motion.div>
+
+      {/* Rows */}
+      {people.map((p, i) => (
+        <motion.div
+          key={p.email}
+          initial={{ opacity: 0, y: 14 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.65, delay: startDelay + 0.1 + i * 0.06, ease: EASE }}
+          className="cfk-contact-row"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "108px 1fr",
+            columnGap: 26,
+            rowGap: 12,
+            alignItems: "center",
+            padding: "24px 4px",
+            borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,0.05)",
+          }}
+        >
+          {/* Portrait disk */}
+          <div
+            style={{
+              width: 108,
+              height: 108,
+              borderRadius: "50%",
+              flexShrink: 0,
+              padding: 2.5,
+              gridRow: "span 2",
+              background: `linear-gradient(135deg, ${C}80 0%, ${C_BRIGHT}55 50%, ${C}25 100%)`,
+              boxShadow: `0 12px 28px ${C}25, inset 0 1px 0 rgba(255,255,255,0.18)`,
+            }}
+          >
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "50%",
+                overflow: "hidden",
+                background: `linear-gradient(160deg, ${C}30 0%, rgba(4,7,12,0.6) 100%)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.4)",
+              }}
+            >
+              {p.photo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={p.photo}
+                  alt={p.name}
+                  className="w-full h-full"
+                  style={{
+                    objectFit: "cover",
+                    objectPosition: "center 18%",
+                  }}
+                />
+              ) : (
+                <span
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: 36,
+                    fontWeight: 700,
+                    color: C_BRIGHT,
+                    letterSpacing: "-0.5px",
+                  }}
+                >
+                  {p.name.charAt(0)}
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Name */}
+          <h3
+            className="cfk-contact-name"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(22px, 2vw, 28px)",
+              fontWeight: 700,
+              letterSpacing: "-0.6px",
+              color: "white",
+              lineHeight: 1.08,
+              margin: 0,
+              transition: "color 0.4s cubic-bezier(0.16,1,0.3,1)",
+              alignSelf: "end",
+            }}
+          >
+            {p.name}
+            <span
+              style={{
+                fontFamily: "var(--font-outfit)",
+                fontSize: 11.5,
+                fontWeight: 600,
+                letterSpacing: "1.8px",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.42)",
+                marginLeft: 14,
+              }}
+            >
+              {p.role}
+            </span>
+          </h3>
+
+          {/* Meta */}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              gap: "6px 16px",
+              fontFamily: "var(--font-outfit)",
+              fontSize: 15,
+              fontWeight: 400,
+              color: "rgba(255,255,255,0.55)",
+              lineHeight: 1.3,
+              alignSelf: "start",
+            }}
+          >
+            <a
+              href={`mailto:${p.email}`}
+              className="cfk-contact-link"
+              style={{
+                color: "rgba(255,255,255,0.78)",
+                textDecoration: "none",
+              }}
+            >
+              {p.email}
+            </a>
+            <a
+              href="https://wa.me/971545714377"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`WhatsApp ${p.name}`}
+              className="cfk-contact-wa"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 38,
+                height: 38,
+                borderRadius: 999,
+                background: "rgba(37,211,102,0.12)",
+                border: "1px solid rgba(37,211,102,0.32)",
+                color: "#25D366",
+                textDecoration: "none",
+                transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)",
+                boxShadow: "0 4px 12px rgba(37,211,102,0.12)",
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.297-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.437-9.884 9.888-9.884a9.825 9.825 0 016.99 2.898 9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.887 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+              </svg>
+            </a>
+          </div>
+        </motion.div>
+      ))}
+    </div>
   );
 }
 
@@ -5202,8 +7999,8 @@ function RegistrationSection() {
       ref={sectionRef}
       id="register"
       style={{
-        background: `linear-gradient(135deg, #0A0A0A 0%, rgba(1, 187, 245, 0.03) 50%, #0A0A0A 100%)`,
-        padding: "clamp(48px, 6vw, 80px) 0",
+        background: "transparent",
+        padding: "clamp(40px,5vw,72px) 0",
         borderTop: `1px solid ${C}10`,
         position: "relative",
         overflow: "hidden",
@@ -5254,6 +8051,7 @@ function RegistrationSection() {
               return (
                 <button
                   key={t.key}
+                  suppressHydrationWarning
                   onClick={() => {
                     setActiveTab(t.key);
                     if (isSubmitted) resetForm();
