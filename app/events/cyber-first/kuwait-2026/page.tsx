@@ -393,7 +393,7 @@ type FeaturedSponsor = { name: string; logo: string; lightBg?: boolean };
 const FEATURED_SPONSORS: { gold: FeaturedSponsor[]; strategic: FeaturedSponsor[] } = {
   gold: [
     { name: "Kaspersky", logo: `${S3_LOGOS}/kaspersky.png` },
-    { name: "Google Cloud Security", logo: `${S3_LOGOS}/Google-Cloud-Security.png`, lightBg: true },
+    { name: "Google Cloud Security", logo: `${S3_LOGOS}/Google+Cloud-02.png` },
   ],
   strategic: [
     { name: "Akamai", logo: `${S3_LOGOS}/Akamai.png` },
