@@ -114,7 +114,7 @@ const SPEAKERS: Speaker[] = [
     role: "Speaker",
     title: "Chief Information Security Officer (CISO)",
     company: "Confidential (PIF)",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/ethamer",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Thamer_alrowidhan.png",
   },
   {
@@ -122,7 +122,7 @@ const SPEAKERS: Speaker[] = [
     role: "Speaker",
     title: "Senior Director – Information, Communications and Technology",
     company: "Confidential (PIF)",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/oleg-krylov",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Oleg_Krylov.png",
   },
 ];
