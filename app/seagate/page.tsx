@@ -113,7 +113,7 @@ const SPEAKERS: Speaker[] = [
     name: "Anish Kartha",
     title: "Partner in AI & Data",
     org: "EY Consulting MENA",
-    role: "Panelist",
+    role: "Moderator",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anish_New_Photo.jpg",
   },
   {
