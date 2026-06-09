@@ -113,14 +113,17 @@ const AUDIENCE: { role: string; sub: string }[] = [
   },
 ];
 
-// Pain points the roundtable audience is facing right now.
-const WHO_FACING: string[] = [
-  "Pressure to expand margin and throughput without additional capital investment",
-  "Execution variability across shifts, sites and teams",
-  "Continuous-improvement programmes that have plateaued",
-  "Aging tribal knowledge walking out the door faster than it's being captured",
-  "Turning AI from hype into measurable performance gains",
-  "Limited real-time visibility into how strategy is actually executed on the floor",
+// ─── Agenda — programme schedule ────────────────────────────────────────────
+type AgendaItem = { time: string; title: string; isBreak?: boolean };
+const AGENDA: AgendaItem[] = [
+  { time: "10:00 — 10:15", title: "Welcome" },
+  { time: "10:15 — 10:30", title: "What Is Connected Work Technology — and Why Now?" },
+  { time: "10:30 — 10:50", title: "From Experience to Excellence: Retaining What Your Best Workers Know" },
+  { time: "10:50 — 11:10", title: "Coffee Break", isBreak: true },
+  { time: "11:10 — 11:30", title: "How Leading Manufacturers Are Standardising the Daily Management Routine" },
+  { time: "11:30 — 11:45", title: "The Operator's Edge: How Industrial AI Is Changing What's Possible on the Shop Floor" },
+  { time: "11:45 — 12:15", title: "Open Q&A and Close" },
+  { time: "12:15", title: "Lunch", isBreak: true },
 ];
 
 // â”€â”€â”€ Speakers â€” empty placeholder blocks (to be confirmed) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -149,7 +152,14 @@ const SPEAKERS: PokaSpeaker[] = [
     initials: "AA",
     linkedin: "https://www.linkedin.com/in/a%C3%AFchatou-h%C3%A9l%C3%A8ne-abdou-ing/",
   },
-  { name: "Speaker to be announced", role: "Panelist" },
+  {
+    name: "Keerthie Maruthapillai",
+    role: "Panelist",
+    title: "Presales Solution Architect, IFS",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Keerthie.png",
+    initials: "KM",
+    linkedin: "https://www.linkedin.com/in/keerthie/",
+  },
 ];
 
 // â”€â”€â”€ Industries / Countries (form selects) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -247,6 +257,7 @@ function TopBar() {
   const NAV_LINKS: { id: string; label: string }[] = [
     { id: "learn", label: "What you'll learn" },
     { id: "why", label: "Why attend" },
+    { id: "agenda", label: "Agenda" },
     { id: "speakers", label: "Speakers" },
     { id: "audience", label: "Audience" },
   ];
@@ -737,6 +748,73 @@ function LearnAndWhy() {
   );
 }
 
+// ─── Agenda — programme schedule ────────────────────────────────────────────
+function Agenda() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section
+      id="agenda"
+      ref={ref}
+      className="poka-light-section poka-agenda"
+    >
+      {/* Top blue hairline */}
+      <span
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: 0,
+          left: "20%",
+          right: "20%",
+          height: 1,
+          background: `linear-gradient(90deg, transparent, ${BLUE}, transparent)`,
+          opacity: 0.5,
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
+      <span aria-hidden className="poka-light-section__dots" />
+
+      <div className="poka-agenda__inner">
+        <SectionHeader
+          eyebrow="The programme"
+          title={
+            <>
+              An <span style={{ color: BLUE_GLOW }}>operating rhythm</span>
+              <br />built for executives
+            </>
+          }
+          maxWidth={820}
+        />
+
+        <div className="poka-agenda-list">
+          {AGENDA.map((item, i) => (
+            <motion.div
+              key={i}
+              className={`poka-agenda-row${item.isBreak ? " is-break" : ""}`}
+              initial={{ opacity: 0, x: 14 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{
+                duration: 0.55,
+                delay: 0.05 * i,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              <span className="poka-agenda-row__time">{item.time}</span>
+              <span aria-hidden className="poka-agenda-row__dot" />
+              <h3 className="poka-agenda-row__title">{item.title}</h3>
+              {item.isBreak && (
+                <span aria-hidden className="poka-agenda-row__badge">Break</span>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── Who is the roundtable for ────────────────────────────────────────────
 function WhoForBlock() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -793,52 +871,6 @@ function WhoForBlock() {
         ))}
       </ul>
 
-      <div className="poka-facing-block">
-        <span className="poka-facing-block__eyebrow">
-          <span aria-hidden className="poka-facing-block__dot" />
-          Facing
-        </span>
-        <h3 className="poka-facing-block__title">
-          The realities this room is built around
-        </h3>
-
-        <div className="poka-facing-table">
-          {WHO_FACING.map((f, i) => (
-            <motion.div
-              key={i}
-              className="poka-facing-cell"
-              initial={{ opacity: 0, y: 10 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                duration: 0.55,
-                delay: 0.05 * i + 0.1,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              <span aria-hidden className="poka-facing-cell__highlight" />
-              <span className="poka-facing-cell__num">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <p className="poka-facing-cell__text">{f}</p>
-              <span aria-hidden className="poka-facing-cell__caret">
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="13 6 19 12 13 18" />
-                </svg>
-              </span>
-            </motion.div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
@@ -2529,6 +2561,98 @@ const PAGE_STYLES = `
     font-weight: 600;
   }
 
+  /* Agenda section */
+  .poka-agenda__inner {
+    position: relative;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 4vw, 48px);
+    z-index: 2;
+  }
+  .poka-agenda-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: clamp(28px, 3vw, 44px);
+    border-top: 1px solid ${LINE};
+  }
+  .poka-agenda-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(140px, 180px) 18px 1fr auto;
+    align-items: center;
+    gap: clamp(14px, 2vw, 28px);
+    padding: clamp(18px, 1.9vw, 24px) 4px;
+    border-bottom: 1px solid ${LINE};
+    transition: background 0.3s ease, padding-left 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+  .poka-agenda-row:hover {
+    background: linear-gradient(90deg, rgba(205,146,255,0.06) 0%, transparent 80%);
+    padding-left: 14px;
+  }
+  .poka-agenda-row__time {
+    font-family: var(--font-display);
+    font-size: clamp(14px, 1.2vw, 17px);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: ${BLUE_GLOW};
+    text-shadow: 0 0 12px rgba(205,146,255,0.25);
+    white-space: nowrap;
+  }
+  .poka-agenda-row__dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: ${BLUE_GLOW};
+    box-shadow: 0 0 10px ${BLUE_GLOW};
+    opacity: 0.85;
+  }
+  .poka-agenda-row__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(16px, 1.4vw, 20px);
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    line-height: 1.32;
+    color: ${INK_DARK};
+  }
+  .poka-agenda-row__badge {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 11px;
+    border-radius: 999px;
+    border: 1px solid rgba(205,146,255,0.35);
+    background: rgba(205,146,255,0.08);
+    font-family: var(--font-outfit);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: ${BLUE_GLOW};
+  }
+  .poka-agenda-row.is-break .poka-agenda-row__title {
+    font-style: italic;
+    font-weight: 500;
+    color: ${INK_MUTE};
+  }
+  .poka-agenda-row.is-break .poka-agenda-row__dot {
+    background: transparent;
+    border: 1px solid rgba(205,146,255,0.45);
+    box-shadow: none;
+  }
+  @media (max-width: 720px) {
+    .poka-agenda-row {
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "time badge"
+        "title title";
+      row-gap: 8px;
+    }
+    .poka-agenda-row__time { grid-area: time; }
+    .poka-agenda-row__title { grid-area: title; }
+    .poka-agenda-row__badge { grid-area: badge; }
+    .poka-agenda-row__dot { display: none; }
+  }
+
   /* Speakers section (dark slate) */
   .poka-speakers-section {
     position: relative;
@@ -2961,6 +3085,7 @@ export default function PokaPage() {
       <main>
         <Hero />
         <LearnAndWhy />
+        <Agenda />
         <Speakers />
         <AudienceAndReserve />
       </main>
