@@ -86,6 +86,22 @@ const SPEAKERS = [
     initials: "TA",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tia_Assaf.png",
   },
+  {
+    name: "Thamer Alrowidhan",
+    role: "Chief Information Security Officer (CISO)",
+    org: "Confidential",
+    linkedin: "https://www.linkedin.com/in/ethamer",
+    initials: "TA",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Thamer_alrowidhan.png",
+  },
+  {
+    name: "Ali Mahmood",
+    role: "VP & Head of Enterprise Risk and Business Resiliance",
+    org: "AviLease",
+    linkedin: "https://www.linkedin.com/in/alifaisal/",
+    initials: "AM",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ALi_mahmood.jpg",
+  },
 ];
 
 type AgendaRow = {
@@ -1249,7 +1265,6 @@ function SpeakersSection() {
               key={s.name}
               className="pp-speaker-card"
               style={{
-                gridColumn: i === 0 ? 2 : 3,
                 background: `linear-gradient(180deg, ${PP_NAVY} 0%, ${PP_NAVY_DEEP} 100%)`,
                 border: `1px solid rgba(0,180,240,0.20)`,
                 borderRadius: 20,
