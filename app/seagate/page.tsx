@@ -110,6 +110,13 @@ const SPEAKERS: Speaker[] = [
     bio: "Ali is a technology and transformation leader with deep expertise in enterprise-scale Data, Analytics, and AI. He has built and scaled multiple engineering, data, and platform organizations, leading large-scale transformation programs that modernize technology landscapes, operating models, and ways of working across complex enterprises.\n\nHis experience spans the delivery of enterprise-grade data platforms, data governance capabilities, and analytics solutions that enable organizations to make confident, data-driven decisions at scale. Ali has led initiatives focused on data quality, observability, and performance across data estates exceeding 15 petabytes, supporting thousands of data workflows and mission-critical business processes. His work has helped organizations improve trust in data products while increasing the reliability, scalability, and efficiency of their data ecosystems.\n\nA strong advocate for trustworthy AI, Ali works closely on establishing quality, governance, and assurance practices for both traditional analytics and generative AI solutions. He has led the development of tools, frameworks, and operating models that help organizations assess, monitor, and improve the trustworthiness of AI-driven outcomes.\n\nKnown for bridging executive strategy and technical execution, Ali combines engineering leadership with a pragmatic approach to transformation, helping organizations unlock business value through modern data platforms, trusted AI, and sustainable digital innovation.",
   },
   {
+    name: "Anish Kartha",
+    title: "Partner in AI & Data",
+    org: "EY Consulting MENA",
+    role: "Panelist",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anish_New_Photo.jpg",
+  },
+  {
     name: "Mohit Pandey",
     title: "Head of Sales — META (Middle East, Türkiye, Africa)",
     org: "Seagate Technology",
