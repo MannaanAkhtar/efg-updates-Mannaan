@@ -64,8 +64,12 @@ type AgendaRow = {
   duration: string;
   segment: string;
   subtitle?: string;
+  contextLine?: string;
   description?: string;
-  owner: string;
+  bullets?: string[];
+  moderator?: string;
+  panelists?: string[];
+  owner?: string;
   type: "neutral" | "feature" | "break";
 };
 
@@ -80,8 +84,13 @@ const AGENDA: AgendaRow[] = [
     start: "12:20", end: "13:00", duration: "40 min",
     segment: "Executive Leadership Panel Discussion",
     subtitle: "Building AI-Ready Infrastructure Without Exploding Cost, Complexity, and Energy Consumption",
-    description: "Themes: The Sustainability & Mandate · The Enterprise & Compliance · The Hyperscale Engineering — Panelists: Ali Khaled (Head of Data Quality, Emirates) · Hani Abdel Razeq (Director of Sustainability, AESG) · Gyan Strivastava (SVP, Head — One Data & Financial Reporting, Mashreq)",
-    owner: "Anish Kartha · Moderator · Partner in Data & AI, EY Consulting MENA",
+    contextLine: "A leadership conversation on scaling enterprise infrastructure for the next era of AI, cloud, and data growth.",
+    moderator: "Anish Kartha, Partner in Data and AI, EY Consulting MENA",
+    panelists: [
+      "Ali Khaled, Head of Data Quality, Emirates",
+      "Hani Abdel Razeq, Director of Sustainability, AESG",
+      "Gyan Strivastava, Senior Vice President, Head — One Data & Financial Reporting, Mashreq",
+    ],
     type: "feature",
   },
   { start: "13:00", end: "13:15", duration: "15 min", segment: "Q&A Session", owner: "All Panelists · Moderated by Anish Kartha", type: "feature" },
@@ -2286,6 +2295,20 @@ function AgendaSection() {
                         {item.subtitle}
                       </p>
                     )}
+                    {item.contextLine && (
+                      <p style={{
+                        margin: "6px 0 0",
+                        fontFamily: `Georgia, "Cambria", "Times New Roman", serif`,
+                        fontStyle: "italic",
+                        fontSize: "clamp(12px, 0.95vw, 13.5px)",
+                        fontWeight: 400,
+                        color: "rgba(255,255,255,0.58)",
+                        letterSpacing: "-0.005em",
+                        lineHeight: 1.5,
+                      }}>
+                        {item.contextLine}
+                      </p>
+                    )}
                     {item.description && (
                       <p style={{
                         margin: "8px 0 0",
@@ -2298,6 +2321,113 @@ function AgendaSection() {
                       }}>
                         {item.description}
                       </p>
+                    )}
+                    {item.bullets && item.bullets.length > 0 && (
+                      <ul style={{
+                        listStyle: "none",
+                        margin: "12px 0 0",
+                        padding: 0,
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 4,
+                      }}>
+                        {item.bullets.map((b, idx) => (
+                          <li key={idx} style={{
+                            fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                            fontSize: "clamp(12px, 0.95vw, 13.5px)",
+                            fontWeight: 500,
+                            color: "rgba(255,255,255,0.82)",
+                            letterSpacing: "-0.005em",
+                            lineHeight: 1.45,
+                          }}>
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {item.moderator && (
+                      <div style={{ marginTop: 14 }}>
+                        <div style={{
+                          fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                          fontSize: 9.5,
+                          fontWeight: 600,
+                          letterSpacing: "0.22em",
+                          textTransform: "uppercase",
+                          color: SG_ORANGE,
+                        }}>
+                          Moderated by
+                        </div>
+                        <div style={{
+                          margin: "6px 0 0",
+                          display: "flex",
+                          alignItems: "baseline",
+                          gap: 10,
+                          fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                          fontSize: "clamp(12px, 0.95vw, 13.5px)",
+                          fontWeight: 500,
+                          color: "rgba(255,255,255,0.82)",
+                          letterSpacing: "-0.005em",
+                          lineHeight: 1.45,
+                        }}>
+                          <span aria-hidden style={{
+                            flex: "none",
+                            width: 5,
+                            height: 5,
+                            borderRadius: "50%",
+                            background: SG_ORANGE,
+                            transform: "translateY(-2px)",
+                            boxShadow: `0 0 6px ${SG_ORANGE}66`,
+                          }} />
+                          <span>{item.moderator}</span>
+                        </div>
+                      </div>
+                    )}
+                    {item.panelists && item.panelists.length > 0 && (
+                      <div style={{ marginTop: 12 }}>
+                        <div style={{
+                          fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                          fontSize: 9.5,
+                          fontWeight: 600,
+                          letterSpacing: "0.22em",
+                          textTransform: "uppercase",
+                          color: SG_ORANGE,
+                        }}>
+                          Panelists
+                        </div>
+                        <ul style={{
+                          listStyle: "none",
+                          margin: "6px 0 0",
+                          padding: 0,
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 4,
+                        }}>
+                          {item.panelists.map((p, idx) => (
+                            <li key={idx} style={{
+                              display: "flex",
+                              alignItems: "baseline",
+                              gap: 10,
+                              fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                              fontSize: "clamp(12px, 0.95vw, 13.5px)",
+                              fontWeight: 500,
+                              color: "rgba(255,255,255,0.82)",
+                              letterSpacing: "-0.005em",
+                              lineHeight: 1.45,
+                            }}>
+                              <span aria-hidden style={{
+                                flex: "none",
+                                width: 5,
+                                height: 5,
+                                borderRadius: "50%",
+                                background: SG_ORANGE,
+                                transform: "translateY(-2px)",
+                                boxShadow: `0 0 6px ${SG_ORANGE}66`,
+                              }} />
+                              <span>{p}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     )}
                   </div>
 
@@ -2314,16 +2444,18 @@ function AgendaSection() {
                         Featured
                       </span>
                     ) : <span aria-hidden />}
-                    <span style={{
-                      fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
-                      fontSize: "clamp(11px, 0.9vw, 12.5px)", fontWeight: 400,
-                      color: isBreak ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.72)",
-                      letterSpacing: "-0.005em",
-                      lineHeight: 1.4,
-                      textAlign: "right",
-                    }}>
-                      {item.owner}
-                    </span>
+                    {item.owner ? (
+                      <span style={{
+                        fontFamily: "var(--font-sohne-breit), system-ui, sans-serif",
+                        fontSize: "clamp(11px, 0.9vw, 12.5px)", fontWeight: 400,
+                        color: isBreak ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.72)",
+                        letterSpacing: "-0.005em",
+                        lineHeight: 1.4,
+                        textAlign: "right",
+                      }}>
+                        {item.owner}
+                      </span>
+                    ) : <span aria-hidden />}
                   </div>
                 </div>
               </div>
