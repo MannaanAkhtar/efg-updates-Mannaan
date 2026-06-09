@@ -124,9 +124,31 @@ const WHO_FACING: string[] = [
 ];
 
 // â”€â”€â”€ Speakers â€” empty placeholder blocks (to be confirmed) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-const SPEAKERS: { name: string; role: string }[] = [
-  { name: "Speaker to be announced", role: "Moderator" },
-  { name: "Speaker to be announced", role: "Panelist" },
+type PokaSpeaker = {
+  name: string;
+  role: string;
+  title?: string;
+  photo?: string;
+  initials?: string;
+  linkedin?: string;
+};
+
+const SPEAKERS: PokaSpeaker[] = [
+  {
+    name: "Mohammed Sa'Adeh",
+    role: "Moderator",
+    title: "Country Leader — Saudi Arabia, IFS",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed_Saadeh.png",
+    initials: "MS",
+    linkedin: "https://www.linkedin.com/in/mohammed-sa-adeh-76393a14/",
+  },
+  {
+    name: "Aïchatou Abdou",
+    role: "Panelist",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/A%C3%AFchatou_Abdou.jpg",
+    initials: "AA",
+    linkedin: "https://www.linkedin.com/in/a%C3%AFchatou-h%C3%A9l%C3%A8ne-abdou-ing/",
+  },
   { name: "Speaker to be announced", role: "Panelist" },
 ];
 
@@ -483,6 +505,7 @@ function Hero() {
         >
           {[
             { label: "Date", value: "29 Jun 2026" },
+            { label: "Venue", value: "Hilton Riyadh Hotel & Residences, Saudi Arabia" },
           ].map((s) => (
             <div key={s.label} className="poka-event-strip__cell">
               <span className="poka-event-strip__label">{s.label}</span>
@@ -879,29 +902,71 @@ function Speakers() {
               }}
             >
               <span aria-hidden className="poka-speaker-card__hairline" />
-              <div className="poka-speaker-card__avatar">
-                {/* Placeholder silhouette */}
-                <svg
-                  width="44"
-                  height="44"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden
-                >
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                  <circle cx="12" cy="7" r="4" />
-                </svg>
+              <div
+                className={`poka-speaker-card__avatar${s.photo ? " has-photo" : ""}`}
+              >
+                {s.photo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={s.photo}
+                    alt={s.name}
+                    loading="lazy"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: "center 18%",
+                      borderRadius: "50%",
+                    }}
+                  />
+                ) : (
+                  /* Placeholder silhouette */
+                  <svg
+                    width="44"
+                    height="44"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden
+                  >
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                )}
               </div>
               <div className="poka-speaker-card__body">
-                <span className="poka-speaker-card__role">{s.role}</span>
                 <h3 className="poka-speaker-card__name">{s.name}</h3>
-                <p className="poka-speaker-card__note">
-                  Details shared with confirmed attendees.
-                </p>
+                {s.title && (
+                  <p className="poka-speaker-card__title">{s.title}</p>
+                )}
+                {!s.photo && (
+                  <p className="poka-speaker-card__note">
+                    Details shared with confirmed attendees.
+                  </p>
+                )}
+                {s.linkedin && (
+                  <a
+                    href={s.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${s.name} on LinkedIn`}
+                    className="poka-speaker-card__ln"
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden
+                    >
+                      <path d="M19 0h-14C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5V5c0-2.761-2.238-5-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z" />
+                    </svg>
+                    LinkedIn
+                  </a>
+                )}
               </div>
             </motion.div>
           ))}
@@ -1759,6 +1824,19 @@ const PAGE_STYLES = `
     padding: 0;
     min-width: 0;
   }
+  .poka-event-strip__cell + .poka-event-strip__cell {
+    padding-left: clamp(12px, 1.4vw, 18px);
+  }
+  .poka-event-strip__cell + .poka-event-strip__cell::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 14px;
+    background: rgba(255,255,255,0.16);
+  }
   .poka-event-strip__label {
     font-family: var(--font-outfit);
     font-size: 10px;
@@ -1773,6 +1851,29 @@ const PAGE_STYLES = `
     color: ${WHITE};
     font-weight: 600;
     line-height: 1.3;
+  }
+  @media (max-width: 720px) {
+    .poka-event-strip {
+      flex-direction: column;
+      align-items: flex-start;
+      border-radius: 18px;
+      padding: 14px 18px;
+      gap: 6px;
+      max-width: 100%;
+    }
+    .poka-event-strip__cell + .poka-event-strip__cell {
+      padding-left: 0;
+    }
+    .poka-event-strip__cell + .poka-event-strip__cell::before {
+      display: none;
+    }
+    .poka-event-strip__cell {
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .poka-event-strip__value {
+      font-size: 13px;
+    }
   }
 
   /* Light section base */
@@ -2453,79 +2554,166 @@ const PAGE_STYLES = `
   }
   .poka-speaker-card {
     position: relative;
-    display: flex; align-items: center; gap: 18px;
-    padding: clamp(22px, 2.2vw, 28px);
-    border-radius: 16px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
-    border: 1px solid rgba(255,255,255,0.10);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 18px;
+    padding: clamp(28px, 2.6vw, 36px) clamp(22px, 2.2vw, 28px) clamp(24px, 2.4vw, 32px);
+    border-radius: 22px;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(132,39,226,0.10) 0%, transparent 65%),
+      linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 100%);
+    border: 1px solid rgba(255,255,255,0.09);
     backdrop-filter: blur(14px) saturate(140%);
     -webkit-backdrop-filter: blur(14px) saturate(140%);
     box-shadow:
-      0 14px 36px rgba(0,0,0,0.35),
+      0 16px 40px rgba(0,0,0,0.40),
       0 1px 0 rgba(255,255,255,0.08) inset;
+    overflow: hidden;
+    isolation: isolate;
     transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), border-color 0.4s, box-shadow 0.4s;
   }
   .poka-speaker-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(96,165,250,0.35);
+    transform: translateY(-4px);
+    border-color: rgba(132,39,226,0.40);
     box-shadow:
-      0 22px 50px rgba(0,0,0,0.45),
+      0 26px 56px rgba(0,0,0,0.50),
       0 1px 0 rgba(255,255,255,0.10) inset,
-      0 0 30px rgba(96,165,250,0.18);
+      0 0 38px rgba(132,39,226,0.22);
   }
   .poka-speaker-card__hairline {
     position: absolute;
-    top: 0; left: 12%; right: 12%;
+    top: 0; left: 14%; right: 14%;
     height: 1px;
-    background: linear-gradient(90deg, transparent, ${BLUE_GLOW}, transparent);
+    background: linear-gradient(90deg, transparent, ${BLUE_GLOW} 30%, rgba(205,146,255,0.85) 50%, ${BLUE_GLOW} 70%, transparent);
     opacity: 0.55;
     pointer-events: none;
+    z-index: 2;
   }
+  /* Corner accents — top-left and bottom-right */
+  .poka-speaker-card::before,
+  .poka-speaker-card::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border-color: rgba(205,146,255,0.55);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 2;
+    transition: opacity 0.4s, border-color 0.4s;
+  }
+  .poka-speaker-card::before {
+    top: 12px; left: 12px;
+    border-top: 1px solid;
+    border-left: 1px solid;
+    border-top-left-radius: 4px;
+  }
+  .poka-speaker-card::after {
+    bottom: 12px; right: 12px;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+    border-bottom-right-radius: 4px;
+  }
+  .poka-speaker-card:hover::before,
+  .poka-speaker-card:hover::after {
+    opacity: 1;
+    border-color: rgba(205,146,255,0.85);
+  }
+
   .poka-speaker-card__avatar {
     flex-shrink: 0;
-    width: 76px; height: 76px;
+    width: clamp(112px, 11vw, 140px);
+    height: clamp(112px, 11vw, 140px);
     border-radius: 50%;
     display: inline-flex; align-items: center; justify-content: center;
     background: linear-gradient(160deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 100%);
     color: ${BLUE_GLOW};
     border: 1px solid rgba(255,255,255,0.14);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.10);
+    box-shadow:
+      0 12px 28px rgba(0,0,0,0.35),
+      0 0 0 4px rgba(132,39,226,0.10),
+      inset 0 1px 0 rgba(255,255,255,0.12);
+    position: relative;
+    z-index: 3;
   }
   .poka-speaker-card__body {
     flex: 1; min-width: 0;
-    display: flex; flex-direction: column; gap: 4px;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    position: relative;
+    z-index: 3;
+    width: 100%;
   }
   .poka-speaker-card__role {
     display: inline-block;
-    padding: 3px 10px;
+    padding: 4px 12px;
     border-radius: 999px;
-    background: rgba(96,165,250,0.14);
-    border: 1px solid rgba(96,165,250,0.30);
+    background: rgba(205,146,255,0.14);
+    border: 1px solid rgba(205,146,255,0.32);
     font-family: var(--font-outfit);
     font-size: 10px;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: ${BLUE_GLOW};
+    color: rgba(205,146,255,0.95);
     font-weight: 700;
-    align-self: flex-start;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
   .poka-speaker-card__name {
     margin: 0;
     font-family: var(--font-display);
-    font-size: clamp(16px, 1.3vw, 19px);
+    font-size: clamp(19px, 1.55vw, 23px);
     font-weight: 700;
     letter-spacing: -0.02em;
     color: ${WHITE};
-    line-height: 1.2;
+    line-height: 1.18;
   }
   .poka-speaker-card__note {
     margin: 4px 0 0;
     font-family: var(--font-outfit);
     font-size: 12.5px;
-    line-height: 1.45;
-    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+    color: rgba(255,255,255,0.55);
     font-style: italic;
+    max-width: 220px;
+  }
+  .poka-speaker-card__avatar.has-photo {
+    padding: 0;
+    overflow: hidden;
+    background: linear-gradient(160deg, rgba(132,39,226,0.32) 0%, rgba(205,146,255,0.10) 50%, rgba(255,255,255,0.04) 100%);
+  }
+  .poka-speaker-card__title {
+    margin: 2px 0 0;
+    font-family: var(--font-outfit);
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+    max-width: 260px;
+  }
+  .poka-speaker-card__ln {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 14px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: rgba(205,146,255,0.10);
+    border: 1px solid rgba(205,146,255,0.30);
+    font-family: var(--font-outfit);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(205,146,255,0.95);
+    text-decoration: none;
+    align-self: center;
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .poka-speaker-card__ln:hover {
+    background: rgba(205,146,255,0.22);
+    border-color: rgba(205,146,255,0.55);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(132,39,226,0.30);
   }
 
   /* Reserve section (IFS purple) */
