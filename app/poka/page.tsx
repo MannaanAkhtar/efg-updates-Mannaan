@@ -116,7 +116,7 @@ const AUDIENCE: { role: string; sub: string }[] = [
 // ─── Agenda — programme schedule ────────────────────────────────────────────
 type AgendaItem = { time: string; title: string; isBreak?: boolean };
 const AGENDA: AgendaItem[] = [
-  { time: "10:00 — 10:15", title: "Welcome" },
+  { time: "10:00 — 10:15", title: "Welcome & coffee break" },
   { time: "10:15 — 10:30", title: "What Is Connected Work Technology — and Why Now?" },
   { time: "10:30 — 10:50", title: "From Experience to Excellence: Retaining What Your Best Workers Know" },
   { time: "10:50 — 11:10", title: "Coffee Break", isBreak: true },
@@ -157,7 +157,7 @@ const SPEAKERS: PokaSpeaker[] = [
     name: "Keerthie Maruthapillai",
     role: "Panelist",
     title: "Presales Solution Architect, IFS",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Keerthie.png",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Keerthie1.jpg",
     initials: "KM",
     linkedin: "https://www.linkedin.com/in/keerthie/",
   },
@@ -779,13 +779,8 @@ function Agenda() {
 
       <div className="poka-agenda__inner">
         <SectionHeader
-          eyebrow="The programme"
-          title={
-            <>
-              An <span style={{ color: BLUE_GLOW }}>operating rhythm</span>
-              <br />built for executives
-            </>
-          }
+          eyebrow="Agenda"
+          title={<>Event <span style={{ color: BLUE_GLOW }}>Agenda</span></>}
           maxWidth={820}
         />
 
@@ -912,12 +907,7 @@ function Speakers() {
         <SectionHeader
           theme="dark"
           eyebrow="Speakers"
-          title={
-            <>
-              An invited circle of{" "}
-              <span style={{ color: BLUE_GLOW }}>speakers to be announced</span>
-            </>
-          }
+          title={<>Event <span style={{ color: BLUE_GLOW }}>Speakers</span></>}
           maxWidth={780}
         />
 
