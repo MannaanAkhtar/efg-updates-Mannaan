@@ -76,8 +76,17 @@ const AGENDA: AgendaRow[] = [
   { start: "11:00", end: "11:30", duration: "30 min", segment: "Executive Leadership Session", owner: "Arnab Majumder", type: "feature" },
   { start: "11:30", end: "12:00", duration: "30 min", segment: "Executive Engagement Session", subtitle: "Interactive executive networking and engagement experience", owner: "Ashley Rose — Mentalist", type: "feature" },
   { start: "12:00", end: "12:20", duration: "20 min", segment: "Future Discussed Today", description: "Customer deployment experiences · Real-world use cases · Why Mosaic · Technology roadmap · Future storage innovations", owner: "Mohit Pandey", type: "feature" },
-  { start: "12:20", end: "13:15", duration: "55 min", segment: "Executive Networking Lunch", owner: "All Delegates", type: "break" },
+  {
+    start: "12:20", end: "13:00", duration: "40 min",
+    segment: "Executive Leadership Panel Discussion",
+    subtitle: "Building AI-Ready Infrastructure Without Exploding Cost, Complexity, and Energy Consumption",
+    description: "Themes: The Sustainability & Mandate · The Enterprise & Compliance · The Hyperscale Engineering — Panelists: Ali Khaled (Head of Data Quality, Emirates) · Hani Abdel Razeq (Director of Sustainability, AESG) · Gyan Strivastava (SVP, Head — One Data & Financial Reporting, Mashreq)",
+    owner: "Anish Kartha · Moderator · Partner in Data & AI, EY Consulting MENA",
+    type: "feature",
+  },
+  { start: "13:00", end: "13:15", duration: "15 min", segment: "Q&A Session", owner: "All Panelists · Moderated by Anish Kartha", type: "feature" },
   { start: "13:15", end: "13:20", duration: "5 min",  segment: "Closing Remarks", owner: "Mohit Pandey · Moderator · Khazna Representative", type: "neutral" },
+  { start: "13:20", end: "onwards", duration: "—", segment: "Executive Networking Lunch", owner: "All Delegates", type: "break" },
 ];
 
 type Speaker = {
