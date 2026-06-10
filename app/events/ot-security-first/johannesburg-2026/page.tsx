@@ -551,7 +551,7 @@ function HeroSection() {
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={`${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0412.JPG`}
+          src={`${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0812.JPG`}
           alt="OT Security First Africa 2026 summit — industrial cybersecurity leaders on stage"
           width={1920}
           height={1080}
@@ -5934,6 +5934,11 @@ export default function OTSecurityFirstJohannesburg2026() {
           }
           .otsf-snapshot-grid {
             grid-template-columns: 1fr !important;
+          }
+          .otsf-speakers-grid {
+            grid-template-columns: 1fr !important;
+            max-width: 420px;
+            margin: 0 auto;
           }
         }
 
