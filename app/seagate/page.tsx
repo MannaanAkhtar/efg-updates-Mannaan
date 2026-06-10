@@ -75,7 +75,7 @@ type AgendaRow = {
 
 const AGENDA: AgendaRow[] = [
   { start: "10:00", end: "10:30", duration: "30 min", segment: "Guest Arrival, Registration & Welcome Coffee", owner: "Event Operations Team", type: "neutral" },
-  { start: "10:30", end: "10:40", duration: "10 min", segment: "Welcome Remarks & Opening Notes", owner: "Event Host", type: "neutral" },
+  { start: "10:30", end: "10:40", duration: "10 min", segment: "Welcome Remarks & Opening Notes", owner: "Mohit Pandey · Host", type: "neutral" },
   { start: "10:40", end: "11:00", duration: "20 min", segment: "Executive Keynote Address", owner: "To be confirmed", type: "feature" },
   { start: "11:00", end: "11:30", duration: "30 min", segment: "Executive Leadership Session", owner: "Arnab Majumder", type: "feature" },
   { start: "11:30", end: "12:00", duration: "30 min", segment: "Executive Engagement Session", subtitle: "Interactive executive networking and engagement experience", owner: "Ashley Rose — Mentalist", type: "feature" },
