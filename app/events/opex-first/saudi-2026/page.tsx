@@ -4675,13 +4675,13 @@ function SeriesSponsors() {
 
 // ─── Past Edition Gallery ──────────────────────────────────────────────────
 const GALLERY_PHOTOS = [
-  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Opex%20First%20UAE/4N8A1666.JPG", caption: "Keynote · OPEX First UAE", area: "hero" },
-  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Opex%20First%20UAE/4N8A1535.JPG", caption: "On the floor", area: "a" },
-  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Opex%20First%20UAE/4N8A1810.JPG", caption: "Networking", area: "b" },
-  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Opex%20First%20UAE/4N8A1848.JPG", caption: "The room", area: "c" },
-  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Opex%20First%20UAE/4N8A1751.JPG", caption: "Official walkthrough", area: "d" },
-  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Opex%20First%20UAE/4N8A1698.JPG", caption: "Recognition moment", area: "e" },
-  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0330.JPG", caption: "Trophy presentation", area: "f" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/opex+KSA+few/DSC08585.jpg", caption: "Keynote · OPEX First UAE", area: "hero" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/opex+KSA+few/DSC08580.jpg", caption: "On the floor", area: "a" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/opex+KSA+few/DSC08456.jpg", caption: "Networking", area: "b" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/opex+KSA+few/DSC08269.jpg", caption: "The room", area: "c" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/opex+KSA+few/DSC08208.jpg", caption: "In session", area: "d" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/opex+KSA+few/DSC08336.jpg", caption: "Recognition moment", area: "e" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/opex+KSA+few/DSC08533.jpg", caption: "Trophy presentation", area: "f" },
 ];
 
 function PastGallery() {
