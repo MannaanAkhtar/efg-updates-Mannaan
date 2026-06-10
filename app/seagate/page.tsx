@@ -94,7 +94,7 @@ const AGENDA: AgendaRow[] = [
     type: "feature",
   },
   { start: "13:00", end: "13:15", duration: "15 min", segment: "Q&A Session", owner: "All Panelists · Moderated by Anish Kartha", type: "feature" },
-  { start: "13:15", end: "13:20", duration: "5 min",  segment: "Closing Remarks", owner: "Mohit Pandey · Moderator · Khazna Representative", type: "neutral" },
+  { start: "13:15", end: "13:20", duration: "5 min",  segment: "Closing Remarks", owner: "Mohit Pandey · Host · Khazna Representative", type: "neutral" },
   { start: "13:20", end: "onwards", duration: "—", segment: "Executive Networking Lunch", owner: "All Delegates", type: "break" },
 ];
 
@@ -102,7 +102,7 @@ type Speaker = {
   name: string;
   title: string;
   org: string;
-  role: "Moderator" | "Panelist";
+  role: "Moderator" | "Panelist" | "Host";
   photo: string;
   photoTBD?: boolean;
   bio?: string;
@@ -138,7 +138,7 @@ const SPEAKERS: Speaker[] = [
     name: "Mohit Pandey",
     title: "Head of Sales — META (Middle East, Türkiye, Africa)",
     org: "Seagate Technology",
-    role: "Moderator",
+    role: "Host",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohit_Pandey.png",
     linkedin: "https://www.linkedin.com/in/mohit-pandey-70038932/",
   },
@@ -1720,7 +1720,7 @@ function SpeakersSection() {
           margin: "0 auto",
         }}>
           {SPEAKERS.map((s, i) => {
-            const isModerator = s.role === "Moderator";
+            const isModerator = s.role === "Moderator" || s.role === "Host";
             const hasLinkedin = Boolean(s.linkedin);
             const hasBio = Boolean(s.bio);
             const isInteractive = hasLinkedin || hasBio;
