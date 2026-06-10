@@ -122,7 +122,7 @@ const AGENDA: AgendaItem[] = [
   { time: "10:50 — 11:10", title: "Coffee Break", isBreak: true },
   { time: "11:10 — 11:30", title: "How Leading Manufacturers Are Standardising the Daily Management Routine" },
   { time: "11:30 — 11:45", title: "The Operator's Edge: How Industrial AI Is Changing What's Possible on the Shop Floor" },
-  { time: "11:45 — 12:15", title: "Open Q&A and Close" },
+  { time: "11:45 — 12:15", title: "Open Q&A" },
   { time: "12:15", title: "Lunch", isBreak: true },
 ];
 
@@ -1197,13 +1197,6 @@ function ReserveBlock() {
                   Curated · invitation only
                 </span>
               </div>
-              <div className="poka-reserve-detail">
-                <span className="poka-reserve-detail__label">Sponsor</span>
-                <span className="poka-reserve-detail__value">Poka</span>
-                <span className="poka-reserve-detail__sub">
-                  Connected worker platform
-                </span>
-              </div>
             </div>
           </motion.div>
 
@@ -1617,7 +1610,12 @@ function Footer() {
       <span aria-hidden className="poka-footer__hairline" />
       <div className="poka-footer__inner">
         <div className="poka-footer__poka-logo">
-          <PokaLogo height={72} tone="white" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg"
+            alt="IFS"
+            style={{ height: 72, width: "auto", display: "block" }}
+          />
         </div>
         <div className="poka-footer__right">
           <span className="poka-footer__initiative-label">An initiative by</span>
