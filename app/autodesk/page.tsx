@@ -1931,7 +1931,7 @@ function ReserveSection() {
                   fontFamily: BODY, fontSize: 10, fontWeight: 700,
                   letterSpacing: "0.22em", textTransform: "uppercase",
                   color: SLATE, fontVariantNumeric: "tabular-nums",
-                }}>Confirmed</span>
+                }}>Under Consideration</span>
               )}
             </div>
 
@@ -2263,6 +2263,7 @@ function Field({ label, value, onChange, type = "text", required, colSpan = 1 }:
         value={value}
         onChange={onChange}
         required={required}
+        suppressHydrationWarning
         className="ad-form-input"
         style={{
           width: "100%",
