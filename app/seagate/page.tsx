@@ -87,7 +87,7 @@ const AGENDA: AgendaRow[] = [
     contextLine: "A leadership conversation on scaling enterprise infrastructure for the next era of AI, cloud, and data growth.",
     moderator: "Anish Kartha, Partner in Data and AI, EY Consulting MENA",
     panelists: [
-      "Ali Khaled, Head of Data Quality, Emirates",
+      "Ali Khaled, Head of Data Quality, Leading Airline",
       "Hani Abdel Razeq, Director of Sustainability, AESG",
       "Gyan Strivastava, Senior Vice President, Head — One Data & Financial Reporting, Mashreq",
     ],
