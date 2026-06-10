@@ -96,7 +96,7 @@ const EVENT_CONFIGS: Record<string, {
     shortName: "OT Security Jubail",
     color: "#D34B9A",
     colorBright: "#E872B5",
-    date: "26 October 2026",
+    date: "27 October 2026",
     location: "Jubail, KSA",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Jubail-02.png",
     navLinks: [

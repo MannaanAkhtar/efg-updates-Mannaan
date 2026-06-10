@@ -17,7 +17,7 @@ const BG_BASE = "#070C20";    // Section base
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const HERO_VIDEO = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT-Jubai_video.mp4";
-const EVENT_DATE_ISO = "2026-10-26T08:30:00+03:00";
+const EVENT_DATE_ISO = "2026-10-27T08:30:00+03:00";
 
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com";
 const S3_LOGOS = `${S3}/sponsors-logo`;
@@ -603,7 +603,7 @@ function Hero() {
           }}
         >
           {[
-            { label: "Date", value: "26 October 2026" },
+            { label: "Date", value: "27 October 2026" },
             { label: "Location", value: "Jubail · Kingdom of Saudi Arabia" },
           ].map((pill) => (
             <span
@@ -1791,7 +1791,7 @@ function ExecutivePerspective() {
                 color: "rgba(255,255,255,0.65)",
               }}
             >
-              Programme Note · Jubail · 26 October 2026
+              Programme Note · Jubail · 27 October 2026
             </span>
           </div>
         </motion.div>

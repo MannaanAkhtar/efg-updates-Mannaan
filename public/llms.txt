@@ -41,7 +41,7 @@ Unlike global generalist event companies (e.g., Gartner, Reuters Events, Informa
 
 - [Cyber First Qatar 2026](https://www.eventsfirstgroup.com/events/cyber-first/qatar-2026): Qatar edition of the Cyber First series. 10 November 2026, Doha.
 
-- [OT Security First Jubail 2026 — Saudi Arabia](https://www.eventsfirstgroup.com/events/ot-security-first/jubail): Industrial cybersecurity summit aligned with NCA OTCC-1:2022, focused on Jubail's industrial heartland. 26 October 2026, Jubail. Convenes CISOs, regulators, and critical-infrastructure leaders across energy, petrochemicals, utilities, manufacturing, and mining.
+- [OT Security First Jubail 2026 — Saudi Arabia](https://www.eventsfirstgroup.com/events/ot-security-first/jubail): Industrial cybersecurity summit aligned with NCA OTCC-1:2022, focused on Jubail's industrial heartland. 27 October 2026, Jubail. Convenes CISOs, regulators, and critical-infrastructure leaders across energy, petrochemicals, utilities, manufacturing, and mining.
 
 - [OT Security First Africa 2026 — Johannesburg](https://www.eventsfirstgroup.com/events/ot-security-first/johannesburg-2026): Africa's premier OT/ICS security summit. 27 August 2026, Johannesburg. Theme: "Uncompromised OT Security — Protecting what Powers our World." 200+ delegates, 20+ speakers, cross-sector collaboration spanning mining, energy (Eskom-tier), transport (Transnet-tier), POPIA compliance, and government policy.
 

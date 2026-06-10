@@ -5,17 +5,17 @@ import { EventFactBlock } from "@/components/seo/FactBlock";
 const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/ot-security-first/jubail`;
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT_Jubail.png";
-const OG_IMAGE_ALT = "OT Security First Jubail 2026 — Industrial cybersecurity summit, 26 October 2026, Jubail, Saudi Arabia";
+const OG_IMAGE_ALT = "OT Security First Jubail 2026 — Industrial cybersecurity summit, 27 October 2026, Jubail, Saudi Arabia";
 
-const EVENT_START = "2026-10-26T08:30:00+03:00";
-const EVENT_END = "2026-10-26T17:30:00+03:00";
+const EVENT_START = "2026-10-27T08:30:00+03:00";
+const EVENT_END = "2026-10-27T17:30:00+03:00";
 
 const RICH_DESCRIPTION =
-  "OT Security First Jubail 2026 — the Kingdom's flagship industrial cybersecurity summit. Aligned with NCA OTCC-1:2022, convening CISOs, regulators, and critical infrastructure leaders. 26 October 2026, Jubail, Saudi Arabia.";
+  "OT Security First Jubail 2026 — the Kingdom's flagship industrial cybersecurity summit. Aligned with NCA OTCC-1:2022, convening CISOs, regulators, and critical infrastructure leaders. 27 October 2026, Jubail, Saudi Arabia.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-  title: "OT Security Jubail 2026 | Industrial Cybersecurity Summit — 26 Oct",
+  title: "OT Security Jubail 2026 | Industrial Cybersecurity Summit — 27 Oct",
   description: RICH_DESCRIPTION,
   keywords: [
     "OT Security First Jubail 2026",
@@ -147,7 +147,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             "@context": "https://schema.org",
             "@type": "FAQPage",
             mainEntity: [
-              { "@type": "Question", name: "When is OT Security First Jubail 2026?", acceptedAnswer: { "@type": "Answer", text: "OT Security First Jubail 2026 takes place on 26 October 2026 in Jubail, Saudi Arabia. It is a one-day strategic dialogue platform for industrial cybersecurity and operational resilience." } },
+              { "@type": "Question", name: "When is OT Security First Jubail 2026?", acceptedAnswer: { "@type": "Answer", text: "OT Security First Jubail 2026 takes place on 27 October 2026 in Jubail, Saudi Arabia. It is a one-day strategic dialogue platform for industrial cybersecurity and operational resilience." } },
               { "@type": "Question", name: "Where is OT Security First Jubail 2026 held?", acceptedAnswer: { "@type": "Answer", text: "In Jubail, Saudi Arabia — the heart of the Kingdom's industrial corridor and one of the largest petrochemical hubs in the world. The exact venue is confirmed to registered delegates closer to the event date." } },
               { "@type": "Question", name: "Who attends OT Security First Jubail 2026?", acceptedAnswer: { "@type": "Answer", text: "Senior government policymakers, National Cybersecurity Authority regulators, heads of critical infrastructure, CISOs, CIOs, CTOs, CDOs, heads of OT/ICS cybersecurity, risk and compliance executives, and leaders from energy, utilities, petrochemicals, and manufacturing. Attendance is invitation-only." } },
               { "@type": "Question", name: "Is there a fee to attend OT Security First Jubail 2026?", acceptedAnswer: { "@type": "Answer", text: "Attendance is free for qualified delegates. Apply via the registration form on the event page; the advisory team will confirm eligibility." } },
@@ -161,7 +161,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <EventFactBlock
         eventName="OT Security Jubail 2026"
         series="OT Security First"
-        date="26 October 2026"
+        date="27 October 2026"
         city="Jubail"
         country="Saudi Arabia"
         format="in-person"

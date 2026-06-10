@@ -291,8 +291,8 @@ const allEvents = [
     image:
       "https://images.unsplash.com/photo-1513828583688-c52646db42da?w=800&q=80",
     href: "/events/ot-security-first/jubail",
-    date: "2026-10-26",
-    nextDate: "26 Oct 2026",
+    date: "2026-10-27",
+    nextDate: "27 Oct 2026",
     nextCity: "Jubail, KSA",
     editions: "2nd Edition",
     regions: "Saudi Arabia",
