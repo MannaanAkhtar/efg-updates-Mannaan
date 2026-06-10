@@ -151,6 +151,8 @@ export default function RootLayout({
         <link rel="preconnect" href="https://efg-final.s3.eu-north-1.amazonaws.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://img.youtube.com" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        {/* Vercel Web Analytics (enabled 2026-06-11) */}
+        <script defer src="/_vercel/insights/script.js" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
