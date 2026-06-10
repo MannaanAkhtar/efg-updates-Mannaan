@@ -203,7 +203,7 @@ export const allEvents: EventItem[] = [
     location: "Jubail, Saudi Arabia",
     venue: "Venue TBA",
     attendees: "300+",
-    href: "/events/ot-security-first",
+    href: "/events/ot-security-first/jubail",
     status: "soon",
   },
   {

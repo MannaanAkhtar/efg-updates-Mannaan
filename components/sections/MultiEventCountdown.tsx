@@ -35,7 +35,7 @@ const upcomingEvents: UpcomingEvent[] = [
     title: "OT Security Jubail",
     date: new Date("2026-06-15T09:00:00"),
     location: "Jubail, Saudi Arabia",
-    href: "/events/ot-security-first",
+    href: "/events/ot-security-first/jubail",
   },
   {
     id: "cyber-first-qatar",
