@@ -91,14 +91,20 @@ const EVENT_CONFIGS: Record<string, {
       { href: "#register", label: "Register" },
     ],
   },
-  "/events/ot-security-first/jubail-2026": {
+  "/events/ot-security-first/jubail": {
     name: "OT Security Jubail 2026",
     shortName: "OT Security Jubail",
     color: "#D34B9A",
     colorBright: "#E872B5",
-    date: "26 Oct 2026",
+    date: "26 October 2026",
     location: "Jubail, KSA",
-    navLinks: [{ href: "#register-interest", label: "Register Interest" }],
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Jubail-02.png",
+    navLinks: [
+      { href: "#overview", label: "Overview" },
+      { href: "#speakers", label: "Speakers" },
+      { href: "#awards", label: "Awards" },
+      { href: "#register", label: "Register" },
+    ],
   },
   "/events/ot-security-first/oman-2026": {
     name: "OT Security Oman 2026",

@@ -27,6 +27,9 @@ const nextConfig: NextConfig = {
       { source: "/opex-first", destination: "/events/opex-first", permanent: true },
       { source: "/opex-first/", destination: "/events/opex-first", permanent: true },
       { source: "/events/opex-first/virtual-boardroom-mena", destination: "/events/opex-first/process-intelligence", permanent: true },
+      // OT Security First Jubail — URL shortened from jubail-2026 → jubail
+      { source: "/events/ot-security-first/jubail-2026", destination: "/events/ot-security-first/jubail", permanent: true },
+      { source: "/events/ot-security-first/jubail-2026/", destination: "/events/ot-security-first/jubail", permanent: true },
       { source: "/data-ai-first", destination: "/events/data-ai-first", permanent: true },
       { source: "/data-ai-first/", destination: "/events/data-ai-first", permanent: true },
       { source: "/digital-first", destination: "/events/data-ai-first", permanent: true },
