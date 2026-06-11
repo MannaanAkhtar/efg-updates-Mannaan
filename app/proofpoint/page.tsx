@@ -102,6 +102,14 @@ const SPEAKERS = [
     initials: "HL",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hashim+Lua.jpg",
   },
+  {
+    name: "Ahmed Darwish",
+    role: "Head of Digital Delivery",
+    org: "Bank Albilad",
+    linkedin: "https://www.linkedin.com/in/darwisha/",
+    initials: "AD",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+Darwish1.jpeg",
+  },
 ];
 
 type AgendaRow = {
@@ -1256,11 +1264,26 @@ function SpeakersSection() {
           className="pp-speakers-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
+            gridTemplateColumns: "repeat(8, 1fr)",
             gap: "clamp(20px, 2vw, 28px)",
           }}
         >
-          {SPEAKERS.map((s, i) => (
+          {SPEAKERS.map((s, i) => {
+            // 3+2 layout, card width preserved at original 1/4 of row.
+            // 8-col grid × 2-col span = same width as old 4-col grid card.
+            // Row 1 cards at cols 2/4/6 (centered, 1 empty col each side).
+            // Row 2 cards at cols 3/5 (centered, 2 empty cols each side).
+            const gridColumn =
+              i === 0
+                ? "2 / span 2"
+                : i === 1
+                  ? "4 / span 2"
+                  : i === 2
+                    ? "6 / span 2"
+                    : i === 3
+                      ? "3 / span 2"
+                      : "5 / span 2";
+            return (
             <div
               key={s.name}
               className="pp-speaker-card"
@@ -1274,6 +1297,7 @@ function SpeakersSection() {
                 transform: inView ? "translateY(0)" : "translateY(24px)",
                 transition: `opacity 0.75s cubic-bezier(0.22,1,0.36,1) ${0.15 + i * 0.08}s, transform 0.75s cubic-bezier(0.22,1,0.36,1) ${0.15 + i * 0.08}s, border-color 0.35s ease, box-shadow 0.35s ease`,
                 display: "flex",
+                gridColumn,
                 flexDirection: "column",
                 boxShadow: "0 4px 14px rgba(6,20,43,0.16)",
               }}
@@ -1434,7 +1458,8 @@ function SpeakersSection() {
                 </p>
               </div>
             </div>
-          ))}
+          );
+          })}
         </div>
       </div>
 
@@ -1463,6 +1488,9 @@ function SpeakersSection() {
         @media (max-width: 980px) {
           .pp-speakers-grid {
             grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .pp-speakers-grid > .pp-speaker-card {
+            grid-column: auto !important;
           }
         }
         @media (max-width: 540px) {
