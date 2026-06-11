@@ -284,7 +284,7 @@ const SPEAKERS = [
     title: "CTIO",
     org: "Rand Water",
     linkedin: "https://www.linkedin.com/in/nthabiseng-mosupye-86020829/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Nthabiseng+Mosupye.png",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nthabiseng+Mosupye.jpg",
   },
   {
     name: "Cathy Leso",
@@ -305,7 +305,7 @@ const SPEAKERS = [
     title: "OT/IT Convergence (Digital Transformation)",
     org: "Eskom Holdings SOC Ltd",
     linkedin: "https://www.linkedin.com/in/akashmakhan/",
-    photo: `${S3}/boardroom/Akash_Makhan.png`,
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Akash+Makhan.jpg",
   },
   {
     name: "Shane Naidoo",
