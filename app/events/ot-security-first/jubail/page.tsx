@@ -249,15 +249,16 @@ const AUDIENCE_ROLES = [
 ];
 
 // ─── By the Numbers — donut chart data ─────────────────────────────────────
-// Balanced palette: dominant cyan anchor + alternating magenta/cyan accents
-// so the donut reads as a true blue/pink mix instead of pink-heavy.
+// Categorical palette: 6 visually distinct hues so each donut segment maps
+// 1:1 with its legend card. Cyan/pink anchor the brand; the other 4 stand
+// apart enough to read as separate categories without fighting the theme.
 const BY_NUMBERS: { label: string; value: number; color: string }[] = [
-  { label: "Delegates",                       value: 220, color: CYAN },      // cyan — dominant anchor
-  { label: "Senior Industry Speakers",        value: 30,  color: C },         // magenta
-  { label: "Strategic Conference Sessions",   value: 15,  color: "#7DD3FC" }, // light cyan
-  { label: "Media & Knowledge Partners",      value: 15,  color: C_BRIGHT },  // bright pink
-  { label: "Technology Providers",            value: 10,  color: "#2EA8C8" }, // teal
-  { label: "Industry Recognition Awards",     value: 5,   color: "#C4A34A" }, // gold (matches Awards theme)
+  { label: "Delegates",                       value: 220, color: CYAN },      // cyan — cool, dominant brand anchor
+  { label: "Senior Industry Speakers",        value: 30,  color: C_BRIGHT },  // pink — warm brand anchor
+  { label: "Strategic Conference Sessions",   value: 15,  color: "#8B5CF6" }, // violet — cool purple
+  { label: "Media & Knowledge Partners",      value: 15,  color: "#14B8A6" }, // teal — cool green-blue
+  { label: "Technology Providers",            value: 10,  color: "#F59E0B" }, // amber — warm orange-yellow
+  { label: "Industry Recognition Awards",     value: 5,   color: "#84CC16" }, // lime — warm yellow-green
 ];
 
 // Pre-computed donut geometry — derived from BY_NUMBERS, never changes at runtime
@@ -3628,52 +3629,71 @@ function ByTheNumbers() {
                 transition={{ duration: 0.6, delay: 0.35 + i * 0.07, ease: EASE }}
                 style={{
                   position: "relative",
-                  padding: "18px 18px 18px 22px",
+                  padding: "20px 18px 18px 18px",
                   borderRadius: 12,
-                  background: "linear-gradient(180deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.01) 100%)",
-                  border: "1px solid rgba(255,255,255,0.06)",
+                  background: `linear-gradient(180deg, ${seg.color}0d 0%, rgba(255,255,255,0.01) 100%)`,
+                  border: `1px solid ${seg.color}33`,
                   overflow: "hidden",
                 }}
               >
-                {/* Color rail on the left edge */}
+                {/* Top color bar — full-width identification stripe */}
                 <span
                   aria-hidden
                   style={{
                     position: "absolute",
-                    top: 14,
-                    bottom: 14,
+                    top: 0,
                     left: 0,
-                    width: 3,
+                    right: 0,
+                    height: 3,
                     background: seg.color,
-                    boxShadow: `0 0 8px ${seg.color}66`,
-                    borderRadius: 2,
+                    boxShadow: `0 0 14px ${seg.color}99`,
                   }}
                 />
-                {/* Big number */}
+                {/* Color dot + value row */}
                 <div
                   style={{
                     display: "flex",
-                    alignItems: "baseline",
-                    gap: 6,
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 800,
-                    color: "white",
-                    letterSpacing: "-1.5px",
-                    lineHeight: 1,
+                    alignItems: "center",
+                    gap: 10,
                   }}
                 >
-                  <span style={{ fontSize: "clamp(30px, 3vw, 42px)" }}>{seg.value}</span>
-                  <span style={{ fontSize: "clamp(18px, 1.6vw, 24px)", color: seg.color }}>+</span>
+                  {/* Color dot — primary visual link to donut segment */}
+                  <span
+                    aria-hidden
+                    style={{
+                      width: 12,
+                      height: 12,
+                      borderRadius: "50%",
+                      background: seg.color,
+                      boxShadow: `0 0 10px ${seg.color}aa, inset 0 0 0 1px rgba(255,255,255,0.18)`,
+                      flexShrink: 0,
+                    }}
+                  />
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "baseline",
+                      gap: 4,
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 800,
+                      color: "white",
+                      letterSpacing: "-1.5px",
+                      lineHeight: 1,
+                    }}
+                  >
+                    <span style={{ fontSize: "clamp(30px, 3vw, 42px)" }}>{seg.value}</span>
+                    <span style={{ fontSize: "clamp(18px, 1.6vw, 24px)", color: seg.color }}>+</span>
+                  </div>
                 </div>
                 {/* Label */}
                 <div
                   style={{
-                    marginTop: 8,
+                    marginTop: 10,
                     fontFamily: "var(--font-outfit)",
                     fontSize: "clamp(12px, 0.95vw, 13.5px)",
                     fontWeight: 500,
                     letterSpacing: "0.04em",
-                    color: "rgba(255,255,255,0.72)",
+                    color: "rgba(255,255,255,0.78)",
                     lineHeight: 1.35,
                   }}
                 >
@@ -3698,18 +3718,20 @@ function ByTheNumbers() {
             gap: 10px !important;
           }
           .otsf-jb-numbers-legend > div {
-            padding: 12px 10px 12px 14px !important;
+            padding: 14px 10px 12px 12px !important;
           }
-          .otsf-jb-numbers-legend > div > div:first-of-type span:first-child {
+          /* Value row (color dot + number) — first div child */
+          .otsf-jb-numbers-legend > div > div:nth-of-type(1) > div > span:first-child {
             font-size: 22px !important;
             letter-spacing: -1px !important;
           }
-          .otsf-jb-numbers-legend > div > div:first-of-type span:last-child {
+          .otsf-jb-numbers-legend > div > div:nth-of-type(1) > div > span:last-child {
             font-size: 14px !important;
           }
-          .otsf-jb-numbers-legend > div > div:last-of-type {
+          /* Label — second div child */
+          .otsf-jb-numbers-legend > div > div:nth-of-type(2) {
             font-size: 10.5px !important;
-            margin-top: 6px !important;
+            margin-top: 8px !important;
             line-height: 1.3 !important;
           }
         }
