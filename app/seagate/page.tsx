@@ -76,7 +76,7 @@ type AgendaRow = {
 const AGENDA: AgendaRow[] = [
   { start: "10:00", end: "10:30", duration: "30 min", segment: "Guest Arrival, Registration & Welcome Coffee", owner: "Event Operations Team", type: "neutral" },
   { start: "10:30", end: "10:40", duration: "10 min", segment: "Welcome Remarks & Opening Notes", owner: "Mohit Pandey · Host", type: "neutral" },
-  { start: "10:40", end: "11:00", duration: "20 min", segment: "Executive Keynote Address", owner: "To be confirmed", type: "feature" },
+  { start: "10:40", end: "11:00", duration: "20 min", segment: "Executive Keynote Address", owner: "Ramy Jallad, Group CEO, RAKEZ", type: "feature" },
   { start: "11:00", end: "11:30", duration: "30 min", segment: "Executive Leadership Session", owner: "Arnab Majumder", type: "feature" },
   { start: "11:30", end: "12:00", duration: "30 min", segment: "Executive Engagement Session", subtitle: "Interactive executive networking and engagement experience", owner: "Ashley Rose — Mentalist", type: "feature" },
   { start: "12:00", end: "12:20", duration: "20 min", segment: "Future Discussed Today", description: "Customer deployment experiences · Real-world use cases · Why Mosaic · Technology roadmap · Future storage innovations", owner: "Mohit Pandey", type: "feature" },
@@ -102,7 +102,7 @@ type Speaker = {
   name: string;
   title: string;
   org: string;
-  role: "Moderator" | "Panelist" | "Host";
+  role: "Moderator" | "Panelist" | "Host" | "Keynote";
   photo: string;
   photoTBD?: boolean;
   bio?: string;
@@ -111,6 +111,14 @@ type Speaker = {
 };
 
 const SPEAKERS: Speaker[] = [
+  {
+    name: "Ramy Jallad",
+    title: "Group CEO",
+    org: "RAKEZ",
+    role: "Keynote",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ramy+Jallad%2C+Group+CEO%2C+RAKEZ.jpg",
+    linkedin: "https://www.linkedin.com/in/ramy-jallad/",
+  },
   {
     name: "Hani Adnan Abdel Razeq",
     title: "Director of Sustainability",
