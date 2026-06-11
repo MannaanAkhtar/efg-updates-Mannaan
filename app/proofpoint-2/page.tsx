@@ -102,6 +102,14 @@ const SPEAKERS = [
     initials: "AM",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ALi_mahmood.jpg",
   },
+  {
+    name: "Iftikhar Ali Alvi",
+    role: "IT Director",
+    org: "Confidential Entity",
+    linkedin: "",
+    initials: "IA",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/iftikhar_alialvi.png",
+  },
 ];
 
 type AgendaRow = {
@@ -1256,11 +1264,26 @@ function SpeakersSection() {
           className="pp-speakers-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
+            gridTemplateColumns: "repeat(8, 1fr)",
             gap: "clamp(20px, 2vw, 28px)",
           }}
         >
-          {SPEAKERS.map((s, i) => (
+          {SPEAKERS.map((s, i) => {
+            // 3+2 layout, card width preserved at original 1/4 of row.
+            // 8-col grid × 2-col span = same width as old 4-col grid card.
+            // Row 1 cards at cols 2/4/6 (centered, 1 empty col each side).
+            // Row 2 cards at cols 3/5 (centered, 2 empty cols each side).
+            const gridColumn =
+              i === 0
+                ? "2 / span 2"
+                : i === 1
+                  ? "4 / span 2"
+                  : i === 2
+                    ? "6 / span 2"
+                    : i === 3
+                      ? "3 / span 2"
+                      : "5 / span 2";
+            return (
             <div
               key={s.name}
               className="pp-speaker-card"
@@ -1276,6 +1299,7 @@ function SpeakersSection() {
                 display: "flex",
                 flexDirection: "column",
                 boxShadow: "0 4px 14px rgba(6,20,43,0.16)",
+                gridColumn,
               }}
             >
               {/* Full-bleed portrait — dominates the card */}
@@ -1319,35 +1343,37 @@ function SpeakersSection() {
                 />
 
                 {/* Floating LinkedIn chip in the photo's bottom-right */}
-                <a
-                  href={s.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${s.name} on LinkedIn`}
-                  className="pp-speaker-li"
-                  style={{
-                    position: "absolute",
-                    right: 14,
-                    bottom: 14,
-                    width: 36,
-                    height: 36,
-                    borderRadius: "50%",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    background: "rgba(255,255,255,0.96)",
-                    color: PP_NAVY,
-                    backdropFilter: "blur(6px)",
-                    boxShadow: "0 6px 18px rgba(14,37,65,0.18)",
-                    textDecoration: "none",
-                    transition:
-                      "background 0.25s ease, color 0.25s ease, transform 0.25s ease",
-                  }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                  </svg>
-                </a>
+                {s.linkedin && (
+                  <a
+                    href={s.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${s.name} on LinkedIn`}
+                    className="pp-speaker-li"
+                    style={{
+                      position: "absolute",
+                      right: 14,
+                      bottom: 14,
+                      width: 36,
+                      height: 36,
+                      borderRadius: "50%",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "rgba(255,255,255,0.96)",
+                      color: PP_NAVY,
+                      backdropFilter: "blur(6px)",
+                      boxShadow: "0 6px 18px rgba(14,37,65,0.18)",
+                      textDecoration: "none",
+                      transition:
+                        "background 0.25s ease, color 0.25s ease, transform 0.25s ease",
+                    }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    </svg>
+                  </a>
+                )}
               </div>
 
               {/* Meta block — name, role, org */}
@@ -1434,7 +1460,8 @@ function SpeakersSection() {
                 </p>
               </div>
             </div>
-          ))}
+          );
+          })}
         </div>
       </div>
 
