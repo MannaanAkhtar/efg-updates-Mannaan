@@ -148,7 +148,7 @@ const SPEAKERS: PokaSpeaker[] = [
   {
     name: "Aïchatou Abdou",
     role: "Panelist",
-    title: "Global Director Strategic Alliance",
+    title: "Global Strategic Alliances Director, Poka",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/A%C3%AFchatou_Abdou.jpg",
     initials: "AA",
     linkedin: "https://www.linkedin.com/in/a%C3%AFchatou-h%C3%A9l%C3%A8ne-abdou-ing/",
