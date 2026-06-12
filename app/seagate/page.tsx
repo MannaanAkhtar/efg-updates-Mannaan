@@ -89,7 +89,7 @@ const AGENDA: AgendaRow[] = [
     panelists: [
       "Ali Khaled, Head of Data Quality, Leading Airline",
       "Hani Abdel Razeq, Director of Sustainability, AESG",
-      "Gyan Strivastava, Senior Vice President, Head — One Data & Financial Reporting, Mashreq",
+      "Gyan Srivastava, Senior Vice President, Head — One Data & Financial Reporting, Mashreq",
     ],
     type: "feature",
   },
@@ -174,6 +174,13 @@ const SPEAKERS: Speaker[] = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Allan_Bilek.png",
     linkedin: "https://www.linkedin.com/in/allanbilekbusiness/",
     photoZoom: 1.22,
+  },
+  {
+    name: "Gyan Srivastava",
+    title: "Senior Vice President, Head — One Data & Financial Reporting",
+    org: "Mashreq",
+    role: "Panelist",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Gyan.jpg",
   },
 ];
 
