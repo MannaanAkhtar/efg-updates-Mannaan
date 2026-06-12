@@ -116,7 +116,7 @@ const AUDIENCE: { role: string; sub: string }[] = [
 // ─── Agenda — programme schedule ────────────────────────────────────────────
 type AgendaItem = { time: string; title: string; isBreak?: boolean };
 const AGENDA: AgendaItem[] = [
-  { time: "10:00 — 10:15", title: "Welcome & coffee break" },
+  { time: "10:00 — 10:15", title: "Welcome" },
   { time: "10:15 — 10:30", title: "What Is Connected Work Technology — and Why Now?" },
   { time: "10:30 — 10:50", title: "From Experience to Excellence: Retaining What Your Best Workers Know" },
   { time: "10:50 — 11:10", title: "Coffee Break", isBreak: true },
