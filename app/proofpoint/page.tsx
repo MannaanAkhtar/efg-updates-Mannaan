@@ -110,6 +110,14 @@ const SPEAKERS = [
     initials: "AD",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+Darwish1.jpeg",
   },
+  {
+    name: "Sameer Joshi",
+    role: "Director Digitalization",
+    org: "Nadec Foods",
+    linkedin: "https://www.linkedin.com/in/sameer-joshi-ba03461b/",
+    initials: "SJ",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/sameer+joshi.png",
+  },
 ];
 
 type AgendaRow = {
@@ -1264,25 +1272,26 @@ function SpeakersSection() {
           className="pp-speakers-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(8, 1fr)",
+            gridTemplateColumns: "repeat(12, 1fr)",
             gap: "clamp(20px, 2vw, 28px)",
           }}
         >
           {SPEAKERS.map((s, i) => {
-            // 3+2 layout, card width preserved at original 1/4 of row.
-            // 8-col grid × 2-col span = same width as old 4-col grid card.
-            // Row 1 cards at cols 2/4/6 (centered, 1 empty col each side).
-            // Row 2 cards at cols 3/5 (centered, 2 empty cols each side).
+            // 4+2 layout on a 12-col grid with 3-col spans (same card width as before).
+            // Row 1: cols 1/4/7/10 (4 cards, full row).
+            // Row 2: cols 4/7 (2 cards centered, 3 empty cols each side).
             const gridColumn =
               i === 0
-                ? "2 / span 2"
+                ? "1 / span 3"
                 : i === 1
-                  ? "4 / span 2"
+                  ? "4 / span 3"
                   : i === 2
-                    ? "6 / span 2"
+                    ? "7 / span 3"
                     : i === 3
-                      ? "3 / span 2"
-                      : "5 / span 2";
+                      ? "10 / span 3"
+                      : i === 4
+                        ? "4 / span 3"
+                        : "7 / span 3";
             return (
             <div
               key={s.name}
