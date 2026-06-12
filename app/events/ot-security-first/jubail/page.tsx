@@ -1,14 +1,20 @@
-"use client";
+﻿"use client";
 
 import React, { useRef, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Footer, InquiryForm } from "@/components/sections";
 import EventNavigation from "@/components/ui/EventNavigation";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
 import type { CountryCode } from "@/lib/form-helpers";
 
-// ─── Design Tokens (OT Security First — magenta + cyan) ──────────────────────
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+// ─── Design Tokens (OT Security First - magenta + cyan) ──────────────────────
 const C = "#D34B9A";          // Magenta
 const C_BRIGHT = "#E86BB8";   // Light pink
 const CYAN = "#00C9FF";       // Cyan accent
@@ -31,7 +37,7 @@ type Speaker = {
   linkedin?: string | null;
 };
 
-// TBA placeholders — to be confirmed
+// TBA placeholders - to be confirmed
 const SPEAKERS: Speaker[] = [
   { name: "Speaker to be confirmed", title: "Senior Industrial Cybersecurity Leader", org: "KSA Critical Infrastructure", photo: null, linkedin: null },
   { name: "Speaker to be confirmed", title: "Head of OT Security", org: "Energy / Petrochemicals", photo: null, linkedin: null },
@@ -85,7 +91,7 @@ const MARQUEE_ROW_2 = [
   `${S3_LOGOS}/YOKOGAWA.png`,
 ];
 
-// ─── From the Room — OT testimonial shorts ─────────────────────────────────
+// ─── From the Room - OT testimonial shorts ─────────────────────────────────
 const OT_SHORTS = [
   { id: "Q0n_sVaMnxg", title: "OT Security First Testimonial" },
   { id: "SF87voLk34A", title: "OT Security First Testimonial" },
@@ -94,14 +100,14 @@ const OT_SHORTS = [
   { id: "aaG9We6AjY8", title: "OT Security First Testimonial" },
 ];
 
-// ─── Gallery — UAE 2026 archive (reused as series past edition imagery) ─────
+// ─── Gallery - UAE 2026 archive (reused as series past edition imagery) ─────
 const GALLERY: { src: string; alt: string; label: string }[] = [
-  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0510.JPG`, alt: "OT Security First — panel discussion", label: "Panel Discussion" },
-  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/opex+KSA+few/DSC08208.jpg", alt: "Main session", label: "Main Session" },
-  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0811.JPG`, alt: "OT Security First — on floor", label: "On Floor" },
-  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0683.JPG`, alt: "OT Security First — networking", label: "Networking" },
-  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0820.JPG`, alt: "OT Security First — partner exhibition", label: "Partner Exhibition" },
-  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/opex+KSA+few/DSC08456.jpg", alt: "Industry speakers on stage", label: "Industry Speakers" },
+  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0510.JPG`, alt: "OT Security First UAE 2025 panel discussion - industrial CISOs and OT cybersecurity leaders on stage debating critical infrastructure defense", label: "Panel Discussion" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/opex+KSA+few/DSC08208.jpg", alt: "OT Security First main conference session - keynote presentation to critical infrastructure security leadership audience in Saudi Arabia", label: "Main Session" },
+  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0811.JPG`, alt: "OT Security First exhibition floor - industrial cybersecurity solution providers and OT security technology vendors", label: "On Floor" },
+  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0683.JPG`, alt: "OT Security First networking session - CISOs and senior OT security executives building peer connections at the summit", label: "Networking" },
+  { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0820.JPG`, alt: "OT Security First partner exhibition - industrial cybersecurity vendors showcasing OT, ICS, and SCADA security solutions", label: "Partner Exhibition" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/opex+KSA+few/DSC08456.jpg", alt: "OT Security First industry speakers on stage - operational technology and ICS security experts presenting strategic insights", label: "Industry Speakers" },
 ];
 
 // ─── Past event reports (series highlights) ─────────────────────────────────
@@ -157,7 +163,7 @@ function useCountdown(targetISO: string) {
   return t;
 }
 
-// ─── Strategic Context: PDF Market Driver Table — 7 rows × Facts + Implications ───
+// ─── Strategic Context: PDF Market Driver Table - 7 rows × Facts + Implications ───
 type ContextRow = { driver: string; eyebrow: string; facts: string; implications: string };
 const STRATEGIC_CONTEXT: ContextRow[] = [
   {
@@ -222,19 +228,19 @@ const STRATEGIC_CONTEXT: ContextRow[] = [
 const STRATEGIC_THEMES = [
   { num: "01", title: "Securing Saudi Arabia's critical infrastructure", desc: "Defending the Kingdom's most vital systems in a hyper-connected industrial era." },
   { num: "02", title: "Bridging IT/OT convergence", desc: "Closing the gap between the boardroom and the plant floor without expanding the attack surface." },
-  { num: "03", title: "Building resilient-by-design operations", desc: "Resilience baked into energy and utility systems from the architecture up — not bolted on." },
+  { num: "03", title: "Building resilient-by-design operations", desc: "Resilience baked into energy and utility systems from the architecture up - not bolted on." },
   { num: "04", title: "Modernising legacy OT systems", desc: "Upgrading aged industrial environments without disrupting production or breaking safety guarantees." },
   { num: "05", title: "Zero trust architecture for OT", desc: "Identity, segmentation, and continuous verification applied to operational technology environments." },
   { num: "06", title: "AI-powered threat detection & autonomous response", desc: "Using AI to detect, contain, and respond to OT incidents at machine speed." },
   { num: "07", title: "Protecting industrial IoT & smart manufacturing", desc: "Securing the sensors, edge devices, and connected ecosystems driving Industry 4.0." },
   { num: "08", title: "Enabling secure remote operations", desc: "Distributed control systems that stay defensible when accessed from anywhere on the grid." },
-  { num: "09", title: "Strengthening OT supply chain security", desc: "Visibility into third-party risk — from system integrators to software bills of materials." },
+  { num: "09", title: "Strengthening OT supply chain security", desc: "Visibility into third-party risk - from system integrators to software bills of materials." },
   { num: "10", title: "Aligning industrial cybersecurity with national mandates", desc: "Operationalising OTCC-1:2022, ECC, and CSCC into audit-ready practice across critical sectors." },
   { num: "11", title: "Developing future-ready OT cybersecurity talent", desc: "Building the workforce and capability pipeline the Kingdom needs to defend itself for decades." },
-  { num: "12", title: "From cyber risk to operational resilience", desc: "Reframing the conversation from threat to continuity — keeping industrial systems running through any adversary scenario." },
+  { num: "12", title: "From cyber risk to operational resilience", desc: "Reframing the conversation from threat to continuity - keeping industrial systems running through any adversary scenario." },
 ];
 
-// ─── Audience: PDF "Who Will You Meet?" — 10 roles ──────────────────────────
+// ─── Audience: PDF "Who Will You Meet?" - 10 roles ──────────────────────────
 const AUDIENCE_ROLES = [
   "Senior government policymakers and ministries",
   "National cybersecurity authorities and regulators",
@@ -248,20 +254,20 @@ const AUDIENCE_ROLES = [
   "Consultants and strategic advisory firms",
 ];
 
-// ─── By the Numbers — donut chart data ─────────────────────────────────────
+// ─── By the Numbers - donut chart data ─────────────────────────────────────
 // Categorical palette: 6 visually distinct hues so each donut segment maps
 // 1:1 with its legend card. Cyan/pink anchor the brand; the other 4 stand
 // apart enough to read as separate categories without fighting the theme.
 const BY_NUMBERS: { label: string; value: number; color: string }[] = [
-  { label: "Delegates",                       value: 220, color: CYAN },      // cyan — cool, dominant brand anchor
-  { label: "Senior Industry Speakers",        value: 30,  color: C_BRIGHT },  // pink — warm brand anchor
-  { label: "Strategic Conference Sessions",   value: 15,  color: "#8B5CF6" }, // violet — cool purple
-  { label: "Media & Knowledge Partners",      value: 15,  color: "#14B8A6" }, // teal — cool green-blue
-  { label: "Technology Providers",            value: 10,  color: "#F59E0B" }, // amber — warm orange-yellow
-  { label: "Industry Recognition Awards",     value: 5,   color: "#84CC16" }, // lime — warm yellow-green
+  { label: "Delegates",                       value: 220, color: CYAN },      // cyan - cool, dominant brand anchor
+  { label: "Senior Industry Speakers",        value: 30,  color: C_BRIGHT },  // pink - warm brand anchor
+  { label: "Strategic Conference Sessions",   value: 15,  color: "#8B5CF6" }, // violet - cool purple
+  { label: "Media & Knowledge Partners",      value: 15,  color: "#14B8A6" }, // teal - cool green-blue
+  { label: "Technology Providers",            value: 10,  color: "#F59E0B" }, // amber - warm orange-yellow
+  { label: "Industry Recognition Awards",     value: 5,   color: "#84CC16" }, // lime - warm yellow-green
 ];
 
-// Pre-computed donut geometry — derived from BY_NUMBERS, never changes at runtime
+// Pre-computed donut geometry - derived from BY_NUMBERS, never changes at runtime
 // so it lives at module scope (vs. re-computing on every render of ByTheNumbers).
 const BY_NUMBERS_TOTAL = BY_NUMBERS.reduce((s, item) => s + item.value, 0);
 const BY_NUMBERS_RADIUS = 120;
@@ -279,7 +285,7 @@ const BY_NUMBERS_SEGMENTS = (() => {
   });
 })();
 
-// ─── LAZY MOUNT — defers child rendering until near viewport ───────────────
+// ─── LAZY MOUNT - defers child rendering until near viewport ───────────────
 // Skips render of below-fold sections during initial hydration: no inline
 // style objects, no framer-motion observer setup, no continuous animations.
 // Reserves the placeholder height so scroll position stays stable.
@@ -339,6 +345,7 @@ export default function OTSecurityJubail2026() {
       <LazyMount minHeight={820}><GallerySection /></LazyMount>
       <LazyMount minHeight={1400}><AwardsSection /></LazyMount>
       <LazyMount minHeight={760}><RegisterSection /></LazyMount>
+      <LazyMount minHeight={320}><VenueSection /></LazyMount>
       <LazyMount minHeight={640}><Contact /></LazyMount>
       <LazyMount minHeight={420}><Footer /></LazyMount>
       <RequestResourcesModal />
@@ -374,7 +381,7 @@ function Hero() {
   }, [resourceMenuOpen]);
 
   // Pause hero CSS animations + the background video when the section scrolls
-  // off-screen — saves continuous compositing/decode work the user can't see.
+  // off-screen - saves continuous compositing/decode work the user can't see.
   useEffect(() => {
     const sec = heroSectionRef.current;
     const vid = heroVideoRef.current;
@@ -464,7 +471,7 @@ function Hero() {
         }}
       />
 
-      {/* Film grain / noise — cinematic depth */}
+      {/* Film grain / noise - cinematic depth */}
       <div
         aria-hidden
         className="otsf-jb-hero-grain"
@@ -479,7 +486,7 @@ function Hero() {
         }}
       />
 
-      {/* Scan lines — subtle CRT/broadcast feel */}
+      {/* Scan lines - subtle CRT/broadcast feel */}
       <div
         aria-hidden
         style={{
@@ -493,7 +500,7 @@ function Hero() {
         }}
       />
 
-      {/* Corner brackets — event poster framing */}
+      {/* Corner brackets - event poster framing */}
       <CornerBracket position="tl" />
       <CornerBracket position="tr" />
       <CornerBracket position="bl" />
@@ -540,7 +547,7 @@ function Hero() {
               color: "white",
             }}
           >
-            OT Security First · 2nd Edition KSA
+            OT Security First · 4th Edition KSA
           </span>
         </motion.div>
 
@@ -587,7 +594,7 @@ function Hero() {
             margin: "0 auto 38px",
           }}
         >
-          A strategic forum for operational technology leadership — convening regulators, CISOs and industrial engineers at the heart of the Kingdom&apos;s industrial corridor.
+          A strategic forum for operational technology leadership - convening regulators, CISOs and industrial engineers at the heart of the Kingdom&apos;s industrial corridor.
         </motion.p>
 
         {/* Date · Location pills */}
@@ -738,7 +745,7 @@ function Hero() {
           transition={{ duration: 0.9, delay: 0.7, ease: EASE }}
           style={{ display: "flex", flexWrap: "wrap", gap: 14, justifyContent: "center" }}
         >
-          {/* Primary CTA — Speaking & sponsorship · glassmorphism + liquid glass */}
+          {/* Primary CTA - Speaking & sponsorship · glassmorphism + liquid glass */}
           <a
             href="#contact"
             className="otsf-jb-glass-cta"
@@ -762,7 +769,7 @@ function Hero() {
               textDecoration: "none",
               overflow: "hidden",
               isolation: "isolate",
-              // Layered shadow stack — outer glow + glass insets
+              // Layered shadow stack - outer glow + glass insets
               boxShadow: [
                 `0 22px 50px ${C}55`,
                 `0 14px 32px ${CYAN}44`,
@@ -793,7 +800,7 @@ function Hero() {
               ].join(", ");
             }}
           >
-            {/* Top specular reflection — wet-glass curvature */}
+            {/* Top specular reflection - wet-glass curvature */}
             <span
               aria-hidden
               style={{
@@ -843,7 +850,7 @@ function Hero() {
             </svg>
           </a>
 
-          {/* Past Event Reports — opens request resources dropdown */}
+          {/* Past Event Reports - opens request resources dropdown */}
           <div ref={resourceMenuRef} style={{ position: "relative", display: "inline-block" }}>
             <button
               type="button"
@@ -1021,7 +1028,7 @@ function Hero() {
         </motion.div>
       </div>
 
-      {/* EFG initiative badge — bottom right */}
+      {/* EFG initiative badge - bottom right */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -1055,7 +1062,7 @@ function Hero() {
           loading="lazy"
           decoding="async"
           src="/events-first-group_logo_alt.svg"
-          alt="Events First Group"
+          alt="Events First Group logo - producers of OT Security First Jubail 2026, the Kingdom's flagship industrial cybersecurity summit"
           width={180}
           height={66}
           style={{ height: 50, width: "auto", opacity: 0.8 }}
@@ -1158,7 +1165,7 @@ function Hero() {
         .otsf-jb-hero-menu-item:hover {
           background: rgba(255,255,255,0.06) !important;
         }
-        /* Hero italic accent — solid colors that cross-fade pink ↔ cyan (no gradient on italic) */
+        /* Hero italic accent - solid colors that cross-fade pink ↔ cyan (no gradient on italic) */
         @keyframes otsfJbHeroToneA {
           0%, 100% {
             color: ${C_BRIGHT};
@@ -1191,7 +1198,7 @@ function Hero() {
           animation: otsfJbHeroToneB 5.5s ease-in-out infinite;
           will-change: color, text-shadow;
         }
-        /* Starts in badge — same solid-color cross-fade approach */
+        /* Starts in badge - same solid-color cross-fade approach */
         @keyframes otsfJbStartsTextSwap {
           0%, 100% { color: ${C_BRIGHT}; }
           50%      { color: ${CYAN}; }
@@ -1215,7 +1222,7 @@ function Hero() {
           animation: otsfJbLivePulse 1.6s ease-in-out infinite,
                      otsfJbStartsDot 5.5s linear infinite !important;
         }
-        /* Glass CTA — diagonal sheen sweep */
+        /* Glass CTA - diagonal sheen sweep */
         @keyframes otsfJbGlassSheen {
           0%   { left: -40%; opacity: 0; }
           15%  { opacity: 1; }
@@ -1240,7 +1247,7 @@ function Hero() {
             box-shadow: 0 0 10px ${C_BRIGHT};
           }
         }
-        /* EFG initiative badge — shrink on mobile so it doesn't crowd the hero */
+        /* EFG initiative badge - shrink on mobile so it doesn't crowd the hero */
         @media (max-width: 720px) {
           .otsf-jb-efg-badge {
             bottom: 24px !important;
@@ -1253,7 +1260,7 @@ function Hero() {
           .otsf-jb-efg-badge > img {
             height: 34px !important;
           }
-          /* Hero content — tighten top/bottom padding on mobile to remove dead space */
+          /* Hero content - tighten top/bottom padding on mobile to remove dead space */
           .otsf-jb-hero-content {
             padding: clamp(72px, 11vh, 110px) clamp(20px, 5vw, 64px) clamp(40px, 6vh, 70px) !important;
           }
@@ -1284,7 +1291,7 @@ function Hero() {
   );
 }
 
-// Corner bracket — thin cyan/magenta L-bracket frame at a viewport corner
+// Corner bracket - thin cyan/magenta L-bracket frame at a viewport corner
 function CornerBracket({ position }: { position: "tl" | "tr" | "bl" | "br" }) {
   const offset = 22;
   const length = 28;
@@ -1393,14 +1400,14 @@ function ExecutivePerspective() {
             alignItems: "start",
           }}
         >
-          {/* Left — prose */}
+          {/* Left - prose */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
             style={{ display: "flex", flexDirection: "column", gap: 22 }}
           >
-            {/* Drop cap opening — jeweled */}
+            {/* Drop cap opening - jeweled */}
             <div style={{ position: "relative" }}>
               <p style={{ ...execPara, marginTop: 0, fontSize: "clamp(17px, 1.4vw, 19px)" }}>
                 <span style={{ position: "relative", float: "left", marginRight: 14, marginTop: 4, marginBottom: -4 }}>
@@ -1445,7 +1452,7 @@ function ExecutivePerspective() {
               </p>
             </div>
             <p style={execPara}>
-              This convergence is accelerating productivity and national economic growth — and at the same time, expanding the cyber-physical attack surface in ways that legacy controls were never designed to handle.
+              This convergence is accelerating productivity and national economic growth - and at the same time, expanding the cyber-physical attack surface in ways that legacy controls were never designed to handle.
             </p>
             <p style={execPara}>
               Operational Technology environments now sit at the intersection of cyber exposure, physical safety, environmental impact, and national economic stability.
@@ -1527,7 +1534,7 @@ function ExecutivePerspective() {
             </div>
           </motion.div>
 
-          {/* Right — previous edition video bezel */}
+          {/* Right - previous edition video bezel */}
           <motion.div
             initial={{ opacity: 0, y: 24, scale: 0.97 }}
             animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
@@ -1593,7 +1600,7 @@ function ExecutivePerspective() {
                 {videoPlaying ? (
                   <iframe
                     src={`https://www.youtube.com/embed/${HIGHLIGHT_VIDEO_ID}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
-                    title="OT Security First UAE — Event Highlights"
+                    title="OT Security First UAE - Event Highlights"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
@@ -1606,7 +1613,7 @@ function ExecutivePerspective() {
                       decoding="async"
                       src={`https://img.youtube.com/vi/${HIGHLIGHT_VIDEO_ID}/maxresdefault.jpg`}
                       onError={(e) => { (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${HIGHLIGHT_VIDEO_ID}/hqdefault.jpg`; }}
-                      alt="OT Security First UAE — Event Highlights"
+                      alt="OT Security First UAE 2025 industrial cybersecurity summit highlights - CISOs, OT security leaders, and critical infrastructure operators on stage"
                       width={1280}
                       height={720}
                       style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
@@ -1615,7 +1622,7 @@ function ExecutivePerspective() {
                     <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: `linear-gradient(90deg, transparent, ${CYAN}aa, transparent)`, boxShadow: `0 0 12px ${CYAN}60`, pointerEvents: "none" }} />
                     {/* Vignette */}
                     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(7,11,31,0.18) 0%, rgba(7,11,31,0.1) 50%, rgba(7,11,31,0.6) 100%)", pointerEvents: "none" }} />
-                    {/* Edition serial badge — top left */}
+                    {/* Edition serial badge - top left */}
                     <div
                       aria-hidden
                       style={{
@@ -1646,7 +1653,7 @@ function ExecutivePerspective() {
                         Edition · 01
                       </span>
                     </div>
-                    {/* Corner ornament — bottom right */}
+                    {/* Corner ornament - bottom right */}
                     <div aria-hidden style={{ position: "absolute", bottom: 14, right: 14, width: 22, height: 22, borderBottom: `1px solid ${CYAN}`, borderRight: `1px solid ${CYAN}`, opacity: 0.7 }} />
                     <div aria-hidden style={{ position: "absolute", bottom: 18, right: 18, width: 6, height: 6, borderRadius: "50%", background: CYAN, opacity: 0.8, boxShadow: `0 0 10px ${CYAN}` }} />
                     {/* Play button */}
@@ -1692,7 +1699,7 @@ function ExecutivePerspective() {
                 maxWidth: 520,
               }}
             >
-              Highlights from the most recent OT Security First flagship edition — the same dialogue platform now arriving in Jubail.
+              Highlights from the most recent OT Security First flagship edition - the same dialogue platform now arriving in Jubail.
             </p>
           </motion.div>
         </div>
@@ -1747,8 +1754,8 @@ function ExecutivePerspective() {
               maxWidth: 1040,
             }}
           >
-            <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>OT Security First — Jubail</em>{" "}
-            is structured as a strategic industrial cybersecurity dialogue platform — designed to address this convergence with policy depth, engineering credibility, and operational realism.
+            <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>OT Security First - Jubail</em>{" "}
+            is structured as a strategic industrial cybersecurity dialogue platform - designed to address this convergence with policy depth, engineering credibility, and operational realism.
           </p>
 
           {/* Programme signature */}
@@ -1844,7 +1851,7 @@ function WhyKingdom() {
         overflow: "hidden",
       }}
     >
-      {/* ── Background image layer — no overlay ── */}
+      {/* ── Background image layer - no overlay ── */}
       <div
         aria-hidden
         style={{
@@ -1857,7 +1864,7 @@ function WhyKingdom() {
           pointerEvents: "none",
         }}
       />
-      {/* Top-only darkening — protects headline readability, leaves cards on clean photo */}
+      {/* Top-only darkening - protects headline readability, leaves cards on clean photo */}
       <div
         aria-hidden
         style={{
@@ -1893,7 +1900,7 @@ function WhyKingdom() {
         >
           Two converging realities define the moment for{" "}
           <em style={{ fontStyle: "italic", fontWeight: 400, color: CYAN }}>
-            OT Security First — Jubail.
+            OT Security First - Jubail.
           </em>
         </motion.h2>
 
@@ -1977,14 +1984,16 @@ function WhyCard({
           padding: "clamp(24px, 2.6vw, 36px)",
           borderRadius: 22.8,
           background:
-            "linear-gradient(170deg, rgba(15,20,46,0.62) 0%, rgba(10,14,34,0.72) 55%, rgba(15,20,46,0.65) 100%)",
+            "linear-gradient(170deg, rgba(15,20,46,0.94) 0%, rgba(10,14,34,0.97) 55%, rgba(15,20,46,0.95) 100%)",
+          backdropFilter: "blur(18px) saturate(1.2)",
+          WebkitBackdropFilter: "blur(18px) saturate(1.2)",
           overflow: "hidden",
           height: "100%",
           display: "flex",
           flexDirection: "column",
         }}
       >
-        {/* Skeuomorphic curvature — inner shadow bottom-right + light catch top-left */}
+        {/* Skeuomorphic curvature - inner shadow bottom-right + light catch top-left */}
         <span
           aria-hidden
           style={{
@@ -1997,7 +2006,7 @@ function WhyCard({
           }}
         />
 
-        {/* Glass reflection band — top gloss */}
+        {/* Glass reflection band - top gloss */}
         <span
           aria-hidden
           style={{
@@ -2012,7 +2021,7 @@ function WhyCard({
           }}
         />
 
-        {/* Rim — brilliant top edge highlight (light source from above) */}
+        {/* Rim - brilliant top edge highlight (light source from above) */}
         <span
           aria-hidden
           style={{
@@ -2027,7 +2036,7 @@ function WhyCard({
           }}
         />
 
-        {/* Magenta accent shine — angled refraction streak */}
+        {/* Magenta accent shine - angled refraction streak */}
         <span
           aria-hidden
           style={{
@@ -2041,7 +2050,7 @@ function WhyCard({
           }}
         />
 
-        {/* Header — italic serial + hairline + tag */}
+        {/* Header - italic serial + hairline + tag */}
         <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 12, marginBottom: 18 }}>
           <span
             style={{
@@ -2325,7 +2334,7 @@ function StrategicContext() {
             alignItems: "start",
           }}
         >
-          {/* Left — Accordion tabs */}
+          {/* Left - Accordion tabs */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -2458,7 +2467,7 @@ function StrategicContext() {
                     </span>
                   </button>
 
-                  {/* Expanded body — Facts & Real Signals + Implications & Opportunities */}
+                  {/* Expanded body - Facts & Real Signals + Implications & Opportunities */}
                   <div
                     style={{
                       display: "grid",
@@ -2572,7 +2581,7 @@ function StrategicContext() {
             })}
           </motion.div>
 
-          {/* Right — Panel speakers image (sticky, bleeds to viewport right edge) */}
+          {/* Right - Panel speakers image (sticky, bleeds to viewport right edge) */}
           <motion.figure
             initial={{ opacity: 0, y: 22, scale: 0.98 }}
             animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
@@ -2614,7 +2623,7 @@ function StrategicContext() {
               </span>
             </div>
 
-            {/* Full-bleed image — rounded only on left edge */}
+            {/* Full-bleed image - rounded only on left edge */}
             <div
               className="otsf-jb-ctx-image"
               style={{
@@ -2639,7 +2648,7 @@ function StrategicContext() {
                   loading="lazy"
                   decoding="async"
                   src={CONTEXT_PANEL_IMAGE}
-                  alt="OT Security First — panel discussion"
+                  alt="OT Security First panel discussion - industrial CISOs and OT security leaders in dialogue on critical infrastructure cybersecurity in Saudi Arabia"
                   style={{
                     position: "absolute",
                     inset: 0,
@@ -2651,7 +2660,7 @@ function StrategicContext() {
                     transformOrigin: "left center",
                   }}
                 />
-                {/* Left edge light catch — vertical magenta→cyan */}
+                {/* Left edge light catch - vertical magenta→cyan */}
                 <div
                   aria-hidden
                   style={{
@@ -2665,7 +2674,7 @@ function StrategicContext() {
                     pointerEvents: "none",
                   }}
                 />
-                {/* Top edge highlight — left-anchored */}
+                {/* Top edge highlight - left-anchored */}
                 <div
                   aria-hidden
                   style={{
@@ -2679,7 +2688,7 @@ function StrategicContext() {
                     pointerEvents: "none",
                   }}
                 />
-                {/* Bottom edge highlight — left-anchored */}
+                {/* Bottom edge highlight - left-anchored */}
                 <div
                   aria-hidden
                   style={{
@@ -2703,7 +2712,7 @@ function StrategicContext() {
                     pointerEvents: "none",
                   }}
                 />
-                {/* Edition badge — top left */}
+                {/* Edition badge - top left */}
                 <div
                   aria-hidden
                   style={{
@@ -2834,7 +2843,7 @@ function StrategicThemes() {
 
   return (
     <section ref={ref} id="themes" style={{ position: "relative", padding: "clamp(64px, 7vw, 96px) 0", background: BG_DEEP, overflow: "hidden" }}>
-      {/* Networking image — full section background */}
+      {/* Networking image - full section background */}
       <div
         aria-hidden
         style={{
@@ -2846,7 +2855,7 @@ function StrategicThemes() {
           pointerEvents: "none",
         }}
       />
-      {/* Top + bottom edge fade — smooth section entry/exit */}
+      {/* Top + bottom edge fade - smooth section entry/exit */}
       <div
         aria-hidden
         style={{
@@ -2856,7 +2865,7 @@ function StrategicThemes() {
           pointerEvents: "none",
         }}
       />
-      {/* Header readability darkening — top of section, stronger */}
+      {/* Header readability darkening - top of section, stronger */}
       <div
         aria-hidden
         style={{
@@ -2870,7 +2879,7 @@ function StrategicThemes() {
           pointerEvents: "none",
         }}
       />
-      {/* Brand duotone — subtle */}
+      {/* Brand duotone - subtle */}
       <div
         aria-hidden
         style={{
@@ -2884,7 +2893,7 @@ function StrategicThemes() {
 
       <BgDots opacity={0.04} />
 
-      {/* Header — full container */}
+      {/* Header - full container */}
       <div style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
         <Eyebrow inView={inView} label="Strategic Themes" />
 
@@ -2914,9 +2923,9 @@ function StrategicThemes() {
               textShadow: "0 2px 24px rgba(0,0,0,0.9), 0 2px 6px rgba(0,0,0,0.7), 0 1px 2px rgba(0,0,0,0.6)",
             }}
           >
-            The agenda will explore{" "}
+            The agenda goes{" "}
             <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT, textShadow: "0 2px 24px rgba(0,0,0,0.95), 0 2px 6px rgba(0,0,0,0.8)" }}>
-              non-surface industrial priorities.
+              beyond surface-level industrial priorities.
             </em>
           </motion.h2>
 
@@ -2959,7 +2968,7 @@ function StrategicThemes() {
                   fontSize: 13,
                   fontWeight: 400,
                   fontStyle: "italic",
-                  color: "rgba(255,255,255,0.45)",
+                  color: "rgba(255,255,255,0.7)",
                   lineHeight: 1,
                 }}
               >
@@ -3029,7 +3038,7 @@ function StrategicThemes() {
         </div>
       </div>
 
-      {/* Scroll carousel — full bleed right */}
+      {/* Scroll carousel - full bleed right */}
       <div style={{ position: "relative" }}>
         <div
           ref={scrollRef}
@@ -3099,7 +3108,7 @@ function StrategicThemes() {
                   }}
                 />
 
-                {/* Ghost number — refined */}
+                {/* Ghost number - refined */}
                 <span
                   aria-hidden
                   className="otsf-jb-theme-ghost"
@@ -3122,7 +3131,7 @@ function StrategicThemes() {
                   {t.num}
                 </span>
 
-                {/* Header — italic serial + tag */}
+                {/* Header - italic serial + tag */}
                 <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 12 }}>
                   <span
                     style={{
@@ -3152,7 +3161,7 @@ function StrategicThemes() {
                       fontWeight: 700,
                       letterSpacing: "2.8px",
                       textTransform: "uppercase",
-                      color: "rgba(255,255,255,0.55)",
+                      color: "rgba(255,255,255,0.78)",
                     }}
                   >
                     Theme · {t.num}
@@ -3340,7 +3349,7 @@ function Audience() {
           who influence industrial resilience.
         </motion.h2>
 
-        {/* PDF "Who Will You Meet?" — 10 roles, 2-col editorial grid */}
+        {/* PDF "Who Will You Meet?" - 10 roles, 2-col editorial grid */}
         <div
           className="otsf-jb-audience-roles"
           style={{
@@ -3370,7 +3379,7 @@ function Audience() {
                   borderBottom: "1px solid rgba(255,255,255,0.08)",
                 }}
               >
-                {/* Magenta hairline rail (left) — grows on hover */}
+                {/* Magenta hairline rail (left) - grows on hover */}
                 <span
                   aria-hidden
                   className="otsf-jb-role-rail"
@@ -3434,17 +3443,50 @@ function Audience() {
   );
 }
 
-// ─── BY THE NUMBERS — donut chart ─────────────────────────────────────────
+// ─── BY THE NUMBERS - donut chart ─────────────────────────────────────────
 function ByTheNumbers() {
   const ref = useRef<HTMLDivElement | null>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [mounted, setMounted] = useState(false);
 
-  // Donut geometry lives at module scope — see BY_NUMBERS_SEGMENTS above
+  // Donut geometry lives at module scope - see BY_NUMBERS_SEGMENTS above
   const total = BY_NUMBERS_TOTAL;
   const radius = BY_NUMBERS_RADIUS;
   const strokeWidth = BY_NUMBERS_STROKE_WIDTH;
   const circumference = BY_NUMBERS_CIRCUMFERENCE;
   const segments = BY_NUMBERS_SEGMENTS;
+
+  useEffect(() => { setMounted(true); }, []);
+
+  // GSAP entrance: donut + legend cards fade in from the LEFT, scroll-triggered
+  useEffect(() => {
+    if (!mounted || typeof window === "undefined" || !ref.current) return;
+    const ctx = gsap.context(() => {
+      const donut = ref.current?.querySelector<HTMLElement>(".otsf-jb-numbers-donut");
+      const cards = ref.current?.querySelectorAll<HTMLElement>(".otsf-jb-numbers-legend > div");
+      if (!donut || !cards) return;
+
+      // Set initial state immediately so nothing flashes in place before ScrollTrigger fires.
+      // Large negative x so the slide reads clearly, not as a subtle nudge.
+      gsap.set(donut, { opacity: 0, x: -360 });
+      gsap.set(cards, { opacity: 0, x: -260 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
+      tl.to(donut, { opacity: 1, x: 0, duration: 1.1, ease: "power3.out" })
+        .to(
+          cards,
+          { opacity: 1, x: 0, duration: 0.75, ease: "power3.out", stagger: 0.12 },
+          "-=0.7",
+        );
+    }, ref);
+    return () => ctx.revert();
+  }, [mounted]);
 
   return (
     <section
@@ -3520,11 +3562,9 @@ function ByTheNumbers() {
             alignItems: "center",
           }}
         >
-          {/* LEFT — Donut */}
+          {/* LEFT - Donut (GSAP fades in from the left, see useEffect above) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={inView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 1, delay: 0.2, ease: EASE }}
+            className="otsf-jb-numbers-donut"
             style={{
               position: "relative",
               width: "100%",
@@ -3612,7 +3652,7 @@ function ByTheNumbers() {
             </div>
           </motion.div>
 
-          {/* RIGHT — Legend */}
+          {/* RIGHT - Legend */}
           <div
             className="otsf-jb-numbers-legend"
             style={{
@@ -3621,12 +3661,9 @@ function ByTheNumbers() {
               gap: "clamp(16px, 1.6vw, 22px)",
             }}
           >
-            {segments.map((seg, i) => (
+            {segments.map((seg) => (
               <motion.div
                 key={seg.label}
-                initial={{ opacity: 0, y: 14 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.35 + i * 0.07, ease: EASE }}
                 style={{
                   position: "relative",
                   padding: "20px 18px 18px 18px",
@@ -3636,7 +3673,7 @@ function ByTheNumbers() {
                   overflow: "hidden",
                 }}
               >
-                {/* Top color bar — full-width identification stripe */}
+                {/* Top color bar - full-width identification stripe */}
                 <span
                   aria-hidden
                   style={{
@@ -3657,7 +3694,7 @@ function ByTheNumbers() {
                     gap: 10,
                   }}
                 >
-                  {/* Color dot — primary visual link to donut segment */}
+                  {/* Color dot - primary visual link to donut segment */}
                   <span
                     aria-hidden
                     style={{
@@ -3720,7 +3757,7 @@ function ByTheNumbers() {
           .otsf-jb-numbers-legend > div {
             padding: 14px 10px 12px 12px !important;
           }
-          /* Value row (color dot + number) — first div child */
+          /* Value row (color dot + number) - first div child */
           .otsf-jb-numbers-legend > div > div:nth-of-type(1) > div > span:first-child {
             font-size: 22px !important;
             letter-spacing: -1px !important;
@@ -3728,7 +3765,7 @@ function ByTheNumbers() {
           .otsf-jb-numbers-legend > div > div:nth-of-type(1) > div > span:last-child {
             font-size: 14px !important;
           }
-          /* Label — second div child */
+          /* Label - second div child */
           .otsf-jb-numbers-legend > div > div:nth-of-type(2) {
             font-size: 10.5px !important;
             margin-top: 8px !important;
@@ -3737,6 +3774,283 @@ function ByTheNumbers() {
         }
       `}</style>
     </section>
+  );
+}
+
+// ─── CONTACT CARD (shared) ──────────────────────────────────────────────────
+function ContactCard({
+  delay,
+  tone,
+  eyebrow,
+  name,
+  role,
+  photo,
+  email,
+  whatsapp,
+  inView,
+}: {
+  delay: number;
+  tone: "pink" | "cyan";
+  eyebrow: string;
+  name: string;
+  role: string;
+  photo: string;
+  email: string;
+  whatsapp: string;
+  inView: boolean;
+}) {
+  const accent = tone === "pink" ? C_BRIGHT : CYAN;
+  const accentDeep = tone === "pink" ? C : "#0EA5E9";
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 22 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.85, delay, ease: EASE }}
+      className="otsf-jb-contact-card"
+      style={{
+        position: "relative",
+        borderRadius: 22,
+        border: `1.5px solid ${accentDeep}66`,
+        background:
+          "linear-gradient(180deg, rgba(15,20,46,0.85) 0%, rgba(8,12,28,0.96) 100%)",
+        boxShadow: `0 28px 60px ${accentDeep}30, 0 0 50px ${accent}15, inset 0 1px 0 rgba(255,255,255,0.05)`,
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      {/* Floating pill — top-left over photo */}
+      <span
+        style={{
+          position: "absolute",
+          top: 18,
+          left: 18,
+          zIndex: 3,
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 8,
+          padding: "8px 14px 8px 12px",
+          borderRadius: 999,
+          background: "rgba(8, 12, 28, 0.78)",
+          border: `1px solid ${accent}66`,
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+          fontFamily: "var(--font-outfit)",
+          fontSize: 10,
+          fontWeight: 700,
+          letterSpacing: "0.32em",
+          textTransform: "uppercase",
+          color: accent,
+        }}
+      >
+        <span
+          aria-hidden
+          style={{
+            width: 7,
+            height: 7,
+            borderRadius: "50%",
+            background: accent,
+            boxShadow: `0 0 8px ${accent}`,
+          }}
+        />
+        {eyebrow}
+      </span>
+
+      {/* Portrait area — photo-led top */}
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          aspectRatio: "3 / 4",
+          overflow: "hidden",
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={photo}
+          alt={`${name}, ${role} at Events First Group - contact for OT Security First Jubail 2026 industrial cybersecurity summit`}
+          width={420}
+          height={560}
+          loading="lazy"
+          decoding="async"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center 18%",
+          }}
+        />
+        {/* Soft fade into the card body so name overlays read clean */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: "45%",
+            background:
+              "linear-gradient(180deg, transparent 0%, rgba(8,12,28,0.65) 55%, rgba(8,12,28,0.98) 100%)",
+            pointerEvents: "none",
+          }}
+        />
+      </div>
+
+      {/* Name + role band (negative margin lifts it onto the photo fade) */}
+      <div
+        style={{
+          position: "relative",
+          marginTop: -84,
+          padding: "0 22px 18px",
+          zIndex: 2,
+        }}
+      >
+        <h3
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(22px, 2vw, 28px)",
+            fontWeight: 800,
+            letterSpacing: "-1px",
+            color: "white",
+            margin: 0,
+            lineHeight: 1.1,
+            textShadow: "0 2px 14px rgba(0,0,0,0.85)",
+          }}
+        >
+          {name}
+        </h3>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            marginTop: 8,
+          }}
+        >
+          <span
+            aria-hidden
+            style={{
+              display: "inline-block",
+              width: 16,
+              height: 1.5,
+              background: accent,
+              boxShadow: `0 0 8px ${accent}`,
+              flexShrink: 0,
+            }}
+          />
+          <span
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 13,
+              fontWeight: 500,
+              color: "rgba(255,255,255,0.72)",
+              letterSpacing: "0.2px",
+            }}
+          >
+            {role}
+          </span>
+        </div>
+      </div>
+
+      {/* Divider */}
+      <div
+        aria-hidden
+        style={{
+          height: 1,
+          margin: "0 22px",
+          background:
+            "linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent)",
+        }}
+      />
+
+      {/* Bottom strip — email + WhatsApp orb */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
+          padding: "16px 22px 20px",
+        }}
+      >
+        <a
+          href={`mailto:${email}`}
+          className="otsf-jb-contact-pill"
+          style={{
+            flex: 1,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 10,
+            minWidth: 0,
+            fontFamily: "var(--font-outfit)",
+            fontSize: 13,
+            color: "rgba(255,255,255,0.78)",
+            textDecoration: "none",
+          }}
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke={accent}
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+            style={{ flexShrink: 0 }}
+          >
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="M22 7L12 13 2 7" />
+          </svg>
+          <span
+            style={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {email}
+          </span>
+        </a>
+        <a
+          href={whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp"
+          className="otsf-jb-contact-orb"
+          style={{
+            flexShrink: 0,
+            width: 42,
+            height: 42,
+            borderRadius: "50%",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: `radial-gradient(circle at 30% 25%, ${accent}, ${accentDeep})`,
+            border: `1px solid ${accent}cc`,
+            boxShadow: `0 0 20px ${accent}66, inset 0 1.5px 0 rgba(255,255,255,0.3), inset 0 -3px 6px rgba(0,0,0,0.25)`,
+            color: "white",
+            textDecoration: "none",
+            transition:
+              "transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s ease",
+          }}
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden
+            style={{ filter: "drop-shadow(0 1px 3px rgba(0,0,0,0.45))" }}
+          >
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.693.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+          </svg>
+        </a>
+      </div>
+    </motion.div>
   );
 }
 
@@ -3780,396 +4094,69 @@ function Contact() {
             maxWidth: 880,
           }}
         >
-          Shape the conversation —{" "}
+          Shape the conversation -{" "}
           <em style={{ fontStyle: "italic", fontWeight: 400, color: CYAN }}>
             start it here.
           </em>
         </motion.h2>
 
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.75, delay: 0.18, ease: EASE }}
+          style={{
+            fontFamily: "var(--font-outfit)",
+            fontSize: "clamp(14px, 1.1vw, 16px)",
+            fontWeight: 400,
+            lineHeight: 1.55,
+            color: "rgba(255,255,255,0.78)",
+            margin: "-32px auto 44px",
+            textAlign: "center",
+            maxWidth: 680,
+          }}
+        >
+          Real people, ready to help you with speaking and sponsorship enquiries.
+        </motion.p>
+
         <div className="otsf-jb-contact-split" style={{
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
+          gridTemplateColumns: "repeat(3, 1fr)",
           gap: "clamp(20px, 2.4vw, 32px)",
           alignItems: "stretch",
         }}>
-
-        <motion.div
-          initial={{ opacity: 0, y: 22 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.85, delay: 0.2, ease: EASE }}
-          style={{
-            position: "relative",
-            padding: "clamp(28px, 3vw, 44px)",
-            borderRadius: 26,
-            background:
-              "linear-gradient(160deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.012) 60%, rgba(211,75,154,0.04) 100%)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.07), 0 28px 60px rgba(0,0,0,0.45)",
-            overflow: "hidden",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "clamp(18px, 2vw, 28px)",
-            textAlign: "center",
-          }}
-          className="otsf-jb-contact-card"
-        >
-          <span aria-hidden style={topHair} />
-
-          {/* Portrait card */}
-          <div
-            className="otsf-jb-contact-portrait"
-            style={{
-              position: "relative",
-              width: 150,
-              aspectRatio: "4 / 5",
-              borderRadius: 18,
-              flexShrink: 0,
-              padding: 2,
-              background: `linear-gradient(135deg, ${C}, ${CYAN})`,
-              boxShadow: `0 18px 40px ${C}33, inset 0 1px 0 rgba(255,255,255,0.22)`,
-            }}
-          >
-            <div
-              style={{
-                position: "relative",
-                width: "100%",
-                height: "100%",
-                borderRadius: 16,
-                overflow: "hidden",
-                background: `linear-gradient(160deg, ${C}33 0%, rgba(4,7,12,0.7) 100%)`,
-                boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.4)",
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://efg-final.s3.eu-north-1.amazonaws.com/team/anna_firdouse_shah1.jpeg"
-                alt="Anna Firdouse Shah"
-                width={300}
-                height={375}
-                loading="lazy"
-                decoding="async"
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  objectPosition: "center 35%",
-                }}
-              />
-              {/* Subtle inner top highlight */}
-              <span
-                aria-hidden
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: "8%",
-                  right: "8%",
-                  height: 1,
-                  background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)`,
-                  pointerEvents: "none",
-                }}
-              />
-              {/* Bottom gradient for readability if needed */}
-              <span
-                aria-hidden
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  height: "30%",
-                  background: "linear-gradient(180deg, transparent, rgba(4,7,12,0.45))",
-                  pointerEvents: "none",
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Name + role */}
-          <div>
-            <span
-              style={{
-                fontFamily: "var(--font-outfit)",
-                fontSize: 10.5,
-                fontWeight: 700,
-                letterSpacing: "3px",
-                textTransform: "uppercase",
-                color: C_BRIGHT,
-              }}
-            >
-              For Speaking Enquiries
-            </span>
-            <h3
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(26px, 3vw, 40px)",
-                fontWeight: 800,
-                letterSpacing: "-1.5px",
-                color: "white",
-                lineHeight: 1.05,
-                margin: "8px 0 6px",
-              }}
-            >
-              Anna Firdouse Shah
-            </h3>
-            <p
-              style={{
-                fontFamily: "var(--font-outfit)",
-                fontSize: 13,
-                fontWeight: 500,
-                letterSpacing: "1.5px",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.45)",
-                margin: 0,
-              }}
-            >
-              Senior Conference Producer
-            </p>
-          </div>
-
-          {/* Contact pills */}
-          <div className="otsf-jb-contact-pills">
-            <a
-              href="mailto:anna@eventsfirstgroup.com"
-              className="otsf-jb-contact-pill"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                padding: "12px 18px",
-                borderRadius: 999,
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.10)",
-                fontFamily: "var(--font-outfit)",
-                fontSize: 13.5,
-                fontWeight: 500,
-                color: "rgba(255,255,255,0.78)",
-                textDecoration: "none",
-              }}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <rect x="2" y="4" width="20" height="16" rx="2" />
-                <path d="M22 7L12 13 2 7" />
-              </svg>
-              anna@eventsfirstgroup.com
-            </a>
-            <a
-              href="https://wa.me/971545714377"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Chat on WhatsApp"
-              className="otsf-jb-contact-pill"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 44,
-                height: 44,
-                borderRadius: 999,
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.10)",
-                color: "rgba(255,255,255,0.78)",
-                textDecoration: "none",
-              }}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.693.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-              </svg>
-            </a>
-          </div>
-        </motion.div>
-
-        {/* Hassan — Sponsorship contact card */}
-        <motion.div
-          initial={{ opacity: 0, y: 22 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.85, delay: 0.32, ease: EASE }}
-          style={{
-            position: "relative",
-            padding: "clamp(28px, 3vw, 44px)",
-            borderRadius: 26,
-            background:
-              "linear-gradient(160deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.012) 60%, rgba(0,201,255,0.04) 100%)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.07), 0 28px 60px rgba(0,0,0,0.45)",
-            overflow: "hidden",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "clamp(18px, 2vw, 28px)",
-            textAlign: "center",
-          }}
-          className="otsf-jb-contact-card"
-        >
-          <span aria-hidden style={topHair} />
-
-          {/* Portrait card */}
-          <div
-            className="otsf-jb-contact-portrait"
-            style={{
-              position: "relative",
-              width: 150,
-              aspectRatio: "4 / 5",
-              borderRadius: 18,
-              flexShrink: 0,
-              padding: 2,
-              background: `linear-gradient(135deg, ${CYAN}, ${C})`,
-              boxShadow: `0 18px 40px ${CYAN}33, inset 0 1px 0 rgba(255,255,255,0.22)`,
-            }}
-          >
-            <div
-              style={{
-                position: "relative",
-                width: "100%",
-                height: "100%",
-                borderRadius: 16,
-                overflow: "hidden",
-                background: `linear-gradient(160deg, ${CYAN}33 0%, rgba(4,7,12,0.7) 100%)`,
-                boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.4)",
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/hassan.jpg"
-                alt="Mohammed Hassan"
-                width={300}
-                height={375}
-                loading="lazy"
-                decoding="async"
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  objectPosition: "center 30%",
-                }}
-              />
-              {/* Subtle inner top highlight */}
-              <span
-                aria-hidden
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: "8%",
-                  right: "8%",
-                  height: 1,
-                  background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)`,
-                  pointerEvents: "none",
-                }}
-              />
-              {/* Bottom gradient for readability if needed */}
-              <span
-                aria-hidden
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  height: "30%",
-                  background: "linear-gradient(180deg, transparent, rgba(4,7,12,0.45))",
-                  pointerEvents: "none",
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Name + role */}
-          <div>
-            <span
-              style={{
-                fontFamily: "var(--font-outfit)",
-                fontSize: 10.5,
-                fontWeight: 700,
-                letterSpacing: "3px",
-                textTransform: "uppercase",
-                color: CYAN,
-              }}
-            >
-              For Sponsorship Enquiries
-            </span>
-            <h3
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(26px, 3vw, 40px)",
-                fontWeight: 800,
-                letterSpacing: "-1.5px",
-                color: "white",
-                lineHeight: 1.05,
-                margin: "8px 0 6px",
-              }}
-            >
-              Mohammed Hassan
-            </h3>
-            <p
-              style={{
-                fontFamily: "var(--font-outfit)",
-                fontSize: 13,
-                fontWeight: 500,
-                letterSpacing: "1.5px",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.45)",
-                margin: 0,
-              }}
-            >
-              Partnership Manager
-            </p>
-          </div>
-
-          {/* Contact pills */}
-          <div className="otsf-jb-contact-pills">
-            <a
-              href="mailto:hassan@eventsfirstgroup.com"
-              className="otsf-jb-contact-pill"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                padding: "12px 18px",
-                borderRadius: 999,
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.10)",
-                fontFamily: "var(--font-outfit)",
-                fontSize: 13.5,
-                fontWeight: 500,
-                color: "rgba(255,255,255,0.78)",
-                textDecoration: "none",
-              }}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <rect x="2" y="4" width="20" height="16" rx="2" />
-                <path d="M22 7L12 13 2 7" />
-              </svg>
-              hassan@eventsfirstgroup.com
-            </a>
-            <a
-              href="https://wa.me/971545714377"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Chat on WhatsApp"
-              className="otsf-jb-contact-pill"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 44,
-                height: 44,
-                borderRadius: 999,
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.10)",
-                color: "rgba(255,255,255,0.78)",
-                textDecoration: "none",
-              }}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.693.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-              </svg>
-            </a>
-          </div>
-        </motion.div>
-
+          <ContactCard
+            delay={0.2}
+            tone="pink"
+            eyebrow="Speaking"
+            name="Sanjana Venugopal"
+            role="Senior Conference Producer"
+            photo="https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/Sanjana-Venugopal-new.jpg"
+            email="sanjana@eventsfirstgroup.com"
+            whatsapp="https://wa.me/971545714377"
+            inView={inView}
+          />
+          <ContactCard
+            delay={0.32}
+            tone="cyan"
+            eyebrow="Sponsorship"
+            name="Mohammed Danish"
+            role="Partnership Manager"
+            photo="https://efg-final.s3.eu-north-1.amazonaws.com/team/danish.png"
+            email="danish@eventsfirstgroup.com"
+            whatsapp="https://wa.me/971545714377"
+            inView={inView}
+          />
+          <ContactCard
+            delay={0.44}
+            tone="pink"
+            eyebrow="Sponsorship"
+            name="Mayur Methi"
+            role="Partnership Manager"
+            photo="https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/Mayur-Methi.png"
+            email="mayur@eventsfirstgroup.com"
+            whatsapp="https://wa.me/971545714377"
+            inView={inView}
+          />
         </div>
       </div>
 
@@ -4366,7 +4353,7 @@ function SpeakersSection() {
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={s.photo}
-                    alt={s.name}
+                    alt={`${s.name}, ${s.title} at ${s.org} - speaker at OT Security First Jubail 2026 industrial cybersecurity summit, Saudi Arabia`}
                     loading="lazy"
                     decoding="async"
                     style={{
@@ -4477,7 +4464,7 @@ function SpeakersSection() {
   );
 }
 
-// ─── EVENT SPONSORS (current edition — TBA) ─────────────────────────────────
+// ─── EVENT SPONSORS (current edition - TBA) ─────────────────────────────────
 // ─── PAST SPONSORS MARQUEE ──────────────────────────────────────────────────
 function PastSponsorsMarquee() {
   const ref = useRef(null);
@@ -4563,7 +4550,7 @@ function MarqueeRow({ logos, direction }: { logos: string[]; direction: "left" |
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={logo}
-              alt=""
+              alt={`${logo.split("/").pop()?.replace(/\.(png|jpg|svg|webp)$/i, "").replace(/[-_]/g, " ")} - past technology sponsor and partner of OT Security First industrial cybersecurity summit series`}
               width={160}
               height={64}
               loading="lazy"
@@ -4583,7 +4570,7 @@ function MarqueeRow({ logos, direction }: { logos: string[]; direction: "left" |
   );
 }
 
-// ─── FROM THE ROOM — OT shorts ──────────────────────────────────────────────
+// ─── FROM THE ROOM - OT shorts ──────────────────────────────────────────────
 function FromTheRoom() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -4705,7 +4692,7 @@ function RoomShort({ videoId, title, index }: { videoId: string; title: string; 
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
-              alt={title}
+              alt={`${title} - OT Security First testimonial video from CISO and OT cybersecurity leader on industrial control system protection`}
               loading="lazy"
               decoding="async"
               style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 28%" }}
@@ -5027,7 +5014,7 @@ function AwardsSection() {
         </motion.div>
 
         <div className="otsf-jb-awards-split" style={{ display: "grid", gridTemplateColumns: "2fr 3fr", gap: 36, alignItems: "start" }}>
-          {/* LEFT — Form */}
+          {/* LEFT - Form */}
           <motion.div
             initial={{ opacity: 0, x: -22 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -5053,7 +5040,7 @@ function AwardsSection() {
             <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(22px, 2.3vw, 28px)", letterSpacing: "-0.8px", color: "white", margin: "0 0 6px" }}>
               Submit Your Nomination
             </h3>
-            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.6, margin: "0 0 24px" }}>
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.75)", lineHeight: 1.6, margin: "0 0 24px" }}>
               Know a leader who deserves recognition? Self-nominations welcome.
             </p>
 
@@ -5190,14 +5177,14 @@ function AwardsSection() {
                 <h4 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 18, color: "white", margin: "0 0 8px" }}>
                   Nomination Submitted
                 </h4>
-                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.6, margin: 0 }}>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.75)", lineHeight: 1.6, margin: 0 }}>
                   Thank you. Our committee will review your submission shortly.
                 </p>
               </div>
             )}
           </motion.div>
 
-          {/* RIGHT — Award Categories (editorial list) */}
+          {/* RIGHT - Award Categories (editorial list) */}
           <motion.div
             initial={{ opacity: 0, x: 22 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -5246,7 +5233,7 @@ function AwardsSection() {
                   maxWidth: 520,
                 }}
               >
-                Five categories spanning programmes, leaders, innovators, and the public sector — chosen to recognise the breadth of industrial resilience in the Kingdom.
+                Five categories spanning programmes, leaders, innovators, and the public sector - chosen to recognise the breadth of industrial resilience in the Kingdom.
               </p>
             </div>
 
@@ -5396,7 +5383,7 @@ function AwardsSection() {
   );
 }
 
-// ─── BE PART OF THE MOVEMENT — rally banner ────────────────────────────────
+// ─── BE PART OF THE MOVEMENT - rally banner ────────────────────────────────
 const MOVEMENT_BG_IMAGE = `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0820.JPG`;
 
 function BePartOfTheMovement() {
@@ -5427,7 +5414,7 @@ function BePartOfTheMovement() {
         }}
       />
 
-      {/* Darkening overlay — vignette + top/bottom fade for adjacent-section blend + center dark for text readability */}
+      {/* Darkening overlay - vignette + top/bottom fade for adjacent-section blend + center dark for text readability */}
       <div
         aria-hidden
         style={{
@@ -5468,7 +5455,7 @@ function BePartOfTheMovement() {
         }}
       />
 
-      {/* Ambient color washes — adds magenta/cyan tinted glow over the image */}
+      {/* Ambient color washes - adds magenta/cyan tinted glow over the image */}
       <div
         aria-hidden
         style={{
@@ -5539,7 +5526,7 @@ function BePartOfTheMovement() {
           <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT, textShadow: "0 2px 18px rgba(0,0,0,0.7)" }}>
             industrial cybersecurity
           </em>{" "}
-          in Saudi Arabia — where national infrastructure, industrial innovation, and cyber resilience converge.
+          in Saudi Arabia - where national infrastructure, industrial innovation, and cyber resilience converge.
         </motion.h2>
 
         <motion.a
@@ -5640,6 +5627,172 @@ function RegisterSection() {
   );
 }
 
+// ─── VENUE (announced soon) ─────────────────────────────────────────────────
+function VenueSection() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section
+      ref={ref}
+      id="venue"
+      style={{
+        position: "relative",
+        padding: "clamp(48px, 6vw, 80px) 0",
+        background: BG_BASE,
+        overflow: "hidden",
+      }}
+    >
+      <BgDots opacity={0.04} />
+      {/* Ambient cyan + magenta washes for depth */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            `radial-gradient(ellipse 50% 60% at 50% 0%, ${CYAN}10 0%, transparent 60%),
+             radial-gradient(ellipse 40% 50% at 50% 100%, ${C}10 0%, transparent 65%)`,
+          pointerEvents: "none",
+        }}
+      />
+
+      <div
+        style={{
+          position: "relative",
+          maxWidth: 920,
+          margin: "0 auto",
+          padding: "0 clamp(24px, 5vw, 80px)",
+          textAlign: "center",
+        }}
+      >
+        <Eyebrow inView={inView} label="Venue" tone="cyan" />
+
+        <motion.div
+          initial={{ opacity: 0, y: 24, scale: 0.97 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.85, delay: 0.15, ease: EASE }}
+          style={{
+            position: "relative",
+            marginTop: 28,
+            padding: "clamp(28px, 4vw, 56px) clamp(24px, 4vw, 56px)",
+            borderRadius: 22,
+            background:
+              "linear-gradient(170deg, rgba(15,20,46,0.92) 0%, rgba(10,14,34,0.96) 100%)",
+            border: `1px solid ${C}28`,
+            boxShadow: `0 24px 60px rgba(0,0,0,0.45), 0 0 56px ${C}10, inset 0 1px 0 rgba(255,255,255,0.05)`,
+            overflow: "hidden",
+          }}
+        >
+          {/* Top hairline accent */}
+          <span
+            aria-hidden
+            style={{
+              position: "absolute",
+              top: 0,
+              left: "12%",
+              right: "12%",
+              height: 1,
+              background: `linear-gradient(90deg, transparent, ${C_BRIGHT}, ${CYAN}, transparent)`,
+              boxShadow: `0 0 12px ${C}55`,
+            }}
+          />
+
+          {/* Pin icon row with pulsing dot */}
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+              padding: "8px 16px",
+              borderRadius: 999,
+              background: `${C}14`,
+              border: `1px solid ${C}33`,
+              marginBottom: 22,
+            }}
+          >
+            <span
+              aria-hidden
+              className="otsf-jb-venue-pulse"
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: "50%",
+                background: C_BRIGHT,
+                boxShadow: `0 0 12px ${C_BRIGHT}`,
+              }}
+            />
+            <span
+              style={{
+                fontFamily: "var(--font-outfit)",
+                fontSize: 11,
+                fontWeight: 700,
+                letterSpacing: "0.32em",
+                textTransform: "uppercase",
+                color: C_BRIGHT,
+              }}
+            >
+              Jubail · Saudi Arabia
+            </span>
+          </div>
+
+          <h3
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: "clamp(28px, 4vw, 52px)",
+              letterSpacing: "-1.6px",
+              lineHeight: 1.04,
+              color: "white",
+              margin: 0,
+            }}
+          >
+            Venue{" "}
+            <span
+              className="otsf-hero-shimmer"
+              style={{
+                backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 50%, ${C_BRIGHT} 100%)`,
+                backgroundSize: "250% 100%",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              announced soon.
+            </span>
+          </h3>
+
+          <p
+            style={{
+              marginTop: 16,
+              fontFamily: "var(--font-outfit)",
+              fontSize: "clamp(13px, 1.05vw, 15px)",
+              fontWeight: 400,
+              lineHeight: 1.6,
+              color: "rgba(255,255,255,0.62)",
+              maxWidth: 540,
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          >
+            Registered delegates will be notified directly once the venue is confirmed.
+          </p>
+        </motion.div>
+      </div>
+
+      <style jsx>{`
+        @keyframes otsf-jb-venue-pulse {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.35); opacity: 0.55; }
+        }
+        .otsf-jb-venue-pulse {
+          animation: otsf-jb-venue-pulse 1.8s ease-in-out infinite;
+        }
+      `}</style>
+    </section>
+  );
+}
+
 // ─── PAST EVENT REPORTS (series highlights) ─────────────────────────────────
 // ─── REQUEST RESOURCES MODAL ────────────────────────────────────────────────
 // Mounted once on the page. Listens for `otsf-jb:open-request` event dispatched
@@ -5728,7 +5881,7 @@ function RequestResourcesModal() {
     const newErrors: Record<string, string> = {};
     if (!fullName.trim()) newErrors.fullName = "Full name is required";
     if (!email.trim()) newErrors.email = "Work email is required";
-    else if (!isWorkEmail(email.trim())) newErrors.email = "Please use your work email — free providers are not accepted";
+    else if (!isWorkEmail(email.trim())) newErrors.email = "Please use your work email - free providers are not accepted";
     if (!jobTitle.trim()) newErrors.jobTitle = "Job title is required";
     const phoneErr = validatePhone(phone, countryCode);
     if (phoneErr) newErrors.phone = phoneErr;
