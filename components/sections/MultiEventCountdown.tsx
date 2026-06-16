@@ -42,9 +42,9 @@ const upcomingEvents: UpcomingEvent[] = [
     series: "Cyber First",
     seriesColor: "#01BBF5",
     title: "Cyber First Qatar",
-    date: new Date("2026-09-16T09:00:00"),
+    date: new Date("2026-11-10T09:00:00+03:00"),
     location: "Doha, Qatar",
-    href: "/events/cyber-first",
+    href: "/events/cyber-first/qatar-2026",
   },
 ];
 

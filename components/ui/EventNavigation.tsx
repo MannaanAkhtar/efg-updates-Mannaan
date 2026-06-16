@@ -15,6 +15,7 @@ const EVENT_CONFIGS: Record<string, {
   location: string;
   logo?: string;
   logoFilter?: string;
+  logoHeight?: number;
   navLinks: { href: string; label: string }[];
 }> = {
   "/events/cyber-first/kuwait-2026": {
@@ -56,7 +57,16 @@ const EVENT_CONFIGS: Record<string, {
     colorBright: "#4DD4FF",
     date: "10 Nov 2026",
     location: "Doha, Qatar",
-    navLinks: [{ href: "#register-interest", label: "Register Interest" }],
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/Cyber+Qatar-03.svg",
+    logoHeight: 180,
+    navLinks: [
+      { href: "#overview", label: "Overview" },
+      { href: "#about", label: "About" },
+      { href: "#themes", label: "Themes" },
+      { href: "#advisors", label: "Advisors" },
+      { href: "#agenda", label: "Agenda" },
+      { href: "#register", label: "Register" },
+    ],
   },
   "/events/ot-security-first/johannesburg-2026": {
     name: "OT Security First Africa 2026",
@@ -179,7 +189,10 @@ export default function EventNavigation() {
 
   if (!config) return null;
 
-  const { name, shortName, color, colorBright, date, location, logo, logoFilter, navLinks } = config;
+  const { name, shortName, color, colorBright, date, location, logo, logoFilter, logoHeight, navLinks } = config;
+  const logoH = logoHeight ?? 70;
+  const logoHTablet = Math.round(logoH * (60 / 70));
+  const logoHMobile = Math.round(logoH * (50 / 70));
 
   return (
     <>
@@ -209,14 +222,28 @@ export default function EventNavigation() {
             style={{ cursor: "pointer" }}
           >
             {logo ? (
-              <span className="event-nav-logo-wrap" style={{ position: "relative", display: "inline-block", overflow: "hidden", ["--event-color-shimmer" as string]: `${colorBright}25` }}>
+              <span
+                className="event-nav-logo-wrap"
+                style={{
+                  position: "relative",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: 70,
+                  overflow: "visible",
+                  ["--event-color-shimmer" as string]: `${colorBright}25`,
+                  ["--event-nav-logo-h" as string]: `${logoH}px`,
+                  ["--event-nav-logo-h-tablet" as string]: `${logoHTablet}px`,
+                  ["--event-nav-logo-h-mobile" as string]: `${logoHMobile}px`,
+                }}
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={logo}
                   alt={name}
                   className="event-nav-logo"
                   style={{
-                    height: 70,
+                    height: "var(--event-nav-logo-h, 70px)",
                     width: "auto",
                     filter: logoFilter || "none",
                     display: "block",
@@ -488,12 +515,12 @@ export default function EventNavigation() {
         }
         @media (max-width: 768px) {
           .event-nav-logo {
-            height: 60px !important;
+            height: var(--event-nav-logo-h-tablet, 60px) !important;
           }
         }
         @media (max-width: 480px) {
           .event-nav-logo {
-            height: 50px !important;
+            height: var(--event-nav-logo-h-mobile, 50px) !important;
           }
         }
       `}</style>

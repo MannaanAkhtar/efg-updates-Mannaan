@@ -132,12 +132,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.85,
     },
-    // Cyber First, Coming Soon
+    // Cyber First Qatar 2026 — open / live
     {
       url: `${BASE_URL}/events/cyber-first/qatar-2026`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
+      changeFrequency: "weekly",
+      priority: 0.9,
     },
     // OT Security First
     {
