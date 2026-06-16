@@ -272,6 +272,7 @@ const CFK_SPONSORS_2026: { name: string; logo: string; url: string; tier: "strat
   { name: "GTB", logo: `${S3}/logos/GTB_long_logo.png`, url: "https://gttb.com/", tier: "strategic" },
   { name: "Kaspersky", logo: `${S3}/sponsors-logo/kaspersky-logotype-green.png`, url: "https://www.kaspersky.com/", tier: "strategic" },
   { name: "StarLink", logo: `${S3}/sponsors-logo/StarLink+-+White+Logo.png`, url: "https://www.starlinkme.net/", tier: "gold" },
+  { name: "BeyondTrust", logo: `${S3}/logos/BeyondTrust.png`, url: "https://www.beyondtrust.com/", tier: "gold" },
   { name: "INUA AI", logo: `${S3}/logos/INUA+AI+LOGO+3+white.png`, url: "https://inuaai.com/", tier: "panel" },
   { name: "QuantumSynapse", logo: `${S3}/logos/QuantumSynapse-1.png`, url: "https://quantumsynapse.ai/", tier: "panel" },
   { name: "Cryptoken Media", logo: `${S3}/sponsors-logo/cryptoken_media.png`, url: "https://cryptoken.media/", tier: "media" },
@@ -3917,7 +3918,7 @@ function EventSponsors2026() {
             letterSpacing: "3.5px",
             textShadow: `0 0 14px ${KENYA_GOLD}44`,
           }}>
-            Gold Sponsor
+            {CFK_SPONSORS_2026.filter(s => s.tier === "gold").length > 1 ? "Gold Sponsors" : "Gold Sponsor"}
           </span>
           <div style={{ flex: "0 1 90px", height: 1, background: `linear-gradient(to left, transparent, ${KENYA_GOLD}55)` }} />
         </motion.div>
