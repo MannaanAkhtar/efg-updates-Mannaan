@@ -356,6 +356,13 @@ const SPEAKERS = [
     linkedin: "https://www.linkedin.com/in/za-andrewchester/",
     photo: "",
   },
+  {
+    name: "Naoufal Kerboute",
+    title: "Regional Sales Director",
+    org: "Waterfall",
+    linkedin: "https://www.linkedin.com/in/nkerboute/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naoufal-Media1.jpg",
+  },
 ];
 
 // Strategic Focus Areas from brochure
@@ -2980,6 +2987,72 @@ function FocusAreas() {
 function SpeakersSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [activeDot, setActiveDot] = useState(0);
+
+  // Mobile-only: gently auto-scroll the speakers row (ping-pong), pause on touch.
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const mq = window.matchMedia("(max-width: 768px)");
+    const reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    let raf = 0;
+    let paused = false;
+    let dir = 1;
+    let resumeTimer: ReturnType<typeof setTimeout>;
+    let started = false;
+    const speed = 0.5; // px per frame
+
+    const active = () => mq.matches && !reduceMq.matches;
+
+    const step = () => {
+      if (started && active() && !paused) {
+        el.scrollLeft += speed * dir;
+        const max = el.scrollWidth - el.clientWidth;
+        if (el.scrollLeft >= max - 1) dir = -1;
+        else if (el.scrollLeft <= 0) dir = 1;
+      }
+      raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    // Small delay so card entrance animations settle before motion starts
+    const startTimer = setTimeout(() => { started = true; }, 1600);
+
+    const pause = () => { paused = true; clearTimeout(resumeTimer); };
+    const resume = () => { clearTimeout(resumeTimer); resumeTimer = setTimeout(() => { paused = false; }, 1600); };
+
+    // Keep pagination dots in sync with scroll position
+    const onScroll = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      const frac = max > 0 ? el.scrollLeft / max : 0;
+      setActiveDot(Math.round(frac * SPEAKERS.length));
+    };
+
+    el.addEventListener("pointerdown", pause);
+    el.addEventListener("touchstart", pause, { passive: true });
+    el.addEventListener("touchend", resume, { passive: true });
+    el.addEventListener("pointerup", resume);
+    el.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      clearTimeout(startTimer);
+      clearTimeout(resumeTimer);
+      cancelAnimationFrame(raf);
+      el.removeEventListener("pointerdown", pause);
+      el.removeEventListener("touchstart", pause);
+      el.removeEventListener("touchend", resume);
+      el.removeEventListener("pointerup", resume);
+      el.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  const scrollToDot = (i: number) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    el.scrollTo({ left: (i / Math.max(1, SPEAKERS.length)) * max, behavior: "smooth" });
+  };
 
   return (
     <section ref={ref} id="speakers" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative" }}>
@@ -2995,7 +3068,7 @@ function SpeakersSection() {
           </p>
         </motion.div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }} className="otsf-speakers-grid">
+        <div ref={trackRef} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }} className="otsf-speakers-grid">
           {SPEAKERS.map((speaker, i) => {
             const accent = i % 2 === 0 ? C_BRIGHT : CYAN;
             const accentRgb = i % 2 === 0 ? "232,107,184" : "0,201,255";
@@ -3244,6 +3317,19 @@ function SpeakersSection() {
               </div>
             </div>
           </motion.div>
+        </div>
+
+        {/* Pagination dots — mobile carousel only */}
+        <div className="otsf-speakers-dots" aria-hidden>
+          {Array.from({ length: SPEAKERS.length + 1 }).map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => scrollToDot(i)}
+              aria-label={`Go to speaker ${i + 1}`}
+              className={`otsf-speakers-dot${activeDot === i ? " is-active" : ""}`}
+            />
+          ))}
         </div>
       </div>
     </section>
@@ -5760,6 +5846,28 @@ export default function OTSecurityFirstJohannesburg2026() {
         .otsf-speaker-card:hover {
           transform: translateY(-10px) !important;
         }
+        .otsf-speakers-dots {
+          display: none;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-top: 22px;
+        }
+        .otsf-speakers-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          border: none;
+          padding: 0;
+          background: rgba(255,255,255,0.22);
+          cursor: pointer;
+          transition: width 0.3s ease, border-radius 0.3s ease, background 0.3s ease;
+        }
+        .otsf-speakers-dot.is-active {
+          width: 22px;
+          border-radius: 4px;
+          background: linear-gradient(90deg, ${C_BRIGHT}, ${CYAN});
+        }
         .otsf-speaker-card:hover .otsf-speaker-glow {
           opacity: 1 !important;
         }
@@ -5936,9 +6044,26 @@ export default function OTSecurityFirstJohannesburg2026() {
             grid-template-columns: 1fr !important;
           }
           .otsf-speakers-grid {
-            grid-template-columns: 1fr !important;
-            max-width: 420px;
-            margin: 0 auto;
+            display: flex !important;
+            grid-template-columns: none !important;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            max-width: none !important;
+            margin: 0 -20px !important;
+            padding: 6px 20px 18px;
+            gap: 16px !important;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+          .otsf-speakers-grid::-webkit-scrollbar {
+            display: none;
+          }
+          .otsf-speakers-grid > * {
+            flex: 0 0 78%;
+            max-width: 300px;
+          }
+          .otsf-speakers-dots {
+            display: flex !important;
           }
         }
 
