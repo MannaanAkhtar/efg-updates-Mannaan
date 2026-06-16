@@ -303,20 +303,20 @@ const allEvents = [
     id: "cyber-first-qatar",
     category: "cyber-first",
     title: "Cyber First Qatar",
-    tagline: "Defending the Digital Frontier",
+    tagline: "Cyber Resilience for Qatar's AI-Powered Economy",
     description:
-      "Qatar's leading cybersecurity platform for CISOs, government security leaders, and enterprise defenders.",
+      "The premier cybersecurity summit for Qatar's AI-powered digital economy. Aligned with the Qatar National Cyber Security Strategy 2024-2030.",
     color: "#01BBF5",
     image:
-      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
-    href: "/events/cyber-first",
+      "https://efg-final.s3.eu-north-1.amazonaws.com/assets/cyberQatar.png",
+    href: "/events/cyber-first/qatar-2026",
     date: "2026-11-10",
     nextDate: "10 Nov 2026",
     nextCity: "Doha, Qatar",
     editions: "4th Edition",
     regions: "Qatar",
-    attendees: "500+",
-    status: "soon" as SeriesStatus,
+    attendees: "250+",
+    status: "open" as SeriesStatus,
   },
   {
     id: "opex-first-saudi",
@@ -393,6 +393,46 @@ const allEvents = [
     regions: "Oman",
     attendees: "300+",
     status: "soon" as SeriesStatus,
+  },
+  {
+    id: "cyber-first-uae",
+    category: "cyber-first",
+    title: "Cyber First UAE",
+    tagline: "Defending the Digital Frontier",
+    description:
+      "The UAE edition of Cyber First, uniting CISOs, government cyber leaders, and security innovators across the Emirates. Date to be announced.",
+    color: "#01BBF5",
+    image:
+      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
+    href: "/events/cyber-first",
+    date: "2027-01-15",
+    nextDate: "Jan 2027",
+    nextCity: "UAE",
+    editions: "",
+    regions: "UAE",
+    attendees: "500+",
+    status: "soon" as SeriesStatus,
+    dateTBA: true,
+  },
+  {
+    id: "ot-security-uae",
+    category: "ot-security-first",
+    title: "OT Security First UAE",
+    tagline: "Securing Critical Infrastructure",
+    description:
+      "The UAE edition of OT Security First, bringing together CISOs, ICS engineers, and critical-infrastructure leaders. Date to be announced.",
+    color: "#D34B9A",
+    image:
+      "https://efg-final.s3.eu-north-1.amazonaws.com/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0412.JPG",
+    href: "/events/ot-security-first",
+    date: "2027-01-15",
+    nextDate: "Jan 2027",
+    nextCity: "UAE",
+    editions: "",
+    regions: "UAE",
+    attendees: "300+",
+    status: "soon" as SeriesStatus,
+    dateTBA: true,
   },
 ];
 
@@ -1309,11 +1349,13 @@ function SeriesCard({
                 series.status === "open" ? "#22C55E" : series.color,
             }}
           >
-            {countdown.days > 0
-              ? `${countdown.days}d ${countdown.hours}h ${countdown.minutes}m`
-              : series.status === "open"
-                ? "Today"
-                : "Coming Soon"}
+            {(series as { dateTBA?: boolean }).dateTBA
+              ? "Coming Soon"
+              : countdown.days > 0
+                ? `${countdown.days}d ${countdown.hours}h ${countdown.minutes}m`
+                : series.status === "open"
+                  ? "Today"
+                  : "Coming Soon"}
           </span>
         </span>
       </div>

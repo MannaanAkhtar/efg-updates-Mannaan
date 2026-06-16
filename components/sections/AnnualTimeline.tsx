@@ -21,6 +21,7 @@ export type EventItem = {
   attendees: string;
   href: string;
   status: "open" | "soon";
+  dateTBA?: boolean;
 };
 
 export const allEvents: EventItem[] = [
@@ -230,9 +231,9 @@ export const allEvents: EventItem[] = [
     dateDisplay: "November 10, 2026",
     location: "Doha, Qatar",
     venue: "Venue TBA",
-    attendees: "500+",
-    href: "/events/cyber-first",
-    status: "soon",
+    attendees: "250+",
+    href: "/events/cyber-first/qatar-2026",
+    status: "open",
   },
   {
     id: "ot-security-johannesburg",
@@ -304,6 +305,36 @@ export const allEvents: EventItem[] = [
     href: "/events/cyber-first",
     status: "soon",
   },
+  {
+    id: "cyber-first-uae",
+    series: "Cyber First",
+    seriesColor: "#01BBF5",
+    edition: "",
+    title: "Cyber First UAE",
+    date: new Date("2027-01-15"),
+    dateDisplay: "January 2027",
+    location: "UAE",
+    venue: "Venue TBA",
+    attendees: "500+",
+    href: "/events/cyber-first",
+    status: "soon",
+    dateTBA: true,
+  },
+  {
+    id: "ot-security-uae",
+    series: "OT Security First",
+    seriesColor: "#D34B9A",
+    edition: "",
+    title: "OT Security First UAE",
+    date: new Date("2027-01-15"),
+    dateDisplay: "January 2027",
+    location: "UAE",
+    venue: "Venue TBA",
+    attendees: "300+",
+    href: "/events/ot-security-first",
+    status: "soon",
+    dateTBA: true,
+  },
 ];
 
 // Months with events (ordered for display: 2026 months first, then 2027)
@@ -315,6 +346,7 @@ const MONTHS = [
   { abbr: "AUG", full: "August", index: 7 },
   { abbr: "SEP", full: "September", index: 8 },
   { abbr: "OCT", full: "October", index: 9 },
+  { abbr: "JAN", full: "January", index: 0 },
   { abbr: "MAR", full: "March", index: 2 },
 ];
 
@@ -1319,15 +1351,15 @@ function TimelineCard({
                 className="timeline-card-date"
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: isNext ? 48 : 40,
+                  fontSize: event.dateTBA ? (isNext ? 30 : 26) : (isNext ? 48 : 40),
                   fontWeight: 800,
-                  letterSpacing: "-2px",
+                  letterSpacing: event.dateTBA ? "-1px" : "-2px",
                   color: "white",
                   lineHeight: 1,
                   display: "block",
                 }}
               >
-                {dayNum}
+                {event.dateTBA ? "TBA" : dayNum}
               </span>
               <span
                 style={{
@@ -1382,7 +1414,7 @@ function TimelineCard({
                   color: accentColor,
                 }}
               >
-                {cardMounted ? daysUntil : 0}d
+                {event.dateTBA ? "Soon" : `${cardMounted ? daysUntil : 0}d`}
               </span>
             </div>
           </div>

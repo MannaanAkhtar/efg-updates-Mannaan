@@ -6,6 +6,7 @@ import {
   AnnualTimeline,
   NetworkFirst,
   PhotoGallery,
+  PastEvents2026,
   WhyEFG,
   Testimonials,
   EventHighlights,
@@ -223,6 +224,9 @@ export default function Home() {
 
       {/* Photo Gallery, Moments That Matter */}
       <PhotoGallery />
+
+      {/* This Year, Past Events Delivered */}
+      <PastEvents2026 />
 
       {/* Section Transition - Pulse */}
       <SectionTransition variant="pulse" />

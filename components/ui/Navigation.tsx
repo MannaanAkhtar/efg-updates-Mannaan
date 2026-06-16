@@ -6,11 +6,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const navLinks = [
+type NavLinkItem = {
+  href: string;
+  label: string;
+  dropdown?: "events" | "networkfirst";
+};
+
+const navLinks: NavLinkItem[] = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "/events", label: "Events", hasDropdown: true },
-  { href: "/network-first", label: "NetworkFirst" },
+  { href: "/events", label: "Events", dropdown: "events" },
+  { href: "/network-first", label: "NetworkFirst", dropdown: "networkfirst" },
   { href: "/speakers", label: "Speakers" },
   { href: "/insights", label: "Insights" },
   { href: "/contact", label: "Contact" },
@@ -22,9 +28,10 @@ const eventSeries = [
     label: "Cyber First",
     color: "#01BBF5",
     editions: [
-      { href: "/events/cyber-first/kuwait-2026", label: "Kuwait" },
       { href: "/events/cyber-first/kenya-2026", label: "Nairobi" },
+      { href: "/events/cyber-first/kuwait-2026", label: "Kuwait" },
       { href: "/events/cyber-first/qatar-2026", label: "Qatar" },
+      { href: "/events/cyber-first", label: "UAE" },
     ]
   },
   {
@@ -32,9 +39,9 @@ const eventSeries = [
     label: "OT Security First",
     color: "#D34B9A",
     editions: [
-      { href: "/events/ot-security-first/virtual-boardroom-mena", label: "Virtual Boardroom MENA", virtual: true },
       { href: "/events/ot-security-first/johannesburg-2026", label: "Johannesburg" },
       { href: "/events/ot-security-first/jubail", label: "Jubail, KSA" },
+      { href: "/events/ot-security-first", label: "UAE" },
       { href: "/events/ot-security-first/oman-2026", label: "Oman" },
     ]
   },
@@ -49,10 +56,27 @@ const eventSeries = [
     label: "Opex First",
     color: "#7C3AED",
     editions: [
-      { href: "/events/opex-first/process-intelligence", label: "Process Intelligence MENA", virtual: true },
       { href: "/events/opex-first/saudi-2026", label: "Saudi Arabia" },
     ]
   },
+];
+
+const NETWORKFIRST_COLOR = "#C9935A";
+
+// NetworkFirst boardrooms — mirrors the upcoming-events order on /network-first
+const networkFirstEvents = [
+  { href: "/proofpoint-2", label: "Proofpoint", date: "16 Jun" },
+  { href: "/seagate", label: "Seagate", date: "17 Jun" },
+  { href: "https://www.jedox.com/en/events/beyond-sop-unlocking-the-power-of-ibp/", label: "Jedox | Keansa", date: "18 Jun" },
+  { href: "/brazextalonone", label: "Braze x Talon.One", date: "18 Jun" },
+  { href: "/ifs", label: "IFS", date: "23 Jun" },
+  { href: "/proofpoint", label: "Proofpoint", date: "23 Jun" },
+  { href: "/blueyonder", label: "Blue Yonder", date: "23 Jun" },
+  { href: "/outsystems-blackstone", label: "Blackstone eIT", date: "24 Jun" },
+  { href: "/poka", label: "Poka", date: "29 Jun" },
+  { href: "/autodesk", label: "Autodesk", date: "30 Jun" },
+  { href: "https://events.outsystems.com/event/17e2fb07-2b9a-46e2-9acf-44590276e2d8/homepage?RefId=oed-ksa", label: "OutSystems", date: "19 Oct" },
+  { href: "https://www.jedox.com/en/events/unlock-the-power-of-modern-fpa-2026/", label: "Jedox | PlanPulse", date: "TBA" },
 ];
 
 /**
@@ -63,7 +87,7 @@ const eventSeries = [
  */
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isEventsOpen, setIsEventsOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<"events" | "networkfirst" | null>(null);
   const [activeSeriesIndex, setActiveSeriesIndex] = useState<number | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -133,22 +157,22 @@ export default function Navigation() {
               <div
                 key={link.href}
                 className="relative"
-                onMouseEnter={() => link.hasDropdown && setIsEventsOpen(true)}
-                onMouseLeave={() => link.hasDropdown && setIsEventsOpen(false)}
+                onMouseEnter={() => link.dropdown && setOpenDropdown(link.dropdown)}
+                onMouseLeave={() => link.dropdown && setOpenDropdown(null)}
               >
                 <NavLink
                   href={link.href}
-                  hasDropdown={link.hasDropdown}
-                  isDropdownOpen={link.hasDropdown && isEventsOpen}
+                  hasDropdown={!!link.dropdown}
+                  isDropdownOpen={!!link.dropdown && openDropdown === link.dropdown}
                   isActive={link.href === "/" ? pathname === "/" : pathname.startsWith(link.href)}
                 >
                   {link.label}
                 </NavLink>
 
                 {/* Events Dropdown */}
-                {link.hasDropdown && (
+                {link.dropdown === "events" && (
                   <AnimatePresence>
-                    {isEventsOpen && (
+                    {openDropdown === "events" && (
                       <motion.div
                         initial={{ opacity: 0, y: 6 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -234,9 +258,6 @@ export default function Navigation() {
                                       >
                                         <span className="w-[4px] h-[4px] rounded-full" style={{ background: event.color, opacity: 0.6 }} />
                                         {edition.label}
-                                        {"virtual" in edition && edition.virtual && (
-                                          <span style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.5px", textTransform: "uppercase", color: event.color, background: `${event.color}15`, padding: "2px 6px", borderRadius: 4, marginLeft: 4 }}>Virtual</span>
-                                        )}
                                       </Link>
                                     ))}
                                   </motion.div>
@@ -244,6 +265,63 @@ export default function Navigation() {
                               </AnimatePresence>
                             )}
                           </div>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                )}
+
+                {/* NetworkFirst Dropdown */}
+                {link.dropdown === "networkfirst" && (
+                  <AnimatePresence>
+                    {openDropdown === "networkfirst" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 6 }}
+                        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                        className="absolute left-1/2 -translate-x-1/2"
+                        data-lenis-prevent
+                        style={{
+                          top: "calc(100% + 14px)",
+                          width: 278,
+                          maxHeight: "min(70vh, 470px)",
+                          overflowY: "auto",
+                          background: "var(--black-card)",
+                          border: "1px solid var(--gray-border-hover)",
+                          borderRadius: 14,
+                          padding: 10,
+                          backdropFilter: "blur(20px)",
+                          WebkitBackdropFilter: "blur(20px)",
+                          boxShadow: "0 20px 60px rgba(0, 0, 0, 0.5)",
+                        }}
+                      >
+                        {networkFirstEvents.map((ev) => (
+                          <Link
+                            key={ev.href + ev.date}
+                            href={ev.href}
+                            className="flex items-center justify-between gap-3 px-4 py-[10px] rounded-[9px] text-[13.5px] transition-colors duration-200"
+                            style={{ color: "var(--white-dim)" }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = `${NETWORKFIRST_COLOR}15`;
+                              e.currentTarget.style.color = "var(--white)";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = "transparent";
+                              e.currentTarget.style.color = "var(--white-dim)";
+                            }}
+                          >
+                            <span className="flex items-center gap-3">
+                              <span
+                                className="w-[6px] h-[6px] rounded-full flex-shrink-0"
+                                style={{ background: NETWORKFIRST_COLOR }}
+                              />
+                              {ev.label}
+                            </span>
+                            <span style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", flexShrink: 0 }}>
+                              {ev.date}
+                            </span>
+                          </Link>
                         ))}
                       </motion.div>
                     )}

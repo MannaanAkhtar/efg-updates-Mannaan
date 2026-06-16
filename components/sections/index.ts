@@ -6,6 +6,7 @@ export { default as ImpactBar } from "./ImpactBar";
 export { default as AnnualTimeline } from "./AnnualTimeline";
 export { default as NetworkFirst } from "./NetworkFirst";
 export { default as PhotoGallery } from "./PhotoGallery";
+export { default as PastEvents2026 } from "./PastEvents2026";
 export { default as WhyEFG } from "./WhyEFG";
 export { default as Testimonials } from "./Testimonials";
 export { default as EventHighlights } from "./EventHighlights";
