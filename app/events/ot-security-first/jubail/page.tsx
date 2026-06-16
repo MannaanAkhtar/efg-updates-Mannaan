@@ -14,10 +14,10 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// ─── Design Tokens (OT Security First - magenta + cyan) ──────────────────────
+// ─── Design Tokens (OT Security First - pink/magenta only) ───────────────────
 const C = "#D34B9A";          // Magenta
 const C_BRIGHT = "#E86BB8";   // Light pink
-const CYAN = "#00C9FF";       // Cyan accent
+const CYAN = "#F0529E";       // Rose pink (secondary accent; formerly cyan)
 const BG_DEEP = "#050818";    // Deep navy/black
 const BG_BASE = "#070C20";    // Section base
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -163,67 +163,6 @@ function useCountdown(targetISO: string) {
   return t;
 }
 
-// ─── Strategic Context: PDF Market Driver Table - 7 rows × Facts + Implications ───
-type ContextRow = { driver: string; eyebrow: string; facts: string; implications: string };
-const STRATEGIC_CONTEXT: ContextRow[] = [
-  {
-    driver: "Giga-Project Industrialization",
-    eyebrow: "Greenfield at Scale",
-    facts:
-      "NEOM, Red Sea Global, and Qiddiya deploying massive, automated utility, water (desalination), and logistics networks from scratch.",
-    implications:
-      "Unprecedented demand for greenfield OT architecture, industrial IoT (IIoT) edge integration, and smart city SCADA harmonization.",
-  },
-  {
-    driver: "NCA OT Cybersecurity Mandates",
-    eyebrow: "Regulatory Enforcement",
-    facts:
-      "National Cybersecurity Authority (NCA) strictly enforcing ECC (Essential Cybersecurity Controls) and CS-1-CS for Critical National Infrastructure (CNI).",
-    implications:
-      "Massive push for OT-specific cybersecurity solutions, industrial network segmentation (Purdue Model compliance), and localized OT Security Operations Centers (SOCs).",
-  },
-  {
-    driver: "Industry 4.0 & Manufacturing Expansion",
-    eyebrow: "Future Factories",
-    facts:
-      "Ministry of Industry and Mineral Resources pushing the \"Future Factories Program\" to automate thousands of local manufacturing plants.",
-    implications:
-      "High growth in brownfield legacy modernization, predictive maintenance tools, industrial robotics, and smart sensors.",
-  },
-  {
-    driver: "Supply Chain & Smart Logistics Hubs",
-    eyebrow: "Connected Movement",
-    facts:
-      "Over $100 billion pledged for automated transport infrastructure, smart ports (Mawani), and driverless freight corridors by 2030.",
-    implications:
-      "Opportunities for automated guided vehicles (AGVs), real-time terminal operating systems (TOS), and predictive logistics control towers.",
-  },
-  {
-    driver: "Energy Transition & Grid Modernization",
-    eyebrow: "Smart Grid Buildout",
-    facts:
-      "SEC (Saudi Electricity Company) and SABIC expanding smart grids, utility-scale renewable integration (solar/wind), and CCUS plants.",
-    implications:
-      "Demand for Distributed Energy Resource Management Systems (DERMS), advanced metering infrastructure (AMI), and microgrid control software.",
-  },
-  {
-    driver: "IT/OT Convergence Pressures",
-    eyebrow: "Data to the Boardroom",
-    facts:
-      "Aramco and major industrial conglomerates shifting asset data into private clouds and enterprise data lakes for AI applications.",
-    implications:
-      "Crucial requirement for secure IT/OT gateways, unified asset visibility platforms, and data normalization layers between the factory floor and the boardroom.",
-  },
-  {
-    driver: "Local Content (SDR & IKTVA) Compliance",
-    eyebrow: "Saudi-Made Mandate",
-    facts:
-      "Strict government purchasing mandates and Aramco's IKTVA program penalizing purely imported industrial tech.",
-    implications:
-      "Need for international OT vendors to establish local assembly, training labs, and Saudi-based engineering support hubs.",
-  },
-];
-
 // ─── Strategic Themes: 12 PDF Key Themes ─────────────────────────────────────
 const STRATEGIC_THEMES = [
   { num: "01", title: "Securing Saudi Arabia's critical infrastructure", desc: "Defending the Kingdom's most vital systems in a hyper-connected industrial era." },
@@ -335,9 +274,8 @@ export default function OTSecurityJubail2026() {
       <WhyKingdom />
       <MarketChallenge />
       <BePartOfTheMovement />
-      <StrategicContext />
-      <StrategicThemes />
       <SpeakersSection />
+      <StrategicThemes />
       <Audience />
       <ByTheNumbers />
       <LazyMount minHeight={160}><PastSponsorsMarquee /></LazyMount>
@@ -619,23 +557,24 @@ function Hero() {
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: 12,
-                padding: "10px 18px",
+                gap: 14,
+                padding: "14px 26px",
                 borderRadius: 999,
-                background: "rgba(5,8,24,0.55)",
-                border: "1px solid rgba(255,255,255,0.12)",
+                background: "rgba(5,8,24,0.6)",
+                border: `1px solid ${C}40`,
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
+                boxShadow: `0 14px 36px rgba(0,0,0,0.4), 0 0 26px ${C}1f`,
               }}
             >
               <span
                 style={{
                   fontFamily: "var(--font-outfit)",
-                  fontSize: 9,
+                  fontSize: 10.5,
                   fontWeight: 700,
                   letterSpacing: "2.4px",
                   textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.45)",
+                  color: C_BRIGHT,
                 }}
               >
                 {pill.label}
@@ -643,8 +582,9 @@ function Hero() {
               <span
                 style={{
                   fontFamily: "var(--font-outfit)",
-                  fontSize: 13.5,
-                  fontWeight: 600,
+                  fontSize: "clamp(17px, 1.7vw, 21px)",
+                  fontWeight: 700,
+                  letterSpacing: "-0.2px",
                   color: "white",
                 }}
               >
@@ -665,27 +605,27 @@ function Hero() {
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: 14,
-              padding: "16px 24px",
-              borderRadius: 18,
-              background: "rgba(5,8,24,0.55)",
-              border: "1px solid rgba(255,255,255,0.10)",
+              gap: 10,
+              padding: "9px 16px",
+              borderRadius: 13,
+              background: "rgba(5,8,24,0.5)",
+              border: "1px solid rgba(255,255,255,0.08)",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
-              boxShadow: `0 22px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)`,
+              boxShadow: `0 12px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)`,
             }}
           >
             <span
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: 7,
+                gap: 6,
                 fontFamily: "var(--font-outfit)",
-                fontSize: 10,
+                fontSize: 8.5,
                 fontWeight: 700,
-                letterSpacing: "2.6px",
+                letterSpacing: "2px",
                 textTransform: "uppercase",
-                paddingRight: 10,
+                paddingRight: 8,
                 borderRight: "1px solid rgba(255,255,255,0.10)",
               }}
             >
@@ -693,8 +633,8 @@ function Hero() {
                 aria-hidden
                 className="otsf-jb-live-dot otsf-jb-starts-dot"
                 style={{
-                  width: 7,
-                  height: 7,
+                  width: 5,
+                  height: 5,
                   borderRadius: 999,
                 }}
               />
@@ -710,11 +650,11 @@ function Hero() {
                 <span
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontSize: "clamp(22px, 2.4vw, 30px)",
+                    fontSize: "clamp(15px, 1.5vw, 19px)",
                     fontWeight: 800,
-                    letterSpacing: "-1px",
+                    letterSpacing: "-0.5px",
                     color: "white",
-                    minWidth: 30,
+                    minWidth: 20,
                     textAlign: "center",
                   }}
                 >
@@ -723,12 +663,12 @@ function Hero() {
                 <span
                   style={{
                     fontFamily: "var(--font-outfit)",
-                    fontSize: 10,
+                    fontSize: 8,
                     fontWeight: 600,
-                    letterSpacing: "1.5px",
+                    letterSpacing: "1.2px",
                     textTransform: "uppercase",
                     color: "rgba(255,255,255,0.45)",
-                    marginRight: i < 3 ? 6 : 0,
+                    marginRight: i < 3 ? 5 : 0,
                   }}
                 >
                   {u.label}
@@ -1069,58 +1009,6 @@ function Hero() {
         />
       </motion.div>
 
-      {/* Scroll cue */}
-      <motion.a
-        href="#context"
-        aria-label="Scroll to next section"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.4, delay: 1.2, ease: EASE }}
-        className="otsf-jb-scroll-cue"
-        style={{
-          position: "absolute",
-          bottom: 32,
-          left: "clamp(20px, 4vw, 56px)",
-          zIndex: 4,
-          display: "inline-flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 8,
-          fontFamily: "var(--font-outfit)",
-          fontSize: 9.5,
-          fontWeight: 700,
-          letterSpacing: "3px",
-          textTransform: "uppercase",
-          color: "rgba(255,255,255,0.55)",
-          textDecoration: "none",
-        }}
-      >
-        Scroll
-        <span
-          aria-hidden
-          style={{
-            width: 22,
-            height: 36,
-            borderRadius: 12,
-            border: "1px solid rgba(255,255,255,0.28)",
-            display: "inline-flex",
-            justifyContent: "center",
-            paddingTop: 6,
-          }}
-        >
-          <span
-            className="otsf-jb-scroll-dot"
-            style={{
-              width: 3,
-              height: 6,
-              borderRadius: 2,
-              background: C_BRIGHT,
-              boxShadow: `0 0 8px ${C_BRIGHT}`,
-            }}
-          />
-        </span>
-      </motion.a>
-
       <style jsx global>{`
         @keyframes otsfJbLivePulse {
           0%, 100% { transform: scale(1); opacity: 1; }
@@ -1189,14 +1077,10 @@ function Hero() {
         .otsf-jb-hero-tone-a {
           color: ${C_BRIGHT};
           text-shadow: 0 0 28px ${C}55;
-          animation: otsfJbHeroToneA 5.5s ease-in-out infinite;
-          will-change: color, text-shadow;
         }
         .otsf-jb-hero-tone-b {
-          color: ${CYAN};
-          text-shadow: 0 0 28px ${CYAN}55, 0 0 60px ${CYAN}33;
-          animation: otsfJbHeroToneB 5.5s ease-in-out infinite;
-          will-change: color, text-shadow;
+          color: ${C_BRIGHT};
+          text-shadow: 0 0 28px ${C_BRIGHT}55, 0 0 60px ${C_BRIGHT}33;
         }
         /* Starts in badge - same solid-color cross-fade approach */
         @keyframes otsfJbStartsTextSwap {
@@ -1384,7 +1268,7 @@ function ExecutivePerspective() {
           }}
         >
           Saudi Arabia&apos;s industrial transformation under{" "}
-          <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>
+          <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT, whiteSpace: "nowrap", padding: "0 0.22em 0 0.04em" }}>
             Vision 2030
           </em>{" "}
           is redefining national infrastructure.
@@ -1409,7 +1293,7 @@ function ExecutivePerspective() {
           >
             {/* Drop cap opening - jeweled */}
             <div style={{ position: "relative" }}>
-              <p style={{ ...execPara, marginTop: 0, fontSize: "clamp(17px, 1.4vw, 19px)" }}>
+              <p style={{ ...execPara, marginTop: 0, fontSize: "clamp(18px, 1.5vw, 21px)" }}>
                 <span style={{ position: "relative", float: "left", marginRight: 14, marginTop: 4, marginBottom: -4 }}>
                   {/* Glow underlay */}
                   <span
@@ -1438,10 +1322,7 @@ function ExecutivePerspective() {
                       fontWeight: 800,
                       lineHeight: 0.85,
                       letterSpacing: "-3px",
-                      background: `linear-gradient(155deg, ${C_BRIGHT}, ${CYAN})`,
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
+                      color: C_BRIGHT,
                       display: "inline-block",
                     }}
                   >
@@ -1458,80 +1339,6 @@ function ExecutivePerspective() {
               Operational Technology environments now sit at the intersection of cyber exposure, physical safety, environmental impact, and national economic stability.
             </p>
 
-            {/* Inline mini stat strip */}
-            <div
-              className="otsf-jb-exec-stats"
-              style={{
-                marginTop: 22,
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr",
-                gap: 28,
-                paddingTop: 32,
-                borderTop: "1px solid rgba(255,255,255,0.1)",
-                position: "relative",
-              }}
-            >
-              {[
-                { roman: "i", num: "94%", label: "of OT environments report increased exposure" },
-                { roman: "ii", num: "$4.5M", label: "average industrial cyber incident cost" },
-                { roman: "iii", num: "MEA", label: "Saudi leads regional ICS incident volume" },
-              ].map((s, i) => (
-                <motion.div
-                  key={s.num}
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.7, delay: 0.45 + i * 0.08, ease: EASE }}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 8,
-                    paddingLeft: i > 0 ? 22 : 0,
-                    borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.08)" : "none",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: 10.5,
-                      fontStyle: "italic",
-                      fontWeight: 500,
-                      letterSpacing: "1.5px",
-                      color: C_BRIGHT,
-                      opacity: 0.85,
-                      marginBottom: -2,
-                    }}
-                  >
-                    {s.roman}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 800,
-                      fontSize: "clamp(28px, 2.8vw, 38px)",
-                      letterSpacing: "-1.2px",
-                      lineHeight: 1,
-                      background: `linear-gradient(135deg, white 0%, ${C_BRIGHT} 100%)`,
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    {s.num}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-outfit)",
-                      fontSize: 11.5,
-                      color: "rgba(255,255,255,0.55)",
-                      lineHeight: 1.45,
-                      letterSpacing: "0.2px",
-                    }}
-                  >
-                    {s.label}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
           </motion.div>
 
           {/* Right - previous edition video bezel */}
@@ -1692,9 +1499,9 @@ function ExecutivePerspective() {
             <p
               style={{
                 fontFamily: "var(--font-outfit)",
-                fontSize: 13,
-                lineHeight: 1.55,
-                color: "rgba(255,255,255,0.55)",
+                fontSize: "clamp(15px, 1.15vw, 16.5px)",
+                lineHeight: 1.6,
+                color: "rgba(255,255,255,0.78)",
                 margin: 0,
                 maxWidth: 520,
               }}
@@ -1754,8 +1561,8 @@ function ExecutivePerspective() {
               maxWidth: 1040,
             }}
           >
-            <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>OT Security First - Jubail</em>{" "}
-            is structured as a strategic industrial cybersecurity dialogue platform - designed to address this convergence with policy depth, engineering credibility, and operational realism.
+            <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT, paddingRight: "0.18em" }}>OT Security First - Jubail</em>{" "}
+            is a world-class, one-day strategic dialogue platform dedicated to advancing industrial cybersecurity and operational resilience across the Kingdom.
           </p>
 
           {/* Programme signature */}
@@ -1861,6 +1668,8 @@ function WhyKingdom() {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
+          filter: "blur(5px) brightness(0.92)",
+          transform: "scale(1.06)",
           pointerEvents: "none",
         }}
       />
@@ -2050,8 +1859,8 @@ function WhyCard({
           }}
         />
 
-        {/* Header - italic serial + hairline + tag */}
-        <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 12, marginBottom: 18 }}>
+        {/* Header - italic serial + hairline + kicker */}
+        <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
           <span
             style={{
               fontFamily: "var(--font-display)",
@@ -2068,40 +1877,46 @@ function WhyCard({
           <span
             aria-hidden
             style={{
-              flex: "0 0 22px",
+              flex: 1,
               height: 1,
-              background: `linear-gradient(90deg, ${C_BRIGHT}80, transparent)`,
+              background: `linear-gradient(90deg, ${C_BRIGHT}, rgba(255,255,255,0.06) 70%, transparent)`,
             }}
           />
-          <span
-            style={{
-              fontFamily: "var(--font-outfit)",
-              fontSize: 10,
-              fontWeight: 700,
-              letterSpacing: "3px",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.75)",
-            }}
-          >
-            {tag}
-          </span>
         </div>
 
-        {/* Headline */}
+        {/* Topic headline - the dominant title */}
         <h3
+          className="otsf-jb-why-title"
           style={{
             position: "relative",
             fontFamily: "var(--font-display)",
-            fontSize: "clamp(19px, 2vw, 26px)",
-            fontWeight: 700,
-            letterSpacing: "-0.8px",
+            fontSize: "clamp(28px, 3vw, 40px)",
+            fontWeight: 800,
+            letterSpacing: "-1.2px",
             color: "white",
-            lineHeight: 1.18,
+            lineHeight: 1.02,
+            margin: "0 0 14px",
+            textShadow: "0 2px 14px rgba(0,0,0,0.45)",
+          }}
+        >
+          {tag}
+        </h3>
+
+        {/* Supporting sub-headline */}
+        <p
+          style={{
+            position: "relative",
+            fontFamily: "var(--font-outfit)",
+            fontSize: "clamp(15px, 1.35vw, 17.5px)",
+            fontWeight: 500,
+            letterSpacing: "-0.2px",
+            color: "rgba(255,255,255,0.82)",
+            lineHeight: 1.42,
             margin: "0 0 22px",
           }}
         >
           {headline}
-        </h3>
+        </p>
 
         {/* Compact numbered list */}
         <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", flex: 1 }}>
@@ -2246,24 +2061,25 @@ function MarketChallenge() {
               style={{
                 position: "relative",
                 display: "grid",
-                gridTemplateColumns: "auto 1fr",
+                gridTemplateColumns: "clamp(40px, 4vw, 56px) 1fr",
                 alignItems: "baseline",
-                gap: 24,
+                gap: "clamp(18px, 2.4vw, 32px)",
                 padding: "clamp(22px, 2.6vw, 32px) 4px",
                 borderBottom: "1px solid rgba(255,255,255,0.1)",
               }}
             >
-              {/* Italic Roman serial */}
+              {/* Italic Roman serial - right-aligned gutter, baseline-locked to first text line */}
               <span
                 style={{
                   fontFamily: "var(--font-display)",
                   fontStyle: "italic",
-                  fontSize: "clamp(22px, 2vw, 28px)",
-                  fontWeight: 500,
-                  letterSpacing: "-0.6px",
+                  fontSize: "clamp(16px, 1.4vw, 20px)",
+                  fontWeight: 600,
+                  letterSpacing: "0.2px",
                   color: C_BRIGHT,
-                  lineHeight: 1,
-                  minWidth: 46,
+                  lineHeight: 1.6,
+                  textAlign: "right",
+                  whiteSpace: "nowrap",
                 }}
               >
                 {["i", "ii", "iii"][i]}
@@ -2285,521 +2101,6 @@ function MarketChallenge() {
           ))}
         </div>
       </div>
-    </section>
-  );
-}
-
-// ─── STRATEGIC CONTEXT ──────────────────────────────────────────────────────
-const CONTEXT_PANEL_IMAGE = `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0510.JPG`;
-
-function StrategicContext() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [openIndex, setOpenIndex] = useState(0);
-
-  return (
-    <section ref={ref} style={{ position: "relative", padding: "clamp(64px, 7vw, 96px) 0", background: BG_BASE }}>
-      <BgDots opacity={0.05} />
-      <div style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-        <Eyebrow inView={inView} label="Strategic Context" tone="cyan" />
-
-        <motion.h2
-          initial={{ opacity: 0, y: 18 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
-          style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 800,
-            fontSize: "clamp(28px, 4vw, 48px)",
-            letterSpacing: "-1.6px",
-            lineHeight: 1.02,
-            color: "white",
-            margin: "0 0 clamp(28px, 3vw, 40px)",
-            maxWidth: 920,
-          }}
-        >
-          The forces shaping{" "}
-          <em style={{ fontStyle: "italic", fontWeight: 400, color: CYAN }}>
-            industrial cybersecurity
-          </em>{" "}
-          across the Kingdom.
-        </motion.h2>
-
-        <div
-          className="otsf-jb-context-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1.1fr 1fr",
-            gap: "clamp(28px, 3.5vw, 56px)",
-            alignItems: "start",
-          }}
-        >
-          {/* Left - Accordion tabs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
-            style={{ display: "flex", flexDirection: "column" }}
-          >
-            {STRATEGIC_CONTEXT.map((col, i) => {
-              const isOpen = openIndex === i;
-              const serial = String(i + 1).padStart(2, "0");
-              return (
-                <div
-                  key={col.driver}
-                  className="otsf-jb-ctx-row"
-                  style={{
-                    position: "relative",
-                    borderTop: "1px solid rgba(255,255,255,0.1)",
-                    ...(i === STRATEGIC_CONTEXT.length - 1 ? { borderBottom: "1px solid rgba(255,255,255,0.1)" } : {}),
-                  }}
-                >
-                  {/* Active magenta accent rail */}
-                  <span
-                    aria-hidden
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: 2,
-                      height: isOpen ? "100%" : 0,
-                      background: `linear-gradient(180deg, ${C_BRIGHT}, ${CYAN})`,
-                      boxShadow: `0 0 12px ${C_BRIGHT}66`,
-                      transition: "height 0.5s cubic-bezier(0.16,1,0.3,1)",
-                    }}
-                  />
-
-                  <button
-                    onClick={() => setOpenIndex(isOpen ? -1 : i)}
-                    aria-expanded={isOpen}
-                    suppressHydrationWarning
-                    style={{
-                      width: "100%",
-                      display: "grid",
-                      gridTemplateColumns: "auto 1fr auto",
-                      alignItems: "center",
-                      gap: 16,
-                      padding: "14px 4px 14px 16px",
-                      background: "transparent",
-                      border: "none",
-                      cursor: "pointer",
-                      textAlign: "left",
-                      color: "inherit",
-                      fontFamily: "inherit",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontSize: 18,
-                        fontWeight: 500,
-                        fontStyle: "italic",
-                        letterSpacing: "-0.5px",
-                        color: isOpen ? C_BRIGHT : "rgba(255,255,255,0.4)",
-                        transition: "color 0.4s ease",
-                        lineHeight: 1,
-                      }}
-                    >
-                      {serial}
-                    </span>
-
-                    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                      <span
-                        style={{
-                          fontFamily: "var(--font-outfit)",
-                          fontSize: 10,
-                          fontWeight: 700,
-                          letterSpacing: "3px",
-                          textTransform: "uppercase",
-                          color: isOpen ? C_BRIGHT : "rgba(255,255,255,0.55)",
-                          transition: "color 0.4s ease",
-                        }}
-                      >
-                        {col.eyebrow}
-                      </span>
-                      <span
-                        style={{
-                          fontFamily: "var(--font-display)",
-                          fontSize: "clamp(17px, 1.6vw, 21px)",
-                          fontWeight: 700,
-                          letterSpacing: "-0.6px",
-                          color: isOpen ? "white" : "rgba(255,255,255,0.75)",
-                          lineHeight: 1.15,
-                          transition: "color 0.4s ease",
-                        }}
-                      >
-                        {col.driver}
-                      </span>
-                    </div>
-
-                    {/* Animated plus/minus indicator */}
-                    <span
-                      aria-hidden
-                      style={{
-                        position: "relative",
-                        width: 22,
-                        height: 22,
-                        display: "inline-flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        marginRight: 6,
-                      }}
-                    >
-                      <span
-                        style={{
-                          position: "absolute",
-                          width: 14,
-                          height: 1,
-                          background: isOpen ? C_BRIGHT : "rgba(255,255,255,0.6)",
-                          transition: "background 0.4s ease",
-                        }}
-                      />
-                      <span
-                        style={{
-                          position: "absolute",
-                          width: 14,
-                          height: 1,
-                          background: isOpen ? C_BRIGHT : "rgba(255,255,255,0.6)",
-                          transform: isOpen ? "rotate(0deg)" : "rotate(90deg)",
-                          transition: "transform 0.45s cubic-bezier(0.16,1,0.3,1), background 0.4s ease",
-                        }}
-                      />
-                    </span>
-                  </button>
-
-                  {/* Expanded body - Facts & Real Signals + Implications & Opportunities */}
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateRows: isOpen ? "1fr" : "0fr",
-                      transition: "grid-template-rows 0.55s cubic-bezier(0.16,1,0.3,1)",
-                    }}
-                  >
-                    <div style={{ overflow: "hidden" }}>
-                      <div
-                        style={{
-                          padding: "0 16px 18px 46px",
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: 16,
-                        }}
-                      >
-                        {/* Facts & Real Signals */}
-                        <div
-                          style={{
-                            opacity: isOpen ? 1 : 0,
-                            transform: isOpen ? "translateY(0)" : "translateY(6px)",
-                            transition: `opacity 0.4s ease ${isOpen ? 0.12 : 0}s, transform 0.4s ease ${isOpen ? 0.12 : 0}s`,
-                          }}
-                        >
-                          <div
-                            style={{
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: 8,
-                              marginBottom: 8,
-                            }}
-                          >
-                            <span aria-hidden style={{ width: 14, height: 1, background: C_BRIGHT, boxShadow: `0 0 6px ${C_BRIGHT}88` }} />
-                            <span
-                              style={{
-                                fontFamily: "var(--font-outfit)",
-                                fontSize: 10,
-                                fontWeight: 700,
-                                letterSpacing: "2.6px",
-                                textTransform: "uppercase",
-                                color: C_BRIGHT,
-                              }}
-                            >
-                              Facts & Real Signals
-                            </span>
-                          </div>
-                          <p
-                            style={{
-                              margin: 0,
-                              fontFamily: "var(--font-outfit)",
-                              fontSize: 13.5,
-                              fontWeight: 400,
-                              color: "rgba(255,255,255,0.78)",
-                              lineHeight: 1.55,
-                              letterSpacing: "-0.1px",
-                            }}
-                          >
-                            {col.facts}
-                          </p>
-                        </div>
-
-                        {/* Implications & Opportunities */}
-                        <div
-                          style={{
-                            opacity: isOpen ? 1 : 0,
-                            transform: isOpen ? "translateY(0)" : "translateY(6px)",
-                            transition: `opacity 0.4s ease ${isOpen ? 0.22 : 0}s, transform 0.4s ease ${isOpen ? 0.22 : 0}s`,
-                          }}
-                        >
-                          <div
-                            style={{
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: 8,
-                              marginBottom: 8,
-                            }}
-                          >
-                            <span aria-hidden style={{ width: 14, height: 1, background: CYAN, boxShadow: `0 0 6px ${CYAN}88` }} />
-                            <span
-                              style={{
-                                fontFamily: "var(--font-outfit)",
-                                fontSize: 10,
-                                fontWeight: 700,
-                                letterSpacing: "2.6px",
-                                textTransform: "uppercase",
-                                color: CYAN,
-                              }}
-                            >
-                              Implications & Opportunities
-                            </span>
-                          </div>
-                          <p
-                            style={{
-                              margin: 0,
-                              fontFamily: "var(--font-outfit)",
-                              fontSize: 13.5,
-                              fontWeight: 400,
-                              color: "rgba(255,255,255,0.78)",
-                              lineHeight: 1.55,
-                              letterSpacing: "-0.1px",
-                            }}
-                          >
-                            {col.implications}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </motion.div>
-
-          {/* Right - Panel speakers image (sticky, bleeds to viewport right edge) */}
-          <motion.figure
-            initial={{ opacity: 0, y: 22, scale: 0.98 }}
-            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-            transition={{ duration: 1, delay: 0.3, ease: EASE }}
-            className="otsf-jb-ctx-image-wrap"
-            style={{
-              margin: 0,
-              position: "sticky",
-              top: 96,
-              marginRight: "calc(-1 * (max(0px, (100vw - 1280px) / 2) + clamp(24px, 5vw, 80px)))",
-              display: "flex",
-              flexDirection: "column",
-              gap: 18,
-            }}
-          >
-            {/* Eyebrow tag above image */}
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span
-                aria-hidden
-                style={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: "50%",
-                  background: C_BRIGHT,
-                  boxShadow: `0 0 10px ${C_BRIGHT}`,
-                }}
-              />
-              <span
-                style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 10.5,
-                  fontWeight: 700,
-                  letterSpacing: "3.2px",
-                  textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.7)",
-                }}
-              >
-                The Room · In Dialogue
-              </span>
-            </div>
-
-            {/* Full-bleed image - rounded only on left edge */}
-            <div
-              className="otsf-jb-ctx-image"
-              style={{
-                position: "relative",
-                width: "100%",
-                aspectRatio: "16 / 9",
-                borderRadius: "18px 0 0 18px",
-                overflow: "hidden",
-                background: "#0a0e22",
-                boxShadow: `0 30px 70px rgba(0,0,0,0.6), 0 0 50px ${C}1a`,
-              }}
-            >
-              <div
-                style={{
-                  position: "relative",
-                  width: "100%",
-                  height: "100%",
-                }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  loading="lazy"
-                  decoding="async"
-                  src={CONTEXT_PANEL_IMAGE}
-                  alt="OT Security First panel discussion - industrial CISOs and OT security leaders in dialogue on critical infrastructure cybersecurity in Saudi Arabia"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    objectPosition: "25% center",
-                    transform: "scale(1.15)",
-                    transformOrigin: "left center",
-                  }}
-                />
-                {/* Left edge light catch - vertical magenta→cyan */}
-                <div
-                  aria-hidden
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    bottom: 0,
-                    left: 0,
-                    width: 1,
-                    background: `linear-gradient(180deg, transparent, ${C_BRIGHT}99 30%, ${CYAN}aa 70%, transparent)`,
-                    boxShadow: `0 0 10px ${C_BRIGHT}40`,
-                    pointerEvents: "none",
-                  }}
-                />
-                {/* Top edge highlight - left-anchored */}
-                <div
-                  aria-hidden
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "45%",
-                    height: 1,
-                    background: `linear-gradient(90deg, ${CYAN}aa, transparent)`,
-                    boxShadow: `0 0 8px ${CYAN}40`,
-                    pointerEvents: "none",
-                  }}
-                />
-                {/* Bottom edge highlight - left-anchored */}
-                <div
-                  aria-hidden
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    width: "35%",
-                    height: 1,
-                    background: `linear-gradient(90deg, ${C_BRIGHT}88, transparent)`,
-                    pointerEvents: "none",
-                  }}
-                />
-                {/* Vignette */}
-                <div
-                  aria-hidden
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background:
-                      "linear-gradient(180deg, rgba(7,11,31,0.1) 0%, transparent 35%, transparent 65%, rgba(7,11,31,0.65) 100%)",
-                    pointerEvents: "none",
-                  }}
-                />
-                {/* Edition badge - top left */}
-                <div
-                  aria-hidden
-                  style={{
-                    position: "absolute",
-                    top: 16,
-                    left: 16,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    padding: "6px 12px 6px 10px",
-                    background: "linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.3))",
-                    backdropFilter: "blur(10px)",
-                    WebkitBackdropFilter: "blur(10px)",
-                    border: "1px solid rgba(255,255,255,0.12)",
-                    borderRadius: 999,
-                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12)",
-                  }}
-                >
-                  <span style={{ width: 5, height: 5, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 8px ${C_BRIGHT}` }} />
-                  <span
-                    style={{
-                      fontFamily: "var(--font-outfit)",
-                      fontSize: 9.5,
-                      fontWeight: 700,
-                      letterSpacing: "2.5px",
-                      textTransform: "uppercase",
-                      color: "rgba(255,255,255,0.92)",
-                    }}
-                  >
-                    UAE · 2025
-                  </span>
-                </div>
-                {/* Bottom caption overlay */}
-                <div
-                  style={{
-                    position: "absolute",
-                    left: 18,
-                    right: 18,
-                    bottom: 18,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    gap: 12,
-                    pointerEvents: "none",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "var(--font-outfit)",
-                      fontSize: 11,
-                      fontWeight: 700,
-                      letterSpacing: "1.5px",
-                      textTransform: "uppercase",
-                      color: "rgba(255,255,255,0.92)",
-                      textShadow: "0 2px 6px rgba(0,0,0,0.6)",
-                    }}
-                  >
-                    Panel · Industrial Cybersecurity
-                  </span>
-                </div>
-              </div>
-            </div>
-
-          </motion.figure>
-        </div>
-      </div>
-
-      <style jsx global>{`
-        .otsf-jb-ctx-row button:hover span[style*="rgba(255,255,255,0.4)"],
-        .otsf-jb-ctx-row button:hover span[style*="rgba(255,255,255,0.55)"] {
-          color: rgba(255,255,255,0.85) !important;
-        }
-        @media (max-width: 980px) {
-          .otsf-jb-context-grid {
-            grid-template-columns: 1fr !important;
-          }
-          .otsf-jb-ctx-image-wrap {
-            position: static !important;
-            order: -1;
-            margin-right: calc(-1 * clamp(24px, 5vw, 80px)) !important;
-            margin-left: calc(-1 * clamp(24px, 5vw, 80px)) !important;
-          }
-          .otsf-jb-ctx-image {
-            border-radius: 0 !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }
@@ -3628,10 +2929,7 @@ function ByTheNumbers() {
                   fontSize: "clamp(40px, 5vw, 64px)",
                   letterSpacing: "-2px",
                   lineHeight: 1,
-                  background: `linear-gradient(135deg, ${C} 0%, ${C_BRIGHT} 60%, ${CYAN} 100%)`,
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
+                  color: C_BRIGHT,
                 }}
               >
                 {total}+
@@ -3800,7 +3098,7 @@ function ContactCard({
   inView: boolean;
 }) {
   const accent = tone === "pink" ? C_BRIGHT : CYAN;
-  const accentDeep = tone === "pink" ? C : "#0EA5E9";
+  const accentDeep = tone === "pink" ? C : C;
 
   return (
     <motion.div
@@ -4130,7 +3428,7 @@ function Contact() {
             eyebrow="Speaking"
             name="Anna Firdouse Shah"
             role="Senior Conference Producer"
-            photo="https://efg-final.s3.eu-north-1.amazonaws.com/team/anna_firdouse_shah1.jpeg"
+            photo="https://efg-final.s3.eu-north-1.amazonaws.com/team/anna+shah.jpeg"
             email="anna@eventsfirstgroup.com"
             whatsapp="https://wa.me/971545714377"
             inView={inView}
@@ -4192,10 +3490,10 @@ function Contact() {
 // ─── Shared helpers ──────────────────────────────────────────────────────────
 const execPara: React.CSSProperties = {
   fontFamily: "var(--font-outfit)",
-  fontSize: "clamp(14.5px, 1.15vw, 17px)",
+  fontSize: "clamp(16.5px, 1.35vw, 19px)",
   fontWeight: 400,
-  color: "rgba(255,255,255,0.62)",
-  lineHeight: 1.7,
+  color: "rgba(255,255,255,0.82)",
+  lineHeight: 1.75,
   margin: 0,
 };
 
