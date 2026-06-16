@@ -4128,10 +4128,10 @@ function Contact() {
             delay={0.2}
             tone="pink"
             eyebrow="Speaking"
-            name="Sanjana Venugopal"
+            name="Anna Firdouse Shah"
             role="Senior Conference Producer"
-            photo="https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/Sanjana-Venugopal-new.jpg"
-            email="sanjana@eventsfirstgroup.com"
+            photo="https://efg-final.s3.eu-north-1.amazonaws.com/team/anna_firdouse_shah1.jpeg"
+            email="anna@eventsfirstgroup.com"
             whatsapp="https://wa.me/971545714377"
             inView={inView}
           />
@@ -4139,10 +4139,10 @@ function Contact() {
             delay={0.32}
             tone="cyan"
             eyebrow="Sponsorship"
-            name="Mohammed Danish"
+            name="Mohammed Hassan"
             role="Partnership Manager"
-            photo="https://efg-final.s3.eu-north-1.amazonaws.com/team/danish.png"
-            email="danish@eventsfirstgroup.com"
+            photo="https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/hassan.jpg"
+            email="hassan@eventsfirstgroup.com"
             whatsapp="https://wa.me/971545714377"
             inView={inView}
           />
