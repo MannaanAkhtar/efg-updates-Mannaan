@@ -59,7 +59,7 @@ const values = [
   },
 ];
 
-type Member = { name: string; role: string; initials: string; photo?: string; isFounder?: boolean; photoPos?: string };
+type Member = { name: string; role: string; initials: string; photo?: string; isFounder?: boolean; photoPos?: string; photoScale?: number; photoTransform?: string };
 
 // All team members including founders
 const teamMembers: Member[] = [
@@ -81,6 +81,7 @@ const teamMembers: Member[] = [
   // Operations
   { name: "Mini", role: "Operations", initials: "M", photo: `${S3}/Mini.jpg` },
   // Producer
+  { name: "Anna Firdouse Shah", role: "Senior Producer", initials: "AF", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/anna+shah.jpeg", photoTransform: "scale(1.35) translateX(-20%)" },
   { name: "Sanjana Venugopal", role: "Producer", initials: "SV", photo: `${S3}/Sanjana-Venugopal-new.jpg` },
   { name: "Harini", role: "Producer", initials: "H", photo: `${S3}/Harini.jpg` },
   // Marketing & Tech
@@ -725,6 +726,7 @@ function TeamMember({ member, index, isInView }: { member: Member; index: number
               height: "100%",
               objectFit: "cover",
               objectPosition: member.photoPos || "center",
+              transform: member.photoTransform || (member.photoScale ? `scale(${member.photoScale})` : undefined),
               filter: "grayscale(100%)",
               transition: "filter 0.4s ease",
             }}
