@@ -14,6 +14,16 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+// Lenis (global smooth-scroll) hijacks the wheel, so native hash-anchor jumps get
+// reset every frame. Drive Lenis directly when present, else fall back to native.
+function jbScrollTo(id: string, offset = -80) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const lenis = (window as unknown as { __lenis?: { scrollTo: (t: HTMLElement, o?: { offset?: number }) => void } }).__lenis;
+  if (lenis) lenis.scrollTo(el, { offset });
+  else el.scrollIntoView({ behavior: "smooth" });
+}
+
 // ─── Design Tokens (OT Security First - pink/magenta only) ───────────────────
 const C = "#D34B9A";          // Magenta
 const C_BRIGHT = "#E86BB8";   // Light pink
@@ -194,16 +204,16 @@ const AUDIENCE_ROLES = [
 ];
 
 // ─── By the Numbers - donut chart data ─────────────────────────────────────
-// Categorical palette: 6 visually distinct hues so each donut segment maps
-// 1:1 with its legend card. Cyan/pink anchor the brand; the other 4 stand
-// apart enough to read as separate categories without fighting the theme.
+// Pink brand anchor + distinct, harmonious cool accents (violet / blue / teal /
+// orchid / slate) so each donut segment maps 1:1 with its legend card, reads
+// clearly at a glance, and still feels premium and on-brand.
 const BY_NUMBERS: { label: string; value: number; color: string }[] = [
-  { label: "Delegates",                       value: 220, color: CYAN },      // cyan - cool, dominant brand anchor
-  { label: "Senior Industry Speakers",        value: 30,  color: C_BRIGHT },  // pink - warm brand anchor
-  { label: "Strategic Conference Sessions",   value: 15,  color: "#8B5CF6" }, // violet - cool purple
-  { label: "Media & Knowledge Partners",      value: 15,  color: "#14B8A6" }, // teal - cool green-blue
-  { label: "Technology Providers",            value: 10,  color: "#F59E0B" }, // amber - warm orange-yellow
-  { label: "Industry Recognition Awards",     value: 5,   color: "#84CC16" }, // lime - warm yellow-green
+  { label: "Delegates",                       value: 220, color: "#E8519A" }, // pink - dominant brand anchor
+  { label: "Senior Industry Speakers",        value: 30,  color: "#8B5CF6" }, // violet
+  { label: "Strategic Conference Sessions",   value: 15,  color: "#5B8DEF" }, // blue
+  { label: "Media & Knowledge Partners",      value: 15,  color: "#18B6A6" }, // teal
+  { label: "Technology Providers",            value: 10,  color: "#C45BC6" }, // orchid
+  { label: "Industry Recognition Awards",     value: 5,   color: "#6E7FA0" }, // slate
 ];
 
 // Pre-computed donut geometry - derived from BY_NUMBERS, never changes at runtime
@@ -232,10 +242,12 @@ function LazyMount({
   children,
   minHeight,
   rootMargin = "400px",
+  id,
 }: {
   children: React.ReactNode;
   minHeight: number | string;
   rootMargin?: string;
+  id?: string;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -256,7 +268,7 @@ function LazyMount({
     return () => obs.disconnect();
   }, [visible, rootMargin]);
   return (
-    <div ref={ref} style={{ minHeight: visible ? undefined : minHeight }}>
+    <div ref={ref} id={id} style={{ minHeight: visible ? undefined : minHeight }}>
       {visible ? children : null}
     </div>
   );
@@ -281,10 +293,10 @@ export default function OTSecurityJubail2026() {
       <LazyMount minHeight={160}><PastSponsorsMarquee /></LazyMount>
       <LazyMount minHeight={620}><FromTheRoom /></LazyMount>
       <LazyMount minHeight={820}><GallerySection /></LazyMount>
-      <LazyMount minHeight={1400}><AwardsSection /></LazyMount>
-      <LazyMount minHeight={760}><RegisterSection /></LazyMount>
+      <LazyMount minHeight={1400} id="awards"><AwardsSection /></LazyMount>
+      <LazyMount minHeight={760} id="register"><RegisterSection /></LazyMount>
       <LazyMount minHeight={320}><VenueSection /></LazyMount>
-      <LazyMount minHeight={640}><Contact /></LazyMount>
+      <LazyMount minHeight={640} id="contact"><Contact /></LazyMount>
       <LazyMount minHeight={420}><Footer /></LazyMount>
       <RequestResourcesModal />
     </div>
@@ -535,147 +547,68 @@ function Hero() {
           A strategic forum for operational technology leadership - convening regulators, CISOs and industrial engineers at the heart of the Kingdom&apos;s industrial corridor.
         </motion.p>
 
-        {/* Date · Location pills */}
+        {/* Unified info bar - date · location · countdown as one coherent strip
+            so the hero reads as [headline] → [one info strip] → [action pair],
+            not five competing button-pills. */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.42, ease: EASE }}
+          className="otsf-jb-hero-infobar"
           style={{
             display: "inline-flex",
+            alignItems: "center",
             flexWrap: "wrap",
             justifyContent: "center",
-            gap: 10,
-            marginBottom: 44,
+            marginBottom: 40,
+            padding: "8px 6px",
+            borderRadius: 16,
+            background: "rgba(5,8,24,0.55)",
+            border: "1px solid rgba(255,255,255,0.1)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+            boxShadow: "0 14px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)",
           }}
         >
-          {[
-            { label: "Date", value: "27 October 2026" },
-            { label: "Location", value: "Jubail · Kingdom of Saudi Arabia" },
-          ].map((pill) => (
-            <span
-              key={pill.label}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 14,
-                padding: "14px 26px",
-                borderRadius: 999,
-                background: "rgba(5,8,24,0.6)",
-                border: `1px solid ${C}40`,
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
-                boxShadow: `0 14px 36px rgba(0,0,0,0.4), 0 0 26px ${C}1f`,
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 10.5,
-                  fontWeight: 700,
-                  letterSpacing: "2.4px",
-                  textTransform: "uppercase",
-                  color: C_BRIGHT,
-                }}
-              >
-                {pill.label}
-              </span>
-              <span
-                style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: "clamp(17px, 1.7vw, 21px)",
-                  fontWeight: 700,
-                  letterSpacing: "-0.2px",
-                  color: "white",
-                }}
-              >
-                {pill.value}
-              </span>
-            </span>
-          ))}
-        </motion.div>
+          {/* Date */}
+          <span className="otsf-jb-info-seg" style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "6px 18px" }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <rect x="3" y="4" width="18" height="18" rx="2" />
+              <line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+            </svg>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14.5, fontWeight: 600, color: "white", letterSpacing: "-0.1px", whiteSpace: "nowrap" }}>27 October 2026</span>
+          </span>
 
-        {/* Countdown */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.55, ease: EASE }}
-          style={{ marginBottom: 44, display: "flex", justifyContent: "center" }}
-        >
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 10,
-              padding: "9px 16px",
-              borderRadius: 13,
-              background: "rgba(5,8,24,0.5)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              boxShadow: `0 12px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)`,
-            }}
-          >
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                fontFamily: "var(--font-outfit)",
-                fontSize: 8.5,
-                fontWeight: 700,
-                letterSpacing: "2px",
-                textTransform: "uppercase",
-                paddingRight: 8,
-                borderRight: "1px solid rgba(255,255,255,0.10)",
-              }}
-            >
-              <span
-                aria-hidden
-                className="otsf-jb-live-dot otsf-jb-starts-dot"
-                style={{
-                  width: 5,
-                  height: 5,
-                  borderRadius: 999,
-                }}
-              />
-              <span className="otsf-jb-starts-text">Starts in</span>
+          <span aria-hidden className="otsf-jb-info-div" style={{ width: 1, height: 22, background: "rgba(255,255,255,0.14)" }} />
+
+          {/* Location */}
+          <span className="otsf-jb-info-seg" style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "6px 18px" }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
+            </svg>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14.5, fontWeight: 600, color: "white", letterSpacing: "-0.1px", whiteSpace: "nowrap" }}>Jubail · Kingdom of Saudi Arabia</span>
+          </span>
+
+          <span aria-hidden className="otsf-jb-info-div" style={{ width: 1, height: 22, background: "rgba(255,255,255,0.14)" }} />
+
+          {/* Countdown */}
+          <span className="otsf-jb-info-seg" style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "6px 18px" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+              <span aria-hidden className="otsf-jb-live-dot otsf-jb-starts-dot" style={{ width: 5, height: 5, borderRadius: 999 }} />
+              <span className="otsf-jb-starts-text" style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 700, letterSpacing: "1.6px", textTransform: "uppercase", color: "rgba(255,255,255,0.55)" }}>Starts in</span>
             </span>
             {[
-              { label: "Days", value: cd.d },
-              { label: "Hrs", value: cd.h },
-              { label: "Min", value: cd.m },
-              { label: "Sec", value: cd.s },
-            ].map((u, i) => (
-              <div key={u.label} style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
-                <span
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "clamp(15px, 1.5vw, 19px)",
-                    fontWeight: 800,
-                    letterSpacing: "-0.5px",
-                    color: "white",
-                    minWidth: 20,
-                    textAlign: "center",
-                  }}
-                >
-                  {String(u.value).padStart(2, "0")}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-outfit)",
-                    fontSize: 8,
-                    fontWeight: 600,
-                    letterSpacing: "1.2px",
-                    textTransform: "uppercase",
-                    color: "rgba(255,255,255,0.45)",
-                    marginRight: i < 3 ? 5 : 0,
-                  }}
-                >
-                  {u.label}
-                </span>
-              </div>
+              { label: "d", value: cd.d },
+              { label: "h", value: cd.h },
+              { label: "m", value: cd.m },
+              { label: "s", value: cd.s },
+            ].map((u) => (
+              <span key={u.label} style={{ display: "inline-flex", alignItems: "baseline", gap: 2 }}>
+                <span style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 800, letterSpacing: "-0.5px", color: "white", minWidth: 18, textAlign: "center" }}>{String(u.value).padStart(2, "0")}</span>
+                <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 600, color: "rgba(255,255,255,0.45)" }}>{u.label}</span>
+              </span>
             ))}
-          </div>
+          </span>
         </motion.div>
 
         {/* CTAs */}
@@ -688,6 +621,7 @@ function Hero() {
           {/* Primary CTA - Speaking & sponsorship · glassmorphism + liquid glass */}
           <a
             href="#contact"
+            onClick={(e) => { e.preventDefault(); jbScrollTo("contact"); }}
             className="otsf-jb-glass-cta"
             style={{
               position: "relative",
@@ -1148,6 +1082,14 @@ function Hero() {
           .otsf-jb-hero-content {
             padding: clamp(72px, 11vh, 110px) clamp(20px, 5vw, 64px) clamp(40px, 6vh, 70px) !important;
           }
+          /* Info bar - stack date/location/countdown and drop the vertical dividers */
+          .otsf-jb-hero-infobar {
+            flex-direction: column !important;
+            gap: 2px !important;
+            padding: 10px 18px !important;
+          }
+          .otsf-jb-info-div { display: none !important; }
+          .otsf-jb-info-seg { padding: 7px 6px !important; }
         }
         @media (max-width: 420px) {
           .otsf-jb-efg-badge > span {
@@ -1970,10 +1912,31 @@ function MarketChallenge() {
   const ref = useRef<HTMLDivElement | null>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const paragraphs = [
-    "As industrial systems evolve, the convergence of IT and OT, legacy infrastructure dependencies, remote operations, industrial IoT, and AI-driven automation are significantly expanding the cyber attack surface.",
-    "This rapid digitalisation is creating new vulnerabilities across critical infrastructure sectors, making cyber resilience not just an IT concern, but a national security and operational continuity priority.",
-    "The challenge now is not only about connectivity and efficiency, but about ensuring security, stability, and resilience across increasingly complex industrial ecosystems.",
+  // Verbatim doc copy, segmented so existing key phrases can be emphasised (no new words).
+  const POINTS: { text: string; em?: boolean }[][] = [
+    [
+      { text: "As industrial systems evolve, the convergence of " },
+      { text: "IT and OT", em: true },
+      { text: ", legacy infrastructure dependencies, remote operations, " },
+      { text: "industrial IoT", em: true },
+      { text: ", and " },
+      { text: "AI-driven automation", em: true },
+      { text: " are significantly expanding the " },
+      { text: "cyber attack surface", em: true },
+      { text: "." },
+    ],
+    [
+      { text: "This rapid digitalisation is creating " },
+      { text: "new vulnerabilities", em: true },
+      { text: " across critical infrastructure sectors, making cyber resilience not just an IT concern, but a " },
+      { text: "national security and operational continuity priority", em: true },
+      { text: "." },
+    ],
+    [
+      { text: "The challenge now is not only about connectivity and efficiency, but about ensuring " },
+      { text: "security, stability, and resilience", em: true },
+      { text: " across increasingly complex industrial ecosystems." },
+    ],
   ];
 
   return (
@@ -1981,7 +1944,7 @@ function MarketChallenge() {
       ref={ref}
       style={{
         position: "relative",
-        padding: "clamp(64px, 7vw, 96px) 0",
+        padding: "clamp(48px, 5.5vw, 78px) 0",
         background: BG_DEEP,
         overflow: "hidden",
       }}
@@ -1993,13 +1956,13 @@ function MarketChallenge() {
         aria-hidden
         style={{
           position: "absolute",
-          top: "10%",
+          top: "8%",
           left: "-12%",
-          width: 620,
-          height: 620,
+          width: 640,
+          height: 640,
           borderRadius: "50%",
-          background: `radial-gradient(circle, ${C}10 0%, transparent 60%)`,
-          filter: "blur(100px)",
+          background: `radial-gradient(circle, ${C}12 0%, transparent 60%)`,
+          filter: "blur(110px)",
           pointerEvents: "none",
         }}
       />
@@ -2007,100 +1970,140 @@ function MarketChallenge() {
         aria-hidden
         style={{
           position: "absolute",
-          bottom: "5%",
-          right: "-10%",
-          width: 520,
-          height: 520,
+          bottom: "2%",
+          right: "-12%",
+          width: 560,
+          height: 560,
           borderRadius: "50%",
-          background: `radial-gradient(circle, ${CYAN}0c 0%, transparent 60%)`,
-          filter: "blur(90px)",
+          background: `radial-gradient(circle, ${CYAN}10 0%, transparent 60%)`,
+          filter: "blur(100px)",
           pointerEvents: "none",
         }}
       />
 
-      <div style={{ position: "relative", maxWidth: 1080, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-        <Eyebrow inView={inView} label="Market Challenge" />
+      <div style={{ position: "relative", maxWidth: 1120, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+        {/* Header */}
+        <div style={{ maxWidth: 880, marginBottom: "clamp(26px, 3vw, 40px)" }}>
+          <Eyebrow inView={inView} label="Market Challenge" />
+          <motion.h2
+            initial={{ opacity: 0, y: 18 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: "clamp(32px, 4.6vw, 58px)",
+              letterSpacing: "-2px",
+              lineHeight: 1.0,
+              color: "white",
+              margin: 0,
+            }}
+          >
+            As industry converges, the{" "}
+            <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT, paddingRight: "0.08em" }}>
+              attack surface expands
+            </em>
+            .
+          </motion.h2>
+        </div>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 18 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
-          style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 800,
-            fontSize: "clamp(30px, 4.4vw, 56px)",
-            letterSpacing: "-2px",
-            lineHeight: 1.02,
-            color: "white",
-            margin: "0 0 clamp(36px, 4vw, 52px)",
-            maxWidth: 940,
-          }}
-        >
-          As industry converges, the{" "}
-          <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>
-            attack surface expands
-          </em>
-          .
-        </motion.h2>
-
-        {/* 3 stacked editorial paragraphs with hairline separators */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 0,
-            borderTop: "1px solid rgba(255,255,255,0.1)",
-          }}
-        >
-          {paragraphs.map((p, i) => (
+        {/* 3-beat escalating argument - premium stacked cards */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(12px, 1.4vw, 16px)" }}>
+          {POINTS.map((segs, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 22 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.75, delay: 0.22 + i * 0.1, ease: EASE }}
+              transition={{ duration: 0.8, delay: 0.24 + i * 0.12, ease: EASE }}
+              className="otsf-jb-mc-card"
               style={{
                 position: "relative",
                 display: "grid",
-                gridTemplateColumns: "clamp(40px, 4vw, 56px) 1fr",
-                alignItems: "baseline",
-                gap: "clamp(18px, 2.4vw, 32px)",
-                padding: "clamp(22px, 2.6vw, 32px) 4px",
-                borderBottom: "1px solid rgba(255,255,255,0.1)",
+                gridTemplateColumns: "clamp(70px, 8vw, 128px) 1fr",
+                gap: "clamp(20px, 3vw, 44px)",
+                alignItems: "center",
+                padding: "clamp(18px, 2vw, 26px) clamp(24px, 3vw, 42px)",
+                borderRadius: 20,
+                background: "linear-gradient(165deg, rgba(15,20,46,0.55) 0%, rgba(10,14,34,0.72) 100%)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                boxShadow: "0 22px 54px rgba(0,0,0,0.34), inset 0 1px 0 rgba(255,255,255,0.05)",
+                overflow: "hidden",
               }}
             >
-              {/* Italic Roman serial - right-aligned gutter, baseline-locked to first text line */}
+              {/* Left accent rail - intensifies down the sequence (escalation cue) */}
+              <span
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  top: "18%",
+                  bottom: "18%",
+                  width: 3,
+                  borderRadius: 3,
+                  background: `linear-gradient(180deg, ${C_BRIGHT}, ${C})`,
+                  boxShadow: `0 0 ${10 + i * 6}px ${C_BRIGHT}${["55", "77", "aa"][i]}`,
+                }}
+              />
+
+              {/* Index */}
               <span
                 style={{
                   fontFamily: "var(--font-display)",
                   fontStyle: "italic",
-                  fontSize: "clamp(16px, 1.4vw, 20px)",
-                  fontWeight: 600,
-                  letterSpacing: "0.2px",
+                  fontSize: "clamp(38px, 5vw, 64px)",
+                  fontWeight: 800,
+                  letterSpacing: "-2px",
+                  lineHeight: 0.9,
                   color: C_BRIGHT,
-                  lineHeight: 1.6,
-                  textAlign: "right",
-                  whiteSpace: "nowrap",
+                  textShadow: `0 0 26px ${C}44`,
                 }}
               >
-                {["i", "ii", "iii"][i]}
+                {String(i + 1).padStart(2, "0")}
               </span>
+
+              {/* Emphasised doc paragraph */}
               <p
                 style={{
                   margin: 0,
                   fontFamily: "var(--font-outfit)",
-                  fontSize: "clamp(15px, 1.3vw, 18.5px)",
+                  fontSize: "clamp(16px, 1.45vw, 20px)",
                   fontWeight: 400,
-                  color: "rgba(255,255,255,0.82)",
-                  lineHeight: 1.6,
+                  color: "rgba(255,255,255,0.78)",
+                  lineHeight: 1.62,
                   letterSpacing: "-0.1px",
                 }}
               >
-                {p}
+                {segs.map((s, j) =>
+                  s.em ? (
+                    <strong key={j} style={{ color: C_BRIGHT, fontWeight: 600 }}>
+                      {s.text}
+                    </strong>
+                  ) : (
+                    <span key={j}>{s.text}</span>
+                  )
+                )}
               </p>
             </motion.div>
           ))}
         </div>
       </div>
+
+      <style jsx global>{`
+        .otsf-jb-mc-card {
+          transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .otsf-jb-mc-card:hover {
+          transform: translateY(-3px);
+          border-color: ${C_BRIGHT}55;
+          box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45), 0 0 40px ${C}1f, inset 0 1px 0 rgba(255, 255, 255, 0.07);
+        }
+        @media (max-width: 640px) {
+          .otsf-jb-mc-card {
+            grid-template-columns: 1fr !important;
+            gap: 10px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
@@ -3086,6 +3089,8 @@ function ContactCard({
   email,
   whatsapp,
   inView,
+  photoPos,
+  photoTransform,
 }: {
   delay: number;
   tone: "pink" | "cyan";
@@ -3096,6 +3101,8 @@ function ContactCard({
   email: string;
   whatsapp: string;
   inView: boolean;
+  photoPos?: string;
+  photoTransform?: string;
 }) {
   const accent = tone === "pink" ? C_BRIGHT : CYAN;
   const accentDeep = tone === "pink" ? C : C;
@@ -3178,7 +3185,8 @@ function ContactCard({
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            objectPosition: "center 18%",
+            objectPosition: photoPos || "center 18%",
+            transform: photoTransform || undefined,
           }}
         />
         {/* Soft fade into the card body so name overlays read clean */}
@@ -3359,7 +3367,6 @@ function Contact() {
 
   return (
     <section ref={ref} id="register-interest" style={{ position: "relative", padding: "clamp(64px, 7vw, 96px) 0", background: BG_DEEP }}>
-      <span id="contact" style={{ position: "absolute", top: -80 }} aria-hidden />
       <BgDots opacity={0.04} />
       {/* Soft gradient spotlight */}
       <div
@@ -3428,7 +3435,9 @@ function Contact() {
             eyebrow="Speaking"
             name="Anna Firdouse Shah"
             role="Senior Conference Producer"
-            photo="https://efg-final.s3.eu-north-1.amazonaws.com/team/anna+shah.jpeg"
+            photo="https://efg-final.s3.eu-north-1.amazonaws.com/team/anna+blur+bg.png"
+            photoPos="center center"
+            photoTransform="scale(1.4) translateX(-12%)"
             email="anna@eventsfirstgroup.com"
             whatsapp="https://wa.me/971545714377"
             inView={inView}
@@ -4261,7 +4270,7 @@ function AwardsSection() {
   });
 
   return (
-    <section ref={ref} id="awards" style={{ position: "relative", padding: "clamp(64px, 7vw, 96px) 0", background: BG_DEEP }}>
+    <section ref={ref} style={{ position: "relative", padding: "clamp(64px, 7vw, 96px) 0", background: BG_DEEP }}>
       <BgDots opacity={0.05} />
       {/* Gold ambient */}
       <div
@@ -4829,6 +4838,7 @@ function BePartOfTheMovement() {
 
         <motion.a
           href="#register"
+          onClick={(e) => { e.preventDefault(); jbScrollTo("register"); }}
           initial={{ opacity: 0, y: 14 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
@@ -4873,7 +4883,6 @@ function BePartOfTheMovement() {
 function RegisterSection() {
   return (
     <section
-      id="register"
       style={{
         position: "relative",
         padding: "clamp(64px, 7vw, 96px) 0",

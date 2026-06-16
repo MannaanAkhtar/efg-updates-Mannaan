@@ -5,6 +5,25 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+// Lenis (global smooth-scroll) hijacks the wheel, so native scrollIntoView /
+// window.scrollTo get reset every frame. Drive Lenis directly when present.
+type LenisLike = { scrollTo: (target: HTMLElement | number, opts?: { offset?: number }) => void };
+function getLenis(): LenisLike | undefined {
+  return (window as unknown as { __lenis?: LenisLike }).__lenis;
+}
+function smoothScrollToId(id: string, offset = -80) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const lenis = getLenis();
+  if (lenis) lenis.scrollTo(el, { offset });
+  else el.scrollIntoView({ behavior: "smooth" });
+}
+function smoothScrollToTop() {
+  const lenis = getLenis();
+  if (lenis) lenis.scrollTo(0);
+  else window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 // Event configurations
 const EVENT_CONFIGS: Record<string, {
   name: string;
@@ -216,7 +235,7 @@ export default function EventNavigation() {
             href={pathname || "/"}
             onClick={(e) => {
               e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
+              smoothScrollToTop();
             }}
             className="flex items-center gap-3"
             style={{ cursor: "pointer" }}
@@ -300,8 +319,7 @@ export default function EventNavigation() {
                 href={link.href}
                 onClick={(e) => {
                   e.preventDefault();
-                  const id = link.href.replace("#", "");
-                  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+                  smoothScrollToId(link.href.replace("#", ""));
                 }}
                 className="transition-colors duration-200"
                 style={{
@@ -354,7 +372,7 @@ export default function EventNavigation() {
               href="#register"
               onClick={(e) => {
                 e.preventDefault();
-                document.getElementById("register")?.scrollIntoView({ behavior: "smooth" });
+                smoothScrollToId("register");
               }}
               className="transition-all duration-200"
               style={{
@@ -424,7 +442,7 @@ export default function EventNavigation() {
                       e.preventDefault();
                       setIsMobileMenuOpen(false);
                       const id = link.href.replace("#", "");
-                      setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 300);
+                      setTimeout(() => smoothScrollToId(id), 300);
                     }}
                     style={{
                       fontFamily: "var(--font-display)",
@@ -449,7 +467,7 @@ export default function EventNavigation() {
                   onClick={(e) => {
                     e.preventDefault();
                     setIsMobileMenuOpen(false);
-                    setTimeout(() => document.getElementById("register")?.scrollIntoView({ behavior: "smooth" }), 300);
+                    setTimeout(() => smoothScrollToId("register"), 300);
                   }}
                   style={{
                     fontFamily: "var(--font-outfit)",
