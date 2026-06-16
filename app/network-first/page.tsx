@@ -37,21 +37,6 @@ const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 
 const UPCOMING_EVENTS = [
   {
-    date: "June 10th, 2026",
-    month: "JUN",
-    day: "10",
-    year: "2026",
-    time: "11:00 AM GST",
-    title: "CleverTap Virtual Roundtable",
-    subtitle: "Engaging Customers in Uncertain Times: Why Trust is Your Competitive Advantage",
-    sponsor: "CleverTap",
-    location: "Virtual",
-    link: "/beyond-automation-by-clevertap",
-    image: "",
-    brandColor: "#133B58",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverTap_Logotype.png",
-  },
-  {
     date: "June 16th, 2026",
     month: "JUN",
     day: "16",
@@ -295,6 +280,19 @@ type PastEvent = {
 };
 
 const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    sponsor: "CleverTap",
+    title: "CleverTap Virtual Roundtable",
+    subtitle: "Engaging Customers in Uncertain Times: Why Trust is Your Competitive Advantage",
+    month: "JUN",
+    date: "10 Jun",
+    venue: "Virtual",
+    time: "11:00 AM GST",
+    image: "",
+    brandColor: "#133B58",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverTap_Logotype.png",
+    link: "/beyond-automation-by-clevertap",
+  },
   {
     sponsor: "OPEX First",
     title: "Process Intelligence MENA",
