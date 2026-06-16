@@ -131,22 +131,6 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/proofpoint_whitelogo.png",
   },
   {
-    date: "June 23rd, 2026",
-    month: "JUN",
-    day: "23",
-    year: "2026",
-    time: "17:00 – 20:30 GST",
-    title: "Blue Yonder Executive Dinner",
-    subtitle: "Visibility, Control & Networked Execution across the GCC",
-    sponsor: "Blue Yonder",
-    location: "Dubai, UAE",
-    link: "/blueyonder",
-    image: "",
-    brandColor: "#A30659",
-    brandGradient: "linear-gradient(135deg, #A30659 0%, #6A0136 35%, #000E4E 70%, #0a0a0a 100%)",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Blue_Yonder_rgb.png",
-  },
-  {
     date: "June 24th, 2026",
     month: "JUN",
     day: "24",
@@ -208,9 +192,25 @@ const UPCOMING_EVENTS = [
     image: `${NF}/2026/02/outsystems-one.jpg`,
   },
   {
-    date: "TBH",
-    month: "TBH",
-    day: "TBH",
+    date: "TBA",
+    month: "TBA",
+    day: "TBA",
+    year: "2026",
+    time: "17:00 – 20:30 GST",
+    title: "Blue Yonder Executive Dinner",
+    subtitle: "Visibility, Control & Networked Execution across the GCC",
+    sponsor: "Blue Yonder",
+    location: "Dubai, UAE",
+    link: "/blueyonder",
+    image: "",
+    brandColor: "#A30659",
+    brandGradient: "linear-gradient(135deg, #A30659 0%, #6A0136 35%, #000E4E 70%, #0a0a0a 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Blue_Yonder_rgb.png",
+  },
+  {
+    date: "TBA",
+    month: "TBA",
+    day: "TBA",
     year: "2026",
     time: "09:30 – 13:30 GST",
     title: "Unlock the Power of Modern FP&A",
@@ -1936,8 +1936,8 @@ const NF_MONTHS = (() => {
     if (!monthMap[e.month]) monthMap[e.month] = [];
     monthMap[e.month].push(e);
   });
-  const order = ["APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC", "TBH"];
-  const fullNames: Record<string, string> = { APR: "April", MAY: "May", JUN: "June", JUL: "July", AUG: "August", SEP: "September", OCT: "October", NOV: "November", DEC: "December", TBH: "To be announced" };
+  const order = ["APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC", "TBA", "TBH"];
+  const fullNames: Record<string, string> = { APR: "April", MAY: "May", JUN: "June", JUL: "July", AUG: "August", SEP: "September", OCT: "October", NOV: "November", DEC: "December", TBA: "To be announced", TBH: "To be announced" };
   return order.filter(m => monthMap[m]).map(m => ({ abbr: m, full: fullNames[m], events: monthMap[m] }));
 })();
 

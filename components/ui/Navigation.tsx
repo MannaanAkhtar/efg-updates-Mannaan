@@ -71,11 +71,11 @@ const networkFirstEvents = [
   { href: "/brazextalonone", label: "Braze x Talon.One", date: "18 Jun" },
   { href: "/ifs", label: "IFS", date: "23 Jun" },
   { href: "/proofpoint", label: "Proofpoint", date: "23 Jun" },
-  { href: "/blueyonder", label: "Blue Yonder", date: "23 Jun" },
-  { href: "/outsystems-blackstone", label: "Blackstone eIT", date: "24 Jun" },
+  { href: "/outsystems-blackstone", label: "Outsystems | Blackstone", date: "24 Jun" },
   { href: "/poka", label: "Poka", date: "29 Jun" },
   { href: "/autodesk", label: "Autodesk", date: "30 Jun" },
   { href: "https://events.outsystems.com/event/17e2fb07-2b9a-46e2-9acf-44590276e2d8/homepage?RefId=oed-ksa", label: "OutSystems", date: "19 Oct" },
+  { href: "/blueyonder", label: "Blue Yonder", date: "TBA" },
   { href: "https://www.jedox.com/en/events/unlock-the-power-of-modern-fpa-2026/", label: "Jedox | PlanPulse", date: "TBA" },
 ];
 
