@@ -17,6 +17,18 @@ const SG_GRAY_DEEP = "#4A5563";
 
 const LOGO_NEG = "https://efg-final.s3.eu-north-1.amazonaws.com/logos/seagate_2c_horizontal_neg1.png";
 
+// ─── Event photography — moments from the Seagate Executive Roundtable ────────
+const PHOTOS = [
+  "https://efg-final.s3.eu-north-1.amazonaws.com/seagate/SF1A4008.jpg",
+  "https://efg-final.s3.eu-north-1.amazonaws.com/seagate/SF1A4014.jpg",
+  "https://efg-final.s3.eu-north-1.amazonaws.com/seagate/SF1A4043.jpg",
+  "https://efg-final.s3.eu-north-1.amazonaws.com/seagate/SF1A4143.jpg",
+  "https://efg-final.s3.eu-north-1.amazonaws.com/seagate/SF1A4151.jpg",
+  "https://efg-final.s3.eu-north-1.amazonaws.com/seagate/SF1A4170.jpg",
+  "https://efg-final.s3.eu-north-1.amazonaws.com/seagate/SF1A4269.jpg",
+  "https://efg-final.s3.eu-north-1.amazonaws.com/seagate/SF1A4475.jpg",
+];
+
 // ─── Form shape + questions (quick anonymous survey) ─────────────────────────
 const EMPTY_FORM = {
   fullName: "",
@@ -136,6 +148,16 @@ export default function SeagateFeedbackPage() {
           </p>
         </div>
 
+        {/* Event gallery (top) — first 4 moments */}
+        <div className="sgf-gallery sgf-gallery-top" aria-label="Moments from the roundtable">
+          {PHOTOS.slice(0, 4).map((src, i) => (
+            <figure key={src} className="sgf-shot">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={src} alt={`Seagate Executive Roundtable moment ${i + 1}`} loading="lazy" />
+            </figure>
+          ))}
+        </div>
+
         {/* Card */}
         <div className="sgf-card">
           {submitted ? (
@@ -203,10 +225,71 @@ export default function SeagateFeedbackPage() {
             </form>
           )}
         </div>
+
+        {/* Event gallery (bottom) — last 4 moments */}
+        <div className="sgf-gallery sgf-gallery-bottom" aria-label="More moments from the roundtable">
+          {PHOTOS.slice(4).map((src, i) => (
+            <figure key={src} className="sgf-shot">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={src} alt={`Seagate Executive Roundtable moment ${i + 5}`} loading="lazy" />
+            </figure>
+          ))}
+        </div>
       </div>
 
       <style jsx global>{`
-        .sgf-wrap { max-width: 460px; }
+        .sgf-wrap { max-width: 460px; display: flex; flex-direction: column; }
+
+        /* Order on mobile: header → top gallery → form → bottom gallery */
+        .sgf-gallery-top { order: 1; }
+        .sgf-card { order: 2; }
+        .sgf-gallery-bottom { order: 3; }
+
+        /* Event gallery */
+        .sgf-gallery {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+        }
+        .sgf-gallery-top { margin-bottom: clamp(22px, 3.5vh, 36px); }
+        .sgf-gallery-bottom { margin-top: clamp(22px, 3.5vh, 36px); }
+        .sgf-shot {
+          margin: 0;
+          position: relative;
+          aspect-ratio: 4 / 3;
+          overflow: hidden;
+          border-radius: 14px;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+          background: rgba(255, 255, 255, 0.03);
+        }
+        .sgf-shot img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s ease;
+        }
+        .sgf-shot::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, transparent 55%, rgba(2, 8, 6, 0.45) 100%);
+          opacity: 0.7;
+          transition: opacity 0.5s ease;
+          pointer-events: none;
+        }
+        .sgf-shot:hover img { transform: scale(1.06); }
+        .sgf-shot:hover::after { opacity: 0.35; }
+
+        @media (min-width: 760px) {
+          .sgf-gallery { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+          /* All 8 photos stack above the form as one contiguous grid */
+          .sgf-gallery-top { order: 1; margin-bottom: 12px; }
+          .sgf-gallery-bottom { order: 2; margin-top: 0; margin-bottom: clamp(22px, 3.5vh, 36px); }
+          .sgf-card { order: 3; }
+        }
+
         .sgf-card {
           background: ${SG_BONE};
           border-radius: 22px;
