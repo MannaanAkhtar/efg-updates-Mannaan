@@ -37,22 +37,6 @@ const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 
 const UPCOMING_EVENTS = [
   {
-    date: "June 16th, 2026",
-    month: "JUN",
-    day: "16",
-    year: "2026",
-    time: "10:30 – 14:30 AST",
-    title: "Proofpoint Executive Roundtable",
-    subtitle: "The Next Chapter in Human and Agentic Security",
-    sponsor: "Proofpoint",
-    location: "JW Marriott Riyadh",
-    link: "/proofpoint-2",
-    image: "",
-    brandColor: "#00B4F0",
-    brandGradient: "linear-gradient(135deg, #00B4F0 0%, #0095CC 35%, #0E2541 70%, #0a0a0a 100%)",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/proofpoint_whitelogo.png",
-  },
-  {
     date: "June 17th, 2026",
     month: "JUN",
     day: "17",
@@ -280,6 +264,19 @@ type PastEvent = {
 };
 
 const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    sponsor: "Proofpoint",
+    title: "Proofpoint Executive Roundtable",
+    subtitle: "The Next Chapter in Human and Agentic Security",
+    month: "JUN",
+    date: "16 Jun",
+    venue: "JW Marriott Riyadh",
+    time: "10:30 – 14:30 AST",
+    image: "",
+    brandColor: "#00B4F0",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/proofpoint_whitelogo.png",
+    link: "/proofpoint-2",
+  },
   {
     sponsor: "CleverTap",
     title: "CleverTap Virtual Roundtable",
@@ -2039,7 +2036,7 @@ function UpcomingSection() {
             style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, marginBottom: "clamp(24px, 3vw, 32px)", flexWrap: "wrap" }}>
             <div style={{ display: "flex", gap: 8, overflowX: "auto", scrollbarWidth: "none" }}>
               {NF_MONTHS.map(m => (
-                <button key={m.abbr} onClick={() => scrollToMonth(m.abbr)} className={`nf-month-pill ${activeMonth === m.abbr ? "nf-month-active" : ""}`}>
+                <button key={m.abbr} type="button" suppressHydrationWarning onClick={() => scrollToMonth(m.abbr)} className={`nf-month-pill ${activeMonth === m.abbr ? "nf-month-active" : ""}`}>
                   {m.abbr}
                   <span className="nf-month-count">{m.events.length}</span>
                 </button>
@@ -2048,10 +2045,10 @@ function UpcomingSection() {
             {/* Pagination Arrows */}
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: TEXT_30, letterSpacing: "1px", marginRight: 8 }}>Drag to explore</span>
-              <button onClick={() => scrollRef.current?.scrollBy({ left: -380, behavior: "smooth" })} className="nf-arrow-btn">
+              <button type="button" suppressHydrationWarning onClick={() => scrollRef.current?.scrollBy({ left: -380, behavior: "smooth" })} className="nf-arrow-btn">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
               </button>
-              <button onClick={() => scrollRef.current?.scrollBy({ left: 380, behavior: "smooth" })} className="nf-arrow-btn">
+              <button type="button" suppressHydrationWarning onClick={() => scrollRef.current?.scrollBy({ left: 380, behavior: "smooth" })} className="nf-arrow-btn">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </button>
             </div>
@@ -2379,6 +2376,166 @@ function UrgencyBanner() {
 // PAST BOARDROOMS
 // ═══════════════════════════════════════════════════════════════════════════════
 
+// One month = one horizontally drag-scrollable row of past-event cards.
+// Default rows show pagination dots when they overflow; an autoScroll row
+// instead runs a seamless marquee loop (pauses on hover / drag).
+const NF_CARD_GAP = "clamp(12px, 2vw, 20px)";
+const NF_ROW_PAD = "clamp(16px, 3vw, 40px)";
+const NF_AUTOSCROLL_SPEED = 0.5; // px per frame
+
+function Past2026MonthRow({ full, autoScroll = false, children }: { full: string; autoScroll?: boolean; children: React.ReactNode }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartX = useRef(0);
+  const dragScrollLeft = useRef(0);
+  const dragDistance = useRef(0);
+  const pausedRef = useRef(false);
+  const returningRef = useRef(false);
+  const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [pageCount, setPageCount] = useState(1);
+  const [activePage, setActivePage] = useState(0);
+
+  // Pagination dots — track scroll position live (works during auto-scroll too).
+  const recompute = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const pages = Math.max(1, Math.ceil((el.scrollWidth - 4) / el.clientWidth));
+    setPageCount(pages);
+    setActivePage(Math.min(pages - 1, Math.round(el.scrollLeft / el.clientWidth)));
+  }, []);
+
+  useEffect(() => {
+    recompute();
+    const el = scrollRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", recompute, { passive: true });
+    window.addEventListener("resize", recompute);
+    return () => { el.removeEventListener("scroll", recompute); window.removeEventListener("resize", recompute); };
+  }, [recompute]);
+
+  // Auto-scroll: advance to the last event, then glide back to the first and repeat.
+  useEffect(() => {
+    if (!autoScroll) return;
+    const el = scrollRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let raf = 0;
+    const tick = () => {
+      if (el && !pausedRef.current && !isDragging) {
+        const maxScroll = el.scrollWidth - el.clientWidth;
+        if (maxScroll > 1) {
+          if (returningRef.current) {
+            // Gliding back to the first event; resume once we're home.
+            if (el.scrollLeft <= 1) returningRef.current = false;
+          } else {
+            el.scrollLeft += NF_AUTOSCROLL_SPEED;
+            if (el.scrollLeft >= maxScroll - 1) {
+              returningRef.current = true;
+              el.scrollTo({ left: 0, behavior: "smooth" });
+            }
+          }
+        }
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [autoScroll, isDragging]);
+
+  const onDragStart = (e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    setIsDragging(true);
+    dragStartX.current = e.pageX;
+    dragScrollLeft.current = scrollRef.current.scrollLeft;
+    dragDistance.current = 0;
+  };
+  const onDragMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollRef.current) return;
+    e.preventDefault();
+    const dx = e.pageX - dragStartX.current;
+    dragDistance.current = Math.abs(dx);
+    scrollRef.current.scrollLeft = dragScrollLeft.current - dx;
+  };
+  const onDragEnd = () => setIsDragging(false);
+
+  // Dot click: pause the auto-scroll, glide to the chosen page, then resume.
+  const goToPage = (i: number) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    pausedRef.current = true;
+    returningRef.current = false;
+    el.scrollTo({ left: i * el.clientWidth, behavior: "smooth" });
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+    resumeTimer.current = setTimeout(() => { pausedRef.current = false; }, 1600);
+  };
+
+  useEffect(() => () => { if (resumeTimer.current) clearTimeout(resumeTimer.current); }, []);
+
+  return (
+    <div>
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: `0 ${NF_ROW_PAD}`, marginBottom: "clamp(8px, 1.4vw, 14px)" }}>
+        <span style={{ fontFamily: "var(--font-display)", fontSize: "clamp(30px, 5vw, 56px)", fontWeight: 800, letterSpacing: "-2.5px", lineHeight: 1, color: "rgba(255,255,255,0.18)" }}>
+          {full}
+        </span>
+      </div>
+      <div
+        ref={scrollRef}
+        className="nf-scroll-track"
+        style={{
+          cursor: isDragging ? "grabbing" : "grab",
+          userSelect: isDragging ? "none" : "auto",
+        }}
+        onMouseEnter={() => { pausedRef.current = true; }}
+        onMouseDown={onDragStart}
+        onMouseMove={onDragMove}
+        onMouseUp={onDragEnd}
+        onMouseLeave={() => { pausedRef.current = false; onDragEnd(); }}
+        onClickCapture={(e) => { if (dragDistance.current > 5) { e.preventDefault(); e.stopPropagation(); } }}
+      >
+        <div style={{ width: NF_ROW_PAD, flexShrink: 0 }} />
+        <div style={{ display: "flex", gap: NF_CARD_GAP }}>
+          {children}
+        </div>
+        <div style={{ width: NF_ROW_PAD, flexShrink: 0 }} />
+      </div>
+
+      {pageCount > 1 && (
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "wrap", gap: 6, marginTop: 16, padding: "0 16px" }}>
+          {Array.from({ length: pageCount }).map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              suppressHydrationWarning
+              aria-label={`Go to page ${i + 1}`}
+              aria-current={activePage === i}
+              onClick={() => goToPage(i)}
+              style={{
+                minWidth: 30,
+                height: 30,
+                flex: "0 0 auto",
+                padding: "0 9px",
+                border: `1px solid ${activePage === i ? GOLD : "rgba(255,255,255,0.14)"}`,
+                borderRadius: 8,
+                cursor: "pointer",
+                fontFamily: "var(--font-outfit)",
+                fontSize: 12.5,
+                fontWeight: 600,
+                lineHeight: 1,
+                background: activePage === i ? GOLD : "transparent",
+                color: activePage === i ? BG : "rgba(255,255,255,0.5)",
+                transition: "background 0.3s ease, color 0.3s ease, border-color 0.3s ease",
+              }}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function PastBoardroomsShowcase() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
@@ -2402,37 +2559,17 @@ function PastBoardroomsShowcase() {
     return MONTH_REVERSE_ORDER.filter((m) => map[m]).map((m) => ({ abbr: m, full: MONTH_FULL[m], events: map[m] }));
   }, []);
 
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const dragStartX = useRef(0);
-  const dragScrollLeft = useRef(0);
-  const dragDistance = useRef(0);
-
-  const onDragStart = useCallback((e: React.MouseEvent) => {
-    if (!scrollRef.current) return;
-    setIsDragging(true);
-    dragStartX.current = e.pageX;
-    dragScrollLeft.current = scrollRef.current.scrollLeft;
-    dragDistance.current = 0;
-  }, []);
-  const onDragMove = useCallback((e: React.MouseEvent) => {
-    if (!isDragging || !scrollRef.current) return;
-    e.preventDefault();
-    const dx = e.pageX - dragStartX.current;
-    dragDistance.current = Math.abs(dx);
-    scrollRef.current.scrollLeft = dragScrollLeft.current - dx;
-  }, [isDragging]);
-  const onDragEnd = useCallback(() => setIsDragging(false), []);
-
   return (
-    <section ref={ref} style={{ padding: "clamp(100px, 12vw, 140px) 0", position: "relative" }}>
+    <section ref={ref} style={{ padding: "clamp(48px, 6vw, 80px) 0", position: "relative" }}>
       <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 24px" }}>
-        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 24, marginBottom: 48 }}>
+        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 24, marginBottom: "clamp(24px, 3vw, 32px)" }}>
           <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 44px)", fontWeight: 600, margin: 0, letterSpacing: "-0.02em", color: TEXT }}>300+ sessions delivered.</h2>
           <div style={{ display: "flex", gap: 4 }}>
             {(["2026", "2025", "2024", "2023"] as const).map((year) => (
               <button
                 key={year}
+                type="button"
+                suppressHydrationWarning
                 onClick={() => setActiveYear(year)}
                 style={{ padding: "10px 20px", borderRadius: 980, border: "none", background: activeYear === year ? GOLD : "transparent", color: activeYear === year ? BG : TEXT_50, fontSize: 14, fontWeight: 500, cursor: "pointer", transition: "all 0.3s ease" }}
                 onMouseEnter={(e) => { if (activeYear !== year) { e.currentTarget.style.background = GOLD_15; e.currentTarget.style.color = TEXT; } }}
@@ -2446,28 +2583,9 @@ function PastBoardroomsShowcase() {
       <AnimatePresence mode="wait">
         {activeYear === "2026" ? (
           <motion.div key="past-2026" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.3 }}>
-            <div
-              ref={scrollRef}
-              className="nf-scroll-track"
-              style={{ cursor: isDragging ? "grabbing" : "grab", userSelect: isDragging ? "none" : "auto" }}
-              onMouseDown={onDragStart}
-              onMouseMove={onDragMove}
-              onMouseUp={onDragEnd}
-              onMouseLeave={onDragEnd}
-              onClickCapture={(e) => { if (dragDistance.current > 5) { e.preventDefault(); e.stopPropagation(); } }}
-            >
-              <div style={{ width: "clamp(16px, 4vw, 60px)", flexShrink: 0 }} />
-
-              {past2026Months.map((month, mi) => (
-                <div key={month.abbr} style={{ display: "flex", flexDirection: "column", flexShrink: 0, paddingLeft: mi > 0 ? "clamp(24px, 4vw, 48px)" : 0 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: "clamp(20px, 3vw, 32px)" }}>
-                    {mi > 0 && <div style={{ width: "clamp(40px, 6vw, 80px)", height: 1, background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.1))`, marginRight: "clamp(12px, 2vw, 24px)" }} />}
-                    <span style={{ fontFamily: "var(--font-display)", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 800, letterSpacing: "-3px", lineHeight: 1, color: "rgba(255,255,255,0.18)" }}>
-                      {month.full}
-                    </span>
-                  </div>
-
-                  <div style={{ display: "flex", gap: "clamp(12px, 2vw, 20px)" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "clamp(20px, 2.6vw, 32px)" }}>
+              {past2026Months.map((month) => (
+                <Past2026MonthRow key={month.abbr} full={month.full} autoScroll>
                     {month.events.map((e, idx) => {
                       const inner = (
                         <>
@@ -2558,11 +2676,8 @@ function PastBoardroomsShowcase() {
                         </div>
                       );
                     })}
-                  </div>
-                </div>
+                </Past2026MonthRow>
               ))}
-
-              <div style={{ width: "clamp(16px, 4vw, 60px)", flexShrink: 0 }} />
             </div>
           </motion.div>
         ) : (

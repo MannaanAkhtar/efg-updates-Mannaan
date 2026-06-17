@@ -65,7 +65,6 @@ const NETWORKFIRST_COLOR = "#C9935A";
 
 // NetworkFirst boardrooms — mirrors the upcoming-events order on /network-first
 const networkFirstEvents = [
-  { href: "/proofpoint-2", label: "Proofpoint", date: "16 Jun" },
   { href: "/seagate", label: "Seagate", date: "17 Jun" },
   { href: "https://www.jedox.com/en/events/beyond-sop-unlocking-the-power-of-ibp/", label: "Jedox | Keansa", date: "18 Jun" },
   { href: "/brazextalonone", label: "Braze x Talon.One", date: "18 Jun" },
