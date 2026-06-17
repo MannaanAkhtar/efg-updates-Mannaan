@@ -25,7 +25,7 @@ const PHOTOS = [
   "https://efg-final.s3.eu-north-1.amazonaws.com/seagate/SF1A4143.jpg",
   "https://efg-final.s3.eu-north-1.amazonaws.com/seagate/SF1A4151.jpg",
   "https://efg-final.s3.eu-north-1.amazonaws.com/seagate/SF1A4170.jpg",
-  "https://efg-final.s3.eu-north-1.amazonaws.com/seagate/SF1A4269.jpg",
+  "https://efg-final.s3.eu-north-1.amazonaws.com/seagate/SF1A4345.jpg",
   "https://efg-final.s3.eu-north-1.amazonaws.com/seagate/SF1A4475.jpg",
 ];
 
