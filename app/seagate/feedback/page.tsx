@@ -123,7 +123,7 @@ export default function SeagateFeedbackPage() {
           <div style={{ marginTop: "clamp(20px, 3vh, 32px)" }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 10, fontSize: 10.5, fontWeight: 600, letterSpacing: "0.3em", textTransform: "uppercase", color: SG_GREEN }}>
               <span aria-hidden style={{ width: 22, height: 1, background: SG_GREEN }} />
-              Post-Event Survey
+              Feedback Form
               <span aria-hidden style={{ width: 22, height: 1, background: SG_GREEN }} />
             </span>
           </div>
