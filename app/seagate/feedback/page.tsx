@@ -112,7 +112,7 @@ export default function SeagateFeedbackPage() {
         pointerEvents: "none",
       }} />
 
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 460, margin: "0 auto", width: "100%" }}>
+      <div className="sgf-wrap" style={{ position: "relative", zIndex: 1, margin: "0 auto", width: "100%" }}>
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "clamp(20px, 3vh, 32px)" }}>
           <Link href="/seagate" aria-label="Seagate Executive Roundtable" style={{ display: "inline-block" }}>
@@ -157,34 +157,36 @@ export default function SeagateFeedbackPage() {
               <div className="sgf-row">
                 <div className="sgf-field">
                   <label htmlFor="sgf-name">Full Name</label>
-                  <input id="sgf-name" name="fullName" type="text" required placeholder="Your full name" value={form.fullName} onChange={handleChange} suppressHydrationWarning />
+                  <input id="sgf-name" name="fullName" type="text" required placeholder="Your full name" value={form.fullName ?? ""} onChange={handleChange} suppressHydrationWarning />
                 </div>
                 <div className="sgf-field">
                   <label htmlFor="sgf-email">Work Email</label>
-                  <input id="sgf-email" name="email" type="email" required placeholder="you@company.com" value={form.email} onChange={handleChange} suppressHydrationWarning />
+                  <input id="sgf-email" name="email" type="email" required placeholder="you@company.com" value={form.email ?? ""} onChange={handleChange} suppressHydrationWarning />
                 </div>
               </div>
 
               <div aria-hidden className="sgf-divider" />
 
               {/* Survey questions */}
-              {QUESTIONS.map((q) => (
-                <div key={q.key} className="sgf-q">
-                  <label htmlFor={`sgf-${q.key}`} className="sgf-q-label">
-                    <span className="sgf-q-num">{q.n}</span>
-                    {q.q}
-                  </label>
-                  <textarea
-                    id={`sgf-${q.key}`}
-                    name={q.key}
-                    rows={q.key === "contact" ? 2 : 3}
-                    placeholder={q.placeholder}
-                    value={form[q.key]}
-                    onChange={handleChange}
-                    suppressHydrationWarning
-                  />
-                </div>
-              ))}
+              <div className="sgf-questions">
+                {QUESTIONS.map((q) => (
+                  <div key={q.key} className="sgf-q">
+                    <label htmlFor={`sgf-${q.key}`} className="sgf-q-label">
+                      <span className="sgf-q-num">{q.n}</span>
+                      {q.q}
+                    </label>
+                    <textarea
+                      id={`sgf-${q.key}`}
+                      name={q.key}
+                      rows={q.key === "contact" ? 2 : 3}
+                      placeholder={q.placeholder}
+                      value={form[q.key] ?? ""}
+                      onChange={handleChange}
+                      suppressHydrationWarning
+                    />
+                  </div>
+                ))}
+              </div>
 
               {errorMsg && <p className="sgf-error">{errorMsg}</p>}
 
@@ -201,14 +203,10 @@ export default function SeagateFeedbackPage() {
             </form>
           )}
         </div>
-
-        {/* EFG attribution (brand-page convention: partner up top, EFG in footer) */}
-        <p style={{ textAlign: "center", marginTop: "clamp(16px, 2.5vh, 24px)", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)" }}>
-          An Events First Group initiative
-        </p>
       </div>
 
       <style jsx global>{`
+        .sgf-wrap { max-width: 460px; }
         .sgf-card {
           background: ${SG_BONE};
           border-radius: 22px;
@@ -219,6 +217,29 @@ export default function SeagateFeedbackPage() {
           display: grid;
           grid-template-columns: 1fr;
           gap: 14px;
+        }
+        .sgf-questions {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: clamp(20px, 2.6vw, 28px);
+        }
+
+        /* Desktop: fill the width — wider card, two-column fields */
+        @media (min-width: 760px) {
+          .sgf-wrap { max-width: 880px; }
+          .sgf-card { padding: clamp(34px, 4vw, 52px); }
+          .sgf-form .sgf-row { grid-template-columns: 1fr 1fr; gap: 22px; }
+          .sgf-questions {
+            grid-template-columns: 1fr 1fr;
+            column-gap: 28px;
+            row-gap: 36px;
+            align-items: start;
+          }
+          /* Make each question a column whose textarea sits at a uniform baseline */
+          .sgf-q { display: flex; flex-direction: column; }
+          .sgf-q-label { min-height: 60px; align-content: start; }
+          .sgf-questions textarea { min-height: 132px; flex: 1; }
+          .sgf-submit { display: block; max-width: 320px; margin-left: auto; margin-right: auto; }
         }
         .sgf-field {
           display: flex;
@@ -267,7 +288,7 @@ export default function SeagateFeedbackPage() {
           background: linear-gradient(90deg, transparent, rgba(10, 14, 18, 0.14) 30%, rgba(10, 14, 18, 0.14) 70%, transparent);
         }
 
-        .sgf-q { margin-top: clamp(20px, 2.6vw, 28px); }
+        .sgf-q { margin-top: 0; }
         .sgf-q-label {
           display: block;
           font-size: 12.5px;
