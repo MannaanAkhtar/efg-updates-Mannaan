@@ -34,16 +34,14 @@ const EMPTY_FORM = {
   fullName: "",
   email: "",
   feedback: "",
-  aistep: "",
+  installer: "",
   improve: "",
-  contact: "",
 };
 
 const QUESTIONS: { key: keyof typeof EMPTY_FORM; n: number; q: string; placeholder: string }[] = [
   { key: "feedback", n: 1, q: "Your honest feedback about the event", placeholder: "What worked, what stood out, what could have been better…" },
-  { key: "aistep", n: 2, q: "One practical step every leader in the room could take to make their infrastructure more AI-ready", placeholder: "A concrete next move you'd recommend…" },
+  { key: "installer", n: 2, q: "Which system installer do you typically prefer or recommend?", placeholder: "Your go-to integrator or installation partner…" },
   { key: "improve", n: 3, q: "What should we improve to make you want to attend our events again?", placeholder: "Format, topics, speakers, logistics, networking…" },
-  { key: "contact", n: 4, q: "How would you like us to stay in touch?", placeholder: "Email, a call, LinkedIn, our newsletter — whatever works best for you." },
 ];
 
 export default function SeagateFeedbackPage() {
@@ -62,7 +60,7 @@ export default function SeagateFeedbackPage() {
     if (!form.fullName.trim()) { setErrorMsg("Please enter your name."); return; }
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email.trim())) { setErrorMsg("Please enter a valid email address."); return; }
     if (!isWorkEmail(form.email.trim())) { setErrorMsg("Please use your work email address."); return; }
-    const anyAnswer = [form.feedback, form.aistep, form.improve, form.contact].some((v) => v.trim());
+    const anyAnswer = [form.feedback, form.installer, form.improve].some((v) => v.trim());
     if (!anyAnswer) { setErrorMsg("Please share at least one response before submitting."); return; }
 
     setLoading(true);
@@ -73,9 +71,8 @@ export default function SeagateFeedbackPage() {
       event_name: "Seagate Executive Roundtable — Post-Event Survey",
       metadata: {
         "Event feedback": form.feedback,
-        "One AI-ready step for leaders": form.aistep,
+        "Preferred system installer": form.installer,
         "What to improve / earn a return visit": form.improve,
-        "Preferred way to stay in touch": form.contact,
       },
     });
     setLoading(false);
@@ -200,7 +197,7 @@ export default function SeagateFeedbackPage() {
                     <textarea
                       id={`sgf-${q.key}`}
                       name={q.key}
-                      rows={q.key === "contact" ? 2 : 3}
+                      rows={3}
                       placeholder={q.placeholder}
                       value={form[q.key] ?? ""}
                       onChange={handleChange}
