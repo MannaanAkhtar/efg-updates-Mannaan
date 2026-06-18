@@ -151,7 +151,7 @@ const AGENDA: AgendaItem[] = [
   { start: "11:35", end: "12:05", title: "From Digital First to AI Enabled: A Roadmap for Building Enterprise AI Capabilities", subtitle: "Blackstone eIT session", owner: "Youness Soulayman · CTO & Executive Director · Blackstone eIT", type: "feature" },
   { start: "12:05", end: "12:20", title: "Coffee Break & Prayer", type: "break" },
   { start: "12:20", end: "12:50", title: "Applied Government Use Cases", subtitle: "Agentic AI in Action: Live Demo of Government Use Cases", owner: "Omar Istaitieh · Lead Solution Architect · OutSystems", type: "demo" },
-  { start: "12:50", end: "13:20", title: "Panel Discussion followed by Audience Q&A", subtitle: "Scaling Trusted Agentic AI for Saudi Vision 2030: From Strategy to National Impact", owner: "Moderator + Panelists", type: "panel" },
+  { start: "12:50", end: "13:20", title: "Panel Discussion & Audience Q&A", subtitle: "Scaling Trusted Agentic AI for Saudi Vision 2030: From Strategy to National Impact", owner: "Moderator + Panelists", type: "panel" },
   { start: "13:20", end: "13:25", title: "Vote of Thanks", owner: "Wajih Yahyaoui · Managing Partner · Blackstone eIT", type: "recognition" },
   { start: "13:25", end: "13:30", title: "Closing Remarks", owner: "Mohamed Shaaban · Senior Account Executive · OutSystems", type: "closing" },
   { start: "13:30", end: "—",     title: "Networking Lunch", owner: "All Delegates", type: "logistics" },
