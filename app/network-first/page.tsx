@@ -37,21 +37,6 @@ const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 
 const UPCOMING_EVENTS = [
   {
-    date: "June 17th, 2026",
-    month: "JUN",
-    day: "17",
-    year: "2026",
-    time: "10:30 – 14:30 GST",
-    title: "Seagate Executive Roundtable",
-    subtitle: "Powering the Future of Mass Capacity Storage with Mozaic 4+",
-    sponsor: "Seagate",
-    location: "Dubai, UAE",
-    link: "/seagate",
-    image: "",
-    brandColor: "#71B53F",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/seagate_2c_horizontal_neg1.png",
-  },
-  {
     date: "June 18th, 2026",
     month: "JUN",
     day: "18",
@@ -264,6 +249,19 @@ type PastEvent = {
 };
 
 const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    sponsor: "Seagate",
+    title: "Seagate Executive Roundtable",
+    subtitle: "Powering the Future of Mass Capacity Storage with Mozaic 4+",
+    month: "JUN",
+    date: "17 Jun",
+    venue: "Dubai, UAE",
+    time: "10:30 – 14:30 GST",
+    image: "",
+    brandColor: "#71B53F",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/seagate_2c_horizontal_neg1.png",
+    link: "/seagate",
+  },
   {
     sponsor: "Proofpoint",
     title: "Proofpoint Executive Roundtable",
