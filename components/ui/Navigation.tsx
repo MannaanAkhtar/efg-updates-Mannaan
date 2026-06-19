@@ -68,8 +68,6 @@ const NETWORKFIRST_COLOR = "#C9935A";
 // each group keeps the upcoming-events date order from /network-first
 type NFFormat = "virtual" | "physical";
 const networkFirstEvents: { href: string; label: string; date: string; format: NFFormat }[] = [
-  { href: "https://www.jedox.com/en/events/beyond-sop-unlocking-the-power-of-ibp/", label: "Jedox | Keansa", date: "18 Jun", format: "physical" },
-  { href: "/brazextalonone", label: "Braze x Talon.One", date: "18 Jun", format: "virtual" },
   { href: "/ifs", label: "IFS", date: "23 Jun", format: "physical" },
   { href: "/proofpoint", label: "Proofpoint", date: "23 Jun", format: "physical" },
   { href: "/outsystems-blackstone", label: "Outsystems | Blackstone", date: "24 Jun", format: "physical" },

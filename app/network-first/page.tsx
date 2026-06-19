@@ -37,38 +37,6 @@ const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 
 const UPCOMING_EVENTS = [
   {
-    date: "June 18th, 2026",
-    month: "JUN",
-    day: "18",
-    year: "2026",
-    time: "09:30 – 13:30 GST",
-    title: "Next-Generation S&OP",
-    subtitle: "Aligning Data, Plans & Decisions for IBP-ready enterprises",
-    sponsor: "Jedox | Keansa",
-    location: "Taj Jumeirah Lakes Towers, Dubai",
-    link: "https://www.jedox.com/en/events/beyond-sop-unlocking-the-power-of-ibp/",
-    image: "",
-    brandColor: "#1A2A52",
-    brandLogo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 72'%3E%3Ctext x='110' y='52' font-family='Arial Black,Helvetica,sans-serif' font-weight='900' font-style='italic' font-size='48' fill='%231A2A52' text-anchor='middle'%3Ejedox.%3C/text%3E%3C/svg%3E",
-    lightCard: true,
-  },
-  {
-    date: "June 18th, 2026",
-    month: "JUN",
-    day: "18",
-    year: "2026",
-    time: "11:00 AM GST",
-    title: "Earned, not automated",
-    subtitle: "What happens to brand loyalty when AI becomes the decision-maker?",
-    sponsor: "Braze x Talon.One",
-    location: "Virtual",
-    link: "/brazextalonone",
-    image: "",
-    brandColor: "#7C2D8E",
-    brandGradient: "linear-gradient(135deg, #FF3E9F 0%, #C026D3 45%, #5B21B6 80%, #0a0a0a 100%)",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/brazeone.png",
-  },
-  {
     date: "June 23rd, 2026",
     month: "JUN",
     day: "23",
@@ -244,11 +212,41 @@ type PastEvent = {
   time?: string;
   image: string;
   brandColor?: string;
+  brandGradient?: string;
   brandLogo?: string;
   link?: string;
+  lightCard?: boolean;
 };
 
 const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    sponsor: "Braze x Talon.One",
+    title: "Earned, not automated",
+    subtitle: "What happens to brand loyalty when AI becomes the decision-maker?",
+    month: "JUN",
+    date: "18 Jun",
+    venue: "Virtual",
+    time: "11:00 AM GST",
+    image: "",
+    brandColor: "#7C2D8E",
+    brandGradient: "linear-gradient(135deg, #FF3E9F 0%, #C026D3 45%, #5B21B6 80%, #0a0a0a 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/brazeone.png",
+    link: "/brazextalonone",
+  },
+  {
+    sponsor: "Jedox | Keansa",
+    title: "Next-Generation S&OP",
+    subtitle: "Aligning Data, Plans & Decisions for IBP-ready enterprises",
+    month: "JUN",
+    date: "18 Jun",
+    venue: "Taj Jumeirah Lakes Towers, Dubai",
+    time: "09:30 – 13:30 GST",
+    image: "",
+    brandColor: "#1A2A52",
+    brandLogo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 72'%3E%3Ctext x='110' y='52' font-family='Arial Black,Helvetica,sans-serif' font-weight='900' font-style='italic' font-size='48' fill='%231A2A52' text-anchor='middle'%3Ejedox.%3C/text%3E%3C/svg%3E",
+    link: "https://www.jedox.com/en/events/beyond-sop-unlocking-the-power-of-ibp/",
+    lightCard: true,
+  },
   {
     sponsor: "Seagate",
     title: "Seagate Executive Roundtable",
