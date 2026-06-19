@@ -40,9 +40,19 @@ const SPEAKERS = [
     name: "Naji Atallah",
     role: "Head of Industry, AECO and Manufacturing, EMEA Emerging",
     org: "Autodesk",
+    tag: "Moderator",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naji_Atallah.png" as string | null,
     initials: "NA",
-    linkedin: "https://www.linkedin.com/in/naji-atallah/",
+    linkedin: "https://www.linkedin.com/in/naji-atallah/" as string | null,
+  },
+  {
+    name: "Luca Vigliero",
+    role: "Executive Director, Board Member",
+    org: "",
+    tag: "Speaker",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Luca+Headshot.png" as string | null,
+    initials: "LV",
+    linkedin: "https://www.linkedin.com/in/luca-vigliero-11b7671a/" as string | null,
   },
 ];
 
@@ -1240,7 +1250,7 @@ function SpeakersSection() {
           justifyContent: "start",
         }}>
           {SPEAKERS.map((sp, i) => {
-            const role = "Moderator";
+            const role = sp.tag;
             return (
             <motion.article
               key={sp.name}
@@ -1346,11 +1356,13 @@ function SpeakersSection() {
                   position: "absolute", bottom: 16, left: 16, right: 16,
                   zIndex: 2,
                 }}>
-                  <div style={{
-                    fontFamily: BODY, fontSize: 9.5, fontWeight: 700,
-                    letterSpacing: "0.34em", textTransform: "uppercase",
-                    color: YELLOW, marginBottom: 6,
-                  }}>{sp.org}</div>
+                  {sp.org && (
+                    <div style={{
+                      fontFamily: BODY, fontSize: 9.5, fontWeight: 700,
+                      letterSpacing: "0.34em", textTransform: "uppercase",
+                      color: YELLOW, marginBottom: 6,
+                    }}>{sp.org}</div>
+                  )}
                   <h3 style={{
                     fontFamily: DISPLAY, fontWeight: 800,
                     fontSize: "clamp(20px, 1.7vw, 26px)",
@@ -1372,6 +1384,7 @@ function SpeakersSection() {
                   fontFamily: BODY, fontSize: 13, fontWeight: 500,
                   color: "rgba(255,255,255,0.82)",
                   margin: "0 0 16px", lineHeight: 1.45,
+                  minHeight: "2.9em", // reserve 2 lines so card bottoms align
                 }}>{sp.role}</p>
 
                 {/* Bottom row */}
@@ -1379,14 +1392,18 @@ function SpeakersSection() {
                   display: "flex", alignItems: "center", justifyContent: "space-between",
                   gap: 12, marginTop: 14,
                 }}>
-                  {/* Mini Autodesk wordmark — page footer feel */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={AUTODESK_LOGO_WHITE}
-                    alt=""
-                    aria-hidden
-                    style={{ height: 12, width: "auto", opacity: 0.65 }}
-                  />
+                  {/* Mini Autodesk wordmark — only for Autodesk speakers */}
+                  {sp.org === "Autodesk" ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={AUTODESK_LOGO_WHITE}
+                      alt=""
+                      aria-hidden
+                      style={{ height: 12, width: "auto", opacity: 0.65 }}
+                    />
+                  ) : (
+                    <span aria-hidden />
+                  )}
 
                   {sp.linkedin && (
                     <a
