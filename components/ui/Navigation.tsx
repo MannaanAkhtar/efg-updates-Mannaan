@@ -69,10 +69,10 @@ const NETWORKFIRST_COLOR = "#C9935A";
 type NFFormat = "virtual" | "physical";
 const networkFirstEvents: { href: string; label: string; date: string; format: NFFormat }[] = [
   { href: "/ifs", label: "IFS", date: "23 Jun", format: "physical" },
-  { href: "/proofpoint", label: "Proofpoint", date: "23 Jun", format: "physical" },
   { href: "/outsystems-blackstone", label: "Outsystems | Blackstone", date: "24 Jun", format: "physical" },
   { href: "/poka", label: "Poka", date: "29 Jun", format: "physical" },
   { href: "/autodesk", label: "Autodesk", date: "30 Jun", format: "physical" },
+  { href: "/proofpoint", label: "Proofpoint", date: "Sep · TBC", format: "physical" },
   { href: "https://events.outsystems.com/event/17e2fb07-2b9a-46e2-9acf-44590276e2d8/homepage?RefId=oed-ksa", label: "OutSystems", date: "19 Oct", format: "physical" },
   { href: "/blueyonder", label: "Blue Yonder", date: "TBA", format: "physical" },
   { href: "https://www.jedox.com/en/events/unlock-the-power-of-modern-fpa-2026/", label: "Jedox | PlanPulse", date: "TBA", format: "physical" },
@@ -104,9 +104,9 @@ const REGION_ORDER = ["UAE", "Saudi Arabia", "Qatar", "Kuwait", "Oman", "Kenya",
 const _regionStartOfToday = (() => { const d = new Date(); d.setHours(0, 0, 0, 0); return d.getTime(); })();
 
 const regionShortDate = (e: { date: Date; dateTBA?: boolean }): string =>
-  e.date.toLocaleDateString("en-GB", e.dateTBA
-    ? { month: "short", year: "2-digit", timeZone: "UTC" }
-    : { day: "2-digit", month: "short", timeZone: "UTC" });
+  e.dateTBA
+    ? `TBC · ${e.date.toLocaleDateString("en-GB", { month: "short", timeZone: "UTC" })}`
+    : e.date.toLocaleDateString("en-GB", { day: "2-digit", month: "short", timeZone: "UTC" });
 
 const regionGroups = REGION_ORDER.map((region) => ({
   region,
