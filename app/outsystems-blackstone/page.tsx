@@ -125,6 +125,14 @@ const SPEAKERS: Speaker[] = [
     linkedin: "https://www.linkedin.com/in/oleg-krylov",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Oleg_Krylov.png",
   },
+  {
+    name: "Najwa Alharbi",
+    role: "Speaker",
+    title: "Director, Innovation and AI Product",
+    company: "Confidential",
+    linkedin: "https://www.linkedin.com/in/najwaalharbi/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Najwa+Alharbi.png",
+  },
 ];
 
 // ─── Key takeaways ───────────────────────────────────────────────────────────
