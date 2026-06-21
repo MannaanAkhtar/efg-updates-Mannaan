@@ -48,7 +48,7 @@ const SPEAKERS = [
   {
     name: "Luca Vigliero",
     role: "Executive Director, Board Member",
-    org: "",
+    org: "XBD Collective",
     tag: "Speaker",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Luca+Headshot.png" as string | null,
     initials: "LV",
@@ -1392,7 +1392,7 @@ function SpeakersSection() {
                   display: "flex", alignItems: "center", justifyContent: "space-between",
                   gap: 12, marginTop: 14,
                 }}>
-                  {/* Mini Autodesk wordmark — only for Autodesk speakers */}
+                  {/* Autodesk wordmark for Autodesk speakers; company name otherwise */}
                   {sp.org === "Autodesk" ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img
@@ -1401,6 +1401,12 @@ function SpeakersSection() {
                       aria-hidden
                       style={{ height: 12, width: "auto", opacity: 0.65 }}
                     />
+                  ) : sp.org ? (
+                    <span style={{
+                      fontFamily: BODY, fontSize: 15, fontWeight: 700,
+                      letterSpacing: "0.04em", color: "rgba(255,255,255,0.65)",
+                      whiteSpace: "nowrap",
+                    }}>{sp.org}</span>
                   ) : (
                     <span aria-hidden />
                   )}
