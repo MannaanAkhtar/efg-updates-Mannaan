@@ -291,7 +291,7 @@ const SPEAKERS = [
     title: "CIO",
     org: "Department of Mineral Resources",
     linkedin: "https://www.linkedin.com/in/cathy-leso-b0507a55/",
-    photo: "",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Cathy+Leso.jpg",
   },
   {
     name: "Rishi Hariram",
