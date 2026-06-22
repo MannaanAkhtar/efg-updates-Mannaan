@@ -145,8 +145,23 @@ function buildEmailHtml(data: {
   source_category?: string;
   event_name?: string;
 }) {
-  const metaRows = Object.entries(data.metadata || {})
-    .filter(([, v]) => v)
+  const meta = data.metadata || {};
+
+  // Sales-rep attribution: a rep's UTM link carries utm_medium=sales + utm_source=<rep>.
+  // Surface a clean "Referred by: <Name>" row and hide the raw utm_* rows.
+  const isSalesReferral = meta.utm_medium === "sales" && !!meta.utm_source;
+  const titleCase = (s: string) =>
+    s.replace(/[-_]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  const HIDDEN_META = isSalesReferral
+    ? new Set(["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"])
+    : new Set<string>();
+
+  const referredByRow = isSalesReferral
+    ? `<tr><td style="padding:8px 12px;color:#666;font-size:14px;border-bottom:1px solid #eee;background:#FFF7F0">Referred by</td><td style="padding:8px 12px;font-size:14px;font-weight:700;color:#C2410C;border-bottom:1px solid #eee;background:#FFF7F0">${titleCase(String(meta.utm_source))}</td></tr>`
+    : "";
+
+  const metaRows = Object.entries(meta)
+    .filter(([k, v]) => v && !HIDDEN_META.has(k))
     .map(
       ([k, v]) =>
         `<tr><td style="padding:8px 12px;color:#666;font-size:14px;border-bottom:1px solid #eee">${k.replace(/_/g, " ")}</td><td style="padding:8px 12px;font-size:14px;border-bottom:1px solid #eee">${String(v)}</td></tr>`
@@ -168,6 +183,7 @@ function buildEmailHtml(data: {
           <tr><td style="padding:8px 12px;color:#666;font-size:14px;border-bottom:1px solid #eee">Company</td><td style="padding:8px 12px;font-size:14px;border-bottom:1px solid #eee">${data.company || "—"}</td></tr>
           <tr><td style="padding:8px 12px;color:#666;font-size:14px;border-bottom:1px solid #eee">Job Title</td><td style="padding:8px 12px;font-size:14px;border-bottom:1px solid #eee">${data.job_title || "—"}</td></tr>
           ${data.phone ? `<tr><td style="padding:8px 12px;color:#666;font-size:14px;border-bottom:1px solid #eee">Phone</td><td style="padding:8px 12px;font-size:14px;border-bottom:1px solid #eee">${data.phone}</td></tr>` : ""}
+          ${referredByRow}
           ${metaRows}
         </table>
         <div style="margin-top:20px;padding-top:16px;border-top:1px solid #eee;font-size:12px;color:#999">
@@ -351,10 +367,15 @@ export async function POST(request: NextRequest) {
           type.charAt(0).toUpperCase() + type.slice(1);
 
         const eventSuffix = event_name ? ` · ${event_name}` : "";
+        // Sales-rep attribution from a UTM link → flag in the subject too
+        const refSuffix =
+          metadata.utm_medium === "sales" && metadata.utm_source
+            ? ` · via ${String(metadata.utm_source).replace(/[-_]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}`
+            : "";
         await resend.emails.send({
           from: "EFG Forms <onboarding@resend.dev>",
           to: NOTIFICATION_EMAIL,
-          subject: `New ${typeLabel} Inquiry, ${full_name} from ${company || "N/A"}${eventSuffix}`,
+          subject: `New ${typeLabel} Inquiry, ${full_name} from ${company || "N/A"}${eventSuffix}${refSuffix}`,
           html: buildEmailHtml({
             type,
             full_name,
