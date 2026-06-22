@@ -113,7 +113,7 @@ const SPEAKERS: Speaker[] = [
     name: "Thamer Alrowidhan",
     role: "Speaker",
     title: "Chief Information Security Officer (CISO)",
-    company: "Confidential (PIF)",
+    company: "Confidential",
     linkedin: "https://www.linkedin.com/in/ethamer",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Thamer_alrowidhan.png",
   },
