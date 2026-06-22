@@ -82,7 +82,7 @@ const buildReportDownloadUrl = (url: string, filename: string) =>
   `/api/download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
 const BOARDROOM = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/boardrooms";
 
-const HERO_BG = "https://efg-final.s3.eu-north-1.amazonaws.com/gallery/magnific_make-this-a-high-quality-_2901874874.png";
+const HERO_BG = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/opexKSA.png";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -129,7 +129,7 @@ const OVERVIEW_SIGNALS = [
 ];
 
 const OPEX_PAST_EDITIONS = [
-  { id: "5obYKv-vJZE", city: "Dubai, UAE", year: "2026", caption: "Operational excellence leaders convene at the regional flagship." },
+  { id: "5obYKv-vJZE", city: "Abu Dhabi, UAE", year: "2026", caption: "Operational excellence leaders convene at the regional flagship." },
   { id: "dbL42utoYW4", city: "Riyadh, KSA", year: "2025", caption: "The inaugural Saudi edition — Vision 2030 execution at the table." },
 ];
 
