@@ -163,7 +163,7 @@ export const allEvents: EventItem[] = [
     location: "Doha, Qatar",
     venue: "Venue TBA",
     attendees: "250+",
-    href: "/events/cyber-first/qatar-2026",
+    href: "/events/cyber-first/qatar",
     status: "open",
   },
   {

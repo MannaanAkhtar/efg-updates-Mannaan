@@ -3,7 +3,7 @@ import { BreadcrumbSchema } from "@/lib/schemas";
 import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://www.eventsfirstgroup.com";
-const PAGE_URL = `${BASE_URL}/events/cyber-first/qatar-2026`;
+const PAGE_URL = `${BASE_URL}/events/cyber-first/qatar`;
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/cyberQatar.png";
 const OG_IMAGE_ALT =
   "Cyber First Qatar 2026 - Building cyber resilience for Qatar's AI-powered digital economy, 10 November 2026, Doha";

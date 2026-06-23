@@ -134,7 +134,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     // Cyber First Qatar 2026 — open / live
     {
-      url: `${BASE_URL}/events/cyber-first/qatar-2026`,
+      url: `${BASE_URL}/events/cyber-first/qatar`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,

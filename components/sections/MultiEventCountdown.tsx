@@ -44,7 +44,7 @@ const upcomingEvents: UpcomingEvent[] = [
     title: "Cyber First Qatar",
     date: new Date("2026-11-10T09:00:00+03:00"),
     location: "Doha, Qatar",
-    href: "/events/cyber-first/qatar-2026",
+    href: "/events/cyber-first/qatar",
   },
 ];
 

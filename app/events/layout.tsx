@@ -51,7 +51,7 @@ const events: Array<{ name: string; path: string; series: string }> = [
   { name: "Cyber First", path: "/events/cyber-first", series: "Cyber First" },
   { name: "Cyber First Kenya 2026", path: "/events/cyber-first/kenya-2026", series: "Cyber First" },
   { name: "Cyber First Kuwait 2026", path: "/events/cyber-first/kuwait-2026", series: "Cyber First" },
-  { name: "Cyber First Qatar 2026", path: "/events/cyber-first/qatar-2026", series: "Cyber First" },
+  { name: "Cyber First Qatar 2026", path: "/events/cyber-first/qatar", series: "Cyber First" },
   { name: "OT Security First", path: "/events/ot-security-first", series: "OT Security First" },
   { name: "OT Security First Johannesburg 2026", path: "/events/ot-security-first/johannesburg-2026", series: "OT Security First" },
   { name: "OT Security First Jubail 2026", path: "/events/ot-security-first/jubail", series: "OT Security First" },

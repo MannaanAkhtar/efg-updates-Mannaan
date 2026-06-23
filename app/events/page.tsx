@@ -224,7 +224,7 @@ const allEvents = [
     color: "#01BBF5",
     image:
       "https://efg-final.s3.eu-north-1.amazonaws.com/assets/cyberQatar.png",
-    href: "/events/cyber-first/qatar-2026",
+    href: "/events/cyber-first/qatar",
     date: "2026-11-10",
     nextDate: "10 Nov 2026",
     nextCity: "Doha, Qatar",

@@ -69,7 +69,7 @@ const EVENT_CONFIGS: Record<string, {
       { href: "#venue", label: "Venue" },
     ],
   },
-  "/events/cyber-first/qatar-2026": {
+  "/events/cyber-first/qatar": {
     name: "Cyber First Qatar 2026",
     shortName: "Cyber First Qatar",
     color: "#01BBF5",

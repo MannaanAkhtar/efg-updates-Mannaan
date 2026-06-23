@@ -17,7 +17,7 @@ const editions = [
   { id: "uae", label: "UAE", status: "completed", href: "/events/cyber-first" },
   { id: "kenya", label: "Kenya", status: "upcoming", href: "/events/cyber-first/kenya-2026" },
   { id: "kuwait", label: "Kuwait", status: "next", href: "/events/cyber-first/kuwait-2026" },
-  { id: "qatar", label: "Qatar", status: "upcoming", href: "/events/cyber-first/qatar-2026" },
+  { id: "qatar", label: "Qatar", status: "upcoming", href: "/events/cyber-first/qatar" },
 ];
 
 // ─── Stats (for trust strip below hero) ──────────────────────────────────────

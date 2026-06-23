@@ -104,7 +104,7 @@ export default function CyberFirstLayout({
         editions={[
           { name: "Cyber First Kuwait 2026 (3rd Annual)", city: "Kuwait City", country: "Kuwait", date: "14 October 2026", url: `${BASE_URL}/events/cyber-first/kuwait-2026` },
           { name: "Cyber First Kenya 2026, Nairobi Edition", city: "Nairobi", country: "Kenya", date: "July 2026", url: `${BASE_URL}/events/cyber-first/kenya-2026` },
-          { name: "Cyber First Qatar 2026", city: "Doha", country: "Qatar", date: "10 November 2026", url: `${BASE_URL}/events/cyber-first/qatar-2026` },
+          { name: "Cyber First Qatar 2026", city: "Doha", country: "Qatar", date: "10 November 2026", url: `${BASE_URL}/events/cyber-first/qatar` },
         ]}
         url={PAGE_URL}
       />

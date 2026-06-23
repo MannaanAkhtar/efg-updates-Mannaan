@@ -30,6 +30,9 @@ const nextConfig: NextConfig = {
       // OT Security First Jubail — URL shortened from jubail-2026 → jubail
       { source: "/events/ot-security-first/jubail-2026", destination: "/events/ot-security-first/jubail", permanent: true },
       { source: "/events/ot-security-first/jubail-2026/", destination: "/events/ot-security-first/jubail", permanent: true },
+      // Cyber First Qatar — URL shortened from qatar-2026 → qatar
+      { source: "/events/cyber-first/qatar-2026", destination: "/events/cyber-first/qatar", permanent: true },
+      { source: "/events/cyber-first/qatar-2026/", destination: "/events/cyber-first/qatar", permanent: true },
       { source: "/data-ai-first", destination: "/events/data-ai-first", permanent: true },
       { source: "/data-ai-first/", destination: "/events/data-ai-first", permanent: true },
       { source: "/digital-first", destination: "/events/data-ai-first", permanent: true },
