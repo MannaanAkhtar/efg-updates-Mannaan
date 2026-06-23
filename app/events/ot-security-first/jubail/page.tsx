@@ -47,12 +47,11 @@ type Speaker = {
   linkedin?: string | null;
 };
 
-// TBA placeholders - to be confirmed
 const SPEAKERS: Speaker[] = [
-  { name: "Speaker to be confirmed", title: "Senior Industrial Cybersecurity Leader", org: "KSA Critical Infrastructure", photo: null, linkedin: null },
-  { name: "Speaker to be confirmed", title: "Head of OT Security", org: "Energy / Petrochemicals", photo: null, linkedin: null },
-  { name: "Speaker to be confirmed", title: "Industrial Risk & Compliance Director", org: "Regulatory Body", photo: null, linkedin: null },
-  { name: "Speaker to be confirmed", title: "Plant CISO", org: "Heavy Industry", photo: null, linkedin: null },
+  { name: "Ahmed Al Saleh", title: "Head of Digital & OT Cybersecurity Initiatives", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+Al+Saleh.jpg", linkedin: "https://www.linkedin.com/in/ahmed-al-saleh/" },
+  { name: "Ahmed T Alawami", title: "Head of AI & Digital Transformation (Energy & Utilities)", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+with+background.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/" },
+  { name: "Abdulrahman Al-Nimari", title: "VP, Cyber Security", org: "", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulrahman+Al-Nimar.png", linkedin: "https://www.linkedin.com/in/alnimari/" },
+  { name: "Sultan Moraished", title: "Group Head of Technology and Corporate Excellence", org: "Red Sea Global", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan+Moraished.jpg", linkedin: "https://www.linkedin.com/in/sultan-moraished-0786394a/" },
 ];
 
 // ─── Awards ─────────────────────────────────────────────────────────────────
@@ -3660,7 +3659,7 @@ function SpeakersSection() {
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={s.photo}
-                    alt={`${s.name}, ${s.title} at ${s.org} - speaker at OT Security First Jubail 2026 industrial cybersecurity summit, Saudi Arabia`}
+                    alt={`${s.name}, ${s.title}${s.org ? ` at ${s.org}` : ""} - speaker at OT Security First Jubail 2026 industrial cybersecurity summit, Saudi Arabia`}
                     loading="lazy"
                     decoding="async"
                     style={{
@@ -3702,6 +3701,37 @@ function SpeakersSection() {
                     pointerEvents: "none",
                   }}
                 />
+                {/* LinkedIn */}
+                {s.linkedin && (
+                  <a
+                    href={s.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${s.name} on LinkedIn`}
+                    className="otsf-jb-li"
+                    style={{
+                      position: "absolute",
+                      top: 12,
+                      right: 12,
+                      zIndex: 2,
+                      width: 32,
+                      height: 32,
+                      borderRadius: 9,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "rgba(7,12,32,0.55)",
+                      backdropFilter: "blur(6px)",
+                      WebkitBackdropFilter: "blur(6px)",
+                      border: "1px solid rgba(255,255,255,0.18)",
+                      color: "white",
+                    }}
+                  >
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                      <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3-.02-2.96-1.8-2.96-1.8 0-2.08 1.4-2.08 2.86V21H9z" />
+                    </svg>
+                  </a>
+                )}
               </div>
 
               {/* Card body */}
@@ -3731,19 +3761,21 @@ function SpeakersSection() {
                 >
                   {s.title}
                 </p>
-                <p
-                  style={{
-                    fontFamily: "var(--font-outfit)",
-                    fontSize: 11,
-                    fontWeight: 600,
-                    letterSpacing: "1.5px",
-                    textTransform: "uppercase",
-                    color: "rgba(255,255,255,0.35)",
-                    margin: "4px 0 0",
-                  }}
-                >
-                  {s.org}
-                </p>
+                {s.org && (
+                  <p
+                    style={{
+                      fontFamily: "var(--font-outfit)",
+                      fontSize: 11,
+                      fontWeight: 600,
+                      letterSpacing: "1.5px",
+                      textTransform: "uppercase",
+                      color: "rgba(255,255,255,0.35)",
+                      margin: "4px 0 0",
+                    }}
+                  >
+                    {s.org}
+                  </p>
+                )}
               </div>
             </motion.div>
           ))}
@@ -3760,6 +3792,8 @@ function SpeakersSection() {
           border-color: ${C}38 !important;
           box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 26px 56px rgba(0,0,0,0.5), 0 0 0 1px ${C}25 !important;
         }
+        .otsf-jb-li { transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+        .otsf-jb-li:hover { background: ${C}d9 !important; border-color: ${C} !important; transform: translateY(-1px); }
         @media (max-width: 1100px) {
           .otsf-jb-speakers-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
