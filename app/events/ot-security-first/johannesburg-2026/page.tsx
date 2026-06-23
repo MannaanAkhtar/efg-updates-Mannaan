@@ -3875,6 +3875,14 @@ const EVENT_SPONSORS_2026: {
     scale: 1.45,
   },
   {
+    name: "Fortinet",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Fortinet-logo-rgb-white-red.png",
+    url: "https://www.fortinet.com/",
+    tier: "gold",
+    keepColor: true,
+    scale: 1.3,
+  },
+  {
     name: "Times of AI",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Timesofai-02.png",
     url: "https://timesofai.com/",
