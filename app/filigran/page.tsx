@@ -24,7 +24,7 @@ const BODY = "var(--font-dm-sans), system-ui, sans-serif";
 
 const LOGO_WHITE = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/LOGO_FILIGRAN_BLANC.png";
 
-const EVENT_DATE = "2026-07-07T12:00:00Z"; // 7 July 2026 — time TBC
+const EVENT_DATE = "2026-07-14T12:00:00Z"; // 14 July 2026 — time TBC
 
 // ─── Content (verbatim from the brief) ───────────────────────────────────────
 const TITLE = "Agentic CTEM in Practice";
@@ -268,7 +268,7 @@ export default function FiligranPage() {
 
           {/* Info bar */}
           <div className="fil-rise fil-d3 fil-infobar" style={{ display: "inline-flex", alignItems: "center", flexWrap: "wrap", gap: "clamp(14px, 2vw, 26px)", margin: "34px 0 0", padding: "14px 22px", borderRadius: 16, background: "rgba(255,255,255,0.045)", border: `1px solid ${BORDER}`, backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", boxShadow: "0 10px 34px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06)" }}>
-            <InfoItem icon="cal" label="7 July 2026" />
+            <InfoItem icon="cal" label="14 July 2026" />
             <Divider />
             <InfoItem icon="clock" label="11:00 AM GST" />
             <Divider />
@@ -678,7 +678,7 @@ function RegistrationForm() {
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
             </div>
             <h3 style={{ fontFamily: DISPLAY, fontSize: 24, fontWeight: 700, color: WHITE, margin: 0, letterSpacing: "-0.02em" }}>You&apos;re registered.</h3>
-            <p style={{ fontFamily: BODY, fontSize: 15, color: DIM, margin: "12px auto 0", maxWidth: 420, lineHeight: 1.6 }}>Thank you — we&apos;ll be in touch with joining details for the roundtable on 7 July 2026.</p>
+            <p style={{ fontFamily: BODY, fontSize: 15, color: DIM, margin: "12px auto 0", maxWidth: 420, lineHeight: 1.6 }}>Thank you — we&apos;ll be in touch with joining details for the roundtable on 14 July 2026.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="fil-form" noValidate>
