@@ -13,6 +13,11 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   "fil-duaa": { path: "/filigran", source: "duaa", campaign: "filigran-2026" },
   "fil-jacqueline": { path: "/filigran", source: "jacqueline", campaign: "filigran-2026" },
   "fil-mary": { path: "/filigran", source: "mary", campaign: "filigran-2026" },
+
+  // Cyber First East Africa 2026
+  "cfea-nadeem": { path: "/events/cyber-first/kenya-2026", source: "nadeem", campaign: "cfea-2026" },
+  "cfea-afra": { path: "/events/cyber-first/kenya-2026", source: "afra", campaign: "cfea-2026" },
+  "cfea-stephen": { path: "/events/cyber-first/kenya-2026", source: "stephen", campaign: "cfea-2026" },
 };
 
 export async function GET(
