@@ -733,6 +733,29 @@ function CfkScrollToTop() {
 
 // ─── PAGE COMPONENT ──────────────────────────────────────────────────────────
 export default function CyberFirstKenya2026() {
+  // Deep-link support: when the URL carries a hash (e.g. a sales-rep UTM link
+  // ending in #register), scroll to that section on load. Lenis hijacks native
+  // anchor jumps, so drive the scroll explicitly once the layout has settled.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const id = window.location.hash.replace("#", "");
+    if (!id) return;
+    let tries = 0;
+    const go = () => {
+      const el = document.getElementById(id);
+      if (!el) {
+        if (tries++ < 20) window.setTimeout(go, 150);
+        return;
+      }
+      const lenis = (window as unknown as {
+        __lenis?: { scrollTo: (target: HTMLElement | number, opts?: { offset?: number; duration?: number }) => void };
+      }).__lenis;
+      if (lenis) lenis.scrollTo(el, { offset: 0, duration: 1.0 });
+      else el.scrollIntoView({ behavior: "smooth" });
+    };
+    window.setTimeout(go, 450);
+  }, []);
+
   return (
     <div style={{ background: "#0A0608" }}>
       <style jsx global>{`
