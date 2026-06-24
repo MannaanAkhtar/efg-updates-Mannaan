@@ -48,10 +48,10 @@ type Speaker = {
 };
 
 const SPEAKERS: Speaker[] = [
-  { name: "Ahmed Al Saleh", title: "Head of Digital & OT Cybersecurity Initiatives", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+Al+Saleh.jpg", linkedin: "https://www.linkedin.com/in/ahmed-al-saleh/" },
-  { name: "Ahmed T Alawami", title: "Head of AI & Digital Transformation (Energy & Utilities)", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+with+background.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/" },
-  { name: "Abdulrahman Al-Nimari", title: "VP, Cyber Security", org: "", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulrahman+Al-Nimar.png", linkedin: "https://www.linkedin.com/in/alnimari/" },
-  { name: "Sultan Moraished", title: "Group Head of Technology and Corporate Excellence", org: "Red Sea Global", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan+Moraished.jpg", linkedin: "https://www.linkedin.com/in/sultan-moraished-0786394a/" },
+  { name: "Ahmed Al Saleh", title: "Head of Digital & OT Cybersecurity Initiatives", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed_Al_Saleh.png", linkedin: "https://www.linkedin.com/in/ahmed-al-saleh/" },
+  { name: "Ahmed T Alawami", title: "Head of AI & Digital Transformation (Energy & Utilities)", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+T+Alawami.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/" },
+  { name: "Abdulrahman Al-Nimari", title: "VP, Cyber Security", org: "", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulrahman_Al_Nimar.png", linkedin: "https://www.linkedin.com/in/alnimari/" },
+  { name: "Sultan Moraished", title: "Group Head of Technology and Corporate Excellence", org: "Red Sea Global", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Moraished.png", linkedin: "https://www.linkedin.com/in/sultan-moraished-0786394a/" },
 ];
 
 // ─── Awards ─────────────────────────────────────────────────────────────────
@@ -285,6 +285,7 @@ export default function OTSecurityJubail2026() {
       <WhyKingdom />
       <MarketChallenge />
       <BePartOfTheMovement />
+      <Evidence2026 />
       <SpeakersSection />
       <StrategicThemes />
       <Audience />
@@ -3070,6 +3071,380 @@ function ByTheNumbers() {
             font-size: 10.5px !important;
             margin-top: 8px !important;
             line-height: 1.3 !important;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── 2026 EVIDENCE ───────────────────────────────────────────────────────────
+// Public-facing market evidence: each item carries its cited source.
+// Ordered by text density for the bento layout (longest = hero, top → bottom).
+type EvidenceItem = { fact: string; source: string; size: "xl" | "wide" | "sm" };
+const EVIDENCE_2026: EvidenceItem[] = [
+  {
+    fact: "Vendor land-grab: Darktrace first Saudi office (Jan 2026); OPSWAT Riyadh office, 4x KSA growth; Yokogawa AI/Cyber CoE Dhahran (Feb 2026); Siemens KSA software office (Feb 2026); Dragos Riyadh HQ + UAE CoE; Nozomi acquired by Mitsubishi",
+    source: "Vendor PRs, 2025-26",
+    size: "xl",
+  },
+  {
+    fact: "Dragos Y/R 2026: industrial ransomware +49% YoY (~3,300 victims); PYROXENE wipes vs ME infrastructure Jun 2025; BAUXITE (CyberAv3ngers-linked) hit ME oil & gas, water, chemicals",
+    source: "Dragos, Feb 2026",
+    size: "wide",
+  },
+  {
+    fact: "ADIPEC Abu Dhabi 2-5 Nov (six days after us); GISEC moved to 21-23 Sep; Black Hat MEA 1-3 Dec; Intersec Saudi 16-18 Nov; OT Security First Singapore 8-9 Oct. 27 Oct is clean in KSA",
+    source: "Official event sites, 2026",
+    size: "wide",
+  },
+  {
+    fact: "RC/JY cities passed SAR 1.5T cumulative investment; Amiral $11bn Jubail cracker (ops 2027); 45+ Jubail turnarounds in 2026",
+    source: "SPA / Arab News May 2026; TotalEnergies",
+    size: "wide",
+  },
+  {
+    fact: "MEA OT security market $4.36bn (2025) growing to $9.65bn (2030), 17.2% CAGR; energy fastest vertical",
+    source: "MarketsandMarkets, 2025",
+    size: "wide",
+  },
+  {
+    fact: "SACS-210 (Feb 2026) adds a dedicated OT controls section; transition window closed 26 Aug 2026",
+    source: "4S Co. / NHR, Mar 2026",
+    size: "sm",
+  },
+  {
+    fact: "50% of OT organisations had at least one intrusion in the last year",
+    source: "Fortinet, Jul 2025",
+    size: "sm",
+  },
+  {
+    fact: "ECC-2:2024 requires cybersecurity roles to be held by Saudi nationals",
+    source: "Clyde & Co, Jan 2025",
+    size: "sm",
+  },
+  {
+    fact: "Electric (~$1B, Feb 2026); Claroty $150M Series F",
+    source: "Official event sites, 2026",
+    size: "sm",
+  },
+];
+
+function Evidence2026() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section
+      ref={ref}
+      id="evidence"
+      style={{
+        position: "relative",
+        padding: "clamp(64px, 7vw, 96px) 0",
+        background: BG_BASE,
+        overflow: "hidden",
+      }}
+    >
+      <BgDots opacity={0.04} />
+
+      {/* Ambient wash */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: "8%",
+          left: "-10%",
+          width: 560,
+          height: 560,
+          borderRadius: "50%",
+          background: `radial-gradient(circle, ${C}10 0%, transparent 60%)`,
+          filter: "blur(100px)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <div style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+        <Eyebrow inView={inView} label="The 2026 Evidence" />
+
+        <motion.h2
+          initial={{ opacity: 0, y: 18 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 800,
+            fontSize: "clamp(30px, 4.4vw, 56px)",
+            letterSpacing: "-2px",
+            lineHeight: 1.02,
+            color: "white",
+            margin: "0 0 clamp(32px, 4vw, 52px)",
+            maxWidth: 940,
+          }}
+        >
+          The proof behind the{" "}
+          <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>agenda</em>.
+        </motion.h2>
+
+        <div className="otsf-jb-evidence-grid">
+          {EVIDENCE_2026.map((item, i) => (
+            <motion.article
+              key={item.source + i}
+              className={`otsf-jb-ev-card otsf-jb-ev-${item.size}`}
+              initial={{ opacity: 0, y: 22 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.1 + i * 0.06, ease: EASE }}
+              whileHover={{ y: -6, transition: { duration: 0.4, ease: EASE } }}
+              style={{
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                minHeight: 150,
+                padding: item.size === "xl" ? "32px 30px 26px" : "27px 24px 22px",
+                borderRadius: 16,
+                background:
+                  "linear-gradient(168deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.018) 44%, rgba(255,255,255,0.006) 100%)",
+                border: "1px solid rgba(255,255,255,0.09)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.06), 0 18px 40px -28px rgba(0,0,0,0.85)",
+                overflow: "hidden",
+                isolation: "isolate",
+              }}
+            >
+              {/* Unified gradient top rail */}
+              <span
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: 2,
+                  background: `linear-gradient(90deg, ${C} 0%, ${CYAN} 100%)`,
+                }}
+              />
+              {/* Specular hairline */}
+              <span
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  top: 2,
+                  left: "8%",
+                  right: "8%",
+                  height: 1,
+                  background:
+                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent)",
+                }}
+              />
+              {/* Top-left accent glow */}
+              <span
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  top: -50,
+                  left: -50,
+                  width: 150,
+                  height: 150,
+                  borderRadius: "50%",
+                  background: `radial-gradient(circle, ${C}26 0%, transparent 70%)`,
+                  pointerEvents: "none",
+                }}
+              />
+              {/* Bottom-right accent glow - fills negative space */}
+              <span
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  bottom: -60,
+                  right: -60,
+                  width: 170,
+                  height: 170,
+                  borderRadius: "50%",
+                  background: `radial-gradient(circle, ${CYAN}14 0%, transparent 70%)`,
+                  pointerEvents: "none",
+                }}
+              />
+              {/* Sheen sweep (hover) */}
+              <span aria-hidden className="otsf-jb-ev-sheen" />
+              {/* Corner brackets */}
+              <span aria-hidden className="otsf-jb-ev-br otsf-jb-ev-br-tl" />
+              <span aria-hidden className="otsf-jb-ev-br otsf-jb-ev-br-br" />
+
+              {/* Fact */}
+              <p
+                style={{
+                  margin: 0,
+                  flex: 1,
+                  position: "relative",
+                  zIndex: 2,
+                  fontFamily: "var(--font-outfit)",
+                  fontSize:
+                    item.size === "xl"
+                      ? "clamp(16px, 1.45vw, 19px)"
+                      : "clamp(14px, 1.05vw, 15.5px)",
+                  fontWeight: item.size === "xl" ? 600 : 500,
+                  lineHeight: item.size === "xl" ? 1.5 : 1.58,
+                  color: item.size === "xl" ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.9)",
+                  letterSpacing: "0.01em",
+                }}
+              >
+                {item.fact}
+              </p>
+
+              {/* Source footer - pinned, consistent across all cards */}
+              <div
+                style={{
+                  marginTop: 20,
+                  paddingTop: 14,
+                  position: "relative",
+                  zIndex: 2,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 9,
+                  borderTop: "1px solid rgba(255,255,255,0.08)",
+                }}
+              >
+                <span
+                  aria-hidden
+                  style={{
+                    width: 7,
+                    height: 7,
+                    borderRadius: "50%",
+                    background: C,
+                    boxShadow: `0 0 9px ${C}cc`,
+                    flexShrink: 0,
+                  }}
+                />
+                <span
+                  style={{
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 10,
+                    fontWeight: 700,
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    color: "rgba(255,255,255,0.4)",
+                    flexShrink: 0,
+                  }}
+                >
+                  Source
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: "clamp(11.5px, 0.9vw, 12.5px)",
+                    fontWeight: 600,
+                    letterSpacing: "0.01em",
+                    color: C_BRIGHT,
+                    lineHeight: 1.35,
+                  }}
+                >
+                  {item.source}
+                </span>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+
+      <style jsx global>{`
+        /* Bento grid - tile size tracks text density */
+        .otsf-jb-evidence-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          grid-auto-rows: minmax(168px, auto);
+          grid-auto-flow: row dense;
+          gap: clamp(14px, 1.4vw, 20px);
+        }
+        .otsf-jb-ev-xl {
+          grid-column: span 2;
+          grid-row: span 2;
+        }
+        .otsf-jb-ev-wide {
+          grid-column: span 2;
+        }
+        .otsf-jb-ev-sm {
+          grid-column: span 1;
+        }
+        /* Tablet - collapse to 2 columns */
+        @media (max-width: 1080px) {
+          .otsf-jb-evidence-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .otsf-jb-ev-xl {
+            grid-column: span 2;
+            grid-row: span 1;
+          }
+          .otsf-jb-ev-wide {
+            grid-column: span 2;
+          }
+          .otsf-jb-ev-sm {
+            grid-column: span 1;
+          }
+        }
+        .otsf-jb-ev-card {
+          transition: border-color 0.55s ease, box-shadow 0.55s ease;
+        }
+        .otsf-jb-ev-card:hover {
+          border-color: rgba(211, 75, 154, 0.5) !important;
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09),
+            0 30px 60px -30px rgba(211, 75, 154, 0.5),
+            0 0 0 1px rgba(211, 75, 154, 0.14) !important;
+        }
+        /* Sheen sweep */
+        .otsf-jb-ev-sheen {
+          position: absolute;
+          top: 0;
+          left: -65%;
+          width: 55%;
+          height: 100%;
+          background: linear-gradient(
+            105deg,
+            transparent,
+            rgba(255, 255, 255, 0.07),
+            transparent
+          );
+          transform: skewX(-18deg);
+          pointer-events: none;
+          z-index: 1;
+          transition: left 0.9s ease;
+        }
+        .otsf-jb-ev-card:hover .otsf-jb-ev-sheen {
+          left: 135%;
+        }
+        /* Corner brackets */
+        .otsf-jb-ev-br {
+          position: absolute;
+          width: 16px;
+          height: 16px;
+          opacity: 0;
+          z-index: 3;
+          pointer-events: none;
+          transition: opacity 0.5s ease;
+        }
+        .otsf-jb-ev-br-tl {
+          top: 11px;
+          left: 11px;
+          border-top: 1.5px solid #d34b9a;
+          border-left: 1.5px solid #d34b9a;
+        }
+        .otsf-jb-ev-br-br {
+          bottom: 11px;
+          right: 11px;
+          border-bottom: 1.5px solid #f0529e;
+          border-right: 1.5px solid #f0529e;
+        }
+        .otsf-jb-ev-card:hover .otsf-jb-ev-br {
+          opacity: 0.85;
+        }
+        @media (max-width: 600px) {
+          .otsf-jb-evidence-grid {
+            grid-template-columns: 1fr;
+            grid-auto-rows: auto;
+          }
+          .otsf-jb-ev-xl,
+          .otsf-jb-ev-wide,
+          .otsf-jb-ev-sm {
+            grid-column: span 1;
+            grid-row: span 1;
           }
         }
       `}</style>
