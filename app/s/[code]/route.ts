@@ -8,17 +8,19 @@ import { NextRequest, NextResponse } from "next/server";
 // To add a rep or event, add ONE line below: <short-code>: { path, source, campaign }.
 // Convention: code = "<event-prefix>-<rep>", source = rep's lowercase first name,
 // medium is always "sales". Optional `hash` drops the visitor on a section
-// (e.g. "register" → lands on the registration form).
-const REP_LINKS: Record<string, { path: string; source: string; campaign: string; hash?: string }> = {
+// (e.g. "register" → lands on the registration form). Optional `tab` pre-selects
+// the InquiryForm tab on arrival (e.g. "attend").
+const REP_LINKS: Record<string, { path: string; source: string; campaign: string; hash?: string; tab?: string }> = {
   // Filigran Executive Roundtable
   "fil-duaa": { path: "/filigran", source: "duaa", campaign: "filigran-2026" },
   "fil-jacqueline": { path: "/filigran", source: "jacqueline", campaign: "filigran-2026" },
   "fil-mary": { path: "/filigran", source: "mary", campaign: "filigran-2026" },
 
   // Cyber First East Africa 2026
-  "cfea-nadeem": { path: "/events/cyber-first/kenya-2026", source: "nadeem", campaign: "cfea-2026", hash: "register" },
-  "cfea-afra": { path: "/events/cyber-first/kenya-2026", source: "afra", campaign: "cfea-2026", hash: "register" },
-  "cfea-stephen": { path: "/events/cyber-first/kenya-2026", source: "stephen", campaign: "cfea-2026", hash: "register" },
+  "cfea-nadim": { path: "/events/cyber-first/kenya-2026", source: "nadim", campaign: "cfea-2026", hash: "register", tab: "attend" },
+  "cfea-nadeem": { path: "/events/cyber-first/kenya-2026", source: "nadim", campaign: "cfea-2026", hash: "register", tab: "attend" }, // legacy alias → nadim
+  "cfea-afra": { path: "/events/cyber-first/kenya-2026", source: "afra", campaign: "cfea-2026", hash: "register", tab: "attend" },
+  "cfea-stephen": { path: "/events/cyber-first/kenya-2026", source: "stephen", campaign: "cfea-2026", hash: "register", tab: "attend" },
 };
 
 export async function GET(
@@ -37,6 +39,7 @@ export async function GET(
   dest.searchParams.set("utm_source", link.source);
   dest.searchParams.set("utm_medium", "sales");
   dest.searchParams.set("utm_campaign", link.campaign);
+  if (link.tab) dest.searchParams.set("tab", link.tab);
   if (link.hash) dest.hash = link.hash;
 
   // 307 (temporary) so the mapping can be re-pointed later without browsers

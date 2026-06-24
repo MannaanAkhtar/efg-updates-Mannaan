@@ -738,6 +738,17 @@ export default function CyberFirstKenya2026() {
   // anchor jumps, so drive the scroll explicitly once the layout has settled.
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    // Pre-select the InquiryForm tab from ?tab= (sales-rep links open "Attend").
+    // Friendly names map to the form's internal tab keys.
+    const tabParam = new URLSearchParams(window.location.search).get("tab");
+    if (tabParam) {
+      const tabKey = tabParam === "attend" ? "pass" : tabParam === "speak" ? "speaker" : tabParam;
+      window.setTimeout(() => {
+        window.dispatchEvent(new CustomEvent("efg:set-form-tab", { detail: tabKey }));
+      }, 500);
+    }
+
     const id = window.location.hash.replace("#", "");
     if (!id) return;
     let tries = 0;
