@@ -112,11 +112,11 @@ function scrollToId(id: string) {
 function Countdown() {
   const cd = useCountdown(EVENT_DATE);
   return (
-    <div className="fil-rise fil-d3" style={{ margin: "34px 0 0" }}>
+    <div className="fil-rise fil-d3 fil-cd-root" style={{ margin: "34px 0 0" }}>
       <div style={{ fontFamily: DISPLAY, fontSize: 10.5, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: MUTE, marginBottom: 12 }}>The roundtable begins in</div>
-      <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+      <div className="fil-countdown" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
         {([["Days", cd.days], ["Hours", cd.hours], ["Mins", cd.minutes], ["Secs", cd.seconds]] as const).map(([l, v]) => (
-          <div key={l} style={{
+          <div key={l} className="fil-cd-cell" style={{
             position: "relative", minWidth: 80, padding: "16px 18px", borderRadius: 16,
             background: "linear-gradient(160deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.025) 100%)",
             backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
@@ -125,8 +125,8 @@ function Countdown() {
             textAlign: "center", overflow: "hidden",
           }}>
             <span aria-hidden style={{ position: "absolute", top: 0, left: "14%", right: "14%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.5) 50%, transparent)", pointerEvents: "none" }} />
-            <div style={{ fontFamily: DISPLAY, fontSize: 30, fontWeight: 700, color: WHITE, lineHeight: 1, letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>{cd.mounted ? String(v).padStart(2, "0") : "--"}</div>
-            <div style={{ fontFamily: DISPLAY, fontSize: 9.5, fontWeight: 600, letterSpacing: "0.16em", textTransform: "uppercase", color: MUTE, marginTop: 8 }}>{l}</div>
+            <div className="fil-cd-num" style={{ fontFamily: DISPLAY, fontSize: 30, fontWeight: 700, color: WHITE, lineHeight: 1, letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>{cd.mounted ? String(v).padStart(2, "0") : "--"}</div>
+            <div className="fil-cd-label" style={{ fontFamily: DISPLAY, fontSize: 9.5, fontWeight: 600, letterSpacing: "0.16em", textTransform: "uppercase", color: MUTE, marginTop: 8 }}>{l}</div>
           </div>
         ))}
       </div>
@@ -203,7 +203,7 @@ export default function FiligranPage() {
       </nav>
 
       {/* ── Hero ── */}
-      <section ref={heroRef} style={{ position: "relative", minHeight: "100svh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "112px clamp(18px, 5vw, 64px) 56px", overflow: "hidden" }}>
+      <section ref={heroRef} className="fil-hero" style={{ position: "relative", minHeight: "100svh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "112px clamp(18px, 5vw, 64px) 56px", overflow: "hidden" }}>
         {/* Base field — deep navy (top-left) flowing into electric cobalt (bottom-right) */}
         <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, background: `
           radial-gradient(135% 100% at 80% 118%, ${BLUE} 0%, ${BLUE_DEEP} 30%, transparent 60%),
@@ -251,20 +251,20 @@ export default function FiligranPage() {
         <div ref={spotRef} aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, opacity: 0, transition: "opacity 0.4s ease", pointerEvents: "none" }} />
 
         <div style={{ position: "relative", zIndex: 1, maxWidth: 1080, margin: "0 auto", width: "100%" }}>
-          <div className="fil-rise" style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "8px 16px", borderRadius: 100, border: `1px solid ${BLUE_BRIGHT}55`, background: `linear-gradient(${BLUE}2e, ${BLUE}12)`, backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", boxShadow: `inset 0 1px 0 rgba(255,255,255,0.14), 0 4px 18px ${BLUE}33`, marginBottom: 26 }}>
+          <div className="fil-rise fil-badge" style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "8px 16px", borderRadius: 100, border: `1px solid ${BLUE_BRIGHT}55`, background: `linear-gradient(${BLUE}2e, ${BLUE}12)`, backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", boxShadow: `inset 0 1px 0 rgba(255,255,255,0.14), 0 4px 18px ${BLUE}33`, marginBottom: 26 }}>
             <span className="fil-live-dot" style={{ width: 6, height: 6, borderRadius: "50%", background: BLUE_BRIGHT, boxShadow: `0 0 10px ${BLUE_BRIGHT}` }} />
             <span style={{ fontFamily: DISPLAY, fontSize: 11.5, fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.9)" }}>Online Roundtable</span>
           </div>
 
           <h1 className="fil-rise fil-d1" style={{ fontFamily: DISPLAY, fontWeight: 700, fontSize: "clamp(38px, 6.6vw, 86px)", lineHeight: 1.02, letterSpacing: "-0.035em", margin: 0, color: WHITE }}>
             {TITLE}
-            <span style={{ display: "block", fontWeight: 600, fontSize: "clamp(19px, 2.6vw, 34px)", lineHeight: 1.18, letterSpacing: "-0.02em", marginTop: 18, color: DIM }}>
+            <span className="fil-subhead" style={{ display: "block", fontWeight: 600, fontSize: "clamp(19px, 2.6vw, 34px)", lineHeight: 1.18, letterSpacing: "-0.02em", marginTop: 18, color: DIM }}>
               Supercharge your CTI and Exposure Validation teams{" "}
               <span className="fil-shimmer">with AI Agents</span>
             </span>
           </h1>
 
-          <p className="fil-rise fil-d2" style={{ fontFamily: BODY, fontSize: "clamp(15px, 1.5vw, 18px)", lineHeight: 1.6, color: DIM, maxWidth: 660, margin: "26px 0 0" }}>{TAGLINE}</p>
+          <p className="fil-rise fil-d2 fil-tagline" style={{ fontFamily: BODY, fontSize: "clamp(15px, 1.5vw, 18px)", lineHeight: 1.6, color: DIM, maxWidth: 660, margin: "26px 0 0" }}>{TAGLINE}</p>
 
           {/* Info bar */}
           <div className="fil-rise fil-d3 fil-infobar" style={{ display: "inline-flex", alignItems: "center", flexWrap: "wrap", gap: "clamp(14px, 2vw, 26px)", margin: "34px 0 0", padding: "14px 22px", borderRadius: 16, background: "rgba(255,255,255,0.045)", border: `1px solid ${BORDER}`, backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", boxShadow: "0 10px 34px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06)" }}>
@@ -280,7 +280,7 @@ export default function FiligranPage() {
           {/* Countdown (isolated so the per-second tick doesn't re-render the page) */}
           <Countdown />
 
-          <div className="fil-rise fil-d4" style={{ display: "flex", gap: 14, margin: "36px 0 0", flexWrap: "wrap" }}>
+          <div className="fil-rise fil-d4 fil-hero-cta" style={{ display: "flex", gap: 14, margin: "36px 0 0", flexWrap: "wrap" }}>
             <button onClick={() => scrollToId("register")} className="fil-cta fil-cta-hero" style={{
               position: "relative", overflow: "hidden",
               fontFamily: DISPLAY, fontSize: 15, fontWeight: 600, color: WHITE, background: BLUE,
@@ -452,8 +452,8 @@ export default function FiligranPage() {
       </Section>
 
       {/* ── Footer ── */}
-      <footer style={{ background: "transparent", borderTop: `1px solid ${BORDER}`, padding: "26px clamp(18px,5vw,64px)", contentVisibility: "auto", containIntrinsicSize: "auto 120px" }}>
-        <div style={{ maxWidth: 1080, margin: "0 auto", display: "flex", flexWrap: "wrap", gap: "20px 32px", alignItems: "center", justifyContent: "space-between" }}>
+      <footer className="fil-footer" style={{ background: "transparent", borderTop: `1px solid ${BORDER}`, padding: "26px clamp(18px,5vw,64px)", contentVisibility: "auto", containIntrinsicSize: "auto 120px" }}>
+        <div className="fil-footer-inner" style={{ maxWidth: 1080, margin: "0 auto", display: "flex", flexWrap: "wrap", gap: "20px 32px", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "16px 28px", flexWrap: "wrap" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={LOGO_WHITE} alt="Filigran" loading="lazy" decoding="async" style={{ height: 24, width: "auto", opacity: 0.92 }} />
@@ -530,8 +530,25 @@ export default function FiligranPage() {
           .fil-speakers { grid-template-columns: minmax(0, 360px) !important; }
         }
         @media (max-width: 560px) {
+          /* Hero: content-height (no full-screen gap on tall phones) + tighter rhythm */
+          .fil-hero { min-height: auto !important; padding: 94px 18px 44px !important; justify-content: flex-start !important; }
+          .fil-badge { margin-bottom: 16px !important; }
+          .fil-subhead { margin-top: 12px !important; }
+          .fil-tagline { margin-top: 16px !important; }
+          .fil-infobar { margin-top: 20px !important; padding: 12px 15px !important; gap: 12px !important; }
           .fil-infobar .fil-div { display: none !important; }
-          .fil-infobar { gap: 12px !important; }
+          .fil-cd-root { margin-top: 22px !important; }
+          /* Countdown: even single row of 4 instead of a 3+1 wrap */
+          .fil-countdown { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 8px !important; }
+          .fil-cd-cell { min-width: 0 !important; padding: 14px 6px !important; border-radius: 13px !important; }
+          .fil-cd-num { font-size: 26px !important; }
+          .fil-cd-label { font-size: 8px !important; letter-spacing: 0.1em !important; margin-top: 6px !important; }
+          /* CTAs: full-width stacked, even sizing */
+          .fil-hero-cta { margin-top: 24px !important; flex-direction: column !important; gap: 12px !important; }
+          .fil-hero-cta .fil-cta, .fil-hero-cta .fil-cta-ghost { width: 100% !important; text-align: center !important; padding: 15px 24px !important; }
+          /* Footer: stacked + clearance for the floating WhatsApp button */
+          .fil-footer { padding: 22px 18px 100px !important; }
+          .fil-footer-inner { flex-direction: column !important; align-items: flex-start !important; justify-content: flex-start !important; gap: 18px !important; }
         }
       `}</style>
     </main>
