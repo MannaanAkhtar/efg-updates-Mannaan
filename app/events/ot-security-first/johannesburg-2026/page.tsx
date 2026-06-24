@@ -2828,7 +2828,7 @@ function FocusAreas() {
   const inView = useInView(sectionRef, { once: true, margin: "-60px" });
 
   return (
-    <section ref={sectionRef} id="agenda" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
+    <section ref={sectionRef} id="themes" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
         {/* Header — left-aligned editorial style */}
         <motion.div
@@ -3860,6 +3860,14 @@ const EVENT_SPONSORS_2026: {
     keepColor: true,
   },
   {
+    name: "Seceon",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Seceon-PNG-Security+for+Eons-Green+Logo.png",
+    url: "https://seceon.com/",
+    tier: "gold",
+    keepColor: true,
+    scale: 1.3,
+  },
+  {
     name: "Forescout",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/forescout.png",
     url: "https://www.forescout.com/",
@@ -3989,18 +3997,23 @@ function EventSponsorsSection() {
                   );
                 })()}
 
-                {/* Sponsor cards */}
+                {/* Sponsor cards — gold renders as balanced 3+2 centered rows */}
+                {(isGold
+                  ? [sponsorsInTier.slice(0, 3), sponsorsInTier.slice(3)].filter((r) => r.length > 0)
+                  : [sponsorsInTier]
+                ).map((rowSponsors, rowIdx) => (
                 <div
+                  key={rowIdx}
                   style={{
                     display: "grid",
-                    gridTemplateColumns: `repeat(${cols}, minmax(180px, ${cardMaxWidth}px))`,
+                    gridTemplateColumns: `repeat(${isGold ? rowSponsors.length : cols}, minmax(180px, ${cardMaxWidth}px))`,
                     gap: 20,
                     justifyContent: "center",
                     width: "100%",
                   }}
                   className="otsf-event-sponsors-grid"
                 >
-                  {sponsorsInTier.map((sponsor, i) => {
+                  {rowSponsors.map((sponsor, i) => {
                     const GOLD = "#E8B845";
                     const GOLD_RGB = "232,184,69";
                     const accent = isStrategic
@@ -4332,6 +4345,7 @@ function EventSponsorsSection() {
                     );
                   })}
                 </div>
+                ))}
               </motion.div>
             );
           })}
@@ -4704,7 +4718,7 @@ function AwardsSection() {
   };
 
   return (
-    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} id="awards" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
       {/* Ambient orbs */}
       <div style={{ position: "absolute", top: "15%", left: "-5%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${C}14 0%, transparent 70%)`, filter: "blur(70px)", pointerEvents: "none" }} />
       <div style={{ position: "absolute", bottom: "15%", right: "-5%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${CYAN}10 0%, transparent 70%)`, filter: "blur(70px)", pointerEvents: "none" }} />
