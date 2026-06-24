@@ -71,20 +71,15 @@ const itemListJsonLd = {
     "Executive technology summits and boardrooms produced by Events First Group across the Middle East, Africa, and Asia in 2026.",
   url: `${BASE_URL}/events`,
   numberOfItems: events.length,
+  // A navigational list of links to event/series pages — NOT an event feed.
+  // Items are plain ListItems (name + url) so Google does not validate them as
+  // Event rich results; each individual event page carries its own Event schema
+  // with the required startDate/location fields.
   itemListElement: events.map((event, i) => ({
     "@type": "ListItem",
     position: i + 1,
+    name: event.name,
     url: `${BASE_URL}${event.path}`,
-    item: {
-      "@type": "Event",
-      name: event.name,
-      url: `${BASE_URL}${event.path}`,
-      organizer: {
-        "@type": "Organization",
-        name: "Events First Group",
-        url: BASE_URL,
-      },
-    },
   })),
 };
 
