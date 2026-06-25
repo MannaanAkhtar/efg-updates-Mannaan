@@ -227,8 +227,8 @@ const allEvents = [
     image:
       "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80",
     href: "/events/opex-first/saudi-2026",
-    date: "2026-09-28",
-    nextDate: "28 Sep 2026",
+    date: "2026-10-20",
+    nextDate: "20 Oct 2026",
     nextCity: "Riyadh, KSA",
     editions: "3rd Edition",
     regions: "Saudi Arabia",

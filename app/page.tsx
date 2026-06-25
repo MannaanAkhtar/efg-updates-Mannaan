@@ -165,7 +165,7 @@ const eventSeriesJsonLd = [
     url: "https://www.eventsfirstgroup.com/events/opex-first",
     organizer: { "@type": "Organization", name: "Events First Group", url: "https://www.eventsfirstgroup.com" },
     subEvent: [
-      { "@type": "Event", name: "OPEX First Saudi 2026", startDate: "2026-09-28", location: { "@type": "Place", name: "Riyadh", address: { "@type": "PostalAddress", addressLocality: "Riyadh", addressCountry: "SA" } } },
+      { "@type": "Event", name: "OPEX First Saudi 2026", startDate: "2026-10-20", location: { "@type": "Place", name: "Riyadh", address: { "@type": "PostalAddress", addressLocality: "Riyadh", addressCountry: "SA" } } },
     ],
   },
   {

@@ -35,7 +35,7 @@ const FAINT = "rgba(255,255,255,0.35)";
 const MUTE = "rgba(255,255,255,0.6)";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const EVENT_DATE = new Date("2026-09-28T09:00:00+03:00");
+const EVENT_DATE = new Date("2026-10-20T09:00:00+03:00");
 const EFG_LOGO = "/events-first-group_logo_alt.svg";
 const OPEX_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OPEX+FIRST+logo-1.png";
 
@@ -87,7 +87,7 @@ const HERO_BG = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/opexKSA.pn
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const HERO_PILLS = [
-  { label: "28 Sep 2026" },
+  { label: "20 Oct 2026" },
   { label: "Riyadh · KSA" },
   { label: "Full-Day Summit" },
   { label: "220+ Delegates" },
@@ -709,7 +709,7 @@ function Hero() {
               color: "rgba(255,255,255,0.82)",
             }}
           >
-            <span>28 September 2026</span>
+            <span>20 October 2026</span>
             <span style={{ width: 4, height: 4, borderRadius: "50%", background: V_BRIGHT }} />
             <span>Riyadh, KSA</span>
             <span style={{ width: 4, height: 4, borderRadius: "50%", background: V_BRIGHT }} />
@@ -3622,7 +3622,7 @@ function Agenda() {
       <div style={{ position: "absolute", inset: 0, backgroundImage: `linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px)`, backgroundSize: "100% 80px", pointerEvents: "none", opacity: 0.6 }} />
 
       <div style={{ maxWidth: 1320, margin: "0 auto", position: "relative", zIndex: 2 }}>
-        <SectionEyebrow inView={inView} label="Agenda · 28 September 2026" />
+        <SectionEyebrow inView={inView} label="Agenda · 20 October 2026" />
         <SectionTitle inView={inView}>
           One day. <em className="opex-violet-shimmer">Nine sessions</em>. Built for action.
         </SectionTitle>
