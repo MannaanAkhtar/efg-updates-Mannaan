@@ -199,13 +199,6 @@ const SPEAKERS: Speaker[] = [
     linkedin: "https://www.linkedin.com/in/faissal-al-roumi-mba-corp-0b2064112/",
   },
   {
-    name: "Rishabh R. Gaikwad",
-    title: "Head of Information Security & Data Governance",
-    org: "Alghanim Industries",
-    photo: null,
-    linkedin: "https://www.linkedin.com/in/dr-rishabh-r-gaikwad-88335638/",
-  },
-  {
     name: "Eng. Yousef H. El-Kordi",
     title: "Group Information Technology Director",
     org: "City Group",
@@ -5557,13 +5550,6 @@ const ADVISORY_BOARD: AdvisoryMember[] = [
     org: "Kuwait Technical College",
     photo: `${S3}/dr-fai-ben-salamah-new.jpg`,
     linkedin: "https://www.linkedin.com/in/dr-fai-ben-salamah-83113b1a0/",
-  },
-  {
-    name: "Rishabh R. Gaikwad",
-    title: "Head of Information Security & Data Governance",
-    org: "Alghanim Industries",
-    photo: null,
-    linkedin: "https://www.linkedin.com/in/dr-rishabh-r-gaikwad-88335638/",
   },
   {
     name: "Eng. Yousef H. El-Kordi",
