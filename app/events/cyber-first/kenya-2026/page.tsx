@@ -386,11 +386,12 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     linkedin: "https://www.linkedin.com/in/mutheu-khimulu-law/",
   },
   {
-    name: "Bonface Asiligwa",
-    title: "President",
-    org: "ISACA Kenya Chapter",
-    photo: null,
-    linkedin: "https://www.linkedin.com/in/bonface-asiligwa-cissp-cisa-cism-crisc-cobit-cgeit-cdpse-75710648/",
+    name: "Eneth Kubai",
+    title: "Head of Enterprise Architecture",
+    org: "Safaricom PLC",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eneth+Kuba.png",
+    // Dial back the card's built-in 10% parallax zoom for her tighter headshot
+    photoStyle: { width: "100%", height: "100%", marginLeft: 0, marginTop: 0, objectPosition: "center 12%" },
   },
   {
     name: "George Kisaka",
