@@ -275,6 +275,7 @@ const CFK_SPONSORS_2026: { name: string; logo: string; url: string; tier: "strat
   { name: "BeyondTrust", logo: `${S3}/logos/BeyondTrust.png`, url: "https://www.beyondtrust.com/", tier: "gold" },
   { name: "INUA AI", logo: `${S3}/logos/INUA+AI+LOGO+3+white.png`, url: "https://inuaai.com/", tier: "panel" },
   { name: "QuantumSynapse", logo: `${S3}/logos/QuantumSynapse-1.png`, url: "https://quantumsynapse.ai/", tier: "panel" },
+  { name: "Cyberdisti", logo: `${S3}/sponsors-logo/Cyberdisti-logo.png`, url: "https://cyberdisti.com/", tier: "panel" },
   { name: "Teknowledge", logo: `${S3}/sponsors-logo/Original_LOGO_black.png`, url: "https://teknowledge.com/", tier: "networking" },
   { name: "Cryptoken Media", logo: `${S3}/sponsors-logo/cryptoken_media.png`, url: "https://cryptoken.media/", tier: "media" },
   { name: "TEX Afrika Media", logo: `${S3}/sponsors-logo/tex_afrika_media.png`, url: "https://www.texafrica.com/", tier: "media" },
@@ -5116,6 +5117,12 @@ function EventSponsors2026() {
         }
         .cfk-sponsor-card:hover .cfk-sponsor-logo[data-sponsor="ManageEngine"] {
           transform: scale(1.42) !important;
+        }
+        .cfk-sponsor-logo[data-sponsor="Cyberdisti"] {
+          transform: scale(1.3);
+        }
+        .cfk-sponsor-card:hover .cfk-sponsor-logo[data-sponsor="Cyberdisti"] {
+          transform: scale(1.37) !important;
         }
         .cfk-sponsor-logo[data-sponsor="Cryptoken Media"] {
           background: #fff;
