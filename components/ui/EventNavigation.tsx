@@ -127,7 +127,7 @@ const EVENT_CONFIGS: Record<string, {
     colorBright: "#E872B5",
     date: "27 October 2026",
     location: "Jubail, KSA",
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Jubail-02.png",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OT+Security+First+Jubail+logo+Final-03.png",
     navLinks: [
       { href: "#overview", label: "Overview" },
       { href: "#speakers", label: "Speakers" },
