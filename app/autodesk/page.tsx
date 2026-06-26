@@ -2366,6 +2366,25 @@ function Footer() {
 // PAGE
 // =============================================================================
 export default function AutodeskPage() {
+  // Honor a #hash on arrival (e.g. from a /s/ad-mary short link → #reserve).
+  // Framer-motion content mounts after the browser's native hash jump fires,
+  // so scroll explicitly once the target exists, retrying briefly if needed.
+  useEffect(() => {
+    const id = window.location.hash.replace("#", "");
+    if (!id) return;
+    let tries = 0;
+    const tick = () => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+      if (tries++ < 20) setTimeout(tick, 150);
+    };
+    const t = setTimeout(tick, 450);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <main style={{ fontFamily: BODY, background: BLACK, color: WHITE, minHeight: "100vh" }}>
       <TopBar />

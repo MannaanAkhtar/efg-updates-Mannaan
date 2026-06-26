@@ -17,7 +17,7 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   "fil-mary": { path: "/filigran", source: "mary", campaign: "filigran-2026" },
 
   // Autodesk
-  "ad-mary": { path: "/autodesk", source: "mary", campaign: "autodesk-2026" },
+  "ad-mary": { path: "/autodesk", source: "mary", campaign: "autodesk-2026", hash: "reserve" },
 
   // Cyber First East Africa 2026
   "cfea-nadim": { path: "/events/cyber-first/kenya-2026", source: "nadim", campaign: "cfea-2026", hash: "register", tab: "attend" },
