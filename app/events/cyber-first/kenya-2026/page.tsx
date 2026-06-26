@@ -422,6 +422,12 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Geoffrey-Ochieng.png",
     linkedin: "https://www.linkedin.com/in/geoffrey-o-ochieng%E2%84%A2%A2-85127a285/",
   },
+  {
+    name: "Brendon Meyer",
+    title: "Sr. Solutions Engineer",
+    org: "BeyondTrust",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Brendon+Meyer.png",
+  },
 ];
 
 // Kenya Speakers (from brochure)
