@@ -16,6 +16,9 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   "fil-jacqueline": { path: "/filigran", source: "jacqueline", campaign: "filigran-2026" },
   "fil-mary": { path: "/filigran", source: "mary", campaign: "filigran-2026" },
 
+  // Autodesk
+  "ad-mary": { path: "/autodesk", source: "mary", campaign: "autodesk-2026" },
+
   // Cyber First East Africa 2026
   "cfea-nadim": { path: "/events/cyber-first/kenya-2026", source: "nadim", campaign: "cfea-2026", hash: "register", tab: "attend" },
   "cfea-nadeem": { path: "/events/cyber-first/kenya-2026", source: "nadim", campaign: "cfea-2026", hash: "register", tab: "attend" }, // legacy alias → nadim
