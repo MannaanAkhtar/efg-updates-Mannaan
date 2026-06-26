@@ -294,6 +294,13 @@ const SPEAKERS = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Cathy+Leso.jpg",
   },
   {
+    name: "Ishaaq Jacobs",
+    title: "Chief Cyber Security Officer (CISO)",
+    org: "Sasol",
+    linkedin: "https://www.linkedin.com/in/ishaaq-jacobs/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ishaaq+Jacobs.jpg",
+  },
+  {
     name: "Rishi Hariram",
     title: "CISO / Regional Head — Information Security (EMEA/APAC)",
     org: "Anglo American",
@@ -362,13 +369,6 @@ const SPEAKERS = [
     org: "Waterfall",
     linkedin: "https://www.linkedin.com/in/nkerboute/",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naoufal-Media1.jpg",
-  },
-  {
-    name: "Ishaaq Jacobs",
-    title: "Chief Cyber Security Officer (CISO)",
-    org: "Sasol",
-    linkedin: "https://www.linkedin.com/in/ishaaq-jacobs/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ishaaq+Jacobs.jpg",
   },
 ];
 
