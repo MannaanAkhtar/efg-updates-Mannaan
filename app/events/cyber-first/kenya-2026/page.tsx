@@ -213,25 +213,103 @@ const FOCUS_AREAS = [
   },
 ];
 
-const AGENDA = [
-  { time: "08:00 – 09:00", title: "Registration, Networking, and Refreshments", type: "break" as const },
-  { time: "09:05 – 09:10", title: "Welcome Remarks", type: "keynote" as const },
-  { time: "09:10 – 09:15", title: "National Anthem and Opening Ceremony", type: "keynote" as const },
-  { time: "09:15 – 09:30", title: "Opening Keynote", subtitle: "The Digital Mandate Roadmap – NC4 and Kenya's Cyber Economy\nCol Dr James Kimuyu – Director, National Computer and Cybercrimes Coordination Committee (NC4)", type: "keynote" as const },
-  { time: "09:30 – 10:00", title: "Leadership Panel", subtitle: "Who Owns the Risk? Boards, Regulators and CISOs under New Expectations\nGovernance focused on accountability, reporting, and decision making for cyber risk across sectors, how responsibility is shared, what effective governance looks like in practice", type: "panel" as const },
-  { time: "10:00 – 10:15", title: "Fireside Chat", subtitle: "The Sovereign Shield – Harmonizing Critical Infrastructure Defence under the CMCA 2025\nThe tactical enforcement of the 2025 Amendment Act, focusing on how government agencies and regulators are transitioning from legislative theory to real-time website deactivation and threat containment", type: "fireside" as const },
-  { time: "10:15 – 10:30", title: "Technology Presentation", subtitle: "Using Endpoint and Network Telemetry to Spot Business Critical Attacks\n(Reserved for Sponsor)", type: "fireside" as const },
-  { time: "10:30 – 11:15", title: "VIP Exhibition Tour followed by Networking & Refreshments", type: "break" as const },
-  { time: "11:15 – 11:45", title: "Panel Discussion", subtitle: "From Logs to Decisions – Making Threat Intelligence and Analytics Actionable\nHow organizations can prioritize a small set of high-value detection and intel use-cases, instead of drowning in data and alerts", type: "panel" as const },
-  { time: "11:45 – 12:00", title: "Technology Presentation", subtitle: "MFA Fatigue & Password less – Implementing Identity First Security\n(Reserved for Sponsor)", type: "fireside" as const },
-  { time: "12:00 – 12:15", title: "Technology Presentation", subtitle: "Behavioural Biometrics – The Next Frontier in Anti-Fraud for Digital Lenders\n(Reserved for Sponsor)", type: "fireside" as const },
-  { time: "12:15 – 12:45", title: "Panel Discussion", subtitle: "Keeping the Lights On – Practical Resilience Against DDoS, Ransomware and Network Disruptions\nKeeping critical services available under intense pressure and concrete strategies for maintaining availability of critical services under DDoS waves, network issues, and ransomware across sectors", type: "panel" as const },
-  { time: "12:45 – 13:00", title: "Technology Presentation", subtitle: "Proactive Deception Strategies for Government Portals\n(Reserved for Sponsor)", type: "fireside" as const },
-  { time: "13:00 – 13:30", title: "Networking Break and Refreshments", type: "break" as const },
-  { time: "13:30 – 14:00", title: "Panel Discussion", subtitle: "Identity Under Pressure – Stopping Fraud and Account Takeover in a Mobile First Economy\nHow identity abuse drives fraud and disruption across mobile money, digital banking, telco services, and citizen portals", type: "panel" as const },
-  { time: "14:00 – 14:15", title: "Presentation", subtitle: "API Security at Scale – Protecting the Interconnected Ecosystem of the Silicon Savannah\n(Reserved Session)", type: "fireside" as const },
-  { time: "14:15 – 14:30", title: "Cyber First Award Ceremony & Raffle Draw", type: "awards" as const },
-  { time: "14:30", title: "Networking Lunch and End of Conference", type: "break" as const },
+const AGENDA: {
+  time: string;
+  title: string;
+  subtitle?: string;
+  type: "keynote" | "panel" | "fireside" | "sponsor" | "break" | "awards" | "closing";
+  bullets?: string[];
+  moderator?: string;
+  panelists?: string[];
+}[] = [
+  { time: "08:00 – 09:00", title: "Registration, Networking, and Refreshments", type: "break" },
+  { time: "09:10 – 09:15", title: "Welcome Remarks", type: "keynote" },
+  { time: "09:15 – 09:20", title: "National Anthem and Opening Ceremony", type: "keynote" },
+  { time: "09:20 – 09:30", title: "Opening Keynote", subtitle: "The Digital Mandate Roadmap – NC4 and Kenya's Cyber Economy\nCol Dr James Kimuyu – Director, National Computer and Cybercrimes Coordination Committee (NC4)", type: "keynote" },
+  {
+    time: "09:30 – 10:15",
+    title: "Leadership Panel",
+    subtitle: "Who Owns the Risk? Boards, Regulators and CISOs under New Expectations\nGovernance focused on accountability, reporting, and decision making for cyber risk across sectors, how responsibility is shared, what effective governance looks like in practice",
+    type: "panel",
+    bullets: [
+      "Safeguarding national critical infrastructure and policy synchronization",
+      "Regulatory expectations, audit findings, corrective action plans",
+      "Third-party and supply chain risk management",
+    ],
+    moderator: "Mutheu Nyagah Khimulu, Advisory Board Member, African Centre for Security",
+    panelists: [
+      "Emmanuel Kimeu, Secretary, ICT Security and Audit Control - State Department of ICT and Digital Economy, Ministry of Information, Communications and The Digital Economy",
+      "Dr Isabelle K, Principal Officer | Frequency Spectrum Management | Standardisation and Innovation, Communications Authority of Kenya (CA)",
+      "Rosemary Koech-Kimwatu, Head of Data Protection, KCB Bank Group",
+      "Reserved for Starlink",
+    ],
+  },
+  { time: "10:15 – 10:30", title: "Technology Presentation", subtitle: "The Ghost in the Machine (securing non-human identities)\nBrendon Meyer, Senior Solutions Engineer, Beyond Trust", type: "fireside" },
+  { time: "10:30 – 11:15", title: "VIP Exhibition Tour followed by Networking & Refreshments", type: "break" },
+  {
+    time: "11:15 – 12:00",
+    title: "Panel Discussion",
+    subtitle: "From Logs to Decisions - Making Threat Intelligence and Analytics Actionable\nHow organizations can prioritize a small set of high-value detection and intel use-cases, instead of drowning in data and alerts",
+    type: "panel",
+    bullets: [
+      "Identity centric defence for mobile money and digital channels",
+      "Real time fraud and abuse detection across payment rails",
+      "Endpoint and network protection in branch, agency, and shared-device environments",
+      "Prioritizing data sources & automation boundaries",
+    ],
+    moderator: "Shiphrah Wairima, President, Global Council for Responsible Artificial Intelligence (GCRAI)",
+    panelists: [
+      "Raphael Gathecha, Group Head of Cyber and Information Security (CISO), Letshego African Holdings Limited",
+      "Peter Muhumuza, CISO, KCB Bank Uganda",
+      "George Rugero, Head - Information Security, Airtel Rwanda",
+      "Collins Amadi, Head, Enterprise Security Architecture & IAM, Equity Bank Limited",
+      "Hamid Balghi, Director – Sales & Partnership MEA, Cyfirma",
+    ],
+  },
+  { time: "12:00 – 12:15", title: "Technology Presentation", subtitle: "MFA Fatigue & Password less - Implementing Identity First Security\nReserved", type: "fireside" },
+  { time: "12:15 – 12:30", title: "Technology Presentation", subtitle: "Behavioural Biometrics - The Next Frontier in Anti-Fraud for Digital Lenders\nReserved", type: "fireside" },
+  {
+    time: "12:30 – 13:15",
+    title: "Panel Discussion",
+    subtitle: "Keeping the Lights On - Practical Resilience Against DDoS, Ransomware and Network Disruptions\nKeeping critical services available under intense pressure and concrete strategies for maintaining availability of critical services under DDoS waves, network issues, and ransomware across sectors",
+    type: "panel",
+    bullets: [
+      "Service classification - what must never go down, for how long",
+      "Technology and process for DDoS mitigation on public services",
+      "Ransomware preparation - segmentation, backup strategy, offline copies, recovery drills",
+      "Interplay between physical incidents and cyber resilience",
+    ],
+    moderator: "Rakesh Ravindran, Associate Director, Deloitte",
+    panelists: [
+      "Hussein Omar Hussein, Director IT and Digital, SBM Bank Kenya",
+      "Steven Mwesige, Ag. Chief Information Security Officer, Pearl Bank Uganda",
+      "Frank K Muriuki, Lead - Information Security Officer, Kenyan Airports Authority",
+      "Michael Etale, Chief Information Security Officer, Absa Bank",
+    ],
+  },
+  { time: "13:15 – 13:45", title: "Networking Break and Refreshments", type: "break" },
+  {
+    time: "13:45 – 14:30",
+    title: "Panel Discussion",
+    subtitle: "Identity Under Pressure - Stopping Fraud and Account Takeover in a Mobile First Economy\nHow identity abuse drives fraud and disruption across mobile money, digital banking, telco services, and citizen portals",
+    type: "panel",
+    bullets: [
+      "Real-time risk scoring for logins and transactions",
+      "Coordinating fraud, cyber, and operations teams",
+      "Securing agents and merchants in mobile money ecosystems",
+      "Protecting privileged admin and operator accounts in telco/gov",
+      "Handling identity in shared-device environments",
+    ],
+    moderator: "George Kisaka, Vice President, ISACA Kenya Chapter",
+    panelists: [
+      "Geoffrey O. Ochieng, Global AI Delegate to Kenya, Global Alliance for Artificial Intelligence (GAFAI)",
+      "Steve Ganjra, Managed Security Services Manager, Safaricom PLC",
+      "Kevin Kimani, GCISO, ASA International",
+      "Eneth Kubai, Head of Enterprise Architecture, Safaricom PLC",
+    ],
+  },
+  { time: "14:30 – 14:45", title: "Cyber First Award Ceremony & Raffle Draw", type: "awards" },
+  { time: "14:45", title: "Networking Lunch and End of Conference", type: "break" },
 ];
 
 const AWARDS_DATA = [
@@ -392,6 +470,7 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     name: "Eneth Kubai",
     title: "Head of Enterprise Architecture",
     org: "Safaricom PLC",
+    linkedin: "https://www.linkedin.com/in/eneth-kubai-7a043a19/",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eneth+Kuba.png",
     // Dial back the card's built-in 10% parallax zoom for her tighter headshot
     photoStyle: { width: "100%", height: "100%", marginLeft: 0, marginTop: 0, objectPosition: "center 12%" },
@@ -2890,437 +2969,432 @@ function FocusAreas() {
   );
 }
 
-// ─── ADVISORY MOBILE MARQUEE ────────────────────────────────────────────────
-function AdvisoryMobileMarquee() {
-  const [page, setPage] = useState(0);
-  const perPage = 2;
-  const totalPages = Math.ceil(ADVISORY_BOARD.length / perPage);
-  const paused = useRef(false);
-
-  // Auto-advance
-  useEffect(() => {
-    const id = setInterval(() => {
-      if (!paused.current) setPage(p => (p + 1) % totalPages);
-    }, 4000);
-    return () => clearInterval(id);
-  }, [totalPages]);
-
-  const visible = ADVISORY_BOARD.slice(page * perPage, page * perPage + perPage);
-
-  return (
-    <div className="cfk-advisory-mobile" style={{ display: "none", padding: "0 24px 40px" }}>
-      {/* Cards row — marquee-like crossfade */}
-      <div
-        style={{ display: "flex", gap: 14, justifyContent: "center" }}
-        onPointerEnter={() => { paused.current = true; }}
-        onPointerLeave={() => { paused.current = false; }}
-      >
-        {visible.map((member) => (
-          <div key={member.name} style={{
-            width: "calc(50% - 7px)", maxWidth: 220, borderRadius: 18, overflow: "hidden",
-            background: "linear-gradient(165deg, rgba(25,18,20,0.95) 0%, rgba(12,8,10,0.98) 100%)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            boxShadow: "0 12px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)",
-          }}>
-            {/* Photo */}
-            <div style={{ height: 200, overflow: "hidden", position: "relative" }}>
-              {member.photo ? (
-                <img src={member.photo} alt={member.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", ...member.photoStyle }} />
-              ) : (
-                <div style={{ width: "100%", height: "100%", background: `linear-gradient(135deg, ${C}60, ${C}30)`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontSize: 48, color: "rgba(255,255,255,0.15)" }}>👤</span>
-                </div>
-              )}
-              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "50%", background: "linear-gradient(to bottom, transparent, rgba(12,8,10,0.95))" }} />
-            </div>
-            {/* Info */}
-            <div style={{ padding: "12px 14px 16px" }}>
-              <p style={{ fontFamily: "var(--font-display)", fontSize: 14, fontWeight: 700, color: "white", margin: "0 0 4px", lineHeight: 1.25 }}>{member.name}</p>
-              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 500, color: C_BRIGHT, margin: "0 0 3px", lineHeight: 1.3 }}>{member.title}</p>
-              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.5)", margin: 0, lineHeight: 1.3 }}>{member.org}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Pagination dots */}
-      <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 20 }}>
-        {Array.from({ length: totalPages }).map((_, i) => (
-          <button
-            type="button"
-            suppressHydrationWarning
-            key={i}
-            onClick={() => setPage(i)}
-            style={{
-              width: page === i ? 24 : 8, height: 8, borderRadius: 4,
-              background: page === i ? C_BRIGHT : "rgba(255,255,255,0.15)",
-              border: "none", cursor: "pointer", padding: 0,
-              transition: "all 0.3s ease",
-            }}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ─── ADVISORY BOARD - HORIZONTAL SCROLL WITH GSAP ────────────────────────────
+// ─── ADVISORY BOARD / LEADERSHIP — CARD GRID ─────────────────────────────────
 function AdvisoryBoard() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
   const trackRef = useRef<HTMLDivElement>(null);
+  const [activeDot, setActiveDot] = useState(0);
 
-  useGSAP(() => {
-    if (!trackRef.current || !sectionRef.current) return;
-    // Disable horizontal scroll on mobile — use vertical grid instead
-    if (window.innerWidth < 768) return;
+  // Mobile-only: gently auto-scroll the row (ping-pong), pause on touch.
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const mq = window.matchMedia("(max-width: 768px)");
+    const reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    const track = trackRef.current;
+    let raf = 0;
+    let paused = false;
+    let dir = 1;
+    let resumeTimer: ReturnType<typeof setTimeout>;
+    let started = false;
+    const speed = 0.5;
 
-    // Dynamic scroll-distance calc — re-evaluates on every
-    // ScrollTrigger.refresh() (window resize, font-load shift, card
-    // count change). Wrapping the end + x targets in functions lets
-    // invalidateOnRefresh pick up the new track.scrollWidth without
-    // a full re-mount.
-    const getScrollWidth = () => {
-      const leftPanel = Math.min(500, window.innerWidth * 0.35);
-      return track.scrollWidth - (window.innerWidth - leftPanel);
+    const active = () => mq.matches && !reduceMq.matches;
+
+    const step = () => {
+      if (started && active() && !paused) {
+        el.scrollLeft += speed * dir;
+        const max = el.scrollWidth - el.clientWidth;
+        if (el.scrollLeft >= max - 1) dir = -1;
+        else if (el.scrollLeft <= 0) dir = 1;
+      }
+      raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    const startTimer = setTimeout(() => { started = true; }, 1600);
+
+    const pause = () => { paused = true; clearTimeout(resumeTimer); };
+    const resume = () => { clearTimeout(resumeTimer); resumeTimer = setTimeout(() => { paused = false; }, 1600); };
+
+    const onScroll = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      const frac = max > 0 ? el.scrollLeft / max : 0;
+      setActiveDot(Math.round(frac * ADVISORY_BOARD.length));
     };
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top top",
-        end: () => `+=${getScrollWidth() * 1.5}`,
-        pin: true,
-        scrub: 0.8,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      },
-    });
+    el.addEventListener("pointerdown", pause);
+    el.addEventListener("touchstart", pause, { passive: true });
+    el.addEventListener("touchend", resume, { passive: true });
+    el.addEventListener("pointerup", resume);
+    el.addEventListener("scroll", onScroll, { passive: true });
 
-    tl.to(track, {
-      x: () => -getScrollWidth(),
-      ease: "none",
-    });
-  }, { scope: sectionRef });
+    return () => {
+      clearTimeout(startTimer);
+      clearTimeout(resumeTimer);
+      cancelAnimationFrame(raf);
+      el.removeEventListener("pointerdown", pause);
+      el.removeEventListener("touchstart", pause);
+      el.removeEventListener("touchend", resume);
+      el.removeEventListener("pointerup", resume);
+      el.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  const scrollToDot = (i: number) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    el.scrollTo({ left: (i / Math.max(1, ADVISORY_BOARD.length)) * max, behavior: "smooth" });
+  };
 
   return (
-    <section
-      id="speakers"
-      ref={sectionRef}
-      className="cfk-advisory-section"
-      style={{
-        background: "#0A0608",
-        position: "relative",
-        overflow: "hidden",
-        height: "100vh",
-      }}
-    >
-      {/* Background effects */}
-      <div className="absolute inset-0" style={{ background: `radial-gradient(ellipse 100% 80% at 0% 50%, ${C}15, transparent 50%)` }} />
-      <div className="absolute inset-0" style={{ background: `radial-gradient(ellipse 60% 60% at 100% 50%, ${KENYA_ACCENT}10, transparent 50%)` }} />
+    <section ref={ref} id="speakers" style={{ background: "#0A0608", padding: "clamp(56px, 6vw, 88px) 0", position: "relative", overflow: "hidden" }}>
+      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 40% 60% at 80% 50%, ${C}12, transparent 60%)`, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 50% 50% at 0% 30%, ${KENYA_ACCENT}08, transparent 55%)`, pointerEvents: "none" }} />
+      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ marginBottom: 48 }}>
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 700, color: KENYA_GOLD, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>Leadership</span>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", lineHeight: 1.05, letterSpacing: "-2px", color: "white", margin: "0 0 16px" }}>
+            Advisory Board &amp; <span style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${KENYA_GOLD} 50%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Speakers</span>
+          </h2>
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 16, fontWeight: 400, color: "rgba(255,255,255,0.5)", lineHeight: 1.7, margin: 0, maxWidth: 600 }}>
+            Industry leaders shaping the summit agenda and driving cybersecurity excellence across East Africa.
+          </p>
+        </motion.div>
 
-      <div className="cfk-advisory-wrap" style={{ display: "flex", height: "100%", alignItems: "center" }}>
-        {/* LEFT - Sticky Heading with solid background */}
-        <div className="cfk-advisory-left" style={{
-          width: "clamp(380px, 35vw, 500px)",
-          flexShrink: 0,
-          padding: "60px clamp(40px, 5vw, 80px)",
-          zIndex: 20,
-          background: "#0A0608",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          borderRight: `1px solid rgba(255,255,255,0.05)`,
-          position: "relative",
-        }}>
-          {/* Right edge glow */}
-          <div style={{ position: "absolute", top: 0, bottom: 0, right: 0, width: 100, background: `linear-gradient(90deg, transparent, ${C}10)`, pointerEvents: "none" }} />
-          
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <span style={{
-              fontFamily: "var(--font-outfit)",
-              fontSize: 14,
-              fontWeight: 700,
-              letterSpacing: "5px",
-              textTransform: "uppercase",
-              color: C_BRIGHT,
-              display: "block",
-              marginBottom: 28,
-            }}>
-              Leadership
-            </span>
-            
-            <h2 style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(44px, 5vw, 68px)",
-              letterSpacing: "-3px",
-              color: "white",
-              lineHeight: 1.0,
-              margin: "0 0 24px 0",
-            }}>
-              Advisory<br />Board &<br /><span style={{ color: C_BRIGHT }}>Speakers</span>
-            </h2>
-            
-            <div style={{ width: 80, height: 4, background: `linear-gradient(90deg, ${C_BRIGHT}, ${KENYA_ACCENT})`, marginBottom: 32, borderRadius: 2 }} />
-            
-            <p style={{
-              fontFamily: "var(--font-outfit)",
-              fontSize: 18,
-              fontWeight: 400,
-              color: "rgba(255,255,255,0.6)",
-              lineHeight: 1.75,
-              maxWidth: 360,
-            }}>
-              Industry leaders shaping the summit agenda and driving cybersecurity excellence across East Africa.
-            </p>
-            
-            {/* Scroll indicator */}
-            <div className="cfk-scroll-hint" style={{ marginTop: 40, display: "flex", alignItems: "center", gap: 14, padding: "14px 24px", borderRadius: 50, background: `linear-gradient(135deg, ${C}12, rgba(255,255,255,0.04))`, border: `1px solid ${C}20` }}>
-              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,0.6)", letterSpacing: "2px", textTransform: "uppercase" }}>
-                Scroll to explore
-              </span>
-              <div style={{ width: 40, height: 1, background: `linear-gradient(90deg, rgba(255,255,255,0.5), transparent)` }} />
-              <motion.span
-                animate={{ x: [0, 14, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                style={{ color: C_BRIGHT, fontSize: 22, fontWeight: 700 }}
+        <div ref={trackRef} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }} className="cfk-lead-grid">
+          {ADVISORY_BOARD.map((member, i) => {
+            const accent = i % 2 === 0 ? C_BRIGHT : KENYA_GOLD;
+            const accentRgb = i % 2 === 0 ? "181,34,48" : "212,168,75";
+            return (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 40, scale: 0.96, filter: "blur(6px)" }}
+                animate={inView ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" } : {}}
+                transition={{ duration: 0.75, delay: 0.15 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
               >
-                →
-              </motion.span>
+                <Tilt max={6}>
+                  <div className="cfk-lead-card" style={{ position: "relative", transition: "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)" }}>
+                    {/* Ambient accent glow behind card */}
+                    <div className="cfk-lead-glow" style={{
+                      position: "absolute",
+                      inset: -20,
+                      borderRadius: 34,
+                      background: `radial-gradient(ellipse 70% 60% at 50% 50%, rgba(${accentRgb},0.18) 0%, transparent 70%)`,
+                      filter: "blur(22px)",
+                      opacity: 0.55,
+                      pointerEvents: "none",
+                      transition: "opacity 0.55s ease",
+                    }} />
+
+                    {/* Outer metallic gradient bezel */}
+                    <div style={{
+                      position: "relative",
+                      padding: 2,
+                      borderRadius: 24,
+                      background: `linear-gradient(135deg, rgba(${accentRgb},0.65) 0%, rgba(${accentRgb},0.2) 15%, rgba(255,255,255,0.14) 32%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.12) 68%, rgba(${accentRgb},0.2) 85%, rgba(${accentRgb},0.55) 100%)`,
+                      boxShadow: `0 28px 64px rgba(0,0,0,0.5), 0 0 45px rgba(${accentRgb},0.16), 0 0 0 1px rgba(255,255,255,0.03)`,
+                    }}>
+                      {/* Inner highlight ring */}
+                      <div style={{
+                        position: "absolute",
+                        inset: 2,
+                        borderRadius: 22,
+                        pointerEvents: "none",
+                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.04)",
+                        zIndex: 3,
+                      }} />
+
+                      <div style={{
+                        position: "relative",
+                        borderRadius: 22,
+                        overflow: "hidden",
+                        background: "linear-gradient(165deg, rgba(28,18,20,0.96) 0%, rgba(16,9,11,0.98) 50%, rgba(10,6,7,1) 100%)",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}>
+                        {/* Hover shine sweep */}
+                        <div className="cfk-lead-shine" style={{
+                          position: "absolute",
+                          top: 0,
+                          left: "-80%",
+                          width: "60%",
+                          height: "100%",
+                          background: "linear-gradient(100deg, transparent, rgba(255,255,255,0.12) 50%, transparent)",
+                          transform: "skewX(-20deg)",
+                          pointerEvents: "none",
+                          transition: "left 1s cubic-bezier(0.22, 1, 0.36, 1)",
+                          zIndex: 4,
+                        }} />
+
+                        {/* Photo section */}
+                        <div style={{ position: "relative", width: "100%", aspectRatio: "4 / 5", overflow: "hidden" }}>
+                          {member.photo ? (
+                            <>
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={member.photo}
+                                alt={`${member.name}, ${member.title} at ${member.org}`}
+                                loading="lazy"
+                                width={400}
+                                height={500}
+                                className="cfk-lead-photo"
+                                style={{
+                                  position: "absolute",
+                                  inset: 0,
+                                  width: "100%",
+                                  height: "100%",
+                                  objectFit: "cover",
+                                  objectPosition: "top center",
+                                  filter: "saturate(0.92) contrast(1.08) brightness(0.98)",
+                                  transition: "transform 1s cubic-bezier(0.22,1,0.36,1), filter 0.5s ease",
+                                  ...member.photoStyle,
+                                }}
+                              />
+                            </>
+                          ) : (
+                            <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: `linear-gradient(135deg, rgba(${accentRgb},0.18), rgba(${accentRgb},0.04))` }}>
+                              <span style={{ fontFamily: "var(--font-display)", fontSize: 72, fontWeight: 800, color: `${accent}30`, letterSpacing: "-2px" }}>
+                                {member.name.split(" ").map(n => n[0]).join("")}
+                              </span>
+                            </div>
+                          )}
+                          {/* Bottom fade */}
+                          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 0%, transparent 35%, rgba(10,6,7,0.55) 70%, rgba(10,6,7,0.96) 100%)", pointerEvents: "none" }} />
+                          {/* Top vignette */}
+                          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "30%", background: "linear-gradient(180deg, rgba(10,6,7,0.4) 0%, transparent 100%)", pointerEvents: "none" }} />
+                          {/* Accent wash */}
+                          <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, rgba(${accentRgb},0.14) 0%, transparent 50%, rgba(${accentRgb},0.1) 100%)`, mixBlendMode: "overlay", pointerEvents: "none" }} />
+                          {/* Top reflection */}
+                          <div style={{ position: "absolute", top: 0, left: "6%", right: "6%", height: 1, background: `linear-gradient(90deg, transparent, ${accent}dd, transparent)`, boxShadow: `0 0 16px ${accent}90`, pointerEvents: "none" }} />
+                          {/* Inner photo frame */}
+                          <div style={{ position: "absolute", inset: 8, border: "1px solid rgba(255,255,255,0.04)", borderRadius: 14, pointerEvents: "none" }} />
+
+                          {/* Name + title overlaid at bottom of photo */}
+                          <div style={{ position: "absolute", left: 20, right: 20, bottom: 18 }}>
+                            <h3 style={{
+                              fontFamily: "var(--font-display)",
+                              fontWeight: 700,
+                              fontSize: "clamp(17px, 1.4vw, 21px)",
+                              color: "white",
+                              margin: 0,
+                              letterSpacing: "-0.4px",
+                              lineHeight: 1.15,
+                              textShadow: "0 2px 18px rgba(0,0,0,0.9), 0 1px 6px rgba(0,0,0,0.75)",
+                            }}>
+                              {member.name}
+                            </h3>
+                            <div style={{ display: "flex", alignItems: "flex-start", gap: 9, marginTop: 6 }}>
+                              <span style={{ width: 14, height: 1, background: accent, boxShadow: `0 0 8px ${accent}`, marginTop: 7, flexShrink: 0 }} />
+                              <span style={{
+                                fontFamily: "var(--font-outfit)",
+                                fontSize: 11.5,
+                                fontWeight: 500,
+                                color: "rgba(255,255,255,0.82)",
+                                letterSpacing: "0.2px",
+                                lineHeight: 1.35,
+                                textShadow: "0 1px 8px rgba(0,0,0,0.85)",
+                              }}>
+                                {member.title}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Accent hairline divider */}
+                        <div style={{ position: "relative", height: 1, background: `linear-gradient(90deg, transparent, rgba(${accentRgb},0.55), transparent)`, boxShadow: `0 0 14px rgba(${accentRgb},0.4)` }} />
+
+                        {/* Info panel — glassmorphism */}
+                        <div style={{
+                          position: "relative",
+                          padding: "16px 20px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          gap: 12,
+                          background: "linear-gradient(180deg, rgba(20,12,14,0.55) 0%, rgba(10,6,7,0.75) 100%)",
+                          backdropFilter: "blur(20px) saturate(1.3)",
+                          WebkitBackdropFilter: "blur(20px) saturate(1.3)",
+                          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+                          minHeight: 60,
+                        }}>
+                          {/* Top reflection */}
+                          <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)", pointerEvents: "none" }} />
+
+                          {/* Organization */}
+                          <div style={{ display: "flex", alignItems: "center", gap: 9, flex: 1, minWidth: 0 }}>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+                              <path d="M3 21h18M3 7l9-4 9 4M4 21V10m4 11v-7a2 2 0 012-2h4a2 2 0 012 2v7m4 0V10" stroke={accent} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                            <span style={{
+                              fontFamily: "var(--font-outfit)",
+                              fontSize: 12,
+                              fontWeight: 500,
+                              color: "rgba(255,255,255,0.72)",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                            }}>
+                              {member.org}
+                            </span>
+                          </div>
+
+                          {/* LinkedIn orb button */}
+                          {member.linkedin && (
+                            <a
+                              href={member.linkedin}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`${member.name} on LinkedIn`}
+                              className="cfk-lead-li"
+                              style={{
+                                position: "relative",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                width: 38,
+                                height: 38,
+                                borderRadius: "50%",
+                                flexShrink: 0,
+                                background: `
+                                  radial-gradient(circle at 30% 25%, rgba(255,255,255,0.22) 0%, transparent 35%),
+                                  linear-gradient(155deg, ${accent} 0%, rgba(${accentRgb},0.5) 45%, rgba(${accentRgb},0.22) 100%)
+                                `,
+                                border: `1px solid rgba(${accentRgb},0.8)`,
+                                boxShadow: `inset 0 1.5px 0 rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.08), 0 6px 14px rgba(${accentRgb},0.35), 0 0 22px rgba(${accentRgb},0.2)`,
+                                textDecoration: "none",
+                                transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+                                overflow: "hidden",
+                              }}
+                            >
+                              <span style={{ position: "absolute", top: 2, left: "22%", right: "22%", height: "38%", background: "radial-gradient(ellipse at center top, rgba(255,255,255,0.5), transparent 70%)", pointerEvents: "none", borderRadius: "50%" }} />
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="white" style={{ position: "relative", filter: "drop-shadow(0 1px 4px rgba(0,0,0,0.4))" }}>
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                              </svg>
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Tilt>
+              </motion.div>
+            );
+          })}
+
+          {/* CTA card */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.15 + ADVISORY_BOARD.length * 0.08, ease: EASE }}
+          >
+            <div
+              className="cfk-lead-card"
+              style={{
+                borderRadius: 24,
+                overflow: "hidden",
+                background: `linear-gradient(135deg, ${C}14, ${C}04)`,
+                border: `1px solid ${C}24`,
+                transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                height: "100%",
+                minHeight: 320,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div style={{ textAlign: "center", padding: 32 }}>
+                <span style={{ fontSize: 48, fontWeight: 800, color: KENYA_GOLD, display: "block", marginBottom: 8 }}>+</span>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 18, color: "white", margin: "0 0 6px" }}>More Speakers</h3>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.5)", margin: 0 }}>Coming soon</p>
+              </div>
             </div>
           </motion.div>
         </div>
 
-        {/* RIGHT - Horizontal Scroll Track */}
-        <div
-          ref={trackRef}
-          className="cfk-advisory-track"
-          style={{
-            display: "flex",
-            gap: 32,
-            paddingLeft: 48,
-            paddingRight: 400,
-            willChange: "transform",
-          }}
-        >
-          {ADVISORY_BOARD.map((member, i) => (
-            <motion.div
-              key={member.name}
-              className="cfk-speaker-card"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "200px" }}
-              transition={{ duration: 0.5, delay: Math.min(i * 0.06, 0.3), ease: [0.25, 1, 0.5, 1] }}
-              style={{
-                flexShrink: 0,
-                width: 340,
-                borderRadius: 24,
-                overflow: "hidden",
-                position: "relative",
-                background: "linear-gradient(165deg, rgba(25,18,20,0.95) 0%, rgba(12,8,10,0.98) 100%)",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                border: `1px solid rgba(255,255,255,0.08)`,
-                transformStyle: "preserve-3d",
-                transition: "all 0.6s cubic-bezier(0.25, 1, 0.5, 1)",
-                boxShadow: "0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)",
-              }}
-            >
-              {/* Animated border gradient */}
-              <div className="cfk-card-border" style={{
-                position: "absolute",
-                inset: -1,
-                borderRadius: 25,
-                background: `linear-gradient(135deg, ${C_BRIGHT}30, transparent 40%, transparent 60%, ${KENYA_ACCENT}20)`,
-                zIndex: -1,
-                transition: "opacity 0.4s ease",
-                opacity: 0,
-                pointerEvents: "none",
-              }} />
-              
-              {/* Photo with parallax container */}
-              <div style={{ height: 280, overflow: "hidden", position: "relative" }}>
-                {member.photo ? (
-                  <img
-                    src={member.photo}
-                    alt={member.name}
-                    className="cfk-speaker-photo"
-                    style={{
-                      width: "110%",
-                      height: "110%",
-                      objectFit: "cover",
-                      objectPosition: "center top",
-                      marginLeft: "-5%",
-                      marginTop: "-5%",
-                      transition: "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)",
-                      ...member.photoStyle,
-                    }}
-                  />
-                ) : (
-                  <div style={{
-                    width: "100%",
-                    height: "100%",
-                    background: `linear-gradient(135deg, ${C}60, ${C}30)`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}>
-                    <span style={{ fontSize: 80, color: "rgba(255,255,255,0.15)" }}>👤</span>
-                  </div>
-                )}
-                
-                {/* Premium gradient overlays */}
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.9) 100%)" }} />
-                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${C}15, transparent 50%)` }} />
-                
-                {/* Top shine */}
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 120, background: "linear-gradient(180deg, rgba(255,255,255,0.06), transparent)" }} />
-              </div>
-              
-              {/* Info section with glass effect */}
-              <div style={{
-                padding: "28px 32px 32px",
-                background: "linear-gradient(180deg, rgba(0,0,0,0.3), transparent)",
-              }}>
-                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12 }}>
-                  <h3 style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: 24,
-                    fontWeight: 700,
-                    color: "white",
-                    margin: "0 0 12px 0",
-                    letterSpacing: "-0.5px",
-                    lineHeight: 1.15,
-                    flex: 1,
-                  }}>
-                    {member.name}
-                  </h3>
-                  {member.linkedin && (
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="cfk-linkedin-btn"
-                      style={{
-                        flexShrink: 0,
-                        width: 32, height: 32, borderRadius: 8,
-                        background: "rgba(255,255,255,0.06)",
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        transition: "all 0.3s ease",
-                        position: "relative",
-                        zIndex: 10,
-                      }}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                      </svg>
-                    </a>
-                  )}
-                </div>
-                <p style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 15,
-                  fontWeight: 600,
-                  color: C_BRIGHT,
-                  margin: "0 0 8px 0",
-                  lineHeight: 1.45,
-                }}>
-                  {member.title}
-                </p>
-                <p style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 14,
-                  fontWeight: 400,
-                  color: "rgba(255,255,255,0.5)",
-                  margin: 0,
-                  lineHeight: 1.4,
-                }}>
-                  {member.org}
-                </p>
-              </div>
-              
-              {/* Top accent glow line */}
-              <div style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                height: 2,
-                background: `linear-gradient(90deg, transparent 10%, ${C_BRIGHT}60 50%, transparent 90%)`,
-                boxShadow: `0 0 20px ${C_BRIGHT}40`,
-                pointerEvents: "none",
-              }} />
-            </motion.div>
+        {/* Pagination dots — mobile carousel only */}
+        <div className="cfk-lead-dots" aria-hidden>
+          {Array.from({ length: ADVISORY_BOARD.length + 1 }).map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => scrollToDot(i)}
+              aria-label={`Go to speaker ${i + 1}`}
+              className={`cfk-lead-dot${activeDot === i ? " is-active" : ""}`}
+            />
           ))}
         </div>
       </div>
 
-      {/* Mobile Marquee + Pagination */}
-      <AdvisoryMobileMarquee />
-
       <style jsx global>{`
-        .cfk-speaker-card {
-          cursor: pointer;
+        .cfk-lead-card:hover {
+          transform: translateY(-10px) !important;
         }
-        .cfk-speaker-card:hover {
-          transform: translateY(-16px) scale(1.03) rotateX(2deg) !important;
-          border-color: rgba(255,255,255,0.15) !important;
-          box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 80px ${C}30, inset 0 1px 0 rgba(255,255,255,0.1) !important;
-        }
-        .cfk-speaker-card:hover .cfk-card-border {
+        .cfk-lead-card:hover .cfk-lead-glow {
           opacity: 1 !important;
         }
-        .cfk-speaker-card:hover .cfk-speaker-photo {
-          transform: scale(1.15) !important;
+        .cfk-lead-card:hover .cfk-lead-photo {
+          transform: scale(1.06);
+          filter: saturate(1.08) contrast(1.1) brightness(1.03) !important;
         }
-        .cfk-speaker-card::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          border-radius: 24px;
-          padding: 1px;
-          background: linear-gradient(135deg, ${C_BRIGHT}00, ${C_BRIGHT}40, ${C_BRIGHT}00);
-          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-          opacity: 0;
-          transition: opacity 0.4s ease;
-          pointer-events: none;
+        .cfk-lead-card:hover .cfk-lead-shine {
+          left: 140% !important;
         }
-        .cfk-speaker-card:hover::before {
-          opacity: 1;
+        .cfk-lead-li:hover {
+          transform: translateY(-2px) scale(1.1);
+          background:
+            radial-gradient(circle at 30% 25%, rgba(255,255,255,0.32) 0%, transparent 40%),
+            linear-gradient(155deg, #0A66C2 0%, #0852A0 50%, #054583 100%) !important;
+          border-color: #0A66C2 !important;
+          box-shadow:
+            inset 0 1.5px 0 rgba(255,255,255,0.42),
+            inset 0 -2px 4px rgba(0,0,0,0.25),
+            inset 0 0 0 1px rgba(255,255,255,0.12),
+            0 12px 26px rgba(10,102,194,0.5),
+            0 0 36px rgba(10,102,194,0.35) !important;
         }
-        .cfk-linkedin-btn:hover {
-          background: rgba(10,102,194,0.25) !important;
-          border-color: rgba(10,102,194,0.5) !important;
+        .cfk-lead-li:hover svg { filter: drop-shadow(0 0 8px rgba(255,255,255,0.8)) drop-shadow(0 1px 4px rgba(0,0,0,0.3)) !important; }
+        .cfk-lead-dots {
+          display: none;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-top: 22px;
         }
-        .cfk-linkedin-btn:hover svg {
-          fill: #0A66C2 !important;
+        .cfk-lead-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          border: none;
+          padding: 0;
+          background: rgba(255,255,255,0.22);
+          cursor: pointer;
+          transition: width 0.3s ease, border-radius 0.3s ease, background 0.3s ease;
         }
-        @media (max-width: 767px) {
-          .cfk-advisory-wrap { flex-direction: column !important; height: auto !important; }
-          .cfk-advisory-left { width: 100% !important; height: auto !important; border-right: none !important; padding: clamp(40px,8vw,56px) 24px 20px !important; text-align: center; }
-          .cfk-advisory-left h2 { font-size: clamp(32px, 8vw, 44px) !important; text-align: center; }
-          .cfk-advisory-left p { text-align: center; max-width: 100% !important; }
-          .cfk-advisory-track { display: none !important; }
-          .cfk-advisory-section { height: auto !important; }
-          .cfk-scroll-hint { display: none !important; }
-          .cfk-advisory-mobile { display: block !important; }
+        .cfk-lead-dot.is-active {
+          width: 22px;
+          border-radius: 4px;
+          background: linear-gradient(90deg, ${C_BRIGHT}, ${KENYA_GOLD});
         }
-        @keyframes cfk-advisory-marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+        @media (max-width: 1024px) {
+          .cfk-lead-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .cfk-lead-grid {
+            display: flex !important;
+            grid-template-columns: none !important;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            max-width: none !important;
+            margin: 0 -20px !important;
+            padding: 6px 20px 18px;
+            gap: 16px !important;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+          .cfk-lead-grid::-webkit-scrollbar {
+            display: none;
+          }
+          .cfk-lead-grid > * {
+            flex: 0 0 78%;
+            max-width: 300px;
+          }
+          .cfk-lead-dots {
+            display: flex !important;
+          }
         }
       `}</style>
     </section>
@@ -3530,178 +3604,6 @@ function SpeakerCard({
   );
 }
 
-function AdvisoryCard({
-  member,
-  delay,
-  inView,
-}: {
-  member: (typeof ADVISORY_BOARD)[0];
-  delay: number;
-  inView: boolean;
-}) {
-  const [hovered, setHovered] = useState(false);
-  const initials = member.name
-    .split(" ")
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join("")
-    .toUpperCase();
-
-  return (
-    <Tilt max={8}>
-      <motion.div
-        initial={{ opacity: 0, y: 30, scale: 0.95 }}
-        animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-        transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        className="cfk-advisory-card"
-        style={{
-          borderRadius: 24,
-          overflow: "hidden",
-          position: "relative",
-          cursor: "default",
-          background: "linear-gradient(165deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 50%, rgba(0,0,0,0.1) 100%)",
-          border: hovered ? `1px solid ${KENYA_ACCENT}40` : "1px solid rgba(255,255,255,0.08)",
-          boxShadow: hovered 
-            ? `0 0 0 1px ${KENYA_ACCENT}30, 0 20px 60px rgba(224,122,61,0.15), 0 8px 32px rgba(0,0,0,0.4)` 
-            : "0 4px 24px rgba(0,0,0,0.3), 0 8px 32px rgba(0,0,0,0.2)",
-          transition: "all 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
-          transform: hovered ? "translateY(-8px)" : "translateY(0)",
-        }}
-      >
-        {/* Top shine */}
-        <div style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)", zIndex: 10 }} />
-        
-        <div
-          style={{
-            position: "relative",
-            width: "100%",
-            paddingBottom: "130%",
-            background: `linear-gradient(160deg, ${KENYA_ACCENT}10, #080b10)`,
-            overflow: "hidden",
-          }}
-        >
-          {member.photo ? (
-            <>
-              <img
-                src={member.photo}
-                alt={member.name}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  objectPosition: "center 20%",
-                  filter: hovered ? "grayscale(0%) brightness(1.05)" : "grayscale(100%) brightness(0.9)",
-                  transition: "all 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
-                  transform: hovered ? "scale(1.05)" : "scale(1)",
-                }}
-              />
-              {/* Color overlay on hover */}
-              <div 
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: `radial-gradient(ellipse at center bottom, ${KENYA_ACCENT}25, transparent 70%)`,
-                  opacity: hovered ? 1 : 0,
-                  transition: "opacity 0.5s ease",
-                  pointerEvents: "none",
-                }}
-              />
-            </>
-          ) : (
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-start",
-                background: `linear-gradient(135deg, ${KENYA_ACCENT}20, ${C}15)`,
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 42,
-                  fontWeight: 900,
-                  color: "white",
-                  opacity: 0.6,
-                  letterSpacing: "-1px",
-                  textShadow: `0 4px 20px ${KENYA_ACCENT}40`,
-                }}
-              >
-                {initials}
-              </span>
-            </div>
-          )}
-
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "linear-gradient(to top, rgba(10,5,7,0.98) 0%, rgba(10,5,7,0.7) 30%, rgba(10,5,7,0.2) 60%, transparent 100%)",
-            }}
-          />
-
-          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "14px 14px 14px" }}>
-            <div
-              style={{
-                fontFamily: "var(--font-outfit)",
-                fontSize: 14,
-                fontWeight: 700,
-                color: "white",
-                lineHeight: 1.25,
-                marginBottom: 5,
-                letterSpacing: "-0.2px",
-              }}
-            >
-              {member.name}
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-outfit)",
-                fontSize: member.title.length > 40 ? 10 : 12,
-                fontWeight: 500,
-                color: "rgba(255,255,255,0.42)",
-                lineHeight: 1.4,
-                marginBottom: 7,
-              }}
-            >
-              {member.title}
-            </div>
-            <div
-              style={{
-                display: "inline-block",
-                padding: "3px 9px",
-                borderRadius: 20,
-                background: `${KENYA_ACCENT}18`,
-                border: `1px solid ${KENYA_ACCENT}30`,
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: member.org.length > 25 ? 11 : 13,
-                  fontWeight: 700,
-                  color: KENYA_ACCENT,
-                  letterSpacing: "0.3px",
-                }}
-              >
-                {member.org}
-              </span>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </Tilt>
-  );
-}
-
 // ─── AGENDA TIMELINE ─────────────────────────────────────────────────────────
 function AgendaTimeline() {
   const ref = useRef(null);
@@ -3730,16 +3632,16 @@ function AgendaTimeline() {
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 4vw, 44px)", letterSpacing: "-1.5px", color: "rgba(255,255,255,0.92)", lineHeight: 1.15, margin: "0 0 12px" }}>
             The Day&apos;s{" "}<span style={{ color: C_BRIGHT }}>Programme</span>
           </h2>
-          <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 400, fontSize: 16, color: "rgba(255,255,255,0.4)", maxWidth: 500, margin: "0 auto", lineHeight: 1.7 }}>
-            18 sessions across 6.5 hours — a single-track programme built for focus.
+          <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 400, fontSize: 16, color: "rgba(255,255,255,0.4)", maxWidth: 540, margin: "0 auto", lineHeight: 1.7 }}>
+            A single-track programme — keynotes, leadership panels and live demos from 08:00 to 14:45.
           </p>
         </motion.div>
 
         {/* Split layout — morning / afternoon */}
         <div className="cfk-agenda-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, alignItems: "start" }}>
         {[
-          { items: AGENDA.slice(0, 10), label: "Morning Session", time: "08:00 – 12:00", delay: 0.15 },
-          { items: AGENDA.slice(10), label: "Afternoon Session", time: "12:00 – 14:30", delay: 0.35 },
+          { items: AGENDA.slice(0, 8), label: "Morning Session", time: "08:00 – 12:00", delay: 0.15 },
+          { items: AGENDA.slice(8), label: "Afternoon Session", time: "12:00 – 14:45", delay: 0.35 },
         ].map((col, ci) => (
           <div key={ci}>
             {/* Column header */}
@@ -3842,6 +3744,38 @@ function AgendaTimeline() {
                               fontStyle: li > 0 ? "italic" : "normal",
                             }}>{line}</p>
                           ))}
+                        </div>
+                      )}
+
+                      {item.bullets && (
+                        <ul style={{ margin: "12px 0 0", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
+                          {item.bullets.map((b, bi) => (
+                            <li key={bi} style={{ position: "relative", paddingLeft: 16, fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.5 }}>
+                              <span style={{ position: "absolute", left: 0, top: 7, width: 5, height: 5, borderRadius: "50%", background: color, opacity: 0.75 }} />
+                              {b}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+
+                      {item.moderator && (
+                        <div style={{ marginTop: 14 }}>
+                          <span style={{ display: "block", fontFamily: "var(--font-dm)", fontSize: 10, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color, opacity: 0.9, marginBottom: 5 }}>Moderator</span>
+                          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.72)", margin: 0, lineHeight: 1.5 }}>{item.moderator}</p>
+                        </div>
+                      )}
+
+                      {item.panelists && (
+                        <div style={{ marginTop: 12 }}>
+                          <span style={{ display: "block", fontFamily: "var(--font-dm)", fontSize: 10, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color, opacity: 0.9, marginBottom: 6 }}>Panelists</span>
+                          <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
+                            {item.panelists.map((p, pi) => (
+                              <li key={pi} style={{ position: "relative", paddingLeft: 16, fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.6)", lineHeight: 1.5 }}>
+                                <span style={{ position: "absolute", left: 0, top: 6, width: 6, height: 6, borderRadius: "50%", border: `1px solid ${color}`, opacity: 0.8 }} />
+                                {p}
+                              </li>
+                            ))}
+                          </ul>
                         </div>
                       )}
                     </div>
