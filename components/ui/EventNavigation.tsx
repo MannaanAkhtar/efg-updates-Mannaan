@@ -132,6 +132,7 @@ const EVENT_CONFIGS: Record<string, {
     navLinks: [
       { href: "#overview", label: "Overview" },
       { href: "#speakers", label: "Speakers" },
+      { href: "#agenda", label: "Agenda" },
       { href: "#awards", label: "Awards" },
       { href: "#register", label: "Register" },
     ],

@@ -284,10 +284,10 @@ export default function OTSecurityJubail2026() {
       <Hero />
       <ExecutivePerspective />
       <WhyKingdom />
-      <MarketChallenge />
+      <SpeakersSection />
       <BePartOfTheMovement />
       <Evidence2026 />
-      <SpeakersSection />
+      <AgendaSection />
       <StrategicThemes />
       <Audience />
       <ByTheNumbers />
@@ -1255,7 +1255,7 @@ function ExecutivePerspective() {
                       pointerEvents: "none",
                     }}
                   >
-                    P
+                    T
                   </span>
                   <span
                     style={{
@@ -1269,17 +1269,14 @@ function ExecutivePerspective() {
                       display: "inline-block",
                     }}
                   >
-                    P
+                    T
                   </span>
                 </span>
-                etrochemical complexes, refineries, utilities, ports, and advanced manufacturing environments are no longer isolated operational domains. They are digitally integrated ecosystems combining operational technology, enterprise IT, cloud platforms, artificial intelligence and remote vendor connectivity.
+                he Kingdom&apos;s industrial landscape is undergoing one of the largest digital transformations, powered by Vision 2030, smart infrastructure investments, and the rapid rise of connected operations. Across oil &amp; gas, power &amp; utilities, petrochemicals, water &amp; waste, nuclear manufacturing, mining &amp; metals, transport &amp; logistics, smart cities, government &amp; critical infrastructure, operational technology (OT) environments are evolving into highly automated, data-driven ecosystems designed to maximize efficiency, productivity, and operational performance.
               </p>
             </div>
             <p style={execPara}>
-              This convergence is accelerating productivity and national economic growth - and at the same time, expanding the cyber-physical attack surface in ways that legacy controls were never designed to handle.
-            </p>
-            <p style={execPara}>
-              Operational Technology environments now sit at the intersection of cyber exposure, physical safety, environmental impact, and national economic stability.
+              Yet as these systems become more intelligent and interconnected, a critical question emerges: are they becoming more resilient, or more exposed?
             </p>
 
           </motion.div>
@@ -1905,207 +1902,6 @@ function WhyCard({
         </ul>
       </div>
     </motion.div>
-  );
-}
-
-// ─── MARKET CHALLENGE ──────────────────────────────────────────────────────
-function MarketChallenge() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
-  // Verbatim doc copy, segmented so existing key phrases can be emphasised (no new words).
-  const POINTS: { text: string; em?: boolean }[][] = [
-    [
-      { text: "As industrial systems evolve, the convergence of " },
-      { text: "IT and OT", em: true },
-      { text: ", legacy infrastructure dependencies, remote operations, " },
-      { text: "industrial IoT", em: true },
-      { text: ", and " },
-      { text: "AI-driven automation", em: true },
-      { text: " are significantly expanding the " },
-      { text: "cyber attack surface", em: true },
-      { text: "." },
-    ],
-    [
-      { text: "This rapid digitalisation is creating " },
-      { text: "new vulnerabilities", em: true },
-      { text: " across critical infrastructure sectors, making cyber resilience not just an IT concern, but a " },
-      { text: "national security and operational continuity priority", em: true },
-      { text: "." },
-    ],
-    [
-      { text: "The challenge now is not only about connectivity and efficiency, but about ensuring " },
-      { text: "security, stability, and resilience", em: true },
-      { text: " across increasingly complex industrial ecosystems." },
-    ],
-  ];
-
-  return (
-    <section
-      ref={ref}
-      style={{
-        position: "relative",
-        padding: "clamp(48px, 5.5vw, 78px) 0",
-        background: BG_DEEP,
-        overflow: "hidden",
-      }}
-    >
-      <BgDots opacity={0.04} />
-
-      {/* Ambient washes */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "8%",
-          left: "-12%",
-          width: 640,
-          height: 640,
-          borderRadius: "50%",
-          background: `radial-gradient(circle, ${C}12 0%, transparent 60%)`,
-          filter: "blur(110px)",
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          bottom: "2%",
-          right: "-12%",
-          width: 560,
-          height: 560,
-          borderRadius: "50%",
-          background: `radial-gradient(circle, ${CYAN}10 0%, transparent 60%)`,
-          filter: "blur(100px)",
-          pointerEvents: "none",
-        }}
-      />
-
-      <div style={{ position: "relative", maxWidth: 1120, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-        {/* Header */}
-        <div style={{ maxWidth: 880, marginBottom: "clamp(26px, 3vw, 40px)" }}>
-          <Eyebrow inView={inView} label="Market Challenge" />
-          <motion.h2
-            initial={{ opacity: 0, y: 18 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(32px, 4.6vw, 58px)",
-              letterSpacing: "-2px",
-              lineHeight: 1.0,
-              color: "white",
-              margin: 0,
-            }}
-          >
-            As industry converges, the{" "}
-            <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT, paddingRight: "0.08em" }}>
-              attack surface expands
-            </em>
-            .
-          </motion.h2>
-        </div>
-
-        {/* 3-beat escalating argument - premium stacked cards */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(12px, 1.4vw, 16px)" }}>
-          {POINTS.map((segs, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 22 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.24 + i * 0.12, ease: EASE }}
-              className="otsf-jb-mc-card"
-              style={{
-                position: "relative",
-                display: "grid",
-                gridTemplateColumns: "clamp(70px, 8vw, 128px) 1fr",
-                gap: "clamp(20px, 3vw, 44px)",
-                alignItems: "center",
-                padding: "clamp(18px, 2vw, 26px) clamp(24px, 3vw, 42px)",
-                borderRadius: 20,
-                background: "linear-gradient(165deg, rgba(15,20,46,0.55) 0%, rgba(10,14,34,0.72) 100%)",
-                border: "1px solid rgba(255,255,255,0.08)",
-                boxShadow: "0 22px 54px rgba(0,0,0,0.34), inset 0 1px 0 rgba(255,255,255,0.05)",
-                overflow: "hidden",
-              }}
-            >
-              {/* Left accent rail - intensifies down the sequence (escalation cue) */}
-              <span
-                aria-hidden
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  top: "18%",
-                  bottom: "18%",
-                  width: 3,
-                  borderRadius: 3,
-                  background: `linear-gradient(180deg, ${C_BRIGHT}, ${C})`,
-                  boxShadow: `0 0 ${10 + i * 6}px ${C_BRIGHT}${["55", "77", "aa"][i]}`,
-                }}
-              />
-
-              {/* Index */}
-              <span
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontStyle: "italic",
-                  fontSize: "clamp(38px, 5vw, 64px)",
-                  fontWeight: 800,
-                  letterSpacing: "-2px",
-                  lineHeight: 0.9,
-                  color: C_BRIGHT,
-                  textShadow: `0 0 26px ${C}44`,
-                }}
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
-
-              {/* Emphasised doc paragraph */}
-              <p
-                style={{
-                  margin: 0,
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: "clamp(16px, 1.45vw, 20px)",
-                  fontWeight: 400,
-                  color: "rgba(255,255,255,0.78)",
-                  lineHeight: 1.62,
-                  letterSpacing: "-0.1px",
-                }}
-              >
-                {segs.map((s, j) =>
-                  s.em ? (
-                    <strong key={j} style={{ color: C_BRIGHT, fontWeight: 600 }}>
-                      {s.text}
-                    </strong>
-                  ) : (
-                    <span key={j}>{s.text}</span>
-                  )
-                )}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      <style jsx global>{`
-        .otsf-jb-mc-card {
-          transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .otsf-jb-mc-card:hover {
-          transform: translateY(-3px);
-          border-color: ${C_BRIGHT}55;
-          box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45), 0 0 40px ${C}1f, inset 0 1px 0 rgba(255, 255, 255, 0.07);
-        }
-        @media (max-width: 640px) {
-          .otsf-jb-mc-card {
-            grid-template-columns: 1fr !important;
-            gap: 10px !important;
-          }
-        }
-      `}</style>
-    </section>
   );
 }
 
@@ -3446,6 +3242,381 @@ function Evidence2026() {
           .otsf-jb-ev-sm {
             grid-column: span 1;
             grid-row: span 1;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── AGENDA ──────────────────────────────────────────────────────────────────
+// Verbatim conference schedule (source: Jubail agenda doc). Do not alter copy.
+type AgendaRow = { time: string; type: string; title: string; desc: string };
+type AgendaBreak = { kind: "break"; time: string; label: string; desc?: string };
+type AgendaSession = { kind: "session"; serial: string; title: string; time: string; rows: AgendaRow[] };
+const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
+  { kind: "break", time: "08:30", label: "Registration", desc: "Delegate registration, welcome coffee" },
+  {
+    kind: "session",
+    serial: "01",
+    title: "The Regulatory Imperative — Governing OT Security in the Kingdom",
+    time: "09:00 – 10:15",
+    rows: [
+      {
+        time: "09:00 – 9:10",
+        type: "Ministerial Keynote",
+        title: "Opening address: Saudi Arabia's national OT security mandate — Vision 2030",
+        desc: "The government's strategic direction for securing critical national infrastructure, what the mandate requires, what it signals, and what industry must do now.",
+      },
+      {
+        time: "09:10 – 9:20",
+        type: "Keynote",
+        title: "Compliance is the floor, not the ceiling: How Saudi Arabia's oil & gas sector is implementing the government mandates on OT Security?",
+        desc: "A major national oil company shares its OTCC compliance journey — asset inventory, risk assessment, network segmentation, and building an OT-aware security operations capability.",
+      },
+      {
+        time: "09:20 – 10:00",
+        type: "Panel Discussion",
+        title: "GCC & Global Collaboration on OT Security. What Are the World's Leading Industrial Nations Doing and What Can Saudi Arabia Learn?",
+        desc: "Cyberthreats do not respect borders. This panel brings together OT security leaders from across the GCC and beyond to share how their nations, regulators, and critical infrastructure operators are responding to the same industrial cyber threats — and how cross-border intelligence sharing, joint frameworks, and bilateral agreements can strengthen Saudi Arabia's industrial resilience.",
+      },
+    ],
+  },
+  { kind: "break", time: "10:00 – 10:45", label: "Networking Break / VIP Exhibition tour" },
+  {
+    kind: "session",
+    serial: "02",
+    title: "The Threat Landscape — What Is Coming for Saudi Arabia's Industrial Sector",
+    time: "10:45 – 11:45",
+    rows: [
+      {
+        time: "10:45 – 10:55",
+        type: "Keynote",
+        title: "State of the threat: Nation-state actors, ransomware, and the targeting of Gulf critical infrastructure in 2026",
+        desc: "An authoritative intelligence-led assessment of the cyber threat environment facing Saudi Arabia's oil & gas, petrochemical, and energy sectors — and how the Kingdom is responding at a national level.",
+      },
+      {
+        time: "10:55 – 11:05",
+        type: "Keynote",
+        title: "IT/OT convergence: How digital transformation is expanding the attack surface across petrochemical operations",
+        desc: "How the integration of enterprise IT and industrial OT is creating new vulnerability pathways — and what network segmentation, zero-trust, and unidirectional gateways offer as countermeasures.",
+      },
+      {
+        time: "11:05 – 11:45",
+        type: "Panel Discussion",
+        title: "Under attack: Incident response, threat detection, and OT resilience across Jubail's industrial corridor",
+        desc: "Oil & gas and petrochemical operators discuss real-world incident response experiences, detection capability gaps, and building OT resilience in one of the world's most strategically important industrial zones.",
+      },
+    ],
+  },
+  {
+    kind: "session",
+    serial: "03",
+    title: "Securing the Infrastructure — Technology, Standards & Operational Practice",
+    time: "11:45 – 12:45",
+    rows: [
+      {
+        time: "11:45 – 11:55",
+        type: "Keynote",
+        title: "Securing SCADA, PLCs & ICS in legacy and greenfield environments: A practical framework for Jubail's operators",
+        desc: "How to build a defensible OT architecture — asset visibility, vulnerability management, patch strategies for legacy systems, and IEC 62443 alignment in an oil & gas context.",
+      },
+      {
+        time: "11:55 – 12:05",
+        type: "Keynote",
+        title: "Building an OT security operations capability: Lessons from Saudi Arabia's most critical facilities",
+        desc: "What a fit-for-purpose OT SOC looks like — detection engineering for industrial protocols, threat hunting in ICS environments, and integrating OT visibility into a national security operations programme.",
+      },
+      {
+        time: "12:05 – 12:45",
+        type: "Panel Discussion",
+        title: "Standards, procurement & supply chain: How do we build OT security into the fabric of Saudi industrial operations?",
+        desc: "Operators, government bodies, and procurement leaders discuss enforcing OT security standards through vendor contracts, integrating IEC 62443 into capital project delivery, and holding the supply chain accountable",
+      },
+    ],
+  },
+  { kind: "break", time: "12:45 – 14:00", label: "Networking Luncheon" },
+  {
+    kind: "session",
+    serial: "04",
+    title: "The Road Ahead — Innovation, Collaboration & the Future of OT Security",
+    time: "14:00 – 15:30",
+    rows: [
+      {
+        time: "14:00 – 14:15",
+        type: "Keynote",
+        title: "AI, digital twins & predictive security: The next frontier of OT protection for Saudi Arabia's industrial sector",
+        desc: "How AI-driven anomaly detection, digital twin-based threat simulation, and predictive analytics are being deployed in oil & gas and petrochemical environments — and what the Kingdom's operators need to do to stay ahead.",
+      },
+      {
+        time: "14:15 – 14:30",
+        type: "Closing Keynote",
+        title: "A national call to action: Government, industry, and the shared responsibility of securing the Kingdom's OT future",
+        desc: "Senior ministry or government figure delivers closing remarks — framing the collective obligation of operators, regulators, and the private sector to advance OT security resilience across Saudi Arabia's most critical industries.",
+      },
+      {
+        time: "14:30 – 15:15",
+        type: "Panel Discussion",
+        title: "The Jubail Dialogue: What must Saudi Arabia's oil & gas, petrochemical, and government sectors commit to in the next 12 months?",
+        desc: "A high-level closing panel bringing together the day's key voices to agree on priorities, actions, and commitments that will define OT security progress across the Kingdom's industrial heartland.",
+      },
+    ],
+  },
+  { kind: "break", time: "15:15 – 15:30", label: "Official Close", desc: "Networking" },
+];
+
+function AgendaTypeTag({ type }: { type: string }) {
+  const isPanel = type.toLowerCase().includes("panel");
+  const accent = isPanel ? CYAN : C_BRIGHT;
+  return (
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        fontFamily: "var(--font-outfit)",
+        fontSize: 9.5,
+        fontWeight: 700,
+        letterSpacing: "1.4px",
+        textTransform: "uppercase",
+        color: accent,
+        background: `${accent}10`,
+        border: `1px solid ${accent}33`,
+        borderRadius: 100,
+        padding: "4px 11px",
+        lineHeight: 1.3,
+        whiteSpace: "nowrap",
+      }}
+    >
+      {type}
+    </span>
+  );
+}
+
+function AgendaBlock({ block }: { block: AgendaBreak | AgendaSession }) {
+  if (block.kind === "break") {
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 14,
+          padding: "15px clamp(22px, 2.4vw, 30px)",
+          borderRadius: 14,
+          background: "rgba(255,255,255,0.025)",
+          border: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
+        <span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: `${C_BRIGHT}99`, flexShrink: 0 }} />
+        <span
+          style={{
+            fontFamily: "var(--font-outfit)",
+            fontSize: 14.5,
+            fontWeight: 800,
+            color: "#fff",
+            background: `linear-gradient(135deg, ${C}40, ${C}22)`,
+            border: `1px solid ${C}59`,
+            borderRadius: 9,
+            padding: "7px 14px",
+            letterSpacing: "0.3px",
+            whiteSpace: "nowrap",
+            boxShadow: `0 2px 10px ${C}1f`,
+          }}
+        >
+          {block.time}
+        </span>
+        <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.5)" }}>
+          {block.label}
+          {block.desc ? <span style={{ color: "rgba(255,255,255,0.38)" }}>{" · "}{block.desc}</span> : null}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      style={{
+        position: "relative",
+        borderRadius: 22,
+        overflow: "hidden",
+        border: "1px solid rgba(255,255,255,0.08)",
+        background: "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 100%)",
+        backdropFilter: "blur(14px)",
+        WebkitBackdropFilter: "blur(14px)",
+        boxShadow: "0 18px 50px rgba(0,0,0,0.35)",
+      }}
+    >
+      {/* Session header */}
+      <div style={{ padding: "26px clamp(26px, 2.8vw, 36px) 20px" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14, marginBottom: 11 }}>
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 10.5, fontWeight: 700, letterSpacing: "2.6px", color: C_BRIGHT, textTransform: "uppercase", whiteSpace: "nowrap" }}>
+            Session {block.serial}
+          </span>
+          <span
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 14,
+              fontWeight: 700,
+              color: C_BRIGHT,
+              background: `${C}1c`,
+              border: `1px solid ${C}40`,
+              borderRadius: 8,
+              padding: "6px 13px",
+              letterSpacing: "0.3px",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {block.time}
+          </span>
+        </div>
+        <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(17px, 1.6vw, 20px)", fontWeight: 700, color: "white", lineHeight: 1.28, letterSpacing: "-0.4px", margin: 0 }}>
+          {block.title}
+        </h3>
+      </div>
+
+      <span aria-hidden style={{ display: "block", height: 1, margin: "0 clamp(26px, 2.8vw, 36px)", background: "rgba(255,255,255,0.08)" }} />
+
+      {/* Rows */}
+      <div>
+        {block.rows.map((row, ri) => (
+          <div
+            key={ri}
+            style={{
+              padding: "24px clamp(26px, 2.8vw, 36px)",
+              borderTop: ri === 0 ? "none" : "1px solid rgba(255,255,255,0.055)",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 11, marginBottom: 12 }}>
+              <span
+                style={{
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 15,
+                  fontWeight: 800,
+                  color: "#fff",
+                  background: `linear-gradient(135deg, ${C}40, ${C}22)`,
+                  border: `1px solid ${C}59`,
+                  borderRadius: 9,
+                  padding: "7px 14px",
+                  letterSpacing: "0.3px",
+                  whiteSpace: "nowrap",
+                  boxShadow: `0 2px 10px ${C}1f`,
+                }}
+              >
+                {row.time}
+              </span>
+              <AgendaTypeTag type={row.type} />
+            </div>
+            <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(15px, 1.3vw, 16.5px)", fontWeight: 600, color: "rgba(255,255,255,0.95)", lineHeight: 1.42, letterSpacing: "-0.2px", margin: "0 0 8px" }}>
+              {row.title}
+            </p>
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.58)", lineHeight: 1.68, margin: 0, maxWidth: 620 }}>
+              {row.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AgendaSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const columns = [AGENDA_BLOCKS.slice(0, 4), AGENDA_BLOCKS.slice(4)];
+  return (
+    <section ref={ref} id="agenda" style={{ position: "relative", padding: "clamp(64px, 7vw, 100px) 0", background: BG_DEEP }}>
+      <BgDots opacity={0.04} />
+      <div style={{ position: "relative", maxWidth: 1440, margin: "0 auto", padding: "0 clamp(20px, 3vw, 44px)" }}>
+        <div style={{ textAlign: "center", marginBottom: "clamp(40px, 4.5vw, 60px)" }}>
+          <motion.span
+            initial={{ opacity: 0, y: 12 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, ease: EASE }}
+            style={{
+              display: "inline-block",
+              fontFamily: "var(--font-outfit)",
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: "4.5px",
+              textTransform: "uppercase",
+              color: C_BRIGHT,
+              marginBottom: 18,
+            }}
+          >
+            Agenda
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 18 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: "clamp(34px, 5vw, 64px)",
+              letterSpacing: "-2.2px",
+              lineHeight: 0.98,
+              color: "white",
+              margin: "0 0 16px",
+            }}
+          >
+            Conference{" "}
+            <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>agenda.</em>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.18, ease: EASE }}
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 14,
+              fontWeight: 600,
+              letterSpacing: "0.5px",
+              color: "rgba(255,255,255,0.6)",
+              margin: 0,
+            }}
+          >
+            27 October 2026 &nbsp;·&nbsp; Jubail, Saudi Arabia &nbsp;·&nbsp; 09:00 – 15:30
+          </motion.p>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.9, delay: 0.24, ease: EASE }}
+          className="otsf-jb-ag-cols"
+          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(24px, 3vw, 44px)", alignItems: "start" }}
+        >
+          {columns.map((col, ci) => (
+            <div key={ci} style={{ display: "flex", flexDirection: "column", gap: "clamp(16px, 1.8vw, 22px)" }}>
+              {col.map((block, bi) => (
+                <AgendaBlock key={`${ci}-${bi}`} block={block} />
+              ))}
+            </div>
+          ))}
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.34, ease: EASE }}
+          style={{
+            fontFamily: "var(--font-outfit)",
+            fontSize: 12.5,
+            fontWeight: 500,
+            color: "rgba(255,255,255,0.38)",
+            textAlign: "center",
+            margin: "clamp(34px, 4vw, 48px) 0 0",
+          }}
+        >
+          OT Security First Jubail · 27 October 2026 · Jubail, Saudi Arabia ·{" "}
+          <span style={{ color: `${C_BRIGHT}bb` }}>Agenda is subject to change</span>
+        </motion.p>
+      </div>
+
+      <style jsx global>{`
+        @media (max-width: 940px) {
+          .otsf-jb-ag-cols {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
           }
         }
       `}</style>
