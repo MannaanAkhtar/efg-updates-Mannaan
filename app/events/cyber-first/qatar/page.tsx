@@ -193,6 +193,12 @@ const ADVISORS: { name: string; title: string; org: string; photo?: string; link
   { name: "Feroz Khan",     title: "Head of IT Security",                   org: "TotalEnergies" },
 ];
 
+// ─── Speakers — named individuals ───────────────────────────────────────────
+const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; linkedin?: string }[] = [
+  { name: "Hans W. Thomasz", title: "CISO", org: "Qatar Development Bank",  photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hans_w_Thomasz.png" },
+  { name: "Anfal Shaikh",    title: "CISO", org: "Qatar Islamic Insurance", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anfal_shaikh.png" },
+];
+
 // ─── Agenda — 17 rows (from PDF) ────────────────────────────────────────────
 type AgendaRow = {
   start: string;
@@ -3361,6 +3367,293 @@ function Advisors() {
           .cfq-advisors-grid {
             grid-template-columns: 1fr !important;
             max-width: 540px;
+            margin: 0 auto;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ───────────────────────────────────────────────────────────────────────────
+// SPEAKERS — named individuals (cyan accent, mirrors the advisory card)
+// ───────────────────────────────────────────────────────────────────────────
+function Speakers() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section
+      ref={ref}
+      id="speakers"
+      style={{
+        position: "relative",
+        padding: "clamp(24px, 3vw, 38px) 0 clamp(48px, 5.5vw, 76px)",
+        background: "transparent",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: `radial-gradient(ellipse 60% 50% at 50% 0%, ${C}10 0%, transparent 60%)`,
+          pointerEvents: "none",
+        }}
+      />
+      <BgDots opacity={0.04} />
+
+      <div style={{ position: "relative", maxWidth: 1180, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+        <Eyebrow inView={inView} label="Speakers" tone="cyan" />
+
+        <motion.h2
+          initial={{ opacity: 0, y: 18 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 800,
+            fontSize: "clamp(28px, 4vw, 50px)",
+            letterSpacing: "-1.8px",
+            lineHeight: 1.04,
+            color: "white",
+            margin: "0 0 clamp(36px, 4vw, 54px)",
+            maxWidth: 920,
+          }}
+        >
+          The voices on{" "}
+          <em style={{ fontStyle: "italic", fontWeight: 400, color: C }}>the Qatar stage.</em>
+        </motion.h2>
+
+        <div
+          className="cfq-speakers-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "clamp(18px, 2vw, 28px)",
+            maxWidth: 560,
+            margin: "0 auto",
+          }}
+        >
+          {CFQ_SPEAKERS.map((a, i) => {
+            const initials = a.name.split(" ").map((n) => n[0]).join("").slice(0, 2);
+            return (
+              <motion.div
+                key={a.name}
+                initial={{ opacity: 0, y: 24 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.15 + i * 0.1, ease: EASE }}
+                className="cfq-speaker-card"
+                style={{
+                  position: "relative",
+                  borderRadius: 20,
+                  overflow: "hidden",
+                  background: `linear-gradient(180deg, ${BG_ELEV} 0%, ${BG_DEEP} 100%)`,
+                  border: `1px solid ${C}2e`,
+                  boxShadow: `0 22px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.03), inset 0 1px 0 rgba(255,255,255,0.04)`,
+                  display: "flex",
+                  flexDirection: "column",
+                  transition: "transform 0.5s cubic-bezier(0.22,1,0.36,1), border-color 0.5s ease, box-shadow 0.5s ease",
+                }}
+              >
+                {/* PHOTO / INITIALS — top, full-bleed, 1:1 aspect */}
+                <div
+                  className="cfq-speaker-photo-frame"
+                  style={{
+                    position: "relative",
+                    width: "100%",
+                    aspectRatio: "1 / 1",
+                    overflow: "hidden",
+                    background: a.photo
+                      ? `linear-gradient(135deg, ${C}40 0%, ${QATAR}25 100%)`
+                      : `linear-gradient(135deg, ${C}33 0%, ${QATAR}1c 100%)`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {a.photo ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={a.photo}
+                      alt={`${a.name}, ${a.title} at ${a.org}`}
+                      loading="lazy"
+                      className="cfq-speaker-photo"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        objectPosition: "center 18%",
+                        display: "block",
+                        transition: "transform 0.7s cubic-bezier(0.22,1,0.36,1)",
+                      }}
+                    />
+                  ) : (
+                    <>
+                      <span
+                        aria-hidden
+                        style={{
+                          position: "absolute",
+                          inset: "20% 18% 24% 18%",
+                          borderRadius: "50%",
+                          background: `radial-gradient(circle, ${C}22 0%, transparent 70%)`,
+                          filter: "blur(20px)",
+                          pointerEvents: "none",
+                        }}
+                      />
+                      <span
+                        style={{
+                          fontFamily: "var(--font-display)",
+                          fontWeight: 800,
+                          fontSize: "clamp(56px, 6vw, 84px)",
+                          letterSpacing: "-2.5px",
+                          color: C,
+                          textShadow: `0 0 24px ${C}66, 0 4px 18px rgba(0,0,0,0.5)`,
+                          lineHeight: 1,
+                          position: "relative",
+                        }}
+                      >
+                        {initials}
+                      </span>
+                    </>
+                  )}
+
+                  {/* Bottom fade */}
+                  <span
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      height: 60,
+                      background: `linear-gradient(180deg, transparent 0%, rgba(4,8,24,0.45) 100%)`,
+                      pointerEvents: "none",
+                    }}
+                  />
+
+                  {/* Top accent hairline */}
+                  <span
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      top: 0, left: "10%", right: "10%",
+                      height: 1,
+                      background: `linear-gradient(90deg, transparent, ${C}cc, transparent)`,
+                      boxShadow: `0 0 14px ${C}66`,
+                    }}
+                  />
+
+                  {/* Floating LinkedIn chip — bottom-right of photo */}
+                  {a.linkedin && (
+                    <a
+                      href={a.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${a.name} on LinkedIn`}
+                      className="cfq-speaker-li"
+                      style={{
+                        position: "absolute",
+                        right: 12,
+                        bottom: 12,
+                        width: 32,
+                        height: 32,
+                        borderRadius: "50%",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        background: "rgba(255,255,255,0.94)",
+                        color: BG_DEEP,
+                        backdropFilter: "blur(6px)",
+                        boxShadow: `0 6px 18px rgba(0,0,0,0.35), 0 0 18px ${C}33`,
+                        textDecoration: "none",
+                        transition: "background 0.28s ease, color 0.28s ease, transform 0.28s ease",
+                      }}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                      </svg>
+                    </a>
+                  )}
+                </div>
+
+                {/* INFO BLOCK — below the photo */}
+                <div
+                  style={{
+                    padding: "clamp(16px, 1.7vw, 22px) clamp(18px, 1.9vw, 24px) clamp(18px, 1.9vw, 22px)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 8,
+                    flex: 1,
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(16px, 1.4vw, 19px)",
+                      fontWeight: 700,
+                      letterSpacing: "-0.4px",
+                      color: "white",
+                      lineHeight: 1.2,
+                      margin: 0,
+                    }}
+                  >
+                    {a.name}
+                  </h3>
+
+                  <p
+                    style={{
+                      fontFamily: "var(--font-outfit)",
+                      fontSize: 12.5,
+                      fontWeight: 500,
+                      color: "rgba(255,255,255,0.78)",
+                      lineHeight: 1.4,
+                      margin: 0,
+                      flex: 1,
+                    }}
+                  >
+                    {a.title}
+                  </p>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: 9, marginTop: 4 }}>
+                    <span aria-hidden style={{ width: 16, height: 1, background: `linear-gradient(90deg, ${C}, transparent)`, boxShadow: `0 0 8px ${C}66` }} />
+                    <span style={{
+                      fontFamily: "var(--font-outfit)",
+                      fontSize: 10,
+                      fontWeight: 700,
+                      letterSpacing: "0.16em",
+                      textTransform: "uppercase",
+                      color: C,
+                    }}>
+                      {a.org}
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      <style jsx>{`
+        .cfq-speaker-card:hover {
+          transform: translateY(-5px);
+          border-color: ${C}66 !important;
+          box-shadow: 0 30px 64px rgba(0,0,0,0.6), 0 0 60px ${C}22, inset 0 1px 0 rgba(255,255,255,0.06) !important;
+        }
+        .cfq-speaker-card:hover .cfq-speaker-photo {
+          transform: scale(1.05);
+        }
+        .cfq-speaker-li:hover {
+          background: ${C} !important;
+          color: white !important;
+          transform: translateY(-1px) scale(1.06);
+        }
+        @media (max-width: 980px) {
+          .cfq-speakers-grid {
+            grid-template-columns: 1fr !important;
+            max-width: 300px;
             margin: 0 auto;
           }
         }
@@ -7075,6 +7368,7 @@ export default function CyberFirstQatar2026() {
       <div style={{ position: "relative", background: BG_DEEP, overflow: "hidden" }}>
         <KeyThemes />
         <Advisors />
+        <Speakers />
       </div>
       <PastSeriesSponsors />
       <div style={{ position: "relative", background: BG_DEEP, overflow: "hidden" }}>
