@@ -5434,6 +5434,298 @@ function VenueSection() {
   );
 }
 
+// ─── AGENDA ──────────────────────────────────────────────────────────────────
+// Verbatim conference program (source: Johannesburg agenda doc). Do not alter copy.
+type JhbAgendaRow = {
+  time: string;
+  type: "keynote" | "panel" | "fireside" | "break" | "awards";
+  title: string;
+  desc?: string;
+  bullets?: string[];
+  panelists?: string[];
+};
+type JhbAgendaTrack = { label: string; time: string; rows: JhbAgendaRow[] };
+
+const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
+  {
+    label: "Regulation, Standards, & Public Private Collaboration, Governance",
+    time: "08:00 – 11:15",
+    rows: [
+      { time: "08:00 – 9:00", type: "break", title: "Registration, Networking, and Refreshments" },
+      { time: "09:05 – 09:10", type: "keynote", title: "Welcome Remarks" },
+      { time: "09:10 – 09:15", type: "keynote", title: "National Anthem and Opening Ceremony" },
+      { time: "09:15 – 09:30", type: "keynote", title: "Opening Keynote", desc: "The State of OT Security in Africa 2026" },
+      {
+        time: "09:30 – 10:00",
+        type: "panel",
+        title: "Leadership Panel",
+        desc: "Making OT Security a National Priority - Harmonizing Regulatory Mandates, Public-Private Trust, and Crisis Response\nAligning board level governance, strict regional regulatory standards, and practical crisis readiness to guarantee corporate and operational resilience",
+        bullets: [
+          "Translating frameworks from paperwork into verifiable engineering controls",
+          "Overcoming trust barriers to share active threat indicators and incident insights with regional authorities and industry peers",
+          "Constructing localized crisis management playbooks that prioritize physical safety, environmental protection, and uptime",
+          "Business Continuity Under Fire to minimize financial and reputational fallout",
+        ],
+        panelists: ["Reserved for Keysight / Forescout"],
+      },
+      { time: "10:00 – 10:15", type: "fireside", title: "Fireside Chat", desc: "IT/OT Convergence Without Losing Control - Integrating the SOC\nHow to converge monitoring while respecting the realities of process safety and uptime" },
+      { time: "10:15 – 10:30", type: "fireside", title: "Technology Presentation", desc: "Reserved for Keysight / Forescout" },
+      { time: "10:30 – 11:15", type: "break", title: "Networking Break and Refreshments" },
+    ],
+  },
+  {
+    label: "Emerging Technologies - Legacy Retrofitting & Hardening",
+    time: "11:15 – 14:30",
+    rows: [
+      {
+        time: "11:15 – 11:45",
+        type: "panel",
+        title: "Panel Discussion",
+        desc: "Beyond the Air Gap: Implementing Zero Trust and Network Visibility in Legacy ICS Environments\nUnpacking the architectural realities of modernizing heavy industrial infrastructure without inducing operational downtime.",
+        bullets: [
+          "Pragmatic strategies for applying modern cryptographic identities and network access controls",
+          "The Visibility Baseline: Moving from “blind spots” to complete asset clarity",
+          "Micro-Segmentation in Practice: Definition and enforcement",
+          "Continuous Authentication",
+        ],
+      },
+      { time: "11:45 – 12:00", type: "fireside", title: "Technology Presentation", desc: "Machine Learning at the Edge: Baseline Engineering Anomalies in Real-Time" },
+      { time: "12:00 – 12:15", type: "fireside", title: "Technology Presentation", desc: "Immutable Configuration Backups: Engineering Zero-Loss SCADA Recovery Pipelines" },
+      {
+        time: "12:15 – 12:45",
+        type: "panel",
+        title: "Panel Discussion",
+        desc: "The Core of Converged Defense: Scaling Unified IT/OT SOCs with AI and Emerging Tech\nExploring how organizations are utilizing artificial intelligence and unified monitoring architectures to proactively spot and contain industrial threats",
+        bullets: [
+          "Bridging the telemetry divide",
+          "AI driven behavioural analytics",
+          "Evaluating the real-world utility of innovations like digital twins",
+          "The culture & workflow shift",
+        ],
+      },
+      { time: "12:45 – 13:00", type: "fireside", title: "Technology Presentation", desc: "Passive Deep-Packet Asset Discovery: Eliminating Blind Spots Without Active Polling" },
+      { time: "13:00 – 13:30", type: "break", title: "Networking Break and Refreshments" },
+      {
+        time: "13:30 – 14:00",
+        type: "panel",
+        title: "Panel Discussion",
+        desc: "Securing the Industrial Ecosystem: Third-Party Risk, Supply Chain Integrity, and the OT Talent Crunch\nAddressing the vulnerabilities introduced by external suppliers and the human capital strategies required to manage modern industrial cyber risks",
+        bullets: [
+          "Mitigating third-party software and hardware component vulnerabilities",
+          "Vendor Remote Access Control - Securing and auditing ephemeral remote maintenance gateways",
+          "Cross killing the Workforce",
+          "Retaining internal OT security expertise and leveraging managed services",
+        ],
+      },
+      { time: "14:00 – 14:15", type: "fireside", title: "Presentation", desc: "Passive Deep Packet Asset Discovery: Eliminating Blind Spots Without Active Polling" },
+      { time: "14:15 – 14:30", type: "awards", title: "OT Security First Award Ceremony & Raffle Draw" },
+      { time: "14:30", type: "break", title: "Networking Lunch and End of Conference" },
+    ],
+  },
+];
+
+function JhbAgendaTypeTag({ type }: { type: JhbAgendaRow["type"] }) {
+  const map: Record<string, { label: string; color: string }> = {
+    keynote: { label: "Keynote", color: C_BRIGHT },
+    panel: { label: "Panel", color: CYAN },
+    fireside: { label: "Fireside", color: C_BRIGHT },
+    awards: { label: "Awards", color: "#E8B65C" },
+    break: { label: "Break", color: "rgba(255,255,255,0.4)" },
+  };
+  const { label, color } = map[type] || map.fireside;
+  return (
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        fontFamily: "var(--font-outfit)",
+        fontSize: 9.5,
+        fontWeight: 700,
+        letterSpacing: "1.4px",
+        textTransform: "uppercase",
+        color,
+        background: `${color}14`,
+        border: `1px solid ${color}38`,
+        borderRadius: 100,
+        padding: "4px 11px",
+        lineHeight: 1.3,
+        whiteSpace: "nowrap",
+      }}
+    >
+      {label}
+    </span>
+  );
+}
+
+function JhbAgendaRowItem({ row }: { row: JhbAgendaRow }) {
+  if (row.type === "break") {
+    return (
+      <div style={{ display: "flex", alignItems: "center", gap: 14, padding: "15px clamp(22px, 2.4vw, 30px)", borderRadius: 14, background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)" }}>
+        <span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: `${C_BRIGHT}99`, flexShrink: 0 }} />
+        <span
+          style={{
+            fontFamily: "var(--font-outfit)",
+            fontSize: 14.5,
+            fontWeight: 800,
+            color: "#fff",
+            background: `linear-gradient(135deg, ${C}40, ${C}22)`,
+            border: `1px solid ${C}59`,
+            borderRadius: 9,
+            padding: "7px 14px",
+            letterSpacing: "0.3px",
+            whiteSpace: "nowrap",
+            boxShadow: `0 2px 10px ${C}1f`,
+          }}
+        >
+          {row.time}
+        </span>
+        <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 500, color: "rgba(255,255,255,0.55)" }}>{row.title}</span>
+      </div>
+    );
+  }
+
+  const lines = row.desc ? row.desc.split("\n") : [];
+  return (
+    <div style={{ padding: "24px clamp(26px, 2.8vw, 36px)", borderRadius: 16, background: "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 100%)", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 18px 50px rgba(0,0,0,0.32)" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 11, marginBottom: 12 }}>
+        <span
+          style={{
+            fontFamily: "var(--font-outfit)",
+            fontSize: 15,
+            fontWeight: 800,
+            color: "#fff",
+            background: `linear-gradient(135deg, ${C}40, ${C}22)`,
+            border: `1px solid ${C}59`,
+            borderRadius: 9,
+            padding: "7px 14px",
+            letterSpacing: "0.3px",
+            whiteSpace: "nowrap",
+            boxShadow: `0 2px 10px ${C}1f`,
+          }}
+        >
+          {row.time}
+        </span>
+        <JhbAgendaTypeTag type={row.type} />
+      </div>
+
+      <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(15px, 1.3vw, 17px)", fontWeight: 700, color: "white", lineHeight: 1.32, letterSpacing: "-0.3px", margin: 0 }}>
+        {row.title}
+      </p>
+
+      {lines.map((line, li) => (
+        <p
+          key={li}
+          style={{
+            fontFamily: "var(--font-outfit)",
+            fontSize: li === 0 ? 14 : 13,
+            fontWeight: li === 0 ? 600 : 400,
+            color: li === 0 ? "rgba(255,255,255,0.78)" : "rgba(255,255,255,0.5)",
+            lineHeight: 1.55,
+            margin: li === 0 ? "8px 0 0" : "5px 0 0",
+            fontStyle: li > 0 ? "italic" : "normal",
+          }}
+        >
+          {line}
+        </p>
+      ))}
+
+      {row.bullets && (
+        <ul style={{ margin: "13px 0 0", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 7 }}>
+          {row.bullets.map((b, bi) => (
+            <li key={bi} style={{ position: "relative", paddingLeft: 16, fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.55)", lineHeight: 1.5 }}>
+              <span style={{ position: "absolute", left: 0, top: 7, width: 5, height: 5, borderRadius: "50%", background: CYAN, opacity: 0.8 }} />
+              {b}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {row.panelists && (
+        <div style={{ marginTop: 13 }}>
+          <span style={{ display: "block", fontFamily: "var(--font-dm)", fontSize: 10, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: C_BRIGHT, marginBottom: 6 }}>Panelist</span>
+          <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
+            {row.panelists.map((p, pi) => (
+              <li key={pi} style={{ position: "relative", paddingLeft: 16, fontFamily: "var(--font-outfit)", fontSize: 13, fontStyle: "italic", color: "rgba(255,255,255,0.6)", lineHeight: 1.5 }}>
+                <span style={{ position: "absolute", left: 0, top: 6, width: 6, height: 6, borderRadius: "50%", border: `1px solid ${C_BRIGHT}`, opacity: 0.8 }} />
+                {p}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function AgendaSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <section ref={ref} id="agenda" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
+      <div style={{ position: "absolute", top: "8%", left: "-5%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${C}10 0%, transparent 70%)`, filter: "blur(70px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "8%", right: "-5%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${CYAN}10 0%, transparent 70%)`, filter: "blur(70px)", pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative", zIndex: 2 }}>
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ textAlign: "center", marginBottom: "clamp(36px, 4vw, 52px)" }}>
+          <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: CYAN, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>Agenda</span>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", lineHeight: 1.05, letterSpacing: "-2px", color: "white", margin: "0 0 14px" }}>
+            Conference{" "}
+            <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Program</span>
+          </h2>
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 600, letterSpacing: "0.4px", color: "rgba(255,255,255,0.6)", margin: "0 0 14px" }}>
+            27 August 2026 &nbsp;·&nbsp; Johannesburg, South Africa &nbsp;·&nbsp; 08:00 – 14:30
+          </p>
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: "clamp(14px, 1.3vw, 16px)", fontWeight: 500, fontStyle: "italic", color: "rgba(255,255,255,0.45)", maxWidth: 620, margin: "0 auto", lineHeight: 1.6 }}>
+            Uncompromised OT Security — Protecting what Powers our World
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
+          className="otsf-agenda-cols"
+          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(24px, 3vw, 40px)", alignItems: "start" }}
+        >
+          {JHB_AGENDA_TRACKS.map((track, ti) => (
+            <div key={ti} style={{ display: "flex", flexDirection: "column", gap: "clamp(14px, 1.6vw, 18px)" }}>
+              {/* Track banner */}
+              <div style={{ borderRadius: 16, overflow: "hidden", border: `1px solid ${C}3d`, background: `linear-gradient(120deg, ${C}38 0%, ${C}14 60%, rgba(13,18,51,0.5) 100%)`, padding: "18px clamp(22px, 2.6vw, 30px)" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14, marginBottom: 4 }}>
+                  <span style={{ fontFamily: "var(--font-dm)", fontSize: 10.5, fontWeight: 700, letterSpacing: "2.4px", textTransform: "uppercase", color: C_BRIGHT }}>Track {ti + 1}</span>
+                  <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12.5, fontWeight: 700, color: "rgba(255,255,255,0.72)", whiteSpace: "nowrap" }}>{track.time}</span>
+                </div>
+                <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(16px, 1.6vw, 19px)", fontWeight: 700, color: "white", lineHeight: 1.3, letterSpacing: "-0.3px", margin: 0 }}>{track.label}</h3>
+              </div>
+
+              {track.rows.map((row, ri) => (
+                <JhbAgendaRowItem key={ri} row={row} />
+              ))}
+            </div>
+          ))}
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
+          style={{ fontFamily: "var(--font-outfit)", fontSize: 12.5, fontWeight: 500, fontStyle: "italic", color: "rgba(255,255,255,0.4)", textAlign: "center", margin: "clamp(30px, 4vw, 44px) 0 0" }}
+        >
+          Kindly note: this is a draft agenda and is subject to minor changes until 4 days prior to the conference.
+        </motion.p>
+      </div>
+
+      <style jsx global>{`
+        @media (max-width: 900px) {
+          .otsf-agenda-cols {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
+
 // ─── MAIN PAGE COMPONENT ─────────────────────────────────────────────────────
 export default function OTSecurityFirstJohannesburg2026() {
   const [mounted, setMounted] = useState(false);
@@ -5468,6 +5760,7 @@ export default function OTSecurityFirstJohannesburg2026() {
           <FocusAreas />
           <SpeakersSection />
           <EventSponsorsSection />
+          <AgendaSection />
           <OTTestimonials />
           <EventSnapshotSection />
           <WhoShouldAttend />
