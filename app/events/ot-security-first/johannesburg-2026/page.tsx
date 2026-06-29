@@ -5660,6 +5660,23 @@ function JhbAgendaRowItem({ row }: { row: JhbAgendaRow }) {
 function AgendaSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  // Flatten tracks into a single block list (track banners + rows), then split
+  // at 12:00 so the two columns stay visually balanced.
+  type Block =
+    | { kind: "track"; n: number; label: string; time: string }
+    | { kind: "row"; row: JhbAgendaRow };
+  const blocks: Block[] = [];
+  JHB_AGENDA_TRACKS.forEach((track, ti) => {
+    blocks.push({ kind: "track", n: ti + 1, label: track.label, time: track.time });
+    track.rows.forEach((row) => blocks.push({ kind: "row", row }));
+  });
+  const splitIdx = (() => {
+    const i = blocks.findIndex((b) => b.kind === "row" && b.row.time.startsWith("12:00"));
+    return i === -1 ? Math.ceil(blocks.length / 2) : i;
+  })();
+  const columns = [blocks.slice(0, splitIdx), blocks.slice(splitIdx)];
+
   return (
     <section ref={ref} id="agenda" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", top: "8%", left: "-5%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${C}10 0%, transparent 70%)`, filter: "blur(70px)", pointerEvents: "none" }} />
@@ -5687,20 +5704,21 @@ function AgendaSection() {
           className="otsf-agenda-cols"
           style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(24px, 3vw, 40px)", alignItems: "start" }}
         >
-          {JHB_AGENDA_TRACKS.map((track, ti) => (
-            <div key={ti} style={{ display: "flex", flexDirection: "column", gap: "clamp(14px, 1.6vw, 18px)" }}>
-              {/* Track banner */}
-              <div style={{ borderRadius: 16, overflow: "hidden", border: `1px solid ${C}3d`, background: `linear-gradient(120deg, ${C}38 0%, ${C}14 60%, rgba(13,18,51,0.5) 100%)`, padding: "18px clamp(22px, 2.6vw, 30px)" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14, marginBottom: 4 }}>
-                  <span style={{ fontFamily: "var(--font-dm)", fontSize: 10.5, fontWeight: 700, letterSpacing: "2.4px", textTransform: "uppercase", color: C_BRIGHT }}>Track {ti + 1}</span>
-                  <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12.5, fontWeight: 700, color: "rgba(255,255,255,0.72)", whiteSpace: "nowrap" }}>{track.time}</span>
-                </div>
-                <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(16px, 1.6vw, 19px)", fontWeight: 700, color: "white", lineHeight: 1.3, letterSpacing: "-0.3px", margin: 0 }}>{track.label}</h3>
-              </div>
-
-              {track.rows.map((row, ri) => (
-                <JhbAgendaRowItem key={ri} row={row} />
-              ))}
+          {columns.map((col, ci) => (
+            <div key={ci} style={{ display: "flex", flexDirection: "column", gap: "clamp(14px, 1.6vw, 18px)" }}>
+              {col.map((block, bi) =>
+                block.kind === "track" ? (
+                  <div key={bi} style={{ borderRadius: 16, overflow: "hidden", border: `1px solid ${C}3d`, background: `linear-gradient(120deg, ${C}38 0%, ${C}14 60%, rgba(13,18,51,0.5) 100%)`, padding: "18px clamp(22px, 2.6vw, 30px)" }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14, marginBottom: 4 }}>
+                      <span style={{ fontFamily: "var(--font-dm)", fontSize: 10.5, fontWeight: 700, letterSpacing: "2.4px", textTransform: "uppercase", color: C_BRIGHT }}>Track {block.n}</span>
+                      <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12.5, fontWeight: 700, color: "rgba(255,255,255,0.72)", whiteSpace: "nowrap" }}>{block.time}</span>
+                    </div>
+                    <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(16px, 1.6vw, 19px)", fontWeight: 700, color: "white", lineHeight: 1.3, letterSpacing: "-0.3px", margin: 0 }}>{block.label}</h3>
+                  </div>
+                ) : (
+                  <JhbAgendaRowItem key={bi} row={block.row} />
+                ),
+              )}
             </div>
           ))}
         </motion.div>
