@@ -45,14 +45,15 @@ type Speaker = {
   org: string;
   photo: string | null;
   linkedin?: string | null;
+  flag?: string;
 };
 
 const SPEAKERS: Speaker[] = [
-  { name: "Ahmed Al Saleh", title: "Head of Digital & OT Cybersecurity Initiatives", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed_Al_Saleh.png", linkedin: "https://www.linkedin.com/in/ahmed-al-saleh/" },
-  { name: "Ahmed T Alawami", title: "Head of AI & Digital Transformation (Energy & Utilities)", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+T+Alawami.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/" },
-  { name: "Abdulrahman Al-Nimari", title: "VP, Cyber Security", org: "", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulrahman+Al-Nimar.png", linkedin: "https://www.linkedin.com/in/alnimari/" },
-  { name: "Sultan Moraished", title: "Group Head of Technology and Corporate Excellence", org: "Red Sea Global", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Moraished.png", linkedin: "https://www.linkedin.com/in/sultan-moraished-0786394a/" },
-  { name: "Ali Abdulla Hasan Alsadadi", title: "Chief of Information Technology", org: "Ministry of Oil & Environment Bahrain", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Ali+Abdulla+Hasan+Alsadadi.png", linkedin: "https://www.linkedin.com/in/ali-abdulla-hasan-alsadadi-a4210825/" },
+  { name: "Ahmed Al Saleh", title: "Head of Digital & OT Cybersecurity Initiatives", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed_Al_Saleh.png", linkedin: "https://www.linkedin.com/in/ahmed-al-saleh/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Ahmed T Alawami", title: "Head of AI & Digital Transformation (Energy & Utilities)", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+T+Alawami.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Abdulrahman Al-Nimari", title: "VP, Cyber Security", org: "", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulrahman+Al-Nimar.png", linkedin: "https://www.linkedin.com/in/alnimari/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Sultan Moraished", title: "Group Head of Technology and Corporate Excellence", org: "Red Sea Global", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Moraished.png", linkedin: "https://www.linkedin.com/in/sultan-moraished-0786394a/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Ali Abdulla Hasan Alsadadi", title: "Chief of Information Technology", org: "Ministry of Oil & Environment Bahrain", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Ali+Abdulla+Hasan+Alsadadi.png", linkedin: "https://www.linkedin.com/in/ali-abdulla-hasan-alsadadi-a4210825/", flag: "https://flagcdn.com/w40/bh.png" },
 ];
 
 // ─── Awards ─────────────────────────────────────────────────────────────────
@@ -4282,7 +4283,25 @@ function SpeakersSection() {
               </div>
 
               {/* Card body */}
-              <div style={{ padding: "18px 18px 22px", display: "flex", flexDirection: "column", gap: 6, flex: 1 }}>
+              <div style={{ position: "relative", padding: "18px 18px 22px", display: "flex", flexDirection: "column", gap: 6, flex: 1 }}>
+                {/* Country flag pill — bottom-right corner of info panel */}
+                {s.flag && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      right: 14,
+                      bottom: 14,
+                      zIndex: 2,
+                      padding: 2,
+                      borderRadius: 6,
+                      background: "linear-gradient(135deg, rgba(211,75,154,0.45), rgba(255,255,255,0.08))",
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.5), 0 0 10px rgba(211,75,154,0.25)",
+                    }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={s.flag} alt="" style={{ display: "block", height: 16, width: "auto", borderRadius: 4 }} />
+                  </div>
+                )}
                 <h3
                   style={{
                     fontFamily: "var(--font-display)",
@@ -4318,6 +4337,7 @@ function SpeakersSection() {
                       textTransform: "uppercase",
                       color: "rgba(255,255,255,0.35)",
                       margin: "4px 0 0",
+                      paddingRight: 46,
                     }}
                   >
                     {s.org}
