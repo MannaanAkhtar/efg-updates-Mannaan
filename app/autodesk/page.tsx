@@ -54,6 +54,15 @@ const SPEAKERS = [
     initials: "LV",
     linkedin: "https://www.linkedin.com/in/luca-vigliero-11b7671a/" as string | null,
   },
+  {
+    name: "Joe Labaky",
+    role: "COO",
+    org: "Group Amana",
+    tag: "Speaker",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Joe+Labaky.jpg" as string | null,
+    initials: "JL",
+    linkedin: "https://www.linkedin.com/in/joelabaky/" as string | null,
+  },
 ];
 
 // ---- Takeaways --------------------------------------------------------------
