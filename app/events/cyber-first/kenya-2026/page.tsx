@@ -225,7 +225,7 @@ const AGENDA: {
   { time: "08:00 – 09:00", title: "Registration, Networking, and Refreshments", type: "break" },
   { time: "09:10 – 09:15", title: "Welcome Remarks", type: "keynote" },
   { time: "09:15 – 09:20", title: "National Anthem and Opening Ceremony", type: "keynote" },
-  { time: "09:20 – 09:30", title: "Opening Keynote", subtitle: "The Digital Mandate Roadmap – NC4 and Kenya's Cyber Economy\nCol Dr James Kimuyu – Director, National Computer and Cybercrimes Coordination Committee (NC4)", type: "keynote" },
+  { time: "09:20 – 09:30", title: "Opening Keynote", subtitle: "The Cybersecurity Mandate Roadmap – NC4 and Kenya's Cyber Economy\nCol Dr James Kimuyu – Director, National Computer and Cybercrimes Coordination Committee (NC4)", type: "keynote" },
   {
     time: "09:30 – 10:15",
     title: "Leadership Panel",
@@ -263,7 +263,7 @@ const AGENDA: {
       "Peter Muhumuza, CISO, KCB Bank Uganda",
       "George Rugero, Head - Information Security, Airtel Rwanda",
       "Collins Amadi, Head, Enterprise Security Architecture & IAM, Equity Bank Limited",
-      "Hamid Balghi, Director – Sales & Partnership MEA, Cyfirma",
+      "Hamid Bafghi, Director – Sales & Partnership MEA, Cyfirma",
     ],
   },
   { time: "12:00 – 12:15", title: "Technology Presentation", subtitle: "MFA Fatigue & Password less - Implementing Identity First Security\nReserved", type: "fireside" },
@@ -507,6 +507,13 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     title: "Sr. Solutions Engineer",
     org: "BeyondTrust",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Brendon+Meyer.png",
+  },
+  {
+    name: "Hamid Bafghi",
+    title: "Director Sales & Partnership MEA",
+    org: "CYFIRMA",
+    linkedin: "https://www.linkedin.com/in/hamid-bafghi-44647b/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/cyfirma.png",
   },
 ];
 
