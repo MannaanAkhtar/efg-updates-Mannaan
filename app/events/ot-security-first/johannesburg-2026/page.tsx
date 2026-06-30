@@ -3860,6 +3860,14 @@ const EVENT_SPONSORS_2026: {
     keepColor: true,
   },
   {
+    name: "Fortress Hub Technologies",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Fortress+Hub+Technologies+Ltd+PNG.png",
+    url: "https://www.fortresshubtechnologies.com/",
+    tier: "strategic",
+    keepColor: true,
+    scale: 2.1,
+  },
+  {
     name: "Corrserve",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/corrserve1.png",
     url: "https://corrserve.co.za/",
@@ -3979,7 +3987,7 @@ function EventSponsorsSection() {
             // Strategic tier renders one prominent centered card; lower tiers
             // render as multi-column grids so they read as "rows of sponsors".
             const isGold = tier === "gold";
-            const cols = isStrategic ? 1 : Math.min(sponsorsInTier.length, 4);
+            const cols = isStrategic ? Math.min(sponsorsInTier.length, 2) : Math.min(sponsorsInTier.length, 4);
             const cardMaxWidth = isStrategic ? 360 : isGold ? 320 : 240;
 
             return (
