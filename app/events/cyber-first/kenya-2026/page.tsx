@@ -223,11 +223,11 @@ const AGENDA: {
   panelists?: string[];
 }[] = [
   { time: "08:00 – 09:00", title: "Registration, Networking, and Refreshments", type: "break" },
-  { time: "09:10 – 09:15", title: "Welcome Remarks", type: "keynote" },
+  { time: "09:10 – 09:15", title: "Welcome Remarks by EFG", type: "keynote" },
   { time: "09:15 – 09:20", title: "National Anthem and Opening Ceremony", type: "keynote" },
-  { time: "09:20 – 09:30", title: "Opening Keynote", subtitle: "The Cybersecurity Mandate Roadmap – NC4 and Kenya's Cyber Economy\nCol Dr James Kimuyu – Director, National Computer and Cybercrimes Coordination Committee (NC4)", type: "keynote" },
+  { time: "09:20 – 09:35", title: "Opening Keynote", subtitle: "The Cybersecurity Mandate Roadmap – NC4 and Kenya's Cyber Economy\nCol Dr James Kimuyu – Director, National Computer and Cybercrimes Coordination Committee (NC4)", type: "keynote" },
   {
-    time: "09:30 – 10:15",
+    time: "09:35 – 10:15",
     title: "Leadership Panel",
     subtitle: "Who Owns the Risk? Boards, Regulators and CISOs under New Expectations\nGovernance focused on accountability, reporting, and decision making for cyber risk across sectors, how responsibility is shared, what effective governance looks like in practice",
     type: "panel",
@@ -245,9 +245,9 @@ const AGENDA: {
     ],
   },
   { time: "10:15 – 10:30", title: "Technology Presentation", subtitle: "The Ghost in the Machine (securing non-human identities)\nBrendon Meyer, Senior Solutions Engineer, Beyond Trust", type: "fireside" },
-  { time: "10:30 – 11:15", title: "VIP Exhibition Tour followed by Networking & Refreshments", type: "break" },
+  { time: "10:30 – 11:10", title: "VIP Exhibition Tour followed by Networking & Refreshments", type: "break" },
   {
-    time: "11:15 – 12:00",
+    time: "11:10 – 12:00",
     title: "Panel Discussion",
     subtitle: "From Logs to Decisions - Making Threat Intelligence and Analytics Actionable\nHow organizations can prioritize a small set of high-value detection and intel use-cases, instead of drowning in data and alerts",
     type: "panel",
@@ -266,10 +266,11 @@ const AGENDA: {
       "Hamid Bafghi, Director – Sales & Partnership MEA, Cyfirma",
     ],
   },
-  { time: "12:00 – 12:15", title: "Technology Presentation", subtitle: "MFA Fatigue & Password less - Implementing Identity First Security\nReserved", type: "fireside" },
-  { time: "12:15 – 12:30", title: "Technology Presentation", subtitle: "Behavioural Biometrics - The Next Frontier in Anti-Fraud for Digital Lenders\nReserved", type: "fireside" },
+  { time: "12:00 – 12:15", title: "Technology Presentation", subtitle: "TBC\nReserved for Cyber Knight", type: "fireside" },
+  { time: "12:15 – 12:30", title: "Technology Presentation", subtitle: "Behavioural Biometrics - The Next Frontier in Anti-Fraud for Digital Lenders\nReserved for Mimecast", type: "fireside" },
+  { time: "12:30 – 13:00", title: "Networking Break and Refreshments", type: "break" },
   {
-    time: "12:30 – 13:15",
+    time: "13:00 – 13:40",
     title: "Panel Discussion",
     subtitle: "Keeping the Lights On - Practical Resilience Against DDoS, Ransomware and Network Disruptions\nKeeping critical services available under intense pressure and concrete strategies for maintaining availability of critical services under DDoS waves, network issues, and ransomware across sectors",
     type: "panel",
@@ -287,9 +288,8 @@ const AGENDA: {
       "Michael Etale, Chief Information Security Officer, Absa Bank",
     ],
   },
-  { time: "13:15 – 13:45", title: "Networking Break and Refreshments", type: "break" },
   {
-    time: "13:45 – 14:30",
+    time: "13:40 – 14:15",
     title: "Panel Discussion",
     subtitle: "Identity Under Pressure - Stopping Fraud and Account Takeover in a Mobile First Economy\nHow identity abuse drives fraud and disruption across mobile money, digital banking, telco services, and citizen portals",
     type: "panel",
@@ -303,13 +303,13 @@ const AGENDA: {
     moderator: "George Kisaka, Vice President, ISACA Kenya Chapter",
     panelists: [
       "Geoffrey O. Ochieng, Global AI Delegate to Kenya, Global Alliance for Artificial Intelligence (GAFAI)",
-      "Steve Ganjra, Managed Security Services Manager, Safaricom PLC",
+      "Steve Gamba, Managed Security Services Manager, Safaricom PLC",
       "Kevin Kimani, GCISO, ASA International",
       "Eneth Kubai, Head of Enterprise Architecture, Safaricom PLC",
     ],
   },
-  { time: "14:30 – 14:45", title: "Cyber First Award Ceremony & Raffle Draw", type: "awards" },
-  { time: "14:45", title: "Networking Lunch and End of Conference", type: "break" },
+  { time: "14:15 – 14:30", title: "Cyber First Award Ceremony & Raffle Draw", type: "awards" },
+  { time: "14:30", title: "Networking Lunch and End of Conference", type: "break" },
 ];
 
 const AWARDS_DATA = [
@@ -398,7 +398,7 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     name: "Kevin Kimani",
     title: "GCISO",
     org: "ASA International",
-    photo: null,
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Kevin+kimani.jpg",
     linkedin: "https://www.linkedin.com/in/kevin-kimani-ceh-cisa-aciarb-6a61aa17/",
   },
   {
@@ -461,6 +461,13 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     linkedin: "https://www.linkedin.com/in/george-rugero-4770299/",
   },
   {
+    name: "Collins Amadi",
+    title: "Head - Enterprise Security Architecture & IAM",
+    org: "Equity Bank Limited",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Amadi+Collins.jpg",
+    linkedin: "https://ke.linkedin.com/in/amadicollins",
+  },
+  {
     name: "Mutheu Nyagah - Khimulu",
     title: "Advisory Board Member",
     org: "African Centre for Security",
@@ -502,6 +509,13 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     org: "Global Alliance for Artificial Intelligence (GAFAI)",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Geoffrey-Ochieng.png",
     linkedin: "https://www.linkedin.com/in/geoffrey-o-ochieng%E2%84%A2%A2-85127a285/",
+  },
+  {
+    name: "S.W.Ole Gamba",
+    title: "Managed Cyber Security Services Manager",
+    org: "Safaricom",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Steve+Ganjra.png",
+    linkedin: "https://www.linkedin.com/in/steve-gamba/",
   },
   {
     name: "Brendon Meyer",
@@ -590,7 +604,7 @@ const SPEAKERS = [
     name: "Kevin Kimani",
     title: "GCISO",
     org: "ASA International",
-    photo: null,
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Kevin+kimani.jpg",
   },
 ];
 
@@ -3616,7 +3630,7 @@ function SpeakerCard({
 function AgendaTimeline() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const typeLabels: Record<string, string> = { keynote: "Keynote", panel: "Panel", fireside: "Fireside", sponsor: "Tech Talk", break: "Break", awards: "Awards", closing: "Closing" };
+  const typeLabels: Record<string, string> = { keynote: "Keynote", panel: "Panel", fireside: "Presentation", sponsor: "Tech Talk", break: "Break", awards: "Awards", closing: "Closing" };
   const typeColors: Record<string, string> = { keynote: C_BRIGHT, panel: "#9D4EDD", fireside: "#F97316", sponsor: "#10B981", break: "rgba(255,255,255,0.25)", awards: KENYA_GOLD, closing: "#06B6D4" };
 
   return (
