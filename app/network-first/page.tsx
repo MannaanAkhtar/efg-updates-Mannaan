@@ -53,38 +53,6 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/proofpoint_whitelogo.png",
   },
   {
-    date: "June 29th, 2026",
-    month: "JUN",
-    day: "29",
-    year: "2026",
-    time: "15:00 GST",
-    title: "Poka Executive Roundtable",
-    subtitle: "Turn Your Frontline into a Strategic Growth Lever",
-    sponsor: "Poka",
-    location: "Dubai, UAE",
-    link: "/poka",
-    image: "",
-    brandColor: "#170430",
-    brandGradient: "linear-gradient(135deg, #8427E2 0%, #360065 45%, #170430 80%, #0A0218 100%)",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Poka-Logo-Colour.webp",
-  },
-  {
-    date: "June 30th, 2026",
-    month: "JUN",
-    day: "30",
-    year: "2026",
-    time: "10:30 – 13:30 GST",
-    title: "Autodesk Executive Roundtable",
-    subtitle: "Building with Confidence: Data-Led Resilience and Delivery Certainty",
-    sponsor: "Autodesk",
-    location: "Marriott Palm Jumeirah, Dubai",
-    link: "/autodesk",
-    image: "",
-    brandColor: "#0A0A0A",
-    brandGradient: "linear-gradient(135deg, #8B7A00 0%, #3D3500 28%, #1A1700 52%, #0A0A05 78%, #000000 100%)",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/autodesk-logo-primary-rgb-white.svg",
-  },
-  {
     date: "July 14th, 2026",
     month: "JUL",
     day: "14",
@@ -204,6 +172,34 @@ type PastEvent = {
 };
 
 const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    sponsor: "Autodesk",
+    title: "Autodesk Executive Roundtable",
+    subtitle: "Building with Confidence: Data-Led Resilience and Delivery Certainty",
+    month: "JUN",
+    date: "30 Jun",
+    venue: "Marriott Palm Jumeirah, Dubai",
+    time: "10:30 – 13:30 GST",
+    image: "",
+    brandColor: "#0A0A0A",
+    brandGradient: "linear-gradient(135deg, #8B7A00 0%, #3D3500 28%, #1A1700 52%, #0A0A05 78%, #000000 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/autodesk-logo-primary-rgb-white.svg",
+    link: "/autodesk",
+  },
+  {
+    sponsor: "Poka",
+    title: "Poka Executive Roundtable",
+    subtitle: "Turn Your Frontline into a Strategic Growth Lever",
+    month: "JUN",
+    date: "29 Jun",
+    venue: "Dubai, UAE",
+    time: "15:00 GST",
+    image: "",
+    brandColor: "#170430",
+    brandGradient: "linear-gradient(135deg, #8427E2 0%, #360065 45%, #170430 80%, #0A0218 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Poka-Logo-Colour.webp",
+    link: "/poka",
+  },
   {
     sponsor: "OutSystems | Blackstone eIT",
     title: "Executive Roundtable Riyadh",
@@ -2637,7 +2633,7 @@ function PastBoardroomsShowcase() {
                                     </div>
                                   ) : (
                                     // eslint-disable-next-line @next/next/no-img-element
-                                    <img src={e.brandLogo} alt="" style={{ height: e.sponsor === "Braze x Talon.One" ? 80 : e.sponsor === "Braze" ? 50 : 72, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+                                    <img src={e.brandLogo} alt="" style={{ height: e.sponsor === "Poka" ? 140 : e.sponsor === "Braze x Talon.One" ? 80 : e.sponsor === "Braze" ? 50 : 72, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
                                   )
                                 )}
                                 <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 80% at 30% 30%, ${e.brandColor || "#222"}30, transparent 60%)` }} />

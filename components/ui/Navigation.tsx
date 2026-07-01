@@ -68,8 +68,6 @@ const NETWORKFIRST_COLOR = "#C9935A";
 // each group keeps the upcoming-events date order from /network-first
 type NFFormat = "virtual" | "physical";
 const networkFirstEvents: { href: string; label: string; date: string; format: NFFormat }[] = [
-  { href: "/poka", label: "Poka", date: "29 Jun", format: "physical" },
-  { href: "/autodesk", label: "Autodesk", date: "30 Jun", format: "physical" },
   { href: "/filigran", label: "Filigran", date: "14 Jul", format: "virtual" },
   { href: "/proofpoint", label: "Proofpoint", date: "Sep · TBC", format: "physical" },
   { href: "https://events.outsystems.com/event/17e2fb07-2b9a-46e2-9acf-44590276e2d8/homepage?RefId=oed-ksa", label: "OutSystems", date: "19 Oct", format: "physical" },
