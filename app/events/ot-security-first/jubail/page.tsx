@@ -2396,11 +2396,6 @@ const EVIDENCE_2026: EvidenceItem[] = [
     size: "wide",
   },
   {
-    fact: "ADIPEC Abu Dhabi 2-5 Nov (six days after us); GISEC moved to 21-23 Sep; Black Hat MEA 1-3 Dec; Intersec Saudi 16-18 Nov; OT Security First Singapore 8-9 Oct. 27 Oct is clean in KSA",
-    source: "Official event sites, 2026",
-    size: "wide",
-  },
-  {
     fact: "RC/JY cities passed SAR 1.5T cumulative investment; Amiral $11bn Jubail cracker (ops 2027); 45+ Jubail turnarounds in 2026",
     source: "SPA / Arab News May 2026; TotalEnergies",
     size: "wide",
@@ -2411,6 +2406,16 @@ const EVIDENCE_2026: EvidenceItem[] = [
     size: "wide",
   },
   {
+    fact: "ECC-2:2024 requires cybersecurity roles to be held by Saudi nationals",
+    source: "Clyde & Co, Jan 2025",
+    size: "wide",
+  },
+  {
+    fact: "Electric (~$1B, Feb 2026); Claroty $150M Series F",
+    source: "Official event sites, 2026",
+    size: "wide",
+  },
+  {
     fact: "SACS-210 (Feb 2026) adds a dedicated OT controls section; transition window closed 26 Aug 2026",
     source: "4S Co. / NHR, Mar 2026",
     size: "sm",
@@ -2418,16 +2423,6 @@ const EVIDENCE_2026: EvidenceItem[] = [
   {
     fact: "50% of OT organisations had at least one intrusion in the last year",
     source: "Fortinet, Jul 2025",
-    size: "sm",
-  },
-  {
-    fact: "ECC-2:2024 requires cybersecurity roles to be held by Saudi nationals",
-    source: "Clyde & Co, Jan 2025",
-    size: "sm",
-  },
-  {
-    fact: "Electric (~$1B, Feb 2026); Claroty $150M Series F",
-    source: "Official event sites, 2026",
     size: "sm",
   },
 ];
