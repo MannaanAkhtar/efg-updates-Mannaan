@@ -4,8 +4,9 @@ import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/ot-security-first/qatar`;
+// Share-preview image = the page hero, so link unfurls show the Qatar hero art.
 const OG_IMAGE =
-  "https://efg-final.s3.eu-north-1.amazonaws.com/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0510.JPG";
+  "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT_qatar.png";
 
 export const metadata: Metadata = {
   title:
@@ -51,8 +52,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: OG_IMAGE,
-        width: 1200,
-        height: 630,
+        width: 1344,
+        height: 768,
         alt: "OT Security First Qatar 2026 — Industrial Cybersecurity Summit, Doha",
       },
     ],

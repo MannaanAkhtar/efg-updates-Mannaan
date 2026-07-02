@@ -653,66 +653,40 @@ function Numbers() {
           </div>
         </div>
 
-        <div className="otq-numbers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 16 }}>
+        <div className="otq-numbers-row">
           {NUMBERS.map((n, i) => (
             <motion.div
               key={n.label}
-              initial={{ opacity: 0, y: 22 }}
+              className="otq-stat"
+              initial={{ opacity: 0, y: 18 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
-              whileHover={{ y: -4, boxShadow: `0 20px 40px -16px ${C}40, 0 6px 16px -8px rgba(0,0,0,0.55)` }}
-              /* skeuomorphic raised bezel — gradient metal rim + drop shadow */
-              style={{
-                position: "relative",
-                borderRadius: 18,
-                padding: 1.25,
-                background: `linear-gradient(150deg, ${C_BRIGHT}80 0%, rgba(255,255,255,0.15) 28%, ${GOLD}5E 68%, rgba(255,255,255,0.05) 100%)`,
-                boxShadow: "0 16px 32px -14px rgba(0,0,0,0.7), 0 4px 12px -6px rgba(0,0,0,0.5)",
-              }}
+              transition={{ duration: 0.6, delay: i * 0.07, ease: EASE }}
             >
-              {/* liquid-glass inner panel */}
-              <div
-                style={{
-                  position: "relative",
-                  overflow: "hidden",
-                  height: "100%",
-                  minHeight: 148,
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  borderRadius: 16.75,
-                  padding: "26px 14px",
-                  textAlign: "center",
-                  background: "linear-gradient(168deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.018) 45%, rgba(4,6,15,0.45) 100%)",
-                  backdropFilter: "blur(22px) saturate(1.5)",
-                  WebkitBackdropFilter: "blur(22px) saturate(1.5)",
-                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -20px 34px -20px rgba(0,0,0,0.6)",
-                }}
-              >
-                {/* top glass sheen */}
-                <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: "55%", background: "linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%)", pointerEvents: "none" }} />
-                {/* corner refraction glow */}
-                <div aria-hidden style={{ position: "absolute", top: "-34%", right: "-22%", width: 110, height: 110, background: `radial-gradient(circle, ${C}4D 0%, transparent 70%)`, filter: "blur(8px)", pointerEvents: "none" }} />
-
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  {/* glowing gradient number */}
-                  <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(30px, 3.6vw, 46px)", fontWeight: 700, lineHeight: 1, letterSpacing: "-0.02em", background: `linear-gradient(120deg, #ffffff 0%, ${C_BRIGHT} 48%, ${QATAR_BRIGHT} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent", filter: `drop-shadow(0 2px 10px ${C}45)` }}>
-                    <Counter to={n.value} suffix={n.suffix} />
-                  </div>
-
-                  {/* gold hairline */}
-                  <div aria-hidden style={{ width: 24, height: 1, margin: "12px auto 11px", background: `linear-gradient(90deg, transparent, ${GOLD}, transparent)` }} />
-
-                  <div style={{ fontFamily: "var(--font-outfit)", fontSize: 12.5, fontWeight: 500, color: "rgba(255,255,255,0.66)", lineHeight: 1.35 }}>{n.label}</div>
-                </div>
+              {i > 0 && <span aria-hidden className="otq-stat-div" />}
+              <div className="otq-stat-num">
+                <Counter to={n.value} suffix={n.suffix} />
               </div>
+              <div className="otq-stat-label">{n.label}</div>
             </motion.div>
           ))}
         </div>
       </div>
-      <style jsx>{`
-        @media (max-width: 900px) { .otq-numbers-grid { grid-template-columns: repeat(3, 1fr) !important; } }
-        @media (max-width: 520px) { .otq-numbers-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+      <style jsx global>{`
+        .otq-numbers-row { display: grid; grid-template-columns: repeat(6, 1fr); }
+        .otq-stat { position: relative; padding: 6px clamp(10px, 1.6vw, 24px); text-align: center; }
+        .otq-stat-div { position: absolute; left: 0; top: 12%; bottom: 12%; width: 1px; background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.14) 20%, ${GOLD}5A 50%, rgba(255,255,255,0.14) 80%, transparent 100%); }
+        .otq-stat-num { font-family: var(--font-display); font-size: clamp(36px, 4.2vw, 56px); font-weight: 700; line-height: 1; letter-spacing: -0.03em; background: linear-gradient(168deg, #ffffff 0%, #ffffff 40%, ${C_BRIGHT} 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 3px 16px ${C}33); transition: filter 0.4s ease; }
+        .otq-stat-label { margin-top: 13px; font-family: var(--font-outfit); font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.5); line-height: 1.45; transition: color 0.4s ease; }
+        .otq-stat:hover .otq-stat-num { filter: drop-shadow(0 4px 20px ${C}66); }
+        .otq-stat:hover .otq-stat-label { color: rgba(255,255,255,0.74); }
+        @media (max-width: 900px) {
+          .otq-numbers-row { grid-template-columns: repeat(3, 1fr); row-gap: 36px; }
+          .otq-stat:nth-child(3n+1) .otq-stat-div { display: none; }
+        }
+        @media (max-width: 520px) {
+          .otq-numbers-row { grid-template-columns: repeat(2, 1fr); row-gap: 32px; }
+          .otq-stat:nth-child(2n+1) .otq-stat-div { display: none; }
+        }
       `}</style>
     </div>
   );
