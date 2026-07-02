@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { createPortal } from "react-dom";
+import { createPortal, preload, preconnect } from "react-dom";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Footer, InquiryForm } from "@/components/sections";
+import Link from "next/link";
 import EventNavigation from "@/components/ui/EventNavigation";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
 import type { CountryCode } from "@/lib/form-helpers";
@@ -441,7 +442,18 @@ function LazyMount({ children, minHeight = 400, id }: { children: React.ReactNod
     return () => io.disconnect();
   }, []);
   return (
-    <div ref={ref} id={id} style={{ minHeight: show ? undefined : minHeight }}>
+    <div
+      ref={ref}
+      id={id}
+      style={{
+        minHeight: show ? undefined : minHeight,
+        // Skip paint/composite + pause CSS animations while this section is
+        // scrolled off-screen; renders normally (no containment) when visible.
+        // `auto` remembers the last rendered height so scrolling stays stable.
+        contentVisibility: "auto",
+        containIntrinsicSize: `auto ${minHeight}px`,
+      }}
+    >
       {show ? children : null}
     </div>
   );
@@ -451,6 +463,10 @@ function LazyMount({ children, minHeight = 400, id }: { children: React.ReactNod
 // PAGE
 // ═══════════════════════════════════════════════════════════════════════════
 export default function OTSecurityFirstQatar2026() {
+  // Prioritize the hero LCP: it's painted as a CSS background-image (discovered
+  // late by the browser), so warm the S3 origin and preload it at high priority.
+  preconnect(S3);
+  preload(HERO_IMAGE, { as: "image", fetchPriority: "high" });
   return (
     <div style={{ background: BG_BASE, color: "white", overflow: "hidden", position: "relative" }}>
       <EventNavigation />
@@ -467,7 +483,9 @@ export default function OTSecurityFirstQatar2026() {
       <LazyMount minHeight={620} id="awards"><AwardsTeaser /></LazyMount>
       <LazyMount minHeight={520} id="contact"><GetInTouch /></LazyMount>
       <LazyMount minHeight={360} id="venue"><Venue /></LazyMount>
+      <LazyMount minHeight={480} id="faq"><FaqSection /></LazyMount>
       <LazyMount minHeight={760} id="register"><RegisterSection /></LazyMount>
+      <LazyMount minHeight={320}><SeriesEditions /></LazyMount>
       <LazyMount minHeight={420}><Footer /></LazyMount>
 
       {/* Post-Event Reports — request modal + floating download prompt */}
@@ -1240,7 +1258,9 @@ function TopicDivider() {
 // ─── AUDIENCE · THEMES · DRIVERS (unified section, shared gradient splash) ────
 function AudienceThemesDrivers() {
   return (
-    <section style={{ position: "relative", background: BG_BASE, overflow: "hidden" }}>
+    // Kept eagerly mounted (holds the #themes nav anchor), but skip painting its
+    // heavy blurred-orb backdrop while off-screen. `auto` self-corrects the height.
+    <section style={{ position: "relative", background: BG_BASE, overflow: "hidden", contentVisibility: "auto", containIntrinsicSize: "auto 2200px" }}>
       {/* shared gradient-splash backdrop spanning all three blocks */}
       <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `radial-gradient(36% 22% at 8% 3%, ${C}24 0%, transparent 60%), radial-gradient(40% 26% at 96% 15%, ${QATAR}2C 0%, transparent 62%), radial-gradient(42% 24% at 2% 48%, ${GOLD}12 0%, transparent 60%), radial-gradient(46% 26% at 100% 66%, ${C}1F 0%, transparent 62%), radial-gradient(38% 22% at 14% 97%, ${QATAR}24 0%, transparent 60%)` }} />
       <div aria-hidden style={{ position: "absolute", top: "-3%", left: "-6%", width: 460, height: 460, borderRadius: "50%", background: `radial-gradient(circle, ${C}24 0%, transparent 70%)`, filter: "blur(84px)", pointerEvents: "none" }} />
@@ -2230,7 +2250,7 @@ function Venue() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   // Doha skyline — swap for the real venue shot once selected
-  const VENUE_BG = "https://images.unsplash.com/photo-1683194247996-43897678c94c?w=2400&q=85&auto=format&fit=crop";
+  const VENUE_BG = "https://images.unsplash.com/photo-1683194247996-43897678c94c?w=1600&q=80&auto=format&fit=crop";
   return (
     <section ref={ref} style={{ position: "relative", padding: "clamp(48px, 5.5vw, 82px) 0", background: BG_BASE, overflow: "hidden" }}>
       {/* background image */}
@@ -2287,6 +2307,175 @@ function Venue() {
       <style jsx global>{`
         @keyframes otqVnShimmer { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
         .otq-vn-shimmer { animation: otqVnShimmer 5s linear infinite; }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── FAQ (visible, matches the FAQPage JSON-LD in layout.tsx) ─────────────────
+const OTQ_FAQS: { q: string; a: React.ReactNode }[] = [
+  {
+    q: "When is OT Security First Qatar 2026?",
+    a: "OT Security First Qatar 2026 takes place in the third week of November 2026 in Doha, State of Qatar. The exact date is confirmed to registered delegates closer to the event.",
+  },
+  {
+    q: "Where is OT Security First Qatar 2026 held?",
+    a: "In Doha, State of Qatar. The exact five-star venue is announced and confirmed to registered delegates closer to the event date.",
+  },
+  {
+    q: "Who attends OT Security First Qatar 2026?",
+    a: "200+ senior leaders and 25+ speakers — including government policymakers and ministries, the National Cyber Security Agency (NCSA) and regulators, heads of critical infrastructure and national utility operators, CISOs, CIOs, CTOs and CDOs, heads of OT/ICS and industrial cybersecurity, and energy, LNG, utilities and smart-city leaders.",
+  },
+  {
+    q: "Is there a fee to attend OT Security First Qatar 2026?",
+    a: "Attendance is free for qualified delegates. Apply via the registration form on this page and the advisory team will confirm eligibility.",
+  },
+  {
+    q: "How do I register or sponsor OT Security First Qatar 2026?",
+    a: (
+      <>
+        Register via the form on this page. For sponsorship, partnership, or
+        speaking enquiries, contact{" "}
+        <a href="mailto:partnerships@eventsfirstgroup.com" style={{ color: C_BRIGHT, textDecoration: "none", borderBottom: `1px solid ${C}66` }}>
+          partnerships@eventsfirstgroup.com
+        </a>
+        .
+      </>
+    ),
+  },
+];
+
+function FaqItem({ q, a, index, isOpen, onToggle }: { q: string; a: React.ReactNode; index: number; isOpen: boolean; onToggle: () => void }) {
+  return (
+    <div style={{ borderRadius: 16, overflow: "hidden", border: `1px solid ${isOpen ? `${C}66` : "rgba(255,255,255,0.1)"}`, background: "linear-gradient(160deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012))", boxShadow: isOpen ? `inset 0 1px 0 rgba(255,255,255,0.1), 0 12px 34px rgba(0,0,0,0.4), 0 0 34px ${C}22` : "inset 0 1px 0 rgba(255,255,255,0.06)", transition: "border-color 0.35s ease, box-shadow 0.35s ease" }}>
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 18, padding: "18px 22px", background: "transparent", border: "none", cursor: "pointer", textAlign: "left" }}
+      >
+        <span style={{ fontFamily: "var(--font-display)", fontSize: "clamp(15.5px, 1.9vw, 18px)", fontWeight: 600, color: isOpen ? "white" : "rgba(255,255,255,0.9)", letterSpacing: "-0.01em" }}>
+          {q}
+        </span>
+        <span aria-hidden style={{ flexShrink: 0, width: 30, height: 30, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", border: `1px solid ${isOpen ? C : "rgba(255,255,255,0.18)"}`, background: isOpen ? `linear-gradient(135deg, ${C}, ${C_DEEP})` : "rgba(255,255,255,0.04)", transition: "all 0.35s cubic-bezier(0.22,1,0.36,1)" }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={isOpen ? "white" : C_BRIGHT} strokeWidth="2.4" strokeLinecap="round" style={{ transform: isOpen ? "rotate(45deg)" : "none", transition: "transform 0.35s cubic-bezier(0.22,1,0.36,1)" }}>
+            <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+        </span>
+      </button>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            key={`faq-a-${index}`}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            style={{ overflow: "hidden" }}
+          >
+            <p style={{ margin: 0, padding: "0 22px 20px", fontFamily: "var(--font-outfit)", fontSize: "clamp(14px, 1.6vw, 15.5px)", lineHeight: 1.68, color: "rgba(255,255,255,0.68)" }}>
+              {a}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function FaqSection() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [open, setOpen] = useState<number | null>(0);
+  return (
+    <section ref={ref} id="faq" style={{ position: "relative", padding: "clamp(44px, 5vw, 74px) 24px", background: BG_BASE, overflow: "hidden" }}>
+      <GradientSplash />
+      <BgDots opacity={0.04} />
+      <div style={{ position: "relative", zIndex: 1, maxWidth: 860, margin: "0 auto" }}>
+        <div style={{ textAlign: "center" }}>
+          <div style={{ display: "inline-flex" }}>
+            <Eyebrow inView={inView} label="FAQ" tone="magenta" />
+          </div>
+        </div>
+        <motion.h2
+          initial={{ opacity: 0, y: 18 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: EASE }}
+          style={{ fontFamily: "var(--font-display)", fontSize: "clamp(26px, 3.6vw, 42px)", fontWeight: 700, lineHeight: 1.12, textAlign: "center", margin: "0 auto 40px", maxWidth: 720, color: "white", letterSpacing: "-0.02em" }}
+        >
+          Everything you need to know about{" "}
+          <span style={{ color: C_BRIGHT }}>Qatar 2026</span>.
+        </motion.h2>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
+          style={{ display: "flex", flexDirection: "column", gap: 12 }}
+        >
+          {OTQ_FAQS.map((f, i) => (
+            <FaqItem key={f.q} q={f.q} a={f.a} index={i} isOpen={open === i} onToggle={() => setOpen(open === i ? null : i)} />
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ─── OT SECURITY FIRST SERIES — cross-links to other editions ─────────────────
+const OTQ_EDITIONS: { city: string; edition: string; when: string; href: string }[] = [
+  { city: "Johannesburg", edition: "1st Edition · Africa", when: "August 2026", href: "/events/ot-security-first/johannesburg-2026" },
+  { city: "Jubail, KSA", edition: "2nd Edition", when: "October 2026", href: "/events/ot-security-first/jubail" },
+  { city: "United Arab Emirates", edition: "Flagship Edition", when: "Coming 2027", href: "/events/ot-security-first" },
+  { city: "Muscat, Oman", edition: "New Edition", when: "March 2027", href: "/events/ot-security-first/oman-2026" },
+];
+
+function SeriesEditions() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <section ref={ref} style={{ position: "relative", padding: "clamp(40px, 4.5vw, 66px) 24px", background: BG_BASE, overflow: "hidden" }}>
+      <BgDots opacity={0.035} />
+      <div style={{ position: "relative", zIndex: 1, maxWidth: 1120, margin: "0 auto" }}>
+        <div style={{ textAlign: "center" }}>
+          <div style={{ display: "inline-flex" }}>
+            <Eyebrow inView={inView} label="OT Security First Series" tone="magenta" />
+          </div>
+        </div>
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: EASE }}
+          style={{ fontFamily: "var(--font-display)", fontSize: "clamp(23px, 3.2vw, 36px)", fontWeight: 700, lineHeight: 1.14, textAlign: "center", margin: "0 auto 34px", maxWidth: 680, color: "white", letterSpacing: "-0.02em" }}
+        >
+          Explore other editions across the region.
+        </motion.h2>
+        <div className="otq-series-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+          {OTQ_EDITIONS.map((e, i) => (
+            <motion.div
+              key={e.href}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.08 * i, ease: EASE }}
+            >
+              <Link href={e.href} className="otq-series-card" aria-label={`OT Security First ${e.city} — ${e.edition}, ${e.when}`}>
+                <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9.5, fontWeight: 700, letterSpacing: "2.4px", textTransform: "uppercase", color: C_BRIGHT }}>{e.edition}</span>
+                <span style={{ fontFamily: "var(--font-display)", fontSize: 19, fontWeight: 700, color: "white", letterSpacing: "-0.01em", lineHeight: 1.15 }}>{e.city}</span>
+                <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.55)" }}>{e.when}</span>
+                <span className="otq-series-go" style={{ marginTop: 6, display: "inline-flex", alignItems: "center", gap: 7, fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "1.4px", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>
+                  View event
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+                </span>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+      <style jsx global>{`
+        .otq-series-card { display: flex; flex-direction: column; gap: 6px; height: 100%; padding: 22px 20px; border-radius: 16px; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.014)); box-shadow: inset 0 1px 0 rgba(255,255,255,0.07); transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), border-color 0.4s ease, box-shadow 0.4s ease; }
+        .otq-series-card:hover { transform: translateY(-5px); border-color: ${C}66; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 18px 40px rgba(0,0,0,0.45), 0 0 34px ${C}22; }
+        .otq-series-card:hover .otq-series-go { color: ${C_BRIGHT}; }
+        @media (max-width: 900px) { .otq-series-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+        @media (max-width: 520px) { .otq-series-grid { grid-template-columns: 1fr !important; } }
       `}</style>
     </section>
   );

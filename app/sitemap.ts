@@ -153,6 +153,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
+      url: `${BASE_URL}/events/ot-security-first/qatar`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: `${BASE_URL}/events/ot-security-first/jubail`,
       lastModified: new Date(),
       changeFrequency: "weekly",
