@@ -241,7 +241,7 @@ const AGENDA: {
       "Emmanuel Kimeu, Secretary, ICT Security and Audit Control - State Department of ICT and Digital Economy, Ministry of Information, Communications and The Digital Economy",
       "Dr Isabelle K, Principal Officer | Frequency Spectrum Management | Standardisation and Innovation, Communications Authority of Kenya (CA)",
       "Rosemary Koech-Kimwatu, Head of Data Protection, KCB Bank Group",
-      "Reserved for Starlink",
+      "Nick Black, Sales Director, BeyondTrust",
     ],
   },
   { time: "10:15 – 10:30", title: "Technology Presentation", subtitle: "The Ghost in the Machine (securing non-human identities)\nBrendon Meyer, Senior Solutions Engineer, Beyond Trust", type: "fireside" },
@@ -522,6 +522,12 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     title: "Sr. Solutions Engineer",
     org: "BeyondTrust",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Brendon+Meyer.png",
+  },
+  {
+    name: "Nick Black",
+    title: "Sales Director",
+    org: "BeyondTrust",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nick+Black.png",
   },
   {
     name: "Hamid Bafghi",
