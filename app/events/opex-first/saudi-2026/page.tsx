@@ -35,7 +35,7 @@ const FAINT = "rgba(255,255,255,0.35)";
 const MUTE = "rgba(255,255,255,0.6)";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const EVENT_DATE = new Date("2026-10-20T09:00:00+03:00");
+const EVENT_DATE = new Date("2026-10-21T09:00:00+03:00");
 const EFG_LOGO = "/events-first-group_logo_alt.svg";
 const OPEX_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OPEX+FIRST+logo-1.png";
 
@@ -87,7 +87,7 @@ const HERO_BG = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/opexKSA.pn
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const HERO_PILLS = [
-  { label: "20 Oct 2026" },
+  { label: "21 Oct 2026" },
   { label: "Riyadh · KSA" },
   { label: "Full-Day Summit" },
   { label: "220+ Delegates" },
@@ -709,7 +709,7 @@ function Hero() {
               color: "rgba(255,255,255,0.82)",
             }}
           >
-            <span>20 October 2026</span>
+            <span>21 October 2026</span>
             <span style={{ width: 4, height: 4, borderRadius: "50%", background: V_BRIGHT }} />
             <span>Riyadh, KSA</span>
             <span style={{ width: 4, height: 4, borderRadius: "50%", background: V_BRIGHT }} />
@@ -1247,14 +1247,14 @@ function OpexSaudiPostEventReports() {
                 ) : (
                   <form onSubmit={handleSubmit} noValidate className="opex-per-form-fields">
                     {/* Honeypot */}
-                    <input type="text" name="website" tabIndex={-1} autoComplete="off"
+                    <input suppressHydrationWarning type="text" name="website" tabIndex={-1} autoComplete="off"
                       style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} />
 
                     {/* Edition picker — used by both Delegate List and Past Event Report requests */}
                     <div className="opex-per-form-row">
                       <label className="opex-per-form-field" style={{ flex: "1 1 100%" }}>
                         <span className="opex-per-form-label">Select Edition</span>
-                        <select
+                        <select suppressHydrationWarning
                           value={selectedReportUrl}
                           onChange={(e) => {
                             setSelectedReportUrl(e.target.value);
@@ -1276,7 +1276,7 @@ function OpexSaudiPostEventReports() {
                     <div className="opex-per-form-row">
                       <label className="opex-per-form-field">
                         <span className="opex-per-form-label">Full Name</span>
-                        <input
+                        <input suppressHydrationWarning
                           type="text"
                           value={fullName}
                           onChange={(e) => { setFullName(e.target.value); if (errors.fullName) setErrors({ ...errors, fullName: "" }); }}
@@ -1290,7 +1290,7 @@ function OpexSaudiPostEventReports() {
 
                       <label className="opex-per-form-field">
                         <span className="opex-per-form-label">Work Email</span>
-                        <input
+                        <input suppressHydrationWarning
                           type="email"
                           value={email}
                           onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors({ ...errors, email: "" }); }}
@@ -1306,7 +1306,7 @@ function OpexSaudiPostEventReports() {
                     <div className="opex-per-form-row">
                       <label className="opex-per-form-field">
                         <span className="opex-per-form-label">Job Title</span>
-                        <input
+                        <input suppressHydrationWarning
                           type="text"
                           value={jobTitle}
                           onChange={(e) => { setJobTitle(e.target.value); if (errors.jobTitle) setErrors({ ...errors, jobTitle: "" }); }}
@@ -1326,7 +1326,7 @@ function OpexSaudiPostEventReports() {
                           </span>
                         </span>
                         <div className="opex-per-form-phone-row">
-                          <select
+                          <select suppressHydrationWarning
                             value={`${countryCode.country}-${countryCode.code}`}
                             onChange={(e) => {
                               const [country, code] = e.target.value.split("-");
@@ -1346,7 +1346,7 @@ function OpexSaudiPostEventReports() {
                             ))}
                           </select>
                           <div className="opex-per-form-phone-wrap">
-                            <input
+                            <input suppressHydrationWarning
                               type="tel"
                               inputMode="numeric"
                               value={phone}
@@ -1384,6 +1384,7 @@ function OpexSaudiPostEventReports() {
                     )}
 
                     <button
+                      suppressHydrationWarning
                       type="submit"
                       disabled={submitState === "submitting"}
                       className="opex-per-form-submit"
@@ -3622,7 +3623,7 @@ function Agenda() {
       <div style={{ position: "absolute", inset: 0, backgroundImage: `linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px)`, backgroundSize: "100% 80px", pointerEvents: "none", opacity: 0.6 }} />
 
       <div style={{ maxWidth: 1320, margin: "0 auto", position: "relative", zIndex: 2 }}>
-        <SectionEyebrow inView={inView} label="Agenda · 20 October 2026" />
+        <SectionEyebrow inView={inView} label="Agenda · 21 October 2026" />
         <SectionTitle inView={inView}>
           One day. <em className="opex-violet-shimmer">Nine sessions</em>. Built for action.
         </SectionTitle>
@@ -5309,7 +5310,7 @@ function Awards() {
                   {!formSubmitted ? (
                     <form onSubmit={handleNomSubmit}>
                       <div className="opex-nom-form-row">
-                        <input
+                        <input suppressHydrationWarning
                           type="text"
                           placeholder="Organisation Name"
                           required
@@ -5319,7 +5320,7 @@ function Awards() {
                           onBlur={() => setFocusedField(null)}
                           style={inputStyle("orgName")}
                         />
-                        <input
+                        <input suppressHydrationWarning
                           type="text"
                           placeholder="Your Full Name"
                           required
@@ -5332,7 +5333,7 @@ function Awards() {
                       </div>
 
                       <div style={{ marginBottom: 12 }}>
-                        <input
+                        <input suppressHydrationWarning
                           type="email"
                           placeholder="Work Email"
                           required
@@ -5347,7 +5348,7 @@ function Awards() {
 
                       <div style={{ marginBottom: 12 }}>
                         <div style={{ display: "flex", gap: 10 }}>
-                          <select
+                          <select suppressHydrationWarning
                             value={`${awardsSelectedCountry.code}|${awardsSelectedCountry.country}`}
                             onChange={(e) => { const [code, country] = e.target.value.split("|"); const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country); if (c) { setAwardsSelectedCountry(c); setAwardsPhoneError(null); } }}
                             onFocus={() => setFocusedField("countryCode")}
@@ -5362,7 +5363,7 @@ function Awards() {
                           >
                             {COUNTRY_CODES.map((cc) => (<option key={`${cc.code}-${cc.country}`} value={`${cc.code}|${cc.country}`} style={{ color: "#222", background: "#fff" }}>{cc.country} {cc.code}</option>))}
                           </select>
-                          <input
+                          <input suppressHydrationWarning
                             type="tel"
                             placeholder={awardsSelectedCountry.placeholder}
                             value={formData.phone}
@@ -5376,7 +5377,7 @@ function Awards() {
                         {awardsPhoneError && <p className="opex-nom-err">{awardsPhoneError}</p>}
                       </div>
 
-                      <select
+                      <select suppressHydrationWarning
                         required
                         value={formData.category}
                         onChange={(e) => setFormData({ ...formData, category: e.target.value })}
@@ -5402,7 +5403,7 @@ function Awards() {
                         ))}
                       </select>
 
-                      <textarea
+                      <textarea suppressHydrationWarning
                         placeholder="Why does this nominee deserve recognition?"
                         required
                         rows={4}
@@ -5423,6 +5424,7 @@ function Awards() {
                       {formError && <p className="opex-nom-err" style={{ marginBottom: 12 }}>{formError}</p>}
 
                       <button
+                        suppressHydrationWarning
                         type="submit"
                         disabled={submitting}
                         className="opex-nom-submit"

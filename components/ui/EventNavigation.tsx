@@ -170,7 +170,7 @@ const EVENT_CONFIGS: Record<string, {
     shortName: "OPEX First Saudi",
     color: "#7C3AED",
     colorBright: "#9F6AFF",
-    date: "20 Oct 2026",
+    date: "21 Oct 2026",
     location: "Riyadh, KSA",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OPEX+FIRST+logo-1.png",
     navLinks: [
