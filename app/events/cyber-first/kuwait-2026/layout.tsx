@@ -12,18 +12,37 @@ export const metadata: Metadata = {
     "Kuwait's premier cybersecurity summit. 500+ CISOs and security leaders, 14 October 2026, Jumeirah Messilah Beach Hotel. Register or sponsor now.",
   keywords: [
     "cybersecurity conference Kuwait 2026",
+    "cybersecurity summit Kuwait",
     "CISO summit Kuwait",
     "cyber security event Kuwait City",
-    "cybersecurity summit",
     "information security conference Kuwait",
     "Cyber First Kuwait",
     "cybersecurity event October 2026",
-    "enterprise security summit",
+    "banking cybersecurity Kuwait",
+    "fintech security Kuwait",
+    "OT security Kuwait",
+    "critical infrastructure security Kuwait",
+    "cyber resilience Kuwait",
+    "GCC cybersecurity conference",
+    "Kuwait Vision 2035 cybersecurity",
+    "Jumeirah Messilah Beach cybersecurity summit",
+    "cybersecurity awards Kuwait",
+    "enterprise security summit Middle East",
     "Kuwait cybersecurity leaders",
-    "CISO summit",
   ],
   alternates: {
     canonical: PAGE_URL,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   openGraph: {
     title: "Cyber First Kuwait 2026, 3rd Annual Cybersecurity Summit",
@@ -74,13 +93,17 @@ export default function CyberFirstKuwaitLayout({
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Event",
+            "@id": `${PAGE_URL}#event`,
             name: "Cyber First Kuwait 2026, 3rd Annual Cybersecurity Summit",
             description:
-              "Kuwait's premier cybersecurity leadership summit bringing together CISOs, government cyber leaders, and security innovators.",
+              "Kuwait's premier cybersecurity leadership summit — the 3rd Annual edition — convening 500+ CISOs, government cyber leaders, and enterprise security executives across banking, fintech, telecom, energy, and critical infrastructure to advance national cyber resilience.",
             startDate: "2026-10-14T08:00:00+03:00",
             endDate: "2026-10-14T18:00:00+03:00",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+            inLanguage: "en",
+            isAccessibleForFree: true,
+            maximumAttendeeCapacity: 500,
             location: {
               "@type": "Place",
               name: "Jumeirah Messilah Beach Hotel & Spa",
@@ -90,22 +113,57 @@ export default function CyberFirstKuwaitLayout({
                 addressLocality: "Kuwait City",
                 addressCountry: "KW",
               },
+              hasMap:
+                "https://www.google.com/maps/search/?api=1&query=Jumeirah+Messilah+Beach+Hotel+%26+Spa+Kuwait",
             },
             image: [OG_IMAGE],
             organizer: {
               "@type": "Organization",
               name: "Events First Group",
               url: BASE_URL,
+              logo: "https://efg-final.s3.eu-north-1.amazonaws.com/Events+First+logo-02.png",
+              sameAs: [
+                "https://www.linkedin.com/company/events-first-group",
+                "https://x.com/eventsfirstgrp",
+              ],
             },
+            performer: [
+              { "@type": "Person", name: "Faissal Al-Roumi", jobTitle: "Executive Manager of Operational Risk", worksFor: { "@type": "Organization", name: "Burgan Bank" } },
+              { "@type": "Person", name: "Dr. Fai Ben Salamah", jobTitle: "Cybersecurity Expert", worksFor: { "@type": "Organization", name: "Kuwait Technical College" } },
+              { "@type": "Person", name: "Yousef H. El-Kordi", jobTitle: "Group Information Technology Director", worksFor: { "@type": "Organization", name: "City Group" } },
+              { "@type": "Person", name: "Mohamed Rushdhi", jobTitle: "Head of Information Security Unit", worksFor: { "@type": "Organization", name: "The Industrial Bank of Kuwait" } },
+              { "@type": "Person", name: "Omer Yildirim", jobTitle: "SVP, Chief Technology Officer", worksFor: { "@type": "Organization", name: "Tiqmo" } },
+              { "@type": "Person", name: "Sumit Tekriwal", jobTitle: "Head of Information Security Governance, Compliance and Privacy", worksFor: { "@type": "Organization", name: "KIB" } },
+              { "@type": "Person", name: "Abdulla Al-Awadi", jobTitle: "Chief Strategy Officer", worksFor: { "@type": "Organization", name: "KIB" } },
+            ],
+            sponsor: [
+              { "@type": "Organization", name: "Palo Alto Networks" },
+              { "@type": "Organization", name: "SentinelOne" },
+              { "@type": "Organization", name: "Google Cloud" },
+            ],
             offers: {
               "@type": "Offer",
+              name: "Delegate Pass — free for qualified end-users",
               url: PAGE_URL,
+              price: "0",
+              priceCurrency: "USD",
               availability: "https://schema.org/InStock",
               validFrom: "2025-01-01",
             },
+            audience: {
+              "@type": "BusinessAudience",
+              audienceType:
+                "CISOs, government cyber leaders, banking and fintech security heads, telecom and enterprise security executives",
+            },
+            about: [
+              { "@type": "Thing", name: "Cybersecurity" },
+              { "@type": "Thing", name: "Information security leadership" },
+              { "@type": "Thing", name: "Critical infrastructure protection" },
+              { "@type": "Thing", name: "Cyber resilience" },
+            ],
             typicalAgeRange: "25-",
             keywords:
-              "cybersecurity, CISO, information security, Kuwait, cyber summit, enterprise security",
+              "cybersecurity, CISO, information security, Kuwait, cyber summit, banking security, fintech security, critical infrastructure, cyber resilience, GCC",
           }),
         }}
       />

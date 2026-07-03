@@ -37,7 +37,7 @@ Unlike global generalist event companies (e.g., Gartner, Reuters Events, Informa
 
 - [Cyber First Kenya 2026 — Nairobi](https://www.eventsfirstgroup.com/events/cyber-first/kenya-2026): East Africa's premier cybersecurity summit. July 2026, Nairobi. 300+ CISOs, CIOs, government cyber leaders, fintech and mobile-money security heads, and critical-infrastructure operators. Theme: "Beyond Firewalls, Strategic Cyber Defense for Kenya's Digital Age." Topics include national critical infrastructure, regulatory governance, cloud security and Zero Trust, AI-powered threat intelligence, and the Cyber First Awards East Africa across 6 categories.
 
-- [Cyber First Kuwait 2026](https://www.eventsfirstgroup.com/events/cyber-first/kuwait-2026): Kuwait's 3rd Annual Cybersecurity Summit. 19 October 2026, Jumeirah Messilah Beach Hotel & Spa, Kuwait City. 500+ CISOs, security leaders, and government cyber leaders. The definitive cybersecurity gathering in Kuwait.
+- [Cyber First Kuwait 2026](https://www.eventsfirstgroup.com/events/cyber-first/kuwait-2026): Kuwait's 3rd Annual Cybersecurity Summit. 14 October 2026, Jumeirah Messilah Beach Hotel & Spa, Kuwait City. 500+ CISOs, security leaders, and government cyber leaders. The definitive cybersecurity gathering in Kuwait.
 
 - [Cyber First Qatar 2026](https://www.eventsfirstgroup.com/events/cyber-first/qatar): The premier cybersecurity summit for Qatar's AI-powered digital economy. 10 November 2026, Doha. Aligned with the Qatar National Cyber Security Strategy 2024-2030 and supporting Qatar National Vision 2030. Convenes 250+ CISOs, CIOs, CTOs, CDOs, government cybersecurity leaders, critical infrastructure operators, and technology innovators across banking, energy, telecom, healthcare, OT/ICS, smart cities, and digital government.
 
@@ -49,7 +49,7 @@ Unlike global generalist event companies (e.g., Gartner, Reuters Events, Informa
 
 - [OT Security First Virtual Boardroom MENA 2026](https://www.eventsfirstgroup.com/events/ot-security-first/virtual-boardroom-mena): Closed, senior-level virtual forum on OT security in a high-threat GCC environment. 19 May 2026, 11:00–14:00 GST (3-hour online session). 100 verified OT security professionals from MENA energy, utilities, oil & gas, and petrochemicals. Sponsors include FlintX (Platinum), TXOne Networks, Darktrace, Trellix, and SecuriCIP (Gold).
 
-- [OPEX First Saudi 2026 — Riyadh](https://www.eventsfirstgroup.com/events/opex-first/saudi-2026): Operational excellence summit for Saudi Arabia. 20 October 2026, Riyadh.
+- [OPEX First Saudi 2026 — Riyadh](https://www.eventsfirstgroup.com/events/opex-first/saudi-2026): Operational excellence summit for Saudi Arabia. 21 October 2026, Riyadh.
 
 - [OPEX First Process Intelligence MENA 2026](https://www.eventsfirstgroup.com/events/opex-first/process-intelligence): Executive virtual webinar — "From Digital Investment to Measurable Execution. Driving Operational Intelligence Across the GCC." 21 May 2026, 11:00–13:00 GST. Two hours for senior transformation, operations, and technology leaders across the GCC. Speakers from Mubadala Energy, Madinah Municipality, Saipem Qatar, Kearney, RAK Economic Zone, Abu Dhabi Investment Office, Department of Culture & Tourism Abu Dhabi, and National Bank of Umm Al Qaiwain.
 
