@@ -197,6 +197,7 @@ const ADVISORS: { name: string; title: string; org: string; photo?: string; link
 const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; linkedin?: string }[] = [
   { name: "Hans W. Thomasz", title: "CISO", org: "Qatar Development Bank",  photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hans_w_Thomasz.png" },
   { name: "Anfal Shaikh",    title: "CISO", org: "Qatar Islamic Insurance", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anfal_shaikh.png" },
+  { name: "Tarek Terk",      title: "Cybersecurity Leader", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tarek+Terk.png" },
 ];
 
 // ─── Agenda — 17 rows (from PDF) ────────────────────────────────────────────
@@ -236,21 +237,22 @@ const AGENDA: AgendaRow[] = [
       "Securing Generative AI and Agentic AI",
       "Responsible AI governance and risk management",
       "AI-driven Security Operations Centers (SOC)",
-      "Preparing for next-generation AI-powered threats",
+      "Preparing for next-generation AI threats",
     ],
   },
   { start: "11:40", end: "11:50", segment: "Technology Partner Presentation · Sponsor Session 3", type: "sponsor" },
   { start: "11:50", end: "12:00", segment: "Technology Partner Presentation · Sponsor Session 4", type: "sponsor" },
   {
     start: "12:00", end: "12:40",
-    segment: "Panel 3 · Protecting Critical Infrastructure — Strengthening IT, OT & Industrial Cybersecurity",
+    segment: "Panel 3 · The Future of Security Operations — AI, SOC Transformation & Threat Intelligence",
     type: "panel",
     bullets: [
-      "IT/OT convergence and cyber risk",
-      "Critical infrastructure protection",
-      "Industrial Control Systems (ICS) security",
-      "Cyber resilience for energy and utilities",
-      "Incident response and operational continuity",
+      "AI-powered Security Operations (SOC)",
+      "SOC transformation & automation",
+      "XDR, MDR & threat intelligence",
+      "Threat detection & rapid response",
+      "Reducing alert fatigue with AI",
+      "Building cyber resilience through intelligent operations",
     ],
   },
   { start: "12:40", end: "12:50", segment: "Technology Partner Presentation · Sponsor Session 5", type: "sponsor" },
@@ -3430,9 +3432,9 @@ function Speakers() {
           className="cfq-speakers-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
+            gridTemplateColumns: "repeat(3, 1fr)",
             gap: "clamp(18px, 2vw, 28px)",
-            maxWidth: 560,
+            maxWidth: 840,
             margin: "0 auto",
           }}
         >
@@ -6964,9 +6966,10 @@ function CfqPostReportFloat() {
   if (!mounted || dismissed) return null;
 
   // Desktop, State A — sticky note bottom-center over Hero + Overview only
-  const showStickyNote = !isMobile && !pastOverview;
-  // Either desktop (State B) or mobile (always) — icon mode
-  const showIcon = isMobile || pastOverview;
+  // Desktop: keep the sticky note visible the whole way down (no conversion to a FAB icon).
+  // Mobile: the note is too wide, so use the compact FAB with a dismissible popup nudge.
+  const showStickyNote = !isMobile;
+  const showIcon = isMobile;
 
   return (
     <>
@@ -6974,9 +6977,9 @@ function CfqPostReportFloat() {
         {showStickyNote && (
           <motion.div
             key="sticky-note"
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 28 }}
+            initial={{ opacity: 0, y: 28, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, x: "-50%" }}
+            exit={{ opacity: 0, y: 28, x: "-50%" }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="cfq-report-note"
             role="button"
@@ -7109,7 +7112,6 @@ function CfqPostReportFloat() {
           position: fixed;
           bottom: 24px;
           left: 50%;
-          transform: translateX(-50%);
           z-index: 60;
           display: inline-flex;
           align-items: center;
@@ -7124,11 +7126,10 @@ function CfqPostReportFloat() {
             inset 0 -1px 0 rgba(0,0,0,0.35),
             0 18px 50px rgba(0,0,0,0.55),
             0 0 36px ${C}30;
-          transition: transform 0.45s cubic-bezier(0.22,1,0.36,1), border-color 0.45s ease, box-shadow 0.45s ease;
+          transition: border-color 0.45s ease, box-shadow 0.45s ease;
           max-width: calc(100vw - 32px);
         }
         .cfq-report-note:hover {
-          transform: translateX(-50%) translateY(-3px);
           border-color: ${C_BRIGHT};
           box-shadow:
             inset 0 1px 0 rgba(255,255,255,0.14),
