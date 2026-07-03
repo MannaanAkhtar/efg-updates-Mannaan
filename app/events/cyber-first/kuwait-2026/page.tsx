@@ -1167,6 +1167,17 @@ function CfkKwPostEventReports() {
   );
 }
 
+// Skips paint/composite + pauses CSS animations for a section while it's scrolled
+// off-screen; renders normally (no containment, no visual change) when in view.
+// `auto` remembers the rendered height so scrolling stays stable.
+function CVSection({ children, minH = 800 }: { children: React.ReactNode; minH?: number }) {
+  return (
+    <div style={{ contentVisibility: "auto", containIntrinsicSize: `auto ${minH}px` }}>
+      {children}
+    </div>
+  );
+}
+
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 export default function CyberFirstKuwait2026() {
   return (
@@ -1257,23 +1268,23 @@ export default function CyberFirstKuwait2026() {
       
       <EventNavigation />
       <HeroSection />
-      <MarketContext />
-      <FocusAreas />
-      <AdvisoryBoard />
-      <Speakers />
-      <FeaturedSponsors />
-      <AgendaTimeline />
-      <SponsorsSection />
-      <GrowthStory />
-      <AtmosphereDivider />
-      <Gallery />
-      <WhatToExpect />
-      <WhoShouldAttend />
-      <AwardsSection />
-      <FromTheRoom />
-      <RegistrationSection />
-      <ContactSection />
-      <Venue />
+      <CVSection minH={720}><MarketContext /></CVSection>
+      <CVSection minH={820}><FocusAreas /></CVSection>
+      <CVSection minH={700}><AdvisoryBoard /></CVSection>
+      <CVSection minH={700}><Speakers /></CVSection>
+      <CVSection minH={520}><FeaturedSponsors /></CVSection>
+      <CVSection minH={1200}><AgendaTimeline /></CVSection>
+      <CVSection minH={640}><SponsorsSection /></CVSection>
+      <CVSection minH={760}><GrowthStory /></CVSection>
+      <CVSection minH={220}><AtmosphereDivider /></CVSection>
+      <CVSection minH={860}><Gallery /></CVSection>
+      <CVSection minH={760}><WhatToExpect /></CVSection>
+      <CVSection minH={760}><WhoShouldAttend /></CVSection>
+      <CVSection minH={860}><AwardsSection /></CVSection>
+      <CVSection minH={720}><FromTheRoom /></CVSection>
+      <CVSection minH={860}><RegistrationSection /></CVSection>
+      <CVSection minH={640}><ContactSection /></CVSection>
+      <CVSection minH={420}><Venue /></CVSection>
       <CfkKwPostEventReports />
       <Footer />
     </div>
@@ -1285,6 +1296,23 @@ function HeroSection() {
   const cd = useCountdown(EVENT_DATE);
   const [resourceMenuOpen, setResourceMenuOpen] = useState(false);
   const resourceMenuRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Pause the background video while the hero is scrolled off-screen (saves
+  // continuous decode / GPU / battery on a long page), resume when back in view.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) v.play().catch(() => {});
+        else v.pause();
+      },
+      { threshold: 0.05 }
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
 
   // Click-outside + ESC closes the resources dropdown
   useEffect(() => {
@@ -1325,11 +1353,13 @@ function HeroSection() {
       {/* ═══ LAYER 0: Full-bleed background video ═══ */}
       <div className="absolute inset-0">
         <video
+          ref={videoRef}
           src="https://efg-final.s3.eu-north-1.amazonaws.com/assets/magnific_very-slow-floating-drift-_ONLNt12ynm.mp4"
           autoPlay
           loop
           muted
           playsInline
+          preload="auto"
           className="w-full h-full object-cover"
           style={{ objectPosition: "center" }}
         />
