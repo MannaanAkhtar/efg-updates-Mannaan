@@ -44,7 +44,8 @@ const EVENT_CONFIGS: Record<string, {
     colorBright: "#4DD4FF",
     date: "14 October 2026",
     location: "Kuwait City",
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/cyber-first-kuwait-white.svg",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/Cyber_kuwait.png",
+    logoHeight: 140,
     navLinks: [
       { href: "#overview", label: "Overview" },
       { href: "#speakers", label: "Speakers" },

@@ -212,6 +212,13 @@ const SPEAKERS: Speaker[] = [
     photo: `${S3}/sumit-tekriwal.jpg`,
     linkedin: "https://www.linkedin.com/in/sumittekriwal/",
   },
+  {
+    name: "Abdulla Al-Awadi",
+    title: "Chief Strategy Officer",
+    org: "KIB",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulla+Al-Awadi.png",
+    linkedin: null,
+  },
 ];
 
 // Kuwait 2025 photos used for the gallery + Key Topic panels (verified S3 URLs).
@@ -1315,37 +1322,31 @@ function HeroSection() {
         background: "#050810",
       }}
     >
-      {/* ═══ LAYER 0: Full-bleed background image — Kuwait 2025 main hall ═══ */}
+      {/* ═══ LAYER 0: Full-bleed background video ═══ */}
       <div className="absolute inset-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://efg-final.s3.eu-north-1.amazonaws.com/events/Cyber+First+Kuwait+2025/Kuwait+Photos/Kuwait+Photos/4X9A1744.jpg"
-          alt="Cyber First Kuwait 2025 main hall — past edition"
+        <video
+          src="https://efg-final.s3.eu-north-1.amazonaws.com/assets/magnific_very-slow-floating-drift-_ONLNt12ynm.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
           className="w-full h-full object-cover"
-          style={{ filter: "brightness(0.55) saturate(1.05) contrast(1.04)", objectPosition: "center" }}
+          style={{ objectPosition: "center" }}
         />
       </div>
 
-      {/* ═══ LAYER 1: Cinematic gradient stack ═══ */}
+      {/* ═══ LAYER 1: Readability scrim — text side only; video stays clear on the right ═══ */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(90deg, rgba(5,8,16,0.94) 0%, rgba(5,8,16,0.82) 32%, rgba(5,8,16,0.40) 60%, rgba(5,8,16,0.15) 100%)`,
+          background: `linear-gradient(105deg, rgba(4,7,14,0.86) 0%, rgba(4,7,14,0.52) 32%, rgba(4,7,14,0.12) 60%, transparent 82%)`,
           zIndex: 1,
         }}
       />
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(to bottom, rgba(5,8,16,0.55) 0%, transparent 28%, transparent 65%, rgba(5,8,16,0.95) 100%)`,
-          zIndex: 1,
-        }}
-      />
-      {/* Radial cyan atmospheric glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `radial-gradient(ellipse 55% 45% at 22% 30%, ${C}18 0%, transparent 65%)`,
+          background: `linear-gradient(to bottom, transparent 48%, rgba(4,7,14,0.42) 100%)`,
           zIndex: 1,
         }}
       />
@@ -1702,6 +1703,66 @@ function HeroSection() {
         </motion.div>
       </div>
 
+      {/* Supporting Partners — bottom-right hero strip (desktop) */}
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.9 }}
+        className="cfk-supporting-partner"
+        style={{
+          position: "absolute",
+          bottom: "clamp(90px, 13vh, 140px)",
+          right: "clamp(24px, 5vw, 80px)",
+          zIndex: 15,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-end",
+          gap: "clamp(8px, 1vh, 14px)",
+        }}
+      >
+        <span style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 8,
+          padding: "6px 14px 6px 12px",
+          borderRadius: 999,
+          background: "linear-gradient(135deg, rgba(10,17,30,0.78) 0%, rgba(6,10,20,0.66) 100%)",
+          backdropFilter: "blur(16px) saturate(170%)",
+          WebkitBackdropFilter: "blur(16px) saturate(170%)",
+          border: `1px solid ${C}55`,
+          boxShadow: `inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -1px 0 rgba(0,0,0,0.35), 0 8px 26px rgba(0,0,0,0.55), 0 0 20px ${C}26`,
+          fontFamily: "var(--font-outfit)",
+          fontSize: "clamp(9px, 1vw, 12px)",
+          fontWeight: 700,
+          letterSpacing: "2.5px",
+          textTransform: "uppercase",
+          color: C_BRIGHT,
+        }}>
+          <span aria-hidden style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 8px ${C}, 0 0 3px ${C_BRIGHT}`, flexShrink: 0 }} />
+          Supporting Partners
+        </span>
+        <div style={{ display: "flex", alignItems: "stretch", gap: "clamp(8px, 1vw, 14px)" }}>
+          {[
+            { src: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ISACA_logo_UAE_RGB.png", alt: "ISACA UAE Chapter", h: "clamp(24px, 3.2vw, 36px)", py: "clamp(2px, 0.4vw, 5px)", px: "clamp(10px, 1.5vw, 18px)" },
+            { src: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/AOU_Logo_Navy_Blue_RGB_AW-removebg-preview.png", alt: "Arab Open University (AOU)", h: "clamp(46px, 6vw, 68px)", py: "clamp(2px, 0.4vw, 5px)", px: "clamp(10px, 1.5vw, 18px)" },
+            { src: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/KCST_Logo_pages-to-jpg-0001-removebg-preview.png", alt: "Kuwait College of Science and Technology (KCST)", h: "clamp(46px, 6vw, 68px)", py: "clamp(2px, 0.4vw, 5px)", px: "0px" },
+          ].map((p) => (
+            <div key={p.src} style={{
+              background: "white",
+              borderRadius: 8,
+              padding: `${p.py} ${p.px}`,
+              boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={p.src} alt={p.alt} style={{ height: p.h, objectFit: "contain", display: "block" }} />
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
       {/* ═══ BOTTOM BAR: refined premium countdown strip ═══ */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -1834,6 +1895,7 @@ function HeroSection() {
           .cfk-hero-datebadge {
             align-self: flex-start;
           }
+          .cfk-supporting-partner { display: none !important; }
         }
         @media (max-width: 768px) {
           .cfk-hero-content {
@@ -2105,6 +2167,7 @@ function MarketContext() {
   return (
     <section
       ref={ref}
+      id="overview"
       className="cfk-market-section"
       style={{
         position: "relative",
@@ -3379,7 +3442,7 @@ function Speakers() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px,5vw,72px) 0", position: "relative" }}>
+    <section ref={ref} id="speakers" style={{ background: "transparent", padding: "clamp(40px,5vw,72px) 0", position: "relative" }}>
       <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 clamp(24px,4vw,64px)", position: "relative" }}>
         {/* Header — centered, editorial */}
         <motion.div
@@ -3826,6 +3889,7 @@ function FeaturedSponsors() {
   return (
     <section
       ref={ref}
+      id="sponsors"
       style={{
         background: "transparent",
         padding: "clamp(40px,5vw,72px) 0",
@@ -7554,7 +7618,7 @@ function Venue() {
   ];
 
   return (
-    <section ref={sectionRef} style={{ background: "#030810" }}>
+    <section ref={sectionRef} id="venue" style={{ background: "#030810" }}>
       {/* ── Cinematic venue photo ── */}
       <div
         style={{
