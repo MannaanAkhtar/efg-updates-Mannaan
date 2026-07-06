@@ -5757,6 +5757,36 @@ export default function OTSecurityFirstJohannesburg2026() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
+  // Honour shared/UTM links: ?tab=attend pre-selects the Attend tab in the
+  // register form, and #register scrolls to the registration section on load.
+  useEffect(() => {
+    // Pre-select the InquiryForm tab from ?tab= (sales-rep links open "Attend").
+    const tabParam = new URLSearchParams(window.location.search).get("tab");
+    if (tabParam) {
+      const tabKey = tabParam === "attend" ? "pass" : tabParam === "speak" ? "speaker" : tabParam;
+      window.setTimeout(() => {
+        window.dispatchEvent(new CustomEvent("efg:set-form-tab", { detail: tabKey }));
+      }, 600);
+    }
+
+    const id = window.location.hash.replace("#", "");
+    if (!id) return;
+    let tries = 0;
+    const go = () => {
+      const el = document.getElementById(id);
+      if (!el) {
+        if (tries++ < 30) window.setTimeout(go, 150);
+        return;
+      }
+      const lenis = (window as unknown as {
+        __lenis?: { scrollTo: (target: HTMLElement | number, opts?: { offset?: number; duration?: number }) => void };
+      }).__lenis;
+      if (lenis) lenis.scrollTo(el, { offset: -80, duration: 1.0 });
+      else el.scrollIntoView({ behavior: "smooth" });
+    };
+    window.setTimeout(go, 500);
+  }, []);
+
   if (!mounted) return null;
 
   return (
