@@ -26,6 +26,20 @@ export type EventItem = {
 
 export const allEvents: EventItem[] = [
   {
+    id: "networkfirst-enterprisedb-ksa",
+    series: "NetworkFirst",
+    seriesColor: "#C9935A",
+    edition: "",
+    title: "EnterpriseDB Executive Roundtable",
+    date: new Date("2026-09-29"),
+    dateDisplay: "September 29, 2026",
+    location: "Saudi Arabia",
+    venue: "Venue TBC",
+    attendees: "15-20",
+    href: "/enterprisedb-ksa",
+    status: "open",
+  },
+  {
     id: "networkfirst-proofpoint-jun23",
     series: "NetworkFirst",
     seriesColor: "#C9935A",
@@ -180,20 +194,6 @@ export const allEvents: EventItem[] = [
     attendees: "300+",
     href: "/events/ot-security-first",
     status: "soon",
-  },
-  {
-    id: "cyber-first-mena",
-    series: "Cyber First",
-    seriesColor: "#01BBF5",
-    edition: "",
-    title: "Cyber First MENA",
-    date: new Date("2026-08-11"),
-    dateDisplay: "August 11, 2026",
-    location: "MENA Region",
-    venue: "Venue TBA",
-    attendees: "500+",
-    href: "/events/cyber-first",
-    status: "open",
   },
   {
     id: "cyber-first-oman",

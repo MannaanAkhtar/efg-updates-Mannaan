@@ -37,6 +37,22 @@ const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 
 const UPCOMING_EVENTS = [
   {
+    date: "September 29th, 2026",
+    month: "SEP",
+    day: "29",
+    year: "2026",
+    time: "Time TBC · 180 min",
+    title: "EnterpriseDB Executive Roundtable",
+    subtitle: "The Sovereign Data Estate — Breaking Free from Proprietary Lock-in",
+    sponsor: "EnterpriseDB",
+    location: "Saudi Arabia",
+    link: "/enterprisedb-ksa",
+    image: "",
+    brandColor: "#274657",
+    brandGradient: "linear-gradient(135deg, #33586B 0%, #274657 44%, #17323E 76%, #06070F 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/edb_postgres_ai_lightmode%402x+(4).png",
+  },
+  {
     date: "September — Date TBC",
     month: "SEP",
     day: "TBA",

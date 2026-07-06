@@ -70,6 +70,7 @@ const NETWORKFIRST_COLOR = "#C9935A";
 type NFFormat = "virtual" | "physical";
 const networkFirstEvents: { href: string; label: string; date: string; format: NFFormat }[] = [
   { href: "/filigran", label: "Filigran", date: "14 Jul", format: "virtual" },
+  { href: "/enterprisedb-ksa", label: "EnterpriseDB, KSA", date: "29 Sep", format: "physical" },
   { href: "/proofpoint", label: "Proofpoint", date: "Sep · TBC", format: "physical" },
   { href: "https://events.outsystems.com/event/17e2fb07-2b9a-46e2-9acf-44590276e2d8/homepage?RefId=oed-ksa", label: "OutSystems", date: "19 Oct", format: "physical" },
   { href: "/blueyonder", label: "Blue Yonder", date: "TBA", format: "physical" },

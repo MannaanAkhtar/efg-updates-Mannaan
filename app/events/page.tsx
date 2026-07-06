@@ -38,6 +38,24 @@ type SeriesStatus = "open" | "soon";
 
 const allEvents = [
   {
+    id: "networkfirst-enterprisedb-ksa",
+    category: "networkfirst",
+    title: "EnterpriseDB Executive Roundtable",
+    tagline: "The Sovereign Data Estate",
+    description:
+      "An invitation-only executive roundtable on building a sovereign data estate on open-source Postgres — reducing cost, meeting data-sovereignty mandates, and scaling with AI.",
+    color: "#C9935A",
+    image: "",
+    href: "/enterprisedb-ksa",
+    date: "2026-09-29",
+    nextDate: "29 Sep 2026",
+    nextCity: "Saudi Arabia",
+    editions: "",
+    regions: "Saudi Arabia",
+    attendees: "15-20",
+    status: "open" as SeriesStatus,
+  },
+  {
     id: "networkfirst-outsystems-ksa",
     category: "networkfirst",
     title: "ONE Executive Day KSA",
@@ -237,25 +255,6 @@ const allEvents = [
     regions: "Oman",
     attendees: "300+",
     status: "soon" as SeriesStatus,
-  },
-  {
-    id: "cyber-first-mena",
-    category: "cyber-first",
-    title: "Cyber First MENA",
-    tagline: "Defending the Digital Frontier",
-    description:
-      "The flagship regional summit uniting CISOs, government cyber leaders, and security innovators from across the MENA region.",
-    color: "#01BBF5",
-    image:
-      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
-    href: "/events/cyber-first",
-    date: "2026-08-11",
-    nextDate: "11 Aug 2026",
-    nextCity: "MENA Region",
-    editions: "",
-    regions: "MENA",
-    attendees: "500+",
-    status: "open" as SeriesStatus,
   },
   {
     id: "cyber-first-oman",

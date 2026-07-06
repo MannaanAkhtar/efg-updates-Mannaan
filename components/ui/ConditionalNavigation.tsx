@@ -31,6 +31,7 @@ export default function ConditionalNavigation() {
     pathname?.startsWith("/poka") ||
     pathname?.startsWith("/autodesk") ||
     pathname?.startsWith("/filigran") ||
+    pathname?.startsWith("/enterprisedb-ksa") ||
     isSubdomain
   ) {
     return null;
