@@ -56,7 +56,7 @@ const TAKEAWAYS = [
 ];
 
 const SPEAKERS = [
-  { name: "Abdessabour Arous", role: "Senior Solution Engineer", org: "Filigran", photo: "", initials: "AA" },
+  { name: "Abdessabour Arous", role: "Senior Solution Engineer", org: "Filigran", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdessabour.jpg", initials: "AA" },
   { name: "Ali Bawazeer", role: "Senior Solution Engineer", org: "Filigran", photo: "", initials: "AB" },
 ];
 
