@@ -540,7 +540,7 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
   {
     name: "Chandra Dhar Pasupureddy",
     title: "Director, Sales - META & CIS",
-    org: "CyberKnight",
+    org: "Cyware",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Chandra+Dhar+Pasupureddy.jpeg",
   },
 ];
