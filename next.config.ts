@@ -33,6 +33,11 @@ const nextConfig: NextConfig = {
       // OT Security First Africa — email campaign sent /africa by mistake → correct Johannesburg page
       { source: "/events/ot-security-first/africa", destination: "/events/ot-security-first/johannesburg-2026", permanent: true },
       { source: "/events/ot-security-first/africa/", destination: "/events/ot-security-first/johannesburg-2026", permanent: true },
+      // Short rep-attribution links for OT Johannesburg (open Attend tab + scroll to register)
+      { source: "/jhb-mriggashi", destination: "/events/ot-security-first/johannesburg-2026?utm_source=mriggashi&utm_medium=referral&utm_campaign=otsf-johannesburg-2026&tab=attend", permanent: false },
+      { source: "/jhb-mriggashi/", destination: "/events/ot-security-first/johannesburg-2026?utm_source=mriggashi&utm_medium=referral&utm_campaign=otsf-johannesburg-2026&tab=attend", permanent: false },
+      { source: "/jhb-mary", destination: "/events/ot-security-first/johannesburg-2026?utm_source=mary&utm_medium=referral&utm_campaign=otsf-johannesburg-2026&tab=attend", permanent: false },
+      { source: "/jhb-mary/", destination: "/events/ot-security-first/johannesburg-2026?utm_source=mary&utm_medium=referral&utm_campaign=otsf-johannesburg-2026&tab=attend", permanent: false },
       // Cyber First Qatar — URL shortened from qatar-2026 → qatar
       { source: "/events/cyber-first/qatar-2026", destination: "/events/cyber-first/qatar", permanent: true },
       { source: "/events/cyber-first/qatar-2026/", destination: "/events/cyber-first/qatar", permanent: true },

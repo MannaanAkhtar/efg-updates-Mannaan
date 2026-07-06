@@ -5769,7 +5769,9 @@ export default function OTSecurityFirstJohannesburg2026() {
       }, 600);
     }
 
-    const id = window.location.hash.replace("#", "");
+    // Scroll target: explicit #hash, or the register section when an attend/speak/sponsor
+    // link is used (short rep links carry only ?tab=, no hash).
+    const id = window.location.hash.replace("#", "") || (tabParam ? "register" : "");
     if (!id) return;
     let tries = 0;
     const go = () => {
