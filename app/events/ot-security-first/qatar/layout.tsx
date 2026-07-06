@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title:
     "OT Security First Qatar 2026 | Doha — Securing Critical Infrastructure",
   description:
-    "The 1st edition of OT Security First in Qatar — Doha, third week of November 2026. 200+ delegates and 25+ speakers securing Qatar's operational technology across oil & gas, LNG, power, water, and smart cities, aligned to Qatar National Vision 2030 and TASMU Smart Qatar.",
+    "The 5th edition of OT Security First in Qatar — Doha, 11 November 2026. 200+ delegates and 25+ speakers securing Qatar's operational technology across oil & gas, LNG, power, water, and smart cities, aligned to Qatar National Vision 2030 and TASMU Smart Qatar.",
   keywords: [
     "OT security conference Qatar 2026",
     "industrial cybersecurity summit Doha",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "OT Security First Qatar 2026 — Doha",
     description:
-      "Securing the Physical Core of Qatar's Critical Infrastructure. 200+ delegates, third week of November 2026, Doha, State of Qatar.",
+      "Securing the Physical Core of Qatar's Critical Infrastructure. 200+ delegates, 11 November 2026, Doha, State of Qatar.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "OT Security First Qatar 2026 — Doha",
     description:
-      "Securing the Physical Core of Qatar's Critical Infrastructure. 200+ delegates, third week of November 2026, Doha.",
+      "Securing the Physical Core of Qatar's Critical Infrastructure. 200+ delegates, 11 November 2026, Doha.",
     images: [OG_IMAGE],
   },
 };
@@ -96,9 +96,9 @@ export default function OTSecurityFirstQatarLayout({
             "@type": "Event",
             name: "OT Security First Qatar 2026 — Doha",
             description:
-              "Securing the Physical Core of Qatar's Critical Infrastructure. The 1st edition of OT Security First in Qatar, bringing together government leaders, regulators, and industry experts to secure operational technology across oil & gas, LNG, power, water, and smart cities — aligned to Qatar National Vision 2030 and the TASMU Smart Qatar programme.",
-            startDate: "2026-11-16T09:00:00+03:00",
-            endDate: "2026-11-16T18:00:00+03:00",
+              "Securing the Physical Core of Qatar's Critical Infrastructure. The 5th edition of OT Security First in Qatar, bringing together government leaders, regulators, and industry experts to secure operational technology across oil & gas, LNG, power, water, and smart cities — aligned to Qatar National Vision 2030 and the TASMU Smart Qatar programme.",
+            startDate: "2026-11-11T09:00:00+03:00",
+            endDate: "2026-11-11T18:00:00+03:00",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode:
               "https://schema.org/OfflineEventAttendanceMode",
@@ -141,7 +141,7 @@ export default function OTSecurityFirstQatarLayout({
                 name: "When is OT Security First Qatar 2026?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "OT Security First Qatar 2026 takes place in the third week of November 2026 in Doha, State of Qatar. The exact date is confirmed to registered delegates closer to the event.",
+                  text: "OT Security First Qatar 2026 takes place on 11 November 2026 in Doha, State of Qatar.",
                 },
               },
               {
@@ -183,7 +183,7 @@ export default function OTSecurityFirstQatarLayout({
       <EventFactBlock
         eventName="OT Security First Qatar 2026, Doha"
         series="OT Security First"
-        date="Third week of November 2026"
+        date="11 November 2026"
         city="Doha"
         country="State of Qatar"
         format="in-person"
