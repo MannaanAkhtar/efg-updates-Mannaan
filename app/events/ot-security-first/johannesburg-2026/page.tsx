@@ -5773,20 +5773,34 @@ export default function OTSecurityFirstJohannesburg2026() {
     // link is used (short rep links carry only ?tab=, no hash).
     const id = window.location.hash.replace("#", "") || (tabParam ? "register" : "");
     if (!id) return;
-    let tries = 0;
-    const go = () => {
+
+    // #register sits near the bottom; images + GSAP sections above it finish loading
+    // after the first scroll and push it down, so the initial jump lands short. Re-align
+    // a couple of times once the layout settles — but bail if the user takes over.
+    let cancelled = false;
+    const cancel = () => { cancelled = true; };
+    const scrollNow = () => {
       const el = document.getElementById(id);
-      if (!el) {
-        if (tries++ < 30) window.setTimeout(go, 150);
-        return;
-      }
+      if (!el) return false;
       const lenis = (window as unknown as {
         __lenis?: { scrollTo: (target: HTMLElement | number, opts?: { offset?: number; duration?: number }) => void };
       }).__lenis;
-      if (lenis) lenis.scrollTo(el, { offset: -80, duration: 1.0 });
-      else el.scrollIntoView({ behavior: "smooth" });
+      if (lenis) lenis.scrollTo(el, { offset: -80, duration: 1.1 });
+      else el.scrollIntoView({ behavior: "smooth", block: "start" });
+      return true;
     };
-    window.setTimeout(go, 500);
+    let tries = 0;
+    const start = () => {
+      if (!scrollNow()) {
+        if (tries++ < 30) window.setTimeout(start, 150);
+        return;
+      }
+      window.addEventListener("wheel", cancel, { passive: true, once: true });
+      window.addEventListener("touchmove", cancel, { passive: true, once: true });
+      window.setTimeout(() => { if (!cancelled) scrollNow(); }, 1300);
+      window.setTimeout(() => { if (!cancelled) scrollNow(); }, 2600);
+    };
+    window.setTimeout(start, 500);
   }, []);
 
   if (!mounted) return null;
