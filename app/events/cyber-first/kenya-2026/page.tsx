@@ -537,6 +537,12 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     linkedin: "https://www.linkedin.com/in/hamid-bafghi-44647b/",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/cyfirma.png",
   },
+  {
+    name: "Chandra Dhar Pasupureddy",
+    title: "Director, Sales - META & CIS",
+    org: "CyberKnight",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Chandra+Dhar+Pasupureddy.jpeg",
+  },
 ];
 
 // Kenya Speakers (from brochure)
