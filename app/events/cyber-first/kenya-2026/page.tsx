@@ -239,6 +239,7 @@ const AGENDA: {
     moderator: "Mutheu Nyagah Khimulu, Advisory Board Member, African Centre for Security",
     panelists: [
       "Emmanuel Kimeu, Secretary, ICT Security and Audit Control - State Department of ICT and Digital Economy, Ministry of Information, Communications and The Digital Economy",
+      "Richard Kanzira, Head of Cybersecurity, Office of the President - Uganda",
       "Grace Nekesa Waswa, Managing Consultant, Banamad Africa",
       "Rosemary Koech-Kimwatu, Head of Data Protection, KCB Bank Group",
       "Brendon Meyer, Senior Solutions Engineer, Beyond Trust",
@@ -534,6 +535,12 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     org: "Moringa School",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Michael_Michie.png",
     linkedin: "https://www.linkedin.com/in/michael-michie-10a29664/",
+  },
+  {
+    name: "Richard Kanzira",
+    title: "Head of Cybersecurity",
+    org: "Office of the President - Uganda",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Richard_Kanzira.png",
   },
 ];
 
