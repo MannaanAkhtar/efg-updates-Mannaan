@@ -304,7 +304,7 @@ const AGENDA: {
       "Geoffrey O. Ochieng, Global AI Delegate to Kenya, Global Alliance for Artificial Intelligence (GAFAI)",
       "Steve Gamba, Managed Security Services Manager, Safaricom PLC",
       "Michael Michie, AI Industry and Advisory Council, Moringa School",
-      "Alex Lagat Kipkirui, FS planning and Development Lead, Safaricom PLC",
+      "Irene Makau, Research Officer, The Oversight Lab",
     ],
   },
   {
@@ -541,6 +541,12 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     title: "Head of Cybersecurity",
     org: "Office of the President - Uganda",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Richard_Kanzira.png",
+  },
+  {
+    name: "Irene Makau",
+    title: "Research Officer",
+    org: "The Oversight Lab",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irene+Makau.jpeg",
   },
 ];
 
