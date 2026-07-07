@@ -223,8 +223,8 @@ const AGENDA: {
   panelists?: string[];
 }[] = [
   { time: "08:00 – 09:00", title: "Registration, Networking, and Refreshments", type: "break" },
-  { time: "09:10 – 09:15", title: "National Anthem", type: "keynote" },
-  { time: "09:15 – 09:20", title: "National Anthem and Opening Ceremony", type: "keynote" },
+  { time: "09:10 – 09:15", title: "National Anthem - Kenya and East Africa", type: "keynote" },
+  { time: "09:15 – 09:20", title: "Welcome Remarks", type: "keynote" },
   { time: "09:20 – 09:35", title: "Opening Keynote", subtitle: "The Cybersecurity Mandate Roadmap – NC4 and Kenya's Cyber Economy\nCol Dr James Kimuyu – Director, National Computer and Cybercrimes Coordination Committee (NC4)", type: "keynote" },
   {
     time: "09:35 – 10:15",
@@ -448,8 +448,8 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
   },
   {
     name: "George Kisaka",
-    title: "Vice President",
-    org: "ISACA Kenya Chapter",
+    title: "GRC Thought Leader and Practitioner",
+    org: "",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/GeorgeKisaka.png",
     linkedin: "https://www.linkedin.com/in/gkisaka/?originalSubdomain=ke",
   },
