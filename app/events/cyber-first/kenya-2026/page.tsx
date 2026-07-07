@@ -223,7 +223,7 @@ const AGENDA: {
   panelists?: string[];
 }[] = [
   { time: "08:00 – 09:00", title: "Registration, Networking, and Refreshments", type: "break" },
-  { time: "09:10 – 09:15", title: "Welcome Remarks by EFG", type: "keynote" },
+  { time: "09:10 – 09:15", title: "Welcome Remarks", type: "keynote" },
   { time: "09:15 – 09:20", title: "National Anthem and Opening Ceremony", type: "keynote" },
   { time: "09:20 – 09:35", title: "Opening Keynote", subtitle: "The Cybersecurity Mandate Roadmap – NC4 and Kenya's Cyber Economy\nCol Dr James Kimuyu – Director, National Computer and Cybercrimes Coordination Committee (NC4)", type: "keynote" },
   {
@@ -266,11 +266,10 @@ const AGENDA: {
       "Hamid Bafghi, Director – Sales & Partnership MEA, Cyfirma",
     ],
   },
-  { time: "12:00 – 12:15", title: "Technology Presentation", subtitle: "TBC\nReserved for Cyber Knight", type: "fireside" },
-  { time: "12:15 – 12:30", title: "Technology Presentation", subtitle: "Behavioural Biometrics - The Next Frontier in Anti-Fraud for Digital Lenders\nReserved for Mimecast", type: "fireside" },
-  { time: "12:30 – 13:00", title: "Networking Break and Refreshments", type: "break" },
+  { time: "12:00 – 12:15", title: "Technology Presentation", subtitle: "Intel to Impact: Turning Threat Intelligence into Action\nChandra Dhar Pasupureddy, Director, Sales – META & CIS, Cyware", type: "fireside" },
+  { time: "12:15 – 12:45", title: "Networking Break and Refreshments", type: "break" },
   {
-    time: "13:00 – 13:40",
+    time: "12:45 – 13:25",
     title: "Panel Discussion",
     subtitle: "Keeping the Lights On - Practical Resilience Against DDoS, Ransomware and Network Disruptions\nKeeping critical services available under intense pressure and concrete strategies for maintaining availability of critical services under DDoS waves, network issues, and ransomware across sectors",
     type: "panel",
@@ -289,7 +288,7 @@ const AGENDA: {
     ],
   },
   {
-    time: "13:40 – 14:15",
+    time: "13:25 – 14:00",
     title: "Panel Discussion",
     subtitle: "Identity Under Pressure - Stopping Fraud and Account Takeover in a Mobile First Economy\nHow identity abuse drives fraud and disruption across mobile money, digital banking, telco services, and citizen portals",
     type: "panel",
@@ -300,7 +299,7 @@ const AGENDA: {
       "Protecting privileged admin and operator accounts in telco/gov",
       "Handling identity in shared-device environments",
     ],
-    moderator: "George Kisaka, Vice President, ISACA Kenya Chapter",
+    moderator: "George Kisaka, GRC Thought Leader and Practitioner",
     panelists: [
       "Geoffrey O. Ochieng, Global AI Delegate to Kenya, Global Alliance for Artificial Intelligence (GAFAI)",
       "Steve Gamba, Managed Security Services Manager, Safaricom PLC",
@@ -308,8 +307,8 @@ const AGENDA: {
       "Eneth Kubai, Head of Enterprise Architecture, Safaricom PLC",
     ],
   },
-  { time: "14:15 – 14:30", title: "Cyber First Award Ceremony & Raffle Draw", type: "awards" },
-  { time: "14:30", title: "Networking Lunch and End of Conference", type: "break" },
+  { time: "14:00 – 14:15", title: "Cyber First Award Ceremony & Raffle Draw", type: "awards" },
+  { time: "14:30 – 15:30", title: "VIP Networking Lunch Briefing with StarLink and BeyondTrust", type: "break" },
 ];
 
 const AWARDS_DATA = [
@@ -3676,7 +3675,7 @@ function AgendaTimeline() {
         <div className="cfk-agenda-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, alignItems: "start" }}>
         {[
           { items: AGENDA.slice(0, 8), label: "Morning Session", time: "08:00 – 12:00", delay: 0.15 },
-          { items: AGENDA.slice(8), label: "Afternoon Session", time: "12:00 – 14:45", delay: 0.35 },
+          { items: AGENDA.slice(8), label: "Afternoon Session", time: "12:00 – 15:30", delay: 0.35 },
         ].map((col, ci) => (
           <div key={ci}>
             {/* Column header */}
