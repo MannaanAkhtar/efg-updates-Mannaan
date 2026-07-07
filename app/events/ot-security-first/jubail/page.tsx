@@ -47,6 +47,7 @@ type Speaker = {
   linkedin?: string | null;
   flag?: string;
   photoPos?: string;
+  initials?: string;
 };
 
 const SPEAKERS: Speaker[] = [
@@ -56,6 +57,8 @@ const SPEAKERS: Speaker[] = [
   { name: "Sultan Moraished", title: "Group Head of Technology and Corporate Excellence", org: "Red Sea Global", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Moraished.png", linkedin: "https://www.linkedin.com/in/sultan-moraished-0786394a/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Ali Abdulla Hasan Alsadadi", title: "Chief of Information Technology", org: "Ministry of Oil & Environment Bahrain", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Ali+Abdulla+Hasan+Alsadadi.png", linkedin: "https://www.linkedin.com/in/ali-abdulla-hasan-alsadadi-a4210825/", flag: "https://flagcdn.com/w40/bh.png" },
   { name: "Badar Al Salehi", title: "Director General, Oman National CERT, Cyber Security", org: "MTCIT", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Badar_Al_Salehi_1.png", linkedin: "https://www.linkedin.com/in/badar-al-salehi-75461061/", flag: "https://flagcdn.com/w40/om.png", photoPos: "center 42%" },
+  { name: "Ali Alrushaid", title: "Chief Information Security Officer", org: "ASMO", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ALI_ALRUSHAID.png", linkedin: "https://www.linkedin.com/in/ali-alrushaid-66377114/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Wael A. Rahman", title: "Lead ICS/OT Security Engineer", org: "Petroleum Development Oman", photo: null, initials: "WR", flag: "https://flagcdn.com/w40/om.png" },
 ];
 
 // ─── Awards ─────────────────────────────────────────────────────────────────
@@ -3718,6 +3721,18 @@ function SpeakersSection() {
                       objectPosition: s.photoPos || "center top",
                     }}
                   />
+                ) : s.initials ? (
+                  <span
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 800,
+                      fontSize: "clamp(44px, 5vw, 60px)",
+                      letterSpacing: "-1px",
+                      color: "rgba(255,255,255,0.92)",
+                    }}
+                  >
+                    {s.initials}
+                  </span>
                 ) : (
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
                     <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden style={{ opacity: 0.55 }}>
@@ -3845,6 +3860,45 @@ function SpeakersSection() {
               </div>
             </motion.div>
           ))}
+
+          {/* More speakers announcing soon */}
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.75, delay: 0.25 + SPEAKERS.length * 0.07, ease: EASE }}
+            className="otsf-jb-speaker-card"
+            style={{
+              position: "relative",
+              borderRadius: 20,
+              background:
+                "linear-gradient(160deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 60%, rgba(211,75,154,0.03) 100%)",
+              border: "1px dashed rgba(255,255,255,0.16)",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 22px 50px rgba(0,0,0,0.3)",
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              padding: "40px 22px",
+              minHeight: 300,
+            }}
+          >
+            <span aria-hidden style={topHair} />
+            <div style={{ width: 54, height: 54, borderRadius: 15, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(211,75,154,0.12)", border: "1px solid rgba(211,75,154,0.28)", marginBottom: 20 }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M19 8v6M22 11h-6" />
+              </svg>
+            </div>
+            <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(16px, 1.4vw, 19px)", letterSpacing: "-0.4px", color: "white", lineHeight: 1.2, margin: "0 0 9px" }}>
+              More Speakers
+            </h3>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 10.5, fontWeight: 700, letterSpacing: "2.6px", textTransform: "uppercase", color: C_BRIGHT }}>
+              Announcing Soon
+            </span>
+          </motion.div>
         </div>
       </div>
 
