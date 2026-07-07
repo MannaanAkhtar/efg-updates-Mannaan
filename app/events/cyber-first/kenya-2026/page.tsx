@@ -447,15 +447,6 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     linkedin: "https://www.linkedin.com/in/mutheu-khimulu-law/",
   },
   {
-    name: "Eneth Kubai",
-    title: "Head of Enterprise Architecture",
-    org: "Safaricom PLC",
-    linkedin: "https://www.linkedin.com/in/eneth-kubai-7a043a19/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eneth+Kuba.png",
-    // Dial back the card's built-in 10% parallax zoom for her tighter headshot
-    photoStyle: { width: "100%", height: "100%", marginLeft: 0, marginTop: 0, objectPosition: "center 12%" },
-  },
-  {
     name: "George Kisaka",
     title: "Vice President",
     org: "ISACA Kenya Chapter",
