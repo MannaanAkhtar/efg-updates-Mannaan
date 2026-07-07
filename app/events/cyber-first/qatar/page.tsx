@@ -584,7 +584,7 @@ function Hero() {
               }}
             />
 
-            {/* "4TH EDITION QATAR" — cyan */}
+            {/* "3RD EDITION QATAR" — cyan */}
             <span
               style={{
                 fontFamily: "var(--font-outfit)",
@@ -595,7 +595,7 @@ function Hero() {
                 color: C_BRIGHT,
               }}
             >
-              4th Edition Qatar
+              3rd Edition Qatar
             </span>
 
             {/* Right serration */}
