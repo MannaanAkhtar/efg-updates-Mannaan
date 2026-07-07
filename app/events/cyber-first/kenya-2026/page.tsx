@@ -282,7 +282,7 @@ const AGENDA: {
     moderator: "Rakesh Ravindran, Associate Director, Deloitte",
     panelists: [
       "Hussein Omar Hussein, Director IT and Digital, SBM Bank Kenya",
-      "Kiprono Rugut, CISO, Adili Cyber Services",
+      "Miki Alkalay, CTO, Adili Group",
       "Frank K Muriuki, Lead - Information Security Officer, Kenyan Airports Authority",
       "Michael Etale, Chief Information Security Officer, Absa Bank",
     ],
@@ -523,11 +523,10 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     linkedin: "https://www.linkedin.com/in/timothy-mburu-a1468116/",
   },
   {
-    name: "Kiprono Rugut",
-    title: "CISO",
-    org: "Adili Cyber Services",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Kiprono_Rugut.png",
-    linkedin: "https://www.linkedin.com/in/krugut/",
+    name: "Miki Alkalay",
+    title: "CTO",
+    org: "Adili Group",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Miki+Alkalay.jpeg",
   },
   {
     name: "Michael Michie",
