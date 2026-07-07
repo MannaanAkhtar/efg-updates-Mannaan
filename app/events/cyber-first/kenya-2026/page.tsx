@@ -311,6 +311,9 @@ const AGENDA: {
   { time: "14:30 – 15:30", title: "VIP Networking Lunch Briefing with StarLink and BeyondTrust", type: "break" },
 ];
 
+// Registration is closed once the event is imminent — set true to disable all sign-up forms.
+const REGISTRATION_CLOSED = true;
+
 const AWARDS_DATA = [
   { title: "Cybersecurity Innovation Award", desc: "Recognizing groundbreaking solutions in threat detection and defence technologies." },
   { title: "Excellence in Cyber Resilience Award", desc: "Honouring organizations that have demonstrated robust recovery and adaptation to cyber incidents." },
@@ -7660,6 +7663,27 @@ function CfkTestimonials() {
   );
 }
 
+// ─── REGISTRATION CLOSED NOTICE ──────────────────────────────────────────────
+function RegistrationClosedNotice({
+  accent = KENYA_ACCENT,
+  label = "Registrations Closed",
+  title = "Registration is now closed",
+  message = "Thank you for your interest — registration for Cyber First East Africa 2026 has now closed.",
+}: { accent?: string; label?: string; title?: string; message?: string }) {
+  return (
+    <div style={{ maxWidth: 560, margin: "0 auto", padding: "clamp(28px,3vw,40px)", borderRadius: 20, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.10)", textAlign: "center", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)" }}>
+      <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 16px", borderRadius: 20, background: `${accent}12`, border: `1px solid ${accent}30`, marginBottom: 16 }}>
+        <span style={{ width: 6, height: 6, borderRadius: "50%", background: accent }} />
+        <span style={{ fontFamily: "var(--font-dm)", fontSize: 12, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: accent }}>{label}</span>
+      </div>
+      <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(22px,2.4vw,28px)", letterSpacing: "-0.5px", color: "white", lineHeight: 1.2, margin: "0 0 10px" }}>{title}</h3>
+      <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, lineHeight: 1.6, color: "rgba(255,255,255,0.6)", margin: 0 }}>
+        {message} For any queries, please <a href="/contact" style={{ color: accent, textDecoration: "none", fontWeight: 600 }}>contact our team</a>.
+      </p>
+    </div>
+  );
+}
+
 // ─── AWARDS SECTION ──────────────────────────────────────────────────────────
 function AwardsSection() {
   const ref = useRef<HTMLElement>(null);
@@ -7787,17 +7811,21 @@ function AwardsSection() {
               {/* Badge */}
               <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 16px", borderRadius: 20, background: `${GOLD}0C`, border: `1px solid ${GOLD}22`, marginBottom: 20 }}>
                 <div style={{ width: 6, height: 6, borderRadius: "50%", background: GOLD, boxShadow: `0 0 8px ${GOLD}80`, animation: "cfkPulse 2s ease-in-out infinite" }} />
-                <span style={{ fontFamily: "var(--font-dm)", fontSize: 13, fontWeight: 600, color: GOLD, letterSpacing: "0.5px" }}>Nominations Open</span>
+                <span style={{ fontFamily: "var(--font-dm)", fontSize: 13, fontWeight: 600, color: GOLD, letterSpacing: "0.5px" }}>{REGISTRATION_CLOSED ? "Nominations Closed" : "Nominations Open"}</span>
               </div>
 
               <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(20px,2.2vw,26px)", letterSpacing: "-0.5px", color: "white", lineHeight: 1.15, margin: "0 0 6px" }}>
-                Submit Your Nomination
+                {REGISTRATION_CLOSED ? "Nominations are now closed" : "Submit Your Nomination"}
               </h3>
               <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 350, color: "rgba(255,255,255,0.38)", lineHeight: 1.6, margin: "0 0 28px" }}>
-                Know a leader who deserves recognition? Self-nominations are welcome.
+                {REGISTRATION_CLOSED ? "Thank you for your interest — award nominations for Cyber First East Africa 2026 have now closed." : "Know a leader who deserves recognition? Self-nominations are welcome."}
               </p>
 
-              {!formSubmitted ? (
+              {REGISTRATION_CLOSED ? (
+                <a href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 28px", borderRadius: 50, background: `linear-gradient(135deg, ${GOLD}, ${GOLD_BRIGHT})`, color: "#0A0608", fontFamily: "var(--font-outfit)", fontSize: 14.5, fontWeight: 700, textDecoration: "none" }}>
+                  Contact our team <span>→</span>
+                </a>
+              ) : !formSubmitted ? (
                 <form onSubmit={handleSubmit}>
                   <div style={{ display: "flex", flexDirection: "column", gap: 22, marginBottom: 28 }}>
                     <div className="cfk-input-group">
@@ -8063,7 +8091,11 @@ function SplitCTA() {
 
       {/* InquiryForm with overridden styles */}
       <div id="register" className="cfk-form-wrapper" style={{ position: "relative", zIndex: 1 }}>
-        <InquiryForm defaultCountry="KE" eventName="Cyber First East Africa 2026" hideLabel />
+        {REGISTRATION_CLOSED ? (
+          <RegistrationClosedNotice />
+        ) : (
+          <InquiryForm defaultCountry="KE" eventName="Cyber First East Africa 2026" hideLabel />
+        )}
       </div>
 
       <style jsx global>{`
