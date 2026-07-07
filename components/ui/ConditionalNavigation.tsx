@@ -32,6 +32,9 @@ export default function ConditionalNavigation() {
     pathname?.startsWith("/autodesk") ||
     pathname?.startsWith("/filigran") ||
     pathname?.startsWith("/enterprisedb-ksa") ||
+    pathname?.startsWith("/enterprisedb-egypt") ||
+    pathname?.startsWith("/enterprisedb-southafrica") ||
+    pathname?.startsWith("/enterprisedb-uae") ||
     isSubdomain
   ) {
     return null;

@@ -71,6 +71,9 @@ type NFFormat = "virtual" | "physical";
 const networkFirstEvents: { href: string; label: string; date: string; format: NFFormat }[] = [
   { href: "/filigran", label: "Filigran", date: "14 Jul", format: "virtual" },
   { href: "/enterprisedb-ksa", label: "EnterpriseDB, KSA", date: "29 Sep", format: "physical" },
+  { href: "/enterprisedb-egypt", label: "EnterpriseDB, Egypt", date: "10 Oct", format: "physical" },
+  { href: "/enterprisedb-southafrica", label: "EnterpriseDB, South Africa", date: "12 Nov", format: "physical" },
+  { href: "/enterprisedb-uae", label: "EnterpriseDB, UAE", date: "25 Nov", format: "physical" },
   { href: "/proofpoint", label: "Proofpoint", date: "Sep · TBC", format: "physical" },
   { href: "https://events.outsystems.com/event/17e2fb07-2b9a-46e2-9acf-44590276e2d8/homepage?RefId=oed-ksa", label: "OutSystems", date: "19 Oct", format: "physical" },
   { href: "/blueyonder", label: "Blue Yonder", date: "TBA", format: "physical" },
@@ -95,10 +98,11 @@ function regionOf(location: string): string | null {
   if (l.includes("muscat") || l.includes("oman")) return "Oman";
   if (l.includes("nairobi") || l.includes("kenya")) return "Kenya";
   if (l.includes("johannesburg") || l.includes("south africa")) return "South Africa";
+  if (l.includes("cairo") || l.includes("egypt")) return "Egypt";
   return null; // Virtual, "MENA Region", or anything uncategorized
 }
 
-const REGION_ORDER = ["UAE", "Saudi Arabia", "Qatar", "Kuwait", "Oman", "Kenya", "South Africa"];
+const REGION_ORDER = ["UAE", "Saudi Arabia", "Qatar", "Kuwait", "Oman", "Kenya", "South Africa", "Egypt"];
 
 const _regionStartOfToday = (() => { const d = new Date(); d.setHours(0, 0, 0, 0); return d.getTime(); })();
 
