@@ -223,7 +223,7 @@ const AGENDA: {
   panelists?: string[];
 }[] = [
   { time: "08:00 – 09:00", title: "Registration, Networking, and Refreshments", type: "break" },
-  { time: "09:10 – 09:15", title: "Welcome Remarks", type: "keynote" },
+  { time: "09:10 – 09:15", title: "National Anthem", type: "keynote" },
   { time: "09:15 – 09:20", title: "National Anthem and Opening Ceremony", type: "keynote" },
   { time: "09:20 – 09:35", title: "Opening Keynote", subtitle: "The Cybersecurity Mandate Roadmap – NC4 and Kenya's Cyber Economy\nCol Dr James Kimuyu – Director, National Computer and Cybercrimes Coordination Committee (NC4)", type: "keynote" },
   {
@@ -239,9 +239,9 @@ const AGENDA: {
     moderator: "Mutheu Nyagah Khimulu, Advisory Board Member, African Centre for Security",
     panelists: [
       "Emmanuel Kimeu, Secretary, ICT Security and Audit Control - State Department of ICT and Digital Economy, Ministry of Information, Communications and The Digital Economy",
-      "Dr Isabelle K, Principal Officer | Frequency Spectrum Management | Standardisation and Innovation, Communications Authority of Kenya (CA)",
+      "Grace Nekesa Waswa, Managing Consultant, Banamad Africa",
       "Rosemary Koech-Kimwatu, Head of Data Protection, KCB Bank Group",
-      "Nick Black, Sales Director, BeyondTrust",
+      "Brendon Meyer, Senior Solutions Engineer, Beyond Trust",
     ],
   },
   { time: "10:15 – 10:30", title: "Technology Presentation", subtitle: "The Ghost in the Machine (securing non-human identities)\nBrendon Meyer, Senior Solutions Engineer, Beyond Trust", type: "fireside" },
@@ -259,9 +259,8 @@ const AGENDA: {
     ],
     moderator: "Shiphrah Wairima, President, Global Council for Responsible Artificial Intelligence (GCRAI)",
     panelists: [
-      "Raphael Gathecha, Group Head of Cyber and Information Security (CISO), Letshego African Holdings Limited",
-      "Peter Muhumuza, CISO, KCB Bank Uganda",
       "George Rugero, Head - Information Security, Airtel Rwanda",
+      "Timothy Mburu, CIO, Liberty Life and Heritage Insurance (K) Ltd",
       "Collins Amadi, Head, Enterprise Security Architecture & IAM, Equity Bank Limited",
       "Hamid Bafghi, Director – Sales & Partnership MEA, Cyfirma",
     ],
@@ -282,7 +281,7 @@ const AGENDA: {
     moderator: "Rakesh Ravindran, Associate Director, Deloitte",
     panelists: [
       "Hussein Omar Hussein, Director IT and Digital, SBM Bank Kenya",
-      "Steven Mwesige, Ag. Chief Information Security Officer, Pearl Bank Uganda",
+      "Kiprono Rugut, CISO, Adili Cyber Services",
       "Frank K Muriuki, Lead - Information Security Officer, Kenyan Airports Authority",
       "Michael Etale, Chief Information Security Officer, Absa Bank",
     ],
@@ -303,11 +302,26 @@ const AGENDA: {
     panelists: [
       "Geoffrey O. Ochieng, Global AI Delegate to Kenya, Global Alliance for Artificial Intelligence (GAFAI)",
       "Steve Gamba, Managed Security Services Manager, Safaricom PLC",
-      "Kevin Kimani, GCISO, ASA International",
-      "Eneth Kubai, Head of Enterprise Architecture, Safaricom PLC",
+      "Michael Michie, AI Industry and Advisory Council, Moringa School",
+      "Alex Lagat Kipkirui, FS planning and Development Lead, Safaricom PLC",
     ],
   },
-  { time: "14:00 – 14:15", title: "Cyber First Award Ceremony & Raffle Draw", type: "awards" },
+  {
+    time: "14:00 – 14:15",
+    title: "Cyber First Award Ceremony & Raffle Draw",
+    type: "awards",
+    bullets: [
+      "Public Sector Achievement",
+      "Backbone of National Infrastructure",
+      "Community Partner",
+      "Community Partner",
+      "Sentinel of Critical Infrastructure",
+      "Master of the Attack Surface",
+      "Zero Trust Pioneer",
+      "Excellence in Cyber Resilience Award",
+      "Cybersecurity Innovation",
+    ],
+  },
   { time: "14:30 – 15:30", title: "VIP Networking Lunch Briefing with StarLink and BeyondTrust", type: "break" },
 ];
 
@@ -383,14 +397,6 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     linkedin: "https://www.linkedin.com/in/emmanuel-kimeu-7490041b/",
   },
   {
-    name: "Dr. Isabelle K",
-    title: "Principal Officer | Frequency Spectrum Management | Standardisation and Innovation",
-    org: "Communications Authority of Kenya (CA)",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ISABELLE_KANDAGOR.png",
-    photoStyle: { objectPosition: "center 15%" },
-    linkedin: "https://www.linkedin.com/in/dr-isabelle-k-459211142/",
-  },
-  {
     name: "Rosemary Koech-Kimwatu",
     title: "Head of Data Protection",
     org: "KCB Bank Group",
@@ -398,42 +404,11 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     linkedin: "https://www.linkedin.com/in/rosemary-koech-kimwatu-47536520/",
   },
   {
-    name: "Kevin Kimani",
-    title: "GCISO",
-    org: "ASA International",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Kevin+kimani.jpg",
-    linkedin: "https://www.linkedin.com/in/kevin-kimani-ceh-cisa-aciarb-6a61aa17/",
-  },
-  {
     name: "Michael Etale",
     title: "Chief Information Security Officer",
     org: "Absa Bank",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Michael_Etale.jpg",
     linkedin: "https://www.linkedin.com/in/michael-etale-cissp/",
-  },
-  {
-    name: "Raphael Gathecha",
-    title: "Group Head of Cyber and Information Security (CISO)",
-    org: "Letshego African Holdings Limited",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Raphael_GathechaWambui.png",
-    // Source photo is already a tight headshot — undo the default 110%
-    // upscale + negative margins so the image renders at its natural
-    // framing inside the card.
-    photoStyle: {
-      width: "100%",
-      height: "100%",
-      marginLeft: 0,
-      marginTop: 0,
-      objectPosition: "center 20%",
-    },
-    linkedin: "https://www.linkedin.com/in/raphael-gathecha-04ab60127/",
-  },
-  {
-    name: "Peter Muhumuza",
-    title: "CISO",
-    org: "KCB Bank Uganda",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Peter_Muhumuza.jpg",
-    linkedin: "https://www.linkedin.com/in/peter-muhumuza-3aa95215/",
   },
   {
     name: "Hussein Omar Hussein",
@@ -448,13 +423,6 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     org: "Kenyan Airports Authority",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Frank-Muriuki%C2%A0.png",
     linkedin: "https://www.linkedin.com/in/frank-k-muriuki-66396842/",
-  },
-  {
-    name: "Steven Mwesige",
-    title: "Ag. Chief Information Security Officer",
-    org: "Pearl Bank Uganda",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Nairobi_Speakers/Steven_Mwesige.jpg",
-    linkedin: "https://www.linkedin.com/in/steven-mwesige/",
   },
   {
     name: "George Rugero",
@@ -527,12 +495,6 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Brendon+Meyer.png",
   },
   {
-    name: "Nick Black",
-    title: "Sales Director",
-    org: "BeyondTrust",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nick+Black.png",
-  },
-  {
     name: "Hamid Bafghi",
     title: "Director Sales & Partnership MEA",
     org: "CYFIRMA",
@@ -544,6 +506,34 @@ const ADVISORY_BOARD: { name: string; title: string; org: string; photo: string 
     title: "Director, Sales - META & CIS",
     org: "Cyware",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Chandra+Dhar+Pasupureddy.jpeg",
+  },
+  {
+    name: "Grace Nekesa Waswa",
+    title: "Managing Consultant",
+    org: "Banamad Africa",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Grace+Nekesa+Waswa.jpeg",
+    linkedin: "https://www.linkedin.com/in/gracewaswa/",
+  },
+  {
+    name: "Timothy Mburu",
+    title: "CIO",
+    org: "Liberty Life and Heritage Insurance (K) Ltd",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Timothy_Mburu.png",
+    linkedin: "https://www.linkedin.com/in/timothy-mburu-a1468116/",
+  },
+  {
+    name: "Kiprono Rugut",
+    title: "CISO",
+    org: "Adili Cyber Services",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Kiprono_Rugut.png",
+    linkedin: "https://www.linkedin.com/in/krugut/",
+  },
+  {
+    name: "Michael Michie",
+    title: "AI Industry and Advisory Council",
+    org: "Moringa School",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Michael_Michie.png",
+    linkedin: "https://www.linkedin.com/in/michael-michie-10a29664/",
   },
 ];
 
