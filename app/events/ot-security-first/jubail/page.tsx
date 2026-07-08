@@ -576,7 +576,7 @@ function Hero() {
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
             </svg>
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14.5, fontWeight: 600, color: "white", letterSpacing: "-0.1px", whiteSpace: "nowrap" }}>Jubail · Kingdom of Saudi Arabia</span>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14.5, fontWeight: 600, color: "white", letterSpacing: "-0.1px", whiteSpace: "nowrap" }}>InterContinental Al Jubail Resort</span>
           </span>
 
           <span aria-hidden className="otsf-jb-info-div" style={{ width: 1, height: 22, background: "rgba(255,255,255,0.14)" }} />
