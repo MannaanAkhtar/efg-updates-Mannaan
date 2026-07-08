@@ -70,6 +70,7 @@ const NETWORKFIRST_COLOR = "#C9935A";
 type NFFormat = "virtual" | "physical";
 const networkFirstEvents: { href: string; label: string; date: string; format: NFFormat }[] = [
   { href: "/filigran", label: "Filigran", date: "14 Jul", format: "virtual" },
+  { href: "/inner_circle", label: "The Inner Circle · CleverTap", date: "19 Aug", format: "physical" },
   { href: "/enterprisedb-ksa", label: "EnterpriseDB, KSA", date: "29 Sep", format: "physical" },
   { href: "/enterprisedb-egypt", label: "EnterpriseDB, Egypt", date: "10 Oct", format: "physical" },
   { href: "/enterprisedb-southafrica", label: "EnterpriseDB, South Africa", date: "12 Nov", format: "physical" },

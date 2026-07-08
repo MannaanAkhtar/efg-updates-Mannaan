@@ -62,9 +62,10 @@ export default function InnerCircleLayout({ children }: { children: React.ReactN
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             inLanguage: "en",
             isAccessibleForFree: true,
+            startDate: "2026-08-19",
             location: {
               "@type": "Place",
-              name: "Riyadh, Saudi Arabia",
+              name: "Hilton Riyadh Hotel & Residences",
               address: { "@type": "PostalAddress", addressLocality: "Riyadh", addressCountry: "SA" },
             },
             image: [OG_IMAGE],

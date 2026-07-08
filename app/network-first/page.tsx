@@ -37,6 +37,22 @@ const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 
 const UPCOMING_EVENTS = [
   {
+    date: "August 19th, 2026",
+    month: "AUG",
+    day: "19",
+    year: "2026",
+    time: "Time TBC",
+    title: "The Inner Circle",
+    subtitle: "The Art of Knowing",
+    sponsor: "CleverTap",
+    location: "Hilton Riyadh & Residences",
+    link: "/inner_circle",
+    image: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/clevertap_innercircle_bg.png",
+    brandColor: "#E14B3A",
+    brandGradient: "linear-gradient(135deg, #3A1A15 0%, #1C1410 45%, #100E0C 78%, #06070F 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverTap_Logotype.png",
+  },
+  {
     date: "September 29th, 2026",
     month: "SEP",
     day: "29",
@@ -2164,6 +2180,9 @@ function UpcomingSection() {
                           {e.image ? (
                             <>
                               <img src={e.image} alt="" className="nf-card-img" />
+                              {e.sponsor === "CleverTap" && (
+                                <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 1, background: "radial-gradient(ellipse 85% 85% at 50% 44%, rgba(16,14,12,0.28) 0%, rgba(16,14,12,0.46) 60%, rgba(16,14,12,0.66) 100%)" }} />
+                              )}
                               {(e as unknown as Record<string, string>).brandLogo && (
                                 <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
                                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -2174,9 +2193,13 @@ function UpcomingSection() {
                                       height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Poka" ? 140 : e.sponsor === "Braze x Talon.One" ? 80 : e.sponsor === "Braze" ? 50 : 72,
                                       width: "auto",
                                       opacity: 0.85,
+                                      position: "relative",
+                                      zIndex: 2,
                                       ...(e.sponsor === "Braze"
                                         ? { filter: "brightness(0) saturate(100%) invert(22%) sepia(91%) saturate(2904%) hue-rotate(264deg) brightness(98%) contrast(98%) drop-shadow(0 2px 12px rgba(123,44,191,0.5))" }
-                                        : {}),
+                                        : e.sponsor === "CleverTap"
+                                          ? { filter: "brightness(0) invert(1) drop-shadow(0 2px 14px rgba(0,0,0,0.6))" }
+                                          : {}),
                                     }}
                                   />
                                 </div>

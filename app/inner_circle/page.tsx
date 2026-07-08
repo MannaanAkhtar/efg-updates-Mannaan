@@ -25,14 +25,14 @@ const ITALIC = "var(--font-dm-sans), Georgia, serif";         // DM Sans italic
 
 const LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/The+Inner+circle+black.png";
 const CT_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverTap_Logotype.png";
-const HERO_BG = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/magnific_use-this-image-as-referen_KjEa1G6kqp.png";
-// Riyadh night skyline (Kingdom Tower) — Unsplash, photo by سيف الظاهر
-const SKYLINE_BG = "https://images.unsplash.com/photo-1663900108404-a05e8bf82cda?auto=format&fit=crop&w=2400&q=80";
+const HERO_BG = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/clevertap_innercircle_bg.png";
+// Venue — Hilton Riyadh Hotel & Residences (Step Into The Inner Circle band)
+const VENUE_BG = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/Hilton+Riyadh+and+residences.png";
 const EFG_LOGO = "/events-first-group_logo_alt.svg";
 const PRIVACY_URL = "https://clevertap.com/privacy-policy/";
 
-// TODO: replace with the real event date & time (Riyadh, UTC+03:00) — drives the hero countdown
-const EVENT_DATE = "2026-12-31T17:30:00+03:00";
+// Event: 19 August 2026, Riyadh (UTC+03:00) — drives the hero countdown. TODO: set exact start time once confirmed.
+const EVENT_DATE = "2026-08-19T17:30:00+03:00";
 
 // ─── Content (verbatim from the brief — placeholders kept in [brackets]) ───────
 const OVERVIEW_STATS = [
@@ -204,8 +204,8 @@ function Hero() {
       {/* Background image — slow Ken Burns drift */}
       <div className="ic-hero-bg" aria-hidden style={{ position: "absolute", inset: "-4%", zIndex: 0, backgroundImage: `url(${HERO_BG})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }} />
       {/* Scrims for legibility */}
-      <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, background: "radial-gradient(ellipse 70% 60% at 50% 48%, rgba(16,14,12,0.42) 0%, rgba(16,14,12,0.72) 55%, rgba(16,14,12,0.92) 100%)" }} />
-      <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, background: "linear-gradient(180deg, rgba(16,14,12,0.82) 0%, transparent 24%, transparent 62%, rgba(16,14,12,0.96) 100%)" }} />
+      <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, background: "radial-gradient(ellipse 70% 60% at 50% 48%, rgba(16,14,12,0.32) 0%, rgba(16,14,12,0.58) 55%, rgba(16,14,12,0.8) 100%)" }} />
+      <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, background: "linear-gradient(180deg, rgba(16,14,12,0.7) 0%, transparent 26%, transparent 62%, rgba(16,14,12,0.9) 100%)" }} />
       {/* Warm red haze — breathing */}
       <div className="ic-hero-haze" aria-hidden style={{ position: "absolute", top: "46%", left: "50%", transform: "translate(-50%,-50%)", width: "clamp(320px,44vmin,620px)", height: "clamp(320px,44vmin,620px)", borderRadius: "50%", background: `radial-gradient(circle, ${RED}22 0%, ${RED}08 38%, transparent 66%)`, zIndex: 0, mixBlendMode: "screen", pointerEvents: "none" }} />
       {/* Floating dust motes */}
@@ -238,7 +238,7 @@ function Hero() {
 
         {/* Meta strip */}
         <div className="ic-fade ic-d5 ic-meta ic-meta-shine" style={{ position: "relative", overflow: "hidden", display: "inline-flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "clamp(14px,2vw,26px)", marginTop: 6, padding: "11px clamp(20px,3vw,34px)", borderRadius: 999, background: "rgba(16,14,12,0.5)", border: `1px solid ${LINE_STRONG}`, backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "0 22px 54px rgba(0,0,0,0.5)" }}>
-          {["[DATE, 2026]", "[VENUE], RIYADH", "[TIME]"].map((m, i, arr) => (
+          {["19 August 2026", "Hilton Riyadh & Residences", "[TIME]"].map((m, i, arr) => (
             <React.Fragment key={m}>
               <span style={{ fontFamily: BODY, fontSize: "clamp(12px,1.2vw,14.5px)", fontWeight: 600, letterSpacing: "0.04em", color: WHITE, whiteSpace: "nowrap" }}>{m}</span>
               {i < arr.length - 1 && <span aria-hidden style={{ width: 1, height: 15, background: LINE_STRONG }} />}
@@ -307,9 +307,9 @@ function Overview() {
             aria-label="Flip card to reveal the overview"
             style={{ perspective: 2000, cursor: "pointer" }}
           >
-            <div className={`ic-flip-inner${flipped ? " is-flipped" : ""}`} style={{ position: "relative", transformStyle: "preserve-3d", transition: "transform 1.7s cubic-bezier(0.76,0,0.24,1)", minHeight: "clamp(360px,44vh,440px)" }}>
+            <div className={`ic-flip-inner${flipped ? " is-flipped" : ""}`} style={{ display: "grid", transformStyle: "preserve-3d", transition: "transform 1.7s cubic-bezier(0.76,0,0.24,1)", minHeight: "clamp(340px,42vh,430px)" }}>
               {/* FRONT — logo */}
-              <div className="ic-face" style={{ position: "absolute", inset: 0, borderRadius: 22, overflow: "hidden", border: `1px solid ${LINE_STRONG}`, background: `linear-gradient(160deg, ${INK_2}, ${INK})`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 20, boxShadow: "0 40px 90px rgba(0,0,0,0.5)" }}>
+              <div className="ic-face" style={{ gridArea: "1 / 1", position: "relative", borderRadius: 22, overflow: "hidden", border: `1px solid ${LINE_STRONG}`, background: `linear-gradient(160deg, ${INK_2}, ${INK})`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 20, boxShadow: "0 40px 90px rgba(0,0,0,0.5)" }}>
                 <span aria-hidden style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: `linear-gradient(90deg, transparent, ${GOLD}66, transparent)` }} />
                 <div aria-hidden style={{ position: "absolute", inset: 0, backgroundImage: `radial-gradient(circle at 50% 42%, ${RED}1f, transparent 58%)` }} />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -319,7 +319,7 @@ function Overview() {
                 </span>
               </div>
               {/* BACK — content */}
-              <div className="ic-face ic-face-back" style={{ position: "absolute", inset: 0, borderRadius: 22, overflow: "hidden", border: `1px solid ${LINE}`, background: SURFACE, padding: "clamp(32px,4vw,52px)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", boxShadow: "0 40px 90px rgba(0,0,0,0.45)" }}>
+              <div className="ic-face ic-face-back" style={{ gridArea: "1 / 1", borderRadius: 22, overflow: "hidden", border: `1px solid ${LINE}`, background: SURFACE, padding: "clamp(28px,4vw,52px)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", boxShadow: "0 40px 90px rgba(0,0,0,0.45)" }}>
                 <div style={{ maxWidth: 800 }}>
                   <div style={{ marginBottom: 18 }}><Eyebrow>The Invitation</Eyebrow></div>
                   <p style={{ fontFamily: BODY, fontSize: "clamp(15.5px,1.55vw,19px)", lineHeight: 1.76, color: MUTE, margin: 0 }}>{OVERVIEW_P1}</p>
@@ -551,20 +551,26 @@ function CtaBand() {
   const inView = useInView(ref, { once: true, margin: "-90px" });
   return (
     <section ref={ref} style={{ position: "relative", overflow: "hidden", borderTop: `1px solid ${LINE}`, padding: "clamp(72px,11vh,140px) clamp(22px,5vw,80px)", textAlign: "center" }}>
-      <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, backgroundImage: `url(${SKYLINE_BG})`, backgroundSize: "cover", backgroundPosition: "center", opacity: 0.95 }} />
-      <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, background: "linear-gradient(180deg, rgba(16,14,12,0.7) 0%, rgba(16,14,12,0.22) 45%, rgba(16,14,12,0.8) 100%)" }} />
-      <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, background: `radial-gradient(ellipse 62% 62% at 50% 46%, ${RED}22, transparent 62%)`, mixBlendMode: "screen" }} />
+      <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, backgroundImage: `url(${VENUE_BG})`, backgroundSize: "cover", backgroundPosition: "center", opacity: 0.9 }} />
+      <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, background: "linear-gradient(180deg, rgba(16,14,12,0.74) 0%, rgba(16,14,12,0.38) 45%, rgba(16,14,12,0.86) 100%)" }} />
+      {/* Central darkening behind the copy for legibility */}
+      <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, background: "radial-gradient(ellipse 76% 72% at 50% 46%, rgba(16,14,12,0.62) 0%, rgba(16,14,12,0.2) 58%, transparent 82%)" }} />
+      <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, background: `radial-gradient(ellipse 62% 62% at 50% 46%, ${RED}1e, transparent 62%)`, mixBlendMode: "screen" }} />
       <div style={{ position: "relative", zIndex: 1, maxWidth: 820, margin: "0 auto" }}>
         <div style={{ ...rise(inView, 0), display: "flex", justifyContent: "center" }}><Eyebrow center>Step Into The Inner Circle</Eyebrow></div>
-        <h2 style={{ ...rise(inView, 0.08), fontFamily: DISPLAY, fontSize: "clamp(30px,5vw,58px)", fontWeight: 700, letterSpacing: "-0.035em", lineHeight: 1.05, color: WHITE, margin: "20px auto 0", maxWidth: 700 }}>
+        <h2 style={{ ...rise(inView, 0.08), fontFamily: DISPLAY, fontSize: "clamp(30px,5vw,58px)", fontWeight: 700, letterSpacing: "-0.035em", lineHeight: 1.05, color: WHITE, margin: "20px auto 0", maxWidth: 700, textShadow: "0 2px 30px rgba(0,0,0,0.6)" }}>
           An Evening Crafted For Leaders Like You.
         </h2>
-        <p style={{ ...rise(inView, 0.16), fontFamily: BODY, fontSize: "clamp(15px,1.6vw,19px)", fontWeight: 600, letterSpacing: "0.02em", color: GOLD, margin: "22px 0 0" }}>
-          [Venue], Riyadh &nbsp;&mdash;&nbsp; [Date], 2026
+        <p style={{ ...rise(inView, 0.16), fontFamily: BODY, fontSize: "clamp(15px,1.6vw,19px)", fontWeight: 600, letterSpacing: "0.02em", color: GOLD_BRIGHT, margin: "22px 0 0", textShadow: "0 2px 18px rgba(0,0,0,0.7)" }}>
+          Hilton Riyadh &amp; Residences &nbsp;&mdash;&nbsp; 19 August 2026
         </p>
-        <div style={{ ...rise(inView, 0.24), marginTop: 30 }}>
+        <div style={{ ...rise(inView, 0.24), marginTop: 30, display: "inline-flex", flexWrap: "wrap", justifyContent: "center", gap: 14 }}>
           <a href="#register" onClick={(e) => { e.preventDefault(); document.getElementById("register")?.scrollIntoView({ behavior: "smooth" }); }} className="ic-btn" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "16px 38px", borderRadius: 999, background: `linear-gradient(135deg, ${RED} 0%, ${RED_SOFT} 100%)`, color: "#fff", fontFamily: BODY, fontSize: 15, fontWeight: 700, textDecoration: "none", boxShadow: `0 16px 44px ${RED}55, inset 0 1px 0 rgba(255,255,255,0.3)` }}>
             Request Invite <span aria-hidden>→</span>
+          </a>
+          <a href="https://maps.app.goo.gl/3TYtpHRTYJLwGC1S7" target="_blank" rel="noopener noreferrer" className="ic-btn" style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "16px 30px", borderRadius: 999, background: "rgba(16,14,12,0.5)", border: `1px solid ${LINE_STRONG}`, backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", color: WHITE, fontFamily: BODY, fontSize: 15, fontWeight: 700, textDecoration: "none" }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={GOLD_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+            Get Directions
           </a>
         </div>
       </div>
@@ -691,7 +697,8 @@ function Footer() {
   return (
     <footer style={{ background: INK, borderTop: `1px solid ${LINE}`, padding: "36px clamp(22px,5vw,80px)" }}>
       <div className="ic-footer" style={{ maxWidth: 1160, margin: "0 auto", display: "flex", flexWrap: "wrap", gap: "18px 28px", alignItems: "center", justifyContent: "space-between" }}>
-        <span style={{ fontFamily: BODY, fontSize: 13, color: DIM }}>&copy; 2026 CleverTap. All rights reserved.</span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={CT_LOGO} alt="CleverTap" style={{ height: 34, width: "auto", filter: "brightness(0) invert(1)", opacity: 0.92 }} />
         <a href="https://www.eventsfirstgroup.com" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 11, textDecoration: "none" }} aria-label="Produced by Events First Group">
           <span style={{ fontFamily: BODY, fontSize: 12, color: DIM, letterSpacing: "0.04em" }}>Produced by</span>
           {/* eslint-disable-next-line @next/next/no-img-element */}

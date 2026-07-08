@@ -26,6 +26,20 @@ export type EventItem = {
 
 export const allEvents: EventItem[] = [
   {
+    id: "networkfirst-inner-circle",
+    series: "NetworkFirst",
+    seriesColor: "#C9935A",
+    edition: "",
+    title: "The Inner Circle",
+    date: new Date("2026-08-19"),
+    dateDisplay: "August 19, 2026",
+    location: "Riyadh, Saudi Arabia",
+    venue: "Hilton Riyadh & Residences",
+    attendees: "Invited",
+    href: "/inner_circle",
+    status: "open",
+  },
+  {
     id: "networkfirst-enterprisedb-ksa",
     series: "NetworkFirst",
     seriesColor: "#C9935A",
