@@ -104,7 +104,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {
               "@type": "Place",
-              name: "Jubail",
+              name: "InterContinental Al Jubail Resort",
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Jubail",
@@ -148,7 +148,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             "@type": "FAQPage",
             mainEntity: [
               { "@type": "Question", name: "When is OT Security First Jubail 2026?", acceptedAnswer: { "@type": "Answer", text: "OT Security First Jubail 2026 takes place on 27 October 2026 in Jubail, Saudi Arabia. It is a one-day strategic dialogue platform for industrial cybersecurity and operational resilience." } },
-              { "@type": "Question", name: "Where is OT Security First Jubail 2026 held?", acceptedAnswer: { "@type": "Answer", text: "In Jubail, Saudi Arabia — the heart of the Kingdom's industrial corridor and one of the largest petrochemical hubs in the world. The exact venue is confirmed to registered delegates closer to the event date." } },
+              { "@type": "Question", name: "Where is OT Security First Jubail 2026 held?", acceptedAnswer: { "@type": "Answer", text: "At the InterContinental Al Jubail Resort in Jubail, Saudi Arabia — the heart of the Kingdom's industrial corridor and one of the largest petrochemical hubs in the world." } },
               { "@type": "Question", name: "Who attends OT Security First Jubail 2026?", acceptedAnswer: { "@type": "Answer", text: "Senior government policymakers, National Cybersecurity Authority regulators, heads of critical infrastructure, CISOs, CIOs, CTOs, CDOs, heads of OT/ICS cybersecurity, risk and compliance executives, and leaders from energy, utilities, petrochemicals, and manufacturing. Attendance is invitation-only." } },
               { "@type": "Question", name: "Is there a fee to attend OT Security First Jubail 2026?", acceptedAnswer: { "@type": "Answer", text: "Attendance is free for qualified delegates. Apply via the registration form on the event page; the advisory team will confirm eligibility." } },
               { "@type": "Question", name: "How do I register or sponsor OT Security First Jubail 2026?", acceptedAnswer: { "@type": "Answer", text: "Register via the form on this page. For sponsorship, partnership, or speaking enquiries, contact partnerships@eventsfirstgroup.com." } },

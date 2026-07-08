@@ -5099,66 +5099,57 @@ function VenueSection() {
       id="venue"
       style={{
         position: "relative",
-        padding: "clamp(48px, 6vw, 80px) 0",
+        padding: "clamp(96px, 12vw, 168px) 0",
         background: BG_BASE,
         overflow: "hidden",
+        display: "flex",
+        alignItems: "center",
+        minHeight: "clamp(440px, 54vw, 640px)",
       }}
     >
-      <BgDots opacity={0.04} />
-      {/* Ambient cyan + magenta washes for depth */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            `radial-gradient(ellipse 50% 60% at 50% 0%, ${CYAN}10 0%, transparent 60%),
-             radial-gradient(ellipse 40% 50% at 50% 100%, ${C}10 0%, transparent 65%)`,
-          pointerEvents: "none",
-        }}
+      {/* Full-bleed venue photo */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://efg-final.s3.eu-north-1.amazonaws.com/venues/Intercontinental+Al+Jubail+Resort.jpg"
+        alt="InterContinental Al Jubail Resort, Jubail, Saudi Arabia — OT Security First Jubail 2026 venue"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }}
       />
+      {/* Readability scrim */}
+      <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, background: "linear-gradient(180deg, rgba(6,9,22,0.66) 0%, rgba(6,9,22,0.5) 45%, rgba(6,9,22,0.82) 100%)" }} />
+      {/* Cyan + magenta tints for brand depth */}
+      <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none", mixBlendMode: "screen", background: `radial-gradient(ellipse 60% 60% at 50% 0%, ${CYAN}18 0%, transparent 60%), radial-gradient(ellipse 55% 55% at 50% 100%, ${C}18 0%, transparent 65%)` }} />
+      {/* Top + bottom edge fades to blend into the page */}
+      <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 140, zIndex: 0, pointerEvents: "none", background: `linear-gradient(180deg, ${BG_BASE}, transparent)` }} />
+      <div aria-hidden style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 140, zIndex: 0, pointerEvents: "none", background: `linear-gradient(0deg, ${BG_BASE}, transparent)` }} />
 
       <div
         style={{
           position: "relative",
-          maxWidth: 920,
+          zIndex: 1,
+          width: "100%",
+          maxWidth: 1000,
           margin: "0 auto",
-          padding: "0 clamp(24px, 5vw, 80px)",
+          padding: "0 clamp(24px, 5vw, 64px)",
           textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <Eyebrow inView={inView} label="Venue" tone="cyan" />
 
         <motion.div
-          initial={{ opacity: 0, y: 24, scale: 0.97 }}
-          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.85, delay: 0.15, ease: EASE }}
           style={{
-            position: "relative",
-            marginTop: 28,
-            padding: "clamp(28px, 4vw, 56px) clamp(24px, 4vw, 56px)",
-            borderRadius: 22,
-            background:
-              "linear-gradient(170deg, rgba(15,20,46,0.92) 0%, rgba(10,14,34,0.96) 100%)",
-            border: `1px solid ${C}28`,
-            boxShadow: `0 24px 60px rgba(0,0,0,0.45), 0 0 56px ${C}10, inset 0 1px 0 rgba(255,255,255,0.05)`,
-            overflow: "hidden",
+            marginTop: 26,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
           }}
         >
-          {/* Top hairline accent */}
-          <span
-            aria-hidden
-            style={{
-              position: "absolute",
-              top: 0,
-              left: "12%",
-              right: "12%",
-              height: 1,
-              background: `linear-gradient(90deg, transparent, ${C_BRIGHT}, ${CYAN}, transparent)`,
-              boxShadow: `0 0 12px ${C}55`,
-            }}
-          />
-
           {/* Pin icon row with pulsing dot */}
           <div
             style={{
@@ -5170,6 +5161,8 @@ function VenueSection() {
               background: `${C}14`,
               border: `1px solid ${C}33`,
               marginBottom: 22,
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
             }}
           >
             <span
@@ -5208,7 +5201,7 @@ function VenueSection() {
               margin: 0,
             }}
           >
-            Venue{" "}
+            InterContinental{" "}
             <span
               className="otsf-hero-shimmer"
               style={{
@@ -5219,7 +5212,7 @@ function VenueSection() {
                 backgroundClip: "text",
               }}
             >
-              announced soon.
+              Al Jubail Resort
             </span>
           </h3>
 
@@ -5236,8 +5229,38 @@ function VenueSection() {
               marginRight: "auto",
             }}
           >
-            Registered delegates will be notified directly once the venue is confirmed.
+            A waterfront resort in Jubail, Kingdom of Saudi Arabia — host to OT Security First Jubail 2026.
           </p>
+          <a
+            href="https://maps.app.goo.gl/8X7ypMfnqniHqeKJA"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="otsf-jb-map-btn"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 9,
+              marginTop: 26,
+              padding: "13px 26px",
+              borderRadius: 999,
+              background: `${C}1c`,
+              border: `1px solid ${C}55`,
+              color: "white",
+              fontFamily: "var(--font-outfit)",
+              fontSize: 14.5,
+              fontWeight: 600,
+              textDecoration: "none",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+              transition: "background 0.3s, border-color 0.3s, transform 0.3s",
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
+            </svg>
+            View on Google Maps
+            <span aria-hidden>→</span>
+          </a>
         </motion.div>
       </div>
 
@@ -5248,6 +5271,11 @@ function VenueSection() {
         }
         .otsf-jb-venue-pulse {
           animation: otsf-jb-venue-pulse 1.8s ease-in-out infinite;
+        }
+        .otsf-jb-map-btn:hover {
+          background: ${C}2e !important;
+          border-color: ${C_BRIGHT} !important;
+          transform: translateY(-2px);
         }
       `}</style>
     </section>
