@@ -420,6 +420,7 @@ const PAST_EVENTS_2026: PastEvent[] = [
     image: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/finalll.png",
     brandColor: "#000D26",
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/bigleapconnect.png",
+    link: "/bigleap",
   },
   {
     sponsor: "Crayon × Microsoft",
