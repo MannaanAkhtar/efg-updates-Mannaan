@@ -245,6 +245,7 @@ export function getSourceCategory(): string {
   if (p.startsWith("/braze2")) return "Braze Virtual Roundtable 2";
   if (p.startsWith("/braze")) return "Braze Virtual Roundtable";
   if (p.startsWith("/bigleap")) return "The Big Leap Connect Riyadh";
+  if (p.startsWith("/inner_circle")) return "The Inner Circle Riyadh (CleverTap)";
   if (p.startsWith("/sonicwall")) return "SonicWall Virtual Roundtable";
   if (p.startsWith("/clevertap")) return "CleverTap Virtual Roundtable";
 
