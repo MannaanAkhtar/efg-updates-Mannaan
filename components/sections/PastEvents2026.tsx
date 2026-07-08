@@ -20,6 +20,17 @@ interface PastEvent {
 
 const PAST_EVENTS: PastEvent[] = [
   {
+    series: "Cyber First",
+    title: "Cyber First East Africa",
+    subtitle: "East Africa's premier cybersecurity summit — C-level executives and policymakers aligning against digital warfare. Nairobi, Kenya.",
+    date: "08 July 2026",
+    format: "Summit · Nairobi",
+    href: "/events/cyber-first/kenya-2026",
+    brandColor: "#8B1A22",
+    brandLogo: "/Cyber-First-East-Africa-Logo-01.png",
+    logoHeight: 92,
+  },
+  {
     series: "OT Security First",
     title: "OT Security in the Age of AI Threats",
     subtitle: "Closed virtual forum for OT security leaders across MENA energy & utilities — 100 verified professionals.",
@@ -28,7 +39,7 @@ const PAST_EVENTS: PastEvent[] = [
     href: "/events/ot-security-first/virtual-boardroom-mena",
     brandColor: "#D34B9A",
     brandLogo: `${S3}/logos/Untitled-2-01.png`,
-    logoHeight: 64,
+    logoHeight: 96,
   },
   {
     series: "OPEX First",
@@ -39,7 +50,7 @@ const PAST_EVENTS: PastEvent[] = [
     href: "/events/opex-first/process-intelligence",
     brandColor: "#7C3AED",
     brandLogo: `${S3}/logos/OPEX+FIRST+logo-1.png`,
-    logoHeight: 56,
+    logoHeight: 80,
   },
 ];
 
@@ -62,8 +73,14 @@ export default function PastEvents2026() {
           margin: "0 auto",
           padding: "0 clamp(24px, 5vw, 80px)",
           marginBottom: "clamp(36px, 4vw, 56px)",
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+          gap: "24px",
+          flexWrap: "wrap",
         }}
       >
+        <div>
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -110,6 +127,34 @@ export default function PastEvents2026() {
         >
           A look back at the executive sessions we ran this year.
         </motion.p>
+        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.15 }}
+        >
+          <Link
+            href="/events"
+            className="pe-all-link"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              fontFamily: "var(--font-outfit)",
+              fontSize: "13px",
+              fontWeight: 600,
+              letterSpacing: "0.03em",
+              color: "rgba(255,255,255,0.85)",
+              textDecoration: "none",
+              padding: "11px 20px",
+              border: "1px solid rgba(255,255,255,0.14)",
+              borderRadius: "50px",
+            }}
+          >
+            All 2026 events
+            <span className="pe-all-arrow" style={{ display: "inline-block", transition: "transform 0.3s ease" }}>→</span>
+          </Link>
+        </motion.div>
       </div>
 
       {/* Cards */}
@@ -124,8 +169,8 @@ export default function PastEvents2026() {
           className="past-events-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "clamp(20px, 2.4vw, 32px)",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "clamp(20px, 2vw, 28px)",
           }}
         >
           {PAST_EVENTS.map((e, i) => (
@@ -141,7 +186,7 @@ export default function PastEvents2026() {
                   className="past-event-panel"
                   style={{
                     position: "relative",
-                    height: "clamp(180px, 18vw, 240px)",
+                    height: "clamp(158px, 13vw, 200px)",
                     overflow: "hidden",
                     background: `linear-gradient(135deg, ${e.brandColor}f2 0%, ${e.brandColor}99 42%, #0a0a0a 100%)`,
                     display: "flex",
@@ -177,7 +222,7 @@ export default function PastEvents2026() {
                     style={{
                       height: e.logoHeight,
                       width: "auto",
-                      maxWidth: "70%",
+                      maxWidth: "82%",
                       objectFit: "contain",
                       opacity: 0.92,
                       filter: "brightness(0) invert(1) drop-shadow(0 4px 16px rgba(0,0,0,0.4))",
@@ -359,7 +404,22 @@ export default function PastEvents2026() {
         .past-event-card:hover .past-event-arrow {
           transform: translateX(4px);
         }
-        @media (max-width: 760px) {
+        .pe-all-link {
+          transition: background 0.3s ease, border-color 0.3s ease;
+        }
+        .pe-all-link:hover {
+          background: rgba(255, 255, 255, 0.06);
+          border-color: rgba(255, 255, 255, 0.28);
+        }
+        .pe-all-link:hover .pe-all-arrow {
+          transform: translateX(4px);
+        }
+        @media (max-width: 1024px) {
+          .past-events-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+        @media (max-width: 680px) {
           .past-events-grid {
             grid-template-columns: 1fr !important;
           }
