@@ -4265,7 +4265,7 @@ function WhoAttends() {
 }
 
 // ─── EVENT SPONSORS — Confirmed for Saudi 2026 ─────────────────────────────
-type S26SponsorTier = "Associate";
+type S26SponsorTier = "Gold" | "Associate";
 
 type S26SponsorItem = {
   name: string;
@@ -4279,6 +4279,15 @@ type S26SponsorItem = {
 
 const SPONSORS_2026: S26SponsorItem[] = [
   {
+    name: "Blackstone eIT",
+    tier: "Gold",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Blackstone+eIT+Logo+Reversed+No+Slogan.png",
+    url: "https://blackstoneeit.com/",
+    surface: "dark",
+    innerBg: "linear-gradient(165deg, #1c1722 0%, #100b15 100%)",
+    logoMaxHeight: 72,
+  },
+  {
     name: "ARIS",
     tier: "Associate",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/ARIS_RGB_Logo_WhitePink.png",
@@ -4290,6 +4299,15 @@ const SPONSORS_2026: S26SponsorItem[] = [
 ];
 
 const S26_TIER_METALLIC: Record<S26SponsorTier, { strong: string; soft: string; label: string; glow: string; cardMaxWidth: number; displayLabel: string }> = {
+  Gold: {
+    // Warm metallic gold — top confirmed tier, stacks above Associate
+    strong: "rgba(232, 200, 120, 0.92)",
+    soft: "rgba(232, 200, 120, 0.5)",
+    label: "rgba(240, 220, 160, 0.92)",
+    glow: "rgba(212, 175, 90, 0.32)",
+    cardMaxWidth: 360,
+    displayLabel: "Gold Sponsors",
+  },
   Associate: {
     // Warm steel + violet wash — distinct from Platinum's pure silver so future tiers stack visually
     strong: "rgba(196, 181, 253, 0.85)",
@@ -4301,7 +4319,7 @@ const S26_TIER_METALLIC: Record<S26SponsorTier, { strong: string; soft: string; 
   },
 };
 
-const S26_TIER_ORDER: S26SponsorTier[] = ["Associate"];
+const S26_TIER_ORDER: S26SponsorTier[] = ["Gold", "Associate"];
 
 function EventSponsors() {
   const ref = useRef<HTMLElement>(null);

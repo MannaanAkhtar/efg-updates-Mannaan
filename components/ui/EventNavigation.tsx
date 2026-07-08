@@ -179,7 +179,7 @@ const EVENT_CONFIGS: Record<string, {
       { href: "#themes", label: "Themes" },
       // { href: "#speakers", label: "Speakers" }, // hidden until photos confirmed
       { href: "#agenda", label: "Agenda" },
-      { href: "#sponsors", label: "Sponsors" },
+      { href: "#event-sponsors", label: "Sponsors" },
       { href: "#awards", label: "Awards" },
       { href: "#register", label: "Register" },
     ],
