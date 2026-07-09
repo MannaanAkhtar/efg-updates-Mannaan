@@ -4265,7 +4265,7 @@ function WhoAttends() {
 }
 
 // ─── EVENT SPONSORS — Confirmed for Saudi 2026 ─────────────────────────────
-type S26SponsorTier = "Gold" | "Associate";
+type S26SponsorTier = "Gold" | "Associate" | "Media";
 
 type S26SponsorItem = {
   name: string;
@@ -4296,6 +4296,15 @@ const SPONSORS_2026: S26SponsorItem[] = [
     innerBg: "linear-gradient(165deg, #1c1722 0%, #100b15 100%)",
     logoMaxHeight: 126,
   },
+  {
+    name: "International Business Magazine",
+    tier: "Media",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/International-Business-Magazine.png",
+    url: "https://intlbm.com/",
+    surface: "light",
+    innerBg: "linear-gradient(165deg, #ffffff 0%, #eef0f4 100%)",
+    logoMaxHeight: 66,
+  },
 ];
 
 const S26_TIER_METALLIC: Record<S26SponsorTier, { strong: string; soft: string; label: string; glow: string; cardMaxWidth: number; displayLabel: string }> = {
@@ -4317,9 +4326,18 @@ const S26_TIER_METALLIC: Record<S26SponsorTier, { strong: string; soft: string; 
     cardMaxWidth: 320,
     displayLabel: "Associate Sponsor",
   },
+  Media: {
+    // Cool neutral silver — sits below Associate for supporting media partners
+    strong: "rgba(205, 212, 224, 0.82)",
+    soft: "rgba(205, 212, 224, 0.42)",
+    label: "rgba(216, 222, 232, 0.9)",
+    glow: "rgba(150, 162, 186, 0.24)",
+    cardMaxWidth: 280,
+    displayLabel: "Media Partner",
+  },
 };
 
-const S26_TIER_ORDER: S26SponsorTier[] = ["Gold", "Associate"];
+const S26_TIER_ORDER: S26SponsorTier[] = ["Gold", "Associate", "Media"];
 
 function EventSponsors() {
   const ref = useRef<HTMLElement>(null);
