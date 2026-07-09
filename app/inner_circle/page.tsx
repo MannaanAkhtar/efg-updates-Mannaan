@@ -232,7 +232,7 @@ function Hero() {
         </div>
 
         {/* Tagline */}
-        <p className="ic-fade ic-d4" style={{ fontFamily: ITALIC, fontStyle: "italic", fontSize: "clamp(14px,1.4vw,18px)", fontWeight: 400, color: "rgba(245,240,232,0.82)", lineHeight: 1.55, margin: "2px auto 0", maxWidth: 600, textShadow: "0 2px 14px rgba(0,0,0,0.5)" }}>
+        <p className="ic-fade ic-d4 ic-tagline" style={{ fontFamily: ITALIC, fontStyle: "italic", fontSize: "clamp(14px,1.4vw,18px)", fontWeight: 400, color: "rgba(245,240,232,0.82)", lineHeight: 1.55, margin: "2px auto 0", maxWidth: "none", whiteSpace: "nowrap", textShadow: "0 2px 14px rgba(0,0,0,0.5)" }}>
           An invite-only evening for Riyadh&apos;s C-suite growth, marketing, and digital leaders.
         </p>
 
@@ -266,13 +266,18 @@ function Hero() {
 function Overview() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-90px" });
+  const attendRef = useRef<HTMLDivElement>(null);
+  const attendInView = useInView(attendRef, { once: true, margin: "-90px" });
+  const cardRef = useRef<HTMLDivElement>(null);
+  const cardInView = useInView(cardRef, { once: true, margin: "-120px" });
   const [flipped, setFlipped] = useState(false);
 
+  // Hold the logo face for ~1.1s once the card is in view, then auto-flip
   useEffect(() => {
-    if (!inView) return;
-    const t = setTimeout(() => setFlipped(true), 850);
+    if (!cardInView) return;
+    const t = setTimeout(() => setFlipped(true), 1100);
     return () => clearTimeout(t);
-  }, [inView]);
+  }, [cardInView]);
 
   return (
     <section ref={ref} id="overview" style={{ position: "relative", background: INK, borderTop: `1px solid ${LINE}`, padding: "clamp(58px,8vh,100px) clamp(22px,5vw,80px)" }}>
@@ -297,7 +302,7 @@ function Overview() {
         </div>
 
         {/* Flip card — full width below stats */}
-        <div style={{ ...rise(inView, 0.28), marginTop: "clamp(30px,4.5vh,52px)", maxWidth: 1080, marginLeft: "auto", marginRight: "auto" }}>
+        <div ref={cardRef} style={{ ...rise(inView, 0.28), marginTop: "clamp(30px,4.5vh,52px)", maxWidth: 1080, marginLeft: "auto", marginRight: "auto" }}>
           <div
             className="ic-flip"
             onClick={() => setFlipped((f) => !f)}
@@ -329,42 +334,149 @@ function Overview() {
             </div>
           </div>
         </div>
+
+        {/* Who Should Attend — merged into Overview */}
+        <div ref={attendRef} style={{ position: "relative", overflow: "hidden", marginTop: "clamp(52px,7vh,84px)", paddingTop: "clamp(44px,5.5vh,68px)", borderTop: `1px solid ${LINE}`, textAlign: "center" }}>
+          {/* Flowing-wave backdrop */}
+          <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" }}>
+            <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 90% at 50% 60%, ${RED}12, transparent 62%)` }} />
+            <svg width="100%" height="100%" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMid slice" style={{ position: "absolute", inset: 0, opacity: 0.5 }}>
+              <defs>
+                <linearGradient id="icWaveGold" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor={GOLD} stopOpacity="0" />
+                  <stop offset="50%" stopColor={GOLD_BRIGHT} stopOpacity="0.55" />
+                  <stop offset="100%" stopColor={GOLD} stopOpacity="0" />
+                </linearGradient>
+                <linearGradient id="icWaveRed" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor={RED} stopOpacity="0" />
+                  <stop offset="50%" stopColor={RED_SOFT} stopOpacity="0.45" />
+                  <stop offset="100%" stopColor={RED} stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              <path className="ic-wave ic-wave-1" d="M-100 210 C 240 130, 480 280, 720 210 S 1200 130, 1540 210" fill="none" stroke="url(#icWaveGold)" strokeWidth="1.4" />
+              <path className="ic-wave ic-wave-2" d="M-100 250 C 260 180, 520 320, 760 250 S 1240 170, 1540 250" fill="none" stroke="url(#icWaveRed)" strokeWidth="1.2" />
+              <path className="ic-wave ic-wave-3" d="M-100 180 C 220 260, 500 110, 740 180 S 1220 260, 1540 180" fill="none" stroke="url(#icWaveGold)" strokeWidth="1" opacity="0.7" />
+            </svg>
+            <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, ${INK} 0%, transparent 26%, transparent 74%, ${INK} 100%)` }} />
+          </div>
+
+          <div className="ic-attend-grid" style={{ position: "relative", zIndex: 1, maxWidth: 1120, margin: "0 auto", display: "grid", gridTemplateColumns: "0.95fr 1.05fr", gap: "clamp(30px,5vw,72px)", alignItems: "center", textAlign: "left" }}>
+            <div>
+              <div style={rise(attendInView, 0)}><Eyebrow>Who Should Attend</Eyebrow></div>
+              <h2 style={{ ...rise(attendInView, 0.08), fontFamily: DISPLAY, fontSize: "clamp(26px,3.6vw,44px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08, color: WHITE, margin: "18px 0 0" }}>
+                Built For The Room That Matters.
+              </h2>
+            </div>
+            <div style={{ position: "relative", paddingLeft: "clamp(0px,2vw,28px)" }}>
+              <span aria-hidden className="ic-attend-rule" style={{ position: "absolute", left: 0, top: 4, bottom: 4, width: 1, background: `linear-gradient(180deg, ${GOLD}66, ${RED}44, transparent)` }} />
+              <p style={{ ...rise(attendInView, 0.16), fontFamily: BODY, fontSize: "clamp(16px,1.6vw,19px)", lineHeight: 1.78, color: MUTE, margin: 0 }}>{ATTEND_P}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
-// ─── WHAT'S IN STORE ────────────────────────────────────────────────────────────
+// ─── WHAT'S IN STORE (expanding panels) ────────────────────────────────────────
 function InStore() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-90px" });
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  // Auto-advance every 4.5s; pauses on hover, resets on any manual change
+  useEffect(() => {
+    if (paused || !inView) return;
+    const t = setTimeout(() => setActive((a) => (a + 1) % IN_STORE.length), 4500);
+    return () => clearTimeout(t);
+  }, [active, paused, inView]);
+
   return (
     <section ref={ref} style={{ position: "relative", background: INK_2, borderTop: `1px solid ${LINE}`, padding: "clamp(64px,9vh,110px) clamp(22px,5vw,80px)" }}>
-      <div style={{ maxWidth: 1160, margin: "0 auto" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div style={{ ...rise(inView, 0), textAlign: "center" }}><Eyebrow center>What&apos;s In Store</Eyebrow></div>
-        <h2 style={{ ...rise(inView, 0.08), fontFamily: DISPLAY, fontSize: "clamp(26px,4vw,46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, color: WHITE, margin: "18px auto clamp(40px,5vh,56px)", textAlign: "center" }}>
+        <h2 style={{ ...rise(inView, 0.08), fontFamily: DISPLAY, fontSize: "clamp(26px,4vw,46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, color: WHITE, margin: "18px auto 10px", textAlign: "center" }}>
           Here&apos;s What The Evening Holds.
         </h2>
-        <div className="ic-store-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "clamp(16px,1.8vw,22px)" }}>
+        <p style={{ ...rise(inView, 0.12), fontFamily: BODY, fontSize: 13.5, color: DIM, textAlign: "center", margin: "0 auto clamp(28px,4vh,44px)" }}>Click to explore each moment of the evening.</p>
+
+        <div className="ic-store-tabs" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} style={{ ...rise(inView, 0.16), display: "flex", gap: 12, height: "clamp(248px,31vh,300px)" }}>
           {IN_STORE.map((it, i) => {
+            const isActive = active === i;
             const climax = i === IN_STORE.length - 1;
             const accent = climax ? RED : GOLD;
+            const accentSoft = climax ? RED_SOFT : GOLD_BRIGHT;
+            const num = String(i + 1).padStart(2, "0");
             return (
-              <div key={it.title} className="ic-card ic-store-card" style={{ ...rise(inView, 0.14 + i * 0.08), position: "relative", overflow: "hidden", padding: "clamp(24px,2.6vw,34px)", borderRadius: 18, background: climax ? "linear-gradient(160deg, rgba(225,75,58,0.10), rgba(23,19,15,0.55))" : SURFACE, border: `1px solid ${climax ? "rgba(225,75,58,0.30)" : LINE}`, transition: "border-color 0.4s ease, transform 0.4s ease, background 0.4s ease" }}>
-                {/* Ghost index number */}
-                <span aria-hidden className="ic-ghost" style={{ position: "absolute", right: "clamp(4px,1.4vw,20px)", bottom: "clamp(-22px,-2.4vw,-10px)", fontFamily: DISPLAY, fontSize: "clamp(98px,11vw,172px)", fontWeight: 800, lineHeight: 1, letterSpacing: "-0.04em", color: accent, opacity: climax ? 0.12 : 0.06, pointerEvents: "none", transition: "opacity 0.5s ease, transform 0.5s ease" }}>{String(i + 1).padStart(2, "0")}</span>
+              <div
+                key={it.title}
+                onClick={() => setActive(i)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActive(i); } }}
+                aria-expanded={isActive}
+                className={`ic-store-tab${isActive ? " is-active" : ""}`}
+                style={{
+                  flexGrow: isActive ? 3.4 : 1,
+                  flexBasis: 0,
+                  minWidth: 0,
+                  cursor: "pointer",
+                  position: "relative",
+                  overflow: "hidden",
+                  borderRadius: 18,
+                  background: isActive
+                    ? (climax ? "linear-gradient(160deg, rgba(225,75,58,0.12), rgba(23,19,15,0.6))" : "linear-gradient(160deg, rgba(232,222,206,0.05), rgba(23,19,15,0.5))")
+                    : SURFACE,
+                  border: `1px solid ${isActive ? (climax ? "rgba(225,75,58,0.32)" : "rgba(232,222,206,0.18)") : LINE}`,
+                  boxShadow: isActive ? "0 30px 70px rgba(0,0,0,0.45)" : "none",
+                  transition: "flex-grow 0.7s cubic-bezier(0.22,1,0.36,1), background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease",
+                }}
+              >
                 {/* Top hairline */}
-                <span aria-hidden style={{ position: "absolute", top: 0, left: "7%", right: "7%", height: 1, background: `linear-gradient(90deg, transparent, ${accent}66, transparent)` }} />
-                {climax && <div aria-hidden style={{ position: "absolute", inset: 0, backgroundImage: `radial-gradient(circle at 82% 108%, ${RED}22, transparent 55%)`, pointerEvents: "none" }} />}
-                <div style={{ position: "relative", zIndex: 1, maxWidth: "84%" }}>
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: 9 }}>
-                    <span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: accent, boxShadow: `0 0 10px ${accent}` }} />
-                    <span style={{ fontFamily: BODY, fontSize: 10.5, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: climax ? RED_SOFT : GOLD }}>{climax ? "The Finale" : `Chapter ${String(i + 1).padStart(2, "0")}`}</span>
-                  </div>
-                  <h3 style={{ fontFamily: DISPLAY, fontSize: "clamp(20px,2.1vw,26px)", fontWeight: 700, letterSpacing: "-0.02em", color: WHITE, margin: "13px 0 10px" }}>{it.title}</h3>
-                  <p style={{ fontFamily: BODY, fontSize: "clamp(14px,1.35vw,16px)", lineHeight: 1.65, color: MUTE, margin: 0 }}>{it.desc}</p>
+                <span aria-hidden style={{ position: "absolute", top: 0, left: isActive ? "5%" : "18%", right: isActive ? "5%" : "18%", height: 1, background: `linear-gradient(90deg, transparent, ${accent}${isActive ? "" : "60"}, transparent)`, transition: "all 0.5s ease" }} />
+                {/* Ghost number on active */}
+                {isActive && <span aria-hidden style={{ position: "absolute", right: "3%", bottom: "-20px", fontFamily: DISPLAY, fontSize: "clamp(96px,10vw,158px)", fontWeight: 800, lineHeight: 1, letterSpacing: "-0.04em", color: accent, opacity: climax ? 0.13 : 0.07, pointerEvents: "none" }}>{num}</span>}
+                {climax && isActive && <div aria-hidden style={{ position: "absolute", inset: 0, backgroundImage: `radial-gradient(circle at 82% 108%, ${RED}22, transparent 55%)`, pointerEvents: "none" }} />}
+
+                {/* Collapsed */}
+                <div className="ic-tab-collapsed" style={{ display: isActive ? "none" : "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", gap: 12, padding: "0 8px" }}>
+                  <span style={{ fontFamily: BODY, fontSize: 9.5, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: accentSoft, opacity: 0.85 }}>{climax ? "Finale" : "Chapter"}</span>
+                  <span style={{ fontFamily: DISPLAY, fontSize: 38, fontWeight: 800, letterSpacing: "-0.02em", color: accent, opacity: 0.5 }}>{num}</span>
+                  <span className="ic-tab-ctitle" style={{ fontFamily: BODY, fontSize: 15, fontWeight: 600, color: MUTE, textAlign: "center", lineHeight: 1.35 }}>{it.title}</span>
                 </div>
+
+                {/* Expanded */}
+                {isActive && (
+                  <div className="ic-tab-expanded" style={{ position: "relative", zIndex: 1, height: "100%", width: "clamp(420px,44vw,600px)", boxSizing: "border-box", display: "flex", flexDirection: "column", justifyContent: "center", padding: "clamp(26px,3vw,44px)" }}>
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                      <span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: accent, boxShadow: `0 0 10px ${accent}` }} />
+                      <span style={{ fontFamily: BODY, fontSize: 11, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: accentSoft }}>{climax ? "The Finale" : `Chapter ${num}`}</span>
+                    </span>
+                    <h3 style={{ fontFamily: DISPLAY, fontSize: "clamp(25px,2.9vw,38px)", fontWeight: 700, letterSpacing: "-0.02em", color: WHITE, margin: "14px 0 12px", lineHeight: 1.1 }}>{it.title}</h3>
+                    <p style={{ fontFamily: BODY, fontSize: "clamp(16px,1.55vw,20px)", lineHeight: 1.62, color: MUTE, margin: 0, maxWidth: 560 }}>{it.desc}</p>
+                  </div>
+                )}
               </div>
+            );
+          })}
+        </div>
+
+        {/* Pagination — dots double as an auto-advance progress bar */}
+        <div style={{ ...rise(inView, 0.18), display: "flex", justifyContent: "center", alignItems: "center", gap: 9, marginTop: "clamp(20px,2.6vh,30px)" }}>
+          {IN_STORE.map((it, i) => {
+            const on = active === i;
+            const acc = i === IN_STORE.length - 1 ? RED : GOLD;
+            return (
+              <button
+                key={it.title}
+                onClick={() => setActive(i)}
+                aria-label={`Show ${it.title}`}
+                aria-current={on}
+                style={{ position: "relative", height: 6, width: on ? 34 : 6, borderRadius: 999, border: "none", padding: 0, cursor: "pointer", background: on ? "rgba(232,222,206,0.16)" : "rgba(232,222,206,0.3)", overflow: "hidden", transition: "width 0.5s cubic-bezier(0.22,1,0.36,1), background 0.4s ease" }}
+              >
+                {on && <span key={active} className="ic-dot-fill" style={{ position: "absolute", inset: 0, background: acc, animation: "icDotFill 4.5s linear forwards", animationPlayState: paused ? "paused" : "running" }} />}
+              </button>
             );
           })}
         </div>
@@ -425,46 +537,6 @@ function Preview() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── WHO SHOULD ATTEND ─────────────────────────────────────────────────────────────
-function Attend() {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-90px" });
-  return (
-    <section ref={ref} style={{ position: "relative", overflow: "hidden", background: INK, borderTop: `1px solid ${LINE}`, padding: "clamp(64px,9vh,110px) clamp(22px,5vw,80px)", textAlign: "center" }}>
-      {/* Premium flowing-wave backdrop */}
-      <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" }}>
-        <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 70% at 50% 42%, ${RED}12, transparent 60%)` }} />
-        <svg className="ic-wave-svg" width="100%" height="100%" viewBox="0 0 1440 520" preserveAspectRatio="xMidYMid slice" style={{ position: "absolute", inset: 0, opacity: 0.5 }}>
-          <defs>
-            <linearGradient id="icWaveGold" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor={GOLD} stopOpacity="0" />
-              <stop offset="50%" stopColor={GOLD_BRIGHT} stopOpacity="0.55" />
-              <stop offset="100%" stopColor={GOLD} stopOpacity="0" />
-            </linearGradient>
-            <linearGradient id="icWaveRed" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor={RED} stopOpacity="0" />
-              <stop offset="50%" stopColor={RED_SOFT} stopOpacity="0.45" />
-              <stop offset="100%" stopColor={RED} stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <path className="ic-wave ic-wave-1" d="M-100 250 C 240 160, 480 340, 720 250 S 1200 160, 1540 250" fill="none" stroke="url(#icWaveGold)" strokeWidth="1.4" />
-          <path className="ic-wave ic-wave-2" d="M-100 290 C 260 210, 520 380, 760 290 S 1240 200, 1540 290" fill="none" stroke="url(#icWaveRed)" strokeWidth="1.2" />
-          <path className="ic-wave ic-wave-3" d="M-100 210 C 220 300, 500 130, 740 210 S 1220 300, 1540 210" fill="none" stroke="url(#icWaveGold)" strokeWidth="1" opacity="0.7" />
-        </svg>
-        <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, ${INK} 0%, transparent 22%, transparent 78%, ${INK} 100%)` }} />
-      </div>
-
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 860, margin: "0 auto" }}>
-        <div style={{ ...rise(inView, 0), display: "flex", justifyContent: "center" }}><Eyebrow center>Who Should Attend</Eyebrow></div>
-        <h2 style={{ ...rise(inView, 0.08), fontFamily: DISPLAY, fontSize: "clamp(26px,4vw,46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, color: WHITE, margin: "18px auto 0", maxWidth: 640 }}>
-          Built For The Room That Matters.
-        </h2>
-        <p style={{ ...rise(inView, 0.16), fontFamily: BODY, fontSize: "clamp(16px,1.7vw,20px)", lineHeight: 1.75, color: MUTE, margin: "22px auto 0", maxWidth: 680 }}>{ATTEND_P}</p>
       </div>
     </section>
   );
@@ -719,7 +791,6 @@ export default function InnerCirclePage() {
       <InStore />
       <Format />
       <Preview />
-      <Attend />
       <Voices />
       <Agenda />
       <CtaBand />
@@ -730,7 +801,10 @@ export default function InnerCirclePage() {
         .ic-btn { transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease; }
         .ic-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
         .ic-card:hover { border-color: ${GOLD}55 !important; transform: translateY(-3px); }
-        .ic-store-card:hover .ic-ghost { opacity: 0.16 !important; transform: scale(1.06); }
+        .ic-store-tab.is-active { will-change: flex-grow; }
+        .ic-dot-fill { transform-origin: left; transform: scaleX(0); }
+        @keyframes icDotFill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+        @media (prefers-reduced-motion: reduce) { .ic-dot-fill { animation: none !important; transform: scaleX(1); } }
         .ic-agenda-row:hover { background: rgba(245,240,232,0.03); }
         .ic-teaser-pulse { animation: icTeaserPulse 2.4s ease-in-out infinite; }
         @keyframes icTeaserPulse {
@@ -810,12 +884,23 @@ export default function InnerCirclePage() {
           .ic-voices { grid-template-columns: 1fr !important; }
           .ic-nav-links { display: none !important; }
           .ic-ov-grid { grid-template-columns: 1fr !important; gap: 22px !important; }
+          .ic-attend-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
+          .ic-attend-rule { display: none !important; }
         }
         @media (max-width: 420px) {
           .ic-nav-cta { padding: 9px 16px !important; font-size: 12.5px !important; }
         }
+        @media (max-width: 640px) {
+          .ic-tagline { white-space: normal !important; max-width: 340px !important; }
+        }
+        @media (max-width: 760px) {
+          .ic-store-tabs { flex-direction: column !important; height: auto !important; }
+          .ic-store-tab { min-height: 0 !important; }
+          .ic-tab-collapsed { flex-direction: row !important; height: auto !important; justify-content: flex-start !important; gap: 16px !important; padding: 18px 20px !important; }
+          .ic-tab-ctitle { text-align: left !important; }
+          .ic-tab-expanded { width: auto !important; }
+        }
         @media (max-width: 680px) {
-          .ic-store-grid { grid-template-columns: 1fr !important; }
           .ic-stats { grid-template-columns: 1fr !important; }
           .ic-stats > div { border-left: none !important; border-top: 1px solid ${LINE}; }
           .ic-stats > div:first-child { border-top: none; }
