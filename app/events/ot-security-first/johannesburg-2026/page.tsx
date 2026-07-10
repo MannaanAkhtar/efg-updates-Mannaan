@@ -5450,6 +5450,7 @@ type JhbAgendaRow = {
   title: string;
   desc?: string;
   bullets?: string[];
+  moderator?: string;
   panelists?: string[];
 };
 type JhbAgendaTrack = { label: string; time: string; rows: JhbAgendaRow[] };
@@ -5474,10 +5475,15 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
           "Constructing localized crisis management playbooks that prioritize physical safety, environmental protection, and uptime",
           "Business Continuity Under Fire to minimize financial and reputational fallout",
         ],
-        panelists: ["Reserved for Keysight / Forescout"],
+        panelists: [
+          "Len De Villiers, Group CTIO, Eskom Holdings",
+          "Nthabiseng Mosupye, CTIO, Rand Water",
+          "Cathy Leso, CIO, Department of Mineral Resources",
+          "Reserved for Keysight / Forescout",
+        ],
       },
       { time: "10:00 – 10:15", type: "fireside", title: "Fireside Chat", desc: "IT/OT Convergence Without Losing Control - Integrating the SOC\nHow to converge monitoring while respecting the realities of process safety and uptime" },
-      { time: "10:15 – 10:30", type: "fireside", title: "Technology Presentation", desc: "Reserved for Keysight / Forescout" },
+      { time: "10:15 – 10:30", type: "fireside", title: "Technology Presentation", desc: "TBC\nReserved for Keysight / Forescout" },
       { time: "10:30 – 11:15", type: "break", title: "Networking Break and Refreshments" },
     ],
   },
@@ -5496,9 +5502,14 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
           "Micro-Segmentation in Practice: Definition and enforcement",
           "Continuous Authentication",
         ],
+        moderator: "Xolani Nzimande, OT Cybersecurity Specialist, Sasol",
+        panelists: [
+          "Reserved for Fortinet",
+          "Renaldo J, Group Head of Cybersecurity, Globaleq",
+        ],
       },
-      { time: "11:45 – 12:00", type: "fireside", title: "Technology Presentation", desc: "Machine Learning at the Edge: Baseline Engineering Anomalies in Real-Time" },
-      { time: "12:00 – 12:15", type: "fireside", title: "Technology Presentation", desc: "Immutable Configuration Backups: Engineering Zero-Loss SCADA Recovery Pipelines" },
+      { time: "11:45 – 12:00", type: "fireside", title: "Technology Presentation", desc: "TBC\nReserved for Fortinet" },
+      { time: "12:00 – 12:15", type: "fireside", title: "Technology Presentation", desc: "TBC\nReserved for Corr-Serve / Seceon" },
       {
         time: "12:15 – 12:45",
         type: "panel",
@@ -5509,6 +5520,10 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
           "AI driven behavioural analytics",
           "Evaluating the real-world utility of innovations like digital twins",
           "The culture & workflow shift",
+        ],
+        panelists: [
+          "Ishaaq Jacobs, CISO, Sasol",
+          "Reserved for Corr-Serve / Seceon",
         ],
       },
       { time: "12:45 – 13:00", type: "fireside", title: "Technology Presentation", desc: "Passive Deep-Packet Asset Discovery: Eliminating Blind Spots Without Active Polling" },
@@ -5524,8 +5539,12 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
           "Cross killing the Workforce",
           "Retaining internal OT security expertise and leveraging managed services",
         ],
+        panelists: [
+          "Muvhango Livhusha, VP, ISACA South Africa Chapter",
+          "Shane Naidoo, Executive Head of IT, Transnet",
+        ],
       },
-      { time: "14:00 – 14:15", type: "fireside", title: "Presentation", desc: "Passive Deep Packet Asset Discovery: Eliminating Blind Spots Without Active Polling" },
+      { time: "14:00 – 14:15", type: "fireside", title: "Presentation", desc: "Cyber-attacks on Critical infrastructures: Understanding the Threat and Building resilience\nNaoufal Kerboute, Regional Director - Middle East and Africa, Waterfall Security" },
       { time: "14:15 – 14:30", type: "awards", title: "OT Security First Award Ceremony & Raffle Draw" },
       { time: "14:30", type: "break", title: "Networking Lunch and End of Conference" },
     ],
@@ -5646,6 +5665,16 @@ function JhbAgendaRowItem({ row }: { row: JhbAgendaRow }) {
             </li>
           ))}
         </ul>
+      )}
+
+      {row.moderator && (
+        <div style={{ marginTop: 13 }}>
+          <span style={{ display: "block", fontFamily: "var(--font-dm)", fontSize: 10, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: CYAN, marginBottom: 6 }}>Moderator</span>
+          <p style={{ position: "relative", paddingLeft: 16, margin: 0, fontFamily: "var(--font-outfit)", fontSize: 13, fontStyle: "italic", color: "rgba(255,255,255,0.6)", lineHeight: 1.5 }}>
+            <span style={{ position: "absolute", left: 0, top: 6, width: 6, height: 6, borderRadius: "50%", border: `1px solid ${CYAN}`, opacity: 0.8 }} />
+            {row.moderator}
+          </p>
+        </div>
       )}
 
       {row.panelists && (
