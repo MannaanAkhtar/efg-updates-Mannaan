@@ -5699,30 +5699,36 @@ function VenueSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="venue" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative" }}>
-      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 50% 50% at 50% 80%, ${C}06, transparent 60%)`, pointerEvents: "none" }} />
-      <div style={{ maxWidth: 800, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", textAlign: "center", position: "relative" }}>
+    <section ref={ref} id="venue" style={{ position: "relative", padding: "clamp(72px, 9vw, 132px) 0", overflow: "hidden" }}>
+      {/* Full-section hotel background */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://efg-final.s3.eu-north-1.amazonaws.com/assets/MONTECASINO+BALLROOM.webp"
+        alt="Montecasino Ballroom, Johannesburg"
+        loading="lazy"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }}
+      />
+      {/* Legibility scrim + brand tint */}
+      <span aria-hidden style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(180deg, rgba(7,11,31,0.88) 0%, rgba(7,11,31,0.72) 45%, rgba(7,11,31,0.93) 100%)", pointerEvents: "none" }} />
+      <span aria-hidden style={{ position: "absolute", inset: 0, zIndex: 1, background: `radial-gradient(ellipse 60% 55% at 50% 55%, ${C}16, transparent 72%)`, pointerEvents: "none" }} />
+      <span aria-hidden style={{ position: "absolute", top: 0, left: "12%", right: "12%", height: 1, zIndex: 1, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}, ${CYAN}, transparent)`, opacity: 0.6 }} />
+
+      <div style={{ maxWidth: 800, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", textAlign: "center", position: "relative", zIndex: 2 }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }}>
-          <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>Location</span>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", lineHeight: 1.05, letterSpacing: "-2px", color: "white", margin: "0 0 16px" }}>
-            Johannesburg,<br /><span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>South Africa</span>
+          <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>The Venue</span>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", lineHeight: 1.05, letterSpacing: "-2px", color: "white", margin: "0 0 14px", textShadow: "0 4px 30px rgba(0,0,0,0.6)" }}>
+            Montecasino<br /><span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Ballroom</span>
           </h2>
-          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 16, color: "rgba(255,255,255,0.5)", lineHeight: 1.7, margin: "0 0 40px" }}>
-            Venue announcement coming soon. The event will take place in Johannesburg, South Africa&apos;s economic capital and gateway to the continent.
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 8, fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 500, color: "rgba(255,255,255,0.82)", marginBottom: 22 }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
+            Johannesburg, South Africa
+          </span>
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 16, color: "rgba(255,255,255,0.72)", lineHeight: 1.7, margin: "0 auto", maxWidth: 620 }}>
+            OT Security First Africa 2026 will take place at the Montecasino Ballroom in Johannesburg &mdash; South Africa&apos;s economic capital and gateway to the continent.
           </p>
 
-          <div style={{ padding: "40px 32px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 24 }}>
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="1.5" strokeLinecap="round" style={{ marginBottom: 16 }}>
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" />
-            </svg>
-            <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 24, color: "white", marginBottom: 8 }}>Venue TBD</h3>
-            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.45)", margin: 0 }}>
-              Premium venue in Johannesburg , details to be announced
-            </p>
-          </div>
-
           <a
-            href="https://maps.google.com/?q=Johannesburg+South+Africa"
+            href="https://maps.app.goo.gl/inwS8xRr8zWPG8F26"
             target="_blank"
             rel="noopener noreferrer"
             className="otsf-maps-btn"
@@ -5744,7 +5750,7 @@ function VenueSection() {
             }}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
-            View Johannesburg on Map
+            Get Directions
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10" /></svg>
           </a>
         </motion.div>

@@ -12,11 +12,29 @@ function getLenis(): LenisLike | undefined {
   return (window as unknown as { __lenis?: LenisLike }).__lenis;
 }
 function smoothScrollToId(id: string, offset = -80) {
-  const el = document.getElementById(id);
-  if (!el) return;
+  if (!document.getElementById(id)) return;
   const lenis = getLenis();
-  if (lenis) lenis.scrollTo(el, { offset });
-  else el.scrollIntoView({ behavior: "smooth" });
+  const doScroll = () => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (lenis) lenis.scrollTo(el, { offset });
+    else el.scrollIntoView({ behavior: "smooth" });
+  };
+  doScroll();
+  // Sections that use `content-visibility: auto` don't report their real height
+  // until they render, so the target's position is estimated on the first jump and
+  // the scroll can land short (e.g. on the section above). Re-align a couple of
+  // times once the layout settles — but bail the moment the user scrolls themselves.
+  let cancelled = false;
+  const cleanup = () => {
+    window.removeEventListener("wheel", cancel);
+    window.removeEventListener("touchmove", cancel);
+  };
+  const cancel = () => { cancelled = true; cleanup(); };
+  window.addEventListener("wheel", cancel, { passive: true });
+  window.addEventListener("touchmove", cancel, { passive: true });
+  window.setTimeout(() => { if (!cancelled) doScroll(); }, 600);
+  window.setTimeout(() => { if (!cancelled) doScroll(); cleanup(); }, 1250);
 }
 function smoothScrollToTop() {
   const lenis = getLenis();
