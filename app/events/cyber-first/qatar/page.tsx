@@ -1208,18 +1208,12 @@ function EventOverview() {
             display: "grid",
             gridTemplateColumns: "1.15fr 1fr",
             gap: "clamp(36px, 4.5vw, 72px)",
-            alignItems: "start",
+            alignItems: "center",
           }}
         >
-          {/* ── LEFT — editorial copy column (sticky so it follows the tall video stack) ── */}
-          <div
-            className="cfq-overview-copy"
-            style={{
-              position: "sticky",
-              top: "clamp(96px, 12vh, 140px)",
-              alignSelf: "start",
-            }}
-          >
+          {/* ── LEFT — editorial copy column ── */}
+          <div className="cfq-overview-copy">
+
             <Eyebrow inView={inView} label="Event Overview" tone="maroon" />
 
             {/* Pull-quote intro */}
@@ -1334,20 +1328,26 @@ function EventOverview() {
               inView={inView}
               index={0}
             />
-            <CfqHighlightCard
-              videoId="AsrScRfgLpA"
-              edition="Cyber First · UAE"
-              location="UAE"
-              inView={inView}
-              index={1}
-            />
-            <CfqHighlightCard
-              videoId="wcEeU0UEl0o"
-              edition="Cyber First · Kuwait"
-              location="Kuwait"
-              inView={inView}
-              index={2}
-            />
+
+            {/* Caption under the featured highlight */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.4, ease: EASE }}
+              style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 4, position: "relative", zIndex: 1 }}
+            >
+              <span aria-hidden style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 34, height: 34, borderRadius: "50%", background: `${C}1f`, border: `1px solid ${C}44`, flexShrink: 0 }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill={C_BRIGHT} aria-hidden><path d="M8 5v14l11-7z" /></svg>
+              </span>
+              <span>
+                <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 600, color: "white", lineHeight: 1.25 }}>
+                  Inside the last Cyber First Qatar edition
+                </span>
+                <span style={{ display: "block", marginTop: 1, fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.5)" }}>
+                  Official event highlights
+                </span>
+              </span>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -4086,6 +4086,77 @@ function CfqShortCard({ videoId, title }: { videoId: string; title: string }) {
         </>
       )}
     </div>
+  );
+}
+
+// ─── Series highlights — UAE + Kuwait edition videos (moved out of Overview) ──
+function SeriesHighlights() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section
+      ref={ref}
+      id="series-highlights"
+      style={{
+        position: "relative",
+        padding: "clamp(8px, 1.2vw, 16px) 0",
+        margin: "clamp(-48px, -4vw, -28px) 0",
+        background: "transparent",
+        overflow: "hidden",
+      }}
+    >
+      {/* Ambient orbs — match Testimonials */}
+      <div aria-hidden style={{ position: "absolute", top: "18%", left: "-5%", width: 460, height: 460, borderRadius: "50%", background: `radial-gradient(circle, ${C}10 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
+      <div aria-hidden style={{ position: "absolute", bottom: "12%", right: "-5%", width: 400, height: 400, borderRadius: "50%", background: `radial-gradient(circle, ${QATAR}0e 0%, transparent 70%)`, filter: "blur(50px)", pointerEvents: "none" }} />
+      <BgDots opacity={0.035} />
+
+      <div style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", zIndex: 2 }}>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.9, ease: EASE }}
+          style={{ textAlign: "center", marginBottom: "clamp(28px, 3.5vw, 44px)" }}
+        >
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 14, marginBottom: 18 }}>
+            <span style={{ width: 26, height: 1, background: C, boxShadow: `0 0 8px ${C}66` }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 700, letterSpacing: "4.5px", textTransform: "uppercase", color: C_BRIGHT }}>
+              From the Series
+            </span>
+            <span style={{ width: 26, height: 1, background: C, boxShadow: `0 0 8px ${C}66` }} />
+          </div>
+
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px, 4vw, 50px)", letterSpacing: "-1.8px", lineHeight: 1.04, color: "white", margin: "0 0 12px" }}>
+            Highlights from{" "}
+            <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>past editions.</em>
+          </h2>
+
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={inView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1.2, delay: 0.3, ease: EASE }}
+            style={{ width: 120, height: 3, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}, transparent)`, margin: "0 auto 16px", borderRadius: 2, transformOrigin: "center", boxShadow: `0 0 12px ${C}80` }}
+          />
+
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: "clamp(14px, 1.1vw, 16px)", color: "rgba(255,255,255,0.6)", maxWidth: 560, margin: "0 auto", lineHeight: 1.6 }}>
+            Relive the energy from Cyber First editions across the region.
+          </p>
+        </motion.div>
+
+        {/* 2-up video grid — UAE + Kuwait */}
+        <div className="cfq-series-hl-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "clamp(16px, 2vw, 26px)", maxWidth: 920, margin: "0 auto" }}>
+          <CfqHighlightCard videoId="AsrScRfgLpA" edition="Cyber First · UAE" location="UAE" inView={inView} index={0} />
+          <CfqHighlightCard videoId="wcEeU0UEl0o" edition="Cyber First · Kuwait" location="Kuwait" inView={inView} index={1} />
+        </div>
+      </div>
+
+      <style jsx>{`
+        @media (max-width: 720px) {
+          .cfq-series-hl-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </section>
   );
 }
 
@@ -7469,6 +7540,7 @@ export default function CyberFirstQatar2026() {
         <WhoAttends />
         <KeyIndustries />
         <Agenda />
+        <SeriesHighlights />
         <Testimonials />
         <GallerySection />
         <AwardsTeaser />
