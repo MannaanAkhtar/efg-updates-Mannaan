@@ -60,7 +60,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Badar Al Salehi", title: "Director General, Oman National CERT, Cyber Security", org: "MTCIT", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Badar_Al_Salehi_1.png", linkedin: "https://www.linkedin.com/in/badar-al-salehi-75461061/", flag: "https://flagcdn.com/w40/om.png", photoPos: "center 42%" },
   { name: "Ali Alrushaid", title: "Chief Information Security Officer", org: "ASMO", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ALI_ALRUSHAID.png", linkedin: "https://www.linkedin.com/in/ali-alrushaid-66377114/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Wael A. Rahman", title: "Lead ICS/OT Security Engineer", org: "Petroleum Development Oman", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/WAEL+A.+RAHMAN.png", linkedin: "https://www.linkedin.com/in/wael-a-rahman/", flag: "https://flagcdn.com/w40/om.png" },
-  { name: "Eng. Matteo Zanoni", title: "Director | UAE GPS/Energy Data & AI Advisory Lead", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ENG_MATTEO_ZANONI.png", linkedin: "https://www.linkedin.com/in/matteozanoni/", flag: "https://flagcdn.com/w40/ae.png" },
+  { name: "Aamir Khalid Pirzada", title: "Chief Information Officer", org: "", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aamir+Khalid+Pirzada.jpg", linkedin: "https://www.linkedin.com/in/aamir-khalid-p-360a974/", flag: "https://flagcdn.com/w40/sa.png" },
 ];
 
 // ─── Awards ─────────────────────────────────────────────────────────────────
