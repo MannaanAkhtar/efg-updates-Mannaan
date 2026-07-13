@@ -38,6 +38,8 @@ const nextConfig: NextConfig = {
       { source: "/jhb-mriggashi/", destination: "/events/ot-security-first/johannesburg-2026?utm_source=mriggashi&utm_medium=referral&utm_campaign=otsf-johannesburg-2026&tab=attend", permanent: false },
       { source: "/jhb-mary", destination: "/events/ot-security-first/johannesburg-2026?utm_source=mary&utm_medium=referral&utm_campaign=otsf-johannesburg-2026&tab=attend", permanent: false },
       { source: "/jhb-mary/", destination: "/events/ot-security-first/johannesburg-2026?utm_source=mary&utm_medium=referral&utm_campaign=otsf-johannesburg-2026&tab=attend", permanent: false },
+      { source: "/jhb-nadim", destination: "/events/ot-security-first/johannesburg-2026?utm_source=nadim&utm_medium=referral&utm_campaign=otsf-johannesburg-2026&tab=attend", permanent: false },
+      { source: "/jhb-nadim/", destination: "/events/ot-security-first/johannesburg-2026?utm_source=nadim&utm_medium=referral&utm_campaign=otsf-johannesburg-2026&tab=attend", permanent: false },
       // Cyber First Qatar — URL shortened from qatar-2026 → qatar
       { source: "/events/cyber-first/qatar-2026", destination: "/events/cyber-first/qatar", permanent: true },
       { source: "/events/cyber-first/qatar-2026/", destination: "/events/cyber-first/qatar", permanent: true },
