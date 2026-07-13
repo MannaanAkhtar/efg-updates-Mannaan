@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, useInView, AnimatePresence, MotionConfig } from "framer-motion";
+import Link from "next/link";
 import { Footer, InquiryForm } from "@/components/sections";
 import EventNavigation from "@/components/ui/EventNavigation";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
@@ -5500,13 +5501,12 @@ function ContactsSection() {
 
   const sponsorshipContacts: Contact[] = [
     {
-      name: "Mohammed Hassan",
+      name: "Mayur Methi",
       role: "Partnership Manager",
-      email: "hassan@eventsfirstgroup.com",
+      email: "mayur@eventsfirstgroup.com",
       phone: "+971 54 571 4377",
       phoneDigits: "971545714377",
-      linkedin: "https://www.linkedin.com/in/mohammed-hassan-khan/",
-      photo: "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/hassan.jpg",
+      photo: "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/Mayur-Methi.png",
       tone: "maroon",
     },
     {
@@ -7353,6 +7353,99 @@ function CfqPostReportFloat() {
   );
 }
 
+// ─── CYBER FIRST SERIES — cross-links to other editions ───────────────────────
+// Confirmed editions carry a live href + logo + hero image; upcoming ones render
+// as dimmed "Coming Soon" cards until they're ready.
+type CfqEdition = { city: string; edition: string; when?: string; href?: string; logo?: string; image?: string; scrimLight?: boolean };
+const CFQ_EDITIONS: CfqEdition[] = [
+  { city: "Kuwait City", edition: "Kuwait Edition", when: "October 2026", href: "/events/cyber-first/kuwait-2026", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/Cyber_kuwait.png", image: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/magnific_cinematic-wideangle-hero-_CHoH66yEEy.png", scrimLight: true },
+  { city: "United Arab Emirates", edition: "New Edition" },
+];
+
+function SeriesEditions() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <section ref={ref} style={{ position: "relative", padding: "clamp(40px, 4.5vw, 64px) 24px", background: "transparent", overflow: "hidden" }}>
+      <div style={{ position: "relative", zIndex: 1, maxWidth: 1120, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 16 }}>
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 700, color: C_BRIGHT, textTransform: "uppercase", letterSpacing: "4.5px" }}>Cyber First Series</span>
+        </div>
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: EASE }}
+          style={{ fontFamily: "var(--font-display)", fontSize: "clamp(23px, 3.2vw, 36px)", fontWeight: 700, lineHeight: 1.14, textAlign: "center", margin: "0 auto 34px", maxWidth: 680, color: "white", letterSpacing: "-0.02em" }}
+        >
+          Explore other editions across the region.
+        </motion.h2>
+        <div className="cfq-series-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 340px))", gap: 16, justifyContent: "center" }}>
+          {CFQ_EDITIONS.map((e, i) => {
+            const ready = Boolean(e.href && e.logo);
+            return (
+              <motion.div
+                key={e.city}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.08 * i, ease: EASE }}
+              >
+                {ready ? (
+                  <Link href={e.href!} className="cfq-series-card cfq-series-card-live" aria-label={`Cyber First ${e.city} — ${e.edition}${e.when ? `, ${e.when}` : ""}`}>
+                    <span aria-hidden className="cfq-series-bg" style={{ backgroundImage: `url("${e.image}")` }} />
+                    <span aria-hidden className={`cfq-series-scrim${e.scrimLight ? " cfq-series-scrim-light" : ""}`} />
+                    <span className="cfq-series-logo-wrap">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={e.logo} alt={`Cyber First ${e.city}`} loading="lazy" className="cfq-series-logo" />
+                    </span>
+                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9.5, fontWeight: 700, letterSpacing: "2.4px", textTransform: "uppercase", color: C_BRIGHT }}>{e.edition}</span>
+                    <span style={{ fontFamily: "var(--font-display)", fontSize: 19, fontWeight: 700, color: "white", letterSpacing: "-0.01em", lineHeight: 1.15 }}>{e.city}</span>
+                    {e.when && <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.55)" }}>{e.when}</span>}
+                    <span className="cfq-series-go" style={{ marginTop: 6, display: "inline-flex", alignItems: "center", gap: 7, fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "1.4px", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>
+                      View event
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+                    </span>
+                  </Link>
+                ) : (
+                  <div className="cfq-series-card cfq-series-card-soon" aria-label={`Cyber First ${e.city} — coming soon`}>
+                    <span className="cfq-series-soon-top">
+                      <span className="cfq-series-soon-badge">
+                        <span aria-hidden className="cfq-series-soon-dot" />
+                        Coming Soon
+                      </span>
+                    </span>
+                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9.5, fontWeight: 700, letterSpacing: "2.4px", textTransform: "uppercase", color: `${C_BRIGHT}99` }}>{e.edition}</span>
+                    <span style={{ fontFamily: "var(--font-display)", fontSize: 19, fontWeight: 700, color: "rgba(255,255,255,0.9)", letterSpacing: "-0.01em", lineHeight: 1.15 }}>{e.city}</span>
+                    {e.when && <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.4)" }}>{e.when}</span>}
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+      <style jsx global>{`
+        .cfq-series-card { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 6px; height: 100%; padding: 22px 20px; border-radius: 16px; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.014)); box-shadow: inset 0 1px 0 rgba(255,255,255,0.07); transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), border-color 0.4s ease, box-shadow 0.4s ease; }
+        .cfq-series-card:hover { transform: translateY(-5px); border-color: ${C}66; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 18px 40px rgba(0,0,0,0.45), 0 0 34px ${C}22; }
+        .cfq-series-card:hover .cfq-series-go { color: ${C_BRIGHT}; }
+        .cfq-series-card-live > *:not(.cfq-series-bg):not(.cfq-series-scrim) { position: relative; z-index: 2; }
+        .cfq-series-bg { position: absolute; inset: 0; z-index: 0; background-size: cover; background-position: center; opacity: 0.5; transform: scale(1.02); transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+        .cfq-series-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(4,10,20,0.62) 0%, rgba(4,10,20,0.82) 58%, rgba(4,10,20,0.95) 100%); }
+        .cfq-series-scrim-light { background: linear-gradient(180deg, rgba(4,10,20,0.38) 0%, rgba(4,10,20,0.62) 58%, rgba(4,10,20,0.86) 100%); }
+        .cfq-series-card-live:hover .cfq-series-bg { opacity: 0.68; transform: scale(1.06); }
+        .cfq-series-logo-wrap { display: flex; align-items: center; justify-content: flex-start; height: 52px; margin-bottom: 8px; }
+        .cfq-series-logo { max-height: 52px; max-width: 100%; width: auto; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
+        .cfq-series-card-soon { cursor: default; opacity: 0.72; }
+        .cfq-series-card-soon:hover { transform: none; border-color: ${C}33; box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 0 26px ${C}18; opacity: 0.85; }
+        .cfq-series-soon-top { display: flex; align-items: center; height: 52px; margin-bottom: 8px; }
+        .cfq-series-soon-badge { display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; border-radius: 999px; border: 1px solid ${C}40; background: ${C}14; font-family: var(--font-outfit); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: ${C_BRIGHT}; }
+        .cfq-series-soon-dot { width: 6px; height: 6px; border-radius: 50%; background: ${C_BRIGHT}; box-shadow: 0 0 8px ${C}; animation: cfqSeriesSoonPulse 1.8s ease-in-out infinite; }
+        @keyframes cfqSeriesSoonPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.4); } }
+        @media (max-width: 520px) { .cfq-series-grid { grid-template-columns: 1fr !important; } }
+      `}</style>
+    </section>
+  );
+}
+
 // ───────────────────────────────────────────────────────────────────────────
 // MAIN PAGE
 // ───────────────────────────────────────────────────────────────────────────
@@ -7383,6 +7476,7 @@ export default function CyberFirstQatar2026() {
       </div>
       <VenueTeaser />
       <RegisterSection />
+      <SeriesEditions />
       <Footer />
 
       {/* Post-Event Reports — request modal + floating sticky note/icon */}

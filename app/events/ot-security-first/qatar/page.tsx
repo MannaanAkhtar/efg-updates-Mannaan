@@ -2188,7 +2188,7 @@ function BeTheMovement() {
 // ─── REGISTER ─────────────────────────────────────────────────────────────────
 function RegisterSection() {
   return (
-    <section style={{ position: "relative", padding: "clamp(44px, 5vw, 70px) 0", background: BG_BASE, overflow: "hidden" }}>
+    <section style={{ position: "relative", padding: "clamp(44px, 5vw, 70px) 0 clamp(14px, 2vw, 24px)", background: BG_BASE, overflow: "hidden" }}>
       <BgDots opacity={0.04} />
       <div className="otq-register-wrap" style={{ position: "relative", zIndex: 1 }}>
         <InquiryForm defaultCountry="QA" eventName="OT Security First Qatar 2026" labelText="Join Us in Doha" />
@@ -2396,18 +2396,21 @@ function FaqSection() {
 }
 
 // ─── OT SECURITY FIRST SERIES — cross-links to other editions ─────────────────
-const OTQ_EDITIONS: { city: string; edition: string; when: string; href: string }[] = [
-  { city: "Johannesburg", edition: "1st Edition · Africa", when: "August 2026", href: "/events/ot-security-first/johannesburg-2026" },
-  { city: "Jubail, KSA", edition: "2nd Edition", when: "October 2026", href: "/events/ot-security-first/jubail" },
-  { city: "United Arab Emirates", edition: "Flagship Edition", when: "Coming 2027", href: "/events/ot-security-first" },
-  { city: "Muscat, Oman", edition: "New Edition", when: "March 2027", href: "/events/ot-security-first/oman-2026" },
+// Confirmed editions carry a live href + logo; upcoming ones render as
+// dimmed "Coming Soon" cards until they're ready.
+type OtqEdition = { city: string; edition: string; when: string; href?: string; logo?: string; image?: string; scrimLight?: boolean };
+const OTQ_EDITIONS: OtqEdition[] = [
+  { city: "Johannesburg", edition: "1st Edition · Africa", when: "August 2026", href: "/events/ot-security-first/johannesburg-2026", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Untitled-2-01.png", image: "https://efg-final.s3.eu-north-1.amazonaws.com/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0812.JPG" },
+  { city: "Jubail, KSA", edition: "2nd Edition", when: "October 2026", href: "/events/ot-security-first/jubail", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OT+Security+First+Jubail+logo+Final-03.png", image: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT_Jubail.png", scrimLight: true },
+  { city: "United Arab Emirates", edition: "Flagship Edition", when: "2027" },
+  { city: "Muscat, Oman", edition: "New Edition", when: "2027" },
 ];
 
 function SeriesEditions() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
-    <section ref={ref} style={{ position: "relative", padding: "clamp(40px, 4.5vw, 66px) 24px", background: BG_BASE, overflow: "hidden" }}>
+    <section ref={ref} style={{ position: "relative", padding: "clamp(4px, 0.8vw, 12px) 24px clamp(40px, 4.5vw, 66px)", background: BG_BASE, overflow: "hidden" }}>
       <BgDots opacity={0.035} />
       <div style={{ position: "relative", zIndex: 1, maxWidth: 1120, margin: "0 auto" }}>
         <div style={{ textAlign: "center" }}>
@@ -2424,30 +2427,67 @@ function SeriesEditions() {
           Explore other editions across the region.
         </motion.h2>
         <div className="otq-series-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
-          {OTQ_EDITIONS.map((e, i) => (
-            <motion.div
-              key={e.href}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.08 * i, ease: EASE }}
-            >
-              <Link href={e.href} className="otq-series-card" aria-label={`OT Security First ${e.city} — ${e.edition}, ${e.when}`}>
-                <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9.5, fontWeight: 700, letterSpacing: "2.4px", textTransform: "uppercase", color: C_BRIGHT }}>{e.edition}</span>
-                <span style={{ fontFamily: "var(--font-display)", fontSize: 19, fontWeight: 700, color: "white", letterSpacing: "-0.01em", lineHeight: 1.15 }}>{e.city}</span>
-                <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.55)" }}>{e.when}</span>
-                <span className="otq-series-go" style={{ marginTop: 6, display: "inline-flex", alignItems: "center", gap: 7, fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "1.4px", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>
-                  View event
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
-                </span>
-              </Link>
-            </motion.div>
-          ))}
+          {OTQ_EDITIONS.map((e, i) => {
+            const ready = Boolean(e.href && e.logo);
+            return (
+              <motion.div
+                key={e.city}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.08 * i, ease: EASE }}
+              >
+                {ready ? (
+                  <Link href={e.href!} className="otq-series-card otq-series-card-live" aria-label={`OT Security First ${e.city} — ${e.edition}, ${e.when}`}>
+                    <span aria-hidden className="otq-series-bg" style={{ backgroundImage: `url("${e.image}")` }} />
+                    <span aria-hidden className={`otq-series-scrim${e.scrimLight ? " otq-series-scrim-light" : ""}`} />
+                    <span className="otq-series-logo-wrap">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={e.logo} alt={`OT Security First ${e.city}`} loading="lazy" className="otq-series-logo" />
+                    </span>
+                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9.5, fontWeight: 700, letterSpacing: "2.4px", textTransform: "uppercase", color: C_BRIGHT }}>{e.edition}</span>
+                    <span style={{ fontFamily: "var(--font-display)", fontSize: 19, fontWeight: 700, color: "white", letterSpacing: "-0.01em", lineHeight: 1.15 }}>{e.city}</span>
+                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.55)" }}>{e.when}</span>
+                    <span className="otq-series-go" style={{ marginTop: 6, display: "inline-flex", alignItems: "center", gap: 7, fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "1.4px", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>
+                      View event
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+                    </span>
+                  </Link>
+                ) : (
+                  <div className="otq-series-card otq-series-card-soon" aria-label={`OT Security First ${e.city} — coming soon`}>
+                    <span className="otq-series-soon-top">
+                      <span className="otq-series-soon-badge">
+                        <span aria-hidden className="otq-series-soon-dot" />
+                        Coming Soon
+                      </span>
+                    </span>
+                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9.5, fontWeight: 700, letterSpacing: "2.4px", textTransform: "uppercase", color: `${C_BRIGHT}99` }}>{e.edition}</span>
+                    <span style={{ fontFamily: "var(--font-display)", fontSize: 19, fontWeight: 700, color: "rgba(255,255,255,0.9)", letterSpacing: "-0.01em", lineHeight: 1.15 }}>{e.city}</span>
+                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.4)" }}>{e.when}</span>
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
       <style jsx global>{`
-        .otq-series-card { display: flex; flex-direction: column; gap: 6px; height: 100%; padding: 22px 20px; border-radius: 16px; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.014)); box-shadow: inset 0 1px 0 rgba(255,255,255,0.07); transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), border-color 0.4s ease, box-shadow 0.4s ease; }
+        .otq-series-card { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 6px; height: 100%; padding: 22px 20px; border-radius: 16px; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.014)); box-shadow: inset 0 1px 0 rgba(255,255,255,0.07); transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), border-color 0.4s ease, box-shadow 0.4s ease; }
         .otq-series-card:hover { transform: translateY(-5px); border-color: ${C}66; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 18px 40px rgba(0,0,0,0.45), 0 0 34px ${C}22; }
         .otq-series-card:hover .otq-series-go { color: ${C_BRIGHT}; }
+        /* Live cards: hero photo backdrop behind a dark scrim */
+        .otq-series-card-live > *:not(.otq-series-bg):not(.otq-series-scrim) { position: relative; z-index: 2; }
+        .otq-series-bg { position: absolute; inset: 0; z-index: 0; background-size: cover; background-position: center; opacity: 0.5; transform: scale(1.02); transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+        .otq-series-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(8,10,22,0.62) 0%, rgba(8,10,22,0.82) 58%, rgba(8,10,22,0.95) 100%); }
+        .otq-series-scrim-light { background: linear-gradient(180deg, rgba(8,10,22,0.38) 0%, rgba(8,10,22,0.62) 58%, rgba(8,10,22,0.86) 100%); }
+        .otq-series-card-live:hover .otq-series-bg { opacity: 0.68; transform: scale(1.06); }
+        .otq-series-logo-wrap { display: flex; align-items: center; justify-content: flex-start; height: 52px; margin-bottom: 8px; }
+        .otq-series-logo { max-height: 52px; max-width: 100%; width: auto; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
+        .otq-series-card-soon { cursor: default; opacity: 0.72; }
+        .otq-series-card-soon:hover { transform: none; border-color: ${C}33; box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 0 26px ${C}18; opacity: 0.85; }
+        .otq-series-soon-top { display: flex; align-items: center; height: 52px; margin-bottom: 8px; }
+        .otq-series-soon-badge { display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; border-radius: 999px; border: 1px solid ${C}40; background: ${C}14; font-family: var(--font-outfit); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: ${C_BRIGHT}; }
+        .otq-series-soon-dot { width: 6px; height: 6px; border-radius: 50%; background: ${C_BRIGHT}; box-shadow: 0 0 8px ${C}; animation: otqSeriesSoonPulse 1.8s ease-in-out infinite; }
+        @keyframes otqSeriesSoonPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.4); } }
         @media (max-width: 900px) { .otq-series-grid { grid-template-columns: repeat(2, 1fr) !important; } }
         @media (max-width: 520px) { .otq-series-grid { grid-template-columns: 1fr !important; } }
       `}</style>

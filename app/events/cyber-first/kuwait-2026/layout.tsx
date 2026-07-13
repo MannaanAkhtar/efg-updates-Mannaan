@@ -4,7 +4,7 @@ import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/cyber-first/kuwait-2026`;
-const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0030.JPG";
+const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/magnific_cinematic-wideangle-hero-_CHoH66yEEy.png";
 
 export const metadata: Metadata = {
   title: "Cyber First Kuwait 2026 | 3rd Annual Cybersecurity Summit, 14 October, Jumeirah Messilah Beach",
