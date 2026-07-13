@@ -362,6 +362,7 @@ const SPEAKERS = [
     org: "Valterra Platinum",
     linkedin: "https://www.linkedin.com/in/za-andrewchester/",
     photo: "",
+    hidden: true, // temporarily hidden — kept in data, not rendered
   },
   {
     name: "Naoufal Kerboute",
@@ -370,7 +371,7 @@ const SPEAKERS = [
     linkedin: "https://www.linkedin.com/in/nkerboute/",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naoufal-Media1.jpg",
   },
-];
+].filter((s) => !("hidden" in s) || !s.hidden);
 
 // Strategic Focus Areas from brochure
 const STRATEGIC_THEMES = [
