@@ -318,8 +318,15 @@ const SPEAKERS = [
     name: "Shane Naidoo",
     title: "Executive Head of IT",
     org: "Transnet",
-    linkedin: "",
-    photo: "",
+    linkedin: "https://www.linkedin.com/in/shane-naidoo-12994519/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Shane+Naidoo.jpeg",
+  },
+  {
+    name: "Renaldo J",
+    title: "Group Head of Cybersecurity",
+    org: "Globaleq",
+    linkedin: "https://www.linkedin.com/in/renaldo-j-8116885",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Renaldo.jpg",
   },
   {
     name: "Zanele Fikizolo",
