@@ -709,6 +709,44 @@ function CfkKwPostEventReports() {
                     <input type="text" name="website" tabIndex={-1} autoComplete="off"
                       style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} />
 
+                    {/* Request type toggle — Past Event Report vs Delegate List */}
+                    <div className="cfk-kw-req-form-row">
+                      <div
+                        role="tablist"
+                        aria-label="Request type"
+                        style={{ display: "flex", gap: 8, width: "100%" }}
+                      >
+                        {(["Past Event Report", "Delegate List"] as const).map((kind) => {
+                          const active = requestType === kind;
+                          return (
+                            <button
+                              key={kind}
+                              type="button"
+                              role="tab"
+                              aria-selected={active}
+                              onClick={() => setRequestType(kind)}
+                              style={{
+                                flex: 1,
+                                padding: "10px 12px",
+                                borderRadius: 9,
+                                border: active ? `1px solid ${C}66` : "1px solid rgba(255,255,255,0.10)",
+                                background: active ? `linear-gradient(135deg, ${C}26, ${C}0a)` : "rgba(255,255,255,0.03)",
+                                color: active ? C_BRIGHT : "rgba(255,255,255,0.55)",
+                                fontFamily: "var(--font-outfit)",
+                                fontSize: 12.5,
+                                fontWeight: 600,
+                                letterSpacing: "0.2px",
+                                cursor: "pointer",
+                                transition: "all 0.25s ease",
+                              }}
+                            >
+                              {kind}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
                     {/* Edition picker — used by both Delegate List and Past Event Report requests */}
                     <div className="cfk-kw-req-form-row">
                       <label className="cfk-kw-req-form-field" style={{ flex: "1 1 100%" }}>
@@ -1167,6 +1205,479 @@ function CfkKwPostEventReports() {
   );
 }
 
+// ───────────────────────────────────────────────────────────────────────────
+// POST-EVENT REPORTS — floating sticky note (desktop) → FAB icon (mobile)
+// ───────────────────────────────────────────────────────────────────────────
+function CfkKwPostReportFloat() {
+  const [mounted, setMounted] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  const [nudged, setNudged] = useState(false);
+  const [pastOverview, setPastOverview] = useState(false);
+  const [showNudge, setShowNudge] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const DISMISS_KEY = "cfk-2026-report-dismissed";
+  const NUDGE_KEY = "cfk-2026-report-nudged";
+
+  // Read persisted state on mount
+  useEffect(() => {
+    setMounted(true);
+    try {
+      if (localStorage.getItem(DISMISS_KEY) === "1") setDismissed(true);
+      if (localStorage.getItem(NUDGE_KEY) === "1") setNudged(true);
+    } catch {
+      // localStorage may be unavailable (SSR, private browsing) — silently ignore
+    }
+    const mq = window.matchMedia("(max-width: 700px)");
+    setIsMobile(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  // Watch the Event Overview section — once its bottom leaves the viewport, switch to State B (icon mode)
+  useEffect(() => {
+    if (!mounted) return;
+    const overview = document.getElementById("overview");
+    if (!overview) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        const rect = entry.boundingClientRect;
+        setPastOverview(rect.bottom < 60);
+      },
+      { threshold: [0, 0.1, 1], rootMargin: "0px 0px -60% 0px" }
+    );
+    obs.observe(overview);
+    const initial = overview.getBoundingClientRect();
+    setPastOverview(initial.bottom < 60);
+    return () => obs.disconnect();
+  }, [mounted]);
+
+  // Fire the one-time nudge popup the first time the icon mode kicks in
+  useEffect(() => {
+    if (!mounted || dismissed || nudged) return;
+    const shouldFire = isMobile ? true : pastOverview;
+    if (!shouldFire) return;
+    const showTimer = setTimeout(() => setShowNudge(true), 800);
+    const hideTimer = setTimeout(() => {
+      setShowNudge(false);
+      try { localStorage.setItem(NUDGE_KEY, "1"); } catch {}
+      setNudged(true);
+    }, 8000);
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+    };
+  }, [mounted, pastOverview, dismissed, nudged, isMobile]);
+
+  const handleOpen = () => {
+    window.dispatchEvent(new CustomEvent("cfk-2026:open-request", { detail: { type: "Past Event Report" } }));
+    setShowNudge(false);
+  };
+
+  const handleDismiss = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setDismissed(true);
+    setShowNudge(false);
+    try { localStorage.setItem(DISMISS_KEY, "1"); } catch {}
+  };
+
+  const handleDismissNudge = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowNudge(false);
+    try { localStorage.setItem(NUDGE_KEY, "1"); } catch {}
+    setNudged(true);
+  };
+
+  if (!mounted || dismissed) return null;
+
+  // Desktop: keep the sticky note visible the whole way down.
+  // Mobile: the note is too wide, so use the compact FAB with a dismissible popup nudge.
+  const showStickyNote = !isMobile;
+  const showIcon = isMobile;
+
+  return (
+    <>
+      <AnimatePresence>
+        {showStickyNote && (
+          <motion.div
+            key="sticky-note"
+            initial={{ opacity: 0, y: 28, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, x: "-50%" }}
+            exit={{ opacity: 0, y: 28, x: "-50%" }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="cfk-report-note"
+            role="button"
+            tabIndex={0}
+            onClick={handleOpen}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleOpen(); } }}
+            aria-label="Download Post Event Reports"
+          >
+            <button
+              type="button"
+              className="cfk-report-note-close"
+              onClick={handleDismiss}
+              aria-label="Dismiss"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+
+            <span aria-hidden className="cfk-report-note-hairline" />
+
+            <div className="cfk-report-note-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="12" y1="18" x2="12" y2="12" />
+                <polyline points="9 15 12 18 15 15" />
+              </svg>
+            </div>
+
+            <div className="cfk-report-note-body">
+              <span className="cfk-report-note-eyebrow">
+                <span className="cfk-report-note-pulse" aria-hidden />
+                Free Download
+              </span>
+              <span className="cfk-report-note-title">
+                Download our Post Event Reports
+              </span>
+              <span className="cfk-report-note-cta">
+                View past editions
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 6 }}>
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showIcon && (
+          <motion.div
+            key="floating-icon-wrap"
+            className="cfk-report-fab-wrap"
+            initial={{ opacity: 0, scale: 0.6, y: 14 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.6, y: 14 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <AnimatePresence>
+              {showNudge && (
+                <motion.div
+                  key="nudge"
+                  className="cfk-report-fab-nudge"
+                  initial={{ opacity: 0, x: 12, scale: 0.94 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: 12, scale: 0.94 }}
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <span className="cfk-report-fab-nudge-eyebrow">
+                    <span className="cfk-report-note-pulse" aria-hidden /> Free Download
+                  </span>
+                  <span className="cfk-report-fab-nudge-text">
+                    Download our Post Event Reports
+                  </span>
+                  <button
+                    type="button"
+                    className="cfk-report-fab-nudge-close"
+                    onClick={handleDismissNudge}
+                    aria-label="Dismiss"
+                  >
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                  </button>
+                  <span aria-hidden className="cfk-report-fab-nudge-tail" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <div className="cfk-report-fab-btnwrap">
+              <button
+                type="button"
+                className="cfk-report-fab"
+                onClick={handleOpen}
+                aria-label="Download Post Event Reports"
+                title="Download Post Event Reports"
+              >
+                <span aria-hidden className="cfk-report-fab-pulse" />
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="12" y1="18" x2="12" y2="12" />
+                  <polyline points="9 15 12 18 15 15" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                className="cfk-report-fab-close"
+                onClick={handleDismiss}
+                aria-label="Dismiss"
+              >
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <style jsx global>{`
+        /* ── Sticky note (State A) ─────────────────────────────────────── */
+        .cfk-report-note {
+          position: fixed;
+          bottom: 24px;
+          left: 50%;
+          z-index: 60;
+          display: inline-flex;
+          align-items: center;
+          gap: 14px;
+          padding: 14px 22px 14px 18px;
+          border-radius: 999px;
+          cursor: pointer;
+          background: linear-gradient(145deg, rgba(8, 18, 32, 0.94) 0%, rgba(4, 8, 16, 0.97) 100%);
+          border: 1px solid ${C}55;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.10),
+            inset 0 -1px 0 rgba(0,0,0,0.35),
+            0 18px 50px rgba(0,0,0,0.55),
+            0 0 36px ${C}30;
+          transition: border-color 0.45s ease, box-shadow 0.45s ease;
+          max-width: calc(100vw - 32px);
+        }
+        .cfk-report-note:hover {
+          border-color: ${C_BRIGHT};
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.14),
+            inset 0 -1px 0 rgba(0,0,0,0.35),
+            0 22px 60px rgba(0,0,0,0.6),
+            0 0 50px ${C}55;
+        }
+        .cfk-report-note-hairline {
+          position: absolute;
+          top: 0; left: 12%; right: 12%; height: 1px;
+          background: linear-gradient(90deg, transparent 0%, ${C_BRIGHT}, ${C}, transparent 100%);
+          opacity: 0.7;
+        }
+        .cfk-report-note-close {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          width: 22px; height: 22px;
+          display: flex; align-items: center; justify-content: center;
+          border-radius: 50%;
+          border: 1px solid rgba(255,255,255,0.18);
+          background: rgba(8,18,32,0.95);
+          color: rgba(255,255,255,0.75);
+          cursor: pointer;
+          backdrop-filter: blur(8px);
+          transition: all 0.3s ease;
+        }
+        .cfk-report-note-close:hover {
+          color: white;
+          background: ${C};
+          border-color: ${C_BRIGHT};
+          transform: rotate(90deg) scale(1.08);
+        }
+        .cfk-report-note-icon {
+          flex-shrink: 0;
+          width: 38px; height: 38px;
+          border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          background: linear-gradient(135deg, ${C} 0%, ${C_BRIGHT} 100%);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.32), 0 6px 18px ${C}66;
+        }
+        .cfk-report-note-body {
+          display: flex; flex-direction: column; gap: 1px; line-height: 1.15;
+        }
+        .cfk-report-note-eyebrow {
+          font-family: var(--font-outfit);
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 2.4px;
+          text-transform: uppercase;
+          color: ${C_BRIGHT};
+          display: inline-flex; align-items: center; gap: 6px;
+        }
+        .cfk-report-note-pulse {
+          width: 6px; height: 6px; border-radius: 50%;
+          background: ${C_BRIGHT};
+          box-shadow: 0 0 8px ${C};
+          animation: cfkReportPulse 1.6s ease-in-out infinite;
+        }
+        .cfk-report-note-title {
+          font-family: var(--font-display);
+          font-size: 13.5px;
+          font-weight: 700;
+          color: white;
+          letter-spacing: -0.2px;
+        }
+        .cfk-report-note-cta {
+          font-family: var(--font-outfit);
+          font-size: 10px;
+          font-weight: 600;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.55);
+          display: inline-flex; align-items: center;
+          margin-top: 2px;
+        }
+        .cfk-report-note:hover .cfk-report-note-cta { color: ${C_BRIGHT}; }
+        @keyframes cfkReportPulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50%      { opacity: 0.45; transform: scale(1.5); }
+        }
+
+        /* ── FAB icon (State B) ────────────────────────────────────────── */
+        .cfk-report-fab-wrap {
+          position: fixed;
+          bottom: 96px;
+          right: 24px;
+          z-index: 50;
+          display: flex;
+          flex-direction: row-reverse;
+          align-items: center;
+          gap: 12px;
+        }
+        .cfk-report-fab-btnwrap {
+          position: relative;
+          display: inline-flex;
+        }
+        .cfk-report-fab {
+          position: relative;
+          width: 56px; height: 56px;
+          border-radius: 50%;
+          border: 1px solid ${C_BRIGHT};
+          background: linear-gradient(135deg, ${C} 0%, ${C_BRIGHT} 100%);
+          color: white;
+          cursor: pointer;
+          display: flex; align-items: center; justify-content: center;
+          box-shadow:
+            inset 0 1.5px 0 rgba(255,255,255,0.34),
+            inset 0 -1.5px 0 rgba(0,0,0,0.25),
+            0 14px 36px rgba(0,0,0,0.45),
+            0 0 30px ${C}55;
+          transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease;
+        }
+        .cfk-report-fab:hover {
+          transform: translateY(-3px) scale(1.06);
+          box-shadow:
+            inset 0 1.5px 0 rgba(255,255,255,0.4),
+            inset 0 -1.5px 0 rgba(0,0,0,0.25),
+            0 18px 44px rgba(0,0,0,0.5),
+            0 0 44px ${C}88;
+        }
+        .cfk-report-fab-pulse {
+          position: absolute;
+          inset: 0;
+          border-radius: 50%;
+          background: ${C};
+          opacity: 0.4;
+          animation: cfkFabRing 2.4s ease-out infinite;
+          z-index: -1;
+        }
+        @keyframes cfkFabRing {
+          0%   { transform: scale(1);   opacity: 0.55; }
+          80%  { transform: scale(1.7); opacity: 0;    }
+          100% { transform: scale(1.7); opacity: 0;    }
+        }
+        .cfk-report-fab-close {
+          position: absolute;
+          top: -6px; right: -6px;
+          width: 20px; height: 20px;
+          display: flex; align-items: center; justify-content: center;
+          border-radius: 50%;
+          border: 1px solid rgba(255,255,255,0.22);
+          background: rgba(8,18,32,0.96);
+          color: rgba(255,255,255,0.78);
+          cursor: pointer;
+          backdrop-filter: blur(8px);
+          transition: all 0.3s ease;
+        }
+        .cfk-report-fab-close:hover {
+          color: white;
+          background: ${C};
+          border-color: ${C_BRIGHT};
+          transform: rotate(90deg) scale(1.08);
+        }
+
+        .cfk-report-fab-nudge {
+          position: relative;
+          max-width: 230px;
+          padding: 12px 32px 12px 14px;
+          border-radius: 14px;
+          background: linear-gradient(145deg, rgba(8, 18, 32, 0.94) 0%, rgba(4, 8, 16, 0.97) 100%);
+          border: 1px solid ${C}55;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.10),
+            inset 0 -1px 0 rgba(0,0,0,0.35),
+            0 14px 36px rgba(0,0,0,0.55),
+            0 0 28px ${C}30;
+          display: flex; flex-direction: column; gap: 4px;
+        }
+        .cfk-report-fab-nudge-eyebrow {
+          font-family: var(--font-outfit);
+          font-size: 8.5px;
+          font-weight: 700;
+          letter-spacing: 2.2px;
+          text-transform: uppercase;
+          color: ${C_BRIGHT};
+          display: inline-flex; align-items: center; gap: 6px;
+        }
+        .cfk-report-fab-nudge-text {
+          font-family: var(--font-display);
+          font-size: 12.5px;
+          font-weight: 700;
+          color: white;
+          letter-spacing: -0.1px;
+          line-height: 1.25;
+        }
+        .cfk-report-fab-nudge-close {
+          position: absolute;
+          top: 6px; right: 6px;
+          width: 20px; height: 20px;
+          display: flex; align-items: center; justify-content: center;
+          border-radius: 6px;
+          border: 1px solid rgba(255,255,255,0.12);
+          background: rgba(255,255,255,0.04);
+          color: rgba(255,255,255,0.6);
+          cursor: pointer;
+          transition: all 0.25s ease;
+        }
+        .cfk-report-fab-nudge-close:hover {
+          color: white;
+          background: ${C}33;
+          border-color: ${C}88;
+        }
+        .cfk-report-fab-nudge-tail {
+          position: absolute;
+          right: -6px; top: 50%;
+          transform: translateY(-50%) rotate(45deg);
+          width: 12px; height: 12px;
+          background: rgba(8, 18, 32, 0.94);
+          border-top: 1px solid ${C}55;
+          border-right: 1px solid ${C}55;
+        }
+
+        @media (max-width: 700px) {
+          .cfk-report-fab-wrap { bottom: 88px; right: 16px; }
+          .cfk-report-fab { width: 50px; height: 50px; }
+          .cfk-report-fab-nudge { max-width: 200px; padding: 10px 28px 10px 12px; }
+        }
+      `}</style>
+    </>
+  );
+}
+
 // Skips paint/composite + pauses CSS animations for a section while it's scrolled
 // off-screen; renders normally (no containment, no visual change) when in view.
 // `auto` remembers the rendered height so scrolling stays stable.
@@ -1286,6 +1797,7 @@ export default function CyberFirstKuwait2026() {
       <CVSection minH={640}><ContactSection /></CVSection>
       <CVSection minH={420}><Venue /></CVSection>
       <CfkKwPostEventReports />
+      <CfkKwPostReportFloat />
       <Footer />
     </div>
   );

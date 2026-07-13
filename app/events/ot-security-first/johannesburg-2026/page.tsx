@@ -531,34 +531,6 @@ const OT_SHORTS = [
 // ─── HERO SECTION ────────────────────────────────────────────────────────────
 function HeroSection() {
   const cd = useCountdown(EVENT_DATE);
-  const [resourceMenuOpen, setResourceMenuOpen] = useState(false);
-  const resourceMenuRef = useRef<HTMLDivElement>(null);
-
-  // Click-outside + ESC closes the resources dropdown
-  useEffect(() => {
-    if (!resourceMenuOpen) return;
-    const onClick = (e: MouseEvent) => {
-      if (resourceMenuRef.current && !resourceMenuRef.current.contains(e.target as Node)) {
-        setResourceMenuOpen(false);
-      }
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setResourceMenuOpen(false);
-    };
-    document.addEventListener("mousedown", onClick);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("mousedown", onClick);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [resourceMenuOpen]);
-
-  const openRequest = (type: "Past Event Report" | "Delegate List") => {
-    setResourceMenuOpen(false);
-    window.dispatchEvent(
-      new CustomEvent("otsf-jhb:open-request", { detail: { type } }),
-    );
-  };
 
   return (
     <section id="overview" className="otsf-hero" style={{ position: "relative", minHeight: "100vh", overflow: "hidden", background: BG_DARK }}>
@@ -733,172 +705,6 @@ function HeroSection() {
           }}>
             Register Now →
           </a>
-          {/* Resources dropdown — opens the request-form modal with either
-              "Past Event Report" or "Delegate List" pre-selected. */}
-          <div ref={resourceMenuRef} style={{ position: "relative", display: "inline-block" }}>
-            <button
-              type="button"
-              onClick={() => setResourceMenuOpen((o) => !o)}
-              aria-haspopup="menu"
-              aria-expanded={resourceMenuOpen}
-              className="otsf-cta-ghost"
-              style={{
-                display: "inline-flex", alignItems: "center", gap: 10, padding: "16px 28px", borderRadius: 50,
-                background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.85)",
-                fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 500,
-                border: "1px solid rgba(255,255,255,0.12)", transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
-                cursor: "pointer", position: "relative", overflow: "hidden",
-                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 16px rgba(0,0,0,0.2)",
-                backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
-              }}
-            >
-              Request Resources
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                style={{
-                  transform: resourceMenuOpen ? "rotate(0)" : "rotate(180deg)",
-                  transition: "transform 0.25s ease",
-                  opacity: 0.8,
-                }}
-              >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </button>
-
-            <AnimatePresence>
-              {resourceMenuOpen && (
-                <motion.div
-                  role="menu"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 6 }}
-                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                  style={{
-                    position: "absolute",
-                    bottom: "calc(100% + 10px)",
-                    left: 0,
-                    minWidth: 320,
-                    padding: 6,
-                    borderRadius: 18,
-                    background: "rgba(8, 20, 40, 0.88)",
-                    border: `1px solid rgba(0, 201, 255, 0.22)`,
-                    backdropFilter: "blur(18px) saturate(180%)",
-                    WebkitBackdropFilter: "blur(18px) saturate(180%)",
-                    boxShadow:
-                      "0 22px 50px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06)",
-                    zIndex: 30,
-                  }}
-                >
-                  {/* Past Event Report */}
-                  <button
-                    type="button"
-                    role="menuitem"
-                    onClick={() => openRequest("Past Event Report")}
-                    className="otsf-jhb-hero-menu-item"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 12,
-                      padding: "12px 14px",
-                      borderRadius: 12,
-                      background: "transparent",
-                      border: "none",
-                      width: "100%",
-                      textAlign: "left",
-                      cursor: "pointer",
-                      color: "white",
-                      transition: "background 0.2s ease",
-                    }}
-                  >
-                    <span style={{
-                      width: 36, height: 36, borderRadius: "50%",
-                      background: `${CYAN}22`,
-                      border: `1px solid ${CYAN}44`,
-                      display: "inline-flex", alignItems: "center", justifyContent: "center",
-                      flexShrink: 0,
-                    }}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={CYAN} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                        <polyline points="14 2 14 8 20 8" />
-                        <line x1="12" y1="18" x2="12" y2="12" />
-                        <polyline points="9 15 12 18 15 15" />
-                      </svg>
-                    </span>
-                    <span style={{ flex: 1, minWidth: 0 }}>
-                      <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 600, color: "white", lineHeight: 1.25 }}>
-                        Past Event Report
-                      </span>
-                      <span style={{ display: "block", marginTop: 2, fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.55)" }}>
-                        Request the PDF report from a past edition
-                      </span>
-                    </span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                      <line x1="5" y1="12" x2="19" y2="12" />
-                      <polyline points="12 5 19 12 12 19" />
-                    </svg>
-                  </button>
-
-                  <div style={{ height: 1, background: "rgba(255,255,255,0.06)", margin: "2px 10px" }} />
-
-                  {/* Delegate List */}
-                  <button
-                    type="button"
-                    role="menuitem"
-                    onClick={() => openRequest("Delegate List")}
-                    className="otsf-jhb-hero-menu-item"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 12,
-                      padding: "12px 14px",
-                      borderRadius: 12,
-                      background: "transparent",
-                      border: "none",
-                      width: "100%",
-                      textAlign: "left",
-                      cursor: "pointer",
-                      color: "white",
-                      transition: "background 0.2s ease",
-                    }}
-                  >
-                    <span style={{
-                      width: 36, height: 36, borderRadius: "50%",
-                      background: `${CYAN}22`,
-                      border: `1px solid ${CYAN}44`,
-                      display: "inline-flex", alignItems: "center", justifyContent: "center",
-                      flexShrink: 0,
-                    }}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={CYAN} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                        <circle cx="9" cy="7" r="4" />
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                      </svg>
-                    </span>
-                    <span style={{ flex: 1, minWidth: 0 }}>
-                      <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 600, color: "white", lineHeight: 1.25 }}>
-                        Delegate List
-                      </span>
-                      <span style={{ display: "block", marginTop: 2, fontFamily: "var(--font-outfit)", fontSize: 11.5, color: "rgba(255,255,255,0.55)" }}>
-                        Request the confirmed attendee roster
-                      </span>
-                    </span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                      <line x1="5" y1="12" x2="19" y2="12" />
-                      <polyline points="12 5 19 12 12 19" />
-                    </svg>
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
         </motion.div>
       </div>
 
@@ -939,8 +745,6 @@ function HeroSection() {
       <style jsx global>{`
         .otsf-cta-primary:hover { transform: translateY(-3px); box-shadow: 0 0 60px ${CYAN}59, 0 8px 32px ${C}40 !important; background: linear-gradient(135deg, ${C_BRIGHT}, ${CYAN}) !important; }
         .otsf-cta-ghost:hover { transform: translateY(-2px); background: rgba(255,255,255,0.1) !important; border-color: rgba(255,255,255,0.3) !important; color: white !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 8px 24px rgba(0,0,0,0.3) !important; }
-        .otsf-jhb-hero-menu-item:hover { background: rgba(0, 201, 255, 0.08) !important; }
-        .otsf-jhb-hero-menu-item:focus-visible { outline: none; background: rgba(0, 201, 255, 0.12) !important; }
         .otsf-pulse-dot { animation: otsf-pulse 2s ease-in-out infinite; }
         @keyframes otsf-pulse { 0%,100% { box-shadow: 0 0 8px ${CYAN}, 0 0 4px ${CYAN}; } 50% { box-shadow: 0 0 16px ${CYAN}, 0 0 8px ${CYAN}, 0 0 24px ${CYAN}40; } }
         @media (max-width: 768px) {
@@ -2094,6 +1898,44 @@ function OTSfPostEventReports() {
                 <input type="text" name="website" tabIndex={-1} autoComplete="off"
                   style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} />
 
+                {/* Request type toggle — Past Event Report vs Delegate List */}
+                <div className="otsf-jhb-delegate-row">
+                  <div
+                    role="tablist"
+                    aria-label="Request type"
+                    style={{ display: "flex", gap: 8, width: "100%" }}
+                  >
+                    {(["Past Event Report", "Delegate List"] as const).map((kind) => {
+                      const active = requestType === kind;
+                      return (
+                        <button
+                          key={kind}
+                          type="button"
+                          role="tab"
+                          aria-selected={active}
+                          onClick={() => setRequestType(kind)}
+                          style={{
+                            flex: 1,
+                            padding: "10px 12px",
+                            borderRadius: 9,
+                            border: active ? `1px solid ${CYAN}66` : "1px solid rgba(255,255,255,0.10)",
+                            background: active ? `linear-gradient(135deg, ${CYAN}26, ${CYAN}0a)` : "rgba(255,255,255,0.03)",
+                            color: active ? CYAN : "rgba(255,255,255,0.55)",
+                            fontFamily: "var(--font-outfit)",
+                            fontSize: 12.5,
+                            fontWeight: 600,
+                            letterSpacing: "0.2px",
+                            cursor: "pointer",
+                            transition: "all 0.25s ease",
+                          }}
+                        >
+                          {kind}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
                 {/* Edition picker — used by both Delegate List and Past Event Report requests */}
                 <div className="otsf-jhb-delegate-row">
                   <label className="otsf-jhb-delegate-field" style={{ flex: "1 1 100%" }}>
@@ -2790,6 +2632,474 @@ function OTSfPostEventReports() {
         }
       `}</style>
     </section>
+  );
+}
+
+// ───────────────────────────────────────────────────────────────────────────
+// POST-EVENT REPORTS — floating sticky note (desktop) → FAB icon (mobile)
+// ───────────────────────────────────────────────────────────────────────────
+function OTSfPostReportFloat() {
+  const [mounted, setMounted] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  const [nudged, setNudged] = useState(false);
+  const [pastOverview, setPastOverview] = useState(false);
+  const [showNudge, setShowNudge] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const DISMISS_KEY = "otsf-jhb-report-dismissed";
+  const NUDGE_KEY = "otsf-jhb-report-nudged";
+
+  useEffect(() => {
+    setMounted(true);
+    try {
+      if (localStorage.getItem(DISMISS_KEY) === "1") setDismissed(true);
+      if (localStorage.getItem(NUDGE_KEY) === "1") setNudged(true);
+    } catch {
+      // localStorage may be unavailable (SSR, private browsing) — silently ignore
+    }
+    const mq = window.matchMedia("(max-width: 700px)");
+    setIsMobile(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    const overview = document.getElementById("overview");
+    if (!overview) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        const rect = entry.boundingClientRect;
+        setPastOverview(rect.bottom < 60);
+      },
+      { threshold: [0, 0.1, 1], rootMargin: "0px 0px -60% 0px" }
+    );
+    obs.observe(overview);
+    const initial = overview.getBoundingClientRect();
+    setPastOverview(initial.bottom < 60);
+    return () => obs.disconnect();
+  }, [mounted]);
+
+  useEffect(() => {
+    if (!mounted || dismissed || nudged) return;
+    const shouldFire = isMobile ? true : pastOverview;
+    if (!shouldFire) return;
+    const showTimer = setTimeout(() => setShowNudge(true), 800);
+    const hideTimer = setTimeout(() => {
+      setShowNudge(false);
+      try { localStorage.setItem(NUDGE_KEY, "1"); } catch {}
+      setNudged(true);
+    }, 8000);
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+    };
+  }, [mounted, pastOverview, dismissed, nudged, isMobile]);
+
+  const handleOpen = () => {
+    window.dispatchEvent(new CustomEvent("otsf-jhb:open-request", { detail: { type: "Past Event Report" } }));
+    setShowNudge(false);
+  };
+
+  const handleDismiss = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setDismissed(true);
+    setShowNudge(false);
+    try { localStorage.setItem(DISMISS_KEY, "1"); } catch {}
+  };
+
+  const handleDismissNudge = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowNudge(false);
+    try { localStorage.setItem(NUDGE_KEY, "1"); } catch {}
+    setNudged(true);
+  };
+
+  if (!mounted || dismissed) return null;
+
+  const showStickyNote = !isMobile;
+  const showIcon = isMobile;
+
+  return (
+    <>
+      <AnimatePresence>
+        {showStickyNote && (
+          <motion.div
+            key="sticky-note"
+            initial={{ opacity: 0, y: 28, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, x: "-50%" }}
+            exit={{ opacity: 0, y: 28, x: "-50%" }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="otsf-jhb-report-note"
+            role="button"
+            tabIndex={0}
+            onClick={handleOpen}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleOpen(); } }}
+            aria-label="Download Post Event Reports"
+          >
+            <button
+              type="button"
+              className="otsf-jhb-report-note-close"
+              onClick={handleDismiss}
+              aria-label="Dismiss"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+
+            <span aria-hidden className="otsf-jhb-report-note-hairline" />
+
+            <div className="otsf-jhb-report-note-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="12" y1="18" x2="12" y2="12" />
+                <polyline points="9 15 12 18 15 15" />
+              </svg>
+            </div>
+
+            <div className="otsf-jhb-report-note-body">
+              <span className="otsf-jhb-report-note-eyebrow">
+                <span className="otsf-jhb-report-note-pulse" aria-hidden />
+                Free Download
+              </span>
+              <span className="otsf-jhb-report-note-title">
+                Download our Post Event Reports
+              </span>
+              <span className="otsf-jhb-report-note-cta">
+                View past editions
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 6 }}>
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showIcon && (
+          <motion.div
+            key="floating-icon-wrap"
+            className="otsf-jhb-report-fab-wrap"
+            initial={{ opacity: 0, scale: 0.6, y: 14 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.6, y: 14 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <AnimatePresence>
+              {showNudge && (
+                <motion.div
+                  key="nudge"
+                  className="otsf-jhb-report-fab-nudge"
+                  initial={{ opacity: 0, x: 12, scale: 0.94 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: 12, scale: 0.94 }}
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <span className="otsf-jhb-report-fab-nudge-eyebrow">
+                    <span className="otsf-jhb-report-note-pulse" aria-hidden /> Free Download
+                  </span>
+                  <span className="otsf-jhb-report-fab-nudge-text">
+                    Download our Post Event Reports
+                  </span>
+                  <button
+                    type="button"
+                    className="otsf-jhb-report-fab-nudge-close"
+                    onClick={handleDismissNudge}
+                    aria-label="Dismiss"
+                  >
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                  </button>
+                  <span aria-hidden className="otsf-jhb-report-fab-nudge-tail" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <div className="otsf-jhb-report-fab-btnwrap">
+              <button
+                type="button"
+                className="otsf-jhb-report-fab"
+                onClick={handleOpen}
+                aria-label="Download Post Event Reports"
+                title="Download Post Event Reports"
+              >
+                <span aria-hidden className="otsf-jhb-report-fab-pulse" />
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="12" y1="18" x2="12" y2="12" />
+                  <polyline points="9 15 12 18 15 15" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                className="otsf-jhb-report-fab-close"
+                onClick={handleDismiss}
+                aria-label="Dismiss"
+              >
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <style jsx global>{`
+        /* ── Sticky note (State A) ─────────────────────────────────────── */
+        .otsf-jhb-report-note {
+          position: fixed;
+          bottom: 24px;
+          left: 50%;
+          z-index: 60;
+          display: inline-flex;
+          align-items: center;
+          gap: 14px;
+          padding: 14px 22px 14px 18px;
+          border-radius: 999px;
+          cursor: pointer;
+          background: linear-gradient(145deg, ${BG_CARD} 0%, ${BG_DARK} 100%);
+          border: 1px solid ${CYAN}55;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.10),
+            inset 0 -1px 0 rgba(0,0,0,0.35),
+            0 18px 50px rgba(0,0,0,0.55),
+            0 0 36px ${CYAN}26;
+          transition: border-color 0.45s ease, box-shadow 0.45s ease;
+          max-width: calc(100vw - 32px);
+        }
+        .otsf-jhb-report-note:hover {
+          border-color: ${CYAN};
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.14),
+            inset 0 -1px 0 rgba(0,0,0,0.35),
+            0 22px 60px rgba(0,0,0,0.6),
+            0 0 50px ${CYAN}4d;
+        }
+        .otsf-jhb-report-note-hairline {
+          position: absolute;
+          top: 0; left: 12%; right: 12%; height: 1px;
+          background: linear-gradient(90deg, transparent 0%, ${C_BRIGHT}, ${CYAN}, transparent 100%);
+          opacity: 0.7;
+        }
+        .otsf-jhb-report-note-close {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          width: 22px; height: 22px;
+          display: flex; align-items: center; justify-content: center;
+          border-radius: 50%;
+          border: 1px solid rgba(255,255,255,0.18);
+          background: ${BG_DARK};
+          color: rgba(255,255,255,0.75);
+          cursor: pointer;
+          backdrop-filter: blur(8px);
+          transition: all 0.3s ease;
+        }
+        .otsf-jhb-report-note-close:hover {
+          color: white;
+          background: ${C};
+          border-color: ${C_BRIGHT};
+          transform: rotate(90deg) scale(1.08);
+        }
+        .otsf-jhb-report-note-icon {
+          flex-shrink: 0;
+          width: 38px; height: 38px;
+          border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          background: linear-gradient(135deg, ${C} 0%, ${CYAN} 100%);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.32), 0 6px 18px ${C}66;
+        }
+        .otsf-jhb-report-note-body {
+          display: flex; flex-direction: column; gap: 1px; line-height: 1.15;
+        }
+        .otsf-jhb-report-note-eyebrow {
+          font-family: var(--font-outfit);
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 2.4px;
+          text-transform: uppercase;
+          color: ${CYAN};
+          display: inline-flex; align-items: center; gap: 6px;
+        }
+        .otsf-jhb-report-note-pulse {
+          width: 6px; height: 6px; border-radius: 50%;
+          background: ${CYAN};
+          box-shadow: 0 0 8px ${CYAN};
+          animation: otsfJhbReportPulse 1.6s ease-in-out infinite;
+        }
+        .otsf-jhb-report-note-title {
+          font-family: var(--font-display);
+          font-size: 13.5px;
+          font-weight: 700;
+          color: white;
+          letter-spacing: -0.2px;
+        }
+        .otsf-jhb-report-note-cta {
+          font-family: var(--font-outfit);
+          font-size: 10px;
+          font-weight: 600;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.55);
+          display: inline-flex; align-items: center;
+          margin-top: 2px;
+        }
+        .otsf-jhb-report-note:hover .otsf-jhb-report-note-cta { color: ${CYAN}; }
+        @keyframes otsfJhbReportPulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50%      { opacity: 0.45; transform: scale(1.5); }
+        }
+
+        /* ── FAB icon (State B) ────────────────────────────────────────── */
+        .otsf-jhb-report-fab-wrap {
+          position: fixed;
+          bottom: 96px;
+          right: 24px;
+          z-index: 50;
+          display: flex;
+          flex-direction: row-reverse;
+          align-items: center;
+          gap: 12px;
+        }
+        .otsf-jhb-report-fab-btnwrap {
+          position: relative;
+          display: inline-flex;
+        }
+        .otsf-jhb-report-fab {
+          position: relative;
+          width: 56px; height: 56px;
+          border-radius: 50%;
+          border: 1px solid ${CYAN};
+          background: linear-gradient(135deg, ${C} 0%, ${CYAN} 100%);
+          color: white;
+          cursor: pointer;
+          display: flex; align-items: center; justify-content: center;
+          box-shadow:
+            inset 0 1.5px 0 rgba(255,255,255,0.34),
+            inset 0 -1.5px 0 rgba(0,0,0,0.25),
+            0 14px 36px rgba(0,0,0,0.45),
+            0 0 30px ${CYAN}55;
+          transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease;
+        }
+        .otsf-jhb-report-fab:hover {
+          transform: translateY(-3px) scale(1.06);
+          box-shadow:
+            inset 0 1.5px 0 rgba(255,255,255,0.4),
+            inset 0 -1.5px 0 rgba(0,0,0,0.25),
+            0 18px 44px rgba(0,0,0,0.5),
+            0 0 44px ${CYAN}88;
+        }
+        .otsf-jhb-report-fab-pulse {
+          position: absolute;
+          inset: 0;
+          border-radius: 50%;
+          background: ${CYAN};
+          opacity: 0.4;
+          animation: otsfJhbFabRing 2.4s ease-out infinite;
+          z-index: -1;
+        }
+        @keyframes otsfJhbFabRing {
+          0%   { transform: scale(1);   opacity: 0.55; }
+          80%  { transform: scale(1.7); opacity: 0;    }
+          100% { transform: scale(1.7); opacity: 0;    }
+        }
+        .otsf-jhb-report-fab-close {
+          position: absolute;
+          top: -6px; right: -6px;
+          width: 20px; height: 20px;
+          display: flex; align-items: center; justify-content: center;
+          border-radius: 50%;
+          border: 1px solid rgba(255,255,255,0.22);
+          background: ${BG_DARK};
+          color: rgba(255,255,255,0.78);
+          cursor: pointer;
+          backdrop-filter: blur(8px);
+          transition: all 0.3s ease;
+        }
+        .otsf-jhb-report-fab-close:hover {
+          color: white;
+          background: ${C};
+          border-color: ${C_BRIGHT};
+          transform: rotate(90deg) scale(1.08);
+        }
+
+        .otsf-jhb-report-fab-nudge {
+          position: relative;
+          max-width: 230px;
+          padding: 12px 32px 12px 14px;
+          border-radius: 14px;
+          background: linear-gradient(145deg, ${BG_CARD} 0%, ${BG_DARK} 100%);
+          border: 1px solid ${CYAN}55;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.10),
+            inset 0 -1px 0 rgba(0,0,0,0.35),
+            0 14px 36px rgba(0,0,0,0.55),
+            0 0 28px ${CYAN}26;
+          display: flex; flex-direction: column; gap: 4px;
+        }
+        .otsf-jhb-report-fab-nudge-eyebrow {
+          font-family: var(--font-outfit);
+          font-size: 8.5px;
+          font-weight: 700;
+          letter-spacing: 2.2px;
+          text-transform: uppercase;
+          color: ${CYAN};
+          display: inline-flex; align-items: center; gap: 6px;
+        }
+        .otsf-jhb-report-fab-nudge-text {
+          font-family: var(--font-display);
+          font-size: 12.5px;
+          font-weight: 700;
+          color: white;
+          letter-spacing: -0.1px;
+          line-height: 1.25;
+        }
+        .otsf-jhb-report-fab-nudge-close {
+          position: absolute;
+          top: 6px; right: 6px;
+          width: 20px; height: 20px;
+          display: flex; align-items: center; justify-content: center;
+          border-radius: 6px;
+          border: 1px solid rgba(255,255,255,0.12);
+          background: rgba(255,255,255,0.04);
+          color: rgba(255,255,255,0.6);
+          cursor: pointer;
+          transition: all 0.25s ease;
+        }
+        .otsf-jhb-report-fab-nudge-close:hover {
+          color: white;
+          background: ${CYAN}33;
+          border-color: ${CYAN}88;
+        }
+        .otsf-jhb-report-fab-nudge-tail {
+          position: absolute;
+          right: -6px; top: 50%;
+          transform: translateY(-50%) rotate(45deg);
+          width: 12px; height: 12px;
+          background: ${BG_CARD};
+          border-top: 1px solid ${CYAN}55;
+          border-right: 1px solid ${CYAN}55;
+        }
+
+        @media (max-width: 700px) {
+          .otsf-jhb-report-fab-wrap { bottom: 88px; right: 16px; }
+          .otsf-jhb-report-fab { width: 50px; height: 50px; }
+          .otsf-jhb-report-fab-nudge { max-width: 200px; padding: 10px 28px 10px 12px; }
+        }
+      `}</style>
+    </>
   );
 }
 
@@ -5858,6 +6168,7 @@ export default function OTSecurityFirstJohannesburg2026() {
           <HeroSection />
           <AboutSection />
           <OTSfPostEventReports />
+          <OTSfPostReportFloat />
           <MarketDriversSection />
           <FocusAreas />
           <SpeakersSection />
