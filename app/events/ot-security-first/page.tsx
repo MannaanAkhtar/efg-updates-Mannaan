@@ -27,10 +27,11 @@ const S3_LOGOS = `${S3}/sponsors-logo`;
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 const EDITIONS_2026 = [
-  { city: "OT MENA", country: "Regional Virtual", date: "TBC 2026", edition: "Virtual Boardroom", href: "/events/ot-security-first/virtual-boardroom-mena", status: "open", venue: "Virtual · MENA", image: `${S3}/Good/4N8A0290.JPG`, logo: "" },
-  { city: "Johannesburg", country: "South Africa", date: "27 August 2026", edition: "1st Edition · Africa", href: "/events/ot-security-first/johannesburg-2026", status: "open", venue: "Johannesburg", image: `${S3}/events/OT%20Security%20First%20UAE%202025/OT%20First%20UAE%20Photos/4N8A0412.JPG`, logo: "" },
-  { city: "Jubail", country: "Saudi Arabia", date: "27 October 2026", edition: "1st Edition", href: "/events/ot-security-first/jubail", status: "open", venue: "Jubail Industrial City", image: "", logo: "" },
-  { city: "Muscat", country: "Oman", date: "TBC 2026", edition: "1st Edition", href: "/events/ot-security-first/oman-2026", status: "soon", venue: "Venue TBA", image: "", logo: "" },
+  { city: "Johannesburg", country: "South Africa", date: "27 August 2026", edition: "1st Edition · Africa", href: "/events/ot-security-first/johannesburg-2026", status: "open", venue: "Johannesburg", image: `${S3}/events/OT%20Security%20First%20UAE%202025/OT%20First%20UAE%20Photos/4N8A0412.JPG`, logo: "", lightImage: false },
+  { city: "Jubail", country: "Saudi Arabia", date: "27 October 2026", edition: "1st Edition", href: "/events/ot-security-first/jubail", status: "open", venue: "Jubail Industrial City", image: `${S3}/assets/OT_Jubail.png`, logo: "", lightImage: true },
+  { city: "Doha", country: "Qatar", date: "November 2026", edition: "5th Edition", href: "/events/ot-security-first/qatar", status: "open", venue: "Doha, Qatar", image: `${S3}/assets/OT_qatar.png`, logo: "", lightImage: true },
+  { city: "UAE", country: "United Arab Emirates", date: "TBC 2027", edition: "Flagship Edition", href: "/events/ot-security-first", status: "soon", venue: "Venue TBA", image: "", logo: "", lightImage: false },
+  { city: "Muscat", country: "Oman", date: "TBC 2026", edition: "1st Edition", href: "/events/ot-security-first/oman-2026", status: "soon", venue: "Venue TBA", image: "", logo: "", lightImage: false },
 ];
 const FUTURE_BADGES = [
   { city: "Kuwait City", country: "KW" },
@@ -2876,11 +2877,11 @@ function Arc() {
             </span>
             <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${OT_CRIMSON}, transparent)`, opacity: 0.7 }} />
             <span style={{ fontFamily: "var(--font-display)", fontSize: "clamp(16px, 1.4vw, 20px)", fontWeight: 400, fontStyle: "italic", color: "rgba(255,255,255,0.78)", letterSpacing: "-0.01em" }}>
-              OT MENA · Johannesburg confirmed. Jubail &amp; Muscat on deck. UAE CIIP, NCA OTCC, South Africa NCIIP — one circuit.
+              Johannesburg, Jubail &amp; Doha confirmed. UAE &amp; Muscat on deck. NCA OTCC, CIIP, South Africa NCIIP — one circuit.
             </span>
           </div>
           <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 600, color: FAINT, letterSpacing: "0.22em", textTransform: "uppercase", fontVariantNumeric: "tabular-nums" }}>
-            02 Open <span style={{ color: "rgba(255,255,255,0.2)", margin: "0 6px" }}>·</span> 02 Upcoming
+            03 Open <span style={{ color: "rgba(255,255,255,0.2)", margin: "0 6px" }}>·</span> 02 Upcoming
           </span>
         </motion.div>
 
@@ -2924,30 +2925,38 @@ function Arc() {
                 background: "#05070b",
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.55)",
               }}>
-                {/* Hero image */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={ed.image}
-                  alt={`${ed.city} edition venue`}
-                  loading="lazy"
-                  className="otsf-arc-card-img"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    objectPosition: "center 40%",
-                    filter: "saturate(0.55) contrast(1.15) brightness(0.38)",
-                    transition: "transform 1s cubic-bezier(0.22,1,0.36,1), filter 0.6s ease",
-                  }}
-                />
+                {/* Hero image — only when the edition has one */}
+                {ed.image && (
+                  <>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={ed.image}
+                      alt={`${ed.city} edition venue`}
+                      loading="lazy"
+                      className="otsf-arc-card-img"
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        objectPosition: "center 40%",
+                        filter: ed.lightImage
+                          ? "saturate(0.85) contrast(1.05) brightness(0.72)"
+                          : "saturate(0.55) contrast(1.15) brightness(0.38)",
+                        transition: "transform 1s cubic-bezier(0.22,1,0.36,1), filter 0.6s ease",
+                      }}
+                    />
+                  </>
+                )}
 
                 {/* Dark legibility gradient — deeper, bottom-heavy for magazine feel */}
                 <span style={{
                   position: "absolute",
                   inset: 0,
-                  background: "linear-gradient(180deg, rgba(5,7,11,0.82) 0%, rgba(5,7,11,0.45) 30%, rgba(5,7,11,0.65) 62%, rgba(5,7,11,0.98) 100%)",
+                  background: ed.lightImage
+                    ? "linear-gradient(180deg, rgba(5,7,11,0.45) 0%, rgba(5,7,11,0.12) 34%, rgba(5,7,11,0.4) 66%, rgba(5,7,11,0.9) 100%)"
+                    : "linear-gradient(180deg, rgba(5,7,11,0.82) 0%, rgba(5,7,11,0.45) 30%, rgba(5,7,11,0.65) 62%, rgba(5,7,11,0.98) 100%)",
                   pointerEvents: "none",
                 }} />
                 {/* Cyan brand tint */}
@@ -3184,6 +3193,7 @@ function Arc() {
             const code = ed.country === "Qatar" ? "QA"
               : ed.country === "Oman" ? "OM"
               : ed.country === "Saudi Arabia" ? "SA"
+              : ed.country === "United Arab Emirates" ? "AE"
               : ed.country.slice(0, 2).toUpperCase();
             return (
               <motion.div
@@ -3916,7 +3926,7 @@ function TheRoom() {
             }}
           >
             <Link
-              href="/events/ot-security-first/jubail#speakers"
+              href="/speakers"
               scroll
               className="otsf-speakers-cta"
               style={{
