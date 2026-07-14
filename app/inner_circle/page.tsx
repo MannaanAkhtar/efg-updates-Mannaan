@@ -31,6 +31,10 @@ const VENUE_BG = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/Hilton+Ri
 const EFG_LOGO = "/events-first-group_logo_alt.svg";
 const PRIVACY_URL = "https://clevertap.com/privacy-policy/";
 
+// Preview — Javier Saba, The Mentalist
+const MENTALIST_VIDEO = "https://efg-final.s3.eu-north-1.amazonaws.com/clevertap/CleverTap+Mentalist+Video.mp4";
+const MENTALIST_IMG = "https://efg-final.s3.eu-north-1.amazonaws.com/clevertap/Javier+Saba%2C+The+Mentalist.jpeg";
+
 // Event: 19 August 2026, Riyadh (UTC+03:00) — drives the hero countdown. TODO: set exact start time once confirmed.
 const EVENT_DATE = "2026-08-19T17:30:00+03:00";
 
@@ -64,10 +68,21 @@ const PREVIEW_P =
 const ATTEND_P =
   "CMOs, CGOs, Heads of Digital, and senior growth leaders shaping how Saudi Arabia's top brands engage their customers.";
 
-const VOICES = [
-  { name: "[Speaker Name]", role: "[Title], CleverTap", initials: "CT" },
-  { name: "[Speaker Name]", role: "[Title], CleverTap", initials: "CT" },
-  { name: "[Mentalist Name]", role: "Mentalist & Performer", initials: "M" },
+const VOICES: { name: string; role: string; initials: string; photo?: string; linkedin?: string }[] = [
+  {
+    name: "Mohammad Tannous",
+    role: "Regional Director, MEA & Turkey, CleverTap",
+    initials: "MT",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tannous.png",
+    linkedin: "https://www.linkedin.com/in/mohammadtannous/",
+  },
+  {
+    name: "Suhaib Abu Taleb",
+    role: "Business Head — Saudi Arabia, Egypt, Jordan, CleverTap",
+    initials: "SA",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Suhaib+Abu+Taleb.png",
+    linkedin: "https://www.linkedin.com/in/suhaib-abu-taleb-09718b123/",
+  },
 ];
 
 const AGENDA: { time: string; title: string; sub?: string }[] = [
@@ -512,29 +527,67 @@ function Format() {
 function Preview() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-90px" });
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
+
+  const play = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.play();
+    setPlaying(true);
+  };
+
   return (
-    <section ref={ref} style={{ position: "relative", background: INK_2, borderTop: `1px solid ${LINE}`, padding: "clamp(64px,9vh,110px) clamp(22px,5vw,80px)" }}>
-      <div style={{ maxWidth: 960, margin: "0 auto", textAlign: "center" }}>
+    <section ref={ref} style={{ position: "relative", background: INK_2, borderTop: `1px solid ${LINE}`, padding: "clamp(64px,9vh,110px) clamp(22px,5vw,80px)", overflow: "hidden" }}>
+      <div aria-hidden style={{ position: "absolute", inset: 0, backgroundImage: `radial-gradient(ellipse 52% 42% at 50% 0%, ${RED}12, transparent 62%)`, pointerEvents: "none" }} />
+      <div style={{ position: "relative", maxWidth: 1120, margin: "0 auto" }}>
         <div style={{ ...rise(inView, 0), display: "flex", justifyContent: "center" }}><Eyebrow center>A Preview</Eyebrow></div>
-        <h2 style={{ ...rise(inView, 0.08), fontFamily: DISPLAY, fontSize: "clamp(26px,4vw,46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, color: WHITE, margin: "18px auto 0", maxWidth: 720 }}>
+        <h2 style={{ ...rise(inView, 0.08), fontFamily: DISPLAY, fontSize: "clamp(26px,4vw,46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, color: WHITE, margin: "18px auto 0", maxWidth: 720, textAlign: "center" }}>
           The Art of Knowing, Demonstrated.
         </h2>
-        <p style={{ ...rise(inView, 0.16), fontFamily: BODY, fontSize: "clamp(15px,1.5vw,18px)", lineHeight: 1.75, color: MUTE, margin: "20px auto clamp(34px,4vh,48px)", maxWidth: 640 }}>{PREVIEW_P}</p>
+        <p style={{ ...rise(inView, 0.16), fontFamily: BODY, fontSize: "clamp(15px,1.5vw,18px)", lineHeight: 1.75, color: MUTE, margin: "20px auto clamp(40px,5vh,58px)", maxWidth: 640, textAlign: "center" }}>{PREVIEW_P}</p>
 
-        {/* Mentalist teaser video embed placeholder — slim band */}
-        <div style={{ ...rise(inView, 0.24), position: "relative", height: "clamp(120px,18vh,176px)", borderRadius: 18, overflow: "hidden", border: `1px solid ${LINE_STRONG}`, background: "linear-gradient(160deg, rgba(225,75,58,0.08), rgba(16,14,12,0.9))", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 30px 70px rgba(0,0,0,0.45)" }}>
-          <div aria-hidden style={{ position: "absolute", inset: 0, backgroundImage: `radial-gradient(circle at 50% 50%, ${RED}22, transparent 60%)` }} />
-          <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 16 }}>
-            <span className="ic-teaser-pulse" style={{ width: 54, height: 54, borderRadius: "50%", flex: "0 0 auto", display: "inline-flex", alignItems: "center", justifyContent: "center", background: "rgba(245,240,232,0.06)", border: `1px solid ${LINE_STRONG}`, backdropFilter: "blur(6px)" }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill={WHITE} aria-hidden><path d="M8 5v14l11-7z" /></svg>
-            </span>
-            <div style={{ textAlign: "left" }}>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-                <span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: RED, boxShadow: `0 0 10px ${RED}` }} />
-                <span style={{ fontFamily: BODY, fontSize: 10.5, fontWeight: 700, letterSpacing: "0.24em", textTransform: "uppercase", color: RED_SOFT }}>Coming Soon</span>
-              </div>
-              <div style={{ fontFamily: DISPLAY, fontSize: "clamp(18px,2.4vw,26px)", fontWeight: 700, letterSpacing: "-0.01em", color: WHITE, marginTop: 6 }}>The Teaser Drops Soon</div>
+        {/* Editorial split — content panel (left) · teaser video (right) */}
+        <div className="ic-preview-split" style={{ ...rise(inView, 0.24), display: "grid", gridTemplateColumns: "minmax(0, 0.86fr) minmax(0, 1.14fr)", borderRadius: 24, overflow: "hidden", border: `1px solid ${LINE_STRONG}`, background: INK, boxShadow: "0 44px 96px rgba(0,0,0,0.5)" }}>
+
+          {/* LEFT — content panel */}
+          <div className="ic-preview-copy" style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "center", padding: "clamp(30px,3.4vw,46px)", background: "linear-gradient(160deg, rgba(225,75,58,0.1), rgba(16,14,12,0.4) 55%), radial-gradient(ellipse 90% 60% at 0% 0%, rgba(200,162,91,0.1), transparent 60%)", overflow: "hidden" }}>
+            <span aria-hidden className="ic-preview-divider" style={{ position: "absolute", top: 0, right: 0, bottom: 0, width: 1, background: LINE_STRONG }} />
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+              <span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: RED, boxShadow: `0 0 10px ${RED}` }} />
+              <span style={{ fontFamily: BODY, fontSize: 10.5, fontWeight: 700, letterSpacing: "0.24em", textTransform: "uppercase", color: RED_SOFT }}>The Reveal</span>
             </div>
+            <h3 style={{ fontFamily: DISPLAY, fontSize: "clamp(28px,3.4vw,42px)", fontWeight: 700, letterSpacing: "-0.025em", color: WHITE, lineHeight: 1.02, margin: 0 }}>Javier Saba</h3>
+            <div style={{ fontFamily: ITALIC, fontStyle: "italic", fontSize: "clamp(14px,1.5vw,17px)", color: GOLD_BRIGHT, marginTop: 10, letterSpacing: "0.01em" }}>The Illusionist &amp; Mentalist</div>
+            <span aria-hidden style={{ display: "block", width: 46, height: 2, borderRadius: 2, background: `linear-gradient(90deg, ${RED}, transparent)`, margin: "22px 0" }} />
+            <p style={{ fontFamily: BODY, fontSize: "clamp(14px,1.4vw,16px)", lineHeight: 1.7, color: MUTE, margin: 0, maxWidth: 380 }}>
+              The evening closes with an experience that will make you question what “knowing” really means — a live act where the mind becomes the stage.
+            </p>
+          </div>
+
+          {/* RIGHT — teaser video */}
+          <div className="ic-preview-video" style={{ position: "relative", minHeight: 360, background: "#000" }}>
+            <video
+              ref={videoRef}
+              src={MENTALIST_VIDEO}
+              poster={MENTALIST_IMG}
+              playsInline
+              controls={playing}
+              preload="metadata"
+              onEnded={() => setPlaying(false)}
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+            />
+            {!playing && (
+              <button onClick={play} aria-label="Play the teaser" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none", cursor: "pointer", padding: 0, background: "linear-gradient(150deg, rgba(16,14,12,0.22), rgba(16,14,12,0.5))", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span aria-hidden style={{ position: "absolute", top: 20, left: 22, display: "inline-flex", alignItems: "center", gap: 8 }}>
+                  <span style={{ width: 5, height: 5, borderRadius: "50%", background: RED, boxShadow: `0 0 10px ${RED}` }} />
+                  <span style={{ fontFamily: BODY, fontSize: 10.5, fontWeight: 700, letterSpacing: "0.24em", textTransform: "uppercase", color: WHITE }}>Watch The Teaser</span>
+                </span>
+                <span className="ic-teaser-pulse ic-preview-play" style={{ width: 78, height: 78, borderRadius: "50%", display: "inline-flex", alignItems: "center", justifyContent: "center", background: "rgba(245,240,232,0.12)", border: `1px solid ${LINE_STRONG}`, backdropFilter: "blur(6px)", transition: "background 0.3s ease, transform 0.3s ease, border-color 0.3s ease" }}>
+                  <svg width="27" height="27" viewBox="0 0 24 24" fill={WHITE} aria-hidden style={{ marginLeft: 3 }}><path d="M8 5v14l11-7z" /></svg>
+                </span>
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -553,16 +606,29 @@ function Voices() {
         <h2 style={{ ...rise(inView, 0.08), fontFamily: DISPLAY, fontSize: "clamp(26px,4vw,46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, color: WHITE, margin: "18px auto clamp(40px,5vh,56px)", textAlign: "center" }}>
           The Minds Behind The Inner Circle.
         </h2>
-        <div className="ic-voices" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+        <div className="ic-voices" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 262px))", gap: 22, justifyContent: "center" }}>
           {VOICES.map((v, i) => (
             <article key={i} className="ic-card" style={{ ...rise(inView, 0.14 + i * 0.09), position: "relative", overflow: "hidden", borderRadius: 20, background: SURFACE, border: `1px solid ${LINE}`, transition: "border-color 0.4s ease, transform 0.4s ease" }}>
-              <div style={{ position: "relative", aspectRatio: "4 / 3", display: "flex", alignItems: "center", justifyContent: "center", background: `linear-gradient(155deg, rgba(225,75,58,0.16), rgba(16,14,12,0.92))`, overflow: "hidden" }}>
-                <div aria-hidden style={{ position: "absolute", inset: 0, backgroundImage: `radial-gradient(circle at 78% -8%, ${GOLD}22, transparent 58%)` }} />
-                <span style={{ position: "relative", fontFamily: DISPLAY, fontSize: 44, fontWeight: 700, letterSpacing: "-0.02em", color: "rgba(245,240,232,0.5)" }}>{v.initials}</span>
+              <div style={{ position: "relative", aspectRatio: "4 / 5", display: "flex", alignItems: "center", justifyContent: "center", background: `linear-gradient(155deg, rgba(225,75,58,0.16), rgba(16,14,12,0.92))`, overflow: "hidden" }}>
+                <div aria-hidden style={{ position: "absolute", inset: 0, backgroundImage: `radial-gradient(circle at 78% -8%, ${GOLD}22, transparent 58%)`, zIndex: 1, pointerEvents: "none" }} />
+                {v.photo ? (
+                  <>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={v.photo} alt={v.name} loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }} />
+                    <span aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 55%, rgba(16,14,12,0.55) 100%)", zIndex: 1 }} />
+                  </>
+                ) : (
+                  <span style={{ position: "relative", zIndex: 2, fontFamily: DISPLAY, fontSize: 44, fontWeight: 700, letterSpacing: "-0.02em", color: "rgba(245,240,232,0.5)" }}>{v.initials}</span>
+                )}
+                {v.linkedin && (
+                  <a className="ic-li" href={v.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${v.name} on LinkedIn`}>
+                    <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+                  </a>
+                )}
               </div>
-              <div style={{ padding: "22px 24px" }}>
-                <h3 style={{ fontFamily: DISPLAY, fontSize: 20, fontWeight: 700, letterSpacing: "-0.02em", color: WHITE, margin: 0 }}>{v.name}</h3>
-                <p style={{ fontFamily: BODY, fontSize: 13.5, color: MUTE, margin: "8px 0 0", lineHeight: 1.45 }}>{v.role}</p>
+              <div style={{ padding: "16px 18px" }}>
+                <h3 style={{ fontFamily: DISPLAY, fontSize: 17, fontWeight: 700, letterSpacing: "-0.02em", color: WHITE, margin: 0 }}>{v.name}</h3>
+                <p style={{ fontFamily: BODY, fontSize: 12.5, color: MUTE, margin: "6px 0 0", lineHeight: 1.4 }}>{v.role}</p>
               </div>
             </article>
           ))}
@@ -807,6 +873,7 @@ export default function InnerCirclePage() {
         @media (prefers-reduced-motion: reduce) { .ic-dot-fill { animation: none !important; transform: scaleX(1); } }
         .ic-agenda-row:hover { background: rgba(245,240,232,0.03); }
         .ic-teaser-pulse { animation: icTeaserPulse 2.4s ease-in-out infinite; }
+        .ic-preview-video:hover .ic-preview-play { background: rgba(225,75,58,0.9); border-color: rgba(225,75,58,0.9); transform: scale(1.06); }
         @keyframes icTeaserPulse {
           0%, 100% { box-shadow: 0 0 0 0 rgba(225,75,58,0.35); }
           50% { box-shadow: 0 0 0 12px rgba(225,75,58,0); }
@@ -873,6 +940,21 @@ export default function InnerCirclePage() {
         .ic-shine::after { content: ""; position: absolute; top: 0; left: -60%; width: 42%; height: 100%; background: linear-gradient(105deg, transparent, rgba(255,255,255,0.5), transparent); transform: skewX(-20deg); animation: icBtnShine 4.8s ease-in-out infinite; animation-delay: 1s; pointer-events: none; }
         @keyframes icBtnShine { 0% { left: -60%; } 38%, 100% { left: 130%; } }
 
+        .ic-li {
+          position: absolute; top: 12px; right: 12px; z-index: 2;
+          width: 32px; height: 32px; border-radius: 9px;
+          display: flex; align-items: center; justify-content: center;
+          background: rgba(16,14,12,0.55); border: 1px solid rgba(245,240,232,0.16);
+          color: rgba(245,240,232,0.82); backdrop-filter: blur(6px);
+          transition: background 0.28s ease, color 0.28s ease, border-color 0.28s ease, transform 0.28s ease, box-shadow 0.28s ease;
+        }
+        .ic-li:hover {
+          background: #0A66C2; border-color: #0A66C2; color: #fff;
+          transform: translateY(-1px) scale(1.06);
+          box-shadow: 0 6px 18px rgba(10,102,194,0.42);
+        }
+        .ic-li svg { display: block; }
+
         @media (prefers-reduced-motion: reduce) {
           .ic-fade { animation: none; opacity: 1; transform: none; }
           .ic-hero-bg, .ic-hero-haze, .ic-dust, .ic-hero-logo, .ic-hero-rays { animation: none !important; }
@@ -881,7 +963,10 @@ export default function InnerCirclePage() {
         @media (max-width: 860px) {
           .ic-format { grid-template-columns: 1fr !important; }
           .ic-format-rule { display: none !important; }
-          .ic-voices { grid-template-columns: 1fr !important; }
+          .ic-voices { grid-template-columns: minmax(0, 320px) !important; }
+          .ic-preview-split { grid-template-columns: 1fr !important; }
+          .ic-preview-video { min-height: 230px !important; order: -1; }
+          .ic-preview-divider { display: none !important; }
           .ic-nav-links { display: none !important; }
           .ic-ov-grid { grid-template-columns: 1fr !important; gap: 22px !important; }
           .ic-attend-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
