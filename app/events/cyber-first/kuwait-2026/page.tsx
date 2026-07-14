@@ -2072,7 +2072,7 @@ function HeroSection() {
                 fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 700,
                 color: "white", letterSpacing: "-0.005em",
               }}>
-                3rd Annual Edition
+                7th Annual Edition
               </span>
             </div>
           </motion.div>
@@ -8814,7 +8814,7 @@ function RegistrationSection() {
 
               {/* Event details */}
               <div className="flex flex-wrap items-center gap-2" style={{ marginTop: 12 }}>
-                {["3rd Edition", "October 14, 2026", "Jumeirah Messilah Beach Hotel"].map(
+                {["7th Edition", "October 14, 2026", "Jumeirah Messilah Beach Hotel"].map(
                   (item, index, arr) => (
                     <span key={item} className="flex items-center gap-2">
                       <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "#707070" }}>

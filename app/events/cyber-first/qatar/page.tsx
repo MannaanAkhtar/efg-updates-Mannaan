@@ -596,7 +596,7 @@ function Hero() {
                 color: C_BRIGHT,
               }}
             >
-              4th Edition Qatar
+              8th Edition Qatar
             </span>
 
             {/* Right serration */}
