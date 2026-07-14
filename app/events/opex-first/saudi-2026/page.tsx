@@ -607,7 +607,7 @@ function Hero() {
               marginBottom: 30,
             }}
           >
-            2nd Edition · Saudi Arabia
+            3rd Edition · Saudi Arabia
           </motion.div>
 
           {/* Headline — paired monumental */}
