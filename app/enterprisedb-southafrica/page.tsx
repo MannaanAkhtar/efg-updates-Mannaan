@@ -110,6 +110,7 @@ const EDB_PRODUCTS = ["EDB Postgres AI", "WarehousePG"];
 
 const SPEAKERS = [
   { name: "Kash Rafique", role: "Director, Sales EMEA", org: "EDB", tag: "Moderator", photo: "", initials: "KR", linkedin: "https://www.linkedin.com/in/kash-rafique-3a007997/" },
+  { name: "Malik Bilal", role: "Senior Sales Engineer", org: "EDB", photo: "", initials: "MB", linkedin: "https://www.linkedin.com/in/malikbilal/" },
 ];
 
 const NAV_LINKS = [
