@@ -5856,7 +5856,7 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
         time: "13:30 – 14:00",
         type: "panel",
         title: "Panel Discussion",
-        desc: "Securing the Industrial Ecosystem: Third-Party Risk, Supply Chain Integrity, and the OT Talent Crunch\nAddressing the vulnerabilities introduced by external suppliers and the human capital strategies required to manage modern industrial cyber risks",
+        desc: "Securing the Industrial Ecosystem: Third-Party Risk, Supply Chain Integrity, and the Power of External Threat Intelligence\nAddressing the vulnerabilities introduced by external suppliers and the human capital strategies required to manage modern industrial cyber risks",
         bullets: [
           "Mitigating third-party software and hardware component vulnerabilities",
           "Vendor Remote Access Control - Securing and auditing ephemeral remote maintenance gateways",
