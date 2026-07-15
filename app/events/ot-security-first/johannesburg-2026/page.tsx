@@ -316,7 +316,7 @@ const SPEAKERS = [
   },
   {
     name: "Shane Naidoo",
-    title: "Executive Head of IT",
+    title: "Digital Executive",
     org: "Transnet",
     linkedin: "https://www.linkedin.com/in/shane-naidoo-12994519/",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Shane+Naidoo.jpeg",
@@ -5865,7 +5865,7 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
         ],
         panelists: [
           "Muvhango Livhusha, VP, ISACA South Africa Chapter",
-          "Shane Naidoo, Executive Head of IT, Transnet",
+          "Shane Naidoo, Digital Executive, Transnet",
         ],
       },
       { time: "14:00 – 14:15", type: "fireside", title: "Presentation", desc: "Cyber-attacks on Critical infrastructures: Understanding the Threat and Building resilience\nNaoufal Kerboute, Regional Director - Middle East and Africa, Waterfall Security" },
