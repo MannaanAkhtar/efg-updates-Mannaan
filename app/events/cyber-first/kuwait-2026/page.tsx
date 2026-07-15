@@ -164,32 +164,25 @@ type Speaker = {
 
 const SPEAKERS: Speaker[] = [
   {
-    name: "Shaheela Banu A. Majeed",
-    title: "Information Security & Compliance Officer & Auditor",
-    org: "Oil & Gas / Confidential",
-    photo: `${S3}/shaheela-majeed-new.jpg`,
-    linkedin: "https://www.linkedin.com/in/shaheela-banu/",
+    name: "Abdulla Al-Awadi",
+    title: "Chief Strategy Officer",
+    org: "KIB",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulla+Al-Awadi.png",
+    linkedin: null,
   },
   {
-    name: "Mohamed Rushdhi",
-    title: "Head of Information Security Unit",
-    org: "The Industrial Bank of Kuwait",
-    photo: null,
-    linkedin: "https://www.linkedin.com/in/rushdhi-mohamed-information-security/",
+    name: "Saud Almudhaf",
+    title: "VP – Head of ESG & Governance Risk",
+    org: "NBK",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Saud+Almudhaf.jpg",
+    linkedin: "https://www.linkedin.com/in/saud-almudhaf-mba-173b1a41/",
   },
   {
     name: "Omer Yildirim",
     title: "SVP, Chief Technology Officer",
     org: "Tiqmo",
-    photo: null,
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Omer+Yildirim.png",
     linkedin: "https://www.linkedin.com/in/yildirimomer/",
-  },
-  {
-    name: "Dr Fai Ben Salamah",
-    title: "Cybersecurity Expert",
-    org: "Kuwait Technical College",
-    photo: `${S3}/dr-fai-ben-salamah-new.jpg`,
-    linkedin: "https://www.linkedin.com/in/dr-fai-ben-salamah-83113b1a0/",
   },
   {
     name: "Faissal Al-Roumi",
@@ -199,6 +192,13 @@ const SPEAKERS: Speaker[] = [
     linkedin: "https://www.linkedin.com/in/faissal-al-roumi-mba-corp-0b2064112/",
   },
   {
+    name: "Mohamed Rushdhi",
+    title: "Head of Information Security Unit",
+    org: "The Industrial Bank of Kuwait",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohamed+Rushdhi.png",
+    linkedin: "https://www.linkedin.com/in/rushdhi-mohamed-information-security/",
+  },
+  {
     name: "Eng. Yousef H. El-Kordi",
     title: "Group Information Technology Director",
     org: "City Group",
@@ -206,18 +206,32 @@ const SPEAKERS: Speaker[] = [
     linkedin: "https://www.linkedin.com/in/yousefelkordi/",
   },
   {
+    name: "Shaheela Banu A. Majeed",
+    title: "Information Security & Compliance Officer & Auditor",
+    org: "Oil & Gas / Confidential",
+    photo: `${S3}/shaheela-majeed-new.jpg`,
+    linkedin: "https://www.linkedin.com/in/shaheela-banu/",
+  },
+  {
+    name: "Dr Fai Ben Salamah",
+    title: "Cybersecurity Expert",
+    org: "Kuwait Technical College",
+    photo: `${S3}/dr-fai-ben-salamah-new.jpg`,
+    linkedin: "https://www.linkedin.com/in/dr-fai-ben-salamah-83113b1a0/",
+  },
+  {
+    name: "Eng. Khaled B. Althekair",
+    title: "Consultant",
+    org: "",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng._Khaled_B.+Althekair.png",
+    linkedin: "https://www.linkedin.com/in/khaled-al-thekair-4a92547/",
+  },
+  {
     name: "Sumit Tekriwal",
     title: "Head of Information Security Governance, Compliance and Privacy Unit",
     org: "KIB",
     photo: `${S3}/sumit-tekriwal.jpg`,
     linkedin: "https://www.linkedin.com/in/sumittekriwal/",
-  },
-  {
-    name: "Abdulla Al-Awadi",
-    title: "Chief Strategy Officer",
-    org: "KIB",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulla+Al-Awadi.png",
-    linkedin: null,
   },
 ];
 
@@ -1873,6 +1887,7 @@ export default function CyberFirstKuwait2026() {
       <EventNavigation />
       <HeroSection />
       <CVSection minH={720}><MarketContext /></CVSection>
+      <CVSection minH={760}><KuwaitContext /></CVSection>
       <CVSection minH={820}><FocusAreas /></CVSection>
       <CVSection minH={700}><AdvisoryBoard /></CVSection>
       <CVSection minH={700}><Speakers /></CVSection>
@@ -2934,7 +2949,24 @@ function MarketContext() {
                 margin: 0,
               }}
             >
-              Bringing together 300+ CISOs, cybersecurity leaders, government officials, technology executives, and business decision-makers for a high-impact forum focused on advancing Kuwait&apos;s cyber resilience and secure digital future. As Kuwait accelerates its digital transformation through cloud adoption, smart government services, AI innovation, 5G infrastructure, and Vision 2035 initiatives — cybersecurity has become a national priority.
+              As Kuwait accelerates its digital transformation under <strong style={{ color: "#fff", fontWeight: 600 }}>New Kuwait Vision 2035</strong>, cybersecurity has become a national priority. <strong style={{ color: "#fff", fontWeight: 600 }}>Cyber First Kuwait 2026</strong> brings together government leaders, regulators, CISOs, CIOs, and industry experts to discuss the strategies, technologies, and partnerships needed to strengthen cyber resilience across government, banking, oil &amp; gas, telecommunications, manufacturing, and critical infrastructure.
+            </motion.p>
+
+            {/* Paragraph 2 — regulatory alignment */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.4, ease: EASE }}
+              style={{
+                fontFamily: "var(--font-outfit)",
+                fontWeight: 400,
+                fontSize: "clamp(15px, 1.1vw, 17px)",
+                color: "rgba(255,255,255,0.62)",
+                lineHeight: 1.7,
+                margin: "18px 0 0",
+              }}
+            >
+              Aligned with Kuwait&apos;s National Cybersecurity Strategy (2023–2027), the Kuwait National Basic Cybersecurity Controls (KNBCC), the National Cyber Security Center (NCSC), and the Central Bank of Kuwait&apos;s Cyber &amp; Operational Resilience Framework (CORF), the summit focuses on cyber governance, operational resilience, AI security, cloud security, Zero Trust, critical infrastructure protection, and securing Kuwait&apos;s digital future.
             </motion.p>
           </motion.div>
 
@@ -2998,7 +3030,15 @@ function MarketContext() {
           align-items: center;
         }
         .cfk-eo-row-1 {
-          margin-bottom: 48px;
+          margin-bottom: 20px;
+          align-items: start;
+        }
+        /* Balance the tall two-paragraph text column: push Row 1 video down, pull Row 2 stats up */
+        .cfk-eo-row-1 .cfk-eo-media {
+          margin-top: 96px;
+        }
+        .cfk-eo-row-2 .cfk-eo-stats {
+          margin-top: -110px;
         }
         .cfk-eo-text {
           padding-right: 8px;
@@ -3028,6 +3068,13 @@ function MarketContext() {
           /* Mobile order: Row 1 [text → video1] (natural), Row 2 [video2 → stats] (natural) */
           .cfk-eo-text {
             padding-right: 0 !important;
+          }
+          /* Reset desktop balance offsets when stacked */
+          .cfk-eo-row-1 .cfk-eo-media {
+            margin-top: 0 !important;
+          }
+          .cfk-eo-row-2 .cfk-eo-stats {
+            margin-top: 0 !important;
           }
         }
         @media (max-width: 600px) {
@@ -3999,6 +4046,151 @@ function GrowthStory() {
           }
         `}</style>
       </div>
+    </section>
+  );
+}
+
+// ─── Kuwait Cybersecurity at a Glance + Industry Case Studies ─────────────────
+const KW_GLANCE = [
+  { value: "$1.16B", label: "Market by 2031", desc: "Kuwait's cybersecurity market is expected to exceed USD 1.16 billion by 2031, driven by rapid digital transformation and rising investment in cyber resilience." },
+  { value: "66%", label: "Cloud-Focused Spend", desc: "Approximately 66% of cybersecurity spending is focused on cloud security and cloud-native protection." },
+  { value: "~30%", label: "From Banking", desc: "The banking sector contributes nearly 30% of cybersecurity investment, supported by regulatory initiatives from the Central Bank of Kuwait." },
+  { value: "50%+", label: "SOC · MDR · Detection", desc: "Security Operations Centres (SOC), Managed Detection & Response (MDR), and threat detection account for more than half of cybersecurity spending." },
+];
+const KW_TRENDS = [
+  { title: "Fastest-Growing Investment Areas", desc: "AI Security, Operational Technology (OT) Security, Cloud Security, Identity & Access Management (IAM), Zero Trust Architecture, Threat Intelligence, and Operational Resilience." },
+  { title: "A Unified National Baseline — KNBCC", desc: "The KNBCC introduces a unified national cybersecurity baseline with an 18-month implementation period for covered organisations — reinforcing governance, resilience, cloud security, incident response, and continuous compliance." },
+];
+const KW_CASES = [
+  { short: "NBK", org: "National Bank of Kuwait", desc: "Strengthened its cyber resilience by enhancing incident response, business continuity, cyber recovery, and third-party risk management to meet the Central Bank of Kuwait's resilience requirements." },
+  { short: "KOC", org: "Kuwait Oil Company", desc: "Increased investment in Operational Technology (OT) security, protecting industrial control systems and critical energy infrastructure against evolving cyber threats." },
+  { short: "CBK", org: "Central Bank of Kuwait", desc: "Introduced the Cyber & Operational Resilience Framework (CORF), driving stronger cyber governance, operational resilience, and third-party risk management across Kuwait's banking sector." },
+];
+
+function KuwaitContext() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const badge = (text: string) => (
+    <span
+      style={{
+        display: "inline-block",
+        padding: "6px 16px",
+        borderRadius: 50,
+        background: `${C}12`,
+        border: `1px solid ${C}25`,
+        fontFamily: "var(--font-outfit)",
+        fontSize: 11,
+        fontWeight: 600,
+        letterSpacing: "2.5px",
+        textTransform: "uppercase",
+        color: C_BRIGHT,
+        marginBottom: 20,
+      }}
+    >
+      {text}
+    </span>
+  );
+
+  return (
+    <section ref={ref} style={{ background: "transparent", padding: "clamp(40px,5vw,72px) 0", position: "relative", overflow: "hidden" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px,5vw,80px)", position: "relative", zIndex: 1 }}>
+
+        {/* ── Header: At a Glance ── */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: EASE }} style={{ marginBottom: 44 }}>
+          {badge("Kuwait at a Glance")}
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.8vw,52px)", letterSpacing: "-2px", color: "white", lineHeight: 1.08, margin: 0 }}>
+            The Numbers Behind{" "}
+            <span className="cfk-title-glow" style={{ background: `linear-gradient(135deg, ${C_BRIGHT} 0%, ${C} 60%, #fff 100%)`, backgroundSize: "200% 200%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: `drop-shadow(0 0 30px ${C}40)` }}>Kuwait&apos;s Cyber Agenda</span>
+          </h2>
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: "clamp(15px,1.1vw,17px)", color: "rgba(255,255,255,0.55)", lineHeight: 1.7, margin: "18px 0 0", maxWidth: 720 }}>
+            A snapshot of the market forces, spending patterns, and regulations shaping the nation&apos;s cybersecurity priorities.
+          </p>
+        </motion.div>
+
+        {/* ── Figure cards ── */}
+        <div className="cfk-glance-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 16 }}>
+          {KW_GLANCE.map((g, i) => (
+            <motion.div
+              key={g.label}
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 + i * 0.08, ease: EASE }}
+              style={{ padding: "28px 24px", borderRadius: 20, background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", position: "relative", overflow: "hidden" }}
+            >
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${C}, ${C}40, transparent)` }} />
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(30px,3vw,42px)", fontWeight: 900, color: C, letterSpacing: "-2px", lineHeight: 1, marginBottom: 10 }}>{g.value}</div>
+              <div style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: C_BRIGHT, marginBottom: 12 }}>{g.label}</div>
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, color: "rgba(255,255,255,0.5)", lineHeight: 1.6, margin: 0 }}>{g.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* ── Trend cards (2 wide) ── */}
+        <div className="cfk-trend-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16, marginBottom: "clamp(64px,7vw,96px)" }}>
+          {KW_TRENDS.map((t, i) => (
+            <motion.div
+              key={t.title}
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.3 + i * 0.1, ease: EASE }}
+              style={{ padding: "28px 30px", borderRadius: 20, background: `linear-gradient(135deg, ${C}0E, ${C}04)`, border: `1px solid ${C}20` }}
+            >
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(17px,1.5vw,20px)", fontWeight: 800, color: "white", letterSpacing: "-0.5px", marginBottom: 12 }}>{t.title}</div>
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14.5, color: "rgba(255,255,255,0.6)", lineHeight: 1.65, margin: 0 }}>{t.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* ── Header: Case Studies ── */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: EASE }} style={{ marginBottom: 44 }}>
+          {badge("Industry Case Studies")}
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(28px,3.8vw,52px)", letterSpacing: "-2px", color: "white", lineHeight: 1.08, margin: 0 }}>
+            From Compliance to{" "}
+            <span className="cfk-title-glow" style={{ background: `linear-gradient(135deg, ${C_BRIGHT} 0%, ${C} 60%, #fff 100%)`, backgroundSize: "200% 200%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: `drop-shadow(0 0 30px ${C}40)` }}>Resilience</span>
+          </h2>
+        </motion.div>
+
+        {/* ── Case study cards ── */}
+        <div className="cfk-case-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+          {KW_CASES.map((c, i) => (
+            <motion.div
+              key={c.short}
+              initial={{ opacity: 0, y: 28 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 + i * 0.1, ease: EASE }}
+              style={{ padding: "32px 30px", borderRadius: 20, background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}
+            >
+              <span style={{ alignSelf: "flex-start", padding: "5px 12px", borderRadius: 8, background: `${C}18`, border: `1px solid ${C}35`, fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", color: C_BRIGHT, marginBottom: 18 }}>{c.short}</span>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(18px,1.6vw,22px)", fontWeight: 800, color: "white", letterSpacing: "-0.5px", lineHeight: 1.15, marginBottom: 14 }}>{c.org}</div>
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.55)", lineHeight: 1.65, margin: 0 }}>{c.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* ── Closing line ── */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.4, ease: EASE }}
+          style={{ fontFamily: "var(--font-outfit)", fontSize: "clamp(15px,1.2vw,18px)", color: "rgba(255,255,255,0.6)", lineHeight: 1.7, margin: "36px 0 0", maxWidth: 900 }}
+        >
+          These initiatives highlight Kuwait&apos;s shift from compliance-driven cybersecurity to resilience-focused strategies — key themes that will be explored at <strong style={{ color: "#fff", fontWeight: 600 }}>Cyber First Kuwait 2026</strong>.
+        </motion.p>
+      </div>
+
+      <style jsx global>{`
+        @media (max-width: 1024px) {
+          .cfk-glance-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 820px) {
+          .cfk-case-grid { grid-template-columns: 1fr !important; }
+          .cfk-trend-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 560px) {
+          .cfk-glance-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   );
 }
@@ -6241,7 +6433,7 @@ const ADVISORY_BOARD: AdvisoryMember[] = [
     name: "Mohamed Rushdhi",
     title: "Head of Information Security Unit",
     org: "The Industrial Bank of Kuwait",
-    photo: null,
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohamed+Rushdhi.png",
     linkedin: "https://www.linkedin.com/in/rushdhi-mohamed-information-security/",
   },
   {
