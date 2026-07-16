@@ -8,9 +8,9 @@ const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/Events+First+log
 
 export const metadata: Metadata = {
   title:
-    "Visibility, Control & Networked Execution | Blue Yonder Executive Dinner — Dubai 23 June 2026",
+    "Visibility, Control & Networked Execution | Blue Yonder Executive Dinner — Dubai 23 September 2026",
   description:
-    "Invitation-only Blue Yonder executive dinner on how GCC leaders orchestrate resilient, connected supply chain execution. Dubai, 23 June 2026.",
+    "Invitation-only Blue Yonder executive dinner on how GCC leaders orchestrate resilient, connected supply chain execution. Dubai, 23 September 2026.",
   keywords: [
     "Blue Yonder",
     "supply chain GCC",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title:
       "Visibility, Control & Networked Execution — Blue Yonder Executive Dinner",
     description:
-      "How GCC leaders orchestrate resilient, connected execution across operations. Dubai, 23 June 2026.",
+      "How GCC leaders orchestrate resilient, connected execution across operations. Dubai, 23 September 2026.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Blue Yonder Executive Dinner — Dubai, 23 June 2026",
+        alt: "Blue Yonder Executive Dinner — Dubai, 23 September 2026",
       },
     ],
     locale: "en_US",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
     title: "Blue Yonder Executive Dinner — Visibility, Control & Networked Execution",
-    description: "Invitation-only executive dinner. Dubai, 23 June 2026.",
+    description: "Invitation-only executive dinner. Dubai, 23 September 2026.",
     images: [OG_IMAGE],
   },
 };
@@ -67,15 +67,16 @@ export default function BlueYonderLayout({
             name: "Visibility, Control & Networked Execution — Blue Yonder Executive Dinner",
             description:
               "Invitation-only Blue Yonder executive dinner exploring how GCC leaders orchestrate resilient, connected supply chain execution across suppliers, warehouses and transportation.",
-            startDate: "2026-06-23T17:00:00+04:00",
-            endDate: "2026-06-23T20:30:00+04:00",
+            startDate: "2026-09-23T17:00:00+04:00",
+            endDate: "2026-09-23T20:30:00+04:00",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {
               "@type": "Place",
-              name: "Dubai",
+              name: "Marriott Resort Palm Jumeirah, Dubai",
               address: {
                 "@type": "PostalAddress",
+                streetAddress: "Palm Jumeirah",
                 addressLocality: "Dubai",
                 addressCountry: "AE",
               },

@@ -19,7 +19,7 @@ const MeshGradient = dynamic(
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Blue Yonder — Visibility, Control & Networked Execution
-// Executive dinner, Dubai, 23 June 2026 (date TBC per brief)
+// Executive dinner, Marriott Resort Palm Jumeirah, Dubai, 23 September 2026
 //
 // Visual system: "Infinite Scale" per Blue Yonder Brand Guidelines 2025.
 // Signature reactive dot field where data points flex in size based on
@@ -60,7 +60,7 @@ const INK_FAINT = "#8A91A8";                   // faint on light
 const LINE = "rgba(0,14,78,0.12)";             // light hairline
 const LINE_STRONG = "rgba(0,14,78,0.22)";      // light hairline (stronger)
 
-const EVENT_DATE_ISO = "2026-06-23T17:00:00+04:00";
+const EVENT_DATE_ISO = "2026-09-23T17:00:00+04:00";
 
 // ─── Speakers ──────────────────────────────────────────────────────────────
 // No bios per brief. Yahyah uses initials placeholder pending photo.
@@ -761,9 +761,9 @@ function Hero() {
 
 // ─── Vertical Glass Stats Strip ────────────────────────────────────────────
 const HERO_STATS: readonly { label: string; value: string; sub?: string }[] = [
-  { label: "Date", value: "23 June 2026", sub: "Date subject to confirmation" },
+  { label: "Date", value: "23 September 2026", sub: "Save the date" },
   { label: "Time", value: "17:00 — 20:30 GST", sub: "180-minute executive dinner" },
-  { label: "Venue", value: "Dubai", sub: "Venue confirmed to invitees" },
+  { label: "Venue", value: "Marriott Resort Palm Jumeirah", sub: "Palm Jumeirah, Dubai" },
   { label: "Format", value: "Executive dinner", sub: "Invitation only" },
 ];
 
@@ -1241,7 +1241,7 @@ function Agenda() {
       <div className="by-agenda-outro">
         <span className="by-agenda-outro__rule" aria-hidden />
         <span className="by-agenda-outro__text">
-          Times are Dubai (GST). Final venue confirmed with each accepted attendee.
+          Times are Dubai (GST). Held at Marriott Resort Palm Jumeirah, Dubai.
         </span>
       </div>
     </div>
@@ -1493,7 +1493,7 @@ function ReservationForm() {
       company: company.trim(),
       phone: fullPhone,
       event_name:
-        "Blue Yonder Executive Dinner — Visibility, Control & Networked Execution · Dubai 23 June 2026",
+        "Blue Yonder Executive Dinner — Visibility, Control & Networked Execution · Dubai 23 September 2026",
       metadata: {
         "Event Page": "Blue Yonder Executive Dinner · Dubai",
         "Page Section": "Reservation Form",
@@ -1580,14 +1580,14 @@ function ReservationForm() {
               <Detail
                 icon="date"
                 label="Date"
-                value="23 June 2026"
-                sub="Date subject to confirmation"
+                value="23 September 2026"
+                sub="Save the date"
               />
               <Detail
                 icon="location"
                 label="Location"
-                value="Dubai, UAE"
-                sub="Venue confirmed to invitees"
+                value="Marriott Resort Palm Jumeirah"
+                sub="Palm Jumeirah, Dubai"
               />
               <Detail
                 icon="format"
