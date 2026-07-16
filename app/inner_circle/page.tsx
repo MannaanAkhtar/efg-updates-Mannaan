@@ -35,8 +35,8 @@ const PRIVACY_URL = "https://clevertap.com/privacy-policy/";
 const MENTALIST_VIDEO = "https://efg-final.s3.eu-north-1.amazonaws.com/clevertap/CleverTap+Mentalist+Video.mp4";
 const MENTALIST_IMG = "https://efg-final.s3.eu-north-1.amazonaws.com/clevertap/Javier+Saba%2C+The+Mentalist.jpeg";
 
-// Event: 19 August 2026, Riyadh (UTC+03:00) — drives the hero countdown. TODO: set exact start time once confirmed.
-const EVENT_DATE = "2026-08-19T17:30:00+03:00";
+// Event: 19 August 2026, Riyadh (UTC+03:00), 4:30 PM onwards — drives the hero countdown.
+const EVENT_DATE = "2026-08-19T16:30:00+03:00";
 
 // ─── Content (verbatim from the brief — placeholders kept in [brackets]) ───────
 const OVERVIEW_STATS = [
@@ -253,7 +253,7 @@ function Hero() {
 
         {/* Meta strip */}
         <div className="ic-fade ic-d5 ic-meta ic-meta-shine" style={{ position: "relative", overflow: "hidden", display: "inline-flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "clamp(14px,2vw,26px)", marginTop: 6, padding: "11px clamp(20px,3vw,34px)", borderRadius: 999, background: "rgba(16,14,12,0.5)", border: `1px solid ${LINE_STRONG}`, backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "0 22px 54px rgba(0,0,0,0.5)" }}>
-          {["19 August 2026", "Hilton Riyadh & Residences", "[TIME]"].map((m, i, arr) => (
+          {["19 August 2026", "Hilton Riyadh & Residences", "4:30 PM Onwards"].map((m, i, arr) => (
             <React.Fragment key={m}>
               <span style={{ fontFamily: BODY, fontSize: "clamp(12px,1.2vw,14.5px)", fontWeight: 600, letterSpacing: "0.04em", color: WHITE, whiteSpace: "nowrap" }}>{m}</span>
               {i < arr.length - 1 && <span aria-hidden style={{ width: 1, height: 15, background: LINE_STRONG }} />}

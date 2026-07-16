@@ -41,7 +41,7 @@ const UPCOMING_EVENTS = [
     month: "AUG",
     day: "19",
     year: "2026",
-    time: "Time TBC",
+    time: "4:30 PM Onwards",
     title: "The Inner Circle",
     subtitle: "The Art of Knowing",
     sponsor: "CleverTap",
@@ -131,22 +131,6 @@ const UPCOMING_EVENTS = [
     brandColor: "#00B4F0",
     brandGradient: "linear-gradient(135deg, #00B4F0 0%, #0095CC 35%, #0E2541 70%, #0a0a0a 100%)",
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/proofpoint_whitelogo.png",
-  },
-  {
-    date: "July 14th, 2026",
-    month: "JUL",
-    day: "14",
-    year: "2026",
-    time: "11:00 AM GST",
-    title: "Filigran Executive Roundtable",
-    subtitle: "Agentic CTEM in Practice — Supercharge your CTI & Exposure Validation with AI Agents",
-    sponsor: "Filigran",
-    location: "Online Roundtable",
-    link: "/filigran",
-    image: "",
-    brandColor: "#0018D8",
-    brandGradient: "linear-gradient(135deg, #3D5BFF 0%, #0018D8 38%, #000B6E 72%, #06070F 100%)",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/LOGO_FILIGRAN_BLANC.png",
   },
   {
     date: "October 19th, 2026",
@@ -252,6 +236,20 @@ type PastEvent = {
 };
 
 const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    sponsor: "Filigran",
+    title: "Filigran Executive Roundtable",
+    subtitle: "Agentic CTEM in Practice — Supercharge your CTI & Exposure Validation with AI Agents",
+    month: "JUL",
+    date: "14 Jul",
+    venue: "Virtual",
+    time: "11:00 AM GST",
+    image: "",
+    brandColor: "#0018D8",
+    brandGradient: "linear-gradient(135deg, #3D5BFF 0%, #0018D8 38%, #000B6E 72%, #06070F 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/LOGO_FILIGRAN_BLANC.png",
+    link: "/filigran",
+  },
   {
     sponsor: "Autodesk",
     title: "Autodesk Executive Roundtable",

@@ -68,7 +68,6 @@ const NETWORKFIRST_COLOR = "#C9935A";
 // each group keeps the upcoming-events date order from /network-first
 type NFFormat = "virtual" | "physical";
 const networkFirstEvents: { href: string; label: string; date: string; format: NFFormat }[] = [
-  { href: "/filigran", label: "Filigran", date: "14 Jul", format: "virtual" },
   { href: "/inner_circle", label: "The Inner Circle · CleverTap", date: "19 Aug", format: "physical" },
   { href: "/proofpoint", label: "Proofpoint", date: "Sep · TBC", format: "physical" },
   { href: "/blueyonder", label: "Blue Yonder", date: "23 Sep", format: "physical" },
