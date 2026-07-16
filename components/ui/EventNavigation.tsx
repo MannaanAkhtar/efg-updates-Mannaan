@@ -191,7 +191,7 @@ const EVENT_CONFIGS: Record<string, {
     colorBright: "#9F6AFF",
     date: "21 Oct 2026",
     location: "Riyadh, KSA",
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OPEX+FIRST+logo-1.png",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/Opex+KSA+logo-02.png",
     navLinks: [
       { href: "#overview", label: "Overview" },
       { href: "#themes", label: "Themes" },

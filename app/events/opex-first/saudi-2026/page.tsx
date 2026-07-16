@@ -1760,12 +1760,6 @@ function OpexSaudiPostReportFloat() {
 
   useEffect(() => {
     setMounted(true);
-    try {
-      if (localStorage.getItem(DISMISS_KEY) === "1") setDismissed(true);
-      if (localStorage.getItem(NUDGE_KEY) === "1") setNudged(true);
-    } catch {
-      // localStorage may be unavailable (SSR, private browsing) — silently ignore
-    }
     const mq = window.matchMedia("(max-width: 700px)");
     setIsMobile(mq.matches);
     const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);

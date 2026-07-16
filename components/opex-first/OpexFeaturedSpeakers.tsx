@@ -2,6 +2,25 @@ import { supabase } from "@/lib/supabase/client";
 import type { SpeakerWithSeries } from "@/lib/supabase/types";
 import OpexSpeakersGrid from "./OpexSpeakersGrid";
 
+// Panellists from the series' Process Intelligence Webinar (virtual edition),
+// appended to the faculty grid and tagged "Virtual".
+const webinarSpeakers = [
+  { name: "Dr. Mohammad Khalaf Alghamdi", role: "Deputy Mayor for Strategy & Transformation", org: "Madinah Municipality", image: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Mohamad+Khalaf.png", tag: "Virtual" },
+  { name: "Abdulrahman Alonaizan", role: "Chief Business Continuity Officer", org: "Arab National Bank", image: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulrahman_Alonaizan.png", tag: "Virtual" },
+  { name: "Butti Al Mazrouei", role: "Head of Supply Chain Management", org: "Mubadala Energy", image: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Butti.png", tag: "Virtual" },
+  { name: "Ismail Ibrahim Al Janahi", role: "Procurement Section Head", org: "Abu Dhabi Investment Office", image: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ismail.png", tag: "Virtual" },
+  { name: "Eng. Meshal Aldeaijy", role: "Strategic Planning & Execution Advisor", org: "Confidential", image: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Eng.+Meshal+Aldeaijy.png", tag: "Virtual" },
+  { name: "Abdelkader Nessib", role: "IT Operations & Infrastructure Manager", org: "Saipem Qatar", image: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdelkader.png", tag: "Virtual" },
+  { name: "Mohamed Hamed", role: "Head of Strategy", org: "National Bank of Umm Al Qaiwain", image: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohamed+Hamed.png", tag: "Virtual" },
+  { name: "Danyal Nasser Anwar", role: "Process Improvement Unit Head", org: "Department of Culture & Tourism", image: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Danyal.png", tag: "Virtual" },
+  { name: "Ayham Alzaaim", role: "Senior Vice President, Middle East & Turkey", org: "ARIS", image: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/AyhamAlzaaim.png", tag: "Virtual" },
+  { name: "Cezmi Eroglu", role: "Director – Solution Architecture, ME & Turkey", org: "ARIS", image: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/CezmiEroglu.png", tag: "Virtual" },
+  { name: "Zamir Chaudhry", role: "CEO Advisor – Strategic & GRC Transformation", org: "Walaa Insurance", image: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Zamir_Chaudhry.png", tag: "Virtual" },
+  { name: "Miodrag Vidakovic", role: "Applied AI Director", org: "Celonis", image: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Miodrag_Celonis.png", tag: "Virtual" },
+  { name: "Neil Evans", role: "Head of Energy", org: "Q5 Arabia", image: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Neil_Evans.png", tag: "Virtual" },
+  { name: "Sridhar Rajakumar", role: "Business Transformation Advisor, SAP EMEA", org: "SAP MENA", image: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sridhar_Rajakumar.png", tag: "Virtual" },
+];
+
 const fallbackSpeakers = [
   {
     name: "Eng. AbdulRazzag AlAujan",
@@ -76,10 +95,16 @@ export default async function OpexFeaturedSpeakers() {
     // Fall through, will use fallback
   }
 
-  // Use Supabase data if available, otherwise fall back to hardcoded speakers
+  // Use Supabase data if available, otherwise fall back to hardcoded speakers.
+  // Webinar panellists are appended in both cases.
   if (speakers.length > 0) {
-    return <OpexSpeakersGrid speakers={speakers} />;
+    return <OpexSpeakersGrid speakers={speakers} extraSpeakers={webinarSpeakers} />;
   }
 
-  return <OpexSpeakersGrid fallbackSpeakers={fallbackSpeakers} />;
+  return (
+    <OpexSpeakersGrid
+      fallbackSpeakers={fallbackSpeakers}
+      extraSpeakers={webinarSpeakers}
+    />
+  );
 }

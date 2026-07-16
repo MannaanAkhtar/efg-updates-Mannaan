@@ -71,7 +71,7 @@ export default function OpexRequestResourcesModal() {
           kicker: "Request the Past Event Report",
           title: "Get the post-event report.",
           subtitle:
-            "Share your details and we’ll send the curated delegate list to your work email.",
+            "Share your details and we’ll send the post-event report PDF to your work email.",
           success:
             "We’ll email the post-event report PDF to your work email within 1 business day.",
         }
@@ -215,6 +215,29 @@ export default function OpexRequestResourcesModal() {
                 {modalCopy.subtitle}
               </p>
             </div>
+
+            {submitState !== "success" && (
+              <div className="opex-req-tabs" role="tablist" aria-label="Request type">
+                {(["Past Event Report", "Delegate List"] as const).map((t) => (
+                  <button
+                    key={t}
+                    type="button"
+                    role="tab"
+                    aria-selected={requestType === t}
+                    onClick={() => {
+                      if (requestType === t) return;
+                      setRequestType(t);
+                      setErrors({});
+                      setSubmitError("");
+                      if (submitState === "error") setSubmitState("idle");
+                    }}
+                    className={`opex-req-tab${requestType === t ? " opex-req-tab-on" : ""}`}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+            )}
 
             {submitState === "success" ? (
               <div className="opex-req-modal-success">
@@ -435,8 +458,37 @@ export default function OpexRequestResourcesModal() {
                 color: white; border-color: ${VIOLET}66; background: ${VIOLET}1a; transform: rotate(90deg);
               }
               .opex-req-modal-header {
-                margin-bottom: clamp(18px, 2vw, 22px);
+                margin-bottom: clamp(14px, 1.6vw, 18px);
                 padding-right: 36px;
+              }
+              .opex-req-tabs {
+                display: flex;
+                gap: 8px;
+                margin-bottom: clamp(18px, 2vw, 22px);
+              }
+              .opex-req-tab {
+                flex: 1 1 0;
+                padding: 11px 14px;
+                border-radius: 12px;
+                border: 1px solid rgba(255,255,255,0.08);
+                background: rgba(255,255,255,0.02);
+                color: rgba(255,255,255,0.5);
+                font-family: var(--font-outfit);
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.01em;
+                cursor: pointer;
+                transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+              }
+              .opex-req-tab:hover {
+                color: rgba(255,255,255,0.78);
+                border-color: ${VIOLET_BRIGHT}44;
+              }
+              .opex-req-tab-on {
+                color: #fff;
+                background: linear-gradient(135deg, ${VIOLET_DIM}2e 0%, ${VIOLET}22 100%);
+                border-color: ${VIOLET_BRIGHT}88;
+                box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 0 22px ${VIOLET}33;
               }
               .opex-req-modal-success {
                 display: flex; flex-direction: column;

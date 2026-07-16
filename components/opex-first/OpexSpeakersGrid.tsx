@@ -2,10 +2,14 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import Link from "next/link";
 import type { SpeakerWithSeries } from "@/lib/supabase/types";
 
 const VIOLET = "#7C3AED";
+const VIOLET_BRIGHT = "#9F67FF";
+const OFFWHITE = "#F4F2FA";
 const EASE = [0.16, 1, 0.3, 1] as const;
+const SERIF = `Georgia, "Cambria", "Times New Roman", serif`;
 
 interface FallbackSpeaker {
   name: string;
@@ -14,7 +18,6 @@ interface FallbackSpeaker {
   image: string | null;
 }
 
-// Normalized shape used internally
 interface DisplaySpeaker {
   id: string;
   name: string;
@@ -22,6 +25,7 @@ interface DisplaySpeaker {
   org: string;
   image: string | null;
   initial: string;
+  tag?: string;
 }
 
 function normalizeSpeakers(
@@ -54,131 +58,390 @@ function normalizeSpeakers(
 export default function OpexSpeakersGrid({
   speakers,
   fallbackSpeakers,
+  extraSpeakers,
 }: {
   speakers?: SpeakerWithSeries[];
   fallbackSpeakers?: FallbackSpeaker[];
+  extraSpeakers?: (FallbackSpeaker & { tag?: string })[];
 }) {
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const inView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-  const displaySpeakers = normalizeSpeakers(speakers, fallbackSpeakers);
+  const base = normalizeSpeakers(speakers, fallbackSpeakers);
+  const extras: DisplaySpeaker[] = (extraSpeakers ?? []).map((s, i) => ({
+    id: `extra-${i}`,
+    name: s.name,
+    role: s.role,
+    org: s.org,
+    image: s.image,
+    initial: s.name.charAt(0),
+    tag: s.tag,
+  }));
+  const all = [...base, ...extras];
+  if (all.length === 0) return null;
 
-  if (displaySpeakers.length === 0) return null;
+  // Split across two rows (alternating so tags/orgs distribute evenly)
+  const rowTop = all.filter((_, i) => i % 2 === 0);
+  const rowBottom = all.filter((_, i) => i % 2 === 1);
 
   return (
     <section
       ref={sectionRef}
       style={{
-        background: "var(--black-light)",
-        padding: "clamp(36px, 4vw, 56px) 0",
+        background: "transparent",
+        padding: "clamp(56px, 6.5vw, 96px) 0",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      {/* ── Editorial header ─────────────────────────────────── */}
       <div
         style={{
-          maxWidth: 1320,
+          maxWidth: 1240,
           margin: "0 auto",
-          padding: "0 clamp(20px, 4vw, 60px)",
+          padding: "0 clamp(24px, 5vw, 80px)",
         }}
       >
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, ease: EASE }}
-          style={{ textAlign: "center", marginBottom: 48 }}
-        >
-          <div className="flex items-center justify-center gap-3">
-            <span style={{ width: 30, height: 1, background: VIOLET }} />
+        <div className="opex-fac-head">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="opex-fac-head-left"
+          >
+            <div style={{ display: "flex", alignItems: "baseline", gap: 7, marginBottom: 20 }}>
+              <span style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 15, color: VIOLET_BRIGHT }}>№</span>
+              <span
+                style={{
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 11,
+                  fontWeight: 600,
+                  letterSpacing: "3px",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.34)",
+                }}
+              >
+                The Faculty
+              </span>
+            </div>
+            <span style={{ display: "block", width: 24, height: 1, background: VIOLET_BRIGHT, marginBottom: 14 }} />
             <span
               style={{
+                fontFamily: "var(--font-outfit)",
                 fontSize: 11,
                 fontWeight: 600,
-                letterSpacing: "2.5px",
+                letterSpacing: "3.4px",
                 textTransform: "uppercase",
-                color: VIOLET,
-                fontFamily: "var(--font-outfit)",
+                color: VIOLET_BRIGHT,
               }}
             >
-              Speakers & Advisors
+              Speakers &amp; Advisors
             </span>
-            <span style={{ width: 30, height: 1, background: VIOLET }} />
-          </div>
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(28px, 3.5vw, 48px)",
-              letterSpacing: "-1.5px",
-              color: "var(--white)",
-              lineHeight: 1.1,
-              margin: "16px 0 0",
-            }}
-          >
-            The Leaders Driving Excellence
-          </h2>
-          <p
-            style={{
-              fontFamily: "var(--font-outfit)",
-              fontSize: 16,
-              fontWeight: 300,
-              color: "#808080",
-              marginTop: 16,
-              maxWidth: 560,
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 700,
+                fontSize: "clamp(32px, 3.6vw, 54px)",
+                letterSpacing: "-1.4px",
+                lineHeight: 1.04,
+                color: OFFWHITE,
+                margin: "16px 0 0",
+              }}
+            >
+              The Leaders Driving{" "}
+              <span style={{ fontFamily: SERIF, fontStyle: "italic", fontWeight: 400, color: VIOLET_BRIGHT }}>
+                Excellence.
+              </span>
+            </h2>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+            transition={{ duration: 0.7, delay: 0.12, ease: EASE }}
+            className="opex-fac-head-dek"
           >
             Government excellence advisors, corporate transformation leaders,
-            and global technology pioneers.
-          </p>
-        </motion.div>
-
-        {/* Speaker Cards Grid */}
-        <div
-          className="opex-speakers-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns:
-              displaySpeakers.length >= 4
-                ? "repeat(4, 1fr)"
-                : "repeat(3, 1fr)",
-            gap: 16,
-          }}
-        >
-          {displaySpeakers.map((speaker, index) => (
-            <motion.div
-              key={speaker.id}
-              initial={{ opacity: 0, y: 25 }}
-              animate={
-                isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }
-              }
-              transition={{
-                duration: 0.5,
-                delay: 0.2 + index * 0.06,
-                ease: EASE,
-              }}
-            >
-              <SpeakerCard speaker={speaker} />
-            </motion.div>
-          ))}
+            and global technology pioneers — across our summits and the virtual
+            edition.
+          </motion.p>
         </div>
 
+        <div className="opex-fac-rule" />
+      </div>
+
+      {/* ── Two-row marquee (full-bleed) ─────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
+        className="opex-fac-marquee"
+      >
+        <MarqueeRow speakers={rowTop} direction="left" duration={72} />
+        <MarqueeRow speakers={rowBottom} direction="right" duration={64} />
+      </motion.div>
+
+      {/* ── View-all CTA ─────────────────────────────────────── */}
+      <div
+        style={{
+          maxWidth: 1240,
+          margin: "0 auto",
+          padding: "0 clamp(24px, 5vw, 80px)",
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+          transition={{ duration: 0.6, delay: 0.4, ease: EASE }}
+          className="opex-fac-more"
+        >
+          <Link href="/speakers" className="opex-fac-more-link">
+            View all speakers
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
+        </motion.div>
       </div>
 
       <style jsx global>{`
-        @media (max-width: 1024px) {
-          .opex-speakers-grid {
-            grid-template-columns: repeat(3, 1fr) !important;
+        .opex-fac-head {
+          display: grid;
+          grid-template-columns: 1fr auto;
+          align-items: flex-end;
+          gap: clamp(24px, 4vw, 56px);
+        }
+        .opex-fac-head-dek {
+          font-family: ${SERIF};
+          font-style: italic;
+          font-weight: 400;
+          font-size: clamp(14px, 1.15vw, 16.5px);
+          line-height: 1.6;
+          color: rgba(255, 255, 255, 0.5);
+          max-width: 34ch;
+          margin: 0;
+          padding-bottom: 6px;
+        }
+        .opex-fac-rule {
+          height: 1px;
+          background: rgba(255, 255, 255, 0.1);
+          margin: clamp(28px, 3.5vw, 44px) 0 0;
+        }
+
+        .opex-fac-marquee {
+          margin: clamp(30px, 4vw, 46px) 0 clamp(34px, 4vw, 50px);
+          display: flex;
+          flex-direction: column;
+          gap: clamp(18px, 2vw, 26px);
+          -webkit-mask-image: linear-gradient(
+            90deg,
+            transparent 0%,
+            #000 7%,
+            #000 93%,
+            transparent 100%
+          );
+          mask-image: linear-gradient(
+            90deg,
+            transparent 0%,
+            #000 7%,
+            #000 93%,
+            transparent 100%
+          );
+        }
+        .opex-fac-row {
+          display: flex;
+          overflow: hidden;
+        }
+        .opex-fac-track {
+          display: flex;
+          gap: clamp(16px, 1.6vw, 22px);
+          flex-shrink: 0;
+          width: max-content;
+          will-change: transform;
+        }
+        .opex-fac-track-left {
+          animation: opexMarqueeLeft linear infinite;
+        }
+        .opex-fac-track-right {
+          animation: opexMarqueeRight linear infinite;
+        }
+        .opex-fac-row:hover .opex-fac-track {
+          animation-play-state: paused;
+        }
+        @keyframes opexMarqueeLeft {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+        @keyframes opexMarqueeRight {
+          from { transform: translateX(-50%); }
+          to { transform: translateX(0); }
+        }
+
+        .opex-fac-card {
+          position: relative;
+          width: clamp(178px, 19vw, 216px);
+          flex-shrink: 0;
+        }
+        .opex-fac-plate {
+          position: relative;
+          aspect-ratio: 4 / 5;
+          overflow: hidden;
+          border-radius: 2px;
+          box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+        }
+        .opex-fac-plate img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          filter: grayscale(0.4) brightness(0.72) contrast(1.02);
+          transition: filter 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .opex-fac-card:hover .opex-fac-plate img {
+          filter: grayscale(0) brightness(0.92);
+          transform: scale(1.045);
+        }
+        .opex-fac-crop {
+          position: absolute;
+          width: 12px;
+          height: 12px;
+          z-index: 3;
+          pointer-events: none;
+          transition: border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .opex-fac-card:hover .opex-fac-crop {
+          border-color: rgba(159, 103, 255, 0.6) !important;
+        }
+        .opex-fac-tag {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          z-index: 3;
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          padding: 4px 8px;
+          border-radius: 999px;
+          background: rgba(124, 58, 237, 0.28);
+          border: 1px solid rgba(159, 103, 255, 0.42);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+          font-family: var(--font-outfit);
+          font-size: 8px;
+          font-weight: 600;
+          letter-spacing: 1.1px;
+          text-transform: uppercase;
+          color: #fff;
+        }
+        .opex-fac-tag-dot {
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background: ${VIOLET_BRIGHT};
+          box-shadow: 0 0 6px ${VIOLET_BRIGHT};
+        }
+        .opex-fac-mono {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(150deg, rgba(124, 58, 237, 0.16), rgba(124, 58, 237, 0.04));
+        }
+        .opex-fac-mono span {
+          font-family: var(--font-display);
+          font-weight: 800;
+          font-size: clamp(40px, 4.6vw, 56px);
+          color: transparent;
+          -webkit-text-stroke: 1.5px rgba(159, 103, 255, 0.4);
+        }
+        .opex-fac-info {
+          padding-top: 13px;
+        }
+        .opex-fac-name {
+          font-family: var(--font-display);
+          font-weight: 700;
+          font-size: 15px;
+          letter-spacing: -0.2px;
+          line-height: 1.2;
+          color: ${OFFWHITE};
+          margin: 0;
+          transition: color 0.4s;
+        }
+        .opex-fac-card:hover .opex-fac-name {
+          color: ${VIOLET_BRIGHT};
+        }
+        .opex-fac-role {
+          font-family: var(--font-outfit);
+          font-weight: 300;
+          font-size: 12px;
+          line-height: 1.4;
+          color: rgba(255, 255, 255, 0.5);
+          margin: 6px 0 0;
+        }
+        .opex-fac-org {
+          font-family: ${SERIF};
+          font-style: italic;
+          font-size: 12px;
+          line-height: 1.4;
+          color: rgba(159, 103, 255, 0.78);
+          margin: 4px 0 0;
+        }
+
+        .opex-fac-more {
+          display: flex;
+          justify-content: center;
+          margin-top: clamp(8px, 1.5vw, 16px);
+        }
+        .opex-fac-more-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 9px;
+          padding: 12px 24px;
+          border: 1px solid rgba(159, 103, 255, 0.3);
+          border-radius: 999px;
+          background: rgba(124, 58, 237, 0.06);
+          text-decoration: none;
+          font-family: var(--font-outfit);
+          font-size: 13px;
+          font-weight: 600;
+          letter-spacing: 0.4px;
+          color: rgba(255, 255, 255, 0.82);
+          transition: color 0.4s, border-color 0.4s, background 0.4s;
+        }
+        .opex-fac-more-link:hover {
+          color: #fff;
+          border-color: rgba(159, 103, 255, 0.55);
+          background: rgba(124, 58, 237, 0.14);
+        }
+        .opex-fac-more-link svg {
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .opex-fac-more-link:hover svg {
+          transform: translateX(3px);
+        }
+
+        @media (max-width: 760px) {
+          .opex-fac-head {
+            grid-template-columns: 1fr;
+            align-items: flex-start;
+          }
+          .opex-fac-head-dek {
+            max-width: 42ch;
+            padding-bottom: 0;
+          }
+          .opex-fac-card {
+            width: clamp(150px, 52vw, 190px);
           }
         }
-        @media (max-width: 768px) {
-          .opex-speakers-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+        @media (prefers-reduced-motion: reduce) {
+          .opex-fac-track-left,
+          .opex-fac-track-right {
+            animation: none !important;
           }
-        }
-        @media (max-width: 480px) {
-          .opex-speakers-grid {
-            grid-template-columns: 1fr !important;
+          .opex-fac-row {
+            overflow-x: auto;
           }
         }
       `}</style>
@@ -186,132 +449,72 @@ export default function OpexSpeakersGrid({
   );
 }
 
-function SpeakerCard({ speaker }: { speaker: DisplaySpeaker }) {
-  const [isHovered, setIsHovered] = useState(false);
+/* ─── Marquee Row ─────────────────────────────────────────── */
+
+function MarqueeRow({
+  speakers,
+  direction,
+  duration,
+}: {
+  speakers: DisplaySpeaker[];
+  direction: "left" | "right";
+  duration: number;
+}) {
+  if (speakers.length === 0) return null;
+  // Duplicate the set so the -50% translate loops seamlessly.
+  const doubled = [...speakers, ...speakers];
 
   return (
-    <div
-      className="relative overflow-hidden transition-all"
-      style={{
-        background: "#141414",
-        border: isHovered
-          ? "1px solid rgba(124,58,237,0.12)"
-          : "1px solid rgba(255,255,255,0.06)",
-        borderRadius: 16,
-        transform: isHovered ? "translateY(-4px)" : "translateY(0)",
-        boxShadow: isHovered ? "0 12px 40px rgba(0,0,0,0.3)" : "none",
-        transitionDuration: "0.5s",
-        transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Photo */}
+    <div className="opex-fac-row">
       <div
-        style={{
-          aspectRatio: "1",
-          overflow: "hidden",
-          position: "relative",
-        }}
+        className={`opex-fac-track ${direction === "left" ? "opex-fac-track-left" : "opex-fac-track-right"}`}
+        style={{ animationDuration: `${duration}s` }}
       >
+        {doubled.map((s, i) => (
+          <SpeakerCard key={`${s.id}-${i}`} speaker={s} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Speaker Card ────────────────────────────────────────── */
+
+function SpeakerCard({ speaker }: { speaker: DisplaySpeaker }) {
+  return (
+    <div className="opex-fac-card">
+      <div className="opex-fac-plate">
         {speaker.image ? (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={speaker.image}
-              alt={speaker.name}
-              className="w-full h-full object-cover transition-all"
-              style={{
-                filter: isHovered
-                  ? "brightness(0.9) saturate(1)"
-                  : "brightness(0.7) saturate(0)",
-                transform: isHovered ? "scale(1.04)" : "scale(1)",
-                transitionDuration: "0.6s",
-                transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-              }}
-            />
-            {/* Gradient overlay */}
+            <img src={speaker.image} alt={speaker.name} loading="lazy" decoding="async" />
             <div
-              className="absolute inset-0 pointer-events-none"
+              aria-hidden
               style={{
-                background:
-                  "linear-gradient(to top, rgba(20,20,20,1) 0%, rgba(20,20,20,0.4) 50%, transparent 100%)",
+                position: "absolute",
+                inset: 0,
+                pointerEvents: "none",
+                background: "linear-gradient(to top, rgba(7,5,26,0.55), transparent 52%)",
               }}
             />
           </>
         ) : (
-          <div
-            className="w-full h-full flex items-center justify-center"
-            style={{
-              background: `linear-gradient(135deg, rgba(124,58,237,0.15) 0%, rgba(124,58,237,0.05) 100%)`,
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: 48,
-                fontWeight: 800,
-                color: VIOLET,
-                opacity: 0.4,
-              }}
-            >
-              {speaker.initial}
-            </span>
+          <div className="opex-fac-mono">
+            <span>{speaker.initial}</span>
           </div>
         )}
+
+        <span className="opex-fac-crop" style={{ top: 8, left: 8, borderTop: "1px solid rgba(159,103,255,0.34)", borderLeft: "1px solid rgba(159,103,255,0.34)" }} />
+        <span className="opex-fac-crop" style={{ top: 8, right: 8, borderTop: "1px solid rgba(159,103,255,0.34)", borderRight: "1px solid rgba(159,103,255,0.34)" }} />
+        <span className="opex-fac-crop" style={{ bottom: 8, left: 8, borderBottom: "1px solid rgba(159,103,255,0.34)", borderLeft: "1px solid rgba(159,103,255,0.34)" }} />
+        <span className="opex-fac-crop" style={{ bottom: 8, right: 8, borderBottom: "1px solid rgba(159,103,255,0.34)", borderRight: "1px solid rgba(159,103,255,0.34)" }} />
       </div>
 
-      {/* Info */}
-      <div style={{ padding: "16px 18px 20px" }}>
-        <h4
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: 15,
-            fontWeight: 700,
-            color: "var(--white)",
-            margin: 0,
-          }}
-        >
-          {speaker.name}
-        </h4>
-        <p
-          style={{
-            fontFamily: "var(--font-outfit)",
-            fontSize: 13,
-            fontWeight: 300,
-            color: "#707070",
-            margin: "4px 0 0",
-            lineHeight: 1.4,
-          }}
-        >
-          {speaker.role}
-        </p>
-        <p
-          style={{
-            fontFamily: "var(--font-outfit)",
-            fontSize: 12,
-            fontWeight: 500,
-            color: VIOLET,
-            margin: "4px 0 0",
-            opacity: 0.7,
-          }}
-        >
-          {speaker.org}
-        </p>
+      <div className="opex-fac-info">
+        <h4 className="opex-fac-name">{speaker.name}</h4>
+        {speaker.role && <p className="opex-fac-role">{speaker.role}</p>}
+        {speaker.org && <p className="opex-fac-org">{speaker.org}</p>}
       </div>
-
-      {/* Bottom accent line on hover */}
-      <div
-        className="absolute bottom-0 left-0 right-0 transition-all"
-        style={{
-          height: 2,
-          background: VIOLET,
-          opacity: isHovered ? 1 : 0,
-          transform: isHovered ? "scaleX(1)" : "scaleX(0)",
-          transformOrigin: "left",
-          transitionDuration: "0.4s",
-        }}
-      />
     </div>
   );
 }

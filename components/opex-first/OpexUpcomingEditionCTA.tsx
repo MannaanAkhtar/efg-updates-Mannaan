@@ -8,21 +8,23 @@ import type { FormType, CountryCode } from "@/lib/form-helpers";
 
 const VIOLET = "#7C3AED";
 const VIOLET_BRIGHT = "#9F67FF";
+const OFFWHITE = "#F4F2FA";
 const EASE = [0.16, 1, 0.3, 1] as const;
+const SERIF = `Georgia, "Cambria", "Times New Roman", serif`;
 
 const nextEdition = {
-  name: "Opex First Kuwait",
-  edition: "3rd Edition",
-  date: new Date("2027-03-15T09:00:00"),
-  dateString: "Date TBA",
-  city: "Kuwait City",
-  venue: "Venue TBA",
+  name: "OPEX First KSA",
+  edition: "Riyadh Edition",
+  date: new Date("2026-10-21T09:00:00"),
+  dateString: "21 October 2026",
+  city: "Riyadh, KSA",
+  theme: "Vision to Value — Merging AI & Process Excellence",
 };
 
 const trustPoints = [
   "Complimentary for qualified end-users",
-  "Vendor/sponsor passes available",
-  "Limited to 300 delegates per edition",
+  "Vendor & sponsor passes available",
+  "Curated to a senior operations audience",
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -33,19 +35,19 @@ const TABS = [
   {
     key: "attend",
     label: "Attend",
-    heading: "Opex First is\nExpanding",
+    heading: "The flagship\nreturns to Riyadh",
     description:
-      "After successful editions in Riyadh and Abu Dhabi, Opex First is expanding to Kuwait and Doha. Be part of the next chapter.",
+      "OPEX First KSA returns on 21 October 2026 under the theme Vision to Value — merging AI and process excellence. Registration is open for qualified delegates.",
     perks: [
       { icon: "users", text: "Invite-only, C-suite audience" },
       { icon: "calendar", text: "Full-day immersive programme" },
       { icon: "shield", text: "Chatham House Rule sessions" },
     ],
-    trust: "500+ senior operations leaders attended Opex First since 2023",
+    trust: "500+ senior operations leaders attended OPEX First since 2023",
     fields: [
       { name: "name", label: "Full Name", type: "text", placeholder: "Your full name" },
       { name: "email", label: "Work Email", type: "email", placeholder: "you@company.com" },
-      { name: "phone", label: "Phone Number", type: "tel", placeholder: "+965 xxxx xxxx" },
+      { name: "phone", label: "Phone Number", type: "tel", placeholder: "+966 xx xxx xxxx" },
       { name: "company", label: "Company", type: "text", placeholder: "Company name" },
       { name: "title", label: "Job Title", type: "text", placeholder: "Your role" },
       { name: "message", label: "Message (Optional)", type: "textarea", placeholder: "Tell us about your interests..." },
@@ -55,7 +57,7 @@ const TABS = [
   {
     key: "sponsor",
     label: "Sponsor",
-    heading: "Partner with\nOpex First",
+    heading: "Partner with\nOPEX First",
     description:
       "Put your brand in the room with top COOs, CTOs, and operations leaders. Sponsorship packages are designed for maximum visibility and qualified lead generation.",
     perks: [
@@ -63,11 +65,11 @@ const TABS = [
       { icon: "target", text: "Qualified lead generation" },
       { icon: "eye", text: "Premium brand visibility worldwide" },
     ],
-    trust: "40+ technology leaders have partnered with Opex First",
+    trust: "40+ technology leaders have partnered with OPEX First",
     fields: [
       { name: "name", label: "Full Name", type: "text", placeholder: "Your full name" },
       { name: "email", label: "Work Email", type: "email", placeholder: "you@company.com" },
-      { name: "phone", label: "Phone Number", type: "tel", placeholder: "+965 xxxx xxxx" },
+      { name: "phone", label: "Phone Number", type: "tel", placeholder: "+966 xx xxx xxxx" },
       { name: "company", label: "Company", type: "text", placeholder: "Company name" },
       { name: "title", label: "Job Title", type: "text", placeholder: "Your role" },
       { name: "message", label: "Message (Optional)", type: "textarea", placeholder: "Tell us about your sponsorship goals..." },
@@ -79,17 +81,17 @@ const TABS = [
     label: "Speak",
     heading: "Share Your\nExpertise",
     description:
-      "We platform practitioners, not salespeople. If you\u2019re a hands-on operations leader with real-world experience, we want you on stage at Opex First.",
+      "We platform practitioners, not salespeople. If you’re a hands-on operations leader with real-world experience, we want you on stage at OPEX First.",
     perks: [
       { icon: "mic", text: "Keynote & panel opportunities" },
       { icon: "globe", text: "Reach 500+ senior operations leaders" },
       { icon: "award", text: "Join our speaker alumni network" },
     ],
-    trust: "60+ practitioners have spoken at Opex First since 2023",
+    trust: "60+ practitioners have spoken at OPEX First since 2023",
     fields: [
       { name: "name", label: "Full Name", type: "text", placeholder: "Your full name" },
       { name: "email", label: "Work Email", type: "email", placeholder: "you@company.com" },
-      { name: "phone", label: "Phone Number", type: "tel", placeholder: "+965 xxxx xxxx" },
+      { name: "phone", label: "Phone Number", type: "tel", placeholder: "+966 xx xxx xxxx" },
       { name: "company", label: "Company", type: "text", placeholder: "Company name" },
       { name: "title", label: "Job Title", type: "text", placeholder: "Your role" },
       { name: "topic", label: "Proposed Topic", type: "text", placeholder: "Brief topic or area of expertise" },
@@ -104,7 +106,7 @@ const TABS = [
 // ─────────────────────────────────────────────────────────────────────────────
 
 function PerkIcon({ type }: { type: string }) {
-  const s: React.CSSProperties = { opacity: 0.7 };
+  const s: React.CSSProperties = { opacity: 0.85 };
   const props = { width: 16, height: 16, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, style: s };
   if (type === "layers") return <svg {...props}><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>;
   if (type === "target") return <svg {...props}><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /></svg>;
@@ -124,7 +126,6 @@ function PerkIcon({ type }: { type: string }) {
 export default function OpexUpcomingEditionCTA() {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-  const [daysUntil, setDaysUntil] = useState(0);
   const [activeTab, setActiveTab] = useState("attend");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -136,15 +137,17 @@ export default function OpexUpcomingEditionCTA() {
 
   const tab = TABS.find((t) => t.key === activeTab)!;
 
+  // Allow other sections (e.g. the hero "Become a Sponsor" CTA) to open a specific tab.
   useEffect(() => {
-    const calculateDays = () => {
-      const now = new Date();
-      const diff = nextEdition.date.getTime() - now.getTime();
-      setDaysUntil(Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24))));
+    const onSelectTab = (e: Event) => {
+      const key = (e as CustomEvent<string>).detail;
+      if (key && TABS.some((t) => t.key === key)) {
+        setActiveTab(key);
+        setIsSubmitted(false);
+      }
     };
-    calculateDays();
-    const timer = setInterval(calculateDays, 60000);
-    return () => clearInterval(timer);
+    window.addEventListener("opex-register:tab", onSelectTab as EventListener);
+    return () => window.removeEventListener("opex-register:tab", onSelectTab as EventListener);
   }, []);
 
   const handleChange = (name: string, value: string) => {
@@ -200,7 +203,7 @@ export default function OpexUpcomingEditionCTA() {
       company: formData.company || "",
       job_title: formData.title || "",
       phone: combinedPhone,
-      event_name: "Opex First Kuwait",
+      event_name: "OPEX First KSA",
       metadata: meta,
     });
 
@@ -215,7 +218,7 @@ export default function OpexUpcomingEditionCTA() {
   const inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "14px 18px",
-    borderRadius: 10,
+    borderRadius: 8,
     border: "1px solid rgba(255,255,255,0.08)",
     background: "rgba(255,255,255,0.03)",
     color: "white",
@@ -241,9 +244,8 @@ export default function OpexUpcomingEditionCTA() {
       ref={sectionRef}
       id="register"
       style={{
-        background: `linear-gradient(135deg, #0A0A0A 0%, rgba(124, 58, 237, 0.03) 50%, #0A0A0A 100%)`,
-        padding: "clamp(36px, 4vw, 56px) 0",
-        borderTop: "1px solid rgba(124, 58, 237, 0.06)",
+        background: "transparent",
+        padding: "clamp(56px, 6.5vw, 96px) 0",
         position: "relative",
         overflow: "hidden",
       }}
@@ -253,56 +255,63 @@ export default function OpexUpcomingEditionCTA() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
-            radial-gradient(ellipse 700px 500px at 20% 40%, rgba(124,58,237,0.04) 0%, transparent 70%),
-            radial-gradient(ellipse 500px 400px at 80% 60%, rgba(124,58,237,0.03) 0%, transparent 70%)
+            radial-gradient(ellipse 700px 500px at 20% 40%, rgba(124,58,237,0.05) 0%, transparent 70%),
+            radial-gradient(ellipse 500px 400px at 80% 60%, rgba(124,58,237,0.035) 0%, transparent 70%)
           `,
         }}
       />
 
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
-        {/* Tab pills */}
+      <div style={{ maxWidth: 1240, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", position: "relative" }}>
+        {/* ── Editorial masthead ─────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: EASE }}
-          style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 48 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+          transition={{ duration: 0.7, ease: EASE }}
         >
-          <div className="flex items-center gap-3">
-            <span style={{ width: 30, height: 1, background: VIOLET, flexShrink: 0 }} />
-            <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "3px", textTransform: "uppercase", color: VIOLET, fontFamily: "var(--font-outfit)" }}>
-              Get Involved
+          <div style={{ display: "flex", alignItems: "baseline", gap: 7, marginBottom: 20 }}>
+            <span style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 15, color: VIOLET_BRIGHT }}>№</span>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "3px", textTransform: "uppercase", color: "rgba(255,255,255,0.34)" }}>
+              The Invitation
             </span>
           </div>
-          <div style={{ flex: 1 }} />
-          <div style={{ display: "flex", gap: 6 }}>
-            {TABS.map((t) => {
-              const isActive = activeTab === t.key;
-              return (
-                <button
-                  key={t.key}
-                  onClick={() => { setActiveTab(t.key); if (isSubmitted) resetForm(); }}
-                  style={{
-                    padding: "8px 20px", borderRadius: 40, fontFamily: "var(--font-outfit)", fontSize: 13,
-                    fontWeight: isActive ? 600 : 400,
-                    color: isActive ? "white" : "rgba(255,255,255,0.4)",
-                    background: isActive ? VIOLET : "rgba(255,255,255,0.04)",
-                    border: isActive ? `1px solid ${VIOLET}` : "1px solid rgba(255,255,255,0.08)",
-                    cursor: "pointer", transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)", letterSpacing: "0.2px",
-                  }}
-                >
-                  {t.label}
-                </button>
-              );
-            })}
-          </div>
+          <span style={{ display: "block", width: 24, height: 1, background: VIOLET_BRIGHT, marginBottom: 14 }} />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "3.4px", textTransform: "uppercase", color: VIOLET_BRIGHT }}>
+            Reserve Your Seat
+          </span>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(32px, 3.6vw, 54px)", letterSpacing: "-1.4px", lineHeight: 1.04, color: OFFWHITE, margin: "16px 0 0" }}>
+            Get Involved with{" "}
+            <span style={{ fontFamily: SERIF, fontStyle: "italic", fontWeight: 400, color: VIOLET_BRIGHT }}>
+              OPEX First.
+            </span>
+          </h2>
         </motion.div>
 
-        {/* Split layout */}
-        <div
-          className="opex-cta-container"
-          style={{ display: "grid", gridTemplateColumns: "1fr 1.25fr", gap: "clamp(32px, 4vw, 64px)", alignItems: "start" }}
+        {/* ── Tab toggle ─────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
+          className="opex-cta-tabs"
         >
-          {/* ── LEFT COLUMN ── */}
+          {TABS.map((t) => {
+            const isActive = activeTab === t.key;
+            return (
+              <button
+                key={t.key}
+                onClick={() => { setActiveTab(t.key); if (isSubmitted) resetForm(); }}
+                className={`opex-cta-tab${isActive ? " opex-cta-tab-on" : ""}`}
+              >
+                {t.label}
+              </button>
+            );
+          })}
+        </motion.div>
+
+        <div className="opex-cta-rule" />
+
+        {/* ── Split layout ───────────────────────────────────── */}
+        <div className="opex-cta-container">
+          {/* ── LEFT: edition dossier ── */}
           <AnimatePresence mode="wait">
             <motion.div
               key={`left-${activeTab}`}
@@ -310,77 +319,79 @@ export default function OpexUpcomingEditionCTA() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -16 }}
               transition={{ duration: 0.4, ease: EASE }}
-              style={{ paddingTop: 8 }}
             >
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 3.5vw, 50px)", letterSpacing: "-2px", color: "var(--white)", lineHeight: 1.08, margin: 0, whiteSpace: "pre-line" }}>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(28px, 3vw, 44px)", letterSpacing: "-1.4px", color: OFFWHITE, lineHeight: 1.08, margin: 0, whiteSpace: "pre-line" }}>
                 {tab.heading}
-              </h2>
+              </h3>
 
-              {/* Event details */}
-              <div className="flex flex-wrap items-center gap-2" style={{ marginTop: 12 }}>
-                {[nextEdition.edition, nextEdition.dateString, nextEdition.city].map((item, index, arr) => (
-                  <span key={item} className="flex items-center gap-2">
-                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "#707070" }}>{item}</span>
-                    {index < arr.length - 1 && <span style={{ color: "#404040" }}>&middot;</span>}
-                  </span>
-                ))}
-              </div>
+              {/* Edition dateline (attend only) */}
+              {activeTab === "attend" && (
+                <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "clamp(14px, 1.15vw, 16px)", color: VIOLET_BRIGHT, margin: "14px 0 0", lineHeight: 1.5 }}>
+                  {nextEdition.edition} · {nextEdition.dateString} · {nextEdition.city}
+                </p>
+              )}
 
               {/* Description */}
-              <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 300, fontSize: "clamp(14px, 1.2vw, 16px)", color: "rgba(255,255,255,0.45)", lineHeight: 1.7, margin: "20px 0 0", maxWidth: 440 }}>
+              <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 300, fontSize: "clamp(14px, 1.2vw, 16px)", color: "rgba(255,255,255,0.5)", lineHeight: 1.7, margin: "18px 0 0", maxWidth: 440 }}>
                 {tab.description}
               </p>
 
               {/* Perks */}
-              <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 16 }}>
+              <div style={{ marginTop: 30, display: "flex", flexDirection: "column", gap: 15 }}>
                 {tab.perks.map((perk) => (
                   <div key={perk.text} className="flex items-center gap-3">
-                    <div style={{ width: 36, height: 36, borderRadius: 10, background: "rgba(124,58,237,0.06)", border: "1px solid rgba(124,58,237,0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: VIOLET, flexShrink: 0 }}>
+                    <div style={{ width: 38, height: 38, borderRadius: 9, background: "rgba(124,58,237,0.07)", border: "1px solid rgba(124,58,237,0.14)", display: "flex", alignItems: "center", justifyContent: "center", color: VIOLET_BRIGHT, flexShrink: 0 }}>
                       <PerkIcon type={perk.icon} />
                     </div>
-                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.55)" }}>{perk.text}</span>
+                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.6)" }}>{perk.text}</span>
                   </div>
                 ))}
               </div>
 
-              {/* Trust points (attend) or trust line (other) */}
+              {/* Trust */}
               {activeTab === "attend" ? (
-                <div style={{ marginTop: 24 }}>
+                <div style={{ marginTop: 28, paddingTop: 22, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
                   {trustPoints.map((point, index) => (
-                    <motion.div key={point} initial={{ opacity: 0, x: -10 }} animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }} transition={{ duration: 0.4, delay: 0.4 + index * 0.1, ease: EASE }} className="flex items-center gap-2" style={{ marginTop: index > 0 ? 8 : 0 }}>
-                      <span style={{ color: VIOLET, fontSize: 14 }}>&#10003;</span>
-                      <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "#606060" }}>{point}</span>
+                    <motion.div key={point} initial={{ opacity: 0, x: -10 }} animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }} transition={{ duration: 0.4, delay: 0.4 + index * 0.1, ease: EASE }} className="flex items-center gap-2" style={{ marginTop: index > 0 ? 9 : 0 }}>
+                      <span style={{ color: VIOLET_BRIGHT, fontSize: 13 }}>&#10003;</span>
+                      <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 400, color: "rgba(255,255,255,0.42)" }}>{point}</span>
                     </motion.div>
                   ))}
                 </div>
               ) : (
-                <div style={{ marginTop: 32, paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 400, color: "rgba(255,255,255,0.25)", letterSpacing: "0.3px", margin: 0 }}>{tab.trust}</p>
+                <div style={{ marginTop: 30, paddingTop: 22, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+                  <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.4)", letterSpacing: "0.2px", margin: 0 }}>{tab.trust}</p>
                 </div>
               )}
 
               {/* Secondary CTA (attend only) */}
               {activeTab === "attend" && (
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }} transition={{ duration: 0.6, delay: 0.6, ease: EASE }} className="flex flex-wrap items-center gap-3" style={{ marginTop: 28 }}>
-                  <Link href="/sponsors-and-partners" className="inline-flex items-center gap-2 transition-all duration-300" style={{ padding: "12px 24px", borderRadius: 50, border: "1px solid rgba(124, 58, 237, 0.25)", background: "transparent", fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 500, color: VIOLET }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(124, 58, 237, 0.08)"; e.currentTarget.style.borderColor = VIOLET; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(124, 58, 237, 0.25)"; }}
-                  >
-                    Sponsor This Edition
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }} transition={{ duration: 0.6, delay: 0.6, ease: EASE }} style={{ marginTop: 26 }}>
+                  <Link href="/sponsors-and-partners" className="opex-cta-secondary">
+                    Sponsor this edition
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                      <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </Link>
                 </motion.div>
               )}
             </motion.div>
           </AnimatePresence>
 
-          {/* ── RIGHT COLUMN: Form ── */}
+          {/* ── RIGHT: form plate ── */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
-            style={{ borderRadius: 20, border: "1px solid rgba(124, 58, 237, 0.08)", background: "rgba(255, 255, 255, 0.02)", padding: "clamp(24px, 3vw, 36px)", position: "relative", overflow: "hidden" }}
+            className="opex-cta-plate"
           >
-            <div className="absolute pointer-events-none" style={{ top: -40, right: -40, width: 200, height: 200, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(124,58,237,0.05) 0%, transparent 70%)" }} />
+            {/* Crop marks */}
+            <span className="opex-cta-crop" style={{ top: 12, left: 12, borderTop: "1px solid rgba(159,103,255,0.3)", borderLeft: "1px solid rgba(159,103,255,0.3)" }} />
+            <span className="opex-cta-crop" style={{ top: 12, right: 12, borderTop: "1px solid rgba(159,103,255,0.3)", borderRight: "1px solid rgba(159,103,255,0.3)" }} />
+            <span className="opex-cta-crop" style={{ bottom: 12, left: 12, borderBottom: "1px solid rgba(159,103,255,0.3)", borderLeft: "1px solid rgba(159,103,255,0.3)" }} />
+            <span className="opex-cta-crop" style={{ bottom: 12, right: 12, borderBottom: "1px solid rgba(159,103,255,0.3)", borderRight: "1px solid rgba(159,103,255,0.3)" }} />
+
+            <div className="absolute pointer-events-none" style={{ top: -40, right: -40, width: 220, height: 220, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(124,58,237,0.07) 0%, transparent 70%)" }} />
 
             <AnimatePresence mode="wait">
               {isSubmitted ? (
@@ -388,18 +399,18 @@ export default function OpexUpcomingEditionCTA() {
                   <div style={{ width: 52, height: 52, borderRadius: "50%", background: "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.25)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
                   </div>
-                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(20px, 2.5vw, 26px)", letterSpacing: "-0.5px", color: "white", margin: "0 0 8px" }}>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(20px, 2.5vw, 26px)", letterSpacing: "-0.5px", color: "white", margin: "0 0 8px" }}>
                     {activeTab === "attend" ? "Thank you!" : "Inquiry Submitted"}
                   </h3>
                   <p style={{ fontFamily: "var(--font-outfit)", fontWeight: 300, fontSize: 14, color: "#A0A0A0", margin: "0 0 20px", lineHeight: 1.6 }}>
-                    {activeTab === "attend" ? "We\u2019ll be in touch with event details." : "Our team will review your submission and get back to you within 2 working hours."}
+                    {activeTab === "attend" ? "We’ll be in touch with event details." : "Our team will review your submission and get back to you within 2 working hours."}
                   </p>
-                  <button onClick={resetForm} style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: VIOLET, background: "none", border: "none", cursor: "pointer", padding: 0 }}>
+                  <button onClick={resetForm} style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: VIOLET_BRIGHT, background: "none", border: "none", cursor: "pointer", padding: 0 }}>
                     Submit another inquiry &rarr;
                   </button>
                 </motion.div>
               ) : (
-                <motion.div key={`form-${activeTab}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3, ease: EASE }}>
+                <motion.div key={`form-${activeTab}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3, ease: EASE }} style={{ position: "relative" }}>
                   <form onSubmit={handleSubmit}>
                     <div className="opex-form-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
                       {tab.fields.map((field) => {
@@ -416,13 +427,7 @@ export default function OpexUpcomingEditionCTA() {
                                     const found = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country);
                                     if (found) setSelectedCountry(found);
                                   }}
-                                  style={{
-                                    ...inputStyle,
-                                    width: 120,
-                                    flexShrink: 0,
-                                    appearance: "none" as const,
-                                    cursor: "pointer",
-                                  }}
+                                  style={{ ...inputStyle, width: 120, flexShrink: 0, appearance: "none" as const, cursor: "pointer" }}
                                   onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(124,58,237,0.35)"; }}
                                   onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}
                                 >
@@ -497,15 +502,15 @@ export default function OpexUpcomingEditionCTA() {
                     {formError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 13, margin: "8px 0 0" }}>{formError}</p>}
 
                     <button type="submit" disabled={isLoading} className="w-full transition-all duration-300"
-                      style={{ width: "100%", marginTop: 20, padding: "13px 28px", borderRadius: 10, background: isLoading ? `${VIOLET}80` : VIOLET, color: "white", fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 600, border: "none", cursor: isLoading ? "wait" : "pointer", opacity: isLoading ? 0.7 : 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}
-                      onMouseEnter={(e) => { if (!isLoading) { e.currentTarget.style.background = VIOLET_BRIGHT; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 40px rgba(124,58,237,0.15)"; } }}
+                      style={{ width: "100%", marginTop: 20, padding: "14px 28px", borderRadius: 8, background: isLoading ? `${VIOLET}80` : VIOLET, color: "white", fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 600, border: "none", cursor: isLoading ? "wait" : "pointer", opacity: isLoading ? 0.7 : 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}
+                      onMouseEnter={(e) => { if (!isLoading) { e.currentTarget.style.background = VIOLET_BRIGHT; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 40px rgba(124,58,237,0.2)"; } }}
                       onMouseLeave={(e) => { e.currentTarget.style.background = isLoading ? `${VIOLET}80` : VIOLET; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
                     >
                       {isLoading ? "Submitting..." : tab.cta} {!isLoading && <span>&rarr;</span>}
                     </button>
                   </form>
 
-                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 400, color: "#3A3A3A", textAlign: "center", margin: "14px 0 0" }}>
+                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 400, color: "rgba(255,255,255,0.22)", textAlign: "center", margin: "14px 0 0" }}>
                     By submitting, you agree to receive event communications from Events First Group.
                   </p>
                 </motion.div>
@@ -516,14 +521,103 @@ export default function OpexUpcomingEditionCTA() {
       </div>
 
       <style jsx global>{`
+        .opex-cta-tabs {
+          display: flex;
+          gap: 8px;
+          margin-top: clamp(28px, 3.4vw, 44px);
+        }
+        .opex-cta-tab {
+          padding: 9px 22px;
+          border-radius: 999px;
+          font-family: var(--font-outfit);
+          font-size: 13px;
+          font-weight: 400;
+          letter-spacing: 0.2px;
+          color: rgba(255, 255, 255, 0.42);
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          cursor: pointer;
+          transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .opex-cta-tab:hover {
+          color: rgba(255, 255, 255, 0.72);
+          border-color: rgba(159, 103, 255, 0.3);
+        }
+        .opex-cta-tab-on {
+          color: #fff;
+          font-weight: 600;
+          background: ${VIOLET};
+          border-color: ${VIOLET};
+        }
+        .opex-cta-rule {
+          height: 1px;
+          background: rgba(255, 255, 255, 0.1);
+          margin: clamp(22px, 2.6vw, 32px) 0 clamp(34px, 4vw, 52px);
+        }
+
+        .opex-cta-container {
+          display: grid;
+          grid-template-columns: 1fr 1.25fr;
+          gap: clamp(32px, 4vw, 64px);
+          align-items: start;
+        }
+
+        .opex-cta-secondary {
+          display: inline-flex;
+          align-items: center;
+          gap: 9px;
+          padding: 12px 24px;
+          border-radius: 999px;
+          border: 1px solid rgba(159, 103, 255, 0.28);
+          background: transparent;
+          text-decoration: none;
+          font-family: var(--font-outfit);
+          font-size: 13px;
+          font-weight: 600;
+          letter-spacing: 0.3px;
+          color: ${VIOLET_BRIGHT};
+          transition: color 0.4s, border-color 0.4s, background 0.4s;
+        }
+        .opex-cta-secondary:hover {
+          color: #fff;
+          border-color: rgba(159, 103, 255, 0.55);
+          background: rgba(124, 58, 237, 0.12);
+        }
+        .opex-cta-secondary svg {
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .opex-cta-secondary:hover svg {
+          transform: translateX(3px);
+        }
+
+        .opex-cta-plate {
+          position: relative;
+          border-radius: 4px;
+          border: 1px solid rgba(124, 58, 237, 0.12);
+          background: rgba(255, 255, 255, 0.02);
+          padding: clamp(26px, 3vw, 40px);
+          overflow: hidden;
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+        .opex-cta-crop {
+          position: absolute;
+          width: 14px;
+          height: 14px;
+          z-index: 3;
+          pointer-events: none;
+        }
+
         @media (max-width: 860px) {
           .opex-cta-container {
-            grid-template-columns: 1fr !important;
+            grid-template-columns: 1fr;
           }
         }
         @media (max-width: 500px) {
           .opex-form-grid {
             grid-template-columns: 1fr !important;
+          }
+          .opex-cta-tabs {
+            flex-wrap: wrap;
           }
         }
       `}</style>

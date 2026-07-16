@@ -21,7 +21,7 @@ export default function OpexPostEventReports() {
       ref={ref}
       id="reports"
       style={{
-        background: INK,
+        background: "transparent",
         padding: "clamp(36px, 4.5vw, 64px) 0",
         position: "relative",
         overflow: "hidden",

@@ -17,6 +17,8 @@ export const POST_EVENT_REPORTS: ReportEntry[] = [
     subtitle: "2025 Edition",
     url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/OPEX+First+KSA+2025+-+Post+Event+Report.pdf",
     filename: "OPEX-First-KSA-2025-Report.pdf",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/Opex+KSA+logo-02.png",
+    logoScale: 1.5,
   },
   {
     edition: "UAE",
@@ -36,5 +38,7 @@ export const POST_EVENT_REPORTS: ReportEntry[] = [
     // TODO: replace with the real S3 URL once the report PDF is uploaded.
     url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/Process+Intelligence+Webinar+2026+-+Post+Event+Report.pdf",
     filename: "OPEX-Process-Intelligence-Webinar-2026-Report.pdf",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OPEX+FIRST+logo-1.png",
+    logoScale: 1.3,
   },
 ];

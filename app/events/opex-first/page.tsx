@@ -15,6 +15,8 @@ import {
   OpexRequestResourcesModal,
 } from "@/components/opex-first";
 import OpexYouTubeShorts from "@/components/opex-first/OpexYouTubeShorts";
+import OpexImageBreak from "@/components/opex-first/OpexImageBreak";
+import OpexReportFab from "@/components/opex-first/OpexReportFab";
 import { Footer } from "@/components/sections";
 import SectionTransition from "@/components/effects/SectionTransition";
 
@@ -22,81 +24,119 @@ const VIOLET = "#7C3AED";
 
 export default function OpexFirstPage() {
   return (
-    <div>
-      {/* 1. Hero, Full-bleed with badges, stats, ticker */}
-      <OpexHero />
+    <div style={{ position: "relative", background: "#07051A", isolation: "isolate" }}>
+      {/* ── Unified ambient background — one continuous violet-ink field shared by every section ── */}
+      <div
+        aria-hidden
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: "none",
+          background:
+            "radial-gradient(ellipse 80% 45% at 50% 0%, rgba(124,58,237,0.10) 0%, transparent 60%), radial-gradient(ellipse 55% 45% at 85% 108%, rgba(124,58,237,0.06) 0%, transparent 60%), radial-gradient(ellipse 55% 45% at 12% 92%, rgba(124,58,237,0.05) 0%, transparent 60%)",
+        }}
+      />
+      <div
+        aria-hidden
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: "none",
+          backgroundImage:
+            "radial-gradient(circle, rgba(124,58,237,0.05) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+          opacity: 0.4,
+        }}
+      />
 
-      <SectionTransition variant="sweep" color={VIOLET} />
+      {/* ── Page content (floats above the shared field) ── */}
+      <div style={{ position: "relative", zIndex: 1 }}>
+        {/* 1. Hero, Full-bleed with badges, stats, ticker */}
+        <OpexHero />
 
-      {/* 2. About, Mission & Vision */}
-      <OpexAboutSeries />
+        <SectionTransition variant="sweep" color={VIOLET} />
 
-      <SectionTransition variant="expand" color={VIOLET} />
+        {/* 2. About, Mission & Vision */}
+        <OpexAboutSeries />
 
-      {/* 3. Series Journey, Timeline + Editions merged */}
-      <OpexSeriesJourney />
+        {/* Image break — the room in session (acts as the section divider) */}
+        <OpexImageBreak
+          image="https://efg-final.s3.eu-north-1.amazonaws.com/events/opex+KSA+few/DSC08208.jpg"
+          alt="OPEX First KSA — leaders in session"
+          folio="II"
+          caption="The room in session — OPEX First KSA, Riyadh."
+        />
 
-      <SectionTransition variant="pulse" color={VIOLET} />
+        {/* 3. Series Journey, Timeline + Editions merged */}
+        <OpexSeriesJourney />
 
-      {/* 3B. Post-Event Reports, Downloadable PDFs */}
-      <OpexPostEventReports />
+        <SectionTransition variant="pulse" color={VIOLET} />
 
-      <SectionTransition variant="sweep" color={VIOLET} />
+        {/* 3B. Post-Event Reports, Downloadable PDFs */}
+        <OpexPostEventReports />
 
-      {/* 4. Key Themes, 10 topics + market stats */}
-      <OpexKeyThemes />
+        <SectionTransition variant="sweep" color={VIOLET} />
 
-      <SectionTransition variant="sweep" color={VIOLET} />
+        {/* 4. Key Themes, 10 topics + market stats */}
+        <OpexKeyThemes />
 
-      {/* 5. Speakers, Portrait card grid */}
-      <OpexFeaturedSpeakers />
+        <SectionTransition variant="sweep" color={VIOLET} />
 
-      <SectionTransition variant="expand" color={VIOLET} />
+        {/* 5. Speakers, Portrait card grid */}
+        <OpexFeaturedSpeakers />
 
-      {/* 6. Experience, Conference format cards */}
-      <OpexExperience />
+        <SectionTransition variant="expand" color={VIOLET} />
 
-      <SectionTransition variant="pulse" color={VIOLET} />
+        {/* 6. Experience, Conference format cards */}
+        <OpexExperience />
 
-      {/* 7. Who Should Attend, Roles & industries */}
-      <OpexWhoShouldAttend />
+        <SectionTransition variant="pulse" color={VIOLET} />
 
-      <SectionTransition variant="sweep" color={VIOLET} />
+        {/* 7. Who Should Attend, Roles & industries */}
+        <OpexWhoShouldAttend />
 
-      {/* 8. Sponsors, Tiered partner wall */}
-      <OpexSponsors />
+        <SectionTransition variant="sweep" color={VIOLET} />
 
-      <SectionTransition variant="expand" color={VIOLET} />
+        {/* 8. Sponsors, Tiered partner wall */}
+        <OpexSponsors />
 
-      {/* 9. Gallery, Masonry grid with spotlight */}
-      <OpexGallery />
+        <SectionTransition variant="expand" color={VIOLET} />
 
-      <SectionTransition variant="pulse" color={VIOLET} />
+        {/* 9. Gallery, Masonry grid with spotlight */}
+        <OpexGallery />
 
-      {/* 10. Awards, Showpiece glassmorphic cards */}
-      <OpexAwards />
+        <SectionTransition variant="pulse" color={VIOLET} />
 
-      <SectionTransition variant="sweep" color={VIOLET} />
+        {/* 10. Awards, Showpiece glassmorphic cards */}
+        <OpexAwards />
 
-      {/* 11. YouTube Shorts, Video highlights */}
-      <OpexYouTubeShorts />
+        <SectionTransition variant="sweep" color={VIOLET} />
 
-      <SectionTransition variant="pulse" color={VIOLET} />
+        {/* 11. YouTube Shorts, Video highlights */}
+        <OpexYouTubeShorts />
 
-      {/* 12. Register, CTA + Form with AnimatePresence */}
-      <OpexUpcomingEditionCTA />
+        <SectionTransition variant="pulse" color={VIOLET} />
 
-      <SectionTransition variant="expand" color={VIOLET} />
+        {/* 12. Register, CTA + Form with AnimatePresence */}
+        <OpexUpcomingEditionCTA />
 
-      {/* 12. Explore, Cross-series cards */}
-      <OpexExploreOtherSeries />
+        <SectionTransition variant="expand" color={VIOLET} />
 
-      <SectionTransition variant="sweep" color={VIOLET} />
+        {/* 12. Explore, Cross-series cards */}
+        <OpexExploreOtherSeries />
 
-      {/* Footer */}
-      <Footer />
+        <SectionTransition variant="sweep" color={VIOLET} />
 
-      {/* Request Resources modal (portalled to body, triggered by hero dropdown + cards) */}
+        {/* Footer */}
+        <Footer />
+      </div>
+
+      {/* Floating "Download our Post Event Reports" prompt (desktop note → mobile FAB) */}
+      <OpexReportFab />
+
+      {/* Request Resources modal (portalled to body, triggered by the report FAB + cards) */}
       <OpexRequestResourcesModal />
     </div>
   );
