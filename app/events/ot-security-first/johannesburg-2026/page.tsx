@@ -378,6 +378,34 @@ const SPEAKERS = [
     linkedin: "https://www.linkedin.com/in/nkerboute/",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naoufal-Media1.jpg",
   },
+  {
+    name: "Chris Gatsi",
+    title: "Chief Internal Auditor (IT)",
+    org: "Sibanye-Stillwater",
+    linkedin: "https://www.linkedin.com/in/chris-gatsi-3b303734/",
+    photo: "",
+  },
+  {
+    name: "Ritasha Kalidas",
+    title: "Group Head of Cyber Security",
+    org: "Coca-Cola Beverages Africa",
+    linkedin: "https://www.linkedin.com/in/ritasha-kalidas-a876b3156/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ritasha+Kalidas.jpg",
+  },
+  {
+    name: "Samuel Mokoena",
+    title: "Head Group ICT Security",
+    org: "Sibanye-Stillwater",
+    linkedin: "https://www.linkedin.com/in/samuel-mokoena-5a19041/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Samuel_Mokoena.png",
+  },
+  {
+    name: "Paulo Rebelo",
+    title: "Head of Sales META & CIS Regions",
+    org: "Keysight",
+    linkedin: "https://www.linkedin.com/in/paulo-rebelo-8673261/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mr.+Paulo_Rebelo%C2%A0%C2%A0.png",
+  },
 ].filter((s) => !("hidden" in s) || !s.hidden);
 
 // Strategic Focus Areas from brochure
