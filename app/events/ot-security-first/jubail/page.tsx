@@ -48,13 +48,14 @@ type Speaker = {
   linkedin?: string | null;
   flag?: string;
   photoPos?: string;
+  photoTransform?: string;
   initials?: string;
 };
 
 const SPEAKERS: Speaker[] = [
   { name: "Ahmed Al Saleh", title: "Head of Digital & OT Cybersecurity Initiatives", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed_Al_Saleh.png", linkedin: "https://www.linkedin.com/in/ahmed-al-saleh/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Ahmed T Alawami", title: "Head of AI & Digital Transformation (Energy & Utilities)", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+T+Alawami.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/", flag: "https://flagcdn.com/w40/sa.png" },
-  { name: "Abdulrahman Al-Nimari", title: "VP, Cyber Security", org: "", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulrahman+Al-Nimar.png", linkedin: "https://www.linkedin.com/in/alnimari/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Abdulrahman Al-Nimari", title: "VP, Cyber Security", org: "", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulrahman_Al-Nimar.png", linkedin: "https://www.linkedin.com/in/alnimari/", flag: "https://flagcdn.com/w40/sa.png", photoTransform: "scale(1.18)" },
   { name: "Sultan Moraished", title: "Group Head of Technology and Corporate Excellence", org: "Red Sea Global", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Moraished.png", linkedin: "https://www.linkedin.com/in/sultan-moraished-0786394a/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Ali Abdulla Hasan Alsadadi", title: "Chief of Information Technology", org: "Ministry of Oil & Environment Bahrain", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Ali+Abdulla+Hasan+Alsadadi.png", linkedin: "https://www.linkedin.com/in/ali-abdulla-hasan-alsadadi-a4210825/", flag: "https://flagcdn.com/w40/bh.png" },
   { name: "Badar Al Salehi", title: "Director General, Oman National CERT", org: "Ministry of Transport, Communications and Information Technology", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Badar+Al+Salehi.png", linkedin: "https://www.linkedin.com/in/badar-al-salehi-75461061/", flag: "https://flagcdn.com/w40/om.png", photoPos: "center 42%" },
@@ -3614,6 +3615,7 @@ function SpeakersSection() {
                       height: "100%",
                       objectFit: "cover",
                       objectPosition: s.photoPos || "center top",
+                      transform: s.photoTransform || undefined,
                     }}
                   />
                 ) : s.initials ? (
