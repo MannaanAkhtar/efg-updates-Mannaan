@@ -191,14 +191,18 @@ const CFQ_MARQUEE_ROW_2: { name: string; logo: string }[] = [
 const ADVISORS: { name: string; title: string; org: string; photo?: string; linkedin?: string }[] = [
   { name: "Nicholas Jones", title: "EMEIA Cybersecurity Oil & Gas Leader", org: "EY",              photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nicholas_Jones.png", linkedin: "https://www.linkedin.com/in/nicholas-jones-2464151b/" },
   { name: "Harris Ismail",  title: "Head of Identity & Access Management", org: "Commercial Bank" },
-  { name: "Feroz Khan",     title: "Head of IT Security",                   org: "TotalEnergies" },
+  { name: "Feroz Khan",     title: "Head of IT Security",                   org: "TotalEnergies", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/feroz_khan.png", linkedin: "https://www.linkedin.com/in/fkindoha/" },
 ];
 
 // ─── Speakers — named individuals ───────────────────────────────────────────
-const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; linkedin?: string }[] = [
-  { name: "Hans W. Thomasz", title: "CISO", org: "Qatar Development Bank",  photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hans_w_Thomasz.png" },
-  { name: "Anfal Shaikh",    title: "CISO", org: "Qatar Islamic Insurance", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anfal_shaikh.png" },
-  { name: "Tarek Terk",      title: "Cybersecurity Leader", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tarek+Terk.png" },
+const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; linkedin?: string; crop?: string }[] = [
+  { name: "Hans W. Thomasz",  title: "CISO", org: "Qatar Development Bank",  photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hans_w_Thomasz.png" },
+  { name: "Ewald Müller",     title: "Senior Advisor, Supervision and Authorisation", org: "QFC Regulatory Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ewald+Muller.jpg" },
+  { name: "Tarek Terk",       title: "Cybersecurity Leader", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tarek+Terk.png" },
+  { name: "John Mankarios",   title: "Vice President – Deputy Head of Information Technology", org: "QInvest", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/JohnMankarios.png", linkedin: "https://www.linkedin.com/in/john-mankarios/" },
+  { name: "Anfal Shaikh",     title: "CISO", org: "Qatar Islamic Insurance", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anfal_shaikh.png" },
+  { name: "Feroz Khan",       title: "Head of IT Security", org: "TotalEnergies", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/feroz_khan.png", linkedin: "https://www.linkedin.com/in/fkindoha/" },
+  { name: "Khireddine Garri", title: "Acting Chief Information Security Officer (CISO)", org: "Jasour", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khireddine+Garri.jpg" },
 ];
 
 // ─── Agenda — 17 rows (from PDF) ────────────────────────────────────────────
@@ -3379,7 +3383,10 @@ function Advisors() {
 }
 
 // ───────────────────────────────────────────────────────────────────────────
-// SPEAKERS — named individuals (cyan accent, mirrors the advisory card)
+// SPEAKERS — named individuals (cyan accent, mirrors the advisory card).
+// Layout is a centred flex roster: flex-wrap + justify-content:center means the
+// card COUNT is irrelevant — any tail row centres itself. Adding/removing a
+// speaker requires no layout change. Tune --w/--gap/--cols in the <style jsx>.
 // ───────────────────────────────────────────────────────────────────────────
 function Speakers() {
   const ref = useRef<HTMLElement>(null);
@@ -3407,7 +3414,7 @@ function Speakers() {
       />
       <BgDots opacity={0.04} />
 
-      <div style={{ position: "relative", maxWidth: 1180, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+      <div style={{ position: "relative", maxWidth: 1380, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
         <Eyebrow inView={inView} label="Speakers" tone="cyan" />
 
         <motion.h2
@@ -3430,12 +3437,12 @@ function Speakers() {
         </motion.h2>
 
         <div
-          className="cfq-speakers-grid"
+          className="cfq-speakers-roster"
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "clamp(18px, 2vw, 28px)",
-            maxWidth: 840,
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            alignItems: "stretch",
             margin: "0 auto",
           }}
         >
@@ -3446,7 +3453,7 @@ function Speakers() {
                 key={a.name}
                 initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.15 + i * 0.1, ease: EASE }}
+                transition={{ duration: 0.8, delay: 0.15 + Math.min(i, 8) * 0.06, ease: EASE }}
                 className="cfq-speaker-card"
                 style={{
                   position: "relative",
@@ -3460,12 +3467,20 @@ function Speakers() {
                   transition: "transform 0.5s cubic-bezier(0.22,1,0.36,1), border-color 0.5s ease, box-shadow 0.5s ease",
                 }}
               >
-                {/* PHOTO / INITIALS — top, full-bleed, 1:1 aspect */}
+                {/* MEDIA ROW — vertical org rail + photo. The rail carries the
+                    company name so the info block below stays name + title. */}
+                <div className="cfq-speaker-media">
+                  <div className="cfq-speaker-orgrail">
+                    <span className="cfq-speaker-orgrail-text">{a.org}</span>
+                  </div>
+
+                {/* PHOTO / INITIALS — 1:1 aspect */}
                 <div
                   className="cfq-speaker-photo-frame"
                   style={{
                     position: "relative",
-                    width: "100%",
+                    flex: 1,
+                    minWidth: 0,
                     aspectRatio: "1 / 1",
                     overflow: "hidden",
                     background: a.photo
@@ -3487,7 +3502,7 @@ function Speakers() {
                         width: "100%",
                         height: "100%",
                         objectFit: "cover",
-                        objectPosition: "center 18%",
+                        objectPosition: a.crop ?? "center 18%",
                         display: "block",
                         transition: "transform 0.7s cubic-bezier(0.22,1,0.36,1)",
                       }}
@@ -3509,8 +3524,8 @@ function Speakers() {
                         style={{
                           fontFamily: "var(--font-display)",
                           fontWeight: 800,
-                          fontSize: "clamp(56px, 6vw, 84px)",
-                          letterSpacing: "-2.5px",
+                          fontSize: "clamp(48px, 5vw, 68px)",
+                          letterSpacing: "-2.2px",
                           color: C,
                           textShadow: `0 0 24px ${C}66, 0 4px 18px rgba(0,0,0,0.5)`,
                           lineHeight: 1,
@@ -3580,11 +3595,13 @@ function Speakers() {
                     </a>
                   )}
                 </div>
+                </div>
 
-                {/* INFO BLOCK — below the photo */}
+                {/* INFO BLOCK — below the photo. Name + title only; the org
+                    lives on the vertical rail beside the photo. */}
                 <div
                   style={{
-                    padding: "clamp(16px, 1.7vw, 22px) clamp(18px, 1.9vw, 24px) clamp(18px, 1.9vw, 22px)",
+                    padding: "16px 14px 18px",
                     display: "flex",
                     flexDirection: "column",
                     gap: 8,
@@ -3594,17 +3611,21 @@ function Speakers() {
                   <h3
                     style={{
                       fontFamily: "var(--font-display)",
-                      fontSize: "clamp(16px, 1.4vw, 19px)",
+                      fontSize: 16,
                       fontWeight: 700,
-                      letterSpacing: "-0.4px",
+                      letterSpacing: "-0.35px",
                       color: "white",
                       lineHeight: 1.2,
                       margin: 0,
+                      overflowWrap: "break-word",
                     }}
                   >
                     {a.name}
                   </h3>
 
+                  {/* Fixed reserve (not flex:1) — flex-grow only equalises within
+                      a row, so cards never aligned across rows. The reserve gives
+                      every card the same height at any count. */}
                   <p
                     style={{
                       fontFamily: "var(--font-outfit)",
@@ -3613,25 +3634,14 @@ function Speakers() {
                       color: "rgba(255,255,255,0.78)",
                       lineHeight: 1.4,
                       margin: 0,
-                      flex: 1,
+                      minHeight: "var(--title-reserve)",
+                      overflowWrap: "break-word",
+                      hyphens: "auto",
+                      textWrap: "pretty",
                     }}
                   >
                     {a.title}
                   </p>
-
-                  <div style={{ display: "flex", alignItems: "center", gap: 9, marginTop: 4 }}>
-                    <span aria-hidden style={{ width: 16, height: 1, background: `linear-gradient(90deg, ${C}, transparent)`, boxShadow: `0 0 8px ${C}66` }} />
-                    <span style={{
-                      fontFamily: "var(--font-outfit)",
-                      fontSize: 10,
-                      fontWeight: 700,
-                      letterSpacing: "0.16em",
-                      textTransform: "uppercase",
-                      color: C,
-                    }}>
-                      {a.org}
-                    </span>
-                  </div>
                 </div>
               </motion.div>
             );
@@ -3639,26 +3649,117 @@ function Speakers() {
         </div>
       </div>
 
-      <style jsx>{`
+      {/* NOTE: `global` is required, not stylistic. styled-jsx only adds its
+          scoping hash to host elements (div/span/img) — never to custom
+          components like `motion.div`. `.cfq-speaker-card` sits on a motion.div,
+          so a scoped block emits `.cfq-speaker-card.jsx-xxx`, which never
+          matches and silently drops every card rule (this is why the card hover
+          previously did nothing). All selectors here are cfq- prefixed. */}
+      <style jsx global>{`
+        /* Roster band. All sizing is driven by the four custom properties below —
+           never set them inline (inline custom props beat class rules and would
+           force !important on every breakpoint). Adding/removing speakers needs NO
+           layout change: flex-wrap + justify-content:center centres any tail row. */
+        .cfq-speakers-roster {
+          --w: 285px;
+          --gap: 24px;
+          --cols: 4;
+          --title-reserve: 55px;
+          gap: var(--gap);
+          max-width: calc(var(--w) * var(--cols) + var(--gap) * (var(--cols) - 1));
+        }
+        .cfq-speaker-card {
+          flex: 0 0 var(--w);
+          width: var(--w);
+        }
+
+        /* Media row: vertical org rail + square photo */
+        .cfq-speaker-media {
+          display: flex;
+          align-items: stretch;
+        }
+        .cfq-speaker-orgrail {
+          flex: 0 0 26px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          border-right: 1px solid ${C}1f;
+          background: linear-gradient(180deg, ${C}0d 0%, transparent 100%);
+        }
+        .cfq-speaker-orgrail-text {
+          writing-mode: vertical-rl;
+          transform: rotate(180deg);
+          font-family: var(--font-outfit);
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: ${C};
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-height: 100%;
+          opacity: 0.85;
+          transition: opacity 0.4s ease, color 0.4s ease;
+        }
+        .cfq-speaker-card:hover .cfq-speaker-orgrail-text {
+          opacity: 1;
+          color: ${C_BRIGHT};
+        }
+
         .cfq-speaker-card:hover {
           transform: translateY(-5px);
           border-color: ${C}66 !important;
           box-shadow: 0 30px 64px rgba(0,0,0,0.6), 0 0 60px ${C}22, inset 0 1px 0 rgba(255,255,255,0.06) !important;
         }
         .cfq-speaker-card:hover .cfq-speaker-photo {
-          transform: scale(1.05);
+          transform: scale(1.09);
         }
         .cfq-speaker-li:hover {
           background: ${C} !important;
           color: white !important;
           transform: translateY(-1px) scale(1.06);
         }
-        @media (max-width: 980px) {
-          .cfq-speakers-grid {
-            grid-template-columns: 1fr !important;
-            max-width: 300px;
-            margin: 0 auto;
+
+        /* 1180–1359 — the wide band (4 x 285 + 3 x 24 = 1212) no longer fits once
+           the container stops being padding-bound, so step back to the compact
+           237px card. content(1180) = 1020 >= band 1014. */
+        @media (max-width: 1359px) {
+          .cfq-speakers-roster { --w: 237px; --gap: 22px; }
+        }
+        /* 1024–1179 — content(1024) = 921.6 >= band 894 */
+        @media (max-width: 1179px) {
+          .cfq-speakers-roster { --w: 210px; --gap: 18px; }
+        }
+        /* 900–1023 — content(900) = 810 >= band 784. Tightest 3-line case for
+           the longest title, so the reserve steps up here. */
+        @media (max-width: 1023px) {
+          .cfq-speakers-roster { --w: 184px; --gap: 16px; --title-reserve: 73px; }
+        }
+        /* 640–899 — 3-up, fluid */
+        @media (max-width: 899px) {
+          .cfq-speakers-roster { --w: clamp(176px, 20vw, 200px); --gap: 16px; --cols: 3; --title-reserve: 73px; }
+        }
+        /* <=639 — 2-up fluid. Deliberately never 1-up (7 stacked squares is a dead scroll). */
+        @media (max-width: 639px) {
+          .cfq-speakers-roster {
+            --gap: 14px;
+            --cols: 2;
+            --title-reserve: 73px;
+            max-width: 420px;
           }
+          .cfq-speaker-card {
+            flex: 0 0 calc((100% - var(--gap)) / 2);
+            width: auto;
+          }
+          .cfq-speaker-orgrail { flex-basis: 22px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .cfq-speaker-card:hover { transform: none; }
+          .cfq-speaker-card:hover .cfq-speaker-photo { transform: none; }
+          .cfq-speaker-li:hover { transform: none; }
         }
       `}</style>
     </section>
