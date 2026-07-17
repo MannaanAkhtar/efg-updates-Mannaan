@@ -26,7 +26,7 @@ const PP_GRAY_LIGHT = "#E5EBF2";  // Borders, hairlines
 const PP_GRAY = "#5A6B85";        // Secondary text
 const PP_HAIRLINE = "rgba(14,37,65,0.10)";
 
-const EVENT_TARGET = "2026-06-23T10:30:00+03:00"; // KSA (UTC+3)
+const EVENT_TARGET = "2026-09-23T10:30:00+03:00"; // KSA (UTC+3)
 
 // White Proofpoint favicon mark — used on Proofpoint-led timeline markers
 const PFPT_FAVICON =
@@ -69,7 +69,9 @@ const TOPICS = [
   },
 ];
 
-const SPEAKERS = [
+type Speaker = { name: string; role: string; org: string; linkedin?: string; initials: string; photo: string; isModerator?: boolean; photoPos?: string };
+
+const SPEAKERS: Speaker[] = [
   {
     name: "Abdullah Aljandal",
     role: "Sales Director & Saudi Country Manager",
@@ -101,6 +103,15 @@ const SPEAKERS = [
     linkedin: "https://www.linkedin.com/in/hashim-luai-a604b917/",
     initials: "HL",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hashim+Lua.jpg",
+  },
+  {
+    name: "Adil Akthar",
+    role: "Group Head of IT",
+    org: "Bnoon — Global Fertility",
+    initials: "AA",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/adil1.jpeg",
+    isModerator: true,
+    photoPos: "center 60%",
   },
   {
     name: "Ahmed Darwish",
@@ -783,7 +794,7 @@ function HeroSection() {
               color: PP_NAVY_INK,
             }}
           >
-            <span>23 June 2026</span>
+            <span>23 September 2026</span>
             <span style={{ color: PP_CYAN }}>·</span>
             <span>10:30 – 13:35 KSA time</span>
             <span style={{ color: PP_CYAN }}>·</span>
@@ -1277,9 +1288,9 @@ function SpeakersSection() {
           }}
         >
           {SPEAKERS.map((s, i) => {
-            // 4+2 layout on a 12-col grid with 3-col spans (same card width as before).
+            // 4+3 layout on a 12-col grid with 3-col spans (uniform card width).
             // Row 1: cols 1/4/7/10 (4 cards, full row).
-            // Row 2: cols 4/7 (2 cards centered, 3 empty cols each side).
+            // Row 2: cols 2/5/8 (3 cards centered as a group — Ahmed, Sameer, moderator).
             const gridColumn =
               i === 0
                 ? "1 / span 3"
@@ -1290,8 +1301,10 @@ function SpeakersSection() {
                     : i === 3
                       ? "10 / span 3"
                       : i === 4
-                        ? "4 / span 3"
-                        : "7 / span 3";
+                        ? "2 / span 3"
+                        : i === 5
+                          ? "5 / span 3"
+                          : "8 / span 3";
             return (
             <div
               key={s.name}
@@ -1331,7 +1344,7 @@ function SpeakersSection() {
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
-                    objectPosition: "center 20%",
+                    objectPosition: s.photoPos || "center 20%",
                     display: "block",
                     transition: "transform 0.7s cubic-bezier(0.22,1,0.36,1)",
                   }}
@@ -1352,6 +1365,7 @@ function SpeakersSection() {
                 />
 
                 {/* Floating LinkedIn chip in the photo's bottom-right */}
+                {s.linkedin && (
                 <a
                   href={s.linkedin}
                   target="_blank"
@@ -1381,6 +1395,36 @@ function SpeakersSection() {
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                   </svg>
                 </a>
+                )}
+
+                {/* Moderator badge — top-left of the portrait */}
+                {s.isModerator && (
+                  <span
+                    style={{
+                      position: "absolute",
+                      left: 14,
+                      top: 14,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                      padding: "6px 12px",
+                      borderRadius: 999,
+                      background: "rgba(7,22,44,0.78)",
+                      border: `1px solid ${PP_CYAN}66`,
+                      backdropFilter: "blur(6px)",
+                      fontFamily: "var(--font-outfit), system-ui, sans-serif",
+                      fontSize: 10.5,
+                      fontWeight: 700,
+                      letterSpacing: "0.16em",
+                      textTransform: "uppercase",
+                      color: PP_CYAN_BRIGHT,
+                      boxShadow: "0 6px 18px rgba(14,37,65,0.22)",
+                    }}
+                  >
+                    <span style={{ width: 5, height: 5, borderRadius: "50%", background: PP_CYAN_BRIGHT, boxShadow: `0 0 8px ${PP_CYAN_BRIGHT}` }} />
+                    Moderator
+                  </span>
+                )}
               </div>
 
               {/* Meta block — name, role, org */}
@@ -1594,7 +1638,7 @@ function AgendaSection() {
               gap: 12,
             }}
           >
-            <span>23 Jun 2026</span>
+            <span>23 Sep 2026</span>
             <span style={{ width: 18, height: 1, background: PP_GRAY_LIGHT }} />
             <span>Riyadh · KSA time</span>
           </div>
@@ -2366,7 +2410,7 @@ function VenueSection() {
                     fontVariantNumeric: "tabular-nums",
                   }}
                 >
-                  23 Jun 2026
+                  23 Sep 2026
                 </div>
               </div>
 
@@ -2583,7 +2627,7 @@ function RegisterSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   const SPECS = [
-    { label: "Date", value: "23 Jun 2026" },
+    { label: "Date", value: "23 Sep 2026" },
     { label: "Time", value: "10:30 – 13:35 KSA time" },
     { label: "Venue", value: "Crowne Plaza Riyadh" },
     { label: "Format", value: "Invite-only roundtable" },

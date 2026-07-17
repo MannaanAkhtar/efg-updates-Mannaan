@@ -117,9 +117,9 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/edb_postgres_ai_lightmode%402x+(4).png",
   },
   {
-    date: "September — Date TBC",
+    date: "September 23rd, 2026",
     month: "SEP",
-    day: "TBA",
+    day: "23",
     year: "2026",
     time: "10:30 – 14:30 AST",
     title: "Proofpoint Executive Roundtable",
