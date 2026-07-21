@@ -374,6 +374,7 @@ export default function OTSecurityJubail2026() {
       <ExecutivePerspective />
       <WhyKingdom />
       <SpeakersSection />
+      <SponsorsSection />
       <BePartOfTheMovement />
       <Evidence2026 />
       <AgendaSection />
@@ -3824,6 +3825,115 @@ function SpeakersSection() {
 
 // ─── EVENT SPONSORS (current edition - TBA) ─────────────────────────────────
 // ─── PAST SPONSORS MARQUEE ──────────────────────────────────────────────────
+// ─── SPONSORS (current edition) ──────────────────────────────────────────────
+const SPONSOR_TIERS: { tier: string; logos: { name: string; href: string; logo: string }[] }[] = [
+  {
+    tier: "Associate Sponsor",
+    logos: [
+      { name: "SIS", href: "https://sis-ics.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/SIS+logo-03.png" },
+    ],
+  },
+];
+
+function SponsorsSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <section ref={ref} id="sponsors" style={{ position: "relative", padding: "clamp(64px, 7vw, 96px) 0", background: BG_DEEP, overflow: "hidden" }}>
+      <BgDots opacity={0.05} />
+      <div style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+        <motion.h2
+          initial={{ opacity: 0, y: 18 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 800,
+            fontSize: "clamp(34px, 5vw, 64px)",
+            letterSpacing: "-2.2px",
+            lineHeight: 0.98,
+            color: "white",
+            margin: "0 0 48px",
+            maxWidth: 880,
+          }}
+        >
+          Our{" "}
+          <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>sponsors 2026.</em>
+        </motion.h2>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(40px, 5vw, 64px)" }}>
+          {SPONSOR_TIERS.map((t, ti) => (
+            <div key={t.tier}>
+              {/* Tier subheading */}
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, delay: 0.2 + ti * 0.1, ease: EASE }}
+                style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 22, marginBottom: 28 }}
+              >
+                <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, transparent, ${C}30)` }} />
+                <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 700, letterSpacing: "3.5px", textTransform: "uppercase", color: C_BRIGHT, whiteSpace: "nowrap" }}>
+                  {t.tier}
+                </span>
+                <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, ${C}30, transparent)` }} />
+              </motion.div>
+
+              {/* Logo plates */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(18px, 2vw, 28px)", justifyContent: "center" }}>
+                {t.logos.map((s, i) => (
+                  <motion.a
+                    key={s.name}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${s.name} — ${t.tier} of OT Security First Jubail`}
+                    className="otsf-jb-sponsor-plate"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.7, delay: 0.28 + ti * 0.1 + i * 0.08, ease: EASE }}
+                    style={{
+                      position: "relative",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "clamp(200px, 24vw, 260px)",
+                      height: "clamp(104px, 12vw, 130px)",
+                      padding: "clamp(14px, 1.4vw, 18px) clamp(10px, 1vw, 14px)",
+                      borderRadius: 18,
+                      background: "linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.02) 100%)",
+                      border: "1px solid rgba(255,255,255,0.10)",
+                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 22px 46px rgba(0,0,0,0.4)",
+                      transition: "transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease, box-shadow 0.4s ease",
+                    }}
+                  >
+                    <span aria-hidden style={{ position: "absolute", inset: 0, borderRadius: 20, background: `radial-gradient(120% 90% at 50% 0%, ${C}12 0%, transparent 60%)`, pointerEvents: "none" }} />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={s.logo}
+                      alt={`${s.name} — ${t.tier} of OT Security First Jubail 2026 industrial cybersecurity summit`}
+                      loading="lazy"
+                      decoding="async"
+                      style={{ position: "relative", maxWidth: "100%", maxHeight: "clamp(92px, 11vw, 120px)", objectFit: "contain" }}
+                    />
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <style jsx global>{`
+        .otsf-jb-sponsor-plate:hover {
+          transform: translateY(-4px);
+          border-color: ${C}55 !important;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.09), 0 30px 60px rgba(0,0,0,0.5) !important;
+        }
+      `}</style>
+    </section>
+  );
+}
+
 function PastSponsorsMarquee() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
