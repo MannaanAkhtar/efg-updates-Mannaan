@@ -233,6 +233,13 @@ const SPEAKERS: Speaker[] = [
     photo: `${S3}/sumit-tekriwal.jpg`,
     linkedin: "https://www.linkedin.com/in/sumittekriwal/",
   },
+  {
+    name: "Sarah Abdulkarim",
+    title: "Head of Operational Risk and Secretary of Internal Control Governance Committee",
+    org: "Gulf Bank",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sarah+Abdulkarim.png",
+    linkedin: "https://www.linkedin.com/in/ACoAAAh6G-IBY9aQ3PN0YZSrZ-s39dR0k7MZzJg/",
+  },
 ];
 
 // Kuwait 2025 photos used for the gallery + Key Topic panels (verified S3 URLs).
