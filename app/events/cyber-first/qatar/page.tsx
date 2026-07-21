@@ -196,13 +196,16 @@ const ADVISORS: { name: string; title: string; org: string; photo?: string; link
 
 // ─── Speakers — named individuals ───────────────────────────────────────────
 const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; linkedin?: string; crop?: string }[] = [
-  { name: "Hans W. Thomasz",  title: "CISO", org: "Qatar Development Bank",  photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hans_w_Thomasz.png" },
-  { name: "Ewald Müller",     title: "Senior Advisor, Supervision and Authorisation", org: "QFC Regulatory Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ewald+Muller.jpg" },
-  { name: "Tarek Terk",       title: "Cybersecurity Leader", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tarek+Terk.png" },
+  { name: "Khalid Ibrahim Lakdawala", title: "Information Systems Expert", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khalid+Lakdawala.jpg", linkedin: "https://www.linkedin.com/in/khalid-lakdawala-7aa6864/" },
+  { name: "Hans W. Thomasz",  title: "CISO", org: "Qatar Development Bank",  photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hans_w_Thomasz.png", linkedin: "https://www.linkedin.com/in/hans-w-thomasz-msc-it-msc-info-sec-cciso-cisa-cism-chfi-cfe-ceh-94074024/" },
+  { name: "Ewald Müller",     title: "Senior Advisor, Supervision and Authorisation", org: "QFC Regulatory Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ewald+Muller.jpg", linkedin: "https://www.linkedin.com/in/ewald-m%C3%BCller-74a9171/" },
+  { name: "Tarek Terk",       title: "Cybersecurity Leader", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tarek+Terk.png", linkedin: "https://www.linkedin.com/in/tarekterk/" },
   { name: "John Mankarios",   title: "Vice President – Deputy Head of Information Technology", org: "QInvest", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/JohnMankarios.png", linkedin: "https://www.linkedin.com/in/john-mankarios/" },
-  { name: "Anfal Shaikh",     title: "CISO", org: "Qatar Islamic Insurance", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anfal_shaikh.png" },
+  { name: "Bilal Rao",        title: "Head of IT & OT Cybersecurity", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Bilal+Roa.jpg", linkedin: "https://www.linkedin.com/in/bilal-rao-mbcs-1b51a91/" },
+  { name: "Anfal Shaikh",     title: "CISO", org: "Qatar Islamic Insurance", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anfal_shaikh.png", linkedin: "https://www.linkedin.com/in/anfal-shaikh-1bb05aa6/" },
+  { name: "Amer Bazerbachi",  title: "Partner", org: "KPMG Qatar", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Amer+Bazerbachi.jpg", linkedin: "https://www.linkedin.com/in/ACoAABxxLuoBuPSdHOJ-stiDXdxW4imy43icLpo/" },
   { name: "Feroz Khan",       title: "Head of IT Security", org: "TotalEnergies", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/feroz_khan.png", linkedin: "https://www.linkedin.com/in/fkindoha/" },
-  { name: "Khireddine Garri", title: "Acting Chief Information Security Officer (CISO)", org: "Jasour", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khireddine+Garri.jpg" },
+  { name: "Khireddine Garri", title: "Acting Chief Information Security Officer (CISO)", org: "Jasour", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khireddine+Garri.jpg", linkedin: "https://www.linkedin.com/in/khireddine-garri-294b4a91/" },
 ];
 
 // ─── Agenda — 17 rows (from PDF) ────────────────────────────────────────────
