@@ -406,6 +406,20 @@ const SPEAKERS = [
     linkedin: "https://www.linkedin.com/in/paulo-rebelo-8673261/",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mr.+Paulo_Rebelo%C2%A0%C2%A0.png",
   },
+  {
+    name: "Aubrey Mochela",
+    title: "Group CTO",
+    org: "City of Johannesburg",
+    linkedin: "https://www.linkedin.com/in/aubrey-mochela-72427ab/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aubrey+Mochela.jpeg",
+  },
+  {
+    name: "Zakiyya C",
+    title: "CIO",
+    org: "Ardagh Group",
+    linkedin: "https://www.linkedin.com/in/zakiyyacassimjee/",
+    photo: "",
+  },
 ].filter((s) => !("hidden" in s) || !s.hidden);
 
 // Strategic Focus Areas from brochure
