@@ -72,7 +72,7 @@ const networkFirstEvents: { href: string; label: string; date: string; format: N
   { href: "/proofpoint", label: "Proofpoint", date: "23 Sep", format: "physical" },
   { href: "/blueyonder", label: "Blue Yonder", date: "23 Sep", format: "physical" },
   { href: "/enterprisedb-ksa", label: "EnterpriseDB, KSA", date: "29 Sep", format: "physical" },
-  { href: "/enterprisedb-egypt", label: "EnterpriseDB, Egypt", date: "10 Oct", format: "physical" },
+  { href: "/enterprisedb-egypt", label: "EnterpriseDB, Egypt", date: "7 Oct", format: "physical" },
   { href: "https://events.outsystems.com/event/17e2fb07-2b9a-46e2-9acf-44590276e2d8/homepage?RefId=oed-ksa", label: "OutSystems", date: "19 Oct", format: "physical" },
   { href: "/enterprisedb-southafrica", label: "EnterpriseDB, South Africa", date: "12 Nov", format: "physical" },
   { href: "/enterprisedb-uae", label: "EnterpriseDB, UAE", date: "25 Nov", format: "physical" },

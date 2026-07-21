@@ -5,9 +5,9 @@ const PAGE_URL = `${BASE_URL}/enterprisedb-egypt`;
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/edb_postgres_ai_lightmode%402x+(4).png";
 
 export const metadata: Metadata = {
-  title: "The Sovereign Data Estate | EDB Executive Roundtable, Egypt — 10 Oct 2026",
+  title: "The Sovereign Data Estate | EDB Executive Roundtable, Egypt — 7 Oct 2026",
   description:
-    "An invite-only executive roundtable on building a sovereign data estate on open-source Postgres — reducing cost, meeting data-sovereignty mandates, and scaling with AI. 10 October 2026, Egypt. Hosted with EDB.",
+    "An invite-only executive roundtable on building a sovereign data estate on open-source Postgres — reducing cost, meeting data-sovereignty mandates, and scaling with AI. 7 October 2026, Egypt. Hosted with EDB.",
   keywords: [
     "sovereign data estate",
     "data sovereignty Egypt",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "The Sovereign Data Estate — EDB Executive Roundtable, Egypt",
     description:
-      "Breaking free from proprietary lock-in: a closed-door roundtable for senior IT & data leaders on building a sovereign data estate with Postgres. 10 October 2026.",
+      "Breaking free from proprietary lock-in: a closed-door roundtable for senior IT & data leaders on building a sovereign data estate with Postgres. 7 October 2026.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "EDB Postgres AI — The Sovereign Data Estate Roundtable" }],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     site: "@eventsfirstgrp",
     title: "The Sovereign Data Estate — EDB Executive Roundtable, Egypt",
     description:
-      "A closed-door roundtable for senior IT & data leaders on building a sovereign data estate with Postgres. 10 October 2026, Egypt.",
+      "A closed-door roundtable for senior IT & data leaders on building a sovereign data estate with Postgres. 7 October 2026, Egypt.",
     images: [OG_IMAGE],
   },
 };
@@ -63,8 +63,8 @@ export default function EnterpriseDBLayout({ children }: { children: React.React
             name: "The Sovereign Data Estate: How Middle East Enterprises Are Breaking Free from Proprietary Lock-in",
             description:
               "An invite-only executive roundtable bringing together senior IT and data leaders to explore how organisations can build a truly sovereign data estate — grounded in open-source Postgres, free from vendor dependency, and architected to scale with AI.",
-            startDate: "2026-10-10T09:00:00+02:00",
-            endDate: "2026-10-10T12:00:00+02:00",
+            startDate: "2026-10-07T09:00:00+02:00",
+            endDate: "2026-10-07T12:00:00+02:00",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             inLanguage: "en",

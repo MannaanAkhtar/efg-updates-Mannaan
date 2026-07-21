@@ -35,7 +35,7 @@ const BODY = "var(--font-outfit), system-ui, sans-serif";     // Outfit
 const LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/edb_postgres_ai_lightmode%402x+(4).png";
 const HERO_IMG = "https://efg-final.s3.eu-north-1.amazonaws.com/enterprisedb-egypt.png";
 
-const EVENT_DATE = "2026-10-10T09:00:00+02:00"; // 10 October 2026, Egypt (time TBC)
+const EVENT_DATE = "2026-10-07T09:00:00+02:00"; // 7 October 2026, Egypt (time TBC)
 
 // ─── Content (verbatim from the brief) ────────────────────────────────────────
 const TITLE_LINE_1 = "The Sovereign Data Estate";
@@ -284,7 +284,7 @@ export default function EnterpriseDBRoundtablePage() {
 
             {/* Meta glass strip */}
             <div className="edb-rise edb-d4 edb-meta" style={{ display: "inline-flex", flexWrap: "wrap", alignItems: "stretch", marginTop: 24, padding: 4, borderRadius: 16, background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.16)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", boxShadow: "0 22px 54px rgba(0,0,0,0.38)" }}>
-              {[["Date", "10 October 2026"], ["Setting", "Egypt"], ["Format", "Closed-door"], ["Duration", "180 minutes"]].map(([l, v], i) => (
+              {[["Date", "7 October 2026"], ["Setting", "Egypt"], ["Format", "Closed-door"], ["Duration", "180 minutes"]].map(([l, v], i) => (
                 <div key={l} className="edb-metafact" style={{ padding: "10px 20px", borderLeft: i === 0 ? "none" : "1px solid rgba(255,255,255,0.14)" }}>
                   <div style={{ fontFamily: BODY, fontSize: 10, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 6 }}>{l}</div>
                   <div style={{ fontFamily: DISPLAY, fontSize: "clamp(14px,1.35vw,16px)", fontWeight: 600, color: "#fff", letterSpacing: "-0.01em", whiteSpace: "nowrap" }}>{v}</div>
@@ -480,7 +480,7 @@ export default function EnterpriseDBRoundtablePage() {
               Attendance is by invitation and curated for senior IT and data leaders. Request a seat and our team will confirm your place and share the full details.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 32 }}>
-              {[["10 October 2026", "cal"], ["Egypt · Venue disclosed to confirmed guests", "pin"], ["180 minutes · Closed-door", "clock"]].map(([label, icon]) => (
+              {[["7 October 2026", "cal"], ["Egypt · Venue disclosed to confirmed guests", "pin"], ["180 minutes · Closed-door", "clock"]].map(([label, icon]) => (
                 <div key={label} style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <span aria-hidden style={{ flex: "0 0 auto", width: 30, height: 30, borderRadius: 8, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
                     <RegIcon type={icon as "cal" | "pin" | "clock"} />
@@ -808,7 +808,7 @@ function RegistrationForm() {
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
             </div>
             <h3 style={{ fontFamily: DISPLAY, fontSize: 24, fontWeight: 700, color: WHITE, margin: 0, letterSpacing: "-0.02em" }}>Request received.</h3>
-            <p style={{ fontFamily: BODY, fontSize: 15, color: DIM, margin: "12px auto 0", maxWidth: 420, lineHeight: 1.6 }}>Thank you — our team will review your request and be in touch to confirm your seat at the roundtable on 10 October 2026.</p>
+            <p style={{ fontFamily: BODY, fontSize: 15, color: DIM, margin: "12px auto 0", maxWidth: 420, lineHeight: 1.6 }}>Thank you — our team will review your request and be in touch to confirm your seat at the roundtable on 7 October 2026.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="edb-form" noValidate>

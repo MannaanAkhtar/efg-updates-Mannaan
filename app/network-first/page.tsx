@@ -69,9 +69,9 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/edb_postgres_ai_lightmode%402x+(4).png",
   },
   {
-    date: "October 10th, 2026",
+    date: "October 7th, 2026",
     month: "OCT",
-    day: "10",
+    day: "7",
     year: "2026",
     time: "Time TBC · 180 min",
     title: "EnterpriseDB Executive Roundtable",
