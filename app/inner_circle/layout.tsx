@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/inner_circle`;
-const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/magnific_use-this-image-as-referen_KjEa1G6kqp.png";
+// Share preview = the live hero background used on the page (clevertap_innercircle_bg.png).
+const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/clevertap_innercircle_bg.png";
 
 export const metadata: Metadata = {
   title: "The Inner Circle — The Art of Knowing | CleverTap, Riyadh",
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
       "An invite-only evening for Riyadh's C-suite growth, marketing, and digital leaders. Presented by CleverTap.",
     url: PAGE_URL,
     siteName: "Events First Group",
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "The Inner Circle — The Art of Knowing, presented by CleverTap" }],
+    images: [{ url: OG_IMAGE, width: 1672, height: 941, alt: "The Inner Circle — The Art of Knowing, presented by CleverTap" }],
     locale: "en_US",
     type: "website",
   },
