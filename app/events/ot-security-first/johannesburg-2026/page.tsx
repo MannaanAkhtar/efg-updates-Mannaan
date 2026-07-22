@@ -757,17 +757,26 @@ function HeroSection() {
         </motion.div>
       </div>
 
-      {/* EFG initiative badge — bottom right */}
+      {/* Supporting Partner — Rand Water, bottom right */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 1.8 }}
         className="otsf-efg-badge"
-        style={{ position: "absolute", bottom: 80, right: "clamp(24px, 5vw, 80px)", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}
+        style={{ position: "absolute", bottom: 28, right: "clamp(24px, 5vw, 80px)", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}
       >
-        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.55)", textTransform: "uppercase", letterSpacing: "2px" }}>An Initiative By</span>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img loading="lazy" src="/events-first-group_logo_alt.svg" alt="Events First Group" width={120} height={44} style={{ height: 44, width: "auto", opacity: 0.6 }} />
+        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.55)", textTransform: "uppercase", letterSpacing: "2px" }}>Supporting Partner</span>
+        <a
+          href="https://www.randwater.co.za/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Rand Water — Supporting Partner"
+          className="otsf-hero-partner"
+          style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)" }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img loading="lazy" src={`${S3_LOGOS}/rand+water.png`} alt="Rand Water — Supporting Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(92px, 10vw, 128px)", width: "auto", objectFit: "contain", display: "block" }} />
+        </a>
       </motion.div>
 
       {/* Countdown bar — bottom anchored, inline numbers with colon separators */}
@@ -784,15 +793,12 @@ function HeroSection() {
               </React.Fragment>
             ))}
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span className="otsf-pulse-dot" style={{ width: 8, height: 8, borderRadius: "50%", background: CYAN, boxShadow: `0 0 10px ${CYAN}, 0 0 4px ${CYAN}` }} />
-            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "2px" }}>Registrations Open</span>
-          </div>
         </div>
       </div>
 
       <style jsx global>{`
         .otsf-cta-primary:hover { transform: translateY(-3px); box-shadow: 0 0 60px ${CYAN}59, 0 8px 32px ${C}40 !important; background: linear-gradient(135deg, ${C_BRIGHT}, ${CYAN}) !important; }
+        .otsf-hero-partner:hover { transform: translateY(-2px); }
         .otsf-cta-ghost:hover { transform: translateY(-2px); background: rgba(255,255,255,0.1) !important; border-color: rgba(255,255,255,0.3) !important; color: white !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 8px 24px rgba(0,0,0,0.3) !important; }
         .otsf-pulse-dot { animation: otsf-pulse 2s ease-in-out infinite; }
         @keyframes otsf-pulse { 0%,100% { box-shadow: 0 0 8px ${CYAN}, 0 0 4px ${CYAN}; } 50% { box-shadow: 0 0 16px ${CYAN}, 0 0 8px ${CYAN}, 0 0 24px ${CYAN}40; } }
