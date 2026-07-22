@@ -371,6 +371,7 @@ export default function OTSecurityJubail2026() {
     <div style={{ background: BG_DEEP, color: "white", overflow: "hidden", position: "relative" }}>
       <EventNavigation />
       <Hero />
+      <StatsStrip />
       <ExecutivePerspective />
       <WhyKingdom />
       <SpeakersSection />
@@ -1943,6 +1944,137 @@ function Audience() {
           .otsf-jb-audience-roles {
             grid-template-columns: 1fr !important;
           }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── STATS STRIP - compact band under the hero, same data as By the Numbers ──
+// Count-up runs once when the strip scrolls into view; honours reduced-motion.
+function useCountUp(target: number, start: boolean, duration = 1500) {
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setVal(target);
+      return;
+    }
+    let raf = 0;
+    const t0 = performance.now();
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - t0) / duration);
+      const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+      setVal(Math.round(target * eased));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [start, target, duration]);
+  return val;
+}
+
+function StatItem({ stat, index, inView }: { stat: { label: string; value: number; color: string }; index: number; inView: boolean }) {
+  const shown = useCountUp(stat.value, inView, 1300 + index * 90);
+  return (
+    <motion.div
+      className="otsf-jb-stat"
+      initial={{ opacity: 0, y: 18 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, delay: 0.1 + index * 0.08, ease: EASE }}
+      style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "0 clamp(10px, 1.4vw, 22px)" }}
+    >
+      <div style={{ display: "flex", alignItems: "baseline", gap: 3, fontFamily: "var(--font-display)", fontWeight: 800, lineHeight: 1, letterSpacing: "-2px" }}>
+        <span
+          style={{
+            fontSize: "clamp(32px, 3.6vw, 50px)",
+            fontVariantNumeric: "tabular-nums",
+            backgroundImage: "linear-gradient(180deg, #ffffff 0%, #f4f5fb 42%, #c3c7d6 100%)",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            color: "transparent",
+            filter: "drop-shadow(0 2px 10px rgba(255,255,255,0.12))",
+          }}
+        >
+          {shown}
+        </span>
+        <span style={{ fontSize: "clamp(18px, 1.9vw, 27px)", color: stat.color, textShadow: `0 0 14px ${stat.color}55` }}>+</span>
+      </div>
+
+      {/* Accent underline in the stat's own colour */}
+      <span
+        aria-hidden
+        style={{
+          marginTop: "clamp(11px, 1.1vw, 15px)",
+          width: 30,
+          height: 2,
+          borderRadius: 2,
+          background: `linear-gradient(90deg, transparent, ${stat.color}, transparent)`,
+          boxShadow: `0 0 12px ${stat.color}99`,
+          opacity: inView ? 1 : 0,
+          transform: inView ? "scaleX(1)" : "scaleX(0.2)",
+          transition: `opacity 0.7s ease ${0.35 + index * 0.08}s, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${0.35 + index * 0.08}s`,
+        }}
+      />
+
+      <span style={{ marginTop: "clamp(10px, 1vw, 14px)", fontFamily: "var(--font-outfit)", fontSize: "clamp(10px, 0.9vw, 11.5px)", fontWeight: 600, letterSpacing: "1.6px", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", lineHeight: 1.4, maxWidth: 150 }}>
+        {stat.label}
+      </span>
+    </motion.div>
+  );
+}
+
+function StatsStrip() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  return (
+    <section
+      ref={ref}
+      aria-label="OT Security First Jubail 2026 by the numbers"
+      style={{
+        position: "relative",
+        background: `linear-gradient(180deg, ${BG_DEEP} 0%, #090d22 50%, ${BG_DEEP} 100%)`,
+        padding: "clamp(20px, 2.2vw, 30px) 0",
+        overflow: "hidden",
+      }}
+    >
+      {/* Soft brand glow so the band doesn't read as flat black */}
+      <div aria-hidden style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 55% 130% at 50% 50%, ${C}12 0%, transparent 68%)`, pointerEvents: "none" }} />
+      {/* Fading luxe hairlines, top & bottom */}
+      <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.10) 22%, ${C}55 50%, rgba(255,255,255,0.10) 78%, transparent)` }} />
+      <div aria-hidden style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.10) 22%, ${C}55 50%, rgba(255,255,255,0.10) 78%, transparent)` }} />
+
+      <div style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+        <div className="otsf-jb-stat-strip" style={{ display: "grid", rowGap: "clamp(24px, 2.6vw, 30px)" }}>
+          {BY_NUMBERS.map((s, i) => (
+            <StatItem key={s.label} stat={s} index={i} inView={inView} />
+          ))}
+        </div>
+      </div>
+
+      <style jsx global>{`
+        .otsf-jb-stat-strip { grid-template-columns: repeat(2, 1fr); }
+        .otsf-jb-stat::after {
+          content: "";
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 1px;
+          height: 56%;
+          background: linear-gradient(180deg, transparent, rgba(255,255,255,0.18), transparent);
+        }
+        .otsf-jb-stat:nth-child(2n)::after { display: none; }
+        @media (min-width: 640px) {
+          .otsf-jb-stat-strip { grid-template-columns: repeat(3, 1fr); }
+          .otsf-jb-stat:nth-child(2n)::after { display: block; }
+          .otsf-jb-stat:nth-child(3n)::after { display: none; }
+        }
+        @media (min-width: 1024px) {
+          .otsf-jb-stat-strip { grid-template-columns: repeat(6, 1fr); }
+          .otsf-jb-stat:nth-child(3n)::after { display: block; }
+          .otsf-jb-stat:nth-child(6n)::after { display: none; }
         }
       `}</style>
     </section>
@@ -3826,11 +3958,22 @@ function SpeakersSection() {
 // ─── EVENT SPONSORS (current edition - TBA) ─────────────────────────────────
 // ─── PAST SPONSORS MARQUEE ──────────────────────────────────────────────────
 // ─── SPONSORS (current edition) ──────────────────────────────────────────────
-const SPONSOR_TIERS: { tier: string; logos: { name: string; href: string; logo: string }[] }[] = [
+// href → external site (plate is a link). id → anchor target for nav links.
+// surface "light" → white plate (for dark logos). fillWidth → fill plate width
+// and clip vertical whitespace (for square, heavily-padded logos).
+type SponsorLogo = { name: string; logo: string; href?: string; id?: string; surface?: "light" | "dark"; fillWidth?: boolean };
+const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
   {
     tier: "Associate Sponsor",
     logos: [
       { name: "SIS", href: "https://sis-ics.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/SIS+logo-03.png" },
+    ],
+  },
+  {
+    tier: "Media Partners",
+    logos: [
+      { name: "International Business Magazine", id: "media-ibm", surface: "light", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/International-Business-Magazine.png" },
+      { name: "Kanebridge News", id: "media-kanebridge", surface: "light", fillWidth: true, logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Kanebridge_news.png" },
     ],
   },
 ];
@@ -3880,43 +4023,59 @@ function SponsorsSection() {
 
               {/* Logo plates */}
               <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(18px, 2vw, 28px)", justifyContent: "center" }}>
-                {t.logos.map((s, i) => (
-                  <motion.a
-                    key={s.name}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${s.name} — ${t.tier} of OT Security First Jubail`}
-                    className="otsf-jb-sponsor-plate"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.7, delay: 0.28 + ti * 0.1 + i * 0.08, ease: EASE }}
-                    style={{
-                      position: "relative",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width: "clamp(200px, 24vw, 260px)",
-                      height: "clamp(104px, 12vw, 130px)",
-                      padding: "clamp(14px, 1.4vw, 18px) clamp(10px, 1vw, 14px)",
-                      borderRadius: 18,
-                      background: "linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.02) 100%)",
-                      border: "1px solid rgba(255,255,255,0.10)",
-                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 22px 46px rgba(0,0,0,0.4)",
-                      transition: "transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease, box-shadow 0.4s ease",
-                    }}
-                  >
-                    <span aria-hidden style={{ position: "absolute", inset: 0, borderRadius: 20, background: `radial-gradient(120% 90% at 50% 0%, ${C}12 0%, transparent 60%)`, pointerEvents: "none" }} />
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={s.logo}
-                      alt={`${s.name} — ${t.tier} of OT Security First Jubail 2026 industrial cybersecurity summit`}
-                      loading="lazy"
-                      decoding="async"
-                      style={{ position: "relative", maxWidth: "100%", maxHeight: "clamp(92px, 11vw, 120px)", objectFit: "contain" }}
-                    />
-                  </motion.a>
-                ))}
+                {t.logos.map((s, i) => {
+                  const isLight = s.surface === "light";
+                  const plateStyle: React.CSSProperties = {
+                    position: "relative",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "clamp(200px, 24vw, 260px)",
+                    height: "clamp(104px, 12vw, 130px)",
+                    padding: isLight ? "clamp(8px, 1vw, 12px) clamp(10px, 1.1vw, 14px)" : "clamp(14px, 1.4vw, 18px) clamp(10px, 1vw, 14px)",
+                    borderRadius: 18,
+                    overflow: "hidden",
+                    background: isLight
+                      ? "linear-gradient(180deg, #ffffff 0%, #f2f4f8 100%)"
+                      : "linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.02) 100%)",
+                    border: isLight ? "1px solid rgba(0,0,0,0.06)" : "1px solid rgba(255,255,255,0.10)",
+                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 22px 46px rgba(0,0,0,0.4)",
+                    transition: "transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease, box-shadow 0.4s ease",
+                  };
+                  const imgStyle: React.CSSProperties = s.fillWidth
+                    ? { position: "relative", width: "100%", height: "auto", objectFit: "contain" }
+                    : { position: "relative", maxWidth: "100%", maxHeight: "clamp(92px, 11vw, 120px)", objectFit: "contain" };
+                  const inner = (
+                    <>
+                      {!isLight && <span aria-hidden style={{ position: "absolute", inset: 0, background: `radial-gradient(120% 90% at 50% 0%, ${C}12 0%, transparent 60%)`, pointerEvents: "none" }} />}
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={s.logo}
+                        alt={`${s.name} — ${t.tier} of OT Security First Jubail 2026 industrial cybersecurity summit`}
+                        loading="lazy"
+                        decoding="async"
+                        style={imgStyle}
+                      />
+                    </>
+                  );
+                  const common = {
+                    id: s.id,
+                    className: "otsf-jb-sponsor-plate",
+                    initial: { opacity: 0, y: 20 },
+                    animate: inView ? { opacity: 1, y: 0 } : {},
+                    transition: { duration: 0.7, delay: 0.28 + ti * 0.1 + i * 0.08, ease: EASE },
+                    style: plateStyle,
+                  };
+                  return s.href ? (
+                    <motion.a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`${s.name} — ${t.tier} of OT Security First Jubail`} {...common}>
+                      {inner}
+                    </motion.a>
+                  ) : (
+                    <motion.div key={s.name} {...common}>
+                      {inner}
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
           ))}

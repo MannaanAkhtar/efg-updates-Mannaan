@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, type CSSProperties } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -42,6 +42,10 @@ function smoothScrollToTop() {
   else window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+// A nav entry is either a scroll link (has href) or a dropdown (has children).
+// children may themselves nest one more level (Media Partners → publications).
+type NavLink = { label: string; href?: string; children?: NavLink[] };
+
 // Event configurations
 const EVENT_CONFIGS: Record<string, {
   name: string;
@@ -53,7 +57,7 @@ const EVENT_CONFIGS: Record<string, {
   logo?: string;
   logoFilter?: string;
   logoHeight?: number;
-  navLinks: { href: string; label: string }[];
+  navLinks: NavLink[];
 }> = {
   "/events/cyber-first/kuwait-2026": {
     name: "Cyber First Kuwait 2026",
@@ -171,7 +175,19 @@ const EVENT_CONFIGS: Record<string, {
       { href: "#overview", label: "Overview" },
       { href: "#speakers", label: "Speakers" },
       { href: "#agenda", label: "Agenda" },
-      { href: "#awards", label: "Awards" },
+      {
+        label: "Partners",
+        children: [
+          { href: "#sponsors", label: "Sponsors" },
+          {
+            label: "Media Partners",
+            children: [
+              { href: "#media-ibm", label: "International Business Magazine" },
+              { href: "#media-kanebridge", label: "Kanebridge News" },
+            ],
+          },
+        ],
+      },
       { href: "#register", label: "Register" },
     ],
   },
@@ -220,6 +236,195 @@ const EVENT_CONFIGS: Record<string, {
     ],
   },
 };
+
+// ─── Desktop dropdown pieces ────────────────────────────────────────────────
+const NAV_LINK_STYLE = {
+  fontFamily: "var(--font-outfit)",
+  fontSize: 14,
+  fontWeight: 500,
+  color: "rgba(255,255,255,0.7)",
+  cursor: "pointer",
+  background: "none",
+  border: "none",
+  padding: 0,
+} as const;
+
+function Caret({ dir = "down" }: { dir?: "down" | "right" | "left" }) {
+  return (
+    <svg
+      width="10"
+      height="10"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ transform: dir === "right" ? "rotate(-90deg)" : dir === "left" ? "rotate(90deg)" : "none", opacity: 0.7, flex: "0 0 auto" }}
+      aria-hidden
+    >
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  );
+}
+
+// A single row inside a dropdown panel. If it has children, it renders a
+// side flyout on hover; otherwise it is a scroll link.
+function DropdownRow({ item, color, colorBright }: { item: NavLink; color: string; colorBright: string }) {
+  const [open, setOpen] = useState(false);
+  const hasChildren = !!item.children?.length;
+
+  const rowBase: CSSProperties = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 18,
+    whiteSpace: "nowrap",
+    fontFamily: "var(--font-outfit)",
+    fontSize: 13.5,
+    fontWeight: 500,
+    color: "rgba(255,255,255,0.78)",
+    padding: "9px 14px",
+    borderRadius: 8,
+    cursor: "pointer",
+    background: "none",
+    border: "none",
+    width: "100%",
+    textAlign: "left" as const,
+    transition: "color 0.18s ease, background 0.18s ease",
+  };
+
+  if (!hasChildren) {
+    return (
+      <a
+        href={item.href}
+        onClick={(e) => { e.preventDefault(); smoothScrollToId((item.href || "").replace("#", "")); }}
+        style={rowBase}
+        onMouseEnter={(e) => { e.currentTarget.style.color = colorBright; e.currentTarget.style.background = "rgba(255,255,255,0.05)"; }}
+        onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.78)"; e.currentTarget.style.background = "none"; }}
+      >
+        {item.label}
+      </a>
+    );
+  }
+
+  return (
+    <div style={{ position: "relative" }} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+      <div
+        style={{ ...rowBase, color: open ? colorBright : "rgba(255,255,255,0.78)", background: open ? "rgba(255,255,255,0.05)" : "none" }}
+      >
+        {item.label}
+        <Caret dir="right" />
+      </div>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, x: -6 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -6 }}
+            transition={{ duration: 0.16 }}
+            style={{ position: "absolute", top: -6, left: "100%", paddingLeft: 8 }}
+          >
+            <div
+              style={{
+                minWidth: 240,
+                background: "rgba(12,12,14,0.97)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                border: `1px solid ${color}2e`,
+                borderRadius: 12,
+                padding: 6,
+                boxShadow: "0 24px 60px rgba(0,0,0,0.55)",
+              }}
+            >
+              {item.children!.map((c) => (
+                <DropdownRow key={c.label} item={c} color={color} colorBright={colorBright} />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+// A top-level nav entry: leaf link or a dropdown trigger.
+function DesktopNavItem({ item, color, colorBright }: { item: NavLink; color: string; colorBright: string }) {
+  const [open, setOpen] = useState(false);
+  const hasChildren = !!item.children?.length;
+
+  if (!hasChildren) {
+    return (
+      <a
+        href={item.href}
+        onClick={(e) => { e.preventDefault(); smoothScrollToId((item.href || "").replace("#", "")); }}
+        className="transition-colors duration-200"
+        style={NAV_LINK_STYLE}
+        onMouseEnter={(e) => (e.currentTarget.style.color = colorBright)}
+        onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.7)")}
+      >
+        {item.label}
+      </a>
+    );
+  }
+
+  return (
+    <div style={{ position: "relative" }} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+      <button
+        type="button"
+        className="transition-colors duration-200"
+        style={{ ...NAV_LINK_STYLE, display: "inline-flex", alignItems: "center", gap: 6, color: open ? colorBright : "rgba(255,255,255,0.7)" }}
+      >
+        {item.label}
+        <Caret />
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.18 }}
+            style={{ position: "absolute", top: "100%", left: 0, paddingTop: 12 }}
+          >
+            <div
+              style={{
+                minWidth: 200,
+                background: "rgba(12,12,14,0.97)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                border: `1px solid ${color}2e`,
+                borderRadius: 12,
+                padding: 6,
+                boxShadow: "0 24px 60px rgba(0,0,0,0.55)",
+              }}
+            >
+              {item.children!.map((c) => (
+                <DropdownRow key={c.label} item={c} color={color} colorBright={colorBright} />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+// Flatten a nav tree into leaf scroll-links for the mobile menu, tagging depth
+// so parents render as headings and children indent under them.
+type MobileRow = { label: string; href?: string; depth: number; isHeading: boolean };
+function flattenForMobile(items: NavLink[]): MobileRow[] {
+  const out: MobileRow[] = [];
+  const walk = (list: NavLink[], depth: number) => {
+    for (const it of list) {
+      const isHeading = !!it.children?.length;
+      out.push({ label: it.label, href: it.href, depth, isHeading });
+      if (it.children) walk(it.children, depth + 1);
+    }
+  };
+  walk(items, 0);
+  return out;
+}
 
 export default function EventNavigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -354,26 +559,7 @@ export default function EventNavigation() {
           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  smoothScrollToId(link.href.replace("#", ""));
-                }}
-                className="transition-colors duration-200"
-                style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 14,
-                  fontWeight: 500,
-                  color: "rgba(255,255,255,0.7)",
-                  cursor: "pointer",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = colorBright)}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.7)")}
-              >
-                {link.label}
-              </a>
+              <DesktopNavItem key={link.label} item={link} color={color} colorBright={colorBright} />
             ))}
           </div>
 
@@ -468,32 +654,47 @@ export default function EventNavigation() {
             className="fixed inset-0 z-[9999] lg:hidden"
             style={{ background: "rgba(10, 10, 10, 0.98)", paddingTop: 120 }}
           >
-            <div className="flex flex-col items-center justify-center h-full gap-8 -mt-24">
-              {navLinks.map((link, i) => (
+            <div className="flex flex-col items-center justify-center h-full gap-6 -mt-24">
+              {flattenForMobile(navLinks).map((row, i) => (
                 <motion.div
-                  key={link.href}
+                  key={`${row.label}-${i}`}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
                 >
-                  <a
-                    href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setIsMobileMenuOpen(false);
-                      const id = link.href.replace("#", "");
-                      setTimeout(() => smoothScrollToId(id), 300);
-                    }}
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: 28,
-                      fontWeight: 600,
-                      color: "white",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {link.label}
-                  </a>
+                  {row.isHeading || !row.href ? (
+                    <span
+                      style={{
+                        fontFamily: "var(--font-outfit)",
+                        fontSize: row.depth === 0 ? 15 : 13,
+                        fontWeight: 700,
+                        letterSpacing: "2.5px",
+                        textTransform: "uppercase",
+                        color: colorBright,
+                      }}
+                    >
+                      {row.label}
+                    </span>
+                  ) : (
+                    <a
+                      href={row.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setIsMobileMenuOpen(false);
+                        const id = (row.href || "").replace("#", "");
+                        setTimeout(() => smoothScrollToId(id), 300);
+                      }}
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: row.depth === 0 ? 28 : row.depth === 1 ? 20 : 16,
+                        fontWeight: 600,
+                        color: row.depth >= 2 ? "rgba(255,255,255,0.72)" : "white",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {row.label}
+                    </a>
+                  )}
                 </motion.div>
               ))}
               <motion.div
