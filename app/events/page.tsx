@@ -174,7 +174,7 @@ const allEvents = [
     href: "/blueyonder",
     date: "2026-09-23",
     nextDate: "23 Sep 2026",
-    nextCity: "Marriott Resort Palm Jumeirah, Dubai",
+    nextCity: "Hilton Palm Jumeirah, Dubai",
     editions: "",
     regions: "UAE",
     attendees: "15-20",

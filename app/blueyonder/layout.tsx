@@ -73,7 +73,7 @@ export default function BlueYonderLayout({
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {
               "@type": "Place",
-              name: "Marriott Resort Palm Jumeirah, Dubai",
+              name: "Hilton Palm Jumeirah, Dubai",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Palm Jumeirah",

@@ -118,7 +118,7 @@ export const allEvents: EventItem[] = [
     date: new Date("2026-09-23"),
     dateDisplay: "September 23, 2026",
     location: "Dubai, UAE",
-    venue: "Marriott Resort Palm Jumeirah",
+    venue: "Hilton Palm Jumeirah",
     attendees: "15-20",
     href: "/blueyonder",
     status: "open",

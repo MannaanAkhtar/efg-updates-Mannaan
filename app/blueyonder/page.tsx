@@ -19,7 +19,7 @@ const MeshGradient = dynamic(
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Blue Yonder — Visibility, Control & Networked Execution
-// Executive dinner, Marriott Resort Palm Jumeirah, Dubai, 23 September 2026
+// Executive dinner, Hilton Palm Jumeirah, Dubai, 23 September 2026
 //
 // Visual system: "Infinite Scale" per Blue Yonder Brand Guidelines 2025.
 // Signature reactive dot field where data points flex in size based on
@@ -763,7 +763,7 @@ function Hero() {
 const HERO_STATS: readonly { label: string; value: string; sub?: string }[] = [
   { label: "Date", value: "23 September 2026", sub: "Save the date" },
   { label: "Time", value: "17:00 — 20:30 GST", sub: "180-minute executive dinner" },
-  { label: "Venue", value: "Marriott Resort Palm Jumeirah", sub: "Palm Jumeirah, Dubai" },
+  { label: "Venue", value: "Hilton Palm Jumeirah", sub: "Dubai" },
   { label: "Format", value: "Executive dinner", sub: "Invitation only" },
 ];
 
@@ -1241,7 +1241,7 @@ function Agenda() {
       <div className="by-agenda-outro">
         <span className="by-agenda-outro__rule" aria-hidden />
         <span className="by-agenda-outro__text">
-          Times are Dubai (GST). Held at Marriott Resort Palm Jumeirah, Dubai.
+          Times are Dubai (GST). Held at Hilton Palm Jumeirah, Dubai.
         </span>
       </div>
     </div>
@@ -1586,8 +1586,8 @@ function ReservationForm() {
               <Detail
                 icon="location"
                 label="Location"
-                value="Marriott Resort Palm Jumeirah"
-                sub="Palm Jumeirah, Dubai"
+                value="Hilton Palm Jumeirah"
+                sub="Dubai"
               />
               <Detail
                 icon="format"

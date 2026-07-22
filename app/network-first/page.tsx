@@ -154,7 +154,7 @@ const UPCOMING_EVENTS = [
     title: "Blue Yonder Executive Dinner",
     subtitle: "Visibility, Control & Networked Execution across the GCC",
     sponsor: "Blue Yonder",
-    location: "Marriott Resort Palm Jumeirah, Dubai",
+    location: "Hilton Palm Jumeirah, Dubai",
     link: "/blueyonder",
     image: "",
     brandColor: "#A30659",
