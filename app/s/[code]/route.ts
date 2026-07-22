@@ -23,6 +23,9 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   "ic-jacqueline": { path: "/inner_circle", source: "jacqueline", campaign: "inner-circle-2026", hash: "register" },
   "ic-afra": { path: "/inner_circle", source: "afra", campaign: "inner-circle-2026", hash: "register" },
   "ic-duaa": { path: "/inner_circle", source: "duaa", campaign: "inner-circle-2026", hash: "register" },
+  "ic-ctf": { path: "/inner_circle", source: "ctf", campaign: "inner-circle-2026", hash: "register" },
+  "ic-cth": { path: "/inner_circle", source: "cth", campaign: "inner-circle-2026", hash: "register" },
+  "ic-ctp": { path: "/inner_circle", source: "ctp", campaign: "inner-circle-2026", hash: "register" },
 
   // Cyber First East Africa 2026
   "cfea-nadim": { path: "/events/cyber-first/kenya-2026", source: "nadim", campaign: "cfea-2026", hash: "register", tab: "attend" },
