@@ -16,8 +16,8 @@ const RED_SOFT = "#E4695A";
 const GOLD = "#C8A25B";         // eyebrows, stats, hairlines
 const GOLD_BRIGHT = "#E6C888";
 const WHITE = "#F5F0E8";        // warm off-white
-const MUTE = "rgba(245,240,232,0.64)";
-const DIM = "rgba(245,240,232,0.42)";
+const MUTE = "#F5F0E8";         // was 0.64 opacity, flattened to white per request
+const DIM = "#F5F0E8";          // was 0.42 opacity, flattened to white per request
 
 const DISPLAY = "var(--font-display), system-ui, sans-serif"; // Plus Jakarta Sans
 const BODY = "var(--font-outfit), system-ui, sans-serif";     // Outfit
@@ -48,7 +48,7 @@ const OVERVIEW_STATS = [
 const OVERVIEW_P1 =
   "As AI rewrites the rules of customer engagement faster than any playbook can keep up with, Riyadh's most influential growth, marketing, and digital leaders are being asked to make bigger bets with far less certainty. The Inner Circle brings a hand-picked few to a room built for exactly that: direct answers, candid exchange, and a clearer sense of where personalisation, retention, and AI-led engagement are really headed.";
 const OVERVIEW_P2 =
-  "Presented by CleverTap, The Inner Circle is an invitation to rethink what it truly means to know your customer — and, before the evening is through, to experience firsthand just how far that idea can be taken.";
+  "Presented by CleverTap, The Inner Circle is an invitation to rethink what it truly means to know your customer, and before the evening is through, to experience firsthand just how far that idea can be taken.";
 
 const IN_STORE = [
   { title: "Curated Insight", desc: "A closed-door session unpacking how AI Agents turn personalisation into a true 1:1 discipline, at scale." },
@@ -58,9 +58,9 @@ const IN_STORE = [
 ];
 
 const FORMAT_P1 =
-  "The Inner Circle unfolds in two parts. The first is a focused, closed-door conversation on the state of AI-led engagement, built for candid exchange among Riyadh's C-suite. The second is something else entirely — a live mentalist experience that turns the evening's central idea, the art of knowing, into something you'll feel, not just discuss.";
+  "The Inner Circle unfolds in two parts. The first is a focused, closed-door conversation on the state of AI-led engagement, built for candid exchange among Riyadh's C-suite. The second is something else entirely: a live mentalist experience that turns the evening's central idea, the art of knowing, into something you'll feel, not just discuss.";
 const FORMAT_P2 =
-  "Two languages of “knowing” — the customer, and the mind — held up against each other, in the same room.";
+  "Two languages of “knowing” (the customer and the mind) held up against each other, in the same room.";
 
 const PREVIEW_P =
   "Before you take your seat, a glimpse of what “knowing” looks like when it has nothing to do with data at all.";
@@ -78,7 +78,7 @@ const VOICES: { name: string; role: string; initials: string; photo?: string; li
   },
   {
     name: "Suhaib Abu Taleb",
-    role: "Business Head — Saudi Arabia, Egypt, Jordan, CleverTap",
+    role: "Business Head, Saudi Arabia, Egypt, Jordan, CleverTap",
     initials: "SA",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Suhaib+Abu+Taleb.png",
     linkedin: "https://www.linkedin.com/in/suhaib-abu-taleb-09718b123/",
@@ -88,8 +88,8 @@ const VOICES: { name: string; role: string; initials: string; photo?: string; li
 const AGENDA: { time: string; title: string; sub?: string }[] = [
   { time: "5:30 PM", title: "Registrations & Red-Carpet Welcome" },
   { time: "6:00 PM", title: "Welcome Note" },
-  { time: "6:05 PM", title: "Keynote", sub: "Beyond Automation — How AI Agents Deliver True 1:1 Engagement At Scale" },
-  { time: "6:20 PM", title: "Fireside Chat", sub: "Insight-Led, AI-Driven — How Saudi Arabia's Top Brands Are Winning On Retention" },
+  { time: "6:05 PM", title: "Keynote", sub: "Beyond Automation: How AI Agents Deliver True 1:1 Engagement At Scale" },
+  { time: "6:20 PM", title: "Fireside Chat", sub: "Insight-Led, AI-Driven: How Saudi Arabia's Top Brands Are Winning On Retention" },
   { time: "6:40 PM", title: "The Art of Knowing", sub: "A Live Mentalist Experience" },
   { time: "7:10 PM", title: "Closing Remarks" },
   { time: "7:15 PM", title: "Dinner & Networking" },
@@ -152,7 +152,7 @@ function Nav() {
         href="#"
         onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
         style={{ display: "inline-flex", alignItems: "center", gap: 10, textDecoration: "none" }}
-        aria-label="CleverTap — top"
+        aria-label="CleverTap, back to top"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={CT_LOGO} alt="CleverTap" style={{ height: 40, width: "auto", filter: "brightness(0) invert(1)" }} />
@@ -243,12 +243,12 @@ function Hero() {
         {/* The Inner Circle — full lockup logo (CleverTap · Presents · The Inner Circle · The Art of Knowing) */}
         <div className="ic-fade ic-d2" style={{ display: "inline-block" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="ic-hero-logo" src={LOGO} alt="CleverTap Presents — The Inner Circle: The Art of Knowing" style={{ display: "block", height: "clamp(160px,25vw,340px)", width: "auto", maxWidth: "100%", filter: "brightness(0) invert(1) drop-shadow(0 10px 44px rgba(0,0,0,0.55))" }} />
+          <img className="ic-hero-logo" src={LOGO} alt="CleverTap Presents The Inner Circle: The Art of Knowing" style={{ display: "block", height: "clamp(160px,25vw,340px)", width: "auto", maxWidth: "100%", filter: "brightness(0) invert(1) drop-shadow(0 10px 44px rgba(0,0,0,0.55))" }} />
         </div>
 
         {/* Tagline */}
-        <p className="ic-fade ic-d4 ic-tagline" style={{ fontFamily: ITALIC, fontStyle: "italic", fontSize: "clamp(14px,1.4vw,18px)", fontWeight: 400, color: "rgba(245,240,232,0.82)", lineHeight: 1.55, margin: "2px auto 0", maxWidth: "none", whiteSpace: "nowrap", textShadow: "0 2px 14px rgba(0,0,0,0.5)" }}>
-          An invite-only evening for Riyadh&apos;s C-suite growth, marketing, and digital leaders.
+        <p className="ic-fade ic-d4 ic-tagline" style={{ fontFamily: ITALIC, fontStyle: "italic", fontSize: "clamp(14px,1.4vw,18px)", fontWeight: 400, color: "#F5F0E8", lineHeight: 1.55, margin: "2px auto 0", maxWidth: "none", whiteSpace: "nowrap", textShadow: "0 2px 14px rgba(0,0,0,0.5)" }}>
+          An invite-only evening for Riyadh&apos;s senior growth and marketing leaders.
         </p>
 
         {/* Meta strip */}
@@ -343,7 +343,7 @@ function Overview() {
                 <div style={{ maxWidth: 800 }}>
                   <div style={{ marginBottom: 18 }}><Eyebrow>The Invitation</Eyebrow></div>
                   <p style={{ fontFamily: BODY, fontSize: "clamp(15.5px,1.55vw,19px)", lineHeight: 1.76, color: MUTE, margin: 0 }}>{OVERVIEW_P1}</p>
-                  <p style={{ fontFamily: BODY, fontSize: "clamp(15.5px,1.55vw,19px)", lineHeight: 1.76, color: "rgba(245,240,232,0.86)", margin: "18px 0 0" }}>{OVERVIEW_P2}</p>
+                  <p style={{ fontFamily: BODY, fontSize: "clamp(15.5px,1.55vw,19px)", lineHeight: 1.76, color: "#F5F0E8", margin: "18px 0 0" }}>{OVERVIEW_P2}</p>
                 </div>
               </div>
             </div>
@@ -516,7 +516,7 @@ function Format() {
         <div style={{ position: "relative", paddingLeft: "clamp(0px,2vw,28px)" }}>
           <span aria-hidden className="ic-format-rule" style={{ position: "absolute", left: 0, top: 4, bottom: 4, width: 1, background: `linear-gradient(180deg, ${GOLD}66, ${RED}44, transparent)` }} />
           <p style={{ ...rise(inView, 0.16), fontFamily: BODY, fontSize: "clamp(15px,1.5vw,18px)", lineHeight: 1.82, color: MUTE, margin: 0 }}>{FORMAT_P1}</p>
-          <p style={{ ...rise(inView, 0.24), fontFamily: ITALIC, fontStyle: "italic", fontSize: "clamp(15px,1.5vw,19px)", lineHeight: 1.7, color: "rgba(245,240,232,0.86)", margin: "22px 0 0" }}>{FORMAT_P2}</p>
+          <p style={{ ...rise(inView, 0.24), fontFamily: ITALIC, fontStyle: "italic", fontSize: "clamp(15px,1.5vw,19px)", lineHeight: 1.7, color: "#F5F0E8", margin: "22px 0 0" }}>{FORMAT_P2}</p>
         </div>
       </div>
     </section>
@@ -561,7 +561,7 @@ function Preview() {
             <div style={{ fontFamily: ITALIC, fontStyle: "italic", fontSize: "clamp(14px,1.5vw,17px)", color: GOLD_BRIGHT, marginTop: 10, letterSpacing: "0.01em" }}>The Illusionist &amp; Mentalist</div>
             <span aria-hidden style={{ display: "block", width: 46, height: 2, borderRadius: 2, background: `linear-gradient(90deg, ${RED}, transparent)`, margin: "22px 0" }} />
             <p style={{ fontFamily: BODY, fontSize: "clamp(14px,1.4vw,16px)", lineHeight: 1.7, color: MUTE, margin: 0, maxWidth: 380 }}>
-              The evening closes with an experience that will make you question what “knowing” really means — a live act where the mind becomes the stage.
+              The evening closes with an experience that will make you question what “knowing” really means: a live act where the mind becomes the stage.
             </p>
           </div>
 
@@ -618,7 +618,7 @@ function Voices() {
                     <span aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 55%, rgba(16,14,12,0.55) 100%)", zIndex: 1 }} />
                   </>
                 ) : (
-                  <span style={{ position: "relative", zIndex: 2, fontFamily: DISPLAY, fontSize: 44, fontWeight: 700, letterSpacing: "-0.02em", color: "rgba(245,240,232,0.5)" }}>{v.initials}</span>
+                  <span style={{ position: "relative", zIndex: 2, fontFamily: DISPLAY, fontSize: 44, fontWeight: 700, letterSpacing: "-0.02em", color: "#F5F0E8" }}>{v.initials}</span>
                 )}
                 {v.linkedin && (
                   <a className="ic-li" href={v.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${v.name} on LinkedIn`}>
@@ -782,7 +782,7 @@ function Registration() {
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
               </div>
               <h3 style={{ fontFamily: DISPLAY, fontSize: 24, fontWeight: 700, color: WHITE, margin: 0 }}>Request received.</h3>
-              <p style={{ fontFamily: BODY, fontSize: 15, color: MUTE, margin: "12px auto 0", maxWidth: 420, lineHeight: 1.6 }}>Thank you — our team will review your request and be in touch regarding your seat at The Inner Circle.</p>
+              <p style={{ fontFamily: BODY, fontSize: 15, color: MUTE, margin: "12px auto 0", maxWidth: 420, lineHeight: 1.6 }}>Thank you. Our team will review your request and be in touch regarding your seat at The Inner Circle.</p>
             </div>
           ) : (
             <form onSubmit={onSubmit} noValidate>
@@ -854,9 +854,9 @@ export default function InnerCirclePage() {
       <Nav />
       <Hero />
       <Overview />
-      <InStore />
-      <Format />
       <Preview />
+      <Format />
+      <InStore />
       <Voices />
       <Agenda />
       <CtaBand />
