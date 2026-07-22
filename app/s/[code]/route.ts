@@ -1,16 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// ─── Sales-rep short links ───────────────────────────────────────────────────
-// Branded short links that 307-redirect to the full UTM destination, so reps
-// share something clean (e.g. /s/fil-duaa) while the landing page still captures
+// ─── Branded short links (sales reps + marketing channels) ───────────────────
+// Branded short links that 307-redirect to the full UTM destination, so a clean
+// link (e.g. /s/fil-duaa) is shared while the landing page still captures
 // utm_source / utm_medium / utm_campaign exactly as a hand-built link would.
 //
-// To add a rep or event, add ONE line below: <short-code>: { path, source, campaign }.
-// Convention: code = "<event-prefix>-<rep>", source = rep's lowercase first name,
-// medium is always "sales". Optional `hash` drops the visitor on a section
-// (e.g. "register" → lands on the registration form). Optional `tab` pre-selects
-// the InquiryForm tab on arrival (e.g. "attend").
-const REP_LINKS: Record<string, { path: string; source: string; campaign: string; hash?: string; tab?: string }> = {
+// To add one, add ONE line below: <short-code>: { path, source, campaign }.
+// Convention: code = "<event-prefix>-<rep>", source = rep's lowercase first name.
+// `medium` defaults to "sales" (rep links); set it for other channels
+// (e.g. "social" for a LinkedIn promo). Optional `hash` drops the visitor on a
+// section (e.g. "register" → lands on the registration form). Optional `tab`
+// pre-selects the InquiryForm tab on arrival (e.g. "attend").
+const REP_LINKS: Record<string, { path: string; source: string; campaign: string; medium?: string; hash?: string; tab?: string }> = {
   // Filigran Executive Roundtable
   "fil-duaa": { path: "/filigran", source: "duaa", campaign: "filigran-2026" },
   "fil-jacqueline": { path: "/filigran", source: "jacqueline", campaign: "filigran-2026" },
@@ -26,6 +27,9 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   "ic-ctf": { path: "/inner_circle", source: "ctf", campaign: "inner-circle-2026", hash: "register" },
   "ic-cth": { path: "/inner_circle", source: "cth", campaign: "inner-circle-2026", hash: "register" },
   "ic-ctp": { path: "/inner_circle", source: "ctp", campaign: "inner-circle-2026", hash: "register" },
+
+  // OT Security First Africa 2026 — Johannesburg (LinkedIn promotion)
+  "otsf-jhb-linkedin": { path: "/events/ot-security-first/johannesburg-2026", source: "linkedin", medium: "social", campaign: "otsf-jhb-2026", hash: "register" },
 
   // Cyber First East Africa 2026
   "cfea-nadim": { path: "/events/cyber-first/kenya-2026", source: "nadim", campaign: "cfea-2026", hash: "register", tab: "attend" },
@@ -48,7 +52,7 @@ export async function GET(
 
   const dest = new URL(link.path, request.url);
   dest.searchParams.set("utm_source", link.source);
-  dest.searchParams.set("utm_medium", "sales");
+  dest.searchParams.set("utm_medium", link.medium ?? "sales");
   dest.searchParams.set("utm_campaign", link.campaign);
   if (link.tab) dest.searchParams.set("tab", link.tab);
   if (link.hash) dest.hash = link.hash;
