@@ -775,7 +775,7 @@ function HeroSection() {
           style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)" }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img loading="lazy" src={`${S3_LOGOS}/rand+water.png`} alt="Rand Water — Supporting Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(92px, 10vw, 128px)", width: "auto", objectFit: "contain", display: "block" }} />
+          <img loading="lazy" src={`${S3_LOGOS}/Rand_Water_logo-01.png`} alt="Rand Water — Supporting Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(64px, 7vw, 92px)", width: "auto", objectFit: "contain", display: "block" }} />
         </a>
       </motion.div>
 
