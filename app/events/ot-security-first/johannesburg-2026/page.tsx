@@ -414,11 +414,11 @@ const SPEAKERS = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aubrey+Mochela.jpeg",
   },
   {
-    name: "Zakiyya C",
+    name: "Zakiyya Cassimjee",
     title: "CIO",
     org: "Ardagh Group",
     linkedin: "https://www.linkedin.com/in/zakiyyacassimjee/",
-    photo: "",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Zakiyya+Cassimjee.jpg",
   },
 ].filter((s) => !("hidden" in s) || !s.hidden);
 
