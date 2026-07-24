@@ -209,89 +209,97 @@ const SPEAKERS: Speaker[] = [
 
 type AgendaItem = {
   time: string;
-  type: "Keynote" | "Panel" | "Fireside" | "Customer Story";
+  type: "Ceremony" | "Welcome Address" | "Leadership Panel" | "Keynote Presentation" | "Panel Discussion" | "Technology Presentation" | "Break";
   title: string;
   subtitle?: string;
   bullets?: string[];
 };
 const AGENDA: AgendaItem[] = [
+  { time: "08:00 – 09:00", type: "Break", title: "Registration, Networking, and Refreshments" },
+  { time: "09:10 – 09:15", type: "Ceremony", title: "Welcome Remarks" },
+  { time: "09:15 – 09:20", type: "Ceremony", title: "National Anthem and Opening Ceremony" },
   {
-    time: "09:00 – 09:20",
-    type: "Keynote",
-    title: "Opening Keynote — Operational Excellence in the Execution Decade",
-    subtitle: "Vision 2030 roadmaps meet measurable performance — the new leadership mandate.",
+    time: "09:20 – 09:30",
+    type: "Welcome Address",
+    title: "The Execution Decade - From Transformation Strategy to Measurable Performance",
   },
   {
-    time: "09:20 – 10:10",
-    type: "Panel",
-    title: "Operational Excellence Leadership",
+    time: "09:30 – 10:00",
+    type: "Leadership Panel",
+    title: "The Governance Gap - Turning Vision 2030 Mandates into Measurable Execution",
     bullets: [
-      "Aligning enterprise KPIs with Vision 2030 objectives",
-      "Managing execution risk in giga-projects",
-      "Embedding governance into transformation portfolios",
-      "Performance transparency & executive dashboards",
+      "Why transformation complete and operationally excellent are not the same milestone",
+      "Building executive dashboards that survive board level scrutiny, not just internal reporting",
+      "Standardizing KPI accountability across ministries and entities without killing local flexibility",
+      "Value realization frameworks - proving ROI on transformation spend in real time, not retrospectively",
+      "Who owns execution risk when a giga-project's KPI slips - governance, delivery, or technology?",
     ],
   },
   {
-    time: "10:10 – 10:30",
-    type: "Fireside",
-    title: "Fireside Chat — From Strategy to Measurable Results",
-    subtitle: "Governance redesign, automation at scale, and ROI you can read on a dashboard.",
+    time: "10:00 – 10:15",
+    type: "Keynote Presentation",
+    title: "National AI Institutionalization - From Pilots to Governed Operations",
   },
   {
-    time: "10:50 – 11:35",
-    type: "Panel",
-    title: "AI & Intelligent Automation in Operations",
+    time: "10:15 – 10:30",
+    type: "Keynote Presentation",
+    title: "Building the Autonomous Enterprise - Where Process Mining, AI, and Orchestration Converge",
+  },
+  { time: "10:30 – 11:10", type: "Break", title: "Networking Break and Refreshments" },
+  {
+    time: "11:10 – 11:45",
+    type: "Panel Discussion",
+    title: "Governed AI at Scale - From National Mandate to Enterprise Reality",
     bullets: [
-      "Agentic AI in workflow orchestration",
-      "Automation beyond RPA",
-      "Compliance-integrated AI governance",
-      "Measuring AI productivity & ROI",
-      "Case signals: Aramco APS, SDAIA AI frameworks, STC automation programs",
+      "The pilot-to-production wall - why most enterprise AI initiatives stall before scale",
+      "Compliance integrated AI governance - building guardrails without slowing innovation",
+      "Agentic AI in workflow orchestration - hype versus what's actually production ready",
+      "Measuring AI productivity and ROI in operational terms",
+      "What autonomous enterprise really means in practice",
     ],
   },
   {
-    time: "11:35 – 12:00",
-    type: "Customer Story",
-    title: "Customer Success Story",
-    subtitle: "An enterprise case study — cycle-time, cost, automation, compliance, in numbers.",
+    time: "11:45 – 12:00",
+    type: "Technology Presentation",
+    title: "Seeing Before Scaling - Process Mining as the Prerequisite for Automation",
   },
   {
-    time: "12:45 – 13:30",
-    type: "Panel",
-    title: "Process Mining & Enterprise Orchestration",
+    time: "12:00 – 12:15",
+    type: "Technology Presentation",
+    title: "Automation Meets Compliance: Designing Bots for a Regulated Environment",
+  },
+  { time: "12:15 – 12:45", type: "Break", title: "Prayer Break and Networking" },
+  {
+    time: "12:45 – 13:20",
+    type: "Panel Discussion",
+    title: "Seeing the Enterprise Clearly - Process Intelligence and Real Time Control Towers",
     bullets: [
-      "Enterprise control towers",
+      "Why enterprises are hitting a ceiling with siloed RPA",
+      "Process mining as a prerequisite, not an afterthought, before scaling automation investment",
+      "Building a real time control tower - what data, governance, and org structure it actually requires",
+      "Digital twins and predictive optimization moving from industrial use cases into mainstream operations",
       "Cross-functional workflow orchestration",
-      "KPI-linked process redesign",
-      "Value realisation tracking",
-      "GovExPro benchmarking integration",
     ],
   },
   {
-    time: "13:30 – 13:55",
-    type: "Fireside",
-    title: "Fireside Chat — Governance & Compliance Automation",
-    subtitle: "E-invoicing, data governance, and cyber resilience as operating discipline.",
+    time: "13:20 – 13:35",
+    type: "Technology Presentation",
+    title: "Low-Code, High Governance: Agile Workflow Redesign Without Losing Control",
   },
   {
-    time: "13:55 – 14:40",
-    type: "Panel",
-    title: "The Autonomous Enterprise",
+    time: "13:35 – 14:15",
+    type: "Panel Discussion",
+    title: "Building for Compliance by Design - Architecture, Regulation, and Digital Harmonization",
     bullets: [
-      "Cloud-native execution frameworks",
-      "Enterprise architecture aligned to KPIs",
-      "API ecosystems and integration discipline",
-      "Security-by-design operational models",
-      "Continuous optimisation through real-time analytics",
+      "Enterprise architecture as an execution backbone aligning technical architecture to Vision 2030 KPIs",
+      "Keeping pace with accelerating mandates - e-invoicing, data governance",
+      "Compliance by design automation vs. bolt on compliance",
+      "API ecosystems and integration discipline as a harmonization tool",
+      "Security by design as a competitive differentiator, not a checkbox",
     ],
   },
-  {
-    time: "14:40 – 15:00",
-    type: "Keynote",
-    title: "Closing Keynote — Building Performance-Driven Institutions",
-    subtitle: "Institutionalising excellence — frameworks, AI governance, sustainable execution.",
-  },
+  { time: "14:15 – 14:30", type: "Ceremony", title: "OPEX First Award Ceremony & Raffle Draw" },
+  { time: "14:30", type: "Break", title: "Networking Lunch and End of Conference" },
 ];
 
 const JOB_TITLES = [
@@ -451,10 +459,10 @@ function speakerInitials(name: string) {
 }
 
 function typeColor(type: AgendaItem["type"]) {
-  if (type === "Keynote") return MINT;
-  if (type === "Customer Story") return MINT_BRIGHT;
-  if (type === "Fireside") return V_BRIGHT;
-  return V;
+  if (type === "Keynote Presentation" || type === "Welcome Address") return V_BRIGHT;
+  if (type === "Technology Presentation") return V_PALE;
+  if (type === "Break" || type === "Ceremony") return FAINT;
+  return V; // Leadership Panel, Panel Discussion
 }
 
 // ─── Hero ────────────────────────────────────────────────────────────────────
@@ -3809,8 +3817,8 @@ function Agenda() {
   const colsRef = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
-  const morning = AGENDA.slice(0, 5);
-  const afternoon = AGENDA.slice(5);
+  const morning = AGENDA.slice(0, 9);
+  const afternoon = AGENDA.slice(9);
 
   // GSAP entrance: session cards stagger in
   useGSAP(() => {
@@ -3836,7 +3844,7 @@ function Agenda() {
   }, [inView]);
 
   const typeIcon = (type: AgendaItem["type"]) => {
-    if (type === "Keynote") {
+    if (type === "Keynote Presentation" || type === "Welcome Address") {
       return (
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
           <rect x="9" y="2" width="6" height="12" rx="3" />
@@ -3845,7 +3853,7 @@ function Agenda() {
         </svg>
       );
     }
-    if (type === "Panel") {
+    if (type === "Leadership Panel" || type === "Panel Discussion") {
       return (
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -3855,14 +3863,28 @@ function Agenda() {
         </svg>
       );
     }
-    if (type === "Fireside") {
+    if (type === "Technology Presentation") {
       return (
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          <rect x="4" y="4" width="16" height="16" rx="2" />
+          <rect x="9" y="9" width="6" height="6" />
+          <line x1="9" y1="1" x2="9" y2="4" /><line x1="15" y1="1" x2="15" y2="4" />
+          <line x1="9" y1="20" x2="9" y2="23" /><line x1="15" y1="20" x2="15" y2="23" />
+          <line x1="20" y1="9" x2="23" y2="9" /><line x1="20" y1="14" x2="23" y2="14" />
+          <line x1="1" y1="9" x2="4" y2="9" /><line x1="1" y1="14" x2="4" y2="14" />
         </svg>
       );
     }
-    // Customer Story
+    if (type === "Break") {
+      return (
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+          <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+          <line x1="6" y1="1" x2="6" y2="4" /><line x1="10" y1="1" x2="10" y2="4" /><line x1="14" y1="1" x2="14" y2="4" />
+        </svg>
+      );
+    }
+    // Ceremony
     return (
       <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="0.5" strokeLinejoin="round" aria-hidden>
         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
@@ -3882,8 +3904,12 @@ function Agenda() {
           <div className="opex-ag-head">
             <div className="opex-ag-time-block">
               <span className="opex-ag-time-main">{a.time.split(/\s*[–-]\s*/)[0]}</span>
-              <span className="opex-ag-time-sep">→</span>
-              <span className="opex-ag-time-end">{a.time.split(/\s*[–-]\s*/)[1] ?? ""}</span>
+              {a.time.split(/\s*[–-]\s*/)[1] && (
+                <>
+                  <span className="opex-ag-time-sep">→</span>
+                  <span className="opex-ag-time-end">{a.time.split(/\s*[–-]\s*/)[1]}</span>
+                </>
+              )}
             </div>
             <span className="opex-ag-type">
               <span className="opex-ag-type-icon">{typeIcon(a.type)}</span>
@@ -3925,8 +3951,18 @@ function Agenda() {
       <div style={{ maxWidth: 1320, margin: "0 auto", position: "relative", zIndex: 2 }}>
         <SectionEyebrow inView={inView} label="Agenda · 21 October 2026" />
         <SectionTitle inView={inView}>
-          One day. <em className="opex-violet-shimmer">Nine sessions</em>. Built for action.
+          One day. <em className="opex-violet-shimmer">Ten sessions</em>. Built for action.
         </SectionTitle>
+
+        {/* Day theme (from the agenda brief) */}
+        <div style={{ marginTop: "clamp(10px, 1.2vw, 16px)" }}>
+          <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: "clamp(14px, 1.4vw, 17px)", fontWeight: 600, color: V_BRIGHT }}>
+            Vision to Value - Merging AI and Process Excellence
+          </span>
+          <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontSize: "clamp(11px, 1.05vw, 12.5px)", fontWeight: 600, letterSpacing: "0.16em", textTransform: "uppercase", color: MUTE, marginTop: 6 }}>
+            Regulation, Standards, Governance
+          </span>
+        </div>
 
         <div ref={colsRef} className="opex-ag-cols">
           <div className="opex-ag-col">
@@ -3936,6 +3972,10 @@ function Agenda() {
             <div className="opex-ag-stack">{afternoon.map((a, i) => renderCard(a, i + morning.length))}</div>
           </div>
         </div>
+
+        <p style={{ marginTop: "clamp(24px, 3vw, 40px)", fontFamily: "var(--font-outfit)", fontStyle: "italic", fontSize: "clamp(11.5px, 1.1vw, 13px)", color: FAINT, textAlign: "center", lineHeight: 1.6 }}>
+          Kindly note: this is a draft agenda and is subject to minor changes until 4 days prior to the conference.
+        </p>
       </div>
 
       <style jsx global>{`
