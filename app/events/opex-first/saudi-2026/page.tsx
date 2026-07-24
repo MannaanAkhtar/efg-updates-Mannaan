@@ -4628,6 +4628,15 @@ const SPONSORS_2026: S26SponsorItem[] = [
     logoMaxHeight: 72,
   },
   {
+    name: "Cyborg Automation",
+    tier: "Gold",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Cyborg+logo.png",
+    url: "https://cyborg-automation.com/",
+    surface: "dark",
+    innerBg: "linear-gradient(165deg, #1c1722 0%, #100b15 100%)",
+    logoMaxHeight: 88,
+  },
+  {
     name: "ARIS",
     tier: "Associate",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/ARIS_RGB_Logo_WhitePink.png",
