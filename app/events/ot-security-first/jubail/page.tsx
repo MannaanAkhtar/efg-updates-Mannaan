@@ -63,7 +63,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Ali Alrushaid", title: "Chief Information Security Officer", org: "ASMO", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ALI_ALRUSHAID.png", linkedin: "https://www.linkedin.com/in/ali-alrushaid-66377114/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Sultan Alshammari", title: "Cyber Security Director", org: "National Infrastructure Fund (Infra)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Alshammari.png", linkedin: "https://www.linkedin.com/in/sultan-alshammari-a2378994/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Wael A. Rahman", title: "Lead ICS/OT Security Engineer", org: "Petroleum Development Oman", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/WAEL+A.+RAHMAN.png", linkedin: "https://www.linkedin.com/in/wael-a-rahman/", flag: "https://flagcdn.com/w40/om.png" },
-  { name: "Aamir Khalid Pirzada", title: "Chief Information Officer", org: "", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aamir+Khalid+Pirzada.jpg", linkedin: "https://www.linkedin.com/in/aamir-khalid-p-360a974/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Aamir Khalid Pirzada", title: "Chief Information Officer", org: "National Metal Manufacturing and Casting Company (Maadaniyah)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aamir+Khalid+Pirzada.jpg", linkedin: "https://www.linkedin.com/in/aamir-khalid-p-360a974/", flag: "https://flagcdn.com/w40/sa.png" },
 ];
 
 // ─── Awards ─────────────────────────────────────────────────────────────────
