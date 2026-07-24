@@ -23,7 +23,7 @@ const DISPLAY = "var(--font-display), system-ui, sans-serif"; // Plus Jakarta Sa
 const BODY = "var(--font-outfit), system-ui, sans-serif";     // Outfit
 const ITALIC = "var(--font-dm-sans), Georgia, serif";         // DM Sans italic
 
-const LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/The+Inner+circle+black.png";
+const LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/The+Inner+circle+black1+(1).png";
 const CT_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverTap_Logotype.png";
 const HERO_BG = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/clevertap_innercircle_bg.png";
 // Venue — Hilton Riyadh Hotel & Residences (Step Into The Inner Circle band)
