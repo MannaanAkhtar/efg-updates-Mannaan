@@ -817,39 +817,32 @@ function Hero() {
         </div>
       </div>
 
-      {/* EFG attribution */}
+      {/* Supporting Partner — bottom right (replaces EFG attribution) */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
         transition={{ duration: 1.4, delay: 0.85 }}
         style={{
           position: "absolute",
-          bottom: 22,
-          right: 22,
+          bottom: 28,
+          right: "clamp(24px, 5vw, 80px)",
           zIndex: 3,
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
-          gap: 10,
-          padding: "8px 14px",
-          borderRadius: 999,
-          background: "rgba(4,7,12,0.55)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
+          gap: 8,
         }}
       >
-        <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: "rgba(255,255,255,0.62)" }}>
-          An initiative by
+        <span style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(255,255,255,0.55)" }}>
+          Supporting Partner
         </span>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/events-first-group_logo_alt.svg"
-          alt="Events First Group logo — producers of Cyber First Qatar 2026 cybersecurity summit"
-          width={120}
-          height={44}
+          src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo-01.png"
+          alt="Supporting Partner of Cyber First Qatar 2026 cybersecurity summit"
           loading="lazy"
           decoding="async"
-          style={{ height: 32, width: "auto", opacity: 0.85 }}
+          style={{ height: "clamp(64px, 7vw, 92px)", width: "auto", objectFit: "contain", display: "block" }}
         />
       </motion.div>
 
@@ -3763,6 +3756,193 @@ function Speakers() {
           .cfq-speaker-card:hover { transform: none; }
           .cfq-speaker-card:hover .cfq-speaker-photo { transform: none; }
           .cfq-speaker-li:hover { transform: none; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ───────────────────────────────────────────────────────────────────────────
+// SPONSORS 2026 — confirmed strategic partners
+// ───────────────────────────────────────────────────────────────────────────
+const CFQ_SPONSORS_2026_STRATEGIC = [
+  { logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo-02.png" },
+  { logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo-03.png" },
+  { logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo-04.png" },
+];
+
+function Sponsors2026() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section
+      ref={ref}
+      id="sponsors"
+      style={{
+        position: "relative",
+        padding: "clamp(48px, 5.5vw, 76px) 0",
+        background: "transparent",
+        overflow: "hidden",
+      }}
+    >
+      {/* Ambient glow */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: `radial-gradient(ellipse 60% 45% at 50% 0%, ${C}10 0%, transparent 62%)`,
+          pointerEvents: "none",
+        }}
+      />
+      <BgDots opacity={0.035} />
+
+      <div style={{ position: "relative", maxWidth: 1200, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", zIndex: 2, textAlign: "center" }}>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: EASE }}
+        >
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 18 }}>
+            <span style={{ width: 32, height: 1, background: `linear-gradient(90deg, transparent, ${C}99)`, boxShadow: `0 0 8px ${C}55` }} />
+            <span
+              style={{
+                fontFamily: "var(--font-outfit)",
+                fontSize: 11,
+                fontWeight: 700,
+                letterSpacing: "4.5px",
+                textTransform: "uppercase",
+                color: C_BRIGHT,
+              }}
+            >
+              Sponsors 2026
+            </span>
+            <span style={{ width: 32, height: 1, background: `linear-gradient(270deg, transparent, ${C}99)`, boxShadow: `0 0 8px ${C}55` }} />
+          </div>
+
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: "clamp(26px, 3.4vw, 42px)",
+              letterSpacing: "-1.4px",
+              lineHeight: 1.08,
+              color: "white",
+              margin: "8px 0 0",
+            }}
+          >
+            Partnering to{" "}
+            <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>secure Qatar.</em>
+          </h2>
+        </motion.div>
+
+        {/* Strategic Sponsor tier */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
+          style={{ marginTop: "clamp(36px, 4vw, 52px)" }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: "3px",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.55)",
+              marginBottom: "clamp(20px, 2.4vw, 28px)",
+            }}
+          >
+            Strategic Sponsor
+          </div>
+
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "stretch", gap: "clamp(20px, 2.4vw, 32px)" }}>
+            {CFQ_SPONSORS_2026_STRATEGIC.map((s, i) => (
+              <motion.div
+                key={s.logo}
+                initial={{ opacity: 0, y: 22 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.75, delay: 0.25 + i * 0.08, ease: EASE }}
+                className="cfq-sponsor-card"
+                style={{
+                  position: "relative",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "clamp(192px, 22vw, 268px)",
+                  height: "clamp(108px, 12.5vw, 138px)",
+                  padding: "clamp(6px, 0.7vw, 10px)",
+                  borderRadius: 18,
+                  overflow: "hidden",
+                  isolation: "isolate",
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src={s.logo}
+                  alt={`Strategic Sponsor of Cyber First Qatar 2026 cybersecurity summit`}
+                  style={{ position: "relative", zIndex: 1, maxWidth: "100%", maxHeight: "100%", width: "auto", height: "auto", objectFit: "contain", display: "block" }}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      <style jsx global>{`
+        .cfq-sponsor-card {
+          background:
+            radial-gradient(120% 90% at 50% -20%, rgba(1, 187, 245, 0.12) 0%, transparent 55%),
+            linear-gradient(165deg, rgba(255, 255, 255, 0.075) 0%, rgba(255, 255, 255, 0.02) 48%, rgba(1, 187, 245, 0.035) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.12),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+            0 20px 46px rgba(0, 0, 0, 0.42);
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+        /* Top glass reflection */
+        .cfq-sponsor-card::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          border-radius: inherit;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0) 24%);
+          pointer-events: none;
+        }
+        /* Cyan gradient edge-ring, fades in on hover */
+        .cfq-sponsor-card::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+          border-radius: inherit;
+          padding: 1px;
+          background: linear-gradient(135deg, ${C_BRIGHT} 0%, transparent 38%, transparent 62%, ${C} 100%);
+          -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          opacity: 0;
+          transition: opacity 0.4s ease;
+          pointer-events: none;
+        }
+        .cfq-sponsor-card:hover {
+          transform: translateY(-5px);
+          border-color: rgba(77, 212, 255, 0.4);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.16),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+            0 28px 62px rgba(0, 0, 0, 0.5),
+            0 0 42px rgba(1, 187, 245, 0.2);
+        }
+        .cfq-sponsor-card:hover::after {
+          opacity: 1;
         }
       `}</style>
     </section>
@@ -7632,6 +7812,7 @@ export default function CyberFirstQatar2026() {
         <KeyThemes />
         <Advisors />
         <Speakers />
+        <Sponsors2026 />
       </div>
       <PastSeriesSponsors />
       <div style={{ position: "relative", background: BG_DEEP, overflow: "hidden" }}>
