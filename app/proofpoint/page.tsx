@@ -798,7 +798,7 @@ function HeroSection() {
             <span style={{ color: PP_CYAN }}>·</span>
             <span>10:30 – 13:35 KSA time</span>
             <span style={{ color: PP_CYAN }}>·</span>
-            <span>Crowne Plaza Riyadh</span>
+            <span>Crowne Plaza Riyadh RDC Hotel &amp; Convention by IHG</span>
             <span style={{ color: PP_CYAN }}>·</span>
             <span style={{ color: PP_GRAY }}>In-Person · Invite-Only</span>
           </div>
@@ -2356,7 +2356,7 @@ function VenueSection() {
                 margin: 0,
               }}
             >
-              Crowne Plaza Riyadh<span style={{ color: PP_CYAN }}>.</span>
+              Crowne Plaza Riyadh RDC Hotel &amp; Convention by IHG<span style={{ color: PP_CYAN }}>.</span>
             </h2>
 
             <p
@@ -2370,7 +2370,7 @@ function VenueSection() {
                 lineHeight: 1.3,
               }}
             >
-              RDC Hotel &amp; Convention by IHG · Riyadh, Saudi Arabia
+              Riyadh, Saudi Arabia
             </p>
 
             {/* Fact grid — dates + time from the brief */}
@@ -2499,7 +2499,7 @@ function VenueSection() {
           >
             <img
               src={CROWNE_PLAZA_PHOTO}
-              alt="Crowne Plaza Riyadh"
+              alt="Crowne Plaza Riyadh RDC Hotel & Convention by IHG"
               loading="lazy"
               className="pp-venue-img"
               style={{
@@ -2565,7 +2565,7 @@ function VenueSection() {
                     textShadow: "0 2px 10px rgba(0,0,0,0.45)",
                   }}
                 >
-                  Crowne Plaza Riyadh
+                  Crowne Plaza Riyadh RDC Hotel &amp; Convention by IHG
                 </div>
               </div>
               <span
@@ -2629,7 +2629,7 @@ function RegisterSection() {
   const SPECS = [
     { label: "Date", value: "23 Sep 2026" },
     { label: "Time", value: "10:30 – 13:35 KSA time" },
-    { label: "Venue", value: "Crowne Plaza Riyadh" },
+    { label: "Venue", value: "Crowne Plaza Riyadh RDC Hotel & Convention by IHG" },
     { label: "Format", value: "Invite-only roundtable" },
   ];
 

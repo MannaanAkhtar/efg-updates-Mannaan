@@ -486,7 +486,7 @@ export default function EnterpriseDBRoundtablePage() {
               Attendance is by invitation and curated for senior IT and data leaders. Request a seat and our team will confirm your place and share the full details.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 32 }}>
-              {[["29 September 2026", "cal"], ["RDC Hotel & Convention by IHG · Riyadh, Saudi Arabia", "pin"], ["180 minutes · Closed-door", "clock"]].map(([label, icon]) => (
+              {[["29 September 2026", "cal"], ["Crowne Plaza Riyadh RDC Hotel & Convention by IHG · Saudi Arabia", "pin"], ["180 minutes · Closed-door", "clock"]].map(([label, icon]) => (
                 <div key={label} style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <span aria-hidden style={{ flex: "0 0 auto", width: 30, height: 30, borderRadius: 8, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
                     <RegIcon type={icon as "cal" | "pin" | "clock"} />
@@ -812,7 +812,7 @@ function VenueSection() {
           </div>
 
           <h2 style={{ fontFamily: DISPLAY, fontSize: "clamp(28px,4vw,50px)", fontWeight: 700, letterSpacing: "-0.032em", lineHeight: 1.05, color: INK, margin: "18px 0 0" }}>
-            RDC Hotel &amp; Convention by IHG<span style={{ color: BLUE }}>.</span>
+            Crowne Plaza Riyadh RDC Hotel &amp; Convention by IHG<span style={{ color: BLUE }}>.</span>
           </h2>
           <p style={{ fontFamily: BODY, fontSize: "clamp(15px,1.5vw,18px)", lineHeight: 1.6, color: INK_SOFT, margin: "14px 0 0", maxWidth: 460 }}>
             The roundtable convenes at one of Riyadh&rsquo;s premier business addresses — a discreet, executive setting in the heart of the Saudi capital.
@@ -843,11 +843,11 @@ function VenueSection() {
         {/* Right — venue photo */}
         <div className="edb-venue-visual" style={{ position: "relative", borderRadius: 20, overflow: "hidden", border: `1px solid ${LINE}`, boxShadow: "0 30px 60px rgba(10,18,34,0.16)", aspectRatio: "16 / 11", ...rise(0.1) }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={VENUE_IMG} alt="RDC Hotel & Convention by IHG, Riyadh" loading="lazy" decoding="async" className="edb-venue-img" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+          <img src={VENUE_IMG} alt="Crowne Plaza Riyadh RDC Hotel & Convention by IHG" loading="lazy" decoding="async" className="edb-venue-img" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
           <div aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,18,34,0.62) 0%, transparent 46%)" }} />
           <div style={{ position: "absolute", left: 22, bottom: 20 }}>
             <div style={{ fontFamily: BODY, fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: SKY, marginBottom: 6 }}>Host Venue</div>
-            <div style={{ fontFamily: DISPLAY, fontSize: "clamp(16px,1.7vw,20px)", fontWeight: 700, letterSpacing: "-0.02em", color: WHITE }}>RDC Hotel &amp; Convention by IHG</div>
+            <div style={{ fontFamily: DISPLAY, fontSize: "clamp(16px,1.7vw,20px)", fontWeight: 700, letterSpacing: "-0.02em", color: WHITE }}>Crowne Plaza Riyadh RDC Hotel &amp; Convention by IHG</div>
           </div>
         </div>
       </div>
