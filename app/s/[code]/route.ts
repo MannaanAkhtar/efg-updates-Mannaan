@@ -31,6 +31,9 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   // OT Security First Africa 2026 — Johannesburg (LinkedIn promotion)
   "otsf-jhb-linkedin": { path: "/events/ot-security-first/johannesburg-2026", source: "linkedin", medium: "social", campaign: "otsf-jhb-2026", hash: "register" },
 
+  // OT Security First Jubail 2026
+  "otsf-jub-anna": { path: "/events/ot-security-first/jubail", source: "anna", campaign: "otsf-jubail-2026", hash: "register", tab: "attend" },
+
   // Cyber First East Africa 2026
   "cfea-nadim": { path: "/events/cyber-first/kenya-2026", source: "nadim", campaign: "cfea-2026", hash: "register", tab: "attend" },
   "cfea-nadeem": { path: "/events/cyber-first/kenya-2026", source: "nadim", campaign: "cfea-2026", hash: "register", tab: "attend" }, // legacy alias → nadim

@@ -369,6 +369,42 @@ function SeriesEditions() {
 // PAGE
 // ────────────────────────────────────────────────────────────────────────────
 export default function OTSecurityJubail2026() {
+  // Deep-link support for UTM / short links (e.g. /s/otsf-jub-anna → …#register
+  // with ?tab=attend): scroll to the hash section and pre-select the InquiryForm
+  // tab on load. The register form is lazy-mounted, so the tab event is
+  // re-dispatched a few times until the form's listener is attached.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const tabParam = new URLSearchParams(window.location.search).get("tab");
+    if (tabParam) {
+      const tabKey = tabParam === "attend" ? "pass" : tabParam === "speak" ? "speaker" : tabParam;
+      let sent = 0;
+      const fire = () => {
+        window.dispatchEvent(new CustomEvent("efg:set-form-tab", { detail: tabKey }));
+        if (sent++ < 7) window.setTimeout(fire, 400);
+      };
+      window.setTimeout(fire, 500);
+    }
+
+    const id = window.location.hash.replace("#", "");
+    if (!id) return;
+    let tries = 0;
+    const go = () => {
+      const el = document.getElementById(id);
+      if (!el) {
+        if (tries++ < 20) window.setTimeout(go, 150);
+        return;
+      }
+      const lenis = (window as unknown as {
+        __lenis?: { scrollTo: (target: HTMLElement | number, opts?: { offset?: number; duration?: number }) => void };
+      }).__lenis;
+      if (lenis) lenis.scrollTo(el, { offset: 0, duration: 1.0 });
+      else el.scrollIntoView({ behavior: "smooth" });
+    };
+    window.setTimeout(go, 450);
+  }, []);
+
   return (
     <div style={{ background: BG_DEEP, color: "white", overflow: "hidden", position: "relative" }}>
       <EventNavigation />
