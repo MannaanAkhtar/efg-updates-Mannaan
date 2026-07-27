@@ -836,14 +836,24 @@ function Hero() {
         <span style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(255,255,255,0.55)" }}>
           Supporting Partner
         </span>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo-01.png"
-          alt="Supporting Partner of Cyber First Qatar 2026 cybersecurity summit"
-          loading="lazy"
-          decoding="async"
-          style={{ height: "clamp(64px, 7vw, 92px)", width: "auto", objectFit: "contain", display: "block" }}
-        />
+        <div style={{ display: "flex", alignItems: "center", gap: "clamp(20px, 2.6vw, 40px)" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo-01.png"
+            alt="Supporting Partner of Cyber First Qatar 2026 cybersecurity summit"
+            loading="lazy"
+            decoding="async"
+            style={{ height: "clamp(64px, 7vw, 92px)", width: "auto", objectFit: "contain", display: "block" }}
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Titan-Energy-Corporation.png"
+            alt="Titan Energy Corporation — Supporting Partner of Cyber First Qatar 2026 cybersecurity summit"
+            loading="lazy"
+            decoding="async"
+            style={{ height: "clamp(64px, 7vw, 92px)", width: "auto", objectFit: "contain", display: "block" }}
+          />
+        </div>
       </motion.div>
 
       <style jsx>{`
