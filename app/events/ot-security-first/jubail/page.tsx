@@ -831,7 +831,7 @@ function Hero() {
         </motion.div>
       </div>
 
-      {/* EFG initiative badge - bottom right */}
+      {/* EFG initiative badge - bottom left */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -840,11 +840,11 @@ function Hero() {
         style={{
           position: "absolute",
           bottom: 32,
-          right: "clamp(20px, 4vw, 56px)",
+          left: "clamp(20px, 4vw, 56px)",
           zIndex: 4,
           display: "flex",
           flexDirection: "column",
-          alignItems: "flex-end",
+          alignItems: "flex-start",
           gap: 6,
         }}
       >
@@ -870,6 +870,54 @@ function Hero() {
           height={66}
           style={{ height: 50, width: "auto", opacity: 0.8 }}
         />
+      </motion.div>
+
+      {/* Supporting Partner badge - bottom right (where the initiative badge was) */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 1.8, ease: EASE }}
+        className="otsf-jb-partner-badge"
+        style={{
+          position: "absolute",
+          bottom: 32,
+          right: "clamp(20px, 4vw, 56px)",
+          zIndex: 4,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-end",
+          gap: 6,
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "var(--font-dm-sans)",
+            fontSize: 13,
+            fontWeight: 600,
+            color: "rgba(255,255,255,0.7)",
+            textTransform: "uppercase",
+            letterSpacing: "2.5px",
+          }}
+        >
+          Supporting Partner
+        </span>
+        <a
+          href="https://www.isaca.org/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="ISACA Riyadh Chapter — Supporting Partner"
+          className="otsf-jb-partner-link"
+          style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)" }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            loading="lazy"
+            decoding="async"
+            src={`${S3_LOGOS}/ISACA_logo_Riyadh_rev_RGB.png`}
+            alt="ISACA Riyadh Chapter logo - Supporting Partner of OT Security First Jubail 2026"
+            style={{ height: 55, width: "auto", opacity: 0.9, objectFit: "contain", display: "block" }}
+          />
+        </a>
       </motion.div>
 
       <style jsx global>{`
@@ -991,17 +1039,23 @@ function Hero() {
             box-shadow: 0 0 10px ${C_BRIGHT};
           }
         }
-        /* EFG initiative badge - shrink on mobile so it doesn't crowd the hero */
+        .otsf-jb-partner-link:hover {
+          transform: translateY(-2px);
+        }
+        /* Hero corner badges - shrink on mobile so they don't crowd the hero */
         @media (max-width: 720px) {
-          .otsf-jb-efg-badge {
+          .otsf-jb-efg-badge,
+          .otsf-jb-partner-badge {
             bottom: 24px !important;
             gap: 4px !important;
           }
-          .otsf-jb-efg-badge > span {
+          .otsf-jb-efg-badge > span,
+          .otsf-jb-partner-badge > span {
             font-size: 10px !important;
             letter-spacing: 1.8px !important;
           }
-          .otsf-jb-efg-badge > img {
+          .otsf-jb-efg-badge > img,
+          .otsf-jb-partner-badge img {
             height: 34px !important;
           }
           /* Hero content - tighten top/bottom padding on mobile to remove dead space */
@@ -4012,6 +4066,7 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
     logos: [
       { name: "International Business Magazine", id: "media-ibm", surface: "light", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/International-Business-Magazine.png" },
       { name: "Kanebridge News", id: "media-kanebridge", surface: "light", fillWidth: true, logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Kanebridge_news.png" },
+      { name: "Media Partner", id: "media-partner", surface: "light", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/unnamed+(9).png" },
     ],
   },
 ];
