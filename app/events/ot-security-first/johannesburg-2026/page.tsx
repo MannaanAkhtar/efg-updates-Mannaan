@@ -4228,6 +4228,14 @@ const EVENT_SPONSORS_2026: {
     scale: 2.1,
   },
   {
+    name: "Oryx",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Oryx_logo_vert_on_Black_transp.png",
+    url: "https://oryxind.co.za/",
+    tier: "strategic",
+    keepColor: true,
+    scale: 1.4,
+  },
+  {
     name: "Corrserve",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/corrserve1.png",
     url: "https://corrserve.co.za/",
@@ -4357,7 +4365,7 @@ function EventSponsorsSection() {
             const isGold = tier === "gold";
             // Panel sits just below Gold — same card language, a step smaller.
             const isPanel = tier === "panel";
-            const cols = isStrategic ? Math.min(sponsorsInTier.length, 2) : Math.min(sponsorsInTier.length, 4);
+            const cols = isStrategic ? Math.min(sponsorsInTier.length, 3) : Math.min(sponsorsInTier.length, 4);
             const cardMaxWidth = isStrategic ? 360 : isGold ? 320 : isPanel ? 280 : 240;
 
             return (
