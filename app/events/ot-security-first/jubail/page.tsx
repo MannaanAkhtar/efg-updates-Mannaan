@@ -4066,7 +4066,7 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
     logos: [
       { name: "International Business Magazine", id: "media-ibm", surface: "light", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/International-Business-Magazine.png" },
       { name: "Kanebridge News", id: "media-kanebridge", surface: "light", fillWidth: true, logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Kanebridge_news.png" },
-      { name: "Media Partner", id: "media-partner", surface: "light", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/unnamed+(9).png" },
+      { name: "Eye of Riyadh", id: "media-eye-of-riyadh", surface: "light", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/unnamed+(9).png" },
     ],
   },
 ];

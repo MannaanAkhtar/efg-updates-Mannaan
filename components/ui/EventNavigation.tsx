@@ -184,7 +184,7 @@ const EVENT_CONFIGS: Record<string, {
             children: [
               { href: "#media-ibm", label: "International Business Magazine" },
               { href: "#media-kanebridge", label: "Kanebridge News" },
-              { href: "#media-partner", label: "Media Partner" },
+              { href: "#media-eye-of-riyadh", label: "Eye of Riyadh" },
             ],
           },
         ],
