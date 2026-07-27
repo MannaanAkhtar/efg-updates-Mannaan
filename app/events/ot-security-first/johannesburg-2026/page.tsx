@@ -757,13 +757,13 @@ function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Supporting Partner — Rand Water, bottom right */}
+      {/* Supporting Partner — Rand Water, top right (below the nav) */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 1.8 }}
         className="otsf-efg-badge"
-        style={{ position: "absolute", bottom: 28, right: "clamp(24px, 5vw, 80px)", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}
+        style={{ position: "absolute", top: "clamp(112px, 15vh, 150px)", right: "clamp(24px, 5vw, 80px)", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}
       >
         <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.55)", textTransform: "uppercase", letterSpacing: "2px" }}>Supporting Partner</span>
         <a
