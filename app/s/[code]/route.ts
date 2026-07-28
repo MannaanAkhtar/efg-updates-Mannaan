@@ -30,6 +30,8 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
 
   // OT Security First Africa 2026 — Johannesburg (LinkedIn promotion)
   "otsf-jhb-linkedin": { path: "/events/ot-security-first/johannesburg-2026", source: "linkedin", medium: "social", campaign: "otsf-jhb-2026", hash: "register" },
+  // OT Security First Africa 2026 — Johannesburg (email marketing)
+  "otsf-jhb-email": { path: "/events/ot-security-first/johannesburg-2026", source: "email", medium: "email", campaign: "otsf-jhb-2026", hash: "register" },
 
   // OT Security First Jubail 2026
   "otsf-jub-anna": { path: "/events/ot-security-first/jubail", source: "anna", campaign: "otsf-jubail-2026", hash: "register", tab: "attend" },
