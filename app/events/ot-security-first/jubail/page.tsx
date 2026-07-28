@@ -59,6 +59,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Ali Abdulla Hasan Alsadadi", title: "Chief of Information Technology", org: "Ministry of Oil & Environment Bahrain", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Ali+Abdulla+Hasan+Alsadadi.png", linkedin: "https://www.linkedin.com/in/ali-abdulla-hasan-alsadadi-a4210825/", flag: "https://flagcdn.com/w40/bh.png" },
   { name: "Hamoud Almohaya", title: "Head of GRC Cybersecurity", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/HAMOUD_ALMOHAYA.png", linkedin: "https://www.linkedin.com/in/hamoudbinmohaya/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Abdulrahman Al-Nimari", title: "VP, Cyber Security", org: "Confidential Organization", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulrahman_Al-Nimar.png", linkedin: "https://www.linkedin.com/in/alnimari/", flag: "https://flagcdn.com/w40/sa.png", photoTransform: "scale(1.18)" },
+  { name: "Javed A. Akbar", title: "Chief Governance, Risk (GRC), Insurance & Data Officer", org: "TASNEE", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Javed_A.+Akbar.png", linkedin: "https://www.linkedin.com/in/javedakbar/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Sultan Moraished", title: "Group Head of Technology and Corporate Excellence", org: "Red Sea Global", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Moraished.png", linkedin: "https://www.linkedin.com/in/sultan-moraished-0786394a/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Ali Alrushaid", title: "Chief Information Security Officer", org: "ASMO", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ALI_ALRUSHAID.png", linkedin: "https://www.linkedin.com/in/ali-alrushaid-66377114/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Sultan Alshammari", title: "Cyber Security Director", org: "National Infrastructure Fund (Infra)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Alshammari.png", linkedin: "https://www.linkedin.com/in/sultan-alshammari-a2378994/", flag: "https://flagcdn.com/w40/sa.png" },
@@ -874,6 +875,7 @@ function Hero() {
 
       {/* Supporting Partner badge - bottom right (where the initiative badge was) */}
       <motion.div
+        id="supporting-partner"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 1.8, ease: EASE }}
@@ -4098,80 +4100,94 @@ function SponsorsSection() {
         </motion.h2>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "clamp(40px, 5vw, 64px)" }}>
-          {SPONSOR_TIERS.map((t, ti) => (
-            <div key={t.tier}>
-              {/* Tier subheading */}
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.2 + ti * 0.1, ease: EASE }}
-                style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 22, marginBottom: 28 }}
-              >
-                <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, transparent, ${C}30)` }} />
-                <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 700, letterSpacing: "3.5px", textTransform: "uppercase", color: C_BRIGHT, whiteSpace: "nowrap" }}>
-                  {t.tier}
-                </span>
-                <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, ${C}30, transparent)` }} />
-              </motion.div>
+          {SPONSOR_TIERS.map((t, ti) => {
+            const renderPlate = (s: SponsorLogo, i: number) => {
+              const isLight = s.surface === "light";
+              const plateStyle: React.CSSProperties = {
+                position: "relative",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "clamp(200px, 24vw, 260px)",
+                height: "clamp(104px, 12vw, 130px)",
+                padding: isLight ? "clamp(8px, 1vw, 12px) clamp(10px, 1.1vw, 14px)" : "clamp(14px, 1.4vw, 18px) clamp(10px, 1vw, 14px)",
+                borderRadius: 18,
+                overflow: "hidden",
+                background: isLight
+                  ? "linear-gradient(180deg, #ffffff 0%, #f2f4f8 100%)"
+                  : "linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.02) 100%)",
+                border: isLight ? "1px solid rgba(0,0,0,0.06)" : "1px solid rgba(255,255,255,0.10)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 22px 46px rgba(0,0,0,0.4)",
+                transition: "transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease, box-shadow 0.4s ease",
+              };
+              const imgStyle: React.CSSProperties = s.fillWidth
+                ? { position: "relative", width: "100%", height: "auto", objectFit: "contain" }
+                : { position: "relative", maxWidth: "100%", maxHeight: "clamp(92px, 11vw, 120px)", objectFit: "contain" };
+              const inner = (
+                <>
+                  {!isLight && <span aria-hidden style={{ position: "absolute", inset: 0, background: `radial-gradient(120% 90% at 50% 0%, ${C}12 0%, transparent 60%)`, pointerEvents: "none" }} />}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={s.logo}
+                    alt={`${s.name} — ${t.tier} of OT Security First Jubail 2026 industrial cybersecurity summit`}
+                    loading="lazy"
+                    decoding="async"
+                    style={imgStyle}
+                  />
+                </>
+              );
+              const common = {
+                id: s.id,
+                className: "otsf-jb-sponsor-plate",
+                initial: { opacity: 0, y: 20 },
+                animate: inView ? { opacity: 1, y: 0 } : {},
+                transition: { duration: 0.7, delay: 0.28 + ti * 0.1 + i * 0.08, ease: EASE },
+                style: plateStyle,
+              };
+              return s.href ? (
+                <motion.a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`${s.name} — ${t.tier} of OT Security First Jubail`} {...common}>
+                  {inner}
+                </motion.a>
+              ) : (
+                <motion.div key={s.name} {...common}>
+                  {inner}
+                </motion.div>
+              );
+            };
 
-              {/* Logo plates */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(18px, 2vw, 28px)", justifyContent: "center" }}>
-                {t.logos.map((s, i) => {
-                  const isLight = s.surface === "light";
-                  const plateStyle: React.CSSProperties = {
-                    position: "relative",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: "clamp(200px, 24vw, 260px)",
-                    height: "clamp(104px, 12vw, 130px)",
-                    padding: isLight ? "clamp(8px, 1vw, 12px) clamp(10px, 1.1vw, 14px)" : "clamp(14px, 1.4vw, 18px) clamp(10px, 1vw, 14px)",
-                    borderRadius: 18,
-                    overflow: "hidden",
-                    background: isLight
-                      ? "linear-gradient(180deg, #ffffff 0%, #f2f4f8 100%)"
-                      : "linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.02) 100%)",
-                    border: isLight ? "1px solid rgba(0,0,0,0.06)" : "1px solid rgba(255,255,255,0.10)",
-                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 22px 46px rgba(0,0,0,0.4)",
-                    transition: "transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease, box-shadow 0.4s ease",
-                  };
-                  const imgStyle: React.CSSProperties = s.fillWidth
-                    ? { position: "relative", width: "100%", height: "auto", objectFit: "contain" }
-                    : { position: "relative", maxWidth: "100%", maxHeight: "clamp(92px, 11vw, 120px)", objectFit: "contain" };
-                  const inner = (
-                    <>
-                      {!isLight && <span aria-hidden style={{ position: "absolute", inset: 0, background: `radial-gradient(120% 90% at 50% 0%, ${C}12 0%, transparent 60%)`, pointerEvents: "none" }} />}
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={s.logo}
-                        alt={`${s.name} — ${t.tier} of OT Security First Jubail 2026 industrial cybersecurity summit`}
-                        loading="lazy"
-                        decoding="async"
-                        style={imgStyle}
-                      />
-                    </>
-                  );
-                  const common = {
-                    id: s.id,
-                    className: "otsf-jb-sponsor-plate",
-                    initial: { opacity: 0, y: 20 },
-                    animate: inView ? { opacity: 1, y: 0 } : {},
-                    transition: { duration: 0.7, delay: 0.28 + ti * 0.1 + i * 0.08, ease: EASE },
-                    style: plateStyle,
-                  };
-                  return s.href ? (
-                    <motion.a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`${s.name} — ${t.tier} of OT Security First Jubail`} {...common}>
-                      {inner}
-                    </motion.a>
-                  ) : (
-                    <motion.div key={s.name} {...common}>
-                      {inner}
-                    </motion.div>
-                  );
-                })}
+            // Media Partners renders as a pyramid: last logo alone on top, the rest below.
+            const isPyramid = t.tier === "Media Partners" && t.logos.length === 3;
+            const rows: SponsorLogo[][] = isPyramid
+              ? [[t.logos[t.logos.length - 1]], t.logos.slice(0, -1)]
+              : [t.logos];
+
+            return (
+              <div key={t.tier} id={t.tier === "Media Partners" ? "media-partners" : undefined}>
+                {/* Tier subheading */}
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.7, delay: 0.2 + ti * 0.1, ease: EASE }}
+                  style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 22, marginBottom: 28 }}
+                >
+                  <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, transparent, ${C}30)` }} />
+                  <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 700, letterSpacing: "3.5px", textTransform: "uppercase", color: C_BRIGHT, whiteSpace: "nowrap" }}>
+                    {t.tier}
+                  </span>
+                  <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, ${C}30, transparent)` }} />
+                </motion.div>
+
+                {/* Logo plates */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "clamp(18px, 2vw, 28px)", alignItems: "center" }}>
+                  {rows.map((row, ri) => (
+                    <div key={ri} style={{ display: "flex", flexWrap: "wrap", gap: "clamp(18px, 2vw, 28px)", justifyContent: "center" }}>
+                      {row.map((s) => renderPlate(s, t.logos.indexOf(s)))}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
