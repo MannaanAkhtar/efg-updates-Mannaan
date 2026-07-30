@@ -83,6 +83,12 @@ const VOICES: { name: string; role: string; initials: string; photo?: string; li
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Suhaib+Abu+Taleb.png",
     linkedin: "https://www.linkedin.com/in/suhaib-abu-taleb-09718b123/",
   },
+  {
+    name: "Ahmed Fahmy Mohamed",
+    role: "Head of Digital",
+    initials: "AF",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed_Fahmy!.png",
+  },
 ];
 
 const AGENDA: { time: string; title: string; sub?: string }[] = [
@@ -606,7 +612,7 @@ function Voices() {
         <h2 style={{ ...rise(inView, 0.08), fontFamily: DISPLAY, fontSize: "clamp(26px,4vw,46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, color: WHITE, margin: "18px auto clamp(40px,5vh,56px)", textAlign: "center" }}>
           The Minds Behind The Inner Circle.
         </h2>
-        <div className="ic-voices" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 262px))", gap: 22, justifyContent: "center" }}>
+        <div className="ic-voices" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 262px))", gap: 22, justifyContent: "center" }}>
           {VOICES.map((v, i) => (
             <article key={i} className="ic-card" style={{ ...rise(inView, 0.14 + i * 0.09), position: "relative", overflow: "hidden", borderRadius: 20, background: SURFACE, border: `1px solid ${LINE}`, transition: "border-color 0.4s ease, transform 0.4s ease" }}>
               <div style={{ position: "relative", aspectRatio: "4 / 5", display: "flex", alignItems: "center", justifyContent: "center", background: `linear-gradient(155deg, rgba(225,75,58,0.16), rgba(16,14,12,0.92))`, overflow: "hidden" }}>
