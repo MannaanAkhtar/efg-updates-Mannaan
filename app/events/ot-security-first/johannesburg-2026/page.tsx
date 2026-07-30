@@ -765,18 +765,23 @@ function HeroSection() {
         className="otsf-efg-badge"
         style={{ position: "absolute", top: "clamp(112px, 15vh, 150px)", right: "clamp(24px, 5vw, 80px)", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}
       >
-        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.55)", textTransform: "uppercase", letterSpacing: "2px" }}>Supporting Partner</span>
-        <a
-          href="https://www.randwater.co.za/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Rand Water — Supporting Partner"
-          className="otsf-hero-partner"
-          style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)" }}
-        >
+        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.55)", textTransform: "uppercase", letterSpacing: "2px" }}>Supporting Partners</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "clamp(18px, 2.4vw, 36px)" }}>
+          <a
+            href="https://www.randwater.co.za/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Rand Water — Supporting Partner"
+            className="otsf-hero-partner"
+            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)" }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img loading="lazy" src={`${S3_LOGOS}/Rand_Water_logo-01.png`} alt="Rand Water — Supporting Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(64px, 7vw, 92px)", width: "auto", objectFit: "contain", display: "block" }} />
+          </a>
+          {/* City of Johannesburg — white treatment (dark monochrome crest) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img loading="lazy" src={`${S3_LOGOS}/Rand_Water_logo-01.png`} alt="Rand Water — Supporting Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(64px, 7vw, 92px)", width: "auto", objectFit: "contain", display: "block" }} />
-        </a>
+          <img loading="lazy" src={`${S3_LOGOS}/City_of_Johannesburg_logo.png`} alt="City of Johannesburg — Supporting Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(84px, 9.5vw, 120px)", width: "auto", objectFit: "contain", display: "block", filter: "brightness(0) invert(1)" }} />
+        </div>
       </motion.div>
 
       {/* Countdown bar — bottom anchored, inline numbers with colon separators */}
