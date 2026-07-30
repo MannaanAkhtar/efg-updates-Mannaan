@@ -4207,7 +4207,7 @@ const EVENT_SPONSORS_2026: {
   name: string;
   logo: string;
   url?: string;
-  tier: "strategic" | "platinum" | "gold" | "panel" | "supporting" | "media";
+  tier: "strategic" | "platinum" | "gold" | "panel" | "supporting" | "coffee" | "media";
   scale?: number;        // multiplier on the tier's default logo height
   keepColor?: boolean;   // skip the brightness(0) invert(1) white treatment
   lightBg?: boolean;     // render a white inner panel (for logos with dark text)
@@ -4266,13 +4266,6 @@ const EVENT_SPONSORS_2026: {
     scale: 1.45,
   },
   {
-    name: "Axidian",
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Axidian_white_logo.png",
-    url: "https://axidian.com/",
-    tier: "panel",
-    keepColor: true,
-  },
-  {
     name: "Fortinet",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Fortinet-logo-rgb-white-red.png",
     url: "https://www.fortinet.com/",
@@ -4307,6 +4300,26 @@ const EVENT_SPONSORS_2026: {
     tier: "media",
     keepColor: true,
   },
+  {
+    name: "Mining Zimbabwe",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/mining-zimbabwe-logo-3.png",
+    url: "https://miningzimbabwe.com/",
+    tier: "media",
+    scale: 1.45,
+  },
+  {
+    name: "The Coin Republic",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/the_coin_republic-removebg-preview.png",
+    url: "https://www.thecoinrepublic.com/",
+    tier: "media",
+  },
+  {
+    name: "Recorded Future",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Primary+Logo+-+Digital+(RGB)+-+Blue+200.png",
+    url: "https://www.recordedfuture.com/",
+    tier: "coffee",
+    keepColor: true,
+  },
 ];
 
 const TIER_LABEL: Record<typeof EVENT_SPONSORS_2026[number]["tier"], string> = {
@@ -4315,6 +4328,7 @@ const TIER_LABEL: Record<typeof EVENT_SPONSORS_2026[number]["tier"], string> = {
   gold: "Gold Sponsors",
   panel: "Panel Sponsor",
   supporting: "Supporting Sponsors",
+  coffee: "Coffee Sponsor",
   media: "Media Partners",
 };
 
@@ -4322,7 +4336,7 @@ function EventSponsorsSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const tiers: (keyof typeof TIER_LABEL)[] = ["gold", "panel", "strategic", "platinum", "supporting", "media"];
+  const tiers: (keyof typeof TIER_LABEL)[] = ["gold", "panel", "strategic", "platinum", "supporting", "coffee", "media"];
   const activeTiers = tiers.filter((t) => EVENT_SPONSORS_2026.some((s) => s.tier === t));
 
   if (activeTiers.length === 0) return null;
@@ -4365,8 +4379,9 @@ function EventSponsorsSection() {
             const isGold = tier === "gold";
             // Panel sits just below Gold — same card language, a step smaller.
             const isPanel = tier === "panel";
+            const isCoffee = tier === "coffee";
             const cols = isStrategic ? Math.min(sponsorsInTier.length, 3) : Math.min(sponsorsInTier.length, 4);
-            const cardMaxWidth = isStrategic ? 360 : isGold ? 320 : isPanel ? 280 : 240;
+            const cardMaxWidth = isStrategic ? 360 : isCoffee ? 360 : isGold ? 320 : isPanel ? 280 : 240;
 
             return (
               <motion.div
@@ -4423,6 +4438,8 @@ function EventSponsorsSection() {
                       ? "clamp(22px, 2.4vw, 32px) clamp(24px, 2.6vw, 36px)"
                       : isGold
                         ? "clamp(28px, 3.2vw, 40px) clamp(24px, 2.6vw, 36px)"
+                        : isCoffee
+                        ? "clamp(12px, 1.4vw, 18px) clamp(26px, 2.8vw, 40px)"
                         : isPanel
                           ? "clamp(24px, 2.8vw, 34px) clamp(21px, 2.3vw, 30px)"
                           : "clamp(20px, 2.4vw, 28px) clamp(18px, 2vw, 24px)";
@@ -4430,6 +4447,8 @@ function EventSponsorsSection() {
                       ? "clamp(64px, 7vw, 96px)"
                       : isGold
                         ? "clamp(56px, 6vw, 84px)"
+                        : isCoffee
+                        ? "clamp(64px, 6.8vw, 96px)"
                         : isPanel
                           ? "clamp(48px, 5.2vw, 72px)"
                           : "clamp(40px, 4.5vw, 60px)";
@@ -4565,7 +4584,7 @@ function EventSponsorsSection() {
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                                minHeight: isStrategic ? 130 : isGold ? 150 : 110,
+                                minHeight: isStrategic ? 130 : isGold ? 150 : isCoffee ? 104 : 110,
                                 overflow: "hidden",
                                 // Embossed inset — panel reads as a plate pressed into the bezel
                                 boxShadow: sponsor.lightBg
