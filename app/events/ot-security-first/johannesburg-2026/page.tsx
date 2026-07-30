@@ -767,6 +767,9 @@ function HeroSection() {
       >
         <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.55)", textTransform: "uppercase", letterSpacing: "2px" }}>Supporting Partners</span>
         <div style={{ display: "flex", alignItems: "center", gap: "clamp(18px, 2.4vw, 36px)" }}>
+          {/* City of Johannesburg — white treatment (dark monochrome crest) */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img loading="lazy" src={`${S3_LOGOS}/City_of_Johannesburg_logo.png`} alt="City of Johannesburg — Supporting Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(84px, 9.5vw, 120px)", width: "auto", objectFit: "contain", display: "block", filter: "brightness(0) invert(1)" }} />
           <a
             href="https://www.randwater.co.za/"
             target="_blank"
@@ -778,9 +781,6 @@ function HeroSection() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img loading="lazy" src={`${S3_LOGOS}/Rand_Water_logo-01.png`} alt="Rand Water — Supporting Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(64px, 7vw, 92px)", width: "auto", objectFit: "contain", display: "block" }} />
           </a>
-          {/* City of Johannesburg — white treatment (dark monochrome crest) */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img loading="lazy" src={`${S3_LOGOS}/City_of_Johannesburg_logo.png`} alt="City of Johannesburg — Supporting Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(84px, 9.5vw, 120px)", width: "auto", objectFit: "contain", display: "block", filter: "brightness(0) invert(1)" }} />
         </div>
       </motion.div>
 
