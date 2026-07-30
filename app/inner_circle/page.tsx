@@ -70,6 +70,13 @@ const ATTEND_P =
 
 const VOICES: { name: string; role: string; initials: string; photo?: string; linkedin?: string }[] = [
   {
+    name: "Ahmed Fahmy Mohamed",
+    role: "Head of Digital, Laverne Group",
+    initials: "AF",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed_Fahmy!.png",
+    linkedin: "https://www.linkedin.com/in/ahmed-fahmy/",
+  },
+  {
     name: "Mohammad Tannous",
     role: "Regional Director, MEA & Turkey, CleverTap",
     initials: "MT",
@@ -78,16 +85,10 @@ const VOICES: { name: string; role: string; initials: string; photo?: string; li
   },
   {
     name: "Suhaib Abu Taleb",
-    role: "Business Head, Saudi Arabia, Egypt, Jordan, CleverTap",
+    role: "Business Head, Saudi Arabia, CleverTap",
     initials: "SA",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Suhaib+Abu+Taleb.png",
     linkedin: "https://www.linkedin.com/in/suhaib-abu-taleb-09718b123/",
-  },
-  {
-    name: "Ahmed Fahmy Mohamed",
-    role: "Head of Digital",
-    initials: "AF",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed_Fahmy!.png",
   },
 ];
 
