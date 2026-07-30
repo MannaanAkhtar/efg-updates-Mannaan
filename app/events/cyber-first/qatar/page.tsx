@@ -206,6 +206,8 @@ const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; 
   { name: "Amer Bazerbachi",  title: "Partner", org: "KPMG Qatar", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Amer+Bazerbachi.jpg", linkedin: "https://www.linkedin.com/in/ACoAABxxLuoBuPSdHOJ-stiDXdxW4imy43icLpo/" },
   { name: "Feroz Khan",       title: "Head of IT Security", org: "TotalEnergies", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/feroz_khan.png", linkedin: "https://www.linkedin.com/in/fkindoha/" },
   { name: "Khireddine Garri", title: "Acting Chief Information Security Officer (CISO)", org: "Jasour", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khireddine+Garri.jpg", linkedin: "https://www.linkedin.com/in/khireddine-garri-294b4a91/" },
+  { name: "Aissa Touahria",   title: "Vice Chairman & CEO", org: "TITAN Energy Corp, Qatar", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aissa_Touahria.png", linkedin: "https://www.linkedin.com/in/aissa-touahria/" },
+  { name: "Hugo Lopes",       title: "Group Chief Technology Officer", org: "Amwaj Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hugo_Lopes.png", linkedin: "https://www.linkedin.com/in/hugolopes86/" },
 ];
 
 // ─── Agenda — 17 rows (from PDF) ────────────────────────────────────────────
