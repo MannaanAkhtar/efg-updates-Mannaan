@@ -873,6 +873,46 @@ function Hero() {
         />
       </motion.div>
 
+      {/* Accreditation Partner badge - top right (same column as Supporting Partner) */}
+      <motion.div
+        id="accreditation-partner"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 1.6, ease: EASE }}
+        className="otsf-jb-accred-badge"
+        style={{
+          position: "absolute",
+          top: "clamp(92px, 12vh, 124px)",
+          right: "clamp(20px, 4vw, 56px)",
+          zIndex: 4,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-end",
+          gap: 6,
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "var(--font-dm-sans)",
+            fontSize: 13,
+            fontWeight: 600,
+            color: "rgba(255,255,255,0.7)",
+            textTransform: "uppercase",
+            letterSpacing: "2.5px",
+          }}
+        >
+          Accreditation Partner
+        </span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          loading="lazy"
+          decoding="async"
+          src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/CPD+jubail.jpeg"
+          alt="CPD accreditation - Accreditation Partner of OT Security First Jubail 2026"
+          style={{ height: 74, width: "auto", borderRadius: 8, display: "block", border: "1px solid rgba(255,255,255,0.16)", boxShadow: "0 8px 22px rgba(0,0,0,0.4)" }}
+        />
+      </motion.div>
+
       {/* Supporting Partner badge - bottom right (where the initiative badge was) */}
       <motion.div
         id="supporting-partner"
@@ -1051,14 +1091,22 @@ function Hero() {
             bottom: 24px !important;
             gap: 4px !important;
           }
+          .otsf-jb-accred-badge {
+            top: 76px !important;
+            gap: 4px !important;
+          }
           .otsf-jb-efg-badge > span,
-          .otsf-jb-partner-badge > span {
+          .otsf-jb-partner-badge > span,
+          .otsf-jb-accred-badge > span {
             font-size: 10px !important;
             letter-spacing: 1.8px !important;
           }
           .otsf-jb-efg-badge > img,
           .otsf-jb-partner-badge img {
             height: 34px !important;
+          }
+          .otsf-jb-accred-badge img {
+            height: 52px !important;
           }
           /* Hero content - tighten top/bottom padding on mobile to remove dead space */
           .otsf-jb-hero-content {
@@ -4061,6 +4109,12 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
     tier: "Associate Sponsor",
     logos: [
       { name: "SIS", href: "https://sis-ics.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/SIS+logo-03.png" },
+    ],
+  },
+  {
+    tier: "Panel Sponsor",
+    logos: [
+      { name: "Axidian", href: "https://axidian.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Axidian_white_logo.png" },
     ],
   },
   {
