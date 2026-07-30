@@ -240,6 +240,13 @@ const SPEAKERS: Speaker[] = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sarah+Abdulkarim.png",
     linkedin: "https://www.linkedin.com/in/ACoAAAh6G-IBY9aQ3PN0YZSrZ-s39dR0k7MZzJg/",
   },
+  {
+    name: "Iyad Atieh",
+    title: "Chief Information Security Officer",
+    org: "Alghanim Industries",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Iyad+Atieh.jpg",
+    linkedin: "https://www.linkedin.com/in/iyad-atieh-a44183a/",
+  },
 ];
 
 // Kuwait 2025 photos used for the gallery + Key Topic panels (verified S3 URLs).
