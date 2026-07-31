@@ -329,18 +329,11 @@ const SPEAKERS = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Renaldo.jpg",
   },
   {
-    name: "Zanele Fikizolo",
-    title: "Senior Advisor – IT Governance, Risk and Compliance",
+    name: "Kholofelo Halefose",
+    title: "Chief Advisor – IT/OT Cybersecurity",
     org: "Eskom Holdings SOC Ltd",
-    linkedin: "https://www.linkedin.com/in/zanele-fikizolo-7b10413a/",
-    photo: `${S3}/boardroom/Zanele_Fikizolo.png`,
-  },
-  {
-    name: "Tendani Silima",
-    title: "Senior Advisor Cybersecurity",
-    org: "Eskom Holdings SOC Ltd",
-    linkedin: "https://www.linkedin.com/in/tendani-silima-b915aa73/",
-    photo: `${S3}/boardroom/Tendani_Silima.png`,
+    linkedin: "https://www.linkedin.com/in/kholofelo-halefose-b871bb294/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Kholofelo+Halefose+Professional+Headshot.jpg",
   },
   {
     name: "Xolani Nzimande",
@@ -770,16 +763,19 @@ function HeroSection() {
           {/* City of Johannesburg — white treatment (dark monochrome crest) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img loading="lazy" src={`${S3_LOGOS}/City_of_Johannesburg_logo.png`} alt="City of Johannesburg — Supporting Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(84px, 9.5vw, 120px)", width: "auto", objectFit: "contain", display: "block", filter: "brightness(0) invert(1)" }} />
+          {/* Rand Water — brand-compliant: reversed (white) signature on a solid
+              Pantone 286 blue plate (guideline 1.8, variation a). The white logo
+              may only sit on solid blue/turquoise/black, never on a photo. */}
           <a
             href="https://www.randwater.co.za/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Rand Water — Supporting Partner"
             className="otsf-hero-partner"
-            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)" }}
+            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", background: "#003DA5", padding: "clamp(12px, 1.5vw, 18px) clamp(16px, 2vw, 26px)", borderRadius: 12, border: "1px solid rgba(255,255,255,0.14)", boxShadow: "0 10px 30px rgba(0,0,0,0.28)", transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img loading="lazy" src={`${S3_LOGOS}/Rand_Water_logo-01.png`} alt="Rand Water — Supporting Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(64px, 7vw, 92px)", width: "auto", objectFit: "contain", display: "block" }} />
+            <img loading="lazy" src={`${S3_LOGOS}/Rand_Water_logo-01.png`} alt="Rand Water — Supporting Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(52px, 5.6vw, 76px)", width: "auto", objectFit: "contain", display: "block" }} />
           </a>
         </div>
       </motion.div>
