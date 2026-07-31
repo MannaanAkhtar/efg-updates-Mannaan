@@ -31,6 +31,12 @@ const ALLOWED_ORIGINS = [
 const NOTIFICATION_EMAIL =
   process.env.NOTIFICATION_EMAIL || "ateeq@eventsfirstgroup.com";
 
+// Verified sender domain (same as the boardroom route). Previously this form
+// sent from Resend's shared sandbox address (onboarding@resend.dev), which is
+// rate-limited and spam-filtered — so most enquiry notifications never arrived.
+const EMAIL_FROM =
+  process.env.RESEND_FROM_EMAIL || "Events First Group <noreply@eventsfirstgroup.com>";
+
 const MAX_PAYLOAD_SIZE = 10 * 1024; // 10KB
 
 // Free email providers, require work email for all forms
@@ -372,9 +378,10 @@ export async function POST(request: NextRequest) {
           metadata.utm_medium === "sales" && metadata.utm_source
             ? ` · via ${String(metadata.utm_source).replace(/[-_]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}`
             : "";
-        await resend.emails.send({
-          from: "EFG Forms <onboarding@resend.dev>",
+        const { error: emailError } = await resend.emails.send({
+          from: EMAIL_FROM,
           to: NOTIFICATION_EMAIL,
+          replyTo: email,
           subject: `New ${typeLabel} Inquiry, ${full_name} from ${company || "N/A"}${eventSuffix}${refSuffix}`,
           html: buildEmailHtml({
             type,
@@ -388,8 +395,14 @@ export async function POST(request: NextRequest) {
             event_name: event_name || undefined,
           }),
         });
+        // Resend returns API-level errors (unverified domain, invalid recipient,
+        // rate limit) in `error` rather than throwing — surface them so silent
+        // delivery failures are visible in the logs.
+        if (emailError) {
+          console.error("Resend notification error:", emailError);
+        }
       } catch (emailErr) {
-        // Log but don't fail the request
+        // Network/unexpected error — log but don't fail the request
         console.error("Email notification failed:", emailErr);
       }
     }
