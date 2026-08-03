@@ -60,6 +60,12 @@ const eventSeries = [
       { href: "/events/opex-first/saudi-2026", label: "Saudi Arabia" },
     ]
   },
+  {
+    href: "/events/powprocess",
+    label: "PowProcess",
+    color: "#1B4DFF",
+    editions: [],
+  },
 ];
 
 const NETWORKFIRST_COLOR = "#C9935A";
