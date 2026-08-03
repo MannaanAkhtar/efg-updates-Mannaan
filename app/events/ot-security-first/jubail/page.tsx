@@ -67,6 +67,13 @@ const SPEAKERS: Speaker[] = [
   { name: "Aamir Khalid Pirzada", title: "Chief Information Officer", org: "National Metal Manufacturing and Casting Company (Maadaniyah)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aamir+Khalid+Pirzada.jpg", linkedin: "https://www.linkedin.com/in/aamir-khalid-p-360a974/", flag: "https://flagcdn.com/w40/sa.png" },
 ];
 
+// ─── Advisors ─────────────────────────────────────────────────────────────────
+const ADVISORS: Speaker[] = [
+  { name: "Dr. Hussain Aldawood", title: "Director of Cybersecurity Consulting", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Hussain_Aldawood.png" },
+  { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png" },
+  { name: "Redha Alahmad", title: "Senior Manager, Cybersecurity (OT/ICS)", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Redha_Alahmad..png" },
+];
+
 // ─── Awards ─────────────────────────────────────────────────────────────────
 const AWARDS_DATA = [
   { title: "OT Security Program of the Year", desc: "For an organization that has implemented a mature, multi-site OT security program delivering measurable risk reduction." },
@@ -414,6 +421,7 @@ export default function OTSecurityJubail2026() {
       <ExecutivePerspective />
       <WhyKingdom />
       <SpeakersSection />
+      <AdvisorsSection />
       <SponsorsSection />
       <BePartOfTheMovement />
       <Evidence2026 />
@@ -4091,6 +4099,234 @@ function SpeakersSection() {
         }
         @media (max-width: 560px) {
           .otsf-jb-speakers-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── ADVISORS ────────────────────────────────────────────────────────────────
+function AdvisorsSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <section ref={ref} id="advisors" style={{ position: "relative", padding: "clamp(20px, 2.5vw, 36px) 0 clamp(64px, 7vw, 96px)", background: BG_BASE }}>
+      <BgDots opacity={0.05} />
+      <div style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+        <Eyebrow inView={inView} label="Advisory Board" />
+        <motion.h2
+          initial={{ opacity: 0, y: 18 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 800,
+            fontSize: "clamp(34px, 5vw, 64px)",
+            letterSpacing: "-2.2px",
+            lineHeight: 0.98,
+            color: "white",
+            margin: "0 0 18px",
+            maxWidth: 880,
+          }}
+        >
+          Programme{" "}
+          <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>advisors.</em>
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 14 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.18, ease: EASE }}
+          style={{
+            fontFamily: "var(--font-outfit)",
+            fontSize: "clamp(14px, 1.1vw, 16px)",
+            color: "rgba(255,255,255,0.55)",
+            lineHeight: 1.65,
+            maxWidth: 580,
+            margin: "0 0 48px",
+          }}
+        >
+          Independent cybersecurity leaders from EY guiding the technical agenda and content direction for the summit.
+        </motion.p>
+
+        <div
+          className="otsf-jb-advisors-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "clamp(14px, 1.5vw, 20px)",
+            maxWidth: 820,
+            margin: "0 auto",
+          }}
+        >
+          {ADVISORS.map((s, i) => (
+            <motion.div
+              key={`${s.name}-${i}`}
+              initial={{ opacity: 0, y: 22 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.75, delay: 0.25 + i * 0.09, ease: EASE }}
+              className="otsf-jb-speaker-card"
+              style={{
+                position: "relative",
+                borderRadius: 20,
+                background:
+                  "linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.012) 60%, rgba(211,75,154,0.03) 100%)",
+                border: "1px solid rgba(255,255,255,0.07)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), 0 22px 50px rgba(0,0,0,0.35)",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <span aria-hidden style={topHair} />
+
+              {/* Portrait area */}
+              <div
+                style={{
+                  position: "relative",
+                  aspectRatio: "4 / 5",
+                  background: `linear-gradient(160deg, rgba(211,75,154,0.18) 0%, rgba(0,201,255,0.08) 50%, rgba(7,12,32,0.92) 100%)`,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  overflow: "hidden",
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={s.photo || ""}
+                  alt={`${s.name}, ${s.title}${s.org ? ` at ${s.org}` : ""} - advisor to OT Security First Jubail 2026 industrial cybersecurity summit, Saudi Arabia`}
+                  loading="lazy"
+                  decoding="async"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: s.photoPos || "center top",
+                    transform: s.photoTransform || undefined,
+                  }}
+                />
+                {/* Advisor tag */}
+                <span
+                  style={{
+                    position: "absolute",
+                    top: 12,
+                    left: 12,
+                    zIndex: 2,
+                    padding: "5px 10px",
+                    borderRadius: 8,
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 9.5,
+                    fontWeight: 700,
+                    letterSpacing: "2px",
+                    textTransform: "uppercase",
+                    color: "white",
+                    background: "rgba(7,12,32,0.55)",
+                    backdropFilter: "blur(6px)",
+                    WebkitBackdropFilter: "blur(6px)",
+                    border: `1px solid ${C}55`,
+                  }}
+                >
+                  Advisor
+                </span>
+                {/* Bottom fade */}
+                <div
+                  aria-hidden
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(180deg, transparent 50%, rgba(7,12,32,0.85) 100%)",
+                    pointerEvents: "none",
+                  }}
+                />
+                {/* LinkedIn */}
+                {s.linkedin && (
+                  <a
+                    href={s.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${s.name} on LinkedIn`}
+                    className="otsf-jb-li"
+                    style={{
+                      position: "absolute",
+                      top: 12,
+                      right: 12,
+                      zIndex: 2,
+                      width: 32,
+                      height: 32,
+                      borderRadius: 9,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "rgba(7,12,32,0.55)",
+                      backdropFilter: "blur(6px)",
+                      WebkitBackdropFilter: "blur(6px)",
+                      border: "1px solid rgba(255,255,255,0.18)",
+                      color: "white",
+                    }}
+                  >
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                      <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3-.02-2.96-1.8-2.96-1.8 0-2.08 1.4-2.08 2.86V21H9z" />
+                    </svg>
+                  </a>
+                )}
+              </div>
+
+              {/* Card body */}
+              <div style={{ position: "relative", padding: "18px 18px 22px", display: "flex", flexDirection: "column", gap: 6, flex: 1 }}>
+                <h3
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 700,
+                    fontSize: "clamp(15px, 1.3vw, 17px)",
+                    letterSpacing: "-0.4px",
+                    color: "white",
+                    lineHeight: 1.2,
+                    margin: 0,
+                  }}
+                >
+                  {s.name}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 12,
+                    fontWeight: 500,
+                    color: "rgba(255,255,255,0.6)",
+                    lineHeight: 1.45,
+                    margin: 0,
+                  }}
+                >
+                  {s.title}
+                </p>
+                {s.org && (
+                  <p
+                    style={{
+                      fontFamily: "var(--font-outfit)",
+                      fontSize: 11,
+                      fontWeight: 600,
+                      letterSpacing: "1.5px",
+                      textTransform: "uppercase",
+                      color: "rgba(255,255,255,0.35)",
+                      margin: "4px 0 0",
+                    }}
+                  >
+                    {s.org}
+                  </p>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <style jsx global>{`
+        @media (max-width: 900px) {
+          .otsf-jb-advisors-grid { grid-template-columns: repeat(2, 1fr) !important; max-width: 640px !important; }
+        }
+        @media (max-width: 560px) {
+          .otsf-jb-advisors-grid { grid-template-columns: 1fr !important; max-width: 360px !important; }
         }
       `}</style>
     </section>
