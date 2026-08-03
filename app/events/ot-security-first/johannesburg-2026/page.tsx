@@ -413,6 +413,20 @@ const SPEAKERS = [
     linkedin: "https://www.linkedin.com/in/zakiyyacassimjee/",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Zakiyya+Cassimjee.jpg",
   },
+  {
+    name: "Charlton Kupera",
+    title: "IT Security Manager",
+    org: "SANPC",
+    linkedin: "https://www.linkedin.com/in/charlton-t-k-97698363/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Charlton_Kupera.png",
+  },
+  {
+    name: "Dylan Adriaans",
+    title: "Head of the Office of CIO",
+    org: "Astron Energy",
+    linkedin: "https://www.linkedin.com/in/dylan-adriaans/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dylan+Adriaans.png",
+  },
 ].filter((s) => !("hidden" in s) || !s.hidden);
 
 // Strategic Focus Areas from brochure
@@ -3425,7 +3439,7 @@ function SpeakersSection() {
   return (
     <section ref={ref} id="speakers" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative" }}>
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 40% 60% at 80% 50%, ${C}08, transparent 60%)`, pointerEvents: "none" }} />
-      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
+      <div style={{ maxWidth: 1460, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)", position: "relative" }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: EASE }} style={{ marginBottom: 48 }}>
           <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: CYAN, textTransform: "uppercase", letterSpacing: "4px", display: "block", marginBottom: 16 }}>Leadership</span>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", lineHeight: 1.05, letterSpacing: "-2px", color: "white", margin: "0 0 16px" }}>
@@ -3436,7 +3450,7 @@ function SpeakersSection() {
           </p>
         </motion.div>
 
-        <div ref={trackRef} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }} className="otsf-speakers-grid">
+        <div ref={trackRef} style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: 14, alignItems: "start" }} className="otsf-speakers-grid">
           {SPEAKERS.map((speaker, i) => {
             const accent = i % 2 === 0 ? C_BRIGHT : CYAN;
             const accentRgb = i % 2 === 0 ? "232,107,184" : "0,201,255";
@@ -6905,6 +6919,18 @@ export default function OTSecurityFirstJohannesburg2026() {
           }
         }
 
+        @media (max-width: 1400px) {
+          .otsf-speakers-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+          }
+        }
+
+        @media (max-width: 1140px) {
+          .otsf-speakers-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+          }
+        }
+
         @media (max-width: 1024px) {
           .otsf-stats-grid {
             grid-template-columns: repeat(3, 1fr) !important;
@@ -6946,7 +6972,7 @@ export default function OTSecurityFirstJohannesburg2026() {
             position: static !important;
           }
           .otsf-speakers-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
           }
         }
 
