@@ -65,6 +65,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Sultan Alshammari", title: "Cyber Security Director", org: "National Infrastructure Fund (Infra)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Alshammari.png", linkedin: "https://www.linkedin.com/in/sultan-alshammari-a2378994/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Wael A. Rahman", title: "Lead ICS/OT Security Engineer", org: "Petroleum Development Oman", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/WAEL+A.+RAHMAN.png", linkedin: "https://www.linkedin.com/in/wael-a-rahman/", flag: "https://flagcdn.com/w40/om.png" },
   { name: "Aamir Khalid Pirzada", title: "Chief Information Officer", org: "National Metal Manufacturing and Casting Company (Maadaniyah)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aamir+Khalid+Pirzada.jpg", linkedin: "https://www.linkedin.com/in/aamir-khalid-p-360a974/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png" },
 ];
 
 // ─── Advisors ─────────────────────────────────────────────────────────────────
@@ -4110,8 +4111,10 @@ function AdvisorsSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
-    <section ref={ref} id="advisors" style={{ position: "relative", padding: "clamp(20px, 2.5vw, 36px) 0 clamp(64px, 7vw, 96px)", background: BG_BASE }}>
+    <section ref={ref} id="advisors" style={{ position: "relative", padding: "clamp(28px, 3vw, 48px) 0 clamp(64px, 7vw, 96px)", background: `linear-gradient(180deg, ${BG_DEEP} 0%, #14110a 48%, ${BG_DEEP} 100%)`, borderTop: "1px solid rgba(232,197,106,0.22)" }}>
       <BgDots opacity={0.05} />
+      {/* Gold glow — elevates the advisory panel and sets it apart from the speakers grid above */}
+      <div aria-hidden style={{ position: "absolute", top: "18%", left: "50%", transform: "translateX(-50%)", width: "min(920px, 94%)", height: 480, background: "radial-gradient(ellipse at center, rgba(232,197,106,0.15), transparent 70%)", pointerEvents: "none" }} />
       <div style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
         <Eyebrow inView={inView} label="Advisory Board" />
         <motion.h2
@@ -4130,7 +4133,7 @@ function AdvisorsSection() {
           }}
         >
           Programme{" "}
-          <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>advisors.</em>
+          <em style={{ fontStyle: "italic", fontWeight: 400, color: "#E8C56A" }}>advisors.</em>
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 14 }}
@@ -4153,8 +4156,8 @@ function AdvisorsSection() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "clamp(14px, 1.5vw, 20px)",
-            maxWidth: 820,
+            gap: "clamp(14px, 1.6vw, 22px)",
+            maxWidth: 860,
             margin: "0 auto",
           }}
         >
@@ -4163,28 +4166,29 @@ function AdvisorsSection() {
               key={`${s.name}-${i}`}
               initial={{ opacity: 0, y: 22 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.75, delay: 0.25 + i * 0.09, ease: EASE }}
-              className="otsf-jb-speaker-card"
+              transition={{ duration: 0.7, delay: 0.25 + i * 0.09, ease: EASE }}
+              className="otsf-jb-advisor-card"
               style={{
                 position: "relative",
                 borderRadius: 20,
                 background:
-                  "linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.012) 60%, rgba(211,75,154,0.03) 100%)",
-                border: "1px solid rgba(255,255,255,0.07)",
+                  "linear-gradient(160deg, rgba(232,197,106,0.09) 0%, rgba(255,255,255,0.012) 60%, rgba(232,197,106,0.04) 100%)",
+                border: "1px solid rgba(232,197,106,0.28)",
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), 0 22px 50px rgba(0,0,0,0.35)",
                 overflow: "hidden",
                 display: "flex",
                 flexDirection: "column",
               }}
             >
-              <span aria-hidden style={topHair} />
+              {/* Gold top hairline */}
+              <span aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, zIndex: 3, background: "linear-gradient(90deg, transparent, rgba(232,197,106,0.85), transparent)" }} />
 
-              {/* Portrait area */}
+              {/* Portrait area — full-bleed, gold-led gradient */}
               <div
                 style={{
                   position: "relative",
                   aspectRatio: "4 / 5",
-                  background: `linear-gradient(160deg, rgba(211,75,154,0.18) 0%, rgba(0,201,255,0.08) 50%, rgba(7,12,32,0.92) 100%)`,
+                  background: "linear-gradient(160deg, rgba(232,197,106,0.24) 0%, rgba(211,75,154,0.05) 50%, rgba(7,12,32,0.92) 100%)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -4207,28 +4211,42 @@ function AdvisorsSection() {
                     transform: s.photoTransform || undefined,
                   }}
                 />
-                {/* Advisor tag */}
+                {/* Gold sheen overlay */}
+                <div
+                  aria-hidden
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(155deg, rgba(232,197,106,0.22) 0%, rgba(232,197,106,0.04) 34%, transparent 55%)",
+                    mixBlendMode: "overlay",
+                    pointerEvents: "none",
+                  }}
+                />
+                {/* Advisor tag — gold badge */}
                 <span
                   style={{
                     position: "absolute",
                     top: 12,
                     left: 12,
                     zIndex: 2,
-                    padding: "5px 10px",
+                    padding: "5px 11px",
                     borderRadius: 8,
                     fontFamily: "var(--font-outfit)",
                     fontSize: 9.5,
-                    fontWeight: 700,
+                    fontWeight: 800,
                     letterSpacing: "2px",
                     textTransform: "uppercase",
-                    color: "white",
-                    background: "rgba(7,12,32,0.55)",
-                    backdropFilter: "blur(6px)",
-                    WebkitBackdropFilter: "blur(6px)",
-                    border: `1px solid ${C}55`,
+                    color: "#1a1206",
+                    background: "linear-gradient(180deg, #F2D793 0%, #D8A94E 100%)",
+                    border: "1px solid rgba(255,240,200,0.5)",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.5)",
                   }}
                 >
                   Advisor
+                </span>
+                {/* Index numeral */}
+                <span aria-hidden style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 30, letterSpacing: "-1px", lineHeight: 1, color: "rgba(232,197,106,0.9)", textShadow: "0 2px 12px rgba(0,0,0,0.5)" }}>
+                  {String(i + 1).padStart(2, "0")}
                 </span>
                 {/* Bottom fade */}
                 <div
@@ -4240,17 +4258,17 @@ function AdvisorsSection() {
                     pointerEvents: "none",
                   }}
                 />
-                {/* LinkedIn */}
+                {/* LinkedIn (if present) */}
                 {s.linkedin && (
                   <a
                     href={s.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${s.name} on LinkedIn`}
-                    className="otsf-jb-li"
+                    className="otsf-jb-adv-li"
                     style={{
                       position: "absolute",
-                      top: 12,
+                      bottom: 12,
                       right: 12,
                       zIndex: 2,
                       width: 32,
@@ -4274,46 +4292,18 @@ function AdvisorsSection() {
               </div>
 
               {/* Card body */}
-              <div style={{ position: "relative", padding: "18px 18px 22px", display: "flex", flexDirection: "column", gap: 6, flex: 1 }}>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 700,
-                    fontSize: "clamp(15px, 1.3vw, 17px)",
-                    letterSpacing: "-0.4px",
-                    color: "white",
-                    lineHeight: 1.2,
-                    margin: 0,
-                  }}
-                >
+              <div style={{ position: "relative", padding: "16px 18px 20px", display: "flex", flexDirection: "column", gap: 6, flex: 1 }}>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(15px, 1.3vw, 17px)", letterSpacing: "-0.4px", color: "white", lineHeight: 1.2, margin: 0 }}>
                   {s.name}
                 </h3>
-                <p
-                  style={{
-                    fontFamily: "var(--font-outfit)",
-                    fontSize: 12,
-                    fontWeight: 500,
-                    color: "rgba(255,255,255,0.6)",
-                    lineHeight: 1.45,
-                    margin: 0,
-                  }}
-                >
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.6)", lineHeight: 1.45, margin: 0 }}>
                   {s.title}
                 </p>
                 {s.org && (
-                  <p
-                    style={{
-                      fontFamily: "var(--font-outfit)",
-                      fontSize: 11,
-                      fontWeight: 600,
-                      letterSpacing: "1.5px",
-                      textTransform: "uppercase",
-                      color: "rgba(255,255,255,0.35)",
-                      margin: "4px 0 0",
-                    }}
-                  >
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: 6, marginTop: 4, fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.4)" }}>
+                    <span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: "#E8C56A", boxShadow: "0 0 8px rgba(232,197,106,0.9)" }} />
                     {s.org}
-                  </p>
+                  </span>
                 )}
               </div>
             </motion.div>
@@ -4322,11 +4312,21 @@ function AdvisorsSection() {
       </div>
 
       <style jsx global>{`
-        @media (max-width: 900px) {
-          .otsf-jb-advisors-grid { grid-template-columns: repeat(2, 1fr) !important; max-width: 640px !important; }
+        .otsf-jb-advisor-card {
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s;
         }
-        @media (max-width: 560px) {
-          .otsf-jb-advisors-grid { grid-template-columns: 1fr !important; max-width: 360px !important; }
+        .otsf-jb-advisor-card:hover {
+          transform: translateY(-4px);
+          border-color: rgba(232, 197, 106, 0.55) !important;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 26px 54px rgba(0,0,0,0.45), 0 0 0 1px rgba(232,197,106,0.35) !important;
+        }
+        .otsf-jb-adv-li { transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+        .otsf-jb-adv-li:hover { background: rgba(232,197,106,0.9) !important; border-color: #E8C56A !important; transform: translateY(-1px); }
+        @media (max-width: 720px) {
+          .otsf-jb-advisors-grid { grid-template-columns: repeat(2, 1fr) !important; max-width: 520px !important; }
+        }
+        @media (max-width: 460px) {
+          .otsf-jb-advisors-grid { grid-template-columns: 1fr !important; max-width: 300px !important; }
         }
       `}</style>
     </section>
