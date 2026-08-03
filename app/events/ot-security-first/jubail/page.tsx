@@ -421,8 +421,8 @@ export default function OTSecurityJubail2026() {
       <StatsStrip />
       <ExecutivePerspective />
       <WhyKingdom />
-      <SpeakersSection />
       <AdvisorsSection />
+      <SpeakersSection />
       <SponsorsSection />
       <BePartOfTheMovement />
       <Evidence2026 />
