@@ -20,6 +20,7 @@ const inter = Inter({
 
 const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/powprocess`;
+const FAVICON = "/powprocess-favicon.png";
 // Social share preview (1200×630). Uses the hero image cropped to the OG spec.
 // Swap for a branded PowProcess OG card when one is available.
 const OG_IMAGE =
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: "PowProcess | Powder & Bulk Solids Arabia, Dammam",
   description:
-    "The Gulf's first dedicated summit and exhibition for powder, particle and bulk-solids processing. One day, five sectors, Dammam, Saudi Arabia.",
+    "The Middle East's only dedicated summit and exhibition for powder, particle and bulk-solids processing. One day, five sectors, Dammam, Saudi Arabia.",
   keywords: [
     "powder processing Saudi Arabia",
     "bulk solids handling",
@@ -42,10 +43,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: PAGE_URL,
   },
+  icons: {
+    icon: [{ url: FAVICON, type: "image/png" }],
+    shortcut: FAVICON,
+    apple: FAVICON,
+  },
   openGraph: {
     title: "PowProcess — Powder & Bulk Solids Arabia, Dammam",
     description:
-      "Processing the Kingdom's Materials. The Gulf's first cross-sector summit and exhibition for powder and bulk-solids processing technology.",
+      "Processing the Kingdom's Materials. The Middle East's only cross-sector summit and exhibition for powder and bulk-solids processing technology.",
     url: PAGE_URL,
     siteName: "Events First Group",
     locale: "en_US",
@@ -64,7 +70,7 @@ export const metadata: Metadata = {
     site: "@eventsfirstgrp",
     title: "PowProcess — Powder & Bulk Solids Arabia, Dammam",
     description:
-      "The Gulf's first cross-sector summit and exhibition for powder and bulk-solids processing technology.",
+      "The Middle East's only cross-sector summit and exhibition for powder and bulk-solids processing technology.",
     images: [OG_IMAGE],
   },
 };

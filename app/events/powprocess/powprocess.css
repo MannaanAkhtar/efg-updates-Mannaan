@@ -51,6 +51,7 @@
         }
         /* Highlighter swipe on the accent word in big headings — maximalist magazine mark */
         .pp-h2 em,
+        .pp-why-h2 em,
         .pp-hero-tagline em {
           color: var(--ink);
           background-image: linear-gradient(120deg, var(--hl), var(--hl));
@@ -106,19 +107,26 @@
         .pp-nav.is-scrolled {
           box-shadow: 0 6px 24px rgba(10, 22, 40, 0.08);
         }
+        /* Logo badge — the wordmark cropped out of its 3:2 gray plate. */
         .pp-nav-brand {
-          font-family: var(--font-montserrat), sans-serif;
-          font-weight: 800;
-          font-size: 17px;
-          letter-spacing: -0.02em;
-          color: var(--ink);
+          display: inline-flex;
+          align-items: center;
+          justify-content: flex-start;
           background: none;
           border: 0;
           cursor: pointer;
           padding: 0;
+          width: clamp(158px, 15vw, 192px);
+          height: 50px;
+          overflow: hidden;
+          border-radius: 8px;
         }
-        .pp-nav-brand span {
-          color: var(--accent);
+        .pp-nav-brand img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          display: block;
         }
         .pp-nav-links {
           display: flex;
@@ -145,44 +153,86 @@
           align-items: center;
           gap: 14px;
         }
+        /* Secondary — refined warm-glass pill with an inset shine + sliding arrow. */
         .pp-nav-efg {
+          position: relative;
           display: inline-flex;
           align-items: center;
           gap: 7px;
           font-family: var(--font-inter), sans-serif;
           font-size: 13px;
-          font-weight: 500;
+          font-weight: 600;
           color: #e8651a;
           text-decoration: none;
-          padding: 8px 16px;
+          padding: 9px 17px;
           border-radius: 999px;
-          border: 1px solid rgba(232, 101, 26, 0.3);
-          opacity: 0.85;
-          transition: opacity 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+          border: 1px solid rgba(232, 101, 26, 0.42);
+          background-image:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.65), rgba(255, 247, 242, 0.28)),
+            linear-gradient(180deg, rgba(232, 101, 26, 0.08), rgba(232, 101, 26, 0.02));
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), 0 1px 2px rgba(232, 101, 26, 0.12);
+          transition: transform 0.2s ease, border-color 0.25s ease, box-shadow 0.25s ease,
+            background 0.25s ease;
         }
         .pp-nav-efg img {
           display: block;
         }
-        .pp-nav-efg:hover {
-          opacity: 1;
-          border-color: #e8651a;
-          box-shadow: 0 0 18px rgba(232, 101, 26, 0.15);
+        .pp-nav-efg > span {
+          transition: transform 0.2s ease;
         }
+        .pp-nav-efg:hover {
+          transform: translateY(-1px);
+          border-color: #e8651a;
+          background-image:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 244, 236, 0.45)),
+            linear-gradient(180deg, rgba(232, 101, 26, 0.14), rgba(232, 101, 26, 0.05));
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 7px 18px rgba(232, 101, 26, 0.22);
+        }
+        .pp-nav-efg:hover > span {
+          transform: translateX(-3px);
+        }
+        .pp-nav-efg:active {
+          transform: translateY(0);
+          box-shadow: inset 0 2px 4px rgba(232, 101, 26, 0.2);
+        }
+        /* Primary — glossy convex blue button (gloss baked into the background so
+           the label stays crisp above it). */
         .pp-nav-cta {
+          position: relative;
           font-family: var(--font-inter), sans-serif;
           font-size: 14px;
           font-weight: 600;
+          letter-spacing: 0.01em;
           color: #fff;
-          background: var(--accent);
-          border: 0;
+          border: 1px solid rgba(18, 59, 214, 0.9);
           border-radius: 999px;
-          padding: 9px 20px;
+          padding: 10px 22px;
           cursor: pointer;
-          transition: transform 0.25s ease, box-shadow 0.25s ease;
+          background-image:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0) 46%),
+            linear-gradient(180deg, #3a67ff 0%, #1b4dff 52%, #123bd6 100%);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.5),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.22),
+            0 6px 16px rgba(27, 77, 255, 0.4),
+            0 1px 2px rgba(10, 22, 40, 0.2);
+          text-shadow: 0 1px 1px rgba(10, 22, 40, 0.35);
+          transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.2s ease;
         }
         .pp-nav-cta:hover {
           transform: translateY(-1px);
-          box-shadow: 0 8px 22px rgba(27, 77, 255, 0.28);
+          filter: brightness(1.05);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.55),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.22),
+            0 10px 24px rgba(27, 77, 255, 0.5),
+            0 1px 2px rgba(10, 22, 40, 0.2);
+        }
+        .pp-nav-cta:active {
+          transform: translateY(1px);
+          box-shadow:
+            inset 0 2px 5px rgba(10, 22, 40, 0.4),
+            0 2px 6px rgba(27, 77, 255, 0.3);
         }
         .pp-nav-burger {
           display: none;
@@ -411,6 +461,58 @@
         }
         .pp-quote em {
           color: #6b8cff;
+        }
+
+        /* ── The Event — in-section headline stats block ─────────────────────── */
+        .pp-estats {
+          padding: clamp(24px, 2.6vw, 34px);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: center;
+        }
+        .pp-estats-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: clamp(16px, 1.8vw, 24px) clamp(14px, 1.6vw, 22px);
+          margin-top: clamp(14px, 1.6vw, 18px);
+        }
+        .pp-estat {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 5px;
+        }
+        /* "1 Day, cross-sector" runs full-width as a footer line under a divider. */
+        .pp-estat:last-child {
+          grid-column: 1 / -1;
+          padding-top: clamp(14px, 1.6vw, 18px);
+          border-top: 1px solid var(--hairline);
+        }
+        .pp-estat-v {
+          font-family: var(--font-montserrat), sans-serif;
+          font-weight: 800;
+          font-variant-numeric: tabular-nums;
+          letter-spacing: -0.03em;
+          line-height: 1;
+          color: var(--ink);
+          font-size: clamp(1.7rem, 2.6vw, 2.4rem);
+        }
+        .pp-estat-suffix {
+          color: var(--accent);
+          font-size: 0.58em;
+          vertical-align: 0.3em;
+          font-weight: 800;
+          margin-left: 1px;
+        }
+        .pp-estat-label {
+          font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+          font-size: clamp(0.66rem, 0.82vw, 0.74rem);
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--ink-2);
+          font-weight: 500;
         }
 
         /* ── Social-proof wall — real EFG delegates ──────────────────────────── */
@@ -872,11 +974,13 @@
         .pp-hero-title .pp-hero-line {
           font-family: var(--font-montserrat), sans-serif;
           font-weight: 900;
-          font-size: clamp(2.3rem, 9.4vw, 8.4rem);
-          line-height: 0.9;
-          letter-spacing: -0.045em;
+          font-size: clamp(1.6rem, 4.2vw, 3.5rem);
+          line-height: 1.04;
+          letter-spacing: -0.02em;
           text-transform: uppercase;
           color: var(--ink);
+          max-width: 24ch;
+          margin: 0 auto;
         }
         .pp-hero-linewrap {
           display: block;
@@ -906,12 +1010,13 @@
         .pp-hero-tagline {
           font-family: var(--font-montserrat), sans-serif;
           font-weight: 800;
-          font-size: clamp(1.8rem, 3.4vw, 3.3rem);
-          line-height: 0.98;
-          letter-spacing: -0.025em;
+          font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+          line-height: 1.08;
+          letter-spacing: -0.02em;
           text-transform: uppercase;
           color: var(--ink);
           margin: 0;
+          max-width: 22ch;
         }
         .pp-hero-lede {
           margin: clamp(1rem, 1.6vw, 1.4rem) 0 0;
@@ -1132,6 +1237,93 @@
           font-size: clamp(0.78rem, 1vw, 0.9rem);
         }
 
+        /* ── Why Saudi Arabia — market-figure cards (3 + 2 bento) ────────────── */
+        .pp-ksa-head {
+          margin-bottom: clamp(2rem, 4vw, 3rem);
+        }
+        .pp-ksa-grid {
+          display: grid;
+          grid-template-columns: repeat(6, 1fr);
+          gap: clamp(10px, 1.2vw, 16px);
+        }
+        /* Row 1: three cards (span 2 each). Row 2: two wide cards (span 3 each). */
+        .pp-ksa-card {
+          grid-column: span 2;
+        }
+        .pp-ksa-card:nth-child(4),
+        .pp-ksa-card:nth-child(5) {
+          grid-column: span 3;
+        }
+        .pp-ksa-card {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 12px;
+          padding: clamp(24px, 2.6vw, 38px);
+        }
+        .pp-ksa-sector {
+          font-family: var(--font-inter), sans-serif;
+          font-size: clamp(0.72rem, 0.9vw, 0.84rem);
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: var(--ink-2);
+        }
+        .pp-ksa-fig {
+          display: flex;
+          align-items: baseline;
+          font-family: var(--font-montserrat), sans-serif;
+          font-weight: 800;
+          font-variant-numeric: tabular-nums;
+          letter-spacing: -0.03em;
+          line-height: 0.9;
+          color: var(--ink);
+          font-size: clamp(2.8rem, 5vw, 4.2rem);
+        }
+        .pp-ksa-prefix {
+          font-size: 0.46em;
+          font-weight: 800;
+          color: var(--accent);
+          align-self: flex-start;
+          margin: 0.18em 3px 0 0;
+        }
+        .pp-ksa-suffix {
+          font-size: 0.42em;
+          font-weight: 800;
+          color: var(--accent);
+          align-self: flex-start;
+          margin: 0.2em 0 0 4px;
+        }
+        .pp-ksa-bar {
+          width: 100%;
+          height: 3px;
+          border-radius: 2px;
+          background: var(--accent);
+        }
+        .pp-ksa-note {
+          margin: 0;
+          color: var(--ink-2);
+          font-size: clamp(0.9rem, 1.05vw, 1rem);
+          line-height: 1.5;
+          max-width: 46ch;
+        }
+        @media (max-width: 1024px) {
+          .pp-ksa-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .pp-ksa-card,
+          .pp-ksa-card:nth-child(4),
+          .pp-ksa-card:nth-child(5) {
+            grid-column: auto;
+          }
+        }
+        @media (max-width: 560px) {
+          .pp-ksa-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+
         /* ── Sectors — pinned horizontal ─────────────────────────────────────── */
         .pp-sectors {
           overflow: hidden;
@@ -1304,8 +1496,14 @@
         /* ── Focus / audience 2×2 ────────────────────────────────────────────── */
         .pp-focus {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           gap: clamp(10px, 1.2vw, 16px);
+        }
+        /* 3 across on desktop, 2 on tablet; the ≤900 rule drops it to 1. */
+        @media (max-width: 1024px) {
+          .pp-focus {
+            grid-template-columns: repeat(2, 1fr);
+          }
         }
         .pp-focus-tile {
           padding: clamp(26px, 3vw, 44px);
@@ -1337,6 +1535,34 @@
           display: grid;
           grid-template-columns: repeat(2, 1fr);
           gap: clamp(12px, 1.4vw, 18px);
+          /* Cards take their natural height — the 12-profile group must not stretch
+             the 5-profile group beside it into a tall empty box. */
+          align-items: start;
+        }
+        /* Two independent columns so each card packs to the top of its column
+           (card 03 rises under 01 instead of waiting for a shared grid row). */
+        .pp-aud-col {
+          display: flex;
+          flex-direction: column;
+          gap: clamp(12px, 1.4vw, 18px);
+        }
+        /* On one column, dissolve the wrappers and re-thread the cards 01→04. */
+        @media (max-width: 900px) {
+          .pp-aud-col {
+            display: contents;
+          }
+          .pp-aud-col:first-child > .pp-aud-cell:nth-child(1) {
+            order: 1;
+          }
+          .pp-aud-col:last-child > .pp-aud-cell:nth-child(1) {
+            order: 2;
+          }
+          .pp-aud-col:first-child > .pp-aud-cell:nth-child(2) {
+            order: 3;
+          }
+          .pp-aud-col:last-child > .pp-aud-cell:nth-child(2) {
+            order: 4;
+          }
         }
         .pp-aud-cell {
           position: relative;
@@ -1404,6 +1630,426 @@
         }
         .pp-aud-text {
           color: var(--ink-2);
+        }
+        /* Attendee-profile chips under each group. */
+        .pp-aud-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 7px;
+          margin-top: clamp(14px, 1.6vw, 18px);
+        }
+        .pp-aud-tag {
+          font-family: var(--font-inter), sans-serif;
+          font-size: 11.5px;
+          font-weight: 500;
+          letter-spacing: 0.01em;
+          color: var(--ink-2);
+          background: var(--surface-tint);
+          border: 1px solid var(--hairline);
+          border-radius: 999px;
+          padding: 4px 11px;
+          white-space: nowrap;
+        }
+
+        /* ── Why This Matters — modern oil-dark band, brass accents ───────────── */
+        .pp-why {
+          position: relative;
+          isolation: isolate;
+          overflow: hidden;
+          padding: clamp(2.6rem, 5vh, 4rem) clamp(20px, 5vw, 48px);
+          background:
+            radial-gradient(760px 520px at 6% -22%, rgba(210, 160, 82, 0.13), transparent 60%),
+            radial-gradient(720px 620px at 110% 122%, rgba(150, 92, 34, 0.17), transparent 62%),
+            linear-gradient(160deg, #0c0a07 0%, #14100a 50%, #0a0806 100%);
+          color: #efe2c6;
+        }
+        /* Warm brass seam along the top edge. */
+        .pp-why::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(227, 185, 104, 0.55), transparent);
+          pointer-events: none;
+        }
+        /* A whisper of khatam-star lattice, confined to the top-right as a hint. */
+        .pp-why-pattern {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          pointer-events: none;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23c6964a' stroke-width='1'%3E%3Crect x='16' y='16' width='32' height='32'/%3E%3Crect x='16' y='16' width='32' height='32' transform='rotate(45 32 32)'/%3E%3C/g%3E%3C/svg%3E");
+          background-size: 54px 54px;
+          opacity: 0.1;
+          -webkit-mask-image: radial-gradient(58% 92% at 100% 0%, #000, transparent 68%);
+          mask-image: radial-gradient(58% 92% at 100% 0%, #000, transparent 68%);
+        }
+        .pp-why-inner {
+          position: relative;
+          z-index: 1;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+        /* Riyadh skyline — atmospheric fill for the empty bottom-left; sits behind
+           the text and melts into the oil-dark band on its top and right edges. */
+        .pp-why-skyline {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          z-index: 0;
+          width: min(48%, 560px);
+          margin: 0;
+          pointer-events: none;
+          user-select: none;
+        }
+        .pp-why-skyline img {
+          display: block;
+          width: 100%;
+          height: auto;
+          opacity: 0.55;
+          filter: saturate(0.72) brightness(0.9) sepia(0.14);
+          -webkit-mask-image: linear-gradient(to top, #000 18%, transparent 92%),
+            linear-gradient(to right, #000 60%, transparent 100%);
+          -webkit-mask-composite: source-in;
+          mask-image: linear-gradient(to top, #000 18%, transparent 92%),
+            linear-gradient(to right, #000 60%, transparent 100%);
+          mask-composite: intersect;
+        }
+        /* Text sits above the skyline. */
+        .pp-why-grid {
+          position: relative;
+          z-index: 1;
+        }
+        /* On one column the skyline would sit under the text — drop it. */
+        @media (max-width: 900px) {
+          .pp-why-skyline {
+            display: none;
+          }
+        }
+        /* Kicker reads on the dark band; numeral chip goes brass. */
+        .pp-why .pp-marker {
+          border-color: rgba(227, 185, 104, 0.34);
+        }
+        .pp-why .pp-marker-label {
+          color: #efe2c6;
+        }
+        .pp-why .pp-marker-box {
+          background: linear-gradient(180deg, #e7bf72, #c6964a);
+          color: #2a1c08;
+        }
+        .pp-why-grid {
+          display: grid;
+          grid-template-columns: 1.02fr 1fr;
+          gap: clamp(24px, 4vw, 64px);
+          align-items: start;
+          margin-top: clamp(0.4rem, 1vw, 0.9rem);
+        }
+        .pp-why-h2 {
+          font-family: var(--font-montserrat), sans-serif;
+          font-weight: 800;
+          font-size: clamp(1.8rem, 3.3vw, 2.9rem);
+          line-height: 1.04;
+          letter-spacing: -0.02em;
+          text-transform: uppercase;
+          color: #f6ecd4;
+          margin: 0;
+        }
+        /* Accent word — clean brass underline (modern, not a highlighter swipe). */
+        .pp-why .pp-why-h2 em {
+          color: #e7bf72;
+          background-image: linear-gradient(#e7bf72, #e7bf72);
+          background-repeat: no-repeat;
+          background-size: 100% 2px;
+          background-position: 0 100%;
+          -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+          padding: 0;
+          margin: 0;
+        }
+        .pp-why-body {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          gap: clamp(0.9rem, 1.5vw, 1.3rem);
+          padding-left: clamp(16px, 1.8vw, 24px);
+        }
+        /* Brass rule leading the body column. */
+        .pp-why-body::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 4px;
+          bottom: 4px;
+          width: 2px;
+          background: linear-gradient(180deg, rgba(227, 185, 104, 0.7), rgba(227, 185, 104, 0.05));
+        }
+        .pp-why-body p {
+          margin: 0;
+          color: rgba(239, 226, 198, 0.8);
+          font-size: clamp(0.98rem, 1.2vw, 1.12rem);
+          line-height: 1.62;
+        }
+        .pp-why-close {
+          font-weight: 500;
+          color: #f6ecd4 !important;
+        }
+        @media (max-width: 900px) {
+          .pp-why-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+          }
+        }
+
+        /* ── Who Will Sponsor & Exhibit — value-chain category cards ──────────── */
+        .pp-spon-head {
+          margin-bottom: clamp(2rem, 4vw, 3rem);
+        }
+        .pp-spon-grid {
+          display: grid;
+          grid-template-columns: repeat(6, 1fr);
+          gap: clamp(10px, 1.2vw, 16px);
+        }
+        /* Row 1: three cards (span 2). Row 2: two wide cards (span 3). */
+        /* Material sample / spec sheet: warm concrete, faint blueprint grid + grain. */
+        .pp-spon-card {
+          position: relative;
+          grid-column: span 2;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+          padding: clamp(26px, 2.4vw, 34px);
+          background-color: #e8e5df;
+          background-image:
+            linear-gradient(rgba(10, 22, 40, 0.055) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(10, 22, 40, 0.055) 1px, transparent 1px),
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E");
+          background-size: 22px 22px, 22px 22px, 140px 140px;
+        }
+        .pp-spon-card:nth-child(4),
+        .pp-spon-card:nth-child(5) {
+          grid-column: span 3;
+        }
+        /* Engineering registration marks — top-right + bottom-left corners. */
+        .pp-spon-card::before,
+        .pp-spon-card::after {
+          content: "";
+          position: absolute;
+          width: 13px;
+          height: 13px;
+          border: 2px solid var(--ink);
+          opacity: 0.5;
+          pointer-events: none;
+        }
+        .pp-spon-card::before {
+          top: 11px;
+          right: 11px;
+          border-left: 0;
+          border-bottom: 0;
+        }
+        .pp-spon-card::after {
+          bottom: 11px;
+          left: 11px;
+          border-right: 0;
+          border-top: 0;
+        }
+        /* Index → monospace spec stamp. */
+        .pp-spon-ix {
+          font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+          font-variant-numeric: tabular-nums;
+          font-size: 11px;
+          letter-spacing: 0.14em;
+          font-weight: 600;
+          color: var(--ink-2);
+          background: rgba(10, 22, 40, 0.05);
+          border: 1px solid var(--card-border);
+          border-radius: 3px;
+          padding: 4px 9px;
+        }
+        /* Title → data-sheet header with a full-width rule beneath. */
+        .pp-spon-title {
+          width: 100%;
+          font-family: var(--font-montserrat), sans-serif;
+          font-weight: 700;
+          font-size: clamp(1.05rem, 1.5vw, 1.32rem);
+          line-height: 1.12;
+          letter-spacing: -0.015em;
+          text-transform: uppercase;
+          color: var(--ink);
+          margin: 0;
+          padding-bottom: 12px;
+          border-bottom: 1px solid rgba(10, 22, 40, 0.18);
+        }
+        .pp-spon-list {
+          list-style: none;
+          margin: 2px 0 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 9px;
+          width: 100%;
+        }
+        .pp-spon-list li {
+          position: relative;
+          padding-left: 20px;
+          color: var(--ink-2);
+          font-size: clamp(0.9rem, 1.05vw, 1rem);
+          line-height: 1.4;
+        }
+        /* Steel rivet bullet. */
+        .pp-spon-list li::before {
+          content: "";
+          position: absolute;
+          left: 2px;
+          top: 0.6em;
+          width: 7px;
+          height: 7px;
+          border-radius: 1px;
+          background: var(--ink);
+        }
+        /* Engage band — the decision-makers exhibitors meet. */
+        /* Engage band — heavy skeuomorphic control-panel plaque with corner rivets. */
+        .pp-spon-engage {
+          position: relative;
+          margin-top: clamp(1.4rem, 2.4vw, 2rem);
+          padding: clamp(28px, 3vw, 42px) clamp(22px, 3vw, 40px);
+          text-align: center;
+          border-radius: 18px;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          background-color: #0c1526;
+          background-image:
+            radial-gradient(circle at 22px 22px, rgba(255, 255, 255, 0.32) 0 1.4px, #2c3c5c 1.4px 3.6px, rgba(0, 0, 0, 0.65) 3.6px 5.2px, transparent 5.4px),
+            radial-gradient(circle at calc(100% - 22px) 22px, rgba(255, 255, 255, 0.32) 0 1.4px, #2c3c5c 1.4px 3.6px, rgba(0, 0, 0, 0.65) 3.6px 5.2px, transparent 5.4px),
+            radial-gradient(circle at 22px calc(100% - 22px), rgba(255, 255, 255, 0.32) 0 1.4px, #2c3c5c 1.4px 3.6px, rgba(0, 0, 0, 0.65) 3.6px 5.2px, transparent 5.4px),
+            radial-gradient(circle at calc(100% - 22px) calc(100% - 22px), rgba(255, 255, 255, 0.32) 0 1.4px, #2c3c5c 1.4px 3.6px, rgba(0, 0, 0, 0.65) 3.6px 5.2px, transparent 5.4px),
+            linear-gradient(180deg, #12203a 0%, #0b1424 55%, #080f1c 100%);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.16),
+            inset 0 3px 12px rgba(0, 0, 0, 0.5),
+            inset 0 -2px 0 rgba(0, 0, 0, 0.6),
+            0 22px 46px rgba(6, 15, 30, 0.5),
+            0 2px 0 rgba(255, 255, 255, 0.05);
+          overflow: hidden;
+        }
+        /* Top gloss sheen across the plaque. */
+        .pp-spon-engage::before {
+          content: "";
+          position: absolute;
+          left: 1px;
+          right: 1px;
+          top: 1px;
+          height: 42%;
+          border-radius: 17px 17px 0 0;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0));
+          pointer-events: none;
+        }
+        /* Centred engraved label flanked by hairlines. */
+        .pp-spon-engage-label {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          gap: 14px;
+          font-family: var(--font-inter), sans-serif;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: #8aa8ff;
+          text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+          margin-bottom: clamp(16px, 2vw, 22px);
+        }
+        .pp-spon-engage-label::before,
+        .pp-spon-engage-label::after {
+          content: "";
+          width: clamp(20px, 4vw, 40px);
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(138, 168, 255, 0.6), transparent);
+        }
+        .pp-spon-engage-tags {
+          position: relative;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 10px;
+        }
+        /* Convex pressed-metal keycap chips. */
+        .pp-spon-tag {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          font-family: var(--font-inter), sans-serif;
+          font-size: 13px;
+          font-weight: 600;
+          letter-spacing: 0.01em;
+          color: #eaf1ff;
+          padding: 11px 20px;
+          border-radius: 999px;
+          white-space: nowrap;
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          background: linear-gradient(180deg, #26365a 0%, #17213a 52%, #101a2e 100%);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.3),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.55),
+            0 4px 10px rgba(0, 0, 0, 0.45),
+            0 1px 2px rgba(0, 0, 0, 0.4);
+          text-shadow: 0 1px 1px rgba(0, 0, 0, 0.55);
+          transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
+        }
+        /* Glossy top-half reflection. */
+        .pp-spon-tag::before {
+          content: "";
+          position: absolute;
+          left: 2px;
+          right: 2px;
+          top: 1px;
+          height: 46%;
+          border-radius: 999px;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0));
+          pointer-events: none;
+        }
+        .pp-spon-tag:hover {
+          filter: brightness(1.08);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.34),
+            inset 0 -2px 5px rgba(0, 0, 0, 0.5),
+            0 6px 14px rgba(27, 77, 255, 0.28),
+            0 1px 2px rgba(0, 0, 0, 0.4);
+        }
+        /* Press-down on tap. */
+        .pp-spon-tag:active {
+          transform: translateY(2px);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.18),
+            inset 0 2px 5px rgba(0, 0, 0, 0.6),
+            0 2px 5px rgba(0, 0, 0, 0.4);
+        }
+        .pp-spon-close {
+          margin: clamp(1.6rem, 2.6vw, 2.2rem) auto 0;
+          max-width: 68ch;
+          text-align: center;
+          font-family: var(--font-montserrat), sans-serif;
+          font-weight: 700;
+          font-size: clamp(1.1rem, 1.7vw, 1.5rem);
+          line-height: 1.28;
+          letter-spacing: -0.01em;
+          color: var(--ink);
+        }
+        @media (max-width: 1024px) {
+          .pp-spon-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .pp-spon-card,
+          .pp-spon-card:nth-child(4),
+          .pp-spon-card:nth-child(5) {
+            grid-column: auto;
+          }
+        }
+        @media (max-width: 560px) {
+          .pp-spon-grid {
+            grid-template-columns: 1fr;
+          }
         }
 
         /* The White Space — fragmented cards resolving into one payoff card. */
@@ -2065,16 +2711,18 @@
           gap: 8px;
         }
         .pp-footer-brand {
-          font-family: var(--font-montserrat), sans-serif;
-          font-weight: 900;
-          font-size: clamp(1.5rem, 2.6vw, 2.1rem);
-          letter-spacing: -0.03em;
-          text-transform: uppercase;
-          color: #fff;
-          line-height: 1;
+          width: clamp(180px, 24vw, 220px);
+          height: clamp(50px, 6.5vw, 60px);
+          overflow: hidden;
+          border-radius: 10px;
+          line-height: 0;
         }
-        .pp-footer-brand span {
-          color: #6b8cff;
+        .pp-footer-brand img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          display: block;
         }
         .pp-footer-tag {
           font-size: 14px;
