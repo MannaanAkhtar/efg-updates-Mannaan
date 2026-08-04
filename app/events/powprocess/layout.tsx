@@ -28,13 +28,13 @@ const OG_IMAGE =
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-  title: "PowProcess | Powder & Bulk Solids Arabia, Dammam",
+  title: "PowProcess | Powder & Bulk Solids Arabia, Riyadh",
   description:
-    "The Middle East's only dedicated summit and exhibition for powder, particle and bulk-solids processing. One day, five sectors, Dammam, Saudi Arabia.",
+    "The Middle East's only dedicated summit and exhibition for powder, particle and bulk-solids processing. One day, five sectors, Riyadh, Saudi Arabia.",
   keywords: [
     "powder processing Saudi Arabia",
     "bulk solids handling",
-    "PowProcess Dammam",
+    "PowProcess Riyadh",
     "powder and bulk solids exhibition Gulf",
     "process technology summit Saudi Arabia",
     "mixing milling drying granulation conveying",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     apple: FAVICON,
   },
   openGraph: {
-    title: "PowProcess — Powder & Bulk Solids Arabia, Dammam",
+    title: "PowProcess — Powder & Bulk Solids Arabia, Riyadh",
     description:
       "Processing the Kingdom's Materials. The Middle East's only cross-sector summit and exhibition for powder and bulk-solids processing technology.",
     url: PAGE_URL,
@@ -61,14 +61,14 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "PowProcess — Powder & Bulk Solids Arabia, Dammam",
+        alt: "PowProcess — Powder & Bulk Solids Arabia, Riyadh",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
-    title: "PowProcess — Powder & Bulk Solids Arabia, Dammam",
+    title: "PowProcess — Powder & Bulk Solids Arabia, Riyadh",
     description:
       "The Middle East's only cross-sector summit and exhibition for powder and bulk-solids processing technology.",
     images: [OG_IMAGE],

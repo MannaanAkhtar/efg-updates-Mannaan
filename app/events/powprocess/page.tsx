@@ -21,7 +21,7 @@ function scheduleScrollRefresh() {
 }
 
 /* ────────────────────────────────────────────────────────────────────────────
-   PowProcess — Powder & Bulk Solids Arabia, Dammam
+   PowProcess — Powder & Bulk Solids Arabia, Riyadh
    Bespoke, self-contained event page. Light theme, electric blue, Apple-style
    restraint with industrial weight. All content sourced from the team brief.
    Hero video is a placeholder (HERO_VIDEO) — drop the URL in when available.
@@ -31,6 +31,11 @@ const CONTACT = "partnerships@eventsfirstgroup.com";
 
 // Brand logo (glowing wordmark on a gray plate) — shown as a cropped logo badge.
 const POWPROCESS_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/powprocess/Powprocess+logo.png";
+// Hero card wordmark — source logop.png had heavy transparent padding, cropped tight
+// so it fills its box (visible logo large, card height unchanged).
+const POWPROCESS_LOGO_HERO = "/powprocess-logo.png";
+// Nav bar — compact P monogram (faviconlogo.png), padding cropped off.
+const POWPROCESS_LOGO_NAV = "/powprocess-navlogo.png";
 // Tight square crop of the monogram (padding removed) so it fills the tab.
 const POWPROCESS_FAVICON = "/powprocess-favicon.png";
 
@@ -47,24 +52,9 @@ const IMG = (id: string, w = 1200) =>
 const OVERVIEW =
   "PowProcess aligns with the Kingdom's industrial transformation agenda and supports the objectives of key government initiatives including Vision 2030, the National Industrial Strategy, Made in Saudi and the Future Factories programme. As Saudi Arabia accelerates manufacturing localisation, supply chain resilience, industrial diversification and the adoption of advanced technologies, PowProcess provides a dedicated platform focused on the critical processing capabilities that enable this growth. The event brings together manufacturers, government stakeholders, technology providers, EPC companies and investors to explore the innovations shaping the future of powder and bulk solids processing, including mixing, milling, drying, granulation, conveying, dosing, filtration, automation and process optimisation. Through its cross-sector approach, PowProcess addresses the processing needs of key industries including FMCG and food & beverage, pharmaceuticals and nutraceuticals, petrochemicals and polymers, cement and construction materials, and minerals and new energy materials. By connecting industrial decision-makers with global technology leaders, PowProcess supports the Kingdom's ambition to build a globally competitive manufacturing ecosystem, strengthen local capabilities and accelerate the adoption of advanced production technologies.";
 
-const FORMAT_ITEMS = [
-  "Opening keynote",
-  "4 panels",
-  "2 fireside chats",
-  "6 technology spotlights",
-  "Exhibition tour",
-  "Hosted networking lunch",
-];
-
-// Atmospheric industrial texture behind the Dammam location band. Heavily
-// darkened — evokes the Eastern-Province industrial region without claiming to
-// be a specific skyline. Swap for a real Dammam photo when one is available.
 // Framed accent images that flank The Event heading (fill the hero→section gap).
 const FLANK_L = IMG("1581092160562-40aa08e78837", 700);
 const FLANK_R = IMG("1581094794329-c8112a89af12", 700);
-// Real Dammam / Eastern Province location photo (Al Khobar Corniche).
-const DAMMAM_PHOTO =
-  "https://efg-final.s3.eu-north-1.amazonaws.com/powprocess/al-khobar-feb-20-2024-khobar-water-tower-al-khobar-corniche-dammam-eastern-province-saudi-arabia.jpg";
 // Riyadh skyline (King Fahd Road) — atmospheric backdrop for the Why This Matters band.
 const RIYADH_SKYLINE =
   "https://efg-final.s3.eu-north-1.amazonaws.com/powprocess/riyadh-city-skyline-drone-shoot-drone-shot-king-fahd-road-riyadh-capital-city-saudi-arabia.jpg";
@@ -81,13 +71,14 @@ const EVENT_STATS: { value: number; suffix?: string; label: string; plain?: bool
 
 // Why Saudi Arabia — the five target-sector markets, with figures verbatim from
 // the brief. `decimals` drives the count-up formatting (6.2, 2.5 keep one place).
-const KSA_MARKETS: { sector: string; value: number; decimals?: number; prefix: string; suffix: string; note: string }[] = [
+const KSA_MARKETS: { sector: string; value: number; decimals?: number; prefix: string; suffix: string; note: string; img: string }[] = [
   {
     sector: "Food & Beverage",
     value: 30,
     prefix: "$",
     suffix: "B+",
     note: "market, with ~60% growth in feed-product manufacturing during H1 2025.",
+    img: "https://images.unsplash.com/photo-1470119693884-47d3a1d1f180?auto=format&fit=crop&w=1200&q=80",
   },
   {
     sector: "Pharma & Nutraceuticals",
@@ -95,6 +86,7 @@ const KSA_MARKETS: { sector: string; value: number; decimals?: number; prefix: s
     prefix: "$",
     suffix: "B+",
     note: "pharmaceutical market: the largest in the GCC, driven by localisation and domestic manufacturing.",
+    img: "https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&w=1200&q=80",
   },
   {
     sector: "Petrochemicals & Polymers",
@@ -102,6 +94,7 @@ const KSA_MARKETS: { sector: string; value: number; decimals?: number; prefix: s
     prefix: "$",
     suffix: "B+",
     note: "industry, positioning Saudi Arabia among the world's leading petrochemical producers.",
+    img: "https://efg-final.s3.eu-north-1.amazonaws.com/powprocess/scientist-mixing-chemicals-close-up.jpg",
   },
   {
     sector: "Cement & Construction",
@@ -110,6 +103,7 @@ const KSA_MARKETS: { sector: string; value: number; decimals?: number; prefix: s
     prefix: "$",
     suffix: "B",
     note: "market forecast by 2034, supported by major infrastructure and giga-projects.",
+    img: "https://efg-final.s3.eu-north-1.amazonaws.com/powprocess/pile-cement-sitting-top-pile-dirt-versatile-image-construction-projects-building-materials.jpg",
   },
   {
     sector: "Minerals & New-Energy Materials",
@@ -118,38 +112,6 @@ const KSA_MARKETS: { sector: string; value: number; decimals?: number; prefix: s
     prefix: "$",
     suffix: "T+",
     note: "estimated mineral wealth, with investment in mining, critical minerals and battery materials under Vision 2030.",
-  },
-];
-
-const SECTORS: { n: string; name: string; body: string; img: string }[] = [
-  {
-    n: "01",
-    name: "Cement & construction materials",
-    body: "Saudi cement market forecast toward ~$6.2bn by 2034.",
-    img: "https://efg-final.s3.eu-north-1.amazonaws.com/powprocess/pile-cement-sitting-top-pile-dirt-versatile-image-construction-projects-building-materials.jpg",
-  },
-  {
-    n: "02",
-    name: "Pharma & nutraceuticals",
-    body: "Health-security-driven local manufacturing: the highest-value powder-processing niche.",
-    img: "https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    n: "03",
-    name: "Food & beverage",
-    body: "SFDA reported ~60% growth in feed-product manufacturing in H1 2025 alone.",
-    img: "https://images.unsplash.com/photo-1470119693884-47d3a1d1f180?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    n: "04",
-    name: "Petrochemicals & polymers",
-    body: "SABIC and Aramco expanding downstream into specialty polymers and compounds.",
-    img: "https://efg-final.s3.eu-north-1.amazonaws.com/powprocess/scientist-mixing-chemicals-close-up.jpg",
-  },
-  {
-    n: "05",
-    name: "Minerals & new-energy materials",
-    body: "Vision 2030 mining (Ma'aden) and battery-materials ambitions.",
     img: "https://efg-final.s3.eu-north-1.amazonaws.com/powprocess/selective-focus-shot-person-wearing-gloves-holding-shredded-rubber-tires.jpg",
   },
 ];
@@ -173,7 +135,7 @@ const FOCUS: { n: string; title: string; body: string; img: string }[] = [
     n: "01",
     title: "Localisation & industrial growth",
     body: "Accelerating local manufacturing, import substitution and processing capacity under Vision 2030.",
-    img: IMG("1581092160562-40aa08e78837"),
+    img: "https://efg-final.s3.eu-north-1.amazonaws.com/powprocess/Localisation+%26+industrial+growth.png",
   },
   {
     n: "02",
@@ -185,7 +147,7 @@ const FOCUS: { n: string; title: string; body: string; img: string }[] = [
     n: "03",
     title: "Powder handling, material flow & plant safety",
     body: "Conveying, storage, mixing, dust management, explosion prevention, process optimisation and operational efficiency.",
-    img: IMG("1518709268805-4e9042af9f23"),
+    img: IMG("1513828583688-c52646db42da"),
   },
   {
     n: "04",
@@ -205,14 +167,6 @@ const FOCUS: { n: string; title: string; body: string; img: string }[] = [
     body: "Manufacturing standards, quality assurance, certification, localisation initiatives, investment opportunities and the future of Saudi Arabia's processing industry.",
     img: IMG("1532187863486-abf9dbad1b69"),
   },
-];
-
-const DAMMAM: { k: string; v: string }[] = [
-  { k: "Heavy-processing buyers", v: "Jubail is the world's largest industrial complex: Ma'aden, Sadara, SATORP all on the doorstep." },
-  { k: "Industrial investment concentration", v: "Eastern Province holds ~46% of the Kingdom's industrial investment (~SAR 447bn) vs. Riyadh's ~SAR 182bn." },
-  { k: "Exhibition ROI", v: "The plant floor is here, where OEMs actually close deals, not just generate leads." },
-  { k: "GCC cross-border pull", v: "45 minutes from UAE, ~1 hour from Bahrain / Qatar / Kuwait." },
-  { k: "Cleaner calendar", v: "Riyadh is crowded with Saudi Industrial Expo, LEAP, Big 5. Dammam gives us a clean lane." },
 ];
 
 const AUDIENCE: { n: string; title: string; body: string; profiles: string[] }[] = [
@@ -360,8 +314,6 @@ const PROOF = [
 const NAV_LINKS = [
   { id: "event", label: "The Event" },
   { id: "why-ksa", label: "Why KSA" },
-  { id: "sectors", label: "Sectors" },
-  { id: "dammam", label: "Why Dammam" },
   { id: "alignment", label: "Alignment" },
   { id: "audience", label: "Who Attends" },
   { id: "networking", label: "Networking" },
@@ -445,9 +397,9 @@ export default function PowProcessPage() {
       company: company.trim(),
       job_title: jobTitle.trim(),
       phone: `${countryCode.code} ${phone.trim()}`,
-      event_name: "PowProcess — Powder & Bulk Solids Arabia, Dammam",
+      event_name: "PowProcess — Powder & Bulk Solids Arabia, Riyadh",
       metadata: {
-        "Event Page": "PowProcess — Powder & Bulk Solids Arabia, Dammam",
+        "Event Page": "PowProcess — Powder & Bulk Solids Arabia, Riyadh",
         "Interest": interest,
         "Page Section": "Register",
       },
@@ -521,14 +473,21 @@ export default function PowProcessPage() {
       // ── All scroll-driven motion lives behind the reduced-motion gate ──────────
       mm.add("(prefers-reduced-motion: no-preference)", () => {
 
-        // Hero line reveal.
-        gsap.set(".pp-hero-line", { yPercent: 115 });
-        gsap.to(".pp-hero-line", {
-          yPercent: 0,
-          duration: 1.1,
+        // Hero logo reveal.
+        gsap.from(".pp-hero-logo", {
+          opacity: 0,
+          y: 24,
+          scale: 0.96,
+          duration: 1.05,
           ease: "power4.out",
-          stagger: 0.08,
           delay: 0.15,
+        });
+        gsap.from(".pp-hero-subline", {
+          opacity: 0,
+          y: 14,
+          duration: 0.9,
+          ease: "power3.out",
+          delay: 0.5,
         });
 
         // Every section heading rises in as it enters — the through-line that makes
@@ -802,36 +761,6 @@ export default function PowProcessPage() {
           scrollTrigger: { trigger: ".pp-navy-chips", start: "top 90%", once: true },
         });
 
-        // Why Dammam — the locator column stacks in, the photo slides from the
-        // right, and the reason ledger deals in row by row.
-        const dammam = el.querySelector<HTMLElement>(".pp-dammam");
-        if (dammam) {
-          gsap.from(dammam.querySelectorAll<HTMLElement>(".pp-dammam-locator > *"), {
-            opacity: 0,
-            y: 28,
-            duration: 0.7,
-            ease: "power3.out",
-            stagger: 0.08,
-            scrollTrigger: { trigger: dammam, start: "top 72%", once: true },
-          });
-          gsap.from(".pp-dammam-photo", {
-            opacity: 0,
-            xPercent: 8,
-            scale: 0.97,
-            duration: 0.9,
-            ease: "power3.out",
-            scrollTrigger: { trigger: dammam, start: "top 72%", once: true },
-          });
-          gsap.from(".pp-dammam-row", {
-            opacity: 0,
-            y: 30,
-            duration: 0.6,
-            ease: "power3.out",
-            stagger: 0.07,
-            scrollTrigger: { trigger: ".pp-dammam-ledger", start: "top 86%", once: true },
-          });
-        }
-
         // Why This Matters — the statement rises, then the supporting paragraphs
         // deal in one after another.
         const why = el.querySelector<HTMLElement>(".pp-why");
@@ -895,38 +824,6 @@ export default function PowProcessPage() {
         return () => {};
       });
 
-      // ── Pinned horizontal sectors — desktop + motion only ─────────────────────
-      mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
-        const track = el.querySelector<HTMLElement>(".pp-sectors-track");
-        const panels = gsap.utils.toArray<HTMLElement>(".pp-sector-panel");
-        if (!track || panels.length < 2) return;
-        // Distance the track must travel so the last panel ends flush right.
-        const distance = () => track.scrollWidth - track.parentElement!.clientWidth;
-        const tween = gsap.to(track, {
-          x: () => -distance() + "px",
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".pp-sectors",
-            pin: true,
-            // No snap — snapping fights Lenis and causes the jerky feel. Lenis
-            // already smooths the scroll; a tight scrub keeps the track glued to
-            // it (a higher value floats behind and reads as "laggy").
-            scrub: 0.4,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            // Must refresh BEFORE the triggers below it: this pin injects a large
-            // scroll spacer, and any trigger created earlier (e.g. Networking) would
-            // otherwise measure its start without that spacer and fire far too early.
-            refreshPriority: 1,
-            end: () => "+=" + distance(),
-          },
-        });
-        return () => {
-          tween.scrollTrigger?.kill();
-          tween.kill();
-        };
-      });
-
       return () => mm.revert();
     },
     { scope: root }
@@ -938,7 +835,7 @@ export default function PowProcessPage() {
       <header className={`pp-nav${scrolled ? " is-scrolled" : ""}`}>
         <button className="pp-nav-brand" onClick={() => smoothTo("top")} aria-label="PowProcess, back to top">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={POWPROCESS_LOGO} alt="PowProcess" decoding="async" />
+          <img src={POWPROCESS_LOGO_NAV} alt="PowProcess" decoding="async" />
         </button>
         <nav className="pp-nav-links" aria-label="Primary">
           {NAV_LINKS.map((l) => (
@@ -984,23 +881,24 @@ export default function PowProcessPage() {
       {/* ─── 1. HERO ─────────────────────────────────────────────────────────── */}
       <section className="pp-hero" id="event">
         <div className="pp-tile pp-hero-title">
-          <span className="pp-hero-linewrap">
-            <span className="pp-hero-line">The Middle East&rsquo;s Only Dedicated Powder &amp; Bulk Processing Summit</span>
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="pp-hero-logo" src={POWPROCESS_LOGO_HERO} alt="PowProcess" decoding="async" />
+          <p className="pp-hero-subline">The Middle East&rsquo;s Only Dedicated Powder &amp; Bulk Processing Summit</p>
         </div>
 
         <div className="pp-hero-grid">
           <div className="pp-tile pp-hero-copy">
             <div className="pp-hero-tags">
               <span className="pp-pill pp-pill-solid">1st Edition</span>
-              <span className="pp-pill">Dammam · KSA</span>
+              <span className="pp-pill">Riyadh · KSA</span>
+              <span className="pp-pill">17 Nov 2026</span>
               <span className="pp-pill pp-pill-accent">Cross-sector</span>
             </div>
             <h1 className="pp-hero-tagline">
               Powder &amp; Bulk Solids Arabia: Processing the Kingdom&rsquo;s <em>Materials</em>
             </h1>
             <p className="pp-hero-lede">
-              Powder &amp; Bulk Solids Arabia. One day, five sectors, in Dammam, at the heart of Saudi Arabia&rsquo;s
+              Powder &amp; Bulk Solids Arabia. One day, five sectors, in Riyadh, at the heart of Saudi Arabia&rsquo;s
               processing economy.
             </p>
             <div className="pp-hero-cta">
@@ -1026,11 +924,11 @@ export default function PowProcessPage() {
             <div className="pp-hero-meta">
               <div className="pp-tile pp-meta">
                 <span className="pp-meta-k">When</span>
-                <span className="pp-meta-v">One Day · 09:00 – 16:00</span>
+                <span className="pp-meta-v">17 Nov 2026 · 09:00 – 16:00</span>
               </div>
               <div className="pp-tile pp-meta">
                 <span className="pp-meta-k">Where</span>
-                <span className="pp-meta-v">Dammam, Eastern Province</span>
+                <span className="pp-meta-v">Riyadh, Saudi Arabia</span>
               </div>
             </div>
           </div>
@@ -1062,15 +960,7 @@ export default function PowProcessPage() {
             <p className="pp-overview-text">{OVERVIEW}</p>
           </div>
           <div className="pp-about-side">
-            <div className="pp-tile pp-format pp-anim">
-              <span className="pp-eyebrow">One-Day Format · 09:00 – 16:00</span>
-              <ul className="pp-format-list">
-                {FORMAT_ITEMS.map((f) => (
-                  <li key={f}>{f}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="pp-tile pp-estats pp-anim">
+            <div className="pp-tile pp-format pp-format-stats pp-anim">
               <span className="pp-eyebrow">The Event in Numbers</span>
               <div className="pp-estats-grid">
                 {EVENT_STATS.map((s, i) => (
@@ -1110,6 +1000,9 @@ export default function PowProcessPage() {
         <div className="pp-ksa-grid pp-stagger" data-anim="market">
           {KSA_MARKETS.map((m) => (
             <article key={m.sector} className="pp-tile pp-ksa-card pp-anim">
+              <div className="pp-ksa-media">
+                <Stock src={m.img} alt={m.sector} />
+              </div>
               <span className="pp-ksa-sector">{m.sector}</span>
               <div className="pp-ksa-fig">
                 <span className="pp-ksa-prefix">{m.prefix}</span>
@@ -1125,29 +1018,7 @@ export default function PowProcessPage() {
         </div>
       </section>
 
-      {/* ─── 3. FIVE SECTORS — pinned horizontal ─────────────────────────────── */}
-      <section className="pp-sectors" id="sectors">
-        <h2 className="pp-sr-only">Five Sectors, One Floor</h2>
-        <div className="pp-sectors-head">
-          <Marker n="03" label="Five Sectors, One Floor" />
-        </div>
-        <div className="pp-sectors-track">
-          {SECTORS.map((sct) => (
-            <article key={sct.n} className="pp-sector-panel">
-              <div className="pp-sector-media">
-                <Stock src={sct.img} alt={sct.name} />
-              </div>
-              <div className="pp-sector-copy">
-                <span className="pp-sector-n">{sct.n}</span>
-                <h3 className="pp-sector-name">{sct.name}</h3>
-                <p className="pp-sector-body">{sct.body}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* ─── 5. TECHNOLOGY ON SHOW — marquee ─────────────────────────────────── */}
+      {/* ─── 3. TECHNOLOGY ON SHOW — marquee ─────────────────────────────────── */}
       <section className="pp-marquee-sec" aria-label="Technology on show">
         <div className="pp-marquee-head">
           <span className="pp-marquee-box">TECH</span>
@@ -1185,7 +1056,7 @@ export default function PowProcessPage() {
       {/* ─── 6. FOCUS AREAS ──────────────────────────────────────────────────── */}
       <section className="pp-section">
         <h2 className="pp-sr-only">Focus Areas</h2>
-        <Marker n="04" label="Focus Areas" />
+        <Marker n="03" label="Focus Areas" />
         <div className="pp-focus pp-stagger" data-anim="focus">
           {FOCUS.map((f) => (
             <div key={f.n} className="pp-tile pp-focus-tile pp-focus-img-tile pp-anim">
@@ -1202,62 +1073,11 @@ export default function PowProcessPage() {
         </div>
       </section>
 
-      {/* ─── 7. WHY DAMMAM — full-bleed location band ────────────────────────── */}
-      <section className="pp-dammam" id="dammam">
-        <div className="pp-dammam-glow" aria-hidden />
-        <div className="pp-dammam-grid" aria-hidden />
-        <div className="pp-dammam-inner">
-          <Marker n="05" label="Why Dammam" />
-          <div className="pp-dammam-head">
-            <div className="pp-dammam-locator">
-              <span className="pp-dammam-eyebrow">The Location</span>
-              <h2 className="pp-dammam-title">DAMMAM</h2>
-              <p className="pp-dammam-sub">Eastern Province · Kingdom of Saudi Arabia</p>
-              <div className="pp-dammam-coords">
-                <span>26.43° N</span>
-                <i />
-                <span>50.10° E</span>
-              </div>
-              <div className="pp-dammam-pins">
-                <span className="on">Dammam</span>
-                <span>Jubail · 40 km</span>
-                <span>UAE · 45 min</span>
-              </div>
-              <p className="pp-dammam-lead">
-                We chose <em>depth of buyer</em> over breadth of profile: the plant floor is here.
-              </p>
-            </div>
-            <figure className="pp-dammam-photo">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={DAMMAM_PHOTO}
-                alt="Al Khobar Corniche and Water Tower in the Dammam metropolitan area, Eastern Province, Saudi Arabia"
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption>Al Khobar Corniche · Dammam Metro, Eastern Province</figcaption>
-            </figure>
-          </div>
-          <div className="pp-dammam-ledger">
-            {DAMMAM.map((row, i) => (
-              <div
-                key={i}
-                className={`pp-dammam-row${i === DAMMAM.length - 1 ? " pp-dammam-row-wide" : ""}`}
-              >
-                <span className="pp-dammam-idx">{String(i + 1).padStart(2, "0")}</span>
-                <span className="pp-dammam-k">{row.k}</span>
-                <span className="pp-dammam-v">{row.v}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── 6. NATIONAL ALIGNMENT — full-bleed navy ─────────────────────────── */}
+      {/* ─── 5. NATIONAL ALIGNMENT — full-bleed navy ─────────────────────────── */}
       <section className="pp-navy" id="alignment">
         <div className="pp-glow" aria-hidden />
         <div className="pp-navy-inner">
-          <Marker n="06" label="National Alignment" />
+          <Marker n="04" label="National Alignment" />
           <h2 className="pp-h2 pp-navy-h2">
             Aligned with <em>Vision 2030</em>
           </h2>
@@ -1279,7 +1099,7 @@ export default function PowProcessPage() {
       {/* ─── 9. WHO WE'LL MEET ───────────────────────────────────────────────── */}
       <section className="pp-section" id="audience">
         <h2 className="pp-sr-only">Who We&rsquo;ll Meet</h2>
-        <Marker n="07" label="Who We'll Meet" />
+        <Marker n="05" label="Who We'll Meet" />
         <div className="pp-audience pp-stagger" data-anim="flip">
           {[
             [AUDIENCE[0], AUDIENCE[2]],
@@ -1318,7 +1138,16 @@ export default function PowProcessPage() {
             <img src={RIYADH_SKYLINE} alt="" loading="lazy" decoding="async" />
           </figure>
           <h2 className="pp-sr-only">Why This Matters</h2>
-          <Marker n="08" label="Why This Matters" />
+          <div className="pp-why-top">
+            <Marker n="06" label="Why This Matters" />
+            <span className="pp-why-loc">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0Z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              Riyadh · KSA
+            </span>
+          </div>
           <div className="pp-why-grid">
             <div className="pp-why-lead">
               <h2 className="pp-why-h2">
@@ -1338,7 +1167,8 @@ export default function PowProcessPage() {
               <p className="pp-why-close">
                 Powder &amp; Bulk Solids Arabia provides a dedicated platform for industry leaders to connect, exchange
                 knowledge, explore technologies and build partnerships that support the Kingdom&rsquo;s manufacturing
-                ambitions.
+                ambitions &mdash; convening in <em>Riyadh</em>, the capital and central hub of Saudi Arabia&rsquo;s
+                industrial and investment agenda.
               </p>
             </div>
           </div>
@@ -1349,7 +1179,7 @@ export default function PowProcessPage() {
       <section className="pp-section" id="sponsor">
         <h2 className="pp-sr-only">Who Will Sponsor &amp; Exhibit</h2>
         <div className="pp-center pp-spon-head">
-          <Marker n="09" label="Who Will Sponsor & Exhibit" />
+          <Marker n="07" label="Who Will Sponsor & Exhibit" />
           <h2 className="pp-h2">
             Who will <em>exhibit</em> &amp; sponsor
           </h2>
@@ -1391,7 +1221,7 @@ export default function PowProcessPage() {
       <section className="pp-section" id="networking">
         <div className="pp-net-head">
           <div className="pp-net-head-copy">
-            <Marker n="10" label="Networking" />
+            <Marker n="08" label="Networking" />
             <h2 className="pp-h2 pp-h2-left">
               Every buyer you need, <em>in one room</em>
             </h2>
@@ -1421,7 +1251,7 @@ export default function PowProcessPage() {
           <div className="pp-cta-copy">
             <span className="pp-cta-eyebrow">Register</span>
             <h2 className="pp-cta-h2">
-              One platform. <em>Five sectors.</em> One day in Dammam.
+              One platform. <em>Five sectors.</em> One day in Riyadh.
             </h2>
             <p className="pp-cta-body">
               Exhibit once and reach food, pharma, petrochem, cement and minerals buyers in the same room. Tell us how

@@ -116,16 +116,14 @@
           border: 0;
           cursor: pointer;
           padding: 0;
-          width: clamp(158px, 15vw, 192px);
-          height: 50px;
-          overflow: hidden;
+          height: clamp(44px, 5vw, 56px);
           border-radius: 8px;
         }
         .pp-nav-brand img {
-          width: 100%;
+          width: auto;
           height: 100%;
-          object-fit: cover;
-          object-position: center;
+          object-fit: contain;
+          object-position: left center;
           display: block;
         }
         .pp-nav-links {
@@ -428,6 +426,25 @@
           border-radius: 50%;
           background: var(--hl);
           flex: 0 0 auto;
+        }
+        /* Numbers hosted inside the blue format card — flip stat text to white. */
+        .pp-format-stats {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: center;
+        }
+        .pp-format-stats .pp-estat-v {
+          color: #fff;
+        }
+        .pp-format-stats .pp-estat-suffix {
+          color: var(--hl);
+        }
+        .pp-format-stats .pp-estat-label {
+          color: rgba(255, 255, 255, 0.72);
+        }
+        .pp-format-stats .pp-estat:last-child {
+          border-top-color: rgba(255, 255, 255, 0.24);
         }
         .pp-quote {
           position: relative;
@@ -972,15 +989,28 @@
           overflow: hidden;
         }
         .pp-hero-title .pp-hero-line {
+          line-height: 1;
+        }
+        .pp-hero-logo {
+          display: block;
+          margin: 0 auto;
+          width: auto;
+          height: auto;
+          max-height: clamp(92px, 11vw, 156px);
+          max-width: min(94%, 760px);
+          object-fit: contain;
+        }
+        .pp-hero-subline {
+          margin: clamp(9px, 1.1vw, 14px) auto 0;
+          max-width: none;
+          white-space: nowrap;
           font-family: var(--font-montserrat), sans-serif;
-          font-weight: 900;
-          font-size: clamp(1.6rem, 4.2vw, 3.5rem);
-          line-height: 1.04;
-          letter-spacing: -0.02em;
+          font-weight: 800;
+          font-size: clamp(0.6rem, 1.15vw, 0.95rem);
+          line-height: 1.5;
+          letter-spacing: 0.1em;
           text-transform: uppercase;
           color: var(--ink);
-          max-width: 24ch;
-          margin: 0 auto;
         }
         .pp-hero-linewrap {
           display: block;
@@ -1261,6 +1291,21 @@
           text-align: center;
           gap: 12px;
           padding: clamp(24px, 2.6vw, 38px);
+        }
+        /* Sector image banner — carried over from the (removed) Five Sectors section. */
+        .pp-ksa-media {
+          width: 100%;
+          aspect-ratio: 16 / 9;
+          border-radius: 14px;
+          overflow: hidden;
+          margin-bottom: 4px;
+          background: var(--navy);
+        }
+        .pp-ksa-media img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
         }
         .pp-ksa-sector {
           font-family: var(--font-inter), sans-serif;
@@ -1794,6 +1839,40 @@
         .pp-why-close {
           font-weight: 500;
           color: #f6ecd4 !important;
+        }
+        /* "Riyadh" accent in the close line — brass gold, not the theme blue. */
+        .pp-why-close em {
+          color: #e7bf72;
+          font-style: normal;
+          font-weight: 700;
+        }
+        /* Header row — marker left, location badge pinned top-right. */
+        .pp-why-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+          flex-wrap: wrap;
+        }
+        /* Gold location badge — top right of the section. */
+        .pp-why-loc {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          padding: 7px 15px 7px 12px;
+          border-radius: 999px;
+          font-family: var(--font-montserrat), sans-serif;
+          font-weight: 800;
+          font-size: clamp(0.7rem, 0.9vw, 0.8rem);
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #2a1c08;
+          background: linear-gradient(180deg, #f0cd83 0%, #c6964a 100%);
+          border: 1px solid rgba(255, 240, 205, 0.5);
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+        }
+        .pp-why-loc svg {
+          opacity: 0.85;
         }
         @media (max-width: 900px) {
           .pp-why-grid {
