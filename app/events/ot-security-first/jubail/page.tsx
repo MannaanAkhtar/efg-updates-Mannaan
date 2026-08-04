@@ -952,23 +952,40 @@ function Hero() {
         >
           Supporting Partner
         </span>
-        <a
-          href="https://www.isaca.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="ISACA Riyadh Chapter — Supporting Partner"
-          className="otsf-jb-partner-link"
-          style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)" }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            loading="lazy"
-            decoding="async"
-            src={`${S3_LOGOS}/ISACA_logo_Riyadh_rev_RGB.png`}
-            alt="ISACA Riyadh Chapter logo - Supporting Partner of OT Security First Jubail 2026"
-            style={{ height: 55, width: "auto", opacity: 0.9, objectFit: "contain", display: "block" }}
-          />
-        </a>
+        <div style={{ display: "flex", alignItems: "center", gap: "clamp(14px, 2vw, 22px)" }}>
+          <a
+            href="https://www.isaca.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="ISACA Riyadh Chapter — Supporting Partner"
+            className="otsf-jb-partner-link"
+            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)" }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              loading="lazy"
+              decoding="async"
+              src={`${S3_LOGOS}/ISACA_logo_Riyadh_rev_RGB.png`}
+              alt="ISACA Riyadh Chapter logo - Supporting Partner of OT Security First Jubail 2026"
+              style={{ height: 52, width: "auto", opacity: 0.9, objectFit: "contain", display: "block" }}
+            />
+          </a>
+          <span aria-hidden style={{ width: 1, height: 50, background: "rgba(255,255,255,0.18)" }} />
+          <span
+            className="otsf-jb-partner-link"
+            aria-label="Maadaniyah — Supporting Partner"
+            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)" }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              loading="lazy"
+              decoding="async"
+              src={`${S3_LOGOS}/maadaniyah.png`}
+              alt="Maadaniyah logo - Supporting Partner of OT Security First Jubail 2026"
+              style={{ height: 82, width: "auto", opacity: 0.9, objectFit: "contain", display: "block" }}
+            />
+          </span>
+        </div>
       </motion.div>
 
       <style jsx global>{`
@@ -3804,45 +3821,21 @@ function SpeakersSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
-    <section ref={ref} id="speakers" style={{ position: "relative", padding: "clamp(64px, 7vw, 96px) 0", background: BG_BASE }}>
+    <section ref={ref} id="speakers" style={{ position: "relative", padding: "clamp(40px, 4vw, 56px) 0 clamp(64px, 7vw, 96px)", background: BG_BASE }}>
       <BgDots opacity={0.05} />
       <div style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-        <Eyebrow inView={inView} label="Leadership" />
-        <motion.h2
-          initial={{ opacity: 0, y: 18 }}
+        {/* Group label — Speakers */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
-          style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 800,
-            fontSize: "clamp(34px, 5vw, 64px)",
-            letterSpacing: "-2.2px",
-            lineHeight: 0.98,
-            color: "white",
-            margin: "0 0 18px",
-            maxWidth: 880,
-          }}
+          transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
+          style={{ display: "flex", alignItems: "center", gap: 12, margin: "0 0 24px" }}
         >
-          Featured{" "}
-          <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>
-            speakers.
-          </em>
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.18, ease: EASE }}
-          style={{
-            fontFamily: "var(--font-outfit)",
-            fontSize: "clamp(14px, 1.1vw, 16px)",
-            color: "rgba(255,255,255,0.55)",
-            lineHeight: 1.65,
-            maxWidth: 580,
-            margin: "0 0 48px",
-          }}
-        >
-          Regulators, plant CISOs, and industrial engineers shaping the conversation on industrial cyber resilience across the Kingdom.
-        </motion.p>
+          <span aria-hidden style={{ width: 26, height: 2, borderRadius: 2, background: `linear-gradient(90deg, ${C_BRIGHT}, rgba(211,75,154,0))` }} />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 800, letterSpacing: "3px", textTransform: "uppercase", color: C_BRIGHT }}>
+            Speakers
+          </span>
+        </motion.div>
 
         <div
           className="otsf-jb-speakers-grid"
@@ -4111,12 +4104,12 @@ function AdvisorsSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
-    <section ref={ref} id="advisors" style={{ position: "relative", padding: "clamp(28px, 3vw, 48px) 0 clamp(64px, 7vw, 96px)", background: `linear-gradient(180deg, ${BG_DEEP} 0%, #14110a 48%, ${BG_DEEP} 100%)`, borderTop: "1px solid rgba(232,197,106,0.22)" }}>
+    <section ref={ref} id="advisors" style={{ position: "relative", padding: "clamp(64px, 7vw, 96px) 0 clamp(40px, 4vw, 56px)", background: `linear-gradient(180deg, ${BG_BASE} 0%, #14110a 46%, ${BG_BASE} 100%)` }}>
       <BgDots opacity={0.05} />
       {/* Gold glow — elevates the advisory panel and sets it apart from the speakers grid above */}
       <div aria-hidden style={{ position: "absolute", top: "18%", left: "50%", transform: "translateX(-50%)", width: "min(920px, 94%)", height: 480, background: "radial-gradient(ellipse at center, rgba(232,197,106,0.15), transparent 70%)", pointerEvents: "none" }} />
       <div style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-        <Eyebrow inView={inView} label="Advisory Board" />
+        <Eyebrow inView={inView} label="Leadership" />
         <motion.h2
           initial={{ opacity: 0, y: 18 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -4132,8 +4125,8 @@ function AdvisorsSection() {
             maxWidth: 880,
           }}
         >
-          Programme{" "}
-          <em style={{ fontStyle: "italic", fontWeight: 400, color: "#E8C56A" }}>advisors.</em>
+          Advisors &amp;{" "}
+          <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>speakers.</em>
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 14 }}
@@ -4144,12 +4137,25 @@ function AdvisorsSection() {
             fontSize: "clamp(14px, 1.1vw, 16px)",
             color: "rgba(255,255,255,0.55)",
             lineHeight: 1.65,
-            maxWidth: 580,
+            maxWidth: 620,
             margin: "0 0 48px",
           }}
         >
-          Independent cybersecurity leaders from EY guiding the technical agenda and content direction for the summit.
+          The independent advisors shaping the technical agenda, and the speakers taking the stage on industrial cyber resilience across the Kingdom.
         </motion.p>
+
+        {/* Group label — Advisors */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
+          style={{ display: "flex", alignItems: "center", gap: 12, margin: "0 0 24px" }}
+        >
+          <span aria-hidden style={{ width: 26, height: 2, borderRadius: 2, background: "linear-gradient(90deg, #E8C56A, rgba(232,197,106,0))" }} />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 800, letterSpacing: "3px", textTransform: "uppercase", color: "#E8C56A" }}>
+            Advisors
+          </span>
+        </motion.div>
 
         <div
           className="otsf-jb-advisors-grid"
