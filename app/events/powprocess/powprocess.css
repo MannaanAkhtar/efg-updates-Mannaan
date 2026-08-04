@@ -1012,32 +1012,14 @@
           text-align: center;
           overflow: hidden;
         }
-        /* Logo-style wordmark: blue italic letters, white outline + navy keyline,
-           slightly raised — mirrors the PowProcess brand mark on the white card. */
         .pp-hero-title .pp-hero-line {
-          --edge: #000000;
-          --r: clamp(3px, 0.75vw, 8px);
-          --rd: clamp(2px, 0.55vw, 6px);
           font-family: var(--font-montserrat), sans-serif;
           font-weight: 900;
-          font-style: italic;
           font-size: clamp(2.3rem, 9.4vw, 8.4rem);
           line-height: 0.9;
-          letter-spacing: -0.04em;
+          letter-spacing: -0.045em;
           text-transform: uppercase;
-          color: #214ef9;
-          -webkit-text-stroke: var(--r) #ffffff;
-          paint-order: stroke fill;
-          text-shadow:
-            var(--r) 0 0 var(--edge),
-            calc(-1 * var(--r)) 0 0 var(--edge),
-            0 var(--r) 0 var(--edge),
-            0 calc(-1 * var(--r)) 0 var(--edge),
-            var(--rd) var(--rd) 0 var(--edge),
-            calc(-1 * var(--rd)) var(--rd) 0 var(--edge),
-            var(--rd) calc(-1 * var(--rd)) 0 var(--edge),
-            calc(-1 * var(--rd)) calc(-1 * var(--rd)) 0 var(--edge),
-            0 clamp(5px, 0.9vw, 11px) clamp(6px, 1vw, 14px) rgba(0, 0, 0, 0.4);
+          color: var(--ink);
         }
         /* Small descriptive caption under the masthead — reads like alt text. */
         .pp-hero-subline {
