@@ -31,9 +31,6 @@ const CONTACT = "partnerships@eventsfirstgroup.com";
 
 // Brand logo (glowing wordmark on a gray plate) — shown as a cropped logo badge.
 const POWPROCESS_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/powprocess/Powprocess+logo.png";
-// Hero card wordmark — source logop.png had heavy transparent padding, cropped tight
-// so it fills its box (visible logo large, card height unchanged).
-const POWPROCESS_LOGO_HERO = "/powprocess-logo.png";
 // Nav bar — compact P monogram (faviconlogo.png), padding cropped off.
 const POWPROCESS_LOGO_NAV = "/powprocess-navlogo.png";
 // Tight square crop of the monogram (padding removed) so it fills the tab.
@@ -49,8 +46,15 @@ const IMG = (id: string, w = 1200) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 // Full overview (the highlighted paragraph from the brief) — rendered verbatim.
-const OVERVIEW =
-  "PowProcess aligns with the Kingdom's industrial transformation agenda and supports the objectives of key government initiatives including Vision 2030, the National Industrial Strategy, Made in Saudi and the Future Factories programme. As Saudi Arabia accelerates manufacturing localisation, supply chain resilience, industrial diversification and the adoption of advanced technologies, PowProcess provides a dedicated platform focused on the critical processing capabilities that enable this growth. The event brings together manufacturers, government stakeholders, technology providers, EPC companies and investors to explore the innovations shaping the future of powder and bulk solids processing, including mixing, milling, drying, granulation, conveying, dosing, filtration, automation and process optimisation. Through its cross-sector approach, PowProcess addresses the processing needs of key industries including FMCG and food & beverage, pharmaceuticals and nutraceuticals, petrochemicals and polymers, cement and construction materials, and minerals and new energy materials. By connecting industrial decision-makers with global technology leaders, PowProcess supports the Kingdom's ambition to build a globally competitive manufacturing ecosystem, strengthen local capabilities and accelerate the adoption of advanced production technologies.";
+// Full overview — kept verbatim, split into blocks so it reads as paragraphs
+// (flowed into two columns on desktop) rather than one wall of text.
+const OVERVIEW = [
+  "PowProcess aligns with the Kingdom's industrial transformation agenda and supports the objectives of key government initiatives including Vision 2030, the National Industrial Strategy, Made in Saudi and the Future Factories programme.",
+  "As Saudi Arabia accelerates manufacturing localisation, supply chain resilience, industrial diversification and the adoption of advanced technologies, PowProcess provides a dedicated platform focused on the critical processing capabilities that enable this growth.",
+  "The event brings together manufacturers, government stakeholders, technology providers, EPC companies and investors to explore the innovations shaping the future of powder and bulk solids processing, including mixing, milling, drying, granulation, conveying, dosing, filtration, automation and process optimisation.",
+  "Through its cross-sector approach, PowProcess addresses the processing needs of key industries including FMCG and food & beverage, pharmaceuticals and nutraceuticals, petrochemicals and polymers, cement and construction materials, and minerals and new energy materials.",
+  "By connecting industrial decision-makers with global technology leaders, PowProcess supports the Kingdom's ambition to build a globally competitive manufacturing ecosystem, strengthen local capabilities and accelerate the adoption of advanced production technologies.",
+];
 
 // Framed accent images that flank The Event heading (fill the hero→section gap).
 const FLANK_L = IMG("1581092160562-40aa08e78837", 700);
@@ -473,21 +477,14 @@ export default function PowProcessPage() {
       // ── All scroll-driven motion lives behind the reduced-motion gate ──────────
       mm.add("(prefers-reduced-motion: no-preference)", () => {
 
-        // Hero logo reveal.
-        gsap.from(".pp-hero-logo", {
-          opacity: 0,
-          y: 24,
-          scale: 0.96,
-          duration: 1.05,
+        // Hero line reveal.
+        gsap.set(".pp-hero-line", { yPercent: 115 });
+        gsap.to(".pp-hero-line", {
+          yPercent: 0,
+          duration: 1.1,
           ease: "power4.out",
+          stagger: 0.08,
           delay: 0.15,
-        });
-        gsap.from(".pp-hero-subline", {
-          opacity: 0,
-          y: 14,
-          duration: 0.9,
-          ease: "power3.out",
-          delay: 0.5,
         });
 
         // Every section heading rises in as it enters — the through-line that makes
@@ -833,32 +830,34 @@ export default function PowProcessPage() {
     <div ref={root} className="pp-root">
       {/* ─── NAV ─────────────────────────────────────────────────────────────── */}
       <header className={`pp-nav${scrolled ? " is-scrolled" : ""}`}>
-        <button className="pp-nav-brand" onClick={() => smoothTo("top")} aria-label="PowProcess, back to top">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={POWPROCESS_LOGO_NAV} alt="PowProcess" decoding="async" />
-        </button>
-        <nav className="pp-nav-links" aria-label="Primary">
-          {NAV_LINKS.map((l) => (
-            <button key={l.id} onClick={() => smoothTo(l.id)}>
-              {l.label}
-            </button>
-          ))}
-        </nav>
-        <div className="pp-nav-actions">
-          <a className="pp-nav-efg" href="/" aria-label="Back to Events First Group">
-            <span aria-hidden>←</span>
+        <div className="pp-nav-inner">
+          <button className="pp-nav-brand" onClick={() => smoothTo("top")} aria-label="PowProcess, back to top">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://efg-final.s3.eu-north-1.amazonaws.com/Events+First+logo+icon-01.svg" alt="" width={16} height={16} decoding="async" />
-            Events First Group
-          </a>
-          <button className="pp-nav-cta" onClick={() => smoothTo("register")}>
-            Register Interest
+            <img src={POWPROCESS_LOGO_NAV} alt="PowProcess" decoding="async" />
+          </button>
+          <nav className="pp-nav-links" aria-label="Primary">
+            {NAV_LINKS.map((l) => (
+              <button key={l.id} onClick={() => smoothTo(l.id)}>
+                {l.label}
+              </button>
+            ))}
+          </nav>
+          <div className="pp-nav-actions">
+            <a className="pp-nav-btn pp-nav-efg" href="/" aria-label="Back to Events First Group">
+              <span className="pp-nav-arrow" aria-hidden>←</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="https://efg-final.s3.eu-north-1.amazonaws.com/Events+First+logo+icon-01.svg" alt="" width={16} height={16} decoding="async" />
+              <span>Events First Group</span>
+            </a>
+            <button className="pp-nav-btn pp-nav-cta" onClick={() => smoothTo("register")}>
+              Register Interest
+            </button>
+          </div>
+          <button className="pp-nav-burger" aria-label="Menu" aria-expanded={menuOpen} aria-controls="pp-nav-mobile" onClick={() => setMenuOpen((v) => !v)}>
+            <span />
+            <span />
           </button>
         </div>
-        <button className="pp-nav-burger" aria-label="Menu" aria-expanded={menuOpen} aria-controls="pp-nav-mobile" onClick={() => setMenuOpen((v) => !v)}>
-          <span />
-          <span />
-        </button>
         {menuOpen && (
           <div className="pp-nav-mobile" id="pp-nav-mobile">
             {NAV_LINKS.map((l) => (
@@ -881,15 +880,15 @@ export default function PowProcessPage() {
       {/* ─── 1. HERO ─────────────────────────────────────────────────────────── */}
       <section className="pp-hero" id="event">
         <div className="pp-tile pp-hero-title">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="pp-hero-logo" src={POWPROCESS_LOGO_HERO} alt="PowProcess" decoding="async" />
+          <span className="pp-hero-linewrap">
+            <span className="pp-hero-line">POWPROCESS</span>
+          </span>
           <p className="pp-hero-subline">The Middle East&rsquo;s Only Dedicated Powder &amp; Bulk Processing Summit</p>
         </div>
 
         <div className="pp-hero-grid">
           <div className="pp-tile pp-hero-copy">
             <div className="pp-hero-tags">
-              <span className="pp-pill pp-pill-solid">1st Edition</span>
               <span className="pp-pill">Riyadh · KSA</span>
               <span className="pp-pill">17 Nov 2026</span>
               <span className="pp-pill pp-pill-accent">Cross-sector</span>
@@ -955,31 +954,35 @@ export default function PowProcessPage() {
           </p>
         </div>
         <div className="pp-about-bento pp-stagger" data-anim="curtain">
-          <div className="pp-tile pp-overview pp-anim">
+          <div className="pp-tile pp-ov-card pp-ov-intro pp-anim">
             <span className="pp-eyebrow">The Overview</span>
-            <p className="pp-overview-text">{OVERVIEW}</p>
+            <p>{OVERVIEW[0]}</p>
+            <p>{OVERVIEW[1]}</p>
+            <p>{OVERVIEW[2]}</p>
           </div>
-          <div className="pp-about-side">
-            <div className="pp-tile pp-format pp-format-stats pp-anim">
-              <span className="pp-eyebrow">The Event in Numbers</span>
-              <div className="pp-estats-grid">
-                {EVENT_STATS.map((s, i) => (
-                  <div key={i} className="pp-estat">
-                    <div className="pp-estat-v">
-                      {s.plain ? (
-                        <span>{s.value}</span>
-                      ) : (
-                        <span data-count={s.value} data-decimals={0}>
-                          {s.value}
-                        </span>
-                      )}
-                      {s.suffix && <span className="pp-estat-suffix">{s.suffix}</span>}
-                    </div>
-                    <div className="pp-estat-label">{s.label}</div>
+          <div className="pp-tile pp-format pp-format-stats pp-anim">
+            <span className="pp-eyebrow">The Event in Numbers</span>
+            <div className="pp-estats-grid">
+              {EVENT_STATS.map((s, i) => (
+                <div key={i} className="pp-estat">
+                  <div className="pp-estat-v">
+                    {s.plain ? (
+                      <span>{s.value}</span>
+                    ) : (
+                      <span data-count={s.value} data-decimals={0}>
+                        {s.value}
+                      </span>
+                    )}
+                    {s.suffix && <span className="pp-estat-suffix">{s.suffix}</span>}
                   </div>
-                ))}
-              </div>
+                  <div className="pp-estat-label">{s.label}</div>
+                </div>
+              ))}
             </div>
+          </div>
+          <div className="pp-tile pp-ov-card pp-ov-wide pp-anim">
+            <p>{OVERVIEW[3]}</p>
+            <p>{OVERVIEW[4]}</p>
           </div>
         </div>
       </section>

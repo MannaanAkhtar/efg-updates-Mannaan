@@ -21,10 +21,8 @@ const inter = Inter({
 const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/powprocess`;
 const FAVICON = "/powprocess-favicon.png";
-// Social share preview (1200×630). Uses the hero image cropped to the OG spec.
-// Swap for a branded PowProcess OG card when one is available.
-const OG_IMAGE =
-  "https://images.unsplash.com/photo-1565043666747-69f6646db940?auto=format&fit=crop&w=1200&h=630&q=80";
+// Social share preview image intentionally omitted for now — a branded
+// PowProcess OG card (1200×630) will be added to openGraph/twitter later.
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -56,22 +54,13 @@ export const metadata: Metadata = {
     siteName: "Events First Group",
     locale: "en_US",
     type: "website",
-    images: [
-      {
-        url: OG_IMAGE,
-        width: 1200,
-        height: 630,
-        alt: "PowProcess — Powder & Bulk Solids Arabia, Riyadh",
-      },
-    ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     site: "@eventsfirstgrp",
     title: "PowProcess — Powder & Bulk Solids Arabia, Riyadh",
     description:
       "The Middle East's only cross-sector summit and exhibition for powder and bulk-solids processing technology.",
-    images: [OG_IMAGE],
   },
 };
 

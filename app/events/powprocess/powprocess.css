@@ -89,35 +89,39 @@
           outline: 2px solid var(--accent);
           outline-offset: 2px;
         }
+        /* ── NAV — maximalist: white bar, thick ink border, hard-shadow CTAs ─── */
         .pp-nav {
           position: fixed;
           top: 0;
           left: 0;
           right: 0;
           z-index: 100;
-          height: 66px;
-          display: flex;
-          align-items: center;
-          gap: 24px;
-          padding: 0 clamp(20px, 5vw, 56px);
-          background: #ffffff;
-          border-bottom: 1px solid var(--hairline);
-          transition: box-shadow 0.4s ease;
+          background: var(--surface);
+          border-bottom: 1.5px solid var(--card-border);
+          transition: box-shadow 0.35s ease;
         }
         .pp-nav.is-scrolled {
-          box-shadow: 0 6px 24px rgba(10, 22, 40, 0.08);
+          box-shadow: 0 8px 24px rgba(10, 22, 40, 0.08);
         }
-        /* Logo badge — the wordmark cropped out of its 3:2 gray plate. */
+        /* Three zones: logo left · links absolutely centred · actions hard right. */
+        .pp-nav-inner {
+          position: relative;
+          max-width: 1600px;
+          margin: 0 auto;
+          padding: clamp(12px, 1.4vw, 17px) clamp(16px, 2.4vw, 26px) clamp(12px, 1.4vw, 17px) clamp(20px, 5vw, 48px);
+          display: flex;
+          align-items: center;
+          gap: clamp(14px, 1.6vw, 24px);
+        }
+        /* Logo — the cropped P monogram. */
         .pp-nav-brand {
           display: inline-flex;
           align-items: center;
-          justify-content: flex-start;
           background: none;
           border: 0;
           cursor: pointer;
           padding: 0;
-          height: clamp(44px, 5vw, 56px);
-          border-radius: 8px;
+          height: clamp(42px, 4.6vw, 52px);
         }
         .pp-nav-brand img {
           width: auto;
@@ -126,111 +130,109 @@
           object-position: left center;
           display: block;
         }
+        /* Section links — dead-centre of the bar regardless of side widths. */
         .pp-nav-links {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
           display: flex;
           align-items: center;
-          gap: 26px;
-          margin: 0 auto;
+          gap: clamp(18px, 2vw, 32px);
         }
         .pp-nav-links button {
-          font-family: var(--font-inter), sans-serif;
-          font-size: 14px;
-          font-weight: 500;
-          color: var(--ink-2);
+          position: relative;
+          font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--ink);
           background: none;
           border: 0;
           cursor: pointer;
-          padding: 4px 0;
-          transition: color 0.25s ease;
+          padding: 4px 1px;
+          transition: color 0.22s ease;
+        }
+        .pp-nav-links button::after {
+          content: "";
+          position: absolute;
+          left: -2px;
+          right: -2px;
+          bottom: -3px;
+          height: 3px;
+          background: var(--accent);
+          transform: scaleX(0);
+          transform-origin: left center;
+          transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .pp-nav-links button:hover {
           color: var(--accent);
         }
+        .pp-nav-links button:hover::after {
+          transform: scaleX(1);
+        }
+        /* Actions — pinned hard right. */
         .pp-nav-actions {
+          margin-left: auto;
           display: flex;
           align-items: center;
-          gap: 14px;
+          gap: 12px;
         }
-        /* Secondary — refined warm-glass pill with an inset shine + sliding arrow. */
-        .pp-nav-efg {
-          position: relative;
+        /* Shared button — industrial control-plate: mono label, squared corners,
+           machined edge (ink border) + top sheen for a pressed-metal read. */
+        .pp-nav-btn {
           display: inline-flex;
           align-items: center;
-          gap: 7px;
-          font-family: var(--font-inter), sans-serif;
-          font-size: 13px;
-          font-weight: 600;
-          color: #e8651a;
+          gap: 8px;
+          font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+          font-size: 11.5px;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          line-height: 1;
+          padding: 11px 17px;
+          border: 1.5px solid var(--card-border);
+          border-radius: 6px;
+          cursor: pointer;
           text-decoration: none;
-          padding: 9px 17px;
-          border-radius: 999px;
-          border: 1px solid rgba(232, 101, 26, 0.42);
-          background-image:
-            linear-gradient(180deg, rgba(255, 255, 255, 0.65), rgba(255, 247, 242, 0.28)),
-            linear-gradient(180deg, rgba(232, 101, 26, 0.08), rgba(232, 101, 26, 0.02));
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), 0 1px 2px rgba(232, 101, 26, 0.12);
-          transition: transform 0.2s ease, border-color 0.25s ease, box-shadow 0.25s ease,
-            background 0.25s ease;
+          white-space: nowrap;
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 2px 5px rgba(10, 22, 40, 0.14);
+          transition: transform 0.18s ease, box-shadow 0.22s ease, filter 0.2s ease;
+        }
+        .pp-nav-btn:hover {
+          transform: translateY(-1.5px);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 6px 15px rgba(10, 22, 40, 0.2);
+        }
+        .pp-nav-btn:active {
+          transform: translateY(0);
+          box-shadow: inset 0 2px 3px rgba(10, 22, 40, 0.24);
+        }
+        /* Secondary — brushed-steel plate. */
+        .pp-nav-efg {
+          background: linear-gradient(180deg, #f6f8fa 0%, #e6eaef 52%, #d9dee6 100%);
+          color: var(--ink);
         }
         .pp-nav-efg img {
           display: block;
         }
-        .pp-nav-efg > span {
-          transition: transform 0.2s ease;
-        }
-        .pp-nav-efg:hover {
-          transform: translateY(-1px);
-          border-color: #e8651a;
-          background-image:
-            linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 244, 236, 0.45)),
-            linear-gradient(180deg, rgba(232, 101, 26, 0.14), rgba(232, 101, 26, 0.05));
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 7px 18px rgba(232, 101, 26, 0.22);
-        }
-        .pp-nav-efg:hover > span {
-          transform: translateX(-3px);
-        }
-        .pp-nav-efg:active {
-          transform: translateY(0);
-          box-shadow: inset 0 2px 4px rgba(232, 101, 26, 0.2);
-        }
-        /* Primary — glossy convex blue button (gloss baked into the background so
-           the label stays crisp above it). */
-        .pp-nav-cta {
-          position: relative;
+        .pp-nav-arrow {
           font-family: var(--font-inter), sans-serif;
           font-size: 14px;
-          font-weight: 600;
-          letter-spacing: 0.01em;
+          line-height: 1;
+          transition: transform 0.18s ease;
+        }
+        .pp-nav-efg:hover .pp-nav-arrow {
+          transform: translateX(-3px);
+        }
+        /* Primary — machined brand-blue plate with a metallic sheen. */
+        .pp-nav-cta {
+          background: linear-gradient(180deg, #3a67ff 0%, #1b4dff 55%, #143fdb 100%);
           color: #fff;
-          border: 1px solid rgba(18, 59, 214, 0.9);
-          border-radius: 999px;
-          padding: 10px 22px;
-          cursor: pointer;
-          background-image:
-            linear-gradient(180deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0) 46%),
-            linear-gradient(180deg, #3a67ff 0%, #1b4dff 52%, #123bd6 100%);
-          box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.5),
-            inset 0 -2px 4px rgba(0, 0, 0, 0.22),
-            0 6px 16px rgba(27, 77, 255, 0.4),
-            0 1px 2px rgba(10, 22, 40, 0.2);
-          text-shadow: 0 1px 1px rgba(10, 22, 40, 0.35);
-          transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.2s ease;
+          text-shadow: 0 1px 1px rgba(10, 22, 40, 0.3);
         }
         .pp-nav-cta:hover {
-          transform: translateY(-1px);
-          filter: brightness(1.05);
-          box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.55),
-            inset 0 -2px 4px rgba(0, 0, 0, 0.22),
-            0 10px 24px rgba(27, 77, 255, 0.5),
-            0 1px 2px rgba(10, 22, 40, 0.2);
-        }
-        .pp-nav-cta:active {
-          transform: translateY(1px);
-          box-shadow:
-            inset 0 2px 5px rgba(10, 22, 40, 0.4),
-            0 2px 6px rgba(27, 77, 255, 0.3);
+          filter: brightness(1.06);
         }
         .pp-nav-burger {
           display: none;
@@ -252,7 +254,7 @@
         }
         .pp-nav-mobile {
           position: absolute;
-          top: 66px;
+          top: 100%;
           left: 0;
           right: 0;
           background: var(--glass);
@@ -376,20 +378,42 @@
         .pp-about-head {
           margin-bottom: clamp(2rem, 4vw, 3rem);
         }
+        /* The Event — bento: intro card + stats card on top, wide text card below. */
         .pp-about-bento {
           display: grid;
-          grid-template-columns: 1.55fr 1fr;
+          grid-template-columns: 1.4fr 1fr;
           gap: clamp(10px, 1.2vw, 16px);
           align-items: stretch;
         }
-        .pp-overview {
-          padding: clamp(28px, 3.4vw, 46px);
+        .pp-ov-card {
+          padding: clamp(22px, 2.6vw, 34px);
         }
-        .pp-overview-text {
-          font-size: clamp(0.98rem, 1.2vw, 1.12rem);
-          line-height: 1.72;
+        .pp-ov-card p {
+          margin: 0 0 0.9em;
           color: var(--ink-2);
-          margin: 0;
+          font-size: clamp(0.92rem, 1.05vw, 1.02rem);
+          line-height: 1.62;
+        }
+        .pp-ov-card p:last-child {
+          margin-bottom: 0;
+        }
+        /* Full-width bottom card — remaining copy flows into two columns. */
+        .pp-ov-wide {
+          grid-column: 1 / -1;
+        }
+        @media (min-width: 760px) {
+          .pp-ov-wide {
+            columns: 2;
+            column-gap: clamp(28px, 3vw, 52px);
+          }
+          .pp-ov-wide p {
+            break-inside: avoid;
+          }
+        }
+        @media (max-width: 760px) {
+          .pp-about-bento {
+            grid-template-columns: 1fr;
+          }
         }
         .pp-about-side {
           display: flex;
@@ -427,7 +451,7 @@
           background: var(--hl);
           flex: 0 0 auto;
         }
-        /* Numbers hosted inside the blue format card — flip stat text to white. */
+        /* Numbers card — blue tile (top-right of the bento), stats centered. */
         .pp-format-stats {
           display: flex;
           flex-direction: column;
@@ -988,29 +1012,44 @@
           text-align: center;
           overflow: hidden;
         }
+        /* Logo-style wordmark: blue italic letters, white outline + navy keyline,
+           slightly raised — mirrors the PowProcess brand mark on the white card. */
         .pp-hero-title .pp-hero-line {
-          line-height: 1;
-        }
-        .pp-hero-logo {
-          display: block;
-          margin: 0 auto;
-          width: auto;
-          height: auto;
-          max-height: clamp(92px, 11vw, 156px);
-          max-width: min(94%, 760px);
-          object-fit: contain;
-        }
-        .pp-hero-subline {
-          margin: clamp(9px, 1.1vw, 14px) auto 0;
-          max-width: none;
-          white-space: nowrap;
+          --edge: #000000;
+          --r: clamp(3px, 0.75vw, 8px);
+          --rd: clamp(2px, 0.55vw, 6px);
           font-family: var(--font-montserrat), sans-serif;
-          font-weight: 800;
-          font-size: clamp(0.6rem, 1.15vw, 0.95rem);
-          line-height: 1.5;
-          letter-spacing: 0.1em;
+          font-weight: 900;
+          font-style: italic;
+          font-size: clamp(2.3rem, 9.4vw, 8.4rem);
+          line-height: 0.9;
+          letter-spacing: -0.04em;
           text-transform: uppercase;
-          color: var(--ink);
+          color: #214ef9;
+          -webkit-text-stroke: var(--r) #ffffff;
+          paint-order: stroke fill;
+          text-shadow:
+            var(--r) 0 0 var(--edge),
+            calc(-1 * var(--r)) 0 0 var(--edge),
+            0 var(--r) 0 var(--edge),
+            0 calc(-1 * var(--r)) 0 var(--edge),
+            var(--rd) var(--rd) 0 var(--edge),
+            calc(-1 * var(--rd)) var(--rd) 0 var(--edge),
+            var(--rd) calc(-1 * var(--rd)) 0 var(--edge),
+            calc(-1 * var(--rd)) calc(-1 * var(--rd)) 0 var(--edge),
+            0 clamp(5px, 0.9vw, 11px) clamp(6px, 1vw, 14px) rgba(0, 0, 0, 0.4);
+        }
+        /* Small descriptive caption under the masthead — reads like alt text. */
+        .pp-hero-subline {
+          margin: clamp(6px, 0.8vw, 10px) auto 0;
+          font-family: var(--font-inter), sans-serif;
+          font-weight: 500;
+          font-size: clamp(0.6rem, 1vw, 0.8rem);
+          line-height: 1.4;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--ink-2);
+          white-space: nowrap;
         }
         .pp-hero-linewrap {
           display: block;
@@ -2860,7 +2899,9 @@
             display: none;
           }
         }
-        @media (max-width: 900px) {
+        /* Collapse the nav to a hamburger while there's still room, so the
+           absolutely-centred links never overlap the right-hand actions. */
+        @media (max-width: 1180px) {
           .pp-nav-links,
           .pp-nav-actions {
             display: none;
@@ -2869,6 +2910,8 @@
             display: flex;
             margin-left: auto;
           }
+        }
+        @media (max-width: 900px) {
           .pp-hero-grid {
             grid-template-columns: 1fr;
           }
