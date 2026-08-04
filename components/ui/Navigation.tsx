@@ -61,10 +61,14 @@ const eventSeries = [
     ]
   },
   {
-    href: "/events/powprocess",
+    // Dummy parent — no PowProcess series landing page yet; the Riyadh edition
+    // is the live page. Kept as a heading so future editions can nest here.
+    href: "#",
     label: "PowProcess",
     color: "#1B4DFF",
-    editions: [],
+    editions: [
+      { href: "/events/powprocess", label: "Riyadh" },
+    ],
   },
 ];
 

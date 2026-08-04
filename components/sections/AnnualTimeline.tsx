@@ -279,6 +279,20 @@ export const allEvents: EventItem[] = [
     status: "soon",
     dateTBA: true,
   },
+  {
+    id: "powprocess-riyadh",
+    series: "PowProcess",
+    seriesColor: "#1B4DFF",
+    edition: "1st Edition",
+    title: "PowProcess",
+    date: new Date("2026-11-17"),
+    dateDisplay: "November 17, 2026",
+    location: "Riyadh, Saudi Arabia",
+    venue: "Venue TBC",
+    attendees: "220+",
+    href: "/events/powprocess",
+    status: "open",
+  },
 ];
 
 // Months with events (ordered for display: 2026 months first, then 2027)

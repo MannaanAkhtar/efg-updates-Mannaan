@@ -293,6 +293,25 @@ const allEvents = [
     status: "soon" as SeriesStatus,
   },
   {
+    id: "powprocess-riyadh",
+    category: "powprocess",
+    title: "PowProcess",
+    tagline: "Powder & Bulk Solids Arabia",
+    description:
+      "The Middle East's only dedicated summit and exhibition for powder, particle and bulk-solids processing — one day, five sectors, in Riyadh.",
+    color: "#1B4DFF",
+    image:
+      "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80",
+    href: "/events/powprocess",
+    date: "2026-11-17",
+    nextDate: "17 Nov 2026",
+    nextCity: "Riyadh, Saudi Arabia",
+    editions: "1st Edition",
+    regions: "Saudi Arabia",
+    attendees: "220+",
+    status: "open" as SeriesStatus,
+  },
+  {
     id: "ot-security-oman",
     category: "ot-security-first",
     title: "OT Security Oman",
@@ -382,6 +401,7 @@ const SERIES_DISPLAY_NAMES: Record<string, string> = {
   "cyber-first": "Cyber First",
   "opex-first": "OPEX First",
   "data-ai-first": "Digital First",
+  "powprocess": "PowProcess",
   "bigleap": "The Big Leap",
 };
 
@@ -1496,6 +1516,7 @@ const INTEREST_FILTERS = [
   { label: "OT Security", value: "ot-security-first", color: "#D34B9A" },
   { label: "Data & AI", value: "data-ai-first", color: "#0F735E" },
   { label: "Opex", value: "opex-first", color: "#7C3AED" },
+  { label: "PowProcess", value: "powprocess", color: "#1B4DFF" },
 ] as const;
 
 function EventsSeriesGrid() {
