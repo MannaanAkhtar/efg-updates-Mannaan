@@ -177,6 +177,24 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
     return () => window.removeEventListener("efg:set-form-tab", onSet as EventListener);
   }, [submitted]);
 
+  // Deep-link: ?tab=speak (also sponsor / attend / register) preselects a tab.
+  // Read directly here on mount so email/UTM links land on the right tab without
+  // depending on any other component's timing.
+  useEffect(() => {
+    const raw = new URLSearchParams(window.location.search).get("tab");
+    if (!raw) return;
+    const alias: Record<string, string> = {
+      speak: "speaker",
+      speaker: "speaker",
+      sponsor: "sponsor",
+      attend: "pass",
+      register: "pass",
+      pass: "pass",
+    };
+    const key = alias[raw.toLowerCase()];
+    if (key && INQUIRY_TABS.some((t) => t.key === key)) setActiveTab(key);
+  }, []);
+
   const tab = INQUIRY_TABS.find((t) => t.key === activeTab)!;
 
   const handleSubmit = async (e: React.FormEvent) => {
