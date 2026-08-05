@@ -59,22 +59,23 @@ const SPEAKERS: Speaker[] = [
   { name: "Ali Abdulla Hasan Alsadadi", title: "Chief of Information Technology", org: "Ministry of Oil & Environment Bahrain", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Ali+Abdulla+Hasan+Alsadadi.png", linkedin: "https://www.linkedin.com/in/ali-abdulla-hasan-alsadadi-a4210825/", flag: "https://flagcdn.com/w40/bh.png" },
   { name: "Hamoud Almohaya", title: "Head of GRC Cybersecurity", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/HAMOUD_ALMOHAYA.png", linkedin: "https://www.linkedin.com/in/hamoudbinmohaya/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Abdulrahman Al-Nimari", title: "VP, Cyber Security", org: "Confidential Organization", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulrahman_Al-Nimar.png", linkedin: "https://www.linkedin.com/in/alnimari/", flag: "https://flagcdn.com/w40/sa.png", photoTransform: "scale(1.18)" },
-  { name: "Javed A. Akbar", title: "Chief Governance, Risk (GRC), Insurance & Data Officer", org: "TASNEE", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Javed_A.+Akbar.png", linkedin: "https://www.linkedin.com/in/javedakbar/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Saad AlGarni", title: "Head of Cybersecurity", org: "Saudi Global Ports", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Saad_Algarn.png", linkedin: "https://www.linkedin.com/in/saad-algarni-710679b3/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Sultan Moraished", title: "Group Head of Technology and Corporate Excellence", org: "Red Sea Global", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Moraished.png", linkedin: "https://www.linkedin.com/in/sultan-moraished-0786394a/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Ali Alrushaid", title: "Chief Information Security Officer", org: "ASMO", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ALI_ALRUSHAID.png", linkedin: "https://www.linkedin.com/in/ali-alrushaid-66377114/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Sultan Alshammari", title: "Cyber Security Director", org: "National Infrastructure Fund (Infra)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Alshammari.png", linkedin: "https://www.linkedin.com/in/sultan-alshammari-a2378994/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Alaa Khalid", title: "Director, Cybersecurity Operations & GRC", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Alaa_Khalid_.png", linkedin: "https://www.linkedin.com/in/alaa-khalid-870743121/" },
   { name: "Wael A. Rahman", title: "Lead ICS/OT Security Engineer", org: "Petroleum Development Oman", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/WAEL+A.+RAHMAN.png", linkedin: "https://www.linkedin.com/in/wael-a-rahman/", flag: "https://flagcdn.com/w40/om.png" },
   { name: "Aamir Khalid Pirzada", title: "Chief Information Officer", org: "National Metal Manufacturing and Casting Company (Maadaniyah)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aamir+Khalid+Pirzada.jpg", linkedin: "https://www.linkedin.com/in/aamir-khalid-p-360a974/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png" },
-  { name: "Saad Algarn", title: "Head of Cybersecurity", org: "Saudi Global Ports", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Saad_Algarn.png", linkedin: "https://www.linkedin.com/in/saad-algarni-710679b3/", flag: "https://flagcdn.com/w40/sa.png" },
-  { name: "Alaa Khalid", title: "Director, Cybersecurity Operations & GRC", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Alaa_Khalid_.png", linkedin: "https://www.linkedin.com/in/alaa-khalid-870743121/" },
+  { name: "Javed A. Akbar", title: "Chief Governance, Risk (GRC), Insurance & Data Officer", org: "TASNEE", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Javed_A.+Akbar.png", linkedin: "https://www.linkedin.com/in/javedakbar/", flag: "https://flagcdn.com/w40/sa.png" },
 ];
 
 // ─── Advisors ─────────────────────────────────────────────────────────────────
 const ADVISORS: Speaker[] = [
+  { name: "Ahmed Al-Barrak", title: "Head of OT Cyber Solutions & Services Group | Digital Transformation", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+Al-Barrak.png", linkedin: "https://www.linkedin.com/in/ahmed-al-barrak-msc-b2122b60/" },
   { name: "Dr. Hussain Aldawood", title: "Director of Cybersecurity Consulting", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Hussain_Aldawood.png" },
-  { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png" },
   { name: "Redha Alahmad", title: "Senior Manager, Cybersecurity (OT/ICS)", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Redha_Alahmad..png" },
+  { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png" },
 ];
 
 // ─── Awards ─────────────────────────────────────────────────────────────────
@@ -4163,9 +4164,9 @@ function AdvisorsSection() {
           className="otsf-jb-advisors-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
+            gridTemplateColumns: "repeat(4, 1fr)",
             gap: "clamp(14px, 1.6vw, 22px)",
-            maxWidth: 860,
+            maxWidth: 1160,
             margin: "0 auto",
           }}
         >
