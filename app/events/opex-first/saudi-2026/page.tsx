@@ -6538,6 +6538,24 @@ function Register() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
+  // Deep-link: ?tab=speak (also sponsor / attend) pre-selects the form tab.
+  // InquiryForm listens for the "efg:set-form-tab" event; it mounts before this
+  // effect runs (child effects fire first), so the listener is already attached.
+  useEffect(() => {
+    const raw = new URLSearchParams(window.location.search).get("tab");
+    if (!raw) return;
+    const alias: Record<string, string> = {
+      speak: "speaker",
+      speaker: "speaker",
+      sponsor: "sponsor",
+      attend: "pass",
+      register: "pass",
+      pass: "pass",
+    };
+    const key = alias[raw.toLowerCase()];
+    if (key) window.dispatchEvent(new CustomEvent("efg:set-form-tab", { detail: key }));
+  }, []);
+
   return (
     <section
       ref={ref}
