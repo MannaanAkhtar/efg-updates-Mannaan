@@ -30,7 +30,7 @@ function scheduleScrollRefresh() {
 const CONTACT = "partnerships@eventsfirstgroup.com";
 
 // Brand logo (glowing wordmark on a gray plate) — shown as a cropped logo badge.
-const POWPROCESS_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/powprocess/Powprocess+logo.png";
+const POWPROCESS_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/powprocess/ChatGPT+Image+Aug+5%2C+2026%2C+03_29_39+PM.png";
 // Nav bar — compact P monogram (faviconlogo.png), padding cropped off.
 const POWPROCESS_LOGO_NAV = "/powprocess-navlogo.png";
 // Tight square crop of the monogram (padding removed) so it fills the tab.
