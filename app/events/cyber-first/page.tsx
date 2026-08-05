@@ -138,6 +138,81 @@ const SPEAKERS = [
   { name: "Abdulwahab Algamhi", title: "Senior Director, Information Security", org: "Miral", photo: `${S3}/Speakers-photos/Cyber-First-uae/Abdulwahab-Al-Gamhi.jpg` },
 ];
 
+// Cyber First Kenya (Nairobi) — a few from the advisory board / stage, shown as a marquee
+const KENYA_SPEAKERS = [
+  { name: "Colonel (Dr.) James Kimuyu", title: "Director", org: "NC4", photo: `${S3}/Nairobi_Speakers/Col+Dr+James+Photo.jpeg` },
+  { name: "Emmanuel Kimeu", title: "Secretary, ICT — Security & Audit Control", org: "Ministry of ICT & Digital Economy", photo: `${S3}/Nairobi_Speakers/Emmanuel_kimeu.png` },
+  { name: "Rosemary Koech-Kimwatu", title: "Head of Data Protection", org: "KCB Bank Group", photo: `${S3}/Nairobi_Speakers/Rosemary_Koech_Kimwatu.jpg` },
+  { name: "Michael Etale", title: "Chief Information Security Officer", org: "Absa Bank", photo: `${S3}/Nairobi_Speakers/Michael_Etale.jpg` },
+  { name: "Hussein Omar Hussein", title: "Director, IT & Digital", org: "SBM Bank Kenya", photo: `${S3}/Nairobi_Speakers/Hussein_Omar_Hussein.jpg` },
+  { name: "Frank K Muriuki", title: "Lead, Information Security Officer", org: "Kenya Airports Authority", photo: `${S3}/Nairobi_Speakers/Frank-Muriuki%C2%A0.png` },
+  { name: "George Rugero", title: "Head, Information Security", org: "Airtel Rwanda", photo: `${S3}/Nairobi_Speakers/George_Rugero.png` },
+  { name: "Collins Amadi", title: "Head, Enterprise Security Architecture & IAM", org: "Equity Bank", photo: `${S3}/Speakers-photos/Amadi+Collins.jpg` },
+];
+
+type CfSpeaker = { name: string; title: string; org: string; photo: string; focus?: string };
+
+// Interleave UAE + Kenya, then split across two counter-scrolling marquee rows
+const CF_SPEAKER_MIX: CfSpeaker[] = SPEAKERS.flatMap((s, i) => {
+  const k = KENYA_SPEAKERS[i];
+  return k ? [s, k] : [s];
+});
+const CF_ROW_A: CfSpeaker[] = CF_SPEAKER_MIX.slice(0, Math.ceil(CF_SPEAKER_MIX.length / 2));
+const CF_ROW_B: CfSpeaker[] = CF_SPEAKER_MIX.slice(Math.ceil(CF_SPEAKER_MIX.length / 2));
+
+// Third row — a few Cyber First Kuwait + Qatar speakers, interleaved
+const CF_ROW_C: CfSpeaker[] = [
+  { name: "Abdulla Al-Awadi", title: "Chief Strategy Officer", org: "KIB", photo: `${S3}/Speakers-photos/Abdulla+Al-Awadi.png` },
+  { name: "Hans W. Thomasz", title: "CISO", org: "Qatar Development Bank", photo: `${S3}/Speakers-photos/Hans_w_Thomasz.png` },
+  { name: "Iyad Atieh", title: "Chief Information Security Officer", org: "Alghanim Industries", photo: `${S3}/Speakers-photos/Iyad+Atieh.jpg` },
+  { name: "Anfal Shaikh", title: "CISO", org: "Qatar Islamic Insurance", photo: `${S3}/Speakers-photos/Anfal_shaikh.png` },
+  { name: "Saud Almudhaf", title: "VP — Head of ESG & Governance Risk", org: "NBK", photo: `${S3}/Speakers-photos/Saud+Almudhaf.jpg` },
+  { name: "John Mankarios", title: "VP — Deputy Head of Information Technology", org: "QInvest", photo: `${S3}/boardroom/JohnMankarios.png` },
+  { name: "Mohamed Rushdhi", title: "Head of Information Security Unit", org: "The Industrial Bank of Kuwait", photo: `${S3}/Speakers-photos/Mohamed+Rushdhi.png` },
+  { name: "Amer Bazerbachi", title: "Partner", org: "KPMG Qatar", photo: `${S3}/Speakers-photos/Amer+Bazerbachi.jpg` },
+];
+
+function CfSpeakerCell({ sp }: { sp: CfSpeaker }) {
+  return (
+    <figure
+      className="cf-speaker-card"
+      style={{
+        margin: "0 clamp(12px, 1.2vw, 18px) 0 0",
+        flexShrink: 0,
+        width: "clamp(190px, 16vw, 226px)",
+        position: "relative",
+        padding: 1.5,
+        borderRadius: 16,
+        background: `linear-gradient(140deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.04) 28%, rgba(255,255,255,0.02) 62%, ${CYAN}55 100%)`,
+        boxShadow: `0 14px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.02), 0 0 28px ${CYAN}14`,
+        transition: "transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease",
+      }}
+    >
+      <div style={{ position: "relative", borderRadius: 14.5, overflow: "hidden", aspectRatio: "4 / 5", background: "#05070b", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.55)" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={sp.photo}
+          alt={`${sp.name}, ${sp.title}`}
+          loading="lazy"
+          className="cf-speaker-photo"
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: sp.focus ?? "top center", filter: "saturate(0.9) contrast(1.08) brightness(0.78)", transition: "filter 0.7s ease, transform 1s cubic-bezier(0.22,1,0.36,1)" }}
+        />
+        <span style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(5,7,11,0.22) 0%, transparent 30%, rgba(5,7,11,0.32) 55%, rgba(5,7,11,0.95) 100%)", pointerEvents: "none" }} />
+        <span style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${CYAN}10 0%, transparent 50%, ${CYAN}08 100%)`, mixBlendMode: "overlay" as const, pointerEvents: "none" }} />
+        <span style={{ position: "absolute", top: 0, left: "12%", right: "12%", height: 1, background: `linear-gradient(90deg, transparent, ${CYAN}, transparent)`, opacity: 0.7, pointerEvents: "none" }} />
+        <figcaption style={{ position: "absolute", left: 10, right: 10, bottom: 10, padding: "10px 13px 12px", borderRadius: 11, background: "rgba(5,8,12,0.55)", border: "1px solid rgba(255,255,255,0.09)", backdropFilter: "blur(14px) saturate(1.4)", WebkitBackdropFilter: "blur(14px) saturate(1.4)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1), 0 6px 14px rgba(0,0,0,0.45)" }}>
+          <div style={{ fontFamily: "var(--font-display)", fontWeight: 500, fontSize: "clamp(13px, 1vw, 15px)", color: "white", letterSpacing: "-0.013em", lineHeight: 1.2 }}>{sp.name}</div>
+          <div style={{ fontFamily: "var(--font-outfit)", fontSize: 10.5, fontWeight: 400, color: "rgba(255,255,255,0.72)", marginTop: 4, lineHeight: 1.35, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as const, overflow: "hidden" }}>{sp.title}</div>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6, paddingTop: 6, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+            <span style={{ width: 3, height: 3, borderRadius: "50%", background: CYAN, boxShadow: `0 0 5px ${CYAN}`, flexShrink: 0 }} />
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9.5, fontWeight: 700, color: CYAN, letterSpacing: "0.18em", textTransform: "uppercase", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{sp.org}</span>
+          </div>
+        </figcaption>
+      </div>
+    </figure>
+  );
+}
+
 const ENGAGEMENT_TIERS = [
   {
     num: "01",
@@ -3562,116 +3637,34 @@ function TheRoom() {
             </span>
           </motion.div>
 
-          <div className="cf-speakers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "clamp(14px, 1.4vw, 20px)" }}>
-            {SPEAKERS.map((sp, i) => (
-              <motion.figure
-                key={sp.name}
-                initial={{ opacity: 0, y: 24 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.2 + i * 0.07, ease: EASE }}
-                className="cf-speaker-card"
-                style={{
-                  margin: 0,
-                  position: "relative",
-                  padding: 1.5,
-                  borderRadius: 16,
-                  background: `linear-gradient(140deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.04) 28%, rgba(255,255,255,0.02) 62%, ${CYAN}55 100%)`,
-                  boxShadow: `0 14px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.02), 0 0 28px ${CYAN}14`,
-                  transition: "transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease",
-                }}
-              >
-                <div style={{
-                  position: "relative",
-                  borderRadius: 14.5,
-                  overflow: "hidden",
-                  aspectRatio: "4 / 5",
-                  background: "#05070b",
-                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.55)",
-                }}>
-                  {/* Full-color cinematic photo — same treatment as Thesis / Arc Open cards */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={sp.photo}
-                    alt={`${sp.name}, ${sp.title}`}
-                    loading="lazy"
-                    className="cf-speaker-photo"
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      objectPosition: (sp as { focus?: string }).focus ?? "top center",
-                      filter: "saturate(0.9) contrast(1.08) brightness(0.78)",
-                      transition: "filter 0.7s ease, transform 1s cubic-bezier(0.22,1,0.36,1)",
-                    }}
-                  />
-                  {/* Dark legibility gradient */}
-                  <span style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(5,7,11,0.22) 0%, transparent 30%, rgba(5,7,11,0.32) 55%, rgba(5,7,11,0.95) 100%)", pointerEvents: "none" }} />
-                  {/* Subtle cyan brand tint */}
-                  <span style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${CYAN}10 0%, transparent 50%, ${CYAN}08 100%)`, mixBlendMode: "overlay" as const, pointerEvents: "none" }} />
-                  {/* Top cyan caustic */}
-                  <span style={{ position: "absolute", top: 0, left: "12%", right: "12%", height: 1, background: `linear-gradient(90deg, transparent, ${CYAN}, transparent)`, opacity: 0.7, pointerEvents: "none" }} />
-
-                  {/* Liquid-glass name chip — bottom */}
-                  <figcaption style={{
-                    position: "absolute",
-                    left: 10,
-                    right: 10,
-                    bottom: 10,
-                    padding: "10px 13px 12px",
-                    borderRadius: 11,
-                    background: "rgba(5,8,12,0.55)",
-                    border: "1px solid rgba(255,255,255,0.09)",
-                    backdropFilter: "blur(14px) saturate(1.4)",
-                    WebkitBackdropFilter: "blur(14px) saturate(1.4)",
-                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1), 0 6px 14px rgba(0,0,0,0.45)",
-                  }}>
-                    <div style={{
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 500,
-                      fontSize: "clamp(13px, 1vw, 15px)",
-                      color: "white",
-                      letterSpacing: "-0.013em",
-                      lineHeight: 1.2,
-                    }}>
-                      {sp.name}
-                    </div>
-                    <div style={{
-                      fontFamily: "var(--font-outfit)",
-                      fontSize: 10.5,
-                      fontWeight: 400,
-                      color: "rgba(255,255,255,0.72)",
-                      marginTop: 4,
-                      lineHeight: 1.35,
-                    }}>
-                      {sp.title}
-                    </div>
-                    <div style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                      marginTop: 6,
-                      paddingTop: 6,
-                      borderTop: "1px solid rgba(255,255,255,0.06)",
-                    }}>
-                      <span style={{ width: 3, height: 3, borderRadius: "50%", background: CYAN, boxShadow: `0 0 5px ${CYAN}`, flexShrink: 0 }} />
-                      <span style={{
-                        fontFamily: "var(--font-dm-sans)",
-                        fontSize: 9.5,
-                        fontWeight: 700,
-                        color: CYAN,
-                        letterSpacing: "0.18em",
-                        textTransform: "uppercase",
-                        lineHeight: 1.2,
-                      }}>
-                        {sp.org}
-                      </span>
-                    </div>
-                  </figcaption>
-                </div>
-              </motion.figure>
-            ))}
+          {/* Two counter-scrolling rows — mixed UAE + Kenya speakers */}
+          <div
+            style={{
+              WebkitMaskImage: "linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%)",
+              maskImage: "linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%)",
+            }}
+          >
+            <div className="cf-marquee-track" style={{ marginBottom: "clamp(12px, 1.2vw, 18px)" }}>
+              <div className="cf-marquee-inner cf-marquee-scroll-left" style={{ animationDuration: "66s" }}>
+                {[...CF_ROW_A, ...CF_ROW_A].map((sp, i) => (
+                  <CfSpeakerCell key={`row-a-${i}`} sp={sp} />
+                ))}
+              </div>
+            </div>
+            <div className="cf-marquee-track" style={{ marginBottom: "clamp(12px, 1.2vw, 18px)" }}>
+              <div className="cf-marquee-inner cf-marquee-scroll-right" style={{ animationDuration: "74s" }}>
+                {[...CF_ROW_B, ...CF_ROW_B].map((sp, i) => (
+                  <CfSpeakerCell key={`row-b-${i}`} sp={sp} />
+                ))}
+              </div>
+            </div>
+            <div className="cf-marquee-track">
+              <div className="cf-marquee-inner cf-marquee-scroll-left" style={{ animationDuration: "70s" }}>
+                {[...CF_ROW_C, ...CF_ROW_C].map((sp, i) => (
+                  <CfSpeakerCell key={`row-c-${i}`} sp={sp} />
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* ─── CTA — See all speakers ──────────────────────────────────── */}
@@ -3688,7 +3681,7 @@ function TheRoom() {
             }}
           >
             <Link
-              href="/events/cyber-first/kuwait-2026#speakers"
+              href="/speakers"
               scroll
               className="cf-speakers-cta"
               style={{

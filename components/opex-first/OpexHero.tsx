@@ -126,7 +126,13 @@ export default function OpexHero() {
 
             {/* CTAs */}
             <motion.div className="opex-cta-row" {...stagger(6)}>
-              <Link href="/events/opex-first/saudi-2026" className="opex-cta opex-cta-primary">View Upcoming Edition<Arrow /></Link>
+              <Link
+                href="#register"
+                className="opex-cta opex-cta-primary"
+                onClick={() => window.dispatchEvent(new CustomEvent("opex-register:tab", { detail: "attend" }))}
+              >
+                Reserve Your Seat<Arrow />
+              </Link>
               <Link
                 href="#register"
                 className="opex-cta opex-cta-ghost"

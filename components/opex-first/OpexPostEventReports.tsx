@@ -12,7 +12,13 @@ const MUTE = "#9b96b8";
 const FAINT = "#6b6786";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-export default function OpexPostEventReports() {
+export default function OpexPostEventReports({
+  onRequestReport,
+}: {
+  // When provided, card clicks call this instead of the default series behaviour
+  // (used by the Saudi 2026 page to open its own request modal).
+  onRequestReport?: (reportUrl: string) => void;
+} = {}) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -133,6 +139,10 @@ export default function OpexPostEventReports() {
               key={report.url}
               type="button"
               onClick={() => {
+                if (onRequestReport) {
+                  onRequestReport(report.url);
+                  return;
+                }
                 document.querySelector("section")?.scrollIntoView({ behavior: "smooth", block: "start" });
                 window.dispatchEvent(
                   new CustomEvent("opex-series:open-request", {

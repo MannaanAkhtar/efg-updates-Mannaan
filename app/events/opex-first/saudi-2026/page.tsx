@@ -9,6 +9,7 @@ import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 import { MeshGradient } from "@paper-design/shaders-react";
 import { Footer, InquiryForm } from "@/components/sections";
+import { OpexPostEventReports } from "@/components/opex-first";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
 import type { CountryCode } from "@/lib/form-helpers";
 
@@ -2214,6 +2215,295 @@ function OpexSaudiPostReportFloat() {
   );
 }
 
+// ─── Testimonials — 3D circular carousel (voices from KSA 2025) ─────────────
+const OPEX_TESTIMONIALS = [
+  {
+    quote:
+      "Operational Excellence is not a passing administrative practice. It is a structured philosophy and a deep-rooted organizational culture founded on discipline, mastery, and excellence in execution. It seeks to maximize efficiency, enhance effectiveness, and create value at every level. It is a continuous journey of improvement and innovation that places customer experience and service quality at the heart of decision-making. It inspires teams to embrace creativity, ownership, and agility in adapting to challenges and opportunities alike. OPEX First KSA 2025 is a dedicated platform for discussing all the current trends and challenges and uniting the leaders and visionaries of continuous improvement.",
+    name: "Eng. AbdulRazzag Al Aujan",
+    designation: "H.E. Ministry of Finance Advisor",
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Eng+AbdulRazzag+Al+Aujan.png",
+  },
+  {
+    quote:
+      "The OPEX First KSA 2025 Summit was an excellent platform for exchanging knowledge and experiences on operational excellence. I was pleased to contribute to the panel discussion on how organizations can embed innovation and empower their people to sustain transformation. Summits like this are vital for driving collective learning and accelerating progress toward Vision 2030.",
+    name: "Yasmin Bin Mobki",
+    designation:
+      "General Manager of Privatization & PMO, Ministry of Human Resources and Social Development",
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Yasmin+Bin+Mobki.png",
+  },
+  {
+    quote:
+      "As Gold Sponsor of OPEX First KSA 2025, Cyborg Automation Hub is proud to help organizations advance Saudi Vision 2030 by uniting AI, automation at scale, and process intelligence into real operational results. Together with our ecosystem partners, we are enabling transparent, sustainable, and resilient automation across Saudi industry.",
+    name: "Cyborg Automation Hub",
+    designation: "Gold Sponsor, OPEX First KSA 2025",
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Cyborg+Automation+HUB.jpg",
+  },
+  {
+    quote: "Thank you to everyone for making the event nothing short of magnificent.",
+    name: "Mohammed Al Ghazal",
+    designation: "CEO, Noor Energies",
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Mohammed+Al+Ghazal.png",
+  },
+  {
+    quote:
+      "It was a pleasure to be part of such an amazing event and looking forward to the next edition.",
+    name: "Abdulmajeed Alshaalan",
+    designation:
+      "Executive Director of Organizational Excellence, National Infrastructure Fund (Infra)",
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Abdulmajeed+Alshaalan.png",
+  },
+  {
+    quote:
+      "This partnership with TeamAssurance brings together global best practices and local expertise to empower Saudi factories with tools that drive efficiency, competitiveness, and sustainable excellence.",
+    name: "Eng. Majed Almeleak",
+    designation: "CEO & Board Member, KAFAA Efficiency Excellence",
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Majed+Almeleak.png",
+  },
+];
+
+function OpexTestimonials() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.15 });
+
+  // Duplicated once so the marquee track loops seamlessly (translateX -50%)
+  const loop = [...OPEX_TESTIMONIALS, ...OPEX_TESTIMONIALS];
+
+  return (
+    <div ref={ref} style={{ marginBottom: "clamp(36px, 4.5vw, 60px)" }}>
+      {/* Band header — sibling to the Past Editions band */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, ease: EASE }}
+        style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 36, gap: 20, flexWrap: "wrap" }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          <span style={{ width: 32, height: 1, background: V_BRIGHT, opacity: 0.6 }} />
+          <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: V_BRIGHT }}>
+            Voices — What Leaders Said
+          </span>
+        </div>
+        <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.5)", letterSpacing: "0.3px" }}>
+          OPEX First KSA 2025
+        </span>
+      </motion.div>
+
+      {/* Full-bleed auto-scrolling marquee — text left, framed portrait right */}
+      <motion.div
+        className="opex-tst-viewport"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
+      >
+        <div className="opex-tst-track">
+          {loop.map((t, i) => (
+            <article className="opex-tst-card" key={`${t.src}-${i}`} aria-hidden={i >= OPEX_TESTIMONIALS.length}>
+              <div className="opex-tst-text">
+                <span className="opex-tst-mark" aria-hidden>&ldquo;</span>
+                <p className="opex-tst-quote">{t.quote}</p>
+                <div className="opex-tst-attr">
+                  <h3 className="opex-tst-name">{t.name}</h3>
+                  <p className="opex-tst-role">{t.designation}</p>
+                </div>
+              </div>
+              <div className="opex-tst-figure">
+                <div className="opex-tst-frame">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={t.src}
+                    alt={t.name}
+                    draggable={false}
+                    loading="lazy"
+                    className={t.src.includes("Cyborg") ? "is-logo" : undefined}
+                  />
+                  <span className="opex-tst-frame-glass" aria-hidden />
+                  <span className="opex-tst-frame-corner tl" aria-hidden />
+                  <span className="opex-tst-frame-corner br" aria-hidden />
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </motion.div>
+
+      <style jsx global>{`
+        /* Full-bleed viewport — breaks out of the centred container, fades at both edges */
+        .opex-tst-viewport {
+          position: relative;
+          width: 100vw;
+          margin-left: calc(50% - 50vw);
+          overflow: hidden;
+          padding: 6px 0 8px;
+          -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+        }
+        .opex-tst-track {
+          display: flex;
+          width: max-content;
+          animation: opex-tst-scroll 60s linear infinite;
+          will-change: transform;
+        }
+        .opex-tst-viewport:hover .opex-tst-track {
+          animation-play-state: paused;
+        }
+        @keyframes opex-tst-scroll {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .opex-tst-track { animation: none; }
+        }
+
+        .opex-tst-card {
+          flex: 0 0 clamp(520px, 60vw, 660px);
+          margin-right: clamp(18px, 1.8vw, 26px);
+          display: flex;
+          gap: clamp(22px, 2.4vw, 38px);
+          align-items: stretch;
+          height: clamp(360px, 40vw, 420px);
+          background: linear-gradient(150deg, ${BG_CARD} 0%, ${BG_DARK} 100%);
+          border: 1px solid ${RULE};
+          border-radius: 22px;
+          padding: clamp(24px, 2.6vw, 38px);
+        }
+        .opex-tst-text {
+          flex: 1;
+          min-width: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        .opex-tst-mark {
+          display: block;
+          font-family: var(--font-display);
+          font-size: clamp(34px, 3.4vw, 50px);
+          line-height: 0.5;
+          color: ${V_BRIGHT};
+          opacity: 0.5;
+          margin-bottom: 12px;
+        }
+        .opex-tst-quote {
+          font-family: var(--font-outfit);
+          font-size: clamp(13.5px, 1.1vw, 16px);
+          font-weight: 300;
+          line-height: 1.62;
+          color: rgba(255, 255, 255, 0.86);
+          margin: 0;
+          max-height: clamp(150px, 20vw, 210px);
+          overflow-y: auto;
+          padding-right: 8px;
+          scrollbar-width: thin;
+          scrollbar-color: ${V} transparent;
+        }
+        .opex-tst-quote::-webkit-scrollbar {
+          width: 4px;
+        }
+        .opex-tst-quote::-webkit-scrollbar-thumb {
+          background: ${V}88;
+          border-radius: 2px;
+        }
+        .opex-tst-attr {
+          margin-top: clamp(16px, 1.8vw, 22px);
+          padding-top: clamp(14px, 1.6vw, 18px);
+          border-top: 1px solid ${RULE};
+        }
+        .opex-tst-name {
+          font-family: var(--font-display);
+          font-size: clamp(17px, 1.4vw, 21px);
+          font-weight: 700;
+          color: #fff;
+          margin: 0 0 4px 0;
+          letter-spacing: -0.01em;
+        }
+        .opex-tst-role {
+          font-family: var(--font-outfit);
+          font-size: clamp(12px, 0.95vw, 13.5px);
+          font-weight: 400;
+          color: ${V_PALE};
+          margin: 0;
+          line-height: 1.45;
+        }
+
+        .opex-tst-figure {
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+        }
+        /* Custom bezel frame — violet gradient border, inset image, corner ticks */
+        .opex-tst-frame {
+          position: relative;
+          width: clamp(180px, 20vw, 232px);
+          aspect-ratio: 4 / 5;
+          border-radius: 16px;
+          padding: 6px;
+          background: linear-gradient(155deg, ${V_BRIGHT} 0%, ${V} 40%, ${V_DIM} 100%);
+          box-shadow: 0 22px 46px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
+        .opex-tst-frame img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center 15%;
+          border-radius: 11px;
+          display: block;
+          background: ${BG_DARK};
+        }
+        .opex-tst-frame img.is-logo {
+          object-fit: contain;
+          object-position: center;
+          background: #ffffff;
+          padding: 12%;
+        }
+        .opex-tst-frame-glass {
+          position: absolute;
+          inset: 6px;
+          border-radius: 11px;
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 -50px 60px -40px rgba(6, 6, 14, 0.85);
+          pointer-events: none;
+        }
+        .opex-tst-frame-corner {
+          position: absolute;
+          width: 16px;
+          height: 16px;
+          border: 2px solid rgba(255, 255, 255, 0.85);
+          pointer-events: none;
+        }
+        .opex-tst-frame-corner.tl {
+          top: 13px;
+          left: 13px;
+          border-right: none;
+          border-bottom: none;
+          border-top-left-radius: 5px;
+        }
+        .opex-tst-frame-corner.br {
+          bottom: 13px;
+          right: 13px;
+          border-left: none;
+          border-top: none;
+          border-bottom-right-radius: 5px;
+        }
+
+        @media (max-width: 620px) {
+          .opex-tst-card {
+            flex: 0 0 86vw;
+            gap: 18px;
+            padding: 22px;
+            height: auto;
+            min-height: 360px;
+          }
+          .opex-tst-frame {
+            width: clamp(120px, 34vw, 160px);
+          }
+          .opex-tst-quote {
+            max-height: 200px;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
+
 function EventOverview() {
   const ref = useRef<HTMLElement>(null);
   const signalsRef = useRef<HTMLDivElement>(null);
@@ -2340,7 +2630,7 @@ function EventOverview() {
       ref={ref}
       style={{
         background: `linear-gradient(180deg, ${BG_DARK} 0%, ${BG} 50%, ${BG_DARK} 100%)`,
-        padding: "clamp(48px, 5.5vw, 80px) clamp(20px, 5vw, 64px)",
+        padding: "clamp(20px, 2.4vw, 34px) clamp(20px, 5vw, 64px) clamp(48px, 5.5vw, 80px)",
         position: "relative",
         overflow: "hidden",
       }}
@@ -2428,6 +2718,9 @@ function EventOverview() {
             OPEX First Saudi 2026 is the only platform dedicated to propelling operational excellence to new heights — convening visionary leaders to co-create the next era of performance mastery.
           </p>
         </motion.blockquote>
+
+        {/* ── Testimonials — voices from KSA 2025 ─────────────────────────── */}
+        <OpexTestimonials />
 
         {/* ── BAND 2 — Past editions video showcase ──────────────────────── */}
         <div style={{ marginBottom: "clamp(72px, 10vw, 120px)" }}>
@@ -7101,6 +7394,13 @@ export default function OpexFirstSaudi2026Page() {
   return (
     <main style={{ background: BG_DARK, color: "white", overflow: "hidden" }}>
       <Hero />
+      <OpexPostEventReports
+        onRequestReport={() =>
+          window.dispatchEvent(
+            new CustomEvent("opex-saudi:open-request", { detail: { type: "Past Event Report" } }),
+          )
+        }
+      />
       <OpexSaudiPostEventReports />
       <OpexSaudiPostReportFloat />
       <EventOverview />

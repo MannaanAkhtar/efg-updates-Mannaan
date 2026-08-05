@@ -17,6 +17,7 @@ type Edition = {
   folio: string;
   status: "completed" | "upcoming";
   kicker: string;
+  editionLabel?: string;
   city: string;
   country: string;
   caption?: string;
@@ -36,6 +37,7 @@ const editions: Edition[] = [
     folio: "01 / 03",
     status: "completed",
     kicker: "Completed · Sep 2025",
+    editionLabel: "1st Edition",
     city: "Riyadh",
     country: "KSA",
     caption: "Riyadh Marriott — 9 September 2025",
@@ -51,6 +53,7 @@ const editions: Edition[] = [
     folio: "02 / 03",
     status: "completed",
     kicker: "Completed · Feb 2026",
+    editionLabel: "2nd Edition",
     city: "Abu Dhabi",
     country: "UAE",
     caption: "St. Regis — 10 February 2026",
@@ -67,6 +70,7 @@ const editions: Edition[] = [
     folio: "03 / 03",
     status: "upcoming",
     kicker: "Live Edition · 21 Oct 2026",
+    editionLabel: "3rd Edition",
     city: "Riyadh",
     country: "KSA",
     dek: "The flagship returns to Riyadh — registration now open.",
@@ -1067,6 +1071,30 @@ function EditionEntry({
         </span>
       </h3>
 
+      {/* Edition ordinal tag */}
+      {ed.editionLabel && (
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            alignSelf: "flex-start",
+            marginTop: 10,
+            padding: "4px 11px",
+            borderRadius: 999,
+            border: `1px solid ${isUp ? "rgba(159,103,255,0.42)" : "rgba(255,255,255,0.14)"}`,
+            background: isUp ? "rgba(159,103,255,0.1)" : "rgba(255,255,255,0.04)",
+            fontFamily: "var(--font-outfit)",
+            fontSize: 10.5,
+            fontWeight: 700,
+            letterSpacing: "1.6px",
+            textTransform: "uppercase",
+            color: isUp ? VIOLET_BRIGHT : "rgba(255,255,255,0.5)",
+          }}
+        >
+          {ed.editionLabel}
+        </span>
+      )}
+
       {/* Caption / dek */}
       <p
         style={{
@@ -1132,7 +1160,7 @@ function EditionEntry({
       {/* Upcoming: editorial underline CTA */}
       {isUp && (
         <span className="opex-pgm-cta">
-          Reserve your place
+          View the edition
           <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
             <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke={OFFWHITE} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>

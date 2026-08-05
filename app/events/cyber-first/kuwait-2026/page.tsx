@@ -1718,7 +1718,7 @@ function CVSection({ children, minH = 800 }: { children: React.ReactNode; minH?:
 type CfkEdition = { city: string; edition: string; when?: string; href?: string; logo?: string; image?: string; scrimLight?: boolean };
 const CFK_EDITIONS: CfkEdition[] = [
   { city: "Doha, Qatar", edition: "Qatar Edition", when: "November 2026", href: "/events/cyber-first/qatar", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/Cyber+Qatar-03.svg", image: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/cyberQatar.png", scrimLight: true },
-  { city: "United Arab Emirates", edition: "New Edition" },
+  { city: "United Arab Emirates", edition: "New Edition", when: "27 January 2027", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=2400&q=85&auto=format&fit=crop" },
 ];
 
 function SeriesEditions() {
@@ -1765,7 +1765,13 @@ function SeriesEditions() {
                     </span>
                   </Link>
                 ) : (
-                  <div className="cfk-series-card cfk-series-card-soon" aria-label={`Cyber First ${e.city} — coming soon`}>
+                  <div className={`cfk-series-card cfk-series-card-soon${e.image ? " cfk-series-soon-photo" : ""}`} aria-label={`Cyber First ${e.city} — coming soon`}>
+                    {e.image && (
+                      <>
+                        <span aria-hidden className="cfk-series-bg" style={{ backgroundImage: `url("${e.image}")` }} />
+                        <span aria-hidden className="cfk-series-scrim" />
+                      </>
+                    )}
                     <span className="cfk-series-soon-top">
                       <span className="cfk-series-soon-badge">
                         <span aria-hidden className="cfk-series-soon-dot" />
@@ -1774,7 +1780,7 @@ function SeriesEditions() {
                     </span>
                     <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9.5, fontWeight: 700, letterSpacing: "2.4px", textTransform: "uppercase", color: `${C_BRIGHT}99` }}>{e.edition}</span>
                     <span style={{ fontFamily: "var(--font-display)", fontSize: 19, fontWeight: 700, color: "rgba(255,255,255,0.9)", letterSpacing: "-0.01em", lineHeight: 1.15 }}>{e.city}</span>
-                    {e.when && <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.4)" }}>{e.when}</span>}
+                    {e.when && <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.62)" }}>{e.when}</span>}
                   </div>
                 )}
               </motion.div>
@@ -1795,6 +1801,10 @@ function SeriesEditions() {
         .cfk-series-logo { max-height: 52px; max-width: 100%; width: auto; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
         .cfk-series-card-soon { cursor: default; opacity: 0.72; }
         .cfk-series-card-soon:hover { transform: none; border-color: ${C}33; box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 0 26px ${C}18; opacity: 0.85; }
+        .cfk-series-card-soon > *:not(.cfk-series-bg):not(.cfk-series-scrim) { position: relative; z-index: 2; }
+        .cfk-series-soon-photo, .cfk-series-soon-photo:hover { opacity: 1; }
+        .cfk-series-soon-photo .cfk-series-bg { opacity: 0.55; }
+        .cfk-series-soon-photo:hover .cfk-series-bg { opacity: 0.7; transform: scale(1.05); }
         .cfk-series-soon-top { display: flex; align-items: center; height: 52px; margin-bottom: 8px; }
         .cfk-series-soon-badge { display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; border-radius: 999px; border: 1px solid ${C}40; background: ${C}14; font-family: var(--font-outfit); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: ${C_BRIGHT}; }
         .cfk-series-soon-dot { width: 6px; height: 6px; border-radius: 50%; background: ${C_BRIGHT}; box-shadow: 0 0 8px ${C}; animation: cfkSeriesSoonPulse 1.8s ease-in-out infinite; }
