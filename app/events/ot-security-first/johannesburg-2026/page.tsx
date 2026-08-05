@@ -376,7 +376,7 @@ const SPEAKERS = [
     title: "Chief Internal Auditor (IT)",
     org: "Sibanye-Stillwater",
     linkedin: "https://www.linkedin.com/in/chris-gatsi-3b303734/",
-    photo: "",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Chris+Gatsi.jpg",
   },
   {
     name: "Ritasha Kalidas",
@@ -426,6 +426,20 @@ const SPEAKERS = [
     org: "Astron Energy",
     linkedin: "https://www.linkedin.com/in/dylan-adriaans/",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dylan+Adriaans.png",
+  },
+  {
+    name: "Martin Fernandes",
+    title: "Business Development Manager OT/CPS Africa",
+    org: "Fortinet",
+    linkedin: "",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Martin+Fernandes.jpg",
+  },
+  {
+    name: "Stephen Mokoena",
+    title: "Head of Digital and Technology",
+    org: "Unilever",
+    linkedin: "https://www.linkedin.com/in/stephen-mosehlana-mokoena-96619571/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Stephen+Mokoena.png",
   },
 ].filter((s) => !("hidden" in s) || !s.hidden);
 
@@ -4243,6 +4257,14 @@ const EVENT_SPONSORS_2026: {
     scale: 2.1,
   },
   {
+    name: "TXOne Networks",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/TXOne+LOGO-3.png",
+    url: "https://www.txone.com/",
+    tier: "strategic",
+    keepColor: true,
+    scale: 2.4,
+  },
+  {
     name: "Oryx",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Oryx_logo_vert_on_Black_transp.png",
     url: "https://oryxind.co.za/",
@@ -4327,6 +4349,13 @@ const EVENT_SPONSORS_2026: {
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/the_coin_republic-removebg-preview.png",
     url: "https://www.thecoinrepublic.com/",
     tier: "media",
+  },
+  {
+    name: "CoinNewsSpan",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Coinnewsspan+-+White.png",
+    url: "https://www.coinnewsspan.com/",
+    tier: "media",
+    scale: 1.45,
   },
   {
     name: "Recorded Future",
@@ -4434,7 +4463,7 @@ function EventSponsorsSection() {
                     justifyContent: "center",
                     width: "100%",
                   }}
-                  className="otsf-event-sponsors-grid"
+                  className={`otsf-event-sponsors-grid${isStrategic ? " otsf-strategic-grid" : ""}`}
                 >
                   {rowSponsors.map((sponsor, i) => {
                     const GOLD = "#E8B845";
@@ -4806,6 +4835,10 @@ function EventSponsorsSection() {
         @media (max-width: 768px) {
           .otsf-event-sponsors-grid {
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+          }
+          /* Strategic sponsors always stay on a single row */
+          .otsf-strategic-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
           }
         }
       `}</style>
@@ -5882,12 +5915,12 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
     label: "Regulation, Standards, & Public Private Collaboration, Governance",
     time: "08:00 – 11:15",
     rows: [
-      { time: "08:00 – 9:00", type: "break", title: "Registration, Networking, and Refreshments" },
+      { time: "08:00 – 09:00", type: "break", title: "Registration, Networking, and Refreshments" },
       { time: "09:05 – 09:10", type: "keynote", title: "Welcome Remarks" },
-      { time: "09:10 – 09:15", type: "keynote", title: "National Anthem and Opening Ceremony" },
-      { time: "09:15 – 09:30", type: "keynote", title: "Opening Keynote", desc: "The State of OT Security in Africa 2026" },
+      { time: "09:10 – 09:15", type: "keynote", title: "National Anthem and Opening" },
+      { time: "09:15 – 09:30", type: "keynote", title: "Opening Keynote", desc: "Mr Dick Sono, Deputy Director General – ICT Infrastructure, Department of Communications and Digital Technologies (DCDT)" },
       {
-        time: "09:30 – 10:00",
+        time: "09:30 – 10:15",
         type: "panel",
         title: "Leadership Panel",
         desc: "Making OT Security a National Priority - Harmonizing Regulatory Mandates, Public-Private Trust, and Crisis Response\nAligning board level governance, strict regional regulatory standards, and practical crisis readiness to guarantee corporate and operational resilience",
@@ -5895,45 +5928,46 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
           "Translating frameworks from paperwork into verifiable engineering controls",
           "Overcoming trust barriers to share active threat indicators and incident insights with regional authorities and industry peers",
           "Constructing localized crisis management playbooks that prioritize physical safety, environmental protection, and uptime",
-          "Business Continuity Under Fire to minimize financial and reputational fallout",
+          "Business continuity under fire to minimize financial and reputational fallout",
         ],
         panelists: [
           "Len De Villiers, Group CTIO, Eskom Holdings",
           "Nthabiseng Mosupye, CTIO, Rand Water",
           "Cathy Leso, CIO, Department of Mineral Resources",
-          "Reserved for Keysight / Forescout",
+          "Aubrey Mochela, Group CTO, City of Johannesburg",
+          "Reserved for Keysight Technologies",
         ],
       },
-      { time: "10:00 – 10:15", type: "fireside", title: "Fireside Chat", desc: "IT/OT Convergence Without Losing Control - Integrating the SOC\nHow to converge monitoring while respecting the realities of process safety and uptime" },
-      { time: "10:15 – 10:30", type: "fireside", title: "Technology Presentation", desc: "TBC\nReserved for Keysight / Forescout" },
-      { time: "10:30 – 11:15", type: "break", title: "Networking Break and Refreshments" },
+      { time: "10:15 – 10:30", type: "fireside", title: "Technology Presentation", desc: "TBC\nReserved for Keysight Technologies" },
+      { time: "10:30 – 11:15", type: "break", title: "VIP Exhibition Tour, Networking Break and Refreshments" },
     ],
   },
   {
     label: "Emerging Technologies - Legacy Retrofitting & Hardening",
-    time: "11:15 – 14:30",
+    time: "11:15 – 15:00",
     rows: [
       {
-        time: "11:15 – 11:45",
+        time: "11:15 – 12:00",
         type: "panel",
         title: "Panel Discussion",
-        desc: "Beyond the Air Gap: Implementing Zero Trust and Network Visibility in Legacy ICS Environments\nUnpacking the architectural realities of modernizing heavy industrial infrastructure without inducing operational downtime.",
+        desc: "Beyond the Air Gap: Implementing Zero Trust and Network Visibility in Legacy ICS Environments\nUnpacking the architectural realities of modernizing heavy industrial infrastructure without inducing operational downtime",
         bullets: [
           "Pragmatic strategies for applying modern cryptographic identities and network access controls",
-          "The Visibility Baseline: Moving from “blind spots” to complete asset clarity",
-          "Micro-Segmentation in Practice: Definition and enforcement",
-          "Continuous Authentication",
+          "The visibility baseline: moving from “blind spots” to complete asset clarity",
+          "Micro-segmentation in practice: definition and enforcement",
+          "Continuous authentication",
         ],
         moderator: "Xolani Nzimande, OT Cybersecurity Specialist, Sasol",
         panelists: [
           "Reserved for Fortinet",
           "Renaldo J, Group Head of Cybersecurity, Globaleq",
+          "Kholofelo Halefose, Chief Advisor IT/OT Cybersecurity, Eskom Holdings",
         ],
       },
-      { time: "11:45 – 12:00", type: "fireside", title: "Technology Presentation", desc: "TBC\nReserved for Fortinet" },
-      { time: "12:00 – 12:15", type: "fireside", title: "Technology Presentation", desc: "TBC\nReserved for Corr-Serve / Seceon" },
+      { time: "12:00 – 12:15", type: "fireside", title: "Technology Presentation", desc: "Beyond Protection - Cybersecurity Resilience for Operational Technology\nMartin Fernandes, Business Development Manager OT/CPS Africa, Fortinet" },
+      { time: "12:15 – 12:30", type: "fireside", title: "Technology Presentation", desc: "TBC\nReserved for Corr-Serve / Seceon" },
       {
-        time: "12:15 – 12:45",
+        time: "12:30 – 13:15",
         type: "panel",
         title: "Panel Discussion",
         desc: "The Core of Converged Defense: Scaling Unified IT/OT SOCs with AI and Emerging Tech\nExploring how organizations are utilizing artificial intelligence and unified monitoring architectures to proactively spot and contain industrial threats",
@@ -5943,32 +5977,39 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
           "Evaluating the real-world utility of innovations like digital twins",
           "The culture & workflow shift",
         ],
+        moderator: "Stephen Mokoena, Head of Digital & Technology, Unilever Southern Africa",
         panelists: [
           "Ishaaq Jacobs, CISO, Sasol",
           "Reserved for Corr-Serve / Seceon",
+          "Samuel Mokoena, Head Group ICT Security, Sibanye-Stillwater",
+          "Dylan Adriaans, Head of the Office of the CIO, Astron Energy",
+          "Akash Makhan, OT/IT Convergence (Digital Transformation), Eskom Holdings SOC Ltd",
+          "Sibusiso Mkhwanazi, Head of IT Operations Management, Transnet National Ports Authority",
         ],
       },
-      { time: "12:45 – 13:00", type: "fireside", title: "Technology Presentation", desc: "Passive Deep-Packet Asset Discovery: Eliminating Blind Spots Without Active Polling" },
-      { time: "13:00 – 13:30", type: "break", title: "Networking Break and Refreshments" },
+      { time: "13:15 – 13:45", type: "break", title: "Networking Break and Refreshments" },
       {
-        time: "13:30 – 14:00",
+        time: "13:45 – 14:30",
         type: "panel",
         title: "Panel Discussion",
         desc: "Securing the Industrial Ecosystem: Third-Party Risk, Supply Chain Integrity, and the Power of External Threat Intelligence\nAddressing the vulnerabilities introduced by external suppliers and the human capital strategies required to manage modern industrial cyber risks",
         bullets: [
           "Mitigating third-party software and hardware component vulnerabilities",
-          "Vendor Remote Access Control - Securing and auditing ephemeral remote maintenance gateways",
-          "Cross killing the Workforce",
+          "Vendor remote access control: securing and auditing ephemeral remote maintenance gateways",
+          "Cross-skilling the workforce",
           "Retaining internal OT security expertise and leveraging managed services",
         ],
+        moderator: "Zakiyya C, CIO, Ardagh Group",
         panelists: [
           "Muvhango Livhusha, VP, ISACA South Africa Chapter",
-          "Shane Naidoo, Digital Executive, Transnet",
+          "Shane Naidoo, Executive Head of IT, Transnet",
+          "Chris Gatsi, Chief Internal Auditor (IT), Sibanye-Stillwater",
+          "Ritasha Kalidas, Group Head of Cyber Security, Eskom Holdings SOC",
         ],
       },
-      { time: "14:00 – 14:15", type: "fireside", title: "Presentation", desc: "Cyber-attacks on Critical infrastructures: Understanding the Threat and Building resilience\nNaoufal Kerboute, Regional Director - Middle East and Africa, Waterfall Security" },
-      { time: "14:15 – 14:30", type: "awards", title: "OT Security First Award Ceremony & Raffle Draw" },
-      { time: "14:30", type: "break", title: "Networking Lunch and End of Conference" },
+      { time: "14:30 – 14:45", type: "fireside", title: "Presentation", desc: "Cyber-attacks on Critical infrastructures: Understanding the Threat and Building resilience\nNaoufal Kerboute, Regional Director - Middle East and Africa, Waterfall Security" },
+      { time: "14:45 – 15:00", type: "awards", title: "OT Security First Award Ceremony & Raffle Draw" },
+      { time: "15:00", type: "break", title: "Networking Lunch and End of Conference" },
     ],
   },
 ];
