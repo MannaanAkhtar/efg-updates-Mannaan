@@ -4242,6 +4242,13 @@ const EVENT_SPONSORS_2026: {
   lightBg?: boolean;     // render a white inner panel (for logos with dark text)
 }[] = [
   {
+    name: "CYFIRMA",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/cyfirma_logo.png",
+    url: "https://www.cyfirma.com/",
+    tier: "panel",
+    keepColor: true,
+  },
+  {
     name: "Waterfall Security Solutions",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Waterfall_logo_white.png",
     url: "https://waterfall-security.com/",
@@ -4367,7 +4374,7 @@ const EVENT_SPONSORS_2026: {
 ];
 
 const TIER_LABEL: Record<typeof EVENT_SPONSORS_2026[number]["tier"], string> = {
-  strategic: "Strategic Sponsor",
+  strategic: "Strategic Sponsors",
   platinum: "Platinum Sponsors",
   gold: "Gold Sponsors",
   panel: "Panel Sponsor",

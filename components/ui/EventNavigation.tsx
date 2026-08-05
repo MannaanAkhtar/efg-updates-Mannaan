@@ -122,7 +122,7 @@ const EVENT_CONFIGS: Record<string, {
       { href: "#overview", label: "Overview" },
       { href: "#speakers", label: "Speakers" },
       { href: "#agenda", label: "Agenda" },
-      { href: "#themes", label: "Themes" },
+      { href: "#event-sponsors", label: "Sponsors" },
       { href: "#awards", label: "Awards" },
       { href: "#venue", label: "Venue" },
     ],
