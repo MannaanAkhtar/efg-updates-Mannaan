@@ -149,7 +149,7 @@ const EVENT_CONFIGS: Record<string, {
     shortName: "OT Security Qatar",
     color: "#D34B9A",
     colorBright: "#E86BB8",
-    date: "3rd Week Nov 2026",
+    date: "TBA",
     location: "Doha, Qatar",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT+Qatar-02.png",
     logoHeight: 80,

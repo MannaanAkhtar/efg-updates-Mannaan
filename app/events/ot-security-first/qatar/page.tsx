@@ -77,7 +77,7 @@ const SPONSOR_MARQUEE_2 = [
   `${S3_LOGOS}/YOKOGAWA.png`,
 ];
 
-// 11 November 2026, Doha
+// Date rescheduled — currently TBA. (Was 11 November 2026, Doha.) Kept for when a new date is set.
 const EVENT_DATE_ISO = "2026-11-11T09:00:00+03:00";
 
 // OT event photography (UAE 2025 + KSA archive, reused as series imagery)
@@ -497,7 +497,6 @@ export default function OTSecurityFirstQatar2026() {
 
 // ─── HERO ─────────────────────────────────────────────────────────────────────
 function Hero() {
-  const cd = useCountdown(EVENT_DATE_ISO);
   const rootRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
 
@@ -524,13 +523,6 @@ function Hero() {
     }, rootRef);
     return () => ctx.revert();
   }, []);
-
-  const cdUnits = [
-    { v: cd.d, l: "Days" },
-    { v: cd.h, l: "Hrs" },
-    { v: cd.m, l: "Min" },
-    { v: cd.s, l: "Sec" },
-  ];
 
   return (
     <section ref={rootRef} style={{ position: "relative", minHeight: "100svh", display: "flex", alignItems: "center", overflow: "hidden", background: BG_BASE }}>
@@ -566,7 +558,7 @@ function Hero() {
         {/* Meta chips */}
         <div className="otq-hero-anim" style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 34 }}>
           {[
-            { label: "11 November 2026", icon: "M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" },
+            { label: "TBA", icon: "M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" },
             { label: "Doha, State of Qatar", icon: "M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11zM12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" },
           ].map((m) => (
             <div key={m.label} style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "10px 18px", borderRadius: 999, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", backdropFilter: "blur(10px)" }}>
@@ -578,13 +570,9 @@ function Hero() {
 
         {/* Countdown + CTAs */}
         <div className="otq-hero-anim" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 26, marginTop: 44 }}>
-          <div style={{ display: "flex", gap: 10 }}>
-            {cdUnits.map((u) => (
-              <div key={u.l} style={{ minWidth: 66, textAlign: "center", padding: "12px 10px", borderRadius: 14, background: "linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)" }}>
-                <div style={{ fontFamily: "var(--font-display)", fontSize: 26, fontWeight: 700, color: "white", lineHeight: 1 }}>{String(u.v).padStart(2, "0")}</div>
-                <div style={{ fontFamily: "var(--font-outfit)", fontSize: 10, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginTop: 6 }}>{u.l}</div>
-              </div>
-            ))}
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 14, padding: "16px 28px", borderRadius: 14, background: "linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)" }}>
+            <span style={{ fontFamily: "var(--font-display)", fontSize: 26, fontWeight: 700, color: "white", lineHeight: 1, letterSpacing: "2px" }}>TBA</span>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", lineHeight: 1.4 }}>Dates to be<br />announced</span>
           </div>
 
           <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
@@ -2264,7 +2252,7 @@ function Venue() {
         <motion.div initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.75, delay: 0.35, ease: EASE }} style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 10 }}>
           {[
             { label: "Doha, State of Qatar", confirmed: true, icon: "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0zM12 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" },
-            { label: "11 November 2026", confirmed: true, icon: "M19 4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM16 2v4M8 2v4M3 10h18" },
+            { label: "TBA", confirmed: true, icon: "M19 4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM16 2v4M8 2v4M3 10h18" },
             { label: "Five-Star Property", confirmed: false, icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" },
           ].map((chip) => (
             <div key={chip.label} style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "9px 16px", borderRadius: 999, background: "rgba(255,255,255,0.08)", backdropFilter: "blur(14px) saturate(180%)", WebkitBackdropFilter: "blur(14px) saturate(180%)", border: `1px solid ${chip.confirmed ? "rgba(255,255,255,0.22)" : `${GOLD}55`}`, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.28), 0 6px 18px rgba(0,0,0,0.4)" }}>
@@ -2290,7 +2278,7 @@ function Venue() {
 const OTQ_FAQS: { q: string; a: React.ReactNode }[] = [
   {
     q: "When is OT Security First Qatar 2026?",
-    a: "OT Security First Qatar 2026 takes place on 11 November 2026 in Doha, State of Qatar.",
+    a: "OT Security First Qatar 2026 will take place in Doha, State of Qatar. The exact date has been rescheduled and is to be announced (TBA).",
   },
   {
     q: "Where is OT Security First Qatar 2026 held?",
