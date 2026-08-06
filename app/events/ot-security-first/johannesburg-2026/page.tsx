@@ -280,6 +280,13 @@ const SPEAKERS = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Len+De+Villiers.png",
   },
   {
+    name: "Aubrey Mochela",
+    title: "Group CTO",
+    org: "City of Johannesburg",
+    linkedin: "https://www.linkedin.com/in/aubrey-mochela-72427ab/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aubrey+Mochela.jpeg",
+  },
+  {
     name: "Nthabiseng Mosupye",
     title: "CTIO",
     org: "Rand Water",
@@ -308,11 +315,11 @@ const SPEAKERS = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Rishi+Hariram.png",
   },
   {
-    name: "Akash Makhan",
-    title: "OT/IT Convergence (Digital Transformation)",
-    org: "Eskom Holdings SOC Ltd",
-    linkedin: "https://www.linkedin.com/in/akashmakhan/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Akash+Makhan.jpg",
+    name: "Prinesh Vythilingam",
+    title: "Group Head of Cyber Security",
+    org: "African Rainbow Minerals Limited",
+    linkedin: "https://www.linkedin.com/in/prineshkv/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Prinesh+Vythilingam.png",
   },
   {
     name: "Shane Naidoo",
@@ -329,40 +336,67 @@ const SPEAKERS = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Renaldo.jpg",
   },
   {
+    name: "Zakiyya Cassimjee",
+    title: "CIO",
+    org: "Ardagh Group",
+    linkedin: "https://www.linkedin.com/in/zakiyyacassimjee/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Zakiyya+Cassimjee.jpg",
+  },
+  {
+    name: "Ritasha Kalidas",
+    title: "GM - Cyber Security, Risk and Governance",
+    org: "Eskom Holdings",
+    linkedin: "https://www.linkedin.com/in/ritasha-kalidas-a876b3156/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ritasha+Kalidas.jpg",
+  },
+  {
+    name: "Dylan Adriaans",
+    title: "Head of the Office of CIO",
+    org: "Astron Energy",
+    linkedin: "https://www.linkedin.com/in/dylan-adriaans/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dylan+Adriaans.png",
+  },
+  {
+    name: "Akash Makhan",
+    title: "OT/IT Convergence (Digital Transformation)",
+    org: "Eskom Holdings SOC Ltd",
+    linkedin: "https://www.linkedin.com/in/akashmakhan/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Akash+Makhan.jpg",
+  },
+  {
+    name: "Samuel Mokoena",
+    title: "Head Group ICT Security",
+    org: "Sibanye-Stillwater",
+    linkedin: "https://www.linkedin.com/in/samuel-mokoena-5a19041/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Samuel_Mokoena.png",
+  },
+  {
+    name: "Stephen Mokoena",
+    title: "Head of Digital and Technology",
+    org: "Unilever",
+    linkedin: "https://www.linkedin.com/in/stephen-mosehlana-mokoena-96619571/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Stephen+Mokoena.png",
+  },
+  {
+    name: "Paulo Rebelo",
+    title: "Head of Sales META & CIS Regions",
+    org: "Keysight",
+    linkedin: "https://www.linkedin.com/in/paulo-rebelo-8673261/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mr.+Paulo_Rebelo%C2%A0%C2%A0.png",
+  },
+  {
+    name: "Hamid Bafghi",
+    title: "MEA Regional Sales and Partnership Director",
+    org: "CYFIRMA",
+    linkedin: "https://www.linkedin.com/in/hamid-bafghi-44647b/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/cyfirma.png",
+  },
+  {
     name: "Kholofelo Halefose",
     title: "Chief Advisor – IT/OT Cybersecurity",
     org: "Eskom Holdings SOC Ltd",
     linkedin: "https://www.linkedin.com/in/kholofelo-halefose-b871bb294/",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Kholofelo+Halefose+Professional+Headshot.jpg",
-  },
-  {
-    name: "Xolani Nzimande",
-    title: "OT Cybersecurity Specialist",
-    org: "Sasol",
-    linkedin: "https://www.linkedin.com/in/xolani-nzimande-3314bb1a/",
-    photo: `${S3}/boardroom/Xolani_Nzimande.png`,
-  },
-  {
-    name: "Muvhango Livhusha",
-    title: "Vice President",
-    org: "ISACA South Africa Chapter",
-    linkedin: "https://www.linkedin.com/in/muvhango-sipho-steven-livhusha-phd-candidate-mba-cisa-8566a61aa/",
-    photo: `${S3}/boardroom/Muvhango_Livhusha.png`,
-  },
-  {
-    name: "Prinesh Vythilingam",
-    title: "Group Head of Cyber Security",
-    org: "African Rainbow Minerals Limited",
-    linkedin: "https://www.linkedin.com/in/prineshkv/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Prinesh+Vythilingam.png",
-  },
-  {
-    name: "Andrew Chester",
-    title: "CISO",
-    org: "Valterra Platinum",
-    linkedin: "https://www.linkedin.com/in/za-andrewchester/",
-    photo: "",
-    hidden: true, // temporarily hidden — kept in data, not rendered
   },
   {
     name: "Naoufal Kerboute",
@@ -379,39 +413,18 @@ const SPEAKERS = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Chris+Gatsi.jpg",
   },
   {
-    name: "Ritasha Kalidas",
-    title: "Group Head of Cyber Security",
-    org: "Coca-Cola Beverages Africa",
-    linkedin: "https://www.linkedin.com/in/ritasha-kalidas-a876b3156/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ritasha+Kalidas.jpg",
+    name: "Muvhango Livhusha",
+    title: "Vice President",
+    org: "ISACA South Africa Chapter",
+    linkedin: "https://www.linkedin.com/in/muvhango-sipho-steven-livhusha-phd-candidate-mba-cisa-8566a61aa/",
+    photo: `${S3}/boardroom/Muvhango_Livhusha.png`,
   },
   {
-    name: "Samuel Mokoena",
-    title: "Head Group ICT Security",
-    org: "Sibanye-Stillwater",
-    linkedin: "https://www.linkedin.com/in/samuel-mokoena-5a19041/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Samuel_Mokoena.png",
-  },
-  {
-    name: "Paulo Rebelo",
-    title: "Head of Sales META & CIS Regions",
-    org: "Keysight",
-    linkedin: "https://www.linkedin.com/in/paulo-rebelo-8673261/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mr.+Paulo_Rebelo%C2%A0%C2%A0.png",
-  },
-  {
-    name: "Aubrey Mochela",
-    title: "Group CTO",
-    org: "City of Johannesburg",
-    linkedin: "https://www.linkedin.com/in/aubrey-mochela-72427ab/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aubrey+Mochela.jpeg",
-  },
-  {
-    name: "Zakiyya Cassimjee",
-    title: "CIO",
-    org: "Ardagh Group",
-    linkedin: "https://www.linkedin.com/in/zakiyyacassimjee/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Zakiyya+Cassimjee.jpg",
+    name: "Xolani Nzimande",
+    title: "OT Cybersecurity Specialist",
+    org: "Sasol",
+    linkedin: "https://www.linkedin.com/in/xolani-nzimande-3314bb1a/",
+    photo: `${S3}/boardroom/Xolani_Nzimande.png`,
   },
   {
     name: "Charlton Kupera",
@@ -421,13 +434,6 @@ const SPEAKERS = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Charlton_Kupera.png",
   },
   {
-    name: "Dylan Adriaans",
-    title: "Head of the Office of CIO",
-    org: "Astron Energy",
-    linkedin: "https://www.linkedin.com/in/dylan-adriaans/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dylan+Adriaans.png",
-  },
-  {
     name: "Martin Fernandes",
     title: "Business Development Manager OT/CPS Africa",
     org: "Fortinet",
@@ -435,11 +441,12 @@ const SPEAKERS = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Martin+Fernandes.jpg",
   },
   {
-    name: "Stephen Mokoena",
-    title: "Head of Digital and Technology",
-    org: "Unilever",
-    linkedin: "https://www.linkedin.com/in/stephen-mosehlana-mokoena-96619571/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Stephen+Mokoena.png",
+    name: "Andrew Chester",
+    title: "CISO",
+    org: "Valterra Platinum",
+    linkedin: "https://www.linkedin.com/in/za-andrewchester/",
+    photo: "",
+    hidden: true, // temporarily hidden — kept in data, not rendered
   },
 ].filter((s) => !("hidden" in s) || !s.hidden);
 
@@ -810,7 +817,7 @@ function HeroSection() {
 
       {/* Countdown bar — bottom anchored, inline numbers with colon separators */}
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 20, padding: "24px 0" }}>
-        <div style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
+        <div className="otsf-hero-countdown" style={{ maxWidth: 1320, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
           <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
             {[{ v: cd.d, l: "Days" }, { v: cd.h, l: "Hrs" }, { v: cd.m, l: "Min" }, { v: cd.s, l: "Sec" }].map((item, i) => (
               <React.Fragment key={item.l}>
@@ -822,6 +829,25 @@ function HeroSection() {
               </React.Fragment>
             ))}
           </div>
+
+          {/* Power Partner — Globeleq, bottom right. Brand-compliant reversed
+              (white) one-colour horizontal logo on the dark hero scrim; rendered
+              as-is (no recolour), proportions locked, clear space preserved. */}
+          <motion.a
+            href="https://www.globeleq.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Globeleq — Power Partner"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 2 }}
+            className="otsf-hero-partner otsf-power-partner"
+            style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 7, textDecoration: "none" }}
+          >
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.55)", textTransform: "uppercase", letterSpacing: "2px" }}>Power Partner</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img loading="lazy" src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Horizontal_reversed+out_one+colour-01.png" alt="Globeleq — Power Partner of OT Security First Africa 2026" decoding="async" style={{ height: "60px", width: "auto", objectFit: "contain", display: "block" }} />
+          </motion.a>
         </div>
       </div>
 
@@ -832,8 +858,20 @@ function HeroSection() {
         .otsf-pulse-dot { animation: otsf-pulse 2s ease-in-out infinite; }
         @keyframes otsf-pulse { 0%,100% { box-shadow: 0 0 8px ${CYAN}, 0 0 4px ${CYAN}; } 50% { box-shadow: 0 0 16px ${CYAN}, 0 0 8px ${CYAN}, 0 0 24px ${CYAN}40; } }
         @media (max-width: 768px) {
-          .otsf-hero h1 { font-size: clamp(28px, 9vw, 42px) !important; }
-          .otsf-hero-inner { padding: 100px 20px 160px !important; }
+          .otsf-hero h1 { font-size: clamp(28px, 9vw, 42px) !important; max-width: 100% !important; }
+          /* Flow content from the top so it never sits under the fixed corner badges */
+          .otsf-hero-inner { padding: 168px 20px 150px !important; justify-content: flex-start !important; }
+          /* Supporting Partners — compact strip centered under the nav */
+          .otsf-efg-badge { top: 80px !important; right: 50% !important; transform: translateX(50%) !important; gap: 6px !important; }
+          .otsf-efg-badge > div { gap: 16px !important; }
+          .otsf-efg-badge a img { height: 44px !important; }
+          .otsf-efg-badge > div > img { height: 66px !important; }
+          .otsf-efg-badge a { padding: 8px 12px !important; border-radius: 10px !important; }
+          /* Power Partner — smaller, stacked above the countdown on the left,
+             clear of the bottom-right floating widgets */
+          .otsf-hero-countdown { flex-direction: column-reverse !important; align-items: flex-start !important; gap: 14px !important; }
+          .otsf-power-partner { align-items: flex-start !important; }
+          .otsf-power-partner img { height: 40px !important; }
         }
       `}</style>
     </section>
@@ -6011,7 +6049,7 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
           "Muvhango Livhusha, VP, ISACA South Africa Chapter",
           "Shane Naidoo, Executive Head of IT, Transnet",
           "Chris Gatsi, Chief Internal Auditor (IT), Sibanye-Stillwater",
-          "Ritasha Kalidas, Group Head of Cyber Security, Eskom Holdings SOC",
+          "Ritasha Kalidas, GM - Cyber Security, Risk and Governance, Eskom Holdings",
         ],
       },
       { time: "14:30 – 14:45", type: "fireside", title: "Presentation", desc: "Cyber-attacks on Critical infrastructures: Understanding the Threat and Building resilience\nNaoufal Kerboute, Regional Director - Middle East and Africa, Waterfall Security" },
@@ -6422,11 +6460,11 @@ export default function OTSecurityFirstJohannesburg2026() {
         <div style={{ position: "relative", zIndex: 1 }}>
           <HeroSection />
           <AboutSection />
+          <SpeakersSection />
           <OTSfPostEventReports />
           <OTSfPostReportFloat />
           <MarketDriversSection />
           <FocusAreas />
-          <SpeakersSection />
           <EventSponsorsSection />
           <AgendaSection />
           <OTTestimonials />
