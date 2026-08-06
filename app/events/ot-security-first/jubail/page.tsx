@@ -4351,6 +4351,12 @@ function AdvisorsSection() {
 type SponsorLogo = { name: string; logo: string; href?: string; id?: string; surface?: "light" | "dark"; fillWidth?: boolean };
 const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
   {
+    tier: "Gold Sponsor",
+    logos: [
+      { name: "Yokogawa", href: "https://www.yokogawa.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Yoko+logo-01.png" },
+    ],
+  },
+  {
     tier: "Associate Sponsor",
     logos: [
       { name: "SIS", href: "https://sis-ics.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/SIS+logo-03.png" },
