@@ -785,32 +785,55 @@ function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Supporting Partner — Rand Water, top right (below the nav) */}
+      {/* Hero partners — Supporting Partners then Power Partner, top right, one line */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 1.8 }}
         className="otsf-efg-badge"
-        style={{ position: "absolute", top: "clamp(112px, 15vh, 150px)", right: "clamp(24px, 5vw, 80px)", zIndex: 20, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}
+        style={{ position: "absolute", top: "clamp(112px, 15vh, 150px)", right: "clamp(24px, 5vw, 80px)", zIndex: 20, display: "flex", flexDirection: "row", alignItems: "flex-start", gap: "clamp(20px, 2.6vw, 40px)" }}
       >
-        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.55)", textTransform: "uppercase", letterSpacing: "2px" }}>Supporting Partners</span>
-        <div style={{ display: "flex", alignItems: "center", gap: "clamp(18px, 2.4vw, 36px)" }}>
-          {/* City of Johannesburg — white treatment (dark monochrome crest) */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img loading="lazy" src={`${S3_LOGOS}/City_of_Johannesburg_logo.png`} alt="City of Johannesburg — Supporting Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(84px, 9.5vw, 120px)", width: "auto", objectFit: "contain", display: "block", filter: "brightness(0) invert(1)" }} />
-          {/* Rand Water — brand-compliant: reversed (white) signature on a solid
-              Pantone 286 blue plate (guideline 1.8, variation a). The white logo
-              may only sit on solid blue/turquoise/black, never on a photo. */}
+        {/* Supporting Partners */}
+        <div className="otsf-efg-group" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+          <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.55)", textTransform: "uppercase", letterSpacing: "2px" }}>Supporting Partners</span>
+          <div style={{ display: "flex", alignItems: "center", gap: "clamp(18px, 2.4vw, 36px)" }}>
+            {/* City of Johannesburg — white treatment (dark monochrome crest) */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="otsf-logo-joburg" loading="lazy" src={`${S3_LOGOS}/City_of_Johannesburg_logo.png`} alt="City of Johannesburg — Supporting Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(84px, 9.5vw, 120px)", width: "auto", objectFit: "contain", display: "block", filter: "brightness(0) invert(1)" }} />
+            {/* Rand Water — brand-compliant: reversed (white) signature on a solid
+                Pantone 286 blue plate. The white logo may only sit on solid
+                blue/turquoise/black, never on a photo. */}
+            <a
+              href="https://www.randwater.co.za/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Rand Water — Supporting Partner"
+              className="otsf-hero-partner otsf-randwater-plate"
+              style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", background: "#003DA5", padding: "clamp(12px, 1.5vw, 18px) clamp(16px, 2vw, 26px)", borderRadius: 12, border: "1px solid rgba(255,255,255,0.14)", boxShadow: "0 10px 30px rgba(0,0,0,0.28)", transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)" }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="otsf-logo-randwater" loading="lazy" src={`${S3_LOGOS}/Rand_Water_logo-01.png`} alt="Rand Water — Supporting Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(52px, 5.6vw, 76px)", width: "auto", objectFit: "contain", display: "block" }} />
+            </a>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <span className="otsf-efg-divider" aria-hidden style={{ alignSelf: "center", width: 1, height: "clamp(46px, 6vw, 74px)", background: "rgba(255,255,255,0.18)" }} />
+
+        {/* Power Partner — Globeleq. Brand-compliant reversed (white) one-colour
+            horizontal logo on the dark hero; rendered as-is (no recolour). */}
+        <div className="otsf-efg-group" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+          <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.55)", textTransform: "uppercase", letterSpacing: "2px" }}>Power Partner</span>
           <a
-            href="https://www.randwater.co.za/"
+            href="https://www.globeleq.com/"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Rand Water — Supporting Partner"
+            aria-label="Globeleq — Power Partner"
             className="otsf-hero-partner"
-            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", background: "#003DA5", padding: "clamp(12px, 1.5vw, 18px) clamp(16px, 2vw, 26px)", borderRadius: 12, border: "1px solid rgba(255,255,255,0.14)", boxShadow: "0 10px 30px rgba(0,0,0,0.28)", transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)" }}
+            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img loading="lazy" src={`${S3_LOGOS}/Rand_Water_logo-01.png`} alt="Rand Water — Supporting Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(52px, 5.6vw, 76px)", width: "auto", objectFit: "contain", display: "block" }} />
+            <img className="otsf-logo-globeleq" loading="lazy" src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Horizontal_reversed+out_one+colour-01.png" alt="Globeleq — Power Partner of OT Security First Africa 2026" decoding="async" style={{ height: "clamp(40px, 4.4vw, 58px)", width: "auto", objectFit: "contain", display: "block" }} />
           </a>
         </div>
       </motion.div>
@@ -829,25 +852,6 @@ function HeroSection() {
               </React.Fragment>
             ))}
           </div>
-
-          {/* Power Partner — Globeleq, bottom right. Brand-compliant reversed
-              (white) one-colour horizontal logo on the dark hero scrim; rendered
-              as-is (no recolour), proportions locked, clear space preserved. */}
-          <motion.a
-            href="https://www.globeleq.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Globeleq — Power Partner"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 2 }}
-            className="otsf-hero-partner otsf-power-partner"
-            style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 7, textDecoration: "none" }}
-          >
-            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.55)", textTransform: "uppercase", letterSpacing: "2px" }}>Power Partner</span>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img loading="lazy" src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Horizontal_reversed+out_one+colour-01.png" alt="Globeleq — Power Partner of OT Security First Africa 2026" decoding="async" style={{ height: "60px", width: "auto", objectFit: "contain", display: "block" }} />
-          </motion.a>
         </div>
       </div>
 
@@ -859,19 +863,15 @@ function HeroSection() {
         @keyframes otsf-pulse { 0%,100% { box-shadow: 0 0 8px ${CYAN}, 0 0 4px ${CYAN}; } 50% { box-shadow: 0 0 16px ${CYAN}, 0 0 8px ${CYAN}, 0 0 24px ${CYAN}40; } }
         @media (max-width: 768px) {
           .otsf-hero h1 { font-size: clamp(28px, 9vw, 42px) !important; max-width: 100% !important; }
-          /* Flow content from the top so it never sits under the fixed corner badges */
-          .otsf-hero-inner { padding: 168px 20px 150px !important; justify-content: flex-start !important; }
-          /* Supporting Partners — compact strip centered under the nav */
-          .otsf-efg-badge { top: 80px !important; right: 50% !important; transform: translateX(50%) !important; gap: 6px !important; }
-          .otsf-efg-badge > div { gap: 16px !important; }
-          .otsf-efg-badge a img { height: 44px !important; }
-          .otsf-efg-badge > div > img { height: 66px !important; }
-          .otsf-efg-badge a { padding: 8px 12px !important; border-radius: 10px !important; }
-          /* Power Partner — smaller, stacked above the countdown on the left,
-             clear of the bottom-right floating widgets */
-          .otsf-hero-countdown { flex-direction: column-reverse !important; align-items: flex-start !important; gap: 14px !important; }
-          .otsf-power-partner { align-items: flex-start !important; }
-          .otsf-power-partner img { height: 40px !important; }
+          /* Flow content from the top so it never sits under the fixed corner badge */
+          .otsf-hero-inner { padding: 236px 20px 128px !important; justify-content: flex-start !important; }
+          /* Partners — centered under the nav; the two groups wrap if too wide */
+          .otsf-efg-badge { top: 80px !important; right: 50% !important; transform: translateX(50%) !important; flex-wrap: wrap !important; justify-content: center !important; gap: 12px 20px !important; }
+          .otsf-efg-divider { display: none !important; }
+          .otsf-logo-joburg { height: 66px !important; }
+          .otsf-logo-randwater { height: 44px !important; }
+          .otsf-logo-globeleq { height: 40px !important; }
+          .otsf-randwater-plate { padding: 8px 12px !important; border-radius: 10px !important; }
         }
       `}</style>
     </section>
@@ -5980,10 +5980,10 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
           "Nthabiseng Mosupye, CTIO, Rand Water",
           "Cathy Leso, CIO, Department of Mineral Resources",
           "Aubrey Mochela, Group CTO, City of Johannesburg",
-          "Reserved for Keysight Technologies",
+          "Paulo Rebelo, Head of Sales META & CIS Regions, Keysight Technologies",
         ],
       },
-      { time: "10:15 – 10:30", type: "fireside", title: "Technology Presentation", desc: "TBC\nReserved for Keysight Technologies" },
+      { time: "10:15 – 10:30", type: "fireside", title: "Technology Presentation", desc: "TBC\nReserved for Forescout" },
       { time: "10:30 – 11:15", type: "break", title: "VIP Exhibition Tour, Networking Break and Refreshments" },
     ],
   },
@@ -6004,13 +6004,13 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
         ],
         moderator: "Xolani Nzimande, OT Cybersecurity Specialist, Sasol",
         panelists: [
-          "Reserved for Fortinet",
+          "Martin Fernandes, Business Development Manager OT/CPS Africa, Fortinet",
           "Renaldo J, Group Head of Cybersecurity, Globaleq",
           "Kholofelo Halefose, Chief Advisor IT/OT Cybersecurity, Eskom Holdings",
         ],
       },
       { time: "12:00 – 12:15", type: "fireside", title: "Technology Presentation", desc: "Beyond Protection - Cybersecurity Resilience for Operational Technology\nMartin Fernandes, Business Development Manager OT/CPS Africa, Fortinet" },
-      { time: "12:15 – 12:30", type: "fireside", title: "Technology Presentation", desc: "TBC\nReserved for Corr-Serve / Seceon" },
+      { time: "12:15 – 12:30", type: "fireside", title: "Technology Presentation", desc: "From Visibility to Operational Clarity: The command worked. The action was not authorised. Packets, permission and physical consequence in OT security.\nMark Van Vuuren, Product Director, Corr-Serve" },
       {
         time: "12:30 – 13:15",
         type: "panel",
@@ -6025,7 +6025,7 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
         moderator: "Stephen Mokoena, Head of Digital & Technology, Unilever Southern Africa",
         panelists: [
           "Ishaaq Jacobs, CISO, Sasol",
-          "Reserved for Corr-Serve / Seceon",
+          "Mark Van Vuuren, Product Director, Corr-Serve",
           "Samuel Mokoena, Head Group ICT Security, Sibanye-Stillwater",
           "Dylan Adriaans, Head of the Office of the CIO, Astron Energy",
           "Akash Makhan, OT/IT Convergence (Digital Transformation), Eskom Holdings SOC Ltd",
@@ -6050,6 +6050,7 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
           "Shane Naidoo, Executive Head of IT, Transnet",
           "Chris Gatsi, Chief Internal Auditor (IT), Sibanye-Stillwater",
           "Ritasha Kalidas, GM - Cyber Security, Risk and Governance, Eskom Holdings",
+          "Hamid Bafghi, MEA Regional Sales and Partnership Director, CYFIRMA",
         ],
       },
       { time: "14:30 – 14:45", type: "fireside", title: "Presentation", desc: "Cyber-attacks on Critical infrastructures: Understanding the Threat and Building resilience\nNaoufal Kerboute, Regional Director - Middle East and Africa, Waterfall Security" },
@@ -6063,7 +6064,7 @@ function JhbAgendaTypeTag({ type }: { type: JhbAgendaRow["type"] }) {
   const map: Record<string, { label: string; color: string }> = {
     keynote: { label: "Keynote", color: C_BRIGHT },
     panel: { label: "Panel", color: CYAN },
-    fireside: { label: "Fireside", color: C_BRIGHT },
+    fireside: { label: "Presentation", color: C_BRIGHT },
     awards: { label: "Awards", color: "#E8B65C" },
     break: { label: "Break", color: "rgba(255,255,255,0.4)" },
   };
@@ -6254,9 +6255,8 @@ function AgendaSection() {
               {col.map((block, bi) =>
                 block.kind === "track" ? (
                   <div key={bi} style={{ borderRadius: 16, overflow: "hidden", border: `1px solid ${C}3d`, background: `linear-gradient(120deg, ${C}38 0%, ${C}14 60%, rgba(13,18,51,0.5) 100%)`, padding: "18px clamp(22px, 2.6vw, 30px)" }}>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14, marginBottom: 4 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 4 }}>
                       <span style={{ fontFamily: "var(--font-dm)", fontSize: 10.5, fontWeight: 700, letterSpacing: "2.4px", textTransform: "uppercase", color: C_BRIGHT }}>Track {block.n}</span>
-                      <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12.5, fontWeight: 700, color: "rgba(255,255,255,0.72)", whiteSpace: "nowrap" }}>{block.time}</span>
                     </div>
                     <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(16px, 1.6vw, 19px)", fontWeight: 700, color: "white", lineHeight: 1.3, letterSpacing: "-0.3px", margin: 0 }}>{block.label}</h3>
                   </div>
