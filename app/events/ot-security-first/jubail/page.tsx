@@ -72,7 +72,7 @@ const SPEAKERS: Speaker[] = [
 
 // ─── Advisors ─────────────────────────────────────────────────────────────────
 const ADVISORS: Speaker[] = [
-  { name: "Ahmed Al-Barrak", title: "Head of OT Cyber Solutions & Services Group | Digital Transformation", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+Al-Barrak.png", linkedin: "https://www.linkedin.com/in/ahmed-al-barrak-msc-b2122b60/" },
+  { name: "Ahmed Al-Barrak", title: "Head of OT Cyber Solutions & Services Group | Digital Transformation", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed_Al-Barrak.jpeg", linkedin: "https://www.linkedin.com/in/ahmed-al-barrak-msc-b2122b60/" },
   { name: "Dr. Hussain Aldawood", title: "Director of Cybersecurity Consulting", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Hussain_Aldawood.png" },
   { name: "Redha Alahmad", title: "Senior Manager, Cybersecurity (OT/ICS)", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Redha_Alahmad..png" },
   { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png" },
