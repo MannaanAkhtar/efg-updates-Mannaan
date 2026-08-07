@@ -1258,6 +1258,10 @@ const GALLERY_EVENTS: GalleryEvent[] = [
 ];
 
 const galleryUrl = (ev: GalleryEvent, file: string) => `${GALLERY_BASE}/${ev.folder}/${file}`;
+// Grid thumbnails: resize the large S3 originals to ~480px WebP via the weserv image CDN.
+// Keeps the photos on S3 (weserv fetches the S3 URL); the lightbox still loads the full-res original.
+const galleryThumb = (ev: GalleryEvent, file: string) =>
+  `https://images.weserv.nl/?url=${encodeURIComponent(galleryUrl(ev, file))}&w=480&output=webp&q=80`;
 const GALLERY_TOTAL = GALLERY_EVENTS.reduce((sum, ev) => sum + ev.files.length, 0);
 
 type GalItem = { ev: GalleryEvent; file: string };
@@ -1394,7 +1398,7 @@ function EventGallery() {
                     aria-label={`Open ${cell.item.ev.label} photo`}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={galleryUrl(cell.item.ev, cell.item.file)} alt={`${cell.item.ev.label} boardroom photo`} loading="lazy" decoding="async" />
+                    <img src={galleryThumb(cell.item.ev, cell.item.file)} alt={`${cell.item.ev.label} boardroom photo`} loading="lazy" decoding="async" />
                   </button>
                 ))}
               </div>
