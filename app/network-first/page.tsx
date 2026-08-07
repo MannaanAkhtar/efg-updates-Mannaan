@@ -578,12 +578,14 @@ export default function NetworkFirstPage() {
       <Hero />
       <TrustStrip />
       <BoardroomInMotion />
+      <HighlightsFromTheRoom />
       <UpcomingSection />
       <NetworkFirst />
       <IntroStatement />
       <WhyBoardroomsWork />
       <TheFormat />
       <CandidMoments />
+      <EventGallery />
       <WhyHost />
       <EditorialBreak src={`${BOARDROOM}/boardroom-03.jpg`} />
       <TheExperience />
@@ -996,6 +998,492 @@ function BoardroomInMotion() {
           .nfbim-play-trigger:hover .nfbim-poster { transform: none !important; }
           .nfbim-play-trigger:hover .nfbim-play { transform: none !important; }
         }
+      `}</style>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// HIGHLIGHTS FROM THE ROOM, Per-event recap films (self-hosted S3 mp4)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+type HighlightVideo = {
+  title: string;
+  sub: string;
+  src: string;
+  gradient: string;
+  logo: string;
+  logoH: number;
+  previewTime?: number; // seconds into the video to show as the poster frame (default 2)
+};
+
+const HIGHLIGHT_VIDEOS: HighlightVideo[] = [
+  {
+    title: "Autodesk",
+    sub: "Executive Roundtable · Dubai",
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/BoardroomGallery+/Boardrooms+Highlight+videos/Autodesk+Post+Event+Video.mp4",
+    gradient: "linear-gradient(135deg, #8B7A00 0%, #3D3500 28%, #1A1700 52%, #0A0A05 78%, #000000 100%)",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/autodesk-logo-primary-rgb-white.svg",
+    logoH: 30,
+    previewTime: 1,
+  },
+  {
+    title: "IFS × Poka",
+    sub: "Highlights 2026",
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/BoardroomGallery+/Boardrooms+Highlight+videos/IFS+Poka+Highlights+++2026.mp4",
+    gradient: "linear-gradient(135deg, #8427E2 0%, #360065 45%, #170430 80%, #0A0218 100%)",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg",
+    logoH: 34,
+  },
+  {
+    title: "IFS",
+    sub: "Executive Briefing · Riyadh",
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/BoardroomGallery+/Boardrooms+Highlight+videos/Ifs+post+event+video.mp4",
+    gradient: "linear-gradient(135deg, #1B2A4A 0%, #101A30 45%, #0A0F1E 80%, #06070F 100%)",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg",
+    logoH: 34,
+  },
+  {
+    title: "OutSystems",
+    sub: "Post-Event Film",
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/BoardroomGallery+/Boardrooms+Highlight+videos/Outsystems+Post+Event.mp4",
+    gradient: "linear-gradient(135deg, #E62B2C 0%, #8E1516 40%, #2A0A0A 75%, #0a0a0a 100%)",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/outsystems.png",
+    logoH: 28,
+  },
+  {
+    title: "Proofpoint",
+    sub: "Executive Roundtable · Riyadh",
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/BoardroomGallery+/Boardrooms+Highlight+videos/Proofpoint.mp4",
+    gradient: "linear-gradient(135deg, #00B4F0 0%, #0095CC 35%, #0E2541 70%, #0a0a0a 100%)",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/proofpoint_whitelogo.png",
+    logoH: 26,
+  },
+  {
+    title: "Seagate",
+    sub: "Executive Roundtable · Dubai",
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/BoardroomGallery+/Boardrooms+Highlight+videos/Seagate+Video.mp4",
+    gradient: "linear-gradient(135deg, #71B53F 0%, #3C6B1F 40%, #17280C 75%, #06070F 100%)",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/seagate_2c_horizontal_neg1.png",
+    logoH: 26,
+  },
+];
+
+function HighlightsFromTheRoom() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const [playing, setPlaying] = useState<number | null>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+
+  return (
+    <section ref={ref} style={{ position: "relative", padding: "clamp(72px, 9vw, 120px) 24px", background: BG, overflow: "hidden" }}>
+      {/* Gold hairline top */}
+      <div aria-hidden style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: `linear-gradient(90deg, transparent, ${GOLD_30}, transparent)` }} />
+      {/* Ambient gold orb */}
+      <div aria-hidden style={{ position: "absolute", top: "20%", right: "-6%", width: 480, height: 400, borderRadius: "50%", background: `radial-gradient(ellipse, ${GOLD_15} 0%, transparent 70%)`, filter: "blur(80px)", pointerEvents: "none" }} />
+
+      <div style={{ position: "relative", maxWidth: 1200, margin: "0 auto" }}>
+        {/* Header */}
+        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ textAlign: "center", marginBottom: "clamp(40px, 5vw, 60px)" }}>
+          <p style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, margin: "0 0 16px", display: "flex", alignItems: "center", justifyContent: "center", gap: 12 }}>
+            <span style={{ width: 24, height: 1, background: GOLD_50 }} />
+            Highlights from the Room
+            <span style={{ width: 24, height: 1, background: GOLD_50 }} />
+          </p>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 46px)", fontWeight: 600, lineHeight: 1.15, margin: "0 0 16px", letterSpacing: "-0.02em", color: TEXT }}>
+            Recent boardrooms, in <span style={{ fontStyle: "italic", color: GOLD }}>motion</span><span style={{ color: GOLD }}>.</span>
+          </h2>
+          <p style={{ fontSize: 15, color: TEXT_30, margin: 0, maxWidth: 520, marginLeft: "auto", marginRight: "auto", lineHeight: 1.6 }}>
+            A look inside the sessions we&apos;ve delivered with our partners across the region.
+          </p>
+        </motion.div>
+
+        {/* Video grid */}
+        <div className="hl-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+          {HIGHLIGHT_VIDEOS.map((v, i) => {
+            const isPlaying = playing === i;
+            return (
+              <motion.div
+                key={v.src}
+                initial={{ opacity: 0, y: 30 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.08 * i, ease: EASE_OUT }}
+                className="hl-card"
+                style={{
+                  position: "relative",
+                  aspectRatio: "16 / 9",
+                  borderRadius: 16,
+                  padding: 2,
+                  background: `linear-gradient(140deg, ${GOLD_50} 0%, ${GOLD_30} 18%, rgba(255,255,255,0.08) 45%, rgba(0,0,0,0.6) 65%, ${GOLD_30} 88%, ${GOLD_50} 100%)`,
+                  boxShadow: "0 24px 50px rgba(0,0,0,0.5), 0 8px 20px rgba(0,0,0,0.4)",
+                }}
+              >
+                <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: 14, overflow: "hidden", background: v.gradient }}>
+                  {/* Video shows its own frame at 0.01s as the preview (preload=metadata, media fragment) */}
+                  {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                  <video
+                    ref={(el) => { videoRefs.current[i] = el; }}
+                    src={`${v.src}#t=${v.previewTime ?? 2}`}
+                    controls={isPlaying}
+                    playsInline
+                    preload="metadata"
+                    onLoadedMetadata={(e) => { try { e.currentTarget.currentTime = v.previewTime ?? 2; } catch { /* seek not ready */ } }}
+                    onPlay={() => setPlaying(i)}
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", background: v.gradient }}
+                  />
+                  {!isPlaying && (
+                    <button
+                      type="button"
+                      onClick={() => { const el = videoRefs.current[i]; if (el) { el.muted = false; try { el.currentTime = 0; } catch { /* seek not ready */ } el.play().catch(() => {}); } setPlaying(i); }}
+                      aria-label={`Play ${v.title} highlight film`}
+                      className="hl-trigger"
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0, padding: 0, cursor: "pointer", background: "transparent", appearance: "none" }}
+                    >
+                      {/* Legibility wash over the frame */}
+                      <span aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.28) 0%, transparent 32%, transparent 60%, rgba(0,0,0,0.62) 100%)", pointerEvents: "none" }} />
+
+                      {/* Gold top accent */}
+                      <span aria-hidden style={{ position: "absolute", top: 0, left: "20%", right: "20%", height: 2, background: `linear-gradient(90deg, transparent, ${GOLD}, transparent)`, opacity: 0.6 }} />
+
+                      {/* Corner brackets */}
+                      {[
+                        { top: 10, left: 10, borderTop: `1px solid ${GOLD_50}`, borderLeft: `1px solid ${GOLD_50}` },
+                        { top: 10, right: 10, borderTop: `1px solid ${GOLD_50}`, borderRight: `1px solid ${GOLD_50}` },
+                        { bottom: 10, left: 10, borderBottom: `1px solid ${GOLD_50}`, borderLeft: `1px solid ${GOLD_50}` },
+                        { bottom: 10, right: 10, borderBottom: `1px solid ${GOLD_50}`, borderRight: `1px solid ${GOLD_50}` },
+                      ].map((pos, idx) => (
+                        <span key={idx} aria-hidden style={{ position: "absolute", width: 18, height: 18, ...pos, pointerEvents: "none" }} />
+                      ))}
+
+                      {/* Play button */}
+                      <span style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
+                        <span className="hl-play" style={{
+                          width: 62, height: 62, borderRadius: "50%",
+                          background: "rgba(201,147,90,0.16)",
+                          backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
+                          border: `1.5px solid ${GOLD_50}`,
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          boxShadow: "0 0 34px rgba(201,147,90,0.26), inset 0 1px 0 rgba(255,255,255,0.08)",
+                          transition: "transform 0.4s cubic-bezier(0.22,1,0.36,1), background 0.4s ease, border-color 0.4s ease",
+                        }}>
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill={GOLD} style={{ marginLeft: 3 }}><polygon points="6 3 20 12 6 21" /></svg>
+                        </span>
+                      </span>
+
+                      {/* Bottom label */}
+                      <span style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "28px 16px 14px", background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 3, pointerEvents: "none" }}>
+                        <span style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 600, color: TEXT, letterSpacing: "-0.01em" }}>{v.title}</span>
+                        <span style={{ fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>{v.sub}</span>
+                      </span>
+                    </button>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      <style jsx global>{`
+        .hl-trigger:hover .hl-play { transform: scale(1.08); background: ${GOLD} !important; border-color: ${GOLD} !important; }
+        .hl-trigger:hover .hl-play svg { fill: ${BG} !important; }
+        @media (max-width: 900px) { .hl-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 14px !important; } }
+        @media (max-width: 560px) { .hl-grid { grid-template-columns: 1fr !important; gap: 16px !important; } }
+        @media (prefers-reduced-motion: reduce) { .hl-trigger:hover .hl-play { transform: none !important; } }
+      `}</style>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// EVENT GALLERY, Per-event photography (self-hosted S3), tabbed + lightbox
+// ═══════════════════════════════════════════════════════════════════════════════
+
+type GalleryEvent = { label: string; folder: string; files: string[] };
+
+const GALLERY_BASE = "https://efg-final.s3.eu-north-1.amazonaws.com/BoardroomGallery+";
+
+const GALLERY_EVENTS: GalleryEvent[] = [
+  {
+    label: "Autodesk",
+    folder: "Autodesk",
+    files: "EFG-9876 EFG-9940 EFG-6901 EFG-6906 EFG-6910 EFG-6920 EFG-6932 EFG-6935 EFG-6952 EFG-6989 EFG-7070 EFG-9941 EFG-6833 EFG-6838 EFG-6851 EFG-6867 EFG-6884 EFG-6914".split(" ").map((n) => `${n}.jpg`),
+  },
+  {
+    label: "IFS",
+    folder: "IFS",
+    files: "DSC03016 DSC03046 DSC03007 DSC03027 DSC03041 DSC03043 DSC03049 DSC03057 DSC03093".split(" ").map((n) => `${n}.jpg`),
+  },
+  {
+    label: "INTWO",
+    folder: "INTWO",
+    files: [
+      "WhatsApp+Image+2026-07-24+at+11.57.52+AM+(1).jpeg",
+      "WhatsApp+Image+2026-07-24+at+11.57.52+AM+(2).jpeg",
+      "WhatsApp+Image+2026-07-24+at+11.57.52+AM+(3).jpeg",
+      "WhatsApp+Image+2026-07-24+at+11.57.52+AM.jpeg",
+      "WhatsApp+Image+2026-07-24+at+11.57.53+AM+(1).jpeg",
+      "WhatsApp+Image+2026-07-24+at+11.57.53+AM+(2).jpeg",
+      "WhatsApp+Image+2026-07-24+at+11.57.53+AM+(3).jpeg",
+      "WhatsApp+Image+2026-07-24+at+11.57.54+AM+(2).jpeg",
+      "WhatsApp+Image+2026-07-24+at+11.57.54+AM.jpeg",
+    ],
+  },
+  {
+    label: "OutSystems × Blackstone",
+    folder: "OutsystemXblackstoneeit",
+    files: [
+      "DSC03373.JPG", "DSC03372.JPG",
+      ...("C9729 DSC03223 DSC03235 DSC03271 DSC03295 DSC03307 C9721 C9738 DSC03327 DSC03343 DSC03344 DSC03345 DSC03359".split(" ").map((n) => `${n}.jpg`)),
+    ],
+  },
+  {
+    label: "Poka × IFS",
+    folder: "Poka_IFS",
+    files: [
+      ...("DSC03937 DSC03958 DSC03973 DSC03982 DSC03987 DSC03995 DSC04008 DSC04013 DSC04015 DSC04017 DSC04029 DSC04049 DSC04057 DSC04058 DSC04060 DSC04062 DSC04064 DSC04065 DSC04071 DSC04093 DSC04097".split(" ").map((n) => `${n}.jpg`)),
+      "DSC04068+(1).jpg", "DSC04069+(1).jpg",
+    ],
+  },
+  {
+    label: "Proofpoint",
+    folder: "Proofpoint",
+    files: "DSC02765 DSC02766 DSC02770 DSC02785 DSC02828 DSC02845 DSC02878 DSC02880 DSC02882 DSC02670 DSC02687 DSC02708 DSC02714 DSC02720".split(" ").map((n) => `${n}.JPG`),
+  },
+  {
+    label: "Seagate",
+    folder: "seagate",
+    files: "SF1A4480 SF1A4215 SF1A4232 SF1A4267 SF1A4313 SF1A4319 SF1A4321 SF1A4328 SF1A4331 SF1A4336 SF1A4351 SF1A4357 SF1A4431 SF1A4471 SF1A4012 SF1A4014 SF1A4025 SF1A4043 SF1A4058 SF1A4059 SF1A4081 SF1A4088 SF1A4091 SF1A4106 SF1A4127 SF1A4135 SF1A4137 SF1A4139 SF1A4161 SF1A4170 SF1A4172 SF1A4210 SF1A3991 SF1A3999".split(" ").map((n) => `${n}.jpg`),
+  },
+];
+
+const galleryUrl = (ev: GalleryEvent, file: string) => `${GALLERY_BASE}/${ev.folder}/${file}`;
+const GALLERY_TOTAL = GALLERY_EVENTS.reduce((sum, ev) => sum + ev.files.length, 0);
+
+type GalItem = { ev: GalleryEvent; file: string };
+
+// "All" tab: a light sampler — round-robin ~5 photos from each event (keeps the marquee smooth).
+function buildAllMix(): GalItem[] {
+  const out: GalItem[] = [];
+  const perEvent = 5;
+  for (let round = 0; round < perEvent; round++) {
+    for (const ev of GALLERY_EVENTS) {
+      const f = ev.files[round];
+      if (f) out.push({ ev, file: f });
+    }
+  }
+  return out;
+}
+const GALLERY_ALL: GalItem[] = buildAllMix();
+
+// Bento column templates — mixed widths + 1/2/3 photo stacks, cycled for an inconsistent rhythm.
+const GAL_COL_PATTERNS: { w: number; rows: number[] }[] = [
+  { w: 300, rows: [1] },
+  { w: 236, rows: [0.56, 0.44] },
+  { w: 210, rows: [0.34, 0.33, 0.33] },
+  { w: 272, rows: [0.45, 0.55] },
+  { w: 226, rows: [0.5, 0.5] },
+  { w: 320, rows: [1] },
+];
+
+function buildGalleryColumns(items: GalItem[]) {
+  const cols: { w: number; cells: { item: GalItem; idx: number; flex: number }[] }[] = [];
+  let i = 0;
+  let p = 0;
+  while (i < items.length) {
+    const pat = GAL_COL_PATTERNS[p % GAL_COL_PATTERNS.length];
+    const take = Math.min(pat.rows.length, items.length - i);
+    const cells = [];
+    for (let k = 0; k < take; k++) cells.push({ item: items[i + k], idx: i + k, flex: pat.rows[k] });
+    cols.push({ w: pat.w, cells });
+    i += take;
+    p++;
+  }
+  return cols;
+}
+
+function EventGallery() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const [active, setActive] = useState(0); // 0 = "All", 1..N = each event
+  const [lightbox, setLightbox] = useState<number | null>(null);
+  const items: GalItem[] = active === 0
+    ? GALLERY_ALL
+    : GALLERY_EVENTS[active - 1].files.map((file) => ({ ev: GALLERY_EVENTS[active - 1], file }));
+  const count = items.length;
+  const columns = buildGalleryColumns(items);
+  const marqueeKey = active === 0 ? "all" : GALLERY_EVENTS[active - 1].folder;
+  const marqueeDur = `${Math.max(45, columns.length * 7)}s`;
+
+  useEffect(() => {
+    if (lightbox === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightbox(null);
+      else if (e.key === "ArrowRight") setLightbox((i) => (i === null ? i : (i + 1) % count));
+      else if (e.key === "ArrowLeft") setLightbox((i) => (i === null ? i : (i - 1 + count) % count));
+    };
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prevOverflow; };
+  }, [lightbox, count]);
+
+  return (
+    <section ref={ref} style={{ position: "relative", padding: "clamp(72px, 9vw, 120px) 24px", background: BG_ALT, overflow: "hidden" }}>
+      {/* Gold hairline top */}
+      <div aria-hidden style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: `linear-gradient(90deg, transparent, ${GOLD_30}, transparent)` }} />
+
+      <div style={{ position: "relative", maxWidth: 1400, margin: "0 auto" }}>
+        {/* Header */}
+        <motion.div variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ textAlign: "center", marginBottom: "clamp(32px, 4vw, 48px)" }}>
+          <p style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, margin: "0 0 16px", display: "flex", alignItems: "center", justifyContent: "center", gap: 12 }}>
+            <span style={{ width: 24, height: 1, background: GOLD_50 }} />
+            The Gallery
+            <span style={{ width: 24, height: 1, background: GOLD_50 }} />
+          </p>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 46px)", fontWeight: 600, lineHeight: 1.15, margin: "0 0 16px", letterSpacing: "-0.02em", color: TEXT }}>
+            Moments, <span style={{ fontStyle: "italic", color: GOLD }}>captured</span><span style={{ color: GOLD }}>.</span>
+          </h2>
+          <p style={{ fontSize: 15, color: TEXT_30, margin: 0, maxWidth: 520, marginLeft: "auto", marginRight: "auto", lineHeight: 1.6 }}>
+            {GALLERY_TOTAL}+ photographs from our recent boardrooms across the region.
+          </p>
+        </motion.div>
+
+        {/* Event dropdown */}
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "clamp(28px, 3.5vw, 40px)" }}>
+          <div style={{ position: "relative", display: "inline-block" }}>
+            <select
+              suppressHydrationWarning
+              value={active}
+              onChange={(e) => { setActive(Number(e.target.value)); setLightbox(null); }}
+              className="gal-select"
+              aria-label="Filter gallery by event"
+            >
+              <option value={0}>All Events</option>
+              {GALLERY_EVENTS.map((g, i) => (
+                <option key={g.folder} value={i + 1}>{g.label}</option>
+              ))}
+            </select>
+            <span aria-hidden className="gal-select-caret">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="2"><polyline points="6 9 12 15 18 9" /></svg>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Bento marquee (full-bleed, horizontal auto-scroll, pause on hover) */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={marqueeKey}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="gal-mq-viewport"
+        >
+          <div className="gal-mq-track" style={{ "--gal-dur": marqueeDur } as React.CSSProperties}>
+            {[...columns, ...columns].map((col, ci) => (
+              <div key={ci} className="gal-mq-col" style={{ width: col.w }}>
+                {col.cells.map((cell, k) => (
+                  <button
+                    key={`${ci}-${k}`}
+                    type="button"
+                    className="gal-cell"
+                    style={{ flex: `${cell.flex} 1 0` }}
+                    onClick={() => setLightbox(cell.idx)}
+                    aria-label={`Open ${cell.item.ev.label} photo`}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={galleryUrl(cell.item.ev, cell.item.file)} alt={`${cell.item.ev.label} boardroom photo`} loading="lazy" decoding="async" />
+                  </button>
+                ))}
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setLightbox(null)}
+            style={{ position: "fixed", inset: 0, zIndex: 3000, background: "rgba(0,0,0,0.93)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center", padding: "24px" }}
+          >
+            {/* Close */}
+            <button type="button" aria-label="Close" onClick={(e) => { e.stopPropagation(); setLightbox(null); }} className="gal-close" style={{ position: "absolute", top: 20, right: 20, width: 44, height: 44, borderRadius: "50%", border: `1px solid ${GOLD_30}`, background: "rgba(0,0,0,0.4)", color: TEXT, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, lineHeight: 1 }}>✕</button>
+
+            {/* Prev */}
+            <button type="button" aria-label="Previous" onClick={(e) => { e.stopPropagation(); setLightbox((i) => (i === null ? i : (i - 1 + count) % count)); }} className="gal-nav" style={{ position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)", width: 48, height: 48, borderRadius: "50%", border: `1px solid ${GOLD_30}`, background: "rgba(0,0,0,0.4)", color: TEXT, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6" /></svg>
+            </button>
+
+            {/* Image */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <motion.img
+              key={items[lightbox].file}
+              src={galleryUrl(items[lightbox].ev, items[lightbox].file)}
+              alt={`${items[lightbox].ev.label} boardroom photo ${lightbox + 1}`}
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.28, ease: EASE_OUT }}
+              onClick={(e) => e.stopPropagation()}
+              style={{ maxWidth: "90vw", maxHeight: "84vh", objectFit: "contain", borderRadius: 8, boxShadow: "0 30px 80px rgba(0,0,0,0.7)" }}
+            />
+
+            {/* Next */}
+            <button type="button" aria-label="Next" onClick={(e) => { e.stopPropagation(); setLightbox((i) => (i === null ? i : (i + 1) % count)); }} className="gal-nav" style={{ position: "absolute", right: 16, top: "50%", transform: "translateY(-50%)", width: 48, height: 48, borderRadius: "50%", border: `1px solid ${GOLD_30}`, background: "rgba(0,0,0,0.4)", color: TEXT, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6" /></svg>
+            </button>
+
+            {/* Counter */}
+            <div style={{ position: "absolute", bottom: 24, left: "50%", transform: "translateX(-50%)", fontSize: 13, letterSpacing: "0.1em", color: "rgba(255,255,255,0.7)", display: "flex", alignItems: "center", gap: 10 }}>
+              <span style={{ color: GOLD, fontWeight: 600 }}>{items[lightbox].ev.label}</span>
+              <span style={{ width: 16, height: 1, background: GOLD_30 }} />
+              {lightbox + 1} / {count}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <style jsx global>{`
+        .gal-mq-viewport {
+          overflow: hidden;
+          -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
+        }
+        .gal-mq-track { display: flex; gap: 8px; width: max-content; animation: gal-marquee var(--gal-dur, 60s) linear infinite; }
+        .gal-mq-viewport:hover .gal-mq-track { animation-play-state: paused; }
+        @keyframes gal-marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+        /* content-visibility skips paint + image decode for columns scrolled off-screen — the key fix for a 100+ photo marquee */
+        .gal-mq-col { display: flex; flex-direction: column; gap: 8px; height: clamp(300px, 42vw, 440px); flex-shrink: 0; content-visibility: auto; contain-intrinsic-size: 300px 440px; }
+        .gal-cell {
+          position: relative; min-height: 0; border: 0; padding: 0; cursor: pointer;
+          background: #0c0c0c; border-radius: 8px; overflow: hidden;
+          box-shadow: inset 0 0 0 1px rgba(201,147,90,0.24), 0 4px 14px rgba(0,0,0,0.4);
+          transition: box-shadow 0.4s ease;
+        }
+        .gal-cell img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.9); transition: transform 0.6s cubic-bezier(0.22,1,0.36,1), filter 0.5s ease; }
+        .gal-cell:hover img { transform: scale(1.06); filter: brightness(1.06); }
+        .gal-cell:hover { box-shadow: inset 0 0 0 1px ${GOLD_50}, 0 8px 22px rgba(0,0,0,0.55); }
+        .gal-close:hover, .gal-nav:hover { background: ${GOLD} !important; color: ${BG} !important; border-color: ${GOLD} !important; }
+        .gal-select {
+          appearance: none; -webkit-appearance: none; -moz-appearance: none;
+          padding: 11px 44px 11px 22px; border-radius: 980px;
+          border: 1px solid ${GOLD_30}; background: rgba(255,255,255,0.03); color: ${TEXT};
+          font-family: var(--font-outfit); font-size: 14px; font-weight: 500; letter-spacing: 0.02em;
+          cursor: pointer; outline: none; min-width: 240px; transition: border-color 0.3s ease, background 0.3s ease;
+        }
+        .gal-select:hover { border-color: ${GOLD_50}; background: rgba(201,147,90,0.06); }
+        .gal-select:focus { border-color: ${GOLD}; }
+        .gal-select option { background: #111; color: ${TEXT}; }
+        .gal-select-caret { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); pointer-events: none; display: flex; }
+        @media (max-width: 720px) { .gal-mq-col { gap: 6px; } .gal-mq-track { gap: 6px; } .gal-nav { width: 40px !important; height: 40px !important; } }
+        @media (prefers-reduced-motion: reduce) { .gal-mq-track { animation: none; } }
       `}</style>
     </section>
   );
@@ -2625,6 +3113,107 @@ function Past2026MonthRow({ full, autoScroll = false, children }: { full: string
   );
 }
 
+// One past-event card (brand art / gradient + sponsor + date + venue). Reused across marquee rows.
+function PastEventCard({ e }: { e: PastEvent }) {
+  const inner = (
+    <>
+      <div className="nf-card-img-wrap">
+        {e.image ? (
+          <>
+            <img src={e.image} alt="" className="nf-card-img" />
+            {e.brandLogo && (
+              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={e.brandLogo}
+                  alt=""
+                  style={{
+                    height: e.sponsor === "Braze x Talon.One" ? 80 : e.sponsor === "Braze" ? 50 : 72,
+                    width: "auto",
+                    opacity: 0.85,
+                    ...(e.sponsor === "Braze"
+                      ? { filter: "brightness(0) saturate(100%) invert(22%) sepia(91%) saturate(2904%) hue-rotate(264deg) brightness(98%) contrast(98%) drop-shadow(0 2px 12px rgba(123,44,191,0.5))" }
+                      : {}),
+                  }}
+                />
+              </div>
+            )}
+          </>
+        ) : (
+          <div style={{
+            width: "100%", height: "100%",
+            background: (e as unknown as { brandGradient?: string }).brandGradient
+              || `linear-gradient(135deg, ${e.brandColor || "#222"}dd 0%, ${e.brandColor || "#222"}88 40%, #0a0a0a 100%)`,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            position: "relative",
+          }}>
+            {e.brandLogo && (
+              (e as unknown as Record<string, string>).brandLogoTop ? (
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 7, zIndex: 2 }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={(e as unknown as Record<string, string>).brandLogoTop} alt="" style={{ height: 48, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+                  <span aria-hidden style={{ width: 24, height: 1, background: "rgba(255,255,255,0.2)" }} />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={e.brandLogo} alt="" style={{ height: 48, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+                </div>
+              ) : (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={e.brandLogo} alt="" style={{ height: e.sponsor === "Poka" ? 140 : e.sponsor === "Braze x Talon.One" ? 80 : e.sponsor === "Braze" ? 50 : 72, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+              )
+            )}
+            <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 80% at 30% 30%, ${e.brandColor || "#222"}30, transparent 60%)` }} />
+          </div>
+        )}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%)" }} />
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${e.brandColor ? e.brandColor + "60" : GOLD_50}, transparent)` }} />
+        <div style={{ position: "absolute", top: 12, left: 12, zIndex: 4, display: "inline-flex", alignItems: "center", gap: 5, padding: "4px 10px", background: "rgba(255,255,255,0.08)", border: `1px solid rgba(255,255,255,0.14)`, borderRadius: 50, backdropFilter: "blur(8px)" }}>
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.7)" }}>Past</span>
+        </div>
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", flex: 1 }}>
+        <span style={{ padding: "4px 14px", borderRadius: 50, background: `${GOLD}0d`, border: `1px solid ${GOLD}1a`, fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: GOLD, marginBottom: 14 }}>{e.sponsor}</span>
+        <h3 style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 700, color: TEXT, margin: "0 0 8px", lineHeight: 1.25, letterSpacing: "-0.5px" }}>{e.title || e.sponsor}</h3>
+        {e.subtitle && (
+          <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.45)", margin: 0, lineHeight: 1.6, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as const, overflow: "hidden", flex: 1 }}>{e.subtitle}</p>
+        )}
+      </div>
+
+      <div style={{ marginTop: "auto", paddingTop: 16, borderTop: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", gap: 16 }}>
+        <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, color: GOLD }}>{e.date}</span>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, color: "rgba(255,255,255,0.35)" }}>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(201,147,90,0.6)" strokeWidth="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
+          {e.venue}
+        </span>
+        {e.time && (
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, color: "rgba(255,255,255,0.35)" }}>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(201,147,90,0.6)" strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
+            {e.time}
+          </span>
+        )}
+      </div>
+    </>
+  );
+  return e.link ? (
+    <a href={e.link} target="_blank" rel="noopener noreferrer" className="nf-event-card" style={{ textDecoration: "none" }}>{inner}</a>
+  ) : (
+    <div className="nf-event-card">{inner}</div>
+  );
+}
+
+// One seamless marquee row of past-event cards. Alternate `reverse` per row for a living wall.
+function PastMarqueeRow({ events, reverse, dur }: { events: PastEvent[]; reverse?: boolean; dur: string }) {
+  return (
+    <div className="nf-mqrow">
+      <div className={reverse ? "nf-mqtrack nf-mqtrack-rev" : "nf-mqtrack"} style={{ "--nf-dur": dur } as React.CSSProperties}>
+        {[...events, ...events].map((e, i) => (
+          <PastEventCard key={(e.title || e.sponsor) + i} e={e} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function PastBoardroomsShowcase() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
@@ -2638,14 +3227,11 @@ function PastBoardroomsShowcase() {
   const events = eventsMap[activeYear];
 
   // 2026 cards mirror the upcoming-calendar chrome: month grouping + horizontal drag-scroll.
-  const past2026Months = useMemo(() => {
-    const map: Record<string, PastEvent[]> = {};
-    PAST_EVENTS_2026.forEach((e) => {
-      const m = e.month || deriveMonth(e.date);
-      if (!map[m]) map[m] = [];
-      map[m].push(e);
-    });
-    return MONTH_REVERSE_ORDER.filter((m) => map[m]).map((m) => ({ abbr: m, full: MONTH_FULL[m], events: map[m] }));
+  // 2026 "So Far" wall: all H1 events split across 3 seamless marquee rows (round-robin for a mixed look).
+  const pastRows = useMemo(() => {
+    const rows: PastEvent[][] = [[], [], []];
+    PAST_EVENTS_2026.forEach((e, i) => rows[i % 3].push(e));
+    return rows;
   }, []);
 
   return (
@@ -2672,100 +3258,17 @@ function PastBoardroomsShowcase() {
       <AnimatePresence mode="wait">
         {activeYear === "2026" ? (
           <motion.div key="past-2026" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.3 }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "clamp(20px, 2.6vw, 32px)" }}>
-              {past2026Months.map((month) => (
-                <Past2026MonthRow key={month.abbr} full={month.full} autoScroll>
-                    {month.events.map((e, idx) => {
-                      const inner = (
-                        <>
-                          <div className="nf-card-img-wrap">
-                            {e.image ? (
-                              <>
-                                <img src={e.image} alt="" className="nf-card-img" />
-                                {e.brandLogo && (
-                                  <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img
-                                      src={e.brandLogo}
-                                      alt=""
-                                      style={{
-                                        height: e.sponsor === "Braze x Talon.One" ? 80 : e.sponsor === "Braze" ? 50 : 72,
-                                        width: "auto",
-                                        opacity: 0.85,
-                                        ...(e.sponsor === "Braze"
-                                          ? { filter: "brightness(0) saturate(100%) invert(22%) sepia(91%) saturate(2904%) hue-rotate(264deg) brightness(98%) contrast(98%) drop-shadow(0 2px 12px rgba(123,44,191,0.5))" }
-                                          : {}),
-                                      }}
-                                    />
-                                  </div>
-                                )}
-                              </>
-                            ) : (
-                              <div style={{
-                                width: "100%", height: "100%",
-                                background: (e as unknown as { brandGradient?: string }).brandGradient
-                                  || `linear-gradient(135deg, ${e.brandColor || "#222"}dd 0%, ${e.brandColor || "#222"}88 40%, #0a0a0a 100%)`,
-                                display: "flex", alignItems: "center", justifyContent: "center",
-                                position: "relative",
-                              }}>
-                                {e.brandLogo && (
-                                  (e as unknown as Record<string, string>).brandLogoTop ? (
-                                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 7, zIndex: 2 }}>
-                                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                                      <img src={(e as unknown as Record<string, string>).brandLogoTop} alt="" style={{ height: 48, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
-                                      <span aria-hidden style={{ width: 24, height: 1, background: "rgba(255,255,255,0.2)" }} />
-                                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                                      <img src={e.brandLogo} alt="" style={{ height: 48, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
-                                    </div>
-                                  ) : (
-                                    // eslint-disable-next-line @next/next/no-img-element
-                                    <img src={e.brandLogo} alt="" style={{ height: e.sponsor === "Poka" ? 140 : e.sponsor === "Braze x Talon.One" ? 80 : e.sponsor === "Braze" ? 50 : 72, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
-                                  )
-                                )}
-                                <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 80% at 30% 30%, ${e.brandColor || "#222"}30, transparent 60%)` }} />
-                              </div>
-                            )}
-                            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%)" }} />
-                            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${e.brandColor ? e.brandColor + "60" : GOLD_50}, transparent)` }} />
-                            <div style={{ position: "absolute", top: 12, left: 12, zIndex: 4, display: "inline-flex", alignItems: "center", gap: 5, padding: "4px 10px", background: "rgba(255,255,255,0.08)", border: `1px solid rgba(255,255,255,0.14)`, borderRadius: 50, backdropFilter: "blur(8px)" }}>
-                              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.7)" }}>Past</span>
-                            </div>
-                          </div>
-
-                          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", flex: 1 }}>
-                            <span style={{ padding: "4px 14px", borderRadius: 50, background: `${GOLD}0d`, border: `1px solid ${GOLD}1a`, fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: GOLD, marginBottom: 14 }}>{e.sponsor}</span>
-                            <h3 style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 700, color: TEXT, margin: "0 0 8px", lineHeight: 1.25, letterSpacing: "-0.5px" }}>{e.title || e.sponsor}</h3>
-                            {e.subtitle && (
-                              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.45)", margin: 0, lineHeight: 1.6, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as const, overflow: "hidden", flex: 1 }}>{e.subtitle}</p>
-                            )}
-                          </div>
-
-                          <div style={{ marginTop: "auto", paddingTop: 16, borderTop: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", gap: 16 }}>
-                            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, color: GOLD }}>{e.date}</span>
-                            <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, color: "rgba(255,255,255,0.35)" }}>
-                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(201,147,90,0.6)" strokeWidth="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
-                              {e.venue}
-                            </span>
-                            {e.time && (
-                              <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11, color: "rgba(255,255,255,0.35)" }}>
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(201,147,90,0.6)" strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
-                                {e.time}
-                              </span>
-                            )}
-                          </div>
-                        </>
-                      );
-                      return e.link ? (
-                        <a key={(e.title || e.sponsor) + idx} href={e.link} target="_blank" rel="noopener noreferrer" className="nf-event-card" style={{ textDecoration: "none" }}>
-                          {inner}
-                        </a>
-                      ) : (
-                        <div key={(e.title || e.sponsor) + idx} className="nf-event-card">
-                          {inner}
-                        </div>
-                      );
-                    })}
-                </Past2026MonthRow>
+            {/* Section label */}
+            <div style={{ maxWidth: 1400, margin: "0 auto", padding: `0 ${NF_ROW_PAD}`, marginBottom: "clamp(16px, 2vw, 24px)" }}>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 12, fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: GOLD }}>
+                <span aria-hidden style={{ width: 24, height: 1, background: GOLD_50 }} />
+                2026 So Far
+              </span>
+            </div>
+            {/* 3-row marquee wall — alternating directions */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "clamp(12px, 1.6vw, 18px)" }}>
+              {pastRows.map((row, ri) => (
+                <PastMarqueeRow key={ri} events={row} reverse={ri % 2 === 1} dur={`${Math.max(48, row.length * 9)}s`} />
               ))}
             </div>
           </motion.div>
@@ -2793,7 +3296,20 @@ function PastBoardroomsShowcase() {
         )}
       </AnimatePresence>
 
-      <style jsx global>{`@media (max-width: 1100px) { .past-grid { grid-template-columns: repeat(3, 1fr) !important; } } @media (max-width: 768px) { .past-grid { grid-template-columns: repeat(2, 1fr) !important; } }`}</style>
+      <style jsx global>{`
+        @media (max-width: 1100px) { .past-grid { grid-template-columns: repeat(3, 1fr) !important; } }
+        @media (max-width: 768px) { .past-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+        .nf-mqrow {
+          overflow: hidden;
+          -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
+        }
+        .nf-mqtrack { display: flex; gap: ${NF_CARD_GAP}; width: max-content; animation: nf-mq var(--nf-dur, 60s) linear infinite; }
+        .nf-mqtrack-rev { animation-direction: reverse; }
+        .nf-mqrow:hover .nf-mqtrack { animation-play-state: paused; }
+        @keyframes nf-mq { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+        @media (prefers-reduced-motion: reduce) { .nf-mqtrack { animation: none; } }
+      `}</style>
     </section>
   );
 }
