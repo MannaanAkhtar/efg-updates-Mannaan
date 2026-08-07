@@ -316,7 +316,7 @@ const SPEAKERS = [
   },
   {
     name: "Prinesh Vythilingam",
-    title: "Group Head of Cyber Security",
+    title: "CISO",
     org: "African Rainbow Minerals Limited",
     linkedin: "https://www.linkedin.com/in/prineshkv/",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Prinesh+Vythilingam.png",
