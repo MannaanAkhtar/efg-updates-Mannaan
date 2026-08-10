@@ -2982,3 +2982,262 @@
             flex-direction: column;
           }
         }
+
+        /* ─── AGENDA ─────────────────────────────────────────────────────────── */
+        .pp-ag {
+          max-width: 980px;
+          margin: clamp(28px, 4vh, 44px) auto 0;
+          display: flex;
+          flex-direction: column;
+          gap: clamp(22px, 3.4vh, 34px);
+        }
+        /* Split layout — Morning | Afternoon side by side */
+        .pp-ag-split {
+          max-width: 1320px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: clamp(40px, 6vw, 96px);
+          align-items: start;
+        }
+        .pp-ag-col {
+          display: flex;
+          flex-direction: column;
+          gap: clamp(18px, 2.6vh, 28px);
+          min-width: 0;
+        }
+        .pp-ag-colhead {
+          display: block;
+          background: var(--accent);
+          color: #ffffff;
+          font-family: var(--font-montserrat), sans-serif;
+          font-weight: 800;
+          font-size: clamp(13px, 1.5vw, 16px);
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          padding: 11px 16px;
+          border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+          border-bottom: 3px solid var(--hl);
+        }
+        @media (max-width: 860px) {
+          .pp-ag-split {
+            grid-template-columns: 1fr;
+            max-width: 980px;
+          }
+        }
+
+        /* Opening keynote — soft blue tile with blue rail */
+        .pp-ag-open {
+          display: flex;
+          gap: clamp(14px, 2vw, 22px);
+          align-items: flex-start;
+          background: var(--accent-soft);
+          border-left: 4px solid var(--accent);
+          border-radius: var(--radius-sm);
+          padding: clamp(16px, 2vw, 20px) clamp(16px, 2.2vw, 24px);
+        }
+        .pp-ag-open-time {
+          font-family: var(--font-montserrat), sans-serif;
+          font-weight: 800;
+          font-size: clamp(16px, 1.8vw, 19px);
+          color: var(--accent);
+          white-space: nowrap;
+          padding-top: 2px;
+        }
+        .pp-ag-open-label {
+          display: block;
+          font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--accent);
+          margin-bottom: 5px;
+        }
+        .pp-ag-open-title {
+          margin: 0;
+          font-family: var(--font-montserrat), sans-serif;
+          font-weight: 700;
+          font-size: clamp(14.5px, 1.6vw, 18px);
+          line-height: 1.35;
+          color: var(--ink);
+        }
+
+        /* Session block */
+        .pp-ag-shead {
+          display: flex;
+          align-items: baseline;
+          gap: 14px;
+          flex-wrap: wrap;
+          border-bottom: 2px solid var(--ink);
+          padding-bottom: 10px;
+          margin-bottom: 4px;
+        }
+        .pp-ag-snum {
+          font-family: var(--font-montserrat), sans-serif;
+          font-weight: 800;
+          font-size: clamp(15px, 1.7vw, 19px);
+          letter-spacing: 0.4px;
+          text-transform: uppercase;
+          color: var(--accent);
+          white-space: nowrap;
+        }
+        .pp-ag-stitle {
+          flex: 1;
+          margin: 0;
+          font-family: var(--font-montserrat), sans-serif;
+          font-weight: 800;
+          font-size: clamp(15px, 1.7vw, 19px);
+          letter-spacing: 0.2px;
+          text-transform: uppercase;
+          color: var(--ink);
+          min-width: 180px;
+        }
+        .pp-ag-srange {
+          font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+          font-size: 12.5px;
+          color: var(--ink-3);
+          white-space: nowrap;
+        }
+        .pp-ag-rows {
+          display: flex;
+          flex-direction: column;
+        }
+        .pp-ag-row {
+          display: grid;
+          grid-template-columns: 54px 132px 1fr;
+          gap: 14px;
+          align-items: start;
+          padding: 13px 4px;
+          border-bottom: 1px solid var(--hairline);
+        }
+        .pp-ag-time {
+          font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+          font-size: 12.5px;
+          color: var(--ink-3);
+          padding-top: 2px;
+        }
+        .pp-ag-tag {
+          align-self: start;
+          font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+          font-size: 10.5px;
+          font-weight: 700;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--accent);
+          padding-top: 3px;
+        }
+        .pp-ag-tag.is-hl {
+          justify-self: start;
+          padding: 4px 10px;
+          border-radius: 5px;
+          background: var(--hl);
+          color: var(--ink);
+        }
+        .pp-ag-rbody {
+          min-width: 0;
+        }
+        .pp-ag-rtitle {
+          margin: 0;
+          font-family: var(--font-inter), sans-serif;
+          font-weight: 600;
+          font-size: clamp(13.5px, 1.4vw, 15.5px);
+          line-height: 1.4;
+          color: var(--ink);
+        }
+        .pp-ag-rnote {
+          margin: 5px 0 0;
+          font-family: var(--font-inter), sans-serif;
+          font-size: 12.5px;
+          line-height: 1.45;
+          color: var(--ink-3);
+        }
+        .pp-ag-chips {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          align-items: center;
+        }
+        .pp-ag-chip {
+          background: var(--hl);
+          color: var(--ink);
+          font-family: var(--font-inter), sans-serif;
+          font-weight: 700;
+          font-size: 12.5px;
+          padding: 5px 12px;
+          border-radius: 6px;
+        }
+        .pp-ag-chipnote {
+          font-family: var(--font-inter), sans-serif;
+          font-size: 12px;
+          color: var(--ink-3);
+        }
+
+        /* Bands — lunch (yellow) + closing keynote (blue) */
+        .pp-ag-band {
+          display: flex;
+          align-items: center;
+          gap: clamp(14px, 2vw, 22px);
+          flex-wrap: wrap;
+          background: var(--hl);
+          border-radius: var(--radius-sm);
+          padding: clamp(14px, 1.8vw, 18px) clamp(16px, 2.2vw, 24px);
+        }
+        .pp-ag-band-time {
+          font-family: var(--font-montserrat), sans-serif;
+          font-weight: 800;
+          font-size: clamp(15px, 1.7vw, 17px);
+          color: var(--ink);
+          white-space: nowrap;
+        }
+        .pp-ag-band-title {
+          font-family: var(--font-montserrat), sans-serif;
+          font-weight: 700;
+          font-size: clamp(12.5px, 1.4vw, 15px);
+          letter-spacing: 0.4px;
+          text-transform: uppercase;
+          color: var(--ink);
+        }
+        .pp-ag-band-blue {
+          background: var(--accent);
+          align-items: flex-start;
+        }
+        .pp-ag-band-blue .pp-ag-band-time {
+          color: var(--hl);
+          padding-top: 2px;
+        }
+        .pp-ag-band-body {
+          display: flex;
+          flex-direction: column;
+        }
+        .pp-ag-band-label {
+          font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--hl);
+          margin-bottom: 5px;
+        }
+        .pp-ag-band-titlelg {
+          margin: 0;
+          font-family: var(--font-montserrat), sans-serif;
+          font-weight: 800;
+          font-size: clamp(14px, 1.6vw, 18px);
+          line-height: 1.35;
+          color: #ffffff;
+        }
+
+        @media (max-width: 640px) {
+          .pp-ag-row {
+            grid-template-columns: 50px 1fr;
+            column-gap: 12px;
+            row-gap: 4px;
+          }
+          .pp-ag-tag,
+          .pp-ag-rbody {
+            grid-column: 2;
+          }
+          .pp-ag-tag {
+            padding-top: 0;
+          }
+        }

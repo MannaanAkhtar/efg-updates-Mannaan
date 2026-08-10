@@ -320,8 +320,77 @@ const NAV_LINKS = [
   { id: "why-ksa", label: "Why KSA" },
   { id: "alignment", label: "Alignment" },
   { id: "audience", label: "Who Attends" },
+  { id: "agenda", label: "Agenda" },
   { id: "networking", label: "Networking" },
 ];
+
+// ── Conference agenda (17 Nov 2026) ─────────────────────────────────────────
+type AgRow = { time: string; tag: string; title?: string; note?: string; chips?: string[] };
+type AgSession = { n: number; title: string; range: string; rows: AgRow[] };
+
+const AGENDA_META = { date: "17 Nov 2026", time: "09:00 – 15:30", venue: "Riyadh, Saudi Arabia" };
+
+const AGENDA_OPEN = {
+  time: "09:00",
+  label: "Government Opening Keynote · 10 min",
+  title: "Processing the Kingdom’s Materials: Building the Next Generation of Industrial Manufacturing",
+};
+
+const AGENDA_SESSIONS: AgSession[] = [
+  {
+    n: 1,
+    title: "Localisation in Motion",
+    range: "09:10 – 10:20",
+    rows: [
+      { time: "09:10", tag: "Keynote", title: "From Import Dependence to Local Manufacturing: Where Will the Next Processing Investments Come From?" },
+      { time: "09:20", tag: "Keynote", title: "Building Regional Supply Chains for Powder Processing Equipment and Technologies" },
+      { time: "09:30", tag: "Exec Panel", title: "Can Localisation Deliver Both Manufacturing Capacity and Global Competitiveness?" },
+      { time: "10:00", tag: "Fireside", title: "Inside the Plant: What Process Engineers Actually Need from Equipment Suppliers", note: "Plant Director + Equipment OEM" },
+    ],
+  },
+  {
+    n: 2,
+    title: "Processing 4.0",
+    range: "10:20 – 11:55",
+    rows: [
+      { time: "10:20", tag: "Keynote", title: "Is the Future Powder Plant Autonomous?" },
+      { time: "10:30", tag: "Keynote", title: "From Digital Twins to AI: Optimising Yield, Energy and Product Consistency" },
+      { time: "10:40", tag: "Exec Panel", title: "How Digital Technologies Are Transforming Powder Processing" },
+      { time: "11:10", tag: "Spotlights", chips: ["Mixing", "Milling", "Spray Drying"], note: "15 min each" },
+    ],
+  },
+  {
+    n: 3,
+    title: "Bulk Handling, Storage & Process Safety",
+    range: "13:00 – 14:10",
+    rows: [
+      { time: "13:00", tag: "Keynote", title: "Why Are Powder Handling Systems Still the Biggest Bottleneck in Modern Manufacturing?" },
+      { time: "13:10", tag: "Keynote", title: "Designing Safer Plants: Combustible Dust, ATEX Compliance and Process Reliability" },
+      { time: "13:20", tag: "Exec Panel", title: "Moving More Material with Less Risk", note: "Topics: conveying & silo flow · dust explosion mitigation · plant reliability & energy efficiency" },
+      { time: "13:50", tag: "Fireside", title: "Lessons from Building One of the Region’s Largest Industrial Processing Facilities" },
+    ],
+  },
+  {
+    n: 4,
+    title: "The Kingdom’s Growth Industries",
+    range: "14:10 – 15:20",
+    rows: [
+      { time: "14:10", tag: "Keynote", title: "One Technology, Five Industries: Why Powder Processing Is Becoming a Strategic Manufacturing Capability" },
+      { time: "14:20", tag: "Keynote", title: "Where Will Demand Come From Next? Food, Pharma, Chemicals, Construction Materials and Critical Minerals" },
+      { time: "14:30", tag: "Exec Panel", title: "What Do These Five Industries Need from the Next Generation of Processing Technologies?" },
+      { time: "14:55", tag: "Spotlights", chips: ["Conveying", "Screening & Filtration", "Weighing & Bagging"] },
+    ],
+  },
+];
+
+const AGENDA_LUNCH = { range: "12:00 – 13:00", title: "Hosted Networking Lunch & Exhibition Floor" };
+const AGENDA_CLOSE = {
+  time: "15:20",
+  label: "Closing Keynote · 10 min",
+  title: "What’s Next for Powder Processing? The Technologies That Will Shape Manufacturing Over the Next Decade",
+};
+
+const agIsHighlight = (tag: string) => /fireside|spotlight/i.test(tag);
 
 // ── Stock image with graceful fallback (hides on 404, tinted tile remains) ──────
 // `priority` marks an above-the-fold/LCP image so it loads eagerly at high
@@ -352,6 +421,41 @@ function Marker({ n, label }: { n: string; label: string }) {
       <span className="pp-marker-box">{n}</span>
       <span className="pp-marker-label">{label}</span>
       <span className="pp-marker-rule" aria-hidden />
+    </div>
+  );
+}
+
+function AgSessionBlock({ s }: { s: AgSession }) {
+  return (
+    <div className="pp-ag-session">
+      <div className="pp-ag-shead">
+        <span className="pp-ag-snum">Session {s.n}</span>
+        <h3 className="pp-ag-stitle">{s.title}</h3>
+        <span className="pp-ag-srange">{s.range}</span>
+      </div>
+      <div className="pp-ag-rows">
+        {s.rows.map((r, i) => (
+          <div key={i} className="pp-ag-row">
+            <span className="pp-ag-time">{r.time}</span>
+            <span className={`pp-ag-tag${agIsHighlight(r.tag) ? " is-hl" : ""}`}>{r.tag}</span>
+            <div className="pp-ag-rbody">
+              {r.chips ? (
+                <div className="pp-ag-chips">
+                  {r.chips.map((c) => (
+                    <span key={c} className="pp-ag-chip">{c}</span>
+                  ))}
+                  {r.note && <span className="pp-ag-chipnote">{r.note}</span>}
+                </div>
+              ) : (
+                <>
+                  <p className="pp-ag-rtitle">{r.title}</p>
+                  {r.note && <p className="pp-ag-rnote">{r.note}</p>}
+                </>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -1132,6 +1236,60 @@ export default function PowProcessPage() {
         </div>
       </section>
 
+      {/* ─── 6. AGENDA ───────────────────────────────────────────────────────── */}
+      <section className="pp-section" id="agenda">
+        <div className="pp-center pp-about-head">
+          <Marker n="06" label="Agenda" />
+          <h2 className="pp-h2">
+            One day. <em>Four sessions.</em> Two keynotes.
+          </h2>
+          <p className="pp-lede">
+            Conference agenda · {AGENDA_META.date} · {AGENDA_META.time} · {AGENDA_META.venue}.
+          </p>
+        </div>
+
+        <div className="pp-ag pp-ag-split">
+          {/* Morning column */}
+          <div className="pp-ag-col">
+            <span className="pp-ag-colhead">Morning Sessions</span>
+
+            <div className="pp-ag-open">
+              <span className="pp-ag-open-time">{AGENDA_OPEN.time}</span>
+              <div className="pp-ag-open-body">
+                <span className="pp-ag-open-label">{AGENDA_OPEN.label}</span>
+                <p className="pp-ag-open-title">{AGENDA_OPEN.title}</p>
+              </div>
+            </div>
+
+            {AGENDA_SESSIONS.slice(0, 2).map((s) => (
+              <AgSessionBlock key={s.n} s={s} />
+            ))}
+
+            <div className="pp-ag-band">
+              <span className="pp-ag-band-time">{AGENDA_LUNCH.range}</span>
+              <span className="pp-ag-band-title">{AGENDA_LUNCH.title}</span>
+            </div>
+          </div>
+
+          {/* Afternoon column */}
+          <div className="pp-ag-col">
+            <span className="pp-ag-colhead">Afternoon Sessions</span>
+
+            {AGENDA_SESSIONS.slice(2, 4).map((s) => (
+              <AgSessionBlock key={s.n} s={s} />
+            ))}
+
+            <div className="pp-ag-band pp-ag-band-blue">
+              <span className="pp-ag-band-time">{AGENDA_CLOSE.time}</span>
+              <div className="pp-ag-band-body">
+                <span className="pp-ag-band-label">{AGENDA_CLOSE.label}</span>
+                <p className="pp-ag-band-titlelg">{AGENDA_CLOSE.title}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ─── WHY THIS MATTERS — modern oil-dark band, brass accents ───────────── */}
       <section className="pp-why" id="why-matters">
         <div className="pp-why-pattern" aria-hidden />
@@ -1142,7 +1300,7 @@ export default function PowProcessPage() {
           </figure>
           <h2 className="pp-sr-only">Why This Matters</h2>
           <div className="pp-why-top">
-            <Marker n="06" label="Why This Matters" />
+            <Marker n="07" label="Why This Matters" />
             <span className="pp-why-loc">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0Z" />
@@ -1182,7 +1340,7 @@ export default function PowProcessPage() {
       <section className="pp-section" id="sponsor">
         <h2 className="pp-sr-only">Who Will Sponsor &amp; Exhibit</h2>
         <div className="pp-center pp-spon-head">
-          <Marker n="07" label="Who Will Sponsor & Exhibit" />
+          <Marker n="08" label="Who Will Sponsor & Exhibit" />
           <h2 className="pp-h2">
             Who will <em>exhibit</em> &amp; sponsor
           </h2>
@@ -1224,7 +1382,7 @@ export default function PowProcessPage() {
       <section className="pp-section" id="networking">
         <div className="pp-net-head">
           <div className="pp-net-head-copy">
-            <Marker n="08" label="Networking" />
+            <Marker n="09" label="Networking" />
             <h2 className="pp-h2 pp-h2-left">
               Every buyer you need, <em>in one room</em>
             </h2>
