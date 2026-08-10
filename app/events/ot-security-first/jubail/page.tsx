@@ -33,7 +33,7 @@ const BG_DEEP = "#050818";    // Deep navy/black
 const BG_BASE = "#070C20";    // Section base
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const HERO_VIDEO = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT-Jubai_video.mp4";
+const HERO_VIDEO = "https://efg-final.s3.eu-north-1.amazonaws.com/hero+videos/OT+Jubail+Hero.mp4";
 const EVENT_DATE_ISO = "2026-10-27T08:30:00+03:00";
 
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com";
@@ -487,7 +487,7 @@ function Hero() {
         minHeight: "100svh",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         overflow: "hidden",
         background: BG_DEEP,
       }}
@@ -507,6 +507,7 @@ function Hero() {
           width: "100%",
           height: "100%",
           objectFit: "cover",
+          backgroundColor: BG_DEEP,
           opacity: 0.55,
           zIndex: 0,
         }}
@@ -536,6 +537,18 @@ function Hero() {
             `radial-gradient(ellipse 45% 35% at 15% 25%, ${C}18 0%, transparent 60%),
              radial-gradient(ellipse 40% 35% at 85% 80%, ${CYAN}12 0%, transparent 60%)`,
           zIndex: 1,
+        }}
+      />
+
+      {/* Left-anchored dark fade - clean reading panel for the content column */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: `linear-gradient(90deg, ${BG_DEEP}f2 0%, ${BG_DEEP}d9 28%, ${BG_DEEP}73 50%, transparent 74%)`,
+          zIndex: 1,
+          pointerEvents: "none",
         }}
       />
 
@@ -580,10 +593,10 @@ function Hero() {
         style={{
           position: "relative",
           zIndex: 3,
-          maxWidth: 1280,
+          maxWidth: 780,
           width: "100%",
-          padding: "clamp(120px, 14vh, 180px) clamp(24px, 5vw, 64px) clamp(60px, 8vh, 100px)",
-          textAlign: "center",
+          padding: "clamp(84px, 10vh, 118px) clamp(24px, 5vw, 64px) clamp(36px, 5vh, 64px)",
+          textAlign: "left",
         }}
       >
         <motion.div
@@ -600,7 +613,7 @@ function Hero() {
             border: `1px solid ${C}55`,
             backdropFilter: "blur(14px)",
             WebkitBackdropFilter: "blur(14px)",
-            marginBottom: 28,
+            marginBottom: 20,
             boxShadow: `inset 0 1px 0 rgba(255,255,255,0.08)`,
           }}
         >
@@ -626,12 +639,12 @@ function Hero() {
           style={{
             fontFamily: "var(--font-display)",
             fontWeight: 800,
-            fontSize: "clamp(40px, 6vw, 92px)",
+            fontSize: "clamp(34px, 4.7vw, 70px)",
             letterSpacing: "-3px",
             lineHeight: 0.96,
             color: "white",
-            margin: "0 auto 22px",
-            maxWidth: 1100,
+            margin: "0 0 16px",
+            maxWidth: 720,
           }}
         >
           Protecting the systems
@@ -658,8 +671,8 @@ function Hero() {
             fontWeight: 400,
             color: "rgba(255,255,255,0.7)",
             lineHeight: 1.6,
-            maxWidth: 720,
-            margin: "0 auto 38px",
+            maxWidth: 640,
+            margin: "0 0 26px",
           }}
         >
           A strategic forum for operational technology leadership - convening regulators, CISOs and industrial engineers at the heart of the Kingdom&apos;s industrial corridor.
@@ -674,11 +687,13 @@ function Hero() {
           transition={{ duration: 0.9, delay: 0.42, ease: EASE }}
           className="otsf-jb-hero-infobar"
           style={{
-            display: "inline-flex",
+            display: "flex",
             alignItems: "center",
-            flexWrap: "wrap",
+            flexWrap: "nowrap",
+            width: "max-content",
+            maxWidth: "min(100%, 92vw)",
             justifyContent: "center",
-            marginBottom: 40,
+            margin: "0 auto 26px",
             padding: "8px 6px",
             borderRadius: 16,
             background: "rgba(5,8,24,0.55)",
@@ -689,7 +704,7 @@ function Hero() {
           }}
         >
           {/* Date */}
-          <span className="otsf-jb-info-seg" style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "6px 18px" }}>
+          <span className="otsf-jb-info-seg" style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "6px 14px", whiteSpace: "nowrap" }}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <rect x="3" y="4" width="18" height="18" rx="2" />
               <line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
@@ -700,7 +715,7 @@ function Hero() {
           <span aria-hidden className="otsf-jb-info-div" style={{ width: 1, height: 22, background: "rgba(255,255,255,0.14)" }} />
 
           {/* Location */}
-          <span className="otsf-jb-info-seg" style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "6px 18px" }}>
+          <span className="otsf-jb-info-seg" style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "6px 14px", whiteSpace: "nowrap" }}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
             </svg>
@@ -710,7 +725,7 @@ function Hero() {
           <span aria-hidden className="otsf-jb-info-div" style={{ width: 1, height: 22, background: "rgba(255,255,255,0.14)" }} />
 
           {/* Countdown */}
-          <span className="otsf-jb-info-seg" style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "6px 18px" }}>
+          <span className="otsf-jb-info-seg" style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "6px 14px", whiteSpace: "nowrap" }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
               <span aria-hidden className="otsf-jb-live-dot otsf-jb-starts-dot" style={{ width: 5, height: 5, borderRadius: 999 }} />
               <span className="otsf-jb-starts-text" style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 700, letterSpacing: "1.6px", textTransform: "uppercase", color: "rgba(255,255,255,0.55)" }}>Starts in</span>
@@ -734,7 +749,7 @@ function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.7, ease: EASE }}
-          style={{ display: "flex", flexWrap: "wrap", gap: 14, justifyContent: "center" }}
+          style={{ display: "flex", flexWrap: "wrap", gap: 14, justifyContent: "flex-start" }}
         >
           {/* Primary CTA - Speaking & sponsorship · glassmorphism + liquid glass */}
           <a
@@ -844,86 +859,97 @@ function Hero() {
         </motion.div>
       </div>
 
-      {/* EFG initiative badge - bottom left */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1.8, ease: EASE }}
-        className="otsf-jb-efg-badge"
-        style={{
-          position: "absolute",
-          bottom: 32,
-          left: "clamp(20px, 4vw, 56px)",
-          zIndex: 4,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          gap: 6,
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "var(--font-dm-sans)",
-            fontSize: 13,
-            fontWeight: 600,
-            color: "rgba(255,255,255,0.7)",
-            textTransform: "uppercase",
-            letterSpacing: "2.5px",
-          }}
-        >
-          An Initiative By
-        </span>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          loading="lazy"
-          decoding="async"
-          src="/events-first-group_logo_alt.svg"
-          alt="Events First Group logo - producers of OT Security First Jubail 2026, the Kingdom's flagship industrial cybersecurity summit"
-          width={180}
-          height={66}
-          style={{ height: 50, width: "auto", opacity: 0.8 }}
-        />
-      </motion.div>
-
-      {/* Accreditation Partner badge - top right (same column as Supporting Partner) */}
-      <motion.div
-        id="accreditation-partner"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1.6, ease: EASE }}
-        className="otsf-jb-accred-badge"
+      {/* Top-right partner cluster - initiative badge beside accreditation partner */}
+      <div
+        className="otsf-jb-toppartners"
         style={{
           position: "absolute",
           top: "clamp(92px, 12vh, 124px)",
           right: "clamp(20px, 4vw, 56px)",
           zIndex: 4,
           display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-end",
-          gap: 6,
+          alignItems: "stretch",
+          gap: "clamp(16px, 2vw, 28px)",
         }}
       >
-        <span
+        {/* EFG initiative badge */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.7, ease: EASE }}
+          className="otsf-jb-efg-badge"
           style={{
-            fontFamily: "var(--font-dm-sans)",
-            fontSize: 13,
-            fontWeight: 600,
-            color: "rgba(255,255,255,0.7)",
-            textTransform: "uppercase",
-            letterSpacing: "2.5px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            gap: 6,
           }}
         >
-          Accreditation Partner
-        </span>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          loading="lazy"
-          decoding="async"
-          src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/CPD+jubail.jpeg"
-          alt="CPD accreditation - Accreditation Partner of OT Security First Jubail 2026"
-          style={{ height: 74, width: "auto", borderRadius: 8, display: "block", border: "1px solid rgba(255,255,255,0.16)", boxShadow: "0 8px 22px rgba(0,0,0,0.4)" }}
-        />
-      </motion.div>
+          <span
+            style={{
+              fontFamily: "var(--font-dm-sans)",
+              fontSize: 13,
+              fontWeight: 600,
+              color: "rgba(255,255,255,0.7)",
+              textTransform: "uppercase",
+              letterSpacing: "2.5px",
+            }}
+          >
+            An Initiative By
+          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            loading="lazy"
+            decoding="async"
+            src="/events-first-group_logo_alt.svg"
+            alt="Events First Group logo - producers of OT Security First Jubail 2026, the Kingdom's flagship industrial cybersecurity summit"
+            width={180}
+            height={66}
+            style={{ height: 50, width: "auto", opacity: 0.8, transform: "translateY(-12px)" }}
+          />
+        </motion.div>
+
+        {/* Divider */}
+        <span aria-hidden className="otsf-jb-toppartners-div" style={{ width: 1, alignSelf: "stretch", background: "rgba(255,255,255,0.16)" }} />
+
+        {/* Accreditation Partner badge */}
+        <motion.div
+          id="accreditation-partner"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.6, ease: EASE }}
+          className="otsf-jb-accred-badge"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            gap: 6,
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "var(--font-dm-sans)",
+              fontSize: 13,
+              fontWeight: 600,
+              color: "rgba(255,255,255,0.7)",
+              textTransform: "uppercase",
+              letterSpacing: "2.5px",
+            }}
+          >
+            Accreditation Partner
+          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            loading="lazy"
+            decoding="async"
+            src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/CPD+jubail.jpeg"
+            alt="CPD accreditation - Accreditation Partner of OT Security First Jubail 2026"
+            style={{ height: 74, width: "auto", borderRadius: 8, display: "block", border: "1px solid rgba(255,255,255,0.16)", boxShadow: "0 8px 22px rgba(0,0,0,0.4)" }}
+          />
+        </motion.div>
+      </div>
 
       {/* Supporting Partner badge - bottom right (where the initiative badge was) */}
       <motion.div
@@ -1115,13 +1141,16 @@ function Hero() {
         }
         /* Hero corner badges - shrink on mobile so they don't crowd the hero */
         @media (max-width: 720px) {
+          .otsf-jb-toppartners {
+            top: 72px !important;
+            gap: 12px !important;
+          }
           .otsf-jb-efg-badge,
           .otsf-jb-partner-badge {
             bottom: 24px !important;
             gap: 4px !important;
           }
           .otsf-jb-accred-badge {
-            top: 76px !important;
             gap: 4px !important;
           }
           .otsf-jb-efg-badge > span,
