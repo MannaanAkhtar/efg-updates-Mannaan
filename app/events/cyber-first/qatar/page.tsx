@@ -3475,12 +3475,8 @@ function Speakers() {
                   transition: "transform 0.5s cubic-bezier(0.22,1,0.36,1), border-color 0.5s ease, box-shadow 0.5s ease",
                 }}
               >
-                {/* MEDIA ROW — vertical org rail + photo. The rail carries the
-                    company name so the info block below stays name + title. */}
+                {/* MEDIA ROW — square photo (company now shown below the title). */}
                 <div className="cfq-speaker-media">
-                  <div className="cfq-speaker-orgrail">
-                    <span className="cfq-speaker-orgrail-text">{a.org}</span>
-                  </div>
 
                 {/* PHOTO / INITIALS — 1:1 aspect */}
                 <div
@@ -3605,8 +3601,7 @@ function Speakers() {
                 </div>
                 </div>
 
-                {/* INFO BLOCK — below the photo. Name + title only; the org
-                    lives on the vertical rail beside the photo. */}
+                {/* INFO BLOCK — below the photo: name, title, then org. */}
                 <div
                   style={{
                     padding: "16px 14px 18px",
@@ -3649,6 +3644,20 @@ function Speakers() {
                     }}
                   >
                     {a.title}
+                  </p>
+
+                  <p
+                    style={{
+                      fontFamily: "var(--font-outfit)",
+                      fontSize: 12.5,
+                      fontWeight: 600,
+                      color: C,
+                      lineHeight: 1.35,
+                      margin: 0,
+                      overflowWrap: "break-word",
+                    }}
+                  >
+                    {a.org}
                   </p>
                 </div>
               </motion.div>
