@@ -208,6 +208,7 @@ const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; 
   { name: "Khireddine Garri", title: "Acting Chief Information Security Officer (CISO)", org: "Jasour", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khireddine+Garri.jpg", linkedin: "https://www.linkedin.com/in/khireddine-garri-294b4a91/" },
   { name: "Aissa Touahria",   title: "Vice Chairman & CEO", org: "TITAN Energy Corp, Qatar", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aissa_Touahria.png", linkedin: "https://www.linkedin.com/in/aissa-touahria/" },
   { name: "Hugo Lopes",       title: "Group Chief Technology Officer", org: "Amwaj Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hugo_Lopes.png", linkedin: "https://www.linkedin.com/in/hugolopes86/" },
+  { name: "Arslan Baig",      title: "Lead IT & Cybersecurity", org: "Al-AWALIA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Arslan+Baig.jpg", linkedin: "https://www.linkedin.com/in/arslan-baig/" },
 ];
 
 // ─── Agenda — 17 rows (from PDF) ────────────────────────────────────────────
