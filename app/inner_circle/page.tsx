@@ -77,6 +77,13 @@ const VOICES: { name: string; role: string; initials: string; photo?: string; li
     linkedin: "https://www.linkedin.com/in/ahmed-fahmy/",
   },
   {
+    name: "Ibrahim Alshaya",
+    role: "Vice President – Product Growth, Thmanyah | ثمانية",
+    initials: "IA",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ibrahim+Alshaya.png",
+    linkedin: "https://www.linkedin.com/in/ibrahim-alshaya/",
+  },
+  {
     name: "Mohammad Tannous",
     role: "Regional Director, MEA & Turkey, CleverTap",
     initials: "MT",
@@ -89,13 +96,6 @@ const VOICES: { name: string; role: string; initials: string; photo?: string; li
     initials: "SA",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Suhaib+Abu+Taleb.png",
     linkedin: "https://www.linkedin.com/in/suhaib-abu-taleb-09718b123/",
-  },
-  {
-    name: "Ibrahim Alshaya",
-    role: "Vice President – Product Growth, Thmanyah | ثمانية",
-    initials: "IA",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ibrahim+Alshaya.png",
-    linkedin: "https://www.linkedin.com/in/ibrahim-alshaya/",
   },
 ];
 
