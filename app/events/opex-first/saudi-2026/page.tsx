@@ -84,7 +84,7 @@ const buildReportDownloadUrl = (url: string, filename: string) =>
 const BOARDROOM = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/boardrooms";
 
 const HERO_BG = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/opexKSA.png";
-const HERO_VIDEO = "https://efg-final.s3.eu-north-1.amazonaws.com/hero+videos/OpEx+KSA+Hero.mp4";
+const HERO_VIDEO = "https://efg-final.s3.eu-north-1.amazonaws.com/hero+videos/OpEx+KSA+Hero+(1).mp4";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
