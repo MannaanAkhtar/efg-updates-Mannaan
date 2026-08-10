@@ -5402,9 +5402,9 @@ function SeriesSponsors() {
         }
         .opex-ss-logo-item {
           flex-shrink: 0;
-          width: 240px;
+          width: 190px;
           height: 120px;
-          margin: 0 clamp(8px, 1.2vw, 18px);
+          margin: 0 clamp(2px, 0.5vw, 7px);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -5420,6 +5420,11 @@ function SeriesSponsors() {
           filter: brightness(0) invert(1);
           transition: filter 0.4s ease;
         }
+        /* Shrink only the Past Series Sponsors (marquee) logos; static row unaffected */
+        .opex-ss-marquee .opex-ss-logo-item img {
+          max-height: 68%;
+          max-width: 80%;
+        }
 
         @keyframes opex-ss-scroll-left {
           0%   { transform: translateX(0); }
@@ -5430,7 +5435,7 @@ function SeriesSponsors() {
           100% { transform: translateX(0); }
         }
         @media (max-width: 720px) {
-          .opex-ss-logo-item { width: 180px; height: 90px; margin: 0 10px; }
+          .opex-ss-logo-item { width: 150px; height: 90px; margin: 0 5px; }
           .opex-ss-track-left { animation-duration: 38s; }
           .opex-ss-track-right { animation-duration: 46s; }
         }
