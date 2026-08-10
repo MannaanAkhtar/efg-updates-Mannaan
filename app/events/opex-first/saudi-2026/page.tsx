@@ -84,6 +84,7 @@ const buildReportDownloadUrl = (url: string, filename: string) =>
 const BOARDROOM = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/boardrooms";
 
 const HERO_BG = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/opexKSA.png";
+const HERO_VIDEO = "https://efg-final.s3.eu-north-1.amazonaws.com/hero+videos/OpEx+KSA+Hero.mp4";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -472,6 +473,34 @@ function Hero() {
   preload(HERO_BG, { as: "image", fetchPriority: "high" });
 
   const cd = useCountdown(EVENT_DATE);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Hero video: poster is the LCP, so it never blocks first paint. Only stream +
+  // decode the (heavy) video while the hero is on-screen; skip entirely for
+  // reduced-motion or Save-Data / slow connections.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const conn = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    if (reduce || conn?.saveData || /(^|-)2g$/.test(conn?.effectiveType || "")) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            if (v.preload !== "auto") v.preload = "auto";
+            v.play().catch(() => {});
+          } else {
+            v.pause();
+          }
+        }
+      },
+      { threshold: 0.15 },
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
 
   return (
     <section
@@ -486,7 +515,7 @@ function Hero() {
         justifyContent: "center",
       }}
     >
-      {/* Photographic backdrop — static, natural cover size */}
+      {/* Photographic backdrop — static, natural cover size (poster/fallback under the video) */}
       <div
         className="opex-hero-bg"
         style={{
@@ -499,16 +528,27 @@ function Hero() {
         }}
       />
 
-      {/* Slight dark purple overlay */}
-      <div
+      {/* Hero video — poster paints first; observer streams/plays only while on-screen */}
+      {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+      <video
+        ref={videoRef}
+        className="opex-hero-video"
+        muted
+        loop
+        playsInline
+        preload="none"
+        poster={HERO_BG}
         style={{
           position: "absolute",
           inset: 0,
-          background: `${V_DIM}66`,
-          zIndex: 1,
-          pointerEvents: "none",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: 0,
         }}
-      />
+      >
+        <source src={HERO_VIDEO} type="video/mp4" />
+      </video>
 
       {/* Top-only dark fade — gives the navbar a clean reading band */}
       <div
@@ -5184,15 +5224,24 @@ function EventSponsors() {
   );
 }
 
-// ─── Past Series Sponsors — marquee strip (homepage style) ─────────────────
+// ─── Past Partners & Sponsors — supporting (static) + series (marquee) ──────
+const SS_LOGO_BASE = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo";
+const SUPPORTING_PARTNERS = [
+  "Untitled-1-01.png",
+  "Untitled-1-04.png",
+  "Untitled-1-01...png",
+  "Untitled-1-02-removebg-preview.png",
+  "Untitled-1-03-removebg-preview.png",
+].map((f) => `${SS_LOGO_BASE}/${f}`);
+const SERIES_SPONSORS = [
+  "2026-01.png", "2026-03.png", "2026-02.png", "2026-05.png", "2026-04.png", "2026-07.png", "2026-06.png",
+  "opex+2025+(2).png", "opex+2025+(1).png", "opex+2025+(4).png", "opex+2025+(3).png", "opex+2025+(7).png",
+  "opex+2025+(6).png", "opex+2025+(5).png", "opex+2025+(9).png", "opex+2025+(8).png", "opex+2025+(10).png",
+].map((f) => `${SS_LOGO_BASE}/${f}`);
+
 function SeriesSponsors() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-
-  // Split into 2 rows for alternating-direction marquee
-  const half = Math.ceil(SPONSORS.length / 2);
-  const row1 = SPONSORS.slice(0, half);
-  const row2 = SPONSORS.slice(half);
 
   return (
     <section
@@ -5207,7 +5256,7 @@ function SeriesSponsors() {
       }}
     >
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 5vw, 64px)", position: "relative", zIndex: 2 }}>
-        <SectionEyebrow inView={inView} label="Past Series Sponsors" />
+        <SectionEyebrow inView={inView} label="Past Partners & Sponsors" />
         <SectionTitle inView={inView}>
           The brands that helped build the <em className="opex-violet-shimmer">OPEX First</em> stage.
         </SectionTitle>
@@ -5225,8 +5274,24 @@ function SeriesSponsors() {
         </p>
       </div>
 
-      {/* Marquee — 2 rows, alternating directions, homepage-style logo treatment */}
-      <div className="opex-ss-marquee" style={{ marginTop: "clamp(36px, 4.5vw, 56px)" }}>
+      {/* Row 1 — Past Supporting Partners (static) */}
+      <div className="opex-ss-subwrap">
+        <h3 className="opex-ss-subhead"><span aria-hidden className="opex-ss-subline" />Past Supporting Partners</h3>
+      </div>
+      <div className="opex-ss-static">
+        {SUPPORTING_PARTNERS.map((logo, i) => (
+          <div key={`sp-${i}`} className="opex-ss-logo-item">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={logo} alt="Past OPEX First supporting partner" loading="lazy" decoding="async" />
+          </div>
+        ))}
+      </div>
+
+      {/* Row 2 — Past Series Sponsors (marquee) */}
+      <div className="opex-ss-subwrap" style={{ marginTop: "clamp(40px, 5vw, 64px)" }}>
+        <h3 className="opex-ss-subhead"><span aria-hidden className="opex-ss-subline" />Past Series Sponsors</h3>
+      </div>
+      <div className="opex-ss-marquee" style={{ marginTop: "clamp(16px, 2vw, 24px)" }}>
         {/* Edge fades */}
         <div className="opex-ss-fade opex-ss-fade-left" />
         <div className="opex-ss-fade opex-ss-fade-right" />
@@ -5234,15 +5299,10 @@ function SeriesSponsors() {
         {/* Row 1 — scrolls left */}
         <div className="opex-ss-track-wrap">
           <div className="opex-ss-track opex-ss-track-left">
-            {[...row1, ...row1].map((s, i) => (
-              <div key={`r1-${s.name}-${i}`} className="opex-ss-logo-item">
+            {[...SERIES_SPONSORS.slice(0, Math.ceil(SERIES_SPONSORS.length / 2)), ...SERIES_SPONSORS.slice(0, Math.ceil(SERIES_SPONSORS.length / 2))].map((logo, i) => (
+              <div key={`ser1-${i}`} className="opex-ss-logo-item">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={s.logo}
-                  alt={`${s.name} — past OPEX First series sponsor`}
-                  loading="lazy"
-                  decoding="async"
-                />
+                <img src={logo} alt="Past OPEX First series sponsor" loading="lazy" decoding="async" />
               </div>
             ))}
           </div>
@@ -5251,15 +5311,10 @@ function SeriesSponsors() {
         {/* Row 2 — scrolls right (opposite direction) */}
         <div className="opex-ss-track-wrap" style={{ marginTop: 20 }}>
           <div className="opex-ss-track opex-ss-track-right">
-            {[...row2, ...row2].map((s, i) => (
-              <div key={`r2-${s.name}-${i}`} className="opex-ss-logo-item">
+            {[...SERIES_SPONSORS.slice(Math.ceil(SERIES_SPONSORS.length / 2)), ...SERIES_SPONSORS.slice(Math.ceil(SERIES_SPONSORS.length / 2))].map((logo, i) => (
+              <div key={`ser2-${i}`} className="opex-ss-logo-item">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={s.logo}
-                  alt={`${s.name} — past OPEX First series sponsor`}
-                  loading="lazy"
-                  decoding="async"
-                />
+                <img src={logo} alt="Past OPEX First series sponsor" loading="lazy" decoding="async" />
               </div>
             ))}
           </div>
@@ -5267,6 +5322,46 @@ function SeriesSponsors() {
       </div>
 
       <style jsx global>{`
+        .opex-ss-subwrap {
+          max-width: 1280px;
+          margin: clamp(36px, 4.5vw, 56px) auto 0;
+          padding: 0 clamp(20px, 5vw, 64px);
+        }
+        .opex-ss-subhead {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          margin: 0;
+          font-family: var(--font-outfit);
+          font-size: clamp(12px, 1.3vw, 14px);
+          font-weight: 600;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: #b9a7ff;
+        }
+        .opex-ss-subline {
+          width: 26px;
+          height: 1px;
+          background: linear-gradient(90deg, #7c3aed, transparent);
+        }
+        .opex-ss-static {
+          max-width: 1180px;
+          margin: clamp(16px, 2vw, 24px) auto 0;
+          padding: 0 clamp(20px, 5vw, 64px);
+          display: flex;
+          flex-wrap: nowrap;
+          align-items: center;
+          justify-content: center;
+          gap: clamp(12px, 3vw, 56px);
+        }
+        .opex-ss-static .opex-ss-logo-item {
+          flex: 1 1 0;
+          min-width: 0;
+          width: auto;
+          max-width: 220px;
+          height: clamp(60px, 9vw, 92px);
+          margin: 0;
+        }
         .opex-ss-marquee {
           width: 100%;
           overflow: hidden;
@@ -5296,10 +5391,10 @@ function SeriesSponsors() {
           width: max-content;
         }
         .opex-ss-track-left {
-          animation: opex-ss-scroll-left 65s linear infinite;
+          animation: opex-ss-scroll-left 48s linear infinite;
         }
         .opex-ss-track-right {
-          animation: opex-ss-scroll-right 75s linear infinite;
+          animation: opex-ss-scroll-right 56s linear infinite;
         }
         .opex-ss-marquee:hover .opex-ss-track-left,
         .opex-ss-marquee:hover .opex-ss-track-right {
@@ -5307,9 +5402,9 @@ function SeriesSponsors() {
         }
         .opex-ss-logo-item {
           flex-shrink: 0;
-          width: 320px;
+          width: 240px;
           height: 120px;
-          margin: 0 clamp(22px, 2.8vw, 44px);
+          margin: 0 clamp(8px, 1.2vw, 18px);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -5325,14 +5420,6 @@ function SeriesSponsors() {
           filter: brightness(0) invert(1);
           transition: filter 0.4s ease;
         }
-        .opex-ss-logo-item:hover {
-          opacity: 1;
-          background: rgba(255, 255, 255, 0.92);
-          padding: 14px 22px;
-        }
-        .opex-ss-logo-item:hover img {
-          filter: none;
-        }
 
         @keyframes opex-ss-scroll-left {
           0%   { transform: translateX(0); }
@@ -5343,9 +5430,9 @@ function SeriesSponsors() {
           100% { transform: translateX(0); }
         }
         @media (max-width: 720px) {
-          .opex-ss-logo-item { width: 220px; height: 90px; margin: 0 20px; }
-          .opex-ss-track-left { animation-duration: 50s; }
-          .opex-ss-track-right { animation-duration: 60s; }
+          .opex-ss-logo-item { width: 180px; height: 90px; margin: 0 10px; }
+          .opex-ss-track-left { animation-duration: 38s; }
+          .opex-ss-track-right { animation-duration: 46s; }
         }
       `}</style>
     </section>
@@ -7403,6 +7490,7 @@ export default function OpexFirstSaudi2026Page() {
       />
       <OpexSaudiPostEventReports />
       <OpexSaudiPostReportFloat />
+      <SeriesSponsors />
       <EventOverview />
       <MarketPulse />
       <FocusAreas />
@@ -7410,7 +7498,6 @@ export default function OpexFirstSaudi2026Page() {
       <EventSponsors />
       <Agenda />
       <WhoAttends />
-      <SeriesSponsors />
       <PastGallery />
       <PastShorts />
       <Awards />
