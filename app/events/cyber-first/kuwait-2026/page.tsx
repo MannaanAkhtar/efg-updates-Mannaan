@@ -247,6 +247,13 @@ const SPEAKERS: Speaker[] = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Iyad+Atieh.jpg",
     linkedin: "https://www.linkedin.com/in/iyad-atieh-a44183a/",
   },
+  {
+    name: "Yousef Kazim",
+    title: "Spokesperson of SAHEL",
+    org: "Ministry of Information",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Yousef+Kazim.jpeg",
+    linkedin: "https://www.linkedin.com/in/altaromi/",
+  },
 ];
 
 // Kuwait 2025 photos used for the gallery + Key Topic panels (verified S3 URLs).
@@ -2410,11 +2417,12 @@ function HeroSection() {
           <span aria-hidden style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 8px ${C}, 0 0 3px ${C_BRIGHT}`, flexShrink: 0 }} />
           Supporting Partners
         </span>
-        <div style={{ display: "flex", alignItems: "stretch", gap: "clamp(8px, 1vw, 14px)" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", alignItems: "stretch", gap: "clamp(8px, 1vw, 14px)" }}>
           {[
             { src: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ISACA_logo_UAE_RGB.png", alt: "ISACA UAE Chapter", h: "clamp(24px, 3.2vw, 36px)", py: "clamp(2px, 0.4vw, 5px)", px: "clamp(10px, 1.5vw, 18px)" },
             { src: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/AOU_Logo_Navy_Blue_RGB_AW-removebg-preview.png", alt: "Arab Open University (AOU)", h: "clamp(46px, 6vw, 68px)", py: "clamp(2px, 0.4vw, 5px)", px: "clamp(10px, 1.5vw, 18px)" },
             { src: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/KCST_Logo_pages-to-jpg-0001-removebg-preview.png", alt: "Kuwait College of Science and Technology (KCST)", h: "clamp(46px, 6vw, 68px)", py: "clamp(2px, 0.4vw, 5px)", px: "0px" },
+            { src: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ABCK+Logo+01+-+New+Amcham.png", alt: "American Business Council of Kuwait (ABCK-AmCham)", h: "clamp(56px, 7.4vw, 84px)", py: "clamp(2px, 0.4vw, 5px)", px: "clamp(10px, 1.5vw, 18px)" },
           ].map((p) => (
             <div key={p.src} style={{
               background: "white",
