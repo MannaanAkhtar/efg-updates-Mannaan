@@ -79,6 +79,7 @@ const NETWORKFIRST_COLOR = "#C9935A";
 type NFFormat = "virtual" | "physical";
 const networkFirstEvents: { href: string; label: string; date: string; format: NFFormat }[] = [
   { href: "/inner_circle", label: "The Inner Circle · CleverTap", date: "19 Aug", format: "physical" },
+  { href: "/sonicwall-7sept", label: "SonicWall · Cyber Resilience", date: "7 Sep", format: "physical" },
   { href: "/ifs-15sept", label: "IFS · Manufacturing", date: "15 Sep", format: "physical" },
   { href: "/ifs-22sept", label: "IFS · Jeddah", date: "22 Sep", format: "physical" },
   { href: "/proofpoint", label: "Proofpoint", date: "23 Sep", format: "physical" },
