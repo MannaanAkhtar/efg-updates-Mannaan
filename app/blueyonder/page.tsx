@@ -63,15 +63,15 @@ const LINE_STRONG = "rgba(0,14,78,0.22)";      // light hairline (stronger)
 const EVENT_DATE_ISO = "2026-09-23T17:00:00+04:00";
 
 // ─── Speakers ──────────────────────────────────────────────────────────────
-// No bios per brief. Yahyah uses initials placeholder pending photo.
+// No bios per brief.
 const SPEAKERS = [
   {
     name: "Yahyah Pandor",
     role: "Moderator",
-    title: "GM & VP — Middle East",
+    title: "Vice President & General Manager (MENAT)",
     org: "Blue Yonder",
-    photo: "",
-    linkedin: "",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Yahyah+Pandor.jpeg",
+    linkedin: "https://www.linkedin.com/in/ypandor/",
   },
   {
     name: "Nandan Shetty",
