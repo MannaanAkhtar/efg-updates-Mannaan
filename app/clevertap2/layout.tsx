@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
+import localFont from "next/font/local";
 
-const openSans = Open_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+const openSans = localFont({
   variable: "--font-opensans",
   display: "swap",
+  src: [{ path: "../fonts/open-sans/open-sans.woff2", weight: "400 800", style: "normal" }],
 });
 
 const BASE_URL = "https://www.eventsfirstgroup.com";

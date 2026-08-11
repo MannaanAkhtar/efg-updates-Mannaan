@@ -1,32 +1,33 @@
 import type { Metadata } from "next";
-import { Montserrat, Cabin, Noto_Sans } from "next/font/google";
+import localFont from "next/font/local";
 
 // Blackstone eIT brand typeface — used on Blackstone-attributed surfaces only
 // (host badges, agenda items where Blackstone owns, etc).
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+const montserrat = localFont({
   variable: "--font-montserrat",
   display: "swap",
+  src: [{ path: "../fonts/montserrat/montserrat.woff2", weight: "300 800", style: "normal" }],
 });
 
 // OutSystems primary typeface — Cabin. Used for ALL page-level display type
 // (the OutSystems base of the design).
-const cabin = Cabin({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
+const cabin = localFont({
   variable: "--font-cabin",
   display: "swap",
+  src: [
+    { path: "../fonts/cabin/cabin.woff2", weight: "400 700", style: "normal" },
+    { path: "../fonts/cabin/cabin-italic.woff2", weight: "400 700", style: "italic" },
+  ],
 });
 
 // OutSystems long-format typeface — Noto Sans. Used for body copy.
-const notoSans = Noto_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
+const notoSans = localFont({
   variable: "--font-noto-sans",
   display: "swap",
+  src: [
+    { path: "../fonts/noto-sans/noto-sans.woff2", weight: "400 700", style: "normal" },
+    { path: "../fonts/noto-sans/noto-sans-italic.woff2", weight: "400 700", style: "italic" },
+  ],
 });
 
 const BASE_URL = "https://www.eventsfirstgroup.com";

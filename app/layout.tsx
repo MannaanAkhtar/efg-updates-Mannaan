@@ -1,38 +1,36 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Outfit, DM_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/effects/SmoothScrollProvider";
 import CursorGlow from "@/components/effects/CursorGlow";
 import ConditionalNavigation from "@/components/ui/ConditionalNavigation";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
+// Fonts are self-hosted (next/font/local) so production builds never depend on a
+// build-time fetch to Google Fonts. Each family is a variable woff2 (latin subset).
+
 // Plus Jakarta Sans, The voice that commands the room
-// Geometric, clean, commanding, pure precision at display sizes
-const plusJakarta = Plus_Jakarta_Sans({
+const plusJakarta = localFont({
   variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
-  style: "normal",
+  src: [{ path: "./fonts/plus-jakarta-sans/plus-jakarta-sans.woff2", weight: "400 800", style: "normal" }],
 });
 
 // Outfit, The voice that explains
-// Clean, modern, effortlessly legible
-const outfit = Outfit({
+const outfit = localFont({
   variable: "--font-outfit",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
+  src: [{ path: "./fonts/outfit/outfit.woff2", weight: "300 700", style: "normal" }],
 });
 
 // DM Sans, The quiet voice
-// Used sparingly: testimonial quotes and the hidden sign-off
-const dmSans = DM_Sans({
+const dmSans = localFont({
   variable: "--font-dm-sans",
-  subsets: ["latin"],
-  weight: ["300", "400"],
-  style: ["normal", "italic"],
   display: "swap",
+  src: [
+    { path: "./fonts/dm-sans/dm-sans.woff2", weight: "300 400", style: "normal" },
+    { path: "./fonts/dm-sans/dm-sans-italic.woff2", weight: "300 400", style: "italic" },
+  ],
 });
 
 export const metadata: Metadata = {

@@ -1,21 +1,19 @@
 import type { Metadata } from "next";
-import { Montserrat, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import { BreadcrumbSchema } from "@/lib/schemas";
 
 // Display — Montserrat carries the industrial weight in the headlines
-const montserrat = Montserrat({
+const montserrat = localFont({
   variable: "--font-montserrat",
-  subsets: ["latin"],
-  weight: ["700", "800", "900"],
   display: "swap",
+  src: [{ path: "../../fonts/montserrat/montserrat.woff2", weight: "300 900", style: "normal" }],
 });
 
 // Body / UI / numbers — Inter, the closest widely-available match to SF Pro
-const inter = Inter({
+const inter = localFont({
   variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
   display: "swap",
+  src: [{ path: "../../fonts/inter/inter.woff2", weight: "400 600", style: "normal" }],
 });
 
 const BASE_URL = "https://www.eventsfirstgroup.com";
