@@ -5239,6 +5239,12 @@ const SERIES_SPONSORS = [
   "opex+2025+(6).png", "opex+2025+(5).png", "opex+2025+(9).png", "opex+2025+(8).png", "opex+2025+(10).png",
 ].map((f) => `${SS_LOGO_BASE}/${f}`);
 
+const PARTICIPATING_COMPANIES = [
+  "red-sea-global.svg", "real-estate-registry.svg", "modon.svg", "maaden.svg", "ministry-of-hrsd.svg",
+  "kfupm.svg", "esports-world-cup.svg", "expro.svg", "national-infrastructure-fund.png",
+  "sipchem.png", "ministry-of-finance.png",
+].map((f) => `${SS_LOGO_BASE}/${f}`);
+
 function SeriesSponsors() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
@@ -5296,25 +5302,35 @@ function SeriesSponsors() {
         <div className="opex-ss-fade opex-ss-fade-left" />
         <div className="opex-ss-fade opex-ss-fade-right" />
 
-        {/* Row 1 — scrolls left */}
+        {/* Single row — scrolls left */}
         <div className="opex-ss-track-wrap">
           <div className="opex-ss-track opex-ss-track-left">
-            {[...SERIES_SPONSORS.slice(0, Math.ceil(SERIES_SPONSORS.length / 2)), ...SERIES_SPONSORS.slice(0, Math.ceil(SERIES_SPONSORS.length / 2))].map((logo, i) => (
-              <div key={`ser1-${i}`} className="opex-ss-logo-item">
+            {[...SERIES_SPONSORS, ...SERIES_SPONSORS].map((logo, i) => (
+              <div key={`ser-${i}`} className="opex-ss-logo-item">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={logo} alt="Past OPEX First series sponsor" loading="lazy" decoding="async" />
               </div>
             ))}
           </div>
         </div>
+      </div>
 
-        {/* Row 2 — scrolls right (opposite direction) */}
-        <div className="opex-ss-track-wrap" style={{ marginTop: 20 }}>
+      {/* Row 3 — Participating Companies (marquee) */}
+      <div className="opex-ss-subwrap" style={{ marginTop: "clamp(40px, 5vw, 64px)" }}>
+        <h3 className="opex-ss-subhead"><span aria-hidden className="opex-ss-subline" />Participating Companies</h3>
+      </div>
+      <div className="opex-ss-marquee" style={{ marginTop: "clamp(16px, 2vw, 24px)" }}>
+        {/* Edge fades */}
+        <div className="opex-ss-fade opex-ss-fade-left" />
+        <div className="opex-ss-fade opex-ss-fade-right" />
+
+        {/* Single row — scrolls right */}
+        <div className="opex-ss-track-wrap">
           <div className="opex-ss-track opex-ss-track-right">
-            {[...SERIES_SPONSORS.slice(Math.ceil(SERIES_SPONSORS.length / 2)), ...SERIES_SPONSORS.slice(Math.ceil(SERIES_SPONSORS.length / 2))].map((logo, i) => (
-              <div key={`ser2-${i}`} className="opex-ss-logo-item">
+            {[...PARTICIPATING_COMPANIES, ...PARTICIPATING_COMPANIES].map((logo, i) => (
+              <div key={`pc-${i}`} className="opex-ss-logo-item">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={logo} alt="Past OPEX First series sponsor" loading="lazy" decoding="async" />
+                <img src={logo} alt="OPEX First Saudi 2026 participating company" loading="lazy" decoding="async" />
               </div>
             ))}
           </div>
