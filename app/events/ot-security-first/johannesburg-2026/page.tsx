@@ -441,6 +441,13 @@ const SPEAKERS = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Martin+Fernandes.jpg",
   },
   {
+    name: "Taurayi (TK) Kaurayi",
+    title: "Regional Systems Engineer",
+    org: "Forescout",
+    linkedin: "https://www.linkedin.com/in/tkaurayi/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Taurayi+Kaurayi.png",
+  },
+  {
     name: "Andrew Chester",
     title: "CISO",
     org: "Valterra Platinum",
@@ -851,6 +858,15 @@ function HeroSection() {
                 {i < 3 && <span style={{ fontFamily: "var(--font-display)", fontSize: "clamp(18px, 2vw, 26px)", fontWeight: 300, color: "rgba(255,255,255,0.15)", margin: "0 2px" }}>:</span>}
               </React.Fragment>
             ))}
+          </div>
+
+          {/* Accreditation Partner — bottom right */}
+          <div className="otsf-accred-badge" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 8, marginRight: "clamp(-72px, -4.6vw, -12px)" }}>
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.55)", textTransform: "uppercase", letterSpacing: "2px" }}>Accreditation Partner</span>
+            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="otsf-logo-cpd" loading="lazy" decoding="async" src={`${S3_LOGOS}/CPD.png`} alt="CPD — Accreditation Partner of OT Security First Africa 2026" style={{ height: "clamp(56px, 6.4vw, 82px)", width: "auto", objectFit: "contain", display: "block" }} />
+            </span>
           </div>
         </div>
       </div>
@@ -5983,7 +5999,7 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
           "Paulo Rebelo, Head of Sales META & CIS Regions, Keysight Technologies",
         ],
       },
-      { time: "10:15 – 10:30", type: "fireside", title: "Technology Presentation", desc: "TBC\nReserved for Forescout" },
+      { time: "10:15 – 10:30", type: "fireside", title: "Technology Presentation", desc: "You Can't Protect What You Can't See: Building OT Resilience Through Continuous Exposure Management\nTaurayi (TK) Kaurayi, Regional Systems Engineer, Forescout" },
       { time: "10:30 – 11:15", type: "break", title: "VIP Exhibition Tour, Networking Break and Refreshments" },
     ],
   },
