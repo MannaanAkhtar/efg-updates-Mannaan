@@ -59,7 +59,7 @@ const SPEAKERS = [
   },
   {
     name: "Thomas Heckmann",
-    role: "IFS",
+    role: "Chief Solution Architect, IFS",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tom+Heckmann-3+(1).jpg" as string | null,
     initials: "TH",
     linkedin: "https://www.linkedin.com/in/tomheckmann/" as string | null,
