@@ -44,6 +44,23 @@ const NAV_LINKS = [
   { id: "access", label: "Access" },
 ];
 
+const SPEAKERS = [
+  {
+    name: "Suliman Gaouda",
+    role: "RVP AI - APJMEA",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Suliman_Gaouda.png" as string | null,
+    initials: "SG",
+    linkedin: "https://www.linkedin.com/in/suliman-gaouda/",
+  },
+  {
+    name: "Ahmed Rashad",
+    role: "Senior Sales Director - Gulf",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+Rashad+-+Headshot.jpg" as string | null,
+    initials: "AR",
+    linkedin: "https://www.linkedin.com/in/ahmed-rashad-9ab3b0/",
+  },
+];
+
 const WHY_BULLETS = [
   "A grounded read on today's disruption — and what's likely next.",
   "Lessons drawn from past crises, COVID included.",
@@ -494,6 +511,91 @@ function IfsNav() {
   );
 }
 
+// ─── LinkedIn badge ──────────────────────────────────────────────────────────
+function LinkedInBadge({
+  url,
+  speakerName,
+  size = 30,
+}: { url: string; speakerName: string; size?: number }) {
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${speakerName} on LinkedIn`}
+      className="ifs-linkedin-badge"
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexShrink: 0,
+        width: size,
+        height: size,
+        borderRadius: "50%",
+        background: `linear-gradient(135deg, ${IFS_LIGHT_BLUE} 0%, ${IFS_PURPLE} 100%)`,
+        border: `1px solid ${IFS_LIGHT_BLUE}55`,
+        boxShadow: `0 4px 12px ${IFS_LIGHT_BLUE}33, inset 0 1px 0 rgba(255,255,255,0.18)`,
+        color: IFS_BG_DEEP,
+        textDecoration: "none",
+        transition: "transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease",
+      }}
+    >
+      <svg width={size * 0.5} height={size * 0.5} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+    </a>
+  );
+}
+
+// ─── Avatar (initials placeholder until photo is supplied) ───────────────────
+function SpeakerAvatar({
+  photo,
+  initials,
+  size = 72,
+}: { photo: string | null; initials: string; size?: number }) {
+  return (
+    <div style={{
+      flexShrink: 0,
+      width: size, height: size,
+      borderRadius: "50%",
+      padding: 2,
+      background: `linear-gradient(135deg, ${IFS_PURPLE_GLOW}66 0%, ${IFS_PURPLE}33 60%, ${IFS_GREEN}33 100%)`,
+      boxShadow: `0 8px 24px rgba(0,0,0,0.4)`,
+    }}>
+      <div style={{
+        width: "100%", height: "100%", borderRadius: "50%",
+        background: `linear-gradient(165deg, ${IFS_DARK_PURPLE} 0%, ${IFS_BG_DEEP} 100%)`,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        overflow: "hidden",
+      }}>
+        {photo ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={photo}
+            alt=""
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center 18%",
+            }}
+          />
+        ) : (
+          <span style={{
+            fontFamily: "var(--font-display)",
+            fontSize: size * 0.32,
+            fontWeight: 700,
+            color: IFS_PURPLE_GLOW,
+            letterSpacing: "-0.01em",
+          }}>
+            {initials}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ─── Hero Chip — pill-shaped detail badge with icon + label ─────────────────
 function HeroChip({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
   return (
@@ -870,49 +972,40 @@ function HeroSection() {
               Speakers
             </h2>
 
-            <div style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              gap: 16,
-              padding: "clamp(24px, 4vw, 44px) 8px",
-            }}>
-              <span aria-hidden style={{
-                display: "inline-flex", alignItems: "center", justifyContent: "center",
-                width: 64, height: 64, borderRadius: "50%",
-                background: `linear-gradient(135deg, ${IFS_PURPLE_GLOW}33 0%, ${IFS_PURPLE}22 100%)`,
-                border: `1px solid ${IFS_BORDER}`,
-                color: IFS_PURPLE_GLOW,
-                boxShadow: `0 8px 24px rgba(0,0,0,0.35)`,
-              }}>
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-              </span>
-              <div style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(20px, 2vw, 24px)",
-                fontWeight: 800,
-                letterSpacing: "-0.02em",
-                color: IFS_WHITE,
-              }}>
-                Speakers Coming Soon
-              </div>
-              <p style={{
-                margin: 0,
-                maxWidth: 340,
-                fontFamily: "var(--font-outfit)",
-                fontSize: 14,
-                lineHeight: 1.6,
-                color: IFS_MUTE,
-              }}>
-                Our Dubai speaker line-up is being finalised. The full roster will be announced here shortly.
-              </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+              {SPEAKERS.map((sp) => (
+                <div key={sp.name} style={{
+                  display: "grid",
+                  gridTemplateColumns: "auto 1px 1fr auto",
+                  alignItems: "center",
+                  gap: 18,
+                }}>
+                  <SpeakerAvatar photo={sp.photo} initials={sp.initials} size={110} />
+                  <span aria-hidden style={{ height: 56, background: IFS_HAIRLINE }} />
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(16px, 1.4vw, 19px)",
+                      fontWeight: 700,
+                      letterSpacing: "-0.01em",
+                      color: IFS_WHITE,
+                      lineHeight: 1.25,
+                    }}>
+                      {sp.name}
+                    </div>
+                    <div style={{
+                      marginTop: 4,
+                      fontFamily: "var(--font-outfit)",
+                      fontSize: 13.5,
+                      color: IFS_MUTE,
+                      lineHeight: 1.4,
+                    }}>
+                      {sp.role}
+                    </div>
+                  </div>
+                  {sp.linkedin && <LinkedInBadge url={sp.linkedin} speakerName={sp.name} size={32} />}
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>
@@ -1537,75 +1630,74 @@ function AboutSpeakersSection() {
           <DividerTitle eyebrow="Section 04" title="About the speakers" accent={IFS_LIGHT_PURPLE} maxWidth={720} />
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.22,1,0.36,1] }}
-          className="ifs-about-card"
-          style={{
-            position: "relative",
-            padding: "clamp(44px, 6vw, 80px) clamp(24px, 3vw, 36px)",
-            borderRadius: 22,
-            background: `linear-gradient(165deg, ${IFS_BG_CARD} 0%, ${IFS_BG_INNER} 100%)`,
-            border: `1px solid ${IFS_BORDER}`,
-            boxShadow: `0 18px 48px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)`,
-            overflow: "hidden",
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 18,
-          }}
-        >
-          <span aria-hidden style={{
-            position: "absolute", top: 0, left: "8%", right: "8%", height: 1,
-            background: `linear-gradient(90deg, transparent, ${IFS_PURPLE_GLOW}, transparent)`,
-            opacity: 0.6,
-          }} />
+        <div className="ifs-about-speakers-grid" style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: "clamp(20px, 2.4vw, 32px)",
+        }}>
+          {SPEAKERS.map((sp, i) => (
+            <motion.div
+              key={sp.name}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.08 * i, ease: [0.22,1,0.36,1] }}
+              className="ifs-about-card"
+              style={{
+                position: "relative",
+                padding: "clamp(32px, 4vw, 48px) clamp(24px, 3vw, 36px)",
+                borderRadius: 22,
+                background: `linear-gradient(165deg, ${IFS_BG_CARD} 0%, ${IFS_BG_INNER} 100%)`,
+                border: `1px solid ${IFS_BORDER}`,
+                boxShadow: `0 18px 48px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)`,
+                overflow: "hidden",
+                textAlign: "center",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 18,
+              }}
+            >
+              <span aria-hidden style={{
+                position: "absolute", top: 0, left: "8%", right: "8%", height: 1,
+                background: `linear-gradient(90deg, transparent, ${IFS_PURPLE_GLOW}, transparent)`,
+                opacity: 0.6,
+              }} />
 
-          <span aria-hidden style={{
-            display: "inline-flex", alignItems: "center", justifyContent: "center",
-            width: 76, height: 76, borderRadius: "50%",
-            background: `linear-gradient(135deg, ${IFS_PURPLE_GLOW}33 0%, ${IFS_PURPLE}22 100%)`,
-            border: `1px solid ${IFS_BORDER}`,
-            color: IFS_PURPLE_GLOW,
-            boxShadow: `0 10px 28px rgba(0,0,0,0.4)`,
-          }}>
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-              <circle cx="9" cy="7" r="4" />
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
-          </span>
-          <h3 style={{
-            margin: 0,
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(24px, 2.6vw, 32px)",
-            fontWeight: 800,
-            letterSpacing: "-0.02em",
-            color: IFS_WHITE,
-            lineHeight: 1.2,
-          }}>
-            Speakers Coming Soon
-          </h3>
-          <p style={{
-            margin: 0,
-            maxWidth: 560,
-            fontFamily: "var(--font-outfit)",
-            fontSize: "clamp(14px, 1.05vw, 15.5px)",
-            color: IFS_MUTE,
-            lineHeight: 1.7,
-          }}>
-            We&apos;re curating a line-up of industrial and supply chain leaders for the Dubai briefing.
-            The full speaker roster will be announced here soon.
-          </p>
-        </motion.div>
+              <SpeakerAvatar photo={sp.photo} initials={sp.initials} size={168} />
+
+              <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
+                <h3 style={{
+                  margin: 0,
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(20px, 2.2vw, 26px)",
+                  fontWeight: 800,
+                  letterSpacing: "-0.02em",
+                  color: IFS_WHITE,
+                  lineHeight: 1.2,
+                }}>
+                  {sp.name}
+                </h3>
+                {sp.linkedin && <LinkedInBadge url={sp.linkedin} speakerName={sp.name} size={34} />}
+              </div>
+              <p style={{
+                margin: 0,
+                fontFamily: "var(--font-outfit)",
+                fontSize: "clamp(14px, 1.05vw, 15.5px)",
+                color: IFS_GREEN,
+                fontWeight: 600,
+                letterSpacing: "0.01em",
+              }}>
+                {sp.role}
+              </p>
+            </motion.div>
+          ))}
+        </div>
       </div>
 
       <style jsx global>{`
         @media (max-width: 720px) {
           .ifs-about-grid { grid-template-columns: 1fr !important; text-align: center; }
+          .ifs-about-speakers-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

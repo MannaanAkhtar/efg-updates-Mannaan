@@ -156,7 +156,7 @@ const SPEAKERS: PokaSpeaker[] = [
   {
     name: "Keerthie Maruthapillai",
     role: "Panelist",
-    title: "Presales Solution Architect, IFS",
+    title: "Solution Architect, IFS",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Keerthie1.jpg",
     initials: "KM",
     linkedin: "https://www.linkedin.com/in/keerthie/",

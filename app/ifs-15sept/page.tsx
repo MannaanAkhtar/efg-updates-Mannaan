@@ -60,13 +60,13 @@ const SPEAKERS = [
   {
     name: "Thomas Heckmann",
     role: "IFS",
-    photo: null as string | null,
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tom+Heckmann-3+(1).jpg" as string | null,
     initials: "TH",
-    linkedin: null as string | null,
+    linkedin: "https://www.linkedin.com/in/tomheckmann/" as string | null,
   },
   {
     name: "Keerthie Maruthapillai",
-    role: "Presales Solution Architect, IFS",
+    role: "Solution Architect, IFS",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Keerthie1.jpg" as string | null,
     initials: "KM",
     linkedin: "https://www.linkedin.com/in/keerthie/",
