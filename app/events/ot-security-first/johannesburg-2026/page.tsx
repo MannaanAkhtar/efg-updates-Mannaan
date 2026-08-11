@@ -4290,7 +4290,7 @@ const EVENT_SPONSORS_2026: {
   name: string;
   logo: string;
   url?: string;
-  tier: "strategic" | "platinum" | "gold" | "panel" | "supporting" | "coffee" | "media";
+  tier: "strategic" | "platinum" | "gold" | "associate" | "panel" | "supporting" | "coffee" | "media";
   scale?: number;        // multiplier on the tier's default logo height
   keepColor?: boolean;   // skip the brightness(0) invert(1) white treatment
   lightBg?: boolean;     // render a white inner panel (for logos with dark text)
@@ -4372,6 +4372,19 @@ const EVENT_SPONSORS_2026: {
     scale: 1.3,
   },
   {
+    name: "Claroty",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Claroty_2022.png",
+    url: "https://claroty.com/",
+    tier: "associate",
+    scale: 1.4,
+  },
+  {
+    name: "ISE Solutions",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ISE-new-logo.png",
+    tier: "associate",
+    scale: 1.4,
+  },
+  {
     name: "Times of AI",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Timesofai-02.png",
     url: "https://timesofai.com/",
@@ -4431,6 +4444,7 @@ const TIER_LABEL: Record<typeof EVENT_SPONSORS_2026[number]["tier"], string> = {
   strategic: "Strategic Sponsors",
   platinum: "Platinum Sponsors",
   gold: "Gold Sponsors",
+  associate: "Associate Sponsors",
   panel: "Panel Sponsor",
   supporting: "Supporting Sponsors",
   coffee: "Coffee Sponsor",
@@ -4441,7 +4455,7 @@ function EventSponsorsSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const tiers: (keyof typeof TIER_LABEL)[] = ["gold", "panel", "strategic", "platinum", "supporting", "coffee", "media"];
+  const tiers: (keyof typeof TIER_LABEL)[] = ["gold", "associate", "panel", "strategic", "platinum", "supporting", "coffee", "media"];
   const activeTiers = tiers.filter((t) => EVENT_SPONSORS_2026.some((s) => s.tier === t));
 
   if (activeTiers.length === 0) return null;
@@ -4485,8 +4499,10 @@ function EventSponsorsSection() {
             // Panel sits just below Gold — same card language, a step smaller.
             const isPanel = tier === "panel";
             const isCoffee = tier === "coffee";
+            // Associate sponsors share the Panel tier's card + logo sizing (matches CYFIRMA).
+            const isPanelSized = isPanel || tier === "associate";
             const cols = isStrategic ? Math.min(sponsorsInTier.length, 3) : Math.min(sponsorsInTier.length, 4);
-            const cardMaxWidth = isStrategic ? 360 : isCoffee ? 360 : isGold ? 320 : isPanel ? 280 : 240;
+            const cardMaxWidth = isStrategic ? 360 : isCoffee ? 360 : isGold ? 320 : isPanelSized ? 280 : 240;
 
             return (
               <motion.div
@@ -4545,7 +4561,7 @@ function EventSponsorsSection() {
                         ? "clamp(28px, 3.2vw, 40px) clamp(24px, 2.6vw, 36px)"
                         : isCoffee
                         ? "clamp(12px, 1.4vw, 18px) clamp(26px, 2.8vw, 40px)"
-                        : isPanel
+                        : isPanelSized
                           ? "clamp(24px, 2.8vw, 34px) clamp(21px, 2.3vw, 30px)"
                           : "clamp(20px, 2.4vw, 28px) clamp(18px, 2vw, 24px)";
                     const logoHeight = isStrategic
@@ -4554,7 +4570,7 @@ function EventSponsorsSection() {
                         ? "clamp(56px, 6vw, 84px)"
                         : isCoffee
                         ? "clamp(64px, 6.8vw, 96px)"
-                        : isPanel
+                        : isPanelSized
                           ? "clamp(48px, 5.2vw, 72px)"
                           : "clamp(40px, 4.5vw, 60px)";
 
