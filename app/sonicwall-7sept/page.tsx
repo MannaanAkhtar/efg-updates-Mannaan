@@ -33,7 +33,7 @@ const PAIN_POINTS = [
 ];
 
 const SPEAKERS = [
-  { name: "Mohamed Abdallah", title: "Regional Director, META — Moderator", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Mohamed_Abdallah1.png", bio: "Mohamed Abdallah stands as the Regional Director at SonicWall, overseeing the expansive regions of the Middle East, Turkey, and Africa." },
+  { name: "Mohamed Abdallah", title: "Regional Director, META", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Mohamed_Abdallah1.png", bio: "Mohamed Abdallah stands as the Regional Director at SonicWall, overseeing the expansive regions of the Middle East, Turkey, and Africa." },
 ];
 
 const AGENDA = [
@@ -206,7 +206,7 @@ function HeroSection() {
       </div>
 
       {/* Brought to you by NetworkFirst — bottom right */}
-      <div className="sw-hero-stagger" style={{ position: "absolute", bottom: 32, right: "clamp(24px, 5vw, 80px)", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", gap: 2, opacity: 0 }}>
+      <div className="sw-hero-stagger sw-hero-brought" style={{ position: "absolute", bottom: 32, right: "clamp(24px, 5vw, 80px)", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", gap: 2, opacity: 0 }}>
         <span style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 500, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(30,40,40,0.4)" }}>Brought to you by</span>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Networkfirstlogo-01.jpg" alt="NetworkFirst" width={380} height={104} style={{ height: 100, width: "auto" }} />
@@ -1210,8 +1210,12 @@ export default function SonicWall7SeptPage() {
           .sw-hero-content .sw-hero-stagger { margin-bottom: 16px !important; }
           .sw-hero-content .sw-hero-stagger > div { padding: 10px 14px !important; }
 
+          /* Brought to you by — flow inline on mobile so it no longer overlaps the countdown */
+          .sw-hero-brought { position: relative !important; bottom: auto !important; right: auto !important; margin: 6px auto 0 !important; }
+          .sw-hero-brought img { height: 64px !important; }
+
           /* Countdown */
-          .sw-countdown-wrap { position: relative !important; bottom: auto !important; margin-top: 12px; padding-bottom: 12px; }
+          .sw-countdown-wrap { position: relative !important; bottom: auto !important; margin-top: 10px; padding-bottom: 12px; }
           .sw-cd-tile { padding: 8px 10px !important; min-width: 48px !important; border-radius: 10px !important; }
           .sw-cd-tile span:first-child { font-size: 18px !important; }
 
