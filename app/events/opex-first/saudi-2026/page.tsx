@@ -4252,16 +4252,6 @@ function Agenda() {
 
           <h3 className="opex-ag-title">{a.title}</h3>
           {a.subtitle && <p className="opex-ag-sub">{a.subtitle}</p>}
-          {a.bullets && (
-            <ul className="opex-ag-bullets">
-              {a.bullets.map((b, bi) => (
-                <li key={bi}>
-                  <span className="opex-ag-bullet-dot" />
-                  <span>{b}</span>
-                </li>
-              ))}
-            </ul>
-          )}
         </div>
       </article>
     );
@@ -7503,6 +7493,7 @@ export default function OpexFirstSaudi2026Page() {
     <main style={{ background: BG_DARK, color: "white", overflow: "hidden" }}>
       <Hero />
       <OpexPostEventReports
+        compact
         onRequestReport={() =>
           window.dispatchEvent(
             new CustomEvent("opex-saudi:open-request", { detail: { type: "Past Event Report" } }),

@@ -14,13 +14,22 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 export default function OpexPostEventReports({
   onRequestReport,
+  compact = false,
 }: {
   // When provided, card clicks call this instead of the default series behaviour
   // (used by the Saudi 2026 page to open its own request modal).
   onRequestReport?: (reportUrl: string) => void;
+  // Renders a smaller, tighter card row (used by the Saudi 2026 page).
+  compact?: boolean;
 } = {}) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  // Size tokens — the compact variant shrinks card height, padding, logo zone,
+  // and constrains the grid width so the three cards read smaller overall.
+  const sz = compact
+    ? { gridMaxW: 940, gap: "clamp(14px, 1.6vw, 22px)", cardPad: "clamp(13px, 1.3vw, 18px)", cardMinH: 210, logoZoneMinH: 78, logoMaxH: 78 }
+    : { gridMaxW: 1200, gap: "clamp(16px, 2vw, 28px)", cardPad: "clamp(16px, 1.6vw, 22px)", cardMinH: 260, logoZoneMinH: 100, logoMaxH: 100 };
 
   return (
     <section
@@ -129,8 +138,8 @@ export default function OpexPostEventReports({
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-            gap: "clamp(16px, 2vw, 28px)",
-            maxWidth: 1200,
+            gap: sz.gap,
+            maxWidth: sz.gridMaxW,
             margin: "0 auto",
           }}
         >
@@ -158,7 +167,7 @@ export default function OpexPostEventReports({
                 position: "relative",
                 display: "flex",
                 flexDirection: "column",
-                padding: "clamp(16px, 1.6vw, 22px)",
+                padding: sz.cardPad,
                 textAlign: "left",
                 font: "inherit",
                 cursor: "pointer",
@@ -171,7 +180,7 @@ export default function OpexPostEventReports({
                 textDecoration: "none",
                 color: "white",
                 overflow: "hidden",
-                minHeight: 260,
+                minHeight: sz.cardMinH,
                 transition:
                   "border-color 0.4s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease, backdrop-filter 0.4s ease",
                 boxShadow: [
@@ -300,7 +309,7 @@ export default function OpexPostEventReports({
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  minHeight: 100,
+                  minHeight: sz.logoZoneMinH,
                   marginBottom: "clamp(10px, 1.4vh, 14px)",
                 }}
               >
@@ -323,7 +332,7 @@ export default function OpexPostEventReports({
                     style={
                       {
                         position: "relative",
-                        maxHeight: 100,
+                        maxHeight: sz.logoMaxH,
                         maxWidth: "85%",
                         width: "auto",
                         objectFit: "contain",
