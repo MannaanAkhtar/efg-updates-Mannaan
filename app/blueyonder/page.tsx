@@ -3455,6 +3455,17 @@ function BottomBlock() {
 
 // ─── Page ──────────────────────────────────────────────────────────────────
 export default function BlueYonderPage() {
+  // Landing with a URL hash (e.g. #reserve from a UTM link) — native anchor jumps
+  // don't take under the global smooth-scroll, so scroll to the target manually.
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+    const id = window.setTimeout(() => {
+      document.querySelector(hash)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 300);
+    return () => window.clearTimeout(id);
+  }, []);
+
   return (
     <div style={{ background: PAPER, color: INK_BODY, minHeight: "100vh" }}>
       <style dangerouslySetInnerHTML={{ __html: PAGE_STYLES }} />
