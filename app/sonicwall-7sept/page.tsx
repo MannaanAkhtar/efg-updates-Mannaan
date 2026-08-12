@@ -1275,6 +1275,21 @@ function SonicWallFooter() {
 export default function SonicWall7SeptPage() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+
+  // The page gates its render on `mounted`, so a URL hash (e.g. #register from a
+  // UTM link) fires before the target exists — scroll to it once we've mounted.
+  useEffect(() => {
+    if (!mounted) return;
+    const hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+    const scrollToTarget = () => {
+      const el = document.querySelector(hash);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    const id = window.setTimeout(scrollToTarget, 250);
+    return () => window.clearTimeout(id);
+  }, [mounted]);
+
   if (!mounted) return null;
 
   return (
