@@ -3067,6 +3067,17 @@ const PAGE_STYLES = `
 
 // â”€â”€â”€ Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function PokaPage() {
+  // Landing with a URL hash (e.g. #reserve from a short/UTM link) — native anchor
+  // jumps don't take under the global smooth-scroll, so scroll to it on mount.
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+    const id = window.setTimeout(() => {
+      document.querySelector(hash)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 300);
+    return () => window.clearTimeout(id);
+  }, []);
+
   return (
     <div style={{ background: PAPER, color: INK_BODY, minHeight: "100vh" }}>
       <style dangerouslySetInnerHTML={{ __html: PAGE_STYLES }} />
