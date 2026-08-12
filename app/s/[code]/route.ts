@@ -42,6 +42,12 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   "cfea-nadeem": { path: "/events/cyber-first/kenya-2026", source: "nadim", campaign: "cfea-2026", hash: "register", tab: "attend" }, // legacy alias → nadim
   "cfea-afra": { path: "/events/cyber-first/kenya-2026", source: "afra", campaign: "cfea-2026", hash: "register", tab: "attend" },
   "cfea-stephen": { path: "/events/cyber-first/kenya-2026", source: "stephen", campaign: "cfea-2026", hash: "register", tab: "attend" },
+
+  // Blue Yonder Executive Roundtable
+  "by-afra": { path: "/blueyonder", source: "afra", campaign: "blueyonder", medium: "invite", hash: "reserve" },
+
+  // SonicWall Executive Roundtable — Riyadh (7 Sep 2026)
+  "sw7-nadim": { path: "/sonicwall-7sept", source: "nadim", campaign: "sonicwall-7sept", medium: "invite", hash: "register" },
 };
 
 export async function GET(
