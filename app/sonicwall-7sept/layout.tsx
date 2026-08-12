@@ -56,8 +56,8 @@ export default function SonicWall7SeptLayout({ children }: { children: React.Rea
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {
               "@type": "Place",
-              name: "Saudi Arabia",
-              address: { "@type": "PostalAddress", addressCountry: "SA" },
+              name: "InterContinental Riyadh by IHG",
+              address: { "@type": "PostalAddress", addressLocality: "Riyadh", addressCountry: "SA" },
             },
             organizer: { "@type": "Organization", name: "Events First Group", url: BASE_URL },
             sponsor: { "@type": "Organization", name: "SonicWall", url: "https://www.sonicwall.com/" },

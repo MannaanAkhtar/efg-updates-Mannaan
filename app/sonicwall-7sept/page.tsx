@@ -163,6 +163,7 @@ function HeroSection() {
               {[
                 { label: "Date", value: "7 Sep 2026" },
                 { label: "Time", value: "10:00 AM KSA" },
+                { label: "Venue", value: "Riyadh, KSA" },
                 { label: "Duration", value: "180 min" },
                 { label: "Format", value: "Presentation + Lunch" },
               ].map((item, i) => (
@@ -679,6 +680,91 @@ function AgendaSection() {
   );
 }
 
+// ─── LOCATION / VENUE ────────────────────────────────────────────────────────
+const VENUE_MAP_URL = "https://maps.app.goo.gl/Mrau7NNHigmJHCZo8";
+const VENUE_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/venues/intercontinental-riyadh_15466355611.jpg";
+
+function LocationSection() {
+  const ref = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  useGSAP(() => {
+    if (!inView) return;
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    if (headerRef.current) {
+      const dash = headerRef.current.querySelector(".sw-loc-dash");
+      const kicker = headerRef.current.querySelector(".sw-loc-kicker");
+      const heading = headerRef.current.querySelector(".sw-loc-heading");
+      tl.fromTo(dash, { scaleX: 0 }, { scaleX: 1, duration: 0.6, transformOrigin: "left" }, 0)
+        .fromTo(kicker, { x: -20, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5 }, 0.1)
+        .fromTo(heading, { opacity: 0.08, filter: "blur(6px)", y: 8 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.7 }, 0.15);
+    }
+    if (bodyRef.current) {
+      const img = bodyRef.current.querySelector(".sw-loc-img");
+      const info = bodyRef.current.querySelectorAll(".sw-loc-info > *");
+      if (img) tl.fromTo(img, { opacity: 0, y: 24, clipPath: "inset(8% 0 0 0)" }, { opacity: 1, y: 0, clipPath: "inset(0% 0 0 0)", duration: 0.8 }, 0.3);
+      tl.fromTo(info, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }, 0.5);
+    }
+  }, [inView]);
+
+  return (
+    <section ref={ref} id="location" style={{ background: SW_WHITE, padding: "clamp(44px, 5vw, 64px) 0" }}>
+      <style>{`
+        .sw-loc-map-btn { transition: all 0.35s cubic-bezier(0.165,0.84,0.44,1); }
+        .sw-loc-map-btn:hover { background: ${SW_MELON} !important; transform: translateY(-1px); box-shadow: 0 8px 30px rgba(255,110,65,0.25) !important; }
+        .sw-loc-img:hover img { transform: scale(1.04); }
+        @media (max-width: 820px) { .sw-loc-grid { grid-template-columns: 1fr !important; } }
+      `}</style>
+      <div style={{ maxWidth: 1000, margin: "0 auto", padding: "0 clamp(20px, 4vw, 60px)" }}>
+        {/* Header */}
+        <div ref={headerRef} style={{ marginBottom: 32 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+            <div className="sw-loc-dash" style={{ width: 28, height: 2, background: SW_ORANGE, borderRadius: 1, transformOrigin: "left", transform: "scaleX(0)" }} />
+            <span className="sw-loc-kicker" style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 400, letterSpacing: "2.5px", textTransform: "uppercase", color: SW_ORANGE, opacity: 0 }}>Venue</span>
+          </div>
+          <h2 className="sw-loc-heading" style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "clamp(28px, 4vw, 40px)", letterSpacing: "-1px", color: SW_DARK, lineHeight: 1.15, margin: 0, opacity: 0.08, filter: "blur(6px)" }}>Location</h2>
+        </div>
+
+        {/* Image + details */}
+        <div ref={bodyRef} className="sw-loc-grid" style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "clamp(24px, 3.5vw, 44px)", alignItems: "center" }}>
+          {/* Image */}
+          <div className="sw-loc-img" style={{ position: "relative", borderRadius: 18, overflow: "hidden", boxShadow: "0 20px 50px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)", aspectRatio: "16/10", background: SW_DARK }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img loading="lazy" src={VENUE_IMAGE} alt="InterContinental Riyadh by IHG" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", transition: "transform 0.6s cubic-bezier(0.165,0.84,0.44,1)" }} />
+          </div>
+
+          {/* Details */}
+          <div className="sw-loc-info" style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={SW_ORANGE} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, letterSpacing: "0.5px", textTransform: "uppercase", color: "rgba(30,40,40,0.45)" }}>Where we meet</span>
+            </div>
+            <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "clamp(22px, 2.6vw, 30px)", letterSpacing: "-0.5px", color: SW_DARK, lineHeight: 1.2, margin: 0 }}>
+              InterContinental Riyadh by IHG
+            </h3>
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 400, color: "#555", lineHeight: 1.7, margin: 0 }}>
+              Riyadh, Kingdom of Saudi Arabia
+            </p>
+            <a href={VENUE_MAP_URL} target="_blank" rel="noopener noreferrer" className="sw-loc-map-btn" style={{
+              alignSelf: "flex-start", marginTop: 6,
+              display: "inline-flex", alignItems: "center", gap: 8,
+              padding: "13px 26px", borderRadius: 40, textDecoration: "none",
+              fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 500, color: "white",
+              background: SW_ORANGE,
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 0 rgba(0,0,0,0.1), 0 4px 16px rgba(255,110,65,0.2)",
+            }}>
+              View on Google Maps
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── COMPANY PROFILE ─────────────────────────────────────────────────────────
 function CompanySection() {
   const ref = useRef<HTMLElement>(null);
@@ -1070,6 +1156,7 @@ function SonicWallNav() {
     { href: "#overview", label: "Overview" },
     { href: "#speakers", label: "Speakers" },
     { href: "#agenda", label: "Agenda" },
+    { href: "#location", label: "Location" },
     { href: "#register", label: "Register" },
   ];
 
@@ -1089,7 +1176,7 @@ function SonicWallNav() {
 
         {/* Desktop links */}
         <div className="sw-nav-links" style={{ display: "flex", alignItems: "center", gap: 32 }}>
-          {navLinks.slice(0, 3).map((link) => (
+          {navLinks.slice(0, 4).map((link) => (
             <a key={link.label} href={link.href} className="sw-nav-link" style={{
               fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 500,
               color: SW_DARK, textDecoration: "none", transition: "all 0.3s ease",
@@ -1282,6 +1369,7 @@ export default function SonicWall7SeptPage() {
       <PainPointsSection />
       <SpeakersSection />
       <AgendaSection />
+      <LocationSection />
       <div style={{ position: "relative", overflow: "hidden" }}>
         {/* Shared background */}
         <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
