@@ -1016,6 +1016,27 @@ function Hero() {
               style={{ height: 82, width: "auto", opacity: 0.9, objectFit: "contain", display: "block" }}
             />
           </span>
+          <span aria-hidden style={{ width: 1, height: 50, background: "rgba(255,255,255,0.18)" }} />
+          <a
+            href="https://www.crest-approved.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="CREST — Supporting Partner"
+            className="otsf-jb-partner-link"
+            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)" }}
+          >
+            {/* CREST logo is a white-background JPG — seated on a white chip so it reads on the dark hero */}
+            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "7px 11px", borderRadius: 10, background: "#ffffff", boxShadow: "0 6px 18px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.6)" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                loading="lazy"
+                decoding="async"
+                src={`${S3_LOGOS}/37838_Crest+logo+Refresh_2022_CMYK_2_AW_col+(2).jpg`}
+                alt="CREST logo - Supporting Partner of OT Security First Jubail 2026"
+                style={{ height: 62, width: "auto", objectFit: "contain", display: "block" }}
+              />
+            </span>
+          </a>
         </div>
       </motion.div>
 
@@ -4379,12 +4400,13 @@ function AdvisorsSection() {
 // href → external site (plate is a link). id → anchor target for nav links.
 // surface "light" → white plate (for dark logos). fillWidth → fill plate width
 // and clip vertical whitespace (for square, heavily-padded logos).
-type SponsorLogo = { name: string; logo: string; href?: string; id?: string; surface?: "light" | "dark"; fillWidth?: boolean };
+type SponsorLogo = { name: string; logo: string; href?: string; id?: string; surface?: "light" | "dark"; fillWidth?: boolean; scale?: number };
 const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
   {
     tier: "Gold Sponsor",
     logos: [
       { name: "Yokogawa", href: "https://www.yokogawa.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Yoko+logo-01.png" },
+      { name: "swIDch", href: "https://www.swidch.com/", scale: 1.35, logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/swidch+logo+white.png" },
     ],
   },
   {
@@ -4456,9 +4478,12 @@ function SponsorsSection() {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 22px 46px rgba(0,0,0,0.4)",
                 transition: "transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease, box-shadow 0.4s ease",
               };
-              const imgStyle: React.CSSProperties = s.fillWidth
-                ? { position: "relative", width: "100%", height: "auto", objectFit: "contain" }
-                : { position: "relative", maxWidth: "100%", maxHeight: "clamp(92px, 11vw, 120px)", objectFit: "contain" };
+              const imgStyle: React.CSSProperties = {
+                ...(s.fillWidth
+                  ? { position: "relative", width: "100%", height: "auto", objectFit: "contain" }
+                  : { position: "relative", maxWidth: "100%", maxHeight: "clamp(92px, 11vw, 120px)", objectFit: "contain" }),
+                ...(s.scale ? { transform: `scale(${s.scale})`, transformOrigin: "center" } : {}),
+              };
               const inner = (
                 <>
                   {!isLight && <span aria-hidden style={{ position: "absolute", inset: 0, background: `radial-gradient(120% 90% at 50% 0%, ${C}12 0%, transparent 60%)`, pointerEvents: "none" }} />}
