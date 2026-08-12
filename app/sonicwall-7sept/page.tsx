@@ -152,9 +152,9 @@ function HeroSection() {
               An executive roundtable on what comes next, beyond the firewall.
             </p>
 
-            {/* Meta strip — stagger */}
-            <div className="sw-hero-stagger" style={{
-              display: "inline-flex", gap: 0, marginBottom: 28, borderRadius: 16, overflow: "hidden", position: "relative", opacity: 0,
+            {/* Meta strip — single line: date / time / venue / duration */}
+            <div className="sw-hero-stagger sw-hero-meta" style={{
+              display: "inline-flex", flexWrap: "nowrap", gap: 0, marginBottom: 28, borderRadius: 16, overflow: "hidden", position: "relative", opacity: 0,
               background: "rgba(255,255,255,0.5)",
               border: "1px solid rgba(255,255,255,0.45)",
               boxShadow: "0 1px 0 rgba(255,255,255,0.35) inset, 0 -1px 0 rgba(0,0,0,0.04) inset, 0 4px 16px rgba(0,0,0,0.04)",
@@ -163,13 +163,12 @@ function HeroSection() {
               {[
                 { label: "Date", value: "7 Sep 2026" },
                 { label: "Time", value: "10:00 AM KSA" },
-                { label: "Venue", value: "Riyadh, KSA" },
+                { label: "Venue", value: "InterContinental Riyadh by IHG" },
                 { label: "Duration", value: "180 min" },
-                { label: "Format", value: "Presentation + Lunch" },
               ].map((item, i) => (
-                <div key={item.label} style={{ padding: "12px 20px", borderLeft: i === 0 ? "none" : "1px solid rgba(30,40,40,0.06)" }}>
-                  <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 400, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(30,40,40,0.35)", display: "block", marginBottom: 3 }}>{item.label}</span>
-                  <span style={{ fontFamily: "var(--font-display)", fontSize: 14, fontWeight: 600, color: SW_DARK }}>{item.value}</span>
+                <div key={item.label} style={{ flexShrink: 0, padding: "12px 15px", borderLeft: i === 0 ? "none" : "1px solid rgba(30,40,40,0.06)" }}>
+                  <span style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 400, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(30,40,40,0.35)", display: "block", marginBottom: 3, whiteSpace: "nowrap" }}>{item.label}</span>
+                  <span style={{ fontFamily: "var(--font-display)", fontSize: 13.5, fontWeight: 600, color: SW_DARK, whiteSpace: "nowrap" }}>{item.value}</span>
                 </div>
               ))}
             </div>
@@ -1311,6 +1310,8 @@ export default function SonicWall7SeptPage() {
           .sw-hero-content .sw-kicker { margin-bottom: 14px !important; }
           .sw-hero-content .sw-hero-stagger { margin-bottom: 16px !important; }
           .sw-hero-content .sw-hero-stagger > div { padding: 10px 14px !important; }
+          /* Meta strips wrap on mobile so the one-line rows never force horizontal scroll */
+          .sw-hero-meta { flex-wrap: wrap !important; }
 
           /* Brought to you by — flow inline on mobile so it no longer overlaps the countdown */
           .sw-hero-brought { position: relative !important; bottom: auto !important; right: auto !important; margin: 6px auto 0 !important; }
