@@ -863,6 +863,17 @@ function Footer() {
 
 // ═══════════════════════════════════════════════════════════════════════════════
 export default function InnerCirclePage() {
+  // Landing with a URL hash (e.g. #register from a share/short link) — native
+  // anchor jumps don't take under the global smooth-scroll, so scroll manually.
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+    const id = window.setTimeout(() => {
+      document.querySelector(hash)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 300);
+    return () => window.clearTimeout(id);
+  }, []);
+
   return (
     <main style={{ background: INK, color: WHITE, fontFamily: BODY, overflowX: "hidden" }}>
       <Nav />
