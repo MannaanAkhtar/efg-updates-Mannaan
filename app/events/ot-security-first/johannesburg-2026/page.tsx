@@ -6443,7 +6443,13 @@ export default function OTSecurityFirstJohannesburg2026() {
     // after the first scroll and push it down, so the initial jump lands short. Re-align
     // a couple of times once the layout settles — but bail if the user takes over.
     let cancelled = false;
-    const cancel = () => { cancelled = true; };
+    let ro: ResizeObserver | null = null;
+    let capTimer = 0;
+    const teardown = () => {
+      if (ro) { ro.disconnect(); ro = null; }
+      window.clearTimeout(capTimer);
+    };
+    const cancel = () => { cancelled = true; teardown(); };
     const scrollNow = () => {
       const el = document.getElementById(id);
       if (!el) return false;
@@ -6457,15 +6463,24 @@ export default function OTSecurityFirstJohannesburg2026() {
     let tries = 0;
     const start = () => {
       if (!scrollNow()) {
-        if (tries++ < 30) window.setTimeout(start, 150);
+        if (tries++ < 40) window.setTimeout(start, 150);
         return;
       }
       window.addEventListener("wheel", cancel, { passive: true, once: true });
       window.addEventListener("touchmove", cancel, { passive: true, once: true });
-      window.setTimeout(() => { if (!cancelled) scrollNow(); }, 1300);
-      window.setTimeout(() => { if (!cancelled) scrollNow(); }, 2600);
+      // A mid-page target (e.g. #agenda) drifts down as lazy images and GSAP
+      // sections above it finish loading. Re-align on every document-height change
+      // until the visitor takes over or an 8s safety window elapses. (#register sits
+      // at the bottom so it never needed this, but the same handler serves both.)
+      if (typeof ResizeObserver !== "undefined") {
+        ro = new ResizeObserver(() => { if (!cancelled) scrollNow(); });
+        ro.observe(document.body);
+      }
+      [1300, 2600, 4200, 6000].forEach((t) => window.setTimeout(() => { if (!cancelled) scrollNow(); }, t));
+      capTimer = window.setTimeout(teardown, 8000);
     };
     window.setTimeout(start, 500);
+    return () => { cancelled = true; teardown(); };
   }, []);
 
   if (!mounted) return null;
