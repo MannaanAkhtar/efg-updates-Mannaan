@@ -209,6 +209,7 @@ const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; 
   { name: "Aissa Touahria",   title: "Vice Chairman & CEO", org: "TITAN Energy Corp, Qatar", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aissa_Touahria.png", linkedin: "https://www.linkedin.com/in/aissa-touahria/" },
   { name: "Hugo Lopes",       title: "Group Chief Technology Officer", org: "Amwaj Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hugo_Lopes.png", linkedin: "https://www.linkedin.com/in/hugolopes86/" },
   { name: "Arslan Baig",      title: "Lead IT & Cybersecurity", org: "Al-AWALIA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Arslan+Baig.jpg", linkedin: "https://www.linkedin.com/in/arslan-baig/" },
+  { name: "Vladimir Kanyshev", title: "Chief Information Security Officer (CISO)", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Vladimir+Kanyshev.jpg" },
 ];
 
 // ─── Agenda — 17 rows (from PDF) ────────────────────────────────────────────
@@ -3792,6 +3793,10 @@ const CFQ_SPONSORS_2026_STRATEGIC = [
   { logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo-04.png" },
 ];
 
+const CFQ_SPONSORS_2026_KNOWLEDGE = [
+  { logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo+-+Violence+Prevention+Network.jpg" },
+];
+
 function Sponsors2026() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -3859,7 +3864,7 @@ function Sponsors2026() {
           </h2>
         </motion.div>
 
-        {/* Strategic Sponsor tier */}
+        {/* Counter-Extremism Knowledge Partner tier */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -3877,7 +3882,63 @@ function Sponsors2026() {
               marginBottom: "clamp(20px, 2.4vw, 28px)",
             }}
           >
-            Strategic Sponsor
+            Counter-Extremism Knowledge Partner
+          </div>
+
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "stretch", gap: "clamp(20px, 2.4vw, 32px)" }}>
+            {CFQ_SPONSORS_2026_KNOWLEDGE.map((s, i) => (
+              <motion.div
+                key={s.logo}
+                initial={{ opacity: 0, y: 22 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.75, delay: 0.25 + i * 0.08, ease: EASE }}
+                className="cfq-sponsor-card"
+                style={{
+                  position: "relative",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "clamp(192px, 22vw, 268px)",
+                  height: "clamp(108px, 12.5vw, 138px)",
+                  padding: "clamp(12px, 1.4vw, 18px)",
+                  borderRadius: 18,
+                  overflow: "hidden",
+                  isolation: "isolate",
+                  background: "#ffffff",
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src={s.logo}
+                  alt={`Counter-Extremism Knowledge Partner of Cyber First Qatar 2026 cybersecurity summit`}
+                  style={{ position: "relative", zIndex: 1, maxWidth: "100%", maxHeight: "100%", width: "auto", height: "auto", objectFit: "contain", display: "block" }}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Strategic Sponsors tier */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
+          style={{ marginTop: "clamp(36px, 4vw, 52px)" }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: "3px",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.55)",
+              marginBottom: "clamp(20px, 2.4vw, 28px)",
+            }}
+          >
+            Strategic Sponsors
           </div>
 
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "stretch", gap: "clamp(20px, 2.4vw, 32px)" }}>
