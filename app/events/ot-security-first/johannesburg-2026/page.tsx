@@ -4294,6 +4294,7 @@ const EVENT_SPONSORS_2026: {
   scale?: number;        // multiplier on the tier's default logo height
   keepColor?: boolean;   // skip the brightness(0) invert(1) white treatment
   lightBg?: boolean;     // render a white inner panel (for logos with dark text)
+  maxW?: number;         // cap this single card's width (hugs a narrow logo)
 }[] = [
   {
     name: "CYFIRMA",
@@ -4439,11 +4440,19 @@ const EVENT_SPONSORS_2026: {
     keepColor: true,
   },
   {
-    name: "Networking Sponsor",
+    name: "ManageEngine | itr Technology",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/2025-+Co-Branded+Logos-White-02.png",
     tier: "networking",
     keepColor: true,
+    maxW: 440,
+  },
+  {
+    name: "KoteLab",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/KoteLab+(hig-res)+Logo.svg",
+    tier: "networking",
+    keepColor: true,
     scale: 1.3,
+    maxW: 210,
   },
 ];
 
@@ -4508,6 +4517,7 @@ function EventSponsorsSection() {
             // Panel sits just below Gold — same card language, a step smaller.
             const isPanel = tier === "panel";
             const isCoffee = tier === "coffee" || tier === "networking";
+            const isNetworking = tier === "networking";
             // Associate sponsors share the Panel tier's card + logo sizing (matches CYFIRMA).
             const isPanelSized = isPanel || tier === "associate";
             const cols = isStrategic ? Math.min(sponsorsInTier.length, 3) : Math.min(sponsorsInTier.length, 4);
@@ -4542,13 +4552,17 @@ function EventSponsorsSection() {
                 ).map((rowSponsors, rowIdx) => (
                 <div
                   key={rowIdx}
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: `repeat(${isGold ? rowSponsors.length : cols}, minmax(180px, ${cardMaxWidth}px))`,
-                    gap: 20,
-                    justifyContent: "center",
-                    width: "100%",
-                  }}
+                  style={
+                    isNetworking
+                      ? { display: "flex", flexWrap: "wrap", gap: 16, justifyContent: "center", alignItems: "stretch", width: "100%" }
+                      : {
+                          display: "grid",
+                          gridTemplateColumns: `repeat(${isGold ? rowSponsors.length : cols}, minmax(180px, ${cardMaxWidth}px))`,
+                          gap: 20,
+                          justifyContent: "center",
+                          width: "100%",
+                        }
+                  }
                   className={`otsf-event-sponsors-grid${isStrategic ? " otsf-strategic-grid" : ""}`}
                 >
                   {rowSponsors.map((sponsor, i) => {
@@ -4878,13 +4892,17 @@ function EventSponsorsSection() {
                       </div>
                     );
 
+                    // A per-sponsor maxW caps just this card's width so a narrow
+                    // logo isn't lost in a wide tier card (centered in its cell).
+                    const cardWrapStyle = sponsor.maxW ? { maxWidth: sponsor.maxW } : undefined;
+
                     return sponsor.url ? (
-                      <a key={sponsor.name} href={sponsor.url} target="_blank" rel="noopener noreferrer" style={{ display: "block", textDecoration: "none" }}>
+                      <a key={sponsor.name} href={sponsor.url} target="_blank" rel="noopener noreferrer" style={{ display: "block", textDecoration: "none", ...cardWrapStyle }}>
                         {inner}
                         {nameLabel}
                       </a>
                     ) : (
-                      <div key={sponsor.name}>
+                      <div key={sponsor.name} style={cardWrapStyle}>
                         {inner}
                         {nameLabel}
                       </div>
