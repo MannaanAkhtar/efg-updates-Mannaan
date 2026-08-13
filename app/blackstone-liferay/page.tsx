@@ -79,9 +79,16 @@ const HERO_IMAGE =
 
 // ─── Logos (both white-wordmark variants — perfect on the dark surface) ──────
 const LOGO_BLACKSTONE =
-  "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Blackstone+eIT+Logo+Reversed+No+Slogan.png";
+  "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Blackstone+eIT+Logo+White+With+Slogan.png";
 const LOGO_LIFERAY =
   "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Liferay_idOzLD9ii5_1.png";
+
+// Fine frosted-glass micro-grain — lends real-glass texture to the hero panel.
+const GLASS_GRAIN =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    "<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(#g)' opacity='0.5'/></svg>",
+  );
 
 // ─── Content ─────────────────────────────────────────────────────────────────
 const EVENT_META = [
@@ -158,7 +165,7 @@ const PARTNERS = [
   {
     name: "Blackstone eIT",
     logo: LOGO_BLACKSTONE,
-    logoH: 30,
+    logoH: 42,
     href: "https://www.blackstoneeit.com",
     hrefLabel: "www.blackstoneeit.com",
     tint: INDIGO,
@@ -289,7 +296,7 @@ function Nav() {
         display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, minHeight: 70,
       }}>
         <a href="#top" aria-label="Blackstone eIT × Liferay" style={{ textDecoration: "none" }}>
-          <LogoLockup bsH={26} lrH={30} />
+          <LogoLockup bsH={36} lrH={30} />
         </a>
 
         <div className="bl-nav-links" style={{ display: "flex", alignItems: "center", gap: "clamp(18px,2vw,30px)" }}>
@@ -425,25 +432,31 @@ function Hero() {
             style={{ display: "flex", alignItems: "center", gap: "clamp(14px,2vw,22px)", flexWrap: "wrap", marginTop: 6, paddingTop: "clamp(18px,2.2vw,26px)", borderTop: `1px solid ${HAIR}` }}
           >
             <span style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, letterSpacing: "0.26em", textTransform: "uppercase", color: TXT_3, flexShrink: 0 }}>Co-hosted by</span>
-            <LogoLockup bsH={28} lrH={32} gap={18} />
+            <LogoLockup bsH={40} lrH={32} gap={18} />
           </motion.div>
         </div>
 
-        {/* RIGHT — liquid-glass event stats, floating over the tech scene */}
+        {/* RIGHT — upgraded glassmorphism event stats panel */}
         <motion.div
           initial={{ opacity: 0, y: 20, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 1, delay: 0.3, ease: EASE }}
           className="bl-hero-glass"
           style={{
-            position: "relative", justifySelf: "end", width: "100%", maxWidth: 350, overflow: "hidden",
-            padding: "24px 22px 10px", borderRadius: 28,
-            background: "linear-gradient(158deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 46%, rgba(11,95,255,0.10) 100%)",
-            backdropFilter: "blur(32px) saturate(135%)", WebkitBackdropFilter: "blur(32px) saturate(135%)",
-            border: "1px solid rgba(255,255,255,0.32)",
-            boxShadow: "0 30px 80px rgba(4,8,26,0.5), 0 12px 40px rgba(11,95,255,0.22), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -40px 50px rgba(8,16,44,0.30)",
+            position: "relative", justifySelf: "end", width: "100%", maxWidth: 358, overflow: "hidden",
+            padding: "26px 24px 12px", borderRadius: 30,
+            background: "linear-gradient(150deg, rgba(52,40,150,0.56) 0%, rgba(30,30,96,0.44) 46%, rgba(11,60,150,0.44) 74%, rgba(9,80,170,0.56) 100%)",
+            backdropFilter: "blur(46px) saturate(190%) brightness(1.06)", WebkitBackdropFilter: "blur(46px) saturate(190%) brightness(1.06)",
+            border: "1px solid rgba(255,255,255,0.22)",
+            boxShadow: "0 44px 104px rgba(4,8,26,0.55), 0 16px 48px rgba(11,95,255,0.24), inset 0 1.5px 0 rgba(255,255,255,0.85), inset 0 0 0 1px rgba(255,255,255,0.06), inset 0 -60px 62px rgba(8,16,44,0.34)",
           }}
         >
+          {/* frosted micro-grain — real-glass texture */}
+          <span aria-hidden style={{ position: "absolute", inset: 0, backgroundImage: `url("${GLASS_GRAIN}")`, backgroundSize: "170px 170px", opacity: 0.5, mixBlendMode: "overlay", pointerEvents: "none", zIndex: 0 }} />
+          {/* crisp gradient glass edge (mask-composited 1px ring) */}
+          <span aria-hidden style={{ position: "absolute", inset: 0, borderRadius: 30, padding: 1, background: "linear-gradient(150deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.05) 34%, rgba(11,95,255,0.22) 68%, rgba(255,255,255,0.55) 100%)", WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)", WebkitMaskComposite: "xor", maskComposite: "exclude", pointerEvents: "none", zIndex: 2 }} />
+          {/* specular corner highlight — light catching the top-left edge */}
+          <span aria-hidden style={{ position: "absolute", top: -74, left: -46, width: 230, height: 190, borderRadius: "50%", background: "radial-gradient(circle, rgba(255,255,255,0.42) 0%, transparent 64%)", filter: "blur(12px)", pointerEvents: "none", zIndex: 1 }} />
           {/* animated light sweep */}
-          <span aria-hidden className="bl-glass-sheen" style={{ position: "absolute", top: 0, bottom: 0, left: 0, width: "55%", background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.16), transparent)", pointerEvents: "none", zIndex: 3 }} />
+          <span aria-hidden className="bl-glass-sheen" style={{ position: "absolute", top: 0, bottom: 0, left: 0, width: "55%", background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.20), transparent)", pointerEvents: "none", zIndex: 3 }} />
           {/* fusion top-edge accent + glow */}
           <span aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2.5, background: FUSION, opacity: 0.9, pointerEvents: "none", zIndex: 2 }} />
           <span aria-hidden style={{ position: "absolute", top: 0, left: "12%", right: "12%", height: 1.5, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent)", pointerEvents: "none", zIndex: 2 }} />
@@ -469,7 +482,7 @@ function Hero() {
                   <MetaIcon label={m.label} />
                 </span>
                 <div style={{ minWidth: 0 }}>
-                  <div style={{ fontFamily: FONT, fontSize: 9.5, fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase", color: BLUE_LT, marginBottom: 3 }}>{m.label}</div>
+                  <div style={{ fontFamily: FONT, fontSize: 10.5, fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", color: "#DCE8FF", marginBottom: 3, textShadow: "0 1px 6px rgba(4,8,26,0.55)" }}>{m.label}</div>
                   <div style={{ fontFamily: FONT, fontSize: 16, fontWeight: 700, color: WHITE, lineHeight: 1.2, textShadow: "0 1px 12px rgba(4,8,26,0.4)" }}>{m.value}</div>
                 </div>
               </div>
@@ -482,7 +495,7 @@ function Hero() {
         .bl-hero-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 30px ${BLUE}88, 0 1px 0 rgba(255,255,255,0.24) inset; }
         .bl-hero-link:hover { gap: 12px; color: ${BLUE_LT}; }
         .bl-hero-glass { transition: transform .4s cubic-bezier(0.22,1,0.36,1), box-shadow .4s ease; }
-        .bl-hero-glass:hover { transform: translateY(-6px); box-shadow: 0 40px 90px rgba(4,8,26,0.55), 0 18px 50px rgba(11,95,255,0.30), inset 0 1px 0 rgba(255,255,255,0.75), inset 0 -40px 50px rgba(8,16,44,0.30); }
+        .bl-hero-glass:hover { transform: translateY(-6px); box-shadow: 0 54px 116px rgba(4,8,26,0.6), 0 22px 56px rgba(11,95,255,0.34), inset 0 1.5px 0 rgba(255,255,255,0.9), inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 -60px 62px rgba(8,16,44,0.34); }
         .bl-hero-glass:hover .bl-meta-chip { transform: scale(1.06); box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 8px 22px rgba(11,95,255,0.42); }
         @keyframes bl-sheen {
           0% { transform: translateX(-120%) skewX(-16deg); }
@@ -579,7 +592,7 @@ function OverviewSection() {
 
           <motion.p
             initial={{ opacity: 0, y: 12 }} animate={headIn ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.5, ease: EASE }}
-            style={{ margin: "24px auto 0", maxWidth: 660, fontFamily: FONT, fontSize: "clamp(15px,1.15vw,17.5px)", lineHeight: 1.65, color: INK_2 }}
+            style={{ margin: "24px auto 0", maxWidth: 660, fontFamily: FONT, fontSize: "clamp(16px,1.28vw,19px)", lineHeight: 1.65, color: "#26314F" }}
           >
             This exclusive roundtable convenes Saudi Arabia&apos;s leading government authorities and technology architects for a practical deep-dive into integrating Digital Experience Platforms (DXP) with scalable Agentic AI.
           </motion.p>
@@ -620,7 +633,7 @@ function OverviewSection() {
                 </span>
                 <h3 style={{ fontFamily: FONT, fontSize: "clamp(18px,1.7vw,23px)", fontWeight: 700, letterSpacing: "-0.015em", margin: 0, color: INK }}>{c.tag}</h3>
               </div>
-              <p style={{ position: "relative", zIndex: 1, margin: "9px 0 0", fontFamily: FONT, fontSize: "clamp(13px,0.98vw,14.5px)", lineHeight: 1.5, color: INK_2, maxWidth: 440 }}>{c.body}</p>
+              <p style={{ position: "relative", zIndex: 1, margin: "9px 0 0", fontFamily: FONT, fontSize: "clamp(14.5px,1.12vw,16px)", lineHeight: 1.5, color: "#26314F", maxWidth: 440 }}>{c.body}</p>
             </motion.div>
           ))}
         </div>
@@ -1198,7 +1211,7 @@ function RegisterSection() {
           </div>
           <div style={{ marginTop: 30, paddingTop: 24, borderTop: `1px solid ${HAIR}` }}>
             <div style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, letterSpacing: "0.24em", textTransform: "uppercase", color: TXT_3, marginBottom: 14 }}>Co-hosted by</div>
-            <LogoLockup bsH={26} lrH={30} />
+            <LogoLockup bsH={36} lrH={30} />
           </div>
         </motion.div>
 
@@ -1355,7 +1368,7 @@ function Footer() {
     <footer style={{ position: "relative", background: "#040A22", color: WHITE, padding: "clamp(48px,6vw,72px) clamp(20px,5vw,64px) 40px", borderTop: `1px solid ${HAIR}` }}>
       <div style={{ maxWidth: 1160, margin: "0 auto" }}>
         <div className="bl-footer-top" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
-          <LogoLockup bsH={28} lrH={32} gap={20} />
+          <LogoLockup bsH={40} lrH={32} gap={20} />
           <span style={{ display: "inline-flex", alignItems: "center", gap: 14 }}>
             <span style={{ fontFamily: FONT, fontSize: 10.5, fontWeight: 700, letterSpacing: "0.24em", textTransform: "uppercase", color: TXT_3, whiteSpace: "nowrap" }}>Produced by</span>
             <a href="https://www.eventsfirstgroup.com" target="_blank" rel="noopener noreferrer" aria-label="Events First Group" style={{ lineHeight: 0 }}>
