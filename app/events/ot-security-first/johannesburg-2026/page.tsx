@@ -4407,7 +4407,7 @@ const EVENT_SPONSORS_2026: {
   {
     name: "TEX Afrika Media",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/tex_afrika_media.png",
-    url: "https://www.texafrica.com/",
+    url: "https://tekafrika.tv/",
     tier: "media",
     keepColor: true,
   },
