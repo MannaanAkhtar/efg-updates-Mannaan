@@ -4537,7 +4537,7 @@ function EventSponsorsSection() {
                   return (
                     <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                       <span style={{ width: 28, height: 1, background: `linear-gradient(90deg, transparent, ${tierAccent})` }} />
-                      <span style={{ fontFamily: "var(--font-dm)", fontSize: 11, fontWeight: 700, color: tierAccent, textTransform: "uppercase", letterSpacing: "4px" }}>
+                      <span style={{ fontFamily: "var(--font-dm)", fontSize: 18, fontWeight: 700, color: tierAccent, textTransform: "uppercase", letterSpacing: "4px" }}>
                         {TIER_LABEL[tier]}
                       </span>
                       <span style={{ width: 28, height: 1, background: `linear-gradient(270deg, transparent, ${tierAccent})` }} />
