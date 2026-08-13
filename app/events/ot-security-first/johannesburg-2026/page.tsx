@@ -4290,7 +4290,7 @@ const EVENT_SPONSORS_2026: {
   name: string;
   logo: string;
   url?: string;
-  tier: "strategic" | "platinum" | "gold" | "associate" | "panel" | "supporting" | "coffee" | "media";
+  tier: "strategic" | "platinum" | "gold" | "associate" | "panel" | "supporting" | "coffee" | "networking" | "media";
   scale?: number;        // multiplier on the tier's default logo height
   keepColor?: boolean;   // skip the brightness(0) invert(1) white treatment
   lightBg?: boolean;     // render a white inner panel (for logos with dark text)
@@ -4438,6 +4438,13 @@ const EVENT_SPONSORS_2026: {
     tier: "coffee",
     keepColor: true,
   },
+  {
+    name: "Networking Sponsor",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/2025-+Co-Branded+Logos-White-02.png",
+    tier: "networking",
+    keepColor: true,
+    scale: 1.3,
+  },
 ];
 
 const TIER_LABEL: Record<typeof EVENT_SPONSORS_2026[number]["tier"], string> = {
@@ -4448,6 +4455,7 @@ const TIER_LABEL: Record<typeof EVENT_SPONSORS_2026[number]["tier"], string> = {
   panel: "Panel Sponsor",
   supporting: "Supporting Sponsors",
   coffee: "Coffee Sponsor",
+  networking: "Networking Sponsor",
   media: "Media Partners",
 };
 
@@ -4455,7 +4463,7 @@ function EventSponsorsSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const tiers: (keyof typeof TIER_LABEL)[] = ["gold", "associate", "panel", "strategic", "platinum", "supporting", "coffee", "media"];
+  const tiers: (keyof typeof TIER_LABEL)[] = ["gold", "associate", "panel", "strategic", "platinum", "supporting", "coffee", "networking", "media"];
   const activeTiers = tiers.filter((t) => EVENT_SPONSORS_2026.some((s) => s.tier === t));
 
   if (activeTiers.length === 0) return null;
@@ -4490,7 +4498,8 @@ function EventSponsorsSection() {
 
         {/* Tier groups */}
         <div style={{ display: "flex", flexDirection: "column", gap: "clamp(40px, 5vw, 64px)" }}>
-          {activeTiers.map((tier, tIdx) => {
+          {(() => {
+          const renderTierGroup = (tier: (keyof typeof TIER_LABEL), tIdx: number) => {
             const sponsorsInTier = EVENT_SPONSORS_2026.filter((s) => s.tier === tier);
             const isStrategic = tier === "strategic";
             // Strategic tier renders one prominent centered card; lower tiers
@@ -4498,7 +4507,7 @@ function EventSponsorsSection() {
             const isGold = tier === "gold";
             // Panel sits just below Gold — same card language, a step smaller.
             const isPanel = tier === "panel";
-            const isCoffee = tier === "coffee";
+            const isCoffee = tier === "coffee" || tier === "networking";
             // Associate sponsors share the Panel tier's card + logo sizing (matches CYFIRMA).
             const isPanelSized = isPanel || tier === "associate";
             const cols = isStrategic ? Math.min(sponsorsInTier.length, 3) : Math.min(sponsorsInTier.length, 4);
@@ -4885,7 +4894,36 @@ function EventSponsorsSection() {
                 ))}
               </motion.div>
             );
-          })}
+          };
+
+          // Coffee + Networking render side by side in a single wrapping row;
+          // every other tier renders on its own full-width row as before.
+          const rows: any[] = [];
+          const rendered = new Set<string>();
+          activeTiers.forEach((tier, idx) => {
+            if (rendered.has(tier)) return;
+            if (tier === "coffee" && activeTiers.includes("networking")) {
+              rendered.add("coffee");
+              rendered.add("networking");
+              rows.push(
+                <div
+                  key="coffee-networking-row"
+                  className="otsf-paired-tiers"
+                  style={{ display: "flex", flexWrap: "wrap", gap: "clamp(32px, 4vw, 56px)", justifyContent: "center", alignItems: "flex-start" }}
+                >
+                  {renderTierGroup("coffee", idx)}
+                  {renderTierGroup("networking", activeTiers.indexOf("networking"))}
+                </div>
+              );
+            } else if (tier === "networking" && activeTiers.includes("coffee")) {
+              rendered.add("networking");
+            } else {
+              rendered.add(tier);
+              rows.push(renderTierGroup(tier, idx));
+            }
+          });
+          return rows;
+          })()}
         </div>
       </div>
 
