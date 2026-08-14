@@ -56,6 +56,12 @@ const HERO_BG =
   "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Industrial_efficiency_in_action_Poka.png";
 const EFG_LOGO = "/events-first-group_logo_alt.svg";
 
+// Venue
+const VENUE_NAME = "The Ritz-Carlton, Jeddah";
+const VENUE_CITY = "Jeddah, Saudi Arabia";
+const VENUE_MAP = "https://maps.app.goo.gl/sz482YUjgM2qZTXG6";
+const VENUE_IMG = "https://efg-final.s3.eu-north-1.amazonaws.com/venues/ritxcarltonjeddah.jpg";
+
 // Confirmed: 22 September 2026, in-person executive roundtable in Jeddah, KSA (AST/UTC+3).
 // Time defaults to 15:00 AST — adjust here + in layout.tsx if it shifts.
 const EVENT_DATE_ISO = "2026-09-22T15:00:00+03:00";
@@ -517,7 +523,7 @@ function Hero() {
         >
           {[
             { label: "Date", value: "22 Sep 2026" },
-            { label: "Venue", value: "Jeddah, Saudi Arabia" },
+            { label: "Venue", value: "The Ritz-Carlton, Jeddah" },
           ].map((s) => (
             <div key={s.label} className="poka-event-strip__cell">
               <span className="poka-event-strip__label">{s.label}</span>
@@ -995,6 +1001,76 @@ function Speakers() {
           ))}
         </div>
       </div>
+    </section>
+  );
+}
+
+// â”€â”€â”€ Venue â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+function VenueSection() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const pin = (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+
+  return (
+    <section id="venue" className="poka-light-section poka-light-section--alt">
+      <span aria-hidden className="poka-light-section__dots" />
+      <div style={{ position: "relative", maxWidth: 1180, margin: "0 auto", padding: "0 clamp(20px, 4vw, 48px)", zIndex: 2 }}>
+        <div ref={ref}>
+          <SectionHeader eyebrow="Venue" title={<>The <span style={{ color: BLUE_GLOW }}>Ritz-Carlton</span>, Jeddah</>} />
+
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="poka-venue-card"
+            style={{ display: "grid", gridTemplateColumns: "1.15fr 1fr", borderRadius: 20, overflow: "hidden", border: `1px solid ${LINE}`, background: `linear-gradient(165deg, ${PAPER_SOFT} 0%, ${PAPER} 100%)`, boxShadow: `0 22px 54px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06)` }}
+          >
+            <a href={VENUE_MAP} target="_blank" rel="noopener noreferrer" aria-label={`${VENUE_NAME} — view on Google Maps`} className="poka-venue-photo" style={{ position: "relative", display: "block", minHeight: 260, overflow: "hidden" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={VENUE_IMG} alt={`${VENUE_NAME} — venue for the IFS Executive Roundtable`} loading="lazy" decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+              <span aria-hidden style={{ position: "absolute", inset: 0, background: `linear-gradient(120deg, transparent 40%, ${PAPER}88 100%)`, pointerEvents: "none" }} />
+            </a>
+
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 14, padding: "clamp(26px, 3.2vw, 42px)" }}>
+              <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 52, height: 52, borderRadius: 14, background: `linear-gradient(135deg, ${BLUE_GLOW}3a 0%, ${BLUE_GLOW}14 100%)`, border: `1px solid ${BLUE_GLOW}44`, color: BLUE_GLOW }}>
+                {pin}
+              </span>
+              <h3 style={{ margin: 0, fontFamily: "var(--font-display)", fontSize: "clamp(22px, 2.4vw, 30px)", fontWeight: 800, letterSpacing: "-0.02em", color: INK_DARK, lineHeight: 1.15 }}>{VENUE_NAME}</h3>
+              <p style={{ margin: 0, fontFamily: "var(--font-outfit)", fontSize: "clamp(14px, 1.1vw, 16px)", color: INK_MUTE, lineHeight: 1.6 }}>{VENUE_CITY}</p>
+              <a
+                href={VENUE_MAP}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="poka-venue-map-btn"
+                style={{ marginTop: 8, alignSelf: "flex-start", display: "inline-flex", alignItems: "center", gap: 10, padding: "12px 22px", borderRadius: 999, background: `linear-gradient(135deg, ${BLUE_GLOW} 0%, ${BLUE} 100%)`, color: WHITE, fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 700, textDecoration: "none" }}
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                View on Google Maps
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      <style jsx global>{`
+        .poka-venue-photo img { transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+        .poka-venue-card:hover .poka-venue-photo img { transform: scale(1.05); }
+        .poka-venue-map-btn { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .poka-venue-map-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px ${BLUE}66; }
+        @media (max-width: 720px) {
+          .poka-venue-card { grid-template-columns: 1fr !important; }
+          .poka-venue-photo { min-height: 220px !important; }
+        }
+      `}</style>
     </section>
   );
 }
@@ -3087,6 +3163,7 @@ export default function PokaPage() {
         <LearnAndWhy />
         <Agenda />
         <Speakers />
+        <VenueSection />
         <AudienceAndReserve />
       </main>
       <Footer />

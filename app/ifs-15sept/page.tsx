@@ -923,7 +923,7 @@ function HeroSection() {
                   </svg>
                 }
               >
-                Jeddah, Saudi Arabia
+                The Ritz-Carlton, Jeddah
               </HeroChip>
             </motion.div>
 
@@ -1094,6 +1094,78 @@ function WhatYouGainSection() {
         .ifs-gain-card { transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), border-color 0.35s ease; }
         .ifs-gain-card:hover { transform: translateY(-4px); border-color: ${IFS_PURPLE_GLOW}77; }
         @media (max-width: 720px) { .ifs-gain-grid { grid-template-columns: 1fr !important; } }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── Venue ───────────────────────────────────────────────────────────────────
+const IFS_VENUE_NAME = "The Ritz-Carlton, Jeddah";
+const IFS_VENUE_CITY = "Jeddah, Saudi Arabia";
+const IFS_VENUE_MAP = "https://maps.app.goo.gl/sz482YUjgM2qZTXG6";
+const IFS_VENUE_IMG = "https://efg-final.s3.eu-north-1.amazonaws.com/venues/ritxcarltonjeddah.jpg";
+
+function VenueSection() {
+  const ref = useRef<HTMLElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <section ref={ref} id="venue" style={{ background: "transparent", padding: "clamp(34px, 4.5vw, 56px) 0", position: "relative" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 48px)" }}>
+        <motion.div initial={{ opacity: 0, y: 18 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: [0.22,1,0.36,1] }} style={{ marginBottom: "clamp(28px, 4vw, 44px)" }}>
+          <DividerTitle eyebrow="Venue" title={<>The <span style={{ color: IFS_LIGHT_BLUE }}>Ritz-Carlton</span>, Jeddah</>} accent={IFS_LIGHT_BLUE} maxWidth={640} />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22,1,0.36,1] }}
+          className="ifs-venue-card"
+          style={{ display: "grid", gridTemplateColumns: "1.15fr 1fr", borderRadius: 20, overflow: "hidden", border: `1px solid ${IFS_BORDER}`, background: `linear-gradient(165deg, ${IFS_BG_CARD} 0%, ${IFS_BG_INNER} 100%)`, boxShadow: `0 22px 54px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06)` }}
+        >
+          {/* Photo — links to the map */}
+          <a href={IFS_VENUE_MAP} target="_blank" rel="noopener noreferrer" aria-label={`${IFS_VENUE_NAME} — view on Google Maps`} className="ifs-venue-photo" style={{ position: "relative", display: "block", minHeight: 260, overflow: "hidden" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={IFS_VENUE_IMG} alt={`${IFS_VENUE_NAME} — venue for the IFS Executive Roundtable`} loading="lazy" decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+            <span aria-hidden style={{ position: "absolute", inset: 0, background: `linear-gradient(120deg, transparent 40%, ${IFS_BG_INNER}88 100%)`, pointerEvents: "none" }} />
+          </a>
+
+          {/* Details */}
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 14, padding: "clamp(26px, 3.2vw, 42px)" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 52, height: 52, borderRadius: 14, background: `linear-gradient(135deg, ${IFS_LIGHT_BLUE}3a 0%, ${IFS_LIGHT_BLUE}14 100%)`, border: `1px solid ${IFS_LIGHT_BLUE}44`, color: IFS_LIGHT_BLUE }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+            </span>
+            <h3 style={{ margin: 0, fontFamily: "var(--font-display)", fontSize: "clamp(22px, 2.4vw, 30px)", fontWeight: 800, letterSpacing: "-0.02em", color: IFS_WHITE, lineHeight: 1.15 }}>{IFS_VENUE_NAME}</h3>
+            <p style={{ margin: 0, fontFamily: "var(--font-outfit)", fontSize: "clamp(14px, 1.1vw, 16px)", color: IFS_MUTE, lineHeight: 1.6 }}>{IFS_VENUE_CITY}</p>
+            <a
+              href={IFS_VENUE_MAP}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ifs-venue-map-btn"
+              style={{ marginTop: 8, alignSelf: "flex-start", display: "inline-flex", alignItems: "center", gap: 10, padding: "12px 22px", borderRadius: 999, background: `linear-gradient(135deg, ${IFS_LIGHT_PURPLE} 0%, ${IFS_PURPLE} 100%)`, color: IFS_WHITE, fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 700, textDecoration: "none" }}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              View on Google Maps
+            </a>
+          </div>
+        </motion.div>
+      </div>
+
+      <style jsx global>{`
+        .ifs-venue-photo img { transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+        .ifs-venue-card:hover .ifs-venue-photo img { transform: scale(1.05); }
+        .ifs-venue-map-btn { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .ifs-venue-map-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px ${IFS_PURPLE}66; }
+        @media (max-width: 720px) {
+          .ifs-venue-card { grid-template-columns: 1fr !important; }
+          .ifs-venue-photo { min-height: 220px !important; }
+        }
       `}</style>
     </section>
   );
@@ -1797,6 +1869,7 @@ export default function IfsPage() {
         <OverviewSection />
         <AboutSpeakersSection />
         <WhatYouGainSection />
+        <VenueSection />
         <AgendaAndFormSection />
         <IfsFooter />
       </div>
