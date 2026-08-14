@@ -4448,10 +4448,10 @@ const EVENT_SPONSORS_2026: {
   },
   {
     name: "KoteLab",
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/KoteLab+(hig-res)+Logo.svg",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/KoteLab_logo_black-bg-removebg-preview.png",
     tier: "networking",
     keepColor: true,
-    scale: 1.3,
+    scale: 1.6,
     maxW: 210,
   },
 ];
