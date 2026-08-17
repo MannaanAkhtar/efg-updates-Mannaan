@@ -210,6 +210,7 @@ const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; 
   { name: "Hugo Lopes",       title: "Group Chief Technology Officer", org: "Amwaj Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hugo_Lopes.png", linkedin: "https://www.linkedin.com/in/hugolopes86/" },
   { name: "Arslan Baig",      title: "Lead IT & Cybersecurity", org: "Al-AWALIA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Arslan+Baig.jpg", linkedin: "https://www.linkedin.com/in/arslan-baig/" },
   { name: "Vladimir Kanyshev", title: "Chief Information Security Officer (CISO)", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Vladimir+Kanyshev.jpg" },
+  { name: "Hoda Taheri", title: "Acting CIO", org: "Snoonu", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hoda.png", linkedin: "https://www.linkedin.com/in/hodataheri/" },
 ];
 
 // ─── Agenda — 17 rows (from PDF) ────────────────────────────────────────────
