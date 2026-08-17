@@ -4304,19 +4304,18 @@ const EVENT_SPONSORS_2026: {
     keepColor: true,
   },
   {
-    name: "Waterfall Security Solutions",
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Waterfall_logo_white.png",
-    url: "https://waterfall-security.com/",
-    tier: "strategic",
+    name: "Palo Alto Networks",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/PANW_Parent_Brand_Primary_Logo_RGB_Red_White.png",
+    url: "https://www.paloaltonetworks.com/",
+    tier: "networking",
     keepColor: true,
   },
   {
     name: "Fortress Hub Technologies",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Fortress+Hub+Technologies+Ltd+PNG.png",
     url: "https://www.fortresshubtechnologies.com/",
-    tier: "strategic",
+    tier: "networking",
     keepColor: true,
-    scale: 2.1,
   },
   {
     name: "TXOne Networks",
@@ -4333,21 +4332,6 @@ const EVENT_SPONSORS_2026: {
     tier: "strategic",
     keepColor: true,
     scale: 1.4,
-  },
-  {
-    name: "Corrserve",
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/corrserve1.png",
-    url: "https://corrserve.co.za/",
-    tier: "gold",
-    keepColor: true,
-  },
-  {
-    name: "Seceon",
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Seceon-PNG-Security+for+Eons-Green+Logo.png",
-    url: "https://seceon.com/",
-    tier: "gold",
-    keepColor: true,
-    scale: 1.3,
   },
   {
     name: "Forescout",
@@ -4373,17 +4357,39 @@ const EVENT_SPONSORS_2026: {
     scale: 1.3,
   },
   {
-    name: "Claroty",
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Claroty_2022.png",
-    url: "https://claroty.com/",
-    tier: "associate",
-    scale: 1.4,
+    name: "Corrserve",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/corrserve1.png",
+    url: "https://corrserve.co.za/",
+    tier: "gold",
+    keepColor: true,
+  },
+  {
+    name: "Seceon",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Seceon-PNG-Security+for+Eons-Green+Logo.png",
+    url: "https://seceon.com/",
+    tier: "gold",
+    keepColor: true,
+    scale: 1.3,
   },
   {
     name: "ISE Solutions",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ISE-new-logo.png",
     tier: "associate",
     scale: 1.4,
+  },
+  {
+    name: "Claroty",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Untitled-1-02.png",
+    url: "https://claroty.com/",
+    tier: "associate",
+    scale: 1.4,
+  },
+  {
+    name: "Waterfall Security Solutions",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Waterfall_logo_white.png",
+    url: "https://waterfall-security.com/",
+    tier: "associate",
+    keepColor: true,
   },
   {
     name: "Times of AI",
@@ -4444,15 +4450,12 @@ const EVENT_SPONSORS_2026: {
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/2025-+Co-Branded+Logos-White-02.png",
     tier: "networking",
     keepColor: true,
-    maxW: 440,
   },
   {
     name: "KoteLab",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/KoteLab_logo_black-bg-removebg-preview.png",
     tier: "networking",
     keepColor: true,
-    scale: 1.6,
-    maxW: 210,
   },
 ];
 
@@ -4464,7 +4467,7 @@ const TIER_LABEL: Record<typeof EVENT_SPONSORS_2026[number]["tier"], string> = {
   panel: "Panel Sponsor",
   supporting: "Supporting Sponsors",
   coffee: "Coffee Sponsor",
-  networking: "Networking Sponsor",
+  networking: "Networking Partner",
   media: "Media Partners",
 };
 
@@ -4506,7 +4509,7 @@ function EventSponsorsSection() {
         </motion.div>
 
         {/* Tier groups */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(40px, 5vw, 64px)" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(24px, 2.8vw, 38px)" }}>
           {(() => {
           const renderTierGroup = (tier: (keyof typeof TIER_LABEL), tIdx: number) => {
             const sponsorsInTier = EVENT_SPONSORS_2026.filter((s) => s.tier === tier);
@@ -4529,7 +4532,7 @@ function EventSponsorsSection() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.75, delay: 0.15 + tIdx * 0.1, ease: EASE }}
-                style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}
+                style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}
               >
                 {/* Tier label */}
                 {(() => {
@@ -4545,27 +4548,28 @@ function EventSponsorsSection() {
                   );
                 })()}
 
-                {/* Sponsor cards — gold renders as balanced 3+2 centered rows */}
+                {/* Sponsor cards — gold + networking render as a fixed 3-column grid.
+                    Gold row 2 = [4th, empty, 5th]; networking row 2 = [empty, 4th, empty]. */}
                 {(isGold
-                  ? [sponsorsInTier.slice(0, 3), sponsorsInTier.slice(3)].filter((r) => r.length > 0)
+                  ? [sponsorsInTier.slice(0, 3), [sponsorsInTier[3] ?? null, null, sponsorsInTier[4] ?? null]]
+                  : isNetworking
+                  ? [sponsorsInTier.slice(0, 3), [null, sponsorsInTier[3] ?? null, null]]
                   : [sponsorsInTier]
                 ).map((rowSponsors, rowIdx) => (
                 <div
                   key={rowIdx}
-                  style={
-                    isNetworking
-                      ? { display: "flex", flexWrap: "wrap", gap: 16, justifyContent: "center", alignItems: "stretch", width: "100%" }
-                      : {
-                          display: "grid",
-                          gridTemplateColumns: `repeat(${isGold ? rowSponsors.length : cols}, minmax(180px, ${cardMaxWidth}px))`,
-                          gap: 20,
-                          justifyContent: "center",
-                          width: "100%",
-                        }
-                  }
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: `repeat(${isGold || isNetworking ? rowSponsors.length : cols}, minmax(180px, ${cardMaxWidth}px))`,
+                    gap: 20,
+                    justifyContent: "center",
+                    width: "100%",
+                  }}
                   className={`otsf-event-sponsors-grid${isStrategic ? " otsf-strategic-grid" : ""}`}
                 >
                   {rowSponsors.map((sponsor, i) => {
+                    // Blank placeholder cell (keeps the gold grid's empty middle column).
+                    if (!sponsor) return <div key={`empty-${rowIdx}-${i}`} aria-hidden />;
                     const GOLD = "#E8B845";
                     const GOLD_RGB = "232,184,69";
                     const accent = isStrategic
@@ -6473,6 +6477,138 @@ function SeriesEditions() {
   );
 }
 
+// ─── KEYNOTE SPEAKER — Editorial Spread (portrait + glass bio) ───────────────
+function KeynoteSpeakerSection() {
+  const [expanded, setExpanded] = useState(false);
+
+  const BIO_LEAD = "Deputy Director-General: Digital Infrastructure and Technologies";
+  const BIO_INTRO = [
+    "Mr. Dick Sono had more than 25 years in the ICT Sector spanning from working for private and public sector.",
+    "He is recognized for his expertise in areas such as spectrum, legislation, policy and regulation development. Mr Sono has led South Africa delegation at various international fora, and including advocacy for the advancement of the country's interests at regional and global ICT decision-making bodies, including the Southern Africa Development Community (SADC), the African Telecommunications Union (ATU), International Telecommunication Union (ITU) Radiocommunication and its related World Radiocommunication Conferences.",
+  ];
+  const BIO_MORE = [
+    "As a passionate and solution-oriented relational leader, Mr. Sono has built invaluable relationships with governments, policymakers, communication regulators from different African countries, as well as mobile and satellite operators and equipment manufacturers globally.",
+    "In his current role as DDG, he provides executive oversight of spectrum, cybersecurity, broadband, broadcasting digital migration and rapid deployment.",
+    "Mr. Sono has degrees in Master of Science (Physics), a Master of Science (Electrical Engineering), Bachelor of Science Honours, and Bachelor of Science. Further, he has certificates in project management, financial management and data science.",
+  ];
+
+  return (
+    <section id="keynote-speaker" style={{ background: "transparent", position: "relative", overflow: "hidden", padding: "clamp(56px, 7vw, 100px) 0" }}>
+      {/* Ambient mesh */}
+      <div aria-hidden style={{ position: "absolute", inset: "-30%", background: `radial-gradient(ellipse 35% 45% at 20% 45%, ${C}14, transparent 55%), radial-gradient(ellipse 30% 40% at 78% 28%, ${CYAN}0e, transparent 55%), radial-gradient(ellipse 40% 35% at 55% 82%, ${C_BRIGHT}0a, transparent 55%)`, filter: "blur(80px)", pointerEvents: "none" }} />
+      {/* Top + bottom hairline glow */}
+      <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${C}30, transparent)` }} />
+      <div aria-hidden style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${C}25, transparent)` }} />
+
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px, 5vw, 60px)", position: "relative" }}>
+        {/* Eyebrow */}
+        <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
+          style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: "clamp(28px, 4vw, 48px)" }}>
+          <span style={{ width: 28, height: 2, background: C_BRIGHT, borderRadius: 1 }} />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 700, letterSpacing: "3.5px", textTransform: "uppercase", color: C_BRIGHT }}>Keynote Speaker</span>
+        </motion.div>
+
+        {/* Two-column editorial layout */}
+        <div className="otsf-kn-split" style={{ display: "grid", gridTemplateColumns: "clamp(260px, 30vw, 380px) 1fr", gap: "clamp(24px, 5vw, 80px)", alignItems: "start" }}>
+
+          {/* Left — portrait */}
+          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: EASE }}>
+            <div className="otsf-kn-photo" style={{ position: "relative", borderRadius: 24, overflow: "hidden", border: `1.5px solid ${C}35`, boxShadow: `0 32px 80px rgba(0,0,0,0.6), 0 0 80px ${C}18, inset 0 1px 0 rgba(255,255,255,0.08)` }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/dickSono.png" alt="Mr Dick Sono" style={{ width: "100%", aspectRatio: "3/4", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+              <div aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 48%, rgba(7,11,31,0.72) 80%, rgba(7,11,31,0.96) 100%)" }} />
+              <div aria-hidden style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${C}0c, transparent 40%)` }} />
+              <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent, ${C_BRIGHT}50, transparent)` }} />
+              <div aria-hidden style={{ position: "absolute", top: "15%", left: 0, width: 3, height: "30%", background: `linear-gradient(180deg, transparent, ${CYAN}60, transparent)`, borderRadius: "0 2px 2px 0" }} />
+
+              {/* Department badge */}
+              <div style={{ position: "absolute", top: 20, right: 20, padding: "6px 14px", borderRadius: 8, background: "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04))", border: "1px solid rgba(255,255,255,0.12)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.3)" }}>
+                <span style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 700, letterSpacing: "1.5px", color: "rgba(255,255,255,0.8)" }}>DCDT</span>
+              </div>
+
+              {/* Name overlay */}
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "28px 28px 24px" }}>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 9, fontWeight: 800, letterSpacing: "3.5px", textTransform: "uppercase", color: C_BRIGHT, margin: "0 0 10px" }}>Keynote Speaker</p>
+                <h3 style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 800, color: "white", margin: "0 0 8px", letterSpacing: "-0.5px", lineHeight: 1.15 }}>Mr Dick<br />Sono</h3>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, color: CYAN, margin: "0 0 4px" }}>Deputy Director General – ICT Infrastructure</p>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.5)", margin: 0, lineHeight: 1.4 }}>Department of Communications and<br />Digital Technologies</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right — glass bio panel */}
+          <div className="otsf-kn-glass" style={{ position: "relative", background: "linear-gradient(165deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.012) 100%)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 28, padding: "clamp(32px, 4vw, 48px)", backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)", boxShadow: `inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.25), 0 24px 80px rgba(0,0,0,0.45), 0 0 40px ${C}08`, overflow: "hidden" }}>
+            <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, transparent 5%, rgba(255,255,255,0.14) 25%, rgba(255,255,255,0.06) 75%, transparent 95%)" }} />
+            <div aria-hidden style={{ position: "absolute", inset: 6, borderRadius: 22, border: "1px solid rgba(255,255,255,0.03)", pointerEvents: "none" }} />
+            <div aria-hidden style={{ position: "absolute", top: -50, right: -50, width: 200, height: 200, borderRadius: "50%", background: `radial-gradient(circle, ${C}10, transparent 65%)`, pointerEvents: "none" }} />
+            <div aria-hidden style={{ position: "absolute", bottom: -30, left: -30, width: 140, height: 140, borderRadius: "50%", background: `radial-gradient(circle, ${CYAN}0a, transparent 65%)`, pointerEvents: "none" }} />
+
+            {/* Biography eyebrow */}
+            <motion.p initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
+              style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 800, letterSpacing: "3px", textTransform: "uppercase", color: CYAN, margin: "0 0 18px" }}>Biography</motion.p>
+
+            {/* Lead line */}
+            <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, ease: EASE }}
+              style={{ fontFamily: "var(--font-display)", fontSize: "clamp(19px, 2.2vw, 26px)", fontWeight: 400, color: "rgba(255,255,255,0.93)", lineHeight: 1.4, letterSpacing: "-0.5px", margin: "0 0 22px" }}>{BIO_LEAD}</motion.p>
+
+            {/* Accent divider */}
+            <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }}
+              style={{ width: 48, height: 2, background: `linear-gradient(90deg, ${C_BRIGHT}, ${C_BRIGHT}00)`, marginBottom: 24, transformOrigin: "left", borderRadius: 1 }} />
+
+            {/* Body */}
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.25, ease: EASE }}
+              style={{ fontFamily: "var(--font-outfit)", fontSize: 14, color: "rgba(255,255,255,0.62)", lineHeight: 1.85 }}>
+              {BIO_INTRO.map((p, i) => (
+                <p key={i} style={{ margin: i === 0 ? "0 0 14px" : 0 }}>{p}</p>
+              ))}
+
+              <div style={{ maxHeight: expanded ? 2000 : 0, overflow: "hidden", transition: "max-height 0.8s cubic-bezier(0.22,1,0.36,1), opacity 0.5s ease", opacity: expanded ? 1 : 0 }}>
+                {BIO_MORE.map((p, i) => (
+                  <p key={i} style={{ margin: i === 0 ? "14px 0 14px" : i === BIO_MORE.length - 1 ? 0 : "0 0 14px" }}>{p}</p>
+                ))}
+              </div>
+
+              <button type="button" suppressHydrationWarning onClick={() => setExpanded(!expanded)} className="otsf-kn-btn"
+                style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 20, fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C_BRIGHT, background: "linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 50, padding: "9px 20px", cursor: "pointer", transition: "all 0.3s ease", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), 0 2px 8px rgba(0,0,0,0.2)" }}>
+                {expanded ? "Read less" : "Read full bio"}
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ transform: expanded ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.4s cubic-bezier(0.22,1,0.36,1)" }}>
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+            </motion.div>
+
+            {/* Signature line */}
+            <div style={{ marginTop: 28, paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", gap: 12 }}>
+              <div aria-hidden style={{ width: 32, height: 2, background: `linear-gradient(90deg, ${C_BRIGHT}, transparent)`, borderRadius: 1 }} />
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "rgba(255,255,255,0.35)", margin: 0, letterSpacing: "0.5px" }}>
+                Department of Communications &amp; Digital Technologies · <span style={{ color: "rgba(255,255,255,0.5)" }}>Republic of South Africa</span>
+              </p>
+            </div>
+            <div aria-hidden style={{ position: "absolute", bottom: 0, left: "8%", right: "8%", height: 1, background: `linear-gradient(90deg, transparent, ${C}18, transparent)` }} />
+          </div>
+        </div>
+      </div>
+
+      <style jsx global>{`
+        .otsf-kn-glass { transition: border-color 0.5s ease, box-shadow 0.5s ease; }
+        .otsf-kn-glass:hover { border-color: rgba(255,255,255,0.12) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.3), 0 32px 100px rgba(0,0,0,0.5), 0 0 60px ${C}0d !important; }
+        .otsf-kn-btn:hover { color: ${CYAN} !important; border-color: ${CYAN}44 !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 4px 16px ${CYAN}18 !important; }
+        .otsf-kn-photo { transition: box-shadow 0.5s ease, border-color 0.5s ease; }
+        .otsf-kn-photo:hover { box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 100px ${C}20, inset 0 1px 0 rgba(255,255,255,0.1) !important; border-color: ${C}50 !important; }
+        .otsf-kn-photo:hover img { transform: scale(1.03); }
+        .otsf-kn-photo img { transition: transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+        @media (max-width: 900px) {
+          .otsf-kn-split { grid-template-columns: 1fr !important; }
+          .otsf-kn-split > div:first-child { max-width: 340px; }
+        }
+        @media (max-width: 640px) {
+          .otsf-kn-split > div:first-child { max-width: 260px; margin: 0 auto; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
 // ─── MAIN PAGE COMPONENT ─────────────────────────────────────────────────────
 export default function OTSecurityFirstJohannesburg2026() {
   const [mounted, setMounted] = useState(false);
@@ -6562,6 +6698,7 @@ export default function OTSecurityFirstJohannesburg2026() {
         </div>
         <div style={{ position: "relative", zIndex: 1 }}>
           <HeroSection />
+          <KeynoteSpeakerSection />
           <AboutSection />
           <SpeakersSection />
           <OTSfPostEventReports />
