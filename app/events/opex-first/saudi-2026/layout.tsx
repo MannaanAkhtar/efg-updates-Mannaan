@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "OPEX First Saudi 2026 — 2nd Edition, Riyadh",
+    title: "OPEX First Saudi 2026 — Riyadh",
     description:
       "Vision to Value — Merging AI and Process Excellence. 21 October 2026, Riyadh.",
     url: PAGE_URL,
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
-    title: "OPEX First Saudi 2026 — 2nd Edition, Riyadh",
+    title: "OPEX First Saudi 2026 — Riyadh",
     description: "Vision to Value — Merging AI and Process Excellence. 21 October 2026, Riyadh.",
     images: [OG_IMAGE],
   },
