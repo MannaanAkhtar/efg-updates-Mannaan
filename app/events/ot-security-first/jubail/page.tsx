@@ -69,9 +69,8 @@ const SPEAKERS: Speaker[] = [
   { name: "Aamir Khalid Pirzada", title: "Chief Information Officer", org: "National Metal Manufacturing and Casting Company (Maadaniyah)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aamir+Khalid+Pirzada.jpg", linkedin: "https://www.linkedin.com/in/aamir-khalid-p-360a974/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png", flag: "https://flagcdn.com/w40/gb-eng.png" },
   { name: "Javed A. Akbar", title: "Chief Governance, Risk (GRC), Insurance & Data Officer", org: "TASNEE", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Javed_A.+Akbar.png", linkedin: "https://www.linkedin.com/in/javedakbar/", flag: "https://flagcdn.com/w40/sa.png" },
-  { name: "Tahir Saleem", title: "Chief Innovation Officer", org: "SIS Industrial Cyber Security", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tahir+Saleem.png", linkedin: "https://www.linkedin.com/in/tahirsaleem/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Tahir Saleem", title: "Chief Innovation Officer", org: "SIS Industrial Cyber Security", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tahir+Saleem.png", linkedin: "https://www.linkedin.com/in/tahirsaleem/", flag: "https://flagcdn.com/w40/au.png" },
   { name: "Mohammed Shoukat Ali", title: "GM & Head Global Cybersecurity CoE", org: "Yokogawa", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Shoukat+Ali.png", linkedin: "https://www.linkedin.com/in/mohammedshoukatali/", flag: "https://flagcdn.com/w40/jp.png" },
-  { name: "Mohammad Siraj", title: "Cybersecurity Business & Strategic Alliances Manager, OT Cybersecurity Solutions and Services – MEA Zone", org: "Schneider Electric", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammad+Siraj%E2%80%8B.png", linkedin: "https://www.linkedin.com/in/mohammad-siraj-sirajuddin-2b25b576/", flag: "https://flagcdn.com/w40/fr.png" },
 ];
 
 // ─── Advisors ─────────────────────────────────────────────────────────────────
@@ -80,6 +79,7 @@ const ADVISORS: Speaker[] = [
   { name: "Dr. Hussain Aldawood", title: "Director of Cybersecurity Consulting", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Hussain_Aldawood.png", flag: "https://flagcdn.com/w40/gb-eng.png" },
   { name: "Redha Alahmad", title: "Senior Manager, Cybersecurity (OT/ICS)", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Redha_Alahmad..png", flag: "https://flagcdn.com/w40/gb-eng.png" },
   { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png", flag: "https://flagcdn.com/w40/gb-eng.png" },
+  { name: "Mohammad Siraj", title: "Cybersecurity Business & Strategic Alliances Manager, OT Cybersecurity Solutions and Services – MEA Zone", org: "Schneider Electric", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammad+Siraj%E2%80%8B.png", linkedin: "https://www.linkedin.com/in/mohammad-siraj-sirajuddin-2b25b576/", flag: "https://flagcdn.com/w40/fr.png" },
 ];
 
 // ─── Awards ─────────────────────────────────────────────────────────────────
@@ -456,17 +456,39 @@ function Hero() {
   const cd = useCountdown(EVENT_DATE_ISO);
   const heroSectionRef = useRef<HTMLElement | null>(null);
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
+  const [loadVideo, setLoadVideo] = useState(false);
+  const [videoVisible, setVideoVisible] = useState(false);
+
+  // Defer the heavy (~48MB) hero video until the browser is idle, so the hero
+  // image paints instantly and the page becomes interactive first (lower bounce).
+  useEffect(() => {
+    let idleId: number;
+    const start = () => setLoadVideo(true);
+    const w = window as typeof window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    if (typeof w.requestIdleCallback === "function") {
+      idleId = w.requestIdleCallback(start, { timeout: 3000 });
+    } else {
+      idleId = window.setTimeout(start, 1500);
+    }
+    return () => {
+      if (typeof w.cancelIdleCallback === "function") w.cancelIdleCallback(idleId);
+      else clearTimeout(idleId);
+    };
+  }, []);
 
   // Pause hero CSS animations + the background video when the section scrolls
   // off-screen - saves continuous compositing/decode work the user can't see.
   useEffect(() => {
     const sec = heroSectionRef.current;
-    const vid = heroVideoRef.current;
     if (!sec) return;
     const obs = new IntersectionObserver(
       ([entry]) => {
         const visible = entry.isIntersecting;
         sec.classList.toggle("is-offscreen", !visible);
+        const vid = heroVideoRef.current;
         if (vid) {
           if (visible) {
             void vid.play().catch(() => { /* autoplay may be blocked; ignore */ });
@@ -479,7 +501,7 @@ function Hero() {
     );
     obs.observe(sec);
     return () => obs.disconnect();
-  }, []);
+  }, [loadVideo]);
 
   return (
     <section
@@ -496,15 +518,15 @@ function Hero() {
         background: BG_DEEP,
       }}
     >
-      {/* Background video */}
-      <video
-        ref={heroVideoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        poster="https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT_Jubail.png"
+      {/* Background hero image — always-on fallback, paints immediately even if
+          the video is slow or fails to load. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT_Jubail.png"
+        alt=""
+        aria-hidden
+        fetchPriority="high"
+        decoding="async"
         style={{
           position: "absolute",
           inset: 0,
@@ -515,9 +537,32 @@ function Hero() {
           opacity: 0.55,
           zIndex: 0,
         }}
-      >
-        <source src={HERO_VIDEO} type="video/mp4" />
-      </video>
+      />
+
+      {/* Background video — deferred until idle; fades in over the image once ready */}
+      {loadVideo && (
+        <video
+          ref={heroVideoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          onCanPlay={() => setVideoVisible(true)}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            opacity: videoVisible ? 0.55 : 0,
+            transition: "opacity 0.9s ease",
+            zIndex: 0,
+          }}
+        >
+          <source src={HERO_VIDEO} type="video/mp4" />
+        </video>
+      )}
 
       {/* Atmospheric overlays */}
       <div
@@ -4165,7 +4210,7 @@ function AdvisorsSection() {
       <BgDots opacity={0.05} />
       {/* Gold glow — elevates the advisory panel and sets it apart from the speakers grid above */}
       <div aria-hidden style={{ position: "absolute", top: "18%", left: "50%", transform: "translateX(-50%)", width: "min(920px, 94%)", height: 480, background: "radial-gradient(ellipse at center, rgba(232,197,106,0.15), transparent 70%)", pointerEvents: "none" }} />
-      <div style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+      <div style={{ position: "relative", maxWidth: 1480, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
         <Eyebrow inView={inView} label="Leadership" />
         <motion.h2
           initial={{ opacity: 0, y: 18 }}
@@ -4218,9 +4263,9 @@ function AdvisorsSection() {
           className="otsf-jb-advisors-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
+            gridTemplateColumns: "repeat(5, 1fr)",
             gap: "clamp(14px, 1.6vw, 22px)",
-            maxWidth: 1160,
+            maxWidth: 1440,
             margin: "0 auto",
           }}
         >
@@ -4385,6 +4430,9 @@ function AdvisorsSection() {
         }
         .otsf-jb-adv-li { transition: background 0.2s, border-color 0.2s, transform 0.2s; }
         .otsf-jb-adv-li:hover { background: rgba(232,197,106,0.9) !important; border-color: #E8C56A !important; transform: translateY(-1px); }
+        @media (max-width: 1240px) {
+          .otsf-jb-advisors-grid { grid-template-columns: repeat(3, 1fr) !important; max-width: 840px !important; }
+        }
         @media (max-width: 720px) {
           .otsf-jb-advisors-grid { grid-template-columns: repeat(2, 1fr) !important; max-width: 520px !important; }
         }
