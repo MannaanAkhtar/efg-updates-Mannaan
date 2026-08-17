@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useMemo } from "react";
 import { useInView, motion } from "framer-motion";
-import { submitForm, isWorkEmail } from "@/lib/form-helpers";
+import { submitForm, isWorkEmail, validatePhone, COUNTRY_CODES, type CountryCode } from "@/lib/form-helpers";
 
 // ─── IFS Design Tokens — sourced from IFS Brand Guidelines v6.0 ──────────────
 // Tier 1 (primary): Midnight Purple + Dark Purple
@@ -1182,6 +1182,12 @@ function AgendaAndFormSection() {
   const [lastName, setLastName] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [company, setCompany] = useState("");
+  const defaultPhoneCountry = useMemo<CountryCode>(
+    () => COUNTRY_CODES.find((c) => c.country === "SA") ?? COUNTRY_CODES[0],
+    [],
+  );
+  const [phoneCountry, setPhoneCountry] = useState<CountryCode>(defaultPhoneCountry);
+  const [phone, setPhone] = useState("");
   const [country, setCountry] = useState("");
   const [industry, setIndustry] = useState("");
   const [consent, setConsent] = useState(false);
@@ -1198,6 +1204,8 @@ function AgendaAndFormSection() {
     if (!lastName.trim()) newErrors.lastName = "Last name is required";
     if (!jobTitle.trim()) newErrors.jobTitle = "Job title is required";
     if (!company.trim()) newErrors.company = "Company is required";
+    const phoneError = validatePhone(phone, phoneCountry);
+    if (phoneError) newErrors.phone = phoneError;
     if (!country) newErrors.country = "Please select a country";
     if (!industry) newErrors.industry = "Please select an industry";
     if (!consent) newErrors.consent = "Please confirm consent to proceed";
@@ -1206,18 +1214,22 @@ function AgendaAndFormSection() {
 
     setSubmitState("submitting");
     setSubmitError("");
+    const cleanPhone = phone.replace(/[\s\-()]/g, "");
+    const fullPhone = `${phoneCountry.code} ${cleanPhone}`;
     const res = await submitForm({
       type: "contact",
       full_name: `${firstName.trim()} ${lastName.trim()}`,
       email: email.trim(),
       job_title: jobTitle.trim(),
       company: company.trim(),
+      phone: fullPhone,
       event_name: "IFS Executive Roundtable — Next Decade of Manufacturing in Saudi Arabia · Jeddah 15 September 2026",
       metadata: {
         "Event Page": "IFS Executive Roundtable · Jeddah",
         "Page Section": "Reservation Form",
         "First Name": firstName.trim(),
         "Last Name": lastName.trim(),
+        "Phone Country": `${phoneCountry.name} (${phoneCountry.code})`,
         "Country": country,
         "Industry": industry,
         "Consent Given": "true",
@@ -1226,7 +1238,8 @@ function AgendaAndFormSection() {
     if (res.success) {
       setSubmitState("success");
       setEmail(""); setFirstName(""); setLastName("");
-      setJobTitle(""); setCompany(""); setCountry(""); setIndustry("");
+      setJobTitle(""); setCompany(""); setPhone(""); setPhoneCountry(defaultPhoneCountry);
+      setCountry(""); setIndustry("");
       setConsent(false);
     } else {
       setSubmitState("error");
@@ -1453,6 +1466,44 @@ function AgendaAndFormSection() {
                     />
                   </Field>
                 </div>
+
+                <Field label="Phone Number" error={errors.phone} required>
+                  <div style={{ display: "grid", gridTemplateColumns: "minmax(118px, 130px) 1fr", gap: 10 }}>
+                    <select
+                      value={`${phoneCountry.code}-${phoneCountry.country}`}
+                      onChange={(e) => {
+                        const [code, ctry] = e.target.value.split("-");
+                        const next = COUNTRY_CODES.find((c) => c.code === code && c.country === ctry);
+                        if (next) {
+                          setPhoneCountry(next);
+                          setPhone((prev) => prev.slice(0, next.length));
+                          if (errors.phone) setErrors({ ...errors, phone: "" });
+                        }
+                      }}
+                      aria-label="Phone country code"
+                      className="ifs-input ifs-select"
+                      suppressHydrationWarning
+                    >
+                      {COUNTRY_CODES.map((c) => (
+                        <option key={`${c.code}-${c.country}`} value={`${c.code}-${c.country}`}>
+                          {c.country} {c.code}
+                        </option>
+                      ))}
+                    </select>
+                    <input
+                      type="tel"
+                      inputMode="numeric"
+                      value={phone}
+                      onChange={(e) => { setPhone(e.target.value.replace(/[^\d]/g, "").slice(0, phoneCountry.length)); if (errors.phone) setErrors({ ...errors, phone: "" }); }}
+                      placeholder={phoneCountry.placeholder}
+                      autoComplete="tel-national"
+                      maxLength={phoneCountry.length}
+                      className="ifs-input"
+                      aria-invalid={!!errors.phone}
+                      suppressHydrationWarning
+                    />
+                  </div>
+                </Field>
 
                 <Field label="Country" error={errors.country} required>
                   <select
