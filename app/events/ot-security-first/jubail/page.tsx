@@ -64,21 +64,22 @@ const SPEAKERS: Speaker[] = [
   { name: "Ali Alrushaid", title: "Chief Information Security Officer", org: "ASMO", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ALI_ALRUSHAID.png", linkedin: "https://www.linkedin.com/in/ali-alrushaid-66377114/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Sultan Alshammari", title: "Cyber Security Director", org: "National Infrastructure Fund (Infra)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Alshammari.png", linkedin: "https://www.linkedin.com/in/sultan-alshammari-a2378994/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Alaa Khalid", title: "Director, Cybersecurity Operations & GRC", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Alaa_Khalid_.png", linkedin: "https://www.linkedin.com/in/alaa-khalid-870743121/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Dr. Mohammad Dahman Alshehri", title: "Senior Advisor and CISO", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Mohammad+Dahman+Alshehri.jpeg", linkedin: "https://www.linkedin.com/in/mohammad-alshehri-phd/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Wael A. Rahman", title: "Lead ICS/OT Security Engineer", org: "Petroleum Development Oman", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/WAEL+A.+RAHMAN.png", linkedin: "https://www.linkedin.com/in/wael-a-rahman/", flag: "https://flagcdn.com/w40/om.png" },
   { name: "Aamir Khalid Pirzada", title: "Chief Information Officer", org: "National Metal Manufacturing and Casting Company (Maadaniyah)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aamir+Khalid+Pirzada.jpg", linkedin: "https://www.linkedin.com/in/aamir-khalid-p-360a974/", flag: "https://flagcdn.com/w40/sa.png" },
-  { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png" },
+  { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png", flag: "https://flagcdn.com/w40/gb-eng.png" },
   { name: "Javed A. Akbar", title: "Chief Governance, Risk (GRC), Insurance & Data Officer", org: "TASNEE", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Javed_A.+Akbar.png", linkedin: "https://www.linkedin.com/in/javedakbar/", flag: "https://flagcdn.com/w40/sa.png" },
-  { name: "Tahir Saleem", title: "Operational Technology Cybersecurity", org: "SIS Industrial Cyber Security", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tahir+Saleem.png", linkedin: "https://www.linkedin.com/in/tahirsaleem/", flag: "https://flagcdn.com/w40/sa.png" },
-  { name: "Mohammed Shoukat Ali", title: "GM & Head Global Cybersecurity CoE", org: "Yokogawa", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Shoukat+Ali.png", linkedin: "https://www.linkedin.com/in/mohammedshoukatali/" },
-  { name: "Dr. Mohammad Dahman Alshehri", title: "Senior Advisor and CISO", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Mohammad+Dahman+Alshehri.jpeg", linkedin: "https://www.linkedin.com/in/mohammad-alshehri-phd/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Tahir Saleem", title: "Chief Innovation Officer", org: "SIS Industrial Cyber Security", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tahir+Saleem.png", linkedin: "https://www.linkedin.com/in/tahirsaleem/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Mohammed Shoukat Ali", title: "GM & Head Global Cybersecurity CoE", org: "Yokogawa", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Shoukat+Ali.png", linkedin: "https://www.linkedin.com/in/mohammedshoukatali/", flag: "https://flagcdn.com/w40/jp.png" },
+  { name: "Mohammad Siraj", title: "Cybersecurity Business & Strategic Alliances Manager, OT Cybersecurity Solutions and Services – MEA Zone", org: "Schneider Electric", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammad+Siraj%E2%80%8B.png", linkedin: "https://www.linkedin.com/in/mohammad-siraj-sirajuddin-2b25b576/", flag: "https://flagcdn.com/w40/fr.png" },
 ];
 
 // ─── Advisors ─────────────────────────────────────────────────────────────────
 const ADVISORS: Speaker[] = [
   { name: "Ahmed Al-Barrak", title: "Head of OT Cyber Solutions & Services Group | Digital Transformation", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/magnific_make-the-backdrop-a-neutr_4RiXtKx9Aa.png", photoPos: "center 32%", photoTransform: "scale(1.18)", linkedin: "https://www.linkedin.com/in/ahmed-al-barrak-msc-b2122b60/" },
-  { name: "Dr. Hussain Aldawood", title: "Director of Cybersecurity Consulting", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Hussain_Aldawood.png" },
-  { name: "Redha Alahmad", title: "Senior Manager, Cybersecurity (OT/ICS)", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Redha_Alahmad..png" },
-  { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png" },
+  { name: "Dr. Hussain Aldawood", title: "Director of Cybersecurity Consulting", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Hussain_Aldawood.png", flag: "https://flagcdn.com/w40/gb-eng.png" },
+  { name: "Redha Alahmad", title: "Senior Manager, Cybersecurity (OT/ICS)", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Redha_Alahmad..png", flag: "https://flagcdn.com/w40/gb-eng.png" },
+  { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png", flag: "https://flagcdn.com/w40/gb-eng.png" },
 ];
 
 // ─── Awards ─────────────────────────────────────────────────────────────────
@@ -4408,6 +4409,7 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
     logos: [
       { name: "Yokogawa", href: "https://www.yokogawa.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Yoko+logo-01.png" },
       { name: "swIDch", href: "https://www.swidch.com/", scale: 1.35, logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/swidch+logo+white.png" },
+      { name: "Schneider Electric", href: "https://www.se.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/schneider-electric-seeklogo.png" },
     ],
   },
   {
