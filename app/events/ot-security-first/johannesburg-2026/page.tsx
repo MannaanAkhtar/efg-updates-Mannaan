@@ -4334,6 +4334,12 @@ const EVENT_SPONSORS_2026: {
     scale: 1.4,
   },
   {
+    name: "Aria",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/aria.png",
+    tier: "strategic",
+    keepColor: true,
+  },
+  {
     name: "Forescout",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/forescout.png",
     url: "https://www.forescout.com/",
