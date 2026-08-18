@@ -156,7 +156,7 @@ const AGENDA: AgendaItem[] = [
   { start: "11:30", end: "12:00", title: "From Digital First to AI Enabled: A Roadmap for Building Enterprise AI Capabilities", session: "Featured Presentation by Blackstone eIT", kind: "feature" },
   { start: "12:00", end: "12:15", title: "Networking Coffee Break & Prayer", owner: "All delegates", kind: "break" },
   { start: "12:15", end: "12:45", title: "Liferay AI Hub in Action: Building Secure AI Agents for Modern Government Services", session: "Product Demo", owner: "Mahmoud Tayem", kind: "demo" },
-  { start: "12:45", end: "13:05", title: "Panel Discussion", session: "Moderator + Panelists", kind: "panel" },
+  { start: "12:45", end: "13:05", title: "Portal or Agent? What Frictionless Government Actually Requires", session: "Panel Discussion", kind: "panel" },
   { start: "13:05", end: "13:20", title: "Q&A & Closing Remarks", kind: "closing" },
   { start: "13:20", title: "Networking Lunch", owner: "All delegates", kind: "logistics" },
 ];
