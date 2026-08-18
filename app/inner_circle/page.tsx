@@ -100,13 +100,14 @@ const VOICES: { name: string; role: string; initials: string; photo?: string; li
 ];
 
 const AGENDA: { time: string; title: string; sub?: string }[] = [
-  { time: "5:30 PM", title: "Registrations & Red-Carpet Welcome" },
+  { time: "5:30 PM", title: "Registration & Red-Carpet Welcome" },
   { time: "6:00 PM", title: "Welcome Note" },
-  { time: "6:05 PM", title: "Keynote", sub: "Beyond Automation: How AI Agents Deliver True 1:1 Engagement At Scale" },
-  { time: "6:20 PM", title: "Fireside Chat", sub: "Insight-Led, AI-Driven: How Saudi Arabia's Top Brands Are Winning On Retention" },
-  { time: "6:40 PM", title: "The Art of Knowing", sub: "A Live Mentalist Experience" },
-  { time: "7:10 PM", title: "Closing Remarks" },
-  { time: "7:15 PM", title: "Dinner & Networking" },
+  { time: "6:05 PM", title: "Opening Keynote", sub: "Beyond Automation: How AI Agents Deliver True 1:1 Engagement at Scale" },
+  { time: "6:20 PM", title: "Panel Discussion", sub: "Insight-Led, AI-Driven: How Saudi Arabia's Top Brands Are Winning on Retention" },
+  { time: "6:40 PM", title: "Maghrib Prayer & Refreshment Break" },
+  { time: "7:00 PM", title: "The Featured Moment: The Art of Knowing", sub: "A Live Mentalist Experience" },
+  { time: "7:20 PM", title: "Closing Remarks" },
+  { time: "7:25 PM onwards", title: "Dinner & Networking" },
 ];
 
 // ─── Reveal helper ─────────────────────────────────────────────────────────────
