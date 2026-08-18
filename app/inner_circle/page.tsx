@@ -105,9 +105,9 @@ const AGENDA: { time: string; title: string; sub?: string }[] = [
   { time: "6:05 PM", title: "Opening Keynote", sub: "Beyond Automation: How AI Agents Deliver True 1:1 Engagement at Scale" },
   { time: "6:20 PM", title: "Panel Discussion", sub: "Insight-Led, AI-Driven: How Saudi Arabia's Top Brands Are Winning on Retention" },
   { time: "6:40 PM", title: "Maghrib Prayer & Refreshment Break" },
-  { time: "7:00 PM", title: "The Featured Moment: The Art of Knowing", sub: "A Live Mentalist Experience" },
+  { time: "7:00 PM", title: "The Art of Knowing", sub: "A Live Mentalist Experience" },
   { time: "7:20 PM", title: "Closing Remarks" },
-  { time: "7:25 PM onwards", title: "Dinner & Networking" },
+  { time: "7:25 PM onwards", title: "Dinner & Networking" },
 ];
 
 // ─── Reveal helper ─────────────────────────────────────────────────────────────
@@ -673,7 +673,7 @@ function Agenda() {
             return (
               <div key={i} className="ic-agenda-row" style={{ display: "grid", gridTemplateColumns: "96px 30px 1fr", gap: "clamp(12px,2vw,24px)", alignItems: "start", padding: "clamp(16px,2.1vw,24px) clamp(8px,1.4vw,16px)", borderRadius: 12, transition: "background 0.35s ease" }}>
                 {/* Time */}
-                <div style={{ fontFamily: DISPLAY, fontSize: "clamp(14px,1.45vw,17px)", fontWeight: 700, letterSpacing: "-0.01em", color: climax ? RED_SOFT : GOLD, fontVariantNumeric: "tabular-nums", whiteSpace: "nowrap", textAlign: "right", paddingTop: 2 }}>{a.time}</div>
+                <div style={{ fontFamily: DISPLAY, fontSize: "clamp(14px,1.45vw,17px)", fontWeight: 700, letterSpacing: "-0.01em", color: climax ? RED_SOFT : GOLD, fontVariantNumeric: "tabular-nums", whiteSpace: "normal", lineHeight: 1.3, textAlign: "right", paddingTop: 2 }}>{a.time}</div>
                 {/* Rail + node */}
                 <div style={{ position: "relative", display: "flex", justifyContent: "center" }}>
                   <span aria-hidden style={{ position: "absolute", top: isFirst ? "10px" : 0, bottom: isLast ? "calc(100% - 18px)" : 0, width: 1, background: LINE_STRONG }} />
