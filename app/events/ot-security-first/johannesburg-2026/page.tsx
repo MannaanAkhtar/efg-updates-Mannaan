@@ -4383,6 +4383,7 @@ const EVENT_SPONSORS_2026: {
     url: "https://claroty.com/",
     tier: "associate",
     scale: 1.4,
+    keepColor: true,
   },
   {
     name: "Waterfall Security Solutions",
