@@ -4548,10 +4548,10 @@ function EventSponsorsSection() {
                   );
                 })()}
 
-                {/* Sponsor cards — gold + networking render as a fixed 3-column grid.
-                    Gold row 2 = [4th, empty, 5th]; networking row 2 = [empty, 4th, empty]. */}
+                {/* Sponsor cards — gold renders as a balanced 3+2 pyramid (top row of
+                    three, centered row of two); networking row 2 = [empty, 4th, empty]. */}
                 {(isGold
-                  ? [sponsorsInTier.slice(0, 3), [sponsorsInTier[3] ?? null, null, sponsorsInTier[4] ?? null]]
+                  ? [sponsorsInTier.slice(0, 3), sponsorsInTier.slice(3)].filter((r) => r.length > 0)
                   : isNetworking
                   ? [sponsorsInTier.slice(0, 3), [null, sponsorsInTier[3] ?? null, null]]
                   : [sponsorsInTier]
