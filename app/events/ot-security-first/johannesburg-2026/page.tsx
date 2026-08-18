@@ -273,6 +273,13 @@ function MagneticButton({
 // Speakers from brochure
 const SPEAKERS = [
   {
+    name: "Mark Van Vuuren",
+    title: "Product Director",
+    org: "Corr-Serve",
+    linkedin: "https://www.linkedin.com/in/mark-van-vuuren-b2942237/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mark+OT+Sec+Selfie.jpg",
+  },
+  {
     name: "Len De Villiers",
     title: "Group CTIO",
     org: "Eskom Holdings",
@@ -4337,7 +4344,7 @@ const EVENT_SPONSORS_2026: {
     name: "Aria",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/aria.png",
     tier: "strategic",
-    keepColor: true,
+    scale: 1.25,
   },
   {
     name: "Forescout",
