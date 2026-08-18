@@ -4311,6 +4311,14 @@ const EVENT_SPONSORS_2026: {
     keepColor: true,
   },
   {
+    name: "NTT DATA",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/GlobalLogo_NTTDATA_White_RGB.png",
+    url: "https://www.nttdata.com/",
+    tier: "panel",
+    keepColor: true,
+    scale: 1.4,
+  },
+  {
     name: "Palo Alto Networks",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/PANW_Parent_Brand_Primary_Logo_RGB_Red_White.png",
     url: "https://www.paloaltonetworks.com/",
