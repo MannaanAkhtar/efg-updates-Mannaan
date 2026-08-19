@@ -268,7 +268,7 @@ function Hero() {
 
         {/* Meta strip */}
         <div className="ic-fade ic-d5 ic-meta ic-meta-shine" style={{ position: "relative", overflow: "hidden", display: "inline-flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "clamp(14px,2vw,26px)", marginTop: 6, padding: "11px clamp(20px,3vw,34px)", borderRadius: 999, background: "rgba(16,14,12,0.5)", border: `1px solid ${LINE_STRONG}`, backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", boxShadow: "0 22px 54px rgba(0,0,0,0.5)" }}>
-          {["19 August 2026", "Hilton Riyadh & Residences", "4:30 PM Onwards"].map((m, i, arr) => (
+          {["19 August 2026", "Hilton Riyadh Hotel & Residences", "4:30 PM Onwards"].map((m, i, arr) => (
             <React.Fragment key={m}>
               <span style={{ fontFamily: BODY, fontSize: "clamp(12px,1.2vw,14.5px)", fontWeight: 600, letterSpacing: "0.04em", color: WHITE, whiteSpace: "nowrap" }}>{m}</span>
               {i < arr.length - 1 && <span aria-hidden style={{ width: 1, height: 15, background: LINE_STRONG }} />}
@@ -715,7 +715,7 @@ function CtaBand() {
           An Evening Crafted For Leaders Like You.
         </h2>
         <p style={{ ...rise(inView, 0.16), fontFamily: BODY, fontSize: "clamp(15px,1.6vw,19px)", fontWeight: 600, letterSpacing: "0.02em", color: GOLD_BRIGHT, margin: "22px 0 0", textShadow: "0 2px 18px rgba(0,0,0,0.7)" }}>
-          Hilton Riyadh &amp; Residences &nbsp;&mdash;&nbsp; 19 August 2026
+          Hilton Riyadh Hotel &amp; Residences &nbsp;&mdash;&nbsp; 19 August 2026
         </p>
         <div style={{ ...rise(inView, 0.24), marginTop: 30, display: "inline-flex", flexWrap: "wrap", justifyContent: "center", gap: 14 }}>
           <a href="#register" onClick={(e) => { e.preventDefault(); document.getElementById("register")?.scrollIntoView({ behavior: "smooth" }); }} className="ic-btn" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "16px 38px", borderRadius: 999, background: `linear-gradient(135deg, ${RED} 0%, ${RED_SOFT} 100%)`, color: "#fff", fontFamily: BODY, fontSize: 15, fontWeight: 700, textDecoration: "none", boxShadow: `0 16px 44px ${RED}55, inset 0 1px 0 rgba(255,255,255,0.3)` }}>
