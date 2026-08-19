@@ -72,7 +72,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png", flag: "https://flagcdn.com/w40/gb-eng.png" },
   { name: "Tahir Saleem", title: "Chief Innovation Officer", org: "SIS Industrial Cyber Security", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tahir+Saleem.png", linkedin: "https://www.linkedin.com/in/tahirsaleem/", flag: "https://flagcdn.com/w40/au.png" },
   { name: "Mohammed Shoukat Ali", title: "GM & Head Global Cybersecurity CoE", org: "Yokogawa", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Shoukat+Ali.png", linkedin: "https://www.linkedin.com/in/mohammedshoukatali/", flag: "https://flagcdn.com/w40/jp.png" },
-  { name: "Mohammed Alangari", title: "Vice President", org: "Enterprise Governance", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Mohammed+Alangari.jpeg", linkedin: "https://www.linkedin.com/in/mohammed-aalangari/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Mohammed Alangari", title: "CISO & VP of GRC", org: "Saudi Tourism Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Mohammed+Alangari.jpeg", linkedin: "https://www.linkedin.com/in/mohammed-aalangari/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Eng. Huda Ahmed Mohsen", title: "Chief Of Information Technology", org: "Ministry Of Information", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng.Huda+Ahmed+Mohsen1.png", linkedin: "https://www.linkedin.com/in/eng-huda-ahmed-mohsen-a5b15557/", flag: "https://flagcdn.com/w40/bh.png" },
 ];
 
