@@ -53,23 +53,23 @@ type Speaker = {
 };
 
 const SPEAKERS: Speaker[] = [
-  { name: "Ahmed Al Saleh", title: "Head of Digital & OT Cybersecurity Initiatives", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed_Al_Saleh.png", linkedin: "https://www.linkedin.com/in/ahmed-al-saleh/", flag: "https://flagcdn.com/w40/sa.png" },
-  { name: "Ahmed T Alawami", title: "Head of AI & Digital Transformation (Energy & Utilities)", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+T+Alawami.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/", flag: "https://flagcdn.com/w40/sa.png" },
-  { name: "Badar Al Salehi", title: "Director General, Oman National CERT", org: "Ministry of Transport, Communications and Information Technology", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Badar+Al+Salehi.png", linkedin: "https://www.linkedin.com/in/badar-al-salehi-75461061/", flag: "https://flagcdn.com/w40/om.png", photoPos: "center 42%" },
   { name: "Thamer Alrowidhan", title: "Chief Information Security Officer (CISO)", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Thamer_alrowidhan.png", linkedin: "https://www.linkedin.com/in/ethamer", flag: "https://flagcdn.com/w40/sa.png" },
-  { name: "Ali Abdulla Hasan Alsadadi", title: "Chief of Information Technology", org: "Ministry of Oil & Environment Bahrain", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Ali+Abdulla+Hasan+Alsadadi.png", linkedin: "https://www.linkedin.com/in/ali-abdulla-hasan-alsadadi-a4210825/", flag: "https://flagcdn.com/w40/bh.png" },
+  { name: "Dr. Mohammad Dahman Alshehri", title: "Senior Advisor and CISO", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Mohammad+Dahman+Alshehri.jpeg", linkedin: "https://www.linkedin.com/in/mohammad-alshehri-phd/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Ahmed Al Saleh", title: "Head of Digital & OT Cybersecurity Initiatives", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed_Al_Saleh.png", linkedin: "https://www.linkedin.com/in/ahmed-al-saleh/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Ahmed T Alawami", title: "Head of AI & Digital Transformation (Energy & Utilities)", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+T+Alawami.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/", flag: "https://flagcdn.com/w40/sa.png", photoTransform: "scale(1.18)" },
   { name: "Hamoud Almohaya", title: "Head of GRC Cybersecurity", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/HAMOUD_ALMOHAYA.png", linkedin: "https://www.linkedin.com/in/hamoudbinmohaya/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Abdulrahman Al-Nimari", title: "VP, Cyber Security", org: "Confidential Organization", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulrahman_Al-Nimar.png", linkedin: "https://www.linkedin.com/in/alnimari/", flag: "https://flagcdn.com/w40/sa.png", photoTransform: "scale(1.18)" },
   { name: "Saad AlGarni", title: "Head of Cybersecurity", org: "Saudi Global Ports", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Saad_Algarn.png", linkedin: "https://www.linkedin.com/in/saad-algarni-710679b3/", flag: "https://flagcdn.com/w40/sa.png" },
-  { name: "Sultan Moraished", title: "Group Head of Technology and Corporate Excellence", org: "Red Sea Global", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Moraished.png", linkedin: "https://www.linkedin.com/in/sultan-moraished-0786394a/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Ali Abdulla Hasan Alsadadi", title: "Chief of Information Technology", org: "Ministry of Oil & Environment Bahrain", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Ali+Abdulla+Hasan+Alsadadi.png", linkedin: "https://www.linkedin.com/in/ali-abdulla-hasan-alsadadi-a4210825/", flag: "https://flagcdn.com/w40/bh.png" },
+  { name: "Badar Al Salehi", title: "Director General, Oman National CERT", org: "Ministry of Transport, Communications and Information Technology", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Badar+Al+Salehi.png", linkedin: "https://www.linkedin.com/in/badar-al-salehi-75461061/", flag: "https://flagcdn.com/w40/om.png", photoPos: "center 42%" },
   { name: "Ali Alrushaid", title: "Chief Information Security Officer", org: "ASMO", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ALI_ALRUSHAID.png", linkedin: "https://www.linkedin.com/in/ali-alrushaid-66377114/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Sultan Moraished", title: "Group Head of Technology and Corporate Excellence", org: "Red Sea Global", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Moraished.png", linkedin: "https://www.linkedin.com/in/sultan-moraished-0786394a/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Sultan Alshammari", title: "Cyber Security Director", org: "National Infrastructure Fund (Infra)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Alshammari.png", linkedin: "https://www.linkedin.com/in/sultan-alshammari-a2378994/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Alaa Khalid", title: "Director, Cybersecurity Operations & GRC", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Alaa_Khalid_.png", linkedin: "https://www.linkedin.com/in/alaa-khalid-870743121/", flag: "https://flagcdn.com/w40/sa.png" },
-  { name: "Dr. Mohammad Dahman Alshehri", title: "Senior Advisor and CISO", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Mohammad+Dahman+Alshehri.jpeg", linkedin: "https://www.linkedin.com/in/mohammad-alshehri-phd/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Javed A. Akbar", title: "Chief Governance, Risk (GRC), Insurance & Data Officer", org: "TASNEE", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Javed_A.+Akbar.png", linkedin: "https://www.linkedin.com/in/javedakbar/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Wael A. Rahman", title: "Lead ICS/OT Security Engineer", org: "Petroleum Development Oman", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/WAEL+A.+RAHMAN.png", linkedin: "https://www.linkedin.com/in/wael-a-rahman/", flag: "https://flagcdn.com/w40/om.png" },
   { name: "Aamir Khalid Pirzada", title: "Chief Information Officer", org: "National Metal Manufacturing and Casting Company (Maadaniyah)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aamir+Khalid+Pirzada.jpg", linkedin: "https://www.linkedin.com/in/aamir-khalid-p-360a974/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png", flag: "https://flagcdn.com/w40/gb-eng.png" },
-  { name: "Javed A. Akbar", title: "Chief Governance, Risk (GRC), Insurance & Data Officer", org: "TASNEE", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Javed_A.+Akbar.png", linkedin: "https://www.linkedin.com/in/javedakbar/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Tahir Saleem", title: "Chief Innovation Officer", org: "SIS Industrial Cyber Security", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tahir+Saleem.png", linkedin: "https://www.linkedin.com/in/tahirsaleem/", flag: "https://flagcdn.com/w40/au.png" },
   { name: "Mohammed Shoukat Ali", title: "GM & Head Global Cybersecurity CoE", org: "Yokogawa", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Shoukat+Ali.png", linkedin: "https://www.linkedin.com/in/mohammedshoukatali/", flag: "https://flagcdn.com/w40/jp.png" },
 ];
@@ -3054,16 +3054,28 @@ function Evidence2026() {
 
 // ─── AGENDA ──────────────────────────────────────────────────────────────────
 // Verbatim conference schedule (source: Jubail agenda doc). Do not alter copy.
-type AgendaRow = { time: string; type: string; title: string; desc: string };
+type AgendaPanelist = { name: string; role: string; org: string; moderator?: boolean };
+type AgendaRow = {
+  time: string;
+  type?: string;
+  logo?: string;
+  logoScale?: number;
+  title: string;
+  desc?: string;
+  speaker?: string;
+  panelists?: AgendaPanelist[];
+};
 type AgendaBreak = { kind: "break"; time: string; label: string; desc?: string };
 type AgendaSession = { kind: "session"; serial: string; title: string; time: string; rows: AgendaRow[] };
+
+const AG_LOGOS = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo";
 const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
   { kind: "break", time: "08:30", label: "Registration", desc: "Delegate registration, welcome coffee" },
   {
     kind: "session",
     serial: "01",
     title: "The Regulatory Imperative — Governing OT Security in the Kingdom",
-    time: "09:00 – 10:15",
+    time: "09:00 – 10:00",
     rows: [
       {
         time: "09:00 – 9:10",
@@ -3081,11 +3093,17 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
         time: "09:20 – 10:00",
         type: "Panel Discussion",
         title: "GCC & Global Collaboration on OT Security. What Are the World's Leading Industrial Nations Doing and What Can Saudi Arabia Learn?",
-        desc: "Cyberthreats do not respect borders. This panel brings together OT security leaders from across the GCC and beyond to share how their nations, regulators, and critical infrastructure operators are responding to the same industrial cyber threats — and how cross-border intelligence sharing, joint frameworks, and bilateral agreements can strengthen Saudi Arabia's industrial resilience.",
+        panelists: [
+          { name: "Badar Al Salehi", role: "Director General", org: "Ministry of Transport, Communications and Information Technology Oman" },
+          { name: "Ali Abdulla Hasan Alsadadi", role: "Chief of Information Technology", org: "Ministry of Oil & Environment Bahrain" },
+          { name: "Hamoud Almohaya", role: "Head of GRC Cybersecurity", org: "Confidential Government" },
+          { name: "Dr. Mohammad Dahman Alshehri", role: "Senior Advisor and CISO", org: "Confidential" },
+          { name: "Abdulrahman Al-Nimari", role: "VP, Cyber Security", org: "Confidential Organization", moderator: true },
+        ],
       },
     ],
   },
-  { kind: "break", time: "10:00 – 10:45", label: "Networking Break / VIP Exhibition tour" },
+  { kind: "break", time: "10:00 – 10:45", label: "Networking Break / VIP Exhibition Tour" },
   {
     kind: "session",
     serial: "02",
@@ -3094,21 +3112,27 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
     rows: [
       {
         time: "10:45 – 10:55",
-        type: "Keynote",
-        title: "State of the threat: Nation-state actors, ransomware, and the targeting of Gulf critical infrastructure in 2026",
-        desc: "An authoritative intelligence-led assessment of the cyber threat environment facing Saudi Arabia's oil & gas, petrochemical, and energy sectors — and how the Kingdom is responding at a national level.",
+        logo: `${AG_LOGOS}/swidch+logo+white.png`,
+        logoScale: 1.3,
+        title: "Reserved for Gold Sponsor SWIDCH",
       },
       {
         time: "10:55 – 11:05",
-        type: "Keynote",
-        title: "IT/OT convergence: How digital transformation is expanding the attack surface across petrochemical operations",
-        desc: "How the integration of enterprise IT and industrial OT is creating new vulnerability pathways — and what network segmentation, zero-trust, and unidirectional gateways offer as countermeasures.",
+        logo: `${AG_LOGOS}/Yoko+logo-01.png`,
+        title: "Reserved for Gold Sponsor Yokogawa",
+        speaker: "Mohammed Shoukat Ali, GM & Head Global Cybersecurity CoE, Yokogawa",
       },
       {
         time: "11:05 – 11:45",
         type: "Panel Discussion",
-        title: "Under attack: Incident response, threat detection, and OT resilience across Jubail's industrial corridor",
-        desc: "Oil & gas and petrochemical operators discuss real-world incident response experiences, detection capability gaps, and building OT resilience in one of the world's most strategically important industrial zones.",
+        title: "Under attack: Incident response, threat detection, and OT resilience across Kingdom's industrial corridor",
+        panelists: [
+          { name: "Aamir Khalid Pirzada", role: "Chief Information Officer", org: "National Metal Manufacturing and Casting Company (Maadaniyah)" },
+          { name: "Alaa Khalid", role: "Director, Cybersecurity Operations & GRC", org: "Confidential" },
+          { name: "Ahmed Al Saleh", role: "Head of Digital & OT Cybersecurity Initiatives", org: "Aramco" },
+          { name: "Wael A. Rahman", role: "Lead ICS/OT Security Engineer", org: "Petroleum Development Oman" },
+          { name: "Dr. Hussain Aldawood", role: "Director of Cybersecurity Consulting", org: "EY", moderator: true },
+        ],
       },
     ],
   },
@@ -3120,21 +3144,25 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
     rows: [
       {
         time: "11:45 – 11:55",
-        type: "Keynote",
-        title: "Securing SCADA, PLCs & ICS in legacy and greenfield environments: A practical framework for Jubail's operators",
-        desc: "How to build a defensible OT architecture — asset visibility, vulnerability management, patch strategies for legacy systems, and IEC 62443 alignment in an oil & gas context.",
+        logo: `${AG_LOGOS}/SIS+logo-03.png`,
+        title: "Your AI Has Never Seen Your Plant",
+        desc: "Building industrial intelligence below Level 3.5. Speaker: Tahir Saleem, Chief Innovation Officer, SIS Industrial Cybersecurity.",
       },
       {
         time: "11:55 – 12:05",
-        type: "Keynote",
-        title: "Building an OT security operations capability: Lessons from Saudi Arabia's most critical facilities",
-        desc: "What a fit-for-purpose OT SOC looks like — detection engineering for industrial protocols, threat hunting in ICS environments, and integrating OT visibility into a national security operations programme.",
+        logo: `${AG_LOGOS}/schneider-electric-seeklogo.png`,
+        title: "Reserved for Gold Sponsor (Schneider Electric)",
       },
       {
         time: "12:05 – 12:45",
         type: "Panel Discussion",
         title: "Standards, procurement & supply chain: How do we build OT security into the fabric of Saudi industrial operations?",
-        desc: "Operators, government bodies, and procurement leaders discuss enforcing OT security standards through vendor contracts, integrating IEC 62443 into capital project delivery, and holding the supply chain accountable",
+        panelists: [
+          { name: "Javed A. Akbar", role: "Chief Governance, Risk (GRC), Insurance & Data Officer", org: "TASNEE" },
+          { name: "Saad AlGarni", role: "Head of Cybersecurity", org: "Saudi Global Ports" },
+          { name: "Ali Alrushaid", role: "Chief Information Security Officer", org: "ASMO" },
+          { name: "Redha Alahmad", role: "Senior Manager, Cybersecurity (OT/ICS)", org: "EY", moderator: true },
+        ],
       },
     ],
   },
@@ -3153,15 +3181,18 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
       },
       {
         time: "14:15 – 14:30",
-        type: "Closing Keynote",
-        title: "A national call to action: Government, industry, and the shared responsibility of securing the Kingdom's OT future",
-        desc: "Senior ministry or government figure delivers closing remarks — framing the collective obligation of operators, regulators, and the private sector to advance OT security resilience across Saudi Arabia's most critical industries.",
+        type: "Keynote",
+        title: "AI Beyond the Pilot: Building Secure and Resilient AI for Critical Infrastructure",
+        speaker: "Ahmed T Alawami, Head of AI & Digital Transformation (Energy & Utilities), Saudi Energy",
       },
       {
         time: "14:30 – 15:15",
         type: "Panel Discussion",
-        title: "The Jubail Dialogue: What must Saudi Arabia's oil & gas, petrochemical, and government sectors commit to in the next 12 months?",
-        desc: "A high-level closing panel bringing together the day's key voices to agree on priorities, actions, and commitments that will define OT security progress across the Kingdom's industrial heartland.",
+        title: "The KSA Dialogue: What must Saudi Arabia's oil & gas, petrochemical, and government sectors commit to in the next 12 months?",
+        panelists: [
+          { name: "Sultan Alshammari", role: "Cyber Security Director", org: "National Infrastructure Fund (Infra)" },
+          { name: "Irtiza Arain", role: "Director, Cybersecurity", org: "EY MENA", moderator: true },
+        ],
       },
     ],
   },
@@ -3288,7 +3319,7 @@ function AgendaBlock({ block }: { block: AgendaBreak | AgendaSession }) {
               borderTop: ri === 0 ? "none" : "1px solid rgba(255,255,255,0.055)",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 11, marginBottom: 12 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 11, marginBottom: 12, flexWrap: "wrap" }}>
               <span
                 style={{
                   fontFamily: "var(--font-outfit)",
@@ -3306,14 +3337,45 @@ function AgendaBlock({ block }: { block: AgendaBreak | AgendaSession }) {
               >
                 {row.time}
               </span>
-              <AgendaTypeTag type={row.type} />
+              {row.logo ? (
+                <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                  <img
+                    src={row.logo}
+                    alt=""
+                    style={{ height: 38 * (row.logoScale ?? 1), width: "auto", objectFit: "contain", display: "block" }}
+                  />
+                </span>
+              ) : row.type ? (
+                <AgendaTypeTag type={row.type} />
+              ) : null}
             </div>
             <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(15px, 1.3vw, 16.5px)", fontWeight: 600, color: "rgba(255,255,255,0.95)", lineHeight: 1.42, letterSpacing: "-0.2px", margin: "0 0 8px" }}>
               {row.title}
             </p>
-            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.58)", lineHeight: 1.68, margin: 0, maxWidth: 620 }}>
-              {row.desc}
-            </p>
+            {row.desc ? (
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.58)", lineHeight: 1.68, margin: 0, maxWidth: 620 }}>
+                {row.desc}
+              </p>
+            ) : null}
+            {row.speaker ? (
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 500, color: "rgba(255,255,255,0.72)", lineHeight: 1.6, margin: 0 }}>
+                {row.speaker}
+              </p>
+            ) : null}
+            {row.panelists ? (
+              <ul style={{ listStyle: "none", margin: "2px 0 0", padding: 0, display: "flex", flexDirection: "column", gap: 7, maxWidth: 640 }}>
+                {row.panelists.map((p, pi) => (
+                  <li key={pi} style={{ display: "flex", alignItems: "flex-start", gap: 9 }}>
+                    <span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: p.moderator ? CYAN : `${C_BRIGHT}cc`, marginTop: 8, flexShrink: 0 }} />
+                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, lineHeight: 1.55 }}>
+                      <span style={{ fontWeight: 700, color: p.moderator ? CYAN : "rgba(255,255,255,0.92)" }}>{p.name}</span>
+                      <span style={{ fontWeight: 400, color: "rgba(255,255,255,0.6)" }}>{`, ${p.role}, ${p.org}`}</span>
+                      {p.moderator ? <span style={{ fontWeight: 700, color: CYAN }}>{" (Moderator)"}</span> : null}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
         ))}
       </div>
