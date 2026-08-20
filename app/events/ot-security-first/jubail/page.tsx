@@ -53,7 +53,6 @@ type Speaker = {
 };
 
 const SPEAKERS: Speaker[] = [
-  { name: "Thamer Alrowidhan", title: "Chief Information Security Officer (CISO)", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Thamer_alrowidhan.png", linkedin: "https://www.linkedin.com/in/ethamer", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Dr. Mohammad Dahman Alshehri", title: "Senior Advisor and CISO", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Mohammad+Dahman+Alshehri.jpeg", linkedin: "https://www.linkedin.com/in/mohammad-alshehri-phd/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Ahmed Al Saleh", title: "Head of Digital & OT Cybersecurity Initiatives", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed_Al_Saleh.png", linkedin: "https://www.linkedin.com/in/ahmed-al-saleh/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Ahmed T Alawami", title: "Head of AI & Digital Transformation (Energy & Utilities)", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+T+Alawami.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/", flag: "https://flagcdn.com/w40/sa.png", photoTransform: "scale(1.45) translateY(8%)" },
@@ -67,9 +66,10 @@ const SPEAKERS: Speaker[] = [
   { name: "Sultan Alshammari", title: "Cyber Security Director", org: "National Infrastructure Fund (Infra)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Alshammari.png", linkedin: "https://www.linkedin.com/in/sultan-alshammari-a2378994/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Alaa Khalid", title: "Director, Cybersecurity Operations & GRC", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Alaa_Khalid_.png", linkedin: "https://www.linkedin.com/in/alaa-khalid-870743121/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Mohammed Alangari", title: "CISO & VP of GRC", org: "Saudi Tourism Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Mohammed+Alangari.jpeg", linkedin: "https://www.linkedin.com/in/mohammed-aalangari/", flag: "https://flagcdn.com/w40/sa.png" },
-  { name: "Eng. Huda Ahmed Mohsen", title: "Chief Of Information Technology", org: "Ministry Of Information", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng.Huda+Ahmed+Mohsen1.png", linkedin: "https://www.linkedin.com/in/eng-huda-ahmed-mohsen-a5b15557/", flag: "https://flagcdn.com/w40/bh.png" },
+  { name: "Eng. Huda Ahmed Mohsen", title: "Chief Of Information Technology", org: "Ministry Of Information Bahrain", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng.Huda+Ahmed+Mohsen1.png", linkedin: "https://www.linkedin.com/in/eng-huda-ahmed-mohsen-a5b15557/", flag: "https://flagcdn.com/w40/bh.png" },
   { name: "Javed A. Akbar", title: "Chief Governance, Risk (GRC), Insurance & Data Officer", org: "TASNEE", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Javed_A.+Akbar.png", linkedin: "https://www.linkedin.com/in/javedakbar/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Wael A. Rahman", title: "Lead ICS/OT Security Engineer", org: "Petroleum Development Oman", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/WAEL+A.+RAHMAN.png", linkedin: "https://www.linkedin.com/in/wael-a-rahman/", flag: "https://flagcdn.com/w40/om.png" },
+  { name: "Thamer Alrowidhan", title: "Chief Information Security Officer (CISO)", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Thamer_alrowidhan.png", linkedin: "https://www.linkedin.com/in/ethamer", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Aamir Khalid Pirzada", title: "Chief Information Officer", org: "National Metal Manufacturing and Casting Company (Maadaniyah)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aamir+Khalid+Pirzada.jpg", linkedin: "https://www.linkedin.com/in/aamir-khalid-p-360a974/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png", flag: "https://flagcdn.com/w40/gb-eng.png" },
   { name: "Tahir Saleem", title: "Chief Innovation Officer", org: "SIS Industrial Cyber Security", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tahir+Saleem.png", linkedin: "https://www.linkedin.com/in/tahirsaleem/", flag: "https://flagcdn.com/w40/au.png" },
@@ -4531,6 +4531,7 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
     tier: "Associate Sponsor",
     logos: [
       { name: "SIS", href: "https://sis-ics.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/SIS+logo-03.png" },
+      { name: "INTECH", href: "https://www.intechww.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/INTECH+Logo_Main+5.svg" },
     ],
   },
   {
@@ -4575,7 +4576,7 @@ function SponsorsSection() {
           <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>sponsors 2026.</em>
         </motion.h2>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(40px, 5vw, 64px)" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(10px, 1.4vw, 20px)" }}>
           {SPONSOR_TIERS.map((t, ti) => {
             const renderPlate = (s: SponsorLogo, i: number) => {
               const isLight = s.surface === "light";
