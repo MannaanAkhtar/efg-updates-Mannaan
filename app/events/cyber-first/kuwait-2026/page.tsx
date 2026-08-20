@@ -259,7 +259,7 @@ const SPEAKERS: Speaker[] = [
     title: "Head of IT & SAP Systems",
     org: "Al Mulla Group",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sachin+Shripad+Mungi.png",
-    linkedin: null,
+    linkedin: "https://www.linkedin.com/in/sachin-mungi-4858788/",
   },
 ];
 
