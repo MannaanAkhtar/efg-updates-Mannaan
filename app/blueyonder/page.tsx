@@ -86,7 +86,7 @@ const SPEAKERS = [
     role: "Panelist",
     title: "Senior Solution Advisor",
     org: "Blue Yonder",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Jiya_Chadha.png",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Jiya+Chadha1.jpeg",
     linkedin: "https://www.linkedin.com/in/jiya-chadha-26096763/",
   },
 ];
