@@ -151,6 +151,12 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
         {/* Vercel Web Analytics (enabled 2026-06-11) */}
         <script defer src="/_vercel/insights/script.js" />
+        {/* Apollo website tracker (enabled 2026-08-20) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,o.onload=function(){window.trackingFunctions.onLoad({appId:"6a22c4d49fa3d0000cdb5741"})},document.head.appendChild(o)}initApollo();`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
