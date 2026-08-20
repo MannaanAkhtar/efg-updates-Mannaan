@@ -254,6 +254,13 @@ const SPEAKERS: Speaker[] = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Yousef+Kazim.jpeg",
     linkedin: "https://www.linkedin.com/in/altaromi/",
   },
+  {
+    name: "Sachin Shripad Mungi",
+    title: "Head of IT & SAP Systems",
+    org: "Al Mulla Group",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sachin+Shripad+Mungi.png",
+    linkedin: null,
+  },
 ];
 
 // Kuwait 2025 photos used for the gallery + Key Topic panels (verified S3 URLs).
