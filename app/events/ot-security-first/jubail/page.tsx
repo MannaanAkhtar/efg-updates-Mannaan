@@ -3100,6 +3100,7 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
           { name: "Ali Abdulla Hasan Alsadadi", role: "Chief of Information Technology", org: "Ministry of Oil & Environment Bahrain" },
           { name: "Hamoud Almohaya", role: "Head of GRC Cybersecurity", org: "Confidential Government" },
           { name: "Dr. Mohammad Dahman Alshehri", role: "Senior Advisor and CISO", org: "Confidential Government" },
+          { name: "Eng. Huda Ahmed Mohsen", role: "Chief Of Information Technology", org: "Ministry of Information Bahrain" },
           { name: "Abdulrahman Al-Nimari", role: "VP, Cyber Security", org: "Confidential Organization", moderator: true },
         ],
       },
@@ -3193,6 +3194,7 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
         title: "The KSA Dialogue: What must Saudi Arabia's oil & gas, petrochemical, and government sectors commit to in the next 12 months?",
         panelists: [
           { name: "Sultan Alshammari", role: "Cyber Security Director", org: "National Infrastructure Fund (Infra)" },
+          { name: "Mohammed Alangari", role: "Vice President of Enterprise Governance, Risk & Compliance (GRC) and Chief Information Security Officer", org: "Saudi Tourism Authority" },
           { name: "Irtiza Arain", role: "Director, Cybersecurity", org: "EY MENA", moderator: true },
         ],
       },
