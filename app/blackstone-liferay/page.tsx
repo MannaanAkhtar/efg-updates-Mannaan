@@ -851,24 +851,29 @@ function SmokeBg() {
 // ═════════════════════════════════════════════════════════════════════════════
 // SPEAKERS — to be announced (placeholder cards until the line-up is confirmed)
 // ═════════════════════════════════════════════════════════════════════════════
+const BL_SPEAKERS = [
+  { name: "Ahmad Saad", title: "Regional Sales Manager, Liferay", linkedin: "https://www.linkedin.com/in/ahmad-saad-15088224/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmad+Saad.JPG" },
+  { name: "Mahmoud Tayem", title: "Manager, Sales Engineering, Liferay", linkedin: "https://www.linkedin.com/in/tayemmahmoud/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mahmoud+Tayem+Small.jpg" },
+];
+
 function SpeakersSection() {
   const ref = useRef<HTMLDivElement | null>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const slots = [0, 1, 2, 3];
   return (
     <section id="speakers" style={{ position: "relative", overflow: "hidden", background: "#020A17", color: WHITE, ...SECTION_PAD }}>
       <SmokeBg />
       <div style={{ position: "relative", zIndex: 2, maxWidth: 1160, margin: "0 auto" }}>
-        <SectionHeading eyebrow="Speakers & Panelists" title="The line-up" align="center" sub="Our speakers and panelists are being confirmed. The full roster of public-sector leaders and platform experts will be announced soon." />
+        <SectionHeading eyebrow="Speakers & Panelists" title="The line-up" align="center" sub="Meet the Liferay platform experts leading the session." />
 
-        <div ref={ref} className="bl-speakers-grid" style={{ marginTop: "clamp(40px,5vw,64px)", display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "clamp(16px,1.8vw,22px)" }}>
-          {slots.map((i) => (
-            <motion.div
-              key={i}
+        <div ref={ref} className="bl-speakers-grid" style={{ marginTop: "clamp(40px,5vw,64px)", display: "grid", gridTemplateColumns: "repeat(2, minmax(180px, 232px))", justifyContent: "center", gap: "clamp(18px,2vw,26px)" }}>
+          {BL_SPEAKERS.map((s, i) => (
+            <motion.a
+              key={s.name}
+              href={s.linkedin} target="_blank" rel="noopener noreferrer"
               initial={{ opacity: 0, y: 22 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
               className="bl-spk-card"
               style={{
-                position: "relative", padding: "clamp(24px,2.4vw,30px) 20px", borderRadius: 18, overflow: "hidden", textAlign: "center",
+                position: "relative", display: "block", textDecoration: "none", padding: 0, borderRadius: 18, overflow: "hidden", textAlign: "center",
                 background: "linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(10,26,60,0.20) 100%)",
                 backdropFilter: "blur(14px) saturate(140%)", WebkitBackdropFilter: "blur(14px) saturate(140%)",
                 border: "1px solid rgba(150,200,255,0.22)",
@@ -876,28 +881,23 @@ function SpeakersSection() {
                 transition: "transform .35s ease, border-color .35s ease, box-shadow .35s ease",
               }}
             >
-              <span aria-hidden style={{ position: "absolute", top: -1, left: "18%", right: "18%", height: 1.5, background: "linear-gradient(90deg, transparent, rgba(150,214,255,0.8), transparent)" }} />
+              <span aria-hidden style={{ position: "absolute", top: -1, left: "18%", right: "18%", height: 1.5, zIndex: 3, background: "linear-gradient(90deg, transparent, rgba(150,214,255,0.8), transparent)" }} />
               {/* staggered shimmer sweep */}
-              <span aria-hidden className="bl-glass-sheen" style={{ position: "absolute", top: 0, bottom: 0, left: 0, width: "55%", zIndex: 0, background: "linear-gradient(90deg, transparent, rgba(180,224,255,0.10), transparent)", animationDelay: `${i * 1.4}s`, pointerEvents: "none" }} />
-              {/* avatar — breathing glow */}
-              <span className="bl-spk-avatar" style={{
-                position: "relative", zIndex: 1,
-                display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px",
-                width: 84, height: 84, borderRadius: "50%",
-                background: "linear-gradient(160deg, rgba(120,214,255,0.22), rgba(11,95,255,0.14))",
-                border: "1px solid rgba(150,200,255,0.30)", animationDelay: `${i * 0.55}s`,
-              }}>
-                <svg width={38} height={38} viewBox="0 0 24 24" fill="none" aria-hidden>
-                  <circle cx="12" cy="8.5" r="3.6" stroke="#9CD6FF" strokeWidth="1.6" />
-                  <path d="M5 19.5c0-3.6 3.1-6 7-6s7 2.4 7 6" stroke="#9CD6FF" strokeWidth="1.6" strokeLinecap="round" />
-                </svg>
-              </span>
-              <div style={{ position: "relative", zIndex: 1, display: "inline-flex", alignItems: "center", gap: 7, fontFamily: FONT, fontSize: 10, fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase", color: "#BFE2FF", padding: "4px 11px", borderRadius: 999, background: "rgba(120,214,255,0.12)", border: "1px solid rgba(150,200,255,0.26)", marginBottom: 12 }}>
-                <PixelMark size={11} gap={0.8} radius={1} from="#BFE2FF" to="#70A1FF" /> To Be Announced
+              <span aria-hidden className="bl-glass-sheen" style={{ position: "absolute", top: 0, bottom: 0, left: 0, width: "55%", zIndex: 3, background: "linear-gradient(90deg, transparent, rgba(180,224,255,0.10), transparent)", animationDelay: `${i * 1.4}s`, pointerEvents: "none" }} />
+              {/* full portrait */}
+              <div style={{ position: "relative", zIndex: 1, width: "100%", aspectRatio: "4 / 5", overflow: "hidden", background: "linear-gradient(160deg, rgba(120,214,255,0.14), rgba(11,95,255,0.10))" }}>
+                <img src={s.photo} alt={s.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+                <span aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 55%, rgba(2,10,23,0.55) 100%)", pointerEvents: "none" }} />
               </div>
-              <div style={{ position: "relative", zIndex: 1, fontFamily: FONT, fontSize: 16.5, fontWeight: 700, color: WHITE, letterSpacing: "-0.01em" }}>Speaker</div>
-              <div style={{ position: "relative", zIndex: 1, fontFamily: FONT, fontSize: 13, fontWeight: 500, color: "rgba(200,222,255,0.6)", marginTop: 4 }}>Announced soon</div>
-            </motion.div>
+              <div style={{ position: "relative", zIndex: 1, padding: "18px 18px 24px" }}>
+                <div style={{ fontFamily: FONT, fontSize: 17.5, fontWeight: 700, color: WHITE, letterSpacing: "-0.01em" }}>{s.name}</div>
+                <div style={{ fontFamily: FONT, fontSize: 13, fontWeight: 500, color: "rgba(200,222,255,0.62)", marginTop: 5, lineHeight: 1.4 }}>{s.title}</div>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: FONT, fontSize: 11, fontWeight: 700, letterSpacing: "0.04em", color: "#BFE2FF", padding: "5px 12px", borderRadius: 999, background: "rgba(120,214,255,0.12)", border: "1px solid rgba(150,200,255,0.26)", marginTop: 14 }}>
+                  <svg width={13} height={13} viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-4.9c0-1.17-.02-2.67-1.9-2.67-1.9 0-2.2 1.27-2.2 2.58V21H9z"/></svg>
+                  LinkedIn
+                </span>
+              </div>
+            </motion.a>
           ))}
         </div>
       </div>
