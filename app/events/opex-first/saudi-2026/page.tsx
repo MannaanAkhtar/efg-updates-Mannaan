@@ -199,14 +199,12 @@ const FOCUS_AREAS = [
 
 type Speaker = { name: string; title: string; org: string; photo: string };
 const SPEAKERS: Speaker[] = [
-  { name: "H.E. Dr. Abdullah Bin Sharaf Alghamdi", title: "President", org: "Saudi Data & AI Authority (SDAIA)", photo: "" },
-  { name: "H.E. Eng. Ahmed Alsuwaiyan", title: "Governor & Board Member", org: "Digital Government Authority", photo: "" },
-  { name: "Rayan Alnafisah", title: "Senior Director", org: "Royal Commission for Riyadh City", photo: "" },
-  { name: "Neil Matthew Menezes", title: "VP — Maaden ERP Transformation Program", org: "Maaden", photo: "" },
-  { name: "Sultan Moraished", title: "Group Head of Technology & Corporate Excellence", org: "Red Sea Global", photo: "" },
-  { name: "Riyadh Alharbi", title: "Senior Director", org: "Royal Commission for Riyadh City", photo: "" },
-  { name: "Ramesh Murugesan", title: "Head of IT Governance & Advisory", org: "Maaden", photo: "" },
-  { name: "Riyadh Almohawes", title: "VP Strategy & Organisational Excellence", org: "EXPRO — Government Expenditure & Project Efficiency Authority", photo: "" },
+  { name: "Eng. Abdulrazzag Al Aujan", title: "H.E. MoF Advisor", org: "Ministry of Finance", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Eng+AbdulRazzag+Al+Aujan.png" },
+  { name: "Salem J. Sahary", title: "Senior Operational Excellence Expert", org: "SIPCHEM", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Salem+J.+Sahary.jpg" },
+  { name: "Yasmin Bin Mobki", title: "General Manager of Privatization and PMO", org: "Ministry of Human Resources and Social Development", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Yasmin+Bin+Mobki.png" },
+  { name: "Mohammed Al Amri", title: "GM Operational Excellence", org: "Roads General Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al+Amri.jpg" },
+  { name: "Mohammed Al Ghamdi", title: "VP Manufacturing", org: "NAMA Chemicals", photo: "" },
+  { name: "Faisal Al-Zahrani", title: "EHSS General Manager", org: "S-Chem", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Faisal+Al-Zahrani.png" },
 ];
 
 type AgendaItem = {
@@ -4052,7 +4050,7 @@ function Speakers() {
         <SectionEyebrow inView={inView} label="Speakers & Advisors" />
         <SectionTitle inView={inView}>Voices shaping the <em className="opex-violet-shimmer">execution agenda</em>.</SectionTitle>
 
-        <div className="opex-speakers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 22, marginTop: 56 }}>
+        <div className="opex-speakers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 245px))", justifyContent: "center", gap: 20, marginTop: 56 }}>
           {SPEAKERS.map((sp, i) => (
             <motion.div
               key={sp.name}
@@ -7492,6 +7490,16 @@ export default function OpexFirstSaudi2026Page() {
   return (
     <main style={{ background: BG_DARK, color: "white", overflow: "hidden" }}>
       <Hero />
+      <OpexSaudiPostEventReports />
+      <OpexSaudiPostReportFloat />
+      <EventOverview />
+      <MarketPulse />
+      <FocusAreas />
+      <Speakers />
+      <EventSponsors />
+      <Agenda />
+      <WhoAttends />
+      <PastGallery />
       <OpexPostEventReports
         compact
         onRequestReport={() =>
@@ -7500,17 +7508,7 @@ export default function OpexFirstSaudi2026Page() {
           )
         }
       />
-      <OpexSaudiPostEventReports />
-      <OpexSaudiPostReportFloat />
       <SeriesSponsors />
-      <EventOverview />
-      <MarketPulse />
-      <FocusAreas />
-      {/* <Speakers /> hidden until photos confirmed — restore once URLs are in */}
-      <EventSponsors />
-      <Agenda />
-      <WhoAttends />
-      <PastGallery />
       <PastShorts />
       <Awards />
       <Register />
