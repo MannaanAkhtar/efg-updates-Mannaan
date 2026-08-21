@@ -273,13 +273,6 @@ function MagneticButton({
 // Speakers from brochure
 const SPEAKERS = [
   {
-    name: "Mark Van Vuuren",
-    title: "Product Director",
-    org: "Corr-Serve",
-    linkedin: "https://www.linkedin.com/in/mark-van-vuuren-b2942237/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mark+OT+Sec+Selfie.jpg",
-  },
-  {
     name: "Len De Villiers",
     title: "Group CTIO",
     org: "Eskom Holdings",
@@ -323,7 +316,7 @@ const SPEAKERS = [
   },
   {
     name: "Prinesh Vythilingam",
-    title: "CISO",
+    title: "Group CISO",
     org: "African Rainbow Minerals Limited",
     linkedin: "https://www.linkedin.com/in/prineshkv/",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Prinesh+Vythilingam.png",
@@ -434,13 +427,6 @@ const SPEAKERS = [
     photo: `${S3}/boardroom/Xolani_Nzimande.png`,
   },
   {
-    name: "Charlton Kupera",
-    title: "IT Security Manager",
-    org: "SANPC",
-    linkedin: "https://www.linkedin.com/in/charlton-t-k-97698363/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Charlton_Kupera.png",
-  },
-  {
     name: "Martin Fernandes",
     title: "Business Development Manager OT/CPS Africa",
     org: "Fortinet",
@@ -453,6 +439,13 @@ const SPEAKERS = [
     org: "Forescout",
     linkedin: "https://www.linkedin.com/in/tkaurayi/",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Taurayi+Kaurayi.png",
+  },
+  {
+    name: "Mark Van Vuuren",
+    title: "Product Director",
+    org: "Corr-Serve",
+    linkedin: "https://www.linkedin.com/in/mark-van-vuuren-b2942237/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mark+OT+Sec+Selfie.jpg",
   },
   {
     name: "Andrew Chester",
@@ -6120,7 +6113,7 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
         ],
         moderator: "Xolani Nzimande, OT Cybersecurity Specialist, Sasol",
         panelists: [
-          "Prinesh Vythilingam, CISO, African Rainbow Minerals Limited",
+          "Prinesh Vythilingam, Group CISO, African Rainbow Minerals Limited",
           "Martin Fernandes, Business Development Manager OT/CPS Africa, Fortinet",
           "Renaldo J, Group Head of Cybersecurity, Globaleq",
           "Kholofelo Halefose, Chief Advisor IT/OT Cybersecurity, Eskom Holdings",
