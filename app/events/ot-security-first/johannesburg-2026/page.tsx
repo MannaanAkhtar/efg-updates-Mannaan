@@ -4323,13 +4323,6 @@ const EVENT_SPONSORS_2026: {
     keepColor: true,
   },
   {
-    name: "Fortress Hub Technologies",
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Fortress+Hub+Technologies+Ltd+PNG.png",
-    url: "https://www.fortresshubtechnologies.com/",
-    tier: "networking",
-    keepColor: true,
-  },
-  {
     name: "TXOne Networks",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/TXOne+LOGO-3.png",
     url: "https://www.txone.com/",
@@ -4410,6 +4403,14 @@ const EVENT_SPONSORS_2026: {
     url: "https://waterfall-security.com/",
     tier: "associate",
     keepColor: true,
+  },
+  {
+    name: "Fortress Hub Technologies",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Fortress+Hub+Technologies+Ltd+PNG.png",
+    url: "https://www.fortresshubtechnologies.com/",
+    tier: "associate",
+    keepColor: true,
+    scale: 2.1,
   },
   {
     name: "Times of AI",
