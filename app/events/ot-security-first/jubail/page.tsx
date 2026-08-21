@@ -3994,7 +3994,7 @@ function SpeakersSection() {
   return (
     <section ref={ref} id="speakers" style={{ position: "relative", padding: "clamp(40px, 4vw, 56px) 0 clamp(64px, 7vw, 96px)", background: BG_BASE }}>
       <BgDots opacity={0.05} />
-      <div style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+      <div style={{ position: "relative", maxWidth: 1500, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
         {/* Group label — Speakers */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -4012,7 +4012,7 @@ function SpeakersSection() {
           className="otsf-jb-speakers-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
+            gridTemplateColumns: "repeat(5, 1fr)",
             gap: "clamp(16px, 1.8vw, 24px)",
           }}
         >
@@ -4259,7 +4259,13 @@ function SpeakersSection() {
         }
         .otsf-jb-li { transition: background 0.2s, border-color 0.2s, transform 0.2s; }
         .otsf-jb-li:hover { background: ${C}d9 !important; border-color: ${C} !important; transform: translateY(-1px); }
-        @media (max-width: 1100px) {
+        @media (max-width: 1300px) {
+          .otsf-jb-speakers-grid { grid-template-columns: repeat(4, 1fr) !important; }
+        }
+        @media (max-width: 1040px) {
+          .otsf-jb-speakers-grid { grid-template-columns: repeat(3, 1fr) !important; }
+        }
+        @media (max-width: 760px) {
           .otsf-jb-speakers-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
         @media (max-width: 560px) {
