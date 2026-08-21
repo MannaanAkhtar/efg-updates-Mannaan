@@ -350,11 +350,11 @@ const SPEAKERS = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Zakiyya+Cassimjee.jpg",
   },
   {
-    name: "Ritasha Kalidas",
-    title: "GM - Cyber Security, Risk and Governance",
-    org: "Eskom Holdings",
-    linkedin: "https://www.linkedin.com/in/ritasha-kalidas-a876b3156/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ritasha+Kalidas.jpg",
+    name: "Koketso Rihlampfu",
+    title: "Chief Information Security Officer",
+    org: "Bayobab Africa – MTN Group Company",
+    linkedin: "https://www.linkedin.com/in/koketso-rihlampfu-820888100/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Koketso+Rihlampfu.png",
   },
   {
     name: "Dylan Adriaans",
@@ -6165,7 +6165,7 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
         panelists: [
           "Muvhango Livhusha, VP, ISACA South Africa Chapter",
           "Chris Gatsi, Chief Internal Auditor (IT), Sibanye-Stillwater",
-          "Ritasha Kalidas, GM - Cyber Security, Risk and Governance, Eskom Holdings",
+          "Koketso Rihlampfu, Chief Information Security Officer, Bayobab Africa – MTN Group Company",
           "Hamid Bafghi, MEA Regional Sales and Partnership Director, CYFIRMA",
         ],
       },
