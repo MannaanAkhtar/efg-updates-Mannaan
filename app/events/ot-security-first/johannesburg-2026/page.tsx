@@ -6024,7 +6024,7 @@ function VenueSection() {
           </p>
 
           <a
-            href="https://maps.app.goo.gl/inwS8xRr8zWPG8F26"
+            href="https://maps.app.goo.gl/L5u8wJnnnMTE2hmd8"
             target="_blank"
             rel="noopener noreferrer"
             className="otsf-maps-btn"
