@@ -183,6 +183,7 @@ const EVENT_CONFIGS: Record<string, {
           { href: "#media-partners", label: "Media Partners" },
         ],
       },
+      { href: "#awards", label: "Awards" },
       { href: "#register", label: "Register" },
     ],
   },
