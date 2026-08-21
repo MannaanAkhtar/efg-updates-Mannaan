@@ -539,10 +539,14 @@ const EVENT_SNAPSHOT = [
 // Awards — 5 categories from brochure
 const AWARDS_DATA = [
   { title: "OT Security Program of the Year", desc: "For an organization that has implemented a mature, multi-site OT security program delivering measurable risk reduction." },
-  { title: "CISO / OT Security Leader of the Year", desc: "For an individual who has shown outstanding leadership in driving OT security across their organization or sector." },
   { title: "OT Security Innovation Award", desc: "For a technology or solution provider, offering a standout solution addressing a critical OT security challenge." },
-  { title: "Excellence in OT Incident Response & Resilience", desc: "For a team or organization that handled a significant OT related incident effectively and improved resilience as a result." },
   { title: "Public Sector / Critical Infrastructure Protection Award", desc: "For a government entity, regulator, or state-owned enterprise showing leadership in securing national critical infrastructure." },
+  { title: "OT Security Leader of the Year", desc: "For an individual who has shown outstanding leadership in driving OT security across their organization or sector." },
+  { title: "Excellence in OT Incident Response & Resilience", desc: "For a team or organization that handled a significant OT related incident effectively and improved resilience as a result." },
+  { title: "Cyber Resilience Executive of the Year", desc: "" },
+  { title: "Secure by Design - New Energy Infrastructure Award", desc: "" },
+  { title: "Water Security & Public Health Protection Award", desc: "" },
+  { title: "Digital Backbone & Municipal Network Infrastructure Award", desc: "" },
 ];
 
 // Gallery — all photos from the OT Security First UAE 2026 edition
@@ -6164,7 +6168,22 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
       },
       { time: "14:30 – 14:45", type: "fireside", title: "Presentation", desc: "Building a Modern OT Security Program from Asset Visibility to Optimization – Sponsored by ISE Solutions and Claroty\nPrinesh Vythilingam, Group CISO, African Rainbow Minerals Ltd" },
       { time: "14:45 – 15:00", type: "fireside", title: "Presentation", desc: "Cyber-attacks on Critical infrastructures: Understanding the Threat and Building resilience\nNaoufal Kerboute, Regional Director - Middle East and Africa, Waterfall Security" },
-      { time: "15:00", type: "awards", title: "OT Security First Award Ceremony & Raffle Draw" },
+      {
+        time: "15:00",
+        type: "awards",
+        title: "OT Security First Award Ceremony & Raffle Draw",
+        bullets: [
+          "OT Security Program of the Year",
+          "OT Security Innovation Award",
+          "Public Sector / Critical Infrastructure Protection Award",
+          "OT Security Leader of the Year",
+          "Excellence in OT Incident Response & Resilience",
+          "Cyber Resilience Executive of the Year",
+          "Secure by Design - New Energy Infrastructure Award",
+          "Water Security & Public Health Protection Award",
+          "Digital Backbone & Municipal Network Infrastructure Award",
+        ],
+      },
       { time: "15:15", type: "break", title: "Networking Lunch and End of Conference" },
     ],
   },
