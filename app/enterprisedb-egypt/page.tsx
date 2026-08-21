@@ -34,6 +34,8 @@ const BODY = "var(--font-outfit), system-ui, sans-serif";     // Outfit
 
 const LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/edb_postgres_ai_lightmode%402x+(4).png";
 const HERO_IMG = "https://efg-final.s3.eu-north-1.amazonaws.com/enterprisedb-egypt.png";
+const VENUE_IMG = "https://efg-final.s3.eu-north-1.amazonaws.com/venues/Cairo+Marriott+Hotel.jpg";
+const VENUE_MAP = "https://maps.app.goo.gl/4zHZPBYJ8gWGrRq8A";
 
 const EVENT_DATE = "2026-10-07T09:00:00+02:00"; // 7 October 2026, Egypt (time TBC)
 
@@ -117,6 +119,7 @@ const NAV_LINKS = [
   { id: "overview", label: "The Session" },
   { id: "room", label: "Who Attends" },
   { id: "takeaways", label: "Takeaways" },
+  { id: "venue", label: "Venue" },
   { id: "about", label: "About EDB" },
 ];
 
@@ -284,7 +287,7 @@ export default function EnterpriseDBRoundtablePage() {
 
             {/* Meta glass strip */}
             <div className="edb-rise edb-d4 edb-meta" style={{ display: "inline-flex", flexWrap: "wrap", alignItems: "stretch", marginTop: 24, padding: 4, borderRadius: 16, background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.16)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", boxShadow: "0 22px 54px rgba(0,0,0,0.38)" }}>
-              {[["Date", "7 October 2026"], ["Setting", "Egypt"], ["Format", "Closed-door"], ["Duration", "180 minutes"]].map(([l, v], i) => (
+              {[["Date", "7 October 2026"], ["Setting", "Cairo Marriott Hotel, Egypt"], ["Format", "Closed-door"], ["Duration", "180 minutes"]].map(([l, v], i) => (
                 <div key={l} className="edb-metafact" style={{ padding: "10px 20px", borderLeft: i === 0 ? "none" : "1px solid rgba(255,255,255,0.14)" }}>
                   <div style={{ fontFamily: BODY, fontSize: 10, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 6 }}>{l}</div>
                   <div style={{ fontFamily: DISPLAY, fontSize: "clamp(14px,1.35vw,16px)", fontWeight: 600, color: "#fff", letterSpacing: "-0.01em", whiteSpace: "nowrap" }}>{v}</div>
@@ -466,6 +469,9 @@ export default function EnterpriseDBRoundtablePage() {
         </div>
       </Section>
 
+      {/* ── Venue (soft) ── */}
+      <VenueSection />
+
       {/* ── Register (dark) ── */}
       <section id="register" style={{ position: "relative", background: DARK, color: WHITE, padding: "clamp(64px,9vh,112px) clamp(18px,5vw,64px)", overflow: "hidden", contentVisibility: "auto", containIntrinsicSize: "auto 900px" }}>
         <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, background: `
@@ -480,7 +486,7 @@ export default function EnterpriseDBRoundtablePage() {
               Attendance is by invitation and curated for senior IT and data leaders. Request a seat and our team will confirm your place and share the full details.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 32 }}>
-              {[["7 October 2026", "cal"], ["Egypt · Venue disclosed to confirmed guests", "pin"], ["180 minutes · Closed-door", "clock"]].map(([label, icon]) => (
+              {[["7 October 2026", "cal"], ["Cairo Marriott Hotel · Cairo, Egypt", "pin"], ["180 minutes · Closed-door", "clock"]].map(([label, icon]) => (
                 <div key={label} style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <span aria-hidden style={{ flex: "0 0 auto", width: 30, height: 30, borderRadius: 8, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
                     <RegIcon type={icon as "cal" | "pin" | "clock"} />
@@ -763,6 +769,97 @@ function RoomSection() {
 
 // ─── Registration form ────────────────────────────────────────────────────────
 const EMPTY = { firstName: "", lastName: "", email: "", company: "", jobTitle: "", phone: "" };
+
+// ─── Venue — Cairo Marriott Hotel ─────────────────────────────────────────────
+const VENUE_FACTS: [string, string][] = [
+  ["Date", "7 October 2026"],
+  ["City", "Cairo, Egypt"],
+  ["Format", "Invite-only roundtable"],
+  ["Duration", "180 minutes"],
+];
+
+function VenueSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [seen, setSeen] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setSeen(true); io.disconnect(); } },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const rise = (d: number) => ({
+    opacity: seen ? 1 : 0,
+    transform: seen ? "translateY(0)" : "translateY(18px)",
+    transition: `opacity 0.8s cubic-bezier(0.16,1,0.3,1) ${d}s, transform 0.8s cubic-bezier(0.16,1,0.3,1) ${d}s`,
+  });
+
+  return (
+    <section id="venue" style={{ position: "relative", background: BG_SOFT, borderTop: `1px solid ${LINE}`, borderBottom: `1px solid ${LINE}`, padding: "clamp(56px,7vh,88px) clamp(18px,5vw,64px)", overflow: "hidden", contentVisibility: "auto", containIntrinsicSize: "auto 640px" }}>
+      <div aria-hidden style={{ position: "absolute", top: "-14%", right: "-8%", width: 560, height: 560, background: `radial-gradient(circle, ${BLUE}0f 0%, transparent 64%)`, pointerEvents: "none" }} />
+
+      <div ref={ref} className="edb-venue-grid" style={{ position: "relative", maxWidth: 1120, margin: "0 auto", display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1.15fr)", gap: "clamp(36px,5vw,72px)", alignItems: "center" }}>
+        {/* Left — copy */}
+        <div style={rise(0)}>
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <span aria-hidden style={{ width: 32, height: 1, background: BLUE }} />
+            <span style={{ fontFamily: BODY, fontSize: 12, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: BLUE }}>Venue</span>
+          </div>
+
+          <h2 style={{ fontFamily: DISPLAY, fontSize: "clamp(28px,4vw,50px)", fontWeight: 700, letterSpacing: "-0.032em", lineHeight: 1.05, color: INK, margin: "18px 0 0" }}>
+            Cairo Marriott Hotel<span style={{ color: BLUE }}>.</span>
+          </h2>
+          <p style={{ fontFamily: BODY, fontSize: "clamp(15px,1.5vw,18px)", lineHeight: 1.6, color: INK_SOFT, margin: "14px 0 0", maxWidth: 460 }}>
+            The roundtable convenes at one of Cairo&rsquo;s landmark addresses — a discreet, executive setting on the banks of the Nile in Zamalek.
+          </p>
+
+          {/* Fact grid */}
+          <div style={{ marginTop: "clamp(26px,3vw,36px)", paddingTop: "clamp(20px,2.4vw,26px)", borderTop: `1px solid ${LINE}`, display: "grid", gridTemplateColumns: "auto auto", columnGap: "clamp(28px,3.4vw,48px)", rowGap: 18 }}>
+            {VENUE_FACTS.map(([label, value]) => (
+              <div key={label}>
+                <div style={{ fontFamily: BODY, fontSize: 10.5, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: MUTE, marginBottom: 6 }}>{label}</div>
+                <div style={{ fontFamily: DISPLAY, fontSize: "clamp(15px,1.5vw,18px)", fontWeight: 600, letterSpacing: "-0.01em", color: INK }}>{value}</div>
+              </div>
+            ))}
+          </div>
+
+          <a
+            href={VENUE_MAP}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="edb-venue-map"
+            style={{ display: "inline-flex", alignItems: "center", gap: 10, marginTop: "clamp(26px,3vw,34px)", fontFamily: BODY, fontSize: 14.5, fontWeight: 600, color: INK, background: "transparent", border: `1px solid ${LINE_STRONG}`, borderRadius: 11, padding: "13px 22px", cursor: "pointer", transition: "background 0.2s ease, border-color 0.2s ease, color 0.2s ease" }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+            View on map
+          </a>
+        </div>
+
+        {/* Right — venue photo */}
+        <div className="edb-venue-visual" style={{ position: "relative", borderRadius: 20, overflow: "hidden", border: `1px solid ${LINE}`, boxShadow: "0 30px 60px rgba(10,18,34,0.16)", aspectRatio: "16 / 11", ...rise(0.1) }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={VENUE_IMG} alt="Cairo Marriott Hotel" loading="lazy" decoding="async" className="edb-venue-img" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+          <div aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,18,34,0.62) 0%, transparent 46%)" }} />
+          <div style={{ position: "absolute", left: 22, bottom: 20 }}>
+            <div style={{ fontFamily: BODY, fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: SKY, marginBottom: 6 }}>Host Venue</div>
+            <div style={{ fontFamily: DISPLAY, fontSize: "clamp(16px,1.7vw,20px)", fontWeight: 700, letterSpacing: "-0.02em", color: WHITE }}>Cairo Marriott Hotel</div>
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .edb-venue-img { transition: transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+        .edb-venue-visual:hover .edb-venue-img { transform: scale(1.045); }
+        .edb-venue-map:hover { background: ${BLUE} !important; border-color: ${BLUE} !important; color: #fff !important; }
+        @media (max-width: 860px) { .edb-venue-grid { grid-template-columns: 1fr !important; } }
+      `}</style>
+    </section>
+  );
+}
 
 function RegistrationForm() {
   const [form, setForm] = useState({ ...EMPTY });
