@@ -6162,7 +6162,7 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
           "Hamid Bafghi, MEA Regional Sales and Partnership Director, CYFIRMA",
         ],
       },
-      { time: "14:30 – 14:45", type: "fireside", title: "Presentation", desc: "Reserved for ISE Solutions" },
+      { time: "14:30 – 14:45", type: "fireside", title: "Presentation", desc: "Building a Modern OT Security Program from Asset Visibility to Optimization – Sponsored by ISE Solutions and Claroty\nPrinesh Vythilingam, Group CISO, African Rainbow Minerals Ltd" },
       { time: "14:45 – 15:00", type: "fireside", title: "Presentation", desc: "Cyber-attacks on Critical infrastructures: Understanding the Threat and Building resilience\nNaoufal Kerboute, Regional Director - Middle East and Africa, Waterfall Security" },
       { time: "15:00", type: "awards", title: "OT Security First Award Ceremony & Raffle Draw" },
       { time: "15:15", type: "break", title: "Networking Lunch and End of Conference" },
