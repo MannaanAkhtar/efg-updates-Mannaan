@@ -3135,7 +3135,7 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
           { name: "Alaa Khalid", role: "Director, Cybersecurity Operations & GRC", org: "Confidential" },
           { name: "Ahmed Al Saleh", role: "Head of Digital & OT Cybersecurity Initiatives", org: "Aramco" },
           { name: "Wael A. Rahman", role: "Lead ICS/OT Security Engineer", org: "Petroleum Development Oman" },
-          { name: "Ammad Baig", role: "VP Digital Solutions & OT Cybersecurity", org: "Intech Process Automation" },
+          { name: "Ammad Baig", role: "VP, Digital Solutions and OT Cybersecurity", org: "INTECH" },
           { name: "Dr. Hussain Aldawood", role: "Director of Cybersecurity Consulting", org: "EY", moderator: true },
         ],
       },
