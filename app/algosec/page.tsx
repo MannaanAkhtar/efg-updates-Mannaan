@@ -45,14 +45,13 @@ const EVENT = {
     "An executive roundtable where security leaders decode real-world connectivity challenges, escape policy complexity, and explore how application context, automation and AI-assisted discovery can accelerate secure application delivery.",
   date: "24 September 2026",
   city: "Dubai, UAE",
-  time: "6:00 PM – 9:00 PM GST (UTC+4)",
-  duration: "180 minutes",
-  format: "Closed-door executive roundtable + gamified opening challenge + networking reception / early dinner",
+  time: "11:00 AM – 1:30 PM GST (UTC+4)",
+  duration: "150 minutes",
+  format: "Closed-door executive roundtable + gamified opening challenge + networking lunch",
 };
 
 const NAV_LINKS = [
   { href: "#overview", label: "Overview" },
-  { href: "#challenge", label: "The Challenge" },
   { href: "#agenda", label: "Agenda" },
   { href: "#speakers", label: "Speakers" },
   { href: "#about", label: "About AlgoSec" },
@@ -236,8 +235,8 @@ function HeroIcon({ type }: { type: string }) {
   if (type === "hourglass") return <svg {...p}><path d="M6 3h12M6 21h12M7 3c0 5 5 6 5 9s-5 4-5 9M17 3c0 5-5 6-5 9s5 4 5 9" /></svg>;
   return <svg {...p} stroke={GOLD}><rect x="4.5" y="10.5" width="15" height="10" rx="2" /><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" /></svg>;
 }
-// Live countdown to the roundtable (24 Sep 2026, 6:00 PM GST / UTC+4)
-const EVENT_TS = new Date("2026-09-24T18:00:00+04:00").getTime();
+// Live countdown to the roundtable (24 Sep 2026, 11:00 AM GST / UTC+4)
+const EVENT_TS = new Date("2026-09-24T11:00:00+04:00").getTime();
 function Countdown() {
   const [diff, setDiff] = useState<number | null>(null);
   useEffect(() => {
@@ -507,14 +506,14 @@ function Takeaways() {
 
 // ─── THE CHALLENGE + AGENDA (gamified run-of-show as a route of checkpoints) ───
 const AGENDA = [
-  { time: "6:00 – 6:20 PM", title: "Arrival, executive networking & refreshments", kind: "reception" },
-  { time: "6:20 – 6:30 PM", title: "Welcome: Why application connectivity has become an executive security issue", kind: "welcome" },
-  { time: "6:30 – 6:55 PM", title: "AlgoCity: Escape the Complexity, gamified challenge on application visibility, ownership and connectivity requirements", kind: "challenge" },
-  { time: "6:55 – 7:05 PM", title: "Challenge debrief", kind: "debrief" },
-  { time: "7:05 – 7:55 PM", title: "Closed-door roundtable: securing application connectivity across hybrid & multi-cloud environments", kind: "roundtable" },
-  { time: "7:55 – 8:20 PM", title: "Deep dive", kind: "deepdive" },
-  { time: "8:20 – 8:35 PM", title: "Executive action exchange", kind: "exchange" },
-  { time: "8:35 – 9:00 PM", title: "Networking reception / early dinner", kind: "reception" },
+  { time: "10:30 – 11:00 AM", title: "Registration, arrival & networking", kind: "reception" },
+  { time: "11:00 – 11:10 AM", title: "Welcome: Why application connectivity has become an executive security issue", kind: "welcome" },
+  { time: "11:10 – 11:40 AM", title: "AlgoCity: Escape the Complexity, gamified challenge on application visibility, ownership and connectivity requirements", kind: "challenge" },
+  { time: "11:40 – 11:50 AM", title: "Challenge debrief", kind: "debrief" },
+  { time: "11:50 AM – 12:40 PM", title: "Closed-door roundtable: securing application connectivity across hybrid & multi-cloud environments", kind: "roundtable" },
+  { time: "12:40 – 1:10 PM", title: "Deep dive", kind: "deepdive" },
+  { time: "1:10 – 1:30 PM", title: "Executive action exchange & closing", kind: "exchange" },
+  { time: "1:30 PM onwards", title: "Networking lunch", kind: "reception" },
 ];
 function Agenda() {
   const { ref, seen } = useReveal<HTMLDivElement>();
@@ -523,12 +522,12 @@ function Agenda() {
       <GridBg opacity={0.45} />
       <div ref={ref} style={{ position: "relative", zIndex: 2, maxWidth: 980, margin: "0 auto" }}>
         <div style={{ ...rise(seen) }}>
-          <span style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: GOLD }}>The Challenge · 180-minute run-of-show</span>
+          <span style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: GOLD }}>The Challenge · 150-minute run-of-show</span>
           <h2 id="agenda" style={{ fontFamily: FONT, fontWeight: 900, fontSize: "clamp(28px,4vw,46px)", letterSpacing: "-0.03em", lineHeight: 1.06, color: WHITE, margin: "14px 0 0", maxWidth: 760, scrollMarginTop: 90 }}>
             Navigate the city. Escape the complexity.
           </h2>
           <p style={{ fontFamily: FONT, fontWeight: 300, fontSize: "clamp(15px,1.4vw,17px)", lineHeight: 1.65, color: DIM, margin: "16px 0 0", maxWidth: 680 }}>
-            The evening runs as a single route: from an opening gamified challenge through a closed-door roundtable to a networking reception. Each checkpoint moves the group closer to application-centric control.
+            The session runs as a single route: from an opening gamified challenge through a closed-door roundtable to a networking lunch. Each checkpoint moves the group closer to application-centric control.
           </p>
         </div>
 
@@ -836,7 +835,7 @@ function Footer() {
       <div className="ac-foot-row" style={{ position: "relative", zIndex: 1, maxWidth: 1120, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 28, flexWrap: "wrap" }}>
         <BrandMark height={32} white />
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <span style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: DIM2 }}>Produced by</span>
+          <span style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: DIM2 }}>Organised by</span>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/Events-First-logo-02.png" alt="Events First Group" style={{ height: 42, width: "auto", display: "block" }} />
         </div>

@@ -166,7 +166,7 @@ const UPCOMING_EVENTS = [
     month: "SEP",
     day: "24",
     year: "2026",
-    time: "18:00 – 21:00 GST",
+    time: "11:00 – 13:30 GST",
     title: "AlgoSec Executive Roundtable",
     subtitle: "AlgoCity: Escape the Complexity",
     sponsor: "AlgoSec",
