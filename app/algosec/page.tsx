@@ -42,7 +42,7 @@ const EVENT = {
   title: "AlgoCity: Escape the Complexity",
   sub: "Securing Application Connectivity Across the Hybrid Enterprise",
   tagline:
-    "An executive roundtable where security leaders decode real-world connectivity challenges, escape policy complexity, and explore how application context, automation and AI-assisted discovery can accelerate secure application delivery.",
+    "An executive roundtable where security leaders decode Real-world Application Connectivity challenges, escape policy complexity, and explore how application context, automation and AI-assisted discovery can accelerate secure application delivery.",
   date: "24 September 2026",
   city: "Dubai, UAE",
   time: "11:00 AM – 1:30 PM GST (UTC+4)",
@@ -173,6 +173,9 @@ function Hero() {
       <img src={HERO_IMG} alt="AlgoCity: a night city-grid with a single illuminated, locked-down connectivity route" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "right center", zIndex: 0 }} />
       <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 1, background: `linear-gradient(90deg, ${INK} 0%, ${INK}f0 26%, ${INK}9c 52%, rgba(11,27,58,0.15) 78%, transparent 100%)` }} />
       <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 1, background: `linear-gradient(180deg, ${INK}cc 0%, transparent 26%, transparent 66%, ${INK}dd 100%)` }} />
+      {/* Mobile-only: the horizontal scrim above only darkens the left half, so on narrow screens
+          the full-width copy sits over the bright grid. This flat vertical scrim keeps it legible. */}
+      <div aria-hidden className="ac-hero-mobile-scrim" style={{ position: "absolute", inset: 0, zIndex: 1, display: "none", background: `linear-gradient(180deg, rgba(11,27,58,0.90) 0%, rgba(11,27,58,0.80) 50%, rgba(11,27,58,0.94) 100%)` }} />
 
       <div style={{ position: "relative", zIndex: 2, maxWidth: 1280, margin: "0 auto", width: "100%" }}>
         <div style={{ maxWidth: 720 }}>
@@ -223,7 +226,7 @@ function Hero() {
         @keyframes ac-rise { to { opacity: 1; transform: translateY(0); } }
         .ac-cta-primary:hover { background: ${SKY} !important; transform: translateY(-2px); }
         @media (prefers-reduced-motion: reduce) { .ac-rise { animation: none; opacity: 1; transform: none; } }
-        @media (max-width: 640px) { .ac-hero img { object-position: 72% center !important; } }
+        @media (max-width: 640px) { .ac-hero img { object-position: 72% center !important; } .ac-hero-mobile-scrim { display: block !important; } }
       `}</style>
     </section>
   );
