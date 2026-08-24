@@ -332,16 +332,16 @@ const SPEAKERS = [
   {
     name: "Renaldo J",
     title: "Group Head of Cybersecurity",
-    org: "Globaleq",
+    org: "Globeleq",
     linkedin: "https://www.linkedin.com/in/renaldo-j-8116885",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Renaldo.jpg",
   },
   {
-    name: "Zakiyya Cassimjee",
-    title: "CIO",
-    org: "Ardagh Group",
-    linkedin: "https://www.linkedin.com/in/zakiyyacassimjee/",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Zakiyya+Cassimjee.jpg",
+    name: "Pitso Sekhoto",
+    title: "Middle Manager - Substation Automation Integration",
+    org: "Eskom Holdings SOC Ltd",
+    linkedin: "https://www.linkedin.com/in/pitso-sekhoto-45510451/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Pitso+Sekhoto.jpg",
   },
   {
     name: "Koketso Rihlampfu",
@@ -381,7 +381,7 @@ const SPEAKERS = [
   {
     name: "Paulo Rebelo",
     title: "Head of Sales META & CIS Regions",
-    org: "Keysight",
+    org: "Keysight Technologies",
     linkedin: "https://www.linkedin.com/in/paulo-rebelo-8673261/",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mr.+Paulo_Rebelo%C2%A0%C2%A0.png",
   },
@@ -402,7 +402,7 @@ const SPEAKERS = [
   {
     name: "Naoufal Kerboute",
     title: "Regional Sales Director",
-    org: "Waterfall",
+    org: "Waterfall Security",
     linkedin: "https://www.linkedin.com/in/nkerboute/",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naoufal-Media1.jpg",
   },
@@ -431,7 +431,7 @@ const SPEAKERS = [
     name: "Martin Fernandes",
     title: "Business Development Manager OT/CPS Africa",
     org: "Fortinet",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/martin-fernandes-b60a25266/",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Martin+Fernandes.jpg",
   },
   {
@@ -539,11 +539,11 @@ const EVENT_SNAPSHOT = [
 
 // Awards — 5 categories from brochure
 const AWARDS_DATA = [
-  { title: "OT Security Program of the Year", desc: "For an organization that has implemented a mature, multi-site OT security program delivering measurable risk reduction." },
-  { title: "OT Security Innovation Award", desc: "For a technology or solution provider, offering a standout solution addressing a critical OT security challenge." },
-  { title: "Public Sector / Critical Infrastructure Protection Award", desc: "For a government entity, regulator, or state-owned enterprise showing leadership in securing national critical infrastructure." },
-  { title: "OT Security Leader of the Year", desc: "For an individual who has shown outstanding leadership in driving OT security across their organization or sector." },
-  { title: "Excellence in OT Incident Response & Resilience", desc: "For a team or organization that handled a significant OT related incident effectively and improved resilience as a result." },
+  { title: "OT Security Program of the Year", desc: "" },
+  { title: "OT Security Innovation Award", desc: "" },
+  { title: "Public Sector / Critical Infrastructure Protection Award", desc: "" },
+  { title: "OT Security Leader of the Year", desc: "" },
+  { title: "Excellence in OT Incident Response & Resilience", desc: "" },
   { title: "Cyber Resilience Executive of the Year", desc: "" },
   { title: "Secure by Design - New Energy Infrastructure Award", desc: "" },
   { title: "Water Security & Public Health Protection Award", desc: "" },
@@ -3743,40 +3743,11 @@ function SpeakersSection() {
               </motion.div>
             );
           })}
-
-          {/* CTA card */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.15 + SPEAKERS.length * 0.08, ease: EASE }}
-          >
-            <div
-              className="otsf-speaker-card"
-              style={{
-                borderRadius: 24,
-                overflow: "hidden",
-                background: `linear-gradient(135deg, ${C}12, ${C}04)`,
-                border: `1px solid ${C}20`,
-                transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-                height: "100%",
-                minHeight: 320,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <div style={{ textAlign: "center", padding: 32 }}>
-                <span style={{ fontSize: 48, fontWeight: 800, color: C_BRIGHT, display: "block", marginBottom: 8 }}>+</span>
-                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 18, color: "white", margin: "0 0 6px" }}>More Speakers</h3>
-                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.5)", margin: 0 }}>Coming soon</p>
-              </div>
-            </div>
-          </motion.div>
         </div>
 
         {/* Pagination dots — mobile carousel only */}
         <div className="otsf-speakers-dots" aria-hidden>
-          {Array.from({ length: SPEAKERS.length + 1 }).map((_, i) => (
+          {Array.from({ length: SPEAKERS.length }).map((_, i) => (
             <button
               key={i}
               type="button"
@@ -6082,14 +6053,14 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
         time: "09:30 – 10:15",
         type: "panel",
         title: "Leadership Panel",
-        desc: "Making OT Security a National Priority - Harmonizing Regulatory Mandates, Public-Private Trust, and Crisis Response\nAligning board level governance, strict regional regulatory standards, and practical crisis readiness to guarantee corporate and operational resilience",
+        desc: "Making OT Security a National Priority - Harmonizing Regulatory Mandates, Public-Private Trust, and Crisis Response",
         bullets: [
           "Translating frameworks from paperwork into verifiable engineering controls",
           "Overcoming trust barriers to share active threat indicators and incident insights with regional authorities and industry peers",
           "Constructing localized crisis management playbooks that prioritize physical safety, environmental protection, and uptime",
           "Business continuity under fire to minimize financial and reputational fallout",
         ],
-        moderator: "Stephen Mokoena, Head of Digital & Technology, Unilever Southern Africa",
+        moderator: "Stephen Mokoena, Head of Digital & Technology, Unilever",
         panelists: [
           "Len De Villiers, Group CTIO, Eskom Holdings",
           "Nthabiseng Mosupye, CTIO, Rand Water",
@@ -6110,7 +6081,7 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
         time: "11:15 – 12:00",
         type: "panel",
         title: "Panel Discussion",
-        desc: "Beyond the Air Gap: Implementing Zero Trust and Network Visibility in Legacy ICS Environments\nUnpacking the architectural realities of modernizing heavy industrial infrastructure without inducing operational downtime",
+        desc: "Beyond the Air Gap: Implementing Zero Trust and Network Visibility in Legacy ICS Environments",
         bullets: [
           "Pragmatic strategies for applying modern cryptographic identities and network access controls",
           "The visibility baseline: moving from “blind spots” to complete asset clarity",
@@ -6121,9 +6092,9 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
         panelists: [
           "Prinesh Vythilingam, Group CISO, African Rainbow Minerals Limited",
           "Martin Fernandes, Business Development Manager OT/CPS Africa, Fortinet",
-          "Renaldo J, Group Head of Cybersecurity, Globaleq",
+          "Renaldo J, Group Head of Cybersecurity, Globeleq",
           "Kholofelo Halefose, Chief Advisor IT/OT Cybersecurity, Eskom Holdings",
-          "Shane Naidoo, Executive Head of IT, Transnet",
+          "Shane Naidoo, Digital Executive, Transnet",
         ],
       },
       { time: "12:00 – 12:15", type: "fireside", title: "Technology Presentation", desc: "Beyond Protection - Cybersecurity Resilience for Operational Technology\nMartin Fernandes, Business Development Manager OT/CPS Africa, Fortinet" },
@@ -6132,14 +6103,14 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
         time: "12:30 – 13:15",
         type: "panel",
         title: "Panel Discussion",
-        desc: "The Core of Converged Defense: Scaling Unified IT/OT SOCs with AI and Emerging Tech\nExploring how organizations are utilizing artificial intelligence and unified monitoring architectures to proactively spot and contain industrial threats",
+        desc: "The Core of Converged Defense: Scaling Unified IT/OT SOCs with AI and Emerging Tech",
         bullets: [
           "Bridging the telemetry divide",
           "AI driven behavioural analytics",
           "Evaluating the real-world utility of innovations like digital twins",
           "The culture & workflow shift",
         ],
-        moderator: "Stephen Mokoena, Head of Digital & Technology, Unilever Southern Africa",
+        moderator: "Stephen Mokoena, Head of Digital & Technology, Unilever",
         panelists: [
           "Ishaaq Jacobs, CISO, Sasol",
           "Mark Van Vuuren, Product Director, Corr-Serve",
@@ -6153,14 +6124,14 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
         time: "13:45 – 14:30",
         type: "panel",
         title: "Panel Discussion",
-        desc: "Securing the Industrial Ecosystem: Third-Party Risk, Supply Chain Integrity, and the Power of External Threat Intelligence\nAddressing the vulnerabilities introduced by external suppliers and the human capital strategies required to manage modern industrial cyber risks",
+        desc: "Securing the Industrial Ecosystem: Third-Party Risk, Supply Chain Integrity, and the Power of External Threat Intelligence",
         bullets: [
           "Mitigating third-party software and hardware component vulnerabilities",
           "Vendor remote access control: securing and auditing ephemeral remote maintenance gateways",
           "Cross-skilling the workforce",
           "Retaining internal OT security expertise and leveraging managed services",
         ],
-        moderator: "Zakiyya C, CIO, Ardagh Group",
+        moderator: "Pitso Sekhoto, Middle Manager - Substation Automation Integration, Eskom Holdings SOC Ltd",
         panelists: [
           "Muvhango Livhusha, VP, ISACA South Africa Chapter",
           "Chris Gatsi, Chief Internal Auditor (IT), Sibanye-Stillwater",
@@ -6367,7 +6338,7 @@ function AgendaSection() {
             <span className="otsf-hero-shimmer" style={{ backgroundImage: `linear-gradient(110deg, ${C_BRIGHT} 0%, ${CYAN} 45%, ${C_BRIGHT} 100%)`, backgroundSize: "250% 100%", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Program</span>
           </h2>
           <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 600, letterSpacing: "0.4px", color: "rgba(255,255,255,0.6)", margin: "0 0 14px" }}>
-            27 August 2026 &nbsp;·&nbsp; Johannesburg, South Africa &nbsp;·&nbsp; 08:00 – 14:30
+            27 August 2026 &nbsp;·&nbsp; Johannesburg, South Africa &nbsp;·&nbsp; 08:00 – 15:15
           </p>
           <p style={{ fontFamily: "var(--font-outfit)", fontSize: "clamp(14px, 1.3vw, 16px)", fontWeight: 500, fontStyle: "italic", color: "rgba(255,255,255,0.45)", maxWidth: 620, margin: "0 auto", lineHeight: 1.6 }}>
             Uncompromised OT Security — Protecting what Powers our World
@@ -6399,14 +6370,6 @@ function AgendaSection() {
           ))}
         </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
-          style={{ fontFamily: "var(--font-outfit)", fontSize: 12.5, fontWeight: 500, fontStyle: "italic", color: "rgba(255,255,255,0.4)", textAlign: "center", margin: "clamp(30px, 4vw, 44px) 0 0" }}
-        >
-          Kindly note: this is a draft agenda and is subject to minor changes until 4 days prior to the conference.
-        </motion.p>
       </div>
 
       <style jsx global>{`
