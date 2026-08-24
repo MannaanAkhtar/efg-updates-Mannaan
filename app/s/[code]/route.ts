@@ -55,6 +55,9 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   // IFS Executive Roundtable — Jeddah (22 Sep 2026)
   "ifs22-duaa": { path: "/ifs-22sept", source: "duaa", campaign: "ifs-22sept", hash: "reserve" },
   "ifs22-mrigashi": { path: "/ifs-22sept", source: "mrigashi", campaign: "ifs-22sept", hash: "reserve" },
+
+  // OPEX First KSA 2026 — Riyadh (LinkedIn promotion)
+  "opex-ksa-li": { path: "/events/opex-first/saudi-2026", source: "linkedin", medium: "social", campaign: "opex-ksa-2026", hash: "register" },
 };
 
 export async function GET(
