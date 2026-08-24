@@ -4975,6 +4975,15 @@ const SPONSORS_2026: S26SponsorItem[] = [
     logoMaxHeight: 88,
   },
   {
+    name: "SAP Signavio",
+    tier: "Gold",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/sap-signavio.png",
+    url: "https://www.signavio.com/",
+    surface: "light",
+    innerBg: "linear-gradient(165deg, #ffffff 0%, #eef0f4 100%)",
+    logoMaxHeight: 108,
+  },
+  {
     name: "ARIS",
     tier: "Associate",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/ARIS_RGB_Logo_WhitePink.png",
@@ -5001,7 +5010,7 @@ const S26_TIER_METALLIC: Record<S26SponsorTier, { strong: string; soft: string; 
     soft: "rgba(232, 200, 120, 0.5)",
     label: "rgba(240, 220, 160, 0.92)",
     glow: "rgba(212, 175, 90, 0.32)",
-    cardMaxWidth: 360,
+    cardMaxWidth: 300,
     displayLabel: "Gold Sponsors",
   },
   Associate: {
@@ -5010,7 +5019,7 @@ const S26_TIER_METALLIC: Record<S26SponsorTier, { strong: string; soft: string; 
     soft: "rgba(196, 181, 253, 0.45)",
     label: "rgba(220, 210, 250, 0.88)",
     glow: "rgba(159, 106, 255, 0.28)",
-    cardMaxWidth: 320,
+    cardMaxWidth: 270,
     displayLabel: "Associate Sponsor",
   },
   Media: {
@@ -5019,7 +5028,7 @@ const S26_TIER_METALLIC: Record<S26SponsorTier, { strong: string; soft: string; 
     soft: "rgba(205, 212, 224, 0.42)",
     label: "rgba(216, 222, 232, 0.9)",
     glow: "rgba(150, 162, 186, 0.24)",
-    cardMaxWidth: 280,
+    cardMaxWidth: 240,
     displayLabel: "Media Partner",
   },
 };
@@ -5048,7 +5057,7 @@ function EventSponsors() {
         </motion.div>
 
         {/* Tier groups */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 44, marginTop: 48 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 26, marginTop: 36 }}>
           {S26_TIER_ORDER.map((tier, tierIdx) => {
             const tierSponsors = SPONSORS_2026.filter(s => s.tier === tier);
             if (tierSponsors.length === 0) return null;
@@ -5090,7 +5099,7 @@ function EventSponsors() {
                           flex: "0 1 auto",
                           width: "100%",
                           maxWidth: m.cardMaxWidth,
-                          minWidth: 220,
+                          minWidth: 190,
                           borderRadius: 22,
                           padding: 2,
                           background: `linear-gradient(160deg, ${m.strong} 0%, ${V_BRIGHT}30 35%, rgba(255,255,255,0.06) 65%, ${m.soft} 100%)`,
@@ -5109,7 +5118,7 @@ function EventSponsors() {
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          minHeight: 138,
+                          minHeight: 116,
                           position: "relative",
                           overflow: "hidden",
                           boxShadow: "inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.55), inset 1px 0 0 rgba(255,255,255,0.04), inset -1px 0 0 rgba(0,0,0,0.3)",
