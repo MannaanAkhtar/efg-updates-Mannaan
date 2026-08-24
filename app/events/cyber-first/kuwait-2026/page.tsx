@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/sections";
+import CpdCertified from "@/components/events/CpdCertified";
 import { NeuralConstellation, DotMatrixGrid } from "@/components/effects";
 import EventNavigation from "@/components/ui/EventNavigation";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
@@ -1920,6 +1921,7 @@ export default function CyberFirstKuwait2026() {
       <HeroSection />
       <CVSection minH={720}><MarketContext /></CVSection>
       <CVSection minH={760}><KuwaitContext /></CVSection>
+      <CpdCertified eventName="Cyber First Kuwait 2026" theme={C} registerHref="#register" />
       <CVSection minH={820}><FocusAreas /></CVSection>
       <CVSection minH={700}><AdvisoryBoard /></CVSection>
       <CVSection minH={700}><Speakers /></CVSection>
@@ -9001,6 +9003,15 @@ function RegistrationSection() {
             })}
           </div>
         </motion.div>
+
+        {/* CPD accreditation note */}
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 12, marginBottom: 32, padding: "10px 16px", borderRadius: 12, background: `${C}0f`, border: `1px solid ${C}30` }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/CPD.png" alt="CPD certified" loading="lazy" decoding="async" style={{ width: 34, height: 34, display: "block" }} />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 500, color: "rgba(255,255,255,0.85)", lineHeight: 1.4 }}>
+            <strong style={{ color: C, fontWeight: 700 }}>CPD Certified Event</strong> · earn up to 7 CPD points.
+          </span>
+        </div>
 
         {/* Split layout */}
         <div

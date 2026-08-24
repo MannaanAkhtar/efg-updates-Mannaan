@@ -20,6 +20,7 @@ if (typeof window !== "undefined") {
 }
 import { Footer, InquiryForm } from "@/components/sections";
 import EventNavigation from "@/components/ui/EventNavigation";
+import CpdCertified from "@/components/events/CpdCertified";
 import {
   submitForm,
   isWorkEmail,
@@ -6738,6 +6739,7 @@ export default function OTSecurityFirstJohannesburg2026() {
           <HeroSection />
           <KeynoteSpeakerSection />
           <AboutSection />
+          <CpdCertified eventName="OT Security First Africa 2026" theme={C} registerHref="#register" />
           <SpeakersSection />
           <OTSfPostEventReports />
           <OTSfPostReportFloat />
@@ -6756,6 +6758,15 @@ export default function OTSecurityFirstJohannesburg2026() {
             <div style={{ position: "absolute", top: "10%", left: "-5%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${CYAN}12 0%, transparent 70%)`, filter: "blur(70px)", pointerEvents: "none" }} />
             <div style={{ position: "absolute", bottom: "10%", right: "-5%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${C}10 0%, transparent 70%)`, filter: "blur(70px)", pointerEvents: "none" }} />
             <div style={{ position: "relative", zIndex: 2 }}>
+              <div style={{ maxWidth: 1200, margin: "0 auto 4px", padding: "0 clamp(20px,4vw,60px)", display: "flex", justifyContent: "center" }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: 12, padding: "10px 16px", borderRadius: 12, background: `${C}0f`, border: `1px solid ${C}30` }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/CPD.png" alt="CPD certified" loading="lazy" decoding="async" style={{ width: 34, height: 34, display: "block" }} />
+                  <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 500, color: "rgba(255,255,255,0.85)", lineHeight: 1.4 }}>
+                    <strong style={{ color: C, fontWeight: 700 }}>CPD Certified Event</strong> · earn up to 7 CPD points.
+                  </span>
+                </div>
+              </div>
               <InquiryForm defaultCountry="ZA" eventName="OT Security First Africa 2026" labelText="Join Us in Johannesburg" />
             </div>
           </section>

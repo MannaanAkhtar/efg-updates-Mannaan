@@ -8,6 +8,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Footer, InquiryForm } from "@/components/sections";
 import EventNavigation from "@/components/ui/EventNavigation";
+import CpdCertified from "@/components/events/CpdCertified";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
 import type { CountryCode } from "@/lib/form-helpers";
 
@@ -431,6 +432,7 @@ export default function OTSecurityJubail2026() {
       <Hero />
       <StatsStrip />
       <ExecutivePerspective />
+      <CpdCertified eventName="OT Security First Jubail 2026" theme={C} registerHref="#register" logoUrl="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/CPD+jubail.jpeg" logoWide />
       <WhyKingdom />
       <AdvisorsSection />
       <SpeakersSection />
@@ -5808,6 +5810,15 @@ function RegisterSection() {
       }}
     >
       <BgDots opacity={0.04} />
+      <div style={{ maxWidth: 1200, margin: "0 auto 8px", padding: "0 clamp(20px,4vw,60px)", position: "relative", zIndex: 1, display: "flex", justifyContent: "center" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 14, padding: "8px 16px 8px 8px", borderRadius: 12, background: "rgba(255,255,255,0.06)", border: `1px solid ${C}30` }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/CPD+jubail.jpeg" alt="CPD certified — Approved Provider #790688" loading="lazy" decoding="async" style={{ height: 40, width: "auto", display: "block", borderRadius: 8 }} />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 500, color: "rgba(255,255,255,0.85)", lineHeight: 1.4 }}>
+            <strong style={{ color: C, fontWeight: 700 }}>CPD Certified Event</strong> · earn up to 7 CPD points.
+          </span>
+        </div>
+      </div>
       <div
         className="otsf-jb-register-wrap"
         style={{ position: "relative", zIndex: 1 }}

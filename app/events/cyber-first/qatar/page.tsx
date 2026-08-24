@@ -6,6 +6,7 @@ import { motion, useInView, AnimatePresence, MotionConfig } from "framer-motion"
 import Link from "next/link";
 import { Footer, InquiryForm } from "@/components/sections";
 import EventNavigation from "@/components/ui/EventNavigation";
+import CpdCertified from "@/components/events/CpdCertified";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
 import type { CountryCode } from "@/lib/form-helpers";
 
@@ -6725,6 +6726,15 @@ function RegisterSection() {
       }}
     >
       <BgDots opacity={0.04} />
+      <div style={{ maxWidth: 1200, margin: "0 auto 8px", padding: "0 clamp(20px,4vw,60px)", position: "relative", zIndex: 1, display: "flex", justifyContent: "center" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 12, padding: "10px 16px", borderRadius: 12, background: `${C}0f`, border: `1px solid ${C}30` }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/CPD.png" alt="CPD certified" loading="lazy" decoding="async" style={{ width: 34, height: 34, display: "block" }} />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 500, color: "rgba(255,255,255,0.85)", lineHeight: 1.4 }}>
+            <strong style={{ color: C, fontWeight: 700 }}>CPD Certified Event</strong> · earn up to 7 CPD points.
+          </span>
+        </div>
+      </div>
       <div
         className="cfq-register-wrap"
         style={{ position: "relative", zIndex: 1 }}
@@ -7899,6 +7909,7 @@ export default function CyberFirstQatar2026() {
       <Hero />
       <EventOverview />
       <AtAGlance />
+      <CpdCertified eventName="Cyber First Qatar 2026" theme={C} registerHref="#register" />
       <WhyQatar />
       <LandscapeFacts />
       <div style={{ position: "relative", background: BG_DEEP, overflow: "hidden" }}>

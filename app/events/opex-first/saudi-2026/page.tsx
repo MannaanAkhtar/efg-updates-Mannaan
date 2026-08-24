@@ -10,6 +10,7 @@ import Link from "next/link";
 import { MeshGradient } from "@paper-design/shaders-react";
 import { Footer, InquiryForm } from "@/components/sections";
 import { OpexPostEventReports } from "@/components/opex-first";
+import CpdCertified from "@/components/events/CpdCertified";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
 import type { CountryCode } from "@/lib/form-helpers";
 
@@ -6671,6 +6672,13 @@ function Register() {
           <SectionTitle inView={inView} centered>
             Tell us how you want to <em className="opex-violet-shimmer">show up</em>.
           </SectionTitle>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 12, marginTop: 20, padding: "10px 16px", borderRadius: 12, background: `${V}12`, border: `1px solid ${V}33` }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/CPD.png" alt="CPD certified" loading="lazy" decoding="async" style={{ width: 34, height: 34, display: "block" }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 500, color: "rgba(255,255,255,0.85)", lineHeight: 1.4 }}>
+              <strong style={{ color: V_BRIGHT, fontWeight: 700 }}>CPD Certified Event</strong> · earn up to 7 CPD points.
+            </span>
+          </div>
         </div>
 
         <motion.div
@@ -7510,6 +7518,7 @@ export default function OpexFirstSaudi2026Page() {
       <OpexSaudiPostReportFloat />
       <EventOverview />
       <MarketPulse />
+      <CpdCertified eventName="OPEX First Saudi 2026" theme={V} registerHref="#register" />
       <FocusAreas />
       <Speakers />
       <EventSponsors />
