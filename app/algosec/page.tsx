@@ -524,7 +524,7 @@ function Agenda() {
         <div style={{ ...rise(seen) }}>
           <span style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: GOLD }}>The Challenge · 150-minute run-of-show</span>
           <h2 id="agenda" style={{ fontFamily: FONT, fontWeight: 900, fontSize: "clamp(28px,4vw,46px)", letterSpacing: "-0.03em", lineHeight: 1.06, color: WHITE, margin: "14px 0 0", maxWidth: 760, scrollMarginTop: 90 }}>
-            Navigate the city. Escape the complexity.
+            Navigate the Challenge.
           </h2>
           <p style={{ fontFamily: FONT, fontWeight: 300, fontSize: "clamp(15px,1.4vw,17px)", lineHeight: 1.65, color: DIM, margin: "16px 0 0", maxWidth: 680 }}>
             The session runs as a single route: from an opening gamified challenge through a closed-door roundtable to a networking lunch. Each checkpoint moves the group closer to application-centric control.
@@ -580,8 +580,11 @@ function AgendaIcon({ kind }: { kind: string }) {
   }
 }
 
-// ─── SPEAKERS (line-up to be announced) ───────────────────────────────────────
-const SPEAKER_SEATS = ["Moderator", "AlgoSec executive", "Enterprise leader", "Enterprise leader"];
+// ─── SPEAKERS ──────────────────────────────────────────────────────────────────
+const SPEAKERS = [
+  { name: "Nitin Rajput", title: "Director, Solution Engineering, APAC & Middle East", org: "AlgoSec", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nitin+Rajput.jpeg", linkedin: "https://www.linkedin.com/in/nitin-rajput-cissp-ccsp-cisa-36587352/" },
+  { name: "Gurinder Singh", title: "Regional Pre-Sales Engineer, India & Middle East", org: "AlgoSec", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Gurinder+Singh.jpeg", linkedin: "https://www.linkedin.com/in/gurinder-sandhu-6a04a63b/" },
+];
 function Speakers() {
   const { ref, seen } = useReveal<HTMLDivElement>();
   return (
@@ -591,41 +594,40 @@ function Speakers() {
         <div style={{ textAlign: "center", ...rise(seen) }}>
           <span style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: UIBLUE }}>Speakers</span>
           <h2 style={{ fontFamily: FONT, fontWeight: 900, fontSize: "clamp(28px,4vw,48px)", letterSpacing: "-0.03em", lineHeight: 1.06, color: INKT, margin: "14px auto 0", maxWidth: 720 }}>
-            Speaker line-up coming soon.
+            Meet the speakers.
           </h2>
           <p style={{ fontFamily: FONT, fontWeight: 300, fontSize: "clamp(14.5px,1.4vw,16.5px)", color: INK_SOFT, margin: "16px auto 0", maxWidth: 600, lineHeight: 1.6 }}>
-            A curated table of senior leaders. Final names, titles and bios will be confirmed closer to the event.
+            AlgoSec&rsquo;s engineering leaders bring an application-centric perspective on securing connectivity across the hybrid enterprise.
           </p>
         </div>
-        <div className="ac-spk-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "clamp(16px,1.8vw,22px)", marginTop: "clamp(40px,5vw,60px)" }}>
-          {SPEAKER_SEATS.map((seat, i) => (
-            <div key={i} className="ac-spk-ph" style={{ position: "relative", overflow: "hidden", borderRadius: 20, background: `linear-gradient(162deg, ${NAVY} 0%, ${UDB} 52%, ${INK} 100%)`, border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 22px 48px rgba(10,18,34,0.22), inset 0 1px 0 rgba(255,255,255,0.1)", padding: "clamp(28px,3vw,36px) clamp(20px,2.4vw,28px)", textAlign: "center", ...rise(seen, 0.1 + i * 0.09) }}>
-              <span aria-hidden style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 3, background: `linear-gradient(90deg, transparent, ${SKY}, ${GREEN}, transparent)`, opacity: 0.7 }} />
-              <span aria-hidden style={{ position: "absolute", inset: 0, backgroundImage: `linear-gradient(${SKY}10 1px, transparent 1px), linear-gradient(90deg, ${SKY}10 1px, transparent 1px)`, backgroundSize: "34px 34px", maskImage: "radial-gradient(100% 80% at 50% 0%, #000 20%, transparent 75%)", WebkitMaskImage: "radial-gradient(100% 80% at 50% 0%, #000 20%, transparent 75%)", pointerEvents: "none" }} />
-              <span aria-hidden style={{ position: "relative", width: 72, height: 72, margin: "0 auto", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(255,255,255,0.05)", border: "1px dashed rgba(255,255,255,0.28)" }}>
-                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke={SKY} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden><circle cx="12" cy="8" r="4" /><path d="M4 20a8 8 0 0 1 16 0" /></svg>
-              </span>
-              <div style={{ position: "relative", marginTop: 20, display: "flex", flexDirection: "column", alignItems: "center", gap: 9 }}>
-                <span className="ac-sh" style={{ width: "72%", height: 12, borderRadius: 6 }} />
-                <span className="ac-sh" style={{ width: "48%", height: 10, borderRadius: 6 }} />
+        <div className="ac-spk-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 300px))", justifyContent: "center", gap: "clamp(20px,2.4vw,30px)", marginTop: "clamp(40px,5vw,60px)" }}>
+          {SPEAKERS.map((s, i) => (
+            <div key={s.name} className="ac-spk-card" style={{ position: "relative", overflow: "hidden", borderRadius: 20, background: `linear-gradient(162deg, ${UIBLUE} 0%, ${NAVY} 56%, ${UDB} 100%)`, border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 22px 48px rgba(10,18,34,0.24), inset 0 1px 0 rgba(255,255,255,0.12)", ...rise(seen, 0.1 + i * 0.1) }}>
+              <span aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 4, zIndex: 3, background: `linear-gradient(90deg, ${SKY}, ${GREEN})` }} />
+              <div style={{ position: "relative", aspectRatio: "1 / 1", overflow: "hidden", background: UDB }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="ac-spk-photo" src={s.photo} alt={s.name} loading="lazy" decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 18%" }} />
+                <a href={s.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${s.name} on LinkedIn`} className="ac-spk-li" style={{ position: "absolute", top: 12, right: 12, zIndex: 2, display: "inline-flex", alignItems: "center", justifyContent: "center", width: 36, height: 36, borderRadius: 10, background: "rgba(11,27,58,0.55)", border: `1px solid ${SKY}66`, color: "#fff", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)", transition: "background 0.2s ease, transform 0.2s ease" }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M4.98 3.5a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM3 8.5h4V21H3zM9 8.5h3.6v1.7h.05c.5-.9 1.7-1.85 3.5-1.85 3.75 0 4.45 2.35 4.45 5.4V21h-4v-5.4c0-1.3 0-2.95-1.8-2.95s-2.05 1.4-2.05 2.85V21H9z" /></svg>
+                </a>
               </div>
-              <span style={{ position: "relative", display: "inline-flex", alignItems: "center", gap: 7, marginTop: 20, padding: "6px 13px", borderRadius: 100, background: "rgba(68,173,226,0.16)", border: `1px solid ${SKY}55`, backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)" }}>
-                <span aria-hidden style={{ width: 6, height: 6, borderRadius: "50%", background: GREEN, boxShadow: `0 0 8px ${GREEN}` }} />
-                <span style={{ fontFamily: FONT, fontSize: 11.5, fontWeight: 700, letterSpacing: "0.06em", color: "#EAF3FB" }}>To be announced</span>
-              </span>
-              <p style={{ position: "relative", fontFamily: FONT, fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", margin: "14px 0 0" }}>{seat}</p>
+              <div style={{ padding: "18px 18px 22px", textAlign: "center" }}>
+                <h3 style={{ fontFamily: FONT, fontWeight: 800, fontSize: "clamp(16px,1.5vw,18px)", color: WHITE, margin: 0, letterSpacing: "-0.01em" }}>{s.name}</h3>
+                <p style={{ fontFamily: FONT, fontWeight: 600, fontSize: 12.5, lineHeight: 1.4, color: "#BFE3F7", margin: "8px 0 0" }}>{s.title}</p>
+                <p style={{ fontFamily: FONT, fontWeight: 400, fontSize: 12, color: "rgba(255,255,255,0.6)", margin: "3px 0 0" }}>{s.org}</p>
+              </div>
             </div>
           ))}
         </div>
       </div>
       <style jsx global>{`
-        .ac-spk-ph { transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease; }
-        .ac-spk-ph:hover { transform: translateY(-4px); border-color: ${SKY}66; box-shadow: 0 30px 60px rgba(10,18,34,0.3), inset 0 1px 0 rgba(255,255,255,0.12); }
-        .ac-sh { background: linear-gradient(90deg, rgba(255,255,255,0.07) 25%, rgba(255,255,255,0.16) 37%, rgba(255,255,255,0.07) 63%); background-size: 400% 100%; animation: ac-sh 1.6s ease infinite; }
-        @keyframes ac-sh { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
-        @media (prefers-reduced-motion: reduce) { .ac-sh { animation: none; } }
-        @media (max-width: 900px) { .ac-spk-grid { grid-template-columns: 1fr 1fr !important; } }
-        @media (max-width: 480px) { .ac-spk-grid { grid-template-columns: 1fr !important; } }
+        .ac-spk-card { transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
+        .ac-spk-card .ac-spk-photo { transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); }
+        .ac-spk-card:hover { transform: translateY(-5px); border-color: ${SKY}66; box-shadow: 0 32px 66px rgba(10,18,34,0.34), inset 0 1px 0 rgba(255,255,255,0.14); }
+        .ac-spk-card:hover .ac-spk-photo { transform: scale(1.04); }
+        .ac-spk-li:hover { background: ${SKY} !important; transform: translateY(-1px); }
+        @media (max-width: 620px) { .ac-spk-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+        @media (max-width: 380px) { .ac-spk-grid { grid-template-columns: 1fr !important; } }
       `}</style>
     </section>
   );
