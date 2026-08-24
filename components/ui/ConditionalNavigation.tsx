@@ -26,6 +26,7 @@ export default function ConditionalNavigation() {
     pathname?.startsWith("/seagate") ||
     pathname?.startsWith("/outsystems-blackstone") ||
     pathname?.startsWith("/blackstone-liferay") ||
+    pathname?.startsWith("/algosec") ||
     pathname?.startsWith("/proofpoint") ||
     pathname?.startsWith("/ifs") ||
     pathname?.startsWith("/blueyonder") ||
