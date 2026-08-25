@@ -18,7 +18,7 @@ import { useGSAP } from "@gsap/react";
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
-import { Footer, InquiryForm } from "@/components/sections";
+import { Footer } from "@/components/sections";
 import EventNavigation from "@/components/ui/EventNavigation";
 import CpdCertified from "@/components/events/CpdCertified";
 import {
@@ -5277,39 +5277,6 @@ function GallerySection() {
 function AwardsSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [formState, setFormState] = useState({ name: "", email: "", company: "", title: "", category: "", phone: "", countryIdx: 0 });
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = async () => {
-    const errs: Record<string, string> = {};
-    if (!formState.name.trim()) errs.name = "Required";
-    if (!formState.email.trim()) errs.email = "Required";
-    else if (!isWorkEmail(formState.email)) errs.email = "Please use your work email";
-    if (!formState.category) errs.category = "Please select a category";
-    if (Object.keys(errs).length) return setErrors(errs);
-
-    setSubmitting(true);
-    try {
-      await submitForm({
-        type: "awards" as FormType,
-        full_name: formState.name,
-        email: formState.email,
-        company: formState.company,
-        job_title: formState.title,
-        phone: formState.phone ? `${COUNTRY_CODES[formState.countryIdx].code}${formState.phone}` : "",
-        event_name: "OT Security First Johannesburg 2026, Awards",
-        website: "",
-        metadata: { award_category: formState.category },
-      });
-      setSubmitted(true);
-    } catch {
-      setErrors({ form: "Something went wrong. Please try again." });
-    } finally {
-      setSubmitting(false);
-    }
-  };
 
   return (
     <section ref={ref} id="awards" style={{ background: "transparent", padding: "clamp(40px, 4.5vw, 64px) 0", position: "relative", overflow: "hidden" }}>
@@ -5499,145 +5466,14 @@ function AwardsSection() {
 
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 22 }}>
                 <span style={{ width: 28, height: 1, background: CYAN }} />
-                <span style={{ fontFamily: "var(--font-dm)", fontSize: 10.5, fontWeight: 700, color: CYAN, textTransform: "uppercase", letterSpacing: "3.5px" }}>Nominate</span>
+                <span style={{ fontFamily: "var(--font-dm)", fontSize: 10.5, fontWeight: 700, color: CYAN, textTransform: "uppercase", letterSpacing: "3.5px" }}>Nominations closed</span>
               </div>
               <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 22, color: "white", margin: "0 0 6px", letterSpacing: "-0.5px", position: "relative" }}>
-                Nominate a Leader
+                Nominations are now closed.
               </h3>
-              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, color: "rgba(255,255,255,0.55)", margin: "0 0 22px", lineHeight: 1.55, position: "relative" }}>
-                Recognise the teams and individuals shaping industrial cyber resilience.
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, color: "rgba(255,255,255,0.62)", margin: "0 0 4px", lineHeight: 1.6, position: "relative" }}>
+                Thank you for the outstanding response. Award nominations for OT Security First Africa 2026 have closed. Winners will be recognised at the ceremony.
               </p>
-
-              {submitted ? (
-                <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} style={{
-                  padding: 28,
-                  background: `linear-gradient(135deg, ${CYAN}12, ${CYAN}06)`,
-                  border: `1px solid ${CYAN}30`,
-                  borderRadius: 14,
-                  textAlign: "center",
-                }}>
-                  <div style={{
-                    width: 52, height: 52, borderRadius: "50%",
-                    background: `linear-gradient(145deg, ${CYAN}55, ${CYAN}22)`,
-                    border: `1px solid ${CYAN}66`,
-                    boxShadow: `0 0 24px ${CYAN}55`,
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginBottom: 14,
-                  }}>
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                  </div>
-                  <h4 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 18, color: "white", margin: "0 0 6px" }}>Nomination submitted</h4>
-                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.55)", margin: 0 }}>Thank you — we&apos;ll be in touch.</p>
-                </motion.div>
-              ) : (
-                <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 14 }}>
-                  {[
-                    { key: "name", label: "Full Name", type: "text" },
-                    { key: "email", label: "Work Email", type: "email" },
-                    { key: "company", label: "Company / Organisation", type: "text" },
-                    { key: "title", label: "Job Title", type: "text" },
-                  ].map((field) => (
-                    <div key={field.key}>
-                      <input
-                        type={field.type}
-                        placeholder={field.label}
-                        value={formState[field.key as keyof typeof formState] as string}
-                        onChange={(e) => { setFormState((s) => ({ ...s, [field.key]: e.target.value })); setErrors((prev) => { const n = { ...prev }; delete n[field.key]; return n; }); }}
-                        className="otsf-awards-input"
-                        style={{
-                          width: "100%",
-                          padding: "14px 18px",
-                          borderRadius: 12,
-                          background: "linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 100%)",
-                          border: `1px solid ${errors[field.key] ? "#ef4444" : "rgba(255,255,255,0.1)"}`,
-                          color: "white",
-                          fontFamily: "var(--font-outfit)",
-                          fontSize: 14,
-                          fontWeight: 400,
-                          outline: "none",
-                          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), inset 0 -1px 0 rgba(0,0,0,0.18)",
-                          transition: "border-color 0.3s, box-shadow 0.3s, background 0.3s",
-                        }}
-                      />
-                      {errors[field.key] && <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: "#ef4444", marginTop: 6, display: "block" }}>{errors[field.key]}</span>}
-                    </div>
-                  ))}
-
-                  {/* Category dropdown */}
-                  <div style={{ position: "relative" }}>
-                    <select
-                      value={formState.category}
-                      onChange={(e) => { setFormState((s) => ({ ...s, category: e.target.value })); setErrors((prev) => { const n = { ...prev }; delete n.category; return n; }); }}
-                      className="otsf-awards-input otsf-awards-select"
-                      style={{
-                        width: "100%",
-                        padding: "14px 44px 14px 18px",
-                        borderRadius: 12,
-                        background: "linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 100%)",
-                        border: `1px solid ${errors.category ? "#ef4444" : "rgba(255,255,255,0.1)"}`,
-                        color: formState.category ? "white" : "rgba(255,255,255,0.38)",
-                        fontFamily: "var(--font-outfit)",
-                        fontSize: 14,
-                        fontWeight: 400,
-                        outline: "none",
-                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), inset 0 -1px 0 rgba(0,0,0,0.18)",
-                        transition: "border-color 0.3s, box-shadow 0.3s, background 0.3s",
-                        appearance: "none",
-                        WebkitAppearance: "none",
-                        MozAppearance: "none",
-                        cursor: "pointer",
-                      }}
-                    >
-                      <option value="" disabled style={{ background: "#0a0e2a", color: "rgba(255,255,255,0.5)" }}>Award Category</option>
-                      {AWARDS_DATA.map((award, i) => (
-                        <option key={award.title} value={award.title} style={{ background: "#0a0e2a", color: "white" }}>
-                          0{i + 1} · {award.title}
-                        </option>
-                      ))}
-                    </select>
-                    {/* Custom chevron */}
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      style={{ position: "absolute", right: 16, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}
-                    >
-                      <path d="M6 9l6 6 6-6" stroke={CYAN} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    {errors.category && <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, color: "#ef4444", marginTop: 6, display: "block" }}>{errors.category}</span>}
-                  </div>
-
-                  <button
-                    onClick={handleSubmit}
-                    disabled={submitting}
-                    className="otsf-awards-submit"
-                    style={{
-                      position: "relative",
-                      padding: "15px 32px",
-                      borderRadius: 50,
-                      background: `linear-gradient(135deg, ${CYAN} 0%, ${C_BRIGHT} 100%)`,
-                      color: "#0A0A0A",
-                      fontFamily: "var(--font-outfit)",
-                      fontSize: 14.5,
-                      fontWeight: 700,
-                      border: "none",
-                      cursor: submitting ? "wait" : "pointer",
-                      opacity: submitting ? 0.7 : 1,
-                      letterSpacing: "0.3px",
-                      boxShadow: `0 10px 28px ${CYAN}45, 0 0 24px ${C}30, inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 0 rgba(0,0,0,0.2)`,
-                      transition: "all 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
-                      marginTop: 8,
-                      overflow: "hidden",
-                    }}
-                  >
-                    <span style={{ position: "relative", zIndex: 2 }}>{submitting ? "Submitting..." : "Submit Nomination"}</span>
-                  </button>
-                  {errors.form && <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "#ef4444" }}>{errors.form}</span>}
-                </div>
-              )}
             </div>
           </div>
         </motion.div>
@@ -6730,7 +6566,21 @@ export default function OTSecurityFirstJohannesburg2026() {
                   </span>
                 </div>
               </div>
-              <InquiryForm defaultCountry="ZA" eventName="OT Security First Africa 2026" labelText="Join Us in Johannesburg" />
+              {/* Registration closed — event has reached capacity, form retired. */}
+              <div style={{ maxWidth: 720, margin: "18px auto 0", padding: "0 clamp(20px,4vw,60px)" }}>
+                <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", background: "linear-gradient(165deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: `1px solid ${C}30`, boxShadow: "0 24px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)", padding: "clamp(36px,5vw,56px) clamp(24px,4vw,48px)", textAlign: "center" }}>
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: 8, fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: C }}>
+                    <span aria-hidden style={{ width: 7, height: 7, borderRadius: "50%", background: C, boxShadow: `0 0 10px ${C}` }} />
+                    Registrations closed
+                  </span>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(24px,3.4vw,38px)", letterSpacing: "-0.02em", lineHeight: 1.1, color: "#fff", margin: "16px 0 0" }}>
+                    Registration is now closed.
+                  </h3>
+                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: "clamp(14.5px,1.4vw,16.5px)", lineHeight: 1.7, color: "rgba(255,255,255,0.72)", margin: "14px auto 0", maxWidth: 520 }}>
+                    Thank you for the overwhelming interest in OT Security First Africa 2026. We have reached capacity and are no longer accepting new registrations. For any queries, please reach out to our team below.
+                  </p>
+                </div>
+              </div>
             </div>
           </section>
           <ContactSection />
