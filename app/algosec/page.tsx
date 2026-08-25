@@ -45,8 +45,8 @@ const EVENT = {
     "An executive roundtable where security leaders decode Real-world Application Connectivity challenges, escape policy complexity, and explore how application context, automation and AI-assisted discovery can accelerate secure application delivery.",
   date: "24 September 2026",
   city: "Dubai, UAE",
-  time: "11:00 AM – 1:30 PM GST (UTC+4)",
-  duration: "150 minutes",
+  time: "11:00 AM – 2:00 PM GST (UTC+4)",
+  duration: "180 minutes",
   format: "Closed-door executive roundtable + gamified opening challenge + networking lunch",
 };
 
@@ -513,10 +513,10 @@ const AGENDA = [
   { time: "11:00 – 11:10 AM", title: "Welcome: Why application connectivity has become an executive security issue", kind: "welcome" },
   { time: "11:10 – 11:40 AM", title: "AlgoCity: Escape the Complexity, gamified challenge on application visibility, ownership and connectivity requirements", kind: "challenge" },
   { time: "11:40 – 11:50 AM", title: "Challenge debrief", kind: "debrief" },
-  { time: "11:50 AM – 12:40 PM", title: "Closed-door roundtable: securing application connectivity across hybrid & multi-cloud environments", kind: "roundtable" },
-  { time: "12:40 – 1:10 PM", title: "Deep dive", kind: "deepdive" },
-  { time: "1:10 – 1:30 PM", title: "Executive action exchange & closing", kind: "exchange" },
-  { time: "1:30 PM onwards", title: "Networking lunch", kind: "reception" },
+  { time: "11:50 AM – 1:10 PM", title: "Closed-door roundtable: securing application connectivity across hybrid & multi-cloud environments", kind: "roundtable" },
+  { time: "1:10 – 1:40 PM", title: "Deep dive", kind: "deepdive" },
+  { time: "1:40 – 2:00 PM", title: "Executive action exchange & closing", kind: "exchange" },
+  { time: "2:00 PM onwards", title: "Networking lunch", kind: "reception" },
 ];
 function Agenda() {
   const { ref, seen } = useReveal<HTMLDivElement>();
@@ -525,7 +525,7 @@ function Agenda() {
       <GridBg opacity={0.45} />
       <div ref={ref} style={{ position: "relative", zIndex: 2, maxWidth: 980, margin: "0 auto" }}>
         <div style={{ ...rise(seen) }}>
-          <span style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: GOLD }}>The Challenge · 150-minute run-of-show</span>
+          <span style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: GOLD }}>The Challenge · 180-minute run-of-show</span>
           <h2 id="agenda" style={{ fontFamily: FONT, fontWeight: 900, fontSize: "clamp(28px,4vw,46px)", letterSpacing: "-0.03em", lineHeight: 1.06, color: WHITE, margin: "14px 0 0", maxWidth: 760, scrollMarginTop: 90 }}>
             Navigate the Challenge.
           </h2>
