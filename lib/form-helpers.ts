@@ -11,6 +11,12 @@ export type FormType =
   | "networkfirst"
   | "careers";
 
+export interface FormAttachment {
+  filename: string;
+  content: string; // base64-encoded file bytes (no data: prefix)
+  content_type: string;
+}
+
 export interface FormPayload {
   type: FormType;
   full_name: string;
@@ -21,6 +27,7 @@ export interface FormPayload {
   metadata?: Record<string, string>;
   event_name?: string;
   website?: string; // honeypot, always send empty
+  attachment?: FormAttachment; // optional file (e.g. careers CV), emailed to the team
 }
 
 export interface FormResult {

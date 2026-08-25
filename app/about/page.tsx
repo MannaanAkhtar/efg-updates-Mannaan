@@ -943,9 +943,51 @@ function CareersSection() {
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const [about, setAbout] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [fileError, setFileError] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+
+  const ALLOWED_EXT = [".pdf", ".doc", ".docx"];
+  const MAX_FILE_BYTES = 3 * 1024 * 1024; // 3MB
+
+  function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
+    setFileError("");
+    const f = e.target.files?.[0];
+    if (!f) { setFile(null); return; }
+    const dot = f.name.lastIndexOf(".");
+    const ext = dot >= 0 ? f.name.slice(dot).toLowerCase() : "";
+    if (!ALLOWED_EXT.includes(ext)) {
+      setFileError("Please upload a PDF, DOC or DOCX file.");
+      setFile(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      return;
+    }
+    if (f.size > MAX_FILE_BYTES) {
+      setFileError("File must be under 3MB.");
+      setFile(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      return;
+    }
+    setFile(f);
+  }
+
+  function clearFile() {
+    setFile(null);
+    setFileError("");
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  }
+
+  function readFileAsBase64(f: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result).split(",")[1] || "");
+      reader.onerror = () => reject(new Error("Could not read file"));
+      reader.readAsDataURL(f);
+    });
+  }
 
   const inputStyle: React.CSSProperties = {
     padding: "14px 16px",
@@ -964,6 +1006,18 @@ function CareersSection() {
     setError("");
     setSubmitting(true);
 
+    let attachment;
+    if (file) {
+      try {
+        const content = await readFileAsBase64(file);
+        attachment = { filename: file.name, content, content_type: file.type || "application/octet-stream" };
+      } catch {
+        setSubmitting(false);
+        setFileError("Could not read the selected file. Please try again.");
+        return;
+      }
+    }
+
     const result = await submitForm({
       type: "careers",
       full_name: fullName,
@@ -972,6 +1026,7 @@ function CareersSection() {
         role_interest: role,
         about: about,
       },
+      attachment,
     });
 
     setSubmitting(false);
@@ -982,6 +1037,7 @@ function CareersSection() {
       setEmail("");
       setRole("");
       setAbout("");
+      clearFile();
     } else {
       setError(result.error || "Something went wrong. Please try again.");
     }
@@ -1138,6 +1194,59 @@ function CareersSection() {
                   onFocus={(e) => e.currentTarget.style.borderColor = "var(--orange)"}
                   onBlur={(e) => e.currentTarget.style.borderColor = "var(--gray-border)"}
                 />
+
+                {/* CV / document upload */}
+                <div style={{ marginBottom: 16 }}>
+                  <input
+                    ref={fileInputRef}
+                    id="careers-cv"
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    onChange={onSelectFile}
+                    style={{ display: "none" }}
+                  />
+                  <label
+                    htmlFor="careers-cv"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      padding: "14px 16px",
+                      borderRadius: 10,
+                      border: `1px dashed ${file ? "var(--orange)" : "var(--gray-border)"}`,
+                      background: "rgba(255,255,255,0.03)",
+                      cursor: "pointer",
+                      fontFamily: "var(--font-outfit)",
+                      fontSize: 14,
+                      color: file ? "white" : "var(--white-muted)",
+                      transition: "border-color 0.2s ease",
+                    }}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+                      <path d="M12 16V4m0 0L7 9m5-5l5 5" stroke="var(--orange)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="var(--orange)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <span style={{ flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      {file ? file.name : "Attach CV / resume (PDF, DOC, DOCX · max 3MB)"}
+                    </span>
+                    {file && (
+                      <span
+                        role="button"
+                        aria-label="Remove file"
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); clearFile(); }}
+                        style={{ flexShrink: 0, color: "var(--white-muted)", fontSize: 18, lineHeight: 1, cursor: "pointer", padding: "0 4px" }}
+                      >
+                        &times;
+                      </span>
+                    )}
+                  </label>
+                  {fileError && (
+                    <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "#ef4444", margin: "8px 0 0" }}>
+                      {fileError}
+                    </p>
+                  )}
+                </div>
+
                 {error && (
                   <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "#ef4444", marginBottom: 12 }}>
                     {error}

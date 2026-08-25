@@ -37,7 +37,13 @@ const NOTIFICATION_EMAIL =
 const EMAIL_FROM =
   process.env.RESEND_FROM_EMAIL || "Events First Group <noreply@eventsfirstgroup.com>";
 
-const MAX_PAYLOAD_SIZE = 10 * 1024; // 10KB
+// Base payload is tiny, but careers applications may carry a CV attachment
+// (base64), so allow enough headroom while staying under Vercel's ~4.5MB body limit.
+const MAX_PAYLOAD_SIZE = 5 * 1024 * 1024; // 5MB
+
+// Allowed CV/document upload types (careers form)
+const ALLOWED_ATTACHMENT_EXT = [".pdf", ".doc", ".docx"];
+const MAX_ATTACHMENT_BYTES = 3.5 * 1024 * 1024; // ~3.5MB decoded
 
 // Free email providers, require work email for all forms
 const FREE_EMAIL_DOMAINS = [
@@ -300,6 +306,33 @@ export async function POST(request: NextRequest) {
       if (val) metadata[sanitize(key)] = sanitize(String(val));
     }
 
+    // Optional file attachment (e.g. careers CV). Validate type + size, then
+    // deliver it as an attachment on the notification email. We do not persist
+    // the file itself — the DB row just records that a document was attached.
+    let emailAttachment: { filename: string; content: string } | null = null;
+    const rawAtt = body.attachment;
+    if (rawAtt && typeof rawAtt === "object" && typeof rawAtt.content === "string" && rawAtt.content) {
+      const filename = sanitize(String(rawAtt.filename || "attachment"));
+      const dot = filename.lastIndexOf(".");
+      const ext = dot >= 0 ? filename.slice(dot).toLowerCase() : "";
+      // base64 length → approx decoded byte count
+      const approxBytes = Math.floor(rawAtt.content.length * 0.75);
+      if (!ALLOWED_ATTACHMENT_EXT.includes(ext)) {
+        return NextResponse.json(
+          { error: "Unsupported file type. Please upload a PDF, DOC or DOCX." },
+          { status: 400 }
+        );
+      }
+      if (approxBytes > MAX_ATTACHMENT_BYTES) {
+        return NextResponse.json(
+          { error: "File is too large. Please keep it under 3MB." },
+          { status: 400 }
+        );
+      }
+      emailAttachment = { filename, content: rawAtt.content };
+      metadata.attachment = filename; // note in the DB row that a CV was attached
+    }
+
     // 10. Insert into Supabase
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -394,6 +427,7 @@ export async function POST(request: NextRequest) {
             source_category: source_category || undefined,
             event_name: event_name || undefined,
           }),
+          ...(emailAttachment ? { attachments: [emailAttachment] } : {}),
         });
         // Resend returns API-level errors (unverified domain, invalid recipient,
         // rate limit) in `error` rather than throwing — surface them so silent
