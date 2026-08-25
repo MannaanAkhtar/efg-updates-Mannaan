@@ -37,22 +37,6 @@ const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 
 const UPCOMING_EVENTS = [
   {
-    date: "August 19th, 2026",
-    month: "AUG",
-    day: "19",
-    year: "2026",
-    time: "4:30 PM Onwards",
-    title: "The Inner Circle",
-    subtitle: "The Art of Knowing",
-    sponsor: "CleverTap",
-    location: "Hilton Riyadh & Residences",
-    link: "/inner_circle",
-    image: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/clevertap_innercircle_bg.png",
-    brandColor: "#E14B3A",
-    brandGradient: "linear-gradient(135deg, #3A1A15 0%, #1C1410 45%, #100E0C 78%, #06070F 100%)",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverTap_Logotype.png",
-  },
-  {
     date: "September 29th, 2026",
     month: "SEP",
     day: "29",
@@ -331,6 +315,20 @@ type PastEvent = {
 };
 
 const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    sponsor: "CleverTap",
+    title: "The Inner Circle",
+    subtitle: "The Art of Knowing",
+    month: "AUG",
+    date: "19 Aug",
+    venue: "Hilton Riyadh & Residences",
+    time: "4:30 PM Onwards",
+    image: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/clevertap_innercircle_bg.png",
+    brandColor: "#E14B3A",
+    brandGradient: "linear-gradient(135deg, #3A1A15 0%, #1C1410 45%, #100E0C 78%, #06070F 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CleverTap_Logotype.png",
+    link: "/inner_circle",
+  },
   {
     sponsor: "Filigran",
     title: "Filigran Executive Roundtable",
@@ -2604,7 +2602,14 @@ const NF_MONTHS = (() => {
   });
   const order = ["APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC", "TBA", "TBH"];
   const fullNames: Record<string, string> = { APR: "April", MAY: "May", JUN: "June", JUL: "July", AUG: "August", SEP: "September", OCT: "October", NOV: "November", DEC: "December", TBA: "To be announced", TBH: "To be announced" };
-  return order.filter(m => monthMap[m]).map(m => ({ abbr: m, full: fullNames[m], events: monthMap[m] }));
+  // Within each month, order cards chronologically by day (non-numeric days e.g. "TBA" sort last).
+  const dayNum = (e: (typeof UPCOMING_EVENTS)[number]) => {
+    const n = parseInt(String(e.day), 10);
+    return Number.isNaN(n) ? 999 : n;
+  };
+  return order
+    .filter(m => monthMap[m])
+    .map(m => ({ abbr: m, full: fullNames[m], events: [...monthMap[m]].sort((a, b) => dayNum(a) - dayNum(b)) }));
 })();
 
 function UpcomingSection() {

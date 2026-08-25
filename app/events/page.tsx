@@ -38,24 +38,6 @@ type SeriesStatus = "open" | "soon";
 
 const allEvents = [
   {
-    id: "networkfirst-inner-circle",
-    category: "networkfirst",
-    title: "The Inner Circle",
-    tagline: "The Art of Knowing",
-    description:
-      "An invitation-only executive evening for Riyadh's C-suite growth, marketing, and digital leaders — a closed-door conversation on AI-led customer engagement, closing with a live mentalist experience.",
-    color: "#C9935A",
-    image: "",
-    href: "/inner_circle",
-    date: "2026-08-19",
-    nextDate: "19 Aug 2026",
-    nextCity: "Riyadh, Saudi Arabia",
-    editions: "",
-    regions: "Saudi Arabia",
-    attendees: "Invite-only",
-    status: "open" as SeriesStatus,
-  },
-  {
     id: "networkfirst-enterprisedb-ksa",
     category: "networkfirst",
     title: "EnterpriseDB Executive Roundtable",
