@@ -414,11 +414,11 @@ const SPEAKERS = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Chris+Gatsi.jpg",
   },
   {
-    name: "Muvhango Livhusha",
-    title: "Vice President",
-    org: "ISACA South Africa Chapter",
-    linkedin: "https://www.linkedin.com/in/muvhango-sipho-steven-livhusha-phd-candidate-mba-cisa-8566a61aa/",
-    photo: `${S3}/boardroom/Muvhango_Livhusha.png`,
+    name: "Mahendra Beharie",
+    title: "VP IT",
+    org: "DHL Express",
+    linkedin: "https://www.linkedin.com/in/mahendrabeharie/",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mahendra+Beharie.jpg",
   },
   {
     name: "Xolani Nzimande",
@@ -5969,7 +5969,7 @@ const JHB_AGENDA_TRACKS: JhbAgendaTrack[] = [
         ],
         moderator: "Pitso Sekhoto, Middle Manager - Substation Automation Integration, Eskom Holdings SOC Ltd",
         panelists: [
-          "Muvhango Livhusha, VP, ISACA South Africa Chapter",
+          "Mahendra Beharie, VP IT, DHL Express",
           "Chris Gatsi, Chief Internal Auditor (IT), Sibanye-Stillwater",
           "Koketso Rihlampfu, Chief Information Security Officer, Bayobab Africa – MTN Group Company",
           "Hamid Bafghi, MEA Regional Sales and Partnership Director, CYFIRMA",
