@@ -263,8 +263,8 @@ const allEvents = [
     image:
       "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
     href: "/events/cyber-first/kuwait-2026",
-    date: "2026-10-14",
-    nextDate: "14 Oct 2026",
+    date: "2026-11-17",
+    nextDate: "17 Nov 2026",
     nextCity: "Kuwait City",
     editions: "3rd Edition",
     regions: "Kuwait",
