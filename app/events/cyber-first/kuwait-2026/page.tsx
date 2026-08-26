@@ -27,7 +27,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const WP = "https://cyberfirstseries.com/wp-content/uploads";
 const S3 =
   "https://efg-final.s3.eu-north-1.amazonaws.com/speakers/cyber-first-kuwait";
-const EVENT_DATE = new Date("2026-10-14T08:00:00+03:00");
+const EVENT_DATE = new Date("2026-11-17T08:00:00+03:00");
 
 // ─── Post-Event Reports data ─────────────────────────────────────────────────
 type ReportEntry = {
@@ -2148,7 +2148,7 @@ function HeroSection() {
               boxShadow: `0 0 8px ${C_BRIGHT}, 0 0 16px ${C_BRIGHT}60`,
             }} />
             <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, letterSpacing: "1.2px", textTransform: "uppercase", color: "white" }}>
-              14 OCT 2026
+              17 NOV 2026
             </span>
             <span style={{ width: 1, height: 16, background: "rgba(255,255,255,0.15)", borderRadius: 1 }} />
             <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>
@@ -2847,7 +2847,7 @@ function MarketContext() {
     { value: 300, suffix: "+", label: "Delegates", note: "CISOs & C-Suite Leaders", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75", badge: "Summit", highlight: true },
     { value: 25, suffix: "+", label: "Speakers", note: "Industry & Government Leaders", icon: "M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z", badge: "Keynote" },
     { value: 25, suffix: "", label: "Sponsors", note: "Technology Partners", icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z", badge: "Partners" },
-    { value: 1, suffix: "", label: "Day", note: "Full Executive Summit", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z", badge: "14 Oct" },
+    { value: 1, suffix: "", label: "Day", note: "Full Executive Summit", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z", badge: "17 Nov" },
   ];
 
   return (
@@ -8475,7 +8475,7 @@ function Venue() {
 
   const venueDetails = [
     { icon: "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0zM12 13a3 3 0 100-6 3 3 0 000 6z", label: "Location", value: "Kuwait City, Kuwait" },
-    { icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z", label: "Date", value: "Wednesday, 14 October 2026" },
+    { icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z", label: "Date", value: "Tuesday, 17 November 2026" },
     { icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", label: "Time", value: "8:00 AM, 5:00 PM (GST+3)" },
     { icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z", label: "Format", value: "Full-day conference + networking" },
   ];
@@ -9050,7 +9050,7 @@ function RegistrationSection() {
 
               {/* Event details */}
               <div className="flex flex-wrap items-center gap-2" style={{ marginTop: 12 }}>
-                {["7th Edition", "October 14, 2026", "Jumeirah Messilah Beach Hotel"].map(
+                {["7th Edition", "November 17, 2026", "Jumeirah Messilah Beach Hotel"].map(
                   (item, index, arr) => (
                     <span key={item} className="flex items-center gap-2">
                       <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "#707070" }}>

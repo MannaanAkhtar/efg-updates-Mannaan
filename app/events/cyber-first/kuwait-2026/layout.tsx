@@ -7,9 +7,9 @@ const PAGE_URL = `${BASE_URL}/events/cyber-first/kuwait-2026`;
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/magnific_cinematic-wideangle-hero-_CHoH66yEEy.png";
 
 export const metadata: Metadata = {
-  title: "Cyber First Kuwait 2026 | 3rd Annual Cybersecurity Summit, 14 October, Jumeirah Messilah Beach",
+  title: "Cyber First Kuwait 2026 | 3rd Annual Cybersecurity Summit, 17 November, Jumeirah Messilah Beach",
   description:
-    "Kuwait's premier cybersecurity summit. 500+ CISOs and security leaders, 14 October 2026, Jumeirah Messilah Beach Hotel. Register or sponsor now.",
+    "Kuwait's premier cybersecurity summit. 500+ CISOs and security leaders, 17 November 2026, Jumeirah Messilah Beach Hotel. Register or sponsor now.",
   keywords: [
     "cybersecurity conference Kuwait 2026",
     "cybersecurity summit Kuwait",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "cyber security event Kuwait City",
     "information security conference Kuwait",
     "Cyber First Kuwait",
-    "cybersecurity event October 2026",
+    "cybersecurity event November 2026",
     "banking cybersecurity Kuwait",
     "fintech security Kuwait",
     "OT security Kuwait",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Cyber First Kuwait 2026, 3rd Annual Cybersecurity Summit",
     description:
-      "500+ CISOs and security leaders. 14 October 2026. Jumeirah Messilah Beach Hotel, Kuwait City. The definitive cybersecurity summit.",
+      "500+ CISOs and security leaders. 17 November 2026. Jumeirah Messilah Beach Hotel, Kuwait City. The definitive cybersecurity summit.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     site: "@eventsfirstgrp",
     title: "Cyber First Kuwait 2026, 3rd Annual Cybersecurity Summit",
     description:
-      "500+ CISOs and security leaders. 14 October 2026. Jumeirah Messilah Beach Hotel, Kuwait City.",
+      "500+ CISOs and security leaders. 17 November 2026. Jumeirah Messilah Beach Hotel, Kuwait City.",
     images: [OG_IMAGE],
   },
 };
@@ -97,8 +97,8 @@ export default function CyberFirstKuwaitLayout({
             name: "Cyber First Kuwait 2026, 3rd Annual Cybersecurity Summit",
             description:
               "Kuwait's premier cybersecurity leadership summit — the 3rd Annual edition — convening 500+ CISOs, government cyber leaders, and enterprise security executives across banking, fintech, telecom, energy, and critical infrastructure to advance national cyber resilience.",
-            startDate: "2026-10-14T08:00:00+03:00",
-            endDate: "2026-10-14T18:00:00+03:00",
+            startDate: "2026-11-17T08:00:00+03:00",
+            endDate: "2026-11-17T18:00:00+03:00",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             inLanguage: "en",
@@ -179,7 +179,7 @@ export default function CyberFirstKuwaitLayout({
                 name: "When is Cyber First Kuwait 2026?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Cyber First Kuwait 2026 — the 3rd Annual Cybersecurity Summit — takes place on 14 October 2026 at Jumeirah Messilah Beach Hotel & Spa, Kuwait City.",
+                  text: "Cyber First Kuwait 2026 — the 3rd Annual Cybersecurity Summit — takes place on 17 November 2026 at Jumeirah Messilah Beach Hotel & Spa, Kuwait City.",
                 },
               },
               {
@@ -221,7 +221,7 @@ export default function CyberFirstKuwaitLayout({
       <EventFactBlock
         eventName="Cyber First Kuwait 2026, 3rd Annual Cybersecurity Summit"
         series="Cyber First"
-        date="14 October 2026"
+        date="17 November 2026"
         venue="Jumeirah Messilah Beach Hotel & Spa"
         city="Kuwait City"
         country="Kuwait"
