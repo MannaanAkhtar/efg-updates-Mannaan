@@ -2124,36 +2124,33 @@ function HeroSection() {
                 7th Annual Edition
               </span>
             </div>
-          </motion.div>
 
-          {/* Date + City glass badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="cfk-hero-datebadge"
-            style={{
-              display: "inline-flex", alignItems: "center", gap: 14,
-              padding: "12px 24px",
-              borderRadius: 50,
-              background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)",
-              border: "1px solid rgba(255,255,255,0.12)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 0 rgba(0,0,0,0.2), 0 8px 32px rgba(0,0,0,0.4)",
-            }}
-          >
-            <span style={{
-              width: 8, height: 8, borderRadius: "50%", background: C_BRIGHT,
-              boxShadow: `0 0 8px ${C_BRIGHT}, 0 0 16px ${C_BRIGHT}60`,
-            }} />
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 600, letterSpacing: "1.2px", textTransform: "uppercase", color: "white" }}>
-              17 NOV 2026
-            </span>
-            <span style={{ width: 1, height: 16, background: "rgba(255,255,255,0.15)", borderRadius: 1 }} />
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>
-              KUWAIT CITY
-            </span>
+            {/* Date + City — premium pill, sits directly below the edition pill */}
+            <div
+              className="cfk-hero-datebadge"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 12,
+                padding: "11px 20px",
+                borderRadius: 50,
+                background: `linear-gradient(135deg, ${C}26 0%, rgba(10,17,30,0.62) 48%, rgba(6,10,20,0.55) 100%)`,
+                border: `1px solid ${C}59`,
+                backdropFilter: "blur(22px) saturate(160%)",
+                WebkitBackdropFilter: "blur(22px) saturate(160%)",
+                boxShadow: `inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.5), 0 0 24px ${C}33`,
+              }}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden style={{ flexShrink: 0 }}>
+                <rect x="3.5" y="4.5" width="17" height="16" rx="3.5" stroke={C_BRIGHT} strokeWidth="1.7" />
+                <path d="M3.5 9.5h17M8 2.5v4M16 2.5v4" stroke={C_BRIGHT} strokeWidth="1.7" strokeLinecap="round" />
+              </svg>
+              <span style={{ fontFamily: "var(--font-display)", fontSize: 14.5, fontWeight: 700, letterSpacing: "0.5px", color: "white" }}>
+                17 NOV 2026
+              </span>
+              <span style={{ width: 1, height: 15, background: `linear-gradient(180deg, transparent, ${C}70, transparent)` }} />
+              <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, letterSpacing: "1.6px", textTransform: "uppercase", color: C_BRIGHT }}>
+                Kuwait City
+              </span>
+            </div>
           </motion.div>
         </div>
 
@@ -2426,24 +2423,20 @@ function HeroSection() {
           <span aria-hidden style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 8px ${C}, 0 0 3px ${C_BRIGHT}`, flexShrink: 0 }} />
           Supporting Partners
         </span>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", alignItems: "stretch", gap: "clamp(8px, 1vw, 14px)" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "auto auto", alignItems: "center", columnGap: "clamp(4px, 0.6vw, 10px)", rowGap: "0px" }}>
           {[
-            { src: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ISACA_logo_UAE_RGB.png", alt: "ISACA UAE Chapter", h: "clamp(24px, 3.2vw, 36px)", py: "clamp(2px, 0.4vw, 5px)", px: "clamp(10px, 1.5vw, 18px)" },
-            { src: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/AOU_Logo_Navy_Blue_RGB_AW-removebg-preview.png", alt: "Arab Open University (AOU)", h: "clamp(46px, 6vw, 68px)", py: "clamp(2px, 0.4vw, 5px)", px: "clamp(10px, 1.5vw, 18px)" },
-            { src: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/KCST_Logo_pages-to-jpg-0001-removebg-preview.png", alt: "Kuwait College of Science and Technology (KCST)", h: "clamp(46px, 6vw, 68px)", py: "clamp(2px, 0.4vw, 5px)", px: "0px" },
-            { src: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ABCK+Logo+01+-+New+Amcham.png", alt: "American Business Council of Kuwait (ABCK-AmCham)", h: "clamp(56px, 7.4vw, 84px)", py: "clamp(2px, 0.4vw, 5px)", px: "clamp(10px, 1.5vw, 18px)" },
+            { src: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ISACA_logo_UAE_RGB.png", alt: "ISACA UAE Chapter", h: "clamp(30px, 3.8vw, 44px)" },
+            { src: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/AOU_Logo_Navy_Blue_RGB_AW-removebg-preview.png", alt: "Arab Open University (AOU)", h: "clamp(56px, 7vw, 82px)" },
+            { src: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/KCST_Logo_pages-to-jpg-0001-removebg-preview.png", alt: "Kuwait College of Science and Technology (KCST)", h: "clamp(56px, 7vw, 82px)" },
+            { src: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ABCK+Logo+01+-+New+Amcham.png", alt: "American Business Council of Kuwait (ABCK-AmCham)", h: "clamp(56px, 7.2vw, 86px)", noWhite: true },
           ].map((p) => (
             <div key={p.src} style={{
-              background: "white",
-              borderRadius: 8,
-              padding: `${p.py} ${p.px}`,
-              boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={p.src} alt={p.alt} style={{ height: p.h, objectFit: "contain", display: "block" }} />
+              <img src={p.src} alt={p.alt} style={{ height: p.h, objectFit: "contain", display: "block", ...(p.noWhite ? {} : { filter: "brightness(0) invert(1)", opacity: 0.92 }) }} />
             </div>
           ))}
         </div>
