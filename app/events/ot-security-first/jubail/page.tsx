@@ -76,6 +76,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Tahir Saleem", title: "Chief Innovation Officer", org: "SIS Industrial Cyber Security", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tahir+Saleem.png", linkedin: "https://www.linkedin.com/in/tahirsaleem/", flag: "https://flagcdn.com/w40/au.png" },
   { name: "Mohammed Shoukat Ali", title: "GM & Head Global Cybersecurity CoE", org: "Yokogawa", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Shoukat+Ali.png", linkedin: "https://www.linkedin.com/in/mohammedshoukatali/", flag: "https://flagcdn.com/w40/jp.png" },
   { name: "Ammad Baig", title: "VP of Digital Solutions and OT Cybersecurity", org: "INTECH", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ammad+Baig.png", linkedin: "https://www.linkedin.com/in/ammad-baig-86914053/", flag: "https://flagcdn.com/w40/us.png" },
+  { name: "Feras Alamri", title: "Cybersecurity Defense Director", org: "Riyadh Airports", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Feras+Alamri.png", linkedin: "https://www.linkedin.com/in/feras-alamri/", flag: "https://flagcdn.com/w40/sa.png" },
 ];
 
 // ─── Advisors ─────────────────────────────────────────────────────────────────
