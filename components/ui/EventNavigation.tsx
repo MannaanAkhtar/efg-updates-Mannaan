@@ -196,6 +196,23 @@ const EVENT_CONFIGS: Record<string, {
     location: "Muscat, Oman",
     navLinks: [{ href: "#register-interest", label: "Register Interest" }],
   },
+  "/events/ot-security-first/uae": {
+    name: "OT Security First UAE 2027",
+    shortName: "OT Security UAE",
+    color: "#D34B9A",
+    colorBright: "#E872B5",
+    date: "27 January 2027",
+    location: "Abu Dhabi, UAE",
+    navLinks: [
+      { href: "#event", label: "Overview" },
+      { href: "#abudhabi", label: "Abu Dhabi" },
+      { href: "#themes", label: "Themes" },
+      { href: "#attend", label: "Who Attends" },
+      { href: "#speakers", label: "Speakers" },
+      { href: "#partner", label: "Partner" },
+      { href: "#register", label: "Register" },
+    ],
+  },
   "/events/opex-first/saudi-2026": {
     name: "OPEX First Saudi 2026",
     shortName: "OPEX First Saudi",
