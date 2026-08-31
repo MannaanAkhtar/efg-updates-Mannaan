@@ -76,7 +76,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png", flag: "https://flagcdn.com/w40/gb-eng.png" },
   { name: "Tahir Saleem", title: "Chief Innovation Officer", org: "SIS Industrial Cyber Security", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tahir+Saleem.png", linkedin: "https://www.linkedin.com/in/tahirsaleem/", flag: "https://flagcdn.com/w40/au.png" },
   { name: "Mohammed Shoukat Ali", title: "GM & Head Global Cybersecurity CoE", org: "Yokogawa", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Shoukat+Ali.png", linkedin: "https://www.linkedin.com/in/mohammedshoukatali/", flag: "https://flagcdn.com/w40/jp.png" },
-  { name: "Ammad Baig", title: "VP of Digital Solutions and OT Cybersecurity", org: "INTECH", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ammad+Baig.png", linkedin: "https://www.linkedin.com/in/ammad-baig-86914053/", flag: "https://flagcdn.com/w40/us.png" },
+  { name: "Ammad Baig", title: "VP of Digital Solutions and OT Cybersecurity", org: "INTECH Automation and Intelligence", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ammad+Baig.png", linkedin: "https://www.linkedin.com/in/ammad-baig-86914053/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Feras Alamri", title: "Cybersecurity Defense Director", org: "Riyadh Airports", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Feras+Alamri.png", linkedin: "https://www.linkedin.com/in/feras-alamri/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Dr. Godfrey Gaston MBE", title: "Cybersecurity Specialist", org: "swIDch", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Godfrey+Gaston.png", linkedin: "https://www.linkedin.com/in/godfrey-gaston-0b7861/", flag: "https://flagcdn.com/w40/gb.png" },
 ];
@@ -3140,7 +3140,7 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
           { name: "Alaa Khalid", role: "Director, Cybersecurity Operations & GRC", org: "Confidential" },
           { name: "Ahmed Al Saleh", role: "Head of Digital & OT Cybersecurity Initiatives", org: "Aramco" },
           { name: "Wael A. Rahman", role: "Lead ICS/OT Security Engineer", org: "Petroleum Development Oman" },
-          { name: "Ammad Baig", role: "VP, Digital Solutions and OT Cybersecurity", org: "INTECH" },
+          { name: "Ammad Baig", role: "VP, Digital Solutions and OT Cybersecurity", org: "INTECH Automation and Intelligence" },
           { name: "Dr. Hussain Aldawood", role: "Director of Cybersecurity Consulting", org: "EY", moderator: true },
         ],
       },
