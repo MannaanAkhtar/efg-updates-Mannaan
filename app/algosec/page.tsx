@@ -512,11 +512,12 @@ const AGENDA = [
   { time: "10:30 – 11:00 AM", title: "Registration, arrival & networking", kind: "reception" },
   { time: "11:00 – 11:10 AM", title: "Welcome: Why application connectivity has become an executive security issue", kind: "welcome" },
   { time: "11:10 – 11:40 AM", title: "AlgoCity: Escape the Complexity, gamified challenge on application visibility, ownership and connectivity requirements", kind: "challenge" },
-  { time: "11:40 – 11:50 AM", title: "Challenge debrief", kind: "debrief" },
-  { time: "11:50 AM – 1:10 PM", title: "Closed-door roundtable: securing application connectivity across hybrid & multi-cloud environments", kind: "roundtable" },
-  { time: "1:10 – 1:40 PM", title: "Deep dive", kind: "deepdive" },
-  { time: "1:40 – 2:00 PM", title: "Executive action exchange & closing", kind: "exchange" },
-  { time: "2:00 PM onwards", title: "Networking lunch", kind: "reception" },
+  { time: "11:40 AM – 12:10 PM", title: "Presentations by AlgoSec", kind: "debrief" },
+  { time: "12:10 – 12:30 PM", title: "Networking break", kind: "reception" },
+  { time: "12:30 – 1:00 PM", title: "Panel discussion", kind: "roundtable" },
+  { time: "1:00 – 1:20 PM", title: "Deep dive", kind: "deepdive" },
+  { time: "1:20 – 1:30 PM", title: "Closing remarks", kind: "exchange" },
+  { time: "1:30 PM onwards", title: "Networking lunch", kind: "reception" },
 ];
 function Agenda() {
   const { ref, seen } = useReveal<HTMLDivElement>();
