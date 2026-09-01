@@ -78,6 +78,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Mohammed Shoukat Ali", title: "GM & Head Global Cybersecurity CoE", org: "Yokogawa", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Shoukat+Ali.png", linkedin: "https://www.linkedin.com/in/mohammedshoukatali/", flag: "https://flagcdn.com/w40/jp.png" },
   { name: "Ammad Baig", title: "VP of Digital Solutions and OT Cybersecurity", org: "INTECH Automation and Intelligence", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ammad+Baig.png", linkedin: "https://www.linkedin.com/in/ammad-baig-86914053/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Feras Alamri", title: "Cybersecurity Defense Director", org: "Riyadh Airports", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Feras+Alamri.png", linkedin: "https://www.linkedin.com/in/feras-alamri/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Faisal Althobaiti", title: "Sr. Cybersecurity and Digitalization Engineer", org: "Ma'aden", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Faisal+Althobaiti.png", linkedin: "https://www.linkedin.com/in/faisal-althobaiti-a4331090/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Dr. Godfrey Gaston MBE", title: "Cybersecurity Specialist", org: "swIDch", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Godfrey+Gaston.png", linkedin: "https://www.linkedin.com/in/godfrey-gaston-0b7861/", flag: "https://flagcdn.com/w40/gb.png" },
 ];
 
