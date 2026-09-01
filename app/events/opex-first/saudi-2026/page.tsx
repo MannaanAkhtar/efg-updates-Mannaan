@@ -2276,10 +2276,10 @@ const OPEX_TESTIMONIALS = [
   },
   {
     quote:
-      "As Gold Sponsor of OPEX First KSA 2025, Cyborg Automation Hub is proud to help organizations advance Saudi Vision 2030 by uniting AI, automation at scale, and process intelligence into real operational results. Together with our ecosystem partners, we are enabling transparent, sustainable, and resilient automation across Saudi industry.",
-    name: "Cyborg Automation Hub",
-    designation: "Gold Sponsor, OPEX First KSA 2025",
-    src: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Cyborg+Automation+HUB.jpg",
+      "Operational Excellence is evolving into Operational Autonomy. The next stage is not simply automating more processes, but designing operating models where AI and automation can understand context, support decisions, execute actions, and continuously improve. For organizations in Saudi Arabia, the opportunity is to translate this autonomy into measurable productivity, resilience, and service outcomes—while keeping governance and human accountability at the core.",
+    name: "Odeh Mahmoud",
+    designation: "CEO, Cyborg Automation Hub",
+    src: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Odeh+Mahmoud's+Portrait.JPG",
   },
   {
     quote: "Thank you to everyone for making the event nothing short of magnificent.",
