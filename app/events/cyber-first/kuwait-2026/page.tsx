@@ -2398,7 +2398,7 @@ function HeroSection() {
           zIndex: 15,
           display: "flex",
           flexDirection: "column",
-          alignItems: "flex-end",
+          alignItems: "center",
           gap: "clamp(8px, 1vh, 14px)",
         }}
       >
@@ -2421,7 +2421,7 @@ function HeroSection() {
           color: C_BRIGHT,
         }}>
           <span aria-hidden style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 8px ${C}, 0 0 3px ${C_BRIGHT}`, flexShrink: 0 }} />
-          Supporting Partners
+          Strategic Support Partners
         </span>
         <div style={{ display: "grid", gridTemplateColumns: "auto auto", alignItems: "center", columnGap: "clamp(4px, 0.6vw, 10px)", rowGap: "0px" }}>
           {[
@@ -2439,6 +2439,61 @@ function HeroSection() {
               <img src={p.src} alt={p.alt} style={{ height: p.h, objectFit: "contain", display: "block", ...(p.noWhite ? {} : { filter: "brightness(0) invert(1)", opacity: 0.92 }) }} />
             </div>
           ))}
+        </div>
+      </motion.div>
+
+      {/* Official Support Partner — top-right hero strip (desktop) */}
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.8 }}
+        className="cfk-supporting-partner"
+        style={{
+          position: "absolute",
+          top: "clamp(96px, 14vh, 132px)",
+          right: "clamp(24px, 5vw, 80px)",
+          zIndex: 15,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "clamp(8px, 1vh, 14px)",
+        }}
+      >
+        <span style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 8,
+          padding: "6px 14px 6px 12px",
+          borderRadius: 999,
+          background: "linear-gradient(135deg, rgba(10,17,30,0.78) 0%, rgba(6,10,20,0.66) 100%)",
+          backdropFilter: "blur(16px) saturate(170%)",
+          WebkitBackdropFilter: "blur(16px) saturate(170%)",
+          border: `1px solid ${C}55`,
+          boxShadow: `inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -1px 0 rgba(0,0,0,0.35), 0 8px 26px rgba(0,0,0,0.55), 0 0 20px ${C}26`,
+          fontFamily: "var(--font-outfit)",
+          fontSize: "clamp(9px, 1vw, 12px)",
+          fontWeight: 700,
+          letterSpacing: "2.5px",
+          textTransform: "uppercase",
+          color: C_BRIGHT,
+        }}>
+          <span aria-hidden style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 8px ${C}, 0 0 3px ${C_BRIGHT}`, flexShrink: 0 }} />
+          Official Support Partner
+        </span>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "clamp(14px, 1.6vw, 22px) clamp(20px, 2.4vw, 32px)",
+          borderRadius: 18,
+          background: "linear-gradient(135deg, rgba(6,10,20,0.72) 0%, rgba(4,7,14,0.6) 100%)",
+          backdropFilter: "blur(18px) saturate(160%)",
+          WebkitBackdropFilter: "blur(18px) saturate(160%)",
+          border: `1px solid ${C}33`,
+          boxShadow: `inset 0 1px 0 rgba(255,255,255,0.12), 0 12px 34px rgba(0,0,0,0.55), 0 0 24px ${C}1f`,
+        }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Drop+white+logo+1.PNG" alt="Drop — Official Support Partner" style={{ height: "clamp(78px, 9.5vw, 116px)", objectFit: "contain", display: "block" }} />
         </div>
       </motion.div>
 
