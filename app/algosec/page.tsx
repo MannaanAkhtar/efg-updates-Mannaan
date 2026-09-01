@@ -45,8 +45,8 @@ const EVENT = {
     "An executive roundtable where security leaders decode Real-world Application Connectivity challenges, escape policy complexity, and explore how application context, automation and AI-assisted discovery can accelerate secure application delivery.",
   date: "24 September 2026",
   city: "Dubai, UAE",
-  time: "11:00 AM – 1:30 PM GST (UTC+4)",
-  duration: "150 minutes",
+  time: "11:00 AM – 1:00 PM GST (UTC+4)",
+  duration: "120 minutes",
   format: "Closed-door executive roundtable + gamified opening challenge + networking lunch",
 };
 
@@ -511,13 +511,13 @@ function Takeaways() {
 const AGENDA = [
   { time: "10:30 – 11:00 AM", title: "Registration, arrival & networking", kind: "reception" },
   { time: "11:00 – 11:10 AM", title: "Welcome: Why application connectivity has become an executive security issue", kind: "welcome" },
-  { time: "11:10 – 11:40 AM", title: "AlgoCity: Escape the Complexity, gamified challenge on application visibility, ownership and connectivity requirements", kind: "challenge" },
-  { time: "11:40 AM – 12:10 PM", title: "Presentations by AlgoSec", kind: "debrief" },
-  { time: "12:10 – 12:30 PM", title: "Networking break", kind: "reception" },
-  { time: "12:30 – 1:00 PM", title: "Panel discussion", kind: "roundtable" },
-  { time: "1:00 – 1:20 PM", title: "Deep dive", kind: "deepdive" },
-  { time: "1:20 – 1:30 PM", title: "Closing remarks", kind: "exchange" },
-  { time: "1:30 PM onwards", title: "Networking lunch", kind: "reception" },
+  { time: "11:10 – 11:30 AM", title: "AlgoCity: Escape the Complexity, gamified challenge on application visibility, ownership and connectivity requirements", kind: "challenge" },
+  { time: "11:30 AM – 12:00 PM", title: "Presentations by AlgoSec", kind: "debrief" },
+  { time: "12:00 – 12:15 PM", title: "Networking break", kind: "reception" },
+  { time: "12:15 – 12:45 PM", title: "Panel discussion", kind: "roundtable" },
+  { time: "12:45 – 12:55 PM", title: "Deep dive", kind: "deepdive" },
+  { time: "12:55 – 1:00 PM", title: "Closing remarks", kind: "exchange" },
+  { time: "1:00 PM onwards", title: "Networking lunch", kind: "reception" },
 ];
 function Agenda() {
   const { ref, seen } = useReveal<HTMLDivElement>();
@@ -526,7 +526,7 @@ function Agenda() {
       <GridBg opacity={0.45} />
       <div ref={ref} style={{ position: "relative", zIndex: 2, maxWidth: 980, margin: "0 auto" }}>
         <div style={{ ...rise(seen) }}>
-          <span style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: GOLD }}>The Challenge · 150-minute run-of-show</span>
+          <span style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: GOLD }}>The Challenge · 120-minute run-of-show</span>
           <h2 id="agenda" style={{ fontFamily: FONT, fontWeight: 900, fontSize: "clamp(28px,4vw,46px)", letterSpacing: "-0.03em", lineHeight: 1.06, color: WHITE, margin: "14px 0 0", maxWidth: 760, scrollMarginTop: 90 }}>
             Navigate the Challenge.
           </h2>
@@ -814,7 +814,7 @@ function RegistrationForm() {
             </Field>
             {err && <p style={{ fontFamily: FONT, fontSize: 13.5, color: "#d64545", margin: "16px 0 0" }}>{err}</p>}
             <button type="submit" disabled={loading} suppressHydrationWarning className="ac-form-submit" style={{ width: "100%", marginTop: 22, height: 54, border: "none", borderRadius: 13, cursor: loading ? "not-allowed" : "pointer", fontFamily: FONT, fontSize: 15.5, fontWeight: 700, color: WHITE, background: UIBLUE, opacity: loading ? 0.65 : 1, boxShadow: `0 12px 32px ${UIBLUE}66`, transition: "background 0.2s ease, transform 0.2s ease" }}>{loading ? "Submitting…" : "Request your seat"}</button>
-            <p style={{ fontFamily: FONT, fontSize: 11.5, fontWeight: 300, color: MUTE, textAlign: "center", margin: "14px 0 0", lineHeight: 1.5 }}>By requesting a seat you agree to be contacted by Events First Group and AlgoSec about this roundtable.</p>
+            <p style={{ fontFamily: FONT, fontSize: 12.5, fontWeight: 300, color: INK_SOFT, textAlign: "center", margin: "16px 0 0", lineHeight: 1.6 }}>By requesting a seat you agree to be contacted by Events First Group and AlgoSec about this roundtable. <span style={{ fontWeight: 700, color: UIBLUE }}>By registering, you also agree that AlgoSec may contact you after the event for a follow-up discussion.</span></p>
           </form>
         )}
       </div>
