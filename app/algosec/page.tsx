@@ -45,6 +45,7 @@ const EVENT = {
     "An executive roundtable where security leaders decode Real-world Application Connectivity challenges, escape policy complexity, and explore how application context, automation and AI-assisted discovery can accelerate secure application delivery.",
   date: "24 September 2026",
   city: "Dubai, UAE",
+  venue: "Waldorf Astoria Dubai International Financial Centre",
   time: "11:00 AM – 1:00 PM GST (UTC+4)",
   duration: "120 minutes",
   format: "Closed-door executive roundtable + gamified opening challenge + networking lunch",
@@ -200,6 +201,7 @@ function Hero() {
           <div className="ac-rise ac-d4" style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 22 }}>
             {[
               [`${EVENT.date} · ${EVENT.city}`, "cal"],
+              [EVENT.venue, "pin"],
               [EVENT.time, "clock"],
               [EVENT.duration, "hourglass"],
               ["Closed-door", "lock"],
@@ -236,6 +238,7 @@ function HeroIcon({ type }: { type: string }) {
   if (type === "cal") return <svg {...p}><rect x="3.5" y="4.5" width="17" height="16" rx="2" /><path d="M3.5 9h17M8 2.5v4M16 2.5v4" /></svg>;
   if (type === "clock") return <svg {...p}><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" /></svg>;
   if (type === "hourglass") return <svg {...p}><path d="M6 3h12M6 21h12M7 3c0 5 5 6 5 9s-5 4-5 9M17 3c0 5-5 6-5 9s5 4 5 9" /></svg>;
+  if (type === "pin") return <svg {...p}><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z" /><circle cx="12" cy="10" r="2.5" /></svg>;
   return <svg {...p} stroke={GOLD}><rect x="4.5" y="10.5" width="15" height="10" rx="2" /><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" /></svg>;
 }
 // Live countdown to the roundtable (24 Sep 2026, 11:00 AM GST / UTC+4)
@@ -723,6 +726,7 @@ function Register() {
           <div style={{ display: "flex", flexDirection: "column", gap: 13, marginTop: 30 }}>
             {[
               [`${EVENT.date} · ${EVENT.city}`, "cal"],
+              [EVENT.venue, "pin"],
               [EVENT.time, "clock"],
               [EVENT.format, "lock"],
             ].map(([label, icon]) => (
