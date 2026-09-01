@@ -404,12 +404,12 @@ const CONTACT = [
     photoPos: "50% 0%",
   },
   {
-    name: "Mayur Methi",
-    title: "Partnership Manager",
+    name: "Sanskar Sharma",
+    title: "Sr. Partnership Manager",
     role: "Sponsorship Enquiries",
-    email: "mayur@eventsfirstgroup.com",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/Mayur-Methi.png",
-    photoPos: "82% 35%",
+    email: "sanskar@eventsfirstgroup.com",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/Sanskar+Sharma.jpg",
+    photoPos: "50% 62%",
   },
 ];
 
@@ -735,6 +735,8 @@ function Hero() {
             }}
           >
             <span>21 October 2026</span>
+            <span style={{ width: 4, height: 4, borderRadius: "50%", background: V_BRIGHT }} />
+            <span>Hyatt Regency Riyadh Olaya</span>
             <span style={{ width: 4, height: 4, borderRadius: "50%", background: V_BRIGHT }} />
             <span>Riyadh, KSA</span>
             <span style={{ width: 4, height: 4, borderRadius: "50%", background: V_BRIGHT }} />
@@ -6656,6 +6658,72 @@ function Awards() {
 }
 
 // ─── Register / Inquiry ─────────────────────────────────────────────────────
+// ─── Venue ────────────────────────────────────────────────────────────────────
+function Venue() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  return (
+    <section
+      ref={ref}
+      id="venue"
+      className="opex-cv"
+      style={{
+        background: `linear-gradient(180deg, ${BG} 0%, ${BG_DARK} 100%)`,
+        padding: "clamp(48px, 5.5vw, 80px) clamp(20px, 5vw, 64px)",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <div style={{ position: "absolute", top: "8%", right: "-6%", width: 440, height: 440, borderRadius: "50%", background: `radial-gradient(circle, ${V}18, transparent 65%)`, filter: "blur(80px)", pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: 1180, margin: "0 auto", position: "relative", zIndex: 2 }}>
+        <div style={{ textAlign: "center", marginBottom: 44 }}>
+          <SectionEyebrow inView={inView} label="Venue" centered />
+          <SectionTitle inView={inView} centered>
+            Where it all <em className="opex-violet-shimmer">comes together</em>.
+          </SectionTitle>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
+          className="opex-venue-grid"
+          style={{ display: "grid", gridTemplateColumns: "1.35fr 1fr", gap: "clamp(24px, 3vw, 44px)", alignItems: "stretch" }}
+        >
+          <div style={{ position: "relative", borderRadius: 22, overflow: "hidden", border: `1px solid ${V}33`, boxShadow: "0 30px 70px -40px rgba(0,0,0,0.9)", minHeight: 300 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="https://efg-final.s3.eu-north-1.amazonaws.com/venues/Hyatt+Regency+Riyadh+Olaya1.png" alt="Hyatt Regency Riyadh Olaya" loading="lazy" decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+            <div aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 55%, rgba(6,6,14,0.72) 100%)" }} />
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", borderRadius: 22, padding: "clamp(26px, 2.6vw, 38px)", background: `linear-gradient(160deg, ${V}14 0%, rgba(255,255,255,0.02) 60%)`, border: `1px solid ${V}2e` }}>
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: V_BRIGHT }}>Host Venue</span>
+            <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(24px, 2.6vw, 34px)", letterSpacing: "-0.8px", lineHeight: 1.12, color: "rgba(255,255,255,0.96)", margin: "14px 0 0" }}>Hyatt Regency Riyadh Olaya</h3>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 22 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 11, fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.8)" }}>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke={V_BRIGHT} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z" /><circle cx="12" cy="10" r="2.5" /></svg>
+                Olaya, Riyadh, Kingdom of Saudi Arabia
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 11, fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.8)" }}>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke={V_BRIGHT} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><rect x="3.5" y="4.5" width="17" height="16" rx="2" /><path d="M3.5 9h17M8 2.5v4M16 2.5v4" /></svg>
+                21 October 2026 · Full-Day Summit
+              </div>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Hyatt+Regency+Riyadh+Olaya" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 26, alignSelf: "flex-start", padding: "12px 22px", borderRadius: 999, background: `linear-gradient(135deg, ${V_BRIGHT} 0%, ${V} 60%, ${V_DIM} 100%)`, color: "#fff", fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 600, textDecoration: "none", boxShadow: `0 12px 30px -12px ${V}` }}>
+              View on map
+              <span aria-hidden>→</span>
+            </a>
+          </div>
+        </motion.div>
+      </div>
+
+      <style jsx>{`@media (max-width: 860px) { .opex-venue-grid { grid-template-columns: 1fr !important; } }`}</style>
+    </section>
+  );
+}
+
 function Register() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
@@ -7545,6 +7613,7 @@ export default function OpexFirstSaudi2026Page() {
       <SeriesSponsors />
       <PastShorts />
       <Awards />
+      <Venue />
       <Register />
       <ContactTeam />
       <Footer />
