@@ -39,7 +39,6 @@ const eventSeries = [
     label: "OT Security First",
     color: "#D34B9A",
     editions: [
-      { href: "/events/ot-security-first/johannesburg-2026", label: "Johannesburg" },
       { href: "/events/ot-security-first/jubail", label: "Jubail, KSA" },
       { href: "/events/ot-security-first/qatar", label: "Qatar" },
       { href: "/events/ot-security-first", label: "UAE" },

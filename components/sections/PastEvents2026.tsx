@@ -20,6 +20,17 @@ interface PastEvent {
 
 const PAST_EVENTS: PastEvent[] = [
   {
+    series: "OT Security First",
+    title: "OT Security First South Africa",
+    subtitle: "The inaugural African edition — CISOs, ICS engineers, and critical-infrastructure leaders convening to defend the continent's industrial backbone. Johannesburg.",
+    date: "27 August 2026",
+    format: "1st Edition Africa · Johannesburg",
+    href: "/events/ot-security-first/johannesburg-2026",
+    brandColor: "#D34B9A",
+    brandLogo: `${S3}/logos/Untitled-2-01.png`,
+    logoHeight: 96,
+  },
+  {
     series: "Cyber First",
     title: "Cyber First East Africa",
     subtitle: "East Africa's premier cybersecurity summit — C-level executives and policymakers aligning against digital warfare. Nairobi, Kenya.",
@@ -63,13 +74,13 @@ export default function PastEvents2026() {
       ref={ref}
       style={{
         background: "var(--black)",
-        padding: "clamp(72px, 7vw, 112px) 0 clamp(88px, 8vw, 128px)",
+        padding: "clamp(44px, 4.5vw, 68px) 0 clamp(48px, 5vw, 76px)",
       }}
     >
       {/* Header */}
       <div
         style={{
-          maxWidth: "1280px",
+          maxWidth: "1040px",
           margin: "0 auto",
           padding: "0 clamp(24px, 5vw, 80px)",
           marginBottom: "clamp(36px, 4vw, 56px)",
@@ -160,7 +171,7 @@ export default function PastEvents2026() {
       {/* Cards */}
       <div
         style={{
-          maxWidth: "1280px",
+          maxWidth: "1040px",
           margin: "0 auto",
           padding: "0 clamp(24px, 5vw, 80px)",
         }}
@@ -169,8 +180,8 @@ export default function PastEvents2026() {
           className="past-events-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "clamp(20px, 2vw, 28px)",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "clamp(18px, 1.8vw, 26px)",
           }}
         >
           {PAST_EVENTS.map((e, i) => (
@@ -186,7 +197,7 @@ export default function PastEvents2026() {
                   className="past-event-panel"
                   style={{
                     position: "relative",
-                    height: "clamp(158px, 13vw, 200px)",
+                    height: "clamp(140px, 10.5vw, 172px)",
                     overflow: "hidden",
                     background: `linear-gradient(135deg, ${e.brandColor}f2 0%, ${e.brandColor}99 42%, #0a0a0a 100%)`,
                     display: "flex",
@@ -284,7 +295,7 @@ export default function PastEvents2026() {
                     background: "#0d0d0d",
                     border: "1px solid rgba(255,255,255,0.07)",
                     borderTop: "none",
-                    padding: "clamp(22px, 2.4vw, 30px)",
+                    padding: "clamp(18px, 1.9vw, 24px)",
                     display: "flex",
                     flexDirection: "column",
                     gap: "12px",
@@ -413,11 +424,6 @@ export default function PastEvents2026() {
         }
         .pe-all-link:hover .pe-all-arrow {
           transform: translateX(4px);
-        }
-        @media (max-width: 1024px) {
-          .past-events-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
         }
         @media (max-width: 680px) {
           .past-events-grid {

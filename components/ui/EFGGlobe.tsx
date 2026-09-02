@@ -15,7 +15,6 @@ const EFG_MARKERS = [
   { id: "doha", location: [25.29, 51.53] as [number, number], name: "Doha", series: "Cyber First", color: "#01BBF5", href: "/events/cyber-first/qatar" },
   { id: "jubail", location: [27.01, 49.66] as [number, number], name: "Jubail", series: "OT Security", color: "#D34B9A", href: "/events/ot-security-first/jubail" },
   { id: "muscat", location: [23.59, 58.41] as [number, number], name: "Muscat", series: "OT Security", color: "#D34B9A", href: "/events/ot-security-first/oman-2026" },
-  { id: "johannesburg", location: [-26.20, 28.04] as [number, number], name: "Johannesburg", series: "OT Security", color: "#D34B9A", href: "/events/ot-security-first/johannesburg-2026" },
   { id: "singapore", location: [1.35, 103.82] as [number, number], name: "Singapore", series: "OT Security", color: "#D34B9A", href: "/events" },
 ]
 
