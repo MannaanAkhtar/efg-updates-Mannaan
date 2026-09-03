@@ -4,7 +4,7 @@ import { EventFactBlock } from "@/components/seo/FactBlock";
 
 const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/ot-security-first/uae`;
-const OG_IMAGE = `${BASE_URL}/ot-uae/hero-poster.jpg`;
+const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT+UAE.png";
 const OG_IMAGE_ALT = "OT Security First UAE 2027 — Industrial cybersecurity summit, 27 January 2027, Abu Dhabi, UAE";
 
 const EVENT_START = "2027-01-27T08:30:00+04:00";
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     description: RICH_DESCRIPTION,
     url: PAGE_URL,
     siteName: "Events First Group",
-    images: [{ url: OG_IMAGE, width: 1920, height: 1080, alt: OG_IMAGE_ALT, type: "image/jpeg" }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: OG_IMAGE_ALT, type: "image/png" }],
     locale: "en_US",
     type: "website",
   },

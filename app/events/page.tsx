@@ -501,19 +501,18 @@ const allEvents = [
     title: "OT Security First UAE",
     tagline: "Securing Critical Infrastructure",
     description:
-      "The UAE edition of OT Security First, bringing together CISOs, ICS engineers, and critical-infrastructure leaders. Date to be announced.",
+      "The UAE edition of OT Security First, bringing together CISOs, ICS engineers, and critical-infrastructure leaders in Abu Dhabi.",
     color: "#D34B9A",
     image:
       "https://efg-final.s3.eu-north-1.amazonaws.com/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0412.JPG",
-    href: "/events/ot-security-first",
-    date: "2027-01-15",
-    nextDate: "Jan 2027",
-    nextCity: "UAE",
+    href: "/events/ot-security-first/uae",
+    date: "2027-01-27",
+    nextDate: "Jan 27, 2027",
+    nextCity: "Abu Dhabi",
     editions: "",
     regions: "UAE",
     attendees: "300+",
     status: "soon" as SeriesStatus,
-    dateTBA: true,
   },
 ];
 

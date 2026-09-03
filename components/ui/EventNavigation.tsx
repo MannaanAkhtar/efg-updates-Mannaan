@@ -203,11 +203,11 @@ const EVENT_CONFIGS: Record<string, {
     colorBright: "#E872B5",
     date: "27 January 2027",
     location: "Abu Dhabi, UAE",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/efg_logo/OT+Security+UAE-01.png",
+    logoHeight: 96,
     navLinks: [
       { href: "#event", label: "Overview" },
-      { href: "#abudhabi", label: "Abu Dhabi" },
       { href: "#themes", label: "Themes" },
-      { href: "#attend", label: "Who Attends" },
       { href: "#speakers", label: "Speakers" },
       { href: "#partner", label: "Partner" },
       { href: "#register", label: "Register" },
@@ -260,6 +260,7 @@ const NAV_LINK_STYLE = {
   background: "none",
   border: "none",
   padding: 0,
+  whiteSpace: "nowrap" as const,
 } as const;
 
 function Caret({ dir = "down" }: { dir?: "down" | "right" | "left" }) {
@@ -570,7 +571,7 @@ export default function EventNavigation() {
           </a>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <DesktopNavItem key={link.label} item={link} color={color} colorBright={colorBright} />
             ))}

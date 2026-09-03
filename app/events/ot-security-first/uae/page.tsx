@@ -22,19 +22,21 @@ const FDM = "var(--font-dm-sans)";  // DM Sans
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com";
 const S3_LOGOS = `${S3}/sponsors-logo`;
 const HERO_VIDEO = `${S3}/hero+videos/OTSEC+cuts+text.mp4`;
-const HERO_POSTER = "/ot-uae/hero-poster.jpg";
+const HERO_POSTER = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT+UAE.png";
 
-// Reused OT / EFG event photography for the section image slots
+// OT Security First UAE 2025 event photography for the section image slots.
+// Numbers reference files in the OT UAE photo set — swap the 4N8A0### as needed.
+const OT_UAE = `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos`;
 const IMG = {
-  eventHero: `${S3}/events/cyberqatar/ARU00722.jpg`,
-  skyline: `${S3}/venues/intercontinental-riyadh_15466355611.jpg`,
-  mandate: `${S3}/events/opex+KSA+few/DSC08456.jpg`,
-  plant: `${S3}/assets/magnific_cinematic-wideangle-hero-_CHoH66yEEy.png`,
-  keynote: `${S3}/events/cyberqatar/ARU00500.jpg`,
-  attend: `${S3}/events/opex+KSA+few/DSC08580.jpg`,
-  network: `${S3}/events/opex+KSA+few/DSC08585.jpg`,
-  question: `${S3}/events/cyberqatar/ARU00574.jpg`,
-  partner: `${S3}/events/opex+KSA+few/DSC08336.jpg`,
+  eventHero: `${OT_UAE}/4N8A0475.JPG`,
+  skyline: `${OT_UAE}/4N8A0490.JPG`,
+  mandate: `${OT_UAE}/4N8A0446.JPG`,
+  plant: `${OT_UAE}/4N8A0461.JPG`,
+  keynote: `${OT_UAE}/4N8A0470.JPG`,
+  attend: `${OT_UAE}/4N8A0668.JPG`,
+  network: `${OT_UAE}/4N8A0810.JPG`,
+  question: `${OT_UAE}/4N8A0476.JPG`,
+  partner: `${OT_UAE}/4N8A0420.JPG`,
 };
 
 // ─── Reusable style fragments ────────────────────────────────────────────────
@@ -43,7 +45,7 @@ const CARD_BORDER = "1px solid rgba(255,255,255,0.09)";
 const CARD_SHADOW = "inset 0 1px 0 rgba(255,255,255,0.09),0 24px 48px -30px rgba(0,0,0,0.9)";
 const TINT_CARD = `linear-gradient(160deg,${C_BRIGHT} 0%,${C} 44%,#8E2A64 100%)`;
 
-const wrap: React.CSSProperties = { maxWidth: 1320, margin: "0 auto", padding: "clamp(56px,7vw,110px) clamp(20px,4vw,60px)", position: "relative", zIndex: 1 };
+const wrap: React.CSSProperties = { maxWidth: 1320, margin: "0 auto", padding: "clamp(38px,4.4vw,68px) clamp(20px,4vw,60px)", position: "relative", zIndex: 1 };
 
 // ─── Numbered section header ─────────────────────────────────────────────────
 function SectionHead({ num, label, note, right }: { num: string; label: string; note?: string; right?: React.ReactNode }) {
@@ -82,47 +84,73 @@ function AmbientBg() {
 function Hero() {
   const industries = ["Government", "Energy", "Oil & Gas", "Utilities", "Petrochemicals", "Manufacturing", "Critical Infrastructure"];
   return (
-    <section id="top" style={{ position: "relative", minHeight: "min(880px,94vh)", display: "flex", alignItems: "flex-end", overflow: "hidden", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-      <video autoPlay muted loop playsInline poster={HERO_POSTER} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "saturate(0.72) brightness(0.4)", zIndex: 0 }}>
+    <section id="top" style={{ position: "relative", minHeight: "min(940px,96vh)", display: "flex", alignItems: "flex-end", overflow: "hidden", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+      <video autoPlay muted loop playsInline poster={HERO_POSTER} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "saturate(0.9) brightness(0.62)", zIndex: 0 }}>
         <source src={HERO_VIDEO} type="video/mp4" />
       </video>
-      <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(180deg, rgba(10,10,10,0.86) 0%, rgba(10,10,10,0.35) 32%, rgba(10,10,10,0.78) 72%, #0A0A0A 100%)" }} />
+      <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(180deg, rgba(10,10,10,0.58) 0%, rgba(10,10,10,0.14) 30%, rgba(10,10,10,0.62) 68%, #0A0A0A 100%)" }} />
       <div style={{ position: "absolute", inset: 0, zIndex: 1, background: `radial-gradient(ellipse 70% 60% at 12% 100%, ${C}42 0%, transparent 62%)` }} />
       <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 1, opacity: 0.35, backgroundImage: "linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px)", backgroundSize: "88px 88px", maskImage: "linear-gradient(180deg,transparent,#000 40%,transparent)", WebkitMaskImage: "linear-gradient(180deg,transparent,#000 40%,transparent)" }} />
 
-      <div style={{ position: "relative", zIndex: 2, width: "100%", maxWidth: 1320, margin: "0 auto", padding: "clamp(150px,18vh,210px) clamp(20px,4vw,60px) clamp(40px,5vw,64px)" }}>
+      <div style={{ position: "relative", zIndex: 2, width: "100%", maxWidth: 1480, margin: "0 auto", padding: "clamp(170px,22vh,260px) clamp(24px,4.5vw,72px) clamp(48px,5vw,72px)" }}>
         <motion.div
           initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }}
-          style={{ display: "inline-flex", alignItems: "center", gap: 12, marginBottom: 28, padding: "8px 16px 8px 12px", borderRadius: 9999, border: `1px solid ${C}59`, background: `${C}14`, backdropFilter: "blur(8px)" }}
+          style={{ display: "inline-flex", alignItems: "center", gap: 12, marginBottom: 34, padding: "7px 22px 7px 7px", borderRadius: 9999, border: `1px solid ${C}55`, background: `linear-gradient(180deg, ${C}26, ${C}07)`, backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", boxShadow: `inset 0 1px 0 rgba(255,255,255,0.2), 0 10px 34px -14px ${C}`, overflow: "hidden", position: "relative" }}
         >
-          <span style={{ width: 7, height: 7, borderRadius: "50%", background: C, animation: "uaePulse 2.6s cubic-bezier(0.16,1,0.3,1) infinite" }} />
-          <span style={{ fontFamily: FO, fontSize: 10.5, fontWeight: 700, letterSpacing: "2.2px", textTransform: "uppercase", color: C }}>2nd UAE Edition · 5th Global Edition</span>
+          <span aria-hidden className="uae-hero-shine" />
+          <span style={{ position: "relative", zIndex: 1, display: "inline-flex", alignItems: "center", justifyContent: "center", width: 30, height: 30, borderRadius: "50%", background: `linear-gradient(180deg, ${C}, ${C_DEEP})`, boxShadow: `inset 0 1px 0 rgba(255,255,255,0.42), 0 2px 12px ${C}80` }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3 12h18" />
+              <path d="M12 3c2.6 2.5 3.9 5.7 3.9 9s-1.3 6.5-3.9 9c-2.6-2.5-3.9-5.7-3.9-9S9.4 5.5 12 3z" />
+            </svg>
+          </span>
+          <span style={{ position: "relative", zIndex: 1, display: "inline-flex", alignItems: "baseline", gap: 7 }}>
+            <span style={{ fontFamily: FO, fontSize: 12.5, fontWeight: 800, letterSpacing: "0.5px", textTransform: "uppercase", color: "#fff" }}>5<span style={{ fontSize: "0.72em", verticalAlign: "super", letterSpacing: "1px" }}>th</span></span>
+            <span style={{ width: 1, height: 12, background: `${C}66`, alignSelf: "center" }} />
+            <span style={{ fontFamily: FO, fontSize: 11, fontWeight: 600, letterSpacing: "2.6px", textTransform: "uppercase", color: C_LIGHT }}>Global Edition</span>
+          </span>
         </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, delay: 0.08, ease: EASE }}
-          style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(44px,6.4vw,92px)", letterSpacing: "-3px", lineHeight: 0.98, margin: 0, maxWidth: 1060, textWrap: "balance" }}
+          style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(46px,6.7vw,98px)", letterSpacing: "-3px", lineHeight: 0.95, margin: 0, maxWidth: 1120, textWrap: "balance", textShadow: "0 2px 44px rgba(0,0,0,0.55)" }}
         >
-          OT Security First<br />UAE 2027.
-          <span style={{ display: "block", color: "rgba(255,255,255,0.28)", fontSize: "clamp(26px,3.2vw,46px)", letterSpacing: "-1.4px", lineHeight: 1.1, marginTop: 18 }}>
-            Securing the UAE&rsquo;s operational technology<br />and critical infrastructure.
-          </span>
+          <span style={{ color: "#fff" }}>OT Security First</span>
+          <br />
+          <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 42%, ${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>UAE 2027.</span>
         </motion.h1>
 
-        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 28, marginTop: 44, paddingTop: 32, borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-          <div style={{ display: "flex", alignItems: "baseline", gap: 14 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
+          style={{ display: "flex", alignItems: "stretch", gap: 18, marginTop: "clamp(24px,2.6vw,34px)", maxWidth: 760 }}
+        >
+          <span aria-hidden style={{ flex: "0 0 auto", width: 3, borderRadius: 2, background: `linear-gradient(180deg, ${C_BRIGHT}, ${C_DEEP})`, boxShadow: `0 0 18px ${C}` }} />
+          <p style={{ fontFamily: FD, fontWeight: 500, color: "rgba(255,255,255,0.66)", fontSize: "clamp(19px,2.1vw,31px)", letterSpacing: "-0.6px", lineHeight: 1.24, margin: 0 }}>
+            Securing the UAE&rsquo;s operational technology and <span style={{ color: C_LIGHT }}>critical infrastructure.</span>
+          </p>
+        </motion.div>
+
+        <div className="uae-hero-meta" style={{ display: "flex", flexWrap: "nowrap", alignItems: "center", gap: 28, marginTop: 44, paddingTop: 32, borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 14, flexShrink: 0 }}>
             <span style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(28px,3vw,40px)", letterSpacing: "-1.4px", color: "#fff", lineHeight: 1 }}>27 January 2027</span>
             <span style={{ fontFamily: FO, fontSize: 12, fontWeight: 500, letterSpacing: "1.5px", textTransform: "uppercase", color: C }}>Abu Dhabi · UAE</span>
           </div>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginLeft: "auto" }}>
-            <a href="#register" className="uae-cta-solid" style={{ display: "inline-flex", alignItems: "center", gap: 9, fontFamily: FO, fontSize: 14, fontWeight: 600, padding: "15px 30px", borderRadius: 9999, background: C, color: INK }}>Request an invitation →</a>
-            <a href="#partner" className="uae-cta-ghost" style={{ display: "inline-flex", alignItems: "center", gap: 9, fontFamily: FO, fontSize: 14, fontWeight: 600, padding: "15px 30px", borderRadius: 9999, border: "1px solid rgba(255,255,255,0.16)", background: "rgba(255,255,255,0.03)", color: "#fff", backdropFilter: "blur(10px)" }}>Partnership enquiry</a>
+          <div className="uae-hero-cta" style={{ display: "flex", gap: 12, marginLeft: "auto", flexShrink: 0 }}>
+            <a href="#register" className="uae-cta-solid" style={{ position: "relative", overflow: "hidden", display: "inline-flex", alignItems: "center", gap: 10, fontFamily: FO, fontSize: 14.5, fontWeight: 700, letterSpacing: "0.2px", padding: "16px 32px", borderRadius: 9999, background: `linear-gradient(180deg, ${C_BRIGHT} 0%, ${C} 52%, ${C_DEEP} 100%)`, color: INK, boxShadow: `inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -10px 20px -12px rgba(0,0,0,0.45), 0 12px 30px -12px ${C}`, whiteSpace: "nowrap" }}>
+              <span style={{ position: "relative", zIndex: 1 }}>Request an invitation</span>
+              <span className="uae-cta-arrow" style={{ position: "relative", zIndex: 1 }}>→</span>
+            </a>
+            <a href="#partner" className="uae-cta-ghost" style={{ display: "inline-flex", alignItems: "center", gap: 9, fontFamily: FO, fontSize: 14.5, fontWeight: 600, letterSpacing: "0.2px", padding: "16px 30px", borderRadius: 9999, border: "1px solid rgba(255,255,255,0.2)", background: "linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.02))", color: "#fff", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.16)", whiteSpace: "nowrap" }}>Partnership enquiry</a>
           </div>
         </div>
 
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 34 }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 36 }}>
           {industries.map((t) => (
-            <span key={t} style={{ fontFamily: FO, fontSize: 11.5, fontWeight: 500, letterSpacing: "1.2px", textTransform: "uppercase", padding: "9px 16px", borderRadius: 9999, border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.03)", color: "rgba(255,255,255,0.6)" }}>{t}</span>
+            <span key={t} className="uae-sector" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontFamily: FO, fontSize: 11.5, fontWeight: 600, letterSpacing: "1.4px", textTransform: "uppercase", padding: "9px 16px 9px 13px", borderRadius: 9999, border: "1px solid rgba(255,255,255,0.12)", background: "linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.015))", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.74)" }}>
+              <span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: C, boxShadow: `0 0 8px ${C}` }} />
+              {t}
+            </span>
           ))}
         </div>
       </div>
@@ -133,25 +161,38 @@ function Hero() {
 // ─── STAT PLATES ─────────────────────────────────────────────────────────────
 function StatPlates() {
   const plates: { big: React.ReactNode; label: string; hot?: boolean }[] = [
-    { big: <>2<span style={{ color: C, fontSize: "0.6em" }}>nd</span></>, label: "UAE Edition" },
     { big: <>5<span style={{ color: C, fontSize: "0.6em" }}>th</span></>, label: "Global Edition" },
-    { big: <>250<span style={{ fontSize: "0.6em", color: "rgba(255,255,255,0.75)" }}>+</span></>, label: "Senior Delegates", hot: true },
+    { big: <>250<span style={{ fontSize: "0.6em", color: "rgba(255,255,255,0.85)" }}>+</span></>, label: "Senior Delegates", hot: true },
     { big: <>35<span style={{ color: C, fontSize: "0.6em" }}>+</span></>, label: "Speakers" },
     { big: <>6<span style={{ color: C, fontSize: "0.6em" }}>+</span></>, label: "Critical Industries" },
   ];
   return (
     <section style={{ position: "relative", zIndex: 1, maxWidth: 1320, margin: "0 auto", padding: "clamp(28px,4vw,52px) clamp(20px,4vw,60px)" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(170px,1fr))", gap: 12 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 16 }}>
         {plates.map((p, i) => (
-          <div key={i} style={{
-            borderRadius: 24, padding: "26px 24px",
-            background: p.hot ? `linear-gradient(160deg,${C_BRIGHT} 0%,${C} 44%,#8E2A64 100%)` : "linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.015))",
-            border: p.hot ? "1px solid rgba(255,255,255,0.22)" : "1px solid rgba(255,255,255,0.09)",
-            boxShadow: p.hot ? "inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -20px 34px -22px rgba(0,0,0,0.6),0 26px 46px -24px " + C + "99" : "inset 0 1px 0 rgba(255,255,255,0.1),0 22px 40px -28px rgba(0,0,0,0.9)",
+          <div key={i} className="uae-plate" style={{
+            position: "relative", overflow: "hidden",
+            borderRadius: 24, padding: "20px 26px",
+            background: p.hot
+              ? `linear-gradient(158deg, ${C_BRIGHT} 0%, ${C} 46%, #8E2A64 100%)`
+              : "linear-gradient(158deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.035) 42%, rgba(255,255,255,0.012) 100%)",
+            border: p.hot ? "1px solid rgba(255,255,255,0.36)" : "1px solid rgba(255,255,255,0.1)",
+            backdropFilter: "blur(22px)", WebkitBackdropFilter: "blur(22px)",
+            boxShadow: p.hot
+              ? `inset 0 1.5px 0 rgba(255,255,255,0.72), inset 0 4px 12px rgba(255,255,255,0.32), inset 0 -28px 46px -24px rgba(0,0,0,0.5), 0 34px 62px -26px ${C}, 0 0 72px -26px ${C_BRIGHT}`
+              : "inset 0 1.5px 0 rgba(255,255,255,0.26), inset 0 4px 10px rgba(255,255,255,0.06), inset 0 -34px 48px -32px rgba(0,0,0,0.85), 0 30px 54px -28px rgba(0,0,0,0.95)",
           }}>
-            <div style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(36px,3.8vw,52px)", letterSpacing: "-2px", lineHeight: 1, color: "#fff", textShadow: p.hot ? "0 2px 12px rgba(0,0,0,0.35)" : undefined }}>{p.big}</div>
-            <div style={{ width: 26, height: 3, borderRadius: 2, background: p.hot ? "rgba(255,255,255,0.7)" : `linear-gradient(90deg,${C_BRIGHT},${C_DEEP})`, boxShadow: p.hot ? undefined : `0 0 14px ${C}b3`, margin: "16px 0 12px" }} />
-            <div style={{ fontFamily: FO, fontSize: 11, fontWeight: p.hot ? 600 : 500, letterSpacing: "1.4px", textTransform: "uppercase", color: p.hot ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.4)" }}>{p.label}</div>
+            {/* top liquid-glass dome reflection */}
+            <span aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: "54%", background: p.hot ? "linear-gradient(180deg, rgba(255,255,255,0.44) 0%, rgba(255,255,255,0.07) 58%, transparent 100%)" : "linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.025) 58%, transparent 100%)", borderRadius: "26px 26px 46% 46% / 26px 26px 30% 30%", pointerEvents: "none" }} />
+            {/* crisp top-edge glass highlight */}
+            <span aria-hidden style={{ position: "absolute", top: 8, left: "8%", right: "8%", height: 1.5, borderRadius: 2, background: p.hot ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.3)", pointerEvents: "none" }} />
+            {/* corner light sheen */}
+            <span aria-hidden style={{ position: "absolute", top: "-34%", right: "-18%", width: "64%", height: "88%", background: p.hot ? "radial-gradient(ellipse at center, rgba(255,255,255,0.38), transparent 70%)" : "radial-gradient(ellipse at center, rgba(255,255,255,0.13), transparent 70%)", filter: "blur(8px)", pointerEvents: "none" }} />
+            <div style={{ position: "relative", zIndex: 1 }}>
+              <div style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(38px,4vw,56px)", letterSpacing: "-2px", lineHeight: 1, color: "#fff", textShadow: p.hot ? "0 2px 14px rgba(0,0,0,0.42)" : "0 2px 18px rgba(0,0,0,0.65)" }}>{p.big}</div>
+              <div style={{ width: 28, height: 3, borderRadius: 2, background: p.hot ? "rgba(255,255,255,0.85)" : `linear-gradient(90deg,${C_BRIGHT},${C_DEEP})`, boxShadow: p.hot ? "0 0 12px rgba(255,255,255,0.55)" : `0 0 14px ${C}b3`, margin: "12px 0 9px" }} />
+              <div style={{ fontFamily: FO, fontSize: 11, fontWeight: p.hot ? 700 : 500, letterSpacing: "1.5px", textTransform: "uppercase", color: p.hot ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.44)" }}>{p.label}</div>
+            </div>
           </div>
         ))}
       </div>
@@ -170,6 +211,37 @@ function ImageTile({ src, alt, radius = 32, minHeight, pos, children }: { src: s
   );
 }
 
+// ─── Click-to-play YouTube facade (premium bezel) ────────────────────────────
+function EventVideo({ id, eyebrow, caption }: { id: string; eyebrow: string; caption: string }) {
+  const [play, setPlay] = useState(false);
+  return (
+    <div style={{ position: "relative", width: "100%", aspectRatio: "16 / 9", borderRadius: 24, overflow: "hidden", border: "1px solid rgba(255,255,255,0.12)", background: "#000", boxShadow: `inset 0 1px 0 rgba(255,255,255,0.14), 0 44px 90px -44px rgba(0,0,0,0.95), 0 0 70px -34px ${C}` }}>
+      {play ? (
+        <iframe
+          title={caption}
+          src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+          allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+          allowFullScreen
+        />
+      ) : (
+        <button onClick={() => setPlay(true)} aria-label={`Play video — ${caption}`} className="uae-video-btn" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", padding: 0, border: "none", background: "none", cursor: "pointer", display: "block" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`} alt={caption} loading="lazy" decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+          <span aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(10,10,10,0.12) 0%, transparent 28%, rgba(10,10,10,0.32) 62%, rgba(10,10,10,0.92) 100%)" }} />
+          <span aria-hidden className="uae-video-play" style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 80, height: 80, borderRadius: "50%", background: "rgba(255,255,255,0.16)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.42)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 14px 44px rgba(0,0,0,0.5)" }}>
+            <span style={{ width: 0, height: 0, borderTop: "11px solid transparent", borderBottom: "11px solid transparent", borderLeft: "18px solid #fff", marginLeft: 5 }} />
+          </span>
+          <span style={{ position: "absolute", left: 0, right: 0, bottom: 0, textAlign: "left", padding: "clamp(20px,2.4vw,32px)" }}>
+            <span style={{ display: "block", fontFamily: FO, fontSize: 10.5, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: C_LIGHT, marginBottom: 9 }}>{eyebrow}</span>
+            <span style={{ display: "block", fontFamily: FD, fontWeight: 600, fontSize: "clamp(17px,1.7vw,23px)", letterSpacing: "-0.6px", lineHeight: 1.24, color: "#fff", maxWidth: 440 }}>{caption}</span>
+          </span>
+        </button>
+      )}
+    </div>
+  );
+}
+
 // ─── 01 · THE EVENT ──────────────────────────────────────────────────────────
 function TheEvent() {
   const facts = [
@@ -180,27 +252,28 @@ function TheEvent() {
   return (
     <section id="event" style={wrap}>
       <SectionHead num="01" label="The Event" note="Abu Dhabi · 27.01.2027" />
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(340px,1fr))", gap: "clamp(20px,3vw,40px)", alignItems: "stretch" }}>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 32 }}>
-          <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(32px,4.2vw,62px)", letterSpacing: "-2.4px", lineHeight: 1.02, margin: 0, textWrap: "balance" }}>
-            OT is the backbone of the UAE&rsquo;s critical infrastructure.
-            <span style={{ display: "block", color: "rgba(255,255,255,0.26)", marginTop: 14 }}>A compromise stops production, not just data.</span>
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", gap: 12 }}>
-            {facts.map((f) => (
-              <div key={f.t} style={{ borderRadius: 20, padding: 20, background: "linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.012))", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)" }}>
-                <div style={{ fontFamily: FD, fontWeight: 800, fontSize: 15, color: "#fff", letterSpacing: "-0.3px", marginBottom: 8 }}>{f.t}</div>
-                <div style={{ fontFamily: FO, fontSize: 13, lineHeight: 1.6, color: "#8E8E8E" }}>{f.b}</div>
-              </div>
-            ))}
-          </div>
+      <div style={{ marginBottom: "clamp(28px,3.4vw,48px)", maxWidth: 1120 }}>
+        <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,60px)", letterSpacing: "-2.4px", lineHeight: 1.0, margin: 0, textWrap: "balance", color: "#fff" }}>
+          OT is the backbone of the{" "}
+          <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 44%, ${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>UAE&rsquo;s critical infrastructure.</span>
+        </h2>
+        <div style={{ display: "flex", alignItems: "stretch", gap: 18, marginTop: "clamp(20px,2.4vw,30px)", maxWidth: 640 }}>
+          <span aria-hidden style={{ flex: "0 0 auto", width: 3, borderRadius: 2, background: `linear-gradient(180deg, ${C_BRIGHT}, ${C_DEEP})`, boxShadow: `0 0 18px ${C}` }} />
+          <p style={{ fontFamily: FD, fontWeight: 500, fontSize: "clamp(18px,1.8vw,25px)", letterSpacing: "-0.6px", lineHeight: 1.28, margin: 0, color: "rgba(255,255,255,0.66)" }}>
+            A compromise stops <span style={{ color: "#fff", fontWeight: 600 }}>production</span> — not just data.
+          </p>
         </div>
-        <ImageTile src={IMG.eventHero} alt="OT Security First — the executive platform for the UAE's OT ecosystem" minHeight="clamp(360px,42vw,540px)">
-          <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, pointerEvents: "none", padding: 28, background: "linear-gradient(0deg,rgba(10,10,10,0.92),transparent)" }}>
-            <div style={{ fontFamily: FO, fontSize: 10.5, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: C, marginBottom: 8 }}>From policy to implementation</div>
-            <div style={{ fontFamily: FD, fontWeight: 700, fontSize: "clamp(17px,1.7vw,22px)", letterSpacing: "-0.6px", lineHeight: 1.25, color: "#fff", maxWidth: 420 }}>The executive platform for the UAE&rsquo;s OT ecosystem.</div>
-          </div>
-        </ImageTile>
+      </div>
+      <div className="uae-event-grid" style={{ display: "grid", gridTemplateColumns: "minmax(0,0.86fr) minmax(0,1.32fr)", gap: "clamp(26px,3vw,48px)", alignItems: "center" }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          {facts.map((f, idx) => (
+            <div key={f.t} style={{ display: "flex", alignItems: "baseline", gap: "clamp(14px,1.6vw,22px)", padding: "clamp(13px,1.5vw,17px) 0", borderTop: idx === 0 ? "none" : "1px solid rgba(255,255,255,0.09)" }}>
+              <div style={{ flex: "0 0 clamp(78px,8vw,96px)", fontFamily: FO, fontSize: 11, fontWeight: 700, letterSpacing: "1.6px", textTransform: "uppercase", color: C }}>{f.t}</div>
+              <div style={{ fontFamily: FD, fontSize: "clamp(15px,1.3vw,18px)", fontWeight: 500, lineHeight: 1.45, color: "rgba(255,255,255,0.84)", letterSpacing: "-0.3px" }}>{f.b}</div>
+            </div>
+          ))}
+        </div>
+        <EventVideo id="3ofcPquafgk" eyebrow="From policy to implementation" caption="The executive platform for the UAE&rsquo;s OT ecosystem." />
       </div>
     </section>
   );
@@ -208,45 +281,62 @@ function TheEvent() {
 
 // ─── 02 · WHY ABU DHABI ──────────────────────────────────────────────────────
 function WhyAbuDhabi() {
+  const frameworks = [
+    { title: "Department of Energy", body: "Security of supply and sustainability of energy and water." },
+    { title: "2050 Framework", body: "Decarbonisation, digital transformation, AI-driven innovation." },
+  ];
   return (
     <section id="abudhabi" style={{ position: "relative", zIndex: 1, background: BG_2, borderTop: "1px solid rgba(255,255,255,0.07)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
       <div style={wrap}>
         <SectionHead num="02" label="Why Abu Dhabi" />
-        <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,60px)", letterSpacing: "-2.2px", lineHeight: 1.03, margin: "0 0 clamp(28px,4vw,44px)", maxWidth: 900 }}>
-          The heart of the UAE&rsquo;s critical infrastructure ecosystem.
-          <span style={{ display: "block", color: "rgba(255,255,255,0.26)" }}>Energy, industry and intelligence, one emirate.</span>
-        </h2>
-        <div className="uae-bento" style={{ display: "grid", gridTemplateColumns: "repeat(6,minmax(0,1fr))", gap: 14 }}>
-          <div style={{ gridColumn: "span 4" }}>
-            <ImageTile src={IMG.skyline} alt="Abu Dhabi — capital of the UAE and heart of its critical infrastructure" minHeight="clamp(300px,32vw,420px)">
-              <div style={{ position: "absolute", top: 24, left: 24, pointerEvents: "none", padding: "9px 16px", borderRadius: 9999, background: "rgba(10,10,10,0.6)", border: "1px solid rgba(255,255,255,0.14)", backdropFilter: "blur(10px)", fontFamily: FO, fontSize: 10.5, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "#fff" }}>Abu Dhabi, UAE</div>
-            </ImageTile>
+        <div style={{ marginBottom: "clamp(28px,3.4vw,48px)", maxWidth: 1000 }}>
+          <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,60px)", letterSpacing: "-2.2px", lineHeight: 1.02, margin: 0, textWrap: "balance", color: "#fff" }}>
+            The heart of the UAE&rsquo;s{" "}
+            <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 44%, ${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>critical infrastructure ecosystem.</span>
+          </h2>
+          <div style={{ display: "flex", alignItems: "stretch", gap: 18, marginTop: "clamp(18px,2.2vw,28px)", maxWidth: 620 }}>
+            <span aria-hidden style={{ flex: "0 0 auto", width: 3, borderRadius: 2, background: `linear-gradient(180deg, ${C_BRIGHT}, ${C_DEEP})`, boxShadow: `0 0 18px ${C}` }} />
+            <p style={{ fontFamily: FD, fontWeight: 500, fontSize: "clamp(17px,1.7vw,23px)", letterSpacing: "-0.5px", lineHeight: 1.3, margin: 0, color: "rgba(255,255,255,0.66)" }}>Energy, industry and intelligence — <span style={{ color: "#fff", fontWeight: 600 }}>one emirate.</span></p>
           </div>
-          <div style={{ gridColumn: "span 2", borderRadius: 32, padding: "clamp(26px,2.6vw,36px)", background: TINT_CARD, border: "1px solid rgba(255,255,255,0.22)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -24px 40px -24px rgba(0,0,0,0.55),0 30px 56px -26px " + C + "99", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 24 }}>
-            <div style={{ fontFamily: FO, fontSize: 10.5, fontWeight: 700, letterSpacing: "2.2px", textTransform: "uppercase", color: "rgba(255,255,255,0.85)" }}>Industrial Strategy</div>
+        </div>
+
+        <div className="uae-ad-grid" style={{ display: "grid", gridTemplateColumns: "minmax(0,1.12fr) minmax(0,1fr)", gap: "clamp(24px,3vw,48px)", alignItems: "center" }}>
+          <ImageTile src={IMG.skyline} alt="Abu Dhabi — capital of the UAE and heart of its critical infrastructure" minHeight="clamp(340px,40vw,500px)">
+            <div style={{ position: "absolute", top: 24, left: 24, pointerEvents: "none", padding: "9px 16px", borderRadius: 9999, background: "rgba(10,10,10,0.6)", border: "1px solid rgba(255,255,255,0.14)", backdropFilter: "blur(10px)", fontFamily: FO, fontSize: 10.5, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "#fff" }}>Abu Dhabi, UAE</div>
+          </ImageTile>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "clamp(28px,3.2vw,44px)" }}>
             <div>
-              <div style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(40px,4.4vw,64px)", letterSpacing: "-2.8px", lineHeight: 0.95, color: "#fff", textShadow: "0 3px 16px rgba(0,0,0,0.35)" }}>AED 10<span style={{ fontSize: "0.45em", color: "rgba(255,255,255,0.8)" }}> bn</span></div>
-              <div style={{ fontFamily: FO, fontSize: 13.5, lineHeight: 1.6, color: "rgba(255,255,255,0.88)", marginTop: 14 }}>Government investment in Industry 4.0 and smart manufacturing.</div>
+              <div style={{ fontFamily: FO, fontSize: 10.5, fontWeight: 700, letterSpacing: "2.2px", textTransform: "uppercase", color: C, marginBottom: 14 }}>Industrial Strategy</div>
+              <div style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(50px,6.6vw,100px)", letterSpacing: "-4px", lineHeight: 0.9, color: "#fff" }}>
+                <span style={{ fontSize: "0.32em", fontWeight: 700, color: "rgba(255,255,255,0.48)", letterSpacing: "-1px", verticalAlign: "middle", marginRight: 10 }}>AED</span>10<span style={{ background: `linear-gradient(180deg, ${C_BRIGHT}, ${C})`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}> bn</span>
+              </div>
+              <p style={{ fontFamily: FO, fontSize: "clamp(14px,1.3vw,16px)", lineHeight: 1.6, color: "rgba(255,255,255,0.6)", margin: "16px 0 0", maxWidth: 380 }}>Government investment in Industry 4.0 and smart manufacturing.</p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+              {frameworks.map((f, i) => (
+                <div key={f.title} style={{ display: "flex", gap: "clamp(16px,1.6vw,22px)", padding: "clamp(16px,1.8vw,22px) 0", borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,0.08)" }}>
+                  <span style={{ flex: "0 0 auto", fontFamily: FD, fontWeight: 800, fontSize: "clamp(17px,1.6vw,22px)", letterSpacing: "-0.5px", color: C, lineHeight: 1 }}>{`0${i + 1}`}</span>
+                  <div>
+                    <div style={{ fontFamily: FD, fontWeight: 700, fontSize: "clamp(16px,1.5vw,20px)", letterSpacing: "-0.4px", color: "#fff", marginBottom: 6 }}>{f.title}</div>
+                    <div style={{ fontFamily: FO, fontSize: "clamp(13px,1.2vw,14.5px)", lineHeight: 1.6, color: "#8E8E8E" }}>{f.body}</div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-          <MiniCard span={2} title="Department of Energy" body="Security of supply and sustainability of energy and water." />
-          <MiniCard span={2} title="2050 Framework" body="Decarbonisation, digital transformation, AI-driven innovation." />
-          <div style={{ gridColumn: "span 2", borderRadius: 28, padding: "clamp(24px,2.4vw,32px)", background: `radial-gradient(ellipse 90% 120% at 100% 0%, ${C}33, transparent 62%), linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.01))`, border: `1px solid ${C}47`, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12),0 24px 48px -30px rgba(0,0,0,0.9)", display: "flex", alignItems: "center" }}>
-            <p style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(17px,1.7vw,21px)", letterSpacing: "-0.7px", lineHeight: 1.25, color: "#fff", margin: 0 }}>An ideal setting for a dedicated OT cybersecurity summit.</p>
+        </div>
+
+        <div style={{ position: "relative", overflow: "hidden", marginTop: "clamp(24px,3vw,44px)", borderRadius: 28, padding: "clamp(26px,3.4vw,44px) clamp(28px,4vw,60px)", background: `radial-gradient(ellipse 90% 150% at 50% 0%, ${C}32, transparent 62%), linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.012))`, border: `1px solid ${C}47`, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), 0 30px 60px -34px rgba(0,0,0,0.95)" }}>
+          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", gap: "clamp(12px,1.3vw,16px)" }}>
+            <svg aria-hidden width="38" height="29" viewBox="0 0 32 24" style={{ flex: "0 0 auto", marginTop: "0.12em" }}>
+              <path d="M3 14C3 7 7 2 14 1L14 5C10 6 8 9 8 12L13 12L13 22L3 22Z M18 14C18 7 22 2 29 1L29 5C25 6 23 9 23 12L28 12L28 22L18 22Z" fill={C} opacity="0.45" />
+            </svg>
+            <p className="uae-ad-quote" style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(18px,2.3vw,34px)", letterSpacing: "-1.2px", lineHeight: 1.15, color: "#fff", margin: 0, whiteSpace: "nowrap" }}>An ideal setting for a dedicated OT cybersecurity summit.</p>
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function MiniCard({ span, title, body }: { span: number; title: string; body: string }) {
-  return (
-    <div className="uae-card" style={{ gridColumn: `span ${span}`, borderRadius: 28, padding: "clamp(24px,2.4vw,32px)", background: CARD_BG, border: CARD_BORDER, boxShadow: CARD_SHADOW }}>
-      <div style={{ width: 26, height: 3, borderRadius: 2, background: `linear-gradient(90deg,${C_BRIGHT},${C_DEEP})`, marginBottom: 18 }} />
-      <h3 style={{ fontFamily: FD, fontWeight: 800, fontSize: 19, letterSpacing: "-0.6px", color: "#fff", margin: "0 0 10px" }}>{title}</h3>
-      <p style={{ fontFamily: FO, fontSize: 14, lineHeight: 1.65, color: "#8E8E8E", margin: 0 }}>{body}</p>
-    </div>
   );
 }
 
@@ -262,84 +352,70 @@ const QUESTIONS: [string, string, string][] = [
 ];
 
 function TheMandate() {
-  const [open, setOpen] = useState<number | null>(null);
   return (
     <section id="mandate" style={wrap}>
       <SectionHead num="03" label="The Mandate" note="Seven questions" />
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(330px,1fr))", gap: "clamp(24px,3.5vw,56px)", alignItems: "start" }}>
-        <div>
-          <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(28px,3.6vw,50px)", letterSpacing: "-2px", lineHeight: 1.04, margin: "0 0 28px" }}>
-            From national policy<span style={{ display: "block", color: "rgba(255,255,255,0.26)" }}>to industrial resilience.</span>
-          </h2>
-          <ImageTile src={IMG.mandate} alt="Boardroom panel discussion at an OT Security First summit" minHeight="clamp(260px,26vw,360px)" />
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {QUESTIONS.map(([n, t, b], i) => {
-            const isOpen = open === i;
-            return (
-              <button key={n} onClick={() => setOpen(isOpen ? null : i)} className="uae-q" style={{ textAlign: "left", borderRadius: 24, padding: "22px 26px", cursor: "pointer", background: "linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.012))", border: isOpen ? `1px solid ${C}73` : "1px solid rgba(255,255,255,0.09)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.09),0 18px 36px -28px rgba(0,0,0,0.9)", display: "grid", gridTemplateColumns: "auto 1fr auto", gap: 18, alignItems: "start", transition: "border-color 0.35s, transform 0.35s" }}>
-                <span style={{ fontFamily: FD, fontWeight: 800, fontSize: 12, letterSpacing: "1px", color: C, paddingTop: 5 }}>{n}</span>
-                <div>
-                  <h3 style={{ fontFamily: FD, fontWeight: 700, fontSize: "clamp(15.5px,1.4vw,18px)", letterSpacing: "-0.4px", lineHeight: 1.4, color: "#fff", margin: 0 }}>{t}</h3>
-                  {isOpen && (
-                    <p style={{ fontFamily: FO, fontSize: 14, lineHeight: 1.65, color: "#8E8E8E", margin: "14px 0 0", paddingTop: 14, borderTop: "1px solid rgba(255,255,255,0.08)" }}>{b}</p>
-                  )}
-                </div>
-                <span aria-hidden style={{ width: 30, height: 30, flexShrink: 0, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, lineHeight: 1, color: "#fff", background: "linear-gradient(180deg,rgba(255,255,255,0.14),rgba(255,255,255,0.03))", border: "1px solid rgba(255,255,255,0.14)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.25)" }}>{isOpen ? "−" : "+"}</span>
-              </button>
-            );
-          })}
-        </div>
+      <div style={{ marginBottom: "clamp(26px,3.2vw,44px)", maxWidth: 980 }}>
+        <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,60px)", letterSpacing: "-2.2px", lineHeight: 1.02, margin: 0, textWrap: "balance", color: "#fff" }}>
+          From national policy{" "}
+          <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 44%, ${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>to industrial resilience.</span>
+        </h2>
+      </div>
+      <div className="uae-mandate-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2,minmax(0,1fr))", columnGap: "clamp(28px,4vw,72px)" }}>
+        {QUESTIONS.map(([n, t, b], i) => (
+          <div key={n} style={{ display: "grid", gridTemplateColumns: "auto minmax(0,1fr)", gap: "clamp(13px,1.4vw,20px)", padding: "clamp(15px,1.7vw,21px) 0", borderTop: "1px solid rgba(255,255,255,0.09)", alignItems: "start" }}>
+            <span style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(16px,1.5vw,21px)", letterSpacing: "-0.5px", lineHeight: 1.25, background: `linear-gradient(180deg, ${C_BRIGHT}, ${C})`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>{n}</span>
+            <div>
+              <h3 style={{ fontFamily: FD, fontWeight: 700, fontSize: "clamp(15px,1.35vw,18.5px)", letterSpacing: "-0.4px", lineHeight: 1.26, color: "#fff", margin: "0 0 7px" }}>{t}</h3>
+              <p style={{ fontFamily: FO, fontSize: "clamp(12.5px,1.05vw,13.5px)", lineHeight: 1.55, color: "#8E8E8E", margin: 0 }}>{b}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
 }
 
 // ─── 04 · MARKET DRIVERS ─────────────────────────────────────────────────────
+const DRIVERS: { n: string; title: string; body: string }[] = [
+  { n: "01", title: "Digital Transformation", body: "Isolated operational environments are connecting to enterprise networks, cloud and AI." },
+  { n: "02", title: "IT/OT Convergence", body: "New opportunities. New attack paths." },
+  { n: "03", title: "Critical Infrastructure Protection", body: "CIIP sets baseline security, assurance and enforcement. Cyber becomes operational governance." },
+  { n: "04", title: "Energy Transition", body: "Smart grids, storage, EV infrastructure and digital energy management create new OT estates." },
+  { n: "05", title: "Smart Manufacturing", body: "Connected factories require connected cybersecurity." },
+  { n: "06", title: "AI & Automation", body: "Intelligence moves closer to the plant floor — and must be secured with it." },
+];
+
 function MarketDrivers() {
   return (
     <section id="drivers" style={{ position: "relative", zIndex: 1, background: BG_2, borderTop: "1px solid rgba(255,255,255,0.07)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-      <div style={wrap}>
+      <div style={{ ...wrap, maxWidth: 1480 }}>
         <SectionHead num="04" label="Market Drivers" note="Six forces" />
-        <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,60px)", letterSpacing: "-2.2px", lineHeight: 1.03, margin: "0 0 clamp(28px,4vw,44px)", maxWidth: 860 }}>
-          Why OT security became<span style={{ display: "block", color: "rgba(255,255,255,0.26)" }}>a board-level priority.</span>
-        </h2>
-        <div className="uae-bento" style={{ display: "grid", gridTemplateColumns: "repeat(6,minmax(0,1fr))", gap: 14 }}>
-          <DriverCard span={2} n="01" title="Digital Transformation" body="Isolated operational environments are connecting to enterprise networks, cloud and AI." />
-          <div style={{ gridColumn: "span 2" }}>
-            <ImageTile src={IMG.plant} alt="Industrial plant and pipeline infrastructure" radius={28} minHeight={280} />
-          </div>
-          <div className="uae-card" style={{ gridColumn: "span 2", position: "relative", overflow: "hidden", borderRadius: 28, padding: "clamp(24px,2.4vw,34px)", background: CARD_BG, border: CARD_BORDER, boxShadow: CARD_SHADOW }}>
-            <span style={{ position: "absolute", top: -14, right: 14, fontFamily: FD, fontWeight: 800, fontSize: 96, lineHeight: 1, color: "rgba(255,255,255,0.035)" }}>02</span>
-            <div style={{ width: 26, height: 3, borderRadius: 2, background: `linear-gradient(90deg,${C_BRIGHT},${C_DEEP})`, marginBottom: 20 }} />
-            <h3 style={{ fontFamily: FD, fontWeight: 800, fontSize: 21, letterSpacing: "-0.7px", color: "#fff", margin: "0 0 16px" }}>IT/OT Convergence</h3>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-              {["Cloud", "Remote access", "IIoT", "Digital twins", "Analytics"].map((t) => <Tag key={t} hot>{t}</Tag>)}
-            </div>
-            <p style={{ fontFamily: FO, fontSize: 13.5, lineHeight: 1.6, color: "#707070", margin: "16px 0 0" }}>New opportunities. New attack paths.</p>
-          </div>
-          <DriverCard span={3} n="03" title="Critical Infrastructure Protection" body="CIIP sets baseline security, assurance and enforcement. Cyber becomes operational governance." />
-          <DriverCard span={3} n="04" title="Energy Transition" body="Smart grids, storage, EV infrastructure and digital energy management create new OT estates." />
-          <DriverCard span={3} n="05" title="Smart Manufacturing" body="Connected factories require connected cybersecurity." tags={["PLC", "DCS", "SCADA", "HMI", "Robotics", "IIoT"]} />
-          <DriverCard span={3} n="06" title="AI & Automation" body="Intelligence moves closer to the plant floor — and must be secured with it." tags={["Model security", "Data integrity", "Adversarial attacks", "OT visibility"]} />
+        <div style={{ marginBottom: "clamp(26px,3.2vw,44px)", maxWidth: 900 }}>
+          <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,60px)", letterSpacing: "-2.2px", lineHeight: 1.02, margin: 0, textWrap: "balance", color: "#fff" }}>
+            Why OT security became{" "}
+            <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 44%, ${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>a board-level priority.</span>
+          </h2>
+        </div>
+        <div className="uae-drivers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,minmax(0,1fr))", gap: "clamp(20px,2vw,28px) clamp(22px,2.4vw,38px)" }}>
+          {DRIVERS.map((d) => <DriverCard key={d.n} {...d} />)}
         </div>
       </div>
     </section>
   );
 }
 
-function DriverCard({ span, n, title, body, tags }: { span: number; n: string; title: string; body: string; tags?: string[] }) {
+function DriverCard({ n, title, body }: { n: string; title: string; body: string }) {
   return (
-    <div className="uae-card" style={{ gridColumn: `span ${span}`, position: "relative", overflow: "hidden", borderRadius: 28, padding: "clamp(24px,2.4vw,34px)", background: CARD_BG, border: CARD_BORDER, boxShadow: CARD_SHADOW }}>
-      <span style={{ position: "absolute", top: -14, right: 14, fontFamily: FD, fontWeight: 800, fontSize: 96, lineHeight: 1, color: "rgba(255,255,255,0.035)" }}>{n}</span>
-      <div style={{ width: 26, height: 3, borderRadius: 2, background: `linear-gradient(90deg,${C_BRIGHT},${C_DEEP})`, marginBottom: 20 }} />
-      <h3 style={{ fontFamily: FD, fontWeight: 800, fontSize: 21, letterSpacing: "-0.7px", color: "#fff", margin: "0 0 12px" }}>{title}</h3>
-      <p style={{ fontFamily: FO, fontSize: 14, lineHeight: 1.65, color: "#8E8E8E", margin: 0 }}>{body}</p>
-      {tags && (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 7, marginTop: 16 }}>
-          {tags.map((t) => <Tag key={t}>{t}</Tag>)}
-        </div>
-      )}
+    <div className="uae-driver" style={{ position: "relative", paddingTop: "clamp(14px,1.4vw,18px)" }}>
+      <span aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "rgba(255,255,255,0.13)" }} />
+      <span aria-hidden className="uae-driver-tab" style={{ position: "absolute", top: 0, left: 0, height: 2, width: 54, borderRadius: 2, background: `linear-gradient(90deg, ${C_BRIGHT}, ${C})`, boxShadow: `0 0 16px ${C}` }} />
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "clamp(10px,1.1vw,14px)" }}>
+        <span style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,2.8vw,46px)", letterSpacing: "-2px", lineHeight: 1, background: `linear-gradient(180deg, ${C_BRIGHT}, ${C})`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>{n}</span>
+        <span aria-hidden className="uae-driver-dot" style={{ width: 7, height: 7, borderRadius: "50%", background: C, boxShadow: `0 0 12px ${C}`, alignSelf: "center" }} />
+      </div>
+      <h3 style={{ fontFamily: FD, fontWeight: 700, fontSize: "clamp(18px,1.6vw,23px)", letterSpacing: "-0.6px", lineHeight: 1.18, color: "#fff", margin: "0 0 10px" }}>{title}</h3>
+      <p style={{ fontFamily: FO, fontSize: "clamp(13px,1.1vw,15px)", lineHeight: 1.62, color: "#8E8E8E", margin: 0 }}>{body}</p>
     </div>
   );
 }
@@ -354,29 +430,47 @@ const THEMES: { eyebrow: string; title: string; tags: string[]; hot?: boolean }[
   { eyebrow: "AI & the Future of OT", title: "Securing the intelligent industrial environment", tags: ["Predictive security", "Digital twins", "Autonomous ops", "AI risk"], hot: true },
 ];
 
+const THEME_SPANS = [3, 3, 2, 2, 2, 6];
+
+function ThemeTile({ th, i, span, featured }: { th: typeof THEMES[number]; i: number; span: number; featured: boolean }) {
+  return (
+    <div className="uae-card" style={{
+      gridColumn: `span ${span}`, position: "relative", overflow: "hidden", borderRadius: 26,
+      padding: featured ? "clamp(28px,3.2vw,46px)" : "clamp(24px,2.4vw,32px)",
+      minHeight: featured ? "clamp(210px,19vw,260px)" : "clamp(176px,15vw,214px)",
+      background: th.hot
+        ? `radial-gradient(ellipse 95% 135% at 100% 0%, ${C}47, transparent 60%), linear-gradient(158deg, rgba(255,255,255,0.06), rgba(255,255,255,0.012))`
+        : `radial-gradient(ellipse 80% 120% at 0% 0%, ${C}1a, transparent 58%), linear-gradient(158deg, rgba(255,255,255,0.055), rgba(255,255,255,0.012))`,
+      border: th.hot ? `1px solid ${C}59` : "1px solid rgba(255,255,255,0.09)",
+      boxShadow: th.hot
+        ? `inset 0 1px 0 rgba(255,255,255,0.16), 0 30px 60px -34px rgba(0,0,0,0.95), 0 0 66px -30px ${C}`
+        : "inset 0 1px 0 rgba(255,255,255,0.09), 0 24px 48px -32px rgba(0,0,0,0.9)",
+      display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 20,
+    }}>
+      <span aria-hidden style={{ position: "absolute", right: -8, bottom: featured ? -46 : -32, fontFamily: FD, fontWeight: 800, fontSize: featured ? "clamp(150px,15vw,220px)" : "clamp(96px,9vw,140px)", letterSpacing: "-6px", lineHeight: 1, color: th.hot ? `${C}24` : `${C}12`, pointerEvents: "none" }}>{String(i + 1).padStart(2, "0")}</span>
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <div style={{ fontFamily: FO, fontSize: 10.5, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: th.hot ? C_LIGHT : C, marginBottom: 12 }}>{th.eyebrow}</div>
+        <h3 className={featured ? "uae-theme-hero-title" : undefined} style={{ fontFamily: FD, fontWeight: 800, fontSize: featured ? "clamp(26px,3vw,42px)" : "clamp(19px,1.9vw,26px)", letterSpacing: "-1px", lineHeight: 1.12, color: "#fff", margin: 0, whiteSpace: featured ? "nowrap" : undefined, textWrap: featured ? undefined : "balance" }}>{th.title}</h3>
+      </div>
+      <div style={{ position: "relative", zIndex: 1, display: "flex", flexWrap: "wrap", gap: 7 }}>
+        {th.tags.map((t) => <Tag key={t} hot={th.hot}>{t}</Tag>)}
+      </div>
+    </div>
+  );
+}
+
 function KeyThemes() {
   return (
     <section id="themes" style={wrap}>
-      <SectionHead num="05" label="Key Themes" right={<a href="#register" className="uae-link" style={{ marginLeft: "auto", fontFamily: FO, fontSize: 12, fontWeight: 600, letterSpacing: "1.4px", textTransform: "uppercase", color: "#fff" }}>Request the agenda →</a>} />
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: 14, marginBottom: 14 }}>
-        <ImageTile src={IMG.keynote} alt="Keynote stage at an OT Security First summit" minHeight={240} />
-        <div style={{ borderRadius: 32, padding: "clamp(28px,3vw,44px)", background: `radial-gradient(ellipse 90% 120% at 0% 0%, ${C}38, transparent 60%), linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.01))`, border: `1px solid ${C}42`, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12),0 30px 62px -34px rgba(0,0,0,0.95)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-          <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(26px,3.2vw,44px)", letterSpacing: "-1.8px", lineHeight: 1.03, margin: 0 }}>Six tracks.<span style={{ display: "block", color: "rgba(255,255,255,0.28)" }}>One operating reality.</span></h2>
-        </div>
+      <SectionHead num="05" label="Key Themes" note="Six tracks" />
+      <div style={{ marginBottom: "clamp(24px,3vw,42px)", maxWidth: 900 }}>
+        <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,60px)", letterSpacing: "-2.2px", lineHeight: 1.02, margin: 0, textWrap: "balance", color: "#fff" }}>
+          Six tracks.{" "}
+          <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 44%, ${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>One operating reality.</span>
+        </h2>
       </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        {THEMES.map((th, i) => (
-          <div key={th.eyebrow} className={th.hot ? undefined : "uae-card"} style={{ borderRadius: 26, padding: "clamp(22px,2.2vw,30px) clamp(24px,2.4vw,34px)", background: th.hot ? `radial-gradient(ellipse 70% 140% at 100% 0%, ${C}33, transparent 60%), linear-gradient(180deg,rgba(255,255,255,0.055),rgba(255,255,255,0.012))` : "linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.012))", border: th.hot ? `1px solid ${C}47` : "1px solid rgba(255,255,255,0.09)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.09),0 20px 44px -30px rgba(0,0,0,0.9)", display: "flex", flexWrap: "wrap", gap: "clamp(14px,2.5vw,40px)", alignItems: "center" }}>
-            <span style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(22px,2.4vw,32px)", letterSpacing: "-1.4px", color: th.hot ? "rgba(255,255,255,0.24)" : "rgba(255,255,255,0.16)" }}>{String(i + 1).padStart(2, "0")}</span>
-            <div style={{ flex: "1 1 260px" }}>
-              <div style={{ fontFamily: FO, fontSize: 10.5, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: C, marginBottom: 8 }}>{th.eyebrow}</div>
-              <h3 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(18px,1.9vw,25px)", letterSpacing: "-0.8px", lineHeight: 1.15, color: "#fff", margin: 0 }}>{th.title}</h3>
-            </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "flex-end", flex: "1 1 260px" }}>
-              {th.tags.map((t) => <Tag key={t} hot={th.hot}>{t}</Tag>)}
-            </div>
-          </div>
-        ))}
+      <div className="uae-bento" style={{ display: "grid", gridTemplateColumns: "repeat(6,minmax(0,1fr))", gap: 14 }}>
+        {THEMES.map((th, i) => <ThemeTile key={th.eyebrow} th={th} i={i} span={THEME_SPANS[i]} featured={!!th.hot} />)}
       </div>
     </section>
   );
@@ -390,24 +484,54 @@ const AUDIENCE: { title: string; count: string; roles: string[] }[] = [
 ];
 
 function WhoAttends() {
+  const totalRoles = AUDIENCE.reduce((n, a) => n + a.roles.length, 0);
   return (
     <section id="attend" style={{ position: "relative", zIndex: 1, background: BG_2, borderTop: "1px solid rgba(255,255,255,0.07)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-      <div style={wrap}>
+      <div style={{ ...wrap, paddingTop: "clamp(30px,3.2vw,48px)", paddingBottom: "clamp(30px,3.2vw,48px)" }}>
         <SectionHead num="06" label="Who Attends" note="No fillers" />
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(290px,1fr))", gap: 14 }}>
-          <ImageTile src={IMG.attend} alt="Executives in conversation at an OT Security First summit" minHeight="clamp(280px,30vw,420px)">
-            <div style={{ position: "absolute", left: 0, right: 0, top: 0, pointerEvents: "none", padding: 26, background: "linear-gradient(180deg,rgba(10,10,10,0.85),transparent)" }}>
-              <div style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(20px,2.2vw,28px)", letterSpacing: "-1px", lineHeight: 1.15, color: "#fff" }}>One room. The people who keep it running.</div>
+
+        {/* Editorial lead — statement spread + portrait */}
+        <div className="uae-attend-lead" style={{ display: "grid", gridTemplateColumns: "1.12fr 0.88fr", gap: "clamp(20px,2.8vw,44px)", alignItems: "stretch", marginBottom: "clamp(20px,2.2vw,32px)" }}>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", paddingRight: "clamp(0px,1vw,10px)" }}>
+            <div style={{ width: 32, height: 3, borderRadius: 2, background: `linear-gradient(90deg,${C_BRIGHT},${C_DEEP})`, marginBottom: "clamp(18px,1.8vw,24px)" }} />
+            <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(28px,3.9vw,54px)", letterSpacing: "-2px", lineHeight: 1.02, margin: 0, color: "#fff" }}>
+              One room.<span style={{ display: "block", color: "rgba(255,255,255,0.3)" }}>The people who keep it running.</span>
+            </h2>
+            <p style={{ fontFamily: FO, fontSize: "clamp(14px,1.1vw,16px)", lineHeight: 1.72, color: "rgba(255,255,255,0.62)", margin: "clamp(18px,1.9vw,26px) 0 0", maxWidth: 470 }}>
+              A curated senior audience — invited by title, not by badge count. Three cohorts spanning government, the security function and the plant floor, in the same room for one day.
+            </p>
+            <div style={{ display: "flex", gap: "clamp(28px,3vw,44px)", marginTop: "clamp(22px,2.4vw,32px)" }}>
+              {[{ n: String(AUDIENCE.length).padStart(2, "0"), l: "Decision cohorts" }, { n: String(totalRoles), l: "Target roles" }].map((s) => (
+                <div key={s.l}>
+                  <div style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,3.4vw,46px)", letterSpacing: "-2px", lineHeight: 1, background: `linear-gradient(120deg,#fff,${C_LIGHT})`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>{s.n}</div>
+                  <div style={{ fontFamily: FO, fontSize: 11, fontWeight: 700, letterSpacing: "1.8px", textTransform: "uppercase", color: "rgba(255,255,255,0.42)", marginTop: 8 }}>{s.l}</div>
+                </div>
+              ))}
             </div>
+          </div>
+          <ImageTile src={IMG.attend} alt="Executives in conversation at an OT Security First summit" minHeight="clamp(260px,22vw,330px)" pos="center top">
+            <span aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `linear-gradient(150deg, transparent 40%, ${C}22 100%)` }} />
           </ImageTile>
-          {AUDIENCE.map((a) => (
-            <div key={a.title} style={{ borderRadius: 28, padding: "clamp(24px,2.4vw,34px)", background: CARD_BG, border: CARD_BORDER, boxShadow: CARD_SHADOW }}>
-              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, marginBottom: 20 }}>
-                <h3 style={{ fontFamily: FD, fontWeight: 800, fontSize: 20, letterSpacing: "-0.7px", color: "#fff", margin: 0 }}>{a.title}</h3>
-                <span style={{ fontFamily: FD, fontWeight: 800, fontSize: 13, color: C }}>{a.count}</span>
+        </div>
+
+        {/* Cohort directory — hanging labels + flowing roles */}
+        <div style={{ display: "grid", borderTop: "1px solid rgba(255,255,255,0.12)" }}>
+          {AUDIENCE.map((a, idx) => (
+            <div key={a.title} className="uae-cohort" style={{ display: "grid", gridTemplateColumns: "minmax(220px,300px) 1fr", gap: "clamp(20px,3.4vw,58px)", padding: "clamp(18px,1.9vw,26px) 0", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+              {/* hanging label */}
+              <div style={{ display: "flex", alignItems: "flex-start", gap: 18 }}>
+                <span className="uae-cohort-idx" style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,3vw,44px)", letterSpacing: "-2px", lineHeight: 0.9, color: "rgba(255,255,255,0.16)", transition: "color 0.4s cubic-bezier(0.16,1,0.3,1)" }}>{String(idx + 1).padStart(2, "0")}</span>
+                <div>
+                  <h3 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(19px,1.7vw,23px)", letterSpacing: "-0.8px", color: "#fff", margin: 0, lineHeight: 1.15 }}>{a.title}</h3>
+                  <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 12 }}>
+                    <span style={{ width: 18, height: 2, borderRadius: 2, background: `linear-gradient(90deg,${C_BRIGHT},${C_DEEP})` }} />
+                    <span style={{ fontFamily: FO, fontSize: 11, fontWeight: 700, letterSpacing: "1.6px", textTransform: "uppercase", color: C }}>{a.count} Roles</span>
+                  </div>
+                </div>
               </div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-                {a.roles.map((r) => <span key={r} style={{ ...tagPill, fontSize: 12.5, padding: "8px 14px", color: "rgba(255,255,255,0.72)" }}>{r}</span>)}
+              {/* flowing roles */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignContent: "flex-start" }}>
+                {a.roles.map((r) => <span key={r} className="uae-cohort-role" style={{ ...tagPill, fontSize: 12.5, padding: "8px 14px", color: "rgba(255,255,255,0.72)", transition: "border-color 0.3s, color 0.3s, background 0.3s" }}>{r}</span>)}
               </div>
             </div>
           ))}
@@ -422,11 +546,11 @@ const INDUSTRIES = ["Oil & Gas", "Petrochemicals", "Energy & Power", "Water & Ut
 
 function Industries() {
   return (
-    <section style={{ ...wrap, padding: "clamp(56px,7vw,100px) clamp(20px,4vw,60px)" }}>
+    <section style={{ ...wrap, padding: "clamp(38px,4.4vw,66px) clamp(20px,4vw,60px)" }}>
       <SectionHead num="07" label="The Industries" right={<span style={{ marginLeft: "auto", fontFamily: FD, fontWeight: 800, fontSize: "clamp(15px,1.6vw,22px)", letterSpacing: "-0.6px", color: "rgba(255,255,255,0.5)" }}>Where IT meets the physical world</span>} />
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(190px,1fr))", gap: 12 }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(10px,1vw,14px)" }}>
         {INDUSTRIES.map((n) => (
-          <div key={n} className="uae-industry" style={{ borderRadius: 22, padding: "22px 24px", fontFamily: FD, fontWeight: 700, fontSize: 16, letterSpacing: "-0.3px", color: "#fff", background: "linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.015))", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1),0 18px 36px -28px rgba(0,0,0,0.9)", transition: "border-color 0.35s, color 0.35s, transform 0.35s" }}>{n}</div>
+          <span key={n} className="uae-industry" style={{ position: "relative", overflow: "hidden", display: "inline-flex", alignItems: "center", borderRadius: 9999, padding: "13px 24px", fontFamily: FD, fontWeight: 700, fontSize: "clamp(14px,1.05vw,16px)", letterSpacing: "-0.2px", color: "#fff", background: `linear-gradient(135deg, ${C}26 0%, rgba(255,255,255,0.045) 52%, ${C}14 100%)`, border: `1px solid ${C}3d`, boxShadow: `inset 0 1px 0 rgba(255,255,255,0.2), 0 16px 34px -24px ${C}`, transition: "border-color 0.4s cubic-bezier(0.16,1,0.3,1), background 0.4s, box-shadow 0.4s, transform 0.4s cubic-bezier(0.16,1,0.3,1)" }}>{n}</span>
         ))}
       </div>
     </section>
@@ -489,29 +613,44 @@ const CONVO: { n: string; label: string; body: string }[] = [
 function TheQuestion() {
   return (
     <section style={wrap}>
-      <div style={{ position: "relative", borderRadius: 40, overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12),0 40px 90px -40px rgba(0,0,0,0.95)", minHeight: "clamp(420px,48vw,600px)", display: "flex", alignItems: "flex-end" }}>
-        <div style={{ position: "absolute", inset: 0 }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={IMG.question} alt="Wide industrial landscape at dusk" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-        </div>
-        <div style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "linear-gradient(0deg,rgba(10,10,10,0.94) 12%,rgba(10,10,10,0.35) 60%,rgba(10,10,10,0.6) 100%)" }} />
-        <div style={{ position: "relative", padding: "clamp(28px,4vw,64px)", maxWidth: 900 }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 12, marginBottom: 22 }}>
-            <span style={{ width: 30, height: 1, background: C }} />
-            <span style={{ fontFamily: FO, fontSize: 11, fontWeight: 700, letterSpacing: "2.5px", textTransform: "uppercase", color: C }}>09 · The Conversation</span>
+      <SectionHead num="09" label="The Conversation" note="One question" />
+
+      {/* Split editorial — question set beside a portrait, giant quote mark */}
+      <div className="uae-convo-top" style={{ display: "grid", gridTemplateColumns: "1.16fr 0.84fr", gap: "clamp(22px,3.4vw,56px)", alignItems: "stretch" }}>
+        <div style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "center", paddingLeft: "clamp(0px,1vw,8px)" }}>
+          <svg aria-hidden width="86" height="66" viewBox="0 0 86 66" style={{ position: "absolute", top: "-6px", left: "-6px", opacity: 0.14 }}>
+            <path d="M0 66V38C0 17 12 3 34 0l4 12C24 15 17 23 17 34h17v32zM52 66V38C52 17 64 3 86 0l4 12C76 15 69 23 69 34h17v32z" fill={C} />
+          </svg>
+          <h2 style={{ position: "relative", fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.4vw,66px)", letterSpacing: "-2.6px", lineHeight: 1.0, margin: "clamp(16px,2vw,26px) 0 clamp(22px,2.6vw,32px)", textWrap: "balance" }}>
+            Are we protecting our{" "}
+            <span style={{ background: `linear-gradient(100deg,${C_LIGHT} 0%,${C_BRIGHT} 46%,${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>most critical systems</span>{" "}
+            as aggressively as we protect our data?
+          </h2>
+          <div style={{ display: "flex", gap: 16, alignItems: "stretch", maxWidth: 560 }}>
+            <span aria-hidden style={{ flexShrink: 0, width: 3, borderRadius: 2, background: `linear-gradient(180deg,${C_BRIGHT},${C_DEEP})` }} />
+            <p style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(16px,1.7vw,22px)", letterSpacing: "-0.7px", lineHeight: 1.26, color: "rgba(255,255,255,0.9)", margin: 0 }}>Industrial environments will only become more connected. The question is how securely.</p>
           </div>
-          <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(28px,4.6vw,68px)", letterSpacing: "-2.6px", lineHeight: 1.02, margin: "0 0 22px", textWrap: "balance" }}>Are we protecting our most critical systems as aggressively as we protect our data?</h2>
-          <p style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(18px,2vw,28px)", letterSpacing: "-1px", lineHeight: 1.2, color: C, margin: 0 }}>Industrial environments will become more connected. The question is how securely.</p>
         </div>
+        <ImageTile src={IMG.question} alt="Delegates in the main hall at OT Security First UAE" radius={30} minHeight="clamp(320px,32vw,460px)" pos="center">
+          <span aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `linear-gradient(155deg, transparent 42%, ${C}26 100%)` }} />
+        </ImageTile>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: 12, marginTop: 14 }}>
-        {CONVO.map((c) => (
-          <div key={c.n} style={{ borderRadius: 24, padding: "24px 26px", background: "linear-gradient(180deg,rgba(255,255,255,0.055),rgba(255,255,255,0.012))", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.09)" }}>
-            <div style={{ fontFamily: FD, fontWeight: 800, fontSize: 11.5, letterSpacing: "1.4px", textTransform: "uppercase", color: C, marginBottom: 10 }}>{c.n} · {c.label}</div>
-            <p style={{ fontFamily: FO, fontSize: 13.5, lineHeight: 1.6, color: "#8E8E8E", margin: 0 }}>{c.body}</p>
-          </div>
-        ))}
+      {/* The six forces — left-rule editorial cards */}
+      <div style={{ marginTop: "clamp(30px,3.4vw,52px)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: "clamp(18px,2.2vw,28px)" }}>
+          <span style={{ fontFamily: FO, fontSize: 11, fontWeight: 700, letterSpacing: "2.6px", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}>Six forces shaping it</span>
+          <span aria-hidden style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.1)" }} />
+        </div>
+        <div className="uae-force-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,minmax(0,1fr))", gap: "clamp(14px,1.5vw,20px)" }}>
+          {CONVO.map((c) => (
+            <div key={c.n} className="uae-force" style={{ position: "relative", overflow: "hidden", borderRadius: 20, padding: "clamp(22px,2vw,28px) clamp(22px,2vw,28px) clamp(22px,2vw,28px) clamp(26px,2.4vw,32px)", background: CARD_BG, border: CARD_BORDER, boxShadow: CARD_SHADOW, transition: "border-color 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s" }}>
+              <span aria-hidden className="uae-force-bar" style={{ position: "absolute", left: 0, top: "clamp(22px,2vw,28px)", bottom: "clamp(22px,2vw,28px)", width: 3, borderRadius: 2, background: `linear-gradient(180deg,${C_BRIGHT},${C_DEEP})`, transition: "top 0.45s cubic-bezier(0.16,1,0.3,1), bottom 0.45s cubic-bezier(0.16,1,0.3,1)" }} />
+              <h3 className="uae-force-title" style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(17px,1.5vw,21px)", letterSpacing: "-0.6px", lineHeight: 1.16, color: "#fff", margin: "0 0 10px", transition: "color 0.4s ease" }}>{c.label}</h3>
+              <p style={{ fontFamily: FO, fontSize: "clamp(13px,1.1vw,14.5px)", lineHeight: 1.62, color: "#8E8E8E", margin: 0 }}>{c.body}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -619,7 +758,7 @@ function PastSponsorsMarquee() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
-    <section ref={ref} style={{ position: "relative", zIndex: 1, padding: "clamp(64px,7vw,96px) 0", background: BG, overflow: "hidden" }}>
+    <section ref={ref} style={{ position: "relative", zIndex: 1, padding: "clamp(42px,4.6vw,66px) 0", background: BG, overflow: "hidden" }}>
       <div style={{ position: "relative", maxWidth: 1320, margin: "0 auto 40px", padding: "0 clamp(24px,5vw,80px)", textAlign: "center" }}>
         <motion.div initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: EASE }} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 22 }}>
           <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, transparent, ${C}4d)` }} />
@@ -645,9 +784,6 @@ function Partner() {
           <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(28px,3.6vw,52px)", letterSpacing: "-2px", lineHeight: 1.03, margin: "0 0 20px" }}>At the centre of the UAE&rsquo;s industrial cybersecurity conversation.</h2>
           <p style={{ fontFamily: FO, fontSize: 15, lineHeight: 1.7, color: "#8E8E8E", margin: "0 0 26px", maxWidth: 440 }}>Direct engagement with senior decision-makers across critical infrastructure.</p>
           <a href="#register" className="uae-cta-solid" style={{ display: "inline-flex", alignItems: "center", gap: 9, fontFamily: FO, fontSize: 14, fontWeight: 600, padding: "15px 30px", borderRadius: 9999, background: `linear-gradient(160deg,${C_BRIGHT} 0%,${C} 45%,${C_DEEP} 100%)`, border: "1px solid rgba(255,255,255,0.2)", boxShadow: `inset 0 1px 0 rgba(255,255,255,0.45),0 14px 30px -14px ${C}bf`, color: INK }}>Request the partnership pack →</a>
-          <div style={{ marginTop: 32 }}>
-            <ImageTile src={IMG.partner} alt="Technology showcase and exhibition at an OT Security First summit" minHeight="clamp(220px,22vw,300px)" />
-          </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 12 }}>
           {tiers.map((t, i) => {
@@ -657,6 +793,10 @@ function Partner() {
             );
           })}
         </div>
+      </div>
+      <div className="uae-partner-imgs" style={{ marginTop: "clamp(20px,3vw,44px)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(14px,1.5vw,20px)" }}>
+        <ImageTile src={IMG.partner} alt="Technology showcase and exhibition at an OT Security First summit" minHeight="clamp(240px,24vw,340px)" />
+        <ImageTile src={`${OT_UAE}/4N8A0817.JPG`} alt="Delegates and partners at an OT Security First summit" minHeight="clamp(240px,24vw,340px)" />
       </div>
     </section>
   );
@@ -679,7 +819,7 @@ function Community() {
 // ─── REGISTER (shared InquiryForm) ───────────────────────────────────────────
 function RegisterSection() {
   return (
-    <section id="register" style={{ position: "relative", zIndex: 1, padding: "clamp(56px,7vw,96px) 0", background: BG, overflow: "hidden" }}>
+    <section id="register" style={{ position: "relative", zIndex: 1, padding: "clamp(42px,4.6vw,66px) 0", background: BG, overflow: "hidden" }}>
       <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `radial-gradient(ellipse 55% 50% at 50% 0%, ${C}14 0%, transparent 65%), radial-gradient(ellipse 40% 50% at 80% 100%, ${C}0f 0%, transparent 70%)` }} />
       <div className="uae-register-wrap" style={{ position: "relative", zIndex: 1 }}>
         <InquiryForm
@@ -735,7 +875,7 @@ function AdvisorySection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
-    <section ref={ref} id="register-interest" style={{ position: "relative", zIndex: 1, padding: "clamp(64px,7vw,96px) 0", background: BG }}>
+    <section ref={ref} id="register-interest" style={{ position: "relative", zIndex: 1, padding: "clamp(42px,4.6vw,66px) 0", background: BG }}>
       <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `radial-gradient(ellipse 55% 50% at 50% 0%, ${C}12 0%, transparent 65%)` }} />
       <div style={{ position: "relative", maxWidth: 1180, margin: "0 auto", padding: "0 clamp(24px,5vw,80px)" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 22 }}>
@@ -760,6 +900,102 @@ function AdvisorySection() {
   );
 }
 
+// ─── 12 · FROM THE ROOM (OT testimonial shorts) ──────────────────────────────
+const OT_SHORTS = ["Q0n_sVaMnxg", "SF87voLk34A", "R5dtc5kjiQU", "Hm_yj3NttPo", "aaG9We6AjY8"];
+
+function RoomShort({ videoId, index }: { videoId: string; index: number }) {
+  const [playing, setPlaying] = useState(false);
+  const isHero = index === 2;
+  const edge = index === 0 || index === 4;
+  const w = isHero ? "clamp(180px,17vw,240px)" : edge ? "clamp(140px,13vw,190px)" : "clamp(155px,14.5vw,215px)";
+  const h = isHero ? "clamp(310px,28vw,420px)" : edge ? "clamp(225px,20vw,310px)" : "clamp(265px,24vw,365px)";
+  return (
+    <div style={{ width: w, height: h, flexShrink: 0, padding: 3, borderRadius: 22, background: isHero ? `linear-gradient(160deg, ${C_BRIGHT}66 0%, ${C}33 40%, rgba(255,255,255,0.06) 75%, ${C}22 100%)` : `linear-gradient(160deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 45%, ${C}1a 100%)`, boxShadow: "0 16px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04)" }}>
+      <div
+        onClick={() => !playing && setPlaying(true)}
+        role={playing ? undefined : "button"}
+        tabIndex={playing ? undefined : 0}
+        onKeyDown={(e) => { if (!playing && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setPlaying(true); } }}
+        style={{ position: "relative", width: "100%", height: "100%", borderRadius: 19, overflow: "hidden", background: "#050505", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 0 0 1px rgba(0,0,0,0.5)", cursor: playing ? "default" : "pointer" }}
+      >
+        {playing ? (
+          <iframe src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`} title="OT Security First testimonial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }} />
+        ) : (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`} alt="OT Security First testimonial from an OT cybersecurity leader" loading="lazy" decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 28%" }} />
+            <div style={{ position: "absolute", top: 12, left: 12, display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 9px", borderRadius: 999, background: "rgba(6,6,6,0.55)", border: `1px solid ${C}45`, backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)" }}>
+              <span style={{ width: 5, height: 5, borderRadius: 999, background: C_BRIGHT, boxShadow: `0 0 8px ${C_BRIGHT}` }} />
+              <span style={{ fontFamily: FO, fontSize: 9, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "#fff" }}>No. {String(index + 1).padStart(2, "0")}</span>
+            </div>
+            <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div className="uae-room-play" style={{ width: isHero ? 60 : 50, height: isHero ? 60 : 50, borderRadius: "50%", background: "rgba(255,255,255,0.92)", boxShadow: "0 10px 30px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.55)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 0.4s cubic-bezier(0.16,1,0.3,1), background 0.4s" }}>
+                <svg width={isHero ? 20 : 16} height={isHero ? 20 : 16} viewBox="0 0 16 18" fill={C}><path d="M14 9L2 17V1L14 9Z" /></svg>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function FromTheRoom() {
+  return (
+    <section style={wrap}>
+      <SectionHead num="12" label="From the Room" note="Testimonials" />
+      <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,58px)", letterSpacing: "-2.2px", lineHeight: 1.0, margin: "0 0 14px", textWrap: "balance" }}>
+        Hear it straight{" "}
+        <span style={{ background: `linear-gradient(100deg,${C_LIGHT} 0%,${C_BRIGHT} 46%,${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>from the room.</span>
+      </h2>
+      <p style={{ fontFamily: FO, fontSize: "clamp(14px,1.1vw,16px)", lineHeight: 1.65, color: "#8E8E8E", margin: "0 0 clamp(34px,4vw,52px)", maxWidth: 560 }}>Unfiltered voices from the OT security leaders who have walked the floor of OT Security First.</p>
+      <div className="uae-room-row">
+        {OT_SHORTS.map((id, i) => <RoomShort key={id} videoId={id} index={i} />)}
+      </div>
+    </section>
+  );
+}
+
+// ─── 13 · GALLERY (mosaic — OT UAE photography) ───────────────────────────────
+const GALLERY: { src: string; size: "lg" | "wide" | "tall" | "sm" }[] = [
+  { src: `${OT_UAE}/4N8A0475.JPG`, size: "lg" },
+  { src: `${OT_UAE}/4N8A0480.JPG`, size: "sm" },
+  { src: `${OT_UAE}/4N8A0490.JPG`, size: "sm" },
+  { src: `${OT_UAE}/4N8A0650.JPG`, size: "wide" },
+  { src: `${OT_UAE}/4N8A0470.JPG`, size: "sm" },
+  { src: `${OT_UAE}/4N8A0550.JPG`, size: "tall" },
+  { src: `${OT_UAE}/4N8A0446.JPG`, size: "sm" },
+  { src: `${OT_UAE}/4N8A0750.JPG`, size: "sm" },
+  { src: `${OT_UAE}/4N8A0856.JPG`, size: "wide" },
+  { src: `${OT_UAE}/4N8A0850.JPG`, size: "lg" },
+  { src: `${OT_UAE}/4N8A0448.JPG`, size: "sm" },
+  { src: `${OT_UAE}/4N8A0420.JPG`, size: "sm" },
+  { src: `${OT_UAE}/4N8A0476.JPG`, size: "sm" },
+  { src: `${OT_UAE}/4N8A0817.JPG`, size: "sm" },
+];
+
+function Gallery() {
+  return (
+    <section style={wrap}>
+      <SectionHead num="13" label="Gallery" note="Abu Dhabi" />
+      <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,58px)", letterSpacing: "-2.2px", lineHeight: 1.0, margin: "0 0 14px", textWrap: "balance" }}>
+        Inside the{" "}
+        <span style={{ background: `linear-gradient(100deg,${C_LIGHT} 0%,${C_BRIGHT} 46%,${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>OT Security First</span>{" "}experience.
+      </h2>
+      <p style={{ fontFamily: FO, fontSize: "clamp(14px,1.1vw,16px)", lineHeight: 1.65, color: "#8E8E8E", margin: "0 0 clamp(30px,3.6vw,48px)", maxWidth: 560 }}>Moments captured across the OT Security First UAE edition.</p>
+      <div className="uae-gallery-grid">
+        {GALLERY.map((g) => (
+          <div key={g.src} className={`uae-gallery-tile uae-g-${g.size}`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={g.src} alt="OT Security First UAE summit moment" loading="lazy" decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+            <span aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `linear-gradient(160deg, transparent 58%, ${C}1c 100%)` }} />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 export default function OTUaePage() {
   return (
@@ -771,6 +1007,8 @@ export default function OTUaePage() {
       <TheEvent />
       <WhyAbuDhabi />
       <TheMandate />
+      <SpeakersComingSoon />
+      <PastSponsorsMarquee />
       <MarketDrivers />
       <KeyThemes />
       <WhoAttends />
@@ -778,9 +1016,9 @@ export default function OTUaePage() {
       <WhyAttend />
       <TheQuestion />
       <TheFocus />
-      <SpeakersComingSoon />
-      <PastSponsorsMarquee />
       <Partner />
+      <FromTheRoom />
+      <Gallery />
       <Community />
       <RegisterSection />
       <AdvisorySection />
@@ -788,6 +1026,9 @@ export default function OTUaePage() {
 
       <style jsx global>{`
         @keyframes uaePulse { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.25); } }
+        @keyframes uaeHeroShine { 0% { transform: translateX(-160%) skewX(-18deg); } 55%, 100% { transform: translateX(520%) skewX(-18deg); } }
+        .uae-hero-shine { position: absolute; top: 0; bottom: 0; left: 0; width: 32%; z-index: 2; pointer-events: none; background: linear-gradient(100deg, transparent, rgba(255,255,255,0.32), transparent); transform: translateX(-160%) skewX(-18deg); animation: uaeHeroShine 5.5s cubic-bezier(0.16,1,0.3,1) infinite; }
+        @media (prefers-reduced-motion: reduce) { .uae-hero-shine { animation: none; opacity: 0; } }
         @keyframes uaeMarqueeLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes uaeMarqueeRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
         .uae-marquee-track { display: flex; width: max-content; will-change: transform; }
@@ -796,13 +1037,69 @@ export default function OTUaePage() {
         .uae-marquee-item { flex-shrink: 0; height: 80px; width: 180px; margin-right: 40px; display: flex; align-items: center; justify-content: center; opacity: 0.55; }
         .uae-card { transition: border-color 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1); }
         .uae-card:hover { border-color: ${C}66 !important; transform: translateY(-2px); }
-        .uae-industry { }
-        .uae-industry:hover { border-color: ${C}80 !important; color: ${C_LIGHT} !important; transform: translateY(-2px); }
+        .uae-industry:hover { border-color: ${C}8c !important; background: linear-gradient(135deg, ${C}4d 0%, ${C}1f 55%, ${C}33 100%) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 18px 40px -18px ${C} !important; transform: translateY(-3px); }
+        .uae-force:hover { border-color: ${C}66 !important; transform: translateY(-4px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 26px 52px -28px rgba(0,0,0,0.95), 0 0 0 1px ${C}22 !important; }
+        .uae-force:hover .uae-force-bar { top: 0; bottom: 0; }
+        .uae-force:hover .uae-force-title { color: ${C_LIGHT}; }
+        @media (max-width: 940px) { .uae-force-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; } }
+        @media (max-width: 820px) { .uae-convo-top { grid-template-columns: 1fr !important; } }
+        @media (max-width: 560px) { .uae-force-grid { grid-template-columns: 1fr !important; } .uae-partner-imgs { grid-template-columns: 1fr !important; } }
+        .uae-room-row { display: flex; flex-wrap: nowrap; gap: clamp(10px,1.2vw,18px); align-items: center; justify-content: center; }
+        .uae-room-row > div:hover .uae-room-play { transform: scale(1.09); background: #fff; }
+        @media (max-width: 1024px) { .uae-room-row { overflow-x: auto; justify-content: flex-start; -webkit-overflow-scrolling: touch; padding-bottom: 6px; } .uae-room-row::-webkit-scrollbar { display: none; } }
+        .uae-gallery-grid { display: grid; grid-template-columns: repeat(4,1fr); grid-auto-rows: clamp(96px,9vw,132px); grid-auto-flow: dense; gap: clamp(8px,1vw,12px); }
+        .uae-gallery-tile { position: relative; overflow: hidden; border-radius: 16px; border: 1px solid rgba(255,255,255,0.09); background: #050505; box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 18px 40px -28px rgba(0,0,0,0.95); }
+        .uae-gallery-tile img { transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+        .uae-gallery-tile:hover img { transform: scale(1.06); }
+        .uae-g-lg { grid-column: span 2; grid-row: span 2; }
+        .uae-g-wide { grid-column: span 2; grid-row: span 1; }
+        .uae-g-tall { grid-column: span 1; grid-row: span 2; }
+        .uae-g-sm { grid-column: span 1; grid-row: span 1; }
+        @media (max-width: 760px) { .uae-gallery-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: clamp(110px,26vw,150px); } .uae-g-wide { grid-column: span 2; } .uae-g-lg { grid-column: span 2; grid-row: span 2; } }
         .uae-q:hover { border-color: ${C}73 !important; transform: translateY(-1px); }
         .uae-cta-solid { transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s; }
-        .uae-cta-solid:hover { transform: translateY(-2px); box-shadow: 0 12px 34px ${C}73; color: ${INK}; }
-        .uae-cta-ghost { transition: border-color 0.35s, color 0.35s; }
-        .uae-cta-ghost:hover { border-color: ${C} !important; color: ${C} !important; }
+        .uae-cta-solid::before { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 38%; z-index: 0; background: linear-gradient(100deg, transparent, rgba(255,255,255,0.55), transparent); transform: translateX(-180%) skewX(-18deg); transition: transform 0.7s cubic-bezier(0.16,1,0.3,1); pointer-events: none; }
+        .uae-cta-solid:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 16px 40px -12px ${C}, 0 0 0 1px ${C}55; }
+        .uae-cta-solid:hover::before { transform: translateX(360%) skewX(-18deg); }
+        .uae-cta-arrow { display: inline-block; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+        .uae-cta-solid:hover .uae-cta-arrow { transform: translateX(5px); }
+        .uae-cta-ghost { transition: border-color 0.35s, color 0.35s, background 0.35s, transform 0.35s; }
+        .uae-cta-ghost:hover { border-color: ${C}99 !important; color: ${C_LIGHT} !important; background: ${C}1f !important; transform: translateY(-2px); }
+        .uae-sector { transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease, transform 0.3s cubic-bezier(0.16,1,0.3,1); }
+        .uae-sector:hover { border-color: ${C}66; background: ${C}1c; color: #fff; transform: translateY(-2px); }
+        .uae-plate { transition: transform 0.45s cubic-bezier(0.16,1,0.3,1); }
+        .uae-plate:hover { transform: translateY(-5px); }
+        .uae-video-play { transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), background 0.4s, border-color 0.4s; }
+        .uae-video-btn:hover .uae-video-play { transform: translate(-50%,-50%) scale(1.09); background: ${C}; border-color: rgba(255,255,255,0.65); box-shadow: 0 14px 50px -6px ${C}; }
+        .uae-driver { transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+        .uae-driver:hover { transform: translateY(-4px); }
+        .uae-driver-tab { transition: width 0.5s cubic-bezier(0.16,1,0.3,1); }
+        .uae-driver:hover .uae-driver-tab { width: 100%; }
+        .uae-driver-dot { transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+        .uae-driver:hover .uae-driver-dot { transform: scale(1.5); }
+        .uae-cohort:hover .uae-cohort-idx { color: ${C}; }
+        .uae-cohort-role:hover { border-color: ${C}66 !important; color: ${C_LIGHT} !important; background: ${C}18 !important; }
+        @media (max-width: 820px) {
+          .uae-event-grid { grid-template-columns: 1fr !important; }
+          .uae-ad-grid { grid-template-columns: 1fr !important; }
+          .uae-attend-lead { grid-template-columns: 1fr !important; }
+          .uae-cohort { grid-template-columns: 1fr !important; gap: 16px !important; }
+        }
+        @media (max-width: 640px) {
+          .uae-ad-quote { white-space: normal !important; }
+        }
+        @media (max-width: 760px) {
+          .uae-mandate-grid { grid-template-columns: 1fr !important; column-gap: 0 !important; }
+        }
+        @media (max-width: 940px) {
+          .uae-drivers-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+        }
+        @media (max-width: 1100px) {
+          .uae-theme-hero-title { white-space: normal !important; }
+        }
+        @media (max-width: 600px) {
+          .uae-drivers-grid { grid-template-columns: 1fr !important; }
+        }
         .uae-link:hover { color: ${C} !important; }
         .uae-contact-pills { display: flex; flex-direction: row; gap: 10px; align-items: center; flex-wrap: wrap; }
         .uae-contact-pill { transition: background 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.35s, color 0.35s, transform 0.35s; }
@@ -817,6 +1114,14 @@ export default function OTUaePage() {
         }
         @media (max-width: 880px) {
           .uae-contact-split { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 820px) {
+          .uae-hero-meta { flex-wrap: wrap !important; }
+          .uae-hero-cta { margin-left: 0 !important; width: 100%; }
+        }
+        @media (max-width: 460px) {
+          .uae-hero-cta { flex-direction: column; }
+          .uae-hero-cta > a { justify-content: center; width: 100%; }
         }
         @media (prefers-reduced-motion: reduce) {
           .uae-marquee-track { animation: none !important; }

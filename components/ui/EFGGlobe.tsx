@@ -14,6 +14,7 @@ const EFG_MARKERS = [
   { id: "riyadh", location: [24.71, 46.68] as [number, number], name: "Riyadh", series: "OPEX First", color: "#7C3AED", href: "/events/opex-first/saudi-2026" },
   { id: "doha", location: [25.29, 51.53] as [number, number], name: "Doha", series: "Cyber First", color: "#01BBF5", href: "/events/cyber-first/qatar" },
   { id: "jubail", location: [27.01, 49.66] as [number, number], name: "Jubail", series: "OT Security", color: "#D34B9A", href: "/events/ot-security-first/jubail" },
+  { id: "abudhabi", location: [24.45, 54.38] as [number, number], name: "Abu Dhabi", series: "OT Security", color: "#D34B9A", href: "/events/ot-security-first/uae" },
   { id: "muscat", location: [23.59, 58.41] as [number, number], name: "Muscat", series: "OT Security", color: "#D34B9A", href: "/events/ot-security-first/oman-2026" },
   { id: "singapore", location: [1.35, 103.82] as [number, number], name: "Singapore", series: "OT Security", color: "#D34B9A", href: "/events" },
 ]
