@@ -235,6 +235,78 @@ const allEvents = [
     status: "open" as SeriesStatus,
   },
   {
+    id: "networkfirst-braze-dubai",
+    category: "networkfirst",
+    title: "Grow with Braze",
+    tagline: "Customer engagement, live in Dubai",
+    description:
+      "An invitation-only Braze event on modern customer engagement, bringing marketing and engineering leaders together in Dubai.",
+    color: "#C9935A",
+    image: "/braze/braze-logo-white.png",
+    href: "https://globalevents.braze.com/register/grow-with-braze-dubai-26?utm_campaign=fy27-q3-apac-gcc-owned-field-gwb-dubai&utm_medium=telemarketing&utm_source=EFG&utm_content=event-gwb-dubai-2026-invite&utm_term=EFGagency",
+    date: "2026-10-07",
+    nextDate: "7 Oct 2026",
+    nextCity: "Dubai, UAE",
+    editions: "",
+    regions: "UAE",
+    attendees: "Invited",
+    status: "open" as SeriesStatus,
+  },
+  {
+    id: "networkfirst-unifyapps-bfsi",
+    category: "networkfirst",
+    title: "UnifyApps Signature Lunch",
+    tagline: "An executive lunch for BFSI leaders, Dubai",
+    description:
+      "An invitation-only UnifyApps executive lunch for BFSI leaders in Dubai — agentic automation and AI across the enterprise.",
+    color: "#C9935A",
+    image: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/unifyapps+logo.svg",
+    href: "https://engage.unifyapps.com/rsvp/signature-lunch-dubai-october-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261013_MEA_OWNED_Lunch_SE_BFSI_Dubai",
+    date: "2026-10-13",
+    nextDate: "13 Oct 2026",
+    nextCity: "Dubai, UAE",
+    editions: "",
+    regions: "UAE",
+    attendees: "Invited",
+    status: "open" as SeriesStatus,
+  },
+  {
+    id: "networkfirst-unifyapps-healthcare-telecom",
+    category: "networkfirst",
+    title: "UnifyApps Signature Lunch",
+    tagline: "An executive lunch for Healthcare & Telecom leaders, Dubai",
+    description:
+      "An invitation-only UnifyApps executive lunch for Healthcare & Telecom leaders in Dubai — agentic automation and AI across the enterprise.",
+    color: "#C9935A",
+    image: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/unifyapps+logo.svg",
+    href: "https://engage.unifyapps.com/rsvp/se-healthcare-telecom-lunch-dubai-october-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261015_MEA_OWNED_Lunch_SE_Healthcare_Telecom_Dubai",
+    date: "2026-10-15",
+    nextDate: "15 Oct 2026",
+    nextCity: "Dubai, UAE",
+    editions: "",
+    regions: "UAE",
+    attendees: "Invited",
+    status: "open" as SeriesStatus,
+  },
+  {
+    id: "networkfirst-jedox-planpulse",
+    category: "networkfirst",
+    title: "Jedox | PlanPulse",
+    tagline: "Unlock the Power of Modern FP&A",
+    description:
+      "A premium roundtable on modern Financial Planning & Analysis, hosted with Jedox at The Ritz Carlton JBR, Dubai.",
+    color: "#C9935A",
+    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 72'%3E%3Ctext x='110' y='52' font-family='Arial Black,Helvetica,sans-serif' font-weight='900' font-style='italic' font-size='48' fill='%23ffffff' text-anchor='middle'%3Ejedox.%3C/text%3E%3C/svg%3E",
+    href: "https://www.jedox.com/en/events/unlock-the-power-of-modern-fpa-2026/",
+    date: "2026-10-14",
+    nextDate: "14 Oct 2026",
+    nextCity: "Dubai, UAE",
+    editions: "",
+    regions: "UAE",
+    attendees: "Invited",
+    status: "open" as SeriesStatus,
+  },
+  {
     id: "networkfirst-sonicwall-7sept",
     category: "networkfirst",
     title: "SonicWall Executive Roundtable",
@@ -1234,6 +1306,8 @@ function SeriesCard({
   return (
     <Link
       href={series.href}
+      target={series.href.startsWith("http") ? "_blank" : undefined}
+      rel={series.href.startsWith("http") ? "noopener noreferrer" : undefined}
       className="events-series-card group relative block overflow-hidden"
       style={{
         borderRadius: 16,
@@ -2339,6 +2413,8 @@ function EventsUpNext() {
           {/* CTA */}
           <Link
             href={ev.href}
+            target={ev.href.startsWith("http") ? "_blank" : undefined}
+            rel={ev.href.startsWith("http") ? "noopener noreferrer" : undefined}
             style={{
               display: "inline-flex",
               alignItems: "center",

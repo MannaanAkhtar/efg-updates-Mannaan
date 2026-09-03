@@ -166,6 +166,62 @@ export const allEvents: EventItem[] = [
     status: "open",
   },
   {
+    id: "networkfirst-braze-dubai",
+    series: "NetworkFirst",
+    seriesColor: "#C9935A",
+    edition: "",
+    title: "Grow with Braze",
+    date: new Date("2026-10-07"),
+    dateDisplay: "October 7, 2026",
+    location: "Dubai, UAE",
+    venue: "Venue TBC",
+    attendees: "Invited",
+    href: "https://globalevents.braze.com/register/grow-with-braze-dubai-26?utm_campaign=fy27-q3-apac-gcc-owned-field-gwb-dubai&utm_medium=telemarketing&utm_source=EFG&utm_content=event-gwb-dubai-2026-invite&utm_term=EFGagency",
+    status: "open",
+  },
+  {
+    id: "networkfirst-unifyapps-bfsi",
+    series: "NetworkFirst",
+    seriesColor: "#C9935A",
+    edition: "",
+    title: "UnifyApps Signature Lunch",
+    date: new Date("2026-10-13"),
+    dateDisplay: "October 13, 2026",
+    location: "Dubai, UAE",
+    venue: "Venue TBC",
+    attendees: "Invited",
+    href: "https://engage.unifyapps.com/rsvp/signature-lunch-dubai-october-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261013_MEA_OWNED_Lunch_SE_BFSI_Dubai",
+    status: "open",
+  },
+  {
+    id: "networkfirst-unifyapps-healthcare-telecom",
+    series: "NetworkFirst",
+    seriesColor: "#C9935A",
+    edition: "",
+    title: "UnifyApps Signature Lunch",
+    date: new Date("2026-10-15"),
+    dateDisplay: "October 15, 2026",
+    location: "Dubai, UAE",
+    venue: "Venue TBC",
+    attendees: "Invited",
+    href: "https://engage.unifyapps.com/rsvp/se-healthcare-telecom-lunch-dubai-october-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261015_MEA_OWNED_Lunch_SE_Healthcare_Telecom_Dubai",
+    status: "open",
+  },
+  {
+    id: "networkfirst-jedox-planpulse",
+    series: "NetworkFirst",
+    seriesColor: "#C9935A",
+    edition: "",
+    title: "Jedox | PlanPulse",
+    date: new Date("2026-10-14"),
+    dateDisplay: "October 14, 2026",
+    location: "Dubai, UAE",
+    venue: "The Ritz Carlton JBR",
+    attendees: "Invited",
+    href: "https://www.jedox.com/en/events/unlock-the-power-of-modern-fpa-2026/",
+    status: "open",
+  },
+  {
     id: "networkfirst-sonicwall-7sept",
     series: "NetworkFirst",
     seriesColor: "#C9935A",
@@ -1329,6 +1385,8 @@ function TimelineCard({
       <motion.a
         ref={cardRef}
         href={event.href}
+        target={event.href.startsWith("http") ? "_blank" : undefined}
+        rel={event.href.startsWith("http") ? "noopener noreferrer" : undefined}
         className="timeline-card"
         style={isTouch ? {} : {
           rotateX,
