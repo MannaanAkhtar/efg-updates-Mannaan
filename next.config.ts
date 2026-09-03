@@ -43,6 +43,9 @@ const nextConfig: NextConfig = {
       // Cyber First Qatar — URL shortened from qatar-2026 → qatar
       { source: "/events/cyber-first/qatar-2026", destination: "/events/cyber-first/qatar", permanent: true },
       { source: "/events/cyber-first/qatar-2026/", destination: "/events/cyber-first/qatar", permanent: true },
+      // IFS Jeddah roundtable moved from 22 Sep to 29 Sep — old slug retired.
+      { source: "/ifs-22sept", destination: "/ifs-29sept", permanent: true },
+      { source: "/ifs-22sept/", destination: "/ifs-29sept", permanent: true },
       { source: "/data-ai-first", destination: "/events/data-ai-first", permanent: true },
       { source: "/data-ai-first/", destination: "/events/data-ai-first", permanent: true },
       { source: "/digital-first", destination: "/events/data-ai-first", permanent: true },

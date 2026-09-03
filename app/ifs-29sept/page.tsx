@@ -62,9 +62,9 @@ const VENUE_CITY = "Jeddah, Saudi Arabia";
 const VENUE_MAP = "https://maps.app.goo.gl/sz482YUjgM2qZTXG6";
 const VENUE_IMG = "https://efg-final.s3.eu-north-1.amazonaws.com/venues/ritxcarltonjeddah.jpg";
 
-// Confirmed: 22 September 2026, in-person executive roundtable in Jeddah, KSA (AST/UTC+3).
+// Confirmed: 29 September 2026, in-person executive roundtable in Jeddah, KSA (AST/UTC+3).
 // Time defaults to 15:00 AST — adjust here + in layout.tsx if it shifts.
-const EVENT_DATE_ISO = "2026-09-22T15:00:00+03:00";
+const EVENT_DATE_ISO = "2026-09-29T15:00:00+03:00";
 
 // â”€â”€â”€ Why attend â€” adapted from Poka's webinar themes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const TAKEAWAYS: { title: string; body: string }[] = [
@@ -522,7 +522,7 @@ function Hero() {
           className="poka-event-strip"
         >
           {[
-            { label: "Date", value: "22 Sep 2026" },
+            { label: "Date", value: "29 Sep 2026" },
             { label: "Venue", value: "The Ritz-Carlton, Jeddah" },
           ].map((s) => (
             <div key={s.label} className="poka-event-strip__cell">
@@ -1261,7 +1261,7 @@ function ReserveBlock() {
                 <span className="poka-reserve-detail__label">Format</span>
                 <span className="poka-reserve-detail__value">Executive Roundtable</span>
                 <span className="poka-reserve-detail__sub">
-                  22 Sep 2026 · Chatham House Rule
+                  29 Sep 2026 · Chatham House Rule
                 </span>
               </div>
               <div className="poka-reserve-detail">

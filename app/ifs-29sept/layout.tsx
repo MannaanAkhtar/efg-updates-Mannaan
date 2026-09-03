@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 const BASE_URL = "https://www.eventsfirstgroup.com";
-const PAGE_URL = `${BASE_URL}/ifs-22sept`;
+const PAGE_URL = `${BASE_URL}/ifs-29sept`;
 // TODO: replace with a designed 1200x630 share card once the Poka roundtable
 // brand artwork is finalised. For now using the industrial hero image.
 const OG_IMAGE =
@@ -52,10 +52,10 @@ export const metadata: Metadata = {
   },
 };
 
-// Confirmed: 22 September 2026, in-person executive roundtable in Jeddah, KSA (AST/UTC+3).
+// Confirmed: 29 September 2026, in-person executive roundtable in Jeddah, KSA (AST/UTC+3).
 // Default time 15:00 AST — keep in sync with EVENT_DATE_ISO in page.tsx.
-const EVENT_START_ISO = "2026-09-22T15:00:00+03:00";
-const EVENT_END_ISO = "2026-09-22T16:30:00+03:00";
+const EVENT_START_ISO = "2026-09-29T15:00:00+03:00";
+const EVENT_END_ISO = "2026-09-29T16:30:00+03:00";
 
 export default function PokaLayout({
   children,
