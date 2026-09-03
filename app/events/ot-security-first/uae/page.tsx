@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { Footer, InquiryForm } from "@/components/sections";
 import EventNavigation from "@/components/ui/EventNavigation";
@@ -28,11 +29,7 @@ const HERO_POSTER = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT+UAE
 // Numbers reference files in the OT UAE photo set — swap the 4N8A0### as needed.
 const OT_UAE = `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos`;
 const IMG = {
-  eventHero: `${OT_UAE}/4N8A0475.JPG`,
   skyline: `${OT_UAE}/4N8A0490.JPG`,
-  mandate: `${OT_UAE}/4N8A0446.JPG`,
-  plant: `${OT_UAE}/4N8A0461.JPG`,
-  keynote: `${OT_UAE}/4N8A0470.JPG`,
   attend: `${OT_UAE}/4N8A0668.JPG`,
   network: `${OT_UAE}/4N8A0810.JPG`,
   question: `${OT_UAE}/4N8A0476.JPG`,
@@ -44,6 +41,9 @@ const CARD_BG = "linear-gradient(180deg,rgba(255,255,255,0.065),rgba(255,255,255
 const CARD_BORDER = "1px solid rgba(255,255,255,0.09)";
 const CARD_SHADOW = "inset 0 1px 0 rgba(255,255,255,0.09),0 24px 48px -30px rgba(0,0,0,0.9)";
 const TINT_CARD = `linear-gradient(160deg,${C_BRIGHT} 0%,${C} 44%,#8E2A64 100%)`;
+
+// Gradient-clipped text — spread alongside a `background` gradient on accent words.
+const CLIP: React.CSSProperties = { color: "transparent", WebkitTextFillColor: "transparent", WebkitBackgroundClip: "text", backgroundClip: "text" };
 
 const wrap: React.CSSProperties = { maxWidth: 1320, margin: "0 auto", padding: "clamp(38px,4.4vw,68px) clamp(20px,4vw,60px)", position: "relative", zIndex: 1 };
 
@@ -118,7 +118,7 @@ function Hero() {
         >
           <span style={{ color: "#fff" }}>OT Security First</span>
           <br />
-          <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 42%, ${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>UAE 2027.</span>
+          <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 42%, ${C} 100%)`, ...CLIP }}>UAE 2027.</span>
         </motion.h1>
 
         <motion.div
@@ -204,8 +204,7 @@ function StatPlates() {
 function ImageTile({ src, alt, radius = 32, minHeight, pos, children }: { src: string; alt: string; radius?: number; minHeight?: string | number; pos?: string; children?: React.ReactNode }) {
   return (
     <div style={{ position: "relative", minHeight, borderRadius: radius, overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12),0 34px 70px -34px rgba(0,0,0,0.95)" }}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={alt} loading="lazy" decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: pos || "center" }} />
+      <Image src={src} alt={alt} fill sizes="(max-width: 820px) 100vw, 50vw" style={{ objectFit: "cover", objectPosition: pos || "center" }} />
       {children}
     </div>
   );
@@ -255,7 +254,7 @@ function TheEvent() {
       <div style={{ marginBottom: "clamp(28px,3.4vw,48px)", maxWidth: 1120 }}>
         <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,60px)", letterSpacing: "-2.4px", lineHeight: 1.0, margin: 0, textWrap: "balance", color: "#fff" }}>
           OT is the backbone of the{" "}
-          <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 44%, ${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>UAE&rsquo;s critical infrastructure.</span>
+          <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 44%, ${C} 100%)`, ...CLIP }}>UAE&rsquo;s critical infrastructure.</span>
         </h2>
         <div style={{ display: "flex", alignItems: "stretch", gap: 18, marginTop: "clamp(20px,2.4vw,30px)", maxWidth: 640 }}>
           <span aria-hidden style={{ flex: "0 0 auto", width: 3, borderRadius: 2, background: `linear-gradient(180deg, ${C_BRIGHT}, ${C_DEEP})`, boxShadow: `0 0 18px ${C}` }} />
@@ -292,7 +291,7 @@ function WhyAbuDhabi() {
         <div style={{ marginBottom: "clamp(28px,3.4vw,48px)", maxWidth: 1000 }}>
           <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,60px)", letterSpacing: "-2.2px", lineHeight: 1.02, margin: 0, textWrap: "balance", color: "#fff" }}>
             The heart of the UAE&rsquo;s{" "}
-            <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 44%, ${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>critical infrastructure ecosystem.</span>
+            <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 44%, ${C} 100%)`, ...CLIP }}>critical infrastructure ecosystem.</span>
           </h2>
           <div style={{ display: "flex", alignItems: "stretch", gap: 18, marginTop: "clamp(18px,2.2vw,28px)", maxWidth: 620 }}>
             <span aria-hidden style={{ flex: "0 0 auto", width: 3, borderRadius: 2, background: `linear-gradient(180deg, ${C_BRIGHT}, ${C_DEEP})`, boxShadow: `0 0 18px ${C}` }} />
@@ -309,7 +308,7 @@ function WhyAbuDhabi() {
             <div>
               <div style={{ fontFamily: FO, fontSize: 10.5, fontWeight: 700, letterSpacing: "2.2px", textTransform: "uppercase", color: C, marginBottom: 14 }}>Industrial Strategy</div>
               <div style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(50px,6.6vw,100px)", letterSpacing: "-4px", lineHeight: 0.9, color: "#fff" }}>
-                <span style={{ fontSize: "0.32em", fontWeight: 700, color: "rgba(255,255,255,0.48)", letterSpacing: "-1px", verticalAlign: "middle", marginRight: 10 }}>AED</span>10<span style={{ background: `linear-gradient(180deg, ${C_BRIGHT}, ${C})`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}> bn</span>
+                <span style={{ fontSize: "0.32em", fontWeight: 700, color: "rgba(255,255,255,0.48)", letterSpacing: "-1px", verticalAlign: "middle", marginRight: 10 }}>AED</span>10<span style={{ background: `linear-gradient(180deg, ${C_BRIGHT}, ${C})`, ...CLIP }}> bn</span>
               </div>
               <p style={{ fontFamily: FO, fontSize: "clamp(14px,1.3vw,16px)", lineHeight: 1.6, color: "rgba(255,255,255,0.6)", margin: "16px 0 0", maxWidth: 380 }}>Government investment in Industry 4.0 and smart manufacturing.</p>
             </div>
@@ -358,13 +357,13 @@ function TheMandate() {
       <div style={{ marginBottom: "clamp(26px,3.2vw,44px)", maxWidth: 980 }}>
         <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,60px)", letterSpacing: "-2.2px", lineHeight: 1.02, margin: 0, textWrap: "balance", color: "#fff" }}>
           From national policy{" "}
-          <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 44%, ${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>to industrial resilience.</span>
+          <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 44%, ${C} 100%)`, ...CLIP }}>to industrial resilience.</span>
         </h2>
       </div>
       <div className="uae-mandate-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2,minmax(0,1fr))", columnGap: "clamp(28px,4vw,72px)" }}>
         {QUESTIONS.map(([n, t, b], i) => (
           <div key={n} style={{ display: "grid", gridTemplateColumns: "auto minmax(0,1fr)", gap: "clamp(13px,1.4vw,20px)", padding: "clamp(15px,1.7vw,21px) 0", borderTop: "1px solid rgba(255,255,255,0.09)", alignItems: "start" }}>
-            <span style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(16px,1.5vw,21px)", letterSpacing: "-0.5px", lineHeight: 1.25, background: `linear-gradient(180deg, ${C_BRIGHT}, ${C})`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>{n}</span>
+            <span style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(16px,1.5vw,21px)", letterSpacing: "-0.5px", lineHeight: 1.25, background: `linear-gradient(180deg, ${C_BRIGHT}, ${C})`, ...CLIP }}>{n}</span>
             <div>
               <h3 style={{ fontFamily: FD, fontWeight: 700, fontSize: "clamp(15px,1.35vw,18.5px)", letterSpacing: "-0.4px", lineHeight: 1.26, color: "#fff", margin: "0 0 7px" }}>{t}</h3>
               <p style={{ fontFamily: FO, fontSize: "clamp(12.5px,1.05vw,13.5px)", lineHeight: 1.55, color: "#8E8E8E", margin: 0 }}>{b}</p>
@@ -394,7 +393,7 @@ function MarketDrivers() {
         <div style={{ marginBottom: "clamp(26px,3.2vw,44px)", maxWidth: 900 }}>
           <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,60px)", letterSpacing: "-2.2px", lineHeight: 1.02, margin: 0, textWrap: "balance", color: "#fff" }}>
             Why OT security became{" "}
-            <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 44%, ${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>a board-level priority.</span>
+            <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 44%, ${C} 100%)`, ...CLIP }}>a board-level priority.</span>
           </h2>
         </div>
         <div className="uae-drivers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,minmax(0,1fr))", gap: "clamp(20px,2vw,28px) clamp(22px,2.4vw,38px)" }}>
@@ -411,7 +410,7 @@ function DriverCard({ n, title, body }: { n: string; title: string; body: string
       <span aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "rgba(255,255,255,0.13)" }} />
       <span aria-hidden className="uae-driver-tab" style={{ position: "absolute", top: 0, left: 0, height: 2, width: 54, borderRadius: 2, background: `linear-gradient(90deg, ${C_BRIGHT}, ${C})`, boxShadow: `0 0 16px ${C}` }} />
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "clamp(10px,1.1vw,14px)" }}>
-        <span style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,2.8vw,46px)", letterSpacing: "-2px", lineHeight: 1, background: `linear-gradient(180deg, ${C_BRIGHT}, ${C})`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>{n}</span>
+        <span style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,2.8vw,46px)", letterSpacing: "-2px", lineHeight: 1, background: `linear-gradient(180deg, ${C_BRIGHT}, ${C})`, ...CLIP }}>{n}</span>
         <span aria-hidden className="uae-driver-dot" style={{ width: 7, height: 7, borderRadius: "50%", background: C, boxShadow: `0 0 12px ${C}`, alignSelf: "center" }} />
       </div>
       <h3 style={{ fontFamily: FD, fontWeight: 700, fontSize: "clamp(18px,1.6vw,23px)", letterSpacing: "-0.6px", lineHeight: 1.18, color: "#fff", margin: "0 0 10px" }}>{title}</h3>
@@ -466,7 +465,7 @@ function KeyThemes() {
       <div style={{ marginBottom: "clamp(24px,3vw,42px)", maxWidth: 900 }}>
         <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,60px)", letterSpacing: "-2.2px", lineHeight: 1.02, margin: 0, textWrap: "balance", color: "#fff" }}>
           Six tracks.{" "}
-          <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 44%, ${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>One operating reality.</span>
+          <span style={{ background: `linear-gradient(100deg, ${C_LIGHT} 0%, ${C_BRIGHT} 44%, ${C} 100%)`, ...CLIP }}>One operating reality.</span>
         </h2>
       </div>
       <div className="uae-bento" style={{ display: "grid", gridTemplateColumns: "repeat(6,minmax(0,1fr))", gap: 14 }}>
@@ -503,7 +502,7 @@ function WhoAttends() {
             <div style={{ display: "flex", gap: "clamp(28px,3vw,44px)", marginTop: "clamp(22px,2.4vw,32px)" }}>
               {[{ n: String(AUDIENCE.length).padStart(2, "0"), l: "Decision cohorts" }, { n: String(totalRoles), l: "Target roles" }].map((s) => (
                 <div key={s.l}>
-                  <div style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,3.4vw,46px)", letterSpacing: "-2px", lineHeight: 1, background: `linear-gradient(120deg,#fff,${C_LIGHT})`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>{s.n}</div>
+                  <div style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,3.4vw,46px)", letterSpacing: "-2px", lineHeight: 1, background: `linear-gradient(120deg,#fff,${C_LIGHT})`, ...CLIP }}>{s.n}</div>
                   <div style={{ fontFamily: FO, fontSize: 11, fontWeight: 700, letterSpacing: "1.8px", textTransform: "uppercase", color: "rgba(255,255,255,0.42)", marginTop: 8 }}>{s.l}</div>
                 </div>
               ))}
@@ -623,7 +622,7 @@ function TheQuestion() {
           </svg>
           <h2 style={{ position: "relative", fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.4vw,66px)", letterSpacing: "-2.6px", lineHeight: 1.0, margin: "clamp(16px,2vw,26px) 0 clamp(22px,2.6vw,32px)", textWrap: "balance" }}>
             Are we protecting our{" "}
-            <span style={{ background: `linear-gradient(100deg,${C_LIGHT} 0%,${C_BRIGHT} 46%,${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>most critical systems</span>{" "}
+            <span style={{ background: `linear-gradient(100deg,${C_LIGHT} 0%,${C_BRIGHT} 46%,${C} 100%)`, ...CLIP }}>most critical systems</span>{" "}
             as aggressively as we protect our data?
           </h2>
           <div style={{ display: "flex", gap: 16, alignItems: "stretch", maxWidth: 560 }}>
@@ -946,7 +945,7 @@ function FromTheRoom() {
       <SectionHead num="12" label="From the Room" note="Testimonials" />
       <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,58px)", letterSpacing: "-2.2px", lineHeight: 1.0, margin: "0 0 14px", textWrap: "balance" }}>
         Hear it straight{" "}
-        <span style={{ background: `linear-gradient(100deg,${C_LIGHT} 0%,${C_BRIGHT} 46%,${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>from the room.</span>
+        <span style={{ background: `linear-gradient(100deg,${C_LIGHT} 0%,${C_BRIGHT} 46%,${C} 100%)`, ...CLIP }}>from the room.</span>
       </h2>
       <p style={{ fontFamily: FO, fontSize: "clamp(14px,1.1vw,16px)", lineHeight: 1.65, color: "#8E8E8E", margin: "0 0 clamp(34px,4vw,52px)", maxWidth: 560 }}>Unfiltered voices from the OT security leaders who have walked the floor of OT Security First.</p>
       <div className="uae-room-row">
@@ -980,14 +979,13 @@ function Gallery() {
       <SectionHead num="13" label="Gallery" note="Abu Dhabi" />
       <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,58px)", letterSpacing: "-2.2px", lineHeight: 1.0, margin: "0 0 14px", textWrap: "balance" }}>
         Inside the{" "}
-        <span style={{ background: `linear-gradient(100deg,${C_LIGHT} 0%,${C_BRIGHT} 46%,${C} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent" }}>OT Security First</span>{" "}experience.
+        <span style={{ background: `linear-gradient(100deg,${C_LIGHT} 0%,${C_BRIGHT} 46%,${C} 100%)`, ...CLIP }}>OT Security First</span>{" "}experience.
       </h2>
       <p style={{ fontFamily: FO, fontSize: "clamp(14px,1.1vw,16px)", lineHeight: 1.65, color: "#8E8E8E", margin: "0 0 clamp(30px,3.6vw,48px)", maxWidth: 560 }}>Moments captured across the OT Security First UAE edition.</p>
       <div className="uae-gallery-grid">
         {GALLERY.map((g) => (
           <div key={g.src} className={`uae-gallery-tile uae-g-${g.size}`}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={g.src} alt="OT Security First UAE summit moment" loading="lazy" decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+            <Image src={g.src} alt="OT Security First UAE summit moment" fill sizes="(max-width: 760px) 50vw, 33vw" style={{ objectFit: "cover" }} />
             <span aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `linear-gradient(160deg, transparent 58%, ${C}1c 100%)` }} />
           </div>
         ))}

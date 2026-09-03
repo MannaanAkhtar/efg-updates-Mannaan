@@ -66,6 +66,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Preconnect + DNS-prefetch to S3 — hero video, bg images, gallery, sponsor logos hit this origin */}
       <link rel="preconnect" href="https://efg-final.s3.eu-north-1.amazonaws.com" crossOrigin="anonymous" />
       <link rel="dns-prefetch" href="https://efg-final.s3.eu-north-1.amazonaws.com" />
+      {/* Preload the hero poster (LCP) so first paint doesn't wait on the video */}
+      <link rel="preload" as="image" href="https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT+UAE.png" fetchPriority="high" />
+      {/* Resource hints for the YouTube thumbnails/embeds used by From the Room + the event video */}
+      <link rel="preconnect" href="https://i.ytimg.com" crossOrigin="anonymous" />
+      <link rel="dns-prefetch" href="https://i.ytimg.com" />
+      <link rel="preconnect" href="https://www.youtube-nocookie.com" crossOrigin="anonymous" />
+      <link rel="dns-prefetch" href="https://www.youtube-nocookie.com" />
       <BreadcrumbSchema items={[{ name: "Home", url: BASE_URL }, { name: "Events", url: `${BASE_URL}/events` }, { name: "OT Security First", url: `${BASE_URL}/events/ot-security-first` }, { name: "UAE 2027", url: PAGE_URL }]} />
       {/* Organization schema — site-wide brand surface for knowledge-panel eligibility */}
       <script
