@@ -854,6 +854,7 @@ function SmokeBg() {
 const BL_SPEAKERS = [
   { name: "Ahmad Saad", title: "Regional Sales Manager, Liferay", linkedin: "https://www.linkedin.com/in/ahmad-saad-15088224/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmad+Saad.JPG" },
   { name: "Wajih Yahyaoui", title: "Managing Partner, Blackstone eIT", linkedin: "https://www.linkedin.com/in/wajihyahyaoui/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Wajih_Yahaouyi_Blackstone.png" },
+  { name: "Youness Soulayman", title: "CTO & Executive Director, Blackstone eIT", linkedin: "https://www.linkedin.com/in/younesszahir/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Youness_Soulayman_Blackstone.png" },
   { name: "Mahmoud Tayem", title: "Manager, Sales Engineering, Liferay", linkedin: "https://www.linkedin.com/in/tayemmahmoud/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mahmoud+Tayem+Small.jpg" },
 ];
 
@@ -863,10 +864,10 @@ function SpeakersSection() {
   return (
     <section id="speakers" style={{ position: "relative", overflow: "hidden", background: "#020A17", color: WHITE, ...SECTION_PAD }}>
       <SmokeBg />
-      <div style={{ position: "relative", zIndex: 2, maxWidth: 1160, margin: "0 auto" }}>
+      <div style={{ position: "relative", zIndex: 2, maxWidth: 1320, margin: "0 auto" }}>
         <SectionHeading eyebrow="Speakers & Panelists" title="The line-up" align="center" sub="Meet the Liferay platform experts leading the session." />
 
-        <div ref={ref} className="bl-speakers-grid" style={{ marginTop: "clamp(40px,5vw,64px)", display: "grid", gridTemplateColumns: "repeat(3, minmax(180px, 232px))", justifyContent: "center", gap: "clamp(18px,2vw,26px)" }}>
+        <div ref={ref} className="bl-speakers-grid" style={{ marginTop: "clamp(40px,5vw,64px)", display: "grid", gridTemplateColumns: "repeat(4, minmax(180px, 250px))", justifyContent: "center", gap: "clamp(18px,2vw,26px)" }}>
           {BL_SPEAKERS.map((s, i) => (
             <motion.a
               key={s.name}
@@ -917,7 +918,7 @@ function SpeakersSection() {
           100% { transform: translateY(-64px); opacity: 0; }
         }
         @media (prefers-reduced-motion: reduce) { .bl-spk-avatar, .bl-mote { animation: none; } }
-        @media (max-width: 900px) { .bl-speakers-grid { grid-template-columns: repeat(2,1fr) !important; } }
+        @media (max-width: 1040px) { .bl-speakers-grid { grid-template-columns: repeat(2,minmax(180px,250px)) !important; } }
         @media (max-width: 460px) { .bl-speakers-grid { grid-template-columns: 1fr !important; } }
       `}</style>
     </section>
