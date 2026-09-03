@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { Footer, InquiryForm } from "@/components/sections";
@@ -81,13 +81,35 @@ function AmbientBg() {
 }
 
 // ─── HERO ────────────────────────────────────────────────────────────────────
+// Poster paints immediately (it's preloaded in layout as the LCP); the 4.7 MB
+// video is only mounted once the browser is idle, keeping it off the critical path.
+function HeroBackground() {
+  const [showVideo, setShowVideo] = useState(false);
+  useEffect(() => {
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void };
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (w.requestIdleCallback) { const id = w.requestIdleCallback(() => setShowVideo(true), { timeout: 2000 }); return () => w.cancelIdleCallback?.(id); }
+    const t = window.setTimeout(() => setShowVideo(true), 600); return () => window.clearTimeout(t);
+  }, []);
+  const cover: React.CSSProperties = { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "saturate(0.9) brightness(0.62)", zIndex: 0 };
+  return (
+    <>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={HERO_POSTER} alt="" aria-hidden fetchPriority="high" decoding="async" style={cover} />
+      {showVideo && (
+        <video autoPlay muted loop playsInline preload="auto" style={{ ...cover, zIndex: 0 }}>
+          <source src={HERO_VIDEO} type="video/mp4" />
+        </video>
+      )}
+    </>
+  );
+}
+
 function Hero() {
   const industries = ["Government", "Energy", "Oil & Gas", "Utilities", "Petrochemicals", "Manufacturing", "Critical Infrastructure"];
   return (
     <section id="top" style={{ position: "relative", minHeight: "min(940px,96vh)", display: "flex", alignItems: "flex-end", overflow: "hidden", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-      <video autoPlay muted loop playsInline poster={HERO_POSTER} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "saturate(0.9) brightness(0.62)", zIndex: 0 }}>
-        <source src={HERO_VIDEO} type="video/mp4" />
-      </video>
+      <HeroBackground />
       <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(180deg, rgba(10,10,10,0.58) 0%, rgba(10,10,10,0.14) 30%, rgba(10,10,10,0.62) 68%, #0A0A0A 100%)" }} />
       <div style={{ position: "absolute", inset: 0, zIndex: 1, background: `radial-gradient(ellipse 70% 60% at 12% 100%, ${C}42 0%, transparent 62%)` }} />
       <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 1, opacity: 0.35, backgroundImage: "linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px)", backgroundSize: "88px 88px", maskImage: "linear-gradient(180deg,transparent,#000 40%,transparent)", WebkitMaskImage: "linear-gradient(180deg,transparent,#000 40%,transparent)" }} />
@@ -941,7 +963,7 @@ function RoomShort({ videoId, index }: { videoId: string; index: number }) {
 
 function FromTheRoom() {
   return (
-    <section style={wrap}>
+    <section style={{ ...wrap, contentVisibility: "auto", containIntrinsicSize: "auto 700px" }}>
       <SectionHead num="12" label="From the Room" note="Testimonials" />
       <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,58px)", letterSpacing: "-2.2px", lineHeight: 1.0, margin: "0 0 14px", textWrap: "balance" }}>
         Hear it straight{" "}
@@ -975,7 +997,7 @@ const GALLERY: { src: string; size: "lg" | "wide" | "tall" | "sm" }[] = [
 
 function Gallery() {
   return (
-    <section style={wrap}>
+    <section style={{ ...wrap, contentVisibility: "auto", containIntrinsicSize: "auto 900px" }}>
       <SectionHead num="13" label="Gallery" note="Abu Dhabi" />
       <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,58px)", letterSpacing: "-2.2px", lineHeight: 1.0, margin: "0 0 14px", textWrap: "balance" }}>
         Inside the{" "}
