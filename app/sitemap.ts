@@ -165,6 +165,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
+      url: `${BASE_URL}/events/ot-security-first/uae`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: `${BASE_URL}/events/ot-security-first/oman-2026`,
       lastModified: new Date(),
       changeFrequency: "monthly",
