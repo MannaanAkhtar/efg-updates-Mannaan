@@ -1371,7 +1371,7 @@ function Footer() {
         <div className="bl-footer-top" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
           <LogoLockup bsH={40} lrH={32} gap={20} />
           <span style={{ display: "inline-flex", alignItems: "center", gap: 14 }}>
-            <span style={{ fontFamily: FONT, fontSize: 10.5, fontWeight: 700, letterSpacing: "0.24em", textTransform: "uppercase", color: TXT_3, whiteSpace: "nowrap" }}>Produced by</span>
+            <span style={{ fontFamily: FONT, fontSize: 10.5, fontWeight: 700, letterSpacing: "0.24em", textTransform: "uppercase", color: TXT_3, whiteSpace: "nowrap" }}>Hosted by</span>
             <a href="https://www.eventsfirstgroup.com" target="_blank" rel="noopener noreferrer" aria-label="Events First Group" style={{ lineHeight: 0 }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/events-first-group_logo_alt.svg" alt="Events First Group" style={{ height: 28, width: "auto", display: "block" }} />

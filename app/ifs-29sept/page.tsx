@@ -1694,7 +1694,7 @@ function Footer() {
           />
         </div>
         <div className="poka-footer__right">
-          <span className="poka-footer__initiative-label">An initiative by</span>
+          <span className="poka-footer__initiative-label">Hosted by</span>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={EFG_LOGO}

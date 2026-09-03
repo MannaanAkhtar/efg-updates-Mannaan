@@ -510,8 +510,8 @@ export default function EnterpriseDBRoundtablePage() {
             <a href="https://www.enterprisedb.com/" target="_blank" rel="noopener noreferrer" style={{ fontFamily: BODY, fontSize: 13.5, color: DIM, textDecoration: "none" }}>enterprisedb.com</a>
             <a href="mailto:grace.trott@enterprisedb.com" style={{ fontFamily: BODY, fontSize: 13.5, color: DIM, textDecoration: "none" }}>Contact EDB</a>
           </div>
-          <Link href="/" style={{ display: "inline-flex", alignItems: "center", gap: 11, textDecoration: "none" }} aria-label="Produced by Events First Group">
-            <span style={{ fontFamily: BODY, fontSize: 12, color: DIM_2, letterSpacing: "0.04em" }}>Produced by</span>
+          <Link href="/" style={{ display: "inline-flex", alignItems: "center", gap: 11, textDecoration: "none" }} aria-label="Hosted by Events First Group">
+            <span style={{ fontFamily: BODY, fontSize: 12, color: DIM_2, letterSpacing: "0.04em" }}>Hosted by</span>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/events-first-group_logo_alt.svg" alt="Events First Group" loading="lazy" decoding="async" style={{ height: 26, width: "auto", opacity: 0.92 }} />
           </Link>

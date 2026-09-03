@@ -1262,7 +1262,7 @@ function SonicWallFooter() {
         {/* Copyright */}
         <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
           <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11, color: "#aaa", margin: 0 }}>
-            Produced by <a href="https://www.eventsfirstgroup.com" target="_blank" rel="noopener noreferrer" style={{ color: SW_ORANGE, textDecoration: "none", fontWeight: 500 }}>Events First Group</a>
+            Hosted by <a href="https://www.eventsfirstgroup.com" target="_blank" rel="noopener noreferrer" style={{ color: SW_ORANGE, textDecoration: "none", fontWeight: 500 }}>Events First Group</a>
           </p>
         </div>
       </div>

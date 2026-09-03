@@ -1845,7 +1845,7 @@ function IfsFooter() {
               letterSpacing: "0.28em", textTransform: "uppercase",
               color: IFS_FAINT,
             }}>
-              An initiative by
+              Hosted by
             </span>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

@@ -845,7 +845,7 @@ function Footer() {
       <div className="ac-foot-row" style={{ position: "relative", zIndex: 1, maxWidth: 1120, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 28, flexWrap: "wrap" }}>
         <BrandMark height={32} white />
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <span style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: DIM2 }}>Organised by</span>
+          <span style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: DIM2 }}>Hosted by</span>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/Events-First-logo-02.png" alt="Events First Group" style={{ height: 42, width: "auto", display: "block" }} />
         </div>

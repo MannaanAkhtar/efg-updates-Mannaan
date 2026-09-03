@@ -2050,7 +2050,7 @@ function Footer() {
       <div className="by-footer__inner">
         <ByLogo size={26} tone="dark" />
         <div className="by-footer__right">
-          <span className="by-footer__initiative-label">An initiative by</span>
+          <span className="by-footer__initiative-label">Hosted by</span>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/events-first-group_logo_alt.svg"

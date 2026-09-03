@@ -3205,7 +3205,7 @@ function ProofpointFooter() {
             color: "rgba(255,255,255,0.4)",
           }}
         >
-          <span>Produced by</span>
+          <span>Hosted by</span>
           <a
             href="https://www.eventsfirstgroup.com"
             target="_blank"
