@@ -52,9 +52,12 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   // IFS Executive Roundtable — Jeddah (15 Sep 2026, Manufacturing)
   "ifs15-duaa": { path: "/ifs-15sept", source: "duaa", campaign: "ifs-15sept", hash: "access" },
 
-  // IFS Executive Roundtable — Jeddah (29 Sep 2026)
-  "ifs22-duaa": { path: "/ifs-29sept", source: "duaa", campaign: "ifs-22sept", hash: "reserve" },
-  "ifs22-mrigashi": { path: "/ifs-29sept", source: "mrigashi", campaign: "ifs-22sept", hash: "reserve" },
+  // IFS Executive Roundtable — Jeddah (29 Sep 2026) — deep-link straight to the reserve/register form
+  "ifs29-duaa": { path: "/ifs-29sept", source: "duaa", campaign: "ifs-29sept", hash: "reserve" },
+  "ifs29-mrigashi": { path: "/ifs-29sept", source: "mrigashi", campaign: "ifs-29sept", hash: "reserve" },
+  // legacy aliases (event was previously 22 Sep) — keep any already-shared links working
+  "ifs22-duaa": { path: "/ifs-29sept", source: "duaa", campaign: "ifs-29sept", hash: "reserve" },
+  "ifs22-mrigashi": { path: "/ifs-29sept", source: "mrigashi", campaign: "ifs-29sept", hash: "reserve" },
 
   // OPEX First KSA 2026 — Riyadh (LinkedIn promotion)
   "opex-ksa-li": { path: "/events/opex-first/saudi-2026", source: "linkedin", medium: "social", campaign: "opex-ksa-2026", hash: "register" },
