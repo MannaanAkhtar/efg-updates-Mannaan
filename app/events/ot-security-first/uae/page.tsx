@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { Footer, InquiryForm } from "@/components/sections";
 import EventNavigation from "@/components/ui/EventNavigation";
+import CpdCertified from "@/components/events/CpdCertified";
 
 // ─── Design tokens (OT Security First UAE 2027 — magenta on near-black) ───────
 const C = "#D34B9A";        // Magenta
@@ -842,6 +843,15 @@ function RegisterSection() {
   return (
     <section id="register" style={{ position: "relative", zIndex: 1, padding: "clamp(42px,4.6vw,66px) 0", background: BG, overflow: "hidden" }}>
       <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `radial-gradient(ellipse 55% 50% at 50% 0%, ${C}14 0%, transparent 65%), radial-gradient(ellipse 40% 50% at 80% 100%, ${C}0f 0%, transparent 70%)` }} />
+      <div style={{ maxWidth: 1200, margin: "0 auto 14px", padding: "0 clamp(20px,4vw,60px)", position: "relative", zIndex: 1, display: "flex", justifyContent: "center" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 14, padding: "8px 16px 8px 8px", borderRadius: 12, background: "rgba(255,255,255,0.06)", border: `1px solid ${C}30` }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/CPD.png" alt="CPD certified event" loading="lazy" decoding="async" style={{ height: 40, width: "auto", display: "block", borderRadius: 8 }} />
+          <span style={{ fontFamily: FO, fontSize: 13.5, fontWeight: 500, color: "rgba(255,255,255,0.85)", lineHeight: 1.4 }}>
+            <strong style={{ color: C, fontWeight: 700 }}>CPD Certified Event</strong> · earn up to 7 CPD points.
+          </span>
+        </div>
+      </div>
       <div className="uae-register-wrap" style={{ position: "relative", zIndex: 1 }}>
         <InquiryForm
           defaultCountry="AE"
@@ -1025,6 +1035,7 @@ export default function OTUaePage() {
       <Hero />
       <StatPlates />
       <TheEvent />
+      <CpdCertified eventName="OT Security First UAE 2027" theme={C} registerHref="#register" />
       <WhyAbuDhabi />
       <TheMandate />
       <SpeakersComingSoon />
