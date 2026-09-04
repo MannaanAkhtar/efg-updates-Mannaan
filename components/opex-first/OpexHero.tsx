@@ -17,10 +17,10 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const HERO_IMG = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/opex_first.png";
 
 const heroStats = [
-  { value: 2, suffix: "", label: "Editions" },
-  { value: 4, suffix: "", label: "Cities" },
-  { value: 300, suffix: "+", label: "Delegates" },
-  { value: 30, suffix: "+", label: "Speakers" },
+  { value: 3, suffix: "", label: "Editions" },
+  { value: 2, suffix: "", label: "Countries" },
+  { value: 400, suffix: "+", label: "Delegates" },
+  { value: 60, suffix: "+", label: "Speakers" },
 ];
 
 // Ambient motes, confined to the right two-thirds so they never clutter the slab
