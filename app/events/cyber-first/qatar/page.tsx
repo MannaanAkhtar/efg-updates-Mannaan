@@ -212,6 +212,7 @@ const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; 
   { name: "Arslan Baig",      title: "Lead IT & Cybersecurity", org: "Al-AWALIA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Arslan+Baig.jpg", linkedin: "https://www.linkedin.com/in/arslan-baig/" },
   { name: "Vladimir Kanyshev", title: "Chief Information Security Officer (CISO)", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Vladimir+Kanyshev.jpg" },
   { name: "Hoda Taheri", title: "Acting CIO", org: "Snoonu", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hoda.png", linkedin: "https://www.linkedin.com/in/hodataheri/" },
+  { name: "Christa Waegemann", title: "International Director", org: "Violence Prevention Network gGmbH", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Christa+Waegemann.png", linkedin: "https://www.linkedin.com/in/christawaegemann/" },
 ];
 
 // ─── Agenda — 17 rows (from PDF) ────────────────────────────────────────────
