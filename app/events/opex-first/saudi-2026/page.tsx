@@ -209,7 +209,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Ahmed Alawami", title: "Head of Data and AI", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+T+Alawami.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/" },
   { name: "Reem Alharbi", title: "Deputy GM - Integrated Ports Command Center", org: "Saudi Ports Authority (Mawani)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Reem+Alharbi.jpeg", linkedin: "https://www.linkedin.com/in/reem-alharbi-a89a4a156/" },
   { name: "Anwar Zumah", title: "VP Direct Investment", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anwar+Zumah.jpeg", linkedin: "https://www.linkedin.com/in/anwar-zumah-223577a5/" },
-  { name: "Naif N. Al Suliman", title: "Executive Operations Director", org: "National Water Company (NWC)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naif+N.jpeg" },
+  { name: "Naif N. Al Suliman", title: "Crisis and Disaster Center (CDC) Executive Director", org: "National Water Company (NWC)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naif+N.jpeg", linkedin: "https://www.linkedin.com/in/naif-n-al-suliman-54918b50/" },
 ];
 
 type AgendaItem = {
@@ -6725,6 +6725,58 @@ function Venue() {
   );
 }
 
+// ─── FAQ (mirrors the FAQPage JSON-LD in layout.tsx — keep the two in sync) ──
+const FAQ_ITEMS: { q: string; a: string }[] = [
+  { q: "When is OPEX First Saudi 2026 (OPEX KSA)?", a: "OPEX First Saudi Arabia 2026 — also known as OPEX KSA — takes place on 21 October 2026 in Riyadh, Saudi Arabia." },
+  { q: "Where is OPEX First Saudi 2026 held?", a: "OPEX First Saudi 2026 is held at the Hyatt Regency Riyadh Olaya in Riyadh, Saudi Arabia." },
+  { q: "Who attends OPEX First Saudi 2026?", a: "Senior leaders driving operational excellence and digital transformation across Saudi Arabia — public-sector executives, enterprise C-suite, transformation directors, and process intelligence leaders. Attendance is invitation-only with 220+ delegates and 30+ speakers." },
+  { q: "Is there a fee to attend OPEX First Saudi 2026?", a: "Attendance is free for qualified delegates. Apply via the registration form on the event page; the advisory team will confirm eligibility." },
+  { q: "How do I nominate someone for the OPEX First Awards 2026?", a: "Submit a nomination via the form in the Awards section of the event page. Five categories cover Operational Excellence, AI & Digital Transformation, Sustainability & ESG, Supply Chain & Procurement, and Leadership in Operational & Change Excellence." },
+];
+
+function Faq() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  return (
+    <section ref={ref} id="faq" style={{ background: `linear-gradient(180deg, ${BG_DARK} 0%, ${BG} 100%)`, padding: "clamp(48px, 5.5vw, 80px) clamp(20px, 5vw, 64px)", position: "relative", overflow: "hidden" }}>
+      <div aria-hidden style={{ position: "absolute", bottom: "6%", left: "-6%", width: 420, height: 420, borderRadius: "50%", background: `radial-gradient(circle, ${V}16, transparent 65%)`, filter: "blur(80px)", pointerEvents: "none" }} />
+      <div style={{ maxWidth: 860, margin: "0 auto", position: "relative", zIndex: 2 }}>
+        <div style={{ textAlign: "center", marginBottom: 40 }}>
+          <SectionEyebrow inView={inView} label="FAQ" centered />
+          <SectionTitle inView={inView} centered>
+            Everything you need to <em className="opex-violet-shimmer">know</em>.
+          </SectionTitle>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          {FAQ_ITEMS.map((item, i) => (
+            <motion.details
+              key={i}
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.55, delay: 0.07 * i, ease: EASE }}
+              className="opex-faq"
+              style={{ borderRadius: 16, border: `1px solid ${V}2e`, background: `linear-gradient(160deg, ${V}10 0%, rgba(255,255,255,0.02) 60%)`, overflow: "hidden" }}
+            >
+              <summary className="opex-faq-summary" style={{ cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, padding: "clamp(18px,2vw,24px) clamp(20px,2.4vw,28px)", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(16px,1.7vw,20px)", letterSpacing: "-0.3px", color: "rgba(255,255,255,0.95)" }}>
+                <span>{item.q}</span>
+                <span aria-hidden className="opex-faq-icon" style={{ flexShrink: 0, width: 26, height: 26, display: "grid", placeItems: "center", borderRadius: 999, border: `1px solid ${V}55`, color: V_BRIGHT, transition: "transform 0.35s ease" }}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
+                </span>
+              </summary>
+              <p style={{ margin: 0, padding: "0 clamp(20px,2.4vw,28px) clamp(20px,2.2vw,26px)", fontFamily: "var(--font-outfit)", fontSize: "clamp(14px,1.15vw,16px)", lineHeight: 1.7, color: "rgba(255,255,255,0.72)" }}>{item.a}</p>
+            </motion.details>
+          ))}
+        </div>
+      </div>
+      <style jsx>{`
+        .opex-faq-summary { list-style: none; }
+        .opex-faq-summary::-webkit-details-marker { display: none; }
+        .opex-faq[open] .opex-faq-icon { transform: rotate(45deg); }
+      `}</style>
+    </section>
+  );
+}
+
 function Register() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
@@ -7615,6 +7667,7 @@ export default function OpexFirstSaudi2026Page() {
       <PastShorts />
       <Awards />
       <Venue />
+      <Faq />
       <Register />
       <ContactTeam />
       <Footer />
