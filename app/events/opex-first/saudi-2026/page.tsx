@@ -209,6 +209,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Ahmed Alawami", title: "Head of Data and AI", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+T+Alawami.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/" },
   { name: "Reem Alharbi", title: "Deputy GM - Integrated Ports Command Center", org: "Saudi Ports Authority (Mawani)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Reem+Alharbi.jpeg", linkedin: "https://www.linkedin.com/in/reem-alharbi-a89a4a156/" },
   { name: "Anwar Zumah", title: "VP Direct Investment", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anwar+Zumah.jpeg", linkedin: "https://www.linkedin.com/in/anwar-zumah-223577a5/" },
+  { name: "Naif N. Al Suliman", title: "Executive Operations Director", org: "National Water Company (NWC)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naif+N.jpeg" },
 ];
 
 type AgendaItem = {
