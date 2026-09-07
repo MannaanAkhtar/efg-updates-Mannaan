@@ -80,6 +80,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Feras Alamri", title: "Cybersecurity Defense Director", org: "Riyadh Airports", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Feras+Alamri.png", linkedin: "https://www.linkedin.com/in/feras-alamri/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Faisal Althobaiti", title: "Sr. Cybersecurity and Digitalization Engineer", org: "Ma'aden", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Faisal+Althobaiti.png", linkedin: "https://www.linkedin.com/in/faisal-althobaiti-a4331090/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Dr. Godfrey Gaston MBE", title: "Cybersecurity Specialist", org: "swIDch", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Godfrey+Gaston.png", linkedin: "https://www.linkedin.com/in/godfrey-gaston-0b7861/", flag: "https://flagcdn.com/w40/gb.png" },
+  { name: "Abdulrahman Al Musfir", title: "Regional Cybersecurity Officer - MEA", org: "Schneider Electric", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulrahman+Al+Musfir.png", linkedin: "https://www.linkedin.com/in/abdulrahman-al-musfir-69080063/", flag: "https://flagcdn.com/w40/sa.png" },
 ];
 
 // ─── Advisors ─────────────────────────────────────────────────────────────────
