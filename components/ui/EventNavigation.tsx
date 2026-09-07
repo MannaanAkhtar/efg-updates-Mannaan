@@ -224,7 +224,7 @@ const EVENT_CONFIGS: Record<string, {
     navLinks: [
       { href: "#overview", label: "Overview" },
       { href: "#themes", label: "Themes" },
-      // { href: "#speakers", label: "Speakers" }, // hidden until photos confirmed
+      { href: "#speakers", label: "Speakers" },
       { href: "#agenda", label: "Agenda" },
       { href: "#event-sponsors", label: "Sponsors" },
       { href: "#awards", label: "Awards" },

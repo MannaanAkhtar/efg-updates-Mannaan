@@ -210,6 +210,8 @@ const SPEAKERS: Speaker[] = [
   { name: "Reem Alharbi", title: "Deputy GM - Integrated Ports Command Center", org: "Saudi Ports Authority (Mawani)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Reem+Alharbi.jpeg", linkedin: "https://www.linkedin.com/in/reem-alharbi-a89a4a156/" },
   { name: "Anwar Zumah", title: "VP Direct Investment", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anwar+Zumah.jpeg", linkedin: "https://www.linkedin.com/in/anwar-zumah-223577a5/" },
   { name: "Naif N. Al Suliman", title: "Crisis and Disaster Center (CDC) Executive Director", org: "National Water Company (NWC)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naif+N.jpeg", linkedin: "https://www.linkedin.com/in/naif-n-al-suliman-54918b50/" },
+  { name: "Ahmed Alaskar", title: "Sr. Director of Operational Excellence and Quality", org: "EXPRO", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+Alaskar.jpg", linkedin: "https://www.linkedin.com/in/ahmed-alaskar-077ba765/" },
+  { name: "Mohammed N. Aljuhani", title: "Organizational Excellence Director", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+N.+Aljuhani.jpg", linkedin: "https://www.linkedin.com/in/maljuhani/" },
 ];
 
 type AgendaItem = {
