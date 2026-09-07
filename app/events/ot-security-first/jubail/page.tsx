@@ -4559,8 +4559,11 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
     tier: "Media Partners",
     logos: [
       { name: "International Business Magazine", id: "media-ibm", surface: "light", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/International-Business-Magazine.png" },
-      { name: "Kanebridge News", id: "media-kanebridge", surface: "light", fillWidth: true, logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Kanebridge_news.png" },
-      { name: "Eye of Riyadh", id: "media-eye-of-riyadh", surface: "light", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/unnamed+(9).png" },
+      { name: "Kanebridge News", id: "media-kanebridge", surface: "light", fillWidth: true, scale: 1.3, logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Kanebridge_news.png" },
+      { name: "Eye of Riyadh", id: "media-eye-of-riyadh", surface: "light", scale: 1.55, logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/unnamed+(9).png" },
+      { name: "The Energy Info", id: "media-tei", surface: "light", href: "https://theenergyinfo.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/tei-logo.png" },
+      { name: "Startup News", id: "media-startupnews", surface: "light", href: "https://startupnews.fyi/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/startupnews.png" },
+      { name: "Eye of Dubai", id: "media-eye-of-dubai", surface: "light", href: "https://www.eyeofdubai.ae/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/eye+of+dubai.png" },
     ],
   },
 ];
@@ -4595,13 +4598,14 @@ function SponsorsSection() {
           {SPONSOR_TIERS.map((t, ti) => {
             const renderPlate = (s: SponsorLogo, i: number) => {
               const isLight = s.surface === "light";
+              const isMedia = t.tier === "Media Partners";
               const plateStyle: React.CSSProperties = {
                 position: "relative",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                width: "clamp(200px, 24vw, 260px)",
-                height: "clamp(104px, 12vw, 130px)",
+                width: isMedia ? "clamp(150px, 18vw, 194px)" : "clamp(200px, 24vw, 260px)",
+                height: isMedia ? "clamp(80px, 9vw, 98px)" : "clamp(104px, 12vw, 130px)",
                 padding: isLight ? "clamp(8px, 1vw, 12px) clamp(10px, 1.1vw, 14px)" : "clamp(14px, 1.4vw, 18px) clamp(10px, 1vw, 14px)",
                 borderRadius: 18,
                 overflow: "hidden",
@@ -4614,8 +4618,8 @@ function SponsorsSection() {
               };
               const imgStyle: React.CSSProperties = {
                 ...(s.fillWidth
-                  ? { position: "relative", width: "100%", height: "auto", objectFit: "contain" }
-                  : { position: "relative", maxWidth: "100%", maxHeight: "clamp(92px, 11vw, 120px)", objectFit: "contain" }),
+                  ? { position: "relative", width: isMedia ? "78%" : "100%", height: "auto", objectFit: "contain" }
+                  : { position: "relative", maxWidth: "100%", maxHeight: isMedia ? "clamp(50px, 6vw, 66px)" : "clamp(92px, 11vw, 120px)", objectFit: "contain" }),
                 ...(s.scale ? { transform: `scale(${s.scale})`, transformOrigin: "center" } : {}),
               };
               const inner = (
