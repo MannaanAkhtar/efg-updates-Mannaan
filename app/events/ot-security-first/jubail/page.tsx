@@ -4568,6 +4568,14 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
   },
 ];
 
+// Tier labels pluralize automatically when a tier holds more than one sponsor
+// (e.g. "Gold Sponsor" → "Gold Sponsors"). Already-plural labels are left as-is.
+function tierLabel(tier: string, count: number): string {
+  if (count <= 1) return tier;
+  if (/sponsor$/i.test(tier)) return `${tier}s`;
+  return tier;
+}
+
 function SponsorsSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -4654,11 +4662,15 @@ function SponsorsSection() {
               );
             };
 
-            // Media Partners renders as a pyramid: last logo alone on top, the rest below.
-            const isPyramid = t.tier === "Media Partners" && t.logos.length === 3;
-            const rows: SponsorLogo[][] = isPyramid
-              ? [[t.logos[t.logos.length - 1]], t.logos.slice(0, -1)]
-              : [t.logos];
+            // Media Partners render as a pyramid stack. With 6 logos: top row of 4,
+            // bottom row of 2 (centered). With 3: last logo alone on top, the rest below.
+            const isMediaTier = t.tier === "Media Partners";
+            const rows: SponsorLogo[][] =
+              isMediaTier && t.logos.length === 6
+                ? [t.logos.slice(0, 4), t.logos.slice(4)]
+                : isMediaTier && t.logos.length === 3
+                ? [[t.logos[t.logos.length - 1]], t.logos.slice(0, -1)]
+                : [t.logos];
 
             return (
               <div key={t.tier} id={t.tier === "Media Partners" ? "media-partners" : undefined}>
@@ -4671,7 +4683,7 @@ function SponsorsSection() {
                 >
                   <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, transparent, ${C}30)` }} />
                   <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 700, letterSpacing: "3.5px", textTransform: "uppercase", color: C_BRIGHT, whiteSpace: "nowrap" }}>
-                    {t.tier}
+                    {tierLabel(t.tier, t.logos.length)}
                   </span>
                   <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, ${C}30, transparent)` }} />
                 </motion.div>
