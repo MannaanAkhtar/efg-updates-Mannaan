@@ -213,6 +213,7 @@ const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; 
   { name: "Vladimir Kanyshev", title: "Chief Information Security Officer (CISO)", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Vladimir+Kanyshev.jpg" },
   { name: "Hoda Taheri", title: "Acting CIO", org: "Snoonu", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hoda.png", linkedin: "https://www.linkedin.com/in/hodataheri/" },
   { name: "Christa Waegemann", title: "International Director", org: "Violence Prevention Network gGmbH", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Christa+Waegemann.png", linkedin: "https://www.linkedin.com/in/christawaegemann/" },
+  { name: "Mustafa Ünal Erten", title: "Chief, Regional Centre for Combating Cybercrime — Doha", org: "United Nations Office on Drugs and Crime (UNODC)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mustafa+%C3%9Cnal+Erten.jpeg", linkedin: "https://www.linkedin.com/in/mustafa-erten-24146940/" },
 ];
 
 // ─── Agenda — 17 rows (from PDF) ────────────────────────────────────────────
