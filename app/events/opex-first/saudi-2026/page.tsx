@@ -198,8 +198,9 @@ const FOCUS_AREAS = [
   { title: "Autonomous Enterprise Models", body: "Cloud-native execution frameworks, security-by-design, self-optimising operating models." },
 ];
 
-type Speaker = { name: string; title: string; org: string; photo: string; linkedin?: string };
+type Speaker = { name: string; title: string; org: string; photo: string; linkedin?: string; silhouette?: boolean };
 const SPEAKERS: Speaker[] = [
+  { name: "Maram Baksh", title: "Director General", org: "Confidential Government", photo: "", silhouette: true, linkedin: "https://www.linkedin.com/in/maram-baksh-a78bb940/" },
   { name: "Eng. Abdulrazzag Al Aujan", title: "H.E. MoF Advisor", org: "Ministry of Finance", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Eng+AbdulRazzag+Al+Aujan.png" },
   { name: "Salem J. Sahary", title: "Senior Operational Excellence Expert", org: "SIPCHEM", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Salem+J.+Sahary.jpg" },
   { name: "Yasmin Bin Mobki", title: "General Manager of Privatization and PMO", org: "Ministry of Human Resources and Social Development", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Yasmin+Bin+Mobki.png" },
@@ -4099,8 +4100,26 @@ function Speakers() {
                   <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, transparent 30%, ${BG_DARK}aa 70%, ${BG_DARK} 100%)`, mixBlendMode: "multiply" }} />
                   <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, ${V}10 0%, transparent 50%)`, mixBlendMode: "overlay" }} />
 
+                  {/* Silhouette placeholder — used when a portrait isn't available yet */}
+                  {!sp.photo && sp.silhouette && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        display: "flex",
+                        alignItems: "flex-end",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <svg viewBox="0 0 100 120" width="70%" height="88%" aria-hidden style={{ opacity: 0.32 }}>
+                        <circle cx="50" cy="38" r="24" fill={V_BRIGHT} />
+                        <path d="M8 120 C8 82 26 66 50 66 C74 66 92 82 92 120 Z" fill={V_BRIGHT} />
+                      </svg>
+                    </div>
+                  )}
+
                   {/* Initials placeholder */}
-                  {!sp.photo && (
+                  {!sp.photo && !sp.silhouette && (
                     <div
                       style={{
                         position: "absolute",
