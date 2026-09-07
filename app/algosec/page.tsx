@@ -511,13 +511,13 @@ function Takeaways() {
 }
 
 // ─── THE CHALLENGE + AGENDA (gamified run-of-show as a route of checkpoints) ───
-const AGENDA = [
+const AGENDA: { time: string; title: string; kind: string; topic?: string }[] = [
   { time: "10:30 – 11:00 AM", title: "Registration, arrival & networking", kind: "reception" },
   { time: "11:00 – 11:10 AM", title: "Welcome: Why application connectivity has become an executive security issue", kind: "welcome" },
   { time: "11:10 – 11:30 AM", title: "AlgoCity: Escape the Complexity, gamified challenge on application visibility, ownership and connectivity requirements", kind: "challenge" },
   { time: "11:30 AM – 12:00 PM", title: "Presentations by AlgoSec", kind: "debrief" },
   { time: "12:00 – 12:15 PM", title: "Networking break", kind: "reception" },
-  { time: "12:15 – 12:45 PM", title: "Panel discussion", kind: "roundtable" },
+  { time: "12:15 – 12:45 PM", title: "Panel discussion", kind: "roundtable", topic: "Applications Drive Business. Connectivity Drives Risk — Rethinking Security Policy for the Hybrid Enterprise" },
   { time: "12:45 – 12:55 PM", title: "Deep dive", kind: "deepdive" },
   { time: "12:55 – 1:00 PM", title: "Closing remarks", kind: "exchange" },
   { time: "1:00 PM onwards", title: "Networking lunch", kind: "reception" },
@@ -557,6 +557,9 @@ function Agenda() {
                       {isChallenge && <span style={{ fontFamily: FONT, fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1b1204", background: GOLD, borderRadius: 100, padding: "3px 10px" }}>Gamified Challenge</span>}
                     </div>
                     <p style={{ fontFamily: FONT, fontWeight: isChallenge ? 700 : 600, fontSize: "clamp(14.5px,1.4vw,16.5px)", lineHeight: 1.45, color: WHITE, margin: 0, letterSpacing: "-0.01em" }}>{a.title}</p>
+                    {a.topic && (
+                      <p style={{ fontFamily: FONT, fontWeight: 600, fontSize: "clamp(13px,1.25vw,15px)", lineHeight: 1.45, color: GREEN, margin: "9px 0 0", paddingLeft: 13, borderLeft: `2px solid ${GREEN}66`, letterSpacing: "-0.01em" }}>{a.topic}</p>
+                    )}
                   </div>
                 </div>
               );
