@@ -4553,6 +4553,7 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
     tier: "Strategic Sponsor",
     logos: [
       { name: "Axidian", href: "https://axidian.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Axidian_white_logo.png" },
+      { name: "Elastic", href: "https://www.elastic.co/", scale: 1.6, logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/elastic.png" },
     ],
   },
   {
