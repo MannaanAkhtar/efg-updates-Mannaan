@@ -759,16 +759,16 @@ const MARQUEE_ROW_2 = [
   `${S3_LOGOS}/GBM.png`, `${S3_LOGOS}/Paramount.png`, `${S3_LOGOS}/YOKOGAWA.png`,
 ];
 
-function MarqueeRow({ logos, direction }: { logos: string[]; direction: "left" | "right" }) {
+function MarqueeRow({ logos, direction, light = false }: { logos: string[]; direction: "left" | "right"; light?: boolean }) {
   return (
     <div style={{ position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 100, background: `linear-gradient(to right, ${BG}, transparent)`, zIndex: 2, pointerEvents: "none" }} />
       <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 100, background: `linear-gradient(to left, ${BG}, transparent)`, zIndex: 2, pointerEvents: "none" }} />
       <div className={`uae-marquee-track is-${direction}`}>
         {[...logos, ...logos].map((logo, i) => (
-          <div key={i} className="uae-marquee-item">
+          <div key={i} className={`uae-marquee-item${light ? " is-light" : ""}`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={logo} alt={`${logo.split("/").pop()?.replace(/\.(png|jpg|svg|webp)$/i, "").replace(/[-_]/g, " ")} — past sponsor/partner of the OT Security First industrial cybersecurity series`} width={160} height={64} loading="lazy" decoding="async" style={{ maxHeight: 64, maxWidth: 160, objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.85 }} />
+            <img src={logo} alt={`${logo.split("/").pop()?.replace(/\.(png|jpg|svg|webp)$/i, "").replace(/[-_]/g, " ")} — past sponsor/partner of the OT Security First industrial cybersecurity series`} width={160} height={64} loading="lazy" decoding="async" style={light ? { maxHeight: 140, maxWidth: 250, objectFit: "contain" } : { maxHeight: 64, maxWidth: 160, objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.85 }} />
           </div>
         ))}
       </div>
@@ -776,11 +776,36 @@ function MarqueeRow({ logos, direction }: { logos: string[]; direction: "left" |
   );
 }
 
+const SUPPORTING_LOGOS = [
+  `${S3}/UAE+supporting+logos/Logos-05.png`, `${S3}/UAE+supporting+logos/Logos-06.png`, `${S3}/UAE+supporting+logos/Logos-07.png`,
+  `${S3}/UAE+supporting+logos/Logos-08.png`, `${S3}/UAE+supporting+logos/Logos-09.png`, `${S3}/UAE+supporting+logos/Logos-10.png`,
+  `${S3}/UAE+supporting+logos/Logos-12.png`, `${S3}/UAE+supporting+logos/Logos-13.png`,
+  `${S3}/UAE+supporting+logos/Logos-14.png`, `${S3}/UAE+supporting+logos/Logos-15.png`, `${S3}/UAE+supporting+logos/Logos-16.png`,
+  `${S3}/UAE+supporting+logos/Logos-17.png`,
+];
+
+function PastSupportingMarquee() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <section ref={ref} style={{ position: "relative", zIndex: 1, padding: "clamp(42px,4.6vw,66px) 0 0", background: BG, overflow: "hidden" }}>
+      <div style={{ position: "relative", maxWidth: 1320, margin: "0 auto 40px", padding: "0 clamp(24px,5vw,80px)", textAlign: "center" }}>
+        <motion.div initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: EASE }} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 22 }}>
+          <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, transparent, ${C}4d)` }} />
+          <span style={{ fontFamily: FO, fontSize: 11, fontWeight: 700, letterSpacing: "4px", textTransform: "uppercase", color: C_BRIGHT }}>Past Supporting Partners</span>
+          <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, ${C}4d, transparent)` }} />
+        </motion.div>
+      </div>
+      <MarqueeRow logos={SUPPORTING_LOGOS} direction="left" light />
+    </section>
+  );
+}
+
 function PastSponsorsMarquee() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
-    <section ref={ref} style={{ position: "relative", zIndex: 1, padding: "clamp(42px,4.6vw,66px) 0", background: BG, overflow: "hidden" }}>
+    <section ref={ref} style={{ position: "relative", zIndex: 1, padding: "clamp(20px,2.2vw,30px) 0 clamp(42px,4.6vw,66px)", background: BG, overflow: "hidden" }}>
       <div style={{ position: "relative", maxWidth: 1320, margin: "0 auto 40px", padding: "0 clamp(24px,5vw,80px)", textAlign: "center" }}>
         <motion.div initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: EASE }} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 22 }}>
           <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, transparent, ${C}4d)` }} />
@@ -1035,11 +1060,12 @@ export default function OTUaePage() {
       <Hero />
       <StatPlates />
       <TheEvent />
+      <PastSupportingMarquee />
+      <PastSponsorsMarquee />
       <CpdCertified eventName="OT Security First UAE 2027" theme={C} registerHref="#register" />
       <WhyAbuDhabi />
       <TheMandate />
       <SpeakersComingSoon />
-      <PastSponsorsMarquee />
       <MarketDrivers />
       <KeyThemes />
       <WhoAttends />
@@ -1066,6 +1092,7 @@ export default function OTUaePage() {
         .uae-marquee-track.is-left { animation: uaeMarqueeLeft 35s linear infinite; }
         .uae-marquee-track.is-right { animation: uaeMarqueeRight 35s linear infinite; }
         .uae-marquee-item { flex-shrink: 0; height: 80px; width: 180px; margin-right: 40px; display: flex; align-items: center; justify-content: center; opacity: 0.55; }
+        .uae-marquee-item.is-light { height: 144px; width: 210px; margin-right: 10px; opacity: 0.9; }
         .uae-card { transition: border-color 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1); }
         .uae-card:hover { border-color: ${C}66 !important; transform: translateY(-2px); }
         .uae-industry:hover { border-color: ${C}8c !important; background: linear-gradient(135deg, ${C}4d 0%, ${C}1f 55%, ${C}33 100%) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 18px 40px -18px ${C} !important; transform: translateY(-3px); }
