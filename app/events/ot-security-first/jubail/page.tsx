@@ -1070,7 +1070,7 @@ function Hero() {
             <img
               loading="lazy"
               decoding="async"
-              src={`${S3_LOGOS}/maadaniyah.png`}
+              src={`${S3}/logos/Logos-02.png`}
               alt="Maadaniyah logo - Supporting Partner of OT Security First Jubail 2026"
               style={{ height: 82, width: "auto", opacity: 0.9, objectFit: "contain", display: "block" }}
             />
@@ -1084,17 +1084,14 @@ function Hero() {
             className="otsf-jb-partner-link"
             style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)" }}
           >
-            {/* CREST logo is a white-background JPG — seated on a white chip so it reads on the dark hero */}
-            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "7px 11px", borderRadius: 10, background: "#ffffff", boxShadow: "0 6px 18px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.6)" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                loading="lazy"
-                decoding="async"
-                src={`${S3_LOGOS}/37838_Crest+logo+Refresh_2022_CMYK_2_AW_col+(2).jpg`}
-                alt="CREST logo - Supporting Partner of OT Security First Jubail 2026"
-                style={{ height: 62, width: "auto", objectFit: "contain", display: "block" }}
-              />
-            </span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              loading="lazy"
+              decoding="async"
+              src={`${S3}/logos/Logos-03.png`}
+              alt="CREST logo - Supporting Partner of OT Security First Jubail 2026"
+              style={{ height: 82, width: "auto", opacity: 0.9, objectFit: "contain", display: "block" }}
+            />
           </a>
         </div>
       </motion.div>
