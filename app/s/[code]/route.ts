@@ -63,6 +63,9 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
 
   // OPEX First KSA 2026 — Riyadh (LinkedIn promotion)
   "opex-ksa-li": { path: "/events/opex-first/saudi-2026", source: "linkedin", medium: "social", campaign: "opex-ksa-2026", hash: "register" },
+
+  // EnterpriseDB Executive Roundtable — KSA — deep-link straight to the register form
+  "edbksa-afra": { path: "/enterprisedb-ksa", source: "afra", campaign: "enterprisedb-ksa", medium: "invite", hash: "register" },
 };
 
 export async function GET(
