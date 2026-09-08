@@ -194,21 +194,6 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Blackstone+eIT+Logo+Reversed+No+Slogan.png",
   },
   {
-    date: "September 7th, 2026",
-    month: "SEP",
-    day: "07",
-    year: "2026",
-    time: "10:00 – 13:00 AST",
-    title: "SonicWall Executive Roundtable",
-    subtitle: "Cyber Resilience in the Age of Real-Time Threats — Closing the Gap Between Attack Speed and Response",
-    sponsor: "SonicWall",
-    location: "Saudi Arabia",
-    link: "/sonicwall-7sept",
-    image: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/sonicwall_hero.png",
-    brandColor: "#FF6B35",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Sonicwall_Logo_RGB_Orange_Sonic+Dark.png",
-  },
-  {
     date: "September 15th, 2026",
     month: "SEP",
     day: "15",
@@ -365,6 +350,20 @@ type PastEvent = {
 };
 
 const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    sponsor: "SonicWall",
+    title: "SonicWall Executive Roundtable",
+    subtitle: "Cyber Resilience in the Age of Real-Time Threats — Closing the Gap Between Attack Speed and Response",
+    month: "SEP",
+    date: "7 Sep",
+    venue: "Saudi Arabia",
+    time: "10:00 – 13:00 AST",
+    image: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/sonicwall_hero.png",
+    brandColor: "#FF6B35",
+    brandGradient: "linear-gradient(135deg, #FF8A3D 0%, #FF6B35 38%, #7A2E12 72%, #06070F 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Sonicwall_Logo_RGB_Orange_Sonic+Dark.png",
+    link: "/sonicwall-7sept",
+  },
   {
     sponsor: "CleverTap",
     title: "The Inner Circle",
