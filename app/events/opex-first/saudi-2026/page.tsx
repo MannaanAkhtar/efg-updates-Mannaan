@@ -213,6 +213,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Naif N. Al Suliman", title: "Crisis and Disaster Center (CDC) Executive Director", org: "National Water Company (NWC)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naif+N.jpeg", linkedin: "https://www.linkedin.com/in/naif-n-al-suliman-54918b50/" },
   { name: "Ahmed Alaskar", title: "Sr. Director of Operational Excellence and Quality", org: "EXPRO", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+Alaskar.jpg", linkedin: "https://www.linkedin.com/in/ahmed-alaskar-077ba765/" },
   { name: "Mohammed N. Aljuhani", title: "Organizational Excellence Director", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+N.+Aljuhani.jpg", linkedin: "https://www.linkedin.com/in/maljuhani/" },
+  { name: "Eng. Maher Mousa", title: "Regional Director of Product Management & Compliance", org: "Johnson Controls Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng+Maher+Mousa.jpeg", linkedin: "https://www.linkedin.com/in/maher-mousa-mba-cmi-b8881818/" },
 ];
 
 type AgendaItem = {
