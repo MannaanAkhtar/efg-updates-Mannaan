@@ -53,6 +53,7 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
 
   // IFS Executive Roundtable — Jeddah (15 Sep 2026, Manufacturing)
   "ifs15-duaa": { path: "/ifs-15sept", source: "duaa", campaign: "ifs-15sept", hash: "access" },
+  "ifs15-linkedin": { path: "/ifs-15sept", source: "linkedin", medium: "social", campaign: "ifs-15sept", hash: "access" },
 
   // IFS Executive Roundtable — Jeddah (29 Sep 2026) — deep-link straight to the reserve/register form
   "ifs29-duaa": { path: "/ifs-29sept", source: "duaa", campaign: "ifs-29sept", hash: "reserve" },
