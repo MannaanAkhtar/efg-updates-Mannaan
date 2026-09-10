@@ -71,6 +71,13 @@ const SPEAKERS = [
     initials: "KM",
     linkedin: "https://www.linkedin.com/in/keerthie/",
   },
+  {
+    name: "Abderahim Lakehal",
+    role: "Principal AI Solution Architect, IFS",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abderahim+lakehal.jpeg" as string | null,
+    initials: "AL",
+    linkedin: "https://www.linkedin.com/in/abderahim-lakehal-78889233/",
+  },
 ];
 
 // ─── Event Overview copy ─────────────────────────────────────────────────────
@@ -1746,8 +1753,8 @@ function AboutSpeakersSection() {
 
         <div className="ifs-speakers-grid" style={{
           display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "clamp(18px, 2.4vw, 28px)",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: "clamp(14px, 1.8vw, 22px)",
         }}>
           {SPEAKERS.map((sp, i) => (
             <motion.div
@@ -1758,7 +1765,7 @@ function AboutSpeakersSection() {
               className="ifs-speaker-card"
               style={{
                 position: "relative",
-                padding: "clamp(26px, 3vw, 36px) clamp(22px, 2.5vw, 30px)",
+                padding: "clamp(24px, 2.6vw, 32px) clamp(16px, 1.8vw, 22px)",
                 borderRadius: 22,
                 background: `linear-gradient(165deg, ${IFS_BG_CARD} 0%, ${IFS_BG_INNER} 100%)`,
                 border: `1px solid ${IFS_BORDER}`,
@@ -1777,13 +1784,13 @@ function AboutSpeakersSection() {
                 opacity: 0.6,
               }} />
 
-              <SpeakerAvatar photo={sp.photo} initials={sp.initials} size={168} />
+              <SpeakerAvatar photo={sp.photo} initials={sp.initials} size={150} />
 
               <div style={{ minWidth: 0 }}>
                 <h3 style={{
                   margin: 0,
                   fontFamily: "var(--font-display)",
-                  fontSize: "clamp(19px, 1.9vw, 23px)",
+                  fontSize: "clamp(17px, 1.6vw, 20px)",
                   fontWeight: 800,
                   letterSpacing: "-0.02em",
                   color: IFS_WHITE,
@@ -1812,7 +1819,10 @@ function AboutSpeakersSection() {
       <style jsx global>{`
         .ifs-speaker-card { transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), border-color 0.35s ease; }
         .ifs-speaker-card:hover { transform: translateY(-4px); border-color: ${IFS_PURPLE_GLOW}77; }
-        @media (max-width: 820px) {
+        @media (max-width: 1080px) {
+          .ifs-speakers-grid { grid-template-columns: repeat(2, 1fr) !important; max-width: 720px; margin: 0 auto; }
+        }
+        @media (max-width: 620px) {
           .ifs-speakers-grid { grid-template-columns: 1fr !important; max-width: 420px; margin: 0 auto; }
         }
       `}</style>
