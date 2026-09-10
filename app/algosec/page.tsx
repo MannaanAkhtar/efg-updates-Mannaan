@@ -594,6 +594,8 @@ function AgendaIcon({ kind }: { kind: string }) {
 const SPEAKERS = [
   { name: "Nitin Rajput", title: "Director, Solution Engineering, APAC & Middle East", org: "AlgoSec", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nitin+Rajput.jpeg", linkedin: "https://www.linkedin.com/in/nitin-rajput-cissp-ccsp-cisa-36587352/" },
   { name: "Gurinder Singh", title: "Regional Pre-Sales Engineer, India & Middle East", org: "AlgoSec", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Gurinder+Singh.jpeg", linkedin: "https://www.linkedin.com/in/gurinder-sandhu-6a04a63b/" },
+  // Photo pending — the card falls back to initials until a portrait URL is set.
+  { name: "Mohammed Alattar", title: "IT Manager", org: "Equiti Group", photo: "", linkedin: "https://www.linkedin.com/in/mohammed-z-alattar/" },
 ];
 function Speakers() {
   const { ref, seen } = useReveal<HTMLDivElement>();
@@ -610,13 +612,19 @@ function Speakers() {
             AlgoSec&rsquo;s engineering leaders bring an application-centric perspective on securing connectivity across the hybrid enterprise.
           </p>
         </div>
-        <div className="ac-spk-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 300px))", justifyContent: "center", gap: "clamp(20px,2.4vw,30px)", marginTop: "clamp(40px,5vw,60px)" }}>
+        <div className="ac-spk-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 300px))", justifyContent: "center", gap: "clamp(20px,2.4vw,30px)", marginTop: "clamp(40px,5vw,60px)" }}>
           {SPEAKERS.map((s, i) => (
             <div key={s.name} className="ac-spk-card" style={{ position: "relative", overflow: "hidden", borderRadius: 20, background: `linear-gradient(162deg, ${UIBLUE} 0%, ${NAVY} 56%, ${UDB} 100%)`, border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 22px 48px rgba(10,18,34,0.24), inset 0 1px 0 rgba(255,255,255,0.12)", ...rise(seen, 0.1 + i * 0.1) }}>
               <span aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 4, zIndex: 3, background: `linear-gradient(90deg, ${SKY}, ${GREEN})` }} />
               <div style={{ position: "relative", aspectRatio: "1 / 1", overflow: "hidden", background: UDB }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="ac-spk-photo" src={s.photo} alt={s.name} loading="lazy" decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 18%" }} />
+                {s.photo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img className="ac-spk-photo" src={s.photo} alt={s.name} loading="lazy" decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 18%" }} />
+                ) : (
+                  <span aria-hidden style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: FONT, fontWeight: 800, fontSize: "clamp(44px,5vw,58px)", letterSpacing: "-0.02em", color: "rgba(255,255,255,0.9)", background: `linear-gradient(155deg, ${SKY}33 0%, ${NAVY} 55%, ${UDB} 100%)` }}>
+                    {s.name.split(" ").map((w) => w[0]).slice(0, 2).join("")}
+                  </span>
+                )}
                 <a href={s.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${s.name} on LinkedIn`} className="ac-spk-li" style={{ position: "absolute", top: 12, right: 12, zIndex: 2, display: "inline-flex", alignItems: "center", justifyContent: "center", width: 36, height: 36, borderRadius: 10, background: "rgba(11,27,58,0.55)", border: `1px solid ${SKY}66`, color: "#fff", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)", transition: "background 0.2s ease, transform 0.2s ease" }}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M4.98 3.5a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM3 8.5h4V21H3zM9 8.5h3.6v1.7h.05c.5-.9 1.7-1.85 3.5-1.85 3.75 0 4.45 2.35 4.45 5.4V21h-4v-5.4c0-1.3 0-2.95-1.8-2.95s-2.05 1.4-2.05 2.85V21H9z" /></svg>
                 </a>
@@ -636,6 +644,7 @@ function Speakers() {
         .ac-spk-card:hover { transform: translateY(-5px); border-color: ${SKY}66; box-shadow: 0 32px 66px rgba(10,18,34,0.34), inset 0 1px 0 rgba(255,255,255,0.14); }
         .ac-spk-card:hover .ac-spk-photo { transform: scale(1.04); }
         .ac-spk-li:hover { background: ${SKY} !important; transform: translateY(-1px); }
+        @media (max-width: 980px) { .ac-spk-grid { grid-template-columns: repeat(2, minmax(0, 300px)) !important; } }
         @media (max-width: 620px) { .ac-spk-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
         @media (max-width: 380px) { .ac-spk-grid { grid-template-columns: 1fr !important; } }
       `}</style>
