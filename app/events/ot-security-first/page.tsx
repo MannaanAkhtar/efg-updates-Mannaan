@@ -30,7 +30,7 @@ const EDITIONS_2026 = [
   { city: "Johannesburg", country: "South Africa", date: "27 August 2026", edition: "1st Edition · Africa", href: "/events/ot-security-first/johannesburg-2026", status: "open", venue: "Johannesburg", image: `${S3}/events/OT%20Security%20First%20UAE%202025/OT%20First%20UAE%20Photos/4N8A0412.JPG`, logo: "", lightImage: false },
   { city: "Jubail", country: "Saudi Arabia", date: "27 October 2026", edition: "1st Edition", href: "/events/ot-security-first/jubail", status: "open", venue: "Jubail Industrial City", image: `${S3}/assets/OT_Jubail.png`, logo: "", lightImage: true },
   { city: "Doha", country: "Qatar", date: "November 2026", edition: "5th Edition", href: "/events/ot-security-first/qatar", status: "open", venue: "Doha, Qatar", image: `${S3}/assets/OT_qatar.png`, logo: "", lightImage: true },
-  { city: "UAE", country: "United Arab Emirates", date: "TBC 2027", edition: "Flagship Edition", href: "/events/ot-security-first", status: "soon", venue: "Venue TBA", image: "", logo: "", lightImage: false },
+  { city: "UAE", country: "United Arab Emirates", date: "28 January 2027", edition: "Flagship Edition", href: "/events/ot-security-first", status: "soon", venue: "Venue TBA", image: "", logo: "", lightImage: false },
   { city: "Muscat", country: "Oman", date: "TBC 2026", edition: "1st Edition", href: "/events/ot-security-first/oman-2026", status: "soon", venue: "Venue TBA", image: "", logo: "", lightImage: false },
 ];
 const FUTURE_BADGES = [

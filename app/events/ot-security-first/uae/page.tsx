@@ -156,7 +156,7 @@ function Hero() {
 
         <div className="uae-hero-meta" style={{ display: "flex", flexWrap: "nowrap", alignItems: "center", gap: 28, marginTop: 44, paddingTop: 32, borderTop: "1px solid rgba(255,255,255,0.1)" }}>
           <div style={{ display: "flex", alignItems: "baseline", gap: 14, flexShrink: 0 }}>
-            <span style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(28px,3vw,40px)", letterSpacing: "-1.4px", color: "#fff", lineHeight: 1 }}>27 January 2027</span>
+            <span style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(28px,3vw,40px)", letterSpacing: "-1.4px", color: "#fff", lineHeight: 1 }}>28 January 2027</span>
             <span style={{ fontFamily: FO, fontSize: 12, fontWeight: 500, letterSpacing: "1.5px", textTransform: "uppercase", color: C }}>Abu Dhabi · UAE</span>
           </div>
           <div className="uae-hero-cta" style={{ display: "flex", gap: 12, marginLeft: "auto", flexShrink: 0 }}>
@@ -273,7 +273,7 @@ function TheEvent() {
   ];
   return (
     <section id="event" style={wrap}>
-      <SectionHead num="01" label="The Event" note="Abu Dhabi · 27.01.2027" />
+      <SectionHead num="01" label="The Event" note="Abu Dhabi · 28.01.2027" />
       <div style={{ marginBottom: "clamp(28px,3.4vw,48px)", maxWidth: 1120 }}>
         <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,60px)", letterSpacing: "-2.4px", lineHeight: 1.0, margin: 0, textWrap: "balance", color: "#fff" }}>
           OT is the backbone of the{" "}
@@ -728,7 +728,7 @@ function SpeakersComingSoon() {
             The 2027 speaker faculty<span style={{ display: "block", color: "rgba(255,255,255,0.28)" }}>is being assembled.</span>
           </h2>
           <p style={{ fontFamily: FO, fontSize: "clamp(14px,1.1vw,16px)", lineHeight: 1.65, color: "rgba(255,255,255,0.7)", margin: "0 auto 30px", maxWidth: 620 }}>
-            Regulators, CISOs, OT leaders and plant executives from across the UAE&rsquo;s critical infrastructure. Announcements roll out ahead of 27 January 2027.
+            Regulators, CISOs, OT leaders and plant executives from across the UAE&rsquo;s critical infrastructure. Announcements roll out ahead of 28 January 2027.
           </p>
           <a href="#register" className="uae-cta-solid" style={{ display: "inline-flex", alignItems: "center", gap: 9, fontFamily: FO, fontSize: 14, fontWeight: 600, padding: "15px 30px", borderRadius: 9999, background: C, color: INK }}>Register to be notified →</a>
         </motion.div>

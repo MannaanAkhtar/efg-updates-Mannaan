@@ -488,8 +488,8 @@ const allEvents = [
     image:
       "https://efg-final.s3.eu-north-1.amazonaws.com/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0412.JPG",
     href: "/events/ot-security-first/uae",
-    date: "2027-01-27",
-    nextDate: "Jan 27, 2027",
+    date: "2027-01-28",
+    nextDate: "Jan 28, 2027",
     nextCity: "Abu Dhabi",
     editions: "",
     regions: "UAE",

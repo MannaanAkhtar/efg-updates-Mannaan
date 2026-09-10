@@ -5,17 +5,17 @@ import { EventFactBlock } from "@/components/seo/FactBlock";
 const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/ot-security-first/uae`;
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT+UAE.png";
-const OG_IMAGE_ALT = "OT Security First UAE 2027 — Industrial cybersecurity summit, 27 January 2027, Abu Dhabi, UAE";
+const OG_IMAGE_ALT = "OT Security First UAE 2027 — Industrial cybersecurity summit, 28 January 2027, Abu Dhabi, UAE";
 
-const EVENT_START = "2027-01-27T08:30:00+04:00";
-const EVENT_END = "2027-01-27T17:30:00+04:00";
+const EVENT_START = "2027-01-28T08:30:00+04:00";
+const EVENT_END = "2027-01-28T17:30:00+04:00";
 
 const RICH_DESCRIPTION =
-  "OT Security First UAE 2027 — the UAE's flagship industrial cybersecurity summit. Framed by the national CIIP framework, convening CISOs, regulators, OT leaders and critical infrastructure operators. 27 January 2027, Abu Dhabi, UAE.";
+  "OT Security First UAE 2027 — the UAE's flagship industrial cybersecurity summit. Framed by the national CIIP framework, convening CISOs, regulators, OT leaders and critical infrastructure operators. 28 January 2027, Abu Dhabi, UAE.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-  title: "OT Security First UAE 2027 | Industrial Cybersecurity Summit — 27 Jan",
+  title: "OT Security First UAE 2027 | Industrial Cybersecurity Summit — 28 Jan",
   description: RICH_DESCRIPTION,
   keywords: [
     "OT Security First UAE 2027",
@@ -149,7 +149,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <EventFactBlock
         eventName="OT Security First UAE 2027"
         series="OT Security First"
-        date="27 January 2027"
+        date="28 January 2027"
         city="Abu Dhabi"
         country="United Arab Emirates"
         format="in-person"

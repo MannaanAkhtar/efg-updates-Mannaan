@@ -201,7 +201,7 @@ const EVENT_CONFIGS: Record<string, {
     shortName: "OT Security UAE",
     color: "#D34B9A",
     colorBright: "#E872B5",
-    date: "27 January 2027",
+    date: "28 January 2027",
     location: "Abu Dhabi, UAE",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/efg_logo/OT+Security+UAE-01.png",
     logoHeight: 96,
