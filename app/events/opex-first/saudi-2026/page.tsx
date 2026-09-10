@@ -204,7 +204,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Eng. Abdulrazzag Al Aujan", title: "H.E. MoF Advisor", org: "Ministry of Finance", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Eng+AbdulRazzag+Al+Aujan.png" },
   { name: "Salem J. Sahary", title: "Senior Operational Excellence Expert", org: "SIPCHEM", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Salem+J.+Sahary.jpg" },
   { name: "Yasmin Bin Mobki", title: "General Manager of Privatization and PMO", org: "Ministry of Human Resources and Social Development", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Yasmin+Bin+Mobki.png" },
-  { name: "Mohammed Al Amri", title: "GM Operational Excellence", org: "Roads General Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al+Amri.jpg" },
+  { name: "Mohammed Al Amri", title: "GM Operational Excellence", org: "Roads General Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al+Amri.jpg", linkedin: "https://www.linkedin.com/in/mohammed-alamri-95a19844/" },
   { name: "Mohammed Al Ghamdi", title: "VP Manufacturing", org: "NAMA Chemicals", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al+Ghamdi.jpeg" },
   { name: "Faisal Al-Zahrani", title: "EHSS General Manager", org: "S-Chem", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Faisal+Al-Zahrani.png" },
   { name: "Ahmed Alawami", title: "Head of Data and AI", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+T+Alawami.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/" },
