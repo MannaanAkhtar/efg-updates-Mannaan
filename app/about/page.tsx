@@ -70,16 +70,16 @@ const teamMembers: Member[] = [
   // Leadership
   { name: "Yasir", role: "Chief Growth Partner", initials: "Y", photo: `${S3}/yasir.jpeg?v=2` },
   { name: "Shyam", role: "Chief Growth Partner", initials: "S", photo: `${S3}/shyam.jpg?v=3` },
-  { name: "Ateeq", role: "Marketing Head", initials: "A", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/ateeq.png" },
+  { name: "Ateeq", role: "Head of Marketing and Tech", initials: "A", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/ateeq.png" },
   // Producer
   { name: "Anna Firdouse Shah", role: "Senior Producer", initials: "AF", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/anna+shah.jpeg", photoTransform: "scale(1.35) translateX(-20%)" },
   { name: "Sanjana Venugopal", role: "Senior Producer", initials: "SV", photo: `${S3}/Sanjana-Venugopal-new.jpg` },
   { name: "Harini", role: "Senior Producer", initials: "H", photo: `${S3}/Harini.jpg` },
   // Partnership
-  { name: "Sanskar Sharma", role: "Senior Partnership Manager", initials: "SS", photo: `${S3}/Sanskar+Sharma.jpg`, photoFit: "contain", photoScale: 1.39 },
   { name: "Mohammed Hassan", role: "Partnership Manager", initials: "MH", photo: `${S3}/hassan.jpg`, photoPos: "top" },
   { name: "Mohammed Danish", role: "Partnership Manager", initials: "MD", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/danish.png" },
   { name: "Mayur Methi", role: "Partnership Manager", initials: "MM", photo: `${S3}/Mayur-Methi.png` },
+  { name: "Sanskar Sharma", role: "Partnership Manager", initials: "SS", photo: `${S3}/Sanskar+Sharma.jpg`, photoFit: "contain", photoScale: 1.39 },
   { name: "Rajan", role: "Partnership Manager", initials: "R", photo: "/team/rajan.jpg" },
   // Delegate Acquisition
   { name: "Mary", role: "Events Acquisition Manager", initials: "M", photo: `${S3}/Mary.jpg` },
@@ -93,12 +93,12 @@ const teamMembers: Member[] = [
   // Lead Generation
   { name: "Dhana", role: "Lead Gen Expert", initials: "D", photo: `${S3}/Dhana+.jpeg` },
   // Operations
-  { name: "Mini", role: "Operations", initials: "M", photo: `${S3}/Mini.jpg` },
+  { name: "Mini", role: "Operations Manager", initials: "M", photo: `${S3}/Mini.jpg` },
   // Marketing & Tech
-  { name: "Syed Asad", role: "Marketing & Design", initials: "SA", photo: `${S3}/Syed-Asad.jpg` },
-  { name: "Ashfa Anjum", role: "Video & Graphic Designer", initials: "AA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/AshIsTuf+1.png" },
+  { name: "Syed Asad", role: "Senior Graphic Designer", initials: "SA", photo: `${S3}/Syed-Asad.jpg` },
+  { name: "Ashfa Anjum", role: "Video Editor", initials: "AA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/AshIsTuf+1.png" },
   { name: "Samia", role: "Graphic Designer", initials: "S", photo: `${S3}/samia+.jpeg`, photoFit: "contain", photoScale: 1.46 },
-  { name: "Mannan Akhtar", role: "Marketing & Tech", initials: "MA", photo: `${S3}/Mannan-Akhtar.jpg?v=2` },
+  { name: "Mannan Akhtar", role: "Project Manager", initials: "MA", photo: `${S3}/Mannan-Akhtar.jpg?v=2` },
 ];
 
 // Candid group photos for the "Life at EFG" background marquee (compressed set:
