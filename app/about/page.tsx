@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { Footer } from "@/components/sections";
 import SectionTransition from "@/components/effects/SectionTransition";
@@ -59,7 +60,10 @@ const values = [
   },
 ];
 
-type Member = { name: string; role: string; initials: string; photo?: string; isFounder?: boolean; photoPos?: string; photoScale?: number; photoTransform?: string };
+// Most team portraits are square, so the default `cover` fits them exactly.
+// Tall portrait shots get `photoFit: "contain"` + a photoScale under the
+// cover-equivalent (1 / aspect-ratio) so less of the frame is cropped away.
+type Member = { name: string; role: string; initials: string; photo?: string; isFounder?: boolean; photoPos?: string; photoScale?: number; photoTransform?: string; photoFit?: "cover" | "contain" };
 
 // All team members including founders
 const teamMembers: Member[] = [
@@ -69,32 +73,67 @@ const teamMembers: Member[] = [
   { name: "Ateeq", role: "Marketing Head", initials: "A", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/ateeq.png" },
   // Producer
   { name: "Anna Firdouse Shah", role: "Senior Producer", initials: "AF", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/anna+shah.jpeg", photoTransform: "scale(1.35) translateX(-20%)" },
-  { name: "Sanjana Venugopal", role: "Producer", initials: "SV", photo: `${S3}/Sanjana-Venugopal-new.jpg` },
-  { name: "Harini", role: "Producer", initials: "H", photo: `${S3}/Harini.jpg` },
+  { name: "Sanjana Venugopal", role: "Senior Producer", initials: "SV", photo: `${S3}/Sanjana-Venugopal-new.jpg` },
+  { name: "Harini", role: "Senior Producer", initials: "H", photo: `${S3}/Harini.jpg` },
   // Partnership
+  { name: "Sanskar Sharma", role: "Senior Partnership Manager", initials: "SS", photo: `${S3}/Sanskar+Sharma.jpg`, photoFit: "contain", photoScale: 1.39 },
   { name: "Mohammed Hassan", role: "Partnership Manager", initials: "MH", photo: `${S3}/hassan.jpg`, photoPos: "top" },
   { name: "Mohammed Danish", role: "Partnership Manager", initials: "MD", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/danish.png" },
   { name: "Mayur Methi", role: "Partnership Manager", initials: "MM", photo: `${S3}/Mayur-Methi.png` },
+  { name: "Rajan", role: "Partnership Manager", initials: "R", photo: "/team/rajan.jpg" },
   // Delegate Acquisition
   { name: "Mary", role: "Events Acquisition Manager", initials: "M", photo: `${S3}/Mary.jpg` },
-  { name: "Rajan", role: "Delegate Acquisition", initials: "R", photo: "/team/rajan.jpg" },
-  { name: "Afra Sait", role: "Delegate Acquisition", initials: "AS", photo: `${S3}/Afra-Sait.jpeg` },
-  { name: "Mriggashi Mohini", role: "Delegate Acquisition", initials: "MM", photo: `${S3}/Mriggashi-Mohini.jpeg?v=2` },
-  { name: "Stephen D'Souza", role: "Delegate Acquisition", initials: "SD", photo: `${S3}/stephen.jpg`, photoPos: "top" },
-  { name: "Nadim Pirani", role: "Delegate Acquisition", initials: "NP", photo: `${S3}/Nadim-Pirani.jpg?v=2` },
+  { name: "Afra Sait", role: "Events Acquisition Manager", initials: "AS", photo: `${S3}/Afra-Sait.jpeg` },
+  { name: "Mriggashi Mohini", role: "Events Acquisition Manager", initials: "MM", photo: `${S3}/Mriggashi-Mohini.jpeg?v=2` },
+  { name: "Stephen D'Souza", role: "Events Acquisition Manager", initials: "SD", photo: `${S3}/stephen.jpg`, photoPos: "top" },
+  { name: "Nadim Pirani", role: "Events Acquisition Manager", initials: "NP", photo: `${S3}/Nadim-Pirani.jpg?v=2` },
+  { name: "Duaa", role: "Events Acquisition Manager", initials: "D", photo: `${S3}/duaa.PNG`, photoFit: "contain", photoScale: 1.22 },
+  { name: "Sangeetha", role: "Events Acquisition Manager", initials: "S", photo: `${S3}/Sangeetha.jpeg`, photoTransform: "scale(1.25) translateY(12%)" },
+  { name: "Palak Luthra", role: "Events Acquisition Manager", initials: "PL", photo: `${S3}/palak1.jpeg`, photoFit: "contain", photoTransform: "scale(1.26) translateY(6%)" },
+  // Lead Generation
+  { name: "Dhana", role: "Lead Gen Expert", initials: "D", photo: `${S3}/Dhana+.jpeg` },
   // Operations
   { name: "Mini", role: "Operations", initials: "M", photo: `${S3}/Mini.jpg` },
   // Marketing & Tech
   { name: "Syed Asad", role: "Marketing & Design", initials: "SA", photo: `${S3}/Syed-Asad.jpg` },
   { name: "Ashfa Anjum", role: "Video & Graphic Designer", initials: "AA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/AshIsTuf+1.png" },
+  { name: "Samia", role: "Graphic Designer", initials: "S", photo: `${S3}/samia+.jpeg`, photoFit: "contain", photoScale: 1.46 },
   { name: "Mannan Akhtar", role: "Marketing & Tech", initials: "MA", photo: `${S3}/Mannan-Akhtar.jpg?v=2` },
 ];
 
-// Fun team photos (candid shots)
-const funPhotos = [
-  `${S3}/team-fun-1.jpg`,
-  `${S3}/team-fun-2.jpg`,
-  `${S3}/team-fun-3.jpg`,
+// Candid group photos for the "Life at EFG" background marquee (compressed set:
+// ~0.3MB each vs the 11.7MB camera originals, which were too heavy to load).
+// The set is mixed orientation, so intrinsic w/h is tracked per photo and each
+// tile is sized from its own ratio — a fixed 3:2 tile would gut the portraits.
+type GroupPhoto = { src: string; w: number; h: number };
+const GROUP = `${S3}/Group`;
+const L = { w: 2000, h: 1333 };
+const P = { w: 1333, h: 2000 };
+const groupPhotos: GroupPhoto[] = [
+  { src: `${GROUP}/DSC03366.jpg`, ...L },
+  { src: `${GROUP}/DSC03286.jpg`, ...L },
+  { src: `${GROUP}/DSC03278.jpg`, ...L },
+  { src: `${GROUP}/DSC03225.jpg`, ...P },
+  { src: `${GROUP}/DSC03211.jpg`, ...P },
+  { src: `${GROUP}/DSC02640.jpg`, ...L },
+  { src: `${GROUP}/DSC02666.jpg`, ...P },
+  { src: `${GROUP}/DSC02689.jpg`, ...P },
+  { src: `${GROUP}/DSC02726.jpg`, ...P },
+  { src: `${GROUP}/DSC02736.jpg`, ...P },
+  { src: `${GROUP}/DSC02794.jpg`, ...P },
+  { src: `${GROUP}/DSC02811.jpg`, ...P },
+  { src: `${GROUP}/DSC03044.jpg`, ...P },
+  { src: `${GROUP}/DSC03046.jpg`, ...L },
+  { src: `${GROUP}/DSC03048.jpg`, ...P },
+  { src: `${GROUP}/DSC03049.jpg`, ...P },
+  { src: `${GROUP}/DSC03050.jpg`, ...P },
+  { src: `${GROUP}/DSC03065.jpg`, ...L },
+];
+
+// Round-robin split so each row gets a mix of orientations rather than one block each.
+const groupRows: GroupPhoto[][] = [
+  groupPhotos.filter((_, i) => i % 2 === 0),
+  groupPhotos.filter((_, i) => i % 2 === 1),
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -724,7 +763,7 @@ function TeamMember({ member, index, isInView }: { member: Member; index: number
             style={{
               width: "100%",
               height: "100%",
-              objectFit: "cover",
+              objectFit: member.photoFit || "cover",
               objectPosition: member.photoPos || "center",
               transform: member.photoTransform || (member.photoScale ? `scale(${member.photoScale})` : undefined),
               filter: "grayscale(100%)",
@@ -877,6 +916,31 @@ function AboutTeam() {
 // SECTION 6, FUN CULTURE SECTION
 // ─────────────────────────────────────────────────────────────────────────────
 
+// One seamless marquee row. The photo list is duplicated and the track travels
+// -50%, so the loop repeats without a visible seam. Alternate `reverse` per row.
+function FunMarqueeRow({ photos, reverse, dur }: { photos: GroupPhoto[]; reverse?: boolean; dur: string }) {
+  return (
+    <div className="efg-fun-mqrow">
+      <div
+        className={reverse ? "efg-fun-mqtrack efg-fun-mqtrack-rev" : "efg-fun-mqtrack"}
+        style={{ "--fun-dur": dur } as React.CSSProperties}
+      >
+        {[...photos, ...photos].map((p, i) => (
+          <div key={p.src + i} className="efg-fun-tile">
+            <Image
+              src={p.src}
+              alt=""
+              width={p.w}
+              height={p.h}
+              sizes="(max-width: 700px) 260px, 360px"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function FunCulture() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
@@ -885,17 +949,77 @@ function FunCulture() {
     <section
       ref={ref}
       style={{
+        position: "relative",
+        overflow: "hidden",
         background: "linear-gradient(180deg, var(--black) 0%, var(--black-light) 100%)",
-        padding: "clamp(60px, 8vw, 100px) 0",
+        padding: "clamp(90px, 11vw, 150px) 0",
+        display: "flex",
+        alignItems: "center",
       }}
     >
-      <div style={{ maxWidth: MAX_W, margin: "0 auto", padding: PAD }}>
+      {/* Photo wall sits behind the copy — two counter-scrolling rows */}
+      {groupPhotos.length > 0 && (
+        <>
+          <motion.div
+            aria-hidden
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 1, delay: 0.15, ease: EASE }}
+            style={{
+              position: "absolute",
+              inset: 0,
+              zIndex: 0,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              gap: "clamp(10px, 1.2vw, 16px)",
+            }}
+          >
+            {groupRows.map((row, ri) => (
+              <FunMarqueeRow
+                key={ri}
+                photos={row}
+                reverse={ri % 2 === 1}
+                dur={`${Math.max(48, row.length * 9)}s`}
+              />
+            ))}
+          </motion.div>
+
+          {/* Scrim — keeps the headline legible over the photos */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              inset: 0,
+              zIndex: 1,
+              pointerEvents: "none",
+              background:
+                "radial-gradient(ellipse 55% 50% at 50% 50%, rgba(0,0,0,0.74) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.16) 100%), linear-gradient(180deg, var(--black) 0%, rgba(0,0,0,0.12) 20%, rgba(0,0,0,0.12) 80%, var(--black-light) 100%)",
+            }}
+          />
+        </>
+      )}
+
+      <div style={{ position: "relative", zIndex: 2, width: "100%", maxWidth: MAX_W, margin: "0 auto", padding: PAD }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: EASE }}
-          style={{ textAlign: "center", marginBottom: 40 }}
+          style={{ textAlign: "center", position: "relative" }}
         >
+          {/* Localised scrim hugging the copy — feathers out so the surrounding
+              photos stay bright while the text keeps its contrast. */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              inset: "-42% -10%",
+              pointerEvents: "none",
+              background:
+                "radial-gradient(ellipse at center, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.6) 52%, rgba(0,0,0,0) 74%)",
+            }}
+          />
+          <div style={{ position: "relative" }}>
           <SectionLabel text="Life at EFG" centered />
           <h2
             style={{
@@ -924,10 +1048,44 @@ function FunCulture() {
             enjoy being together. From team dinners to spontaneous celebrations, we make sure 
             to have as much fun as we deliver results.
           </p>
+          </div>
         </motion.div>
-
-        {/* Fun emoji/vibe row */}
       </div>
+
+      <style jsx global>{`
+        .efg-fun-mqrow {
+          overflow: hidden;
+          -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
+        }
+        .efg-fun-mqtrack {
+          display: flex;
+          gap: clamp(10px, 1.2vw, 16px);
+          width: max-content;
+          animation: efg-fun-mq var(--fun-dur, 60s) linear infinite;
+        }
+        .efg-fun-mqtrack-rev { animation-direction: reverse; }
+        .efg-fun-mqrow:hover .efg-fun-mqtrack { animation-play-state: paused; }
+        /* Fixed height, natural width — landscape tiles run wide and portrait
+           tiles run narrow, so mixed-orientation shots are never cropped. */
+        .efg-fun-tile {
+          flex: 0 0 auto;
+          height: clamp(150px, 17vw, 230px);
+          border-radius: 14px;
+          overflow: hidden;
+          background: rgba(255, 255, 255, 0.03);
+        }
+        .efg-fun-tile img {
+          display: block;
+          height: 100%;
+          width: auto;
+        }
+        @keyframes efg-fun-mq {
+          from { transform: translate3d(0, 0, 0); }
+          to { transform: translate3d(-50%, 0, 0); }
+        }
+        @media (prefers-reduced-motion: reduce) { .efg-fun-mqtrack { animation: none; } }
+      `}</style>
     </section>
   );
 }
