@@ -230,12 +230,12 @@ const AGENDA: AgendaItem[] = [
   {
     time: "09:20 – 09:30",
     type: "Welcome Address",
-    title: "The Execution Decade - From Transformation Strategy to Measurable Performance",
+    title: "The Execution Decade: What It Takes to Institutionalize AI Across Government and Enterprise",
   },
   {
     time: "09:30 – 10:00",
     type: "Leadership Panel",
-    title: "The Governance Gap - Turning Vision 2030 Mandates into Measurable Execution",
+    title: "The Governance Gap - Turning Vision 2030 Mandates into Measurable Institutional Performance",
     bullets: [
       "Why transformation complete and operationally excellent are not the same milestone",
       "Building executive dashboards that survive board level scrutiny, not just internal reporting",
@@ -258,7 +258,7 @@ const AGENDA: AgendaItem[] = [
   {
     time: "11:10 – 11:45",
     type: "Panel Discussion",
-    title: "Governed AI at Scale - From National Mandate to Enterprise Reality",
+    title: "Beyond the Pilot Wall - Scaling Agentic AI & Governed Automation Across Operations",
     bullets: [
       "The pilot-to-production wall - why most enterprise AI initiatives stall before scale",
       "Compliance integrated AI governance - building guardrails without slowing innovation",
@@ -281,13 +281,14 @@ const AGENDA: AgendaItem[] = [
   {
     time: "12:45 – 13:20",
     type: "Panel Discussion",
-    title: "Seeing the Enterprise Clearly - Process Intelligence and Real Time Control Towers",
+    title: "From Hindsight to Foresight - Process Mining, Control Towers & the Self-Optimising Enterprise",
     bullets: [
-      "Why enterprises are hitting a ceiling with siloed RPA",
-      "Process mining as a prerequisite, not an afterthought, before scaling automation investment",
-      "Building a real time control tower - what data, governance, and org structure it actually requires",
-      "Digital twins and predictive optimization moving from industrial use cases into mainstream operations",
-      "Cross-functional workflow orchestration",
+      "The RPA ceiling: why enterprises hit diminishing returns with siloed bots",
+      "The convergence: process mining, process management and orchestration merging",
+      "Building a real control tower: beyond dashboards",
+      "Predictive process analytics and digital twins",
+      "Value realisation tracking: closing the loop from insight to action",
+      "Process intelligence for the public sector",
     ],
   },
   {
@@ -298,13 +299,14 @@ const AGENDA: AgendaItem[] = [
   {
     time: "13:35 – 14:15",
     type: "Panel Discussion",
-    title: "Building for Compliance by Design - Architecture, Regulation, and Digital Harmonization",
+    title: "Compliance by Design - Regulatory Digitisation, Enterprise Architecture & Cyber-Resilient Operations",
     bullets: [
-      "Enterprise architecture as an execution backbone aligning technical architecture to Vision 2030 KPIs",
-      "Keeping pace with accelerating mandates - e-invoicing, data governance",
-      "Compliance by design automation vs. bolt on compliance",
-      "API ecosystems and integration discipline as a harmonization tool",
-      "Security by design as a competitive differentiator, not a checkbox",
+      "Keeping pace with the mandate wave: e-invoicing, PDPL, data residency and NCA controls",
+      "Embedding regulatory logic into workflows, automation and agent guardrails",
+      "Enterprise architecture as execution backbone",
+      "Sovereignty and the cloud questioning",
+      "Security by design as differentiator: cyber-resilient operational models",
+      "Digital maturity scoring: DGA maturity assessments and audit-ready digital evidence",
     ],
   },
   { time: "14:15 – 14:30", type: "Ceremony", title: "OPEX First Award Ceremony & Raffle Draw" },
