@@ -51,12 +51,9 @@ type Speaker = {
   photoPos?: string;
   photoTransform?: string;
   initials?: string;
-  // Advisors sit in this same merged list but keep their own gold card design.
-  isAdvisor?: boolean;
 };
 
 const SPEAKERS: Speaker[] = [
-  { name: "Ahmed Al-Barrak", title: "Head of OT Cyber Solutions & Services Group | Digital Transformation", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/magnific_make-the-backdrop-a-neutr_4RiXtKx9Aa.png", photoPos: "center 32%", photoTransform: "scale(1.18)", linkedin: "https://www.linkedin.com/in/ahmed-al-barrak-msc-b2122b60/", isAdvisor: true },
   { name: "Dr. Mohammad Dahman Alshehri", title: "Senior Advisor and CISO", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Mohammad+Dahman+Alshehri.jpeg", linkedin: "https://www.linkedin.com/in/mohammad-alshehri-phd/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Ahmed Al Saleh", title: "Head of Digital & OT Cybersecurity Initiatives", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed_Al_Saleh.png", linkedin: "https://www.linkedin.com/in/ahmed-al-saleh/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Ahmed T Alawami", title: "Head of AI & Digital Transformation (Energy & Utilities)", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+T+Alawami.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/", flag: "https://flagcdn.com/w40/sa.png", photoTransform: "scale(1.45) translateY(8%)" },
@@ -68,18 +65,16 @@ const SPEAKERS: Speaker[] = [
   { name: "Ali Alrushaid", title: "Chief Information Security Officer", org: "ASMO", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ALI_ALRUSHAID.png", linkedin: "https://www.linkedin.com/in/ali-alrushaid-66377114/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Badar Al Salehi", title: "Director General, Oman National CERT", org: "Ministry of Transport, Communications and Information Technology", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Badar+Al+Salehi.png", linkedin: "https://www.linkedin.com/in/badar-al-salehi-75461061/", flag: "https://flagcdn.com/w40/om.png", photoPos: "center 42%" },
   { name: "Ali Abdulla Hasan Alsadadi", title: "Chief of Information Technology", org: "Ministry of Oil & Environment Bahrain", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Ali+Abdulla+Hasan+Alsadadi.png", linkedin: "https://www.linkedin.com/in/ali-abdulla-hasan-alsadadi-a4210825/", flag: "https://flagcdn.com/w40/bh.png" },
-  { name: "Dr. Hussain Aldawood", title: "Director of Cybersecurity Consulting", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Hussain_Aldawood.png", flag: "https://flagcdn.com/w40/gb-eng.png", isAdvisor: true },
   { name: "Sultan Moraished", title: "Group Head of Technology and Corporate Excellence", org: "Red Sea Global", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Moraished.png", linkedin: "https://www.linkedin.com/in/sultan-moraished-0786394a/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Sultan Alshammari", title: "Cyber Security Director", org: "National Infrastructure Fund (Infra)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sultan_Alshammari.png", linkedin: "https://www.linkedin.com/in/sultan-alshammari-a2378994/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Alaa Khalid", title: "Director, Cybersecurity Operations & GRC", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Alaa_Khalid_.png", linkedin: "https://www.linkedin.com/in/alaa-khalid-870743121/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Mohammed Alangari", title: "CISO & VP of GRC", org: "Saudi Tourism Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Mohammed+Alangari.jpeg", linkedin: "https://www.linkedin.com/in/mohammed-aalangari/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Eng. Huda Ahmed Mohsen", title: "Chief Of Information Technology", org: "Ministry Of Information Bahrain", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng.Huda+Ahmed+Mohsen1.png", linkedin: "https://www.linkedin.com/in/eng-huda-ahmed-mohsen-a5b15557/", flag: "https://flagcdn.com/w40/bh.png" },
-  { name: "Redha Alahmad", title: "Senior Manager, Cybersecurity (OT/ICS)", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Redha_Alahmad..png", flag: "https://flagcdn.com/w40/gb-eng.png", isAdvisor: true },
   { name: "Javed A. Akbar", title: "Chief Governance, Risk (GRC), Insurance & Data Officer", org: "TASNEE", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Javed_A.+Akbar.png", linkedin: "https://www.linkedin.com/in/javedakbar/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Wael A. Rahman", title: "Lead ICS/OT Security Engineer", org: "Petroleum Development Oman", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/WAEL+A.+RAHMAN.png", linkedin: "https://www.linkedin.com/in/wael-a-rahman/", flag: "https://flagcdn.com/w40/om.png" },
-  { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png", flag: "https://flagcdn.com/w40/gb-eng.png", isAdvisor: true },
   { name: "Thamer Alrowidhan", title: "Chief Information Security Officer (CISO)", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Thamer_alrowidhan.png", linkedin: "https://www.linkedin.com/in/ethamer", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Aamir Khalid Pirzada", title: "Chief Information Officer", org: "National Metal Manufacturing and Casting Company (Maadaniyah)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aamir+Khalid+Pirzada.jpg", linkedin: "https://www.linkedin.com/in/aamir-khalid-p-360a974/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png", flag: "https://flagcdn.com/w40/gb-eng.png" },
   { name: "Tahir Saleem", title: "Chief Innovation Officer", org: "SIS Industrial Cyber Security", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tahir+Saleem.png", linkedin: "https://www.linkedin.com/in/tahirsaleem/", flag: "https://flagcdn.com/w40/au.png" },
   { name: "Mohammed Shoukat Ali", title: "GM & Head Global Cybersecurity CoE", org: "Yokogawa", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Shoukat+Ali.png", linkedin: "https://www.linkedin.com/in/mohammedshoukatali/", flag: "https://flagcdn.com/w40/jp.png" },
   { name: "Ammad Baig", title: "VP of Digital Solutions and OT Cybersecurity", org: "INTECH Automation and Intelligence", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ammad+Baig.png", linkedin: "https://www.linkedin.com/in/ammad-baig-86914053/", flag: "https://flagcdn.com/w40/sa.png" },
@@ -90,12 +85,12 @@ const SPEAKERS: Speaker[] = [
 ];
 
 // ─── Advisors ─────────────────────────────────────────────────────────────────
-// Advisors are merged into SPEAKERS above (flagged `isAdvisor`) and render inside
-// the same grid, keeping their own gold card design. This map preserves their
-// 01–0n numeral independent of where each one sits in the merged order.
-const ADVISOR_NUMERAL = new Map<string, string>(
-  SPEAKERS.filter((s) => s.isAdvisor).map((s, i) => [s.name, String(i + 1).padStart(2, "0")]),
-);
+const ADVISORS: Speaker[] = [
+  { name: "Ahmed Al-Barrak", title: "Head of OT Cyber Solutions & Services Group | Digital Transformation", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/magnific_make-the-backdrop-a-neutr_4RiXtKx9Aa.png", photoPos: "center 32%", photoTransform: "scale(1.18)", linkedin: "https://www.linkedin.com/in/ahmed-al-barrak-msc-b2122b60/" },
+  { name: "Dr. Hussain Aldawood", title: "Director of Cybersecurity Consulting", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Hussain_Aldawood.png", flag: "https://flagcdn.com/w40/gb-eng.png" },
+  { name: "Redha Alahmad", title: "Senior Manager, Cybersecurity (OT/ICS)", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Redha_Alahmad..png", flag: "https://flagcdn.com/w40/gb-eng.png" },
+  { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png", flag: "https://flagcdn.com/w40/gb-eng.png" },
+];
 
 // ─── Awards ─────────────────────────────────────────────────────────────────
 const AWARDS_DATA = [
@@ -3996,157 +3991,6 @@ function BgDots({ opacity = 0.06 }: { opacity?: number }) {
   );
 }
 
-// Advisor card — same gold treatment as before, now rendered inside the merged
-// speakers grid so advisors stay visually distinct from the speakers around them.
-function AdvisorCard({ s, inView, delay }: { s: Speaker; inView: boolean; delay: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 22 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.75, delay, ease: EASE }}
-      className="otsf-jb-advisor-card"
-      style={{
-        position: "relative",
-        borderRadius: 20,
-        background:
-          "linear-gradient(160deg, rgba(232,197,106,0.09) 0%, rgba(255,255,255,0.012) 60%, rgba(232,197,106,0.04) 100%)",
-        border: "1px solid rgba(232,197,106,0.28)",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), 0 22px 50px rgba(0,0,0,0.35)",
-        overflow: "hidden",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      {/* Gold top hairline */}
-      <span aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, zIndex: 3, background: "linear-gradient(90deg, transparent, rgba(232,197,106,0.85), transparent)" }} />
-
-      {/* Portrait area — full-bleed, gold-led gradient */}
-      <div
-        style={{
-          position: "relative",
-          aspectRatio: "4 / 5",
-          background: "linear-gradient(160deg, rgba(232,197,106,0.24) 0%, rgba(211,75,154,0.05) 50%, rgba(7,12,32,0.92) 100%)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          overflow: "hidden",
-        }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={s.photo || ""}
-          alt={`${s.name}, ${s.title}${s.org ? ` at ${s.org}` : ""} - advisor to OT Security First Jubail 2026 industrial cybersecurity summit, Saudi Arabia`}
-          loading="lazy"
-          decoding="async"
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: s.photoPos || "center top",
-            transform: s.photoTransform || undefined,
-          }}
-        />
-        {/* Gold sheen overlay */}
-        <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(155deg, rgba(232,197,106,0.22) 0%, rgba(232,197,106,0.04) 34%, transparent 55%)",
-            mixBlendMode: "overlay",
-            pointerEvents: "none",
-          }}
-        />
-        {/* Advisor tag — gold badge */}
-        <span
-          style={{
-            position: "absolute",
-            top: 12,
-            left: 12,
-            zIndex: 2,
-            padding: "5px 11px",
-            borderRadius: 8,
-            fontFamily: "var(--font-outfit)",
-            fontSize: 9.5,
-            fontWeight: 800,
-            letterSpacing: "2px",
-            textTransform: "uppercase",
-            color: "#1a1206",
-            background: "linear-gradient(180deg, #F2D793 0%, #D8A94E 100%)",
-            border: "1px solid rgba(255,240,200,0.5)",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.5)",
-          }}
-        >
-          Advisor
-        </span>
-        {/* Index numeral */}
-        <span aria-hidden style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 30, letterSpacing: "-1px", lineHeight: 1, color: "rgba(232,197,106,0.9)", textShadow: "0 2px 12px rgba(0,0,0,0.5)" }}>
-          {ADVISOR_NUMERAL.get(s.name)}
-        </span>
-        {/* Bottom fade */}
-        <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(180deg, transparent 50%, rgba(7,12,32,0.85) 100%)",
-            pointerEvents: "none",
-          }}
-        />
-        {/* LinkedIn (if present) */}
-        {s.linkedin && (
-          <a
-            href={s.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${s.name} on LinkedIn`}
-            className="otsf-jb-adv-li"
-            style={{
-              position: "absolute",
-              bottom: 12,
-              right: 12,
-              zIndex: 2,
-              width: 32,
-              height: 32,
-              borderRadius: 9,
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "rgba(7,12,32,0.55)",
-              backdropFilter: "blur(6px)",
-              WebkitBackdropFilter: "blur(6px)",
-              border: "1px solid rgba(255,255,255,0.18)",
-              color: "white",
-            }}
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-              <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3-.02-2.96-1.8-2.96-1.8 0-2.08 1.4-2.08 2.86V21H9z" />
-            </svg>
-          </a>
-        )}
-      </div>
-
-      {/* Card body */}
-      <div style={{ position: "relative", padding: "16px 18px 20px", display: "flex", flexDirection: "column", gap: 6, flex: 1 }}>
-        <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(15px, 1.3vw, 17px)", letterSpacing: "-0.4px", color: "white", lineHeight: 1.2, margin: 0 }}>
-          {s.name}
-        </h3>
-        <p style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.6)", lineHeight: 1.45, margin: 0 }}>
-          {s.title}
-        </p>
-        {s.org && (
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 6, marginTop: 4, fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.4)" }}>
-            <span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: "#E8C56A", boxShadow: "0 0 8px rgba(232,197,106,0.9)" }} />
-            {s.org}
-          </span>
-        )}
-      </div>
-    </motion.div>
-  );
-}
-
 // ─── SPEAKERS ────────────────────────────────────────────────────────────────
 function SpeakersSection() {
   const ref = useRef(null);
@@ -4164,7 +4008,7 @@ function SpeakersSection() {
         >
           <span aria-hidden style={{ width: 26, height: 2, borderRadius: 2, background: `linear-gradient(90deg, ${C_BRIGHT}, rgba(211,75,154,0))` }} />
           <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 800, letterSpacing: "3px", textTransform: "uppercase", color: C_BRIGHT }}>
-            Advisors &amp; Speakers
+            Speakers
           </span>
         </motion.div>
 
@@ -4176,9 +4020,7 @@ function SpeakersSection() {
             gap: "clamp(16px, 1.8vw, 24px)",
           }}
         >
-          {SPEAKERS.map((s, i) => s.isAdvisor ? (
-            <AdvisorCard key={`${s.name}-${i}`} s={s} inView={inView} delay={0.25 + i * 0.07} />
-          ) : (
+          {SPEAKERS.map((s, i) => (
             <motion.div
               key={`${s.name}-${i}`}
               initial={{ opacity: 0, y: 22 }}
@@ -4483,6 +4325,177 @@ function AdvisorsSection() {
           The independent advisors shaping the technical agenda, and the speakers taking the stage on industrial cyber resilience across the Kingdom.
         </motion.p>
 
+        {/* Group label — Advisors */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
+          style={{ display: "flex", alignItems: "center", gap: 12, margin: "0 0 24px" }}
+        >
+          <span aria-hidden style={{ width: 26, height: 2, borderRadius: 2, background: "linear-gradient(90deg, #E8C56A, rgba(232,197,106,0))" }} />
+          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 800, letterSpacing: "3px", textTransform: "uppercase", color: "#E8C56A" }}>
+            Advisors
+          </span>
+        </motion.div>
+
+        <div
+          className="otsf-jb-advisors-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap: "clamp(14px, 1.6vw, 22px)",
+            maxWidth: 1150,
+            margin: "0 auto",
+          }}
+        >
+          {ADVISORS.map((s, i) => (
+            <motion.div
+              key={`${s.name}-${i}`}
+              initial={{ opacity: 0, y: 22 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.25 + i * 0.09, ease: EASE }}
+              className="otsf-jb-advisor-card"
+              style={{
+                position: "relative",
+                borderRadius: 20,
+                background:
+                  "linear-gradient(160deg, rgba(232,197,106,0.09) 0%, rgba(255,255,255,0.012) 60%, rgba(232,197,106,0.04) 100%)",
+                border: "1px solid rgba(232,197,106,0.28)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), 0 22px 50px rgba(0,0,0,0.35)",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              {/* Gold top hairline */}
+              <span aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, zIndex: 3, background: "linear-gradient(90deg, transparent, rgba(232,197,106,0.85), transparent)" }} />
+
+              {/* Portrait area — full-bleed, gold-led gradient */}
+              <div
+                style={{
+                  position: "relative",
+                  aspectRatio: "4 / 5",
+                  background: "linear-gradient(160deg, rgba(232,197,106,0.24) 0%, rgba(211,75,154,0.05) 50%, rgba(7,12,32,0.92) 100%)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  overflow: "hidden",
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={s.photo || ""}
+                  alt={`${s.name}, ${s.title}${s.org ? ` at ${s.org}` : ""} - advisor to OT Security First Jubail 2026 industrial cybersecurity summit, Saudi Arabia`}
+                  loading="lazy"
+                  decoding="async"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: s.photoPos || "center top",
+                    transform: s.photoTransform || undefined,
+                  }}
+                />
+                {/* Gold sheen overlay */}
+                <div
+                  aria-hidden
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(155deg, rgba(232,197,106,0.22) 0%, rgba(232,197,106,0.04) 34%, transparent 55%)",
+                    mixBlendMode: "overlay",
+                    pointerEvents: "none",
+                  }}
+                />
+                {/* Advisor tag — gold badge */}
+                <span
+                  style={{
+                    position: "absolute",
+                    top: 12,
+                    left: 12,
+                    zIndex: 2,
+                    padding: "5px 11px",
+                    borderRadius: 8,
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 9.5,
+                    fontWeight: 800,
+                    letterSpacing: "2px",
+                    textTransform: "uppercase",
+                    color: "#1a1206",
+                    background: "linear-gradient(180deg, #F2D793 0%, #D8A94E 100%)",
+                    border: "1px solid rgba(255,240,200,0.5)",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.5)",
+                  }}
+                >
+                  Advisor
+                </span>
+                {/* Index numeral */}
+                <span aria-hidden style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 30, letterSpacing: "-1px", lineHeight: 1, color: "rgba(232,197,106,0.9)", textShadow: "0 2px 12px rgba(0,0,0,0.5)" }}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                {/* Bottom fade */}
+                <div
+                  aria-hidden
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(180deg, transparent 50%, rgba(7,12,32,0.85) 100%)",
+                    pointerEvents: "none",
+                  }}
+                />
+                {/* LinkedIn (if present) */}
+                {s.linkedin && (
+                  <a
+                    href={s.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${s.name} on LinkedIn`}
+                    className="otsf-jb-adv-li"
+                    style={{
+                      position: "absolute",
+                      bottom: 12,
+                      right: 12,
+                      zIndex: 2,
+                      width: 32,
+                      height: 32,
+                      borderRadius: 9,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "rgba(7,12,32,0.55)",
+                      backdropFilter: "blur(6px)",
+                      WebkitBackdropFilter: "blur(6px)",
+                      border: "1px solid rgba(255,255,255,0.18)",
+                      color: "white",
+                    }}
+                  >
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                      <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3-.02-2.96-1.8-2.96-1.8 0-2.08 1.4-2.08 2.86V21H9z" />
+                    </svg>
+                  </a>
+                )}
+              </div>
+
+              {/* Card body */}
+              <div style={{ position: "relative", padding: "16px 18px 20px", display: "flex", flexDirection: "column", gap: 6, flex: 1 }}>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(15px, 1.3vw, 17px)", letterSpacing: "-0.4px", color: "white", lineHeight: 1.2, margin: 0 }}>
+                  {s.name}
+                </h3>
+                <p style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.6)", lineHeight: 1.45, margin: 0 }}>
+                  {s.title}
+                </p>
+                {s.org && (
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: 6, marginTop: 4, fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.4)" }}>
+                    <span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: "#E8C56A", boxShadow: "0 0 8px rgba(232,197,106,0.9)" }} />
+                    {s.org}
+                  </span>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
 
       <style jsx global>{`
