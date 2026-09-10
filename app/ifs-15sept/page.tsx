@@ -603,9 +603,10 @@ function SpeakerAvatar({
   photo,
   initials,
   size = 72,
-}: { photo: string | null; initials: string; size?: number }) {
+  className,
+}: { photo: string | null; initials: string; size?: number; className?: string }) {
   return (
-    <div style={{
+    <div className={className} style={{
       flexShrink: 0,
       width: size, height: size,
       borderRadius: "50%",
@@ -1738,7 +1739,7 @@ function AboutSpeakersSection() {
 
       <div style={{
         position: "relative", zIndex: 1,
-        maxWidth: 1200, margin: "0 auto",
+        maxWidth: 1400, margin: "0 auto",
         padding: "0 clamp(20px, 4vw, 48px)",
         display: "flex", flexDirection: "column", gap: "clamp(20px, 2.4vw, 32px)",
       }}>
@@ -1754,7 +1755,7 @@ function AboutSpeakersSection() {
         <div className="ifs-speakers-grid" style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
-          gap: "clamp(14px, 1.8vw, 22px)",
+          gap: "clamp(16px, 2vw, 26px)",
         }}>
           {SPEAKERS.map((sp, i) => (
             <motion.div
@@ -1765,7 +1766,7 @@ function AboutSpeakersSection() {
               className="ifs-speaker-card"
               style={{
                 position: "relative",
-                padding: "clamp(24px, 2.6vw, 32px) clamp(16px, 1.8vw, 22px)",
+                padding: "clamp(26px, 3vw, 38px) clamp(18px, 2vw, 26px)",
                 borderRadius: 22,
                 background: `linear-gradient(165deg, ${IFS_BG_CARD} 0%, ${IFS_BG_INNER} 100%)`,
                 border: `1px solid ${IFS_BORDER}`,
@@ -1784,13 +1785,13 @@ function AboutSpeakersSection() {
                 opacity: 0.6,
               }} />
 
-              <SpeakerAvatar photo={sp.photo} initials={sp.initials} size={150} />
+              <SpeakerAvatar photo={sp.photo} initials={sp.initials} size={210} className="ifs-speaker-photo" />
 
               <div style={{ minWidth: 0 }}>
                 <h3 style={{
                   margin: 0,
                   fontFamily: "var(--font-display)",
-                  fontSize: "clamp(17px, 1.6vw, 20px)",
+                  fontSize: "clamp(18px, 1.7vw, 22px)",
                   fontWeight: 800,
                   letterSpacing: "-0.02em",
                   color: IFS_WHITE,
@@ -1819,8 +1820,11 @@ function AboutSpeakersSection() {
       <style jsx global>{`
         .ifs-speaker-card { transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), border-color 0.35s ease; }
         .ifs-speaker-card:hover { transform: translateY(-4px); border-color: ${IFS_PURPLE_GLOW}77; }
+        /* Keep the four cards on one row: the portrait scales with the viewport instead of wrapping */
+        .ifs-speaker-photo { width: clamp(150px, 15vw, 210px) !important; height: clamp(150px, 15vw, 210px) !important; }
         @media (max-width: 1080px) {
-          .ifs-speakers-grid { grid-template-columns: repeat(2, 1fr) !important; max-width: 720px; margin: 0 auto; }
+          .ifs-speakers-grid { grid-template-columns: repeat(2, 1fr) !important; max-width: 760px; margin: 0 auto; }
+          .ifs-speaker-photo { width: 200px !important; height: 200px !important; }
         }
         @media (max-width: 620px) {
           .ifs-speakers-grid { grid-template-columns: 1fr !important; max-width: 420px; margin: 0 auto; }
