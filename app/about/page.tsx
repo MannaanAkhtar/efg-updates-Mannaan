@@ -75,6 +75,7 @@ const teamMembers: Member[] = [
   { name: "Anna Firdouse Shah", role: "Senior Producer", initials: "AF", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/anna+shah.jpeg", photoTransform: "scale(1.35) translateX(-20%)" },
   { name: "Sanjana Venugopal", role: "Senior Producer", initials: "SV", photo: `${S3}/Sanjana-Venugopal-new.jpg` },
   { name: "Harini", role: "Senior Producer", initials: "H", photo: `${S3}/Harini.jpg` },
+  { name: "Syed Asad", role: "Senior Graphic Designer", initials: "SA", photo: `${S3}/Syed-Asad.jpg` },
   // Partnership
   { name: "Mohammed Hassan", role: "Partnership Manager", initials: "MH", photo: `${S3}/hassan.jpg`, photoPos: "top" },
   { name: "Mohammed Danish", role: "Partnership Manager", initials: "MD", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/danish.png" },
@@ -95,7 +96,6 @@ const teamMembers: Member[] = [
   // Operations
   { name: "Mini", role: "Operations Manager", initials: "M", photo: `${S3}/Mini.jpg` },
   // Marketing & Tech
-  { name: "Syed Asad", role: "Senior Graphic Designer", initials: "SA", photo: `${S3}/Syed-Asad.jpg` },
   { name: "Ashfa Anjum", role: "Video Editor", initials: "AA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/AshIsTuf+1.png" },
   { name: "Samia", role: "Graphic Designer", initials: "S", photo: `${S3}/samia+.jpeg`, photoFit: "contain", photoScale: 1.46 },
   { name: "Mannan Akhtar", role: "Project Manager", initials: "MA", photo: `${S3}/Mannan-Akhtar.jpg?v=2` },
