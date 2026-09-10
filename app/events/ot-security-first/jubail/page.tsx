@@ -3104,8 +3104,10 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
           { name: "Badar Al Salehi", role: "Director General", org: "Ministry of Transport, Communications and Information Technology Oman" },
           { name: "Ali Abdulla Hasan Alsadadi", role: "Chief of Information Technology", org: "Ministry of Oil & Environment Bahrain" },
           { name: "Hamoud Almohaya", role: "Head of GRC Cybersecurity", org: "Confidential Government" },
-          { name: "Dr. Mohammad Dahman Alshehri", role: "Senior Advisor and CISO", org: "Confidential Government" },
-          { name: "Eng. Huda Ahmed Mohsen", role: "Chief Of Information Technology", org: "Ministry of Information Bahrain" },
+          { name: "Dr. Mohammad Dahman Alshehri", role: "Senior Advisor and CISO", org: "Confidential" },
+          { name: "Naif Alshahrani", role: "Cybersecurity GRC Director", org: "Confidential" },
+          { name: "Thamer Alrowidhan", role: "Chief Information Security Officer (CISO)", org: "Confidential Government" },
+          { name: "Eng. Huda Ahmed Mohsen", role: "Chief Of Information Technology", org: "Ministry Of Information Bahrain" },
           { name: "Abdulrahman Al-Nimari", role: "VP, Cyber Security", org: "Confidential Organization", moderator: true },
         ],
       },
@@ -3123,6 +3125,7 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
         logo: `${AG_LOGOS}/swidch+logo+white.png`,
         logoScale: 1.3,
         title: "Reserved for Gold Sponsor SWIDCH",
+        speaker: "Dr. Godfrey Gaston MBE, Cybersecurity Specialist, swIDch",
       },
       {
         time: "10:55 – 11:05",
@@ -3133,13 +3136,14 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
       {
         time: "11:05 – 11:45",
         type: "Panel Discussion",
-        title: "Under attack: Incident response, threat detection, and OT resilience across Kingdom's industrial corridor",
+        title: "Under Attack: Incident Response, Threat Detection & OT Resilience Across the Kingdom's Industrial Corridor",
         panelists: [
           { name: "Aamir Khalid Pirzada", role: "Chief Information Officer", org: "National Metal Manufacturing and Casting Company (Maadaniyah)" },
           { name: "Alaa Khalid", role: "Director, Cybersecurity Operations & GRC", org: "Confidential" },
           { name: "Ahmed Al Saleh", role: "Head of Digital & OT Cybersecurity Initiatives", org: "Aramco" },
           { name: "Wael A. Rahman", role: "Lead ICS/OT Security Engineer", org: "Petroleum Development Oman" },
-          { name: "Ammad Baig", role: "VP, Digital Solutions and OT Cybersecurity", org: "INTECH Automation and Intelligence" },
+          { name: "Feras Alamri", role: "Cybersecurity Defense Director", org: "Riyadh Airports" },
+          { name: "Ammad Baig", role: "VP of Digital Solutions and OT Cybersecurity", org: "INTECH Automation and Intelligence" },
           { name: "Dr. Hussain Aldawood", role: "Director of Cybersecurity Consulting", org: "EY", moderator: true },
         ],
       },
@@ -3160,7 +3164,9 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
       {
         time: "11:55 – 12:05",
         logo: `${AG_LOGOS}/schneider-electric-seeklogo.png`,
-        title: "Reserved for Gold Sponsor (Schneider Electric)",
+        title: "Building an OT security operations capability: Lessons from Saudi Arabia's most critical facilities",
+        desc: "What a fit-for-purpose OT SOC looks like — detection engineering for industrial protocols, threat hunting in ICS environments, and integrating OT visibility into a national security operations programme.",
+        speaker: "Abdulrahman Al Musfir, Regional Cybersecurity Officer - MEA, Schneider Electric",
       },
       {
         time: "12:05 – 12:45",
@@ -3200,7 +3206,7 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
         title: "The KSA Dialogue: What must Saudi Arabia's oil & gas, petrochemical, and government sectors commit to in the next 12 months?",
         panelists: [
           { name: "Sultan Alshammari", role: "Cyber Security Director", org: "National Infrastructure Fund (Infra)" },
-          { name: "Mohammed Alangari", role: "Vice President of Enterprise Governance, Risk & Compliance (GRC) and Chief Information Security Officer", org: "Saudi Tourism Authority" },
+          { name: "Mohammed Alangari", role: "CISO & VP of GRC", org: "Saudi Tourism Authority" },
           { name: "Irtiza Arain", role: "Director, Cybersecurity", org: "EY MENA", moderator: true },
         ],
       },
