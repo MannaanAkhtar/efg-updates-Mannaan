@@ -67,6 +67,10 @@ const teamMembers: Member[] = [
   { name: "Yasir", role: "Chief Growth Partner", initials: "Y", photo: `${S3}/yasir.jpeg?v=2` },
   { name: "Shyam", role: "Chief Growth Partner", initials: "S", photo: `${S3}/shyam.jpg?v=3` },
   { name: "Ateeq", role: "Marketing Head", initials: "A", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/ateeq.png" },
+  // Producer
+  { name: "Anna Firdouse Shah", role: "Senior Producer", initials: "AF", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/anna+shah.jpeg", photoTransform: "scale(1.35) translateX(-20%)" },
+  { name: "Sanjana Venugopal", role: "Producer", initials: "SV", photo: `${S3}/Sanjana-Venugopal-new.jpg` },
+  { name: "Harini", role: "Producer", initials: "H", photo: `${S3}/Harini.jpg` },
   // Partnership
   { name: "Mohammed Hassan", role: "Partnership Manager", initials: "MH", photo: `${S3}/hassan.jpg`, photoPos: "top" },
   { name: "Mohammed Danish", role: "Partnership Manager", initials: "MD", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/danish.png" },
@@ -80,10 +84,6 @@ const teamMembers: Member[] = [
   { name: "Nadim Pirani", role: "Delegate Acquisition", initials: "NP", photo: `${S3}/Nadim-Pirani.jpg?v=2` },
   // Operations
   { name: "Mini", role: "Operations", initials: "M", photo: `${S3}/Mini.jpg` },
-  // Producer
-  { name: "Anna Firdouse Shah", role: "Senior Producer", initials: "AF", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/anna+shah.jpeg", photoTransform: "scale(1.35) translateX(-20%)" },
-  { name: "Sanjana Venugopal", role: "Producer", initials: "SV", photo: `${S3}/Sanjana-Venugopal-new.jpg` },
-  { name: "Harini", role: "Producer", initials: "H", photo: `${S3}/Harini.jpg` },
   // Marketing & Tech
   { name: "Syed Asad", role: "Marketing & Design", initials: "SA", photo: `${S3}/Syed-Asad.jpg` },
   { name: "Ashfa Anjum", role: "Video & Graphic Designer", initials: "AA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/AshIsTuf+1.png" },
