@@ -72,7 +72,7 @@ const teamMembers: Member[] = [
   { name: "Shyam", role: "Chief Growth Partner", initials: "S", photo: `${S3}/shyam.jpg?v=3` },
   { name: "Ateeq", role: "Head of Marketing and Tech", initials: "A", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/ateeq.png" },
   // Finance
-  { name: "Akmal", role: "Finance Manager", initials: "A", photo: `${S3}/akmal.jpeg` },
+  { name: "Akmal", role: "Finance Manager", initials: "A", photo: `${S3}/akmal.jpeg`, photoTransform: "scale(1.2) translateY(8%)" },
   // Producer
   { name: "Anna Firdouse Shah", role: "Senior Producer", initials: "AF", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/anna+shah.jpeg", photoTransform: "scale(1.35) translateX(-20%)" },
   { name: "Sanjana Venugopal", role: "Senior Producer", initials: "SV", photo: `${S3}/Sanjana-Venugopal-new.jpg` },
