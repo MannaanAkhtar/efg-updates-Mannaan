@@ -175,7 +175,7 @@ const SPEAKERS: Speaker[] = [
     name: "Saud Almudhaf",
     title: "VP – Head of ESG & Governance Risk",
     org: "NBK",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Saud+Almudhaf.jpg",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Saud+Almudhaf1.jpg",
     linkedin: "https://www.linkedin.com/in/saud-almudhaf-mba-173b1a41/",
   },
   {
