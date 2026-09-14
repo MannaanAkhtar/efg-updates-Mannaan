@@ -6847,7 +6847,7 @@ function Register() {
             ["--black" as string]: "transparent",
           } as React.CSSProperties}
         >
-          <InquiryForm />
+          <InquiryForm eventName="OPEX First Saudi 2026" />
         </motion.div>
       </div>
     </section>
