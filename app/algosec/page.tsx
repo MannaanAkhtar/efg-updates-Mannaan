@@ -596,6 +596,7 @@ const SPEAKERS = [
   { name: "Gurinder Singh", title: "Regional Pre-Sales Engineer, India & Middle East", org: "AlgoSec", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Gurinder+Singh.jpeg", linkedin: "https://www.linkedin.com/in/gurinder-sandhu-6a04a63b/" },
   // Photo pending — the card falls back to initials until a portrait URL is set.
   { name: "Mohammed Alattar", title: "IT Manager", org: "Equiti Group", photo: "", linkedin: "https://www.linkedin.com/in/mohammed-z-alattar/" },
+  { name: "Snehal Kulthe", title: "Advisor, Chairman Office – Digital Strategy & Transformation", org: "Abu Dhabi Government Entity", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Snehal+Kulthe.jpeg", linkedin: "https://www.linkedin.com/in/snehalkulthe/" },
 ];
 function Speakers() {
   const { ref, seen } = useReveal<HTMLDivElement>();
@@ -612,7 +613,7 @@ function Speakers() {
             AlgoSec&rsquo;s engineering leaders bring an application-centric perspective on securing connectivity across the hybrid enterprise.
           </p>
         </div>
-        <div className="ac-spk-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 300px))", justifyContent: "center", gap: "clamp(20px,2.4vw,30px)", marginTop: "clamp(40px,5vw,60px)" }}>
+        <div className="ac-spk-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 270px))", justifyContent: "center", gap: "clamp(18px,2vw,26px)", marginTop: "clamp(40px,5vw,60px)" }}>
           {SPEAKERS.map((s, i) => (
             <div key={s.name} className="ac-spk-card" style={{ position: "relative", overflow: "hidden", borderRadius: 20, background: `linear-gradient(162deg, ${UIBLUE} 0%, ${NAVY} 56%, ${UDB} 100%)`, border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 22px 48px rgba(10,18,34,0.24), inset 0 1px 0 rgba(255,255,255,0.12)", ...rise(seen, 0.1 + i * 0.1) }}>
               <span aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 4, zIndex: 3, background: `linear-gradient(90deg, ${SKY}, ${GREEN})` }} />
