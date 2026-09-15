@@ -65,6 +65,11 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   // OPEX First KSA 2026 — Riyadh (LinkedIn promotion)
   "opex-ksa-li": { path: "/events/opex-first/saudi-2026", source: "linkedin", medium: "social", campaign: "opex-ksa-2026", hash: "register" },
 
+  // Cyber First Qatar 2026 — Doha (LinkedIn promotion). tab=attend because the
+  // InquiryForm opens on "Sponsor" by default, which is the wrong form for a
+  // post driving delegate registrations.
+  "cfq-li": { path: "/events/cyber-first/qatar", source: "linkedin", medium: "social", campaign: "cf-qatar-2026", hash: "register", tab: "attend" },
+
   // EnterpriseDB Executive Roundtable — KSA — deep-link straight to the register form
   "edbksa-afra": { path: "/enterprisedb-ksa", source: "afra", campaign: "enterprisedb-ksa", medium: "invite", hash: "register" },
 

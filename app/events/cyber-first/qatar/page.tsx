@@ -4243,8 +4243,12 @@ function PastSeriesSponsors() {
           style={{ textAlign: "center", marginTop: "clamp(28px, 3vw, 40px)" }}
         >
           <a
-            href="#enquire"
-            onClick={(e) => { e.preventDefault(); document.getElementById("enquire")?.scrollIntoView({ behavior: "smooth" }); }}
+            href="#register"
+            onClick={(e) => {
+              e.preventDefault();
+              window.dispatchEvent(new CustomEvent("efg:set-form-tab", { detail: "sponsor" }));
+              document.getElementById("register")?.scrollIntoView({ behavior: "smooth" });
+            }}
             className="cfq-partner-cta"
             style={{
               display: "inline-flex",
@@ -7904,6 +7908,44 @@ function SeriesEditions() {
 // MAIN PAGE
 // ───────────────────────────────────────────────────────────────────────────
 export default function CyberFirstQatar2026() {
+  // Deep-link support for UTM / short links (e.g. /s/cfq-li → …#register with
+  // ?tab=attend): scroll to the hash section and pre-select the InquiryForm tab
+  // on load. Native hash scrolling is unreliable here because the page is a
+  // heavy animated client component — the target often isn't laid out yet — so
+  // we retry until the element exists, then hand off to Lenis. The tab event is
+  // re-dispatched a few times until the form's listener is attached.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const tabParam = new URLSearchParams(window.location.search).get("tab");
+    if (tabParam) {
+      const tabKey = tabParam === "attend" ? "pass" : tabParam === "speak" ? "speaker" : tabParam;
+      let sent = 0;
+      const fire = () => {
+        window.dispatchEvent(new CustomEvent("efg:set-form-tab", { detail: tabKey }));
+        if (sent++ < 7) window.setTimeout(fire, 400);
+      };
+      window.setTimeout(fire, 500);
+    }
+
+    const id = window.location.hash.replace("#", "");
+    if (!id) return;
+    let tries = 0;
+    const go = () => {
+      const el = document.getElementById(id);
+      if (!el) {
+        if (tries++ < 20) window.setTimeout(go, 150);
+        return;
+      }
+      const lenis = (window as unknown as {
+        __lenis?: { scrollTo: (target: HTMLElement | number, opts?: { offset?: number; duration?: number }) => void };
+      }).__lenis;
+      if (lenis) lenis.scrollTo(el, { offset: 0, duration: 1.0 });
+      else el.scrollIntoView({ behavior: "smooth" });
+    };
+    window.setTimeout(go, 450);
+  }, []);
+
   return (
     <MotionConfig reducedMotion="user">
     <div style={{ background: BG_BASE, minHeight: "100vh", overflow: "hidden" }}>
