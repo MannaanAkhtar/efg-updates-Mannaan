@@ -214,6 +214,7 @@ const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; 
   { name: "Hoda Taheri", title: "Acting CIO", org: "Snoonu", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hoda.png", linkedin: "https://www.linkedin.com/in/hodataheri/" },
   { name: "Christa Waegemann", title: "International Director", org: "Violence Prevention Network gGmbH", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Christa+Waegemann.png", linkedin: "https://www.linkedin.com/in/christawaegemann/" },
   { name: "Mustafa Ünal Erten", title: "Chief, Regional Centre for Combating Cybercrime — Doha", org: "United Nations Office on Drugs and Crime (UNODC)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mustafa+%C3%9Cnal+Erten.jpeg", linkedin: "https://www.linkedin.com/in/mustafa-erten-24146940/" },
+  { name: "Meera Sahib Yoosoof Rasheen", title: "Head of Information Security", org: "Qatar Post", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Yusuf+Rasheen.png", linkedin: "https://www.linkedin.com/in/rasheen/" },
 ];
 
 // ─── Agenda — 17 rows (from PDF) ────────────────────────────────────────────
@@ -3427,7 +3428,12 @@ function Speakers() {
       />
       <BgDots opacity={0.04} />
 
-      <div style={{ position: "relative", maxWidth: 1380, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+      {/* Wider than the page's usual 1380 band so five cards fit on one row
+          (5 x 285 + 4 x 24 = 1521; 1720 - 160 padding = 1560 content). The
+          header below stays pinned to the standard 1220 content width so the
+          eyebrow and headline still line up with every other section. */}
+      <div style={{ position: "relative", maxWidth: 1720, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
+        <div style={{ maxWidth: 1220, margin: "0 auto" }}>
         <Eyebrow inView={inView} label="Speakers" tone="cyan" />
 
         <motion.h2
@@ -3448,6 +3454,7 @@ function Speakers() {
           The voices on{" "}
           <em style={{ fontStyle: "italic", fontWeight: 400, color: C }}>the Qatar stage.</em>
         </motion.h2>
+        </div>
 
         <div
           className="cfq-speakers-roster"
@@ -3685,7 +3692,7 @@ function Speakers() {
         .cfq-speakers-roster {
           --w: 285px;
           --gap: 24px;
-          --cols: 4;
+          --cols: 5;
           --title-reserve: 55px;
           gap: var(--gap);
           max-width: calc(var(--w) * var(--cols) + var(--gap) * (var(--cols) - 1));
@@ -3744,18 +3751,34 @@ function Speakers() {
           transform: translateY(-1px) scale(1.06);
         }
 
-        /* 1180–1359 — the wide band (4 x 285 + 3 x 24 = 1212) no longer fits once
-           the container stops being padding-bound, so step back to the compact
-           237px card. content(1180) = 1020 >= band 1014. */
-        @media (max-width: 1359px) {
-          .cfq-speakers-roster { --w: 237px; --gap: 22px; }
+        /* Five-up ladder. Each step picks the largest card that still fits five
+           across at the NARROWEST viewport in its band, where
+           content(vw) = min(1720, vw) - 2 * clamp(24, 5vw, 80).
+           Below 1180 the card would drop under 195px, so it falls back to 4-up. */
+
+        /* 1600–1680 — content(1600) = 1440 >= band 1438 */
+        @media (max-width: 1680px) {
+          .cfq-speakers-roster { --w: 270px; --gap: 22px; }
         }
-        /* 1024–1179 — content(1024) = 921.6 >= band 894 */
+        /* 1441–1599 — content(1441) = 1296.9 >= band 1272 */
+        @media (max-width: 1599px) {
+          .cfq-speakers-roster { --w: 240px; --gap: 18px; }
+        }
+        /* 1281–1440 — content(1281) = 1152.9 >= band 1124 */
+        @media (max-width: 1440px) {
+          .cfq-speakers-roster { --w: 212px; --gap: 16px; }
+        }
+        /* 1180–1280 — content(1180) = 1062 >= band 1031. Card is now under
+           210px, so the longest titles need the 4-line reserve. */
+        @media (max-width: 1280px) {
+          .cfq-speakers-roster { --w: 195px; --gap: 14px; --title-reserve: 73px; }
+        }
+        /* 1024–1179 — back to 4-up. content(1024) = 921.6 >= band 894 */
         @media (max-width: 1179px) {
-          .cfq-speakers-roster { --w: 210px; --gap: 18px; }
+          .cfq-speakers-roster { --w: 210px; --gap: 18px; --cols: 4; --title-reserve: 55px; }
         }
-        /* 900–1023 — content(900) = 810 >= band 784. Tightest 3-line case for
-           the longest title, so the reserve steps up here. */
+        /* 900–1023 — 4-up. content(900) = 810 >= band 784. Tightest 3-line case
+           for the longest title, so the reserve steps up here. */
         @media (max-width: 1023px) {
           .cfq-speakers-roster { --w: 184px; --gap: 16px; --title-reserve: 73px; }
         }
