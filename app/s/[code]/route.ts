@@ -81,6 +81,7 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   // AlgoSec Executive Roundtable — deep-link straight to the register form
   "algosec-palak": { path: "/algosec", source: "palak", campaign: "algosec", medium: "invite", hash: "register" },
   "algosec-stephen": { path: "/algosec", source: "stephen", campaign: "algosec", medium: "invite", hash: "register" },
+  "algosec-afra": { path: "/algosec", source: "afra", campaign: "algosec", medium: "invite", hash: "register" },
 };
 
 export async function GET(

@@ -870,6 +870,29 @@ function Footer() {
 
 // ─── PAGE ───────────────────────────────────────────────────────────────────────
 export default function AlgoSecRoundtablePage() {
+  // Land rep deep links (/s/algosec-afra etc.) on their section. Lenis wraps
+  // the whole app and rewrites scrollTop from its own target every frame, so a
+  // native #hash jump gets swallowed on load — drive Lenis directly instead,
+  // retrying until the section has mounted.
+  useEffect(() => {
+    const id = window.location.hash.replace("#", "");
+    if (!id) return;
+    let tries = 0;
+    const go = () => {
+      const el = document.getElementById(id);
+      if (!el) {
+        if (tries++ < 20) window.setTimeout(go, 150);
+        return;
+      }
+      const lenis = (window as unknown as {
+        __lenis?: { scrollTo: (target: HTMLElement | number, opts?: { offset?: number; duration?: number }) => void };
+      }).__lenis;
+      if (lenis) lenis.scrollTo(el, { offset: 0, duration: 1.0 });
+      else el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    window.setTimeout(go, 450);
+  }, []);
+
   return (
     <main style={{ position: "relative", background: INK, color: WHITE, overflowX: "hidden", width: "100%", maxWidth: "100%", fontFamily: FONT }}>
       <style jsx global>{`
