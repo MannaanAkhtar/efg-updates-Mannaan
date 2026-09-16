@@ -159,14 +159,33 @@ function buildEmailHtml(data: {
 }) {
   const meta = data.metadata || {};
 
-  // Sales-rep attribution: a rep's UTM link carries utm_medium=sales + utm_source=<rep>.
-  // Surface a clean "Referred by: <Name>" row and hide the raw utm_* rows.
-  const isSalesReferral = meta.utm_medium === "sales" && !!meta.utm_source;
+  // Rep attribution: a rep's UTM link carries utm_source=<rep> with a medium
+  // that means "a person sent this" — "sales" for rep links, "invite" for the
+  // roundtable invitations. Channel links (linkedin/email/social) carry a
+  // channel name in utm_source, not a person, so they must NOT be credited to
+  // anyone. Surface a clean "Referred by: <Name>" row and hide the raw utm_*.
+  const REFERRAL_MEDIUMS = new Set(["sales", "invite"]);
+  const isSalesReferral =
+    REFERRAL_MEDIUMS.has(String(meta.utm_medium)) && !!meta.utm_source;
   const titleCase = (s: string) =>
     s.replace(/[-_]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
-  const HIDDEN_META = isSalesReferral
-    ? new Set(["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"])
-    : new Set<string>();
+
+  // Rows that only repeat what the fixed fields above already say, or that are
+  // constant for every submission. They stay in Supabase (the consent record in
+  // particular is worth keeping) — this only trims the notification email.
+  const REDUNDANT_META = [
+    "First Name",     // already in Name
+    "Last Name",      // already in Name
+    "Phone Country",  // already in the Phone row's dial code
+    "Consent Given",  // always "true" — the form cannot submit without it
+    "Page Section",
+  ];
+  const HIDDEN_META = new Set<string>(REDUNDANT_META);
+  if (isSalesReferral) {
+    for (const k of ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"]) {
+      HIDDEN_META.add(k);
+    }
+  }
 
   const referredByRow = isSalesReferral
     ? `<tr><td style="padding:8px 12px;color:#666;font-size:14px;border-bottom:1px solid #eee;background:#FFF7F0">Referred by</td><td style="padding:8px 12px;font-size:14px;font-weight:700;color:#C2410C;border-bottom:1px solid #eee;background:#FFF7F0">${titleCase(String(meta.utm_source))}</td></tr>`
@@ -406,9 +425,11 @@ export async function POST(request: NextRequest) {
           type.charAt(0).toUpperCase() + type.slice(1);
 
         const eventSuffix = event_name ? ` · ${event_name}` : "";
-        // Sales-rep attribution from a UTM link → flag in the subject too
+        // Rep attribution from a UTM link → flag in the subject too. Same
+        // medium test as buildEmailHtml: "sales" (rep links) and "invite"
+        // (roundtable invitations) name a person; channel links don't.
         const refSuffix =
-          metadata.utm_medium === "sales" && metadata.utm_source
+          ["sales", "invite"].includes(String(metadata.utm_medium)) && metadata.utm_source
             ? ` · via ${String(metadata.utm_source).replace(/[-_]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}`
             : "";
         const { error: emailError } = await resend.emails.send({
