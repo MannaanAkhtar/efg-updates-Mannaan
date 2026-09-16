@@ -3455,15 +3455,31 @@ function BottomBlock() {
 
 // ─── Page ──────────────────────────────────────────────────────────────────
 export default function BlueYonderPage() {
-  // Landing with a URL hash (e.g. #reserve from a UTM link) — native anchor jumps
-  // don't take under the global smooth-scroll, so scroll to the target manually.
+  // Landing with a URL hash (e.g. #reserve from /s/by-anna) — native anchor
+  // jumps don't take under the global smooth-scroll. Lenis rewrites scrollTop
+  // from its own target every frame, so a plain scrollIntoView can be snapped
+  // straight back; drive Lenis where it exists and keep scrollIntoView as the
+  // fallback. Retry until the section has mounted rather than betting on one
+  // fixed delay.
   useEffect(() => {
-    const hash = window.location.hash;
-    if (!hash || hash.length < 2) return;
-    const id = window.setTimeout(() => {
-      document.querySelector(hash)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 300);
-    return () => window.clearTimeout(id);
+    const id = window.location.hash.replace("#", "");
+    if (!id) return;
+    let tries = 0;
+    let timer = 0;
+    const go = () => {
+      const el = document.getElementById(id);
+      if (!el) {
+        if (tries++ < 20) timer = window.setTimeout(go, 150);
+        return;
+      }
+      const lenis = (window as unknown as {
+        __lenis?: { scrollTo: (target: HTMLElement | number, opts?: { offset?: number; duration?: number }) => void };
+      }).__lenis;
+      if (lenis) lenis.scrollTo(el, { offset: 0, duration: 1.0 });
+      else el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    timer = window.setTimeout(go, 450);
+    return () => window.clearTimeout(timer);
   }, []);
 
   return (

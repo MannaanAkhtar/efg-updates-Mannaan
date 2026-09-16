@@ -47,6 +47,7 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
 
   // Blue Yonder Executive Roundtable
   "by-afra": { path: "/blueyonder", source: "afra", campaign: "blueyonder", medium: "invite", hash: "reserve" },
+  "by-anna": { path: "/blueyonder", source: "anna", campaign: "blueyonder", medium: "invite", hash: "reserve" },
 
   // SonicWall Executive Roundtable — Riyadh (7 Sep 2026)
   "sw7-nadim": { path: "/sonicwall-7sept", source: "nadim", campaign: "sonicwall-7sept", medium: "invite", hash: "register" },
