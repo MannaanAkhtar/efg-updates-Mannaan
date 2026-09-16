@@ -3229,6 +3229,31 @@ function ProofpointFooter() {
 // PAGE
 // ═════════════════════════════════════════════════════════════════════════════
 export default function ProofpointPage() {
+  // Land deep links (…/proofpoint#register) on their section. Lenis wraps the
+  // whole app and rewrites scrollTop from its own target every frame, so a
+  // native #hash jump gets swallowed on load — drive Lenis directly instead,
+  // retrying until the section has mounted.
+  useEffect(() => {
+    const id = window.location.hash.replace("#", "");
+    if (!id) return;
+    let tries = 0;
+    let timer = 0;
+    const go = () => {
+      const el = document.getElementById(id);
+      if (!el) {
+        if (tries++ < 20) timer = window.setTimeout(go, 150);
+        return;
+      }
+      const lenis = (window as unknown as {
+        __lenis?: { scrollTo: (target: HTMLElement | number, opts?: { offset?: number; duration?: number }) => void };
+      }).__lenis;
+      if (lenis) lenis.scrollTo(el, { offset: 0, duration: 1.0 });
+      else el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    timer = window.setTimeout(go, 450);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return (
     <div
       style={{
