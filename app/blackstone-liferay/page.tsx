@@ -1389,7 +1389,10 @@ function Footer() {
 // ═════════════════════════════════════════════════════════════════════════════
 export default function BlackstoneLiferayPage() {
   // Global Lenis smooth-scroll swallows native #hash jumps on load — replicate
-  // the section landing manually for deep links (?...#agenda etc.).
+  // the section landing manually for deep links (/s/bsl-duaa -> #register,
+  // ?...#agenda etc.). Drive Lenis directly where it exists: Lenis writes
+  // scrollTop every frame from its own target, so a native scrollIntoView can
+  // be snapped straight back. scrollIntoView stays as the no-Lenis fallback.
   useEffect(() => {
     const hash = window.location.hash;
     if (!hash) return;
@@ -1397,13 +1400,17 @@ export default function BlackstoneLiferayPage() {
     let tries = 0;
     const jump = () => {
       const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-      } else if (tries++ < 20) {
-        setTimeout(jump, 100);
+      if (!el) {
+        if (tries++ < 20) setTimeout(jump, 150);
+        return;
       }
+      const lenis = (window as unknown as {
+        __lenis?: { scrollTo: (target: HTMLElement | number, opts?: { offset?: number; duration?: number }) => void };
+      }).__lenis;
+      if (lenis) lenis.scrollTo(el, { offset: 0, duration: 1.0 });
+      else el.scrollIntoView({ behavior: "smooth", block: "start" });
     };
-    setTimeout(jump, 300);
+    setTimeout(jump, 450);
   }, []);
 
   return (

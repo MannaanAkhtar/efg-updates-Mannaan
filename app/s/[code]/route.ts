@@ -73,6 +73,11 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   // EnterpriseDB Executive Roundtable — KSA — deep-link straight to the register form
   "edbksa-afra": { path: "/enterprisedb-ksa", source: "afra", campaign: "enterprisedb-ksa", medium: "invite", hash: "register" },
 
+  // Blackstone eIT x Liferay Executive Roundtable — KSA, 20 Oct 2026.
+  // medium left at the "sales" default (not "invite") so /api/submit-form
+  // renders the clean "Referred by: Duaa" row on the notification email.
+  "bsl-duaa": { path: "/blackstone-liferay", source: "duaa", campaign: "blackstone-liferay", hash: "register" },
+
   // AlgoSec Executive Roundtable — deep-link straight to the register form
   "algosec-palak": { path: "/algosec", source: "palak", campaign: "algosec", medium: "invite", hash: "register" },
   "algosec-stephen": { path: "/algosec", source: "stephen", campaign: "algosec", medium: "invite", hash: "register" },
