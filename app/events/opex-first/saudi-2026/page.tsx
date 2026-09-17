@@ -5030,6 +5030,17 @@ const SPONSORS_2026: S26SponsorItem[] = [
     logoMaxHeight: 126,
   },
   {
+    // White wordmark on transparent — must sit on a dark card. The file has
+    // built-in padding, so the card width binds before logoMaxHeight does.
+    name: "Moxo",
+    tier: "Associate",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Untitled-1-01.png",
+    url: "https://www.moxo.com/",
+    surface: "dark",
+    innerBg: "linear-gradient(165deg, #1c1722 0%, #100b15 100%)",
+    logoMaxHeight: 90,
+  },
+  {
     name: "International Business Magazine",
     tier: "Media",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/International-Business-Magazine.png",
@@ -5171,6 +5182,10 @@ function EventSponsors() {
                           alignItems: "center",
                           justifyContent: "center",
                           minHeight: 116,
+                          // Fill the card when a taller logo in the same row
+                          // stretches it — otherwise the frame gradient shows as
+                          // a band beneath the shorter card's panel.
+                          height: "100%",
                           position: "relative",
                           overflow: "hidden",
                           boxShadow: "inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.55), inset 1px 0 0 rgba(255,255,255,0.04), inset -1px 0 0 rgba(0,0,0,0.3)",
