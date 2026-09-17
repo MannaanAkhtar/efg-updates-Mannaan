@@ -188,6 +188,25 @@ function Countdown() {
 export default function EnterpriseDBRoundtablePage() {
   const [scrolled, setScrolled] = useState(false);
 
+  // Land rep deep links (/s/edbksa-afra -> #register) on their section. Lenis
+  // swallows the native #hash jump on load, so route it through scrollToId
+  // (Lenis-aware, offset for the fixed nav), retrying until the section mounts.
+  useEffect(() => {
+    const id = window.location.hash.replace("#", "");
+    if (!id) return;
+    let tries = 0;
+    let timer = 0;
+    const go = () => {
+      if (!document.getElementById(id)) {
+        if (tries++ < 20) timer = window.setTimeout(go, 150);
+        return;
+      }
+      scrollToId(id);
+    };
+    timer = window.setTimeout(go, 450);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
