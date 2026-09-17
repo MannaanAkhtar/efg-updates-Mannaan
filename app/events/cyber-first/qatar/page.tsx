@@ -215,6 +215,8 @@ const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; 
   { name: "Christa Waegemann", title: "International Director", org: "Violence Prevention Network gGmbH", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Christa+Waegemann.png", linkedin: "https://www.linkedin.com/in/christawaegemann/" },
   { name: "Mustafa Ünal Erten", title: "Chief, Regional Centre for Combating Cybercrime — Doha", org: "United Nations Office on Drugs and Crime (UNODC)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mustafa+%C3%9Cnal+Erten.jpeg", linkedin: "https://www.linkedin.com/in/mustafa-erten-24146940/" },
   { name: "Meera Sahib Yoosoof Rasheen", title: "Head of Information Security", org: "Qatar Post", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Yusuf+Rasheen.png", linkedin: "https://www.linkedin.com/in/rasheen/" },
+  { name: "Farhan Chaudhary", title: "VP of Cybersecurity, Governance, Risk and Compliance", org: "Qatar Airways", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/farhan+chaudhary1.png" },
+  { name: "Noureddine Bouhaddaoui", title: "Head of Security Product", org: "Ooredoo Group", linkedin: "https://www.linkedin.com/in/noureddine-bouhaddaoui-8a3bb79/" },
 ];
 
 // ─── Agenda — 17 rows (from PDF) ────────────────────────────────────────────
