@@ -77,8 +77,6 @@ const NETWORKFIRST_COLOR = "#C9935A";
 // each group keeps the upcoming-events date order from /network-first
 type NFFormat = "virtual" | "physical";
 const networkFirstEvents: { href: string; label: string; date: string; format: NFFormat }[] = [
-  { href: "/ifs-15sept", label: "IFS · Manufacturing", date: "15 Sep", format: "physical" },
-  { href: "/proofpoint", label: "Proofpoint", date: "23 Sep", format: "physical" },
   { href: "/blueyonder", label: "Blue Yonder", date: "23 Sep", format: "physical" },
   { href: "/algosec", label: "AlgoSec", date: "24 Sep", format: "physical" },
   { href: "/ifs-29sept", label: "IFS · Jeddah", date: "29 Sep", format: "physical" },
@@ -93,6 +91,8 @@ const networkFirstEvents: { href: string; label: string; date: string; format: N
   { href: "/ifs-dubai", label: "IFS · Dubai", date: "21 Oct", format: "physical" },
   { href: "/enterprisedb-southafrica", label: "EnterpriseDB, South Africa", date: "12 Nov", format: "physical" },
   { href: "/enterprisedb-uae", label: "EnterpriseDB, UAE", date: "25 Nov", format: "physical" },
+  // Postponed from 23 Sep — date TBA, so it sits after every dated boardroom.
+  { href: "/proofpoint", label: "Proofpoint", date: "TBA", format: "physical" },
 ];
 
 // Render order for the grouped dropdown — Virtual section first
@@ -121,16 +121,20 @@ const REGION_ORDER = ["UAE", "Saudi Arabia", "Qatar", "Kuwait", "Oman", "Kenya",
 
 const _regionStartOfToday = (() => { const d = new Date(); d.setHours(0, 0, 0, 0); return d.getTime(); })();
 
-const regionShortDate = (e: { date: Date; dateTBA?: boolean }): string =>
-  e.dateTBA
-    ? `TBC · ${e.date.toLocaleDateString("en-GB", { month: "short", timeZone: "UTC" })}`
-    : e.date.toLocaleDateString("en-GB", { day: "2-digit", month: "short", timeZone: "UTC" });
+const regionShortDate = (e: { date: Date; dateTBA?: boolean; monthTBA?: boolean }): string =>
+  e.monthTBA
+    ? "TBA"
+    : e.dateTBA
+      ? `TBC · ${e.date.toLocaleDateString("en-GB", { month: "short", timeZone: "UTC" })}`
+      : e.date.toLocaleDateString("en-GB", { day: "2-digit", month: "short", timeZone: "UTC" });
 
+// monthTBA events have no real date: keep them listed (they never age out)
+// and put them after every dated event.
 const regionGroups = REGION_ORDER.map((region) => ({
   region,
   events: allEvents
-    .filter((e) => regionOf(e.location) === region && e.date.getTime() >= _regionStartOfToday)
-    .sort((a, b) => a.date.getTime() - b.date.getTime()),
+    .filter((e) => regionOf(e.location) === region && (e.monthTBA || e.date.getTime() >= _regionStartOfToday))
+    .sort((a, b) => Number(!!a.monthTBA) - Number(!!b.monthTBA) || a.date.getTime() - b.date.getTime()),
 })).filter((g) => g.events.length > 0);
 
 const REGION_COLOR = "#01BBF5";

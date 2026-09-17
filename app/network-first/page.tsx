@@ -101,9 +101,10 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/edb_postgres_ai_lightmode%402x+(4).png",
   },
   {
-    date: "September 23rd, 2026",
-    month: "SEP",
-    day: "23",
+    // Postponed from 23 Sep 2026 — new date not yet announced.
+    date: "TBA",
+    month: "TBA",
+    day: "TBA",
     year: "2026",
     time: "10:30 – 14:30 AST",
     title: "Proofpoint Executive Roundtable",
@@ -192,22 +193,6 @@ const UPCOMING_EVENTS = [
     brandColor: "#0B5FFF",
     brandGradient: "linear-gradient(135deg, #434EE5 0%, #0B5FFF 100%)",
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Blackstone+eIT+Logo+Reversed+No+Slogan.png",
-  },
-  {
-    date: "September 15th, 2026",
-    month: "SEP",
-    day: "15",
-    year: "2026",
-    time: "09:30 – 12:30 AST",
-    title: "IFS Executive Roundtable",
-    subtitle: "Next Decade of Manufacturing in Saudi Arabia — Driven by Industrial AI",
-    sponsor: "IFS",
-    location: "Jeddah, Saudi Arabia",
-    link: "/ifs-15sept",
-    image: "",
-    brandColor: "#170430",
-    brandGradient: "linear-gradient(135deg, #8427E2 0%, #360065 45%, #170430 80%, #0A0218 100%)",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg",
   },
   {
     date: "September 29th, 2026",
@@ -350,6 +335,20 @@ type PastEvent = {
 };
 
 const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    sponsor: "IFS",
+    title: "IFS Executive Roundtable",
+    subtitle: "Next Decade of Manufacturing in Saudi Arabia — Driven by Industrial AI",
+    month: "SEP",
+    date: "15 Sep",
+    venue: "The Ritz-Carlton, Jeddah",
+    time: "09:30 – 12:30 AST",
+    image: "",
+    brandColor: "#170430",
+    brandGradient: "linear-gradient(135deg, #8427E2 0%, #360065 45%, #170430 80%, #0A0218 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg",
+    link: "/ifs-15sept",
+  },
   {
     sponsor: "SonicWall",
     title: "SonicWall Executive Roundtable",

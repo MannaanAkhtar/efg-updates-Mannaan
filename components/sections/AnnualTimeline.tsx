@@ -21,8 +21,16 @@ export type EventItem = {
   attendees: string;
   href: string;
   status: "open" | "soon";
+  /** Day not fixed yet — the month in `date` is still real (e.g. "January 2027"). */
   dateTBA?: boolean;
+  /** Postponed with no new date, month unknown too. Groups under a trailing "TBA"
+   *  column, is never picked as the "next" event, and never ages out as past.
+   *  `date` keeps the original date only as a stable sort key. Set with dateTBA. */
+  monthTBA?: boolean;
 };
+
+/** Month key for events whose month is unknown (see EventItem.monthTBA). */
+export const TBA_MONTH_INDEX = 12;
 
 export const allEvents: EventItem[] = [
   {
@@ -87,13 +95,16 @@ export const allEvents: EventItem[] = [
     seriesColor: "#C9935A",
     edition: "",
     title: "Proofpoint Executive Roundtable",
+    // Postponed from 23 Sep 2026; new date not yet announced.
     date: new Date("2026-09-23"),
-    dateDisplay: "September 23, 2026",
+    dateDisplay: "Date TBA",
     location: "Riyadh",
     venue: "Crowne Plaza Riyadh",
     attendees: "15-20",
     href: "/proofpoint",
     status: "open",
+    dateTBA: true,
+    monthTBA: true,
   },
   {
     id: "networkfirst-blueyonder",
@@ -135,20 +146,6 @@ export const allEvents: EventItem[] = [
     venue: "Venue TBC",
     attendees: "Invited",
     href: "/ifs-dubai",
-    status: "open",
-  },
-  {
-    id: "networkfirst-ifs-manufacturing-jeddah",
-    series: "NetworkFirst",
-    seriesColor: "#C9935A",
-    edition: "",
-    title: "IFS Roundtable — Intelligent Manufacturing",
-    date: new Date("2026-09-15"),
-    dateDisplay: "September 15, 2026",
-    location: "Jeddah, Saudi Arabia",
-    venue: "Venue TBC",
-    attendees: "Invited",
-    href: "/ifs-15sept",
     status: "open",
   },
   {
@@ -404,6 +401,7 @@ const MONTHS = [
   { abbr: "NOV", full: "November", index: 10 },
   { abbr: "JAN", full: "January", index: 0 },
   { abbr: "MAR", full: "March", index: 2 },
+  { abbr: "TBA", full: "To be announced", index: TBA_MONTH_INDEX },
 ];
 
 // Series filters
@@ -420,7 +418,7 @@ const SERIES_FILTERS = [
 function groupEventsByMonth(events: EventItem[]) {
   const grouped: Record<number, EventItem[]> = {};
   events.forEach((e) => {
-    const month = e.date.getMonth();
+    const month = e.monthTBA ? TBA_MONTH_INDEX : e.date.getMonth();
     if (!grouped[month]) grouped[month] = [];
     grouped[month].push(e);
   });
@@ -435,7 +433,7 @@ function groupEventsByMonth(events: EventItem[]) {
 function getNextEvent(): EventItem {
   const now = new Date();
   const upcoming = allEvents
-    .filter((e) => e.date.getTime() > now.getTime())
+    .filter((e) => !e.monthTBA && e.date.getTime() > now.getTime())
     .sort((a, b) => a.date.getTime() - b.date.getTime());
   return upcoming[0] || allEvents[0];
 }

@@ -794,7 +794,7 @@ function HeroSection() {
               color: PP_NAVY_INK,
             }}
           >
-            <span>23 September 2026</span>
+            <span>Date to be announced</span>
             <span style={{ color: PP_CYAN }}>·</span>
             <span>10:30 – 13:35 KSA time</span>
             <span style={{ color: PP_CYAN }}>·</span>
@@ -1638,7 +1638,7 @@ function AgendaSection() {
               gap: 12,
             }}
           >
-            <span>23 Sep 2026</span>
+            <span>Date TBA</span>
             <span style={{ width: 18, height: 1, background: PP_GRAY_LIGHT }} />
             <span>Riyadh · KSA time</span>
           </div>
@@ -2410,7 +2410,7 @@ function VenueSection() {
                     fontVariantNumeric: "tabular-nums",
                   }}
                 >
-                  23 Sep 2026
+                  To be announced
                 </div>
               </div>
 
@@ -2627,7 +2627,7 @@ function RegisterSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   const SPECS = [
-    { label: "Date", value: "23 Sep 2026" },
+    { label: "Date", value: "To be announced" },
     { label: "Time", value: "10:30 – 13:35 KSA time" },
     { label: "Venue", value: "Crowne Plaza Riyadh RDC Hotel & Convention by IHG" },
     { label: "Format", value: "Invite-only roundtable" },

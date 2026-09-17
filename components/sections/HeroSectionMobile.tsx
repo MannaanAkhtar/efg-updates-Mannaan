@@ -9,7 +9,8 @@ const ORANGE = "#E8651A";
 const GOLD = "#C9935A";
 
 function deriveNext(now: number): { flagship: EventItem | null; boardroom: EventItem | null } {
-  const future = allEvents.filter((e) => e.date.getTime() > now).sort((a, b) => a.date.getTime() - b.date.getTime());
+  // monthTBA events (postponed, no new date) must never drive the live countdown.
+  const future = allEvents.filter((e) => !e.monthTBA && e.date.getTime() > now).sort((a, b) => a.date.getTime() - b.date.getTime());
   return {
     flagship: future.find((e) => e.series !== "NetworkFirst") ?? null,
     boardroom: future.find((e) => e.series === "NetworkFirst") ?? null,

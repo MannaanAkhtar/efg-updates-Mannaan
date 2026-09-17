@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title:
     "The Next Chapter in Human and Agentic Security | Proofpoint Executive Roundtable",
   description:
-    "An invitation-only Proofpoint executive roundtable on AI-powered agentic workspaces and the future of human + AI security. 23 September 2026, Crowne Plaza Riyadh.",
+    "An invitation-only Proofpoint executive roundtable on AI-powered agentic workspaces and the future of human + AI security. Riyadh — date to be announced.",
   keywords: [
     "Proofpoint",
     "agentic security",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title:
       "The Next Chapter in Human and Agentic Security — Proofpoint Executive Roundtable",
     description:
-      "Invitation-only Proofpoint roundtable for senior security leaders on agentic-era risk and human-centric defence. 23 September 2026, Riyadh.",
+      "Invitation-only Proofpoint roundtable for senior security leaders on agentic-era risk and human-centric defence. Riyadh — date to be announced.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Proofpoint Executive Roundtable — Riyadh, 23 September 2026",
+        alt: "Proofpoint Executive Roundtable — Riyadh",
       },
     ],
     locale: "en_US",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
     title: "The Next Chapter in Human and Agentic Security — Proofpoint",
-    description: "Invitation-only roundtable. 23 September 2026, Riyadh.",
+    description: "Invitation-only roundtable. Riyadh — date to be announced.",
     images: [OG_IMAGE],
   },
 };
@@ -63,9 +63,13 @@ export default function ProofpointLayout({
             name: "The Next Chapter in Human and Agentic Security — Proofpoint Executive Roundtable",
             description:
               "An invitation-only Proofpoint executive roundtable on the rise of AI-powered agentic workspaces and what they mean for security.",
+            // Postponed with no new date yet. Per Google's event structured-data
+            // guidance, keep the ORIGINAL dates in startDate/endDate and mark the
+            // status EventPostponed; switch to EventRescheduled (with
+            // previousStartDate) once the new date is known.
             startDate: "2026-09-23T10:30:00+03:00",
             endDate: "2026-09-23T14:30:00+03:00",
-            eventStatus: "https://schema.org/EventScheduled",
+            eventStatus: "https://schema.org/EventPostponed",
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {
               "@type": "Place",

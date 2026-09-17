@@ -17,7 +17,8 @@ const GOLD = "#C9935A";
 // Pick the next upcoming flagship event and the next upcoming NetworkFirst boardroom.
 // Re-derived on a 60s interval so the ticker auto-rolls when an event passes.
 function deriveNext(now: number): { flagship: EventItem | null; boardroom: EventItem | null } {
-  const future = allEvents.filter((e) => e.date.getTime() > now).sort((a, b) => a.date.getTime() - b.date.getTime());
+  // monthTBA events (postponed, no new date) must never drive the live countdown.
+  const future = allEvents.filter((e) => !e.monthTBA && e.date.getTime() > now).sort((a, b) => a.date.getTime() - b.date.getTime());
   return {
     flagship: future.find((e) => e.series !== "NetworkFirst") ?? null,
     boardroom: future.find((e) => e.series === "NetworkFirst") ?? null,

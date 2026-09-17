@@ -154,13 +154,17 @@ const allEvents = [
     color: "#C9935A",
     image: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/proofpoint_whitelogo.png",
     href: "/proofpoint",
+    // Postponed from 23 Sep 2026 — new date not yet announced. `date` stays as
+    // the original only as a sort key; monthTBA keeps it listed and last.
     date: "2026-09-23",
-    nextDate: "23 Sep 2026",
+    nextDate: "Date TBA",
     nextCity: "Riyadh",
     editions: "",
     regions: "Saudi Arabia",
     attendees: "15-20",
     status: "open" as SeriesStatus,
+    dateTBA: true,
+    monthTBA: true,
   },
   {
     id: "networkfirst-blueyonder",
@@ -195,24 +199,6 @@ const allEvents = [
     nextCity: "Dubai, UAE",
     editions: "",
     regions: "UAE",
-    attendees: "Invited",
-    status: "open" as SeriesStatus,
-  },
-  {
-    id: "networkfirst-ifs-manufacturing-jeddah",
-    category: "networkfirst",
-    title: "IFS Executive Roundtable",
-    tagline: "Next Decade of Manufacturing in Saudi Arabia",
-    description:
-      "An exclusive IFS executive roundtable on putting industrial AI to work in manufacturing — smart production, AI agents and IFS.ai — aligned to Saudi Arabia's Future Factories Program and Vision 2030.",
-    color: "#C9935A",
-    image: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg",
-    href: "/ifs-15sept",
-    date: "2026-09-15",
-    nextDate: "15 Sep 2026",
-    nextCity: "Jeddah, Saudi Arabia",
-    editions: "",
-    regions: "Saudi Arabia",
     attendees: "Invited",
     status: "open" as SeriesStatus,
   },
@@ -520,7 +506,10 @@ const _nextUpcoming = (() => {
   const byDate = [...allEvents].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
-  return byDate.find((e) => new Date(e.date).getTime() > now) ?? byDate[byDate.length - 1];
+  return (
+    byDate.find((e) => !(e as { monthTBA?: boolean }).monthTBA && new Date(e.date).getTime() > now) ??
+    byDate[byDate.length - 1]
+  );
 })();
 
 const NEXT_EVENT = {
@@ -1636,12 +1625,14 @@ function EventsSeriesGrid() {
   const [city, setCity] = useState("all");
   const [month, setMonth] = useState("all");
 
-  // Only show future events
+  // Only show future events. monthTBA events (postponed, no new date) never age
+  // out and always sort after every dated event.
   const futureEvents = useMemo(() => {
     const today = new Date().toISOString().split("T")[0];
+    const isMonthTBA = (e: (typeof allEvents)[number]) => !!(e as { monthTBA?: boolean }).monthTBA;
     return allEvents
-      .filter((e) => e.date >= today)
-      .sort((a, b) => a.date.localeCompare(b.date));
+      .filter((e) => isMonthTBA(e) || e.date >= today)
+      .sort((a, b) => Number(isMonthTBA(a)) - Number(isMonthTBA(b)) || a.date.localeCompare(b.date));
   }, []);
 
   // Derive city filters from actual event data
@@ -1661,6 +1652,8 @@ function EventsSeriesGrid() {
   const monthFilters = useMemo(() => {
     const months = new Map<string, string>();
     futureEvents.forEach((e) => {
+      // No month to offer as a filter — "Date TBA" would otherwise yield a "TBA" chip.
+      if ((e as { monthTBA?: boolean }).monthTBA) return;
       const parts = e.nextDate.split(" ");
       const mon = parts[1]; // "Apr", "May", etc.
       if (!months.has(mon)) months.set(mon, mon);
