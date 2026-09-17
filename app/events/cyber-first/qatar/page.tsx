@@ -189,33 +189,38 @@ const CFQ_MARQUEE_ROW_2: { name: string; logo: string }[] = [
 ];
 
 // ─── Advisors — 3 named individuals (from PDF) ──────────────────────────────
-const ADVISORS: { name: string; title: string; org: string; photo?: string; linkedin?: string }[] = [
+// `zoom` (<1) zooms a tightly-framed portrait out inside the square frame;
+// `crop` is its object-position (default "center 18%").
+const ADVISORS: { name: string; title: string; org: string; photo?: string; linkedin?: string; zoom?: number; crop?: string }[] = [
   { name: "Nicholas Jones", title: "EMEIA Cybersecurity Oil & Gas Leader", org: "EY",              photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nicholas_Jones.png", linkedin: "https://www.linkedin.com/in/nicholas-jones-2464151b/" },
-  { name: "Harris Ismail",  title: "Head of Identity & Access Management", org: "Commercial Bank" },
+  { name: "Harris Ismail",  title: "Head of Identity & Access Management", org: "Commercial Bank", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/harris+ismail1.png", linkedin: "https://www.linkedin.com/in/thiswebpageisnotavailable/", zoom: 0.86, crop: "center 8%" },
   { name: "Feroz Khan",     title: "Head of IT Security",                   org: "TotalEnergies", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/feroz_khan.png", linkedin: "https://www.linkedin.com/in/fkindoha/" },
 ];
 
 // ─── Speakers — named individuals ───────────────────────────────────────────
 const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; linkedin?: string; crop?: string }[] = [
-  { name: "Khalid Ibrahim Lakdawala", title: "Information Systems Expert", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khalid+Lakdawala.jpg", linkedin: "https://www.linkedin.com/in/khalid-lakdawala-7aa6864/" },
-  { name: "Hans W. Thomasz",  title: "CISO", org: "Qatar Development Bank",  photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hans_w_Thomasz.png", linkedin: "https://www.linkedin.com/in/hans-w-thomasz-msc-it-msc-info-sec-cciso-cisa-cism-chfi-cfe-ceh-94074024/" },
-  { name: "Ewald Müller",     title: "Senior Advisor, Supervision and Authorisation", org: "QFC Regulatory Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ewald+Muller.jpg", linkedin: "https://www.linkedin.com/in/ewald-m%C3%BCller-74a9171/" },
-  { name: "Tarek Terk",       title: "Cybersecurity Leader", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tarek+Terk.png", linkedin: "https://www.linkedin.com/in/tarekterk/" },
-  { name: "John Mankarios",   title: "Vice President – Deputy Head of Information Technology", org: "QInvest", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/JohnMankarios.png", linkedin: "https://www.linkedin.com/in/john-mankarios/" },
-  { name: "Bilal Rao",        title: "Head of IT & OT Cybersecurity", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Bilal+Roa.jpg", linkedin: "https://www.linkedin.com/in/bilal-rao-mbcs-1b51a91/" },
-  { name: "Anfal Shaikh",     title: "CISO", org: "Qatar Islamic Insurance", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anfal_shaikh.png", linkedin: "https://www.linkedin.com/in/anfal-shaikh-1bb05aa6/" },
-  { name: "Amer Bazerbachi",  title: "Partner", org: "KPMG Qatar", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Amer+Bazerbachi.jpg", linkedin: "https://www.linkedin.com/in/ACoAABxxLuoBuPSdHOJ-stiDXdxW4imy43icLpo/" },
-  { name: "Feroz Khan",       title: "Head of IT Security", org: "TotalEnergies", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/feroz_khan.png", linkedin: "https://www.linkedin.com/in/fkindoha/" },
-  { name: "Khireddine Garri", title: "Acting Chief Information Security Officer (CISO)", org: "Jasour", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khireddine+Garri.jpg", linkedin: "https://www.linkedin.com/in/khireddine-garri-294b4a91/" },
-  { name: "Aissa Touahria",   title: "Vice Chairman & CEO", org: "TITAN Energy Corp, Qatar", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aissa_Touahria.png", linkedin: "https://www.linkedin.com/in/aissa-touahria/" },
+  { name: "Khalid Ibrahim Lakdawala", title: "Information Systems Expert", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khalid+Lakdawala.png", linkedin: "https://www.linkedin.com/in/khalid-lakdawala-7aa6864/" },
+  { name: "Mustafa Ünal Erten", title: "Chief, Regional Centre for Combating Cybercrime — Doha", org: "United Nations Office on Drugs and Crime (UNODC)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mustafa+%C3%9Cnal+Erten.png", linkedin: "https://www.linkedin.com/in/mustafa-erten-24146940/" },
   { name: "Hugo Lopes",       title: "Group Chief Technology Officer", org: "Amwaj Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hugo_Lopes.png", linkedin: "https://www.linkedin.com/in/hugolopes86/" },
+  { name: "Tarek Terk",       title: "Cybersecurity Leader", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tarek+Terk.png", linkedin: "https://www.linkedin.com/in/tarekterk/" },
+  { name: "Ewald Müller",     title: "Senior Advisor, Supervision and Authorisation", org: "QFC Regulatory Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ewald+Muller.png", linkedin: "https://www.linkedin.com/in/ewald-m%C3%BCller-74a9171/" },
+  { name: "Hans W. Thomasz",  title: "CISO", org: "Qatar Development Bank",  photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hans_w_Thomasz+1.png", linkedin: "https://www.linkedin.com/in/hans-w-thomasz-msc-it-msc-info-sec-cciso-cisa-cism-chfi-cfe-ceh-94074024/" },
+  { name: "Meera Sahib Yoosoof Rasheen", title: "Head of Information Security", org: "Qatar Post", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Yusuf%2BRasheen1.png", linkedin: "https://www.linkedin.com/in/rasheen/" },
+  { name: "Farhan Chaudhry", title: "VP of Cybersecurity, Governance, Risk and Compliance", org: "Qatar Airways", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/farhan+chaudhary1.png", linkedin: "https://www.linkedin.com/in/farhanchaudhry/" },
+  { name: "Anfal Shaikh",     title: "CISO", org: "Qatar Islamic Insurance", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anfal_shaikh+1.png", linkedin: "https://www.linkedin.com/in/anfal-shaikh-1bb05aa6/" },
+  { name: "John Mankarios",   title: "Vice President – Deputy Head of Information Technology", org: "QInvest", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/JohnMankarios.png", linkedin: "https://www.linkedin.com/in/john-mankarios/" },
+  { name: "Muhammad Danish",  title: "Director & Global Head of Security Operations", org: "TMF Group" },
+  { name: "Amer Bazerbachi",  title: "Partner", org: "KPMG Qatar", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Amer+Bazerbachi.png", linkedin: "https://www.linkedin.com/in/ACoAABxxLuoBuPSdHOJ-stiDXdxW4imy43icLpo/" },
+  { name: "Khireddine Garri", title: "Acting Chief Information Security Officer (CISO)", org: "Jasour", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khireddine+Garri.jpg", linkedin: "https://www.linkedin.com/in/khireddine-garri-294b4a91/" },
+  { name: "Feroz Khan",       title: "Head of IT Security", org: "TotalEnergies", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/feroz_khan.png", linkedin: "https://www.linkedin.com/in/fkindoha/" },
+  { name: "Bilal Rao",        title: "Head of IT & OT Cybersecurity", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Bilal+Roa.png", linkedin: "https://www.linkedin.com/in/bilal-rao-mbcs-1b51a91/" },
+  { name: "Aissa Touahria",   title: "Vice Chairman & CEO", org: "TITAN Energy Corp, Qatar", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aissa_Touahria.png", linkedin: "https://www.linkedin.com/in/aissa-touahria/" },
   { name: "Arslan Baig",      title: "Lead IT & Cybersecurity", org: "Al-AWALIA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Arslan+Baig.jpg", linkedin: "https://www.linkedin.com/in/arslan-baig/" },
-  { name: "Vladimir Kanyshev", title: "Chief Information Security Officer (CISO)", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Vladimir+Kanyshev.jpg" },
-  { name: "Hoda Taheri", title: "Acting CIO", org: "Snoonu", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hoda.png", linkedin: "https://www.linkedin.com/in/hodataheri/" },
+  { name: "Hoda Taheri", title: "Acting CIO", org: "Snoonu", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Hoda+2.png", linkedin: "https://www.linkedin.com/in/hodataheri/" },
+  { name: "Vladimir Kanyshev", title: "Chief Information Security Officer (CISO)", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Vladimir+Kanyshev.png" },
+  { name: "Ozel Hurmuzlu",    title: "Head of Institutional Quality Management", org: "Qatar University" },
   { name: "Christa Waegemann", title: "International Director", org: "Violence Prevention Network gGmbH", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Christa+Waegemann.png", linkedin: "https://www.linkedin.com/in/christawaegemann/" },
-  { name: "Mustafa Ünal Erten", title: "Chief, Regional Centre for Combating Cybercrime — Doha", org: "United Nations Office on Drugs and Crime (UNODC)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mustafa+%C3%9Cnal+Erten.jpeg", linkedin: "https://www.linkedin.com/in/mustafa-erten-24146940/" },
-  { name: "Meera Sahib Yoosoof Rasheen", title: "Head of Information Security", org: "Qatar Post", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Yusuf+Rasheen.png", linkedin: "https://www.linkedin.com/in/rasheen/" },
-  { name: "Farhan Chaudhary", title: "VP of Cybersecurity, Governance, Risk and Compliance", org: "Qatar Airways", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/farhan+chaudhary1.png" },
+  // Speakers not in the 17 Sep running-order list go after the last listed one.
   { name: "Noureddine Bouhaddaoui", title: "Head of Security Product", org: "Ooredoo Group", linkedin: "https://www.linkedin.com/in/noureddine-bouhaddaoui-8a3bb79/" },
 ];
 
@@ -3206,21 +3211,56 @@ function Advisors() {
                   }}
                 >
                   {a.photo ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={a.photo}
-                      alt={`${a.name}, ${a.title} at ${a.org}`}
-                      loading="lazy"
-                      className="cfq-advisor-photo"
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        objectPosition: "center 18%",
-                        display: "block",
-                        transition: "transform 0.7s cubic-bezier(0.22,1,0.36,1)",
-                      }}
-                    />
+                    <>
+                      {/* Zoom-out: the photo column is narrowed rather than
+                          transform-scaled, so the card's hover scale(1.05) still
+                          applies. The side margins are filled by a blurred copy of
+                          the SAME column crop stretched sideways — rows line up, so
+                          backdrop and shoulder lines continue instead of stepping. */}
+                      {a.zoom && a.zoom < 1 && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={a.photo}
+                          alt=""
+                          aria-hidden
+                          loading="lazy"
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: `${((1 - a.zoom) / 2) * 100}%`,
+                            width: `${a.zoom * 100}%`,
+                            height: "100%",
+                            objectFit: "cover",
+                            objectPosition: a.crop ?? "center 18%",
+                            filter: "blur(22px)",
+                            transform: `scale(${1.2 / a.zoom}, 1.1)`,
+                            pointerEvents: "none",
+                          }}
+                        />
+                      )}
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={a.photo}
+                        alt={`${a.name}, ${a.title} at ${a.org}`}
+                        loading="lazy"
+                        className="cfq-advisor-photo"
+                        style={{
+                          position: "relative",
+                          width: `${(a.zoom ?? 1) * 100}%`,
+                          height: "100%",
+                          objectFit: "cover",
+                          objectPosition: a.crop ?? "center 18%",
+                          display: "block",
+                          transition: "transform 0.7s cubic-bezier(0.22,1,0.36,1)",
+                          ...(a.zoom && a.zoom < 1
+                            ? {
+                                WebkitMaskImage: "linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%)",
+                                maskImage: "linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%)",
+                              }
+                            : {}),
+                        }}
+                      />
+                    </>
                   ) : (
                     <>
                       {/* Subtle gold halo for initials backdrop */}
