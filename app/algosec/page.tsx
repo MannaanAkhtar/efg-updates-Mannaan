@@ -594,8 +594,7 @@ function AgendaIcon({ kind }: { kind: string }) {
 const SPEAKERS = [
   { name: "Nitin Rajput", title: "Director, Solution Engineering, APAC & Middle East", org: "AlgoSec", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nitin+Rajput.jpeg", linkedin: "https://www.linkedin.com/in/nitin-rajput-cissp-ccsp-cisa-36587352/" },
   { name: "Gurinder Singh", title: "Regional Pre-Sales Engineer, India & Middle East", org: "AlgoSec", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Gurinder+Singh.jpeg", linkedin: "https://www.linkedin.com/in/gurinder-sandhu-6a04a63b/" },
-  // Photo pending — the card falls back to initials until a portrait URL is set.
-  { name: "Mohammed Alattar", title: "IT Manager", org: "Equiti Group", photo: "", linkedin: "https://www.linkedin.com/in/mohammed-z-alattar/" },
+  { name: "Mohammed Alattar", title: "IT Manager", org: "Equiti Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Alattar.jpeg", linkedin: "https://www.linkedin.com/in/mohammed-z-alattar/" },
   { name: "Snehal Kulthe", title: "Advisor, Chairman Office – Digital Strategy & Transformation", org: "Abu Dhabi Government Entity", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Snehal+Kulthe.jpeg", linkedin: "https://www.linkedin.com/in/snehalkulthe/" },
 ];
 function Speakers() {
