@@ -4970,7 +4970,7 @@ function WhoAttends() {
 }
 
 // ─── EVENT SPONSORS — Confirmed for Saudi 2026 ─────────────────────────────
-type S26SponsorTier = "Gold" | "Associate" | "Media";
+type S26SponsorTier = "Gold" | "Panel" | "Associate" | "Media";
 
 type S26SponsorItem = {
   name: string;
@@ -5011,6 +5011,16 @@ const SPONSORS_2026: S26SponsorItem[] = [
     logoMaxHeight: 108,
   },
   {
+    // Wide 6.8:1 wordmark — the card width binds before logoMaxHeight does.
+    name: "Blue Yonder",
+    tier: "Panel",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Blue_Yonder_rgb.png",
+    url: "https://blueyonder.com/",
+    surface: "dark",
+    innerBg: "linear-gradient(165deg, #1c1722 0%, #100b15 100%)",
+    logoMaxHeight: 60,
+  },
+  {
     name: "ARIS",
     tier: "Associate",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/ARIS_RGB_Logo_WhitePink.png",
@@ -5038,7 +5048,17 @@ const S26_TIER_METALLIC: Record<S26SponsorTier, { strong: string; soft: string; 
     label: "rgba(240, 220, 160, 0.92)",
     glow: "rgba(212, 175, 90, 0.32)",
     cardMaxWidth: 300,
-    displayLabel: "Gold Sponsors",
+    displayLabel: "Gold Sponsor",
+  },
+  Panel: {
+    // Rose gold — one step down from Gold, still warm, clearly apart from
+    // Associate's violet steel so the gold → rose → violet → silver cascade reads
+    strong: "rgba(232, 168, 140, 0.9)",
+    soft: "rgba(232, 168, 140, 0.48)",
+    label: "rgba(242, 198, 178, 0.92)",
+    glow: "rgba(214, 140, 110, 0.3)",
+    cardMaxWidth: 285,
+    displayLabel: "Panel Sponsor",
   },
   Associate: {
     // Warm steel + violet wash — distinct from Platinum's pure silver so future tiers stack visually
@@ -5060,7 +5080,12 @@ const S26_TIER_METALLIC: Record<S26SponsorTier, { strong: string; soft: string; 
   },
 };
 
-const S26_TIER_ORDER: S26SponsorTier[] = ["Gold", "Associate", "Media"];
+const S26_TIER_ORDER: S26SponsorTier[] = ["Gold", "Panel", "Associate", "Media"];
+
+// Tier labels are written singular and pluralised from the logo count, so a
+// heading never reads "Gold Sponsor" over three logos as tiers fill up.
+const s26TierLabel = (label: string, count: number) =>
+  count > 1 && /(sponsor|partner)$/i.test(label) ? `${label}s` : label;
 
 function EventSponsors() {
   const ref = useRef<HTMLElement>(null);
@@ -5102,7 +5127,7 @@ function EventSponsors() {
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginBottom: 24 }}>
                   <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, transparent, ${m.soft})` }} />
                   <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "4px", textTransform: "uppercase", color: m.label }}>
-                    {m.displayLabel}
+                    {s26TierLabel(m.displayLabel, tierSponsors.length)}
                   </span>
                   <span style={{ width: 40, height: 1, background: `linear-gradient(270deg, transparent, ${m.soft})` }} />
                 </div>
