@@ -59,7 +59,7 @@ const UPCOMING_EVENTS = [
     year: "2026",
     time: "10:30 – 14:15 GST · 225 min",
     title: "Intwo CXO Roundtable",
-    subtitle: "AI Agents in Action — your ERP knows, it just doesn't act",
+    subtitle: "AI Agents in Action: your ERP knows, it just doesn't act",
     sponsor: "Intwo",
     location: "Dubai, UAE",
     link: "/intwo",

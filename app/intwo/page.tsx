@@ -5,15 +5,15 @@ import Image from "next/image";
 import { submitForm, isWorkEmail, validatePhone, COUNTRY_CODES, type CountryCode } from "@/lib/form-helpers";
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   Intwo CXO Roundtable — "AI Agents in Action", Dubai, 8 October 2026.
+   Intwo CXO Roundtable: "AI Agents in Action", Dubai, 8 October 2026.
 
    Visual system, drawn from the Intwo brand styleguide (2023):
-   · Light world. The book calls the dark blue a substitute for black — type,
-     icons and buttons — and asks for a lot of whitespace, so the page is ice
+   · Light world. The book calls the dark blue a substitute for black (type,
+     icons and buttons) and asks for a lot of whitespace, so the page is ice
      and white throughout, with ONE dark act (the live build) as the pivot.
    · Inter only, but on a real scale: Inter Light for headlines (the book's H1
      rule), caps micro-labels for section heads.
-   · The panel — their peach/blue colour-burn device — appears as a vertical
+   · The panel, their peach/blue colour-burn device, appears as a vertical
      rail on section heads and full-strength behind the dark act.
    · Their asymmetric card corner (30px 0 30px 30px) and 80px pill buttons.
    · The amber node: the hero photograph resolves on a single warm node where
@@ -22,12 +22,12 @@ import { submitForm, isWorkEmail, validatePhone, COUNTRY_CODES, type CountryCode
    ═══════════════════════════════════════════════════════════════════════════ */
 
 // ─── Brand tokens (Intwo styleguide, "Colours") ──────────────────────────────
-const INK = "#002A3B";        // dark blue — type, buttons, the dark act
+const INK = "#002A3B";        // dark blue: type, buttons, the dark act
 const BLUE = "#0474A2";       // support blue
 const SKY = "#A4D7EC";        // light support blue
 const ICE = "#EFF5F8";        // light ground
 const WHITE = "#FFFFFF";
-const PEACH = "#FF8C59";      // the happy accent — used only as the agent node
+const PEACH = "#FF8C59";      // the happy accent, used only as the agent node
 
 const INK_80 = "rgba(0,42,59,0.80)";
 const INK_62 = "rgba(0,42,59,0.62)";
@@ -49,12 +49,11 @@ const BLOCK_GAP = "clamp(34px,4vw,60px)";
 
 // ─── Assets ──────────────────────────────────────────────────────────────────
 const LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/intwo+logo.svg";
-const HERO = "https://efg-final.s3.eu-north-1.amazonaws.com/heros/intwo+hero.png";
-// Premise photograph: Unsplash (free licence), Vitaly Gariev — two colleagues
-// leaning in over a laptop. Chosen against the Intwo imagery rules: people who
-// lean in, two-person interaction, inclusive, no "old economy" paper props.
+const HERO = "https://efg-final.s3.eu-north-1.amazonaws.com/heros/intwo+hero1.png";
+// Premise image: square, as the Intwo book prefers, and already dark at the
+// base so the pull-quote sits on the photograph rather than on a scrim.
 const PREMISE_IMG =
-  "https://images.unsplash.com/photo-1758691737083-0e7fdbde0f05?w=1100&h=1100&q=80&auto=format&fit=crop&crop=faces";
+  "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Featured-image-Digital-Transformation-ROI-600x600.webp";
 
 // ─── Event ───────────────────────────────────────────────────────────────────
 const EVENT = {
@@ -85,11 +84,11 @@ const QUESTIONS = [
 const TAKEAWAYS = [
   {
     t: "Agents, seen and used",
-    d: "A working understanding of what agents do inside Dynamics 365 today — seen live, rather than described.",
+    d: "A working understanding of what agents do inside Dynamics 365 today, seen live rather than described.",
   },
   {
     t: "Real use cases, on the platform you already run",
-    d: "Four to five agents demonstrated as business problem, agent working, result in the system — reskinned to the companies in the room.",
+    d: "Four to five agents demonstrated as business problem, agent working, result in the system, all reskinned to the companies in the room.",
   },
   {
     t: "A named next step",
@@ -229,7 +228,7 @@ const SPEAKERS: Speaker[] = [
   },
   {
     name: "Khurram Zaki",
-    role: "Product Strategy & Commercial Lead, Business Applications, Dynamics 365 and AI-driven ERP — CEMA",
+    role: "Product Strategy & Commercial Lead, Business Applications, Dynamics 365 and AI-driven ERP, CEMA",
     org: "Microsoft",
     ms: true,
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khurram+Zaki.jpg",
@@ -337,7 +336,7 @@ function SectionHead({ label, title, lead, light = false, id }: { label: string;
 
 /** The agent: lines converge from the left, one warm node, lines leave right.
  *  The halo and ring loop forever, so they stand down while the node is off
- *  screen — otherwise they repaint a 920px area for the whole of the page. */
+ *  screen, otherwise they repaint a 920px area for the whole of the page. */
 function AgentNode({ size = 420 }: { size?: number }) {
   const ref = useRef<SVGSVGElement>(null);
   const [live, setLive] = useState(false);
@@ -367,7 +366,7 @@ function AgentNode({ size = 420 }: { size?: number }) {
           <stop offset="100%" stopColor={PEACH} stopOpacity="0.05" />
         </linearGradient>
       </defs>
-      {/* signals arriving — the data the system already holds */}
+      {/* signals arriving: the data the system already holds */}
       {[40, 84, 128, 172, 216, 260].map((y, i) => (
         <path
           key={`in-${y}`}
@@ -378,7 +377,7 @@ function AgentNode({ size = 420 }: { size?: number }) {
           strokeWidth="1.5"
         />
       ))}
-      {/* the agent acting — lines that leave */}
+      {/* the agent acting: lines that leave */}
       {[110, 150, 190].map((y, i) => (
         <path
           key={`out-${y}`}
@@ -511,7 +510,7 @@ export default function IntwoPage() {
         <div aria-hidden style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 22%, rgba(255,255,255,0) 72%, ${ICE} 100%)` }} />
 
         {/* Every vertical step below is min(vw, vh) so the hero fits one screen
-            on a short laptop as well as a tall monitor — no scroll to finish it. */}
+            on a short laptop as well as a tall monitor, with no scroll to finish it. */}
         <div style={{ position: "relative", zIndex: 2, width: "100%", maxWidth: 1320, margin: "0 auto", padding: "clamp(86px,12vh,180px) clamp(20px,4vw,44px) clamp(26px,7vh,100px)" }}>
           <div style={{ maxWidth: 780 }}>
             <Reveal>
@@ -519,6 +518,12 @@ export default function IntwoPage() {
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "8px 15px 8px 12px", borderRadius: 80, background: "rgba(255,255,255,0.8)", border: `1px solid ${LINE}`, fontSize: 12.5, fontWeight: 600, letterSpacing: "0.02em", color: INK }}>
                   <span style={{ width: 7, height: 7, borderRadius: "50%", background: PEACH, boxShadow: `0 0 0 4px ${PEACH}22` }} />
                   By invitation
+                </span>
+                {/* Microsoft co-hosts, and that is a reason to accept the
+                    invitation, so it sits in the first line of the page. */}
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 15px", borderRadius: 80, background: "rgba(255,255,255,0.8)", border: `1px solid ${LINE}`, fontSize: 12.5, fontWeight: 600, letterSpacing: "0.02em", color: INK }}>
+                  <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden><rect width="5.2" height="5.2" fill="#F25022" /><rect x="6.8" width="5.2" height="5.2" fill="#7FBA00" /><rect y="6.8" width="5.2" height="5.2" fill="#00A4EF" /><rect x="6.8" y="6.8" width="5.2" height="5.2" fill="#FFB900" /></svg>
+                  With Microsoft
                 </span>
                 <span className="iw-hero-date" style={{ fontSize: 13, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: INK_62 }}>
                   {EVENT.city} · {EVENT.date}
@@ -544,9 +549,10 @@ export default function IntwoPage() {
 
             <Reveal delay={260}>
               <p className="iw-hero-lead" style={{ margin: "clamp(13px,2.3vh,30px) 0 0", maxWidth: "56ch", fontSize: "clamp(14.5px,min(1.25vw,1.95vh),18px)", lineHeight: 1.65, color: INK_80 }}>
-                A half-day working session for Dynamics 365 customers. Live agents running inside the
-                system — then Intwo customizes one live, to a real request from the room
-                <span className="iw-hero-tail">, while you interact with the result yourself</span>.
+                A half-day working session for Dynamics 365 customers, hosted by Intwo with Microsoft.
+                You watch live agents working inside the system, then watch Intwo build one to a real
+                request from the room
+                <span className="iw-hero-tail">, and use the result yourself</span>.
               </p>
             </Reveal>
 
@@ -588,7 +594,7 @@ export default function IntwoPage() {
                 <SectionHead
                   id="overview"
                   label="The premise"
-                  title={<>Everyone&apos;s talking about agents.<br />Almost nobody has used one.</>}
+                  title={<>Live agents, running inside the system you already own.</>}
                 />
               </Reveal>
               <Reveal delay={80}>
@@ -617,7 +623,7 @@ export default function IntwoPage() {
               >
                 <Image
                   src={PREMISE_IMG}
-                  alt="Two colleagues leaning in over a laptop in an open-plan office"
+                  alt="An executive reading a live performance dashboard in a boardroom"
                   fill
                   sizes="(max-width: 1080px) 100vw, 530px"
                   style={{ objectFit: "cover", filter: "saturate(0.94) contrast(0.97)" }}
@@ -626,7 +632,7 @@ export default function IntwoPage() {
                 <figcaption style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "clamp(24px,2.6vw,36px)" }}>
                   <span aria-hidden style={{ display: "block", width: 34, height: 2, borderRadius: 2, background: PEACH, marginBottom: 16 }} />
                   <blockquote style={{ margin: 0, fontSize: "clamp(19px,1.75vw,26px)", fontWeight: 300, lineHeight: 1.32, letterSpacing: "-0.02em", color: WHITE }}>
-                    Your system has been telling you for months. Nobody was listening.
+                    The data was in the system for months. Nothing acted on it.
                   </blockquote>
                 </figcaption>
               </figure>
@@ -656,7 +662,7 @@ export default function IntwoPage() {
             <Reveal>
             <p style={{ margin: 0, fontSize: 12, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: BLUE }}>Why attend</p>
             <h2 style={{ margin: "18px 0 0", fontWeight: 300, fontSize: "clamp(30px,4.4vw,60px)", lineHeight: 1.08, letterSpacing: "-0.035em", color: INK, textWrap: "balance" }}>
-              No product pitch. No portfolio slide.<br />No pricing on stage.
+              Everything on this agenda runs live.
             </h2>
             <p style={{ margin: "clamp(24px,3vw,32px) auto 0", maxWidth: "62ch", fontSize: "clamp(16px,1.25vw,18px)", lineHeight: 1.75, color: INK_80 }}>
               Live agents demonstrated start to finish on content reskinned to the companies in the
@@ -689,7 +695,7 @@ export default function IntwoPage() {
             <SectionHead
               id="agenda"
               label="The five acts"
-              title={<>Wake up, where this is going,<br />see it, built for you live, act.</>}
+              title={<>How the three hours run.</>}
               lead={<>{EVENT.time} · {EVENT.date}. Three and a half hours door to door, three hours of programme, with the working lunch served at the table from Act 3. Intwo&apos;s own introduction sits at the end, not the start.</>}
             />
           </Reveal>
@@ -711,8 +717,8 @@ export default function IntwoPage() {
             <SectionHead
               light
               label="Act 4 · 13:00"
-              title={<>Tell us what you need.<br />Watch us build it, live.</>}
-              lead="A real requirement is taken from the room, in your own words. Intwo's team customizes a working agent to it in front of everyone — then you use the result yourself, from your own phone."
+              title={<>Name a process in the room.<br />Watch it become an agent.</>}
+              lead="A real requirement is taken from the room, in your own words. Intwo's team customizes a working agent to it in front of everyone. You then use the result yourself, from your own phone."
             />
           </Reveal>
 
@@ -720,7 +726,7 @@ export default function IntwoPage() {
 
           <Reveal delay={120}>
             <p style={{ margin: `${SECTION_GAP} 0 0`, fontSize: "clamp(19px,1.8vw,26px)", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.4, color: SKY, maxWidth: "34ch" }}>
-              Three hours. Real agents. Yours to try.
+              You leave having used one yourself.
             </p>
           </Reveal>
         </div>
@@ -732,17 +738,17 @@ export default function IntwoPage() {
             two balanced rows of three, and the cards stay small. */}
         <div style={{ maxWidth: 1060, margin: "0 auto" }}>
           <Reveal>
-            <SectionHead id="speakers" label="On the floor" title={<>Two on stage at a time,<br />six in the room all day.</>} />
+            <SectionHead id="speakers" label="On the floor" title={<>Five from Intwo.<br />One from Microsoft.</>} />
           </Reveal>
 
           <Reveal delay={60}>
             <div style={{ display: "flex", gap: "clamp(16px,2vw,26px)", alignItems: "flex-start", padding: "clamp(22px,2.6vw,30px)", borderRadius: CORNER, background: ICE, border: `1px solid ${LINE_SOFT}`, marginBottom: SECTION_GAP }}>
               <span aria-hidden style={{ flex: "0 0 auto", width: 4, alignSelf: "stretch", borderRadius: 2, background: PEACH }} />
               <p style={{ margin: 0, fontSize: "clamp(16px,1.3vw,19px)", lineHeight: 1.6, color: INK, letterSpacing: "-0.01em" }}>
-                Due to our longstanding partnership with Microsoft and our status as an accredited
-                Microsoft Solutions Partner, we are honoured to welcome{" "}
-                <strong style={{ fontWeight: 600 }}>Khurram Zaki</strong> to speak on the future of
-                Dynamics 365 and agents.
+                Microsoft hosts this session with Intwo.{" "}
+                <strong style={{ fontWeight: 600 }}>Khurram Zaki</strong> is on the floor for the day
+                and takes Act 2, on where Microsoft is taking Dynamics 365 and agents over the next
+                eighteen months.
               </p>
             </div>
           </Reveal>
@@ -790,7 +796,7 @@ export default function IntwoPage() {
               <Reveal delay={70}>
                 <p style={{ margin: 0, fontSize: "clamp(16px,1.25vw,18px)", lineHeight: 1.75, color: INK_80, maxWidth: "48ch" }}>
                   CIOs, CFOs, Heads of IT, Finance Directors and COOs from organisations running
-                  Dynamics 365 Finance &amp; Operations or Customer Engagement. All industries —
+                  Dynamics 365 Finance &amp; Operations or Customer Engagement. All industries:
                   finance, procure-to-pay and supply chain processes are common enough to carry a
                   mixed room.
                 </p>
@@ -812,7 +818,7 @@ export default function IntwoPage() {
               </Reveal>
               <Reveal delay={180}>
                 <p style={{ margin: "clamp(26px,3vw,34px) 0 0", fontSize: 14.5, lineHeight: 1.7, color: INK_45, maxWidth: "46ch" }}>
-                  The questions in this form tailor the session to your environment — your answers set
+                  The questions in this form tailor the session to your environment. Your answers set
                   the mix of agents demonstrated on the day.
                 </p>
               </Reveal>
@@ -899,7 +905,10 @@ export default function IntwoPage() {
 
         /* hero: kept in the stylesheet rather than inline so the portrait crop
            further down can override it */
-        .iw-hero-img { object-fit: cover; object-position: 72% center; }
+        /* Pinned to the right edge: the composition ends on a gold node, and
+           cropping into it reads as a mistake. The left of the frame is empty
+           room, so it is the safe side to lose. */
+        .iw-hero-img { object-fit: cover; object-position: 100% center; }
 
         /* speakers */
         .iw-spk {
@@ -1085,7 +1094,7 @@ export default function IntwoPage() {
         @keyframes iw-breathe { 0%,100% { opacity: 0.75; transform: scale(1); } 50% { opacity: 1; transform: scale(1.06); } }
         @keyframes iw-ignite { 0% { opacity: 0; r: 2; } 60% { opacity: 1; } 100% { opacity: 1; r: 9; } }
         @keyframes iw-ring { 0% { opacity: 0.6; transform: scale(0.7); } 70%,100% { opacity: 0; transform: scale(1.9); } }
-        /* nothing to look at off screen — stop repainting it */
+        /* nothing to look at off screen, so stop repainting it */
         .iw-node-idle .iw-halo, .iw-node-idle .iw-ring { animation-play-state: paused; }
 
         /* form */
@@ -1188,7 +1197,7 @@ export default function IntwoPage() {
 
 /** The four parts of Agents in Action as clickable cards: each card shows its
  *  title and a plus, and opening one reveals its detail in the panel beneath.
- *  Card semantics, tab behaviour — arrow keys move, Home/End jump to the ends. */
+ *  Card semantics, tab behaviour: arrow keys move, Home/End jump to the ends. */
 function ExperienceTabs() {
   const [active, setActive] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -1252,8 +1261,10 @@ function ExperienceTabs() {
 
 /** Horizontal, snap-scrolling rail of the five acts.
  *  Touch swipes natively; desktop gets arrows, pointer-drag and the keyboard.
- *  data-lenis-prevent-wheel hands wheel events back to the browser over the
- *  rail, so a trackpad's sideways swipe reaches it instead of Lenis. */
+ *  data-lenis-prevent-horizontal stands Lenis aside for sideways gestures only,
+ *  so a trackpad swipe reaches the rail. It must not be prevent-wheel: that
+ *  also dropped vertical wheels, and the page then scrolled natively over the
+ *  rail while Lenis smoothed it everywhere else, which read as a jump. */
 function ActsRail() {
   const ref = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
@@ -1387,10 +1398,10 @@ function ActsRail() {
         onFocus={() => setHold(true)}
         onBlur={() => setHold(false)}
         onTouchStart={() => { quietUntil.current = Date.now() + 9000; }}
-        data-lenis-prevent-wheel
+        data-lenis-prevent-horizontal
         tabIndex={0}
         role="group"
-        aria-label="The five acts — scroll sideways"
+        aria-label="The five acts, scroll sideways"
       >
         {ACTS.map((a) => (
           <div className="iw-rail-card" data-card key={a.time + a.title}>
@@ -1510,7 +1521,7 @@ function RsvpForm() {
             <h3 style={{ margin: 0, fontSize: 26, fontWeight: 400, letterSpacing: "-0.03em", color: INK }}>Request received.</h3>
             <p style={{ margin: "14px auto 0", maxWidth: "44ch", fontSize: 15.5, lineHeight: 1.7, color: INK_62 }}>
               Thank you. The room is limited to {EVENT.seats.toLowerCase()}, so we will confirm your
-              place by email — and your answers go straight into the mix of agents demonstrated on
+              place by email, and your answers go straight into the mix of agents demonstrated on
               {" "}{EVENT.dateShort}.
             </p>
           </div>

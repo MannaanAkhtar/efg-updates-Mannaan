@@ -226,7 +226,7 @@ const allEvents = [
     title: "Intwo CXO Roundtable",
     tagline: "AI Agents in Action",
     description:
-      "A half-day working session for Dynamics 365 customers. Live agents running inside the system, then Intwo customizes one live to a real request from the room while guests interact with the finished result themselves.",
+      "A half-day working session for Dynamics 365 customers, hosted by Intwo with Microsoft. Guests watch live agents working inside the system, then watch Intwo build one to a real request from the room and use the finished result themselves.",
     color: "#C9935A",
     image: "",
     href: "/intwo",
