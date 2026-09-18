@@ -29,6 +29,7 @@ export default function ConditionalNavigation() {
     pathname?.startsWith("/algosec") ||
     pathname?.startsWith("/proofpoint") ||
     pathname?.startsWith("/ifs") ||
+    pathname?.startsWith("/intwo") ||
     pathname?.startsWith("/blueyonder") ||
     pathname?.startsWith("/poka") ||
     pathname?.startsWith("/autodesk") ||
