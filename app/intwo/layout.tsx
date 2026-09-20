@@ -17,9 +17,6 @@ export const metadata: Metadata = {
   title: "AI Agents in Action | Intwo CXO Roundtable, Dubai",
   description:
     "A half-day working session for Dynamics 365 customers in Dubai, hosted by Intwo with Microsoft. Watch live agents working inside the system, then watch Intwo build one to a real request from the room. Thursday 8 October 2026. By invitation only.",
-  // Invitation and RSVP only. The brief specifies no public landing page, so the
-  // page stays out of search results while remaining reachable by direct link.
-  robots: { index: false, follow: false },
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: "AI Agents in Action | Intwo CXO Roundtable, Dubai",
