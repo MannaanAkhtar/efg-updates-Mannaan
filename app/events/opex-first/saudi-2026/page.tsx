@@ -214,6 +214,9 @@ const SPEAKERS: Speaker[] = [
   { name: "Ahmed Alaskar", title: "Sr. Director of Operational Excellence and Quality", org: "EXPRO", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+Alaskar.jpg", linkedin: "https://www.linkedin.com/in/ahmed-alaskar-077ba765/" },
   { name: "Mohammed N. Aljuhani", title: "Organizational Excellence Director", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+N.+Aljuhani.jpg", linkedin: "https://www.linkedin.com/in/maljuhani/" },
   { name: "Eng. Maher Mousa", title: "Regional Director of Product Management & Compliance", org: "Johnson Controls Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng+Maher+Mousa.jpeg", linkedin: "https://www.linkedin.com/in/maher-mousa-mba-cmi-b8881818/" },
+  { name: "Ahmed Al Idrissi", title: "Executive Advisor", org: "EXPRO", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ahmed+al+idrissi.jpg", linkedin: "https://www.linkedin.com/in/ahmed-alidrissi/" },
+  { name: "Talal Alahmari", title: "Organizational Excellence Director", org: "SERA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/talal+alahmari.png", linkedin: "https://www.linkedin.com/in/alahmaritalal/" },
+  { name: "Nadeer Alshyookh", title: "Business Transformation Manager Lead - MEA North", org: "SAP", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nadeer+AlShyookh.jpg", linkedin: "https://www.linkedin.com/in/nadeeralshyookh/" },
 ];
 
 type AgendaItem = {
@@ -4051,7 +4054,9 @@ function Speakers() {
       id="speakers"
       style={{
         background: `linear-gradient(180deg, ${BG} 0%, ${BG_DARK} 100%)`,
-        padding: "clamp(48px, 5.5vw, 80px) clamp(20px, 5vw, 64px)",
+        // Runs wider than the other bands: five 245px cards plus their gaps need
+        // 1305px, so the side padding is pulled in to make room for the row.
+        padding: "clamp(48px, 5.5vw, 80px) clamp(20px, 3vw, 48px)",
         position: "relative",
         overflow: "hidden",
       }}
@@ -4059,11 +4064,11 @@ function Speakers() {
       <div style={{ position: "absolute", top: "20%", left: "-5%", width: 460, height: 460, borderRadius: "50%", background: `radial-gradient(circle, ${V}14, transparent 65%)`, filter: "blur(80px)", pointerEvents: "none" }} />
       <div style={{ position: "absolute", bottom: "10%", right: "-5%", width: 420, height: 420, borderRadius: "50%", background: `radial-gradient(circle, ${MINT}10, transparent 65%)`, filter: "blur(80px)", pointerEvents: "none" }} />
 
-      <div style={{ maxWidth: 1320, margin: "0 auto", position: "relative", zIndex: 2 }}>
+      <div style={{ maxWidth: 1400, margin: "0 auto", position: "relative", zIndex: 2 }}>
         <SectionEyebrow inView={inView} label="Speakers & Advisors" />
         <SectionTitle inView={inView}>Voices shaping the <em className="opex-violet-shimmer">execution agenda</em>.</SectionTitle>
 
-        <div className="opex-speakers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 245px))", justifyContent: "center", gap: 20, marginTop: 56 }}>
+        <div className="opex-speakers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 245px))", justifyContent: "center", gap: 20, marginTop: 56 }}>
           {SPEAKERS.map((sp, i) => (
             <motion.div
               key={sp.name}
@@ -7804,6 +7809,12 @@ export default function OpexFirstSaudi2026Page() {
         .opex-form-wrap .inquiry-split > div { padding: 0 !important; gap: 0 !important; }
 
         /* ─── Responsive ─── */
+        /* Five 245px cards plus gaps need 1305px, which clears the side padding
+           only above ~1400px. Below that it steps down to four so the cards keep
+           their full width instead of shrinking. */
+        @media (max-width: 1400px) {
+          .opex-speakers-grid { grid-template-columns: repeat(4, minmax(0, 245px)) !important; }
+        }
         @media (max-width: 1100px) {
           .opex-stats-grid { grid-template-columns: repeat(3, 1fr) !important; }
           .opex-speakers-grid { grid-template-columns: repeat(2, 1fr) !important; }
