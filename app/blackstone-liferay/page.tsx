@@ -51,6 +51,9 @@ const WASH_TAKEAWAYS = "linear-gradient(180deg, #EAF1FF 0%, #DBE7FF 50%, #E8F0FF
 const WASH_SPEAKERS = "linear-gradient(180deg, #E8F0FF 0%, #F5F8FF 55%, #E9F0FF 100%)";
 const WASH_AGENDA = "linear-gradient(180deg, #E9F0FF 0%, #F3F7FF 50%, #E4EDFF 100%)";
 const WASH_PARTNERS = "linear-gradient(180deg, #E4EDFF 0%, #EEF4FF 60%, #E1EAFF 100%)";
+// Picks up exactly where Partners leaves off (#E1EAFF), so the two read as one
+// continuous light band before the near-black register.
+const WASH_VENUE = "linear-gradient(180deg, #E1EAFF 0%, #EAF1FF 45%, #DEE9FF 100%)";
 
 // Speakers section — moody blue-smoke atmosphere (bright cyan top → dark smoke
 // bottom). Organic smoke + grain generated as SVG data-URIs so it stays crisp
@@ -94,9 +97,18 @@ const GLASS_GRAIN =
 const EVENT_META = [
   { label: "Date", value: "20 October 2026" },
   { label: "Time", value: "10:00 AM – 2:00 PM" },
-  { label: "Location", value: "Saudi Arabia" },
+  // Non-breaking space keeps "Saudi Arabia" whole when the row wraps.
+  { label: "Location", value: "Crowne Plaza Riyadh Hotel & Convention Center · Saudi Arabia" },
   { label: "Format", value: "Executive Roundtable" },
 ];
+
+// Shared venue photograph, already used by the other Riyadh boardrooms.
+const VENUE = {
+  name: "Crowne Plaza Riyadh Hotel & Convention Center",
+  city: "Riyadh, Saudi Arabia",
+  photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/crowne-plaza-riyadh.jpg",
+  maps: "https://www.google.com/maps/search/?api=1&query=Crowne+Plaza+Riyadh+Hotel+%26+Convention+Center",
+};
 
 const OVERVIEW_CARDS = [
   {
@@ -1102,6 +1114,104 @@ function PartnersSection() {
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
+// VENUE
+// ═════════════════════════════════════════════════════════════════════════════
+/** Continues the light Partners band and hands off to the near-black Register
+ *  section, so the page keeps its light-then-dark rhythm. */
+function VenueSection() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  return (
+    <section id="venue" style={{ position: "relative", overflow: "hidden", background: WASH_VENUE, color: INK, ...SECTION_PAD }}>
+      <div aria-hidden style={{ position: "absolute", inset: 0, opacity: 0.5, pointerEvents: "none", ...pixelGridBg("rgba(11,95,255,0.05)", 54) }} />
+
+      <div style={{ position: "relative", zIndex: 2, maxWidth: 1160, margin: "0 auto" }}>
+        <SectionHeading
+          light
+          eyebrow="The Venue"
+          title={VENUE.name}
+          sub="The roundtable runs from 10:00 AM to 2:00 PM. Full joining details are sent with your confirmation."
+        />
+
+        <div ref={ref} className="bl-venue-grid" style={{ marginTop: "clamp(40px,5vw,64px)", display: "grid", gridTemplateColumns: "1.35fr 1fr", gap: "clamp(18px,2vw,26px)", alignItems: "stretch" }}>
+          <motion.figure
+            initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: EASE }}
+            className="bl-venue-fig"
+            style={{ margin: 0, position: "relative", borderRadius: 20, overflow: "hidden", border: `1px solid ${L_HAIR}`, boxShadow: L_CARD_SHADOW, minHeight: "clamp(260px,30vw,380px)" }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={VENUE.photo} alt={VENUE.name} loading="lazy" decoding="async" className="bl-venue-img" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+            <span aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(6,14,46,0) 40%, rgba(6,14,46,0.86) 100%)" }} />
+            <figcaption style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "clamp(20px,2.4vw,30px)", display: "flex", alignItems: "center", gap: 10, fontFamily: FONT, fontSize: 13.5, fontWeight: 700, color: WHITE }}>
+              <MetaIcon label="Location" /> {VENUE.city}
+            </figcaption>
+          </motion.figure>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.12, ease: EASE }}
+            className="bl-venue-card"
+            style={{ position: "relative", overflow: "hidden", borderRadius: 20, border: `1px solid ${L_HAIR}`, background: "linear-gradient(165deg, #FFFFFF 0%, #F4F8FF 58%, #E8EFFF 100%)", boxShadow: L_CARD_SHADOW, padding: "clamp(24px,2.6vw,32px)", display: "flex", flexDirection: "column" }}
+          >
+            {/* the page's pixel motif, kept faint so it reads as paper texture */}
+            <span aria-hidden style={{ position: "absolute", inset: 0, opacity: 0.6, pointerEvents: "none", maskImage: "radial-gradient(ellipse 90% 70% at 90% 0%, #000 10%, transparent 75%)", WebkitMaskImage: "radial-gradient(ellipse 90% 70% at 90% 0%, #000 10%, transparent 75%)", ...pixelGridBg("rgba(11,95,255,0.07)", 34) }} />
+
+            <dl style={{ position: "relative", margin: 0, display: "flex", flexDirection: "column" }}>
+              {EVENT_META.map((m, i) => (
+                <div
+                  key={m.label}
+                  style={{
+                    display: "flex", alignItems: "center", gap: 14, padding: "15px 0",
+                    borderTop: i === 0 ? "none" : "1px solid transparent",
+                    borderImage: i === 0 ? undefined : "linear-gradient(90deg, rgba(11,95,255,0.22), rgba(11,95,255,0.06) 70%, transparent) 1",
+                  }}
+                >
+                  <span className="bl-venue-chip" style={{
+                    flexShrink: 0, width: 40, height: 40, borderRadius: 12,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    background: FUSION,
+                    boxShadow: `0 6px 16px ${BLUE}33, inset 0 1px 0 rgba(255,255,255,0.35)`,
+                    transition: "transform .3s ease, box-shadow .3s ease",
+                  }}>
+                    <MetaIcon label={m.label} />
+                  </span>
+                  <div style={{ minWidth: 0 }}>
+                    <dt style={{ margin: 0, fontFamily: FONT, fontSize: 10.5, fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", color: BLUE }}>{m.label}</dt>
+                    <dd style={{ margin: "4px 0 0", fontFamily: FONT, fontSize: "clamp(14.5px,1.08vw,16px)", fontWeight: 700, lineHeight: 1.35, color: INK, textWrap: "balance" }}>{m.value}</dd>
+                  </div>
+                </div>
+              ))}
+            </dl>
+
+            <a href={VENUE.maps} target="_blank" rel="noopener noreferrer" className="bl-venue-map" style={{
+              position: "relative", marginTop: "auto", alignSelf: "flex-start",
+              display: "inline-flex", alignItems: "center", gap: 9,
+              padding: "12px 22px", borderRadius: 999, background: FUSION, color: WHITE,
+              fontFamily: FONT, fontSize: 13.5, fontWeight: 700, textDecoration: "none",
+              boxShadow: `0 6px 20px ${BLUE}55, inset 0 1px 0 rgba(255,255,255,0.22)`,
+              transition: "transform .2s, box-shadow .2s",
+            }}>
+              Open in Google Maps <span aria-hidden>↗</span>
+            </a>
+          </motion.div>
+        </div>
+      </div>
+
+      <style jsx global>{`
+        .bl-venue-img { transition: transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+        .bl-venue-fig:hover .bl-venue-img { transform: scale(1.04); }
+        .bl-venue-map:hover { transform: translateY(-2px); box-shadow: 0 10px 28px ${BLUE}77, inset 0 1px 0 rgba(255,255,255,0.28); }
+        .bl-venue-card:hover .bl-venue-chip { transform: scale(1.06); box-shadow: 0 8px 20px ${BLUE}4d, inset 0 1px 0 rgba(255,255,255,0.45); }
+        @media (max-width: 860px) { .bl-venue-grid { grid-template-columns: 1fr !important; } }
+        @media (prefers-reduced-motion: reduce) {
+          .bl-venue-img, .bl-venue-map, .bl-venue-chip { transition: none !important; transform: none !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
 // REGISTER
 // ═════════════════════════════════════════════════════════════════════════════
 const INDUSTRIES = [
@@ -1422,6 +1532,7 @@ export default function BlackstoneLiferayPage() {
       <SpeakersSection />
       <AgendaSection />
       <PartnersSection />
+      <VenueSection />
       <RegisterSection />
       <Footer />
     </main>

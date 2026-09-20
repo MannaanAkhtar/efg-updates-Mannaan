@@ -203,7 +203,7 @@ const UPCOMING_EVENTS = [
     title: "Blackstone eIT × Liferay Executive Roundtable",
     subtitle: "AI-Powered Government: Enabling Citizen-Centered Experiences",
     sponsor: "Blackstone eIT & Liferay",
-    location: "Saudi Arabia",
+    location: "Crowne Plaza Riyadh Hotel & Convention Center, Riyadh",
     link: "/blackstone-liferay",
     image: "https://efg-final.s3.eu-north-1.amazonaws.com/heros/ChatGPT+Image+Aug+13%2C+2026%2C+10_36_22+AM.png",
     brandColor: "#0B5FFF",

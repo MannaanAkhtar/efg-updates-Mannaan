@@ -322,7 +322,7 @@ const allEvents = [
     href: "/blackstone-liferay",
     date: "2026-10-20",
     nextDate: "20 Oct 2026",
-    nextCity: "Saudi Arabia",
+    nextCity: "Riyadh, Saudi Arabia",
     editions: "",
     regions: "Saudi Arabia",
     attendees: "Invited",
