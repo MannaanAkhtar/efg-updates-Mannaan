@@ -50,10 +50,16 @@ const BLOCK_GAP = "clamp(34px,4vw,60px)";
 // ─── Assets ──────────────────────────────────────────────────────────────────
 const LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/intwo+logo.svg";
 const HERO = "https://efg-final.s3.eu-north-1.amazonaws.com/heros/intwo+hero1.png";
-// Premise image: square, as the Intwo book prefers, and already dark at the
-// base so the pull-quote sits on the photograph rather than on a scrim.
+// Premise image: the frame is square, as the Intwo book prefers, but the source
+// is 3960x2513 landscape with the worker and the robot in its right third. A
+// default centre crop cuts the robot in half, so the crop is pinned right —
+// see objectPosition where this is rendered.
 const PREMISE_IMG =
-  "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Featured-image-Digital-Transformation-ROI-600x600.webp";
+  "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/iStock-2187647544.jpg";
+// RSVP column image. 3864x2576 (3:2) shown in a 4:3 frame, so the crop trims
+// about 5% from each side — clear of both figures.
+const RSVP_IMG =
+  "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/iStock-1724482019.jpg";
 
 // ─── Event ───────────────────────────────────────────────────────────────────
 const EVENT = {
@@ -623,10 +629,10 @@ export default function IntwoPage() {
               >
                 <Image
                   src={PREMISE_IMG}
-                  alt="An executive reading a live performance dashboard in a boardroom"
+                  alt="A warehouse worker and a humanoid robot reading the same laptop together"
                   fill
                   sizes="(max-width: 1080px) 100vw, 530px"
-                  style={{ objectFit: "cover", filter: "saturate(0.94) contrast(0.97)" }}
+                  style={{ objectFit: "cover", objectPosition: "100% center", filter: "saturate(0.94) contrast(0.97)" }}
                 />
                 <div aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,42,59,0) 40%, rgba(0,42,59,0.55) 66%, rgba(0,42,59,0.93) 100%)" }} />
                 <figcaption style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "clamp(24px,2.6vw,36px)" }}>
@@ -821,6 +827,19 @@ export default function IntwoPage() {
                   The questions in this form tailor the session to your environment. Your answers set
                   the mix of agents demonstrated on the day.
                 </p>
+              </Reveal>
+              {/* The form column runs much taller than this one, which left a large
+                  empty block under the copy on desktop. */}
+              <Reveal delay={240}>
+                <figure style={{ position: "relative", margin: "clamp(28px,3.2vw,38px) 0 0", aspectRatio: "4 / 3", borderRadius: CORNER, overflow: "hidden", background: ICE, border: `1px solid ${LINE_SOFT}` }}>
+                  <Image
+                    src={RSVP_IMG}
+                    alt="A woman and a humanoid robot bumping fists across a desk"
+                    fill
+                    sizes="(max-width: 1080px) 100vw, 530px"
+                    style={{ objectFit: "cover", filter: "saturate(0.94) contrast(0.97)" }}
+                  />
+                </figure>
               </Reveal>
             </div>
 
