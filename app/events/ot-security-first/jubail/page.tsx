@@ -4562,12 +4562,16 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
   {
     tier: "Media Partners",
     logos: [
-      { name: "International Business Magazine", id: "media-ibm", surface: "light", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/International-Business-Magazine.png" },
-      { name: "Kanebridge News", id: "media-kanebridge", surface: "light", fillWidth: true, scale: 1.3, logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Kanebridge_news.png" },
-      { name: "Eye of Riyadh", id: "media-eye-of-riyadh", surface: "light", scale: 1.55, logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/unnamed+(9).png" },
+      { name: "International Business Magazine", id: "media-ibm", surface: "light", href: "https://intlbm.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/International-Business-Magazine.png" },
+      // The Middle East edition, not the Australian kanebridgenews.com.
+      { name: "Kanebridge News", id: "media-kanebridge", surface: "light", href: "https://kanebridgenewsme.com/", fillWidth: true, scale: 1.3, logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Kanebridge_news.png" },
+      { name: "Eye of Riyadh", id: "media-eye-of-riyadh", surface: "light", href: "https://www.eyeofriyadh.com/", scale: 1.55, logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/unnamed+(9).png" },
       { name: "The Energy Info", id: "media-tei", surface: "light", href: "https://theenergyinfo.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/tei-logo.png" },
       { name: "Startup News", id: "media-startupnews", surface: "light", href: "https://startupnews.fyi/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/startupnews.png" },
       { name: "Eye of Dubai", id: "media-eye-of-dubai", surface: "light", href: "https://www.eyeofdubai.ae/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/eye+of+dubai.png" },
+      // Wide Arabic wordmark with heavy transparent margins in the source file,
+      // so it needs fillWidth + scale to read at the same size as the others.
+      { name: "Saudi Conferences", id: "media-saudicon", surface: "light", href: "https://saudicon.app", fillWidth: true, scale: 1.4, logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/saudicon-logo-light-backgrounds.png" },
     ],
   },
 ];
@@ -4666,15 +4670,19 @@ function SponsorsSection() {
               );
             };
 
-            // Media Partners render as a pyramid stack. With 6 logos: top row of 4,
-            // bottom row of 2 (centered). With 3: last logo alone on top, the rest below.
+            // Media Partners render as a pyramid stack: rows of at most 4, each
+            // row centred, so a short last row sits under a full one (6 → 4+2,
+            // 7 → 4+3). With 3, the last logo sits alone above the other two.
             const isMediaTier = t.tier === "Media Partners";
-            const rows: SponsorLogo[][] =
-              isMediaTier && t.logos.length === 6
-                ? [t.logos.slice(0, 4), t.logos.slice(4)]
-                : isMediaTier && t.logos.length === 3
-                ? [[t.logos[t.logos.length - 1]], t.logos.slice(0, -1)]
-                : [t.logos];
+            const rows: SponsorLogo[][] = !isMediaTier
+              ? [t.logos]
+              : t.logos.length === 3
+              ? [[t.logos[t.logos.length - 1]], t.logos.slice(0, -1)]
+              : t.logos.reduce<SponsorLogo[][]>((acc, s, i) => {
+                  if (i % 4 === 0) acc.push([]);
+                  acc[acc.length - 1].push(s);
+                  return acc;
+                }, []);
 
             return (
               <div key={t.tier} id={t.tier === "Media Partners" ? "media-partners" : undefined}>
