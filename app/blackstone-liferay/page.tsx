@@ -865,7 +865,7 @@ function SmokeBg() {
 // ═════════════════════════════════════════════════════════════════════════════
 const BL_SPEAKERS = [
   { name: "Ahmad Saad", title: "Regional Sales Manager, Liferay", linkedin: "https://www.linkedin.com/in/ahmad-saad-15088224/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmad+Saad.JPG" },
-  { name: "Wajih Yahyaoui", title: "Managing Partner, Blackstone eIT", linkedin: "https://www.linkedin.com/in/wajihyahyaoui/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Wajih_Yahaouyi_Blackstone.png" },
+  { name: "Wajih Yahyaoui", title: "Managing Partner, Blackstone eIT", linkedin: "https://www.linkedin.com/in/wajihyahyaoui/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Wajih+Yahyaoui-new.png" },
   { name: "Youness Soulayman", title: "CTO & Executive Director, Blackstone eIT", linkedin: "https://www.linkedin.com/in/younesszahir/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Youness_Soulayman_Blackstone.png" },
   { name: "Mahmoud Tayem", title: "Manager, Sales Engineering, Liferay", linkedin: "https://www.linkedin.com/in/tayemmahmoud/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mahmoud+Tayem+Small.jpg" },
 ];
@@ -899,9 +899,15 @@ function SpeakersSection() {
               {/* staggered shimmer sweep */}
               <span aria-hidden className="bl-glass-sheen" style={{ position: "absolute", top: 0, bottom: 0, left: 0, width: "55%", zIndex: 3, background: "linear-gradient(90deg, transparent, rgba(180,224,255,0.10), transparent)", animationDelay: `${i * 1.4}s`, pointerEvents: "none" }} />
               {/* full portrait */}
-              <div style={{ position: "relative", zIndex: 1, width: "100%", aspectRatio: "4 / 5", overflow: "hidden", background: "linear-gradient(160deg, rgba(120,214,255,0.14), rgba(11,95,255,0.10))" }}>
-                <img src={s.photo} alt={s.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
-                <span aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 55%, rgba(2,10,23,0.55) 100%)", pointerEvents: "none" }} />
+              {/* Studio backdrop. Most of these portraits are opaque and cover the
+                  frame, so this is only ever seen behind a cut-out PNG — but when
+                  one is used, a flat panel leaves the subject looking pasted on.
+                  A spotlight behind the head plus a darker floor reads as a room. */}
+              <div style={{ position: "relative", zIndex: 1, width: "100%", aspectRatio: "4 / 5", overflow: "hidden", background: `radial-gradient(120% 85% at 50% 18%, rgba(112,161,255,0.34) 0%, rgba(67,78,229,0.20) 38%, rgba(10,20,54,0.06) 68%, rgba(6,14,46,0) 100%), linear-gradient(180deg, ${NAVY_3} 0%, ${NAVY_2} 52%, ${NAVY} 100%)` }}>
+                {/* grounding shadow, so the subject sits on the floor rather than hovering */}
+                <span aria-hidden style={{ position: "absolute", left: "12%", right: "12%", bottom: 0, height: "34%", background: "radial-gradient(70% 100% at 50% 100%, rgba(2,8,20,0.60) 0%, rgba(2,8,20,0) 72%)", pointerEvents: "none" }} />
+                <img src={s.photo} alt={s.name} style={{ position: "relative", zIndex: 1, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+                <span aria-hidden style={{ position: "absolute", inset: 0, zIndex: 2, background: "linear-gradient(180deg, transparent 55%, rgba(2,10,23,0.55) 100%)", pointerEvents: "none" }} />
               </div>
               <div style={{ position: "relative", zIndex: 1, padding: "18px 18px 24px" }}>
                 <div style={{ fontFamily: FONT, fontSize: 17.5, fontWeight: 700, color: WHITE, letterSpacing: "-0.01em" }}>{s.name}</div>
