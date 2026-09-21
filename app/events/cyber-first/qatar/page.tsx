@@ -209,7 +209,7 @@ const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; 
   { name: "Farhan Chaudhry", title: "VP of Cybersecurity, Governance, Risk and Compliance", org: "Qatar Airways", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/farhan+chaudhary1.png", linkedin: "https://www.linkedin.com/in/farhanchaudhry/" },
   { name: "Anfal Shaikh",     title: "CISO", org: "Qatar Islamic Insurance", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anfal_shaikh+1.png", linkedin: "https://www.linkedin.com/in/anfal-shaikh-1bb05aa6/" },
   { name: "John Mankarios",   title: "Vice President – Deputy Head of Information Technology", org: "QInvest", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/JohnMankarios.png", linkedin: "https://www.linkedin.com/in/john-mankarios/" },
-  { name: "Muhammad Danish",  title: "Director & Global Head of Security Operations", org: "TMF Group" },
+  { name: "Muhammad Danish",  title: "Director & Global Head of Security Operations", org: "TMF Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+danish.jpg" },
   { name: "Amer Bazerbachi",  title: "Partner", org: "KPMG Qatar", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Amer+Bazerbachi.png", linkedin: "https://www.linkedin.com/in/ACoAABxxLuoBuPSdHOJ-stiDXdxW4imy43icLpo/" },
   { name: "Khireddine Garri", title: "Acting Chief Information Security Officer (CISO)", org: "Jasour", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khireddine+Garri.jpg", linkedin: "https://www.linkedin.com/in/khireddine-garri-294b4a91/" },
   { name: "Feroz Khan",       title: "Head of IT Security", org: "TotalEnergies", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/feroz_khan.png", linkedin: "https://www.linkedin.com/in/fkindoha/" },
@@ -221,7 +221,7 @@ const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; 
   { name: "Ozel Hurmuzlu",    title: "Head of Institutional Quality Management", org: "Qatar University", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ozel.JPG", linkedin: "https://www.linkedin.com/in/hurmuzlu/" },
   { name: "Christa Waegemann", title: "International Director", org: "Violence Prevention Network gGmbH", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Christa+Waegemann.png", linkedin: "https://www.linkedin.com/in/christawaegemann/" },
   // Speakers not in the 17 Sep running-order list go after the last listed one.
-  { name: "Noureddine Bouhaddaoui", title: "Head of Security Product", org: "Ooredoo Group", linkedin: "https://www.linkedin.com/in/noureddine-bouhaddaoui-8a3bb79/" },
+  { name: "Noureddine Bouhaddaoui", title: "Head of Security Product", org: "Ooredoo Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Noureddine+PIc.jpg", linkedin: "https://www.linkedin.com/in/noureddine-bouhaddaoui-8a3bb79/" },
 ];
 
 // ─── Agenda — 17 rows (from PDF) ────────────────────────────────────────────
