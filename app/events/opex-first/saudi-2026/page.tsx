@@ -4985,6 +4985,10 @@ type S26SponsorItem = {
   surface: "dark" | "light";
   innerBg: string;
   logoMaxHeight?: number;
+  // Some media mastheads ship as a banner with extra artwork baked in below the
+  // wordmark. cropToAspect clips the file to this width:height ratio from the
+  // top so only the wordmark shows; the logo then spans the card's full width.
+  cropToAspect?: number;
 };
 
 const SPONSORS_2026: S26SponsorItem[] = [
@@ -5053,6 +5057,27 @@ const SPONSORS_2026: S26SponsorItem[] = [
     surface: "light",
     innerBg: "linear-gradient(165deg, #ffffff 0%, #eef0f4 100%)",
     logoMaxHeight: 66,
+  },
+  {
+    // Their masthead is a 520x180 banner: the wordmark sits on pure black in
+    // the top 125px, with a strip of photography below it. Cropped to the
+    // wordmark, and given a black panel so the baked-in background blends.
+    name: "Robotics & Automation News",
+    tier: "Media",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/roboticsandautomationnews.png",
+    url: "https://roboticsandautomationnews.com/",
+    surface: "dark",
+    innerBg: "linear-gradient(165deg, #0b0b0b 0%, #000000 100%)",
+    cropToAspect: 520 / 125,
+  },
+  {
+    name: "AI Events",
+    tier: "Media",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/logo-full-dark.png",
+    url: "https://allai.events/",
+    surface: "light",
+    innerBg: "linear-gradient(165deg, #ffffff 0%, #eef0f4 100%)",
+    logoMaxHeight: 60,
   },
 ];
 
@@ -5210,13 +5235,27 @@ function EventSponsors() {
                           <div className="opex-s26-inner-ring" aria-hidden="true" />
                           {/* Corner facet */}
                           <div className="opex-s26-corner-facet" aria-hidden="true" style={{ background: `linear-gradient(135deg, ${m.label} 0%, transparent 60%)` }} />
-                          {/* Logo */}
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={sponsor.logo}
-                            alt={`${sponsor.name} logo`}
-                            style={{ maxWidth: "100%", maxHeight: sponsor.logoMaxHeight ?? 80, width: "auto", height: "auto", objectFit: "contain", display: "block", position: "relative", zIndex: 3 }}
-                          />
+                          {/* Logo. A cropped masthead is clipped by a wrapper
+                              fixed to the kept aspect ratio: the image fills the
+                              wrapper's width, overflows its height, and the
+                              unwanted lower band is hidden. */}
+                          {sponsor.cropToAspect ? (
+                            <span style={{ position: "relative", zIndex: 3, display: "block", width: "100%", aspectRatio: String(sponsor.cropToAspect), overflow: "hidden" }}>
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={sponsor.logo}
+                                alt={`${sponsor.name} logo`}
+                                style={{ width: "100%", height: "auto", display: "block" }}
+                              />
+                            </span>
+                          ) : (
+                            /* eslint-disable-next-line @next/next/no-img-element */
+                            <img
+                              src={sponsor.logo}
+                              alt={`${sponsor.name} logo`}
+                              style={{ maxWidth: "100%", maxHeight: sponsor.logoMaxHeight ?? 80, width: "auto", height: "auto", objectFit: "contain", display: "block", position: "relative", zIndex: 3 }}
+                            />
+                          )}
                         </div>
                       </motion.a>
                     );
