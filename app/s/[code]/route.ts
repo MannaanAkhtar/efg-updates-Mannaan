@@ -71,6 +71,11 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   // post driving delegate registrations.
   "cfq-li": { path: "/events/cyber-first/qatar", source: "linkedin", medium: "social", campaign: "cf-qatar-2026", hash: "register", tab: "attend" },
 
+  // Cyber First Kuwait 2026 (LinkedIn promotion). No tab= here, unlike Qatar:
+  // this page's register section already opens on "Attend", so forcing it would
+  // be a no-op — and the page has no ?tab handler to read it anyway.
+  "cfk-li": { path: "/events/cyber-first/kuwait-2026", source: "linkedin", medium: "social", campaign: "cf-kuwait-2026", hash: "register" },
+
   // EnterpriseDB Executive Roundtable — KSA — deep-link straight to the register form
   "edbksa-afra": { path: "/enterprisedb-ksa", source: "afra", campaign: "enterprisedb-ksa", medium: "invite", hash: "register" },
 
