@@ -4,6 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { Footer } from "@/components/sections";
 import InquiryForm from "@/components/sections/InquiryForm";
 import CyberFirstCloudsBg from "@/components/effects/CyberFirstCloudsBg";
@@ -189,13 +190,13 @@ function CfSpeakerCell({ sp }: { sp: CfSpeaker }) {
       }}
     >
       <div style={{ position: "relative", borderRadius: 14.5, overflow: "hidden", aspectRatio: "4 / 5", background: "#05070b", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.55)" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={sp.photo}
           alt={`${sp.name}, ${sp.title}`}
-          loading="lazy"
+          fill
+          sizes="(max-width: 700px) 190px, 226px"
           className="cf-speaker-photo"
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: sp.focus ?? "top center", filter: "saturate(0.9) contrast(1.08) brightness(0.78)", transition: "filter 0.7s ease, transform 1s cubic-bezier(0.22,1,0.36,1)" }}
+          style={{ objectFit: "cover", objectPosition: sp.focus ?? "top center", filter: "saturate(0.9) contrast(1.08) brightness(0.78)", transition: "filter 0.7s ease, transform 1s cubic-bezier(0.22,1,0.36,1)" }}
         />
         <span style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(5,7,11,0.22) 0%, transparent 30%, rgba(5,7,11,0.32) 55%, rgba(5,7,11,0.95) 100%)", pointerEvents: "none" }} />
         <span style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${CYAN}10 0%, transparent 50%, ${CYAN}08 100%)`, mixBlendMode: "overlay" as const, pointerEvents: "none" }} />
@@ -258,7 +259,7 @@ const ENGAGEMENT_TIERS = [
       "Cross-edition speaker circuit",
     ],
     cta: "Submit a speaker profile",
-    image: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Cyber%20First%20Kuwait%202025/filemail_photos/cyber21-04-324.jpg",
+    image: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Cyber+First+Kuwait+2025/filemail_photos/cyber21-04-324.jpg",
   },
 ];
 
@@ -297,7 +298,7 @@ const GALLERY_PHOTOS = [
   { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Cyber+First+Kuwait+2025/filemail_photos/cyber21-04-324.jpg", caption: "On the main stage", aspect: "4 / 3" },
   { src: "https://efg-final.s3.eu-north-1.amazonaws.com/Good/4N8A0330.JPG", caption: "Awards ceremony", aspect: "4 / 3" },
   { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Cyber+First+Kuwait+2025/Kuwait+Photos/Kuwait+Photos/4X9A1744.jpg", caption: "The main hall", aspect: "4 / 3" },
-  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Cyber%20First%20Kuwait%202025/filemail_photos/cyber21-04-390.jpg", caption: "Delegates in session", aspect: "4 / 3" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Cyber+First+Kuwait+2025/filemail_photos/cyber21-04-390.jpg", caption: "Delegates in session", aspect: "4 / 3" },
   { src: "https://efg-final.s3.eu-north-1.amazonaws.com/cyber-first-kenya/cyber21-04-504.jpg", caption: "Exhibition floor", aspect: "4 / 3" },
 ];
 
@@ -1293,9 +1294,13 @@ function Hero() {
           animation-delay: 1.5s;
           filter: drop-shadow(0 0 18px rgba(1,187,245,0.22));
         }
+        /* Driven by transform, not left: animating a layout property ran a
+           reflow on every frame of an infinite loop. */
         @keyframes cf-pill-shimmer {
-          0%   { left: -85%; }
-          100% { left: 185%; }
+          /* Travel is 270% of the parent (left -85% → 185%); translateX is
+             relative to this element's own width (48%), so 270/48 = 562.5%. */
+          0%   { transform: translateX(0) skewX(-18deg); }
+          100% { transform: translateX(562.5%) skewX(-18deg); }
         }
         .cf-pill-shimmer {
           position: absolute;
@@ -1575,17 +1580,13 @@ function ThesisPhoto({ src, alt, aspect, location, tagline, year, translateX = 0
       }}>
         <div style={{ position: "absolute", inset: 2, borderRadius: 14, pointerEvents: "none", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.45)", zIndex: 3 }} />
         <div style={{ position: "relative", borderRadius: 14, overflow: "hidden", aspectRatio: aspect, background: "#000" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={src}
             alt={alt}
-            loading="lazy"
+            fill
+            sizes="(max-width: 700px) 92vw, 500px"
             className="cf-thesis-photo-img"
             style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
               objectFit: "cover",
               objectPosition: "center 35%",
               filter: "saturate(0.9) contrast(1.08) brightness(0.8)",
@@ -2807,17 +2808,13 @@ function Arc() {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.55)",
               }}>
                 {/* Hero image */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={ed.image}
                   alt={`${ed.city} edition venue`}
-                  loading="lazy"
+                  fill
+                  sizes="(max-width: 700px) 92vw, 380px"
                   className="cf-arc-card-img"
                   style={{
-                    position: "absolute",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
                     objectFit: "cover",
                     objectPosition: "center 40%",
                     filter: "saturate(0.88) contrast(1.08) brightness(0.66)",
@@ -3855,18 +3852,14 @@ function Engage() {
                 width: "100%",
               }}>
                 {/* Background image */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={tier.image}
                   alt=""
                   aria-hidden
-                  loading="lazy"
+                  fill
+                  sizes="(max-width: 700px) 92vw, 380px"
                   className="cf-engage-bg"
                   style={{
-                    position: "absolute",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
                     objectFit: "cover",
                     objectPosition: "center",
                     filter: "saturate(0.9) contrast(1.06) brightness(0.72)",
@@ -4198,17 +4191,13 @@ function ProofSection() {
                   background: "#05070b",
                   boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.55)",
                 }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={photo.src}
                     alt={photo.caption}
-                    loading="lazy"
+                    fill
+                    sizes="(max-width: 700px) 92vw, 380px"
                     className="cf-gallery-img"
                     style={{
-                      position: "absolute",
-                      inset: 0,
-                      width: "100%",
-                      height: "100%",
                       objectFit: "cover",
                       objectPosition: "center",
                       filter: "saturate(0.92) contrast(1.06) brightness(0.82)",

@@ -133,23 +133,31 @@ export default function CyberFirstCloudsBg() {
     const uTime = gl.getUniformLocation(program, "time");
     const uMove = gl.getUniformLocation(program, "move");
 
+    // The canvas rect is cached rather than measured per event or per frame:
+    // getBoundingClientRect forces a synchronous layout, and this page is large
+    // enough that doing it on every pointermove and every rAF tick was the main
+    // source of main-thread jank. It only changes on resize/scroll.
+    let rect = canvas.getBoundingClientRect();
+    const remeasure = () => { rect = canvas!.getBoundingClientRect(); };
+
     // Smoothed pointer parallax
     const target: [number, number] = [0, 0];
     const move: [number, number] = [0, 0];
     const onMove = (e: PointerEvent) => {
-      const rect = canvas.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
       const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
       target[0] = nx * 70;
       target[1] = -ny * 70;
     };
     window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("scroll", remeasure, { passive: true });
 
     // Resize with DPR cap
     const DPR_CAP = 1.25;
     function resize() {
+      remeasure();
       const dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP);
-      const rect = canvas!.getBoundingClientRect();
       const w = Math.max(1, Math.floor(rect.width * dpr));
       const h = Math.max(1, Math.floor(rect.height * dpr));
       if (canvas!.width !== w || canvas!.height !== h) {
@@ -160,6 +168,10 @@ export default function CyberFirstCloudsBg() {
     }
     resize();
     window.addEventListener("resize", resize);
+    // Catches container-driven size changes that no window resize accompanies —
+    // the case the old per-frame resize() call was implicitly covering.
+    const ro = new ResizeObserver(resize);
+    ro.observe(canvas);
 
     // Pause off-screen
     let isVisible = true;
@@ -174,12 +186,14 @@ export default function CyberFirstCloudsBg() {
 
     let raf = 0;
     function loop(now: number) {
-      resize();
-      // Smooth toward target mouse position
-      move[0] += (target[0] - move[0]) * 0.05;
-      move[1] += (target[1] - move[1]) * 0.05;
-
+      // Off-screen the shader does no work at all: previously the loop still
+      // ran a full resize() (and its forced layout) on every frame while the
+      // hero was scrolled far out of view.
       if (isVisible) {
+        // Smooth toward target mouse position
+        move[0] += (target[0] - move[0]) * 0.05;
+        move[1] += (target[1] - move[1]) * 0.05;
+
         gl!.uniform2f(uRes, canvas!.width, canvas!.height);
         gl!.uniform1f(uTime, reduceMotion ? 0 : now * 0.001);
         gl!.uniform2f(uMove, move[0], move[1]);
@@ -192,7 +206,9 @@ export default function CyberFirstCloudsBg() {
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", remeasure);
       window.removeEventListener("pointermove", onMove);
+      ro.disconnect();
       io.disconnect();
     };
   }, []);
