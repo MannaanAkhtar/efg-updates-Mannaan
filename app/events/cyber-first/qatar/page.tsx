@@ -4,6 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, useInView, AnimatePresence, MotionConfig } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { Footer, InquiryForm } from "@/components/sections";
 import EventNavigation from "@/components/ui/EventNavigation";
 import CpdCertified from "@/components/events/CpdCertified";
@@ -699,7 +700,7 @@ function Hero() {
           >
             {[
               { label: "10 November 2026", border: C },
-              { label: "Doha · Qatar",     border: QATAR_BRIGHT },
+              { label: "La Cigale Hotel · Doha", border: QATAR_BRIGHT },
             ].map((p) => (
               <span
                 key={p.label}
@@ -6516,16 +6517,20 @@ function ContactsSection() {
 }
 
 // ───────────────────────────────────────────────────────────────────────────
-// VENUE — reveal soon teaser with Doha hotel background
+// VENUE — La Cigale Hotel, Doha (confirmed)
 // ───────────────────────────────────────────────────────────────────────────
-function VenueTeaser() {
+const VENUE = {
+  name: "La Cigale Hotel",
+  city: "Doha",
+  photo: "https://efg-final.s3.eu-north-1.amazonaws.com/venues/la+cigale+hotel+doha.png",
+  maps: "https://maps.app.goo.gl/kyLNyw666tRfGy5P7",
+};
+
+function VenueSection() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   const GOLD_BRIGHT = "#E2C063";
-
-  // Doha skyline from Unsplash (Akbar Nemati) — swap for the real venue shot once selected
-  const VENUE_BG = "https://images.unsplash.com/photo-1683194247996-43897678c94c?w=2400&q=85&auto=format&fit=crop";
 
   return (
     <section
@@ -6533,227 +6538,192 @@ function VenueTeaser() {
       id="venue"
       style={{
         position: "relative",
-        padding: "clamp(40px, 4.5vw, 64px) 0",
+        padding: "clamp(56px, 6vw, 96px) 0",
         background: BG_BASE,
         overflow: "hidden",
       }}
     >
-      {/* Background image */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-        }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={VENUE_BG}
-          alt=""
-          loading="lazy"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center 60%",
-            filter: "saturate(0.85) contrast(1.05)",
-          }}
-        />
-      </div>
-
-      {/* Dark vignette so text always reads */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: `linear-gradient(180deg, rgba(2,5,14,0.85) 0%, rgba(2,5,14,0.6) 35%, rgba(2,5,14,0.6) 65%, rgba(2,5,14,0.92) 100%)`,
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-      />
-
       {/* Tone wash — cyan top-left, maroon bottom-right */}
       <div
         aria-hidden
         style={{
           position: "absolute",
           inset: 0,
-          background: `radial-gradient(ellipse 60% 50% at 15% 20%, ${C}1a 0%, transparent 55%), radial-gradient(ellipse 50% 40% at 85% 80%, ${QATAR}1f 0%, transparent 55%)`,
-          zIndex: 1,
+          background: `radial-gradient(ellipse 55% 50% at 12% 18%, ${C}14 0%, transparent 55%), radial-gradient(ellipse 50% 45% at 88% 82%, ${QATAR}1f 0%, transparent 55%)`,
           pointerEvents: "none",
         }}
       />
-
-      {/* Side vignette ring */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          boxShadow: "inset 0 0 200px rgba(0,0,0,0.7)",
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-      />
-
       <BgDots opacity={0.04} />
 
       <div
+        className="cfq-venue-grid"
         style={{
           position: "relative",
-          maxWidth: 1100,
+          zIndex: 1,
+          maxWidth: 1200,
           margin: "0 auto",
           padding: "0 clamp(24px, 5vw, 80px)",
-          zIndex: 3,
-          textAlign: "center",
+          display: "grid",
+          gridTemplateColumns: "minmax(0, 0.9fr) minmax(0, 1.1fr)",
+          gap: "clamp(32px, 4.5vw, 64px)",
+          alignItems: "center",
         }}
       >
-        {/* Eyebrow */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: EASE }}
-          style={{ display: "inline-flex", alignItems: "center", gap: 14, marginBottom: 22 }}
-        >
-          <span style={{ width: 32, height: 1, background: `linear-gradient(90deg, transparent, ${GOLD})`, boxShadow: `0 0 8px ${GOLD}66` }} />
-          <span
+        {/* Copy */}
+        <div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, ease: EASE }}
+            style={{ display: "inline-flex", alignItems: "center", gap: 14, marginBottom: 22 }}
+          >
+            <span style={{ width: 32, height: 1, background: `linear-gradient(90deg, transparent, ${GOLD})`, boxShadow: `0 0 8px ${GOLD}66` }} />
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 700, letterSpacing: "4.5px", textTransform: "uppercase", color: GOLD_BRIGHT }}>
+              The Venue
+            </span>
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 18 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
             style={{
-              fontFamily: "var(--font-outfit)",
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: "4.5px",
-              textTransform: "uppercase",
-              color: GOLD_BRIGHT,
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: "clamp(32px, 4.4vw, 58px)",
+              letterSpacing: "-2px",
+              lineHeight: 1.02,
+              color: "white",
+              margin: "0 0 18px",
             }}
           >
-            The Venue
-          </span>
-          <span style={{ width: 32, height: 1, background: `linear-gradient(270deg, transparent, ${GOLD})`, boxShadow: `0 0 8px ${GOLD}66` }} />
-        </motion.div>
-
-        {/* Headline with shimmer on "Reveal Soon" */}
-        <motion.h2
-          initial={{ opacity: 0, y: 18 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
-          style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 800,
-            fontSize: "clamp(32px, 5vw, 64px)",
-            letterSpacing: "-2.2px",
-            lineHeight: 1.02,
-            color: "white",
-            margin: "0 auto 18px",
-            maxWidth: 900,
-            textShadow: "0 4px 24px rgba(0,0,0,0.5)",
-          }}
-        >
-          Hosted in the heart of Doha.
-          <br />
-          <span
-            className="cfq-venue-shimmer"
-            style={{
-              backgroundImage: `linear-gradient(110deg, ${GOLD} 0%, ${GOLD_BRIGHT} 25%, #FFE8B6 50%, ${GOLD_BRIGHT} 75%, ${GOLD} 100%)`,
-              backgroundSize: "300% 100%",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              display: "inline-block",
-            }}
-          >
-            Venue announcing soon.
-          </span>
-        </motion.h2>
-
-        {/* Subline */}
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.25, ease: EASE }}
-          style={{
-            fontFamily: "var(--font-outfit)",
-            fontWeight: 300,
-            fontSize: "clamp(15px, 1.2vw, 17px)",
-            lineHeight: 1.65,
-            color: "rgba(255,255,255,0.72)",
-            margin: "0 auto clamp(34px, 4vw, 44px)",
-            maxWidth: 620,
-            textShadow: "0 2px 10px rgba(0,0,0,0.4)",
-          }}
-        >
-          We&apos;re finalising the host property for Cyber First Qatar 2026 — a five-star venue in the heart of Doha, selected for executive networking and a programme of this calibre.
-        </motion.p>
-
-        {/* Confirmed-facts chips */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.75, delay: 0.35, ease: EASE }}
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            gap: 10,
-            marginBottom: "clamp(34px, 4vw, 44px)",
-          }}
-        >
-          {[
-            { label: "Doha, Qatar", confirmed: true, icon: "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0zM12 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" },
-            { label: "10 November 2026", confirmed: true, icon: "M19 4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM16 2v4M8 2v4M3 10h18" },
-            { label: "Five-Star Property", confirmed: false, icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" },
-          ].map((chip) => (
-            <div
-              key={chip.label}
+            Hosted at
+            <br />
+            <span
+              className="cfq-venue-shimmer"
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 9,
-                padding: "9px 16px",
-                borderRadius: 999,
-                background: "rgba(255,255,255,0.08)",
-                backdropFilter: "blur(14px) saturate(180%)",
-                WebkitBackdropFilter: "blur(14px) saturate(180%)",
-                border: `1px solid ${chip.confirmed ? "rgba(255,255,255,0.22)" : `${GOLD}55`}`,
-                boxShadow: `inset 0 1px 0 rgba(255,255,255,0.28), 0 6px 18px rgba(0,0,0,0.4)`,
+                backgroundImage: `linear-gradient(110deg, ${GOLD} 0%, ${GOLD_BRIGHT} 25%, #FFE8B6 50%, ${GOLD_BRIGHT} 75%, ${GOLD} 100%)`,
+                backgroundSize: "300% 100%",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                display: "inline-block",
               }}
             >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={chip.confirmed ? C_BRIGHT : GOLD_BRIGHT} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d={chip.icon} />
-              </svg>
-              <span
+              {VENUE.name}.
+            </span>
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontWeight: 300,
+              fontSize: "clamp(15px, 1.2vw, 17px)",
+              lineHeight: 1.65,
+              color: "rgba(255,255,255,0.72)",
+              margin: "0 0 clamp(26px, 3vw, 34px)",
+              maxWidth: 480,
+            }}
+          >
+            Cyber First Qatar 2026 convenes at {VENUE.name} in {VENUE.city} on 10 November 2026.
+          </motion.p>
+
+          {/* Facts */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.75, delay: 0.3, ease: EASE }}
+            style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: "clamp(26px, 3vw, 34px)" }}
+          >
+            {[
+              { label: `${VENUE.name}, ${VENUE.city}`, icon: "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0zM12 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" },
+              { label: "10 November 2026", icon: "M19 4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM16 2v4M8 2v4M3 10h18" },
+            ].map((chip) => (
+              <div
+                key={chip.label}
                 style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 11.5,
-                  fontWeight: 600,
-                  letterSpacing: "0.8px",
-                  color: "white",
-                  textTransform: "uppercase",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 9,
+                  padding: "9px 16px",
+                  borderRadius: 999,
+                  background: "rgba(255,255,255,0.06)",
+                  border: "1px solid rgba(255,255,255,0.18)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.2), 0 6px 18px rgba(0,0,0,0.35)",
                 }}
               >
-                {chip.label}
-              </span>
-              {!chip.confirmed && (
-                <span
-                  style={{
-                    marginLeft: 4,
-                    fontFamily: "var(--font-outfit)",
-                    fontSize: 8.5,
-                    fontWeight: 700,
-                    letterSpacing: "1.5px",
-                    color: GOLD,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  TBA
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d={chip.icon} />
+                </svg>
+                <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11.5, fontWeight: 600, letterSpacing: "0.8px", color: "white", textTransform: "uppercase" }}>
+                  {chip.label}
                 </span>
-              )}
-            </div>
-          ))}
-        </motion.div>
+              </div>
+            ))}
+          </motion.div>
 
+          <motion.a
+            href={VENUE.maps}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cfq-venue-cta"
+            initial={{ opacity: 0, y: 14 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.75, delay: 0.4, ease: EASE }}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+              padding: "13px 22px",
+              borderRadius: 999,
+              background: "rgba(255,255,255,0.08)",
+              border: `1px solid ${GOLD}88`,
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.3), 0 12px 30px rgba(0,0,0,0.45)",
+              color: "white",
+              textDecoration: "none",
+              fontFamily: "var(--font-outfit)",
+              fontSize: 13,
+              fontWeight: 600,
+              letterSpacing: "0.6px",
+              transition: "background 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease",
+            }}
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={GOLD_BRIGHT} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M3 11l18-8-8 18-2-8-8-2z" />
+            </svg>
+            Get directions
+          </motion.a>
+        </div>
+
+        {/* Photo */}
+        <motion.figure
+          initial={{ opacity: 0, y: 24, scale: 0.98 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 1, delay: 0.15, ease: EASE }}
+          style={{
+            position: "relative",
+            margin: 0,
+            padding: 2,
+            borderRadius: 22,
+            background: `linear-gradient(140deg, ${GOLD}aa 0%, rgba(255,255,255,0.10) 35%, rgba(255,255,255,0.03) 65%, ${C}55 100%)`,
+            boxShadow: `0 30px 70px rgba(0,0,0,0.55), 0 0 44px ${C}14`,
+          }}
+        >
+          <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", aspectRatio: "16 / 10", background: "#05070b" }}>
+            <Image
+              src={VENUE.photo}
+              alt={`${VENUE.name}, ${VENUE.city} — venue for Cyber First Qatar 2026`}
+              fill
+              sizes="(max-width: 900px) 92vw, 620px"
+              style={{ objectFit: "cover", objectPosition: "center 55%" }}
+            />
+            <span aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 60%, rgba(2,5,14,0.55) 100%)", pointerEvents: "none" }} />
+            <span aria-hidden style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent)", pointerEvents: "none" }} />
+          </div>
+        </motion.figure>
       </div>
 
       <style jsx global>{`
@@ -6764,18 +6734,14 @@ function VenueTeaser() {
         .cfq-venue-shimmer {
           animation: cfqVenueShimmer 5s linear infinite;
         }
-        @keyframes cfqVenuePulse {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50%      { opacity: 0.4; transform: scale(1.4); }
-        }
-        .cfq-venue-pulse {
-          animation: cfqVenuePulse 1.8s ease-in-out infinite;
-        }
         .cfq-venue-cta:hover {
           background: rgba(255,255,255,0.16) !important;
           border-color: ${GOLD_BRIGHT} !important;
           transform: translateY(-2px);
           box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 18px 44px rgba(0,0,0,0.6), 0 0 36px ${GOLD}55 !important;
+        }
+        @media (max-width: 900px) {
+          .cfq-venue-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>
@@ -8038,7 +8004,7 @@ export default function CyberFirstQatar2026() {
         <AwardsTeaser />
         <ContactsSection />
       </div>
-      <VenueTeaser />
+      <VenueSection />
       <RegisterSection />
       <SeriesEditions />
       <Footer />

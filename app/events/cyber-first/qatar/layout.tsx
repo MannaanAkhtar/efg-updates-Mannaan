@@ -6,13 +6,13 @@ const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/cyber-first/qatar`;
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/cyberQatar.png";
 const OG_IMAGE_ALT =
-  "Cyber First Qatar 2026 - Building cyber resilience for Qatar's AI-powered digital economy, 10 November 2026, Doha";
+  "Cyber First Qatar 2026 - Building cyber resilience for Qatar's AI-powered digital economy, 10 November 2026, La Cigale Hotel, Doha";
 
 const EVENT_START = "2026-11-10T09:00:00+03:00";
 const EVENT_END = "2026-11-10T15:30:00+03:00";
 
 const RICH_DESCRIPTION =
-  "Cyber First Qatar 2026 - the premier cybersecurity summit for Qatar's AI-powered digital economy. Aligned with the Qatar National Cyber Security Strategy 2024-2030, convening 250+ CISOs, government decision-makers, critical infrastructure operators and technology innovators. 10 November 2026, Doha, Qatar.";
+  "Cyber First Qatar 2026 - the premier cybersecurity summit for Qatar's AI-powered digital economy. Aligned with the Qatar National Cyber Security Strategy 2024-2030, convening 250+ CISOs, government decision-makers, critical infrastructure operators and technology innovators. 10 November 2026, La Cigale Hotel, Doha, Qatar.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -134,7 +134,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {
               "@type": "Place",
-              name: "Doha",
+              name: "La Cigale Hotel",
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Doha",
@@ -191,7 +191,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 name: "Where is Cyber First Qatar 2026 held?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "The summit is held in Doha, Qatar. The exact venue is confirmed to registered delegates closer to the event date.",
+                  text: "The summit is held at La Cigale Hotel, Doha, Qatar.",
                 },
               },
               {
@@ -242,6 +242,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         eventName="Cyber First Qatar 2026"
         series="Cyber First"
         date="10 November 2026"
+        venue="La Cigale Hotel"
         city="Doha"
         country="Qatar"
         format="in-person"

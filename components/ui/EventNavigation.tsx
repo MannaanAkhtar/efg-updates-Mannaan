@@ -98,7 +98,7 @@ const EVENT_CONFIGS: Record<string, {
     color: "#01BBF5",
     colorBright: "#4DD4FF",
     date: "10 Nov 2026",
-    location: "Doha, Qatar",
+    location: "La Cigale Hotel, Doha",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/Cyber+Qatar-03.svg",
     logoHeight: 180,
     navLinks: [
@@ -107,6 +107,7 @@ const EVENT_CONFIGS: Record<string, {
       { href: "#themes", label: "Themes" },
       { href: "#advisors", label: "Advisors" },
       { href: "#agenda", label: "Agenda" },
+      { href: "#venue", label: "Venue" },
       { href: "#register", label: "Register" },
     ],
   },

@@ -297,7 +297,7 @@ export const allEvents: EventItem[] = [
     date: new Date("2026-11-10"),
     dateDisplay: "November 10, 2026",
     location: "Doha, Qatar",
-    venue: "Venue TBA",
+    venue: "La Cigale Hotel",
     attendees: "250+",
     href: "/events/cyber-first/qatar",
     status: "open",

@@ -1733,7 +1733,7 @@ function CVSection({ children, minH = 800 }: { children: React.ReactNode; minH?:
 // as dimmed "Coming Soon" cards until they're ready.
 type CfkEdition = { city: string; edition: string; when?: string; href?: string; logo?: string; image?: string; scrimLight?: boolean };
 const CFK_EDITIONS: CfkEdition[] = [
-  { city: "Doha, Qatar", edition: "Qatar Edition", when: "November 2026", href: "/events/cyber-first/qatar", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/Cyber+Qatar-03.svg", image: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/cyberQatar.png", scrimLight: true },
+  { city: "Doha, Qatar", edition: "Qatar Edition", when: "November 2026 · La Cigale Hotel", href: "/events/cyber-first/qatar", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/Cyber+Qatar-03.svg", image: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/cyberQatar.png", scrimLight: true },
   { city: "United Arab Emirates", edition: "New Edition", when: "27 January 2027", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=2400&q=85&auto=format&fit=crop" },
 ];
 
