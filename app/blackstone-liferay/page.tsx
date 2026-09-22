@@ -164,7 +164,7 @@ type AgendaItem = {
 const AGENDA: AgendaItem[] = [
   { start: "10:00", end: "11:00", title: "Registration, Welcome Coffee & Networking", owner: "Doors open 10:30 · Guests arrive", kind: "logistics" },
   { start: "11:00", end: "11:05", title: "Welcome Remarks & Introduction", kind: "welcome" },
-  { start: "11:05", end: "11:30", title: "Intelligent Government CX: Leveraging DXP & AI to Modernize Public Services", session: "Opening Keynote", owner: "Ahmed Saad · Regional Sales Manager", kind: "keynote" },
+  { start: "11:05", end: "11:30", title: "Intelligent Government CX: Leveraging DXP & AI to Modernize Public Services", session: "Opening Keynote", owner: "Moussalam Dalati · General Manager", kind: "keynote" },
   { start: "11:30", end: "12:00", title: "From Digital First to AI Enabled: A Roadmap for Building Enterprise AI Capabilities", session: "Featured Presentation by Blackstone eIT", kind: "feature" },
   { start: "12:00", end: "12:15", title: "Networking Coffee Break & Prayer", owner: "All delegates", kind: "break" },
   { start: "12:15", end: "12:45", title: "Liferay AI Hub in Action: Building Secure AI Agents for Modern Government Services", session: "Product Demo", owner: "Mahmoud Tayem", kind: "demo" },
@@ -864,7 +864,9 @@ function SmokeBg() {
 // SPEAKERS — to be announced (placeholder cards until the line-up is confirmed)
 // ═════════════════════════════════════════════════════════════════════════════
 const BL_SPEAKERS = [
-  { name: "Ahmad Saad", title: "Regional Sales Manager, Liferay", linkedin: "https://www.linkedin.com/in/ahmad-saad-15088224/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmad+Saad.JPG" },
+  // Landscape shot with the subject seated right of frame: focus shifts the
+  // 4:5 crop so he is centred instead of clipped at the edge.
+  { name: "Moussalam Dalati", title: "General Manager, Liferay", linkedin: "https://www.linkedin.com/in/moussalamdalati/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Moussalam+Dalati+2.jpg", focus: "90% top" },
   { name: "Wajih Yahyaoui", title: "Managing Partner, Blackstone eIT", linkedin: "https://www.linkedin.com/in/wajihyahyaoui/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Wajih+Yahyaoui-new.png" },
   { name: "Youness Soulayman", title: "CTO & Executive Director, Blackstone eIT", linkedin: "https://www.linkedin.com/in/younesszahir/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Youness_Soulayman_Blackstone.png" },
   { name: "Mahmoud Tayem", title: "Manager, Sales Engineering, Liferay", linkedin: "https://www.linkedin.com/in/tayemmahmoud/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mahmoud+Tayem+Small.jpg" },
@@ -906,7 +908,15 @@ function SpeakersSection() {
               <div style={{ position: "relative", zIndex: 1, width: "100%", aspectRatio: "4 / 5", overflow: "hidden", background: `radial-gradient(120% 85% at 50% 18%, rgba(112,161,255,0.34) 0%, rgba(67,78,229,0.20) 38%, rgba(10,20,54,0.06) 68%, rgba(6,14,46,0) 100%), linear-gradient(180deg, ${NAVY_3} 0%, ${NAVY_2} 52%, ${NAVY} 100%)` }}>
                 {/* grounding shadow, so the subject sits on the floor rather than hovering */}
                 <span aria-hidden style={{ position: "absolute", left: "12%", right: "12%", bottom: 0, height: "34%", background: "radial-gradient(70% 100% at 50% 100%, rgba(2,8,20,0.60) 0%, rgba(2,8,20,0) 72%)", pointerEvents: "none" }} />
-                <img src={s.photo} alt={s.name} style={{ position: "relative", zIndex: 1, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+                {s.photo ? (
+                  <img src={s.photo} alt={s.name} style={{ position: "relative", zIndex: 1, width: "100%", height: "100%", objectFit: "cover", objectPosition: s.focus ?? "center top", display: "block" }} />
+                ) : (
+                  // No portrait yet: a monogram on the studio backdrop, so the card
+                  // never shows a broken image while a photo is being sourced.
+                  <span role="img" aria-label={s.name} style={{ position: "absolute", inset: 0, zIndex: 1, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: FONT, fontWeight: 700, fontSize: "clamp(48px, 5vw, 64px)", letterSpacing: "0.02em", color: "rgba(214,232,255,0.88)" }}>
+                    {s.name.split(" ").map((w) => w[0]).slice(0, 2).join("")}
+                  </span>
+                )}
                 <span aria-hidden style={{ position: "absolute", inset: 0, zIndex: 2, background: "linear-gradient(180deg, transparent 55%, rgba(2,10,23,0.55) 100%)", pointerEvents: "none" }} />
               </div>
               <div style={{ position: "relative", zIndex: 1, padding: "18px 18px 24px" }}>
