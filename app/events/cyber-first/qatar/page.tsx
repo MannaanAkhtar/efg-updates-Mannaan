@@ -7871,7 +7871,7 @@ function CfqPostReportFloat() {
 // as dimmed "Coming Soon" cards until they're ready.
 type CfqEdition = { city: string; edition: string; when?: string; href?: string; logo?: string; image?: string; scrimLight?: boolean };
 const CFQ_EDITIONS: CfqEdition[] = [
-  { city: "Kuwait City", edition: "Kuwait Edition", when: "October 2026", href: "/events/cyber-first/kuwait-2026", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/Cyber_kuwait.png", image: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/magnific_cinematic-wideangle-hero-_CHoH66yEEy.png", scrimLight: true },
+  { city: "Kuwait City", edition: "Kuwait Edition", when: "November 2026", href: "/events/cyber-first/kuwait-2026", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/Cyber_kuwait.png", image: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/magnific_cinematic-wideangle-hero-_CHoH66yEEy.png", scrimLight: true },
   { city: "United Arab Emirates", edition: "New Edition", when: "27 January 2027", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=2400&q=85&auto=format&fit=crop" },
 ];
 
