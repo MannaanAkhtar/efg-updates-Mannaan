@@ -163,9 +163,9 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Blue_Yonder_rgb.png",
   },
   {
-    date: "September 24th, 2026",
-    month: "SEP",
-    day: "24",
+    date: "October 13th, 2026",
+    month: "OCT",
+    day: "13",
     year: "2026",
     time: "11:00 – 13:30 GST",
     title: "AlgoSec Executive Roundtable",

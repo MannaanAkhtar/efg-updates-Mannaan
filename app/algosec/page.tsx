@@ -43,7 +43,7 @@ const EVENT = {
   sub: "Securing Application Connectivity Across the Hybrid Enterprise",
   tagline:
     "An executive roundtable where security leaders decode Real-world Application Connectivity challenges, escape policy complexity, and explore how application context, automation and AI-assisted discovery can accelerate secure application delivery.",
-  date: "24 September 2026",
+  date: "13 October 2026",
   city: "Dubai, UAE",
   venue: "Waldorf Astoria Dubai International Financial Centre",
   time: "11:00 AM – 1:00 PM GST (UTC+4)",
@@ -241,8 +241,8 @@ function HeroIcon({ type }: { type: string }) {
   if (type === "pin") return <svg {...p}><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z" /><circle cx="12" cy="10" r="2.5" /></svg>;
   return <svg {...p} stroke={GOLD}><rect x="4.5" y="10.5" width="15" height="10" rx="2" /><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" /></svg>;
 }
-// Live countdown to the roundtable (24 Sep 2026, 11:00 AM GST / UTC+4)
-const EVENT_TS = new Date("2026-09-24T11:00:00+04:00").getTime();
+// Live countdown to the roundtable (13 Oct 2026, 11:00 AM GST / UTC+4)
+const EVENT_TS = new Date("2026-10-13T11:00:00+04:00").getTime();
 function Countdown() {
   const [diff, setDiff] = useState<number | null>(null);
   useEffect(() => {
