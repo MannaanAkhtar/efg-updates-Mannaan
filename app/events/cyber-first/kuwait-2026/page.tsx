@@ -180,8 +180,8 @@ const SPEAKERS: Speaker[] = [
   },
   {
     name: "Saud Almudhaf",
-    title: "VP – Head of ESG & Governance Risk",
-    org: "NBK",
+    title: "Vice President – Non-Financial Risks",
+    org: "National Bank of Kuwait (NBK)",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Saud+Almudhaf1.png",
     linkedin: "https://www.linkedin.com/in/saud-almudhaf-mba-173b1a41/",
   },
@@ -257,11 +257,11 @@ const SPEAKERS: Speaker[] = [
     linkedin: "https://www.linkedin.com/in/sumittekriwal/",
   },
   {
-    name: "Sarah Abdulkarim",
-    title: "Head of Operational Risk and Secretary of Internal Control Governance Committee",
-    org: "Gulf Bank",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sarah%2BAbdulkarim1.png",
-    linkedin: "https://www.linkedin.com/in/ACoAAAh6G-IBY9aQ3PN0YZSrZ-s39dR0k7MZzJg/",
+    name: "Mostafa AlQallaf",
+    title: "Head of Enterprise Security Services",
+    org: "Gulf Bank of Kuwait",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mustafa+Al-Qallaf1.png",
+    linkedin: "https://www.linkedin.com/in/mustafaq747/",
   },
 ];
 

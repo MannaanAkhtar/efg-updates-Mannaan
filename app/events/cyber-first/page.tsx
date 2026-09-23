@@ -167,7 +167,10 @@ const CF_ROW_C: CfSpeaker[] = [
   { name: "Hans W. Thomasz", title: "CISO", org: "Qatar Development Bank", photo: `${S3}/Speakers-photos/Hans_w_Thomasz.png` },
   { name: "Iyad Atieh", title: "Chief Information Security Officer", org: "Alghanim Industries", photo: `${S3}/Speakers-photos/Iyad+Atieh.jpg` },
   { name: "Anfal Shaikh", title: "CISO", org: "Qatar Islamic Insurance", photo: `${S3}/Speakers-photos/Anfal_shaikh.png` },
-  { name: "Saud Almudhaf", title: "VP — Head of ESG & Governance Risk", org: "NBK", photo: `${S3}/Speakers-photos/Saud+Almudhaf.jpg` },
+  // Org stays abbreviated here: this roster's org line is a single-line
+  // ellipsis, and "National Bank of Kuwait (NBK)" truncates mid-word. The
+  // Kuwait event page carries the full name.
+  { name: "Saud Almudhaf", title: "Vice President — Non-Financial Risks", org: "NBK", photo: `${S3}/Speakers-photos/Saud+Almudhaf.jpg` },
   { name: "John Mankarios", title: "VP — Deputy Head of Information Technology", org: "QInvest", photo: `${S3}/boardroom/JohnMankarios.png` },
   { name: "Mohamed Rushdhi", title: "Head of Information Security Unit", org: "The Industrial Bank of Kuwait", photo: `${S3}/Speakers-photos/Mohamed+Rushdhi.png` },
   { name: "Amer Bazerbachi", title: "Partner", org: "KPMG Qatar", photo: `${S3}/Speakers-photos/Amer+Bazerbachi.jpg` },
