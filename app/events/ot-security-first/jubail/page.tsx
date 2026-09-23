@@ -3093,7 +3093,7 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
       {
         time: "09:10 – 09:20",
         type: "Keynote",
-        title: "Reserved for Platinum Sponsor DSS Shield",
+        title: "Reserved for Platinum Sponsor DSShield",
       },
       {
         time: "09:20 – 10:00",
@@ -4548,8 +4548,18 @@ function AdvisorsSection() {
 // href → external site (plate is a link). id → anchor target for nav links.
 // surface "light" → white plate (for dark logos). fillWidth → fill plate width
 // and clip vertical whitespace (for square, heavily-padded logos).
-type SponsorLogo = { name: string; logo: string; href?: string; id?: string; surface?: "light" | "dark"; fillWidth?: boolean; scale?: number };
+// whiten: for single-colour marks that ship only in a dark colourway. It flattens
+// the artwork to white so it can sit on the dark plate with the other sponsors
+// instead of needing a white plate of its own. Only safe on flat, one-colour
+// logos — it would strip the palette from anything multi-coloured.
+type SponsorLogo = { name: string; logo: string; href?: string; id?: string; surface?: "light" | "dark"; fillWidth?: boolean; scale?: number; whiten?: boolean };
 const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
+  {
+    tier: "Platinum Sponsor",
+    logos: [
+      { name: "DSShield", href: "https://www.dsshield.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/DSShield_idT8atTA8b_0.png" },
+    ],
+  },
   {
     tier: "Gold Sponsor",
     logos: [
@@ -4563,6 +4573,16 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
     logos: [
       { name: "SIS", href: "https://sis-ics.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/SIS+logo-03.png" },
       { name: "INTECH", href: "https://www.intechww.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/INTECH+Logo_Main+5.svg" },
+      // Navy wordmark on transparent, so it needs the light plate to read.
+      { name: "ProSecure ME", surface: "light", href: "https://prosecureme.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ProSecureme.png" },
+    ],
+  },
+  {
+    tier: "Panel Sponsor",
+    logos: [
+      // Flat #13294E wordmark, so whiten puts it on the dark plate with the rest.
+      // The SVG is only 146px at its intrinsic size, hence fillWidth.
+      { name: "Invictux", whiten: true, fillWidth: true, href: "https://invictux.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/invictux.svg" },
     ],
   },
   {
@@ -4650,6 +4670,7 @@ function SponsorsSection() {
                   ? { position: "relative", width: isMedia ? "78%" : "100%", height: "auto", objectFit: "contain" }
                   : { position: "relative", maxWidth: "100%", maxHeight: isMedia ? "clamp(50px, 6vw, 66px)" : "clamp(92px, 11vw, 120px)", objectFit: "contain" }),
                 ...(s.scale ? { transform: `scale(${s.scale})`, transformOrigin: "center" } : {}),
+                ...(s.whiten ? { filter: "brightness(0) invert(1)" } : {}),
               };
               const inner = (
                 <>
