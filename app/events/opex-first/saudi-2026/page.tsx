@@ -217,6 +217,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Ahmed Al Idrissi", title: "Executive Advisor", org: "EXPRO", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ahmed+al+idrissi.jpg", linkedin: "https://www.linkedin.com/in/ahmed-alidrissi/" },
   { name: "Talal Alahmari", title: "Organizational Excellence Director", org: "SERA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/talal+alahmari.png", linkedin: "https://www.linkedin.com/in/alahmaritalal/" },
   { name: "Nadeer Alshyookh", title: "Business Transformation Manager Lead - MEA North", org: "SAP", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nadeer+AlShyookh.jpg", linkedin: "https://www.linkedin.com/in/nadeeralshyookh/" },
+  { name: "Dr. Ibrahim bin Abdullah Alotaibi", title: "Chief Strategy and Business Development Officer", org: "Confidential Saudi Government Entity", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/brahim+bin+Abdullah+Alotaibi.jpg", linkedin: "https://www.linkedin.com/in/ibrahim-a-9314492a/" },
 ];
 
 type AgendaItem = {

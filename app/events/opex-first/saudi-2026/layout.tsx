@@ -201,7 +201,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           { name: "Sultan Moraished", title: "Group Head of Technology & Corporate Excellence", org: "Red Sea Global" },
         ]}
         topSponsors={[
-          { name: "Celonis", tier: "Confirmed" },
           { name: "RICS", tier: "Confirmed" },
           { name: "IQS", tier: "Confirmed" },
         ]}
