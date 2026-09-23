@@ -102,10 +102,10 @@ const EVENT_CONFIGS: Record<string, {
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/Cyber+Qatar-03.svg",
     logoHeight: 180,
     navLinks: [
-      { href: "#overview", label: "Overview" },
       { href: "#about", label: "About" },
       { href: "#themes", label: "Themes" },
       { href: "#advisors", label: "Advisors" },
+      { href: "#speakers", label: "Speakers" },
       { href: "#agenda", label: "Agenda" },
       { href: "#venue", label: "Venue" },
       { href: "#register", label: "Register" },
