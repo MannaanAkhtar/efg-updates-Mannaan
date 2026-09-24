@@ -66,6 +66,9 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
 
   // OPEX First KSA 2026 — Riyadh (LinkedIn promotion)
   "opex-ksa-li": { path: "/events/opex-first/saudi-2026", source: "linkedin", medium: "social", campaign: "opex-ksa-2026", hash: "register" },
+  // No tab= on this page: its register section is a single combined
+  // "Register · Speak · Sponsor" form and there is no ?tab handler to read one.
+  "opex-ksa-mrigashi": { path: "/events/opex-first/saudi-2026", source: "mrigashi", campaign: "opex-ksa-2026", hash: "register" },
 
   // Cyber First Qatar 2026 — Doha (LinkedIn promotion). tab=attend because the
   // InquiryForm opens on "Sponsor" by default, which is the wrong form for a
