@@ -215,7 +215,9 @@ const SPEAKERS: Speaker[] = [
   { name: "Mohammed N. Aljuhani", title: "Organizational Excellence Director", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+N.+Aljuhani.jpg", linkedin: "https://www.linkedin.com/in/maljuhani/" },
   { name: "Eng. Maher Mousa", title: "Regional Director of Product Management & Compliance", org: "Johnson Controls Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng+Maher+Mousa.jpeg", linkedin: "https://www.linkedin.com/in/maher-mousa-mba-cmi-b8881818/" },
   { name: "Ahmed Al Idrissi", title: "Executive Advisor", org: "EXPRO", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ahmed+al+idrissi.jpg", linkedin: "https://www.linkedin.com/in/ahmed-alidrissi/" },
-  { name: "Talal Alahmari", title: "Organizational Excellence Director", org: "SERA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/talal+alahmari.png", linkedin: "https://www.linkedin.com/in/alahmaritalal/" },
+  // Hidden for now — kept in place so he can be restored by deleting these two
+  // comment lines. Remove the entry outright if he drops off for good.
+  // { name: "Talal Alahmari", title: "Organizational Excellence Director", org: "SERA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/talal+alahmari.png", linkedin: "https://www.linkedin.com/in/alahmaritalal/" },
   { name: "Nadeer Alshyookh", title: "Business Transformation Manager Lead - MEA North", org: "SAP", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nadeer+AlShyookh.jpg", linkedin: "https://www.linkedin.com/in/nadeeralshyookh/" },
   { name: "Dr. Ibrahim bin Abdullah Alotaibi", title: "Chief Strategy and Business Development Officer", org: "Confidential Saudi Government Entity", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/brahim+bin+Abdullah+Alotaibi.jpg", linkedin: "https://www.linkedin.com/in/ibrahim-a-9314492a/" },
 ];
