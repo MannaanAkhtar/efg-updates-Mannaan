@@ -3091,12 +3091,12 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
         desc: "The government's strategic direction for securing critical national infrastructure, what the mandate requires, what it signals, and what industry must do now.",
       },
       {
-        time: "09:10 – 09:20",
+        time: "09:10 – 09:25",
         type: "Keynote",
         title: "Reserved for Platinum Sponsor DSShield",
       },
       {
-        time: "09:20 – 10:00",
+        time: "09:25 – 10:00",
         type: "Panel Discussion",
         title: "GCC & Global Collaboration on OT Security: What Are the World's Leading Industrial Nations Doing and What Can Saudi Arabia Learn?",
         panelists: [
@@ -3115,7 +3115,7 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
     kind: "session",
     serial: "02",
     title: "The Threat Landscape — What Is Coming for Saudi Arabia's Industrial Sector",
-    time: "10:15 – 11:20",
+    time: "10:15 – 11:25",
     rows: [
       {
         time: "10:15 – 11:00",
@@ -3139,7 +3139,7 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
         speaker: "Dr. Godfrey Gaston MBE, Cybersecurity Specialist, swIDch",
       },
       {
-        time: "11:15 – 11:20",
+        time: "11:15 – 11:25",
         logo: `${AG_LOGOS}/Yoko+logo-01.png`,
         title: "Reserved for Gold Sponsor Yokogawa",
         speaker: "Mohammed Shoukat Ali, GM & Head Global Cybersecurity CoE, Yokogawa",
@@ -3150,36 +3150,36 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
     kind: "session",
     serial: "03",
     title: "Securing the Infrastructure — Technology, Standards & Operational Practice",
-    time: "11:20 – 12:40",
+    time: "11:25 – 12:40",
     rows: [
       {
-        time: "11:20 – 11:30",
+        time: "11:25 – 11:35",
         logo: `${AG_LOGOS}/SIS+logo-03.png`,
         title: "Your AI Has Never Seen Your Plant",
         desc: "Building industrial intelligence below Level 3.5",
         speaker: "Tahir Saleem, Chief Innovation Officer, SIS Industrial Cybersecurity",
       },
       {
-        time: "11:30 – 11:40",
+        time: "11:35 – 11:45",
         logo: `${AG_LOGOS}/schneider-electric-seeklogo.png`,
         title: "Building an OT security operations capability: Lessons from Saudi Arabia's most critical facilities",
         desc: "What a fit-for-purpose OT SOC looks like — detection engineering for industrial protocols, threat hunting in ICS environments, and integrating OT visibility into a national security operations programme.",
         speaker: "Abdulrahman Al Musfir, Regional Cybersecurity Officer - MEA, Schneider Electric",
       },
       {
-        time: "11:40 – 11:50",
+        time: "11:45 – 11:55",
         type: "Keynote",
         title: "Topic TBC",
         speaker: "Eng. Ali Altamni, Senior Cybersecurity Leader, SABIC",
       },
       {
-        time: "11:50 – 12:00",
+        time: "11:55 – 12:05",
         type: "Keynote",
         title: "Topic TBC",
         speaker: "Faisal Althobaiti, Sr. Cybersecurity and Digitalization Engineer, Ma'aden",
       },
       {
-        time: "12:00 – 12:40",
+        time: "12:05 – 12:40",
         type: "Panel Discussion",
         title: "Standards, procurement & supply chain: How do we build OT security into the fabric of Saudi industrial operations?",
         panelists: [
