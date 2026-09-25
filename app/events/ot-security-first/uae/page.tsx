@@ -711,7 +711,93 @@ function TheFocus() {
   );
 }
 
-// ─── SPEAKERS (coming soon) ──────────────────────────────────────────────────
+// ─── SPEAKERS ────────────────────────────────────────────────────────────────
+// The faculty is still being assembled, so the first confirmed advisors sit
+// above placeholder tiles that keep the row of four intact as names land.
+type Advisor = { name: string; role: string; org?: string; photo: string; linkedin: string };
+const ADVISORS: Advisor[] = [
+  // No organisation supplied for Sohil — the card omits the line rather than
+  // guessing one.
+  {
+    name: "Sohil Mohamed",
+    role: "Senior Director | ME Cyber Risk Services Leader",
+    photo: `${S3}/Speakers-photos/Sohil+Mohamed.jpeg`,
+    linkedin: "https://www.linkedin.com/in/sohil-mohamed-88b2b4103/",
+  },
+  {
+    name: "Abdulla Abdullayev",
+    role: "Head of Information Security",
+    org: "MNDC Group",
+    photo: `${S3}/Speakers-photos/Abdulla+Abdullayev%2C.jpg`,
+    linkedin: "https://www.linkedin.com/in/abuyv/",
+  },
+];
+
+function AdvisorCard({ a, index, inView }: { a: Advisor; index: number; inView: boolean }) {
+  return (
+    <motion.a
+      href={a.linkedin}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${a.name} — ${a.role}${a.org ? `, ${a.org}` : ""} (LinkedIn)`}
+      className="uae-advisor"
+      initial={{ opacity: 0, y: 18 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, delay: 0.12 + index * 0.09, ease: EASE }}
+      style={{
+        display: "block",
+        textAlign: "left",
+        borderRadius: 20,
+        overflow: "hidden",
+        background: CARD_BG,
+        border: CARD_BORDER,
+        boxShadow: CARD_SHADOW,
+        textDecoration: "none",
+      }}
+    >
+      <div style={{ position: "relative", aspectRatio: "3 / 4", overflow: "hidden" }}>
+        {/* Square source headshots, so the 3:4 crop is anchored to the top to
+            keep heads clear of the frame edge. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={a.photo}
+          alt={a.name}
+          loading="lazy"
+          decoding="async"
+          className="uae-advisor-img"
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
+        />
+        <span aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 52%, rgba(10,10,10,0.82) 100%)" }} />
+        <span
+          aria-hidden
+          style={{
+            position: "absolute", top: 10, right: 10, width: 26, height: 26, borderRadius: 7,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            background: "rgba(10,10,10,0.6)", border: `1px solid ${C}59`, color: C_BRIGHT,
+          }}
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 0h-14C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5V5c0-2.761-2.238-5-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z" />
+          </svg>
+        </span>
+      </div>
+      <div style={{ padding: "14px 16px 16px" }}>
+        <h3 style={{ fontFamily: FD, fontWeight: 800, fontSize: 16, letterSpacing: "-0.4px", color: "#fff", margin: "0 0 6px", lineHeight: 1.2 }}>
+          {a.name}
+        </h3>
+        <p style={{ fontFamily: FO, fontSize: 12.5, lineHeight: 1.45, color: "rgba(255,255,255,0.62)", margin: 0 }}>
+          {a.role}
+        </p>
+        {a.org && (
+          <p style={{ fontFamily: FO, fontSize: 10.5, fontWeight: 700, letterSpacing: "1.4px", textTransform: "uppercase", color: C_BRIGHT, margin: "9px 0 0" }}>
+            {a.org}
+          </p>
+        )}
+      </div>
+    </motion.a>
+  );
+}
+
 function SpeakersComingSoon() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -732,10 +818,30 @@ function SpeakersComingSoon() {
           </p>
           <a href="#register" className="uae-cta-solid" style={{ display: "inline-flex", alignItems: "center", gap: 9, fontFamily: FO, fontSize: 14, fontWeight: 600, padding: "15px 30px", borderRadius: 9999, background: C, color: INK }}>Register to be notified →</a>
         </motion.div>
-        {/* Placeholder speaker tiles */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", gap: 12, marginTop: 44, maxWidth: 820, marginLeft: "auto", marginRight: "auto" }}>
-          {[0, 1, 2, 3].map((i) => (
-            <div key={i} style={{ aspectRatio: "3 / 4", borderRadius: 20, background: "linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.012))", border: "1px dashed rgba(255,255,255,0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        {/* Confirmed advisors, then placeholders for the seats still open. */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
+          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 18, margin: "46px auto 24px", maxWidth: 900 }}
+        >
+          <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, transparent, ${C}4d)` }} />
+          <span style={{ fontFamily: FO, fontSize: 10.5, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: C_BRIGHT, whiteSpace: "nowrap" }}>
+            First advisors confirmed
+          </span>
+          <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, ${C}4d, transparent)` }} />
+        </motion.div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(178px,1fr))", gap: 14, maxWidth: 900, marginLeft: "auto", marginRight: "auto" }}>
+          {ADVISORS.map((a, i) => (
+            <AdvisorCard key={a.name} a={a} index={i} inView={inView} />
+          ))}
+          {/* Two open seats keep the row at four while the faculty fills up.
+              No aspectRatio here: the tiles stretch to the row height the named
+              cards set, so their bottoms line up despite the extra text block.
+              minHeight covers the case where no advisor is confirmed yet. */}
+          {[0, 1].map((i) => (
+            <div key={`tbc-${i}`} style={{ minHeight: 220, borderRadius: 20, background: "linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.012))", border: "1px dashed rgba(255,255,255,0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <span style={{ fontFamily: FD, fontWeight: 800, fontSize: 28, color: "rgba(255,255,255,0.09)" }}>?</span>
             </div>
           ))}
@@ -1115,6 +1221,10 @@ export default function OTUaePage() {
         .uae-g-sm { grid-column: span 1; grid-row: span 1; }
         @media (max-width: 760px) { .uae-gallery-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: clamp(110px,26vw,150px); } .uae-g-wide { grid-column: span 2; } .uae-g-lg { grid-column: span 2; grid-row: span 2; } }
         .uae-q:hover { border-color: ${C}73 !important; transform: translateY(-1px); }
+        .uae-advisor { transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease, box-shadow 0.4s ease; }
+        .uae-advisor:hover { transform: translateY(-4px); border-color: ${C}73; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 30px 58px -28px ${C}80; }
+        .uae-advisor-img { transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+        .uae-advisor:hover .uae-advisor-img { transform: scale(1.04); }
         .uae-cta-solid { transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s; }
         .uae-cta-solid::before { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 38%; z-index: 0; background: linear-gradient(100deg, transparent, rgba(255,255,255,0.55), transparent); transform: translateX(-180%) skewX(-18deg); transition: transform 0.7s cubic-bezier(0.16,1,0.3,1); pointer-events: none; }
         .uae-cta-solid:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 16px 40px -12px ${C}, 0 0 0 1px ${C}55; }
