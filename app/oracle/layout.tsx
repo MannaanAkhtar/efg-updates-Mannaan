@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Saira_Condensed } from "next/font/google";
+import { Source_Serif_4 } from "next/font/google";
 
-// Condensed heavy grotesque for the Oracle-comp headings.
-const sairaCondensed = Saira_Condensed({
+// Oracle sets event titles in a light transitional serif; Source Serif is the
+// closest Google face to the one eventreg.oracle.com ships.
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  variable: "--font-oracle-display",
+  weight: ["300", "400", "600"],
+  variable: "--font-oracle-serif",
   display: "swap",
 });
 
@@ -13,21 +14,23 @@ const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/oracle`;
 
 export const metadata: Metadata = {
-  title: "Oracle Artificial Intelligence | Hosted by Events First Group",
+  title: "Oracle AI: Powering the Intelligent Enterprise — 14 October 2026, Riyadh",
   description:
-    "Explore Oracle's enterprise AI — generative AI, AI agents, and AI infrastructure built into every layer of the stack. A showcase hosted by Events First Group.",
+    "An exclusive Oracle executive experience at the JW Marriott Hotel Riyadh, 14 October 2026. Explore enterprise AI across cloud applications, data platforms, and AI infrastructure.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "Oracle Artificial Intelligence — Hosted by Events First Group",
+    title: "Oracle AI: Powering the Intelligent Enterprise",
     description:
-      "Enterprise AI across the technology stack — generative AI, AI agents, and AI infrastructure. Hosted by Events First Group.",
+      "14 October 2026, 10:00 AM – 2:00 PM · JW Marriott Hotel Riyadh. An exclusive Oracle executive experience on enterprise AI.",
     url: PAGE_URL,
     siteName: "Events First Group",
     type: "website",
   },
+  // This page mirrors Oracle's own eventreg listing, so it stays out of the
+  // index: two pages carrying the same copy would compete with each other.
   robots: { index: false, follow: false },
 };
 
 export default function OracleLayout({ children }: { children: React.ReactNode }) {
-  return <div className={sairaCondensed.variable}>{children}</div>;
+  return <div className={sourceSerif.variable}>{children}</div>;
 }
