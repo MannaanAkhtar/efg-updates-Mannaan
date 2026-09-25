@@ -92,6 +92,13 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   "algosec-palak": { path: "/algosec", source: "palak", campaign: "algosec", medium: "invite", hash: "register" },
   "algosec-stephen": { path: "/algosec", source: "stephen", campaign: "algosec", medium: "invite", hash: "register" },
   "algosec-afra": { path: "/algosec", source: "afra", campaign: "algosec", medium: "invite", hash: "register" },
+
+  // Oracle AI: Powering the Intelligent Enterprise — Riyadh, 14 Oct 2026.
+  // hash is "reserve", not "register": that page's section is "Reserve Your
+  // Place". No tab= either — its form is a single one, not the tabbed
+  // InquiryForm, so there is no ?tab to read.
+  "oracle-afra": { path: "/oracle", source: "afra", campaign: "oracle-riyadh-2026", hash: "reserve" },
+  "oracle-duaa": { path: "/oracle", source: "duaa", campaign: "oracle-riyadh-2026", hash: "reserve" },
 };
 
 export async function GET(

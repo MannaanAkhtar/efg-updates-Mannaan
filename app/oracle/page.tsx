@@ -353,6 +353,37 @@ export default function OraclePage() {
   const [shared, setShared] = useState(false);
   const spyRef = useRef<HTMLDivElement>(null);
 
+  // Global Lenis smooth-scroll swallows the native #hash jump on load, and the
+  // countdown only mounts after hydration, so a deep link (/s/oracle-afra ->
+  // #reserve) otherwise lands short of its section. Re-run the jump a few times
+  // while the layout settles, and stop the moment the visitor scrolls.
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (!id) return;
+    let cancelled = false;
+    const cancel = () => { cancelled = true; };
+    window.addEventListener("wheel", cancel, { passive: true });
+    window.addEventListener("touchmove", cancel, { passive: true });
+
+    const jump = () => {
+      if (cancelled) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      const lenis = (window as unknown as {
+        __lenis?: { scrollTo: (t: HTMLElement | number, o?: { offset?: number; duration?: number }) => void };
+      }).__lenis;
+      if (lenis) lenis.scrollTo(el, { offset: 0, duration: 0.8 });
+      else el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    const timers = [450, 1000, 1600].map((d) => window.setTimeout(jump, d));
+    return () => {
+      timers.forEach(clearTimeout);
+      window.removeEventListener("wheel", cancel);
+      window.removeEventListener("touchmove", cancel);
+    };
+  }, []);
+
   // Highlight the rail item for whichever section owns the top of the viewport.
   useEffect(() => {
     const onScroll = () => {
