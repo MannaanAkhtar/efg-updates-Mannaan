@@ -147,22 +147,6 @@ const UPCOMING_EVENTS = [
     image: `${NF}/2026/02/outsystems-one.jpg`,
   },
   {
-    date: "September 23rd, 2026",
-    month: "SEP",
-    day: "23",
-    year: "2026",
-    time: "17:00 – 20:30 GST",
-    title: "Blue Yonder Executive Dinner",
-    subtitle: "Visibility, Control & Networked Execution across the GCC",
-    sponsor: "Blue Yonder",
-    location: "Hilton Palm Jumeirah, Dubai",
-    link: "/blueyonder",
-    image: "",
-    brandColor: "#A30659",
-    brandGradient: "linear-gradient(135deg, #A30659 0%, #6A0136 35%, #000E4E 70%, #0a0a0a 100%)",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Blue_Yonder_rgb.png",
-  },
-  {
     date: "October 13th, 2026",
     month: "OCT",
     day: "13",
@@ -367,6 +351,20 @@ type PastEvent = {
 };
 
 const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    sponsor: "Blue Yonder",
+    title: "Blue Yonder Executive Dinner",
+    subtitle: "Visibility, Control & Networked Execution across the GCC",
+    month: "SEP",
+    date: "23 Sep",
+    venue: "Hilton Palm Jumeirah, Dubai",
+    time: "17:00 – 20:30 GST",
+    image: "",
+    brandColor: "#A30659",
+    brandGradient: "linear-gradient(135deg, #A30659 0%, #6A0136 35%, #000E4E 70%, #0a0a0a 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Blue_Yonder_rgb.png",
+    link: "/blueyonder",
+  },
   {
     sponsor: "IFS",
     title: "IFS Executive Roundtable",
