@@ -4978,7 +4978,7 @@ function WhoAttends() {
 }
 
 // ─── EVENT SPONSORS — Confirmed for Saudi 2026 ─────────────────────────────
-type S26SponsorTier = "Gold" | "Panel" | "Associate" | "Media";
+type S26SponsorTier = "Gold" | "Associate" | "Panel" | "Strategic" | "Media";
 
 type S26SponsorItem = {
   name: string;
@@ -5053,6 +5053,17 @@ const SPONSORS_2026: S26SponsorItem[] = [
     logoMaxHeight: 90,
   },
   {
+    // Blue wordmark on transparent, so it takes a light card the way SAP
+    // Signavio does. Wide 5:1, so the card width binds before logoMaxHeight.
+    name: "FanRuan",
+    tier: "Strategic",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/fanruan_logo.png",
+    url: "https://www.fanruan.com/en",
+    surface: "light",
+    innerBg: "linear-gradient(165deg, #ffffff 0%, #eef0f4 100%)",
+    logoMaxHeight: 64,
+  },
+  {
     name: "International Business Magazine",
     tier: "Media",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/International-Business-Magazine.png",
@@ -5085,8 +5096,11 @@ const SPONSORS_2026: S26SponsorItem[] = [
 ];
 
 const S26_TIER_METALLIC: Record<S26SponsorTier, { strong: string; soft: string; label: string; glow: string; cardMaxWidth: number; displayLabel: string }> = {
+  // Colours run warm → cool down the running order below, so the tier a
+  // visitor meets first is also the warmest: gold → violet → rose → mint →
+  // silver. Card widths taper the same way.
   Gold: {
-    // Warm metallic gold — top confirmed tier, stacks above Associate
+    // Warm metallic gold — top confirmed tier
     strong: "rgba(232, 200, 120, 0.92)",
     soft: "rgba(232, 200, 120, 0.5)",
     label: "rgba(240, 220, 160, 0.92)",
@@ -5094,27 +5108,37 @@ const S26_TIER_METALLIC: Record<S26SponsorTier, { strong: string; soft: string; 
     cardMaxWidth: 300,
     displayLabel: "Gold Sponsor",
   },
-  Panel: {
-    // Rose gold — one step down from Gold, still warm, clearly apart from
-    // Associate's violet steel so the gold → rose → violet → silver cascade reads
-    strong: "rgba(232, 168, 140, 0.9)",
-    soft: "rgba(232, 168, 140, 0.48)",
-    label: "rgba(242, 198, 178, 0.92)",
-    glow: "rgba(214, 140, 110, 0.3)",
-    cardMaxWidth: 285,
-    displayLabel: "Panel Sponsor",
-  },
   Associate: {
-    // Warm steel + violet wash — distinct from Platinum's pure silver so future tiers stack visually
+    // Warm steel + violet wash, picking up the page's own violet
     strong: "rgba(196, 181, 253, 0.85)",
     soft: "rgba(196, 181, 253, 0.45)",
     label: "rgba(220, 210, 250, 0.88)",
     glow: "rgba(159, 106, 255, 0.28)",
-    cardMaxWidth: 270,
+    cardMaxWidth: 285,
     displayLabel: "Associate Sponsor",
   },
+  Panel: {
+    // Rose gold — warm enough to stay distinct from the violet above and the
+    // mint below
+    strong: "rgba(232, 168, 140, 0.9)",
+    soft: "rgba(232, 168, 140, 0.48)",
+    label: "rgba(242, 198, 178, 0.92)",
+    glow: "rgba(214, 140, 110, 0.3)",
+    cardMaxWidth: 270,
+    displayLabel: "Panel Sponsor",
+  },
+  Strategic: {
+    // Mint steel, drawn from the page's secondary brand colour — the step
+    // between Panel's rose and Media's neutral silver
+    strong: "rgba(125, 211, 200, 0.86)",
+    soft: "rgba(125, 211, 200, 0.45)",
+    label: "rgba(178, 230, 220, 0.9)",
+    glow: "rgba(52, 211, 153, 0.26)",
+    cardMaxWidth: 258,
+    displayLabel: "Strategic Sponsor",
+  },
   Media: {
-    // Cool neutral silver — sits below Associate for supporting media partners
+    // Cool neutral silver — last, for supporting media partners
     strong: "rgba(205, 212, 224, 0.82)",
     soft: "rgba(205, 212, 224, 0.42)",
     label: "rgba(216, 222, 232, 0.9)",
@@ -5124,7 +5148,7 @@ const S26_TIER_METALLIC: Record<S26SponsorTier, { strong: string; soft: string; 
   },
 };
 
-const S26_TIER_ORDER: S26SponsorTier[] = ["Gold", "Panel", "Associate", "Media"];
+const S26_TIER_ORDER: S26SponsorTier[] = ["Gold", "Associate", "Panel", "Strategic", "Media"];
 
 // Tier labels are written singular and pluralised from the logo count, so a
 // heading never reads "Gold Sponsor" over three logos as tiers fill up.
