@@ -69,6 +69,7 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   // tab=attend because the shared InquiryForm opens on "Sponsor" by default,
   // which is the wrong form for a rep link driving delegate registrations.
   "opex-ksa-mrigashi": { path: "/events/opex-first/saudi-2026", source: "mrigashi", campaign: "opex-ksa-2026", hash: "register", tab: "attend" },
+  "opex-ksa-nadeem": { path: "/events/opex-first/saudi-2026", source: "nadeem", campaign: "opex-ksa-2026", hash: "register", tab: "attend" },
 
   // Cyber First Qatar 2026 — Doha (LinkedIn promotion). tab=attend because the
   // InquiryForm opens on "Sponsor" by default, which is the wrong form for a
