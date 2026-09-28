@@ -716,11 +716,10 @@ function TheFocus() {
 // above placeholder tiles that keep the row of four intact as names land.
 type Advisor = { name: string; role: string; org?: string; photo: string; linkedin: string };
 const ADVISORS: Advisor[] = [
-  // No organisation supplied for Sohil — the card omits the line rather than
-  // guessing one.
   {
     name: "Sohil Mohamed",
     role: "Senior Director | ME Cyber Risk Services Leader",
+    org: "Alvarez & Marsal",
     photo: `${S3}/Speakers-photos/Sohil+Mohamed.jpeg`,
     linkedin: "https://www.linkedin.com/in/sohil-mohamed-88b2b4103/",
   },
