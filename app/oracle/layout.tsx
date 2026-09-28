@@ -16,12 +16,12 @@ const PAGE_URL = `${BASE_URL}/oracle`;
 export const metadata: Metadata = {
   title: "Oracle AI: Powering the Intelligent Enterprise — 14 October 2026, Riyadh",
   description:
-    "An exclusive Oracle executive experience at the JW Marriott Hotel Riyadh, 14 October 2026. Explore enterprise AI across cloud applications, data platforms, and AI infrastructure.",
+    "An exclusive Oracle executive experience at the Hilton Riyadh Olaya, 14 October 2026. Explore enterprise AI across cloud applications, data platforms, and AI infrastructure.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: "Oracle AI: Powering the Intelligent Enterprise",
     description:
-      "14 October 2026, 10:00 AM – 2:00 PM · JW Marriott Hotel Riyadh. An exclusive Oracle executive experience on enterprise AI.",
+      "14 October 2026, 10:00 AM – 2:00 PM · Hilton Riyadh Olaya. An exclusive Oracle executive experience on enterprise AI.",
     url: PAGE_URL,
     siteName: "Events First Group",
     type: "website",

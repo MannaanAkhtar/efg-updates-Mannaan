@@ -2,7 +2,7 @@
 
 // ─────────────────────────────────────────────────────────────────────────────
 // /oracle — "Oracle AI: Powering the Intelligent Enterprise", 14 Oct 2026,
-// JW Marriott Hotel Riyadh.
+// Hilton Riyadh Olaya.
 //
 // A faithful rebuild of Oracle's own event listing
 // (eventreg.oracle.com/profile/web/index.cfm?PKwebID=0x984828abcd): Oracle
@@ -34,7 +34,11 @@ const SERIF = `var(--font-oracle-serif), Georgia, "Times New Roman", serif`;
 
 const EVENT_NAME = "Oracle AI: Powering the Intelligent Enterprise";
 const EVENT_START = new Date("2026-10-14T10:00:00+03:00");
-const VENUE_MAPS = "https://maps.google.com/?q=JW+Marriott+Hotel+Riyadh+King+Fahd+Rd+Sahafah+District+Riyadh";
+const VENUE_NAME = "Hilton Riyadh Olaya";
+// No street address yet: the line that sat here was the JW Marriott's and does
+// not apply to this hotel, so it is omitted rather than left wrong. The maps
+// link searches by name until the full address is confirmed.
+const VENUE_MAPS = "https://maps.google.com/?q=Hilton+Riyadh+Olaya";
 
 const SECTIONS = [
   { id: "overview", label: "Overview" },
@@ -252,7 +256,7 @@ function RegisterForm() {
           Thank you — your registration request is in.
         </h3>
         <p style={{ margin: 0, fontSize: 15.5, lineHeight: 1.6, color: BODY }}>
-          The team will confirm your place by email. We look forward to welcoming you at the JW Marriott Hotel Riyadh
+          The team will confirm your place by email. We look forward to welcoming you at the {VENUE_NAME}
           on 14 October.
         </p>
       </div>
@@ -434,11 +438,11 @@ export default function OraclePage() {
               <path d="M7 0C3.13 0 0 3.13 0 7c0 5.25 7 11 7 11s7-5.75 7-11c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 7 4.5a2.5 2.5 0 0 1 0 5z" fill={LINK} />
             </svg>
             <a href={VENUE_MAPS} target="_blank" rel="noopener noreferrer" style={{ color: LINK, fontWeight: 700, fontSize: 17, textDecoration: "none" }}>
-              JW Marriott Hotel Riyadh
+              {VENUE_NAME}
             </a>
           </p>
           <p style={{ margin: "0 0 34px", fontSize: 16, color: BODY }}>
-            King Fahd Rd, Sahafah District Riyadh, 11564 Saudi Arabia
+            Riyadh, Saudi Arabia
           </p>
           <a href="#reserve" className="ora-btn">Register for event</a>
         </div>

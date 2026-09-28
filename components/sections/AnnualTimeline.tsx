@@ -129,7 +129,7 @@ export const allEvents: EventItem[] = [
     date: new Date("2026-10-14"),
     dateDisplay: "October 14, 2026",
     location: "Riyadh, Saudi Arabia",
-    venue: "JW Marriott Hotel Riyadh",
+    venue: "Hilton Riyadh Olaya",
     attendees: "Invited",
     href: "/oracle",
     status: "open",
