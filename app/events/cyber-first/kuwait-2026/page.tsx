@@ -263,6 +263,32 @@ const SPEAKERS: Speaker[] = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mustafa+Al-Qallaf1.png",
     linkedin: "https://www.linkedin.com/in/mustafaq747/",
   },
+  {
+    // Both supplied roles, joined with an em dash. "for Women in Cyber
+    // Security Middle East" is dropped from the first one because the card
+    // clamps the designation to two lines and the org chip below already
+    // carries it as WiCSME — spelling it out twice cost the second role.
+    name: "Dr. Fatemah Abdulaziz Alsewaidi",
+    title: "Kuwait Deputy Head — Leader, Kuwait CyberSHE Program",
+    org: "WiCSME",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/FatemahAlsewaidi1.png",
+    // No LinkedIn supplied — the card drops the link rather than guessing one.
+    linkedin: null,
+  },
+  {
+    name: "Haya Bin Ghaith",
+    title: "Director of Information Technology",
+    org: "Kuwait Fund for Arab Economic Development",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Haya+Bin+Ghaith.png",
+    linkedin: "https://www.linkedin.com/in/haya-bin-ghaith-9b2873415/",
+  },
+  {
+    name: "Sherry John Oommen",
+    title: "Head of Risk Management",
+    org: "Al Mulla International Exchange Company K.S.C.C",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sherry+John+Oommen+1.png",
+    linkedin: "https://www.linkedin.com/in/sherry-john-oommen-61aa9212/",
+  },
 ];
 
 // Kuwait 2025 photos used for the gallery + Key Topic panels (verified S3 URLs).
