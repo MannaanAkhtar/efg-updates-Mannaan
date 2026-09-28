@@ -313,6 +313,19 @@ const AGENDA: AgendaRow[] = [
   { start: "14:50", end: "onwards", segment: "Networking Lunch", type: "logistics" },
 ];
 
+// ─── The Cyber 7 — award categories ─────────────────────────────────
+// Names only — no per-category description has been supplied, so the tiles
+// carry the pillar number and its name and nothing invented around them.
+const CYBER_7 = [
+  "Cyber Vanguard",
+  "Digital Sovereignty",
+  "Resilience Architect",
+  "AI Trust Pioneer",
+  "Critical Systems Guardian",
+  "Quantum Horizon",
+  "Qatar Cyber Legacy",
+];
+
 // ───────────────────────────────────────────────────────────────────────────
 // Hooks & shared helpers
 // ───────────────────────────────────────────────────────────────────────────
@@ -5528,13 +5541,90 @@ function GallerySection() {
 }
 
 // ───────────────────────────────────────────────────────────────────────────
-// AWARDS — coming soon / hype teaser
+// AWARDS — The Cyber 7
 // ───────────────────────────────────────────────────────────────────────────
 function AwardsTeaser() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   const GOLD_BRIGHT = "#E2C063";
+
+  // Nomination form. Kept inside this section rather than routed to the shared
+  // InquiryForm at #get-involved: a nomination needs a category and a citation,
+  // which that form has no fields for.
+  const [nom, setNom] = useState({ org: "", contact: "", email: "", phone: "", category: "", reason: "" });
+  const [nomCountry, setNomCountry] = useState<CountryCode>(
+    COUNTRY_CODES.find((c) => c.country === "QA") || COUNTRY_CODES[0]
+  );
+  const [nomFocus, setNomFocus] = useState<string | null>(null);
+  const [nomErr, setNomErr] = useState<{ email?: string; phone?: string; form?: string }>({});
+  const [nomSending, setNomSending] = useState(false);
+  const [nomDone, setNomDone] = useState(false);
+
+  const handleNominate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isWorkEmail(nom.email)) {
+      setNomErr({ email: "Please use your work email address" });
+      return;
+    }
+    const phoneMsg = validatePhone(nom.phone, nomCountry);
+    if (phoneMsg) {
+      setNomErr({ phone: phoneMsg });
+      return;
+    }
+    setNomErr({});
+    setNomSending(true);
+    const result = await submitForm({
+      type: "awards",
+      full_name: nom.contact,
+      email: nom.email,
+      company: nom.org,
+      // Separators stripped, dialling code prefixed — the shape the rest of
+      // EFG’s forms send.
+      phone: `${nomCountry.code}${nom.phone.replace(/[\s\-()]/g, "")}`,
+      event_name: "Cyber First Qatar 2026",
+      metadata: { category: nom.category, reason: nom.reason },
+      website: "",
+    });
+    setNomSending(false);
+    if (result.success) setNomDone(true);
+    else setNomErr({ form: result.error || "Something went wrong. Please try again." });
+  };
+
+  const nomInput = (field: string): React.CSSProperties => ({
+    width: "100%",
+    padding: "13px 2px",
+    borderRadius: 0,
+    backgroundColor: "transparent",
+    border: "none",
+    borderBottom: `1.5px solid ${nomFocus === field ? GOLD_BRIGHT : "rgba(255,255,255,0.12)"}`,
+    boxShadow: nomFocus === field ? `0 1px 0 ${GOLD}60` : "none",
+    color: "white",
+    fontFamily: "var(--font-outfit)",
+    fontSize: 14,
+    outline: "none",
+    transition: "all 0.35s cubic-bezier(0.16,1,0.3,1)",
+  });
+
+  const nomLabel: React.CSSProperties = {
+    display: "block",
+    marginBottom: 2,
+    fontFamily: "var(--font-outfit)",
+    fontSize: 10.5,
+    fontWeight: 700,
+    letterSpacing: "1.8px",
+    textTransform: "uppercase",
+    color: "rgba(255,255,255,0.45)",
+  };
+
+  const nomError: React.CSSProperties = {
+    display: "block",
+    marginTop: 7,
+    fontFamily: "var(--font-outfit)",
+    fontSize: 12,
+    fontWeight: 500,
+    color: "#F07A6A",
+  };
 
   return (
     <section
@@ -5698,8 +5788,9 @@ function AwardsTeaser() {
             maxWidth: 880,
           }}
         >
-          Cyber First Qatar Awards
-          <br />
+          <span style={{ display: "block", fontSize: "0.42em", fontWeight: 700, letterSpacing: "4px", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", marginBottom: 10 }}>
+            Cyber First Qatar Awards
+          </span>
           <span
             className="cfq-awards-shimmer"
             style={{
@@ -5711,7 +5802,10 @@ function AwardsTeaser() {
               display: "inline-block",
             }}
           >
-            Coming Soon
+            The Cyber 7
+          </span>
+          <span style={{ display: "block", fontFamily: "var(--font-outfit)", fontWeight: 300, fontSize: "clamp(15px, 1.5vw, 21px)", letterSpacing: "-0.2px", lineHeight: 1.35, color: "rgba(255,255,255,0.72)", marginTop: 16 }}>
+            Seven Pillars of Cyber Resilience Powering Qatar&apos;s AI-Driven Digital Future
           </span>
         </motion.h2>
 
@@ -5727,202 +5821,355 @@ function AwardsTeaser() {
             lineHeight: 1.6,
             color: "rgba(255,255,255,0.6)",
             margin: "0 auto clamp(36px, 4vw, 48px)",
-            maxWidth: 620,
+            maxWidth: 760,
           }}
         >
-          We&apos;re curating the categories that will recognise the people, programmes and partners shaping Qatar&apos;s cybersecurity future.{" "}
-          <span style={{ color: GOLD_BRIGHT, fontWeight: 500 }}>Be the first to know when nominations open.</span>
+          As Qatar advances toward an AI-powered digital economy, cyber resilience has become more than a technology priority — it is a foundation for national digital trust, business continuity, innovation and sustainable growth.
+          <br />
+          <br />
+          The Cyber 7 recognises the organisations and individuals demonstrating leadership across seven critical dimensions of Qatar&apos;s evolving cybersecurity landscape.
+          <br />
+          <br />
+          <span style={{ color: GOLD_BRIGHT, fontWeight: 500 }}>Seven Pillars. One Vision. A More Resilient Digital Qatar.</span>
         </motion.p>
 
-        {/* Locked category tiles — 6 in one row */}
+        {/* Pillars and the nomination form sit side by side: the list is the
+            reference for the category dropdown immediately beside it. */}
         <div
-          className="cfq-awards-grid"
+          className="cfq-awards-split"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(6, 1fr)",
-            gap: "clamp(8px, 1vw, 14px)",
-            margin: "0 auto clamp(36px, 4vw, 48px)",
-            width: "100%",
+            gridTemplateColumns: "minmax(0, 0.85fr) minmax(0, 1fr)",
+            gap: "clamp(24px, 3vw, 48px)",
+            alignItems: "start",
+            textAlign: "left",
           }}
         >
-          {[1, 2, 3, 4, 5, 6].map((n) => (
-            <motion.div
-              key={n}
-              initial={{ opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.45 + n * 0.06, ease: EASE }}
-              className="cfq-award-locked"
+          {/* Left — the seven pillars */}
+          <div>
+            <span
               style={{
-                position: "relative",
-                padding: "18px 14px 16px",
-                borderRadius: 14,
-                background: `linear-gradient(180deg, rgba(196,163,74,0.05) 0%, rgba(196,163,74,0.015) 100%)`,
-                border: `1px solid ${GOLD}1f`,
-                overflow: "hidden",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-                gap: 9,
-                minHeight: 144,
-                textAlign: "left",
+                display: "block",
+                marginBottom: 16,
+                fontFamily: "var(--font-outfit)",
+                fontSize: 10.5,
+                fontWeight: 700,
+                letterSpacing: "2.6px",
+                textTransform: "uppercase",
+                color: GOLD_BRIGHT,
+                opacity: 0.85,
               }}
             >
-              {/* Scanning shimmer */}
-              <span
-                aria-hidden
-                className="cfq-award-scan"
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: `linear-gradient(105deg, transparent 30%, ${GOLD}22 50%, transparent 70%)`,
-                  pointerEvents: "none",
-                }}
-              />
+              The Seven Pillars
+            </span>
 
-              {/* Lock icon */}
-              <span
-                aria-hidden
-                style={{
-                  width: 30,
-                  height: 30,
-                  borderRadius: 8,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: `linear-gradient(135deg, ${GOLD}28 0%, ${GOLD}0c 100%)`,
-                  border: `1px solid ${GOLD}45`,
-                  boxShadow: `inset 0 1px 0 rgba(255,255,255,0.08)`,
-                }}
-              >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={GOLD_BRIGHT} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
-              </span>
+            <div className="cfq-awards-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: 9 }}>
+              {CYBER_7.map((label, idx) => (
+                <motion.div
+                  key={label}
+                  initial={{ opacity: 0, x: -14 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.55, delay: 0.45 + idx * 0.06, ease: EASE }}
+                  className="cfq-award-pillar"
+                  style={{
+                    position: "relative",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 14,
+                    padding: "13px 16px",
+                    borderRadius: 12,
+                    overflow: "hidden",
+                    background: `linear-gradient(100deg, rgba(196,163,74,0.10) 0%, rgba(255,255,255,0.015) 100%)`,
+                    border: `1px solid ${GOLD}2e`,
+                    transition: "transform 0.45s cubic-bezier(0.22,1,0.36,1), border-color 0.45s ease, box-shadow 0.45s ease",
+                  }}
+                >
+                  {/* Scanning shimmer — kept from the teaser so the section
+                      still catches the light the way the rest of the page does. */}
+                  <span
+                    aria-hidden
+                    className="cfq-award-scan"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      background: `linear-gradient(105deg, transparent 30%, ${GOLD}1c 50%, transparent 70%)`,
+                      pointerEvents: "none",
+                    }}
+                  />
 
-              {/* Category number */}
-              <span
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 10.5,
-                  fontWeight: 700,
-                  letterSpacing: "2.2px",
-                  textTransform: "uppercase",
-                  color: GOLD_BRIGHT,
-                  opacity: 0.7,
-                }}
-              >
-                Category {String(n).padStart(2, "0")}
-              </span>
+                  {/* Gold rule down the leading edge — the shaft of the pillar */}
+                  <span
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      left: 0,
+                      top: "18%",
+                      bottom: "18%",
+                      width: 2,
+                      background: `linear-gradient(180deg, transparent, ${GOLD_BRIGHT}, transparent)`,
+                    }}
+                  />
 
-              {/* Blurred placeholder text — feels like content is being held back */}
-              <div
-                aria-hidden
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 6,
-                  width: "100%",
-                  filter: "blur(5px)",
-                  opacity: 0.4,
-                  userSelect: "none",
-                }}
-              >
-                <span style={{ display: "block", width: "82%", height: 11, borderRadius: 4, background: "rgba(255,255,255,0.6)" }} />
-                <span style={{ display: "block", width: "65%", height: 11, borderRadius: 4, background: "rgba(255,255,255,0.5)" }} />
-              </div>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: 19,
+                      fontWeight: 800,
+                      letterSpacing: "-0.6px",
+                      lineHeight: 1,
+                      color: GOLD_BRIGHT,
+                      opacity: 0.9,
+                      flex: "0 0 auto",
+                      minWidth: 26,
+                    }}
+                  >
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
 
-              {/* "Reveal soon" stamp */}
-              <span
-                style={{
-                  position: "absolute",
-                  right: 12,
-                  top: 12,
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 8.5,
-                  fontWeight: 700,
-                  letterSpacing: "1.5px",
-                  textTransform: "uppercase",
-                  color: GOLD,
-                  opacity: 0.7,
-                }}
-              >
-                TBA
-              </span>
-            </motion.div>
-          ))}
-        </div>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: 14.5,
+                      fontWeight: 700,
+                      letterSpacing: "-0.2px",
+                      lineHeight: 1.3,
+                      color: "rgba(255,255,255,0.94)",
+                      textWrap: "pretty",
+                    }}
+                  >
+                    {label}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
 
-        {/* CTA — notify me */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.85, ease: EASE }}
-          style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}
-        >
-          <a
-            href="#get-involved"
-            onClick={(e) => {
-              e.preventDefault();
-              window.dispatchEvent(new CustomEvent("efg:set-form-tab", { detail: "pass" }));
-              document.getElementById("get-involved")?.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="cfq-awards-cta"
+          {/* Right — the nomination form */}
+          <motion.div
+            id="awards-nominate"
+            initial={{ opacity: 0, y: 18 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.55, ease: EASE }}
             style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 12,
-              padding: "14px 32px",
-              borderRadius: 999,
-              background: `linear-gradient(135deg, ${GOLD} 0%, ${GOLD_BRIGHT} 100%)`,
-              border: `1px solid ${GOLD_BRIGHT}`,
-              fontFamily: "var(--font-outfit)",
-              fontSize: 13,
-              fontWeight: 700,
-              letterSpacing: "2px",
-              textTransform: "uppercase",
-              color: "#1a1206",
-              textDecoration: "none",
-              cursor: "pointer",
-              transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
-              boxShadow: `inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(0,0,0,0.2), 0 14px 36px rgba(196,163,74,0.45), 0 0 0 1px rgba(255,255,255,0.08)`,
+              padding: "clamp(24px, 2.6vw, 38px)",
+              borderRadius: 22,
+              background: `linear-gradient(180deg, rgba(196,163,74,0.07) 0%, rgba(255,255,255,0.015) 100%)`,
+              border: `1px solid ${GOLD}33`,
+              boxShadow: `inset 0 1px 0 rgba(255,255,255,0.06), 0 30px 70px rgba(0,0,0,0.45)`,
             }}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1a1206" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-            </svg>
-            Notify Me When Nominations Open
-            <span aria-hidden style={{ fontSize: 15 }}>→</span>
-          </a>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+              <span
+                aria-hidden
+                className="cfq-awards-pulse"
+                style={{ width: 7, height: 7, borderRadius: "50%", background: GOLD_BRIGHT, boxShadow: `0 0 10px ${GOLD}` }}
+              />
+              <span
+                style={{
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 10.5,
+                  fontWeight: 700,
+                  letterSpacing: "2.4px",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.55)",
+                }}
+              >
+                Nominations Now Open
+              </span>
+            </div>
+          {nomDone ? (
+            <div style={{ textAlign: "center", padding: "18px 0" }}>
+              <span
+                aria-hidden
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 54,
+                  height: 54,
+                  borderRadius: "50%",
+                  marginBottom: 18,
+                  background: `linear-gradient(135deg, ${GOLD} 0%, ${GOLD_BRIGHT} 100%)`,
+                }}
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a1206" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg>
+              </span>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(20px, 2.2vw, 26px)", color: "white", margin: "0 0 10px", letterSpacing: "-0.5px" }}>
+                Nomination received
+              </h3>
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, lineHeight: 1.6, color: "rgba(255,255,255,0.65)", margin: 0 }}>
+                Thank you. Our team will review the submission and be in touch about the next steps.
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleNominate} noValidate>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(20px, 2.2vw, 26px)", color: "white", margin: "0 0 6px", letterSpacing: "-0.5px" }}>
+                Submit a nomination
+              </h3>
+              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, lineHeight: 1.6, color: "rgba(255,255,255,0.55)", margin: "0 0 26px" }}>
+                Nominate an organisation or an individual against one of the seven pillars. Self-nominations are welcome.
+              </p>
 
-          {/* Sub-CTA pulse indicator */}
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-            <span
-              aria-hidden
-              className="cfq-awards-pulse"
-              style={{
-                width: 7,
-                height: 7,
-                borderRadius: "50%",
-                background: GOLD_BRIGHT,
-                boxShadow: `0 0 10px ${GOLD}`,
-              }}
-            />
-            <span
-              style={{
-                fontFamily: "var(--font-outfit)",
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "2.5px",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.5)",
-              }}
-            >
-              Categories Revealing Soon
-            </span>
-          </div>
-        </motion.div>
+              <div className="cfq-nom-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "22px 26px" }}>
+                <label style={{ display: "block" }}>
+                  <span style={nomLabel}>Nominee — organisation or individual</span>
+                  <input
+                    required
+                    value={nom.org}
+                    onChange={(e) => setNom((f) => ({ ...f, org: e.target.value }))}
+                    onFocus={() => setNomFocus("org")}
+                    onBlur={() => setNomFocus(null)}
+                    style={nomInput("org")}
+                    placeholder="Who are you nominating?"
+                  />
+                </label>
+
+                <label style={{ display: "block" }}>
+                  <span style={nomLabel}>Your name</span>
+                  <input
+                    required
+                    value={nom.contact}
+                    onChange={(e) => setNom((f) => ({ ...f, contact: e.target.value }))}
+                    onFocus={() => setNomFocus("contact")}
+                    onBlur={() => setNomFocus(null)}
+                    style={nomInput("contact")}
+                    placeholder="Full name"
+                  />
+                </label>
+
+                <label style={{ display: "block" }}>
+                  <span style={nomLabel}>Work email</span>
+                  <input
+                    required
+                    type="email"
+                    value={nom.email}
+                    onChange={(e) => {
+                      setNom((f) => ({ ...f, email: e.target.value }));
+                      if (nomErr.email) setNomErr((x) => ({ ...x, email: undefined }));
+                    }}
+                    onFocus={() => setNomFocus("email")}
+                    onBlur={() => setNomFocus(null)}
+                    style={nomInput("email")}
+                    placeholder="name@company.com"
+                  />
+                  {nomErr.email && <span style={nomError}>{nomErr.email}</span>}
+                </label>
+
+                <label style={{ display: "block" }}>
+                  <span style={nomLabel}>Phone</span>
+                  <div style={{ display: "flex", gap: 10, alignItems: "flex-end" }}>
+                    <select
+                      aria-label="Country dialling code"
+                      value={nomCountry.country}
+                      onChange={(e) => {
+                        const c = COUNTRY_CODES.find((x) => x.country === e.target.value);
+                        if (c) {
+                          setNomCountry(c);
+                          // Different code, different required length — clear the
+                          // number so a stale one cannot pass validation.
+                          setNom((f) => ({ ...f, phone: "" }));
+                          setNomErr((x) => ({ ...x, phone: undefined }));
+                        }
+                      }}
+                      style={{ ...nomInput("code"), width: 118, flex: "0 0 auto", cursor: "pointer" }}
+                    >
+                      {COUNTRY_CODES.map((c) => (
+                        <option key={c.country} value={c.country} style={{ background: "#0B0D14", color: "white" }}>
+                          {c.code} {c.country}
+                        </option>
+                      ))}
+                    </select>
+                    <input
+                      required
+                      inputMode="numeric"
+                      value={nom.phone}
+                      maxLength={nomCountry.length}
+                      onChange={(e) => {
+                        setNom((f) => ({ ...f, phone: e.target.value.replace(/[^\d]/g, "").slice(0, nomCountry.length) }));
+                        if (nomErr.phone) setNomErr((x) => ({ ...x, phone: undefined }));
+                      }}
+                      onFocus={() => setNomFocus("phone")}
+                      onBlur={() => setNomFocus(null)}
+                      style={nomInput("phone")}
+                      placeholder={nomCountry.placeholder}
+                    />
+                  </div>
+                  {nomErr.phone && <span style={nomError}>{nomErr.phone}</span>}
+                </label>
+
+                <label style={{ display: "block", gridColumn: "1 / -1" }}>
+                  <span style={nomLabel}>Award category</span>
+                  <select
+                    required
+                    value={nom.category}
+                    onChange={(e) => setNom((f) => ({ ...f, category: e.target.value }))}
+                    onFocus={() => setNomFocus("category")}
+                    onBlur={() => setNomFocus(null)}
+                    style={{ ...nomInput("category"), cursor: "pointer" }}
+                  >
+                    <option value="" disabled style={{ background: "#0B0D14", color: "white" }}>
+                      Select one of the seven pillars
+                    </option>
+                    {CYBER_7.map((label, idx) => (
+                      <option key={label} value={label} style={{ background: "#0B0D14", color: "white" }}>
+                        {String(idx + 1).padStart(2, "0")} — {label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                <label style={{ display: "block", gridColumn: "1 / -1" }}>
+                  <span style={nomLabel}>Why this nomination</span>
+                  <textarea
+                    required
+                    rows={4}
+                    value={nom.reason}
+                    onChange={(e) => setNom((f) => ({ ...f, reason: e.target.value }))}
+                    onFocus={() => setNomFocus("reason")}
+                    onBlur={() => setNomFocus(null)}
+                    style={{ ...nomInput("reason"), resize: "vertical", lineHeight: 1.6 }}
+                    placeholder="Outline the work, its impact and why it stands out in this category."
+                  />
+                </label>
+              </div>
+
+              {nomErr.form && <p style={{ ...nomError, marginTop: 18 }}>{nomErr.form}</p>}
+
+              <button
+                type="submit"
+                disabled={nomSending}
+                className="cfq-awards-cta"
+                style={{
+                  marginTop: 30,
+                  width: "100%",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 12,
+                  padding: "15px 32px",
+                  borderRadius: 999,
+                  background: `linear-gradient(135deg, ${GOLD} 0%, ${GOLD_BRIGHT} 100%)`,
+                  border: `1px solid ${GOLD_BRIGHT}`,
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: 13,
+                  fontWeight: 700,
+                  letterSpacing: "2px",
+                  textTransform: "uppercase",
+                  color: "#1a1206",
+                  cursor: nomSending ? "wait" : "pointer",
+                  opacity: nomSending ? 0.7 : 1,
+                  transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
+                  boxShadow: `inset 0 1px 0 rgba(255,255,255,0.5), 0 14px 36px rgba(196,163,74,0.4)`,
+                }}
+              >
+                {nomSending ? "Submitting…" : "Submit Nomination"}
+              </button>
+              </form>
+            )}
+          </motion.div>
+        </div>
       </div>
 
       <style jsx global>{`
@@ -5958,6 +6205,12 @@ function AwardsTeaser() {
           animation: cfqAwardScan 4.5s ease-in-out infinite;
         }
 
+        .cfq-award-pillar:hover {
+          transform: translateY(-4px);
+          border-color: rgba(196,163,74,0.55) !important;
+          box-shadow: 0 18px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(196,163,74,0.18);
+        }
+
         .cfq-awards-cta:hover {
           transform: translateY(-2px) scale(1.02);
           box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -1px 0 rgba(0,0,0,0.2), 0 18px 44px rgba(196,163,74,0.6), 0 0 0 1px rgba(255,255,255,0.12) !important;
@@ -5965,18 +6218,13 @@ function AwardsTeaser() {
       `}</style>
 
       <style jsx>{`
-        @media (max-width: 1100px) {
-          .cfq-awards-grid {
-            grid-template-columns: repeat(3, 1fr) !important;
+        @media (max-width: 980px) {
+          .cfq-awards-split {
+            grid-template-columns: 1fr !important;
           }
         }
         @media (max-width: 640px) {
-          .cfq-awards-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-        }
-        @media (max-width: 400px) {
-          .cfq-awards-grid {
+          .cfq-nom-grid {
             grid-template-columns: 1fr !important;
           }
         }
