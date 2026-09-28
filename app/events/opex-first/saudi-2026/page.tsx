@@ -133,7 +133,7 @@ const OVERVIEW_SIGNALS = [
 
 const OPEX_PAST_EDITIONS = [
   { id: "5obYKv-vJZE", city: "Abu Dhabi, UAE", year: "2026", caption: "Operational excellence leaders convene at the regional flagship." },
-  { id: "dbL42utoYW4", city: "Riyadh, KSA", year: "2025", caption: "The inaugural Saudi edition — Vision 2030 execution at the table." },
+  { id: "dbL42utoYW4", city: "Riyadh, KSA", year: "2025", caption: "The inaugural Saudi edition — national execution at the table." },
 ];
 
 const MARKET_BUCKETS = [
@@ -141,10 +141,10 @@ const MARKET_BUCKETS = [
     num: "01",
     kicker: "Drivers",
     title: "What's pushing performance to the top of the agenda.",
-    lede: "Vision 2030 has shifted from blueprint to delivery — and every leadership conversation now starts with measurable outcomes.",
+    lede: "National transformation has shifted from blueprint to delivery — and every leadership conversation now starts with measurable outcomes.",
     image: "https://efg-final.s3.eu-north-1.amazonaws.com/events/Opex%20First%20UAE/4N8A1848.JPG",
     items: [
-      "Vision 2030 delivery pressure across ministries and giga-projects.",
+      "National delivery pressure across ministries and giga-projects.",
       "National AI institutionalisation under SDAIA mandates.",
       "Industrial and energy optimisation at Aramco scale.",
       "Board-level ROI accountability on every transformation programme.",
@@ -188,7 +188,7 @@ const STATS = [
 ];
 
 const FOCUS_AREAS = [
-  { title: "Strategy-to-Execution Governance", body: "From Vision 2030 roadmaps to measurable institutional performance." },
+  { title: "Strategy-to-Execution Governance", body: "From national transformation roadmaps to measurable institutional performance." },
   { title: "AI & Intelligent Automation in Operations", body: "Agentic AI, automation beyond RPA, compliance-integrated AI governance." },
   { title: "Process Mining & Enterprise Orchestration", body: "Cross-functional control towers, KPI-linked process redesign, value-realisation tracking." },
   { title: "Digital Governance & KPI Accountability", body: "Performance transparency, dashboards, executive-grade reporting cadence." },
@@ -220,6 +220,14 @@ const SPEAKERS: Speaker[] = [
   // { name: "Talal Alahmari", title: "Organizational Excellence Director", org: "SERA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/talal+alahmari.png", linkedin: "https://www.linkedin.com/in/alahmaritalal/" },
   { name: "Nadeer Alshyookh", title: "Business Transformation Manager Lead - MEA North", org: "SAP", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nadeer+AlShyookh.jpg", linkedin: "https://www.linkedin.com/in/nadeeralshyookh/" },
   { name: "Dr. Ibrahim bin Abdullah Alotaibi", title: "Chief Strategy and Business Development Officer", org: "Confidential Saudi Government Entity", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/brahim+bin+Abdullah+Alotaibi.jpg", linkedin: "https://www.linkedin.com/in/ibrahim-a-9314492a/" },
+  // Source portrait is only 200x200, so it upscales on the 3:4 card. Swap in a
+  // larger file if one turns up.
+  { name: "Dr. Nasser Alamri", title: "Director General of Information Technology (CIO)", org: "Institute of Public Administration - IPA - Saudi Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+nasser+alamri.jpg", linkedin: "https://www.linkedin.com/in/nasseralamri/" },
+  { name: "Maan Al Maddah", title: "Head of Portfolio", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Maan+Al+Maddah.jpg", linkedin: "https://www.linkedin.com/in/maanalmaddah/" },
+  // LinkedIn URLs arrived with share-tracking query strings; only the profile
+  // path is kept here.
+  { name: "Dr. Yousof Ghazzawi", title: "Senior Portfolio Leader - Business Transformation", org: "SABIC", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Yousof+Ghazzawi1.png", linkedin: "https://www.linkedin.com/in/yousofghazzawi/" },
+  { name: "Ghassan Gamal", title: "Executive Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ghassan1.png", linkedin: "https://www.linkedin.com/in/ggamal/" },
 ];
 
 type AgendaItem = {
@@ -241,7 +249,7 @@ const AGENDA: AgendaItem[] = [
   {
     time: "09:30 – 10:00",
     type: "Leadership Panel",
-    title: "The Governance Gap - Turning Vision 2030 Mandates into Measurable Institutional Performance",
+    title: "The Governance Gap - Turning National Mandates into Measurable Institutional Performance",
     bullets: [
       "Why transformation complete and operationally excellent are not the same milestone",
       "Building executive dashboards that survive board level scrutiny, not just internal reporting",
@@ -2714,7 +2722,7 @@ function EventOverview() {
               margin: 0,
             }}
           >
-            Saudi Arabia has entered the{" "}
+            Saudi Arabia has entered its{" "}
             <span
               className="opex-shimmer-text"
               style={{
@@ -2727,8 +2735,8 @@ function EventOverview() {
               }}
             >
               execution decade
-            </span>{" "}
-            of Vision 2030.
+            </span>
+            {"."}
           </motion.h2>
 
           <motion.p
@@ -6840,7 +6848,7 @@ function Venue() {
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 22 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 11, fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.8)" }}>
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke={V_BRIGHT} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z" /><circle cx="12" cy="10" r="2.5" /></svg>
-                Olaya, Riyadh, Kingdom of Saudi Arabia
+                Olaya, Riyadh, Saudi Arabia
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 11, fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.8)" }}>
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke={V_BRIGHT} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><rect x="3.5" y="4.5" width="17" height="16" rx="2" /><path d="M3.5 9h17M8 2.5v4M16 2.5v4" /></svg>

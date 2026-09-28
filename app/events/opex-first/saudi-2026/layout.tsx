@@ -13,14 +13,14 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: "OPEX First Saudi 2026 (OPEX KSA) — Operational Excellence Summit, Riyadh",
   description:
-    "OPEX First Saudi Arabia 2026 (OPEX KSA) — operational excellence summit in Riyadh, 21 Oct 2026. 220+ delegates, 30+ speakers, 5 awards aligned to Vision 2030.",
+    "OPEX First Saudi Arabia 2026 (OPEX KSA) — operational excellence summit in Riyadh, 21 Oct 2026. 220+ delegates, 30+ speakers, 5 awards recognising execution performance.",
   keywords: [
     "OPEX KSA",
     "OPEX First KSA",
     "OPEX First Saudi 2026",
     "operational excellence summit KSA",
     "operational excellence summit Riyadh",
-    "Vision 2030 execution",
+    "Saudi transformation execution",
     "Saudi Aramco APS",
     "SDAIA AI governance",
     "Digital Government Authority",
@@ -103,7 +103,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             "@type": "Event",
             name: "OPEX First Saudi 2026 — 3rd Edition",
             description:
-              "Vision to Value — Merging AI and Process Excellence. The only platform dedicated to propelling operational excellence to new heights, convening visionary government leaders, C-suite executives, and global tech innovators across Saudi Arabia's Vision 2030 execution decade.",
+              "Vision to Value — Merging AI and Process Excellence. The only platform dedicated to propelling operational excellence to new heights, convening visionary government leaders, C-suite executives, and global tech innovators across Saudi Arabia's execution decade.",
             startDate: "2026-10-21T09:00:00+03:00",
             endDate: "2026-10-21T17:00:00+03:00",
             eventStatus: "https://schema.org/EventScheduled",
@@ -129,7 +129,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             },
             typicalAgeRange: "25-",
             keywords:
-              "operational excellence, OPEX First, Vision 2030, process intelligence, intelligent automation, AI governance, KPI accountability, Saudi Arabia, Riyadh, GovExPro, SDAIA, Aramco APS",
+              "operational excellence, OPEX First, process intelligence, intelligent automation, AI governance, KPI accountability, Saudi Arabia, Riyadh, GovExPro, SDAIA, Aramco APS",
           }),
         }}
       />
@@ -192,7 +192,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         country="Saudi Arabia"
         format="in-person"
         audienceSize="220+ delegates and 30+ speakers"
-        audienceTypes={["COOs", "Transformation directors", "Process intelligence leaders", "Government excellence officers", "Enterprise C-suite", "AI governance leaders", "Vision 2030 execution heads"]}
+        audienceTypes={["COOs", "Transformation directors", "Process intelligence leaders", "Government excellence officers", "Enterprise C-suite", "AI governance leaders", "Execution programme heads"]}
         topSpeakers={[
           { name: "H.E. Dr. Abdullah Bin Sharaf Alghamdi", title: "President", org: "Saudi Data & AI Authority (SDAIA)" },
           { name: "H.E. Eng. Ahmed Alsuwaiyan", title: "Governor & Board Member", org: "Digital Government Authority" },
