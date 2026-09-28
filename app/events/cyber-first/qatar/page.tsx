@@ -223,6 +223,10 @@ const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; 
   { name: "Christa Waegemann", title: "International Director", org: "Violence Prevention Network gGmbH", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Christa+Waegemann.png", linkedin: "https://www.linkedin.com/in/christawaegemann/" },
   // Speakers not in the 17 Sep running-order list go after the last listed one.
   { name: "Noureddine Bouhaddaoui", title: "Head of Security Product", org: "Ooredoo Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Noureddine+PIc.jpg", linkedin: "https://www.linkedin.com/in/noureddine-bouhaddaoui-8a3bb79/" },
+  { name: "Ovais Ahmed", title: "Senior Consultant ICS/OT", org: "KPMG Qatar", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/OVAIS+AHMED1.png", linkedin: "https://www.linkedin.com/in/ovaisahmed31/" },
+  // The S3 filename really does carry an en space (%E2%80%82) before the 1 —
+  // it is not a typo to tidy up, the object would 404 without it.
+  { name: "Sandamali Silva", title: "Information Security, IT Governance and Technology Risk Leader", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sandamali+Silva%E2%80%821.png", linkedin: "https://www.linkedin.com/in/sandamali-silva/" },
 ];
 
 // ─── Agenda — 17 rows (from PDF) ────────────────────────────────────────────
