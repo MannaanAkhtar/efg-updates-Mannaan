@@ -4590,6 +4590,9 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
     logos: [
       { name: "Axidian", href: "https://axidian.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Axidian_white_logo.png" },
       { name: "Elastic", href: "https://www.elastic.co/", scale: 1.6, logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/elastic.png" },
+      // White wordmark with a cyan cube on transparent, so it reads on the dark
+      // plate as supplied — no light surface and no whiten.
+      { name: "Xage Security", href: "https://xage.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/xage.png" },
     ],
   },
   {
