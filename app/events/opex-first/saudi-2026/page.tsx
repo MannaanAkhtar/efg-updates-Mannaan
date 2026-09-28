@@ -91,7 +91,7 @@ const HERO_VIDEO = "https://efg-final.s3.eu-north-1.amazonaws.com/hero+videos/Op
 
 const HERO_PILLS = [
   { label: "21 Oct 2026" },
-  { label: "Riyadh · KSA" },
+  { label: "Riyadh · Saudi Arabia" },
   { label: "Full-Day Summit" },
   { label: "220+ Delegates" },
   { label: "30+ Speakers" },
@@ -133,7 +133,7 @@ const OVERVIEW_SIGNALS = [
 
 const OPEX_PAST_EDITIONS = [
   { id: "5obYKv-vJZE", city: "Abu Dhabi, UAE", year: "2026", caption: "Operational excellence leaders convene at the regional flagship." },
-  { id: "dbL42utoYW4", city: "Riyadh, KSA", year: "2025", caption: "The inaugural Saudi edition — national execution at the table." },
+  { id: "dbL42utoYW4", city: "Riyadh, Saudi Arabia", year: "2025", caption: "The inaugural Saudi edition — national execution at the table." },
 ];
 
 const MARKET_BUCKETS = [
@@ -759,7 +759,7 @@ function Hero() {
             <span style={{ width: 4, height: 4, borderRadius: "50%", background: V_BRIGHT }} />
             <span>Hyatt Regency Riyadh Olaya</span>
             <span style={{ width: 4, height: 4, borderRadius: "50%", background: V_BRIGHT }} />
-            <span>Riyadh, KSA</span>
+            <span>Riyadh</span>
             <span style={{ width: 4, height: 4, borderRadius: "50%", background: V_BRIGHT }} />
             <span>Full-Day Summit</span>
           </motion.div>
