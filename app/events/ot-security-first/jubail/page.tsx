@@ -4566,6 +4566,9 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
       { name: "Yokogawa", href: "https://www.yokogawa.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Yoko+logo-01.png" },
       { name: "swIDch", href: "https://www.swidch.com/", scale: 1.35, logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/swidch+logo+white.png" },
       { name: "Schneider Electric", href: "https://www.se.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/schneider-electric-seeklogo.png" },
+      // Orange mark beside a white wordmark, so it stays on the dark plate —
+      // a light plate would lose the wordmark and whiten would kill the orange.
+      { name: "Illumio", href: "https://www.illumio.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Illumio_Logo_1.png" },
     ],
   },
   {
@@ -4575,6 +4578,9 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
       { name: "INTECH", href: "https://www.intechww.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/INTECH+Logo_Main+5.svg" },
       // Navy wordmark on transparent, so it needs the light plate to read.
       { name: "ProSecure ME", surface: "light", href: "https://prosecureme.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ProSecureme.png" },
+      // Already the white colourway of the wordmark, so it needs neither a
+      // light plate nor whiten.
+      { name: "OPSWAT", href: "https://www.opswat.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/OPSWAT_logo_notag_white.png" },
     ],
   },
   {
@@ -4593,6 +4599,10 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
       // White wordmark with a cyan cube on transparent, so it reads on the dark
       // plate as supplied — no light surface and no whiten.
       { name: "Xage Security", href: "https://xage.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/xage.png" },
+      // The file we already hold is a 1042x1042 square whose artwork occupies
+      // only a 846x215 band, so fillWidth clips the vertical padding. Red mark
+      // with a white wordmark — dark plate, no whiten.
+      { name: "TXOne Networks", fillWidth: true, href: "https://www.txone.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/TXOne+LOGO-3.png" },
     ],
   },
   {
