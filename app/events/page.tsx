@@ -203,6 +203,29 @@ const allEvents = [
     status: "open" as SeriesStatus,
   },
   {
+    id: "networkfirst-ifs-construction",
+    category: "networkfirst",
+    title: "IFS Executive Roundtable",
+    tagline: "Construction and Engineering Software Solutions",
+    description:
+      "An IFS executive roundtable for Construction and Engineering leaders on managing the complete asset lifecycle — connecting project planning, project execution, project financial control and asset and facilities management.",
+    color: "#C9935A",
+    image: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg",
+    href: "/ifs-20core",
+    date: "2026-10-20",
+    nextDate: "20 Oct 2026",
+    // City not confirmed. cityTBA keeps it out of the City filter's options —
+    // the same treatment monthTBA gives the Month filter — and the empty
+    // `regions` means picking any city filters this event out rather than
+    // showing it under a city it may not be in.
+    nextCity: "To be announced",
+    editions: "",
+    regions: "",
+    attendees: "Invited",
+    status: "open" as SeriesStatus,
+    cityTBA: true,
+  },
+  {
     id: "networkfirst-ifs-jeddah",
     category: "networkfirst",
     title: "IFS Executive Roundtable",
@@ -1657,6 +1680,9 @@ function EventsSeriesGrid() {
   const cityFilters = useMemo(() => {
     const cities = new Set<string>();
     futureEvents.forEach((e) => {
+      // No city to offer as a filter — it would otherwise yield a
+      // "To be announced" chip in the City dropdown.
+      if ((e as { cityTBA?: boolean }).cityTBA) return;
       const city = e.nextCity.split(",")[0].trim();
       cities.add(city);
     });

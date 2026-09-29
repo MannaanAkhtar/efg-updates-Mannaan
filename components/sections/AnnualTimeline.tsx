@@ -149,6 +149,23 @@ export const allEvents: EventItem[] = [
     status: "open",
   },
   {
+    id: "networkfirst-ifs-construction",
+    series: "NetworkFirst",
+    seriesColor: "#C9935A",
+    edition: "",
+    title: "IFS Executive Roundtable",
+    date: new Date("2026-10-20"),
+    dateDisplay: "October 20, 2026",
+    // City is not confirmed yet. regionOf() in Navigation.tsx returns null for
+    // an unrecognised location, so this stays out of the region browser until
+    // a city is set here.
+    location: "Location TBA",
+    venue: "Venue TBA",
+    attendees: "Invited",
+    href: "/ifs-20core",
+    status: "open",
+  },
+  {
     id: "networkfirst-ifs-jeddah",
     series: "NetworkFirst",
     seriesColor: "#C9935A",
