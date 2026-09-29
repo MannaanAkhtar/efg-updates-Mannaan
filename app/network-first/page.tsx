@@ -213,6 +213,24 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg",
   },
   {
+    date: "October 21st, 2026",
+    month: "OCT",
+    day: "21",
+    year: "2026",
+    // Neither the start time nor the city is confirmed yet; the page itself
+    // says the same rather than showing a placeholder that looks real.
+    time: "Time TBC",
+    title: "IFS Executive Roundtable",
+    subtitle: "Property and Facilities Management Software Solutions",
+    sponsor: "IFS",
+    location: "Location TBC",
+    link: "/ifs-21fm",
+    image: "",
+    brandColor: "#170430",
+    brandGradient: "linear-gradient(135deg, #8427E2 0%, #360065 45%, #170430 80%, #0A0218 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg",
+  },
+  {
     date: "October 20th, 2026",
     month: "OCT",
     day: "20",

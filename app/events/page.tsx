@@ -226,6 +226,26 @@ const allEvents = [
     cityTBA: true,
   },
   {
+    id: "networkfirst-ifs-fm",
+    category: "networkfirst",
+    title: "IFS Executive Roundtable",
+    tagline: "Property and Facilities Management Software Solutions",
+    description:
+      "An IFS executive roundtable for Property and Facilities Services leaders on integrated software that streamlines operations, optimizes maintenance and enhances service delivery across a property portfolio.",
+    color: "#C9935A",
+    image: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg",
+    href: "/ifs-21fm",
+    date: "2026-10-21",
+    nextDate: "21 Oct 2026",
+    // City not confirmed — see the cityTBA note on the entry above.
+    nextCity: "To be announced",
+    editions: "",
+    regions: "",
+    attendees: "Invited",
+    status: "open" as SeriesStatus,
+    cityTBA: true,
+  },
+  {
     id: "networkfirst-ifs-jeddah",
     category: "networkfirst",
     title: "IFS Executive Roundtable",

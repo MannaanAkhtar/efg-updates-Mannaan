@@ -93,6 +93,9 @@ const networkFirstEvents: { href: string; label: string; date: string; format: N
   // boardrooms carry their city.
   { href: "/ifs-20core", label: "IFS · Construction & Engineering", date: "20 Oct", format: "physical" },
   { href: "/ifs-dubai", label: "IFS · Dubai", date: "21 Oct", format: "physical" },
+  // Separate 21 Oct roundtable from the Dubai briefing above. City still TBA,
+  // so the label carries the theme.
+  { href: "/ifs-21fm", label: "IFS · Property & Facilities", date: "21 Oct", format: "physical" },
   { href: "/enterprisedb-southafrica", label: "EnterpriseDB, South Africa", date: "12 Nov", format: "physical" },
   { href: "/enterprisedb-uae", label: "EnterpriseDB, UAE", date: "25 Nov", format: "physical" },
   // Postponed from 23 Sep — date TBA, so it sits after every dated boardroom.

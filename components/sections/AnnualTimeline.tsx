@@ -166,6 +166,22 @@ export const allEvents: EventItem[] = [
     status: "open",
   },
   {
+    // Separate event from the 21 Oct Dubai briefing below — different theme,
+    // different page. Both are listed.
+    id: "networkfirst-ifs-fm",
+    series: "NetworkFirst",
+    seriesColor: "#C9935A",
+    edition: "",
+    title: "IFS Executive Roundtable",
+    date: new Date("2026-10-21"),
+    dateDisplay: "October 21, 2026",
+    location: "Location TBA",
+    venue: "Venue TBA",
+    attendees: "Invited",
+    href: "/ifs-21fm",
+    status: "open",
+  },
+  {
     id: "networkfirst-ifs-jeddah",
     series: "NetworkFirst",
     seriesColor: "#C9935A",
