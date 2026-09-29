@@ -199,13 +199,13 @@ const UPCOMING_EVENTS = [
     month: "OCT",
     day: "20",
     year: "2026",
-    // Neither the start time nor the city is confirmed yet; the page itself
-    // says the same rather than showing a placeholder that looks real.
+    // Start time still unconfirmed; the page itself says the same rather than
+    // showing a placeholder that looks real.
     time: "Time TBC",
     title: "IFS Executive Roundtable",
     subtitle: "Construction and Engineering Software Solutions",
     sponsor: "IFS",
-    location: "Location TBC",
+    location: "Hilton Jeddah, Jeddah",
     link: "/ifs-20core",
     image: "",
     brandColor: "#170430",
@@ -217,13 +217,13 @@ const UPCOMING_EVENTS = [
     month: "OCT",
     day: "21",
     year: "2026",
-    // Neither the start time nor the city is confirmed yet; the page itself
-    // says the same rather than showing a placeholder that looks real.
+    // Start time still unconfirmed; the page itself says the same rather than
+    // showing a placeholder that looks real.
     time: "Time TBC",
     title: "IFS Executive Roundtable",
     subtitle: "Property and Facilities Management Software Solutions",
     sponsor: "IFS",
-    location: "Location TBC",
+    location: "Hilton Jeddah, Jeddah",
     link: "/ifs-21fm",
     image: "",
     brandColor: "#170430",

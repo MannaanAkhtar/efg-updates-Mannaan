@@ -214,16 +214,11 @@ const allEvents = [
     href: "/ifs-20core",
     date: "2026-10-20",
     nextDate: "20 Oct 2026",
-    // City not confirmed. cityTBA keeps it out of the City filter's options —
-    // the same treatment monthTBA gives the Month filter — and the empty
-    // `regions` means picking any city filters this event out rather than
-    // showing it under a city it may not be in.
-    nextCity: "To be announced",
+    nextCity: "Jeddah, Saudi Arabia",
     editions: "",
-    regions: "",
+    regions: "Saudi Arabia",
     attendees: "Invited",
     status: "open" as SeriesStatus,
-    cityTBA: true,
   },
   {
     id: "networkfirst-ifs-fm",
@@ -237,13 +232,11 @@ const allEvents = [
     href: "/ifs-21fm",
     date: "2026-10-21",
     nextDate: "21 Oct 2026",
-    // City not confirmed — see the cityTBA note on the entry above.
-    nextCity: "To be announced",
+    nextCity: "Jeddah, Saudi Arabia",
     editions: "",
-    regions: "",
+    regions: "Saudi Arabia",
     attendees: "Invited",
     status: "open" as SeriesStatus,
-    cityTBA: true,
   },
   {
     id: "networkfirst-ifs-jeddah",

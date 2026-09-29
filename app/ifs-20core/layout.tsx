@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title:
     "Construction and Engineering Software Solutions | IFS Executive Roundtable · 20 October 2026",
   description:
-    "An IFS executive roundtable for Construction and Engineering leaders on 20 October 2026: managing the complete asset lifecycle with integrated software that connects project planning, execution, financial control and asset management.",
+    "An IFS executive roundtable for Construction and Engineering leaders at the Hilton Jeddah on 20 October 2026: managing the complete asset lifecycle with integrated software that connects project planning, execution, financial control and asset management.",
   keywords: [
     "IFS",
     "IFS Cloud ERP",
@@ -21,6 +21,8 @@ export const metadata: Metadata = {
     "shipbuilding and maritime",
     "project financial control",
     "executive roundtable",
+    "Jeddah",
+    "Saudi Arabia",
   ],
   alternates: { canonical: PAGE_URL },
   openGraph: {
@@ -74,9 +76,14 @@ export default function IfsCoreEngineeringLayout({
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {
               "@type": "Place",
-              // City and venue are both unconfirmed — no addressLocality or
-              // addressCountry is asserted rather than guessing one.
-              name: "To be announced",
+              name: "Hilton Jeddah",
+              address: {
+                "@type": "PostalAddress",
+                // No street address was supplied, so only the city and country
+                // are asserted.
+                addressLocality: "Jeddah",
+                addressCountry: "SA",
+              },
             },
             image: [OG_IMAGE],
             organizer: {

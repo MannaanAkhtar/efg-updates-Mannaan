@@ -951,7 +951,7 @@ function HeroSection() {
               }
             />
             <BentoFact
-              area="venue" delay={0.26} label="Venue" value="To be announced"
+              area="venue" delay={0.26} label="Venue" value="Hilton Jeddah"
               icon={
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z" />
@@ -1817,9 +1817,9 @@ function AgendaAndFormSection() {
   const [lastName, setLastName] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [company, setCompany] = useState("");
-  // City is TBA, so the regional default is used until the location is set.
+  // The event is in Jeddah, so Saudi Arabia is the default dialling code.
   const defaultPhoneCountry = useMemo<CountryCode>(
-    () => COUNTRY_CODES.find((c) => c.country === "AE") ?? COUNTRY_CODES[0],
+    () => COUNTRY_CODES.find((c) => c.country === "SA") ?? COUNTRY_CODES[0],
     [],
   );
   const [phoneCountry, setPhoneCountry] = useState<CountryCode>(defaultPhoneCountry);
@@ -2393,7 +2393,7 @@ function IfsFooter() {
             letterSpacing: "0.16em",
             textTransform: "uppercase",
           }}>
-            Executive Roundtable · IFS · 20 October 2026
+            Executive Roundtable · IFS · Jeddah · 20 October 2026
           </p>
         </div>
       </div>

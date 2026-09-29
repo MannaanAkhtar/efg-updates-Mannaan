@@ -836,7 +836,7 @@ function HeroSection() {
         >
           <OpsCell label="Date"><OpsValue>21 October 2026</OpsValue></OpsCell>
           <OpsCell label="Time"><OpsValue>To be announced</OpsValue></OpsCell>
-          <OpsCell label="Venue"><OpsValue>To be announced</OpsValue></OpsCell>
+          <OpsCell label="Venue"><OpsValue>Hilton Jeddah</OpsValue></OpsCell>
           <OpsCell label="Doors open in" wide>
             <CountdownTimer targetIso={EVENT_DATE_ISO} bare />
           </OpsCell>
@@ -1719,9 +1719,9 @@ function AgendaAndFormSection() {
   const [lastName, setLastName] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [company, setCompany] = useState("");
-  // City is TBA, so the regional default is used until the location is set.
+  // The event is in Jeddah, so Saudi Arabia is the default dialling code.
   const defaultPhoneCountry = useMemo<CountryCode>(
-    () => COUNTRY_CODES.find((c) => c.country === "AE") ?? COUNTRY_CODES[0],
+    () => COUNTRY_CODES.find((c) => c.country === "SA") ?? COUNTRY_CODES[0],
     [],
   );
   const [phoneCountry, setPhoneCountry] = useState<CountryCode>(defaultPhoneCountry);
@@ -2295,7 +2295,7 @@ function IfsFooter() {
             letterSpacing: "0.16em",
             textTransform: "uppercase",
           }}>
-            Executive Roundtable · IFS · 21 October 2026
+            Executive Roundtable · IFS · Jeddah · 21 October 2026
           </p>
         </div>
       </div>

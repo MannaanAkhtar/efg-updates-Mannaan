@@ -153,14 +153,15 @@ export const allEvents: EventItem[] = [
     series: "NetworkFirst",
     seriesColor: "#C9935A",
     edition: "",
-    title: "IFS Executive Roundtable",
+    // Named by theme, not just "IFS Executive Roundtable": the nav's Region
+    // browser groups by country, and Saudi Arabia already holds the 29 Sept
+    // IFS roundtable, so three identically-titled rows would be separable only
+    // by their dates.
+    title: "IFS Construction & Engineering Roundtable",
     date: new Date("2026-10-20"),
     dateDisplay: "October 20, 2026",
-    // City is not confirmed yet. regionOf() in Navigation.tsx returns null for
-    // an unrecognised location, so this stays out of the region browser until
-    // a city is set here.
-    location: "Location TBA",
-    venue: "Venue TBA",
+    location: "Jeddah, Saudi Arabia",
+    venue: "Hilton Jeddah",
     attendees: "Invited",
     href: "/ifs-20core",
     status: "open",
@@ -172,11 +173,11 @@ export const allEvents: EventItem[] = [
     series: "NetworkFirst",
     seriesColor: "#C9935A",
     edition: "",
-    title: "IFS Executive Roundtable",
+    title: "IFS Property & Facilities Roundtable",
     date: new Date("2026-10-21"),
     dateDisplay: "October 21, 2026",
-    location: "Location TBA",
-    venue: "Venue TBA",
+    location: "Jeddah, Saudi Arabia",
+    venue: "Hilton Jeddah",
     attendees: "Invited",
     href: "/ifs-21fm",
     status: "open",
