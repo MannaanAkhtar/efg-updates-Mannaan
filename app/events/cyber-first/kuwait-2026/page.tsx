@@ -272,8 +272,7 @@ const SPEAKERS: Speaker[] = [
     title: "Kuwait Deputy Head — Leader, Kuwait CyberSHE Program",
     org: "WiCSME",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/FatemahAlsewaidi1.png",
-    // No LinkedIn supplied — the card drops the link rather than guessing one.
-    linkedin: null,
+    linkedin: "https://www.linkedin.com/in/fatemah-alsewaidi-4070a47b/",
   },
   {
     name: "Haya Bin Ghaith",
