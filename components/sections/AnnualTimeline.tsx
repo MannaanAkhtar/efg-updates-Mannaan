@@ -253,6 +253,24 @@ export const allEvents: EventItem[] = [
     status: "open",
   },
   {
+    // UnifyApps calls this one an Executive Boardroom on its own page, not a
+    // Signature Lunch like the two above — keeping its own name also stops a
+    // third identically-titled UnifyApps row appearing under UAE in the nav's
+    // Region browser.
+    id: "networkfirst-unifyapps-airlines-ports-energy",
+    series: "NetworkFirst",
+    seriesColor: "#C9935A",
+    edition: "",
+    title: "UnifyApps Executive Boardroom",
+    date: new Date("2026-10-21"),
+    dateDisplay: "October 21, 2026",
+    location: "Dubai, UAE",
+    venue: "Five Iron Golf, The Westin Dubai Marina",
+    attendees: "Invited",
+    href: "https://engage.unifyapps.com/rsvp/se-airlines-ports-energy-contracting-lunch-oct-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261021_MEA_OWNED_Dubai_SE_Lunch_Airlines_Ports_Energy_Contracting",
+    status: "open",
+  },
+  {
     id: "networkfirst-jedox-planpulse",
     series: "NetworkFirst",
     seriesColor: "#C9935A",
