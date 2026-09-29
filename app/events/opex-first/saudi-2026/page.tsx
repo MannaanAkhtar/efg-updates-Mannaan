@@ -211,7 +211,6 @@ const SPEAKERS: Speaker[] = [
   { name: "Reem Alharbi", title: "Deputy GM - Integrated Ports Command Center", org: "Saudi Ports Authority (Mawani)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Reem+Alharbi.jpeg", linkedin: "https://www.linkedin.com/in/reem-alharbi-a89a4a156/" },
   { name: "Anwar Zumah", title: "VP Direct Investment", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anwar+Zumah.jpeg", linkedin: "https://www.linkedin.com/in/anwar-zumah-223577a5/" },
   { name: "Naif N. Al Suliman", title: "Crisis and Disaster Center (CDC) Executive Director", org: "National Water Company (NWC)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naif+N.jpeg", linkedin: "https://www.linkedin.com/in/naif-n-al-suliman-54918b50/" },
-  { name: "Ahmed Alaskar", title: "Sr. Director of Operational Excellence and Quality", org: "EXPRO", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+Alaskar.jpg", linkedin: "https://www.linkedin.com/in/ahmed-alaskar-077ba765/" },
   { name: "Mohammed N. Aljuhani", title: "Organizational Excellence Director", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+N.+Aljuhani.jpg", linkedin: "https://www.linkedin.com/in/maljuhani/" },
   { name: "Eng. Maher Mousa", title: "Regional Director of Product Management & Compliance", org: "Johnson Controls Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng+Maher+Mousa.jpeg", linkedin: "https://www.linkedin.com/in/maher-mousa-mba-cmi-b8881818/" },
   { name: "Ahmed Al Idrissi", title: "Executive Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ahmed+al+idrissi.jpg", linkedin: "https://www.linkedin.com/in/ahmed-alidrissi/" },
@@ -221,7 +220,7 @@ const SPEAKERS: Speaker[] = [
   // Source portrait is only 200x200, so it upscales on the 3:4 card. Swap in a
   // larger file if one turns up.
   { name: "Dr. Nasser Alamri", title: "Strategic Engagement and Partnership Executive Advisor", org: "Government Entity", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+nasser+alamri.jpg", linkedin: "https://www.linkedin.com/in/nasseralamri/" },
-  { name: "Maan Al Maddah", title: "Head of Portfolio", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Maan+Al+Maddah.jpg", linkedin: "https://www.linkedin.com/in/maanalmaddah/" },
+  { name: "Maan Al Maddah", title: "Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Maan+Al+Maddah.jpg", linkedin: "https://www.linkedin.com/in/maanalmaddah/" },
   // LinkedIn URLs arrived with share-tracking query strings; only the profile
   // path is kept here.
   { name: "Dr. Yousof Ghazzawi", title: "Senior Portfolio Leader - Business Transformation", org: "SABIC", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Yousof+Ghazzawi1.png", linkedin: "https://www.linkedin.com/in/yousofghazzawi/" },
