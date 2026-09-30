@@ -39,7 +39,6 @@ export default function ConditionalNavigation() {
     pathname?.startsWith("/enterprisedb-southafrica") ||
     pathname?.startsWith("/enterprisedb-uae") ||
     pathname?.startsWith("/inner_circle") ||
-    pathname?.startsWith("/events/powprocess") ||
     pathname?.startsWith("/oracle") ||
     isSubdomain
   ) {

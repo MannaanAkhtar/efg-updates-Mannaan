@@ -46,28 +46,12 @@ const eventSeries = [
     ]
   },
   {
-    href: "/events/data-ai-first",
-    label: "Digital First",
-    color: "#0F735E",
-    editions: [],
-  },
-  {
     href: "/events/opex-first",
     label: "Opex First",
     color: "#7C3AED",
     editions: [
       { href: "/events/opex-first/saudi-2026", label: "Saudi Arabia" },
     ]
-  },
-  {
-    // Dummy parent — no PowProcess series landing page yet; the Riyadh edition
-    // is the live page. Kept as a heading so future editions can nest here.
-    href: "#",
-    label: "PowProcess",
-    color: "#1B4DFF",
-    editions: [
-      { href: "/events/powprocess", label: "Riyadh" },
-    ],
   },
 ];
 
