@@ -7,7 +7,17 @@ import { randomUUID } from "crypto";
 // REGISTER FOR BOARDROOM - Enhanced with capacity checks
 // ═══════════════════════════════════════════════════════════════════════════
 
-const NOTIFICATION_EMAIL = process.env.NOTIFICATION_EMAIL || "ateeq@eventsfirstgroup.com";
+// Recipients for registration notifications. NOTIFICATION_EMAIL (env) may be a
+// comma-separated list; the extra recipients below are always included.
+const NOTIFICATION_EMAIL = Array.from(
+  new Set([
+    ...(process.env.NOTIFICATION_EMAIL || "ateeq@eventsfirstgroup.com")
+      .split(",")
+      .map((e) => e.trim())
+      .filter(Boolean),
+    "afra@eventsfirstgroup.com",
+  ])
+);
 const DEFAULT_MAX_PARTICIPANTS = 15;
 const EMAIL_FROM = process.env.RESEND_FROM_EMAIL || "Events First Group <noreply@eventsfirstgroup.com>";
 
