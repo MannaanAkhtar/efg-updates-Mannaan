@@ -441,6 +441,13 @@ const SPONSORS = {
     { name: "Bitdefender", logo: `${S3_LOGOS}/bitdefender.png` },
     { name: "Sahara Net", logo: `${S3_LOGOS}/sahara-net.png` },
     { name: "Deepinfo", logo: `${S3_LOGOS}/Deepinfo.png` },
+    { name: "BroadBITS", logo: `${S3_LOGOS}/BroadBITS_Logo_24.png` },
+    // The only Securify asset we have is a JPEG on a solid white background.
+    // The marquee force-inverts every logo to a white silhouette, which would
+    // turn it into a solid white block — so it is listed without a marquee
+    // logo until a transparent PNG is available. It still shows in the
+    // Featured "Strategic Partners" tier, which uses a white card.
+    { name: "Securify Identity", logo: null },
   ],
   specialized: [
     { name: "Gorilla Technology", logo: `${S3_LOGOS}/Gorilla.png` },
@@ -458,7 +465,16 @@ const SPONSORS = {
 // Curated tier-display for the "Featured Sponsors" section — separate from the
 // full marquee. Two tiers, premium cards, gold accent on the top tier.
 // `lightBg: true` forces a white card background for logos that are dark-on-transparent.
-type FeaturedSponsor = { name: string; logo: string; lightBg?: boolean };
+// `opaque: true` marks a logo file with no alpha channel (e.g. a JPEG with a
+// baked-in white background). Those must not take the drop-shadow, which would
+// otherwise trace the image's rectangle and read as a stray border.
+type FeaturedSponsor = {
+  name: string;
+  logo: string;
+  lightBg?: boolean;
+  href?: string;
+  opaque?: boolean;
+};
 const FEATURED_SPONSORS: { gold: FeaturedSponsor[]; strategic: FeaturedSponsor[] } = {
   gold: [
     { name: "Kaspersky", logo: `${S3_LOGOS}/kaspersky.png` },
@@ -468,6 +484,24 @@ const FEATURED_SPONSORS: { gold: FeaturedSponsor[]; strategic: FeaturedSponsor[]
     { name: "Akamai", logo: `${S3_LOGOS}/Akamai.png` },
     { name: "ThreatLocker", logo: `${S3_LOGOS}/threatlocker.png` },
     { name: "ManageEngine", logo: `${S3_LOGOS}/managengine1.png` },
+    // Both logos are dark-on-light — BroadBITS is dark ink on transparent and
+    // the Securify file is a JPEG with a baked-in white background — so both
+    // take the white `lightBg` card.
+    {
+      name: "BroadBITS",
+      logo: `${S3_LOGOS}/BroadBITS_Logo_24.png`,
+      lightBg: true,
+      href: "https://www.broadbits.com/",
+    },
+    {
+      // The S3 filename reads "Secrify"; the logo artwork and the company's
+      // own domain both spell it Securify.
+      name: "Securify Identity",
+      logo: `${S3_LOGOS}/Secrify+Identity+-+8.jpeg`,
+      lightBg: true,
+      opaque: true,
+      href: "https://www.securifyidentity.com/",
+    },
   ],
 };
 
@@ -4909,12 +4943,25 @@ function FeaturedSponsors() {
               initial={{ opacity: 0, y: 24, scale: 0.96 }}
               animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.5 + i * 0.08, ease: EASE }}
-              className={`cfk-feat-card cfk-feat-card--strategic${s.lightBg ? " is-light" : ""}`}
+              className={`cfk-feat-card cfk-feat-card--strategic${s.lightBg ? " is-light" : ""}${s.opaque ? " is-opaque" : ""}`}
               aria-label={`${s.name} — Strategic Partner`}
             >
               <span aria-hidden className="cfk-feat-hairline" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={s.logo} alt={`${s.name} logo`} loading="lazy" className="cfk-feat-logo" />
+              {s.href ? (
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cfk-feat-link"
+                  aria-label={`${s.name} — visit website`}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={s.logo} alt={`${s.name} logo`} loading="lazy" className="cfk-feat-logo" />
+                </a>
+              ) : (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img src={s.logo} alt={`${s.name} logo`} loading="lazy" className="cfk-feat-logo" />
+              )}
             </motion.div>
           ))}
         </div>
@@ -4964,10 +5011,24 @@ function FeaturedSponsors() {
           grid-template-columns: repeat(2, minmax(0, 1fr));
           max-width: 640px;
         }
+        /* Six columns with every card spanning two gives the same three-up
+           rows as a plain 3-column grid for any number of partners, but leaves
+           the half-step needed to centre an odd row. */
         .cfk-feat-grid--strategic {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
+          grid-template-columns: repeat(6, minmax(0, 1fr));
           max-width: 820px;
         }
+        .cfk-feat-grid--strategic > * { grid-column: span 2; }
+
+        /* ── Pyramid ──
+           With exactly five partners, two centred on top and three below,
+           rather than three on top and an orphaned, left-aligned pair.
+           Any other count falls back to the three-up rows above. */
+        .cfk-feat-grid--strategic:has(> :nth-child(5):last-child) > :nth-child(1) { grid-column: 2 / span 2; grid-row: 1; }
+        .cfk-feat-grid--strategic:has(> :nth-child(5):last-child) > :nth-child(2) { grid-column: 4 / span 2; grid-row: 1; }
+        .cfk-feat-grid--strategic:has(> :nth-child(5):last-child) > :nth-child(3) { grid-column: 1 / span 2; grid-row: 2; }
+        .cfk-feat-grid--strategic:has(> :nth-child(5):last-child) > :nth-child(4) { grid-column: 3 / span 2; grid-row: 2; }
+        .cfk-feat-grid--strategic:has(> :nth-child(5):last-child) > :nth-child(5) { grid-column: 5 / span 2; grid-row: 2; }
 
         /* ── Cards — wider aspect (less tall), tight padding so logos fill ── */
         .cfk-feat-card {
@@ -5033,6 +5094,33 @@ function FeaturedSponsors() {
           border-color: rgba(212,168,75,0.85);
           box-shadow: 0 16px 36px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,168,75,0.55);
         }
+        /* ── Logos with no alpha channel ──
+           A drop-shadow on an opaque file outlines the image rectangle, so it
+           is dropped here. These files also carry their own margin, so the
+           logo is widened to match the optical size of the transparent ones —
+           the file's white ground merges into the white card. */
+        .cfk-feat-card.is-opaque .cfk-feat-logo,
+        .cfk-feat-card.is-opaque:hover .cfk-feat-logo {
+          filter: none;
+          width: 100%;
+          height: auto;
+        }
+
+        /* Logo wrapper when the sponsor card links out — fills the card so the
+           whole tile is the hit area, not just the artwork. */
+        .cfk-feat-link {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+        }
+        .cfk-feat-link:focus-visible {
+          outline: 2px solid ${C};
+          outline-offset: 4px;
+          border-radius: 6px;
+        }
+
         /* Don't dim dark logos via the brightness filter */
         .cfk-feat-card.is-light .cfk-feat-logo {
           filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12));
@@ -5062,15 +5150,35 @@ function FeaturedSponsors() {
             grid-template-columns: 1fr !important;
             max-width: 320px !important;
           }
+          /* Two-up: four columns, cards still spanning two. The pyramid
+             placement is dropped — a 2/3 shape needs three columns' width. */
           .cfk-feat-grid--strategic {
-            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
             max-width: 520px !important;
+          }
+          /* !important because the pyramid rules above carry higher
+             specificity (:has() inherits its argument's), and a media query
+             adds none of its own. */
+          .cfk-feat-grid--strategic:has(> :nth-child(5):last-child) > * {
+            grid-column: span 2 !important;
+            grid-row: auto !important;
+          }
+          /* Two rows of two leave a fifth on its own — centre it rather than
+             letting it orphan to the left. */
+          .cfk-feat-grid--strategic:has(> :nth-child(5):last-child) > :nth-child(5) {
+            grid-column: 2 / span 2 !important;
           }
         }
         @media (max-width: 460px) {
+          /* Single column: two tracks, each card spanning both. */
           .cfk-feat-grid--strategic {
-            grid-template-columns: 1fr !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
             max-width: 260px !important;
+          }
+          /* Drop the fifth card's centring offset from the block above — with
+             only two tracks it would start at column 2 and overflow. */
+          .cfk-feat-grid--strategic:has(> :nth-child(5):last-child) > :nth-child(5) {
+            grid-column: span 2 !important;
           }
         }
         @media (prefers-reduced-motion: reduce) {
