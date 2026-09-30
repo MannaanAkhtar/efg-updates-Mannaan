@@ -441,12 +441,13 @@ const SPONSORS = {
     { name: "Bitdefender", logo: `${S3_LOGOS}/bitdefender.png` },
     { name: "Sahara Net", logo: `${S3_LOGOS}/sahara-net.png` },
     { name: "Deepinfo", logo: `${S3_LOGOS}/Deepinfo.png` },
-    { name: "BroadBITS", logo: `${S3_LOGOS}/BroadBITS_Logo_24.png` },
-    // The only Securify asset we have is a JPEG on a solid white background.
-    // The marquee force-inverts every logo to a white silhouette, which would
-    // turn it into a solid white block — so it is listed without a marquee
-    // logo until a transparent PNG is available. It still shows in the
-    // Featured "Strategic Partners" tier, which uses a white card.
+    { name: "BroadBITS", logo: `${S3_LOGOS}/BroadBITS_Logo.png` },
+    // The marquee force-inverts every logo to a flat white silhouette. The
+    // Securify mark is a solid rounded square with its glyph knocked out of
+    // it in white, so inverting collapses ground and glyph together and the
+    // mark becomes a featureless white block. It is therefore listed without
+    // a marquee logo; it still shows in the Featured "Strategic Partners"
+    // tier, which renders the artwork in full colour.
     { name: "Securify Identity", logo: null },
   ],
   specialized: [
@@ -468,6 +469,8 @@ const SPONSORS = {
 // `opaque: true` marks a logo file with no alpha channel (e.g. a JPEG with a
 // baked-in white background). Those must not take the drop-shadow, which would
 // otherwise trace the image's rectangle and read as a stray border.
+// Every logo below is currently reversed artwork on transparency, so neither
+// flag is set — both are kept for the next dark-ink file that needs one.
 type FeaturedSponsor = {
   name: string;
   logo: string;
@@ -484,22 +487,16 @@ const FEATURED_SPONSORS: { gold: FeaturedSponsor[]; strategic: FeaturedSponsor[]
     { name: "Akamai", logo: `${S3_LOGOS}/Akamai.png` },
     { name: "ThreatLocker", logo: `${S3_LOGOS}/threatlocker.png` },
     { name: "ManageEngine", logo: `${S3_LOGOS}/managengine1.png` },
-    // Both logos are dark-on-light — BroadBITS is dark ink on transparent and
-    // the Securify file is a JPEG with a baked-in white background — so both
-    // take the white `lightBg` card.
     {
       name: "BroadBITS",
-      logo: `${S3_LOGOS}/BroadBITS_Logo_24.png`,
-      lightBg: true,
+      logo: `${S3_LOGOS}/BroadBITS_Logo.png`,
       href: "https://www.broadbits.com/",
     },
     {
       // The S3 filename reads "Secrify"; the logo artwork and the company's
       // own domain both spell it Securify.
       name: "Securify Identity",
-      logo: `${S3_LOGOS}/Secrify+Identity+-+8.jpeg`,
-      lightBg: true,
-      opaque: true,
+      logo: `${S3_LOGOS}/Secrify+Identity.png`,
       href: "https://www.securifyidentity.com/",
     },
   ],
