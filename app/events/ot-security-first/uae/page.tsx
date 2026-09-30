@@ -711,141 +711,364 @@ function TheFocus() {
   );
 }
 
-// ─── SPEAKERS ────────────────────────────────────────────────────────────────
-// The faculty is still being assembled, so the first confirmed advisors sit
-// above placeholder tiles that keep the row of four intact as names land.
-type Advisor = { name: string; role: string; org?: string; photo: string; linkedin: string };
-const ADVISORS: Advisor[] = [
+// ─── ADVISORS & SPEAKERS ─────────────────────────────────────────────────────
+// One section, two bands: the advisors shaping the agenda sit above the
+// speakers taking the stage, following the OT Security First Jubail pattern.
+// Advisors carry a gold treatment so the two roles read apart at a glance;
+// the speaker band keeps the page's magenta.
+const GOLD = "#E8C56A";
+const GOLD_DEEP = "#D8A94E";
+
+type Person = {
+  name: string;
+  title: string;
+  org?: string;
+  photo: string;
+  linkedin?: string;
+  // Only set where a nationality is known — never guessed from a name.
+  flag?: string;
+  // Crop controls for portraits the default 4:5 top anchor does not suit.
+  photoPos?: string;
+  photoTransform?: string;
+};
+
+const ADVISORS: Person[] = [
   {
     name: "Sohil Mohamed",
-    role: "Senior Director | ME Cyber Risk Services Leader",
+    title: "Senior Director | ME Cyber Risk Services Leader",
     org: "Alvarez & Marsal",
     photo: `${S3}/Speakers-photos/Sohil+Mohamed.jpeg`,
     linkedin: "https://www.linkedin.com/in/sohil-mohamed-88b2b4103/",
   },
   {
     name: "Abdulla Abdullayev",
-    role: "Head of Information Security",
+    title: "Head of Information Security",
     org: "MNDC Group",
     photo: `${S3}/Speakers-photos/Abdulla+Abdullayev%2C.jpg`,
     linkedin: "https://www.linkedin.com/in/abuyv/",
   },
 ];
 
-function AdvisorCard({ a, index, inView }: { a: Advisor; index: number; inView: boolean }) {
+const SPEAKERS: Person[] = [
+  {
+    // Title, organisation, headshot and flag carried over from his seat on the
+    // OT Security First Virtual Boardroom MENA faculty.
+    name: "Vijay Velayutham",
+    title: "Principal Information Security Officer",
+    org: "UAE Ministry of Energy & Infrastructure",
+    photo: `${S3}/boardroom/Vijay+Velayutham.png`,
+    linkedin: "https://www.linkedin.com/in/v4vijay/",
+    flag: "https://flagcdn.com/w40/ae.png",
+  },
+];
+
+// Shared by both bands — only the accent colour and the role word change.
+function PersonCard({
+  p,
+  index,
+  inView,
+  role,
+  accent,
+}: {
+  p: Person;
+  index: number;
+  inView: boolean;
+  role: "Advisor" | "Speaker";
+  accent: string;
+}) {
+  const gold = role === "Advisor";
   return (
-    <motion.a
-      href={a.linkedin}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={`${a.name} — ${a.role}${a.org ? `, ${a.org}` : ""} (LinkedIn)`}
-      className="uae-advisor"
-      initial={{ opacity: 0, y: 18 }}
+    <motion.div
+      initial={{ opacity: 0, y: 22 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay: 0.12 + index * 0.09, ease: EASE }}
+      transition={{ duration: 0.7, delay: 0.2 + index * 0.08, ease: EASE }}
+      className={gold ? "uae-person uae-person-gold" : "uae-person"}
       style={{
-        display: "block",
-        textAlign: "left",
+        position: "relative",
         borderRadius: 20,
         overflow: "hidden",
-        background: CARD_BG,
-        border: CARD_BORDER,
+        display: "flex",
+        flexDirection: "column",
+        background: gold
+          ? `linear-gradient(160deg, ${GOLD}17 0%, rgba(255,255,255,0.012) 60%, ${GOLD}0a 100%)`
+          : CARD_BG,
+        border: gold ? `1px solid ${GOLD}47` : CARD_BORDER,
         boxShadow: CARD_SHADOW,
-        textDecoration: "none",
       }}
     >
-      <div style={{ position: "relative", aspectRatio: "3 / 4", overflow: "hidden" }}>
-        {/* Square source headshots, so the 3:4 crop is anchored to the top to
-            keep heads clear of the frame edge. */}
+      {/* Top hairline, in the band's accent */}
+      <span
+        aria-hidden
+        style={{
+          position: "absolute", top: 0, left: 0, right: 0, height: 1, zIndex: 3,
+          background: `linear-gradient(90deg, transparent, ${accent}d9, transparent)`,
+        }}
+      />
+
+      <div
+        style={{
+          position: "relative",
+          aspectRatio: "4 / 5",
+          overflow: "hidden",
+          background: gold
+            ? `linear-gradient(160deg, ${GOLD}3d 0%, ${C}0d 50%, rgba(10,10,10,0.92) 100%)`
+            : `linear-gradient(160deg, ${C}2e 0%, ${C_BRIGHT}14 50%, rgba(10,10,10,0.92) 100%)`,
+        }}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={a.photo}
-          alt={a.name}
+          src={p.photo}
+          alt={`${p.name}, ${p.title}${p.org ? ` at ${p.org}` : ""} — ${role.toLowerCase()} at OT Security First UAE 2027, the industrial cybersecurity summit in Abu Dhabi`}
           loading="lazy"
           decoding="async"
-          className="uae-advisor-img"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
+          className="uae-person-img"
+          style={{
+            position: "absolute", inset: 0, width: "100%", height: "100%",
+            objectFit: "cover",
+            objectPosition: p.photoPos || "center top",
+            transform: p.photoTransform || undefined,
+            display: "block",
+          }}
         />
-        <span aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 52%, rgba(10,10,10,0.82) 100%)" }} />
+        {gold && (
+          <span
+            aria-hidden
+            style={{
+              position: "absolute", inset: 0, pointerEvents: "none",
+              background: `linear-gradient(155deg, ${GOLD}38 0%, ${GOLD}0a 34%, transparent 55%)`,
+              mixBlendMode: "overlay",
+            }}
+          />
+        )}
         <span
           aria-hidden
           style={{
-            position: "absolute", top: 10, right: 10, width: 26, height: 26, borderRadius: 7,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            background: "rgba(10,10,10,0.6)", border: `1px solid ${C}59`, color: C_BRIGHT,
+            position: "absolute", inset: 0, pointerEvents: "none",
+            background: "linear-gradient(180deg, transparent 50%, rgba(10,10,10,0.88) 100%)",
+          }}
+        />
+
+        {/* Role badge */}
+        <span
+          style={{
+            position: "absolute", top: 12, left: 12, zIndex: 2,
+            padding: "5px 11px", borderRadius: 8,
+            fontFamily: FO, fontSize: 9.5, fontWeight: 800, letterSpacing: "2px", textTransform: "uppercase",
+            ...(gold
+              ? {
+                  color: "#1a1206",
+                  background: `linear-gradient(180deg, #F2D793 0%, ${GOLD_DEEP} 100%)`,
+                  border: "1px solid rgba(255,240,200,0.5)",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.5)",
+                }
+              : {
+                  color: C_LIGHT,
+                  background: "rgba(10,10,10,0.6)",
+                  border: `1px solid ${C}66`,
+                }),
           }}
         >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19 0h-14C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5V5c0-2.761-2.238-5-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z" />
-          </svg>
+          {role}
         </span>
-      </div>
-      <div style={{ padding: "14px 16px 16px" }}>
-        <h3 style={{ fontFamily: FD, fontWeight: 800, fontSize: 16, letterSpacing: "-0.4px", color: "#fff", margin: "0 0 6px", lineHeight: 1.2 }}>
-          {a.name}
-        </h3>
-        <p style={{ fontFamily: FO, fontSize: 12.5, lineHeight: 1.45, color: "rgba(255,255,255,0.62)", margin: 0 }}>
-          {a.role}
-        </p>
-        {a.org && (
-          <p style={{ fontFamily: FO, fontSize: 10.5, fontWeight: 700, letterSpacing: "1.4px", textTransform: "uppercase", color: C_BRIGHT, margin: "9px 0 0" }}>
-            {a.org}
-          </p>
+
+        {/* Flag sits in the portrait, opposite the role badge. In the card body
+            it overlapped the organisation line, which wraps for long names. */}
+        {p.flag && (
+          <span
+            aria-hidden
+            style={{
+              position: "absolute", top: 12, right: 12, zIndex: 2,
+              padding: 3, borderRadius: 7,
+              background: `linear-gradient(135deg, ${accent}73, rgba(255,255,255,0.1))`,
+              boxShadow: `0 4px 12px rgba(0,0,0,0.5), 0 0 10px ${accent}40`,
+            }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={p.flag} alt="" style={{ display: "block", height: 20, width: 36, objectFit: "cover", borderRadius: 4 }} />
+          </span>
+        )}
+
+        {p.linkedin && (
+          <a
+            href={p.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${p.name} on LinkedIn`}
+            className="uae-person-li"
+            style={{
+              position: "absolute", bottom: 12, right: 12, zIndex: 2,
+              width: 32, height: 32, borderRadius: 9,
+              display: "inline-flex", alignItems: "center", justifyContent: "center",
+              background: "rgba(10,10,10,0.55)",
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
+              border: "1px solid rgba(255,255,255,0.18)",
+              color: "white",
+              ["--li-hover" as string]: accent,
+            }}
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+              <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3-.02-2.96-1.8-2.96-1.8 0-2.08 1.4-2.08 2.86V21H9z" />
+            </svg>
+          </a>
         )}
       </div>
-    </motion.a>
+
+      <div style={{ position: "relative", padding: "16px 18px 20px", display: "flex", flexDirection: "column", gap: 6, flex: 1 }}>
+        <h3 style={{ fontFamily: FD, fontWeight: 700, fontSize: "clamp(15px,1.3vw,17px)", letterSpacing: "-0.4px", color: "#fff", lineHeight: 1.2, margin: 0 }}>
+          {p.name}
+        </h3>
+        <p style={{ fontFamily: FO, fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.6)", lineHeight: 1.45, margin: 0 }}>
+          {p.title}
+        </p>
+        {p.org && (
+          <span style={{ display: "inline-flex", alignItems: "flex-start", gap: 6, marginTop: 4, fontFamily: FO, fontSize: 11, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.4)" }}>
+            <span aria-hidden style={{ flex: "none", width: 5, height: 5, marginTop: 5, borderRadius: "50%", background: accent, boxShadow: `0 0 8px ${accent}e6` }} />
+            {p.org}
+          </span>
+        )}
+      </div>
+    </motion.div>
   );
 }
 
-function SpeakersComingSoon() {
+// Band label — the gold/magenta rule that separates advisors from speakers.
+function BandLabel({ label, accent, inView, delay }: { label: string; accent: string; inView: boolean; delay: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay, ease: EASE }}
+      style={{ display: "flex", alignItems: "center", gap: 12, margin: "0 0 22px" }}
+    >
+      <span aria-hidden style={{ width: 26, height: 2, borderRadius: 2, background: `linear-gradient(90deg, ${accent}, ${accent}00)` }} />
+      <span style={{ fontFamily: FO, fontSize: 12, fontWeight: 800, letterSpacing: "3px", textTransform: "uppercase", color: accent }}>
+        {label}
+      </span>
+    </motion.div>
+  );
+}
+
+// Ghost word filling the space a short band leaves to the right of its cards.
+// Rendered only while that space exists — once the row fills out, the grid
+// takes the full width and the mark is dropped rather than squeezed.
+function BandMark({ label, accent, left }: { label: string; accent: string; left: number }) {
+  return (
+    <span aria-hidden className="uae-band-mark" style={{ left, ["--mark" as string]: accent }}>
+      {label}
+    </span>
+  );
+}
+
+function AdvisorsAndSpeakers() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const advCols = Math.min(ADVISORS.length, 4);
+  const spkCols = Math.min(SPEAKERS.length + 1, 5);
   return (
     <section id="speakers" ref={ref} style={wrap}>
-      <SectionHead num="—" label="Speakers" note="Announcing soon" />
-      <div style={{ position: "relative", borderRadius: 36, overflow: "hidden", border: `1px solid ${C}2e`, background: `radial-gradient(ellipse 70% 120% at 20% 0%, ${C}1f, transparent 60%), linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.01))`, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1),0 34px 70px -38px rgba(0,0,0,0.95)", padding: "clamp(40px,6vw,88px) clamp(24px,4vw,64px)", textAlign: "center" }}>
-        <motion.div initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: EASE }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "9px 18px", borderRadius: 9999, border: `1px solid ${C}4d`, background: `${C}14`, fontFamily: FO, fontSize: 11, fontWeight: 700, letterSpacing: "2.4px", textTransform: "uppercase", color: C }}>
-            <span style={{ width: 7, height: 7, borderRadius: "50%", background: C, animation: "uaePulse 2.6s cubic-bezier(0.16,1,0.3,1) infinite" }} />
-            Coming Soon
-          </span>
-          <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.4vw,58px)", letterSpacing: "-2.2px", lineHeight: 1.03, margin: "26px 0 16px" }}>
-            The 2027 speaker faculty<span style={{ display: "block", color: "rgba(255,255,255,0.28)" }}>is being assembled.</span>
-          </h2>
-          <p style={{ fontFamily: FO, fontSize: "clamp(14px,1.1vw,16px)", lineHeight: 1.65, color: "rgba(255,255,255,0.7)", margin: "0 auto 30px", maxWidth: 620 }}>
-            Regulators, CISOs, OT leaders and plant executives from across the UAE&rsquo;s critical infrastructure. Announcements roll out ahead of 28 January 2027.
-          </p>
-          <a href="#register" className="uae-cta-solid" style={{ display: "inline-flex", alignItems: "center", gap: 9, fontFamily: FO, fontSize: 14, fontWeight: 600, padding: "15px 30px", borderRadius: 9999, background: C, color: INK }}>Register to be notified →</a>
-        </motion.div>
-        {/* Confirmed advisors, then placeholders for the seats still open. */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
-          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 18, margin: "46px auto 24px", maxWidth: 900 }}
-        >
-          <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, transparent, ${C}4d)` }} />
-          <span style={{ fontFamily: FO, fontSize: 10.5, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: C_BRIGHT, whiteSpace: "nowrap" }}>
-            First advisors confirmed
-          </span>
-          <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, ${C}4d, transparent)` }} />
-        </motion.div>
+      <SectionHead num="11" label="Advisors & Speakers" note={`${ADVISORS.length + SPEAKERS.length} confirmed`} />
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(178px,1fr))", gap: 14, maxWidth: 900, marginLeft: "auto", marginRight: "auto" }}>
-          {ADVISORS.map((a, i) => (
-            <AdvisorCard key={a.name} a={a} index={i} inView={inView} />
-          ))}
-          {/* Two open seats keep the row at four while the faculty fills up.
-              No aspectRatio here: the tiles stretch to the row height the named
-              cards set, so their bottoms line up despite the extra text block.
-              minHeight covers the case where no advisor is confirmed yet. */}
-          {[0, 1].map((i) => (
-            <div key={`tbc-${i}`} style={{ minHeight: 220, borderRadius: 20, background: "linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.012))", border: "1px dashed rgba(255,255,255,0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ fontFamily: FD, fontWeight: 800, fontSize: 28, color: "rgba(255,255,255,0.09)" }}>?</span>
-            </div>
+      <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,58px)", letterSpacing: "-2.2px", lineHeight: 1.0, margin: "0 0 14px", textWrap: "balance" }}>
+        Advisors &amp;{" "}
+        <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>speakers.</em>
+      </h2>
+      <p style={{ fontFamily: FO, fontSize: "clamp(14px,1.1vw,16px)", lineHeight: 1.65, color: "#8E8E8E", margin: "0 0 clamp(30px,3.6vw,48px)", maxWidth: 620 }}>
+        The independent advisors shaping the technical agenda, and the speakers taking the stage on industrial cyber resilience across the UAE. More names announced ahead of 28 January 2027.
+      </p>
+
+      {/* ── Advisors ── */}
+      <div id="advisors" style={{ scrollMarginTop: 120 }}>
+        <BandLabel label="Advisors" accent={GOLD} inView={inView} delay={0.12} />
+        <div className="uae-band">
+        {advCols < 4 && <BandMark label="Advisors" accent={GOLD} left={advCols * 300 + 40} />}
+        <div className="uae-advisors-grid" style={{ maxWidth: advCols * 300 }}>
+          {ADVISORS.map((p, i) => (
+            <PersonCard key={p.name} p={p} index={i} inView={inView} role="Advisor" accent={GOLD} />
           ))}
         </div>
+        </div>
       </div>
+
+      {/* ── Speakers ── */}
+      <div style={{ marginTop: "clamp(38px,4.4vw,62px)" }}>
+        <BandLabel label="Speakers" accent={C_BRIGHT} inView={inView} delay={0.2} />
+        <div className="uae-band">
+        {spkCols < 5 && <BandMark label="Speakers" accent={C} left={spkCols * 300 + 40} />}
+        <div className="uae-speakers-grid" style={{ maxWidth: spkCols * 300 }}>
+          {SPEAKERS.map((p, i) => (
+            <PersonCard key={p.name} p={p} index={i} inView={inView} role="Speaker" accent={C_BRIGHT} />
+          ))}
+
+          {/* Open seat — the faculty is still being assembled. */}
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.2 + SPEAKERS.length * 0.08, ease: EASE }}
+            className="uae-person"
+            style={{
+              position: "relative",
+              borderRadius: 20,
+              overflow: "hidden",
+              background: "linear-gradient(160deg,rgba(255,255,255,0.03) 0%,rgba(255,255,255,0.01) 60%,rgba(255,255,255,0.02) 100%)",
+              border: "1px dashed rgba(255,255,255,0.16)",
+              boxShadow: CARD_SHADOW,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              padding: "40px 22px",
+              minHeight: 300,
+            }}
+          >
+            <div style={{ width: 54, height: 54, borderRadius: 15, display: "flex", alignItems: "center", justifyContent: "center", background: `${C}1f`, border: `1px solid ${C}47`, marginBottom: 20 }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M19 8v6M22 11h-6" />
+              </svg>
+            </div>
+            <h3 style={{ fontFamily: FD, fontWeight: 700, fontSize: "clamp(16px,1.4vw,19px)", letterSpacing: "-0.4px", color: "#fff", lineHeight: 1.2, margin: "0 0 9px" }}>
+              More Speakers
+            </h3>
+            <span style={{ fontFamily: FO, fontSize: 10.5, fontWeight: 700, letterSpacing: "2.6px", textTransform: "uppercase", color: C_BRIGHT }}>
+              Announcing Soon
+            </span>
+          </motion.div>
+        </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        /* auto-fit rather than a fixed count, so the columns fall away with the
+           viewport on their own and the inline max-width (set from the number
+           of tiles) keeps a short band centred and full instead of stranding
+           two cards in an empty four-wide row. The wider advisor track tops
+           the band out at four across; speakers reach five at full width.
+           min(100%, …) stops a single card overflowing a narrow phone. */
+        .uae-advisors-grid,
+        .uae-speakers-grid {
+          display: grid;
+          gap: clamp(14px, 1.6vw, 22px);
+        }
+        /* The band clips the mark, so a long word bleeds off the section edge
+           rather than forcing the page to scroll sideways. */
+        .uae-band { position: relative; overflow: hidden; }
+        .uae-advisors-grid,
+        .uae-speakers-grid { position: relative; z-index: 1; }
+        .uae-advisors-grid,
+        .uae-speakers-grid {
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--track)), 1fr));
+        }
+        .uae-advisors-grid { --track: 260px; }
+        .uae-speakers-grid { --track: 210px; }
+        /* Below this the wider advisor track would drop the band to one huge
+           card per row while the speakers beneath it stayed two-up. Match them. */
+        @media (max-width: 620px) {
+          .uae-advisors-grid { --track: 210px; }
+        }
+      `}</style>
     </section>
   );
 }
@@ -930,7 +1153,7 @@ function Partner() {
   const tiers = ["Strategic Government", "Lead Industry", "OT Cybersecurity Technology", "Energy & Utilities", "Knowledge", "Networking", "Technology Showcases"];
   return (
     <section id="partner" style={wrap}>
-      <SectionHead num="11" label="Why Partner" />
+      <SectionHead num="12" label="Why Partner" />
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(330px,1fr))", gap: "clamp(20px,3vw,44px)", alignItems: "start" }}>
         <div>
           <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(28px,3.6vw,52px)", letterSpacing: "-2px", lineHeight: 1.03, margin: "0 0 20px" }}>At the centre of the UAE&rsquo;s industrial cybersecurity conversation.</h2>
@@ -1104,7 +1327,7 @@ function RoomShort({ videoId, index }: { videoId: string; index: number }) {
 function FromTheRoom() {
   return (
     <section style={{ ...wrap, contentVisibility: "auto", containIntrinsicSize: "auto 700px" }}>
-      <SectionHead num="12" label="From the Room" note="Testimonials" />
+      <SectionHead num="13" label="From the Room" note="Testimonials" />
       <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,58px)", letterSpacing: "-2.2px", lineHeight: 1.0, margin: "0 0 14px", textWrap: "balance" }}>
         Hear it straight{" "}
         <span style={{ background: `linear-gradient(100deg,${C_LIGHT} 0%,${C_BRIGHT} 46%,${C} 100%)`, ...CLIP }}>from the room.</span>
@@ -1138,7 +1361,7 @@ const GALLERY: { src: string; size: "lg" | "wide" | "tall" | "sm" }[] = [
 function Gallery() {
   return (
     <section style={{ ...wrap, contentVisibility: "auto", containIntrinsicSize: "auto 900px" }}>
-      <SectionHead num="13" label="Gallery" note="Abu Dhabi" />
+      <SectionHead num="14" label="Gallery" note="Abu Dhabi" />
       <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,58px)", letterSpacing: "-2.2px", lineHeight: 1.0, margin: "0 0 14px", textWrap: "balance" }}>
         Inside the{" "}
         <span style={{ background: `linear-gradient(100deg,${C_LIGHT} 0%,${C_BRIGHT} 46%,${C} 100%)`, ...CLIP }}>OT Security First</span>{" "}experience.
@@ -1170,7 +1393,7 @@ export default function OTUaePage() {
       <CpdCertified eventName="OT Security First UAE 2027" theme={C} registerHref="#register" />
       <WhyAbuDhabi />
       <TheMandate />
-      <SpeakersComingSoon />
+      <AdvisorsAndSpeakers />
       <MarketDrivers />
       <KeyThemes />
       <WhoAttends />
@@ -1220,10 +1443,23 @@ export default function OTUaePage() {
         .uae-g-sm { grid-column: span 1; grid-row: span 1; }
         @media (max-width: 760px) { .uae-gallery-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: clamp(110px,26vw,150px); } .uae-g-wide { grid-column: span 2; } .uae-g-lg { grid-column: span 2; grid-row: span 2; } }
         .uae-q:hover { border-color: ${C}73 !important; transform: translateY(-1px); }
-        .uae-advisor { transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease, box-shadow 0.4s ease; }
-        .uae-advisor:hover { transform: translateY(-4px); border-color: ${C}73; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 30px 58px -28px ${C}80; }
-        .uae-advisor-img { transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
-        .uae-advisor:hover .uae-advisor-img { transform: scale(1.04); }
+        .uae-band-mark {
+          position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 0;
+          display: none;
+          font-family: ${FD}; font-weight: 800; text-transform: uppercase;
+          font-size: min(6.4vw, 104px); line-height: 0.88; letter-spacing: -0.045em;
+          white-space: nowrap; pointer-events: none; user-select: none;
+          color: transparent; -webkit-text-stroke: 1.5px var(--mark); opacity: 0.22;
+        }
+        /* Only shown where the cards genuinely leave room beside them. */
+        @media (min-width: 1200px) { .uae-band-mark { display: block; } }
+        .uae-person { transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease, box-shadow 0.4s ease; }
+        .uae-person:hover { transform: translateY(-4px); border-color: ${C}73; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 30px 58px -28px ${C}80; }
+        .uae-person-gold:hover { border-color: ${GOLD}8c; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 30px 58px -28px ${GOLD}73; }
+        .uae-person-img { transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+        .uae-person:hover .uae-person-img { transform: scale(1.04); }
+        .uae-person-li { transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease; }
+        .uae-person-li:hover { background: var(--li-hover); border-color: var(--li-hover); color: #0A0A0A; transform: translateY(-1px); }
         .uae-cta-solid { transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s; }
         .uae-cta-solid::before { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 38%; z-index: 0; background: linear-gradient(100deg, transparent, rgba(255,255,255,0.55), transparent); transform: translateX(-180%) skewX(-18deg); transition: transform 0.7s cubic-bezier(0.16,1,0.3,1); pointer-events: none; }
         .uae-cta-solid:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 16px 40px -12px ${C}, 0 0 0 1px ${C}55; }
