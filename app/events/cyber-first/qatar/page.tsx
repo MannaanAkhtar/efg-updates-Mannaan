@@ -3874,10 +3874,21 @@ function Speakers() {
 // ───────────────────────────────────────────────────────────────────────────
 // SPONSORS 2026 — confirmed strategic partners
 // ───────────────────────────────────────────────────────────────────────────
-const CFQ_SPONSORS_2026_STRATEGIC = [
+// `lightBg` puts the logo on a white card. The three original logos are
+// near-white artwork and read correctly on the dark glass tile; a dark-ink
+// logo needs the white plate the Knowledge Partner tier already uses.
+type CfqSponsor = { logo: string; name?: string; href?: string; lightBg?: boolean };
+
+const CFQ_SPONSORS_2026_STRATEGIC: CfqSponsor[] = [
   { logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo-02.png" },
   { logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo-03.png" },
   { logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo-04.png" },
+  {
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/innovatix-logo.png",
+    name: "Innovatix Systems Services",
+    href: "https://innovatixsystems.com/",
+    lightBg: true,
+  },
 ];
 
 const CFQ_SPONSORS_2026_KNOWLEDGE = [
@@ -4028,35 +4039,59 @@ function Sponsors2026() {
             Strategic Sponsors
           </div>
 
-          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "stretch", gap: "clamp(20px, 2.4vw, 32px)" }}>
+          <div className="cfq-strategic-row">
             {CFQ_SPONSORS_2026_STRATEGIC.map((s, i) => (
               <motion.div
                 key={s.logo}
                 initial={{ opacity: 0, y: 22 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.75, delay: 0.25 + i * 0.08, ease: EASE }}
-                className="cfq-sponsor-card"
+                className={`cfq-sponsor-card${s.lightBg ? " is-light" : ""}`}
                 style={{
                   position: "relative",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  width: "clamp(192px, 22vw, 268px)",
-                  height: "clamp(108px, 12.5vw, 138px)",
-                  padding: "clamp(6px, 0.7vw, 10px)",
+                  width: "100%",
+                  maxWidth: 268,
+                  height: "clamp(104px, 12.5vw, 138px)",
+                  // The original logos carry a lot of their own margin, so the
+                  // tile is tight; a light-plate logo is framed closer and gets
+                  // the roomier padding the Knowledge Partner tier uses.
+                  padding: s.lightBg ? "clamp(10px, 1.2vw, 18px)" : "clamp(6px, 0.7vw, 10px)",
                   borderRadius: 18,
                   overflow: "hidden",
                   isolation: "isolate",
                 }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  loading="lazy"
-                  decoding="async"
-                  src={s.logo}
-                  alt={`Strategic Sponsor of Cyber First Qatar 2026 cybersecurity summit`}
-                  style={{ position: "relative", zIndex: 1, maxWidth: "100%", maxHeight: "100%", width: "auto", height: "auto", objectFit: "contain", display: "block" }}
-                />
+                {(() => {
+                  const alt = s.name
+                    ? `${s.name} — Strategic Sponsor of Cyber First Qatar 2026`
+                    : "Strategic Sponsor of Cyber First Qatar 2026 cybersecurity summit";
+                  const img = (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      loading="lazy"
+                      decoding="async"
+                      src={s.logo}
+                      alt={alt}
+                      style={{ position: "relative", zIndex: 1, maxWidth: "100%", maxHeight: "100%", width: "auto", height: "auto", objectFit: "contain", display: "block" }}
+                    />
+                  );
+                  return s.href ? (
+                    <a
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cfq-sponsor-link"
+                      aria-label={s.name ? `${s.name} — visit website` : "Visit sponsor website"}
+                    >
+                      {img}
+                    </a>
+                  ) : (
+                    img
+                  );
+                })()}
               </motion.div>
             ))}
           </div>
@@ -4075,6 +4110,50 @@ function Sponsors2026() {
             0 20px 46px rgba(0, 0, 0, 0.42);
           transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
         }
+        /* Strategic Sponsors — all four on a single row. Equal tracks rather
+           than a wrapping flex row, so they stay one line as they shrink. */
+        .cfq-strategic-row {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: clamp(10px, 1.6vw, 28px);
+          justify-items: center;
+          align-items: stretch;
+        }
+        /* Below ~620px four across stops being legible, so it folds to 2 x 2
+           and then to a single column. */
+        @media (max-width: 620px) {
+          .cfq-strategic-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (max-width: 380px) {
+          .cfq-strategic-row { grid-template-columns: minmax(0, 1fr); }
+        }
+
+        /* White plate for dark-ink logos, which would otherwise disappear into
+           the glass tile. The reflection and inner shadows are dropped — they
+           only read on a dark surface. */
+        .cfq-sponsor-card.is-light {
+          background: #ffffff;
+          border-color: rgba(0, 0, 0, 0.12);
+          box-shadow: 0 20px 46px rgba(0, 0, 0, 0.42);
+        }
+        .cfq-sponsor-card.is-light::before { display: none; }
+
+        /* Link fills the tile so the whole card is the hit area */
+        .cfq-sponsor-link {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+        }
+        .cfq-sponsor-link:focus-visible {
+          outline: 2px solid ${C};
+          outline-offset: 4px;
+          border-radius: 6px;
+        }
+
         /* Top glass reflection */
         .cfq-sponsor-card::before {
           content: "";
