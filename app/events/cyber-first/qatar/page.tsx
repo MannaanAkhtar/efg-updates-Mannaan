@@ -189,13 +189,14 @@ const CFQ_MARQUEE_ROW_2: { name: string; logo: string }[] = [
   { name: "Bureau Veritas",   logo: `${CFQ_S3_LOGOS}/bureau-veritas.png` },
 ];
 
-// ─── Advisors — 3 named individuals (from PDF) ──────────────────────────────
+// ─── Advisors — 4 named individuals (3 from PDF) ────────────────────────────
 // `zoom` (<1) zooms a tightly-framed portrait out inside the square frame;
 // `crop` is its object-position (default "center 18%").
 const ADVISORS: { name: string; title: string; org: string; photo?: string; linkedin?: string; zoom?: number; crop?: string }[] = [
   { name: "Nicholas Jones", title: "EMEIA Cybersecurity Oil & Gas Leader", org: "EY",              photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nicholas_Jones.png", linkedin: "https://www.linkedin.com/in/nicholas-jones-2464151b/" },
   { name: "Harris Ismail",  title: "Head of Identity & Access Management", org: "Commercial Bank", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/harris+ismail1.png", linkedin: "https://www.linkedin.com/in/thiswebpageisnotavailable/", zoom: 0.86, crop: "center 8%" },
   { name: "Feroz Khan",     title: "Head of IT Security",                   org: "TotalEnergies", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/feroz_khan.png", linkedin: "https://www.linkedin.com/in/fkindoha/" },
+  { name: "Ovais Ahmed", title: "Senior Consultant ICS/OT", org: "KPMG Qatar", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/OVAIS+AHMED1.png", linkedin: "https://www.linkedin.com/in/ovaisahmed31/" },
 ];
 
 // ─── Speakers — named individuals ───────────────────────────────────────────
@@ -223,7 +224,6 @@ const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; 
   { name: "Christa Waegemann", title: "International Director", org: "Violence Prevention Network gGmbH", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Christa+Waegemann.png", linkedin: "https://www.linkedin.com/in/christawaegemann/" },
   // Speakers not in the 17 Sep running-order list go after the last listed one.
   { name: "Noureddine Bouhaddaoui", title: "Head of Security Product", org: "Ooredoo Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Noureddine+PIc.jpg", linkedin: "https://www.linkedin.com/in/noureddine-bouhaddaoui-8a3bb79/" },
-  { name: "Ovais Ahmed", title: "Senior Consultant ICS/OT", org: "KPMG Qatar", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/OVAIS+AHMED1.png", linkedin: "https://www.linkedin.com/in/ovaisahmed31/" },
   // The S3 filename really does carry an en space (%E2%80%82) before the 1 —
   // it is not a typo to tidy up, the object would 404 without it.
   { name: "Sandamali Silva", title: "Information Security, IT Governance and Technology Risk Leader", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sandamali+Silva%E2%80%821.png", linkedin: "https://www.linkedin.com/in/sandamali-silva/" },
@@ -3187,7 +3187,7 @@ function Advisors() {
           className="cfq-advisors-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
+            gridTemplateColumns: "repeat(4, 1fr)",
             gap: "clamp(18px, 2vw, 28px)",
           }}
         >
@@ -3446,9 +3446,15 @@ function Advisors() {
         }
         @media (max-width: 980px) {
           .cfq-advisors-grid {
-            grid-template-columns: 1fr !important;
-            max-width: 540px;
+            grid-template-columns: repeat(2, 1fr) !important;
+            max-width: 720px;
             margin: 0 auto;
+          }
+        }
+        @media (max-width: 560px) {
+          .cfq-advisors-grid {
+            grid-template-columns: 1fr !important;
+            max-width: 380px;
           }
         }
       `}</style>
@@ -3874,9 +3880,9 @@ function Speakers() {
 // ───────────────────────────────────────────────────────────────────────────
 // SPONSORS 2026 — confirmed strategic partners
 // ───────────────────────────────────────────────────────────────────────────
-// `lightBg` puts the logo on a white card. The three original logos are
-// near-white artwork and read correctly on the dark glass tile; a dark-ink
-// logo needs the white plate the Knowledge Partner tier already uses.
+// `lightBg` puts the logo on a white card. All four logos here are near-white
+// artwork and read correctly on the dark glass tile, so none set it; a dark-ink
+// logo would need the white plate the Knowledge Partner tier already uses.
 type CfqSponsor = { logo: string; name?: string; href?: string; lightBg?: boolean };
 
 const CFQ_SPONSORS_2026_STRATEGIC: CfqSponsor[] = [
@@ -3884,10 +3890,9 @@ const CFQ_SPONSORS_2026_STRATEGIC: CfqSponsor[] = [
   { logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo-03.png" },
   { logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo-04.png" },
   {
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/innovatix-logo.png",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/image+(6).png",
     name: "Innovatix Systems Services",
     href: "https://innovatixsystems.com/",
-    lightBg: true,
   },
 ];
 
