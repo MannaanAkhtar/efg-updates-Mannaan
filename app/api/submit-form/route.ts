@@ -28,8 +28,17 @@ const ALLOWED_ORIGINS = [
   "http://localhost:3001",
 ];
 
-const NOTIFICATION_EMAIL =
-  process.env.NOTIFICATION_EMAIL || "ateeq@eventsfirstgroup.com";
+// Recipients for form notifications. NOTIFICATION_EMAIL (env) may be a
+// comma-separated list; the extra recipients below are always included.
+const NOTIFICATION_EMAIL = Array.from(
+  new Set([
+    ...(process.env.NOTIFICATION_EMAIL || "ateeq@eventsfirstgroup.com")
+      .split(",")
+      .map((e) => e.trim())
+      .filter(Boolean),
+    "afra@eventsfirstgroup.com",
+  ])
+);
 
 // Verified sender domain (same as the boardroom route). Previously this form
 // sent from Resend's shared sandbox address (onboarding@resend.dev), which is
