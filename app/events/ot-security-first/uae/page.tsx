@@ -412,7 +412,7 @@ function MarketDrivers() {
   return (
     <section id="drivers" style={{ position: "relative", zIndex: 1, background: BG_2, borderTop: "1px solid rgba(255,255,255,0.07)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
       <div style={{ ...wrap, maxWidth: 1480 }}>
-        <SectionHead num="04" label="Market Drivers" note="Six forces" />
+        <SectionHead num="05" label="Market Drivers" note="Six forces" />
         <div style={{ marginBottom: "clamp(26px,3.2vw,44px)", maxWidth: 900 }}>
           <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,60px)", letterSpacing: "-2.2px", lineHeight: 1.02, margin: 0, textWrap: "balance", color: "#fff" }}>
             Why OT security became{" "}
@@ -484,7 +484,7 @@ function ThemeTile({ th, i, span, featured }: { th: typeof THEMES[number]; i: nu
 function KeyThemes() {
   return (
     <section id="themes" style={wrap}>
-      <SectionHead num="05" label="Key Themes" note="Six tracks" />
+      <SectionHead num="06" label="Key Themes" note="Six tracks" />
       <div style={{ marginBottom: "clamp(24px,3vw,42px)", maxWidth: 900 }}>
         <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,60px)", letterSpacing: "-2.2px", lineHeight: 1.02, margin: 0, textWrap: "balance", color: "#fff" }}>
           Six tracks.{" "}
@@ -510,7 +510,7 @@ function WhoAttends() {
   return (
     <section id="attend" style={{ position: "relative", zIndex: 1, background: BG_2, borderTop: "1px solid rgba(255,255,255,0.07)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
       <div style={{ ...wrap, paddingTop: "clamp(30px,3.2vw,48px)", paddingBottom: "clamp(30px,3.2vw,48px)" }}>
-        <SectionHead num="06" label="Who Attends" note="No fillers" />
+        <SectionHead num="07" label="Who Attends" note="No fillers" />
 
         {/* Editorial lead — statement spread + portrait */}
         <div className="uae-attend-lead" style={{ display: "grid", gridTemplateColumns: "1.12fr 0.88fr", gap: "clamp(20px,2.8vw,44px)", alignItems: "stretch", marginBottom: "clamp(20px,2.2vw,32px)" }}>
@@ -569,7 +569,7 @@ const INDUSTRIES = ["Oil & Gas", "Petrochemicals", "Energy & Power", "Water & Ut
 function Industries() {
   return (
     <section style={{ ...wrap, padding: "clamp(38px,4.4vw,66px) clamp(20px,4vw,60px)" }}>
-      <SectionHead num="07" label="The Industries" right={<span style={{ marginLeft: "auto", fontFamily: FD, fontWeight: 800, fontSize: "clamp(15px,1.6vw,22px)", letterSpacing: "-0.6px", color: "rgba(255,255,255,0.5)" }}>Where IT meets the physical world</span>} />
+      <SectionHead num="08" label="The Industries" right={<span style={{ marginLeft: "auto", fontFamily: FD, fontWeight: 800, fontSize: "clamp(15px,1.6vw,22px)", letterSpacing: "-0.6px", color: "rgba(255,255,255,0.5)" }}>Where IT meets the physical world</span>} />
       <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(10px,1vw,14px)" }}>
         {INDUSTRIES.map((n) => (
           <span key={n} className="uae-industry" style={{ position: "relative", overflow: "hidden", display: "inline-flex", alignItems: "center", borderRadius: 9999, padding: "13px 24px", fontFamily: FD, fontWeight: 700, fontSize: "clamp(14px,1.05vw,16px)", letterSpacing: "-0.2px", color: "#fff", background: `linear-gradient(135deg, ${C}26 0%, rgba(255,255,255,0.045) 52%, ${C}14 100%)`, border: `1px solid ${C}3d`, boxShadow: `inset 0 1px 0 rgba(255,255,255,0.2), 0 16px 34px -24px ${C}`, transition: "border-color 0.4s cubic-bezier(0.16,1,0.3,1), background 0.4s, box-shadow 0.4s, transform 0.4s cubic-bezier(0.16,1,0.3,1)" }}>{n}</span>
@@ -584,7 +584,7 @@ function WhyAttend() {
   return (
     <section id="why" style={{ position: "relative", zIndex: 1, background: BG_2, borderTop: "1px solid rgba(255,255,255,0.07)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
       <div style={wrap}>
-        <SectionHead num="08" label="Why Attend" />
+        <SectionHead num="09" label="Why Attend" />
         <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,60px)", letterSpacing: "-2.2px", lineHeight: 1.03, margin: "0 0 clamp(28px,4vw,44px)", maxWidth: 880 }}>
           Frameworks you implement on Monday.<span style={{ display: "block", color: "rgba(255,255,255,0.26)" }}>Not buzzwords you forget by Friday.</span>
         </h2>
@@ -635,7 +635,7 @@ const CONVO: { n: string; label: string; body: string }[] = [
 function TheQuestion() {
   return (
     <section style={wrap}>
-      <SectionHead num="09" label="The Conversation" note="One question" />
+      <SectionHead num="10" label="The Conversation" note="One question" />
 
       {/* Split editorial — question set beside a portrait, giant quote mark */}
       <div className="uae-convo-top" style={{ display: "grid", gridTemplateColumns: "1.16fr 0.84fr", gap: "clamp(22px,3.4vw,56px)", alignItems: "stretch" }}>
@@ -685,7 +685,7 @@ function TheFocus() {
     <section style={{ position: "relative", zIndex: 1, background: BG_2, borderTop: "1px solid rgba(255,255,255,0.07)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
       <div style={{ ...wrap, display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: "clamp(28px,4vw,64px)", alignItems: "center" }}>
         <div>
-          <SectionHead num="10" label="The Focus" />
+          <SectionHead num="11" label="The Focus" />
           <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(28px,3.6vw,50px)", letterSpacing: "-2px", lineHeight: 1.04, margin: "0 0 20px" }}>
             Not a broad cyber conference.<span style={{ display: "block", color: "rgba(255,255,255,0.26)" }}>One intersection, in depth.</span>
           </h2>
@@ -966,14 +966,14 @@ function AdvisorsAndSpeakers() {
   const advCols = Math.min(ADVISORS.length, 4);
   const spkCols = Math.min(SPEAKERS.length + 1, 5);
   return (
-    <section id="speakers" ref={ref} style={wrap}>
-      <SectionHead num="11" label="Advisors & Speakers" note={`${ADVISORS.length + SPEAKERS.length} confirmed`} />
+    <section id="speakers" ref={ref} style={{ ...wrap, paddingTop: "clamp(8px,1.1vw,18px)" }}>
+      <SectionHead num="04" label="Advisors & Speakers" note={`${ADVISORS.length + SPEAKERS.length} confirmed`} />
 
       <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,58px)", letterSpacing: "-2.2px", lineHeight: 1.0, margin: "0 0 14px", textWrap: "balance" }}>
         Advisors &amp;{" "}
         <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>speakers.</em>
       </h2>
-      <p style={{ fontFamily: FO, fontSize: "clamp(14px,1.1vw,16px)", lineHeight: 1.65, color: "#8E8E8E", margin: "0 0 clamp(30px,3.6vw,48px)", maxWidth: 620 }}>
+      <p style={{ fontFamily: FO, fontSize: "clamp(14px,1.1vw,16px)", lineHeight: 1.65, color: "#8E8E8E", margin: "0 0 clamp(20px,2.4vw,32px)", maxWidth: 620 }}>
         The independent advisors shaping the technical agenda, and the speakers taking the stage on industrial cyber resilience across the UAE. More names announced ahead of 28 January 2027.
       </p>
 
