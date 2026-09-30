@@ -198,12 +198,15 @@ const FOCUS_AREAS = [
   { title: "Autonomous Enterprise Models", body: "Cloud-native execution frameworks, security-by-design, self-optimising operating models." },
 ];
 
-type Speaker = { name: string; title: string; org: string; photo: string; linkedin?: string; silhouette?: boolean };
+// `photoBg` paints a colour behind the portrait. Needed for cut-outs, which
+// are transparent around the subject and would otherwise show the card.
+// #69686C is the studio grey used across all of this event's cut-outs.
+type Speaker = { name: string; title: string; org: string; photo: string; linkedin?: string; silhouette?: boolean; photoBg?: string };
 const SPEAKERS: Speaker[] = [
   { name: "Maram Baksh", title: "Director General", org: "Confidential Government", photo: "", silhouette: true, linkedin: "https://www.linkedin.com/in/maram-baksh-a78bb940/" },
-  { name: "Eng. Abdulrazzag Al Aujan", title: "H.E. MoF Advisor", org: "Ministry of Finance", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Eng+AbdulRazzag+Al+Aujan.png" },
+  { name: "Eng. Abdulrazzag Al Aujan", title: "H.E. MoF Advisor", org: "Ministry of Finance", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Eng+AbdulRazzag+Al+Aujan.png", photoBg: "#69686C" },
   { name: "Salem J. Sahary", title: "Senior Operational Excellence Expert", org: "SIPCHEM", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Salem+J.+Sahary.jpg" },
-  { name: "Yasmin Bin Mobki", title: "General Manager of Privatization and PMO", org: "Ministry of Human Resources and Social Development", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Yasmin+Bin+Mobki.png" },
+  { name: "Yasmin Bin Mobki", title: "General Manager of Privatization and PMO", org: "Ministry of Human Resources and Social Development", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Yasmin+Bin+Mobki.png", photoBg: "#69686C" },
   { name: "Mohammed Al Amri", title: "GM Operational Excellence", org: "Roads General Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al+Amri.jpg", linkedin: "https://www.linkedin.com/in/mohammed-alamri-95a19844/" },
   { name: "Mohammed Al Ghamdi", title: "VP Manufacturing", org: "NAMA Chemicals", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al+Ghamdi.jpeg", linkedin: "https://www.linkedin.com/in/mohammed-al-ghamdi-407451a5/" },
   { name: "Faisal Al-Zahrani", title: "EHSS General Manager", org: "S-Chem", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Faisal+Al-Zahrani.png" },
@@ -225,6 +228,16 @@ const SPEAKERS: Speaker[] = [
   // path is kept here.
   { name: "Dr. Yousof Ghazzawi", title: "Senior Portfolio Leader - Business Transformation", org: "SABIC", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Yousof+Ghazzawi1.png", linkedin: "https://www.linkedin.com/in/yousofghazzawi/" },
   { name: "Ghassan Gamal", title: "Executive Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ghassan1.png", linkedin: "https://www.linkedin.com/in/ggamal/" },
+  // Blackstone eIT. Portraits and LinkedIn carried over from the Blackstone
+  // pages. Wajih uses the "-new" portrait that /blackstone-liferay switched
+  // to; the older Wajih_Yahaouyi_Blackstone.png on /outsystems-blackstone is
+  // a different person and looks like it was the wrong file.
+  { name: "Wajih Yahyaoui", title: "Managing Partner", org: "Blackstone eIT", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Wajih+Yahyaoui-new.png", photoBg: "#69686C", linkedin: "https://www.linkedin.com/in/wajihyahyaoui/" },
+  { name: "Youness Soulayman", title: "CTO & Executive Director", org: "Blackstone eIT", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Youness_Soulayman_Blackstone.png", linkedin: "https://www.linkedin.com/in/younesszahir/" },
+  // Cut-out portrait on a transparent background; the supplied backdrop
+  // colour stands in for the studio grey the other headshots have.
+  { name: "Odeh Mahmoud", title: "CEO", org: "Cyborg Automation", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Odeh+Mahmoud.png", photoBg: "#69686C", linkedin: "https://www.linkedin.com/in/odeh-mahmoud/" },
+  { name: "Meshaal Almanie", title: "Executive Director of Operations", org: "Saudi Water Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Meshaal+Almanie1.png", linkedin: "https://www.linkedin.com/in/meshaal-almanie/" },
 ];
 
 type AgendaItem = {
@@ -4107,7 +4120,7 @@ function Speakers() {
                     position: "relative",
                     aspectRatio: "3/4",
                     background: sp.photo
-                      ? `url(${sp.photo}) center/cover`
+                      ? `url(${sp.photo}) center/cover no-repeat${sp.photoBg ? ` ${sp.photoBg}` : ""}`
                       : `linear-gradient(160deg, ${V_DIM} 0%, ${BG_DARK} 60%, #000 100%)`,
                     overflow: "hidden",
                   }}
@@ -5012,11 +5025,15 @@ const SPONSORS_2026: S26SponsorItem[] = [
   {
     name: "Cyborg Automation",
     tier: "Gold",
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Cyborg+logo.png",
+    // Refreshed brand mark (wordmark + "intelligence built for enterprise"),
+    // replacing the older "Cyborg Automation Hub" robot-head lockup. It is a
+    // wider 3:1 logo, so the max height comes down to keep it the same
+    // optical size as the other Gold logos.
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/image+(5).png",
     url: "https://cyborg-automation.com/",
     surface: "dark",
     innerBg: "linear-gradient(165deg, #1c1722 0%, #100b15 100%)",
-    logoMaxHeight: 88,
+    logoMaxHeight: 76,
   },
   {
     name: "SAP Signavio",
