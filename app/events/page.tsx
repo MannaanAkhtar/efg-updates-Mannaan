@@ -38,24 +38,6 @@ type SeriesStatus = "open" | "soon";
 
 const allEvents = [
   {
-    id: "networkfirst-enterprisedb-ksa",
-    category: "networkfirst",
-    title: "EnterpriseDB Executive Roundtable",
-    tagline: "The Sovereign Data Estate",
-    description:
-      "An invitation-only executive roundtable on building a sovereign data estate on open-source Postgres — reducing cost, meeting data-sovereignty mandates, and scaling with AI.",
-    color: "#C9935A",
-    image: "",
-    href: "/enterprisedb-ksa",
-    date: "2026-09-29",
-    nextDate: "29 Sep 2026",
-    nextCity: "Saudi Arabia",
-    editions: "",
-    regions: "Saudi Arabia",
-    attendees: "15-20",
-    status: "open" as SeriesStatus,
-  },
-  {
     id: "networkfirst-algosec",
     category: "networkfirst",
     title: "AlgoSec Executive Roundtable",
@@ -218,24 +200,6 @@ const allEvents = [
     editions: "",
     regions: "Saudi Arabia",
     attendees: "Invited",
-    status: "open" as SeriesStatus,
-  },
-  {
-    id: "networkfirst-ifs-jeddah",
-    category: "networkfirst",
-    title: "IFS Executive Roundtable",
-    tagline: "Turn Your Frontline into a Strategic Growth Lever",
-    description:
-      "An invitation-only IFS executive roundtable on closing the execution gap across every shift, site and team — AI-augmented frontline work and connected-work strategy.",
-    color: "#C9935A",
-    image: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg",
-    href: "/ifs-29sept",
-    date: "2026-09-29",
-    nextDate: "29 Sep 2026",
-    nextCity: "Jeddah, Saudi Arabia",
-    editions: "",
-    regions: "Saudi Arabia",
-    attendees: "15-20",
     status: "open" as SeriesStatus,
   },
   {

@@ -34,20 +34,6 @@ export const TBA_MONTH_INDEX = 12;
 
 export const allEvents: EventItem[] = [
   {
-    id: "networkfirst-enterprisedb-ksa",
-    series: "NetworkFirst",
-    seriesColor: "#C9935A",
-    edition: "",
-    title: "EnterpriseDB Executive Roundtable",
-    date: new Date("2026-09-29"),
-    dateDisplay: "September 29, 2026",
-    location: "Saudi Arabia",
-    venue: "Venue TBC",
-    attendees: "15-20",
-    href: "/enterprisedb-ksa",
-    status: "open",
-  },
-  {
     id: "networkfirst-enterprisedb-egypt",
     series: "NetworkFirst",
     seriesColor: "#C9935A",
@@ -166,20 +152,6 @@ export const allEvents: EventItem[] = [
     venue: "Hilton Jeddah",
     attendees: "Invited",
     href: "/ifs-21fm",
-    status: "open",
-  },
-  {
-    id: "networkfirst-ifs-jeddah",
-    series: "NetworkFirst",
-    seriesColor: "#C9935A",
-    edition: "",
-    title: "IFS Executive Roundtable",
-    date: new Date("2026-09-29"),
-    dateDisplay: "September 29, 2026",
-    location: "Jeddah, Saudi Arabia",
-    venue: "Venue TBC",
-    attendees: "15-20",
-    href: "/ifs-29sept",
     status: "open",
   },
   {

@@ -61,8 +61,6 @@ const NETWORKFIRST_COLOR = "#C9935A";
 // each group keeps the upcoming-events date order from /network-first
 type NFFormat = "virtual" | "physical";
 const networkFirstEvents: { href: string; label: string; date: string; format: NFFormat }[] = [
-  { href: "/ifs-29sept", label: "IFS · Jeddah", date: "29 Sep", format: "physical" },
-  { href: "/enterprisedb-ksa", label: "EnterpriseDB, KSA", date: "29 Sep", format: "physical" },
   { href: "https://globalevents.braze.com/register/grow-with-braze-dubai-26?utm_campaign=fy27-q3-apac-gcc-owned-field-gwb-dubai&utm_medium=telemarketing&utm_source=EFG&utm_content=event-gwb-dubai-2026-invite&utm_term=EFGagency", label: "Grow with Braze", date: "7 Oct", format: "physical" },
   { href: "/intwo", label: "Intwo", date: "8 Oct", format: "physical" },
   { href: "/enterprisedb-egypt", label: "EnterpriseDB, Egypt", date: "13 Oct", format: "physical" },

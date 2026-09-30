@@ -37,22 +37,6 @@ const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 
 const UPCOMING_EVENTS = [
   {
-    date: "September 29th, 2026",
-    month: "SEP",
-    day: "29",
-    year: "2026",
-    time: "Time TBC · 180 min",
-    title: "EnterpriseDB Executive Roundtable",
-    subtitle: "The Sovereign Data Estate — Breaking Free from Proprietary Lock-in",
-    sponsor: "EnterpriseDB",
-    location: "Saudi Arabia",
-    link: "/enterprisedb-ksa",
-    image: "",
-    brandColor: "#274657",
-    brandGradient: "linear-gradient(135deg, #33586B 0%, #274657 44%, #17323E 76%, #06070F 100%)",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/edb_postgres_ai_lightmode%402x+(4).png",
-  },
-  {
     date: "October 8th, 2026",
     month: "OCT",
     day: "8",
@@ -231,22 +215,6 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Blackstone+eIT+Logo+Reversed+No+Slogan.png",
   },
   {
-    date: "September 29th, 2026",
-    month: "SEP",
-    day: "29",
-    year: "2026",
-    time: "15:00 – 16:30 AST",
-    title: "IFS Executive Roundtable",
-    subtitle: "Turn Your Frontline into a Strategic Growth Lever",
-    sponsor: "IFS",
-    location: "Jeddah, Saudi Arabia",
-    link: "/ifs-29sept",
-    image: "",
-    brandColor: "#170430",
-    brandGradient: "linear-gradient(135deg, #8427E2 0%, #360065 45%, #170430 80%, #0A0218 100%)",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg",
-  },
-  {
     date: "October 7th, 2026",
     month: "OCT",
     day: "7",
@@ -388,6 +356,35 @@ type PastEvent = {
 };
 
 const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    sponsor: "IFS",
+    title: "IFS Executive Roundtable",
+    subtitle: "Turn Your Frontline into a Strategic Growth Lever",
+    month: "SEP",
+    date: "29 Sep",
+    venue: "The Ritz-Carlton, Jeddah",
+    time: "15:00 – 16:30 AST",
+    image: "",
+    brandColor: "#170430",
+    brandGradient: "linear-gradient(135deg, #8427E2 0%, #360065 45%, #170430 80%, #0A0218 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg",
+    link: "/ifs-29sept",
+  },
+  {
+    // No published start time for this one — the calendar card only ever read
+    // "Time TBC", so `time` is omitted rather than carried over as a placeholder.
+    sponsor: "EnterpriseDB",
+    title: "EnterpriseDB Executive Roundtable",
+    subtitle: "The Sovereign Data Estate — Breaking Free from Proprietary Lock-in",
+    month: "SEP",
+    date: "29 Sep",
+    venue: "Crowne Plaza Riyadh RDC, Riyadh",
+    image: "",
+    brandColor: "#274657",
+    brandGradient: "linear-gradient(135deg, #33586B 0%, #274657 44%, #17323E 76%, #06070F 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/edb_postgres_ai_lightmode%402x+(4).png",
+    link: "/enterprisedb-ksa",
+  },
   {
     sponsor: "Blue Yonder",
     title: "Blue Yonder Executive Dinner",
