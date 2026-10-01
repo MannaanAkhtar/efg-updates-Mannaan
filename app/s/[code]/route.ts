@@ -103,6 +103,13 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   // InquiryForm, so there is no ?tab to read.
   "oracle-afra": { path: "/oracle", source: "afra", campaign: "oracle-riyadh-2026", hash: "reserve" },
   "oracle-duaa": { path: "/oracle", source: "duaa", campaign: "oracle-riyadh-2026", hash: "reserve" },
+
+  // ONE Executive Day KSA — OutSystems, Riyadh, 19 Oct 2026.
+  // No tab= : this page carries its own single register form, not the tabbed
+  // InquiryForm, so there is no ?tab for it to read.
+  "os-afra": { path: "/outsystems", source: "afra", campaign: "outsystems-ksa", hash: "register" },
+  "os-jacqueline": { path: "/outsystems", source: "jacqueline", campaign: "outsystems-ksa", hash: "register" },
+  "os-sangeetha": { path: "/outsystems", source: "sangeetha", campaign: "outsystems-ksa", hash: "register" },
 };
 
 export async function GET(

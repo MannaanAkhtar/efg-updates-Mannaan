@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 
 const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/outsystems`;
+// The hero key visual doubles as the social preview. It is 1600x595, so a
+// card that insists on 1.91:1 crops the sides rather than letterboxing.
+const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/heros/image+(7).png";
+const OG_IMAGE_ALT =
+  "ONE Executive Day KSA — OutSystems, JW Marriott Hotel Riyadh, 19 October 2026";
 
 const TITLE = "ONE Executive Day KSA | OutSystems · JW Marriott Hotel Riyadh";
 const DESCRIPTION =
@@ -27,11 +32,13 @@ export const metadata: Metadata = {
     siteName: "Events First Group",
     title: "ONE Executive Day KSA — OutSystems, Riyadh",
     description: DESCRIPTION,
+    images: [{ url: OG_IMAGE, width: 1600, height: 595, alt: OG_IMAGE_ALT }],
   },
   twitter: {
     card: "summary_large_image",
     title: "ONE Executive Day KSA — OutSystems, Riyadh",
     description: DESCRIPTION,
+    images: [OG_IMAGE],
   },
 };
 
@@ -41,6 +48,7 @@ export default function OutSystemsLayout({ children }: { children: React.ReactNo
     "@type": "Event",
     name: "ONE Executive Day KSA",
     description: DESCRIPTION,
+    image: [OG_IMAGE],
     startDate: "2026-10-19T09:00:00+03:00",
     endDate: "2026-10-19T16:00:00+03:00",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
