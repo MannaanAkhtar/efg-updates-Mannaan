@@ -49,7 +49,6 @@ const IFS_LOGO =
 const NAV_LINKS = [
   { id: "challenges", label: "Challenges" },
   { id: "segments", label: "Segments" },
-  { id: "solutions", label: "Solutions" },
   { id: "register", label: "Register" },
 ];
 
@@ -94,37 +93,6 @@ const SEGMENTS = [
     title: "Shipbuilding and Maritime",
     body: "Optimize shipbuilding and marine contractor operations with software that integrates and manages the complete project and asset lifecycle management process.",
     image: UNSPLASH("1578575437130-527eed3abbec"),
-  },
-];
-
-// ─── Tailored solutions ──────────────────────────────────────────────────────
-// `tab` is the short label on the tab strip. Each one is lifted straight from
-// its own title — the acronym where the source page gives one, otherwise the
-// distinguishing words — so nothing new is invented for the label.
-const SOLUTIONS = [
-  {
-    tab: "ERP",
-    title: "Enterprise Resource Planning (ERP)",
-    body: "Streamline Construction and Engineering operations with IFS Cloud ERP, a fully composable AI-powered platform that integrates project planning, execution, and financial control, enabling accurate forecasting, real-time visibility, and proactive risk mitigation.",
-    image: UNSPLASH("1503387762-592deb58ef4e"),
-  },
-  {
-    tab: "FSM",
-    title: "Field Service Management (FSM)",
-    body: "Optimize field service operations with IFS FSM, designed to coordinate mobile workforce operations for infrastructure maintenance and service delivery, enhancing reliability, safety, and customer experience.",
-    image: UNSPLASH("1621905251189-08b45d6a269e"),
-  },
-  {
-    tab: "Asset Lifecycle",
-    title: "Asset Lifecycle Management",
-    body: "Manage complex assets across their lifecycle with IFS Asset Lifecycle Management, ensuring uptime and profitability through comprehensive asset lifecycle management and maintenance capabilities.",
-    image: UNSPLASH("1486406146926-c627a92ad1ab"),
-  },
-  {
-    tab: "EAM",
-    title: "Enterprise Asset Management (EAM)",
-    body: "Maximize asset performance with IFS EAM, a solution for managing the lifecycle of physical assets to maximize value, performance, and compliance, including maintenance, planning, and asset tracking.",
-    image: UNSPLASH("1516937941344-00b4e0337589"),
   },
 ];
 
@@ -1322,210 +1290,6 @@ function SegmentsSection() {
   );
 }
 
-// ─── Tailored Solutions ──────────────────────────────────────────────────────
-// Four products in one tabbed panel rather than four stacked rows — the section
-// is a set of alternatives, so a tab strip both says that and keeps the page
-// from running four screens long. All four images stay mounted and crossfade,
-// so switching never flashes an unloaded image.
-function SolutionsSection() {
-  const ref = useRef<HTMLElement | null>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-  const [active, setActive] = useState(0);
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-
-  // Roving tabindex: arrows move between tabs, Home/End jump to the ends.
-  const onTabKey = (e: React.KeyboardEvent, i: number) => {
-    const last = SOLUTIONS.length - 1;
-    let next = -1;
-    if (e.key === "ArrowRight" || e.key === "ArrowDown") next = i === last ? 0 : i + 1;
-    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = i === 0 ? last : i - 1;
-    else if (e.key === "Home") next = 0;
-    else if (e.key === "End") next = last;
-    if (next < 0) return;
-    e.preventDefault();
-    setActive(next);
-    tabRefs.current[next]?.focus();
-  };
-
-  const current = SOLUTIONS[active];
-
-  return (
-    <section ref={ref} id="solutions" className="ifs-section" style={{ background: "transparent", padding: `${SECTION_PAD} 0`, position: "relative" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 48px)" }}>
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.22,1,0.36,1] }}
-          style={{ marginBottom: HEADING_GAP }}
-        >
-          <DividerTitle
-            eyebrow="Tailored Solutions"
-            title={<>Products tailored for <span style={{ color: IFS_LIGHT_BLUE }}>Construction and Engineering</span></>}
-            accent={IFS_FUCHSIA}
-            maxWidth={760}
-          />
-        </motion.div>
-
-        {/* Tab strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.08, ease: [0.22,1,0.36,1] }}
-          role="tablist"
-          aria-label="IFS products for Construction and Engineering"
-          className="ifs-sol-tabs"
-        >
-          {SOLUTIONS.map((s, i) => {
-            const on = i === active;
-            return (
-              <button
-                key={s.tab}
-                ref={(el) => { tabRefs.current[i] = el; }}
-                type="button"
-                role="tab"
-                id={`ifs-sol-tab-${i}`}
-                aria-selected={on}
-                aria-controls="ifs-sol-panel"
-                tabIndex={on ? 0 : -1}
-                onClick={() => setActive(i)}
-                onKeyDown={(e) => onTabKey(e, i)}
-                className={`ifs-sol-tab${on ? " is-on" : ""}`}
-              >
-                {s.tab}
-              </button>
-            );
-          })}
-        </motion.div>
-
-        {/* Panel */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.14, ease: [0.22,1,0.36,1] }}
-          id="ifs-sol-panel"
-          role="tabpanel"
-          aria-labelledby={`ifs-sol-tab-${active}`}
-          className="ifs-sol-panel"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
-            borderRadius: 20,
-            overflow: "hidden",
-            background: `linear-gradient(165deg, ${IFS_BG_CARD} 0%, ${IFS_BG_INNER} 100%)`,
-            border: `1px solid ${IFS_BORDER}`,
-            boxShadow: `0 22px 54px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06)`,
-          }}
-        >
-          {/* 360px is the floor that the longest copy (ERP) reaches on its own,
-              so the panel is the same height on every tab and switching never
-              shifts the sections below it. */}
-          <div className="ifs-sol-media" style={{ position: "relative", minHeight: 360, overflow: "hidden" }}>
-            {SOLUTIONS.map((s, i) => (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                key={s.tab}
-                className="ifs-sol-img"
-                src={s.image}
-                alt=""
-                loading="lazy"
-                decoding="async"
-                aria-hidden={i !== active}
-                style={{
-                  position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover",
-                  opacity: i === active ? 1 : 0,
-                  transform: i === active ? "scale(1)" : "scale(1.03)",
-                }}
-              />
-            ))}
-            <span aria-hidden style={{ position: "absolute", inset: 0, background: `linear-gradient(120deg, transparent 35%, ${IFS_BG_INNER}aa 100%)` }} />
-          </div>
-
-          <div className="ifs-sol-copy" style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 14, padding: "clamp(26px, 3.2vw, 44px)" }}>
-            {/* Keyed on the active index so the copy replays its fade on every
-                switch while the panel box itself stays put. */}
-            <motion.div
-              key={active}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: [0.22,1,0.36,1] }}
-              style={{ display: "flex", flexDirection: "column", gap: 14 }}
-            >
-              <span aria-hidden style={{
-                fontFamily: "var(--font-display)",
-                fontSize: 12, fontWeight: 800,
-                letterSpacing: "0.22em",
-                color: IFS_PURPLE_GLOW,
-                opacity: 0.8,
-              }}>
-                {String(active + 1).padStart(2, "0")} / {String(SOLUTIONS.length).padStart(2, "0")}
-              </span>
-              <h3 style={{ margin: 0, fontFamily: "var(--font-display)", fontSize: "clamp(21px, 2.2vw, 30px)", fontWeight: 800, letterSpacing: "-0.025em", color: IFS_WHITE, lineHeight: 1.15 }}>
-                {current.title}
-              </h3>
-              <p style={{ margin: 0, fontFamily: "var(--font-outfit)", fontSize: "clamp(14px, 1.1vw, 16px)", color: IFS_MUTE, lineHeight: 1.7 }}>
-                {current.body}
-              </p>
-            </motion.div>
-          </div>
-        </motion.div>
-      </div>
-
-      <style jsx global>{`
-        .ifs-sol-tabs {
-          display: flex;
-          gap: 8px;
-          margin-bottom: clamp(16px, 2vw, 22px);
-          padding: 6px;
-          border-radius: 999px;
-          border: 1px solid ${IFS_HAIRLINE};
-          background: rgba(10, 2, 24, 0.55);
-          overflow-x: auto;
-          scrollbar-width: none;
-        }
-        .ifs-sol-tabs::-webkit-scrollbar { display: none; }
-        .ifs-sol-tab {
-          flex: 1 1 0;
-          min-width: max-content;
-          padding: 11px 18px;
-          border: 1px solid transparent;
-          border-radius: 999px;
-          background: transparent;
-          color: ${IFS_FAINT};
-          font-family: var(--font-display);
-          font-size: clamp(13px, 1vw, 15px);
-          font-weight: 700;
-          letter-spacing: -0.01em;
-          white-space: nowrap;
-          cursor: pointer;
-          transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
-        }
-        .ifs-sol-tab:hover { color: ${IFS_WHITE}; }
-        .ifs-sol-tab:focus-visible { outline: 2px solid ${IFS_LIGHT_BLUE}; outline-offset: 2px; }
-        .ifs-sol-tab.is-on {
-          color: ${IFS_WHITE};
-          background: linear-gradient(180deg, ${IFS_DARK_PURPLE} 0%, ${IFS_BG_CARD} 100%);
-          border-color: ${IFS_BORDER};
-          box-shadow: 0 6px 18px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.09);
-        }
-        .ifs-sol-img {
-          transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .ifs-sol-img { transition: none; }
-        }
-        @media (max-width: 880px) {
-          .ifs-sol-panel { grid-template-columns: 1fr !important; }
-          .ifs-sol-media { min-height: 220px !important; }
-        }
-        @media (max-width: 560px) {
-          .ifs-sol-tabs { border-radius: 16px; }
-          .ifs-sol-tab { flex: 0 0 auto; padding: 10px 14px; }
-        }
-      `}</style>
-    </section>
-  );
-}
-
 // ─── Success Metrics ─────────────────────────────────────────────────────────
 function MetricsSection() {
   const ref = useRef<HTMLElement | null>(null);
@@ -2553,7 +2317,6 @@ export default function IfsCoreEngineeringPage() {
         <HeroSection />
         <ChallengesSection />
         <SegmentsSection />
-        <SolutionsSection />
         <MetricsSection />
         <TrustedSection />
         <CustomerStoriesSection />
