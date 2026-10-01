@@ -165,13 +165,6 @@ type Speaker = {
 
 const SPEAKERS: Speaker[] = [
   {
-    name: "Yousef Kazim",
-    title: "Spokesperson of SAHEL",
-    org: "Ministry of Information",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Yousef%2BKazim1.png",
-    linkedin: "https://www.linkedin.com/in/altaromi/",
-  },
-  {
     name: "Iyad Atieh",
     title: "Chief Information Security Officer",
     org: "Alghanim Industries",
