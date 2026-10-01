@@ -6,10 +6,12 @@ const OG_IMAGE =
   "https://efg-final.s3.eu-north-1.amazonaws.com/heros/sitecore_hero-gettyimages-1267010934.avif";
 
 export const metadata: Metadata = {
+  // The headline leads, but the Construction & Engineering phrasing stays in
+  // the title — it is what the page is actually searched for.
   title:
-    "Construction and Engineering Software Solutions | IFS Executive Roundtable · 20 October 2026",
+    "From Project Complexity to Predictable Outcomes | IFS Construction & Engineering Roundtable · 20 October 2026",
   description:
-    "An IFS executive roundtable for Construction and Engineering leaders at the Hilton Jeddah on 20 October 2026: managing the complete asset lifecycle with integrated software that connects project planning, execution, financial control and asset management.",
+    "An IFS executive roundtable for Construction and Engineering leaders at the Hilton Jeddah on 20 October 2026, focused on transforming project delivery, improving financial control, maximizing asset performance and driving profitable growth through connected, intelligent operations.",
   keywords: [
     "IFS",
     "IFS Cloud ERP",
@@ -27,9 +29,9 @@ export const metadata: Metadata = {
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title:
-      "Construction and Engineering Software Solutions — IFS Executive Roundtable, 20 October 2026",
+      "From Project Complexity to Predictable Outcomes — IFS Executive Roundtable, 20 October 2026",
     description:
-      "Connect project planning, execution and financial control across the complete asset lifecycle. An exclusive IFS executive roundtable for Construction and Engineering leaders.",
+      "Transforming project delivery, financial control and asset performance through connected, intelligent operations. An exclusive IFS executive roundtable for Construction and Engineering leaders.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [
@@ -46,9 +48,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
-    title: "Construction and Engineering Software Solutions — IFS Executive Roundtable",
+    title: "From Project Complexity to Predictable Outcomes — IFS Executive Roundtable",
     description:
-      "20 October 2026. Connect project planning, execution and financial control across the complete asset lifecycle.",
+      "20 October 2026. Transforming project delivery, financial control and asset performance through connected, intelligent operations.",
     images: [OG_IMAGE],
   },
 };

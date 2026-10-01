@@ -47,11 +47,9 @@ const IFS_LOGO =
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const NAV_LINKS = [
-  { id: "overview", label: "Overview" },
   { id: "challenges", label: "Challenges" },
   { id: "segments", label: "Segments" },
   { id: "solutions", label: "Solutions" },
-  { id: "services", label: "Services" },
   { id: "register", label: "Register" },
 ];
 
@@ -66,15 +64,6 @@ const HERO_IMAGE =
 // Stock imagery, per the same pattern as the OPEX KSA page — remote Unsplash
 // with an explicit width/quality so the cards don't pull full-resolution files.
 const UNSPLASH = (id: string) => `https://images.unsplash.com/photo-${id}?w=900&q=80`;
-
-// Deliberately not the same shot as the Construction segment card below.
-const OVERVIEW_IMAGE = UNSPLASH("1504917595217-d4dc5ebe6122");
-
-// ─── Event overview copy ─────────────────────────────────────────────────────
-const OVERVIEW_PARAS = [
-  "Manage the complete asset lifecycle with integrated Construction and Engineering software solutions that connect project planning, project execution, project financial control and asset and facilities management — boosting efficiency, reducing costs, and ensuring profitability.",
-  "This executive roundtable brings Construction and Engineering leaders together around that operating model: where projects are actually won and lost, which capabilities close the gap between plan and delivery, and how an integrated platform changes the economics of a portfolio rather than a single project.",
-];
 
 // ─── Industry challenges ─────────────────────────────────────────────────────
 // Only the first item has body copy in the source material. The other two are
@@ -139,44 +128,36 @@ const SOLUTIONS = [
   },
 ];
 
-// ─── Tailored services ───────────────────────────────────────────────────────
-const SERVICES: { title: string; body: string; icon: React.ReactNode }[] = [
+// ─── Customer stories ────────────────────────────────────────────────────────
+// Straplines are IFS's own, taken from each story page — nothing written here.
+// `h` is the logo's rendered cap height: the three marks range from 0.99:1
+// (Saudi Post) to 1.74:1 (Wahaj), so a single max-height would print the square
+// one at well over twice the area of the wide one. Each is derived from its own
+// aspect ratio instead, holding the optical area roughly constant.
+const IFS_STORY_LOGOS = "https://efg-final.s3.eu-north-1.amazonaws.com/logos";
+const CUSTOMER_STORIES_URL = "https://www.ifs.com/en/insights/customer-stories";
+
+const CUSTOMER_STORIES: { name: string; body: string; logo: string; h: number; href: string }[] = [
   {
-    title: "IFS Success",
-    body: "Maximize the value of your IFS investment with tailored success plans, expert guidance, and proactive support, helping Construction and Engineering organizations achieve operational excellence and long-term strategic goals.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-        <circle cx="12" cy="8" r="5" /><path d="M8.5 12.5L7 22l5-3 5 3-1.5-9.5" />
-      </svg>
-    ),
+    name: "Port of Duqm",
+    body: "Embracing innovation and digitization with IFS ERP",
+    logo: `${IFS_STORY_LOGOS}/Port_of_Duqm.png`,
+    h: 100,
+    href: "https://www.ifs.com/en/insights/customer-stories/port-of-duqm",
   },
   {
-    title: "IFS Cloud Services",
-    body: "Leverage the power of IFS Cloud Services for seamless implementation, management, and optimization of your Construction and Engineering operations, ensuring scalability, security, and continuous innovation.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-        <path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.6-1.6A4.2 4.2 0 0 0 6 19z" />
-      </svg>
-    ),
+    name: "Saudi Post",
+    body: "SPL realizes digital transformation with assyst",
+    logo: `${IFS_STORY_LOGOS}/Saudi_Post.png`,
+    h: 110,
+    href: "https://www.ifs.com/en/insights/customer-stories/saudi-post",
   },
   {
-    title: "IFS Consulting Services",
-    body: "Transform your Construction and Engineering business with IFS Consulting Services, providing expert analysis, strategy, and implementation support to drive digital transformation and achieve sustainable growth.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-        <line x1="8" y1="9" x2="16" y2="9" /><line x1="8" y1="13" x2="13" y2="13" />
-      </svg>
-    ),
-  },
-  {
-    title: "IFS Support Services",
-    body: "Ensure the ongoing success of your IFS solution with comprehensive IFS Support Services, offering proactive monitoring, timely resolution, and expert guidance to minimize downtime and maximize ROI.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><polyline points="9 12 11 14 15 10" />
-      </svg>
-    ),
+    name: "Wahaj",
+    body: "IFS Cloud optimizes operations at Wahaj",
+    logo: `${IFS_STORY_LOGOS}/Wahaj.png`,
+    h: 85,
+    href: "https://www.ifs.com/en/insights/customer-stories/wahaj",
   },
 ];
 
@@ -191,18 +172,31 @@ const METRICS = [
 // ─── Trusted by leaders ──────────────────────────────────────────────────────
 // Analyst reports named on IFS's industry page. No destination URLs were
 // supplied, so these render as plain cards rather than guessed links.
+// Each card carries its own shot, chosen against that card's subject rather
+// than as generic decoration. None repeats an image used elsewhere here, nor
+// one of the three on /ifs-21fm — the two IFS roundtables sit side by side in
+// the calendar and should not read as the same page twice.
 const TRUSTED = [
   {
     title: "Forrester Total Economic Impact™ of IFS Solutions Deployed in the Cloud",
     body: "Cost Savings And Business Benefits Enabled By IFS Solutions Deployed In The Cloud",
+    image: UNSPLASH("1722847658578-e3809de1676d"),
+    alt: "Aerial view over a construction site",
+    href: "https://www.ifs.com/en/insights/assets/infographic-forrester-the-total-economic-impact-of-ifs-solutions-deployed-in-the-cloud",
   },
   {
     title: "IDC Worldwide Asset Life-Cycle Management Applications Market Shares 2023 report",
     body: "Fastest growing among top 10 in ALM",
+    image: UNSPLASH("1751054770504-c69daeec4721"),
+    alt: "Excavator arm working a site",
+    href: "https://www.ifs.com/en/insights/assets/fastest-top-10-alm",
   },
   {
     title: "Worldwide Business Research — State of Service 2023",
     body: "A Global View into the Biggest Trends and Challenges Facing Field Service Companies Today",
+    image: UNSPLASH("1694521787193-9293daeddbaa"),
+    alt: "Two site engineers inspecting a wall together",
+    href: "https://www.ifs.com/en/insights/assets/state-of-service",
   },
 ];
 
@@ -901,7 +895,7 @@ function HeroSection() {
                 color: IFS_WHITE,
                 textWrap: "balance",
               }}>
-                Construction and Engineering{" "}
+                From Project Complexity to{" "}
                 <span style={{
                   backgroundImage: `linear-gradient(95deg, ${IFS_LIGHT_PURPLE} 0%, ${IFS_LIGHT_BLUE} 100%)`,
                   WebkitBackgroundClip: "text",
@@ -909,7 +903,7 @@ function HeroSection() {
                   WebkitTextFillColor: "transparent",
                   color: "transparent",
                 }}>
-                  Software Solutions
+                  Predictable Outcomes
                 </span>
               </h1>
 
@@ -922,10 +916,10 @@ function HeroSection() {
                 lineHeight: 1.65,
                 maxWidth: 620,
               }}>
-                Manage the complete asset lifecycle with integrated Construction and Engineering
-                software solutions that connect project planning, project execution, project
-                financial control and asset and facilities management &mdash; boosting efficiency,
-                reducing costs, and ensuring profitability.
+                Join senior Construction &amp; Engineering leaders for an exclusive executive
+                roundtable focused on transforming project delivery, improving financial control,
+                maximizing asset performance, and driving profitable growth through connected,
+                intelligent operations.
               </p>
             </BentoTile>
 
@@ -1110,56 +1104,6 @@ function HeroSection() {
           .ifs-count-rule { display: none !important; }
           .ifs-bento-count > div { width: 100%; }
         }
-      `}</style>
-    </section>
-  );
-}
-
-// ─── Event Overview ──────────────────────────────────────────────────────────
-function OverviewSection() {
-  const ref = useRef<HTMLElement | null>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
-  return (
-    <section
-      ref={ref}
-      id="overview"
-      className="ifs-section"
-      style={{ background: "transparent", padding: `${SECTION_PAD} 0`, position: "relative" }}
-    >
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 48px)" }}>
-        <div className="ifs-overview-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: "clamp(36px, 5vw, 72px)", alignItems: "center" }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.22,1,0.36,1] }}
-            style={{ position: "relative", borderRadius: 20, padding: 6, background: `linear-gradient(165deg, ${IFS_LIGHT_PURPLE}44 0%, ${IFS_PURPLE}22 45%, ${IFS_BG_INNER} 100%)`, border: `1px solid ${IFS_BORDER}`, boxShadow: `0 24px 60px rgba(0,0,0,0.5)` }}
-          >
-            <div style={{ position: "relative", borderRadius: 15, overflow: "hidden", aspectRatio: "4 / 3" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={OVERVIEW_IMAGE} alt="Construction project under way" loading="lazy" decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-              <div aria-hidden style={{ position: "absolute", inset: 0, background: `linear-gradient(160deg, ${IFS_PURPLE}22 0%, transparent 50%, rgba(23,4,48,0.35) 100%)` }} />
-              <span aria-hidden style={{ position: "absolute", top: 0, left: "10%", right: "10%", height: 1, background: `linear-gradient(90deg, transparent, ${IFS_PURPLE_GLOW}, transparent)`, opacity: 0.7 }} />
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.12, ease: [0.22,1,0.36,1] }}
-          >
-            <DividerTitle eyebrow="Event Overview" title="The complete asset lifecycle, connected" accent={IFS_GREEN} maxWidth={560} />
-            <div style={{ marginTop: HEADING_GAP, display: "flex", flexDirection: "column", gap: 16 }}>
-              {OVERVIEW_PARAS.map((p, i) => (
-                <p key={i} style={{ margin: 0, fontFamily: "var(--font-outfit)", fontSize: "clamp(14.5px, 1.1vw, 16px)", color: IFS_MUTE, lineHeight: 1.75 }}>{p}</p>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      <style jsx global>{`
-        @media (max-width: 880px) { .ifs-overview-grid { grid-template-columns: 1fr !important; } }
       `}</style>
     </section>
   );
@@ -1582,80 +1526,6 @@ function SolutionsSection() {
   );
 }
 
-// ─── Tailored Services ───────────────────────────────────────────────────────
-function ServicesSection() {
-  const ref = useRef<HTMLElement | null>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
-  return (
-    <section ref={ref} id="services" className="ifs-section" style={{ background: "transparent", padding: `${SECTION_PAD} 0`, position: "relative" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 48px)" }}>
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.22,1,0.36,1] }}
-          style={{ marginBottom: HEADING_GAP }}
-        >
-          <DividerTitle
-            eyebrow="Tailored Services"
-            title={<>Services to maximize <span style={{ color: IFS_PURPLE_GLOW }}>success</span></>}
-            accent={IFS_GREEN}
-            maxWidth={640}
-          />
-        </motion.div>
-
-        <div className="ifs-service-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "clamp(14px, 1.8vw, 22px)" }}>
-          {SERVICES.map((s, i) => (
-            <motion.div
-              key={s.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.07 * i, ease: [0.22,1,0.36,1] }}
-              className="ifs-service-card"
-              style={{
-                position: "relative",
-                display: "flex",
-                flexDirection: "column",
-                padding: "clamp(22px, 2.6vw, 30px)",
-                borderRadius: 18,
-                background: `linear-gradient(165deg, ${IFS_BG_CARD} 0%, ${IFS_BG_INNER} 100%)`,
-                border: `1px solid ${IFS_BORDER}`,
-                boxShadow: `0 18px 44px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)`,
-                overflow: "hidden",
-              }}
-            >
-              <span aria-hidden style={{ position: "absolute", top: 0, left: "8%", right: "8%", height: 1, background: `linear-gradient(90deg, transparent, ${IFS_PURPLE_GLOW}, transparent)`, opacity: 0.55 }} />
-              <span aria-hidden style={{
-                display: "inline-flex", alignItems: "center", justifyContent: "center",
-                width: 52, height: 52, borderRadius: 14,
-                background: `linear-gradient(135deg, ${IFS_PURPLE}44 0%, ${IFS_PURPLE}18 100%)`,
-                border: `1px solid ${IFS_PURPLE_GLOW}44`,
-                color: IFS_PURPLE_GLOW,
-                marginBottom: 16,
-              }}>
-                {s.icon}
-              </span>
-              <h3 style={{ margin: 0, fontFamily: "var(--font-display)", fontSize: "clamp(17px, 1.5vw, 20px)", fontWeight: 800, letterSpacing: "-0.02em", color: IFS_WHITE, lineHeight: 1.2 }}>
-                {s.title}
-              </h3>
-              <p style={{ margin: "10px 0 0", fontFamily: "var(--font-outfit)", fontSize: "clamp(13.5px, 1vw, 14.5px)", color: IFS_MUTE, lineHeight: 1.65 }}>
-                {s.body}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      <style jsx global>{`
-        .ifs-service-card { transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), border-color 0.35s ease; }
-        .ifs-service-card:hover { transform: translateY(-4px); border-color: ${IFS_PURPLE_GLOW}77; }
-        @media (max-width: 1080px) { .ifs-service-grid { grid-template-columns: 1fr 1fr !important; } }
-        @media (max-width: 620px) { .ifs-service-grid { grid-template-columns: 1fr !important; } }
-      `}</style>
-    </section>
-  );
-}
-
 // ─── Success Metrics ─────────────────────────────────────────────────────────
 function MetricsSection() {
   const ref = useRef<HTMLElement | null>(null);
@@ -1755,15 +1625,19 @@ function TrustedSection() {
 
         <div className="ifs-trusted-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "clamp(16px, 2vw, 24px)" }}>
           {TRUSTED.map((t, i) => (
-            <motion.div
+            <motion.a
               key={t.title}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.08 * i, ease: [0.22,1,0.36,1] }}
+              href={t.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="ifs-trusted-card"
               style={{
                 display: "flex",
                 flexDirection: "column",
+                textDecoration: "none",
                 padding: "clamp(24px, 2.8vw, 32px)",
                 borderRadius: 18,
                 background: `linear-gradient(165deg, ${IFS_BG_CARD} 0%, ${IFS_BG_INNER} 100%)`,
@@ -1771,27 +1645,62 @@ function TrustedSection() {
                 boxShadow: `0 18px 44px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)`,
               }}
             >
-              <span aria-hidden style={{
-                display: "inline-flex", alignItems: "center", justifyContent: "center",
-                width: 46, height: 46, borderRadius: 12,
-                background: `linear-gradient(135deg, ${IFS_LIGHT_BLUE}30 0%, ${IFS_LIGHT_BLUE}10 100%)`,
-                border: `1px solid ${IFS_LIGHT_BLUE}44`,
-                color: IFS_LIGHT_BLUE,
-                marginBottom: 18,
+              <div style={{
+                position: "relative",
+                borderRadius: 12,
+                overflow: "hidden",
+                aspectRatio: "16 / 10",
+                marginBottom: 20,
+                border: `1px solid ${IFS_BORDER}`,
+                background: IFS_BG_INNER,
               }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <polyline points="14 2 14 8 20 8" />
-                  <line x1="8" y1="13" x2="15" y2="13" /><line x1="8" y1="17" x2="13" y2="17" />
-                </svg>
-              </span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={t.image}
+                  alt={t.alt}
+                  loading="lazy"
+                  decoding="async"
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+                />
+                {/* The same wash the rest of the page's imagery carries, so a
+                    daylight stock shot still sits in the purple scheme. */}
+                <div aria-hidden style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: `linear-gradient(160deg, ${IFS_PURPLE}26 0%, transparent 55%, rgba(23,4,48,0.42) 100%)`,
+                }} />
+              </div>
               <h3 style={{ margin: 0, fontFamily: "var(--font-display)", fontSize: "clamp(16.5px, 1.4vw, 19px)", fontWeight: 800, letterSpacing: "-0.018em", color: IFS_WHITE, lineHeight: 1.3 }}>
                 {t.title}
               </h3>
               <p style={{ margin: "12px 0 0", fontFamily: "var(--font-outfit)", fontSize: "clamp(13.5px, 1vw, 14.5px)", color: IFS_MUTE, lineHeight: 1.65 }}>
                 {t.body}
               </p>
-            </motion.div>
+              {/* marginTop:auto pins this to the foot of every card, so the
+                  three line up although their titles run to different depths. */}
+              <span className="ifs-trusted-cta" style={{
+                marginTop: "auto",
+                paddingTop: 18,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 7,
+                fontFamily: "var(--font-outfit)",
+                fontSize: 13.5,
+                fontWeight: 600,
+                color: IFS_LIGHT_BLUE,
+              }}>
+                Know more
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                </svg>
+                <span style={{
+                  position: "absolute", width: 1, height: 1, padding: 0, margin: -1,
+                  overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap", border: 0,
+                }}>
+                  on ifs.com, opens in a new tab
+                </span>
+              </span>
+            </motion.a>
           ))}
         </div>
       </div>
@@ -1799,8 +1708,201 @@ function TrustedSection() {
       <style jsx global>{`
         .ifs-trusted-card { transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), border-color 0.35s ease; }
         .ifs-trusted-card:hover { transform: translateY(-4px); border-color: ${IFS_LIGHT_BLUE}77; }
+        .ifs-trusted-cta { transition: gap 0.3s cubic-bezier(0.22,1,0.36,1); }
+        .ifs-trusted-card:hover .ifs-trusted-cta { gap: 11px; }
+        .ifs-trusted-card:focus-visible { outline: 2px solid ${IFS_LIGHT_BLUE}; outline-offset: 3px; }
         @media (max-width: 980px) { .ifs-trusted-grid { grid-template-columns: 1fr 1fr !important; } }
         @media (max-width: 680px) { .ifs-trusted-grid { grid-template-columns: 1fr !important; } }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── Customer Stories ────────────────────────────────────────────────────────
+function CustomerStoriesSection() {
+  const ref = useRef<HTMLElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <section ref={ref} id="customers" className="ifs-section" style={{ background: "transparent", padding: `${SECTION_PAD} 0`, position: "relative" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 clamp(20px, 4vw, 48px)" }}>
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.22,1,0.36,1] }}
+          style={{ marginBottom: HEADING_GAP }}
+        >
+          <DividerTitle
+            eyebrow="Customer Stories"
+            title={<>Powering complex projects across construction, engineering and <span style={{ color: IFS_PURPLE_GLOW }}>infrastructure</span></>}
+            accent={IFS_GREEN}
+            maxWidth={860}
+          />
+        </motion.div>
+
+        <div className="ifs-trusted-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "clamp(16px, 2vw, 24px)" }}>
+          {CUSTOMER_STORIES.map((c, i) => (
+            <motion.a
+              key={c.name}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.08 * i, ease: [0.22,1,0.36,1] }}
+              href={c.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ifs-trusted-card"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                textDecoration: "none",
+                padding: "clamp(24px, 2.8vw, 32px)",
+                borderRadius: 18,
+                background: `linear-gradient(165deg, ${IFS_BG_CARD} 0%, ${IFS_BG_INNER} 100%)`,
+                border: `1px solid ${IFS_BORDER}`,
+                boxShadow: `0 18px 44px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)`,
+              }}
+            >
+              {/* Every mark is dark ink drawn for a light ground, so the plate
+                  stays white rather than the logos being forced to invert. */}
+              <div style={{
+                height: 160,
+                borderRadius: 12,
+                background: "#FFFFFF",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "18px 22px",
+                marginBottom: 20,
+              }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={c.logo}
+                  alt={`${c.name} logo`}
+                  loading="lazy"
+                  decoding="async"
+                  style={{ maxHeight: c.h, maxWidth: "100%", width: "auto", height: "auto", objectFit: "contain" }}
+                />
+              </div>
+
+              <span style={{
+                alignSelf: "flex-start",
+                padding: "5px 11px",
+                borderRadius: 999,
+                background: `${IFS_LIGHT_BLUE}1F`,
+                border: `1px solid ${IFS_LIGHT_BLUE}3D`,
+                color: IFS_LIGHT_BLUE,
+                fontFamily: "var(--font-outfit)",
+                fontSize: 10.5,
+                fontWeight: 700,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                marginBottom: 14,
+              }}>
+                Customer Case Study
+              </span>
+
+              <h3 style={{ margin: 0, fontFamily: "var(--font-display)", fontSize: "clamp(16.5px, 1.4vw, 19px)", fontWeight: 800, letterSpacing: "-0.018em", color: IFS_WHITE, lineHeight: 1.3 }}>
+                {c.name}
+              </h3>
+              <p style={{ margin: "10px 0 0", fontFamily: "var(--font-outfit)", fontSize: "clamp(13.5px, 1vw, 14.5px)", color: IFS_MUTE, lineHeight: 1.65 }}>
+                {c.body}
+              </p>
+
+              <span className="ifs-trusted-cta" style={{
+                marginTop: "auto",
+                paddingTop: 18,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 7,
+                fontFamily: "var(--font-outfit)",
+                fontSize: 13.5,
+                fontWeight: 600,
+                color: IFS_LIGHT_BLUE,
+              }}>
+                Find out more
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                </svg>
+                <span style={{
+                  position: "absolute", width: 1, height: 1, padding: 0, margin: -1,
+                  overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap", border: 0,
+                }}>
+                  on ifs.com, opens in a new tab
+                </span>
+              </span>
+            </motion.a>
+          ))}
+        </div>
+
+        {/* Outlined, not the green pill: green is the page's one conversion
+            colour and belongs to Reserve Seat, not to an outbound link. */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.3, ease: [0.22,1,0.36,1] }}
+          style={{ marginTop: "clamp(22px, 2.6vw, 32px)", display: "flex", justifyContent: "center" }}
+        >
+          <a
+            href={CUSTOMER_STORIES_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ifs-stories-cta"
+            style={{
+              position: "relative",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+              padding: "15px 32px",
+              borderRadius: 999,
+              border: `1px solid ${IFS_LIGHT_PURPLE}59`,
+              color: IFS_WHITE,
+              background: `linear-gradient(135deg, ${IFS_PURPLE} 0%, ${IFS_DARK_PURPLE} 100%)`,
+              boxShadow: `0 14px 34px rgba(132,39,226,0.38), inset 0 1px 0 rgba(255,255,255,0.24)`,
+              fontFamily: "var(--font-outfit)",
+              fontSize: 14.5,
+              fontWeight: 700,
+              letterSpacing: "0.005em",
+              textDecoration: "none",
+              overflow: "hidden",
+            }}
+          >
+            View more Customer Stories
+            <svg className="ifs-stories-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+            </svg>
+            <span style={{
+              position: "absolute", width: 1, height: 1, padding: 0, margin: -1,
+              overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap", border: 0,
+            }}>
+              on ifs.com, opens in a new tab
+            </span>
+          </a>
+        </motion.div>
+      </div>
+
+      <style jsx global>{`
+        .ifs-stories-cta { transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.22,1,0.36,1); }
+        /* A sheen that crosses the pill on hover — the same glass idiom the
+           rest of the page uses, rather than a flat colour swap. */
+        .ifs-stories-cta::before {
+          content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 42%;
+          background: linear-gradient(100deg, transparent, rgba(255,255,255,0.3), transparent);
+          transform: translateX(-190%) skewX(-18deg);
+          transition: transform 0.75s cubic-bezier(0.22,1,0.36,1);
+          pointer-events: none;
+        }
+        .ifs-stories-cta:hover {
+          border-color: ${IFS_LIGHT_PURPLE};
+          box-shadow: 0 20px 44px rgba(132,39,226,0.5), inset 0 1px 0 rgba(255,255,255,0.34);
+          transform: translateY(-2px);
+        }
+        .ifs-stories-cta:hover::before { transform: translateX(330%) skewX(-18deg); }
+        .ifs-stories-arrow { transition: transform 0.35s cubic-bezier(0.22,1,0.36,1); }
+        .ifs-stories-cta:hover .ifs-stories-arrow { transform: translate(3px, -3px); }
+        .ifs-stories-cta:focus-visible { outline: 2px solid ${IFS_LIGHT_PURPLE}; outline-offset: 3px; }
+        @media (prefers-reduced-motion: reduce) {
+          .ifs-stories-cta, .ifs-stories-cta::before, .ifs-stories-arrow { transition: none; }
+        }
       `}</style>
     </section>
   );
@@ -2449,13 +2551,12 @@ export default function IfsCoreEngineeringPage() {
       <div style={{ position: "relative", zIndex: 1 }}>
         <IfsNav />
         <HeroSection />
-        <OverviewSection />
         <ChallengesSection />
         <SegmentsSection />
         <SolutionsSection />
-        <ServicesSection />
         <MetricsSection />
         <TrustedSection />
+        <CustomerStoriesSection />
         <AgendaAndFormSection />
         <IfsFooter />
       </div>
