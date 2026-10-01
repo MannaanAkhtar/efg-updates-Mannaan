@@ -8,10 +8,12 @@ const OG_IMAGE =
   "https://images.unsplash.com/photo-1748027869634-fc2e545cfb0c?w=1200&q=82";
 
 export const metadata: Metadata = {
+  // The headline leads, but the Property & Facilities phrasing stays in the
+  // title — it is what the page is actually searched for.
   title:
-    "Property and Facilities Management Software Solutions | IFS Executive Roundtable · 21 October 2026",
+    "From Operational Complexity to Service Excellence | IFS Property & Facilities Roundtable · 21 October 2026",
   description:
-    "An IFS executive roundtable for Property and Facilities Services leaders at the Hilton Jeddah on 21 October 2026: integrated software that streamlines operations, optimizes maintenance and enhances service delivery across a property portfolio.",
+    "An IFS executive roundtable for Property and Facilities Services leaders at the Hilton Jeddah on 21 October 2026. Discover how leading organizations are leveraging AI, intelligent asset management and connected service operations to improve efficiency, elevate customer experiences and unlock new levels of operational excellence.",
   keywords: [
     "IFS",
     "IFS Cloud",
@@ -29,9 +31,9 @@ export const metadata: Metadata = {
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title:
-      "Property and Facilities Management Software Solutions — IFS Executive Roundtable, 21 October 2026",
+      "From Operational Complexity to Service Excellence — IFS Executive Roundtable, 21 October 2026",
     description:
-      "Streamline operations, optimize maintenance and enhance service delivery across a property portfolio. An exclusive IFS executive roundtable for Property and Facilities Services leaders.",
+      "Discover how leading organizations are leveraging AI, intelligent asset management and connected service operations to improve efficiency, elevate customer experiences and unlock new levels of operational excellence.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [
@@ -48,9 +50,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
-    title: "Property and Facilities Management Software Solutions — IFS Executive Roundtable",
+    title: "From Operational Complexity to Service Excellence — IFS Executive Roundtable",
     description:
-      "21 October 2026. Streamline operations, optimize maintenance and enhance service delivery across a property portfolio.",
+      "21 October 2026. How AI, intelligent asset management and connected service operations improve efficiency and elevate customer experiences.",
     images: [OG_IMAGE],
   },
 };
