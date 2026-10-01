@@ -24,7 +24,7 @@ export default function ConditionalNavigation() {
     pathname?.startsWith("/beyond-automation-by-clevertap") ||
     pathname?.startsWith("/bigleap") ||
     pathname?.startsWith("/seagate") ||
-    pathname?.startsWith("/outsystems-blackstone") ||
+    pathname?.startsWith("/outsystems") ||
     pathname?.startsWith("/blackstone-liferay") ||
     pathname?.startsWith("/algosec") ||
     pathname?.startsWith("/proofpoint") ||
