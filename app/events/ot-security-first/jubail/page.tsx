@@ -4553,11 +4553,23 @@ function AdvisorsSection() {
 // instead of needing a white plate of its own. Only safe on flat, one-colour
 // logos — it would strip the palette from anything multi-coloured.
 type SponsorLogo = { name: string; logo: string; href?: string; id?: string; surface?: "light" | "dark"; fillWidth?: boolean; scale?: number; whiten?: boolean };
-const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[] }[] = [
+// pyramid → the first logo takes a row of its own and the rest sit beneath it,
+// so a tier can lead with one name without demoting the others to a smaller
+// plate.
+const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[]; pyramid?: boolean }[] = [
   {
     tier: "Platinum Sponsor",
+    pyramid: true,
     logos: [
       { name: "DSShield", href: "https://www.dsshield.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/DSShield_idT8atTA8b_0.png" },
+      // Both sit on the dark plate with DSShield. Nozomi is supplied in its
+      // positive colourway, so its grey "NETWORKS" runs dimmer than the cyan
+      // above it. Trellix uses the reversed lockup, which lives at the bucket
+      // root rather than under sponsors-logo/. That file carries cutout noise
+      // through the letterforms at its native 2170px; it averages away once
+      // the plate draws it at ~232px.
+      { name: "Nozomi Networks", href: "https://www.nozominetworks.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/nozomi-networks.png" },
+      { name: "Trellix", href: "https://www.trellix.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/trellix-white.png" },
     ],
   },
   {
@@ -4721,7 +4733,9 @@ function SponsorsSection() {
             // row centred, so a short last row sits under a full one (6 → 4+2,
             // 7 → 4+3). With 3, the last logo sits alone above the other two.
             const isMediaTier = t.tier === "Media Partners";
-            const rows: SponsorLogo[][] = !isMediaTier
+            const rows: SponsorLogo[][] = t.pyramid && t.logos.length > 1
+              ? [[t.logos[0]], t.logos.slice(1)]
+              : !isMediaTier
               ? [t.logos]
               : t.logos.length === 3
               ? [[t.logos[t.logos.length - 1]], t.logos.slice(0, -1)]
