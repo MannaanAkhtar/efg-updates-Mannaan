@@ -743,9 +743,16 @@ const ADVISORS: Person[] = [
   {
     name: "Abdulla Abdullayev",
     title: "Head of Information Security",
-    org: "MNDC Group",
+    org: "NMDC Group",
     photo: `${S3}/Speakers-photos/Abdulla+Abdullayev%2C.jpg`,
     linkedin: "https://www.linkedin.com/in/abuyv/",
+  },
+  {
+    name: "Dr. Alok Tuteja",
+    title: "Board Director & Audit Committee Chair",
+    org: "ISACA UAE",
+    photo: `${S3}/Speakers-photos/Alok+Tuteja1.png`,
+    linkedin: "https://www.linkedin.com/in/alok-tuteja-a354174/",
   },
 ];
 
@@ -981,7 +988,10 @@ function AdvisorsAndSpeakers() {
       <div id="advisors" style={{ scrollMarginTop: 120 }}>
         <BandLabel label="Advisors" accent={GOLD} inView={inView} delay={0.12} />
         <div className="uae-band">
-        {advCols < 4 && <BandMark label="Advisors" accent={GOLD} left={advCols * 300 + 40} />}
+        {/* The mark is pinned left AND right:0, so the cards decide how much
+            room it gets. At the 1200px breakpoint the band is ~1210px and the
+            word needs ~480px, which a third card no longer leaves. */}
+        {advCols < 3 && <BandMark label="Advisors" accent={GOLD} left={advCols * 300 + 40} />}
         <div className="uae-advisors-grid" style={{ maxWidth: advCols * 300 }}>
           {ADVISORS.map((p, i) => (
             <PersonCard key={p.name} p={p} index={i} inView={inView} role="Advisor" accent={GOLD} />
@@ -994,7 +1004,7 @@ function AdvisorsAndSpeakers() {
       <div style={{ marginTop: "clamp(38px,4.4vw,62px)" }}>
         <BandLabel label="Speakers" accent={C_BRIGHT} inView={inView} delay={0.2} />
         <div className="uae-band">
-        {spkCols < 5 && <BandMark label="Speakers" accent={C} left={spkCols * 300 + 40} />}
+        {spkCols < 3 && <BandMark label="Speakers" accent={C} left={spkCols * 300 + 40} />}
         <div className="uae-speakers-grid" style={{ maxWidth: spkCols * 300 }}>
           {SPEAKERS.map((p, i) => (
             <PersonCard key={p.name} p={p} index={i} inView={inView} role="Speaker" accent={C_BRIGHT} />
