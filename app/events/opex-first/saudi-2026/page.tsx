@@ -237,7 +237,8 @@ const SPEAKERS: Speaker[] = [
   // Cut-out portrait on a transparent background; the supplied backdrop
   // colour stands in for the studio grey the other headshots have.
   { name: "Odeh Mahmoud", title: "CEO", org: "Cyborg Automation", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Odeh+Mahmoud.png", photoBg: "#69686C", linkedin: "https://www.linkedin.com/in/odeh-mahmoud/" },
-  { name: "Meshaal Almanie", title: "Executive Director of Operations", org: "Saudi Water Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Meshaal+Almanie1.png", linkedin: "https://www.linkedin.com/in/meshaal-almanie/" },
+  { name: "Meshaal Almanie", title: "Executive Director of Operations", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Meshaal+Almanie1.png", linkedin: "https://www.linkedin.com/in/meshaal-almanie/" },
+  { name: "Eng. Ahmed M. Khayyat", title: "GM, Corporate Operational Excellence", org: "Saudia Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng.+Ahmed+M.+Khayyat.jpeg", linkedin: "https://www.linkedin.com/in/ahkhayyat/" },
 ];
 
 type AgendaItem = {
