@@ -749,7 +749,7 @@ const ADVISORS: Person[] = [
   },
   {
     name: "Dr. Alok Tuteja",
-    title: "Board Director & Audit Committee Chair",
+    title: "President of the Board of Directors",
     org: "ISACA UAE",
     photo: `${S3}/Speakers-photos/Alok+Tuteja1.png`,
     linkedin: "https://www.linkedin.com/in/alok-tuteja-a354174/",
