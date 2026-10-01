@@ -63,7 +63,6 @@ type NFFormat = "virtual" | "physical";
 const networkFirstEvents: { href: string; label: string; date: string; format: NFFormat }[] = [
   { href: "https://globalevents.braze.com/register/grow-with-braze-dubai-26?utm_campaign=fy27-q3-apac-gcc-owned-field-gwb-dubai&utm_medium=telemarketing&utm_source=EFG&utm_content=event-gwb-dubai-2026-invite&utm_term=EFGagency", label: "Grow with Braze", date: "7 Oct", format: "physical" },
   { href: "/intwo", label: "Intwo", date: "8 Oct", format: "physical" },
-  { href: "/enterprisedb-egypt", label: "EnterpriseDB, Egypt", date: "13 Oct", format: "physical" },
   { href: "https://engage.unifyapps.com/rsvp/signature-lunch-dubai-october-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261013_MEA_OWNED_Lunch_SE_BFSI_Dubai", label: "UnifyApps · BFSI", date: "13 Oct", format: "physical" },
   { href: "/algosec", label: "AlgoSec", date: "13 Oct", format: "physical" },
   { href: "https://www.jedox.com/en/events/unlock-the-power-of-modern-fpa-2026/", label: "Jedox | PlanPulse", date: "14 Oct", format: "physical" },
@@ -80,6 +79,7 @@ const networkFirstEvents: { href: string; label: string; date: string; format: N
   // the listing cards.
   { href: "https://engage.unifyapps.com/rsvp/se-airlines-ports-energy-contracting-lunch-oct-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261021_MEA_OWNED_Dubai_SE_Lunch_Airlines_Ports_Energy_Contracting", label: "UnifyApps · Airlines, Ports & Energy", date: "21 Oct", format: "physical" },
   { href: "/enterprisedb-southafrica", label: "EnterpriseDB, South Africa", date: "12 Nov", format: "physical" },
+  { href: "/enterprisedb-egypt", label: "EnterpriseDB, Egypt", date: "16 Nov", format: "physical" },
   { href: "/enterprisedb-uae", label: "EnterpriseDB, UAE", date: "25 Nov", format: "physical" },
   // Postponed from 23 Sep — date TBA, so it sits after every dated boardroom.
   { href: "/proofpoint", label: "Proofpoint", date: "TBA", format: "physical" },

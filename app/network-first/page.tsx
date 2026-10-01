@@ -53,9 +53,9 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/intwo+logo.svg",
   },
   {
-    date: "October 13th, 2026",
-    month: "OCT",
-    day: "13",
+    date: "November 16th, 2026",
+    month: "NOV",
+    day: "16",
     year: "2026",
     time: "Time TBC · 180 min",
     title: "EnterpriseDB Executive Roundtable",
