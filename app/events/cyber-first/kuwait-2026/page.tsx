@@ -281,6 +281,15 @@ const SPEAKERS: Speaker[] = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sherry+John+Oommen+1.png",
     linkedin: "https://www.linkedin.com/in/sherry-john-oommen-61aa9212/",
   },
+  {
+    name: "Mohammed Ibrahim",
+    title: "Information Security Manager",
+    org: "Boubyan Takaful Insurance Company",
+    // The %C2%A0 before the 1 is a non-breaking space in the S3 key, not a
+    // typo to tidy up — the object 404s without it.
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Ibrahim%C2%A01.png",
+    linkedin: "https://www.linkedin.com/in/mohamed-ebraheem-5b5143128/",
+  },
 ];
 
 // Kuwait 2025 photos used for the gallery + Key Topic panels (verified S3 URLs).
