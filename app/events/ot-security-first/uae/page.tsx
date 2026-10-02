@@ -754,6 +754,13 @@ const ADVISORS: Person[] = [
     photo: `${S3}/Speakers-photos/Alok+Tuteja1.png`,
     linkedin: "https://www.linkedin.com/in/alok-tuteja-a354174/",
   },
+  {
+    name: "Irtiza Arain",
+    title: "MENA leader for Critical Infrastructure Cybersecurity",
+    org: "EY MENA",
+    photo: `${S3}/Speakers-photos/Irtiza+Arain.jpeg`,
+    linkedin: "https://www.linkedin.com/in/irtizaarain/",
+  },
 ];
 
 const SPEAKERS: Person[] = [

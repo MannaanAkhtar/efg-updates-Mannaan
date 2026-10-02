@@ -74,7 +74,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Wael A. Rahman", title: "Lead ICS/OT Security Engineer", org: "Petroleum Development Oman", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/WAEL+A.+RAHMAN.png", linkedin: "https://www.linkedin.com/in/wael-a-rahman/", flag: "https://flagcdn.com/w40/om.png" },
   { name: "Thamer Alrowidhan", title: "Chief Information Security Officer (CISO)", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Thamer_alrowidhan.png", linkedin: "https://www.linkedin.com/in/ethamer", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Aamir Khalid Pirzada", title: "Chief Information Officer", org: "National Metal Manufacturing and Casting Company (Maadaniyah)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Aamir+Khalid+Pirzada.jpg", linkedin: "https://www.linkedin.com/in/aamir-khalid-p-360a974/", flag: "https://flagcdn.com/w40/sa.png" },
-  { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png", flag: "https://flagcdn.com/w40/gb-eng.png" },
+  { name: "Irtiza Arain", title: "MENA leader for Critical Infrastructure Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza+Arain.jpeg", linkedin: "https://www.linkedin.com/in/irtizaarain/", flag: "https://flagcdn.com/w40/gb-eng.png" },
   { name: "Tahir Saleem", title: "Chief Innovation Officer", org: "SIS Industrial Cyber Security", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Tahir+Saleem.png", linkedin: "https://www.linkedin.com/in/tahirsaleem/", flag: "https://flagcdn.com/w40/au.png" },
   { name: "Mohammed Shoukat Ali", title: "GM & Head Global Cybersecurity CoE", org: "Yokogawa", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Shoukat+Ali.png", linkedin: "https://www.linkedin.com/in/mohammedshoukatali/", flag: "https://flagcdn.com/w40/jp.png" },
   { name: "Ammad Baig", title: "VP of Digital Solutions and OT Cybersecurity", org: "INTECH Automation and Intelligence", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ammad+Baig.png", linkedin: "https://www.linkedin.com/in/ammad-baig-86914053/", flag: "https://flagcdn.com/w40/sa.png" },
@@ -89,7 +89,7 @@ const ADVISORS: Speaker[] = [
   { name: "Ahmed Al-Barrak", title: "Head of OT Cyber Solutions & Services Group | Digital Transformation", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/magnific_make-the-backdrop-a-neutr_4RiXtKx9Aa.png", photoPos: "center 32%", photoTransform: "scale(1.18)", linkedin: "https://www.linkedin.com/in/ahmed-al-barrak-msc-b2122b60/" },
   { name: "Dr. Hussain Aldawood", title: "Director of Cybersecurity Consulting", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Hussain_Aldawood.png", linkedin: "https://www.linkedin.com/in/hussain-aldawood/", flag: "https://flagcdn.com/w40/gb-eng.png" },
   { name: "Redha Alahmad", title: "Senior Manager, Cybersecurity (OT/ICS)", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Redha_Alahmad..png", flag: "https://flagcdn.com/w40/gb-eng.png" },
-  { name: "Irtiza Arain", title: "Director, Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza_Arain.png", flag: "https://flagcdn.com/w40/gb-eng.png" },
+  { name: "Irtiza Arain", title: "MENA leader for Critical Infrastructure Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza+Arain.jpeg", linkedin: "https://www.linkedin.com/in/irtizaarain/", flag: "https://flagcdn.com/w40/gb-eng.png" },
 ];
 
 // ─── Awards ─────────────────────────────────────────────────────────────────
@@ -3220,7 +3220,7 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
           { name: "Mohammed Alangari", role: "CISO & VP of GRC", org: "Confidential Government Authority" },
           { name: "Yazed Alamam", role: "Associate Director – Subsidiary and OT Cybersecurity", org: "Red Sea Global" },
           { name: "Thamer Alrowidhan", role: "Chief Information Security Officer (CISO)", org: "Confidential Government" },
-          { name: "Irtiza Arain", role: "Director, Cybersecurity", org: "EY MENA", moderator: true },
+          { name: "Irtiza Arain", role: "MENA leader for Critical Infrastructure Cybersecurity", org: "EY MENA", moderator: true },
         ],
       },
     ],
