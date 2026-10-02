@@ -229,88 +229,147 @@ const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; 
   { name: "Sandamali Silva", title: "Information Security, IT Governance and Technology Risk Leader", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sandamali+Silva%E2%80%821.png", linkedin: "https://www.linkedin.com/in/sandamali-silva/" },
 ];
 
-// ─── Agenda — 17 rows (from PDF) ────────────────────────────────────────────
+// ─── Agenda ──────────────────────────────────────────────
+// `speakers` and `moderator` hold names only — the renderer resolves each one
+// against CFQ_SPEAKERS and ADVISORS, so a title or employer is edited in one
+// place and the agenda follows. A name with no match prints on its own, which
+// is what the unconfirmed moderators rely on.
 type AgendaRow = {
   start: string;
   end: string;
   segment: string;
   type: "logistics" | "welcome" | "keynote" | "panel" | "sponsor" | "break" | "fireside" | "awards" | "closing";
-  bullets?: string[];
+  desc?: string;
+  speakers?: string[];
+  moderator?: string;
 };
 
+const MODERATOR_TBC = "To be confirmed";
+
 const AGENDA: AgendaRow[] = [
-  { start: "08:00", end: "09:00", segment: "Registration, Networking & Refreshments", type: "logistics" },
-  { start: "09:00", end: "09:10", segment: "Welcome Address & Opening Remarks", type: "welcome" },
-  { start: "09:10", end: "09:20", segment: "Opening Keynote Address", type: "keynote" },
+  {
+    start: "08:00", end: "09:00",
+    segment: "Registration, Networking & Refreshments",
+    type: "logistics",
+    desc: "An opportunity for delegates, speakers, sponsors and industry leaders to connect before the summit begins.",
+  },
+  {
+    start: "09:00", end: "09:10",
+    segment: "Welcome Address & Opening Remarks",
+    type: "welcome",
+    desc: "Opening remarks introducing the event theme, key objectives, and the importance of advancing cyber resilience across Qatar’s digital economy.",
+  },
+  {
+    start: "09:10", end: "09:20",
+    segment: "Opening Keynote Address",
+    type: "keynote",
+    desc: "A strategic keynote exploring Qatar’s cybersecurity vision, national priorities, and the future of cyber resilience in an AI-driven economy.",
+  },
   {
     start: "09:20", end: "10:00",
-    segment: "Panel 1 · Securing Qatar's Digital Future Through Cyber Resilience, Innovation & Trust",
+    segment: "Panel 1 · Securing Qatar’s Digital Future Through Cyber Resilience, Innovation & Trust",
     type: "panel",
-    bullets: [
-      "Strengthening national cyber resilience in an AI-powered economy",
-      "Accelerating public-private collaboration for a secure digital future",
-      "Balancing innovation, governance, and cyber risk management",
-      "Addressing emerging threats across critical infrastructure and digital services",
-      "Building a cyber-aware culture and strengthening digital trust",
-    ],
+    desc: "Exploring how government and industry can strengthen national cyber resilience while enabling innovation, digital trust and secure economic growth.",
+    speakers: ["Khalid Ibrahim Lakdawala", "Ewald Müller", "Noureddine Bouhaddaoui", "Hugo Lopes"],
+    moderator: MODERATOR_TBC,
   },
-  { start: "10:00", end: "10:10", segment: "Technology Partner Presentation · Sponsor Session 1", type: "sponsor" },
-  { start: "10:10", end: "10:20", segment: "Technology Partner Presentation · Sponsor Session 2", type: "sponsor" },
-  { start: "10:20", end: "11:00", segment: "Networking Coffee Break & Exhibition Tour", type: "break" },
+  {
+    start: "10:00", end: "10:10",
+    segment: "Technology Partner Presentation · Sponsor Session 1",
+    type: "sponsor",
+    desc: "Showcasing innovative cybersecurity solutions and emerging technologies.",
+  },
+  {
+    start: "10:10", end: "10:20",
+    segment: "Technology Partner Presentation · Sponsor Session 2",
+    type: "sponsor",
+    desc: "Industry insights and practical approaches to addressing today’s evolving cyber challenges.",
+  },
+  {
+    start: "10:20", end: "11:00",
+    segment: "Networking Coffee Break & Exhibition Tour",
+    type: "break",
+    desc: "Connect with peers, explore sponsor showcases, and discover the latest cybersecurity innovations.",
+  },
   {
     start: "11:00", end: "11:40",
     segment: "Panel 2 · AI, Automation & Cyber Defense — Managing Opportunity and Risk",
     type: "panel",
-    bullets: [
-      "AI-powered threat detection and response",
-      "Securing Generative AI and Agentic AI",
-      "Responsible AI governance and risk management",
-      "AI-driven Security Operations Centers (SOC)",
-      "Preparing for next-generation AI threats",
-    ],
+    desc: "Examining how organizations can leverage AI to strengthen cyber defense while addressing emerging risks associated with Generative AI and autonomous systems.",
+    speakers: ["Meera Sahib Yoosoof Rasheen", "John Mankarios", "Hans W. Thomasz", "Vladimir Kanyshev"],
+    moderator: "Ozel Hurmuzlu",
   },
-  { start: "11:40", end: "11:50", segment: "Technology Partner Presentation · Sponsor Session 3", type: "sponsor" },
-  { start: "11:50", end: "12:00", segment: "Technology Partner Presentation · Sponsor Session 4", type: "sponsor" },
+  {
+    start: "11:40", end: "11:50",
+    segment: "Technology Partner Presentation · Sponsor Session 3",
+    type: "sponsor",
+    desc: "Technology showcase highlighting the latest advancements in cybersecurity.",
+  },
+  {
+    start: "11:50", end: "12:00",
+    segment: "Technology Partner Presentation · Sponsor Session 4",
+    type: "sponsor",
+    desc: "Real-world solutions for improving cyber resilience and operational security.",
+  },
   {
     start: "12:00", end: "12:40",
     segment: "Panel 3 · Protecting Critical Infrastructure — Strengthening IT, OT & Industrial Cybersecurity",
     type: "panel",
-    bullets: [
-      "IT/OT Convergence and Cyber Risk",
-      "Critical Infrastructure Protection",
-      "Industrial Control Systems (ICS) Security",
-      "Cyber Resilience for Energy and Utilities",
-      "Incident Response and Operational Continuity",
-    ],
+    desc: "Discussing strategies to secure critical infrastructure, industrial environments and operational technology against increasingly sophisticated cyber threats.",
+    speakers: ["Feroz Khan", "Bilal Rao", "Arslan Baig", "Aissa Touahria"],
+    moderator: "Ovais Ahmed",
   },
-  { start: "12:40", end: "12:50", segment: "Technology Partner Presentation · Sponsor Session 5", type: "sponsor" },
-  { start: "12:50", end: "13:00", segment: "Technology Partner Presentation · Sponsor Session 6", type: "sponsor" },
-  { start: "13:00", end: "13:30", segment: "Networking & Refreshment Break", type: "break" },
+  {
+    start: "12:40", end: "12:50",
+    segment: "Technology Partner Presentation · Sponsor Session 5",
+    type: "sponsor",
+    desc: "Sharing innovative cybersecurity capabilities for protecting critical infrastructure.",
+  },
+  {
+    start: "12:50", end: "13:00",
+    segment: "Technology Partner Presentation · Sponsor Session 6",
+    type: "sponsor",
+    desc: "Industry perspectives on strengthening resilience through advanced security technologies.",
+  },
+  {
+    start: "13:00", end: "13:30",
+    segment: "Networking & Refreshment Break",
+    type: "break",
+    desc: "An opportunity to continue conversations, network with industry peers, and visit the exhibition area.",
+  },
   {
     start: "13:30", end: "13:45",
     segment: "Fireside Chat · Data Protection & Digital Trust in an AI-Driven Economy",
     type: "fireside",
-    bullets: [
-      "Balancing innovation with data privacy",
-      "Building digital trust through effective data governance",
-      "Securing sensitive data across cloud and AI environments",
-      "Preparing for evolving data protection and regulatory requirements",
-    ],
+    desc: "An executive conversation on balancing innovation with privacy, data governance and digital trust in the age of AI.",
+    speakers: ["Farhan Chaudhry"],
+    moderator: "Amer Bazerbachi",
   },
   {
     start: "13:45", end: "14:25",
     segment: "Panel 4 · From Compliance to Cyber Resilience — Building Trust in a Connected Economy",
     type: "panel",
-    bullets: [
-      "Cyber governance and regulatory compliance",
-      "Zero Trust architecture",
-      "Cloud security and data protection",
-      "Resilience, recovery and crisis management",
-    ],
+    desc: "Exploring how organizations can move beyond compliance to build resilient, secure and trusted digital ecosystems.",
+    speakers: ["Christa Waegemann", "Farhan Chaudhry", "Mustafa Ünal Erten", "Sandamali Silva"],
+    moderator: MODERATOR_TBC,
   },
-  { start: "14:25", end: "14:45", segment: "Cyber First Qatar Awards & Recognition Ceremony · Raffle Draw", type: "awards" },
-  { start: "14:45", end: "14:50", segment: "Closing Remarks", type: "closing" },
-  { start: "14:50", end: "onwards", segment: "Networking Lunch", type: "logistics" },
+  {
+    start: "14:25", end: "14:45",
+    segment: "Cyber First Qatar Awards & Recognition Ceremony · Raffle Draw",
+    type: "awards",
+  },
+  {
+    start: "14:45", end: "14:50",
+    segment: "Closing Remarks",
+    type: "closing",
+    desc: "A summary of the day’s key insights and a look ahead at the future of cybersecurity collaboration in Qatar.",
+  },
+  {
+    start: "14:50", end: "onwards",
+    segment: "Networking Lunch",
+    type: "logistics",
+    desc: "Conclude the summit with informal networking and discussions among delegates, speakers, sponsors and partners.",
+  },
 ];
 
 // ─── The Cyber 7 — award categories ─────────────────────────────────
@@ -4939,6 +4998,12 @@ function Testimonials() {
 // ───────────────────────────────────────────────────────────────────────────
 // AGENDA
 // ───────────────────────────────────────────────────────────────────────────
+// Both lists are keyed by name; Feroz Khan sits in each with identical copy,
+// so the later entry simply overwrites an equal one.
+const AGENDA_PEOPLE = new Map<string, { title: string; org: string }>(
+  [...CFQ_SPEAKERS, ...ADVISORS].map((p) => [p.name, { title: p.title, org: p.org }]),
+);
+
 function Agenda() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -4955,6 +5020,42 @@ function Agenda() {
       case "closing":   return { tag: "Closing",            color: QATAR_BRIGHT };
       case "logistics": return { tag: "Logistics",          color: "rgba(255,255,255,0.5)" };
     }
+  };
+
+  // One speaker line. `role` marks the moderator; an unmatched name — the
+  // to-be-confirmed moderators — prints without a title.
+  const renderPerson = (name: string, color: string, isModerator = false) => {
+    const p = AGENDA_PEOPLE.get(name);
+    return (
+      <span
+        key={`${isModerator ? "mod-" : ""}${name}`}
+        style={{
+          fontFamily: "var(--font-outfit)",
+          fontSize: 11.5,
+          fontWeight: 400,
+          color: "rgba(255,255,255,0.5)",
+          lineHeight: 1.5,
+        }}
+      >
+        {isModerator && (
+          <span
+            style={{
+              fontSize: 9.5,
+              fontWeight: 700,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color,
+              marginRight: 7,
+            }}
+          >
+            Moderator
+          </span>
+        )}
+        {isModerator && " "}
+        <span style={{ color: p ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.6)", fontWeight: 600 }}>{name}</span>
+        {p && <> — {p.title}, {p.org}</>}
+      </span>
+    );
   };
 
   // Single agenda row renderer — used by both columns
@@ -5040,27 +5141,34 @@ function Agenda() {
             {row.segment}
           </span>
 
-          {row.bullets && row.bullets.length > 0 && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginTop: 6 }}>
-              {row.bullets.map((b) => (
-                <span
-                  key={b}
-                  style={{
-                    fontFamily: "var(--font-outfit)",
-                    fontSize: 11.5,
-                    fontWeight: 500,
-                    color: "rgba(255,255,255,0.78)",
-                    padding: "3px 10px",
-                    borderRadius: 999,
-                    background: `${ts.color}12`,
-                    border: `1px solid ${ts.color}30`,
-                    letterSpacing: "0.05px",
-                    lineHeight: 1.45,
-                  }}
-                >
-                  {b}
-                </span>
-              ))}
+          {row.desc && (
+            <span
+              style={{
+                fontFamily: "var(--font-outfit)",
+                fontSize: 12.5,
+                fontWeight: 400,
+                color: "rgba(255,255,255,0.58)",
+                lineHeight: 1.5,
+                letterSpacing: "0.05px",
+              }}
+            >
+              {row.desc}
+            </span>
+          )}
+
+          {(row.speakers?.length || row.moderator) && (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 3,
+                marginTop: 8,
+                paddingTop: 9,
+                borderTop: `1px solid ${ts.color}26`,
+              }}
+            >
+              {row.speakers?.map((n) => renderPerson(n, ts.color))}
+              {row.moderator && renderPerson(row.moderator, ts.color, true)}
             </div>
           )}
         </div>
