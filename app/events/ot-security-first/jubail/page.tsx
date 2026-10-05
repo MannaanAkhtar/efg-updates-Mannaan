@@ -82,6 +82,11 @@ const SPEAKERS: Speaker[] = [
   { name: "Faisal Althobaiti", title: "Sr. Cybersecurity and Digitalization Engineer", org: "Ma'aden", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Faisal+Althobaiti.png", linkedin: "https://www.linkedin.com/in/faisal-althobaiti-a4331090/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Dr. Godfrey Gaston MBE", title: "Cybersecurity Specialist", org: "swIDch", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Godfrey+Gaston.png", linkedin: "https://www.linkedin.com/in/godfrey-gaston-0b7861/", flag: "https://flagcdn.com/w40/gb.png" },
   { name: "Abdulrahman Al Musfir", title: "Regional Cybersecurity Officer - MEA", org: "Schneider Electric", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulrahman+Al+Musfir.png", linkedin: "https://www.linkedin.com/in/abdulrahman-al-musfir-69080063/", flag: "https://flagcdn.com/w40/sa.png" },
+  // No flag: nothing in the source material states his nationality and OPSWAT
+  // is US-headquartered, so none is asserted — same as Ahmed Al-Barrak.
+  { name: "Ahmed Abdelhamid", title: "Solution Engineer", org: "OPSWAT", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+Abdelhamid1.png", linkedin: "https://www.linkedin.com/in/ahmed-abdelhamid-baa91027/" },
+  { name: "Khalaf Alkhaldi", title: "CISO", org: "Confidential Entity", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khalaf+Alkhaldi1.png", linkedin: "https://www.linkedin.com/in/khalaf-a-lkhaldi/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Mohammed Al-Ghamdi", title: "Executive VP Manufacturing", org: "Jubail Chemical Industries", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al-Ghamdi1.png", linkedin: "https://www.linkedin.com/in/mohammed-al-ghamdi-407451a5/", flag: "https://flagcdn.com/w40/sa.png" },
 ];
 
 // ─── Advisors ─────────────────────────────────────────────────────────────────
@@ -3071,6 +3076,8 @@ type AgendaRow = {
   desc?: string;
   speaker?: string;
   panelists?: AgendaPanelist[];
+  /** A break that falls inside a session's span rather than between sessions. */
+  pause?: boolean;
 };
 type AgendaBreak = { kind: "break"; time: string; label: string; desc?: string };
 type AgendaSession = { kind: "session"; serial: string; title: string; time: string; rows: AgendaRow[] };
@@ -3082,7 +3089,7 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
     kind: "session",
     serial: "01",
     title: "The Regulatory Imperative — Governing OT Security in the Kingdom",
-    time: "09:00 – 10:00",
+    time: "09:00 – 10:10",
     rows: [
       {
         time: "09:00 – 09:10",
@@ -3096,11 +3103,10 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
         title: "Reserved for Platinum Sponsor DSShield",
       },
       {
-        time: "09:25 – 10:00",
+        time: "09:25 – 10:10",
         type: "Panel Discussion",
         title: "GCC & Global Collaboration on OT Security: What Are the World's Leading Industrial Nations Doing and What Can Saudi Arabia Learn?",
         panelists: [
-          { name: "Badar Al Salehi", role: "Director General", org: "Oman National CERT, Ministry of Transport, Communications and Information Technology" },
           { name: "Ali Abdulla Hasan Alsadadi", role: "Chief of Information Technology", org: "Ministry of Oil & Environment Bahrain" },
           { name: "Hamoud Almohaya", role: "Head of GRC Cybersecurity", org: "Confidential Government" },
           { name: "Dr. Mohammad Dahman Alshehri", role: "Senior Advisor and CISO", org: "Confidential" },
@@ -3110,15 +3116,15 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
       },
     ],
   },
-  { kind: "break", time: "10:00 – 10:15", label: "Networking Break / VIP Exhibition Tour" },
+  { kind: "break", time: "10:10 – 10:40", label: "Networking Break / VIP Exhibition Tour" },
   {
     kind: "session",
     serial: "02",
     title: "The Threat Landscape — What Is Coming for Saudi Arabia's Industrial Sector",
-    time: "10:15 – 11:25",
+    time: "10:40 – 11:45",
     rows: [
       {
-        time: "10:15 – 11:00",
+        time: "10:40 – 11:25",
         type: "Panel Discussion",
         title: "Under Attack: Incident Response, Threat Detection & OT Resilience Across the Kingdom's Industrial Corridor",
         panelists: [
@@ -3132,14 +3138,14 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
         ],
       },
       {
-        time: "11:00 – 11:15",
+        time: "11:25 – 11:40",
         logo: `${AG_LOGOS}/swidch+logo+white.png`,
         logoScale: 1.3,
         title: "Reserved for Gold Sponsor SWIDCH",
         speaker: "Dr. Godfrey Gaston MBE, Cybersecurity Specialist, swIDch",
       },
       {
-        time: "11:15 – 11:25",
+        time: "11:40 – 11:45",
         logo: `${AG_LOGOS}/Yoko+logo-01.png`,
         title: "Reserved for Gold Sponsor Yokogawa",
         speaker: "Mohammed Shoukat Ali, GM & Head Global Cybersecurity CoE, Yokogawa",
@@ -3150,82 +3156,91 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
     kind: "session",
     serial: "03",
     title: "Securing the Infrastructure — Technology, Standards & Operational Practice",
-    time: "11:25 – 12:40",
+    time: "11:45 – 13:45",
     rows: [
       {
-        time: "11:25 – 11:35",
+        time: "11:45 – 11:55",
         logo: `${AG_LOGOS}/SIS+logo-03.png`,
         title: "Your AI Has Never Seen Your Plant",
         desc: "Building industrial intelligence below Level 3.5",
         speaker: "Tahir Saleem, Chief Innovation Officer, SIS Industrial Cybersecurity",
       },
       {
-        time: "11:35 – 11:45",
-        logo: `${AG_LOGOS}/schneider-electric-seeklogo.png`,
-        title: "Building an OT security operations capability: Lessons from Saudi Arabia's most critical facilities",
-        desc: "What a fit-for-purpose OT SOC looks like — detection engineering for industrial protocols, threat hunting in ICS environments, and integrating OT visibility into a national security operations programme.",
-        speaker: "Abdulrahman Al Musfir, Regional Cybersecurity Officer - MEA, Schneider Electric",
+        time: "11:55 – 12:05",
+        logo: `${AG_LOGOS}/Illumio_Logo_1.png`,
+        title: "Reserved for Gold Sponsor Illumio",
       },
       {
-        time: "11:45 – 11:55",
+        time: "12:05 – 12:15",
         type: "Keynote",
         title: "Topic TBC",
         speaker: "Eng. Ali Altamni, Senior Cybersecurity Leader, SABIC",
       },
       {
-        time: "11:55 – 12:05",
+        time: "12:15 – 12:25",
         type: "Keynote",
         title: "Topic TBC",
         speaker: "Faisal Althobaiti, Sr. Cybersecurity and Digitalization Engineer, Ma'aden",
       },
       {
-        time: "12:05 – 12:40",
+        time: "12:25 – 12:40",
+        logo: `${AG_LOGOS}/OPSWAT_logo_notag_white.png`,
+        title: "Clean Is Not the Same as Safe",
+        speaker: "Ahmed Abdelhamid, Solution Engineer, OPSWAT",
+      },
+      { pause: true, time: "12:40 – 13:00", title: "Networking Break" },
+      {
+        time: "13:00 – 13:45",
         type: "Panel Discussion",
         title: "Standards, procurement & supply chain: How do we build OT security into the fabric of Saudi industrial operations?",
         panelists: [
-          { name: "Javed A. Akbar", role: "Chief Governance, Risk (GRC), Insurance & Data Officer", org: "TASNEE" },
           { name: "Saad AlGarni", role: "Head of Cybersecurity", org: "Saudi Global Ports" },
-          { name: "Ali Alrushaid", role: "Chief Information Security Officer", org: "ASMO" },
+          { name: "Khalaf Alkhaldi", role: "CISO", org: "Confidential Entity" },
+          { name: "Mohammed Al-Ghamdi", role: "Executive VP Manufacturing", org: "Jubail Chemical Industries Co. (NAMA Chemicals Affiliate)" },
           { name: "Feras Alamri", role: "Cybersecurity Defense Director", org: "Riyadh Airports" },
           { name: "Redha Alahmad", role: "Senior Manager, Cybersecurity (OT/ICS)", org: "EY", moderator: true },
         ],
       },
     ],
   },
-  { kind: "break", time: "12:40 – 14:00", label: "Networking Luncheon" },
   {
     kind: "session",
     serial: "04",
     title: "The Road Ahead — Innovation, Collaboration & the Future of OT Security",
-    time: "14:00 – 15:30",
+    time: "13:45 – 15:40",
     rows: [
       {
-        time: "14:00 – 14:15",
-        type: "Keynote",
-        title: "AI, digital twins & predictive security: The next frontier of OT protection for Saudi Arabia's industrial sector",
-        desc: "How AI-driven anomaly detection, digital twin-based threat simulation, and predictive analytics are being deployed in oil & gas and petrochemical environments — and what the Kingdom's operators need to do to stay ahead.",
+        time: "13:45 – 14:00",
+        logo: `${AG_LOGOS}/schneider-electric-seeklogo.png`,
+        title: "Building an OT security operations capability: Lessons from Saudi Arabia's most critical facilities",
+        desc: "What a fit-for-purpose OT SOC looks like — detection engineering for industrial protocols, threat hunting in ICS environments, and integrating OT visibility into a national security operations programme.",
+        speaker: "Abdulrahman Al Musfir, Regional Cybersecurity Officer - MEA, Schneider Electric",
       },
       {
-        time: "14:15 – 14:30",
+        time: "14:00 – 14:15",
         type: "Keynote",
         title: "AI Beyond the Pilot: Building Secure and Resilient AI for Critical Infrastructure",
         speaker: "Ahmed T Alawami, Head of AI & Digital Transformation (Energy & Utilities), Saudi Energy",
       },
       {
-        time: "14:30 – 15:15",
+        time: "14:15 – 15:00",
         type: "Panel Discussion",
         title: "The KSA Dialogue: What must Saudi Arabia's oil & gas, petrochemical, and government sectors commit to in the next 12 months?",
         panelists: [
-          { name: "Sultan Alshammari", role: "Cyber Security Director", org: "National Infrastructure Fund (Infra)" },
           { name: "Mohammed Alangari", role: "CISO & VP of GRC", org: "Confidential Government Authority" },
           { name: "Yazed Alamam", role: "Associate Director – Subsidiary and OT Cybersecurity", org: "Red Sea Global" },
           { name: "Thamer Alrowidhan", role: "Chief Information Security Officer (CISO)", org: "Confidential Government" },
           { name: "Irtiza Arain", role: "MENA leader for Critical Infrastructure Cybersecurity", org: "EY MENA", moderator: true },
         ],
       },
+      {
+        time: "15:00 – 15:15",
+        type: "Awards",
+        title: "Awards Ceremony & Official Close",
+      },
+      { pause: true, time: "15:15 – 15:40", title: "Networking Luncheon" },
     ],
   },
-  { kind: "break", time: "15:15 – 15:30", label: "Official Close", desc: "Networking" },
 ];
 
 function AgendaTypeTag({ type }: { type: string }) {
@@ -3344,11 +3359,12 @@ function AgendaBlock({ block }: { block: AgendaBreak | AgendaSession }) {
           <div
             key={ri}
             style={{
-              padding: "24px clamp(26px, 2.8vw, 36px)",
+              padding: row.pause ? "15px clamp(26px, 2.8vw, 36px)" : "24px clamp(26px, 2.8vw, 36px)",
               borderTop: ri === 0 ? "none" : "1px solid rgba(255,255,255,0.055)",
+              background: row.pause ? "rgba(255,255,255,0.02)" : undefined,
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 11, marginBottom: 12, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 11, marginBottom: row.pause ? 0 : 12, flexWrap: "wrap" }}>
               <span
                 style={{
                   fontFamily: "var(--font-outfit)",
@@ -3366,7 +3382,11 @@ function AgendaBlock({ block }: { block: AgendaBreak | AgendaSession }) {
               >
                 {row.time}
               </span>
-              {row.logo ? (
+              {row.pause ? (
+                <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.5)" }}>
+                  {row.title}
+                </span>
+              ) : row.logo ? (
                 <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
                   <img
                     src={row.logo}
@@ -3378,9 +3398,11 @@ function AgendaBlock({ block }: { block: AgendaBreak | AgendaSession }) {
                 <AgendaTypeTag type={row.type} />
               ) : null}
             </div>
-            <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(15px, 1.3vw, 16.5px)", fontWeight: 600, color: "rgba(255,255,255,0.95)", lineHeight: 1.42, letterSpacing: "-0.2px", margin: "0 0 8px" }}>
-              {row.title}
-            </p>
+            {row.pause ? null : (
+              <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(15px, 1.3vw, 16.5px)", fontWeight: 600, color: "rgba(255,255,255,0.95)", lineHeight: 1.42, letterSpacing: "-0.2px", margin: "0 0 8px" }}>
+                {row.title}
+              </p>
+            )}
             {row.desc ? (
               <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.58)", lineHeight: 1.68, margin: 0, maxWidth: 620 }}>
                 {row.desc}
@@ -3468,7 +3490,7 @@ function AgendaSection() {
               margin: 0,
             }}
           >
-            27 October 2026 &nbsp;·&nbsp; Jubail, Saudi Arabia &nbsp;·&nbsp; 09:00 – 15:30
+            27 October 2026 &nbsp;·&nbsp; Jubail, Saudi Arabia &nbsp;·&nbsp; 09:00 – 15:40
           </motion.p>
         </div>
 
@@ -4570,6 +4592,10 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[]; pyramid?: boolean }[]
       // the plate draws it at ~232px.
       { name: "Nozomi Networks", href: "https://www.nozominetworks.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/nozomi-networks.png" },
       { name: "Trellix", href: "https://www.trellix.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/trellix-white.png" },
+      // White wordmark with a blue mark, so it stays on the dark plate and must
+      // not be whitened. No scale: the lockup is 5.9:1, so plate width binds
+      // before maxHeight does, and scale is a transform the plate clips.
+      { name: "Kiteworks", href: "https://www.kiteworks.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/kiteworks-logo-1.svg" },
     ],
   },
   {
@@ -4581,6 +4607,14 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[]; pyramid?: boolean }[]
       // Orange mark beside a white wordmark, so it stays on the dark plate —
       // a light plate would lose the wordmark and whiten would kill the orange.
       { name: "Illumio", href: "https://www.illumio.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Illumio_Logo_1.png" },
+    ],
+  },
+  {
+    tier: "Strategic OT Security & Resilience Sponsor",
+    logos: [
+      // Already the white colourway of the wordmark, so it reads on the dark
+      // plate without a light surface or whiten.
+      { name: "Resilience", href: "https://resilience.sa/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/resilience+English+Logo+White-01.png" },
     ],
   },
   {
@@ -4615,6 +4649,14 @@ const SPONSOR_TIERS: { tier: string; logos: SponsorLogo[]; pyramid?: boolean }[]
       // only a 846x215 band, so fillWidth clips the vertical padding. Red mark
       // with a white wordmark — dark plate, no whiten.
       { name: "TXOne Networks", fillWidth: true, href: "https://www.txone.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/TXOne+LOGO-3.png" },
+    ],
+  },
+  {
+    tier: "Networking Partners",
+    logos: [
+      // Navy mark and wordmark on transparent, so it needs the light plate to
+      // read — same treatment as ProSecure ME.
+      { name: "SEL", surface: "light", href: "https://www.selinc.com/", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/SEL_Logo-Stacked.png" },
     ],
   },
   {
