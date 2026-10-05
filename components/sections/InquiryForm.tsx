@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
+import { submitForm, isWorkEmail, isValidEmail, normalizePhoneDigits, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
 import type { FormType, CountryCode } from "@/lib/form-helpers";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -201,6 +201,12 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
     e.preventDefault();
     setSubmitting(true);
     setFormError(null);
+
+    if (formData.email && !isValidEmail(formData.email)) {
+      setEmailError("Please enter a valid email address");
+      setSubmitting(false);
+      return;
+    }
 
     if (formData.email && !isWorkEmail(formData.email)) {
       setEmailError("Please use your work email address");
@@ -591,7 +597,15 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                                   onChange={(e) => {
                                     const [code, country] = e.target.value.split("|");
                                     const c = COUNTRY_CODES.find((cc) => cc.code === code && cc.country === country);
-                                    if (c) { setSelectedCountry(c); setPhoneError(null); }
+                                    if (!c) return;
+                                    setSelectedCountry(c);
+                                    // The number already in the box was capped
+                                    // to the old country's length, so re-cap it
+                                    // and re-check it against the new one.
+                                    const current = formData[field.name] || "";
+                                    const recapped = normalizePhoneDigits(current, c);
+                                    if (recapped !== current) handleChange(field.name, recapped);
+                                    setPhoneError(recapped ? validatePhone(recapped, c) : null);
                                   }}
                                   style={{ ...inputStyle, width: 120, flexShrink: 0, appearance: "none", cursor: "pointer" }}
                                 >
@@ -604,13 +618,25 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                                 <input
                                   suppressHydrationWarning
                                   type="tel"
+                                  inputMode="numeric"
+                                  autoComplete="tel-national"
                                   value={formData[field.name] || ""}
-                                  onChange={(e) => { handleChange(field.name, e.target.value); setPhoneError(null); }}
+                                  onChange={(e) => {
+                                    // No maxLength on the input: it counts raw
+                                    // characters, so it truncated anyone who
+                                    // typed the spaces the placeholder shows.
+                                    handleChange(field.name, normalizePhoneDigits(e.target.value, selectedCountry));
+                                    setPhoneError(null);
+                                  }}
                                   placeholder={selectedCountry.placeholder}
-                                  maxLength={selectedCountry.length}
+                                  aria-invalid={!!phoneError}
                                   style={{ ...inputStyle, flex: 1 }}
                                   onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(232,101,26,0.3)"; }}
-                                  onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}
+                                  onBlur={(e) => {
+                                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
+                                    const v = formData[field.name] || e.currentTarget.value;
+                                    if (v) setPhoneError(validatePhone(v, selectedCountry));
+                                  }}
                                 />
                               </div>
                               {phoneError && <p style={{ color: "#ef4444", fontSize: 11, margin: "4px 0 0" }}>{phoneError}</p>}
@@ -630,10 +656,13 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                                 required
                                 style={inputStyle}
                                 onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(232,101,26,0.3)"; }}
+                                aria-invalid={!!emailError}
                                 onBlur={(e) => {
                                   e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
                                   const val = formData[field.name] || e.currentTarget.value;
-                                  if (val && !isWorkEmail(val)) { setEmailError("Please use your work email address"); }
+                                  if (!val) return;
+                                  if (!isValidEmail(val)) setEmailError("Please enter a valid email address");
+                                  else if (!isWorkEmail(val)) setEmailError("Please use your work email address");
                                 }}
                               />
                               {emailError && <p style={{ color: "#ef4444", fontSize: 11, margin: "4px 0 0" }}>{emailError}</p>}

@@ -49,6 +49,43 @@ const FREE_EMAIL_DOMAINS = [
   "tempmail.com",
 ];
 
+/**
+ * Format check, deliberately separate from isWorkEmail (which only rejects
+ * free providers). Requires a local part, a domain, and a 2+ letter TLD, so
+ * "ateeq@company" and "a@b.c" are both rejected - the browser's own
+ * type="email" validation accepts those.
+ */
+export function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[A-Za-z]{2,}$/.test(email.trim());
+}
+
+/**
+ * Hold a phone box to its country's digit count.
+ *
+ * Separators are dropped rather than counted, because the per-country
+ * placeholders are formatted ("50 123 4567" is 11 characters for 9 digits) and
+ * a raw maxLength on the input truncated anyone who typed what the placeholder
+ * showed them. Capping digits here instead means the visible value and
+ * validatePhone always agree.
+ *
+ * Once the digits overflow the country's length, a leading dial code or a
+ * national trunk 0 is the likely cause - someone pasted a full international
+ * number - so those are stripped before the cap applies.
+ */
+export function normalizePhoneDigits(value: string, country: CountryCode): string {
+  let d = value.replace(/\D/g, "");
+  const dial = country.code.replace(/\D/g, "");
+  if (d.length > country.length && d.startsWith("00" + dial)) {
+    d = d.slice(2 + dial.length);
+  } else if (d.length > country.length && d.startsWith(dial)) {
+    d = d.slice(dial.length);
+  }
+  if (d.length > country.length && d.startsWith("0")) {
+    d = d.replace(/^0+/, "");
+  }
+  return d.slice(0, country.length);
+}
+
 export function isWorkEmail(email: string): boolean {
   const domain = email.split("@")[1]?.toLowerCase();
   if (!domain) return false;
@@ -99,9 +136,9 @@ export const COUNTRY_CODES: CountryCode[] = [
   { code: "+267", country: "BW", name: "Botswana", length: 8, placeholder: "71 123 456" },
   { code: "+55", country: "BR", name: "Brazil", length: 11, placeholder: "11 96123 4567" },
   { code: "+673", country: "BN", name: "Brunei", length: 7, placeholder: "712 3456" },
-  { code: "+359", country: "BG", name: "Bulgaria", length: 9, placeholder: "48 123 456" },
+  { code: "+359", country: "BG", name: "Bulgaria", length: 9, placeholder: "48 123 4567" },
   // C
-  { code: "+855", country: "KH", name: "Cambodia", length: 9, placeholder: "91 234 567" },
+  { code: "+855", country: "KH", name: "Cambodia", length: 9, placeholder: "91 234 5678" },
   { code: "+237", country: "CM", name: "Cameroon", length: 9, placeholder: "671 23 45 67" },
   { code: "+1", country: "CA", name: "Canada", length: 10, placeholder: "204 234 5678" },
   { code: "+56", country: "CL", name: "Chile", length: 9, placeholder: "9 1234 5678" },
@@ -123,7 +160,7 @@ export const COUNTRY_CODES: CountryCode[] = [
   { code: "+251", country: "ET", name: "Ethiopia", length: 9, placeholder: "91 123 4567" },
   // F
   { code: "+679", country: "FJ", name: "Fiji", length: 7, placeholder: "701 2345" },
-  { code: "+358", country: "FI", name: "Finland", length: 10, placeholder: "41 2345678" },
+  { code: "+358", country: "FI", name: "Finland", length: 10, placeholder: "41 23456789" },
   { code: "+33", country: "FR", name: "France", length: 9, placeholder: "6 12 34 56 78" },
   // G
   { code: "+995", country: "GE", name: "Georgia", length: 9, placeholder: "555 12 34 56" },
@@ -137,7 +174,7 @@ export const COUNTRY_CODES: CountryCode[] = [
   { code: "+36", country: "HU", name: "Hungary", length: 9, placeholder: "20 123 4567" },
   // I
   { code: "+354", country: "IS", name: "Iceland", length: 7, placeholder: "611 1234" },
-  { code: "+62", country: "ID", name: "Indonesia", length: 11, placeholder: "812 345 678" },
+  { code: "+62", country: "ID", name: "Indonesia", length: 11, placeholder: "812 3456 7890" },
   { code: "+98", country: "IR", name: "Iran", length: 10, placeholder: "912 345 6789" },
   { code: "+964", country: "IQ", name: "Iraq", length: 10, placeholder: "791 234 5678" },
   { code: "+353", country: "IE", name: "Ireland", length: 9, placeholder: "85 012 3456" },
@@ -159,7 +196,7 @@ export const COUNTRY_CODES: CountryCode[] = [
   { code: "+352", country: "LU", name: "Luxembourg", length: 9, placeholder: "628 123 456" },
   // M
   { code: "+853", country: "MO", name: "Macau", length: 8, placeholder: "6612 3456" },
-  { code: "+60", country: "MY", name: "Malaysia", length: 10, placeholder: "12 345 6789" },
+  { code: "+60", country: "MY", name: "Malaysia", length: 10, placeholder: "12 3456 7890" },
   { code: "+960", country: "MV", name: "Maldives", length: 7, placeholder: "771 2345" },
   { code: "+356", country: "MT", name: "Malta", length: 8, placeholder: "9696 1234" },
   { code: "+52", country: "MX", name: "Mexico", length: 10, placeholder: "222 123 4567" },
@@ -168,7 +205,7 @@ export const COUNTRY_CODES: CountryCode[] = [
   { code: "+382", country: "ME", name: "Montenegro", length: 8, placeholder: "67 622 901" },
   { code: "+212", country: "MA", name: "Morocco", length: 9, placeholder: "650 123456" },
   { code: "+258", country: "MZ", name: "Mozambique", length: 9, placeholder: "82 123 4567" },
-  { code: "+95", country: "MM", name: "Myanmar", length: 9, placeholder: "9 212 3456" },
+  { code: "+95", country: "MM", name: "Myanmar", length: 9, placeholder: "9 2123 4567" },
   // N
   { code: "+264", country: "NA", name: "Namibia", length: 8, placeholder: "81 123 4567" },
   { code: "+977", country: "NP", name: "Nepal", length: 10, placeholder: "984 1234567" },

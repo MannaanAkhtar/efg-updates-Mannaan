@@ -51,6 +51,7 @@ const eventSeries = [
     color: "#7C3AED",
     editions: [
       { href: "/events/opex-first/saudi-2026", label: "Saudi Arabia" },
+      { href: "/events/opex-first/uae", label: "UAE" },
     ]
   },
 ];
@@ -97,7 +98,9 @@ const NF_GROUPS: { format: NFFormat; label: string }[] = [
 function regionOf(location: string): string | null {
   const l = location.toLowerCase();
   if (l.includes("riyadh") || l.includes("jubail") || l.includes("jeddah") || l.includes("dammam") || l.includes("saudi")) return "Saudi Arabia";
-  if (l.includes("dubai") || l.includes("abu dhabi") || l.includes("uae")) return "UAE";
+  // "united arab emirates" spelled out contains no "uae", so it needs its own
+  // test - an edition whose city is not yet announced carries the country name.
+  if (l.includes("dubai") || l.includes("abu dhabi") || l.includes("uae") || l.includes("united arab emirates")) return "UAE";
   if (l.includes("kuwait")) return "Kuwait";
   if (l.includes("doha") || l.includes("qatar")) return "Qatar";
   if (l.includes("muscat") || l.includes("oman")) return "Oman";

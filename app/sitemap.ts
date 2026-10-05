@@ -121,6 +121,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
+      url: `${BASE_URL}/events/opex-first/uae`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: `${BASE_URL}/events/opex-first/saudi-2026`,
       lastModified: new Date(),
       changeFrequency: "monthly",

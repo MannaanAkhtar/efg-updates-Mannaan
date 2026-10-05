@@ -386,6 +386,26 @@ const allEvents = [
     status: "open" as SeriesStatus,
   },
   {
+    id: "opex-first-uae",
+    category: "opex-first",
+    title: "OPEX First UAE",
+    tagline: "Agentic AI meets Operational Reality",
+    description:
+      "The UAE has committed to running 50% of government sectors, services and operations on Agentic AI within two years. The methods, the sequence and the governance that deliver it.",
+    color: "#7C3AED",
+    image:
+      "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80",
+    href: "/events/opex-first/uae",
+    date: "2027-01-20",
+    nextDate: "20 Jan 2027",
+    nextCity: "To be announced",
+    cityTBA: true,
+    editions: "1st Edition",
+    regions: "",
+    attendees: "Invited",
+    status: "soon" as SeriesStatus,
+  },
+  {
     id: "opex-first-saudi",
     category: "opex-first",
     title: "OPEX First Saudi",

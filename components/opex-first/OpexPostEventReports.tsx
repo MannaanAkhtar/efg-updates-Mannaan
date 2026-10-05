@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { POST_EVENT_REPORTS } from "./postEventReportsData";
+import { PUBLISHED_POST_EVENT_REPORTS } from "./postEventReportsData";
 
 const VIOLET = "#7C3AED";
 const VIOLET_BRIGHT = "#9F67FF";
@@ -143,7 +143,7 @@ export default function OpexPostEventReports({
             margin: "0 auto",
           }}
         >
-          {POST_EVENT_REPORTS.map((report, i) => (
+          {PUBLISHED_POST_EVENT_REPORTS.map((report, i) => (
             <motion.button
               key={report.url}
               type="button"

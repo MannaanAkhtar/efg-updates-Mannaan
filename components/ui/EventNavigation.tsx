@@ -232,6 +232,26 @@ const EVENT_CONFIGS: Record<string, {
       { href: "#register", label: "Register" },
     ],
   },
+  "/events/opex-first/uae": {
+    name: "OPEX First UAE 2027",
+    shortName: "OPEX First UAE",
+    color: "#7C3AED",
+    colorBright: "#B79CFF",
+    date: "20 Jan 2027",
+    location: "UAE",
+    logo: "/OPEX-FIRST-UAE-nav.png",
+    logoHeight: 64,
+    navLinks: [
+      { href: "#overview", label: "Overview" },
+      { href: "#figures", label: "Figures" },
+      { href: "#themes", label: "Themes" },
+      { href: "#agenda", label: "Agenda" },
+      { href: "#attend", label: "Attend" },
+      { href: "#sponsor", label: "Sponsor" },
+      { href: "#awards", label: "Awards" },
+      { href: "#register", label: "Register" },
+    ],
+  },
   "/events/opex-first/process-intelligence": {
     name: "Process Intelligence MENA",
     shortName: "PI MENA",
@@ -524,6 +544,7 @@ export default function EventNavigation() {
                   style={{
                     height: "var(--event-nav-logo-h, 70px)",
                     width: "auto",
+                    objectFit: "contain",
                     filter: logoFilter || "none",
                     display: "block",
                   }}

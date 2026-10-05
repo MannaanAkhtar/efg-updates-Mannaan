@@ -60,6 +60,7 @@ const events: Array<{ name: string; path: string; series: string }> = [
   { name: "Digital First", path: "/events/data-ai-first", series: "Digital First" },
   { name: "OPEX First", path: "/events/opex-first", series: "OPEX First" },
   { name: "OPEX First Saudi 2026", path: "/events/opex-first/saudi-2026", series: "OPEX First" },
+  { name: "OPEX First UAE 2027", path: "/events/opex-first/uae", series: "OPEX First" },
   { name: "OPEX First Process Intelligence MENA 2026", path: "/events/opex-first/process-intelligence", series: "OPEX First" },
 ];
 

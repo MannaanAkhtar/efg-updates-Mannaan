@@ -98,7 +98,7 @@ export default function CpdCertified({
           ) : (
             <div style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 14, padding: "clamp(22px,2.6vw,32px)", borderRadius: 22, background: "#ffffff", border: "1px solid rgba(20,34,54,0.1)", boxShadow: "0 24px 60px rgba(10,18,34,0.28)" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={logoUrl} alt={`${eventName} — CPD certified`} loading="lazy" decoding="async" style={{ width: "clamp(130px,15vw,180px)", height: "auto", display: "block" }} />
+              <img src={logoUrl} alt={`${eventName} — CPD certified`} loading="lazy" decoding="async" width={500} height={500} style={{ width: "clamp(130px,15vw,180px)", height: "auto", display: "block", aspectRatio: "1 / 1", objectFit: "contain" }} />
               <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "#E38B00" }}>Approved Provider</span>
             </div>
           )}

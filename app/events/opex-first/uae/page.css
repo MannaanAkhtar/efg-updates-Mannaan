@@ -1,0 +1,1897 @@
+/* ───────────────────────────────────────────────────────────────────────────
+   OPEX First UAE 2027 — page stylesheet.
+
+   This lives in a .css file rather than `<style jsx global>` on purpose. The
+   App Router does not server-render styled-jsx, so as a styled-jsx block all
+   of this shipped inside a JS chunk and was injected at hydration: the page
+   painted unstyled first and then restyled, worth 0.57 of cumulative layout
+   shift. As a real stylesheet Next hoists it into the route's render-blocking
+   <link>, so the first paint is already correct.
+
+   Every selector here is scoped to .opx-* (or to section.opx-sec), and every
+   keyframe is opx-* prefixed, so nothing escapes this route.
+
+   The tokens below mirror the constants of the same name at the top of
+   page.tsx, which are still used by the inline styles there. Change one and
+   change the other.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.opx-page {
+  --opx-body: var(--font-outfit);
+  --opx-display: var(--font-display);
+  --opx-v: #7C3AED;
+  --opx-v-light: #B79CFF;
+  --opx-bg: #0E0B1A;
+  --opx-bg-alt: rgba(255, 255, 255, 0.022);
+  --opx-bg-card: #171326;
+  --opx-dim: #A0A0A0;
+  --opx-soft: #C8C8C8;
+  --opx-rule: rgba(255, 255, 255, 0.06);
+  --opx-rule-mid: rgba(255, 255, 255, 0.12);
+  --opx-rule-bright: rgba(255, 255, 255, 0.20);
+}
+
+/* ─── Atmosphere ─────────────────────────────────────────────────
+   Flat #0A0A0A over 12,000px reads as a stack of black rectangles.
+   These two layers give the page depth without touching a single
+   section's own styling.
+
+   The colour field is absolutely positioned over the whole document
+   rather than fixed, so the hue drifts as you scroll instead of
+   sitting still behind everything. Stops are placed against the
+   content: violet where the hero and the register CTA are, a cooler
+   indigo through the middle so the page reads as lit from two
+   directions rather than tinted one colour. Nothing goes above 9%
+   alpha — the point is depth, not colour. */
+.opx-page { position: relative; isolation: isolate; }
+.opx-atmos {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1500px 16% at 8% 3%, rgba(124, 58, 237, 0.42) 0%, transparent 72%),
+    radial-gradient(1300px 14% at 96% 9%, rgba(88, 106, 224, 0.32) 0%, transparent 70%),
+    radial-gradient(1600px 16% at 90% 22%, rgba(124, 58, 237, 0.34) 0%, transparent 72%),
+    radial-gradient(1400px 15% at 4% 35%, rgba(76, 98, 214, 0.30) 0%, transparent 70%),
+    radial-gradient(1550px 16% at 94% 48%, rgba(124, 58, 237, 0.32) 0%, transparent 72%),
+    radial-gradient(1400px 15% at 6% 61%, rgba(88, 106, 224, 0.30) 0%, transparent 70%),
+    radial-gradient(1550px 16% at 92% 74%, rgba(124, 58, 237, 0.32) 0%, transparent 72%),
+    radial-gradient(1700px 17% at 42% 88%, rgba(124, 58, 237, 0.40) 0%, transparent 74%),
+    radial-gradient(1400px 14% at 4% 96%, rgba(88, 106, 224, 0.28) 0%, transparent 70%);
+}
+/* Fixed rather than absolute: grain that scrolls with the page turns
+   into a moiré against the text. Held still, it reads as film. */
+.opx-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.042;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+@media (prefers-reduced-motion: reduce) {
+  .opx-grain { opacity: 0.02; }
+}
+
+/* ─── Page-scoped section rhythm ─────────────────────────────────
+   globals.css forces section padding below 640px with !important;
+   a class selector outranks that bare element selector, so the
+   rhythm below stays identical at every width. */
+@media (max-width: 640px) {
+  section.opx-sec {
+    padding-top: clamp(44px, 9vw, 64px) !important;
+    padding-bottom: clamp(32px, 7vw, 52px) !important;
+  }
+  section.opx-hero.opx-sec {
+    padding-top: clamp(64px, 14vw, 96px) !important;
+    padding-bottom: 28px !important;
+  }
+  /* The snapshot band is a flush full-width rule at every other
+     width; it stays flush here too. */
+  section.opx-sec.opx-sec-flush {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
+
+/* ─── Keyframes ─────────────────────────────────────────────── */
+@keyframes opx-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes opx-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ─── Buttons ───────────────────────────────────────────────── */
+.opx-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--opx-body);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 15px 28px;
+  border-radius: 9999px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.opx-btn-primary { background: var(--opx-v); color: #fff; }
+.opx-btn-primary:hover {
+  box-shadow: 0 8px 28px rgba(124, 58, 237, 0.5);
+  transform: translateY(-1px);
+  color: #fff;
+}
+.opx-btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.opx-btn-ghost {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--opx-rule-bright);
+  color: #fff;
+}
+.opx-btn-ghost:hover { border-color: var(--opx-v-light); color: var(--opx-v-light); }
+
+/* ─── Hero ──────────────────────────────────────────────────── */
+.opx-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(84px, 8vw, 118px) clamp(18px, 3.2vw, 48px) 28px;
+  overflow: hidden;
+}
+.opx-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.7) brightness(0.38);
+}
+.opx-hero-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 70% 60% at 15% 100%, rgba(124, 58, 237, 0.35) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(10, 10, 10, 0.25) 0%, rgba(10, 10, 10, 0) 40%, var(--opx-bg) 100%);
+}
+.opx-medallion {
+  position: absolute;
+  top: clamp(64px, 6.5vw, 78px);
+  right: clamp(20px, 4vw, 60px);
+  width: 112px;
+  height: 112px;
+  font-size: 30px;
+  border-radius: 50%;
+  background: var(--opx-v);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-12deg);
+  box-shadow: 0 20px 60px rgba(124, 58, 237, 0.45);
+  z-index: 2;
+}
+.opx-h1 {
+  margin: 0;
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: clamp(48px, 10vw, 150px);
+  line-height: 0.84;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+.opx-hero-lede-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(18px, 2.6vw, 40px);
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: clamp(18px, 2vw, 28px);
+}
+.opx-hero-lede {
+  margin: 0;
+  max-width: 760px;
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: clamp(17px, 2vw, 29px);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  text-wrap: pretty;
+}
+.opx-hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.opx-boarding {
+  margin-top: clamp(18px, 2.6vw, 36px);
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid var(--opx-rule-mid);
+  border-radius: 22px;
+  background: rgba(10, 10, 10, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  overflow: hidden;
+}
+.opx-boarding-cell {
+  flex: 1 1 150px;
+  padding: 17px 22px;
+  border-right: 1px dashed var(--opx-rule-mid);
+  min-width: 0;
+}
+.opx-boarding-cell:last-child { border-right: none; }
+.opx-boarding-cell:first-child { flex: 0 1 auto; }
+.opx-boarding-cell:first-child .opx-boarding-value { white-space: nowrap; }
+.opx-boarding-cd {
+  /* Sized to its digits rather than a share of the row: as a flexible
+     half it left a pool of empty tint to the right of the numbers. */
+  flex: 0 1 auto;
+  display: flex;
+  /* Baselines, not box centres, so "Starts in" sits on the same line as
+     the numerals rather than floating against the unit captions. */
+  align-items: baseline;
+  gap: 18px;
+  padding: 17px 24px;
+  border-right: none;
+  border-left: 1px solid var(--opx-rule-mid);
+  background: rgba(124, 58, 237, 0.14);
+}
+.opx-boarding-label {
+  font-family: var(--opx-body);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+.opx-boarding-value {
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  margin-top: 6px;
+  overflow-wrap: anywhere;
+}
+.opx-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--opx-v-light);
+  animation: opx-pulse 1.6s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .opx-dot { animation: none; }
+  .opx-ticker-track { animation: none !important; }
+  .opx-ps-track { animation: none !important; }
+}
+
+/* Reserved supporting-partner strip */
+.opx-hero-partners {
+  margin-top: clamp(20px, 2.6vw, 32px);
+  padding-top: 18px;
+  border-top: 1px solid var(--opx-rule);
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 32px);
+  flex-wrap: wrap;
+  min-height: 62px;
+}
+.opx-hero-partners-label {
+  font-family: var(--opx-body);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  flex-shrink: 0;
+}
+.opx-hero-partners-rail {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 36px);
+  flex-wrap: wrap;
+  min-height: 40px;
+}
+.opx-hero-partners-empty {
+  font-family: var(--opx-body);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.3);
+}
+.opx-hero-partner img {
+  height: 32px;
+  width: auto;
+  max-width: 150px;
+  object-fit: contain;
+  display: block;
+  opacity: 0.9;
+}
+
+/* ─── Ticker ────────────────────────────────────────────────── */
+.opx-ticker {
+  border-top: 1px solid var(--opx-rule);
+  border-bottom: 1px solid var(--opx-rule);
+  background: var(--opx-v);
+  overflow: hidden;
+  padding: 14px 0;
+}
+.opx-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: opx-marquee 60s linear infinite;
+}
+.opx-ticker-run { display: flex; gap: 40px; padding-right: 40px; }
+.opx-ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  white-space: nowrap;
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: clamp(15px, 1.6vw, 20px);
+  letter-spacing: -0.3px;
+  text-transform: uppercase;
+  color: #fff;
+}
+.opx-ticker-bullet {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  flex-shrink: 0;
+}
+
+/* ─── Shared section header ─────────────────────────────────── */
+.opx-sec-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.opx-panel-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--opx-body);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 12px;
+}
+
+/* ─── Overview ──────────────────────────────────────────────── */
+.opx-overview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 40px;
+}
+.opx-overview-copy {
+  flex: 1.3 1 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-right: clamp(0px, 2vw, 32px);
+  min-width: 0;
+}
+.opx-overview-aside {
+  flex: 1 1 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+.opx-lede {
+  margin: 0;
+  max-width: 580px;
+  font-family: var(--opx-body);
+  font-size: clamp(17px, 1.6vw, 22px);
+  line-height: 1.55;
+  font-weight: 300;
+  color: #fff;
+  text-wrap: pretty;
+}
+/* Same num / rule / caption pattern as the snapshot band, pitched
+   smaller so it reads as evidence inside the copy rather than a
+   second statistics strip competing with the one below. */
+.opx-ev {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 0;
+  border-top: 1px solid var(--opx-rule-mid);
+  border-bottom: 1px solid var(--opx-rule-mid);
+  padding: 18px 0 16px;
+}
+.opx-ev-cell {
+  flex: 1 1 150px;
+  min-width: 0;
+  padding-right: 18px;
+}
+.opx-ev-num {
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: clamp(18px, 1.7vw, 23px);
+  letter-spacing: -0.5px;
+  line-height: 1.05;
+  color: #fff;
+}
+.opx-ev-bar { width: 20px; height: 2px; background: var(--opx-v); margin: 10px 0 9px; }
+.opx-ev-cap {
+  font-family: var(--opx-body);
+  font-size: 11.5px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.opx-dropcap {
+  float: left;
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: 58px;
+  line-height: 0.8;
+  margin: 6px 14px 0 0;
+  color: var(--opx-v);
+}
+.opx-body {
+  margin: 0;
+  max-width: 580px;
+  font-family: var(--opx-body);
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--opx-dim);
+  text-wrap: pretty;
+}
+.opx-strong { color: #fff; font-weight: 500; }
+.opx-overview-img {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  min-height: 260px;
+  flex: 1;
+  border: 1px solid var(--opx-rule);
+}
+.opx-overview-img img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.7) brightness(0.45);
+}
+.opx-quote {
+  margin: 0;
+  padding: 30px;
+  border-radius: 22px;
+  background: var(--opx-v);
+  position: relative;
+  overflow: hidden;
+}
+.opx-quote-mark {
+  position: absolute;
+  right: -10px;
+  top: -40px;
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: 140px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.1);
+}
+.opx-quote-text {
+  position: relative;
+  margin: 0;
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: clamp(20px, 2.2vw, 30px);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.opx-quote-sub {
+  position: relative;
+  margin: 16px 0 0;
+  font-family: var(--opx-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ─── Facts ─────────────────────────────────────────────────── */
+.opx-fact-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.opx-fact-tab {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 18px;
+  border-radius: 9999px;
+  font-family: var(--opx-body);
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.opx-fact-tab:hover { border-color: var(--opx-v-light); transform: translateY(-1px); }
+.opx-fact-tab-fill {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.5);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation-name: opx-tab-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes opx-tab-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .opx-fact-tab-fill { display: none; }
+  .opx-fact-tab:hover { transform: none; }
+}
+.opx-fact-stack { display: grid; }
+.opx-fact-panel {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.45s;
+}
+.opx-fact-panel-on { opacity: 1; visibility: visible; transform: none; }
+.opx-fact-grid { display: flex; flex-wrap: wrap; gap: 12px; height: 100%; }
+.opx-fact-hero {
+  flex: 1.6 1 460px;
+  position: relative;
+  min-height: 440px;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--opx-rule);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(20px, 3vw, 40px);
+  min-width: 0;
+}
+.opx-fact-hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.7) brightness(0.32);
+}
+.opx-fact-hero-tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.35) 0%, transparent 60%);
+}
+.opx-fact-hero-meta {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: var(--opx-body);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+.opx-fact-num {
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: clamp(42px, 9vw, 140px);
+  line-height: 0.82;
+  letter-spacing: -0.06em;
+  white-space: nowrap;
+}
+.opx-fact-pre {
+  font-size: 0.35em;
+  color: var(--opx-v-light);
+  letter-spacing: -0.02em;
+  vertical-align: top;
+}
+.opx-fact-text {
+  margin: 18px 0 0;
+  max-width: 560px;
+  font-family: var(--opx-body);
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.5;
+  color: #fff;
+  text-wrap: pretty;
+}
+.opx-fact-smalls {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.opx-fact-small {
+  flex: 1;
+  min-height: 130px;
+  border-radius: 22px;
+  padding: 22px 26px;
+  border: 1px solid var(--opx-rule);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.opx-fact-small-num {
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: clamp(28px, 3.2vw, 44px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  overflow-wrap: anywhere;
+}
+
+/* ─── Snapshot ──────────────────────────────────────────────── */
+.opx-snapshot {
+  border-top: 1px solid var(--opx-rule-mid);
+  border-bottom: 1px solid var(--opx-rule-mid);
+  display: flex;
+  flex-wrap: wrap;
+}
+.opx-snapshot-label { flex: 1 1 200px; padding: 32px 24px 28px 0; }
+.opx-snapshot-label > div { margin-bottom: 0; }
+.opx-snapshot-cell {
+  flex: 1 1 140px;
+  padding: 32px 20px 28px;
+  border-left: 1px solid var(--opx-rule);
+  min-width: 0;
+}
+.opx-snapshot-num {
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: clamp(32px, 3.6vw, 52px);
+  letter-spacing: -2px;
+  line-height: 1;
+}
+.opx-snapshot-bar { width: 24px; height: 2px; background: var(--opx-v); margin: 14px 0 12px; }
+.opx-snapshot-cap {
+  font-family: var(--opx-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* ─── Past series sponsors ──────────────────────────────────── */
+.opx-ps { overflow: hidden; }
+.opx-ps-line {
+  margin: 14px 0 0;
+  font-family: var(--opx-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--opx-dim);
+  max-width: 580px;
+}
+.opx-ps-marquee { position: relative; margin-top: clamp(22px, 2.6vw, 34px); }
+.opx-ps-rail { overflow: hidden; }
+.opx-ps-rail + .opx-ps-rail { margin-top: 10px; }
+.opx-ps-track { display: flex; width: max-content; }
+.opx-ps-track-l { animation: opx-ps-left 52s linear infinite; }
+.opx-ps-track-r { animation: opx-ps-right 60s linear infinite; }
+@keyframes opx-ps-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes opx-ps-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+.opx-ps-marquee:hover .opx-ps-track { animation-play-state: paused; }
+.opx-ps-cell {
+  flex-shrink: 0;
+  width: clamp(128px, 13vw, 168px);
+  height: clamp(56px, 5.4vw, 72px);
+  margin: 0 clamp(4px, 0.6vw, 9px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--opx-rule);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 0.4s ease, background 0.4s ease;
+}
+.opx-ps-cell:hover { border-color: rgba(124, 58, 237, 0.45); background: rgba(124, 58, 237, 0.08); }
+.opx-ps-cell img {
+  max-height: 76%;
+  max-width: 86%;
+  object-fit: contain;
+  /* The source marks are a mix of dark-on-transparent and full colour,
+     so they are flattened to one white silhouette rather than some of
+     them disappearing into the background. */
+  filter: brightness(0) invert(1);
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+}
+.opx-ps-cell:hover img { opacity: 1; }
+/* Edge fades so logos enter and leave rather than being chopped off. */
+.opx-ps-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(48px, 8vw, 130px);
+  z-index: 2;
+  pointer-events: none;
+}
+.opx-ps-fade-l { left: 0; background: linear-gradient(90deg, var(--opx-bg) 0%, transparent 100%); }
+.opx-ps-fade-r { right: 0; background: linear-gradient(270deg, var(--opx-bg) 0%, transparent 100%); }
+
+/* ─── Drivers ───────────────────────────────────────────────── */
+.opx-drivers { display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch; }
+.opx-drivers-list {
+  flex: 1 1 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.opx-driver-btn {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 24px;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 18px;
+  border-radius: 16px;
+  border: 1px solid;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.opx-driver-btn:hover { background: rgba(255, 255, 255, 0.05) !important; }
+.opx-driver-btn:focus-visible { outline: 2px solid var(--opx-v-light); outline-offset: 2px; }
+.opx-driver-title {
+  font-family: var(--opx-display);
+  font-weight: 700;
+  font-size: 15.5px;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+  color: #fff;
+}
+.opx-driver-panel {
+  flex: 1.1 1 420px;
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  min-height: 520px;
+  border: 1px solid var(--opx-rule);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(22px, 3vw, 44px);
+  min-width: 0;
+}
+.opx-driver-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.7) brightness(0.3);
+}
+.opx-driver-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 10, 10, 0) 0%, rgba(10, 10, 10, 0.85) 70%),
+    radial-gradient(ellipse 80% 60% at 0% 100%, rgba(124, 58, 237, 0.35) 0%, transparent 60%);
+}
+.opx-driver-ghost {
+  position: absolute;
+  top: clamp(16px, 3vw, 36px);
+  right: clamp(16px, 3vw, 36px);
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: clamp(64px, 9.5vw, 140px);
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(183, 156, 255, 0.6);
+}
+.opx-driver-h3 {
+  margin: 0 0 16px;
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: clamp(22px, 2.6vw, 38px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.opx-driver-body {
+  margin: 0;
+  font-family: var(--opx-body);
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 620px;
+  text-wrap: pretty;
+}
+
+/* ─── Themes ────────────────────────────────────────────────── */
+.opx-theme-nav { display: flex; gap: 8px; }
+.opx-theme-arrow {
+  all: unset;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--opx-rule-bright);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #fff;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.opx-theme-arrow:hover { border-color: var(--opx-v-light); color: var(--opx-v-light); }
+.opx-theme-arrow-on { background: var(--opx-v); border-color: var(--opx-v); }
+.opx-theme-arrow-on:hover { box-shadow: 0 8px 28px rgba(124, 58, 237, 0.5); color: #fff; }
+.opx-theme-arrow:focus-visible { outline: 2px solid var(--opx-v-light); outline-offset: 2px; }
+
+.opx-theme-rail {
+  display: flex;
+  gap: 8px;
+  height: 520px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+.opx-theme-card {
+  flex: 1 1 0;
+  min-width: 76px;
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--opx-rule);
+  transition: flex 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    min-width 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+}
+.opx-theme-card-on { flex: 7 1 0; min-width: 400px; border-color: rgba(124, 58, 237, 0.6); }
+.opx-theme-card:focus-visible { outline: 2px solid var(--opx-v-light); outline-offset: 2px; }
+.opx-theme-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.opx-theme-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 10, 10, 0.1) 0%, rgba(10, 10, 10, 0.9) 100%);
+}
+.opx-theme-num {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-family: var(--opx-display);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  transition: font-size 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.opx-theme-open {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: clamp(20px, 3vw, 36px);
+  display: none;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 640px;
+}
+.opx-theme-card-on .opx-theme-open { display: flex; }
+.opx-theme-h3 {
+  margin: 0;
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: clamp(20px, 2.4vw, 36px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.opx-theme-body {
+  margin: 0;
+  font-family: var(--opx-body);
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.82);
+  text-wrap: pretty;
+}
+.opx-theme-closed {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 24px;
+  display: flex;
+  justify-content: center;
+}
+.opx-theme-card-on .opx-theme-closed { display: none; }
+.opx-theme-closed span {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--opx-display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  max-height: 360px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ─── Agenda ────────────────────────────────────────────────── */
+/* ─── Agenda — morning | afternoon split ────────────────────── */
+.opx-ag-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 3vw, 44px);
+  align-items: start;
+  margin-top: clamp(24px, 2.6vw, 36px);
+}
+.opx-ag-col { position: relative; }
+.opx-ag-colhead {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-left: 4px;
+}
+.opx-ag-collabel {
+  font-family: var(--opx-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--opx-v-light);
+  flex-shrink: 0;
+}
+.opx-ag-colrule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--opx-v)55, transparent);
+}
+.opx-ag-colspan {
+  font-family: var(--opx-display);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+.opx-ag-rail {
+  position: absolute;
+  left: 17px;
+  top: 52px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(180deg, transparent 0%, var(--opx-v)45 8%, var(--opx-v)45 92%, transparent 100%);
+}
+.opx-ag-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.opx-ag-row {
+  position: relative;
+  padding: 13px 16px 13px 44px;
+  border-radius: 12px;
+  border: 1px solid var(--opx-rule);
+  background: rgba(255, 255, 255, 0.025);
+}
+.opx-ag-row-on {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background: linear-gradient(170deg, var(--opx-bg-card) 0%, var(--opx-bg-alt) 100%);
+}
+.opx-ag-dot {
+  position: absolute;
+  left: 13px;
+  top: 19px;
+  border-radius: 50%;
+}
+.opx-ag-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.opx-ag-time {
+  font-family: var(--opx-display);
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.opx-ag-tag {
+  font-family: var(--opx-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.opx-ag-title {
+  margin: 6px 0 0;
+  font-family: var(--opx-display);
+  font-weight: 700;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.32;
+  letter-spacing: -0.2px;
+  color: rgba(255, 255, 255, 0.94);
+  text-wrap: pretty;
+}
+.opx-ag-points {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 10px 0 0;
+  border-top: 1px solid;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.opx-ag-point {
+  position: relative;
+  padding-left: 15px;
+  font-family: var(--opx-body);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.58);
+  text-wrap: pretty;
+}
+.opx-ag-bullet {
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+/* ─── Who attends ───────────────────────────────────────────── */
+/* ─── Who should attend ─────────────────────────────────────── */
+.opx-wa { overflow: hidden; }
+.opx-wa-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.opx-wa-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  opacity: 0.62;
+  filter: saturate(0.5) contrast(1.04) brightness(0.98);
+}
+.opx-wa-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, var(--opx-bg) 0%, rgba(14, 11, 26, 0.72) 20%, rgba(14, 11, 26, 0.72) 80%, var(--opx-bg) 100%),
+    linear-gradient(90deg, rgba(14, 11, 26, 0.55) 0%, rgba(14, 11, 26, 0.26) 50%, rgba(14, 11, 26, 0.55) 100%);
+}
+.opx-wa-band { margin-top: clamp(26px, 2.8vw, 38px); }
+.opx-wa-band-rule {
+  margin-top: clamp(30px, 3.2vw, 44px);
+  padding-top: clamp(24px, 2.6vw, 32px);
+  border-top: 1px solid var(--opx-rule-mid);
+}
+/* align-items: start — the columns hold different numbers of roles and
+   must not stretch to the tallest, which is what opened the gap. */
+.opx-wa-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(18px, 2vw, 28px);
+  align-items: start;
+  margin-top: 18px;
+}
+.opx-wa-group { min-width: 0; padding-left: clamp(14px, 1.4vw, 20px); border-left: 1px solid var(--opx-rule); }
+.opx-wa-group:first-child { padding-left: 0; border-left: none; }
+.opx-wa-glabel {
+  margin: 0 0 11px;
+  font-family: var(--opx-display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  color: var(--opx-v-light);
+  text-wrap: balance;
+}
+.opx-wa-glist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.opx-wa-role {
+  font-family: var(--opx-body);
+  font-size: 13.5px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--opx-soft);
+  text-wrap: pretty;
+}
+.opx-wa-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 16px;
+}
+
+.opx-chip {
+  font-family: var(--opx-body);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 16px;
+  border-radius: 9999px;
+  border: 1px solid;
+}
+
+/* ─── Sponsor ───────────────────────────────────────────────── */
+.opx-sponsor { display: flex; flex-wrap: wrap; gap: 12px; }
+.opx-sponsor-cta {
+  position: relative;
+  overflow: hidden;
+  flex: 1 1 340px;
+  border-radius: 22px;
+  padding: clamp(22px, 3vw, 40px);
+  background: radial-gradient(ellipse 80% 70% at 100% 100%, rgba(124, 58, 237, 0.4) 0%, transparent 60%),
+    var(--opx-bg-card);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+  min-height: 380px;
+  min-width: 0;
+}
+.opx-sponsor-cta > h2 { position: relative; z-index: 1; }
+.opx-sponsor-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.opx-sponsor-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  opacity: 0.6;
+  filter: saturate(0.5) contrast(1.04);
+}
+/* Darkest at the top-left where the heading sits and along the bottom
+   under the button, lightest through the middle so the room reads. */
+.opx-sponsor-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(165deg, rgba(14, 11, 26, 0.92) 0%, rgba(14, 11, 26, 0.5) 46%, rgba(14, 11, 26, 0.88) 100%),
+    radial-gradient(ellipse 80% 70% at 100% 100%, rgba(124, 58, 237, 0.42) 0%, transparent 62%);
+}
+.opx-sponsor-cats {
+  flex: 1.4 1 460px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-content: flex-start;
+  min-width: 0;
+}
+.opx-sponsor-cat {
+  flex: 1 1 240px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 17px 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--opx-rule);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.opx-sponsor-cat:hover {
+  border-color: rgba(124, 58, 237, 0.45);
+  background: rgba(255, 255, 255, 0.045);
+}
+/* ─── Awards ────────────────────────────────────────────────── */
+.opx-awards { overflow: hidden; }
+.opx-awards-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.7) brightness(0.22);
+}
+.opx-awards-scrim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 80% 20%, rgba(124, 58, 237, 0.35) 0%, transparent 60%),
+    linear-gradient(180deg, var(--opx-bg) 0%, rgba(10, 10, 10, 0.4) 30%, rgba(10, 10, 10, 0.6) 70%, var(--opx-bg) 100%);
+}
+/* Categories on the left, form on the right — the same order they
+   are read in, so nothing is reordered here. The form keeps the larger
+   share because its fields are paired; the dialling-code select is a
+   fixed 116px and sets the floor. */
+.opx-aw-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.22fr);
+  gap: clamp(26px, 3.2vw, 52px);
+  align-items: start;
+}
+.opx-aw-content { min-width: 0; }
+.opx-aw-lede {
+  margin: 18px 0 0;
+  max-width: 62ch;
+  font-family: var(--opx-body);
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.8);
+}
+.opx-aw-list {
+  list-style: none;
+  margin: clamp(22px, 2.4vw, 34px) 0 0;
+  padding: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+.opx-award-row {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+  padding: 15px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  transition: padding-left 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.opx-award-row:hover { padding-left: 10px; background: rgba(124, 58, 237, 0.12); }
+.opx-award-num {
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: clamp(16px, 1.5vw, 21px);
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--opx-v-light);
+}
+.opx-award-title {
+  font-family: var(--opx-display);
+  font-weight: 700;
+  font-size: clamp(15.5px, 1.45vw, 20px);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  text-wrap: pretty;
+}
+
+/* Nomination form */
+.opx-nom-card {
+  min-width: 0;
+  border-radius: 22px;
+  background: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--opx-rule-mid);
+  padding: clamp(22px, 3vw, 36px);
+}
+.opx-nom-head {
+  margin-bottom: clamp(18px, 2vw, 26px);
+  padding-bottom: clamp(16px, 1.8vw, 22px);
+  border-bottom: 1px solid var(--opx-rule);
+}
+.opx-nom-note {
+  margin: 14px 0 0;
+  font-family: var(--opx-body);
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--opx-dim);
+  max-width: 440px;
+}
+.opx-nom-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.opx-lbl { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.opx-lbl > span:first-child {
+  font-family: var(--opx-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+.opx-lbl-full { grid-column: 1 / -1; }
+.opx-lbl select option { background: var(--opx-bg-card); color: #fff; }
+.opx-err { font-family: var(--opx-body); font-size: 12.5px; color: #FF8B6B; }
+.opx-nom-submit { margin-top: 20px; }
+
+/* ─── CPD chip in the register section ──────────────── */
+.opx-cpd-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: clamp(22px, 2.6vw, 34px) 0 0;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.33);
+}
+.opx-cpd-chip img { width: 34px; height: 34px; display: block; flex-shrink: 0; }
+.opx-cpd-chip span {
+  font-family: var(--opx-body);
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.85);
+}
+.opx-cpd-chip strong { color: var(--opx-v-light); font-weight: 700; }
+
+/* ─── From past editions ───────────────────────── */
+.opx-past-lede {
+  margin: 18px 0 0;
+  max-width: 62ch;
+  font-family: var(--opx-body);
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.8);
+}
+/* One label per movement, so all three bodies of material stay on the
+   page instead of hiding behind tabs. */
+.opx-mv {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: clamp(34px, 3.6vw, 54px) 0 clamp(16px, 1.8vw, 24px);
+}
+.opx-mv-label {
+  margin: 0;
+  font-family: var(--opx-body);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+  white-space: nowrap;
+}
+.opx-mv-count {
+  font-family: var(--opx-body);
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: var(--opx-v-light);
+  border: 1px solid rgba(124, 58, 237, 0.42);
+  background: rgba(124, 58, 237, 0.14);
+  font-variant-numeric: tabular-nums;
+}
+.opx-mv-rule { flex: 1; height: 1px; background: var(--opx-rule-mid); }
+.opx-mv-row { display: flex; align-items: center; gap: 16px; }
+.opx-mv-row .opx-mv { flex: 1; min-width: 0; }
+
+/* ─ Video cards ─ */
+.opx-vid { margin: 0; min-width: 0; }
+.opx-vid-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--opx-rule);
+  background: #000;
+}
+.opx-vid-v .opx-vid-frame { aspect-ratio: 9 / 16; border-radius: 18px; }
+.opx-vid-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.opx-vid-btn {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: block;
+}
+.opx-vid-btn img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.opx-vid-btn:hover img { transform: scale(1.04); }
+.opx-vid-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 10, 10, 0.1) 0%, rgba(10, 10, 10, 0.5) 100%);
+}
+.opx-vid-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #141414;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.42);
+  transition: background 0.3s, color 0.3s, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.opx-vid-v .opx-vid-play { width: 44px; height: 44px; }
+.opx-vid-btn:hover .opx-vid-play {
+  background: var(--opx-v);
+  color: #fff;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+.opx-vid-btn:focus-visible { outline: 2px solid var(--opx-v-light); outline-offset: 3px; border-radius: 16px; }
+.opx-vid-cap { display: flex; flex-direction: column; gap: 3px; padding: 12px 2px 0; }
+.opx-vid-title {
+  font-family: var(--opx-display);
+  font-weight: 700;
+  font-size: 15.5px;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+.opx-vid-meta {
+  font-family: var(--opx-body);
+  font-size: 12.5px;
+  letter-spacing: 0.3px;
+  color: var(--opx-dim);
+}
+.opx-film-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 22px);
+}
+
+/* ─ Testimonial rail ─ */
+.opx-rail-nav { display: flex; gap: 8px; flex-shrink: 0; }
+.opx-rail-nav button {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: #fff;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--opx-rule-mid);
+  transition: background 0.3s, border-color 0.3s, opacity 0.3s;
+}
+.opx-rail-nav button:hover:not(:disabled) {
+  background: rgba(124, 58, 237, 0.26);
+  border-color: rgba(124, 58, 237, 0.55);
+}
+.opx-rail-nav button:disabled { opacity: 0.3; cursor: default; }
+.opx-rail-nav button:focus-visible { outline: 2px solid var(--opx-v-light); outline-offset: 2px; }
+.opx-rail-wrap { position: relative; }
+.opx-rail {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  padding-bottom: 10px;
+  /* A soft right edge says there is more to come. Masked rather than
+     painted: the section plate is translucent over the atmosphere, so
+     a gradient to a flat colour would band. Lifts at the end, so it
+     never claims content that is not there. */
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 72px), transparent 100%);
+  mask-image: linear-gradient(90deg, #000 calc(100% - 72px), transparent 100%);
+}
+.opx-rail-done .opx-rail { -webkit-mask-image: none; mask-image: none; }
+.opx-rail > .opx-vid { flex: 0 0 186px; scroll-snap-align: start; }
+.opx-rail::-webkit-scrollbar { height: 6px; }
+.opx-rail::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 3px; }
+.opx-rail::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 3px; }
+
+/* Visually hidden, still read aloud. */
+.opx-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.opx-gal-city {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  color: var(--opx-v-light);
+  margin-bottom: 3px;
+}
+
+/* ─── Gallery ───────────────────────────────────────────────── */
+.opx-gal {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-areas:
+    "hero hero a b"
+    "hero hero c d"
+    "e f f d";
+  grid-auto-rows: 170px;
+}
+.opx-gal-card {
+  position: relative;
+  margin: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--opx-rule);
+}
+.opx-gal-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.9) brightness(0.86);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s;
+}
+.opx-gal-card:hover img { transform: scale(1.05); filter: saturate(1) brightness(1); }
+.opx-gal-card figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 14px 16px;
+  font-family: var(--opx-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  background: linear-gradient(180deg, transparent, rgba(10, 10, 10, 0.85));
+}
+
+/* ─── Register / boarding pass ──────────────────────────────── */
+.opx-pass {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 28px;
+  overflow: hidden;
+  background: var(--opx-v);
+  position: relative;
+}
+.opx-pass-main {
+  flex: 2 1 520px;
+  padding: clamp(24px, 4vw, 56px);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+}
+.opx-pass-ring {
+  position: absolute;
+  right: -80px;
+  bottom: -120px;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  border: 60px solid rgba(255, 255, 255, 0.08);
+}
+.opx-pass-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: var(--opx-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  position: relative;
+}
+.opx-pass-route {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(14px, 3vw, 40px);
+  position: relative;
+}
+.opx-pass-cap {
+  font-family: var(--opx-body);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+.opx-pass-big {
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: clamp(26px, 4vw, 58px);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+.opx-pass-dash {
+  flex: 1 1 60px;
+  min-width: 60px;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, #fff 0 10px, transparent 10px 18px);
+  position: relative;
+}
+.opx-pass-dash span { position: absolute; right: -6px; top: -11px; font-size: 20px; }
+.opx-pass-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(18px, 4vw, 56px);
+  position: relative;
+}
+.opx-pass-val { font-family: var(--opx-display); font-weight: 800; font-size: 19px; margin-top: 4px; }
+.opx-pass-stub {
+  flex: 1 1 300px;
+  padding: clamp(24px, 4vw, 48px);
+  background: var(--opx-bg);
+  border-left: 2px dashed rgba(124, 58, 237, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+  min-width: 0;
+}
+.opx-pass-stub-text {
+  margin: 0;
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: clamp(21px, 2.4vw, 32px);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+
+/* ─── Contacts ──────────────────────────────────────────────── */
+.opx-contacts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.opx-contact {
+  border-radius: 22px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--opx-rule);
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.opx-contact:hover { border-color: rgba(124, 58, 237, 0.45); transform: translateY(-3px); }
+.opx-contact-photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+.opx-contact-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.9);
+}
+.opx-contact-body { padding: 22px 24px 26px; display: flex; flex-direction: column; gap: 6px; }
+.opx-contact-role {
+  font-family: var(--opx-body);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--opx-v-light);
+}
+.opx-contact-name {
+  margin: 4px 0 0;
+  font-family: var(--opx-display);
+  font-weight: 800;
+  font-size: 21px;
+  letter-spacing: -0.5px;
+}
+.opx-contact-title { font-family: var(--opx-body); font-size: 14px; color: var(--opx-dim); }
+.opx-contact-mail {
+  margin-top: 10px;
+  font-family: var(--opx-body);
+  font-size: 13.5px;
+  color: var(--opx-v-light);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.opx-contact-mail:hover { color: #fff; }
+
+/* Inquiry form sits in our own card chrome */
+.opx-form-wrap { border-radius: 22px; overflow: hidden; }
+.opx-form-wrap .inquiry-split,
+.opx-form-wrap .inquiry-split > div { padding: 0 !important; gap: 0 !important; }
+
+/* ═══ RESPONSIVE ═══════════════════════════════════════════════ */
+
+@media (max-width: 1100px) {
+  .opx-medallion { width: 124px; height: 124px; font-size: 33px; }
+  .opx-theme-card-on { min-width: 320px; }
+}
+
+/* Below this the form column can no longer hold two fields side by
+   side at a usable width, so the split becomes a stack: categories
+   first, form under them. Measured, not guessed: the phone row is the
+   binding field, and at 1040px its number input was down to 92px. */
+@media (max-width: 1120px) {
+  .opx-aw-split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(26px, 4vw, 40px);
+  }
+}
+
+@media (max-width: 900px) {
+  .opx-ag-split { grid-template-columns: 1fr; gap: 32px; }
+  .opx-wa-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 22px; }
+  .opx-wa-group:nth-child(odd) { padding-left: 0; border-left: none; }
+
+  /* The horizontal theme accordion becomes a vertical stack: on a
+     narrow screen a 76px spine is unreadable and unreachable. */
+  .opx-theme-rail {
+    height: auto;
+    flex-direction: column;
+    overflow-x: visible;
+    gap: 12px;
+  }
+  .opx-theme-card,
+  .opx-theme-card-on {
+    flex: 0 0 auto;
+    min-width: 0;
+    min-height: 96px;
+  }
+  .opx-theme-card-on { min-height: 400px; }
+  .opx-theme-open { position: relative; padding: 84px 22px 26px; max-width: none; }
+  .opx-theme-closed {
+    position: absolute;
+    inset: 0;
+    bottom: auto;
+    height: 96px;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 22px 0 76px;
+  }
+  .opx-theme-closed span {
+    writing-mode: horizontal-tb;
+    transform: none;
+    white-space: normal;
+    max-height: none;
+    font-size: 15px;
+    line-height: 1.3;
+  }
+  .opx-theme-num { font-size: 22px !important; top: 50%; transform: translateY(-50%); }
+  .opx-theme-card-on .opx-theme-num { top: 24px; transform: none; font-size: 56px !important; }
+}
+
+@media (max-width: 720px) {
+  .opx-medallion {
+    width: 96px;
+    height: 96px;
+    font-size: 26px;
+    top: clamp(76px, 15vw, 92px);
+    right: 16px;
+  }
+  .opx-nom-grid { grid-template-columns: minmax(0, 1fr); }
+  .opx-snapshot-label { flex: 1 1 100%; padding: 26px 0 4px; }
+  .opx-snapshot-cell:first-of-type { border-left: none; }
+  .opx-quote-mark { font-size: 108px; top: -22px; }
+  .opx-dropcap { font-size: 62px; margin-right: 12px; }
+  .opx-pass-stub { border-left: none; border-top: 2px dashed rgba(124, 58, 237, 0.8); }
+  .opx-gal {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "hero hero"
+      "a    b"
+      "c    d"
+      "e    f";
+    grid-auto-rows: 150px;
+  }
+}
+
+@media (max-width: 560px) {
+  .opx-film-grid { grid-template-columns: minmax(0, 1fr); }
+  .opx-rail > .opx-vid { flex: 0 0 148px; }
+  .opx-mv-row { flex-wrap: wrap; }
+  .opx-h1 { font-size: clamp(56px, 19vw, 96px); }
+  .opx-medallion {
+    position: static;
+    transform: none;
+    width: 64px;
+    height: 64px;
+    font-size: 18px;
+    margin: 0 0 14px;
+    box-shadow: 0 12px 32px rgba(124, 58, 237, 0.4);
+  }
+  .opx-hero { justify-content: flex-end; }
+  .opx-hero-ctas { width: 100%; }
+  .opx-hero-ctas .opx-btn { flex: 1 1 100%; justify-content: center; }
+  /* Two up rather than a four-row stack: the stacked version alone
+     pushed the hero 70px past the bottom of a phone screen. */
+  .opx-boarding-cell {
+    flex: 1 1 50%;
+    border-right: 1px dashed var(--opx-rule-mid);
+    border-bottom: 1px dashed var(--opx-rule-mid);
+    padding: 14px 16px;
+  }
+  .opx-boarding-cell:first-child { flex: 1 1 50%; }
+  .opx-boarding-cell:nth-child(2n) { border-right: none; }
+  .opx-boarding-value { font-size: 17px; margin-top: 5px; }
+  .opx-boarding-cd {
+    flex: 1 1 100%;
+    border-right: none;
+    border-left: none;
+    border-bottom: none;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+  .opx-fact-num { font-size: clamp(44px, 15vw, 72px); white-space: normal; }
+  .opx-fact-hero { min-height: 360px; }
+  .opx-driver-panel { min-height: 420px; }
+  .opx-driver-ghost { font-size: 88px; }
+  .opx-snapshot-cell { flex: 1 1 50%; padding: 22px 16px; }
+  .opx-gal {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "hero" "a" "b" "c" "d" "e" "f";
+    grid-auto-rows: 190px;
+  }
+  .opx-hero-partners { min-height: 0; margin-top: 14px; padding-top: 12px; }
+  .opx-hero-partners-rail { min-height: 0; }
+  .opx-wa-grid { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .opx-wa-group { padding-left: 0; border-left: none; }
+  .opx-contacts { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Short phones (360x780 and the like). Keyed on height as well as
+   width so the roomier 390x844 class keeps the fuller treatment: at
+   780px tall the hero overran the screen by 64px, and the pieces
+   below are the ones with slack left in them. */
+@media (max-width: 560px) and (max-height: 820px) {
+  .opx-medallion { width: 44px; height: 44px; font-size: 13px; margin: 0 0 8px; }
+  .opx-h1 { font-size: 44px !important; }
+  .opx-hero-lede { font-size: 17px; }
+  .opx-hero-lede-row { margin-top: 12px; }
+  .opx-boarding { margin-top: 12px; }
+  .opx-boarding-cell { padding: 10px 14px; }
+  .opx-hero-partners { margin-top: 8px; padding-top: 8px; }
+}
+
+@media (max-width: 420px) {
+  .opx-h1 { font-size: 54px; }
+  .opx-hero-lede { font-size: 19px; }
+  .opx-ticker-item { font-size: 14px; gap: 24px; }
+  .opx-ticker-run { gap: 24px; padding-right: 24px; }
+  .opx-theme-closed { padding-left: 62px; }
+  .opx-nom-card { padding: 18px; }
+}

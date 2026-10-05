@@ -16,6 +16,8 @@ Disallow: /portal
 Disallow: /profile
 Disallow: /complete-profile
 Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
 Disallow: /_next/
 
 # Crawl-delay for polite crawling
@@ -35,6 +37,8 @@ Disallow: /portal
 Disallow: /profile
 Disallow: /complete-profile
 Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
 Disallow: /_next/
 
 User-agent: Claude-User
@@ -47,6 +51,8 @@ Disallow: /portal
 Disallow: /profile
 Disallow: /complete-profile
 Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
 Disallow: /_next/
 
 User-agent: Claude-SearchBot
@@ -59,6 +65,8 @@ Disallow: /portal
 Disallow: /profile
 Disallow: /complete-profile
 Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
 Disallow: /_next/
 
 User-agent: anthropic-ai
@@ -71,6 +79,8 @@ Disallow: /portal
 Disallow: /profile
 Disallow: /complete-profile
 Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
 Disallow: /_next/
 
 # ─── OpenAI ──────────────────────────────────────────────────────────────────
@@ -86,6 +96,8 @@ Disallow: /portal
 Disallow: /profile
 Disallow: /complete-profile
 Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
 Disallow: /_next/
 
 User-agent: ChatGPT-User
@@ -98,6 +110,8 @@ Disallow: /portal
 Disallow: /profile
 Disallow: /complete-profile
 Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
 Disallow: /_next/
 
 # ─── Perplexity ──────────────────────────────────────────────────────────────
@@ -112,6 +126,8 @@ Disallow: /portal
 Disallow: /profile
 Disallow: /complete-profile
 Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
 Disallow: /_next/
 
 # ─── Google AI (Gemini, training extensions) ─────────────────────────────────
@@ -126,6 +142,8 @@ Disallow: /portal
 Disallow: /profile
 Disallow: /complete-profile
 Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
 Disallow: /_next/
 
 # ─── Apple Intelligence ──────────────────────────────────────────────────────
@@ -140,6 +158,8 @@ Disallow: /portal
 Disallow: /profile
 Disallow: /complete-profile
 Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
 Disallow: /_next/
 
 # ─── Common Crawl (used by many AI training pipelines) ───────────────────────
@@ -154,4 +174,6 @@ Disallow: /portal
 Disallow: /profile
 Disallow: /complete-profile
 Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
 Disallow: /_next/
