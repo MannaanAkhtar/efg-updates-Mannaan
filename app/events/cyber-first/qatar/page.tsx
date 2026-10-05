@@ -3946,7 +3946,7 @@ type CfqSponsor = { logo: string; name?: string; href?: string; lightBg?: boolea
 
 const CFQ_SPONSORS_2026_STRATEGIC: CfqSponsor[] = [
   { logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo-02.png" },
-  { logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo-03.png" },
+  { logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/marlinix.png", name: "Marlinix" },
   { logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo-04.png" },
   {
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/image+(6).png",
