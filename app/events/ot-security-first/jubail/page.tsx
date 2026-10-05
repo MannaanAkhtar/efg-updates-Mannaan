@@ -93,7 +93,7 @@ const SPEAKERS: Speaker[] = [
 const ADVISORS: Speaker[] = [
   { name: "Ahmed Al-Barrak", title: "Head of OT Cyber Solutions & Services Group | Digital Transformation", org: "Aramco", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/magnific_make-the-backdrop-a-neutr_4RiXtKx9Aa.png", photoPos: "center 32%", photoTransform: "scale(1.18)", linkedin: "https://www.linkedin.com/in/ahmed-al-barrak-msc-b2122b60/" },
   { name: "Dr. Hussain Aldawood", title: "Director of Cybersecurity Consulting", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Hussain_Aldawood.png", linkedin: "https://www.linkedin.com/in/hussain-aldawood/", flag: "https://flagcdn.com/w40/gb-eng.png" },
-  { name: "Redha Alahmad", title: "Senior Manager, Cybersecurity (OT/ICS)", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Redha_Alahmad..png", flag: "https://flagcdn.com/w40/gb-eng.png" },
+  { name: "Redha Alahmad", title: "Senior Manager, Cybersecurity (OT/ICS)", org: "EY", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Redha_Alahmad..png", linkedin: "https://www.linkedin.com/in/redha-alahmad-13086738/", flag: "https://flagcdn.com/w40/gb-eng.png" },
   { name: "Irtiza Arain", title: "MENA leader for Critical Infrastructure Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza+Arain.jpeg", linkedin: "https://www.linkedin.com/in/irtizaarain/", flag: "https://flagcdn.com/w40/gb-eng.png" },
 ];
 
