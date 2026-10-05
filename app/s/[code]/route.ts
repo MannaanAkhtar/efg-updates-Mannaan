@@ -38,6 +38,7 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   "otsf-jub-mary": { path: "/events/ot-security-first/jubail", source: "mary", campaign: "otsf-jubail-2026", hash: "register", tab: "attend" },
   "otsf-jub-stephen": { path: "/events/ot-security-first/jubail", source: "stephen", campaign: "otsf-jubail-2026", hash: "register", tab: "attend" },
   "otsf-jub-reem": { path: "/events/ot-security-first/jubail", source: "reem", campaign: "otsf-jubail-2026", hash: "register", tab: "attend" },
+  "otsf-jub-duaa": { path: "/events/ot-security-first/jubail", source: "duaa", campaign: "otsf-jubail-2026", hash: "register", tab: "attend" },
   "otsf-jub-linkedin": { path: "/events/ot-security-first/jubail", source: "linkedin", medium: "social", campaign: "otsf-jubail-2026", hash: "register" },
 
   // Cyber First East Africa 2026
