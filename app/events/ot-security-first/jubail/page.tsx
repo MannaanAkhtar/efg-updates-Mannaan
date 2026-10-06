@@ -3072,7 +3072,6 @@ type AgendaRow = {
   time: string;
   type?: string;
   logo?: string;
-  logoScale?: number;
   title: string;
   desc?: string;
   speaker?: string;
@@ -3084,6 +3083,56 @@ type AgendaBreak = { kind: "break"; time: string; label: string; desc?: string }
 type AgendaSession = { kind: "session"; serial: string; title: string; time: string; rows: AgendaRow[] };
 
 const AG_LOGOS = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo";
+
+/**
+ * Where the visible logo actually sits inside each agenda logo file, as
+ * fractions of the file's width and height, plus the visible aspect ratio.
+ *
+ * Measured from the alpha channel of the files on S3. Several carry heavy
+ * transparent padding (swIDch's mark fills only 26% of its file's height), so
+ * giving every <img> the same height made the padded logos render a fraction
+ * of the size of the unpadded ones: OPSWAT showed ~15x the area of swIDch.
+ * If a file on S3 is replaced, re-measure it or it will be cropped wrongly.
+ */
+const AG_LOGO_INK: Record<string, { x: number; y: number; w: number; h: number; aspect: number }> = {
+  "swidch+logo+white.png": { x: 0.2836, y: 0.3708, w: 0.4327, h: 0.2553, aspect: 3.905 },
+  "Yoko+logo-01.png": { x: 0.0408, y: 0.3206, w: 0.9179, h: 0.3574, aspect: 6.777 },
+  "SIS+logo-03.png": { x: 0.1145, y: 0.2614, w: 0.7699, h: 0.4761, aspect: 4.463 },
+  "Illumio_Logo_1.png": { x: 0, y: 0, w: 1, h: 1, aspect: 4.0 },
+  "OPSWAT_logo_notag_white.png": { x: 0, y: 0, w: 1, h: 1, aspect: 6.401 },
+  "schneider-electric-seeklogo.png": { x: 0, y: 0, w: 1, h: 1, aspect: 3.35 },
+};
+
+/**
+ * Every agenda logo gets the same visible AREA rather than the same height,
+ * which is what makes a row of differently shaped marks read as one size: a
+ * wide wordmark comes out a little shorter, a compact one a little taller.
+ * 3600px² puts a 4:1 logo at 120x30.
+ */
+const AG_LOGO_AREA = 3600;
+
+function AgendaLogo({ src }: { src: string }) {
+  const ink = AG_LOGO_INK[src.split("/").pop() ?? ""];
+  if (!ink) {
+    // Unmeasured file: fall back to a plain fixed height.
+    return <img src={src} alt="" style={{ height: 30, width: "auto", display: "block" }} />;
+  }
+  const h = Math.sqrt(AG_LOGO_AREA / ink.aspect);
+  const w = h * ink.aspect;
+  // Size the whole file so its visible region comes out at w x h, then clip
+  // the transparent margin away.
+  const fullW = w / ink.w;
+  const fullH = h / ink.h;
+  return (
+    <span style={{ position: "relative", display: "block", width: Math.round(w), height: Math.round(h), overflow: "hidden" }}>
+      <img
+        src={src}
+        alt=""
+        style={{ position: "absolute", left: -ink.x * fullW, top: -ink.y * fullH, width: fullW, height: fullH, maxWidth: "none" }}
+      />
+    </span>
+  );
+}
 const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
   { kind: "break", time: "08:30", label: "Registration", desc: "Delegate registration, welcome coffee" },
   {
@@ -3141,7 +3190,6 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
       {
         time: "11:25 – 11:40",
         logo: `${AG_LOGOS}/swidch+logo+white.png`,
-        logoScale: 1.3,
         title: "Reserved for Gold Sponsor SWIDCH",
         speaker: "Dr. Godfrey Gaston MBE, Cybersecurity Specialist, swIDch",
       },
@@ -3390,11 +3438,7 @@ function AgendaBlock({ block }: { block: AgendaBreak | AgendaSession }) {
                 </span>
               ) : row.logo ? (
                 <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
-                  <img
-                    src={row.logo}
-                    alt=""
-                    style={{ height: 38 * (row.logoScale ?? 1), width: "auto", objectFit: "contain", display: "block" }}
-                  />
+                  <AgendaLogo src={row.logo} />
                 </span>
               ) : row.type ? (
                 <AgendaTypeTag type={row.type} />
