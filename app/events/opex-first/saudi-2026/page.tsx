@@ -4067,6 +4067,221 @@ function FocusAreas() {
 }
 
 // ─── Speakers ────────────────────────────────────────────────────────────────
+// ─── FEATURED SPEAKER — a single senior government speaker given his own band
+// directly after the hero, the way the Johannesburg page spotlights its
+// Deputy Director-General. Built in this page's own bezel/violet language.
+// All copy comes from the profile document the DGA supplied (2026-10-07) —
+// transcribed, not rewritten. Bold runs mirror the bold in that document.
+const FEATURED_SPEAKER = {
+  name: "E. Nabil Heddied Aloufi",
+  title: "Vice Governor for Risk Management and Business Continuity",
+  org: "Digital Government Authority",
+  orgShort: "DGA",
+  photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/eng.+nabil+al+oufi.jpeg",
+  linkedin: "https://www.linkedin.com/in/e-nabil-heddied-aloufi-b676307/",
+  // [text, bold?] runs of the profile paragraph.
+  profile: [
+    ["Nabil Heddied AlOufi, a seasoned technology professional with 18+ years of rich experience in", true],
+    [" providing thought leadership and direction for Information Security initiatives, designing, implementing, and managing bespoke business continuity solutions, risk management, governance, cyber security technologies and disaster recovery plans. ", false],
+    ["Subject Matter Expert - Risk Culture Builder, championed building resilient organization", true],
+    [", through effective direction of operational risk, corporate governance, business continuity management, and fraud control initiatives. ", false],
+    ["Trusted Advisor", true],
+    [", sought out by senior management for advice and guidance on technology issues. ", false],
+    ["Mastered implementing Enterprise Risk management framework", true],
+    [" and conducting Risk Assessment for Data Centers, IT, IS, and business operations. ", false],
+    ["Inspirational trailblazer, entrusted to drive the era of transformation,", true],
+    [" steer digital change, and built state-of-the-art technology to eradicate cyber threats.", false],
+  ] as [string, boolean][],
+  education: [
+    { what: "Program for Leadership Development (PLD): An accelerated alternative to EMBA", where: "Harvard Business School · Executive Education Alumnus", when: "July 2018" },
+    { what: "MBA (Master of Business Administration)", where: "Prince Sultan University", when: "2012" },
+    { what: "B Sc. (Electrical Engineering)", where: "King Saud University", when: "2005" },
+  ],
+  career: [
+    { role: "Vice Governor, Risk & Business Continuities", org: "Digital Government Authority", when: "Jul 2021 – Present" },
+    { role: "Head of Risk Management and Business Continuity", org: "MoF – Ministry of Finance", when: "Jul 2019 – Jun 2021" },
+    { role: "Head – Risk Management and Compliance", org: "Edaa – Securities & Depository Center Company", when: "Oct 2017 – Jun 2019" },
+    { role: "Head – Technical Risk Management", org: "Tadawul – Saudi Stock Exchange", when: "Jan 2016 – Sep 2017" },
+    { role: "Executive Manager – Business Continuity", org: "Mobily", when: "Jun 2010 – May 2014" },
+  ],
+};
+
+function FeaturedSpeaker() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const sp = FEATURED_SPEAKER;
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <section
+      ref={ref}
+      id="featured-speaker"
+      style={{ position: "relative", overflow: "hidden", background: `linear-gradient(180deg, ${BG_DARK} 0%, ${BG} 100%)`, padding: "clamp(56px, 7vw, 104px) clamp(20px, 4vw, 60px)" }}
+    >
+      <div aria-hidden style={{ position: "absolute", top: "8%", left: "-8%", width: 560, height: 560, borderRadius: "50%", background: `radial-gradient(circle, ${V}22, transparent 65%)`, filter: "blur(90px)", pointerEvents: "none" }} />
+      <div aria-hidden style={{ position: "absolute", bottom: "-10%", right: "-6%", width: 480, height: 480, borderRadius: "50%", background: `radial-gradient(circle, ${V_PALE}12, transparent 65%)`, filter: "blur(90px)", pointerEvents: "none" }} />
+      <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${V}40, transparent)` }} />
+
+      <div className="opex-fs-split" style={{ position: "relative", zIndex: 2, maxWidth: 1180, margin: "0 auto", display: "grid", gridTemplateColumns: "minmax(260px, 400px) 1fr", gap: "clamp(32px, 6vw, 88px)", alignItems: "start" }}>
+        {/* Portrait in the page's gradient bezel */}
+        <motion.div
+          initial={{ opacity: 0, x: -28, filter: "blur(8px)" }}
+          animate={inView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.9, ease: EASE }}
+          className="opex-fs-photo"
+          style={{ position: "sticky", top: 110, borderRadius: 30, padding: 5, background: `linear-gradient(160deg, rgba(159,106,255,0.75) 0%, rgba(159,106,255,0.2) 30%, rgba(255,255,255,0.05) 62%, rgba(0,0,0,0.45) 100%)`, boxShadow: `inset 0 1px 0 rgba(255,255,255,0.16), 0 40px 90px rgba(0,0,0,0.55), 0 0 70px ${V}30` }}
+        >
+          <div style={{ position: "relative", borderRadius: 26, overflow: "hidden", border: `1px solid ${V}2a`, aspectRatio: "3/4", background: "#d9dade" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={sp.photo} alt={sp.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 8%", display: "block" }} />
+            <div aria-hidden style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, transparent 58%, ${BG_DARK}99 84%, ${BG_DARK} 100%)` }} />
+            <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)" }} />
+            <span style={{ position: "absolute", top: 18, right: 18, padding: "6px 13px", borderRadius: 9, fontFamily: "var(--font-dm-sans)", fontSize: 10.5, fontWeight: 700, letterSpacing: "1.6px", color: "#fff", background: "linear-gradient(135deg, rgba(20,14,40,0.62), rgba(20,14,40,0.38))", border: "1px solid rgba(255,255,255,0.16)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)" }}>
+              {sp.orgShort}
+            </span>
+          </div>
+        </motion.div>
+
+        {/* Identity */}
+        <div>
+          <SectionEyebrow inView={inView} label="Featured Speaker" />
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
+            style={{ fontFamily: "var(--font-display)", fontSize: "clamp(34px, 4.6vw, 62px)", fontWeight: 800, letterSpacing: "-1.8px", lineHeight: 1.04, color: "rgba(255,255,255,0.96)", margin: 0, textWrap: "balance" }}
+          >
+            {sp.name}
+          </motion.h2>
+
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={inView ? { scaleX: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.25, ease: EASE }}
+            style={{ width: 64, height: 2, borderRadius: 2, background: `linear-gradient(90deg, ${V_BRIGHT}, ${V_BRIGHT}00)`, margin: "clamp(22px, 2.4vw, 30px) 0", transformOrigin: "left" }}
+          />
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
+            style={{ fontFamily: "var(--font-display)", fontSize: "clamp(20px, 2.2vw, 28px)", fontWeight: 600, lineHeight: 1.3, letterSpacing: "-0.5px", margin: 0, maxWidth: 620, color: V_PALE }}
+          >
+            {sp.title}
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.4, ease: EASE }}
+            style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "14px 18px", marginTop: "clamp(18px, 2vw, 24px)" }}
+          >
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 10, fontFamily: "var(--font-dm-sans)", fontSize: 15, fontWeight: 600, color: MUTE }}>
+              <span aria-hidden style={{ width: 7, height: 7, borderRadius: "50%", background: V_BRIGHT, boxShadow: `0 0 10px ${V_BRIGHT}` }} />
+              {sp.org}
+            </span>
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 12, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: FAINT }}>Kingdom of Saudi Arabia</span>
+          </motion.div>
+
+          {/* Biography — the profile paragraph shows in full; education and
+              career open below it, as on the Johannesburg keynote panel. */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.5, ease: EASE }}
+            className="opex-fs-bio"
+            style={{ position: "relative", marginTop: "clamp(28px, 3vw, 40px)", borderRadius: 24, padding: "clamp(24px, 3vw, 36px)", background: "linear-gradient(165deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.012) 100%)", border: `1px solid ${V}26`, backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", boxShadow: `inset 0 1px 0 rgba(255,255,255,0.09), 0 24px 70px rgba(0,0,0,0.42), 0 0 40px ${V}10`, overflow: "hidden" }}
+          >
+            <div aria-hidden style={{ position: "absolute", top: 0, left: "6%", right: "6%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.16), transparent)" }} />
+            <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10.5, fontWeight: 800, letterSpacing: "3px", textTransform: "uppercase", color: V_BRIGHT, margin: "0 0 16px" }}>Biography</p>
+
+            <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: 15, lineHeight: 1.85, color: "rgba(255,255,255,0.6)", margin: 0 }}>
+              {sp.profile.map(([text, bold], i) =>
+                bold ? <strong key={i} style={{ color: "rgba(255,255,255,0.94)", fontWeight: 600 }}>{text}</strong> : <span key={i}>{text}</span>,
+              )}
+            </p>
+
+            <div style={{ display: "grid", gridTemplateRows: expanded ? "1fr" : "0fr", opacity: expanded ? 1 : 0, transition: "grid-template-rows 0.7s cubic-bezier(0.22,1,0.36,1), opacity 0.5s ease" }}>
+              <div style={{ overflow: "hidden" }} aria-hidden={!expanded}>
+                <div className="opex-fs-cols" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "28px clamp(24px, 3vw, 40px)", marginTop: 28, paddingTop: 26, borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <div>
+                    <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10.5, fontWeight: 800, letterSpacing: "3px", textTransform: "uppercase", color: V_BRIGHT, margin: "0 0 16px" }}>Career</p>
+                    <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 16 }}>
+                      {sp.career.map((c, i) => (
+                        <li key={i} style={{ position: "relative", paddingLeft: 20 }}>
+                          <span aria-hidden style={{ position: "absolute", left: 0, top: 7, width: 7, height: 7, borderRadius: "50%", background: i === 0 ? V_BRIGHT : "transparent", border: `1.5px solid ${V_BRIGHT}`, boxShadow: i === 0 ? `0 0 10px ${V_BRIGHT}` : "none" }} />
+                          {i < sp.career.length - 1 && <span aria-hidden style={{ position: "absolute", left: 3, top: 18, bottom: -16, width: 1, background: `${V_BRIGHT}33` }} />}
+                          <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 14, fontWeight: 600, color: "rgba(255,255,255,0.92)", lineHeight: 1.4 }}>{c.role}</div>
+                          <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13, color: MUTE, marginTop: 3, lineHeight: 1.4 }}>{c.org}</div>
+                          <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11.5, fontWeight: 600, letterSpacing: "0.6px", color: FAINT, marginTop: 4 }}>{c.when}</div>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                  <div>
+                    <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10.5, fontWeight: 800, letterSpacing: "3px", textTransform: "uppercase", color: V_BRIGHT, margin: "0 0 16px" }}>Education</p>
+                    <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 16 }}>
+                      {sp.education.map((e, i) => (
+                        <li key={i}>
+                          <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 14, fontWeight: 600, color: "rgba(255,255,255,0.92)", lineHeight: 1.4 }}>{e.what}</div>
+                          <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13, color: MUTE, marginTop: 3, lineHeight: 1.4 }}>{e.where}</div>
+                          <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11.5, fontWeight: 600, letterSpacing: "0.6px", color: FAINT, marginTop: 4 }}>{e.when}</div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 12, marginTop: 24 }}>
+              <button
+                type="button"
+                suppressHydrationWarning
+                onClick={() => setExpanded((v) => !v)}
+                aria-expanded={expanded}
+                className="opex-fs-btn"
+                style={{ display: "inline-flex", alignItems: "center", gap: 8, fontFamily: "var(--font-dm-sans)", fontSize: 11.5, fontWeight: 700, letterSpacing: "1.4px", textTransform: "uppercase", color: V_PALE, background: "linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 999, padding: "10px 20px", cursor: "pointer" }}
+              >
+                {expanded ? "Read less" : "Read full bio"}
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden style={{ transform: expanded ? "rotate(180deg)" : "none", transition: "transform 0.4s cubic-bezier(0.22,1,0.36,1)" }}>
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+              <a
+                href={sp.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="opex-fs-li"
+                style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "10px 20px", borderRadius: 999, fontFamily: "var(--font-dm-sans)", fontSize: 11.5, fontWeight: 700, letterSpacing: "1.4px", textTransform: "uppercase", color: "#fff", textDecoration: "none", background: `linear-gradient(180deg, ${V}55, ${V}22)`, border: `1px solid ${V_BRIGHT}55`, boxShadow: `inset 0 1px 0 rgba(255,255,255,0.18), 0 10px 26px -12px ${V}` }}
+              >
+                <svg width={13} height={13} viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-4.9c0-1.17-.02-2.67-1.9-2.67-1.9 0-2.2 1.27-2.2 2.58V21H9z"/></svg>
+                LinkedIn
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      <style>{`
+        .opex-fs-photo img { transition: transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+        .opex-fs-photo:hover img { transform: scale(1.03); }
+        .opex-fs-li { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .opex-fs-li:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 16px 36px -12px ${V_BRIGHT}; }
+        .opex-fs-btn { transition: color 0.3s ease, border-color 0.3s ease; }
+        .opex-fs-btn:hover { color: #fff !important; border-color: ${V_BRIGHT}66 !important; }
+        @media (max-width: 860px) {
+          .opex-fs-split { grid-template-columns: 1fr !important; }
+          .opex-fs-photo { position: relative !important; top: auto !important; max-width: 340px; width: 100%; margin: 0 auto; }
+        }
+        @media (max-width: 640px) {
+          .opex-fs-cols { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
 function Speakers() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -7803,6 +8018,7 @@ export default function OpexFirstSaudi2026Page() {
   return (
     <main style={{ background: BG_DARK, color: "white", overflow: "hidden" }}>
       <Hero />
+      <FeaturedSpeaker />
       <OpexSaudiPostEventReports />
       <OpexSaudiPostReportFloat />
       <EventOverview />
