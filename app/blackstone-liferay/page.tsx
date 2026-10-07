@@ -863,7 +863,8 @@ function SmokeBg() {
 // ═════════════════════════════════════════════════════════════════════════════
 // SPEAKERS — to be announced (placeholder cards until the line-up is confirmed)
 // ═════════════════════════════════════════════════════════════════════════════
-const BL_SPEAKERS = [
+const BL_SPEAKERS: { name: string; title: string; linkedin: string; photo: string; focus?: string; role?: string }[] = [
+  { name: "Maya Baydoun", title: "Chief Commercial Officer, Blackstone eIT", role: "Moderator", linkedin: "https://www.linkedin.com/in/maya-baydoun-83583714/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Maya+Baydoun.jpeg" },
   // Landscape shot with the subject seated right of frame: focus shifts the
   // 4:5 crop so he is centred instead of clipped at the edge.
   { name: "Moussalam Dalati", title: "General Manager, Liferay", linkedin: "https://www.linkedin.com/in/moussalamdalati/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Moussalam+Dalati+2.jpg", focus: "90% top" },
@@ -881,7 +882,7 @@ function SpeakersSection() {
       <div style={{ position: "relative", zIndex: 2, maxWidth: 1320, margin: "0 auto" }}>
         <SectionHeading eyebrow="Speakers & Panelists" title="The line-up" align="center" sub="Meet the Liferay platform experts leading the session." />
 
-        <div ref={ref} className="bl-speakers-grid" style={{ marginTop: "clamp(40px,5vw,64px)", display: "grid", gridTemplateColumns: "repeat(4, minmax(180px, 250px))", justifyContent: "center", gap: "clamp(18px,2vw,26px)" }}>
+        <div ref={ref} className="bl-speakers-grid" style={{ marginTop: "clamp(40px,5vw,64px)", display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "clamp(18px,2vw,26px)" }}>
           {BL_SPEAKERS.map((s, i) => (
             <motion.a
               key={s.name}
@@ -889,6 +890,7 @@ function SpeakersSection() {
               initial={{ opacity: 0, y: 22 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
               className="bl-spk-card"
               style={{
+                flex: "0 0 clamp(180px, 17vw, 236px)",
                 position: "relative", display: "block", textDecoration: "none", padding: 0, borderRadius: 18, overflow: "hidden", textAlign: "center",
                 background: "linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(10,26,60,0.20) 100%)",
                 backdropFilter: "blur(14px) saturate(140%)", WebkitBackdropFilter: "blur(14px) saturate(140%)",
@@ -920,6 +922,9 @@ function SpeakersSection() {
                 <span aria-hidden style={{ position: "absolute", inset: 0, zIndex: 2, background: "linear-gradient(180deg, transparent 55%, rgba(2,10,23,0.55) 100%)", pointerEvents: "none" }} />
               </div>
               <div style={{ position: "relative", zIndex: 1, padding: "18px 18px 24px" }}>
+                {s.role ? (
+                  <div style={{ fontFamily: FONT, fontSize: 10.5, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#7FD3FF", marginBottom: 6 }}>{s.role}</div>
+                ) : null}
                 <div style={{ fontFamily: FONT, fontSize: 17.5, fontWeight: 700, color: WHITE, letterSpacing: "-0.01em" }}>{s.name}</div>
                 <div style={{ fontFamily: FONT, fontSize: 13, fontWeight: 500, color: "rgba(200,222,255,0.62)", marginTop: 5, lineHeight: 1.4 }}>{s.title}</div>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: FONT, fontSize: 11, fontWeight: 700, letterSpacing: "0.04em", color: "#BFE2FF", padding: "5px 12px", borderRadius: 999, background: "rgba(120,214,255,0.12)", border: "1px solid rgba(150,200,255,0.26)", marginTop: 14 }}>
@@ -946,8 +951,8 @@ function SpeakersSection() {
           100% { transform: translateY(-64px); opacity: 0; }
         }
         @media (prefers-reduced-motion: reduce) { .bl-spk-avatar, .bl-mote { animation: none; } }
-        @media (max-width: 1040px) { .bl-speakers-grid { grid-template-columns: repeat(2,minmax(180px,250px)) !important; } }
-        @media (max-width: 460px) { .bl-speakers-grid { grid-template-columns: 1fr !important; } }
+        @media (max-width: 1040px) { .bl-spk-card { flex-basis: clamp(180px, 40vw, 250px) !important; } }
+        @media (max-width: 460px) { .bl-spk-card { flex-basis: 100% !important; } }
       `}</style>
     </section>
   );
