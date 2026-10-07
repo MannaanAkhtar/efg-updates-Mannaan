@@ -2581,7 +2581,11 @@ function OpexTestimonials() {
   );
 }
 
-function EventOverview() {
+// Rendered twice, either side of <Speakers />: part="intro" is the lede and
+// pull quote, part="rest" is testimonials onward. Each half is its own
+// section with its own inView, so the reveals still fire as each scrolls in.
+function EventOverview({ part }: { part: "intro" | "rest" }) {
+  const intro = part === "intro";
   const ref = useRef<HTMLElement>(null);
   const signalsRef = useRef<HTMLDivElement>(null);
   const ledgerRef = useRef<HTMLDivElement>(null);
@@ -2716,6 +2720,7 @@ function EventOverview() {
       <div style={{ position: "absolute", bottom: "5%", right: "0%", width: "35%", height: "60%", background: `radial-gradient(ellipse, ${V_BRIGHT}08, transparent 70%)`, filter: "blur(60px)", pointerEvents: "none" }} />
 
       <div style={{ maxWidth: 1240, margin: "0 auto", position: "relative", zIndex: 2 }}>
+        {intro && (<>
         <SectionEyebrow inView={inView} label="Event Overview" />
 
         {/* ── BAND 1 — The Lede ───────────────────────────────────────────── */}
@@ -2774,7 +2779,7 @@ function EventOverview() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4, ease: EASE }}
           style={{
-            margin: "0 0 clamp(72px, 10vw, 120px) 0",
+            margin: 0,
             paddingLeft: "clamp(20px, 2.4vw, 28px)",
             borderLeft: `2px solid ${V_BRIGHT}`,
             maxWidth: 880,
@@ -2795,7 +2800,9 @@ function EventOverview() {
             OPEX First Saudi 2026 is the only platform dedicated to propelling operational excellence to new heights — convening visionary leaders to co-create the next era of performance mastery.
           </p>
         </motion.blockquote>
+        </>)}
 
+        {!intro && (<>
         {/* ── Testimonials — voices from KSA 2025 ─────────────────────────── */}
         <OpexTestimonials />
 
@@ -2934,6 +2941,7 @@ function EventOverview() {
             ))}
           </div>
         </div>
+        </>)}
       </div>
 
       <style jsx global>{`
@@ -4081,7 +4089,7 @@ const FEATURED_SPEAKER = {
   linkedin: "https://www.linkedin.com/in/e-nabil-heddied-aloufi-b676307/",
   // [text, bold?] runs of the profile paragraph.
   profile: [
-    ["Nabil Heddied AlOufi, a seasoned technology professional with 18+ years of rich experience in", true],
+    ["Nabil Heddied AlOufi, a seasoned technology professional with 21+ years of rich experience in", true],
     [" providing thought leadership and direction for Information Security initiatives, designing, implementing, and managing bespoke business continuity solutions, risk management, governance, cyber security technologies and disaster recovery plans. ", false],
     ["Subject Matter Expert - Risk Culture Builder, championed building resilient organization", true],
     [", through effective direction of operational risk, corporate governance, business continuity management, and fraud control initiatives. ", false],
@@ -8021,11 +8029,12 @@ export default function OpexFirstSaudi2026Page() {
       <FeaturedSpeaker />
       <OpexSaudiPostEventReports />
       <OpexSaudiPostReportFloat />
-      <EventOverview />
+      <EventOverview part="intro" />
+      <Speakers />
+      <EventOverview part="rest" />
       <MarketPulse />
       <CpdCertified eventName="OPEX First Saudi 2026" theme={V} registerHref="#register" />
       <FocusAreas />
-      <Speakers />
       <EventSponsors />
       <Agenda />
       <WhoAttends />
