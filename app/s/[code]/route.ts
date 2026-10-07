@@ -92,6 +92,7 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   // medium left at the "sales" default (not "invite") so /api/submit-form
   // renders the clean "Referred by: Duaa" row on the notification email.
   "bsl-duaa": { path: "/blackstone-liferay", source: "duaa", campaign: "blackstone-liferay", hash: "register" },
+  "bsl-sangeetha": { path: "/blackstone-liferay", source: "sangeetha", campaign: "blackstone-liferay", hash: "register" },
 
   // AlgoSec Executive Roundtable — deep-link straight to the register form
   "algosec-palak": { path: "/algosec", source: "palak", campaign: "algosec", medium: "invite", hash: "register" },
