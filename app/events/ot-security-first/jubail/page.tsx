@@ -87,6 +87,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Ahmed Abdelhamid", title: "Solution Engineer", org: "OPSWAT", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+Abdelhamid1.png", linkedin: "https://www.linkedin.com/in/ahmed-abdelhamid-baa91027/" },
   { name: "Khalaf Alkhaldi", title: "CISO", org: "Confidential Entity", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khalaf+Alkhaldi1.png", linkedin: "https://www.linkedin.com/in/khalaf-a-lkhaldi/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Mohammed Al-Ghamdi", title: "Executive VP Manufacturing", org: "Jubail Chemical Industries", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al-Ghamdi1.png", linkedin: "https://www.linkedin.com/in/mohammed-al-ghamdi-407451a5/", flag: "https://flagcdn.com/w40/sa.png" },
+  { name: "Abdulaziz Alarfaj", title: "CISO", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulaziz.png", linkedin: "https://www.linkedin.com/in/abdulazizalarfaj/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Mohannad Meri", title: "Senior Sales Engineer", org: "Illumio", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohannad+Meri.png", linkedin: "https://www.linkedin.com/in/mohannad-meri-33a12129/" },
 ];
 
