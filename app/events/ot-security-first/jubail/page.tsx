@@ -3162,6 +3162,7 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
           { name: "Hamoud Almohaya", role: "Head of GRC Cybersecurity", org: "Confidential Government" },
           { name: "Dr. Mohammad Dahman Alshehri", role: "Senior Advisor and CISO", org: "Confidential" },
           { name: "Naif Alshahrani", role: "Cybersecurity GRC Director", org: "Confidential" },
+          { name: "Abdulaziz Alarfaj", role: "Chief Information Security Officer", org: "Confidential" },
           { name: "Abdulrahman Al-Nimari", role: "VP, Cyber Security", org: "Confidential Organization", moderator: true },
         ],
       },
@@ -3172,7 +3173,7 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
     kind: "session",
     serial: "02",
     title: "The Threat Landscape — What Is Coming for Saudi Arabia's Industrial Sector",
-    time: "10:40 – 11:45",
+    time: "10:40 – 12:00",
     rows: [
       {
         time: "10:40 – 11:25",
@@ -3190,12 +3191,18 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
       },
       {
         time: "11:25 – 11:40",
+        type: "Keynote",
+        title: "Reserved for ACET Solutions & Avanceon",
+        speaker: "Speaker(s) TBC",
+      },
+      {
+        time: "11:40 – 11:55",
         logo: `${AG_LOGOS}/swidch+logo+white.png`,
         title: "Water. Power. 700,000 Attacks a Day. And One Question: Who Is Controlling Your PLC?",
         speaker: "Dr. Godfrey Gaston MBE, Cybersecurity Specialist, swIDch",
       },
       {
-        time: "11:40 – 11:45",
+        time: "11:55 – 12:00",
         logo: `${AG_LOGOS}/Yoko+logo-01.png`,
         title: "Reserved for Gold Sponsor Yokogawa",
         speaker: "Mohammed Shoukat Ali, GM & Head Global Cybersecurity CoE, Yokogawa",
@@ -3206,47 +3213,47 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
     kind: "session",
     serial: "03",
     title: "Securing the Infrastructure — Technology, Standards & Operational Practice",
-    time: "11:45 – 13:45",
+    time: "12:00 – 14:00",
     rows: [
       {
-        time: "11:45 – 11:55",
+        time: "12:00 – 12:10",
         logo: `${AG_LOGOS}/SIS+logo-03.png`,
         title: "Your AI Has Never Seen Your Plant",
         desc: "Building industrial intelligence below Level 3.5",
         speaker: "Tahir Saleem, Chief Innovation Officer, SIS Industrial Cybersecurity",
       },
       {
-        time: "11:55 – 12:05",
+        time: "12:10 – 12:20",
         logo: `${AG_LOGOS}/Illumio_Logo_1.png`,
         title: "Reserved for Gold Sponsor Illumio",
         speaker: "Mohannad Meri, Senior Sales Engineer, Illumio",
       },
       {
-        time: "12:05 – 12:15",
+        time: "12:20 – 12:30",
         type: "Keynote",
         title: "Topic TBC",
         speaker: "Eng. Ali Altamni, Senior Cybersecurity Leader, SABIC",
       },
       {
-        time: "12:15 – 12:25",
+        time: "12:30 – 12:40",
         type: "Keynote",
         title: "Topic TBC",
         speaker: "Faisal Althobaiti, Sr. Cybersecurity and Digitalization Engineer, Ma'aden",
       },
       {
-        time: "12:25 – 12:40",
+        time: "12:40 – 12:55",
         logo: `${AG_LOGOS}/OPSWAT_logo_notag_white.png`,
         title: "Clean Is Not the Same as Safe",
         speaker: "Ahmed Abdelhamid, Solution Engineer, OPSWAT",
       },
-      { pause: true, time: "12:40 – 13:00", title: "Networking Break" },
+      { pause: true, time: "12:55 – 13:15", title: "Networking Break" },
       {
-        time: "13:00 – 13:45",
+        time: "13:15 – 14:00",
         type: "Panel Discussion",
         title: "Standards, procurement & supply chain: How do we build OT security into the fabric of Saudi industrial operations?",
         panelists: [
           { name: "Saad AlGarni", role: "Head of Cybersecurity", org: "Saudi Global Ports" },
-          { name: "Khalaf Alkhaldi", role: "CISO", org: "Confidential Entity" },
+          { name: "Khalaf Alkhaldi", role: "CISO", org: "Confidential" },
           { name: "Mohammed Al-Ghamdi", role: "Executive VP Manufacturing", org: "Jubail Chemical Industries Co. (NAMA Chemicals Affiliate)" },
           { name: "Feras Alamri", role: "Cybersecurity Defense Director", org: "Riyadh Airports" },
           { name: "Redha Alahmad", role: "Senior Manager, Cybersecurity (OT/ICS)", org: "EY", moderator: true },
@@ -3258,38 +3265,38 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
     kind: "session",
     serial: "04",
     title: "The Road Ahead — Innovation, Collaboration & the Future of OT Security",
-    time: "13:45 – 15:40",
+    time: "14:00 – 15:55",
     rows: [
       {
-        time: "13:45 – 14:00",
+        time: "14:00 – 14:15",
         logo: `${AG_LOGOS}/schneider-electric-seeklogo.png`,
         title: "Building an OT security operations capability: Lessons from Saudi Arabia's most critical facilities",
         desc: "What a fit-for-purpose OT SOC looks like — detection engineering for industrial protocols, threat hunting in ICS environments, and integrating OT visibility into a national security operations programme.",
         speaker: "Abdulrahman Al Musfir, Regional Cybersecurity Officer - MEA, Schneider Electric",
       },
       {
-        time: "14:00 – 14:15",
+        time: "14:15 – 14:30",
         type: "Keynote",
         title: "AI Beyond the Pilot: Building Secure and Resilient AI for Critical Infrastructure",
         speaker: "Ahmed T Alawami, Head of AI & Digital Transformation (Energy & Utilities), Saudi Energy",
       },
       {
-        time: "14:15 – 15:00",
+        time: "14:30 – 15:15",
         type: "Panel Discussion",
         title: "The KSA Dialogue: What must Saudi Arabia's oil & gas, petrochemical, and government sectors commit to in the next 12 months?",
         panelists: [
           { name: "Mohammed Alangari", role: "CISO & VP of GRC", org: "Confidential Government Authority" },
           { name: "Yazed Alamam", role: "Associate Director – Subsidiary and OT Cybersecurity", org: "Red Sea Global" },
           { name: "Thamer Alrowidhan", role: "Chief Information Security Officer (CISO)", org: "Confidential Government" },
-          { name: "Irtiza Arain", role: "MENA leader for Critical Infrastructure Cybersecurity", org: "EY MENA", moderator: true },
+          { name: "Irtiza Arain", role: "Director, Cybersecurity", org: "EY MENA", moderator: true },
         ],
       },
       {
-        time: "15:00 – 15:15",
+        time: "15:15 – 15:30",
         type: "Awards",
         title: "Awards Ceremony & Official Close",
       },
-      { pause: true, time: "15:15 – 15:40", title: "Networking Luncheon" },
+      { pause: true, time: "15:30 – 15:55", title: "Networking Luncheon" },
     ],
   },
 ];
@@ -3537,7 +3544,7 @@ function AgendaSection() {
               margin: 0,
             }}
           >
-            27 October 2026 &nbsp;·&nbsp; Jubail, Saudi Arabia &nbsp;·&nbsp; 09:00 – 15:40
+            27 October 2026 &nbsp;·&nbsp; Jubail, Saudi Arabia &nbsp;·&nbsp; 09:00 – 15:55
           </motion.p>
         </div>
 
