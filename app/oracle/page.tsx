@@ -1,7 +1,7 @@
 "use client";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// /oracle — "Oracle AI: Powering the Intelligent Enterprise", 14 Oct 2026,
+// /oracle — "Oracle AI: Powering the Intelligent Enterprise", 3 Nov 2026 (moved from 14 Oct),
 // Hilton Riyadh Olaya.
 //
 // A faithful rebuild of Oracle's own event listing
@@ -33,7 +33,7 @@ const SANS = `"Oracle Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Hel
 const SERIF = `var(--font-oracle-serif), Georgia, "Times New Roman", serif`;
 
 const EVENT_NAME = "Oracle AI: Powering the Intelligent Enterprise";
-const EVENT_START = new Date("2026-10-14T10:00:00+03:00");
+const EVENT_START = new Date("2026-11-03T10:00:00+03:00");
 const VENUE_NAME = "Hilton Riyadh Olaya";
 // No street address yet: the line that sat here was the JW Marriott's and does
 // not apply to this hotel, so it is omitted rather than left wrong. The maps
@@ -257,7 +257,7 @@ function RegisterForm() {
         </h3>
         <p style={{ margin: 0, fontSize: 15.5, lineHeight: 1.6, color: BODY }}>
           The team will confirm your place by email. We look forward to welcoming you at the {VENUE_NAME}
-          on 14 October.
+          on 3 November.
         </p>
       </div>
     );
@@ -431,7 +431,7 @@ export default function OraclePage() {
             {EVENT_NAME}
           </h1>
           <p style={{ margin: "0 0 20px", fontSize: "clamp(16px, 1.6vw, 18px)", color: BODY }}>
-            14 October 2026 | 10:00 AM - 2:00 PM
+            3 November 2026 | 10:00 AM - 2:00 PM
           </p>
           <p style={{ margin: "0 0 4px", display: "flex", alignItems: "center", gap: 8 }}>
             <svg width="14" height="18" viewBox="0 0 14 18" aria-hidden style={{ flexShrink: 0 }}>
@@ -502,7 +502,7 @@ export default function OraclePage() {
             </div>
             <div style={{ height: 1, background: LINE, margin: "18px 0 30px" }} />
             <h3 style={{ fontFamily: SANS, fontSize: "clamp(20px, 2.4vw, 25px)", fontWeight: 700, color: INK, margin: "0 0 22px" }}>
-              October 14, 2026
+              November 3, 2026
             </h3>
             <div>
               {AGENDA.map((row, i) => (
