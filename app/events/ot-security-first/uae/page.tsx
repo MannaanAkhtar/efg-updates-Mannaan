@@ -106,6 +106,9 @@ function HeroBackground() {
   );
 }
 
+// The UAE Cyber Security Council, same file the OT Virtual Boardroom page uses.
+const PATRONAGE_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CSC_Logos-01_.png";
+
 function Hero() {
   const industries = ["Government", "Energy", "Oil & Gas", "Utilities", "Petrochemicals", "Manufacturing", "Critical Infrastructure"];
   return (
@@ -116,6 +119,29 @@ function Hero() {
       <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 1, opacity: 0.35, backgroundImage: "linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px)", backgroundSize: "88px 88px", maskImage: "linear-gradient(180deg,transparent,#000 40%,transparent)", WebkitMaskImage: "linear-gradient(180deg,transparent,#000 40%,transparent)" }} />
 
       <div style={{ position: "relative", zIndex: 2, width: "100%", maxWidth: 1480, margin: "0 auto", padding: "clamp(170px,22vh,260px) clamp(24px,4.5vw,72px) clamp(48px,5vw,72px)" }}>
+        <motion.div
+          className="uae-patronage"
+          initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.25, ease: EASE }}
+        >
+          <span style={{ fontFamily: FO, fontSize: 14, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", color: C_BRIGHT, textDecoration: "underline", textUnderlineOffset: 6, textDecorationColor: `${C}99`, whiteSpace: "nowrap" }}>
+            Under the patronage of
+          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={PATRONAGE_LOGO}
+            alt="UAE Cyber Security Council"
+            className="uae-patronage-logo"
+            style={{ width: "auto", display: "block", filter: "drop-shadow(0 6px 22px rgba(0,0,0,0.55))" }}
+          />
+        </motion.div>
+        <style>{`
+          .uae-patronage { position: absolute; top: clamp(124px,15vh,176px); right: clamp(24px,4.5vw,72px); display: flex; flex-direction: column; align-items: center; gap: 22px; }
+          .uae-patronage-logo { height: clamp(74px,7.8vw,118px); }
+          @media (max-width: 899px) {
+            .uae-patronage { position: static; align-items: flex-start; gap: 16px; margin-bottom: 30px; }
+            .uae-patronage-logo { height: 66px; }
+          }
+        `}</style>
         <motion.div
           initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }}
           style={{ display: "inline-flex", alignItems: "center", gap: 12, marginBottom: 34, padding: "7px 22px 7px 7px", borderRadius: 9999, border: `1px solid ${C}55`, background: `linear-gradient(180deg, ${C}26, ${C}07)`, backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", boxShadow: `inset 0 1px 0 rgba(255,255,255,0.2), 0 10px 34px -14px ${C}`, overflow: "hidden", position: "relative" }}
