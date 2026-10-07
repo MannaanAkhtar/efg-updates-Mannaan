@@ -258,6 +258,8 @@ const SPEAKERS: Speaker[] = [
     name: "Ritesh Kumar Singh",
     role: "Senior Pre-Sales Manager",
     org: "Intwo",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ritesh.jpeg",
+    linkedin: "https://www.linkedin.com/in/ritsi/",
   },
   {
     name: "Oommen P Oommen",
