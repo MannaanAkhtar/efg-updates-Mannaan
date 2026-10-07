@@ -161,6 +161,13 @@ type Speaker = {
   org: string;
   photo: string | null;
   linkedin: string | null;
+  /**
+   * For a portrait shot much tighter than the rest (face filling the frame):
+   * draws the photo at this fraction of the card width so it matches the
+   * head-and-shoulders framing of the others. The side margins are filled with
+   * a blurred copy of the same photo, so the studio backdrop carries through.
+   */
+  photoScale?: number;
 };
 
 const SPEAKERS: Speaker[] = [
@@ -289,6 +296,29 @@ const SPEAKERS: Speaker[] = [
     // typo to tidy up — the object 404s without it.
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Ibrahim%C2%A01.png",
     linkedin: "https://www.linkedin.com/in/mohamed-ebraheem-5b5143128/",
+  },
+  {
+    name: "Miassar Hashim AlMasry",
+    title: "Head of Compliance & Internal Controls, VP",
+    org: "QNB Kuwait",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Miassar+Al.Masry.png",
+    photoScale: 0.66,
+    linkedin: "https://www.linkedin.com/in/miassar-al-masry-06ab48a/",
+  },
+  {
+    name: "Prof. Omar Al-Jarrah",
+    title: "Vice President for Planning & Development & CIO",
+    org: "Arab Open University – HQ",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Prof.+Omar+Al-Jarrah.png",
+    photoScale: 0.74,
+    linkedin: "https://www.linkedin.com/in/omar-al-jarrah-2a87825/",
+  },
+  {
+    name: "Khalid Al-Begain",
+    title: "President",
+    org: "Kuwait College of Science and Technology (KCST)",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khalid+Al-Begain.png",
+    linkedin: "https://www.linkedin.com/in/khalid-al-begain-b311276/",
   },
 ];
 
@@ -4518,6 +4548,28 @@ function Speakers() {
           filter: brightness(0.96) saturate(1.04);
           transition: transform 0.9s cubic-bezier(0.16,1,0.3,1), filter 0.5s ease;
         }
+        /* Narrowed portrait: natural 2:3 height from the top, feathered at the
+           sides into a blurred, enlarged copy of itself. */
+        .cfk-speaker-photo.cfk-speaker-photo--scaled {
+          right: auto;
+          bottom: auto;
+          top: 0;
+          height: auto;
+          object-fit: fill;
+          -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 10%, #000 90%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 10%, #000 90%, transparent 100%);
+          transform-origin: 50% 0;
+        }
+        .cfk-speaker-photo-fill {
+          position: absolute;
+          inset: -8%;
+          width: 116%;
+          height: 116%;
+          object-fit: cover;
+          object-position: center top;
+          filter: blur(18px) brightness(0.92);
+          pointer-events: none;
+        }
         .cfk-speaker-card:hover .cfk-speaker-photo {
           transform: scale(1.06);
           filter: brightness(1.06) saturate(1.1);
@@ -4762,7 +4814,22 @@ function SpeakerCard({
     <>
       {/* Photo zone — top, clean, no text overlay */}
       <div className="cfk-speaker-photo-wrap">
-        {speaker.photo && !imgErr ? (
+        {speaker.photo && !imgErr && speaker.photoScale ? (
+          <>
+            {/* blurred fill behind the narrowed photo */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={speaker.photo} alt="" aria-hidden loading="lazy" className="cfk-speaker-photo-fill" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={speaker.photo}
+              alt={speaker.name}
+              loading="lazy"
+              className="cfk-speaker-photo cfk-speaker-photo--scaled"
+              style={{ left: `${((1 - speaker.photoScale) / 2) * 100}%`, width: `${speaker.photoScale * 100}%` }}
+              onError={() => setImgErr(true)}
+            />
+          </>
+        ) : speaker.photo && !imgErr ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={speaker.photo}
