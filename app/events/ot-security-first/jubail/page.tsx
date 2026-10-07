@@ -3190,7 +3190,7 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
       {
         time: "11:25 – 11:40",
         logo: `${AG_LOGOS}/swidch+logo+white.png`,
-        title: "Reserved for Gold Sponsor SWIDCH",
+        title: "Water. Power. 700,000 Attacks a Day. And One Question: Who Is Controlling Your PLC?",
         speaker: "Dr. Godfrey Gaston MBE, Cybersecurity Specialist, swIDch",
       },
       {
