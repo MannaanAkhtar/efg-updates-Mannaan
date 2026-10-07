@@ -111,6 +111,11 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   "os-afra": { path: "/outsystems", source: "afra", campaign: "outsystems-ksa", hash: "register" },
   "os-jacqueline": { path: "/outsystems", source: "jacqueline", campaign: "outsystems-ksa", hash: "register" },
   "os-sangeetha": { path: "/outsystems", source: "sangeetha", campaign: "outsystems-ksa", hash: "register" },
+
+  // Innovator Day UAE — OutSystems, Museum of the Future, Dubai, 28 Oct 2026.
+  // Single register form, so no tab= (same as the KSA page above).
+  "os2-jacqueline": { path: "/outsystems2", source: "jacqueline", campaign: "outsystems-uae", hash: "register" },
+  "os2-sangeetha": { path: "/outsystems2", source: "sangeetha", campaign: "outsystems-uae", hash: "register" },
 };
 
 export async function GET(
