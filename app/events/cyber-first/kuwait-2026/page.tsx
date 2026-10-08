@@ -317,7 +317,7 @@ const SPEAKERS: Speaker[] = [
     name: "Khalid Al-Begain",
     title: "President",
     org: "Kuwait College of Science and Technology (KCST)",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khalid+Al-Begain.png",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khalid+Al-Begain+Photo+5.jpeg",
     linkedin: "https://www.linkedin.com/in/khalid-al-begain-b311276/",
   },
 ];
