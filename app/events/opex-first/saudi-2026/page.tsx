@@ -246,10 +246,14 @@ const SPEAKERS: Speaker[] = [
 
 type AgendaItem = {
   time: string;
-  type: "Ceremony" | "Welcome Address" | "Leadership Panel" | "Keynote Presentation" | "Panel Discussion" | "Technology Presentation" | "Break";
+  type: "Ceremony" | "Welcome Address" | "Fireside Chat" | "Leadership Panel" | "Keynote Presentation" | "Panel Discussion" | "Technology Presentation" | "Break";
   title: string;
   subtitle?: string;
   bullets?: string[];
+  /** "Name, Role, Organisation" exactly as the programme prints it. */
+  speaker?: string;
+  moderator?: string;
+  panelists?: string[];
 };
 const AGENDA: AgendaItem[] = [
   { time: "08:00 – 09:00", type: "Break", title: "Registration, Networking, and Refreshments" },
@@ -258,12 +262,18 @@ const AGENDA: AgendaItem[] = [
   {
     time: "09:20 – 09:30",
     type: "Welcome Address",
-    title: "The Execution Decade: What It Takes to Institutionalize AI Across Government and Enterprise",
+    title: "The Execution Decade: The Kingdom's Shift from Transformation to Execution",
+    speaker: "E. Nabil Heddied Aloufi, Vice Governor for Risk Management and Business Continuity, DGA",
   },
   {
-    time: "09:30 – 10:00",
+    time: "09:30 – 09:50",
+    type: "Fireside Chat",
+    title: "Leading Institutions Through the Execution Decade",
+  },
+  {
+    time: "09:50 – 10:30",
     type: "Leadership Panel",
-    title: "The Governance Gap - Turning National Mandates into Measurable Institutional Performance",
+    title: "The Governance Gap - Turning Vision 2030 Mandates into Measurable Institutional Performance",
     bullets: [
       "Why transformation complete and operationally excellent are not the same milestone",
       "Building executive dashboards that survive board level scrutiny, not just internal reporting",
@@ -271,20 +281,20 @@ const AGENDA: AgendaItem[] = [
       "Value realization frameworks - proving ROI on transformation spend in real time, not retrospectively",
       "Who owns execution risk when a giga-project's KPI slips - governance, delivery, or technology?",
     ],
+    panelists: [
+      "Anwar Zumah, VP Direct Investments, Confidential",
+      "Ahmed Al Idrissi, Executive Advisor, Confidential",
+      "Talal Alahmari, Organizational Excellence Director, Confidential",
+      "Maan Al Maddah, Advisor, Confidential",
+      "Mohammed N. Aljuhani, Organizational Excellence Director, Confidential Government",
+      "Eng. Ahmed M. Khayyat, GM, Corporate Operational Excellence, Saudia Group",
+    ],
   },
+  { time: "10:30 – 10:45", type: "Keynote Presentation", title: "Reserved for Blackstone eIT" },
+  { time: "10:45 – 11:00", type: "Keynote Presentation", title: "Reserved for Aris" },
+  { time: "11:00 – 11:45", type: "Break", title: "Networking Break and Refreshments" },
   {
-    time: "10:00 – 10:15",
-    type: "Keynote Presentation",
-    title: "National AI Institutionalization - From Pilots to Governed Operations",
-  },
-  {
-    time: "10:15 – 10:30",
-    type: "Keynote Presentation",
-    title: "Building the Autonomous Enterprise - Where Process Mining, AI, and Orchestration Converge",
-  },
-  { time: "10:30 – 11:10", type: "Break", title: "Networking Break and Refreshments" },
-  {
-    time: "11:10 – 11:45",
+    time: "11:45 – 12:20",
     type: "Panel Discussion",
     title: "Beyond the Pilot Wall - Scaling Agentic AI & Governed Automation Across Operations",
     bullets: [
@@ -294,51 +304,74 @@ const AGENDA: AgendaItem[] = [
       "Measuring AI productivity and ROI in operational terms",
       "What autonomous enterprise really means in practice",
     ],
+    panelists: [
+      "Ahmed Alawami, Head of Data and AI, Saudi Energy",
+      "Dr. Ibrahim bin Abdullah Alotaibi, Chief Strategy and Business Development Officer, Confidential Saudi Government Entity",
+      "Dr. Yousof Ghazzawi, Senior Portfolio Leader - Business Transformation, Confidential",
+      "Mohammed Fouad, Strategy and Business Excellence Director, Riyadh Cement Company",
+      "Odeh Mahmoud, CEO, Cyborg",
+      "Reserved for Blackstone eIT",
+    ],
   },
   {
-    time: "11:45 – 12:00",
+    time: "12:20 – 12:35",
     type: "Technology Presentation",
-    title: "Seeing Before Scaling - Process Mining as the Prerequisite for Automation",
+    title: "Sovereign AI Isn't Sovereign Unless It's Secure, and Ops Is the Front Line",
+    speaker: "Odeh Mahmoud, CEO, Cyborg",
   },
   {
-    time: "12:00 – 12:15",
+    time: "12:35 – 12:50",
     type: "Technology Presentation",
-    title: "Automation Meets Compliance: Designing Bots for a Regulated Environment",
+    title: "Topic to be announced",
+    speaker: "Nadeer Alshyookh, Business Transformation Manager Lead - MEA North, SAP",
   },
-  { time: "12:15 – 12:45", type: "Break", title: "Prayer Break and Networking" },
+  { time: "12:50 – 13:15", type: "Break", title: "Prayer Break and Networking" },
   {
-    time: "12:45 – 13:20",
+    time: "13:15 – 13:50",
     type: "Panel Discussion",
     title: "From Hindsight to Foresight - Process Mining, Control Towers & the Self-Optimising Enterprise",
     bullets: [
       "The RPA ceiling: why enterprises hit diminishing returns with siloed bots",
       "The convergence: process mining, process management and orchestration merging",
-      "Building a real control tower: beyond dashboards",
-      "Predictive process analytics and digital twins",
+      "Building a real control tower: beyond dashboards to predictive process analytics and digital twins",
       "Value realisation tracking: closing the loop from insight to action",
       "Process intelligence for the public sector",
     ],
-  },
-  {
-    time: "13:20 – 13:35",
-    type: "Technology Presentation",
-    title: "Low-Code, High Governance: Agile Workflow Redesign Without Losing Control",
-  },
-  {
-    time: "13:35 – 14:15",
-    type: "Panel Discussion",
-    title: "Compliance by Design - Regulatory Digitisation, Enterprise Architecture & Cyber-Resilient Operations",
-    bullets: [
-      "Keeping pace with the mandate wave: e-invoicing, PDPL, data residency and NCA controls",
-      "Embedding regulatory logic into workflows, automation and agent guardrails",
-      "Enterprise architecture as execution backbone",
-      "Sovereignty and the cloud questioning",
-      "Security by design as differentiator: cyber-resilient operational models",
-      "Digital maturity scoring: DGA maturity assessments and audit-ready digital evidence",
+    moderator: "Jiya Chadha, Supply Chain Advisor, Blue Yonder",
+    panelists: [
+      "Mohammed Al Ghamdi, VP Manufacturing, Nama Chemicals",
+      "Mohaned Alsheqaiq, Vice President, Bahri Line",
+      "Eng. Ghassan Gamal, Executive Advisor, Confidential",
+      "Reem Alharbi, Deputy GM of Operational Command Center, Confidential",
+      "Mohamed Alamri, GM of Organisational Excellence, Roads General Authority",
     ],
   },
-  { time: "14:15 – 14:30", type: "Ceremony", title: "OPEX First Award Ceremony & Raffle Draw" },
-  { time: "14:30", type: "Break", title: "Networking Lunch and End of Conference" },
+  {
+    time: "13:50 – 14:05",
+    type: "Technology Presentation",
+    title: "Topic to be announced",
+    speaker: "Raghavendra Ramesh, Global Head of Forward Deployed Engineering, MOXO",
+  },
+  {
+    time: "14:05 – 14:40",
+    type: "Panel Discussion",
+    title: "Compliance by Discipline - Regulatory Digitisation, Enterprise Architecture & Operations",
+    bullets: [
+      "Keeping pace with the mandate wave",
+      "Embedding regulatory logic into workflows, automation and agent guardrails",
+      "Enterprise architecture as execution backbone",
+      "Digital maturity scoring: assessments and audit-ready digital evidence",
+    ],
+    moderator: "Abdulmajeed S. Alqumayshi, Director of Quality Assurance, ESNAD",
+    panelists: [
+      "Dr. Nasser Alamri, Strategic Engagement and Partnership Executive Advisor, Government Entity",
+      "Meshaal Almanie, Executive Director of Operations, Confidential",
+      "Naif N. Al Suliman, Crisis & Disasters Centre (CDC) Executive Director, NWC",
+      "Maher Mousa, Regional Director of Product Management & Compliance, Johnson Controls Arabia",
+    ],
+  },
+  { time: "14:40 – 15:00", type: "Ceremony", title: "OPEX First Award Ceremony & Raffle Draw" },
+  { time: "15:00", type: "Break", title: "Networking Lunch and End of Conference" },
 ];
 
 const JOB_TITLES = [
@@ -501,7 +534,7 @@ function typeColor(type: AgendaItem["type"]) {
   if (type === "Keynote Presentation" || type === "Welcome Address") return V_BRIGHT;
   if (type === "Technology Presentation") return V_PALE;
   if (type === "Break" || type === "Ceremony") return FAINT;
-  return V; // Leadership Panel, Panel Discussion
+  return V; // Fireside Chat, Leadership Panel, Panel Discussion
 }
 
 // ─── Hero ────────────────────────────────────────────────────────────────────
@@ -4481,7 +4514,7 @@ function Agenda() {
         </svg>
       );
     }
-    if (type === "Leadership Panel" || type === "Panel Discussion") {
+    if (type === "Fireside Chat" || type === "Leadership Panel" || type === "Panel Discussion") {
       return (
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -4547,6 +4580,30 @@ function Agenda() {
 
           <h3 className="opex-ag-title">{a.title}</h3>
           {a.subtitle && <p className="opex-ag-sub">{a.subtitle}</p>}
+          {a.speaker && <p className="opex-ag-speaker">{a.speaker}</p>}
+          {(a.moderator || a.panelists?.length) && (
+            <div className="opex-ag-people">
+              {a.moderator && (
+                <p className="opex-ag-people-row">
+                  <span className="opex-ag-people-label">Moderator</span>
+                  <span className="opex-ag-speaker">{a.moderator}</span>
+                </p>
+              )}
+              {a.panelists && a.panelists.length > 0 && (
+                <>
+                  <span className="opex-ag-people-label">Panelists</span>
+                  <ul className="opex-ag-panelists">
+                    {a.panelists.map((p) => (
+                      <li key={p}>
+                        <span className="opex-ag-bullet-dot" aria-hidden />
+                        <span className="opex-ag-speaker">{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
+          )}
         </div>
       </article>
     );
@@ -4569,7 +4626,7 @@ function Agenda() {
       <div style={{ maxWidth: 1320, margin: "0 auto", position: "relative", zIndex: 2 }}>
         <SectionEyebrow inView={inView} label="Agenda · 21 October 2026" />
         <SectionTitle inView={inView}>
-          One day. <em className="opex-violet-shimmer">Ten sessions</em>. Built for action.
+          One day. <em className="opex-violet-shimmer">Eleven sessions</em>. Built for action.
         </SectionTitle>
 
         {/* Day theme (from the agenda brief) */}
@@ -4806,6 +4863,44 @@ function Agenda() {
           color: rgba(255,255,255,0.82);
           margin: 0;
         }
+        /* Speakers, moderator and panelists */
+        .opex-ag-speaker {
+          font-family: var(--font-outfit);
+          font-size: 13px;
+          font-style: italic;
+          line-height: 1.5;
+          color: #C4B5FD; /* V_PALE */
+          margin: 4px 0 0;
+        }
+        .opex-ag-people {
+          margin-top: 10px;
+          padding-top: 10px;
+          border-top: 1px solid rgba(255,255,255,0.07);
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .opex-ag-people-row { margin: 0; display: flex; flex-direction: column; gap: 2px; }
+        .opex-ag-people-row .opex-ag-speaker { margin: 0; }
+        .opex-ag-people-label {
+          font-family: var(--font-dm-sans);
+          font-size: 9.5px;
+          font-weight: 700;
+          letter-spacing: 1.4px;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.5);
+        }
+        .opex-ag-panelists {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+        .opex-ag-panelists li { display: flex; align-items: flex-start; gap: 9px; }
+        .opex-ag-panelists .opex-ag-speaker { margin: 0; }
+        .opex-ag-panelists .opex-ag-bullet-dot { margin-top: 7px; width: 5px; height: 5px; }
         .opex-ag-bullets {
           margin: 10px 0 0;
           padding: 0;
