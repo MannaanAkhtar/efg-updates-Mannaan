@@ -320,6 +320,20 @@ const SPEAKERS: Speaker[] = [
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Khalid+Al-Begain+Photo+5.jpeg",
     linkedin: "https://www.linkedin.com/in/khalid-al-begain-b311276/",
   },
+  {
+    name: "Abdulmajeed Al-Sabah",
+    title: "Head, Risk & Compliance, Information Technology Department",
+    org: "Kuwait National Petroleum Company (KNPC)",
+    photo: null,
+    linkedin: "https://www.linkedin.com/in/abdulmajeed-al-sabah-7113679a/",
+  },
+  {
+    name: "Shadi Mekdashi",
+    title: "SVP, Risk & Compliance",
+    org: "United Real Estate Co.",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Shadi+Mekdashi1.png",
+    linkedin: "https://www.linkedin.com/in/shadi-mekdashi-cpa/",
+  },
 ];
 
 // Kuwait 2025 photos used for the gallery + Key Topic panels (verified S3 URLs).
