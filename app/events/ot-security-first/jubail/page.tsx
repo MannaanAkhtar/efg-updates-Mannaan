@@ -3203,16 +3203,16 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
       },
       {
         time: "11:25 – 11:40",
-        type: "Keynote",
-        title: "Reserved for ACET Solutions & Avanceon",
-        speaker: "Mubarik Mustafa, CEO, ACET Solutions",
-      },
-      {
-        time: "11:40 – 11:50",
         logo: `${AG_LOGOS}/swidch+logo+white.png`,
         title: "Water. Power. 700,000 Attacks a Day. And One Question: Who Is Controlling Your PLC?",
         desc: "Why network monitoring alone cannot secure critical infrastructure and how endpoint-level authentication and pre-execution access control can protect legacy PLCs without changing existing systems.",
         speaker: "Dr. Godfrey Gaston MBE, Cybersecurity Specialist, swIDch",
+      },
+      {
+        time: "11:40 – 11:55",
+        type: "Keynote",
+        title: "Reserved for ACET Solutions & Avanceon",
+        speaker: "Mubarik Mustafa, CEO, ACET Solutions",
       },
       {
         time: "11:50 – 12:00",
