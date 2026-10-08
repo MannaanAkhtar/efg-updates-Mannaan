@@ -240,6 +240,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Meshaal Almanie", title: "Executive Director of Operations", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Meshaal+Almanie1.png", linkedin: "https://www.linkedin.com/in/meshaal-almanie/" },
   { name: "Eng. Ahmed M. Khayyat", title: "GM, Corporate Operational Excellence", org: "Saudia Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng.+Ahmed+M.+Khayyat.jpeg", linkedin: "https://www.linkedin.com/in/ahkhayyat/" },
   { name: "Jiya Chadha", title: "Supply Chain Advisor", org: "Blue Yonder", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Jiya+Chadha1.jpeg", linkedin: "https://www.linkedin.com/in/jiya-chadha-26096763/" },
+  { name: "Neil Evans", title: "Head of Energy", org: "Q5 Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Neil_Evans.png", linkedin: "https://www.linkedin.com/in/neilmevans/" },
 ];
 
 type AgendaItem = {
