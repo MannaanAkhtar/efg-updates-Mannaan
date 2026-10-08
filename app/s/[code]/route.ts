@@ -79,6 +79,8 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   // InquiryForm opens on "Sponsor" by default, which is the wrong form for a
   // post driving delegate registrations.
   "cfq-li": { path: "/events/cyber-first/qatar", source: "linkedin", medium: "social", campaign: "cf-qatar-2026", hash: "register", tab: "attend" },
+  "cfq-malak": { path: "/events/cyber-first/qatar", source: "malak", campaign: "cf-qatar-2026", hash: "register", tab: "attend" },
+  "cfq-stephen": { path: "/events/cyber-first/qatar", source: "stephen", campaign: "cf-qatar-2026", hash: "register", tab: "attend" },
 
   // Cyber First Kuwait 2026 (LinkedIn promotion). No tab= here, unlike Qatar:
   // this page's register section already opens on "Attend", so forcing it would
