@@ -211,7 +211,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Mohammed Al Ghamdi", title: "VP Manufacturing", org: "NAMA Chemicals", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al+Ghamdi.jpeg", linkedin: "https://www.linkedin.com/in/mohammed-al-ghamdi-407451a5/" },
   { name: "Faisal Al-Zahrani", title: "EHSS General Manager", org: "S-Chem", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Faisal+Al-Zahrani.png" },
   { name: "Ahmed Alawami", title: "Head of Data and AI", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+T+Alawami.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/" },
-  { name: "Reem Alharbi", title: "Deputy GM - Integrated Ports Command Center", org: "Saudi Ports Authority (Mawani)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Reem+Alharbi.jpeg", linkedin: "https://www.linkedin.com/in/reem-alharbi-a89a4a156/" },
+  { name: "Reem Alharbi", title: "Deputy GM of Operational Command Center", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Reem+Alharbi.jpeg", linkedin: "https://www.linkedin.com/in/reem-alharbi-a89a4a156/" },
   { name: "Anwar Zumah", title: "VP Direct Investment", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anwar+Zumah.jpeg", linkedin: "https://www.linkedin.com/in/anwar-zumah-223577a5/" },
   { name: "Naif N. Al Suliman", title: "Crisis and Disaster Center (CDC) Executive Director", org: "National Water Company (NWC)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naif+N.jpeg", linkedin: "https://www.linkedin.com/in/naif-n-al-suliman-54918b50/" },
   { name: "Mohammed N. Aljuhani", title: "Organizational Excellence Director", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+N.+Aljuhani.jpg", linkedin: "https://www.linkedin.com/in/maljuhani/" },
@@ -227,7 +227,7 @@ const SPEAKERS: Speaker[] = [
   // LinkedIn URLs arrived with share-tracking query strings; only the profile
   // path is kept here.
   { name: "Dr. Yousof Ghazzawi", title: "Senior Portfolio Leader - Business Transformation", org: "SABIC", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Yousof+Ghazzawi1.png", linkedin: "https://www.linkedin.com/in/yousofghazzawi/" },
-  { name: "Ghassan Gamal", title: "Executive Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ghassan1.png", linkedin: "https://www.linkedin.com/in/ggamal/" },
+  { name: "Ghassan Gamal", title: "Executive Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ghassan+gamal.jpeg", linkedin: "https://www.linkedin.com/in/ggamal/" },
   // Blackstone eIT. Portraits and LinkedIn carried over from the Blackstone
   // pages. Wajih uses the "-new" portrait that /blackstone-liferay switched
   // to; the older Wajih_Yahaouyi_Blackstone.png on /outsystems-blackstone is
