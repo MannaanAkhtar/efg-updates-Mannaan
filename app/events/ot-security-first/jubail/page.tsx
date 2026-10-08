@@ -89,6 +89,8 @@ const SPEAKERS: Speaker[] = [
   { name: "Mohammed Al-Ghamdi", title: "Executive VP Manufacturing", org: "Jubail Chemical Industries", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al-Ghamdi1.png", linkedin: "https://www.linkedin.com/in/mohammed-al-ghamdi-407451a5/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Abdulaziz Alarfaj", title: "CISO", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulaziz.png", linkedin: "https://www.linkedin.com/in/abdulazizalarfaj/", flag: "https://flagcdn.com/w40/sa.png" },
   { name: "Mohannad Meri", title: "Senior Sales Engineer", org: "Illumio", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohannad+Meri.png", linkedin: "https://www.linkedin.com/in/mohannad-meri-33a12129/" },
+  { name: "Mubarik Mustafa", title: "CEO", org: "ACET Solutions", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mubarik+Mustafa+Picture.jpg", linkedin: "https://www.linkedin.com/in/muhammad-mubarik-mustafa/" },
+  { name: "Omer Bin Abdul Aziz", title: "Vice President | Digitalization", org: "Avanceon Middle East & South Asia", photo: null, initials: "OA" },
 ];
 
 // ─── Advisors ─────────────────────────────────────────────────────────────────
