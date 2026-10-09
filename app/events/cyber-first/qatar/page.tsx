@@ -859,7 +859,14 @@ function Hero() {
             style={{ display: "flex", flexWrap: "wrap", gap: 12 }}
           >
             <a
-              href="#register-interest"
+              href="#register"
+              onClick={(e) => {
+                // The shared InquiryForm opens on "Sponsor", so select the
+                // attend ("pass") tab on the way down, as the partner CTA does.
+                e.preventDefault();
+                window.dispatchEvent(new CustomEvent("efg:set-form-tab", { detail: "pass" }));
+                document.getElementById("register")?.scrollIntoView({ behavior: "smooth" });
+              }}
               className="cfq-cta-primary"
               style={{
                 display: "inline-flex",
