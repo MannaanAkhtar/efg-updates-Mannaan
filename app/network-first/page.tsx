@@ -37,22 +37,6 @@ const NF = "https://efg-final.s3.eu-north-1.amazonaws.com/networkfirst/events";
 
 const UPCOMING_EVENTS = [
   {
-    date: "October 8th, 2026",
-    month: "OCT",
-    day: "8",
-    year: "2026",
-    time: "10:30 – 14:15 GST · 225 min",
-    title: "Intwo CXO Roundtable",
-    subtitle: "AI Agents in Action: your ERP knows, it just doesn't act",
-    sponsor: "Intwo",
-    location: "Dubai, UAE",
-    link: "/intwo",
-    image: "",
-    brandColor: "#002A3B",
-    brandGradient: "linear-gradient(135deg, #0474A2 0%, #013A52 46%, #002A3B 78%, #001A24 100%)",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/intwo+logo.svg",
-  },
-  {
     date: "November 16th, 2026",
     month: "NOV",
     day: "16",
@@ -215,22 +199,6 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Blackstone+eIT+Logo+Reversed+No+Slogan.png",
   },
   {
-    date: "October 7th, 2026",
-    month: "OCT",
-    day: "7",
-    year: "2026",
-    time: "Time TBC",
-    title: "Grow with Braze",
-    subtitle: "Braze's customer engagement event, live in Dubai",
-    sponsor: "Braze",
-    location: "Dubai, UAE",
-    link: "https://globalevents.braze.com/register/grow-with-braze-dubai-26?utm_campaign=fy27-q3-apac-gcc-owned-field-gwb-dubai&utm_medium=telemarketing&utm_source=EFG&utm_content=event-gwb-dubai-2026-invite&utm_term=EFGagency",
-    image: "",
-    brandColor: "#801ED7",
-    brandGradient: "linear-gradient(135deg, #9B3FE8 0%, #801ED7 42%, #300266 82%, #150033 100%)",
-    brandLogo: "/braze/braze-logo-white.png",
-  },
-  {
     date: "October 13th, 2026",
     month: "OCT",
     day: "13",
@@ -356,6 +324,36 @@ type PastEvent = {
 };
 
 const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    // Venue was never confirmed on the event page ("Venue to be confirmed"),
+    // so the city stands in for it rather than a guessed venue.
+    sponsor: "Intwo",
+    title: "Intwo CXO Roundtable",
+    subtitle: "AI Agents in Action: your ERP knows, it just doesn't act",
+    month: "OCT",
+    date: "8 Oct",
+    venue: "Dubai, UAE",
+    time: "10:30 – 14:15 GST",
+    image: "",
+    brandColor: "#002A3B",
+    brandGradient: "linear-gradient(135deg, #0474A2 0%, #013A52 46%, #002A3B 78%, #001A24 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/intwo+logo.svg",
+    link: "/intwo",
+  },
+  {
+    // Braze ran its own registration, so the only link was its sign-up page —
+    // dropped now the event is over. No venue or time was ever published.
+    sponsor: "Braze",
+    title: "Grow with Braze",
+    subtitle: "Braze's customer engagement event, live in Dubai",
+    month: "OCT",
+    date: "7 Oct",
+    venue: "Dubai, UAE",
+    image: "",
+    brandColor: "#801ED7",
+    brandGradient: "linear-gradient(135deg, #9B3FE8 0%, #801ED7 42%, #300266 82%, #150033 100%)",
+    brandLogo: "/braze/braze-logo-white.png",
+  },
   {
     sponsor: "IFS",
     title: "IFS Executive Roundtable",
