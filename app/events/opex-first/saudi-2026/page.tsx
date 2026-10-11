@@ -214,7 +214,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Reem Alharbi", title: "Deputy GM of Operational Command Center", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Reem+Alharbi.jpeg", linkedin: "https://www.linkedin.com/in/reem-alharbi-a89a4a156/" },
   { name: "Anwar Zumah", title: "VP Direct Investment", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anwar+Zumah.jpeg", linkedin: "https://www.linkedin.com/in/anwar-zumah-223577a5/" },
   { name: "Naif N. Al Suliman", title: "Crisis and Disaster Center (CDC) Executive Director", org: "National Water Company (NWC)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naif+N.jpeg", linkedin: "https://www.linkedin.com/in/naif-n-al-suliman-54918b50/" },
-  { name: "Mohammed N. Aljuhani", title: "Organizational Excellence Director", org: "Confidential Government", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+N.+Aljuhani.jpg", linkedin: "https://www.linkedin.com/in/maljuhani/" },
+  { name: "Mohammed N. Aljuhani", title: "Organizational Excellence Director", org: "Fund for Martyrs, Wounded, POWs and Missing in Action", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+N.+Aljuhani.jpg", linkedin: "https://www.linkedin.com/in/maljuhani/" },
   { name: "Eng. Maher Mousa", title: "Regional Director of Product Management & Compliance", org: "Johnson Controls Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng+Maher+Mousa.jpeg", linkedin: "https://www.linkedin.com/in/maher-mousa-mba-cmi-b8881818/" },
   { name: "Ahmed Al Idrissi", title: "Executive Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ahmed+al+idrissi.jpg", linkedin: "https://www.linkedin.com/in/ahmed-alidrissi/" },
   { name: "Talal Alahmari", title: "Organizational Excellence Director", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/talal+alahmari.png", linkedin: "https://www.linkedin.com/in/alahmaritalal/" },
@@ -226,22 +226,23 @@ const SPEAKERS: Speaker[] = [
   { name: "Maan Al Maddah", title: "Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Maan+Al+Maddah.jpg", linkedin: "https://www.linkedin.com/in/maanalmaddah/" },
   // LinkedIn URLs arrived with share-tracking query strings; only the profile
   // path is kept here.
-  { name: "Dr. Yousof Ghazzawi", title: "Senior Portfolio Leader - Business Transformation", org: "SABIC", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Yousof+Ghazzawi1.png", linkedin: "https://www.linkedin.com/in/yousofghazzawi/" },
+  { name: "Dr. Yousof Ghazzawi", title: "Senior Portfolio Leader - Business Transformation", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Yousof+Ghazzawi1.png", linkedin: "https://www.linkedin.com/in/yousofghazzawi/" },
   { name: "Ghassan Gamal", title: "Executive Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ghassan+gamal.jpeg", linkedin: "https://www.linkedin.com/in/ggamal/" },
   // Blackstone eIT. Portraits and LinkedIn carried over from the Blackstone
   // pages. Wajih uses the "-new" portrait that /blackstone-liferay switched
   // to; the older Wajih_Yahaouyi_Blackstone.png on /outsystems-blackstone is
   // a different person and looks like it was the wrong file.
   { name: "Wajih Yahyaoui", title: "Managing Partner", org: "Blackstone eIT", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Wajih+Yahyaoui-new.png", photoBg: "#69686C", linkedin: "https://www.linkedin.com/in/wajihyahyaoui/" },
-  { name: "Youness Soulayman", title: "CTO & Executive Director", org: "Blackstone eIT", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Youness_Soulayman_Blackstone.png", linkedin: "https://www.linkedin.com/in/younesszahir/" },
+  { name: "Youness Zahir", title: "CTO & Executive Director", org: "Blackstone eIT", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Youness_Soulayman_Blackstone.png", linkedin: "https://www.linkedin.com/in/younesszahir/" },
   // Cut-out portrait on a transparent background; the supplied backdrop
   // colour stands in for the studio grey the other headshots have.
-  { name: "Odeh Mahmoud", title: "CEO", org: "Cyborg Automation", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Odeh+Mahmoud.png", photoBg: "#69686C", linkedin: "https://www.linkedin.com/in/odeh-mahmoud/" },
+  { name: "Odeh Mahmoud", title: "CEO", org: "Cyborg", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Odeh+Mahmoud.png", photoBg: "#69686C", linkedin: "https://www.linkedin.com/in/odeh-mahmoud/" },
   { name: "Meshaal Almanie", title: "Executive Director of Operations", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Meshaal+Almanie1.png", linkedin: "https://www.linkedin.com/in/meshaal-almanie/" },
   { name: "Eng. Ahmed M. Khayyat", title: "GM, Corporate Operational Excellence", org: "Saudia Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng.+Ahmed+M.+Khayyat.jpeg", linkedin: "https://www.linkedin.com/in/ahkhayyat/" },
-  { name: "Jiya Chadha", title: "Supply Chain Advisor", org: "Blue Yonder", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Jiya+Chadha1.jpeg", linkedin: "https://www.linkedin.com/in/jiya-chadha-26096763/" },
+  { name: "Jiya Chadha", title: "Senior Manager - Supply Chain Advisory", org: "Blue Yonder", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Jiya+Chadha1.jpeg", linkedin: "https://www.linkedin.com/in/jiya-chadha-26096763/" },
   { name: "Neil Evans", title: "Head of Energy", org: "Q5 Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Neil_Evans.png", linkedin: "https://www.linkedin.com/in/neilmevans/" },
   { name: "Raghavendra Ramesh", title: "Global Head of Forward Deployed Engineering", org: "Moxo", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Raghavendra+Ramesh.jpeg", linkedin: "https://www.linkedin.com/in/raghavendraramesh/" },
+  { name: "Mohammad Shoaib Osmani", title: "Business Architect", org: "Aris", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammad+Shoaib+Osmani.jpeg", linkedin: "https://www.linkedin.com/in/shoaibosmani/" },
 ];
 
 type AgendaItem = {
@@ -286,7 +287,7 @@ const AGENDA: AgendaItem[] = [
       "Ahmed Al Idrissi, Executive Advisor, Confidential",
       "Talal Alahmari, Organizational Excellence Director, Confidential",
       "Maan Al Maddah, Advisor, Confidential",
-      "Mohammed N. Aljuhani, Organizational Excellence Director, Confidential Government",
+      "Mohammed N. Aljuhani, Organizational Excellence Director, Fund for Martyrs, Wounded, POWs and Missing in Action",
       "Eng. Ahmed M. Khayyat, GM, Corporate Operational Excellence, Saudia Group",
     ],
   },
@@ -337,7 +338,7 @@ const AGENDA: AgendaItem[] = [
       "Value realisation tracking: closing the loop from insight to action",
       "Process intelligence for the public sector",
     ],
-    moderator: "Jiya Chadha, Supply Chain Advisor, Blue Yonder",
+    moderator: "Jiya Chadha, Senior Manager - Supply Chain Advisory, Blue Yonder",
     panelists: [
       "Mohammed Al Ghamdi, VP Manufacturing, Nama Chemicals",
       "Mohaned Alsheqaiq, Vice President, Bahri Line",
