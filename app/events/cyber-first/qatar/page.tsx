@@ -227,6 +227,8 @@ const CFQ_SPEAKERS: { name: string; title: string; org: string; photo?: string; 
   // The S3 filename really does carry an en space (%E2%80%82) before the 1 —
   // it is not a typo to tidy up, the object would 404 without it.
   { name: "Sandamali Silva", title: "Information Security, IT Governance and Technology Risk Leader", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sandamali+Silva%E2%80%821.png", linkedin: "https://www.linkedin.com/in/sandamali-silva/" },
+  { name: "Omer Misirlioglu", title: "Director of Artificial Intelligence and Product", org: "Apex Health", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Omer+Misirlioglu.png", linkedin: "https://www.linkedin.com/in/misirlioglu/" },
+  { name: "Shaikha Al-Thani", title: "Owner", org: "The Cyber Pulse", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/sheikah+al+thani-928.jpg.jpeg", linkedin: "https://www.linkedin.com/in/shaikha-al-thani/" },
 ];
 
 // ─── Agenda ──────────────────────────────────────────────
