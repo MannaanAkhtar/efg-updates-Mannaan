@@ -29,15 +29,14 @@ const ALLOWED_ORIGINS = [
 ];
 
 // Recipients for form notifications. NOTIFICATION_EMAIL (env) may be a
-// comma-separated list; the extra recipients below are always included.
+// comma-separated list; it falls back to Ateeq when unset.
 const NOTIFICATION_EMAIL = Array.from(
-  new Set([
-    ...(process.env.NOTIFICATION_EMAIL || "ateeq@eventsfirstgroup.com")
+  new Set(
+    (process.env.NOTIFICATION_EMAIL || "ateeq@eventsfirstgroup.com")
       .split(",")
       .map((e) => e.trim())
-      .filter(Boolean),
-    "afra@eventsfirstgroup.com",
-  ])
+      .filter(Boolean)
+  )
 );
 
 // Verified sender domain (same as the boardroom route). Previously this form

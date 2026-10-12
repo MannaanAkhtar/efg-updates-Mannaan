@@ -8,15 +8,14 @@ import { randomUUID } from "crypto";
 // ═══════════════════════════════════════════════════════════════════════════
 
 // Recipients for registration notifications. NOTIFICATION_EMAIL (env) may be a
-// comma-separated list; the extra recipients below are always included.
+// comma-separated list; it falls back to Ateeq when unset.
 const NOTIFICATION_EMAIL = Array.from(
-  new Set([
-    ...(process.env.NOTIFICATION_EMAIL || "ateeq@eventsfirstgroup.com")
+  new Set(
+    (process.env.NOTIFICATION_EMAIL || "ateeq@eventsfirstgroup.com")
       .split(",")
       .map((e) => e.trim())
-      .filter(Boolean),
-    "afra@eventsfirstgroup.com",
-  ])
+      .filter(Boolean)
+  )
 );
 const DEFAULT_MAX_PARTICIPANTS = 15;
 const EMAIL_FROM = process.env.RESEND_FROM_EMAIL || "Events First Group <noreply@eventsfirstgroup.com>";
