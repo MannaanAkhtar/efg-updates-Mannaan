@@ -243,6 +243,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Neil Evans", title: "Head of Energy", org: "Q5 Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Neil_Evans.png", linkedin: "https://www.linkedin.com/in/neilmevans/" },
   { name: "Raghavendra Ramesh", title: "Global Head of Forward Deployed Engineering", org: "Moxo", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Raghavendra+Ramesh.jpeg", linkedin: "https://www.linkedin.com/in/raghavendraramesh/" },
   { name: "Mohammad Shoaib Osmani", title: "Business Architect", org: "Aris", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammad+Shoaib+Osmani.jpeg", linkedin: "https://www.linkedin.com/in/shoaibosmani/" },
+  { name: "Dr. Mohammed Fouad Hussein Mesafer", title: "Strategy & Business Excellence Director", org: "Riyadh Cement Company", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Mohammed+Fouad+Hussein+Mesafer1.png" },
 ];
 
 type AgendaItem = {
