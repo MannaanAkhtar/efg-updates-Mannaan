@@ -94,7 +94,7 @@ export default function OpexFirstLayout({
         audience={["COOs", "Transformation directors", "Process intelligence leaders", "Government excellence officers", "Enterprise C-suite", "Operations heads", "Continuous improvement leaders"]}
         editions={[
           { name: "Process Intelligence MENA, Executive Webinar", city: "GCC Region", country: "Online", date: "21 May 2026", url: `${BASE_URL}/events/opex-first/process-intelligence` },
-          { name: "OPEX First Saudi 2026 (2nd Edition)", city: "Riyadh", country: "Saudi Arabia", date: "15 September 2026", url: `${BASE_URL}/events/opex-first/saudi-2026` },
+          { name: "OPEX First Saudi 2026 (2nd Edition)", city: "Riyadh", country: "Saudi Arabia", date: "25 November 2026", url: `${BASE_URL}/events/opex-first/saudi-2026` },
           { name: "OPEX First UAE 2027", city: "To be announced", country: "United Arab Emirates", date: "20 January 2027", url: `${BASE_URL}/events/opex-first/uae` },
         ]}
         url={PAGE_URL}

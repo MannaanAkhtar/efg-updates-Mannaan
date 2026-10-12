@@ -15,8 +15,8 @@ const SERIF = `Georgia, "Cambria", "Times New Roman", serif`;
 const nextEdition = {
   name: "OPEX First KSA",
   edition: "Riyadh Edition",
-  date: new Date("2026-10-21T09:00:00"),
-  dateString: "21 October 2026",
+  date: new Date("2026-11-25T09:00:00"),
+  dateString: "25 November 2026",
   city: "Riyadh, KSA",
   theme: "Vision to Value — Merging AI & Process Excellence",
 };
@@ -37,7 +37,7 @@ const TABS = [
     label: "Attend",
     heading: "The flagship\nreturns to Riyadh",
     description:
-      "OPEX First KSA returns on 21 October 2026 under the theme Vision to Value — merging AI and process excellence. Registration is open for qualified delegates.",
+      "OPEX First KSA returns on 25 November 2026 under the theme Vision to Value — merging AI and process excellence. Registration is open for qualified delegates.",
     perks: [
       { icon: "users", text: "Invite-only, C-suite audience" },
       { icon: "calendar", text: "Full-day immersive programme" },

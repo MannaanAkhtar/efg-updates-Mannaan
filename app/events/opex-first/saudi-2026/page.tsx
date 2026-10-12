@@ -37,7 +37,7 @@ const FAINT = "rgba(255,255,255,0.35)";
 const MUTE = "rgba(255,255,255,0.6)";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const EVENT_DATE = new Date("2026-10-21T09:00:00+03:00");
+const EVENT_DATE = new Date("2026-11-25T09:00:00+03:00");
 const EFG_LOGO = "/events-first-group_logo_alt.svg";
 const OPEX_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OPEX+FIRST+logo-1.png";
 
@@ -90,7 +90,7 @@ const HERO_VIDEO = "https://efg-final.s3.eu-north-1.amazonaws.com/hero+videos/Op
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const HERO_PILLS = [
-  { label: "21 Oct 2026" },
+  { label: "25 Nov 2026" },
   { label: "Riyadh · Saudi Arabia" },
   { label: "Full-Day Summit" },
   { label: "220+ Delegates" },
@@ -803,7 +803,7 @@ function Hero() {
               color: "rgba(255,255,255,0.82)",
             }}
           >
-            <span>21 October 2026</span>
+            <span>25 November 2026</span>
             <span style={{ width: 4, height: 4, borderRadius: "50%", background: V_BRIGHT }} />
             <span>Hyatt Regency Riyadh Olaya</span>
             <span style={{ width: 4, height: 4, borderRadius: "50%", background: V_BRIGHT }} />
@@ -4625,7 +4625,7 @@ function Agenda() {
       <div style={{ position: "absolute", inset: 0, backgroundImage: `linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px)`, backgroundSize: "100% 80px", pointerEvents: "none", opacity: 0.6 }} />
 
       <div style={{ maxWidth: 1320, margin: "0 auto", position: "relative", zIndex: 2 }}>
-        <SectionEyebrow inView={inView} label="Agenda · 21 October 2026" />
+        <SectionEyebrow inView={inView} label="Agenda · 25 November 2026" />
         <SectionTitle inView={inView}>
           One day. <em className="opex-violet-shimmer">Eleven sessions</em>. Built for action.
         </SectionTitle>
@@ -7189,7 +7189,7 @@ function Venue() {
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 11, fontFamily: "var(--font-outfit)", fontSize: 15, color: "rgba(255,255,255,0.8)" }}>
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke={V_BRIGHT} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><rect x="3.5" y="4.5" width="17" height="16" rx="2" /><path d="M3.5 9h17M8 2.5v4M16 2.5v4" /></svg>
-                21 October 2026 · Full-Day Summit
+                25 November 2026 · Full-Day Summit
               </div>
             </div>
             <a href="https://www.google.com/maps/search/?api=1&query=Hyatt+Regency+Riyadh+Olaya" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 26, alignSelf: "flex-start", padding: "12px 22px", borderRadius: 999, background: `linear-gradient(135deg, ${V_BRIGHT} 0%, ${V} 60%, ${V_DIM} 100%)`, color: "#fff", fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 600, textDecoration: "none", boxShadow: `0 12px 30px -12px ${V}` }}>
@@ -7207,7 +7207,7 @@ function Venue() {
 
 // ─── FAQ (mirrors the FAQPage JSON-LD in layout.tsx — keep the two in sync) ──
 const FAQ_ITEMS: { q: string; a: string }[] = [
-  { q: "When is OPEX First Saudi 2026 (OPEX KSA)?", a: "OPEX First Saudi Arabia 2026 — also known as OPEX KSA — takes place on 21 October 2026 in Riyadh, Saudi Arabia." },
+  { q: "When is OPEX First Saudi 2026 (OPEX KSA)?", a: "OPEX First Saudi Arabia 2026 — also known as OPEX KSA — takes place on 25 November 2026 in Riyadh, Saudi Arabia." },
   { q: "Where is OPEX First Saudi 2026 held?", a: "OPEX First Saudi 2026 is held at the Hyatt Regency Riyadh Olaya in Riyadh, Saudi Arabia." },
   { q: "Who attends OPEX First Saudi 2026?", a: "Senior leaders driving operational excellence and digital transformation across Saudi Arabia — public-sector executives, enterprise C-suite, transformation directors, and process intelligence leaders. Attendance is invitation-only with 220+ delegates and 30+ speakers." },
   { q: "Is there a fee to attend OPEX First Saudi 2026?", a: "Attendance is free for qualified delegates. Apply via the registration form on the event page; the advisory team will confirm eligibility." },

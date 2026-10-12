@@ -54,7 +54,7 @@ export const POST_EVENT_REPORTS: ReportEntry[] = [
     year: "2026",
     title: "OPEX First KSA",
     subtitle: "2026 Edition",
-    // Event runs 21 October 2026, so the report does not exist yet. The URL
+    // Event runs 25 November 2026, so the report does not exist yet. The URL
     // follows the naming convention the other KSA report uses; replace it if
     // the uploaded file is named differently.
     url: "https://efg-final.s3.eu-north-1.amazonaws.com/post_event_reports/OPEX+First+KSA+2026+-+Post+Event+Report.pdf",

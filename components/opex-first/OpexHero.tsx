@@ -156,7 +156,7 @@ export default function OpexHero() {
       </div>
 
       {/* Ticker */}
-      <SeriesTickerBar accentColor={VIOLET} eventName="OPEX First KSA" location="Riyadh, Saudi Arabia" targetDate={new Date("2026-10-21T09:00:00")} ctaText="View Event" ctaHref="/events/opex-first/saudi-2026" angularRadius={false} />
+      <SeriesTickerBar accentColor={VIOLET} eventName="OPEX First KSA" location="Riyadh, Saudi Arabia" targetDate={new Date("2026-11-25T09:00:00")} ctaText="View Event" ctaHref="/events/opex-first/saudi-2026" angularRadius={false} />
 
       {/* ── Styles ── */}
       <style jsx global>{`

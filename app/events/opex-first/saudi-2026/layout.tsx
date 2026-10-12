@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: "OPEX First Saudi 2026 (OPEX KSA) — Operational Excellence Summit, Riyadh",
   description:
-    "OPEX First Saudi Arabia 2026 (OPEX KSA) — operational excellence summit in Riyadh, 21 Oct 2026. 220+ delegates, 30+ speakers, 5 awards recognising execution performance.",
+    "OPEX First Saudi Arabia 2026 (OPEX KSA) — operational excellence summit in Riyadh, 25 Nov 2026. 220+ delegates, 30+ speakers, 5 awards recognising execution performance.",
   keywords: [
     "OPEX KSA",
     "OPEX First KSA",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "OPEX First Saudi 2026 (OPEX KSA) — Riyadh",
     description:
-      "Vision to Value — Merging AI and Process Excellence. 21 October 2026, Riyadh.",
+      "Vision to Value — Merging AI and Process Excellence. 25 November 2026, Riyadh.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "OPEX First Saudi 2026 (OPEX KSA) — Riyadh", type: "image/png" }],
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
     title: "OPEX First Saudi 2026 — Riyadh",
-    description: "Vision to Value — Merging AI and Process Excellence. 21 October 2026, Riyadh.",
+    description: "Vision to Value — Merging AI and Process Excellence. 25 November 2026, Riyadh.",
     images: [OG_IMAGE],
   },
 };
@@ -104,8 +104,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             name: "OPEX First Saudi 2026 — 3rd Edition",
             description:
               "Vision to Value — Merging AI and Process Excellence. The only platform dedicated to propelling operational excellence to new heights, convening visionary government leaders, C-suite executives, and global tech innovators across Saudi Arabia's execution decade.",
-            startDate: "2026-10-21T09:00:00+03:00",
-            endDate: "2026-10-21T17:00:00+03:00",
+            startDate: "2026-11-25T09:00:00+03:00",
+            endDate: "2026-11-25T17:00:00+03:00",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {
@@ -145,7 +145,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 name: "When is OPEX First Saudi 2026 (OPEX KSA)?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "OPEX First Saudi Arabia 2026 — also known as OPEX KSA — takes place on 21 October 2026 in Riyadh, Saudi Arabia.",
+                  text: "OPEX First Saudi Arabia 2026 — also known as OPEX KSA — takes place on 25 November 2026 in Riyadh, Saudi Arabia.",
                 },
               },
               {
@@ -187,7 +187,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <EventFactBlock
         eventName="OPEX First Saudi 2026, 3rd Edition"
         series="OPEX First"
-        date="21 October 2026"
+        date="25 November 2026"
         city="Riyadh"
         country="Saudi Arabia"
         format="in-person"

@@ -69,7 +69,7 @@ const editions: Edition[] = [
     num: "03",
     folio: "03 / 03",
     status: "upcoming",
-    kicker: "Live Edition · 21 Oct 2026",
+    kicker: "Live Edition · 25 Nov 2026",
     editionLabel: "3rd Edition",
     city: "Riyadh",
     country: "KSA",
