@@ -177,3 +177,161 @@ Disallow: /callback
 Allow: /_next/static/
 Allow: /_next/image
 Disallow: /_next/
+
+# ─── OpenAI search (ChatGPT search results and citations) ──────────────────────
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
+Disallow: /_next/
+
+# ─── Perplexity live fetches (a user asked about a page) ───────────────────────
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
+Disallow: /_next/
+
+# ─── Google (Search, AI Overviews, Gemini grounding) ───────────────────────────
+
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
+Disallow: /_next/
+
+# ─── Microsoft (Bing Search and Copilot) ───────────────────────────────────────
+
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
+Disallow: /_next/
+
+# ─── Apple (Siri and Spotlight suggestions) ────────────────────────────────────
+
+User-agent: Applebot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
+Disallow: /_next/
+
+# ─── Meta AI ───────────────────────────────────────────────────────────────────
+
+User-agent: meta-externalagent
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
+Disallow: /_next/
+
+User-agent: meta-externalfetcher
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
+Disallow: /_next/
+
+# ─── Amazon (Alexa) ────────────────────────────────────────────────────────────
+
+User-agent: Amazonbot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
+Disallow: /_next/
+
+# ─── DuckDuckGo AI answers ─────────────────────────────────────────────────────
+
+User-agent: DuckAssistBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
+Disallow: /_next/
+
+# ─── Mistral (Le Chat live fetches) ────────────────────────────────────────────
+
+User-agent: MistralAI-User
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
+Disallow: /portal
+Disallow: /profile
+Disallow: /complete-profile
+Disallow: /callback
+Allow: /_next/static/
+Allow: /_next/image
+Disallow: /_next/

@@ -31,7 +31,7 @@ const eventSeries = [
     editions: [
       { href: "/events/cyber-first/kuwait-2026", label: "Kuwait" },
       { href: "/events/cyber-first/qatar", label: "Qatar" },
-      { href: "/events/cyber-first", label: "UAE" },
+      { href: "/events/cyber-first/uae", label: "UAE" },
     ]
   },
   {

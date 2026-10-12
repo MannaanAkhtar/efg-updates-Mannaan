@@ -65,9 +65,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${BASE_URL}/network-first`,
-      lastModified: new Date("2026-03-01"),
-      changeFrequency: "monthly",
-      priority: 0.7,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
     },
     {
       url: `${BASE_URL}/privacy`,
@@ -138,6 +138,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.85,
     },
+    {
+      url: `${BASE_URL}/events/cyber-first/uae`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
     // Cyber First Qatar 2026 — open / live
     {
       url: `${BASE_URL}/events/cyber-first/qatar`,
@@ -187,13 +193,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.85,
-    },
-    // Network First (standalone page)
-    {
-      url: `${BASE_URL}/network-first`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
     },
     // SonicWall Webinar
     {

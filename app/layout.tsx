@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/effects/SmoothScrollProvider";
+import StyledJsxRegistry from "@/components/effects/StyledJsxRegistry";
 import CursorGlow from "@/components/effects/CursorGlow";
 import ConditionalNavigation from "@/components/ui/ConditionalNavigation";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
@@ -167,12 +168,14 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased" suppressHydrationWarning>
+        <StyledJsxRegistry>
         <SmoothScrollProvider>
           <CursorGlow />
           <ConditionalNavigation />
           <main id="main-content" style={{ position: "relative" }}>{children}</main>
           <WhatsAppButton />
         </SmoothScrollProvider>
+        </StyledJsxRegistry>
       </body>
     </html>
   );
