@@ -2015,7 +2015,7 @@ type OtqContact = { eyebrow: string; name: string; role: string; email: string; 
 
 const OTQ_CONTACTS: OtqContact[] = [
   { eyebrow: "Speaking Enquiries", name: "Anna Firdouse Shah", role: "Senior Conference Producer", email: "anna@eventsfirstgroup.com", linkedin: "https://www.linkedin.com/in/anna-firdous-shah-88a90b1b8/", whatsapp: "https://wa.me/971545714377", whatsappLabel: "+971 54 571 4377", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/anna+blur+bg.png", photoPos: "center 28%", tone: "magenta" },
-  { eyebrow: "Sponsorship", name: "Mohammed Hassan", role: "Partnership Manager", email: "hassan@eventsfirstgroup.com", linkedin: "https://www.linkedin.com/in/mohammed-hassan-khan/", whatsapp: "https://wa.me/971545714377", whatsappLabel: "+971 54 571 4377", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/hassan.jpg", photoPos: "center 18%", tone: "maroon" },
+  { eyebrow: "Sponsorship", name: "Mohammed Hassan", role: "Senior Partnership Manager", email: "hassan@eventsfirstgroup.com", linkedin: "https://www.linkedin.com/in/mohammed-hassan-khan/", whatsapp: "https://wa.me/971545714377", whatsappLabel: "+971 54 571 4377", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/hassan.jpg", photoPos: "center 18%", tone: "maroon" },
   { eyebrow: "Sponsorship", name: "Mohammed Danish", role: "Partnership Manager", email: "danish@eventsfirstgroup.com", linkedin: "https://www.linkedin.com/in/mohammed-danish-018bb7262/", whatsapp: "https://wa.me/971545714377", whatsappLabel: "+971 54 571 4377", photo: "/team/danish.jpg", photoPos: "center 22%", tone: "maroon" },
 ];
 

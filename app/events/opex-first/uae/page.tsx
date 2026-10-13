@@ -468,7 +468,7 @@ const GALLERY_PHOTOS = [
 const CONTACTS = [
   {
     name: "Sanjana Venugopal",
-    title: "Producer",
+    title: "Senior Conference Producer",
     role: "Speaking Enquiries",
     email: "sanjana@eventsfirstgroup.com",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/Sanjana-Venugopal-new.jpg",
@@ -476,7 +476,7 @@ const CONTACTS = [
   },
   {
     name: "Mohammed Hassan",
-    title: "Partnership Manager",
+    title: "Senior Partnership Manager",
     role: "Sponsorship Enquiries",
     email: "hassan@eventsfirstgroup.com",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/hassan.jpg",

@@ -75,11 +75,11 @@ const teamMembers: Member[] = [
   { name: "Akmal", role: "Finance Manager", initials: "A", photo: `${S3}/akmal1.jpeg`, photoTransform: "scale(1.55) translateY(6%)" },
   // Producer
   { name: "Anna Firdouse Shah", role: "Senior Producer", initials: "AF", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/anna+shah.jpeg", photoTransform: "scale(1.35) translateX(-20%)" },
-  { name: "Sanjana Venugopal", role: "Senior Producer", initials: "SV", photo: `${S3}/Sanjana-Venugopal-new.jpg` },
+  { name: "Sanjana Venugopal", role: "Senior Conference Producer", initials: "SV", photo: `${S3}/Sanjana-Venugopal-new.jpg` },
   { name: "Harini", role: "Senior Producer", initials: "H", photo: `${S3}/Harini.jpg` },
   { name: "Syed Asad", role: "Senior Graphic Designer", initials: "SA", photo: `${S3}/Syed-Asad.jpg` },
   // Partnership
-  { name: "Mohammed Hassan", role: "Partnership Manager", initials: "MH", photo: `${S3}/hassan.jpg`, photoPos: "top" },
+  { name: "Mohammed Hassan", role: "Senior Partnership Manager", initials: "MH", photo: `${S3}/hassan.jpg`, photoPos: "top" },
   { name: "Mohammed Danish", role: "Partnership Manager", initials: "MD", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/team/danish.png" },
   { name: "Mayur Methi", role: "Partnership Manager", initials: "MM", photo: `${S3}/Mayur-Methi.png` },
   { name: "Sanskar Sharma", role: "Partnership Manager", initials: "SS", photo: `${S3}/Sanskar+Sharma.jpg`, photoFit: "contain", photoScale: 1.39 },

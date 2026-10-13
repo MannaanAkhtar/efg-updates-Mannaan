@@ -3974,7 +3974,7 @@ function Contact() {
             tone="cyan"
             eyebrow="Sponsorship"
             name="Mohammed Hassan"
-            role="Partnership Manager"
+            role="Senior Partnership Manager"
             photo="https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/hassan.jpg"
             email="hassan@eventsfirstgroup.com"
             whatsapp="https://wa.me/971545714377"

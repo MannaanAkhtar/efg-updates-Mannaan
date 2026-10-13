@@ -1326,7 +1326,7 @@ function AdvisorySection() {
         </motion.p>
         <div className="uae-contact-split" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "clamp(20px,2.4vw,32px)", alignItems: "stretch" }}>
           <ContactCard delay={0.2} eyebrow="Speaking" name="Anna Firdouse Shah" role="Senior Conference Producer" photo={`${S3}/team/anna+blur+bg.png`} photoPos="center center" photoTransform="scale(1.4) translateX(-12%)" email="anna@eventsfirstgroup.com" whatsapp="https://wa.me/971545714377" inView={inView} />
-          <ContactCard delay={0.32} eyebrow="Sponsorship" name="Mohammed Hassan" role="Partnership Manager" photo={`${S3}/about-us-photos/hassan.jpg`} email="hassan@eventsfirstgroup.com" whatsapp="https://wa.me/971545714377" inView={inView} />
+          <ContactCard delay={0.32} eyebrow="Sponsorship" name="Mohammed Hassan" role="Senior Partnership Manager" photo={`${S3}/about-us-photos/hassan.jpg`} email="hassan@eventsfirstgroup.com" whatsapp="https://wa.me/971545714377" inView={inView} />
           <ContactCard delay={0.44} eyebrow="Sponsorship" name="Mayur Methi" role="Partnership Manager" photo={`${S3}/about-us-photos/Mayur-Methi.png`} email="mayur@eventsfirstgroup.com" whatsapp="https://wa.me/971545714377" inView={inView} />
         </div>
       </div>

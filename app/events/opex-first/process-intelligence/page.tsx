@@ -165,7 +165,7 @@ const AGENDA: {
 const S3_TEAM = "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos";
 const CONTACTS = [
   { name: "Harini Sudhakar", title: "Producer", category: "Speaking Enquiries", phone: "+971 50 615 9216", email: "harini@eventsfirstgroup.com", photo: `${S3_TEAM}/Harini.jpg` },
-  { name: "Mohammed Hassan", title: "Partnership Manager", category: "Sponsorship Enquiries", phone: "+971 54 302 0244", email: "hassan@eventsfirstgroup.com", photo: `${S3_TEAM}/hassan.jpg` },
+  { name: "Mohammed Hassan", title: "Senior Partnership Manager", category: "Sponsorship Enquiries", phone: "+971 54 302 0244", email: "hassan@eventsfirstgroup.com", photo: `${S3_TEAM}/hassan.jpg` },
   { name: "Kausar Noor", title: "Partnership Manager", category: "Sponsorship Enquiries", phone: "+91 80734 00732", email: "kausar@eventsfirstgroup.com", photo: "/team/noor-kauser.jpg" },
 ];
 

@@ -721,7 +721,7 @@ const CFK_CONTACTS = {
   sponsorship: [
     {
       name: "Mohammed Hassan",
-      role: "Partnership Manager",
+      role: "Senior Partnership Manager",
       phone: "+971 54 302 0244",
       email: "hassan@eventsfirstgroup.com",
       photo: `${S3_TEAM}/hassan.jpg`,

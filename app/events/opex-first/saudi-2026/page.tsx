@@ -473,7 +473,7 @@ const WHATSAPP_URL = "https://wa.me/971545714377";
 const CONTACT = [
   {
     name: "Sanjana Venugopal",
-    title: "Producer",
+    title: "Senior Conference Producer",
     role: "Speaking Enquiries",
     email: "sanjana@eventsfirstgroup.com",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/Sanjana-Venugopal-new.jpg",
@@ -481,7 +481,7 @@ const CONTACT = [
   },
   {
     name: "Mohammed Hassan",
-    title: "Partnership Manager",
+    title: "Senior Partnership Manager",
     role: "Sponsorship Enquiries",
     email: "hassan@eventsfirstgroup.com",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/about-us-photos/hassan.jpg",
