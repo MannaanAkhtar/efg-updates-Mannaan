@@ -71,8 +71,8 @@ export default function EnterpriseDBLayout({ children }: { children: React.React
             isAccessibleForFree: true,
             location: {
               "@type": "Place",
-              name: "Egypt",
-              address: { "@type": "PostalAddress", addressCountry: "EG" },
+              name: "Cairo Marriott Hotel",
+              address: { "@type": "PostalAddress", addressLocality: "Cairo", addressCountry: "EG" },
             },
             image: [OG_IMAGE],
             organizer: {

@@ -71,7 +71,7 @@ export default function EnterpriseDBLayout({ children }: { children: React.React
             isAccessibleForFree: true,
             location: {
               "@type": "Place",
-              name: "Dubai, United Arab Emirates",
+              name: "St. Regis Downtown",
               address: { "@type": "PostalAddress", addressLocality: "Dubai", addressCountry: "AE" },
             },
             image: [OG_IMAGE],

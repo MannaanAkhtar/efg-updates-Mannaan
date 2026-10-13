@@ -71,8 +71,8 @@ export default function EnterpriseDBLayout({ children }: { children: React.React
             isAccessibleForFree: true,
             location: {
               "@type": "Place",
-              name: "South Africa",
-              address: { "@type": "PostalAddress", addressCountry: "ZA" },
+              name: "Protea Hotel Fire & Ice! Johannesburg Melrose Arch",
+              address: { "@type": "PostalAddress", addressLocality: "Johannesburg", addressCountry: "ZA" },
             },
             image: [OG_IMAGE],
             organizer: {

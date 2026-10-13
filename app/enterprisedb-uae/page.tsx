@@ -284,7 +284,7 @@ export default function EnterpriseDBRoundtablePage() {
 
             {/* Meta glass strip */}
             <div className="edb-rise edb-d4 edb-meta" style={{ display: "inline-flex", flexWrap: "wrap", alignItems: "stretch", marginTop: 24, padding: 4, borderRadius: 16, background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.16)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", boxShadow: "0 22px 54px rgba(0,0,0,0.38)" }}>
-              {[["Date", "25 November 2026"], ["Setting", "Dubai, UAE"], ["Format", "Closed-door"], ["Duration", "180 minutes"]].map(([l, v], i) => (
+              {[["Date", "25 November 2026"], ["Setting", "St. Regis Downtown, Dubai"], ["Format", "Closed-door"], ["Duration", "180 minutes"]].map(([l, v], i) => (
                 <div key={l} className="edb-metafact" style={{ padding: "10px 20px", borderLeft: i === 0 ? "none" : "1px solid rgba(255,255,255,0.14)" }}>
                   <div style={{ fontFamily: BODY, fontSize: 10, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 6 }}>{l}</div>
                   <div style={{ fontFamily: DISPLAY, fontSize: "clamp(14px,1.35vw,16px)", fontWeight: 600, color: "#fff", letterSpacing: "-0.01em", whiteSpace: "nowrap" }}>{v}</div>
@@ -480,7 +480,7 @@ export default function EnterpriseDBRoundtablePage() {
               Attendance is by invitation and curated for senior IT and data leaders. Request a seat and our team will confirm your place and share the full details.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 32 }}>
-              {[["25 November 2026", "cal"], ["Dubai, UAE · Venue disclosed to confirmed guests", "pin"], ["180 minutes · Closed-door", "clock"]].map(([label, icon]) => (
+              {[["25 November 2026", "cal"], ["St. Regis Downtown · Dubai, UAE", "pin"], ["180 minutes · Closed-door", "clock"]].map(([label, icon]) => (
                 <div key={label} style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <span aria-hidden style={{ flex: "0 0 auto", width: 30, height: 30, borderRadius: 8, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
                     <RegIcon type={icon as "cal" | "pin" | "clock"} />
