@@ -3246,7 +3246,8 @@ const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
       {
         time: "12:20 – 12:30",
         logo: `${AG_LOGOS}/Illumio_Logo_1.png`,
-        title: "Reserved for Gold Sponsor Illumio",
+        title: "Boosting OT operational resilience",
+        desc: "OT environments have become prime targets for cyberattacks, but preventing an attack is no longer the only measure of success. This session will explore the key steps to understand communications between industrial assets, reduce the risk of lateral movement, and strengthen operational resilience in the event of a breach.",
         speaker: "Mohannad Meri, Senior Sales Engineer, Illumio",
       },
       {
