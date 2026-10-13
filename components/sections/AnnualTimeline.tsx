@@ -279,7 +279,7 @@ export const allEvents: EventItem[] = [
     date: new Date("2026-11-10"),
     dateDisplay: "November 10, 2026",
     location: "Doha, Qatar",
-    venue: "La Cigale Hotel",
+    venue: "Grand Hyatt Doha Hotel & Villas",
     attendees: "250+",
     href: "/events/cyber-first/qatar",
     status: "open",

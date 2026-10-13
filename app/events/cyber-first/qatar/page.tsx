@@ -781,7 +781,7 @@ function Hero() {
           >
             {[
               { label: "10 November 2026", border: C },
-              { label: "La Cigale Hotel · Doha", border: QATAR_BRIGHT },
+              { label: "Grand Hyatt Doha Hotel & Villas", border: QATAR_BRIGHT },
             ].map((p) => (
               <span
                 key={p.label}
@@ -6973,13 +6973,13 @@ function ContactsSection() {
 }
 
 // ───────────────────────────────────────────────────────────────────────────
-// VENUE — La Cigale Hotel, Doha (confirmed)
+// VENUE — Grand Hyatt Doha Hotel & Villas, Doha (confirmed)
 // ───────────────────────────────────────────────────────────────────────────
 const VENUE = {
-  name: "La Cigale Hotel",
+  name: "Grand Hyatt Doha Hotel & Villas",
   city: "Doha",
-  photo: "https://efg-final.s3.eu-north-1.amazonaws.com/venues/la+cigale+hotel+doha.png",
-  maps: "https://maps.app.goo.gl/kyLNyw666tRfGy5P7",
+  photo: "https://efg-final.s3.eu-north-1.amazonaws.com/venues/Grand+Hyatt+Doha+at+Blue+Hour.png",
+  maps: "https://maps.app.goo.gl/d2RmugHabMHjxCrR8",
 };
 
 function VenueSection() {

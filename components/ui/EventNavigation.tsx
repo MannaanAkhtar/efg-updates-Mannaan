@@ -116,7 +116,7 @@ const EVENT_CONFIGS: Record<string, {
     color: "#01BBF5",
     colorBright: "#4DD4FF",
     date: "10 Nov 2026",
-    location: "La Cigale Hotel, Doha",
+    location: "Grand Hyatt Doha Hotel & Villas, Doha",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/Cyber+Qatar-03.svg",
     logoHeight: 180,
     navLinks: [
