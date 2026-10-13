@@ -6,11 +6,11 @@ const PAGE_URL = `${BASE_URL}/outsystems`;
 // card that insists on 1.91:1 crops the sides rather than letterboxing.
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/heros/image+(7).png";
 const OG_IMAGE_ALT =
-  "ONE Executive Day KSA — OutSystems, JW Marriott Hotel Riyadh, 19 October 2026";
+  "ONE Executive Day KSA — OutSystems, JW Marriott Hotel Riyadh, 23 November 2026";
 
 const TITLE = "ONE Executive Day KSA | OutSystems · JW Marriott Hotel Riyadh";
 const DESCRIPTION =
-  "ONE Executive Day KSA — the exclusive event for senior IT leaders. Discover how KSA organizations are using agentic systems to innovate faster, modernize legacy processes and build mission-critical applications. 19 October 2026, JW Marriott Hotel Riyadh.";
+  "ONE Executive Day KSA — the exclusive event for senior IT leaders. Discover how KSA organizations are using agentic systems to innovate faster, modernize legacy processes and build mission-critical applications. 23 November 2026, JW Marriott Hotel Riyadh.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -49,8 +49,8 @@ export default function OutSystemsLayout({ children }: { children: React.ReactNo
     name: "ONE Executive Day KSA",
     description: DESCRIPTION,
     image: [OG_IMAGE],
-    startDate: "2026-10-19T09:00:00+03:00",
-    endDate: "2026-10-19T16:00:00+03:00",
+    startDate: "2026-11-23T09:00:00+03:00",
+    endDate: "2026-11-23T16:00:00+03:00",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     location: {

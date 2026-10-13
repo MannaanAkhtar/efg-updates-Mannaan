@@ -102,9 +102,9 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/proofpoint_whitelogo.png",
   },
   {
-    date: "October 19th, 2026",
-    month: "OCT",
-    day: "19",
+    date: "November 23rd, 2026",
+    month: "NOV",
+    day: "23",
     year: "2026",
     time: "09:00 – 16:00",
     title: "ONE Executive Day KSA",

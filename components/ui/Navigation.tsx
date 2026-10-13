@@ -66,7 +66,6 @@ const networkFirstEvents: { href: string; label: string; date: string; format: N
   { href: "/algosec", label: "AlgoSec", date: "13 Oct", format: "physical" },
   { href: "https://www.jedox.com/en/events/unlock-the-power-of-modern-fpa-2026/", label: "Jedox | PlanPulse", date: "14 Oct", format: "physical" },
   { href: "https://engage.unifyapps.com/rsvp/se-healthcare-telecom-lunch-dubai-october-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261015_MEA_OWNED_Lunch_SE_Healthcare_Telecom_Dubai", label: "UnifyApps · Health & Telecom", date: "15 Oct", format: "physical" },
-  { href: "https://events.outsystems.com/event/17e2fb07-2b9a-46e2-9acf-44590276e2d8/homepage?RefId=oed-ksa", label: "OutSystems", date: "19 Oct", format: "physical" },
   { href: "/blackstone-liferay", label: "Blackstone eIT × Liferay", date: "20 Oct", format: "physical" },
   // Both of these are at the Hilton Jeddah, but /ifs-29sept above is already
   // labelled "IFS · Jeddah" — so these two carry their theme instead, which
@@ -79,6 +78,7 @@ const networkFirstEvents: { href: string; label: string; date: string; format: N
   { href: "https://engage.unifyapps.com/rsvp/se-airlines-ports-energy-contracting-lunch-oct-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261021_MEA_OWNED_Dubai_SE_Lunch_Airlines_Ports_Energy_Contracting", label: "UnifyApps · Airlines, Ports & Energy", date: "21 Oct", format: "physical" },
   { href: "/enterprisedb-southafrica", label: "EnterpriseDB, South Africa", date: "12 Nov", format: "physical" },
   { href: "/enterprisedb-egypt", label: "EnterpriseDB, Egypt", date: "16 Nov", format: "physical" },
+  { href: "https://events.outsystems.com/event/17e2fb07-2b9a-46e2-9acf-44590276e2d8/homepage?RefId=oed-ksa", label: "OutSystems", date: "23 Nov", format: "physical" },
   { href: "/enterprisedb-uae", label: "EnterpriseDB, UAE", date: "25 Nov", format: "physical" },
   // Postponed from 23 Sep — date TBA, so it sits after every dated boardroom.
   { href: "/proofpoint", label: "Proofpoint", date: "TBA", format: "physical" },

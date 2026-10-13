@@ -12,7 +12,7 @@ import {
 
 /* ═══════════════════════════════════════════════════════════════════════════
    ONE Executive Day KSA — OutSystems
-   JW Marriott Hotel Riyadh · 19 October 2026 · 09:00–16:00
+   JW Marriott Hotel Riyadh · 23 November 2026 · 09:00–16:00
 
    Visual language is OutSystems' own: a near-black page, pure-black panels,
    and the red → magenta → blue spectrum used as a border and an accent rather
@@ -45,7 +45,7 @@ const OUTSYSTEMS_MARK = `${S3}/logos/outsystems.png`;
 const HERO_BG = `${S3}/heros/image+(7).png`;
 
 const EVENT_NAME = "ONE Executive Day KSA";
-const EVENT_DATE = "19 October 2026";
+const EVENT_DATE = "23 November 2026";
 const EVENT_TIME = "09:00–16:00";
 const EVENT_VENUE = "JW Marriott Hotel Riyadh";
 
@@ -631,7 +631,7 @@ function Overview() {
             </span>
           </h2>
           <p style={{ fontFamily: FO, fontSize: "clamp(15px,1.15vw,17px)", lineHeight: 1.72, color: TXT_70, margin: "0 0 30px", maxWidth: 560 }}>
-            Join us on 19th October for ONE Executive Day KSA — the exclusive event for senior IT
+            Join us on 23rd November for ONE Executive Day KSA — the exclusive event for senior IT
             leaders. Discover how KSA organizations and enterprises are using agentic systems to
             innovate faster, modernize legacy processes, and build mission-critical applications and
             AI agents that truly differentiate. Hands-on demos, real customer stories and powerful
