@@ -800,6 +800,13 @@ const SPEAKERS: Person[] = [
     linkedin: "https://www.linkedin.com/in/v4vijay/",
     flag: "https://flagcdn.com/w40/ae.png",
   },
+  {
+    name: "Lieutenant Colonel Dr. Essa Almutawa",
+    title: "Chief Artificial Intelligence Officer and Director of the General Department of Artificial Intelligence",
+    org: "Dubai Civil Defense",
+    photo: `${S3}/Speakers-photos/Lieutenant+Colonel+Dr.+Essa+Almutawa.jpeg`,
+    linkedin: "https://www.linkedin.com/in/lt-col-dr-essa-al-mutawa-a2890a272/",
+  },
 ];
 
 // Shared by both bands — only the accent colour and the role word change.
