@@ -244,11 +244,13 @@ const SPEAKERS: Speaker[] = [
   { name: "Raghavendra Ramesh", title: "Global Head of Forward Deployed Engineering", org: "Moxo", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Raghavendra+Ramesh.jpeg", linkedin: "https://www.linkedin.com/in/raghavendraramesh/" },
   { name: "Mohammad Shoaib Osmani", title: "Business Architect", org: "Aris", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammad+Shoaib+Osmani.jpeg", linkedin: "https://www.linkedin.com/in/shoaibosmani/" },
   { name: "Dr. Mohammed Fouad Hussein Mesafer", title: "Strategy & Business Excellence Director", org: "Riyadh Cement Company", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Mohammed+Fouad+Hussein+Mesafer1.png", linkedin: "https://www.linkedin.com/in/dr-mohammed-fouad/" },
+  { name: "Abdulmajeed S. Alqumayshi", title: "Director of Quality Assurance", org: "ESNAD", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulmajeed+S.+Alqumayshi.jpg", linkedin: "https://www.linkedin.com/in/abdulmajeed-s-alqumayshi-158209129/" },
+  { name: "Ali Al Hakami", title: "Senior Director – Organisational Excellence", org: "Hail Region Development Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ali+Al+Hakami.png", linkedin: "https://www.linkedin.com/in/ali-al-hakami-19b54755/" },
 ];
 
 type AgendaItem = {
   time: string;
-  type: "Ceremony" | "Welcome Address" | "Fireside Chat" | "Leadership Panel" | "Keynote Presentation" | "Panel Discussion" | "Technology Presentation" | "Break";
+  type: "Ceremony" | "Keynote 1" | "Keynote 2" | "Welcome Address" | "Fireside Chat" | "Leadership Panel" | "Keynote Presentation" | "Panel Discussion" | "Technology Presentation" | "Break";
   title: string;
   subtitle?: string;
   bullets?: string[];
@@ -262,14 +264,14 @@ const AGENDA: AgendaItem[] = [
   { time: "09:10 – 09:15", type: "Ceremony", title: "Welcome Remarks" },
   { time: "09:15 – 09:20", type: "Ceremony", title: "National Anthem and Opening Ceremony" },
   {
-    time: "09:20 – 09:30",
-    type: "Welcome Address",
+    time: "09:20 – 09:35",
+    type: "Keynote 1",
     title: "The Execution Decade: The Kingdom's Shift from Transformation to Execution",
-    speaker: "E. Nabil Heddied Aloufi, Vice Governor for Risk Management and Business Continuity, DGA",
+    speaker: "E. Nabil Heddied Aloufi, Vice Governor for Risk Management and Business Continuity, Digital Government Authority",
   },
   {
-    time: "09:30 – 09:50",
-    type: "Fireside Chat",
+    time: "09:35 – 09:50",
+    type: "Keynote 2",
     title: "Leading Institutions Through the Execution Decade",
   },
   {
@@ -283,17 +285,28 @@ const AGENDA: AgendaItem[] = [
       "Value realization frameworks - proving ROI on transformation spend in real time, not retrospectively",
       "Who owns execution risk when a giga-project's KPI slips - governance, delivery, or technology?",
     ],
+    moderator: "Ali Al Hakami, Senior Director – Organisational Excellence, Hail Region Development Authority",
     panelists: [
       "Anwar Zumah, VP Direct Investments, Confidential",
       "Ahmed Al Idrissi, Executive Advisor, Confidential",
       "Talal Alahmari, Organizational Excellence Director, Confidential",
       "Maan Al Maddah, Advisor, Confidential",
       "Mohammed N. Aljuhani, Organizational Excellence Director, Fund for Martyrs, Wounded, POWs and Missing in Action",
-      "Eng. Ahmed M. Khayyat, GM, Corporate Operational Excellence, Saudia Group",
+      "Eng. Ahmed M. Khayyat, GM - Corporate Operational Excellence, Saudia Group",
     ],
   },
-  { time: "10:30 – 10:45", type: "Keynote Presentation", title: "Reserved for Blackstone eIT" },
-  { time: "10:45 – 11:00", type: "Keynote Presentation", title: "Reserved for Aris" },
+  {
+    time: "10:30 – 10:45",
+    type: "Keynote Presentation",
+    title: "Topic to be announced",
+    speaker: "Youness Zahir, CTO & Executive Director, Blackstone eIT",
+  },
+  {
+    time: "10:45 – 11:00",
+    type: "Keynote Presentation",
+    title: "AI Ready Processes, Why Your AI Strategy Starts with Process Context",
+    speaker: "Mohammad Shoaib Osmani, Business Architect, Aris",
+  },
   { time: "11:00 – 11:45", type: "Break", title: "Networking Break and Refreshments" },
   {
     time: "11:45 – 12:20",
@@ -306,13 +319,14 @@ const AGENDA: AgendaItem[] = [
       "Measuring AI productivity and ROI in operational terms",
       "What autonomous enterprise really means in practice",
     ],
+    moderator: "Abdullah AlZkeri, Associate Director - Business Excellence, Diriyah Company",
     panelists: [
       "Ahmed Alawami, Head of Data and AI, Saudi Energy",
       "Dr. Ibrahim bin Abdullah Alotaibi, Chief Strategy and Business Development Officer, Confidential Saudi Government Entity",
       "Dr. Yousof Ghazzawi, Senior Portfolio Leader - Business Transformation, Confidential",
-      "Mohammed Fouad, Strategy and Business Excellence Director, Riyadh Cement Company",
+      "Dr. Mohammed Fouad, Strategy and Business Excellence Director, Riyadh Cement Company",
       "Odeh Mahmoud, CEO, Cyborg",
-      "Reserved for Blackstone eIT",
+      "Wajih Yahyaoui, Managing Partner, Blackstone eIT",
     ],
   },
   {
@@ -339,7 +353,7 @@ const AGENDA: AgendaItem[] = [
       "Value realisation tracking: closing the loop from insight to action",
       "Process intelligence for the public sector",
     ],
-    moderator: "Jiya Chadha, Senior Manager - Supply Chain Advisory, Blue Yonder",
+    moderator: "Jiya Chadha, Supply Chain Advisor, Blue Yonder",
     panelists: [
       "Mohammed Al Ghamdi, VP Manufacturing, Nama Chemicals",
       "Mohaned Alsheqaiq, Vice President, Bahri Line",
@@ -351,8 +365,7 @@ const AGENDA: AgendaItem[] = [
   {
     time: "13:50 – 14:05",
     type: "Technology Presentation",
-    title: "Topic to be announced",
-    speaker: "Raghavendra Ramesh, Global Head of Forward Deployed Engineering, MOXO",
+    title: "Reserved for Databorn",
   },
   {
     time: "14:05 – 14:40",
@@ -370,6 +383,7 @@ const AGENDA: AgendaItem[] = [
       "Meshaal Almanie, Executive Director of Operations, Confidential",
       "Naif N. Al Suliman, Crisis & Disasters Centre (CDC) Executive Director, NWC",
       "Maher Mousa, Regional Director of Product Management & Compliance, Johnson Controls Arabia",
+      "Nadeer Alshyookh, Business Transformation Manager Lead - MEA North, SAP",
     ],
   },
   { time: "14:40 – 15:00", type: "Ceremony", title: "OPEX First Award Ceremony & Raffle Draw" },
@@ -533,7 +547,7 @@ function speakerInitials(name: string) {
 }
 
 function typeColor(type: AgendaItem["type"]) {
-  if (type === "Keynote Presentation" || type === "Welcome Address") return V_BRIGHT;
+  if (type === "Keynote Presentation" || type === "Keynote 1" || type === "Keynote 2" || type === "Welcome Address") return V_BRIGHT;
   if (type === "Technology Presentation") return V_PALE;
   if (type === "Break" || type === "Ceremony") return FAINT;
   return V; // Fireside Chat, Leadership Panel, Panel Discussion
@@ -4507,7 +4521,7 @@ function Agenda() {
   }, [inView]);
 
   const typeIcon = (type: AgendaItem["type"]) => {
-    if (type === "Keynote Presentation" || type === "Welcome Address") {
+    if (type === "Keynote Presentation" || type === "Keynote 1" || type === "Keynote 2" || type === "Welcome Address") {
       return (
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
           <rect x="9" y="2" width="6" height="12" rx="3" />
