@@ -76,6 +76,7 @@ const networkFirstEvents: { href: string; label: string; date: string; format: N
   // Contracting is dropped from the label for length; all four sectors are on
   // the listing cards.
   { href: "https://engage.unifyapps.com/rsvp/se-airlines-ports-energy-contracting-lunch-oct-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261021_MEA_OWNED_Dubai_SE_Lunch_Airlines_Ports_Energy_Contracting", label: "UnifyApps · Airlines, Ports & Energy", date: "21 Oct", format: "physical" },
+  { href: "/sonicwall-genx", label: "SonicWall × GenX", date: "10 Nov", format: "physical" },
   { href: "/enterprisedb-southafrica", label: "EnterpriseDB, South Africa", date: "12 Nov", format: "physical" },
   { href: "/enterprisedb-egypt", label: "EnterpriseDB, Egypt", date: "16 Nov", format: "physical" },
   { href: "https://events.outsystems.com/event/17e2fb07-2b9a-46e2-9acf-44590276e2d8/homepage?RefId=oed-ksa", label: "OutSystems", date: "23 Nov", format: "physical" },

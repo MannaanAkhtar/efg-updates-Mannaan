@@ -17,6 +17,8 @@ const SW_DARK = "#1e2828";
 const SW_ORANGE = "#ff6e41";
 const SW_MELON = "#f79669";
 const SW_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Sonicwall_Logo_RGB_Orange_Sonic+Dark.png";
+// Co-host of this roundtable. Red and black artwork, so it only sits on light backgrounds.
+const GENX_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/GenX-Systems-logo-transparent.png";
 const SW_CREAM = "#f8f9f9";
 const SW_WHITE = "#ffffff";
 
@@ -32,19 +34,20 @@ const PAIN_POINTS = [
   { title: "Why Attend", desc: "Attendees should join to gain strategic insight, practical guidance, and peer-level perspectives on how to modernize security beyond the firewall. The session is designed to help leaders identify what works, where to prioritize investment, and how to strengthen protection with cloud-delivered and managed security models." },
 ];
 
+// Details carried over from the /sonicwall page.
 const SPEAKERS = [
-  { name: "Mohamed Abdallah", title: "Regional Director, META", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Mohamed_Abdallah1.png", bio: "Mohamed Abdallah stands as the Regional Director at SonicWall, overseeing the expansive regions of the Middle East, Turkey, and Africa." },
+  { name: "Nabil Kouzi", title: "Territory Manager", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/nabil1.png", bio: "Nabil drives SonicWall's growth across the UAE, leading territory strategy and empowering organizations with advanced cybersecurity solutions.", linkedin: "https://www.linkedin.com/in/nabilkouzi/" },
+  { name: "Ateef Mulla", title: "Principal Solutions Engineer", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/ateef1.png", bio: "Ateef is a Principal Solutions Engineer who champions the company's end-to-end security solutions, driving the successful delivery of major enterprise projects across the region.", linkedin: "https://www.linkedin.com/in/ateef-mulla-295b043/" },
 ];
 
 const AGENDA = [
-  { time: "10:00 AM", duration: "", title: "Registration", presenter: "" },
-  { time: "10:30 AM", duration: "30 min", title: "SonicWall Strategic Outlook — The Next 5 Years", presenter: "", highlight: true },
-  { time: "11:00 AM", duration: "45 min", title: "Centralized Cloud-Managed Perimeter Security", presenter: "", highlight: true },
-  { time: "11:45 AM", duration: "15 min", title: "Coffee Break", presenter: "" },
-  { time: "12:00 PM", duration: "45 min", title: "Cloud Secure Edge, ZTNA and SASE", presenter: "", highlight: true },
-  { time: "12:45 PM", duration: "45 min", title: "Managed Security Services (SOC / MDR / MXDR … & More)", presenter: "", highlight: true },
-  { time: "1:30 PM", duration: "30 min", title: "Case Study + Q&A", presenter: "" },
-  { time: "2:00 PM", duration: "", title: "Lunch", presenter: "" },
+  { time: "10:00 AM", duration: "", title: "Welcome and Introduction", presenter: "GenX" },
+  { time: "10:30 AM", duration: "10 min", title: "Introduction to SonicWall", presenter: "Nabil Kouzi", highlight: true },
+  { time: "10:40 AM", duration: "45 min", title: "Unifying Security Operations with SonicWall Unified Management Platform", presenter: "Ateef Mulla", highlight: true },
+  { time: "11:25 AM", duration: "15 min", title: "Break", presenter: "" },
+  { time: "11:40 AM", duration: "30 min", title: "Cloud Secure Edge (ZTNA): Eliminating Trust at Every Step of the Modern Attack Path", presenter: "Ateef Mulla", highlight: true },
+  { time: "12:10 PM", duration: "20 min", title: "Introduction to SonicWall Endpoint Security", presenter: "Ateef Mulla", highlight: true },
+  { time: "12:30 PM", duration: "10 min", title: "Q&A", presenter: "" },
 ];
 
 // ─── COUNTDOWN (isolated to prevent parent re-renders) ──────────────────────
@@ -161,9 +164,9 @@ function HeroSection() {
             }}>
               <div style={{ position: "absolute", top: 0, left: "5%", right: "5%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)" }} />
               {[
-                { label: "Date", value: "7 Sep 2026" },
-                { label: "Time", value: "10:00 AM KSA" },
-                { label: "Venue", value: "InterContinental Riyadh by IHG" },
+                { label: "Date", value: "10 Nov 2026" },
+                { label: "Time", value: "10:00 AM GST" },
+                { label: "Venue", value: "JW Marriott Marina, Dubai" },
                 { label: "Duration", value: "180 min" },
               ].map((item, i) => (
                 <div key={item.label} style={{ flexShrink: 0, padding: "12px 15px", borderLeft: i === 0 ? "none" : "1px solid rgba(30,40,40,0.06)" }}>
@@ -218,7 +221,7 @@ function HeroSection() {
           <span style={{ fontFamily: "var(--font-outfit)", fontSize: 10, fontWeight: 400, letterSpacing: "2px", textTransform: "uppercase", color: "rgba(30,40,40,0.4)" }}>Starts In</span>
           <div className="sw-pulse-dot" style={{ width: 6, height: 6, borderRadius: "50%", background: SW_ORANGE, boxShadow: `0 0 6px ${SW_ORANGE}` }} />
         </div>
-        <CountdownDisplay target="2026-09-07T10:00:00+03:00" />
+        <CountdownDisplay target="2026-11-10T10:00:00+04:00" />
       </div>
 
       <style>{`
@@ -551,7 +554,7 @@ function SpeakersSection() {
         </div>
 
         {/* Cards */}
-        <div ref={cardsRef} style={{ display: "grid", gridTemplateColumns: "minmax(280px, 360px)", justifyContent: "center", gap: 20 }} className="sw-speakers-grid">
+        <div ref={cardsRef} style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 360px))", justifyContent: "center", gap: 20 }} className="sw-speakers-grid">
           {SPEAKERS.map((speaker) => (
             <div key={speaker.name} className="sw-speaker-card" style={{ borderRadius: 16, background: "#fff", overflow: "hidden", opacity: 0, border: "1px solid rgba(30,40,40,0.05)", clipPath: "inset(20% 0 0 0)" }}>
               {/* Photo with gradient overlay */}
@@ -564,6 +567,11 @@ function SpeakersSection() {
                   </div>
                 )}
                 <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "40%", background: "linear-gradient(to top, rgba(0,0,0,0.15), transparent)", pointerEvents: "none" }} />
+                {speaker.linkedin && (
+                  <a href={speaker.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${speaker.name} on LinkedIn`} className="sw-speaker-li" style={{ position: "absolute", right: 14, bottom: 14, width: 34, height: 34, borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(255,255,255,0.94)", color: SW_DARK, boxShadow: "0 4px 14px rgba(0,0,0,0.18)", transition: "background 0.25s ease, color 0.25s ease" }}>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" /></svg>
+                  </a>
+                )}
               </div>
               {/* Info */}
               <div style={{ padding: "22px 24px 26px" }}>
@@ -680,8 +688,9 @@ function AgendaSection() {
 }
 
 // ─── LOCATION / VENUE ────────────────────────────────────────────────────────
-const VENUE_MAP_URL = "https://maps.app.goo.gl/Mrau7NNHigmJHCZo8";
-const VENUE_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/venues/intercontinental-riyadh_15466355611.jpg";
+const VENUE_MAP_URL = "https://www.google.com/maps/search/?api=1&query=JW+Marriott+Hotel+Marina+Dubai";
+// No photo of the hotel itself on S3 yet, so this is a stock view of Dubai Marina.
+const VENUE_IMAGE = "https://images.unsplash.com/photo-1721801783842-7133fbf11509?auto=format&fit=crop&w=1400&q=80";
 
 function LocationSection() {
   const ref = useRef<HTMLElement>(null);
@@ -731,7 +740,7 @@ function LocationSection() {
           {/* Image */}
           <div className="sw-loc-img" style={{ position: "relative", borderRadius: 18, overflow: "hidden", boxShadow: "0 20px 50px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)", aspectRatio: "16/10", background: SW_DARK }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img loading="lazy" src={VENUE_IMAGE} alt="InterContinental Riyadh by IHG" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", transition: "transform 0.6s cubic-bezier(0.165,0.84,0.44,1)" }} />
+            <img loading="lazy" src={VENUE_IMAGE} alt="Dubai Marina" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", transition: "transform 0.6s cubic-bezier(0.165,0.84,0.44,1)" }} />
           </div>
 
           {/* Details */}
@@ -741,10 +750,10 @@ function LocationSection() {
               <span style={{ fontFamily: "var(--font-outfit)", fontSize: 12, fontWeight: 600, letterSpacing: "0.5px", textTransform: "uppercase", color: "rgba(30,40,40,0.45)" }}>Where we meet</span>
             </div>
             <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "clamp(22px, 2.6vw, 30px)", letterSpacing: "-0.5px", color: SW_DARK, lineHeight: 1.2, margin: 0 }}>
-              InterContinental Riyadh by IHG
+              JW Marriott Marina
             </h3>
             <p style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 400, color: "#555", lineHeight: 1.7, margin: 0 }}>
-              Riyadh, Kingdom of Saudi Arabia
+              Dubai Marina, Dubai, United Arab Emirates
             </p>
             <a href={VENUE_MAP_URL} target="_blank" rel="noopener noreferrer" className="sw-loc-map-btn" style={{
               alignSelf: "flex-start", marginTop: 6,
@@ -979,11 +988,11 @@ function RegistrationSection() {
       company: formData.company || "",
       job_title: formData.title || "",
       phone: combinedPhone,
-      event_name: "Cyber Resilience in the Age of Real-Time Threats — SonicWall Roundtable · 7 September 2026",
+      event_name: "Cyber Resilience in the Age of Real-Time Threats — SonicWall × GenX Roundtable · 10 November 2026",
       metadata: {
         message: formData.message || "",
-        event_date: "7 September 2026",
-        event_time: "10:00 AM KSA",
+        event_date: "10 November 2026",
+        event_time: "10:00 AM GST",
         event_duration: "180 minutes",
         event_format: "Presentation followed by lunch",
       },
@@ -1171,7 +1180,13 @@ function SonicWallNav() {
       }}>
         {/* Logo — scroll to top on click */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={SW_LOGO} alt="SonicWall" width={220} height={56} style={{ height: 56, width: "auto", cursor: "pointer" }} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} />
+        <div className="sw-nav-logos" style={{ display: "flex", alignItems: "center", gap: 14, cursor: "pointer" }} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="sw-nav-logo-sw" src={SW_LOGO} alt="SonicWall" width={220} height={56} style={{ height: 56, width: "auto" }} />
+          <span aria-hidden style={{ width: 1, height: 28, background: "rgba(30,40,40,0.18)" }} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="sw-nav-logo-gx" src={GENX_LOGO} alt="GenX Systems" width={84} height={44} style={{ height: 44, width: "auto" }} />
+        </div>
 
         {/* Desktop links */}
         <div className="sw-nav-links" style={{ display: "flex", alignItems: "center", gap: 32 }}>
@@ -1231,6 +1246,9 @@ function SonicWallNav() {
         .sw-nav-cta:hover { box-shadow: 0 4px 20px rgba(255,110,65,0.35) !important; transform: translateY(-1px); }
         @media (max-width: 768px) {
           .sw-nav-links { display: none !important; }
+          .sw-nav-logos { gap: 10px !important; }
+          .sw-nav-logo-sw { height: 42px !important; }
+          .sw-nav-logo-gx { height: 32px !important; }
           .sw-nav-mobile-toggle { display: block !important; }
         }
       `}</style>
@@ -1250,7 +1268,13 @@ function SonicWallFooter() {
         {/* Top row — logo + links */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16, marginBottom: 14 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={SW_LOGO} alt="SonicWall" width={140} height={32} style={{ height: 26, width: "auto" }} />
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={SW_LOGO} alt="SonicWall" width={140} height={32} style={{ height: 26, width: "auto" }} />
+            <span aria-hidden style={{ width: 1, height: 22, background: "rgba(30,40,40,0.16)" }} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={GENX_LOGO} alt="GenX Systems" width={65} height={34} style={{ height: 34, width: "auto" }} />
+          </div>
           <div style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
             <a href="https://www.sonicwall.com/" target="_blank" rel="noopener noreferrer" className="sw-footer-link" style={{ fontFamily: "var(--font-outfit)", fontSize: 12.5, fontWeight: 500, color: "#444", textDecoration: "none" }}>sonicwall.com &rarr;</a>
             <span style={{ width: 1, height: 12, background: "rgba(30,40,40,0.12)" }} />

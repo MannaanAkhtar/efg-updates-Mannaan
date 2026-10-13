@@ -43,6 +43,9 @@ const nextConfig: NextConfig = {
       // Cyber First Qatar — URL shortened from qatar-2026 → qatar
       { source: "/events/cyber-first/qatar-2026", destination: "/events/cyber-first/qatar", permanent: true },
       { source: "/events/cyber-first/qatar-2026/", destination: "/events/cyber-first/qatar", permanent: true },
+      // SonicWall roundtable page renamed from /sonicwall-7sept.
+      { source: "/sonicwall-7sept", destination: "/sonicwall-genx", permanent: true },
+      { source: "/sonicwall-7sept/", destination: "/sonicwall-genx", permanent: true },
       // IFS Jeddah roundtable moved from 22 Sep to 29 Sep — old slug retired.
       { source: "/ifs-22sept", destination: "/ifs-29sept", permanent: true },
       { source: "/ifs-22sept/", destination: "/ifs-29sept", permanent: true },

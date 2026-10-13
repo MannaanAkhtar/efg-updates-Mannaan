@@ -53,6 +53,27 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/edb_postgres_ai_lightmode%402x+(4).png",
   },
   {
+    date: "November 10th, 2026",
+    month: "NOV",
+    day: "10",
+    year: "2026",
+    time: "10:00 – 12:40 GST",
+    title: "SonicWall × GenX Executive Roundtable",
+    subtitle: "Cyber Resilience in the Age of Real-Time Threats — Closing the Gap Between Attack Speed and Response",
+    sponsor: "SonicWall × GenX",
+    location: "JW Marriott Marina, Dubai",
+    link: "/sonicwall-genx",
+    image: "",
+    brandColor: "#FF6B35",
+    brandGradient: "linear-gradient(135deg, #FF8A3D 0%, #FF6B35 38%, #7A2E12 72%, #06070F 100%)",
+    // Shared event: SonicWall above, GenX below. The GenX file ends in a solid
+    // tagline bar that would turn into a white block once the card whitens the
+    // logo, so the bottom of it is clipped off.
+    brandLogoTop: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Sonicwall_Logo_RGB_Orange_Sonic+Dark.png",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/GenX-Systems-logo-transparent.png",
+    brandLogoClip: "inset(0 0 17% 0)",
+  },
+  {
     date: "November 12th, 2026",
     month: "NOV",
     day: "12",
@@ -423,7 +444,7 @@ const PAST_EVENTS_2026: PastEvent[] = [
     brandColor: "#FF6B35",
     brandGradient: "linear-gradient(135deg, #FF8A3D 0%, #FF6B35 38%, #7A2E12 72%, #06070F 100%)",
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/Sonicwall_Logo_RGB_Orange_Sonic+Dark.png",
-    link: "/sonicwall-7sept",
+    // No link: its page was reused for the 10 Nov Dubai roundtable (/sonicwall-genx).
   },
   {
     sponsor: "CleverTap",
@@ -2930,6 +2951,7 @@ function UpcomingSection() {
                                     <img src={(e as unknown as Record<string, string>).brandLogo} alt="" style={{
                                       height: 56,
                                       width: "auto",
+                                      clipPath: (e as unknown as Record<string, string>).brandLogoClip,
                                       opacity: 0.85,
                                       filter: "brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.35))",
                                     }} />
@@ -3368,7 +3390,7 @@ function PastEventCard({ e }: { e: PastEvent }) {
                   <img src={(e as unknown as Record<string, string>).brandLogoTop} alt="" style={{ height: 48, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
                   <span aria-hidden style={{ width: 24, height: 1, background: "rgba(255,255,255,0.2)" }} />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={e.brandLogo} alt="" style={{ height: 48, width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }} />
+                  <img src={e.brandLogo} alt="" style={{ height: 48, width: "auto", clipPath: (e as unknown as Record<string, string>).brandLogoClip, opacity: 0.7, filter: "brightness(0) invert(1)" }} />
                 </div>
               ) : (
                 // eslint-disable-next-line @next/next/no-img-element
