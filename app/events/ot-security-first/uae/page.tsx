@@ -809,6 +809,120 @@ const SPEAKERS: Person[] = [
   },
 ];
 
+// Keynote — shown above both bands. Title, organisation, headshot and bio are
+// carried over from his featured seat on the OT Security First Virtual
+// Boardroom MENA faculty.
+const KEYNOTE: Person & { bio: string } = {
+  name: "H.E. Dr. Mohamed Al Kuwaiti",
+  title: "Head of Cyber Security",
+  org: "United Arab Emirates Government",
+  photo: `${S3}/boardroom/MohamedAlKuwaiti.jpg`,
+  linkedin: "https://www.linkedin.com/in/mohamed-alkuwaiti-29016a2a9/",
+  flag: "https://flagcdn.com/w80/ae.png",
+  photoPos: "center 18%",
+  bio: "H.E. Dr. Mohamed Al Kuwaiti serves as the Head of Cyber Security for the United Arab Emirates Government, a role he has held since H.E’s appointment by the UAE Cabinet in 2020. In this capacity, Dr. Al Kuwaiti leads the UAE Cyber Security Council (CSC), where H.E is responsible for shaping and executing the nation’s comprehensive cybersecurity strategy, ensuring the protection and resilience of the UAE’s digital infrastructure, and advancing the UAE’s vision to become the world’s most trusted digital hub.",
+};
+
+function KeynoteFeature({ inView }: { inView: boolean }) {
+  const k = KEYNOTE;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+      animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+      transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
+      className="uae-keynote"
+      style={{ position: "relative", marginBottom: "clamp(40px,4.6vw,64px)" }}
+    >
+      {/* Ambient glow behind the bezel */}
+      <div aria-hidden style={{ position: "absolute", inset: -30, borderRadius: 40, pointerEvents: "none", filter: "blur(30px)", opacity: 0.55, background: `radial-gradient(ellipse 45% 70% at 18% 50%, ${GOLD}38 0%, transparent 70%), radial-gradient(ellipse 50% 70% at 82% 50%, ${C}40 0%, transparent 70%)` }} />
+
+      {/* Metallic gold → magenta bezel */}
+      <div style={{ position: "relative", padding: 2, borderRadius: 28, background: `linear-gradient(135deg, ${GOLD} 0%, ${GOLD_DEEP}99 22%, rgba(255,255,255,0.14) 48%, ${C}99 76%, ${C_BRIGHT} 100%)`, boxShadow: `0 34px 80px rgba(0,0,0,0.6), 0 0 60px ${C}26` }}>
+        <div className="uae-keynote-split" style={{ position: "relative", borderRadius: 26, overflow: "hidden", display: "grid", gridTemplateColumns: "minmax(0,0.42fr) minmax(0,0.58fr)", background: "linear-gradient(165deg, #17121c 0%, #0f0d14 55%, #0a0a0d 100%)" }}>
+          {/* Top reflection */}
+          <span aria-hidden style={{ position: "absolute", top: 0, left: "6%", right: "6%", height: 1, zIndex: 4, background: `linear-gradient(90deg, transparent, ${GOLD}cc 30%, #fff 50%, ${C_BRIGHT}cc 70%, transparent)` }} />
+
+          {/* Portrait */}
+          <div className="uae-keynote-photo" style={{ position: "relative", minHeight: 460, overflow: "hidden" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={k.photo}
+              alt={`${k.name}, ${k.title}, ${k.org} — keynote speaker at OT Security First UAE 2027, the industrial cybersecurity summit in Abu Dhabi`}
+              loading="lazy"
+              decoding="async"
+              className="uae-keynote-img"
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: k.photoPos, display: "block", filter: "brightness(0.86) contrast(1.06) saturate(0.95)" }}
+            />
+            <span aria-hidden className="uae-keynote-fade" style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "linear-gradient(90deg, transparent 30%, rgba(10,10,13,0.18) 52%, rgba(10,10,13,0.55) 76%, rgba(10,10,13,0.96) 100%), linear-gradient(180deg, transparent 55%, rgba(10,10,13,0.55) 100%)" }} />
+            <span aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", mixBlendMode: "overlay", background: `linear-gradient(140deg, ${GOLD}2e 0%, transparent 45%, ${C}24 100%)` }} />
+            <span aria-hidden style={{ position: "absolute", inset: 12, border: "1px solid rgba(255,255,255,0.06)", borderRadius: 16, pointerEvents: "none" }} />
+
+            {/* UAE flag */}
+            <span style={{ position: "absolute", top: 18, left: 18, zIndex: 2, padding: 3, borderRadius: 8, background: `linear-gradient(135deg, ${GOLD}, rgba(255,255,255,0.15))`, boxShadow: `0 6px 16px rgba(0,0,0,0.5), 0 0 14px ${GOLD}40` }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={k.flag} alt="United Arab Emirates" style={{ display: "block", height: 26, width: 46, objectFit: "cover", borderRadius: 5 }} />
+            </span>
+          </div>
+
+          {/* Content */}
+          <div style={{ position: "relative", padding: "clamp(28px,3.4vw,52px) clamp(24px,3.4vw,52px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <span style={{ alignSelf: "flex-start", display: "inline-flex", alignItems: "center", gap: 8, padding: "7px 14px", borderRadius: 999, fontFamily: FO, fontSize: 10.5, fontWeight: 800, letterSpacing: "2.6px", textTransform: "uppercase", color: "#1a1206", background: `linear-gradient(180deg, #F2D793 0%, ${GOLD_DEEP} 100%)`, border: "1px solid rgba(255,240,200,0.55)", boxShadow: `0 6px 18px rgba(0,0,0,0.45), 0 0 18px ${GOLD}40, inset 0 1px 0 rgba(255,255,255,0.55)` }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.6 7L12 17.6 5.8 21.2l1.6-7L2 9.5l7.1-.6z" /></svg>
+              Keynote Speaker
+            </span>
+
+            <h3 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(28px,3.3vw,46px)", letterSpacing: "-1.4px", lineHeight: 1.04, color: "#fff", margin: "22px 0 0", textWrap: "balance" }}>
+              {k.name}
+            </h3>
+            <p style={{ fontFamily: FO, fontSize: "clamp(15px,1.25vw,18px)", fontWeight: 600, color: GOLD, margin: "12px 0 0", lineHeight: 1.4 }}>
+              {k.title}
+            </p>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 8, fontFamily: FO, fontSize: 12, fontWeight: 700, letterSpacing: "1.8px", textTransform: "uppercase", color: "rgba(255,255,255,0.55)" }}>
+              <span aria-hidden style={{ width: 6, height: 6, borderRadius: "50%", background: C_BRIGHT, boxShadow: `0 0 10px ${C_BRIGHT}` }} />
+              {k.org}
+            </span>
+
+            <span aria-hidden style={{ display: "block", width: 56, height: 2, borderRadius: 2, margin: "24px 0 20px", background: `linear-gradient(90deg, ${GOLD}, ${C_BRIGHT})` }} />
+
+            <p style={{ fontFamily: FO, fontSize: "clamp(14px,1.05vw,16px)", lineHeight: 1.75, color: "rgba(255,255,255,0.68)", margin: 0, maxWidth: 620 }}>
+              {k.bio}
+            </p>
+
+            {k.linkedin && (
+              <a
+                href={k.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="uae-keynote-li"
+                style={{ alignSelf: "flex-start", marginTop: 26, display: "inline-flex", alignItems: "center", gap: 9, padding: "11px 18px", borderRadius: 11, fontFamily: FO, fontSize: 13, fontWeight: 700, color: "#fff", textDecoration: "none", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.16)" }}
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3-.02-2.96-1.8-2.96-1.8 0-2.08 1.4-2.08 2.86V21H9z" />
+                </svg>
+                View LinkedIn profile
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .uae-keynote-img { transition: transform 1.1s cubic-bezier(0.16,1,0.3,1); }
+        .uae-keynote:hover .uae-keynote-img { transform: scale(1.03); }
+        .uae-keynote-li { transition: background 0.25s ease, border-color 0.25s ease; }
+        .uae-keynote-li:hover { background: ${C}33 !important; border-color: ${C_BRIGHT}99 !important; }
+        .uae-keynote-li:focus-visible { outline: 2px solid ${GOLD}; outline-offset: 3px; }
+        @media (max-width: 820px) {
+          .uae-keynote-split { grid-template-columns: 1fr !important; }
+          .uae-keynote-photo { min-height: 0 !important; aspect-ratio: 4 / 4.2; }
+          .uae-keynote-fade { background: linear-gradient(180deg, transparent 35%, rgba(10,10,13,0.25) 60%, rgba(10,10,13,0.7) 82%, rgba(10,10,13,0.97) 100%) !important; }
+        }
+        @media (prefers-reduced-motion: reduce) { .uae-keynote-img { transition: none; } }
+      `}</style>
+    </motion.div>
+  );
+}
+
 // Shared by both bands — only the accent colour and the role word change.
 function PersonCard({
   p,
@@ -1014,7 +1128,7 @@ function AdvisorsAndSpeakers() {
   const spkCols = Math.min(SPEAKERS.length + 1, 5);
   return (
     <section id="speakers" ref={ref} style={{ ...wrap, paddingTop: "clamp(8px,1.1vw,18px)" }}>
-      <SectionHead num="04" label="Advisors & Speakers" note={`${ADVISORS.length + SPEAKERS.length} confirmed`} />
+      <SectionHead num="04" label="Advisors & Speakers" note={`${ADVISORS.length + SPEAKERS.length + 1} confirmed`} />
 
       <h2 style={{ fontFamily: FD, fontWeight: 800, fontSize: "clamp(30px,4.2vw,58px)", letterSpacing: "-2.2px", lineHeight: 1.0, margin: "0 0 14px", textWrap: "balance" }}>
         Advisors &amp;{" "}
@@ -1023,6 +1137,9 @@ function AdvisorsAndSpeakers() {
       <p style={{ fontFamily: FO, fontSize: "clamp(14px,1.1vw,16px)", lineHeight: 1.65, color: "#8E8E8E", margin: "0 0 clamp(20px,2.4vw,32px)", maxWidth: 620 }}>
         The independent advisors shaping the technical agenda, and the speakers taking the stage on industrial cyber resilience across the UAE. More names announced ahead of 28 January 2027.
       </p>
+
+      {/* ── Keynote ── */}
+      <KeynoteFeature inView={inView} />
 
       {/* ── Advisors ── */}
       <div id="advisors" style={{ scrollMarginTop: 120 }}>
