@@ -89,6 +89,8 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
 
   // EnterpriseDB Executive Roundtable — KSA — deep-link straight to the register form
   "edbksa-afra": { path: "/enterprisedb-ksa", source: "afra", campaign: "enterprisedb-ksa", medium: "invite", hash: "register" },
+  "edbsa-malak": { path: "/enterprisedb-southafrica", source: "malak", campaign: "enterprisedb-southafrica", medium: "invite", hash: "register" },
+  "edbsa-mrigashi": { path: "/enterprisedb-southafrica", source: "mrigashi", campaign: "enterprisedb-southafrica", medium: "invite", hash: "register" },
 
   // Blackstone eIT x Liferay Executive Roundtable — KSA, 20 Oct 2026.
   // medium left at the "sales" default (not "invite") so /api/submit-form
