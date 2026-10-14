@@ -91,6 +91,8 @@ const SPEAKERS: Speaker[] = [
   { name: "Mohannad Meri", title: "Senior Sales Engineer", org: "Illumio", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohannad+Meri.png", linkedin: "https://www.linkedin.com/in/mohannad-meri-33a12129/" },
   { name: "Mubarik Mustafa", title: "CEO", org: "ACET Solutions", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mubarik+Mustafa+Picture.jpg", linkedin: "https://www.linkedin.com/in/muhammad-mubarik-mustafa/" },
   { name: "Omer Bin Abdul Aziz", title: "Vice President | Digitalization", org: "Avanceon Middle East & South Asia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Omer+Bin+Abdul+Aziz%2C+Vice+President++Digitalization+at+Avanceon+Middle+East+%26+South+Asia.jpeg", photoPos: "58% top" },
+  // No flag or LinkedIn: neither was supplied.
+  { name: "Mesfer Al Mesfer", title: "COO", org: "DSShield", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mesfer+Al+Mesfer+(2).JPG", photoPos: "center top", photoTransform: "scale(1.4) translateY(14%)" },
 ];
 
 // ─── Advisors ─────────────────────────────────────────────────────────────────
