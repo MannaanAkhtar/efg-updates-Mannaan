@@ -2389,7 +2389,7 @@ function FaqSection() {
 type OtqEdition = { city: string; edition: string; when: string; href?: string; logo?: string; image?: string; scrimLight?: boolean };
 const OTQ_EDITIONS: OtqEdition[] = [
   { city: "Johannesburg", edition: "1st Edition · Africa", when: "August 2026", href: "/events/ot-security-first/johannesburg-2026", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/Untitled-2-01.png", image: "https://efg-final.s3.eu-north-1.amazonaws.com/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0812.JPG" },
-  { city: "Jubail, KSA", edition: "2nd Edition", when: "October 2026", href: "/events/ot-security-first/jubail", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OT+Security+First+Jubail+logo+Final-03.png", image: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT_Jubail.png", scrimLight: true },
+  { city: "Dammam, KSA", edition: "2nd Edition", when: "December 2026", href: "/events/ot-security-first/jubail", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OT+Security+First+Jubail+logo+Final-03.png", image: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT_Jubail.png", scrimLight: true },
   { city: "United Arab Emirates", edition: "Flagship Edition", when: "2027" },
   { city: "Muscat, Oman", edition: "New Edition", when: "2027" },
 ];

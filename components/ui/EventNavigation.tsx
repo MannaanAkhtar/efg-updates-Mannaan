@@ -191,8 +191,8 @@ const EVENT_CONFIGS: Record<string, {
     shortName: "OT Security Jubail",
     color: "#D34B9A",
     colorBright: "#E872B5",
-    date: "27 October 2026",
-    location: "Jubail, KSA",
+    date: "7 December 2026",
+    location: "Dammam, KSA",
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OT+Security+First+Jubail+logo+Final-03.png",
     logoHeight: 80,
     navLinks: [

@@ -36,7 +36,7 @@ const BG_BASE = "#070C20";    // Section base
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const HERO_VIDEO = "https://efg-final.s3.eu-north-1.amazonaws.com/hero+videos/OT+Jubail+Hero.mp4";
-const EVENT_DATE_ISO = "2026-10-27T08:30:00+03:00";
+const EVENT_DATE_ISO = "2026-12-07T08:30:00+03:00";
 
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com";
 const S3_LOGOS = `${S3}/sponsors-logo`;
@@ -747,7 +747,7 @@ function Hero() {
             margin: "0 0 26px",
           }}
         >
-          A strategic forum for operational technology leadership - convening regulators, CISOs and industrial engineers at the heart of the Kingdom&apos;s industrial corridor.
+          A strategic forum for operational technology leadership - convening regulators, CISOs and industrial engineers in Dammam.
         </motion.p>
 
         {/* Unified info bar - date · location · countdown as one coherent strip
@@ -781,7 +781,7 @@ function Hero() {
               <rect x="3" y="4" width="18" height="18" rx="2" />
               <line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
             </svg>
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14.5, fontWeight: 600, color: "white", letterSpacing: "-0.1px", whiteSpace: "nowrap" }}>27 October 2026</span>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14.5, fontWeight: 600, color: "white", letterSpacing: "-0.1px", whiteSpace: "nowrap" }}>7 December 2026</span>
           </span>
 
           <span aria-hidden className="otsf-jb-info-div" style={{ width: 1, height: 22, background: "rgba(255,255,255,0.14)" }} />
@@ -791,7 +791,7 @@ function Hero() {
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={C_BRIGHT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
             </svg>
-            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14.5, fontWeight: 600, color: "white", letterSpacing: "-0.1px", whiteSpace: "nowrap" }}>InterContinental Al Jubail Resort</span>
+            <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14.5, fontWeight: 600, color: "white", letterSpacing: "-0.1px", whiteSpace: "nowrap" }}>Sheraton Dammam Hotel</span>
           </span>
 
           <span aria-hidden className="otsf-jb-info-div" style={{ width: 1, height: 22, background: "rgba(255,255,255,0.14)" }} />
@@ -1623,7 +1623,7 @@ function ExecutivePerspective() {
                 maxWidth: 520,
               }}
             >
-              Highlights from the most recent OT Security First flagship edition - the same dialogue platform now arriving in Jubail.
+              Highlights from the most recent OT Security First flagship edition - the same dialogue platform now arriving in Dammam.
             </p>
           </motion.div>
         </div>
@@ -1723,7 +1723,7 @@ function ExecutivePerspective() {
                 color: "rgba(255,255,255,0.65)",
               }}
             >
-              Programme Note · Jubail · 27 October 2026
+              Programme Note · Dammam · 7 December 2026
             </span>
           </div>
         </motion.div>
@@ -3558,7 +3558,7 @@ function AgendaSection() {
               margin: 0,
             }}
           >
-            27 October 2026 &nbsp;·&nbsp; Jubail, Saudi Arabia &nbsp;·&nbsp; 09:00 – 15:55
+            7 December 2026 &nbsp;·&nbsp; Dammam, Saudi Arabia &nbsp;·&nbsp; 09:00 – 15:55
           </motion.p>
         </div>
 
@@ -3591,7 +3591,7 @@ function AgendaSection() {
             margin: "clamp(34px, 4vw, 48px) 0 0",
           }}
         >
-          OT Security First Jubail · 27 October 2026 · Jubail, Saudi Arabia ·{" "}
+          OT Security First Jubail · 7 December 2026 · Dammam, Saudi Arabia ·{" "}
           <span style={{ color: `${C_BRIGHT}bb` }}>Agenda is subject to change</span>
         </motion.p>
       </div>
@@ -6059,7 +6059,7 @@ function RegisterSection() {
         <InquiryForm
           defaultCountry="SA"
           eventName="OT Security First Jubail 2026"
-          labelText={isAr ? "انضم إلينا في الجبيل" : "Join Us in Jubail"}
+          labelText={isAr ? "انضم إلينا في الدمام" : "Join Us in Dammam"}
           lang={lang}
         />
       </div>
@@ -6143,8 +6143,8 @@ function VenueSection() {
       {/* Full-bleed venue photo */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="https://efg-final.s3.eu-north-1.amazonaws.com/venues/Intercontinental+Al+Jubail+Resort.jpg"
-        alt="InterContinental Al Jubail Resort, Jubail, Saudi Arabia — OT Security First Jubail 2026 venue"
+        src="https://efg-final.s3.eu-north-1.amazonaws.com/venues/Sheraton+Hotel+at+Twilight.png"
+        alt="Sheraton Dammam Hotel & Convention Centre, Dammam, Saudi Arabia — OT Security First Jubail 2026 venue"
         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }}
       />
       {/* Readability scrim */}
@@ -6219,7 +6219,7 @@ function VenueSection() {
                 color: C_BRIGHT,
               }}
             >
-              Jubail · Saudi Arabia
+              Dammam · Saudi Arabia
             </span>
           </div>
 
@@ -6234,7 +6234,7 @@ function VenueSection() {
               margin: 0,
             }}
           >
-            InterContinental{" "}
+            Sheraton Dammam{" "}
             <span
               className="otsf-hero-shimmer"
               style={{
@@ -6245,7 +6245,7 @@ function VenueSection() {
                 backgroundClip: "text",
               }}
             >
-              Al Jubail Resort
+              Hotel &amp; Convention Centre
             </span>
           </h3>
 
@@ -6262,10 +6262,10 @@ function VenueSection() {
               marginRight: "auto",
             }}
           >
-            A waterfront resort in Jubail, Kingdom of Saudi Arabia — host to OT Security First Jubail 2026.
+            In Dammam, Kingdom of Saudi Arabia — host to OT Security First Jubail 2026.
           </p>
           <a
-            href="https://maps.app.goo.gl/8X7ypMfnqniHqeKJA"
+            href="https://maps.app.goo.gl/1MgyRixX9wQpwr1TA"
             target="_blank"
             rel="noopener noreferrer"
             className="otsf-jb-map-btn"

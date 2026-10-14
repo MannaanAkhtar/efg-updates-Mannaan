@@ -28,7 +28,7 @@ const impactStats = [
 const cities = [
   "Kuwait City",
   "Nairobi",
-  "Jubail",
+  "Dammam",
   "Doha",
   "Riyadh",
   "Muscat",
@@ -286,9 +286,9 @@ const allEvents = [
     image:
       "https://images.unsplash.com/photo-1513828583688-c52646db42da?w=800&q=80",
     href: "/events/ot-security-first/jubail",
-    date: "2026-10-27",
-    nextDate: "27 Oct 2026",
-    nextCity: "Jubail, KSA",
+    date: "2026-12-07",
+    nextDate: "7 Dec 2026",
+    nextCity: "Dammam, KSA",
     editions: "2nd Edition",
     regions: "Saudi Arabia",
     attendees: "300+",

@@ -33,8 +33,8 @@ const upcomingEvents: UpcomingEvent[] = [
     series: "OT Security First",
     seriesColor: "#D34B9A",
     title: "OT Security Jubail",
-    date: new Date("2026-06-15T09:00:00"),
-    location: "Jubail, Saudi Arabia",
+    date: new Date("2026-12-07T09:00:00"),
+    location: "Dammam, Saudi Arabia",
     href: "/events/ot-security-first/jubail",
   },
   {

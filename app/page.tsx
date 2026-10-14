@@ -176,7 +176,7 @@ const eventSeriesJsonLd = [
     url: "https://www.eventsfirstgroup.com/events/ot-security-first",
     organizer: { "@type": "Organization", name: "Events First Group", url: "https://www.eventsfirstgroup.com" },
     subEvent: [
-      { "@type": "Event", name: "OT Security First Jubail 2026", startDate: "2026-10-07", location: { "@type": "Place", name: "Jubail", address: { "@type": "PostalAddress", addressLocality: "Jubail", addressCountry: "SA" } } },
+      { "@type": "Event", name: "OT Security First Jubail 2026", startDate: "2026-12-07", location: { "@type": "Place", name: "Sheraton Dammam Hotel & Convention Centre", address: { "@type": "PostalAddress", addressLocality: "Dammam", addressCountry: "SA" } } },
     ],
   },
 ];
