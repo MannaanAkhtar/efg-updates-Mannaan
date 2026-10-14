@@ -11,6 +11,7 @@ import EventNavigation from "@/components/ui/EventNavigation";
 import CpdCertified from "@/components/events/CpdCertified";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
 import type { CountryCode } from "@/lib/form-helpers";
+import { usePageLang } from "@/lib/page-lang";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -6004,9 +6005,10 @@ function BePartOfTheMovement() {
 // ─── REGISTER (shared InquiryForm) ──────────────────────────────────────────
 // English by default; the switch turns this whole section (CPD line included)
 // into right-to-left Arabic. Submissions are the same in either language, with
-// form_language: "Arabic" added to the metadata when sent in Arabic.
+// form_language: "Arabic" added to the metadata when sent in Arabic. The choice
+// is shared with the nav's EN | ع switch (lib/page-lang), so both stay in step.
 function RegisterSection() {
-  const [lang, setLang] = useState<"en" | "ar">("en");
+  const [lang, setLang] = usePageLang("/events/ot-security-first/jubail");
   const isAr = lang === "ar";
   return (
     <section

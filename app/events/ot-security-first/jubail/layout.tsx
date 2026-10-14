@@ -179,10 +179,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         audienceTypes={["OT/ICS security leaders", "Plant CISOs", "Energy security heads", "Petrochemicals security executives", "Utilities security leaders", "Engineering directors"]}
         url={PAGE_URL}
       />
-      {/* display: contents keeps layout untouched while --font-arabic inherits */}
-      <div className={plexArabic.variable} style={{ display: "contents" }}>
-        {children}
-      </div>
+      {/* --font-arabic goes on :root, not a wrapper, because the event nav is
+          also rendered by the root layout (outside this layout's children) and
+          its EN | ع switch and Register button need the same face. */}
+      <style>{`:root{--font-arabic:${plexArabic.style.fontFamily};}`}</style>
+      {children}
     </>
   );
 }
