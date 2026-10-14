@@ -179,13 +179,6 @@ const SPEAKERS: Speaker[] = [
     linkedin: "https://www.linkedin.com/in/iyad-atieh-a44183a/",
   },
   {
-    name: "Saud Almudhaf",
-    title: "Vice President – Non-Financial Risks",
-    org: "National Bank of Kuwait (NBK)",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Saud+Almudhaf1.png",
-    linkedin: "https://www.linkedin.com/in/saud-almudhaf-mba-173b1a41/",
-  },
-  {
     name: "Abdulla Al-Awadi",
     title: "Chief Strategy Officer",
     org: "KIB",
@@ -193,86 +186,11 @@ const SPEAKERS: Speaker[] = [
     linkedin: null,
   },
   {
-    name: "Shaheela Banu A. Majeed",
-    title: "Information Security & Compliance Officer & Auditor",
-    org: "Oil & Gas / Confidential",
-    photo: `${S3}/shaheela-majeed-new.jpg`,
-    linkedin: "https://www.linkedin.com/in/shaheela-banu/",
-  },
-  {
-    name: "Eng. Yousef H. El-Kordi",
-    title: "Group Information Technology Director",
-    org: "City Group",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/yousef-el-kourdi-new+1.png",
-    linkedin: "https://www.linkedin.com/in/yousefelkordi/",
-  },
-  {
-    name: "Mohamed Rushdhi",
-    title: "Head of Information Security Unit",
-    org: "The Industrial Bank of Kuwait",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohamed+Rushdhi.png",
-    linkedin: "https://www.linkedin.com/in/rushdhi-mohamed-information-security/",
-  },
-  {
-    name: "Sachin Shripad Mungi",
-    title: "Head of IT & SAP Systems",
-    org: "Al Mulla Group",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sachin+Shripad+Mungi.png",
-    linkedin: "https://www.linkedin.com/in/sachin-mungi-4858788/",
-  },
-  {
-    name: "Omer Yildirim",
-    title: "SVP, Chief Technology Officer",
-    org: "Tiqmo",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Omer+Yildirim.png",
-    linkedin: "https://www.linkedin.com/in/yildirimomer/",
-  },
-  {
-    name: "Faissal Al-Roumi",
-    title: "Executive Manager of Operational Risk",
-    org: "Burgan Bank",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/faissal-al-roumi-new1.png",
-    linkedin: "https://www.linkedin.com/in/faissal-al-roumi-mba-corp-0b2064112/",
-  },
-  {
-    name: "Dr Fai Ben Salamah",
-    title: "Cybersecurity Expert",
-    org: "Kuwait Technical College",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/dr-fai-ben-salamah-new+1.png",
-    linkedin: "https://www.linkedin.com/in/dr-fai-ben-salamah-83113b1a0/",
-  },
-  // Speakers not in the running-order list go after the last listed one.
-  {
-    name: "Eng. Khaled B. Althekair",
-    title: "Consultant",
-    org: "",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng._Khaled_B.+Althekair.png",
-    linkedin: "https://www.linkedin.com/in/khaled-al-thekair-4a92547/",
-  },
-  {
-    name: "Sumit Tekriwal",
-    title: "Head of Information Security Governance, Compliance and Privacy Unit",
-    org: "KIB",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/sumit-tekriwal1.png",
-    linkedin: "https://www.linkedin.com/in/sumittekriwal/",
-  },
-  {
-    name: "Mostafa AlQallaf",
-    title: "Head of Enterprise Security Services",
-    org: "Gulf Bank of Kuwait",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mustafa+Al-Qallaf1.png",
-    linkedin: "https://www.linkedin.com/in/mustafaq747/",
-  },
-  {
-    // Both supplied roles, joined with an em dash. "for Women in Cyber
-    // Security Middle East" is dropped from the first one because the card
-    // clamps the designation to two lines and the org chip below already
-    // carries it as WiCSME — spelling it out twice cost the second role.
-    name: "Dr. Fatemah Abdulaziz Alsewaidi",
-    title: "Kuwait Deputy Head — Leader, Kuwait CyberSHE Program",
-    org: "WiCSME",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/FatemahAlsewaidi1.png",
-    linkedin: "https://www.linkedin.com/in/fatemah-alsewaidi-4070a47b/",
+    name: "Saud Almudhaf",
+    title: "Vice President – Non-Financial Risks",
+    org: "National Bank of Kuwait (NBK)",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Saud+Almudhaf1.png",
+    linkedin: "https://www.linkedin.com/in/saud-almudhaf-mba-173b1a41/",
   },
   {
     name: "Haya Bin Ghaith",
@@ -282,36 +200,12 @@ const SPEAKERS: Speaker[] = [
     linkedin: "https://www.linkedin.com/in/haya-bin-ghaith-9b2873415/",
   },
   {
-    name: "Sherry John Oommen",
-    title: "Head of Risk Management",
-    org: "Al Mulla International Exchange Company K.S.C.C",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sherry+John+Oommen+1.png",
-    linkedin: "https://www.linkedin.com/in/sherry-john-oommen-61aa9212/",
-  },
-  {
-    name: "Mohammed Ibrahim",
-    title: "Information Security Manager",
-    org: "Boubyan Takaful Insurance Company",
-    // The %C2%A0 before the 1 is a non-breaking space in the S3 key, not a
-    // typo to tidy up — the object 404s without it.
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Ibrahim%C2%A01.png",
-    linkedin: "https://www.linkedin.com/in/mohamed-ebraheem-5b5143128/",
-  },
-  {
     name: "Miassar Hashim AlMasry",
     title: "Head of Compliance & Internal Controls, VP",
     org: "QNB Kuwait",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Miassar+Al.Masry.png",
     photoScale: 0.66,
     linkedin: "https://www.linkedin.com/in/miassar-al-masry-06ab48a/",
-  },
-  {
-    name: "Prof. Omar Al-Jarrah",
-    title: "Vice President for Planning & Development & CIO",
-    org: "Arab Open University – HQ",
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Prof.+Omar+Al-Jarrah.png",
-    photoScale: 0.74,
-    linkedin: "https://www.linkedin.com/in/omar-al-jarrah-2a87825/",
   },
   {
     name: "Khalid Al-Begain",
@@ -333,6 +227,112 @@ const SPEAKERS: Speaker[] = [
     org: "United Real Estate Co.",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Shadi+Mekdashi1.png",
     linkedin: "https://www.linkedin.com/in/shadi-mekdashi-cpa/",
+  },
+  {
+    name: "Eng. Khaled B. Althekair",
+    title: "Consultant",
+    org: "",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng._Khaled_B.+Althekair.png",
+    linkedin: "https://www.linkedin.com/in/khaled-al-thekair-4a92547/",
+  },
+  {
+    name: "Sumit Tekriwal",
+    title: "Head of Information Security Governance, Compliance and Privacy Unit",
+    org: "KIB",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/sumit-tekriwal1.png",
+    linkedin: "https://www.linkedin.com/in/sumittekriwal/",
+  },
+  {
+    // Both supplied roles, joined with an em dash. "for Women in Cyber
+    // Security Middle East" is dropped from the first one because the card
+    // clamps the designation to two lines and the org chip below already
+    // carries it as WiCSME — spelling it out twice cost the second role.
+    name: "Dr. Fatemah Abdulaziz Alsewaidi",
+    title: "Kuwait Deputy Head — Leader, Kuwait CyberSHE Program",
+    org: "WiCSME",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/FatemahAlsewaidi1.png",
+    linkedin: "https://www.linkedin.com/in/fatemah-alsewaidi-4070a47b/",
+  },
+  {
+    name: "Shaheela Banu A. Majeed",
+    title: "Information Security & Compliance Officer & Auditor",
+    org: "Oil & Gas / Confidential",
+    photo: `${S3}/shaheela-majeed-new.jpg`,
+    linkedin: "https://www.linkedin.com/in/shaheela-banu/",
+  },
+  {
+    name: "Mostafa AlQallaf",
+    title: "Head of Enterprise Security Services",
+    org: "Gulf Bank of Kuwait",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mustafa+Al-Qallaf1.png",
+    linkedin: "https://www.linkedin.com/in/mustafaq747/",
+  },
+  {
+    name: "Eng. Yousef H. El-Kordi",
+    title: "Group Information Technology Director",
+    org: "City Group",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/yousef-el-kourdi-new+1.png",
+    linkedin: "https://www.linkedin.com/in/yousefelkordi/",
+  },
+  {
+    name: "Faissal Al-Roumi",
+    title: "Executive Manager of Operational Risk",
+    org: "Burgan Bank",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/faissal-al-roumi-new1.png",
+    linkedin: "https://www.linkedin.com/in/faissal-al-roumi-mba-corp-0b2064112/",
+  },
+  {
+    name: "Dr Fai Ben Salamah",
+    title: "Cybersecurity Expert",
+    org: "Kuwait Technical College",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/dr-fai-ben-salamah-new+1.png",
+    linkedin: "https://www.linkedin.com/in/dr-fai-ben-salamah-83113b1a0/",
+  },
+  {
+    name: "Omer Yildirim",
+    title: "SVP, Chief Technology Officer",
+    org: "Tiqmo",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Omer+Yildirim.png",
+    linkedin: "https://www.linkedin.com/in/yildirimomer/",
+  },
+  {
+    name: "Mohamed Rushdhi",
+    title: "Head of Information Security Unit",
+    org: "The Industrial Bank of Kuwait",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohamed+Rushdhi.png",
+    linkedin: "https://www.linkedin.com/in/rushdhi-mohamed-information-security/",
+  },
+  {
+    name: "Sachin Shripad Mungi",
+    title: "Head of IT & SAP Systems",
+    org: "Al Mulla Group",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sachin+Shripad+Mungi.png",
+    linkedin: "https://www.linkedin.com/in/sachin-mungi-4858788/",
+  },
+  {
+    name: "Prof. Omar Al-Jarrah",
+    title: "Vice President for Planning & Development & CIO",
+    org: "Arab Open University – HQ",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Prof.+Omar+Al-Jarrah.png",
+    photoScale: 0.74,
+    linkedin: "https://www.linkedin.com/in/omar-al-jarrah-2a87825/",
+  },
+  {
+    name: "Sherry John Oommen",
+    title: "Head of Risk Management",
+    org: "Al Mulla International Exchange Company K.S.C.C",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sherry+John+Oommen+1.png",
+    linkedin: "https://www.linkedin.com/in/sherry-john-oommen-61aa9212/",
+  },
+  // Speakers not in the running-order list go after the last listed one.
+  {
+    name: "Mohammed Ibrahim",
+    title: "Information Security Manager",
+    org: "Boubyan Takaful Insurance Company",
+    // The %C2%A0 before the 1 is a non-breaking space in the S3 key, not a
+    // typo to tidy up — the object 404s without it.
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Ibrahim%C2%A01.png",
+    linkedin: "https://www.linkedin.com/in/mohamed-ebraheem-5b5143128/",
   },
 ];
 
@@ -548,21 +548,27 @@ const FEATURED_SPONSORS: { gold: FeaturedSponsor[]; strategic: FeaturedSponsor[]
   ],
 };
 
+// Panel `speakers` and `moderator` hold names only; the agenda takes each
+// person's title and organisation from SPEAKERS, so the two never disagree.
 const AGENDA = [
   { time: "08:00 – 09:00", title: "Registration & Networking", type: "break" as const },
   { time: "09:00 – 09:10", title: "Opening Ceremony", subtitle: "Welcome Address by Events First Group (EFG)", type: "ceremony" as const },
   { time: "09:10 – 09:30", title: "Opening Keynote", subtitle: "Cyber Resilience for Kuwait: Securing National Infrastructure, Digital Economy & AI Innovation", type: "keynote" as const },
   { time: "09:30 – 09:45", title: "Sponsor Presentation 1", type: "sponsor" as const },
-  { time: "09:45 – 10:25", title: "Panel Discussion 1 – Cyber Leadership & Governance", subtitle: "Cybersecurity at the Executive Table: Leadership, Regulation & Strategic Risk Management in a Hyper-Connected Economy", type: "panel" as const },
+  { time: "09:45 – 10:25", title: "Panel Discussion 1 – Cyber Leadership & Governance", subtitle: "Cybersecurity at the Executive Table: Leadership, Regulation & Strategic Risk Management in a Hyper-Connected Economy", type: "panel" as const,
+    speakers: ["Haya Bin Ghaith", "Iyad Atieh", "Prof. Omar Al-Jarrah", "Shadi Mekdashi"], moderator: "Dr. Fatemah Abdulaziz Alsewaidi" },
   { time: "10:25 – 10:40", title: "Sponsor Presentation 2", type: "sponsor" as const },
   { time: "10:40 – 11:10", title: "Coffee & Networking Break", type: "break" as const },
   { time: "11:10 – 11:30", title: "Fireside Chat", subtitle: "AI-Driven Threat Landscape: Preparing for the Next Generation of Cyber Attacks", type: "fireside" as const },
-  { time: "11:30 – 12:10", title: "Panel Discussion 2 – OT & Critical Infrastructure Security", subtitle: "Securing Kuwait\u2019s Critical Infrastructure: Strengthening OT, Industrial Cybersecurity & Operational Resilience", type: "panel" as const },
+  { time: "11:30 – 12:10", title: "Panel Discussion 2 – OT & Critical Infrastructure Security", subtitle: "Securing Kuwait\u2019s Critical Infrastructure: Strengthening OT, Industrial Cybersecurity & Operational Resilience", type: "panel" as const,
+    speakers: ["Mostafa AlQallaf", "Dr Fai Ben Salamah", "Shaheela Banu A. Majeed", "Abdulmajeed Al-Sabah"] },
   { time: "12:10 – 12:25", title: "Sponsor Presentation 3", type: "sponsor" as const },
   { time: "12:25 – 12:40", title: "Sponsor Presentation 4", type: "sponsor" as const },
   { time: "12:40 – 01:10", title: "Networking & Refreshment Break", type: "break" as const },
-  { time: "01:10 – 01:50", title: "Panel Discussion 3 – Banking & Financial Cyber Resilience", subtitle: "Securing Kuwait\u2019s Financial Ecosystem: Strengthening Cyber Resilience, Fraud Prevention & Regulatory Compliance in Digital Banking", type: "panel" as const },
-  { time: "01:50 – 02:30", title: "Panel Discussion 4 – Data Protection, Privacy & Digital Trust", subtitle: "Safeguarding Data in Kuwait\u2019s Expanding Digital Economy", type: "panel" as const },
+  { time: "01:10 – 01:50", title: "Panel Discussion 3 – Banking & Financial Cyber Resilience", subtitle: "Securing Kuwait\u2019s Financial Ecosystem: Strengthening Cyber Resilience, Fraud Prevention & Regulatory Compliance in Digital Banking", type: "panel" as const,
+    speakers: ["Saud Almudhaf", "Abdulla Al-Awadi", "Sherry John Oommen", "Miassar Hashim AlMasry", "Faissal Al-Roumi"] },
+  { time: "01:50 – 02:30", title: "Panel Discussion 4 – Data Protection, Privacy & Digital Trust", subtitle: "Safeguarding Data in Kuwait\u2019s Expanding Digital Economy", type: "panel" as const,
+    speakers: ["Sachin Shripad Mungi", "Omer Yildirim", "Mohamed Rushdhi", "Khalid Al-Begain"] },
   { time: "02:30 – 02:45", title: "Sponsor Presentation 5", type: "sponsor" as const },
   { time: "02:45 – 03:00", title: "Sponsor Presentation 6", type: "sponsor" as const },
   { time: "03:00 – 03:15", title: "Cyber First Awards & Raffle Draw", type: "awards" as const },
@@ -6461,7 +6467,37 @@ function AgendaItem({
           {item.subtitle}
         </p>
       )}
+
+      {/* Panellists, then the moderator */}
+      {(item.speakers?.length || item.moderator) && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 3, marginTop: 10, paddingTop: 10, borderTop: `1px solid ${cfg.color}22` }}>
+          {item.speakers?.map((n) => <AgendaPerson key={n} name={n} color={cfg.color} />)}
+          {item.moderator && <AgendaPerson name={item.moderator} color={cfg.color} isModerator />}
+        </div>
+      )}
     </div>
+  );
+}
+
+const SPEAKERS_BY_NAME = new Map(SPEAKERS.map((sp) => [sp.name, sp]));
+
+// Where the speaker card shortens a role to fit, the agenda has room for the
+// wording from the panel sheet.
+const AGENDA_ROLE_OVERRIDES: Record<string, string> = {
+  "Dr. Fatemah Abdulaziz Alsewaidi": "Kuwait Deputy Head, Women in Cyber Security Middle East (WiCSME)",
+};
+
+function AgendaPerson({ name, color, isModerator = false }: { name: string; color: string; isModerator?: boolean }) {
+  const p = SPEAKERS_BY_NAME.get(name);
+  const role = AGENDA_ROLE_OVERRIDES[name] ?? (p ? [p.title, p.org].filter(Boolean).join(", ") : "");
+  return (
+    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 11.5, fontWeight: 400, color: "rgba(255,255,255,0.45)", lineHeight: 1.5 }}>
+      {isModerator && (
+        <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color, marginRight: 7 }}>Moderator</span>
+      )}
+      <span style={{ color: "rgba(255,255,255,0.88)", fontWeight: 600 }}>{name}</span>
+      {role && <> — {role}</>}
+    </span>
   );
 }
 
