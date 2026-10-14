@@ -329,6 +329,9 @@ function goRegister(tab: "pass" | "speaker" | "sponsor") {
 // While the list is empty the hero renders nothing for partners.
 const SUPPORTING_PARTNERS: { name: string; logo: string }[] = [];
 
+// The UAE Cyber Security Council, same file the OT Security First UAE page uses.
+const PATRONAGE_LOGO = "https://efg-final.s3.eu-north-1.amazonaws.com/boardroom/CSC_Logos-01_.png";
+
 const Arrow = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
     <line x1="5" y1="12" x2="19" y2="12" />
@@ -390,6 +393,11 @@ function Hero() {
             take the band underneath once there are any; until then the footage fills it. */}
         <div className="cfu-hero-media cfu-in" style={{ animationDelay: "0.2s" }}>
           <div className="cfu-hero-filmwrap" data-anim>
+            <div className="cfu-patronage">
+              <span className="cfu-patronage-label">Under the patronage of</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={PATRONAGE_LOGO} alt="UAE Cyber Security Council" className="cfu-patronage-logo" />
+            </div>
             <div className="cfu-hero-film">
               <video autoPlay muted loop playsInline preload="metadata" poster={HERO_POSTER} aria-hidden>
                 <source src={HERO_VIDEO} type="video/mp4" />
@@ -1134,8 +1142,21 @@ export default function CyberFirstUAE2027() {
           .cfu-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(14px, 3.2vh, 30px); }
 
           .cfu-hero-media { display: flex; flex-direction: column; justify-content: center; gap: clamp(12px, 2.2vh, 22px); min-width: 0; min-height: 0; }
+          /* Patronage: the label sits just above the footage tile and the logo in its top-right corner
+             (same logo size as the OT Security First UAE page). Out of the flow, so the band under the
+             tile stays free for supporting partners. */
+          .cfu-patronage { position: absolute; right: clamp(14px, 1.4vw, 22px); top: calc(-1 * (var(--grow-y) + 34px)); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 14px; pointer-events: none; isolation: isolate; }
+          /* soft shade behind the logo only, so the gold reads over any footage frame */
+          .cfu-patronage::before { content: ""; position: absolute; z-index: -1; top: 34px; left: -90px; right: calc(-1 * clamp(14px, 1.4vw, 22px)); height: calc(var(--h) + 56px); background: radial-gradient(ellipse 66% 70% at 62% 36%, rgba(5,8,13,0.92) 0%, rgba(5,8,13,0.82) 42%, rgba(5,8,13,0.4) 68%, transparent 88%); border-top-right-radius: 28px; }
+          .cfu-patronage-label { font-family: ${FO}; font-size: 14px; line-height: 20px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; white-space: nowrap; color: ${CY_HI}; text-decoration: underline; text-underline-offset: 6px; text-decoration-color: rgba(1,187,245,0.6); }
+          /* the PNG's own ~15% top padding insets the artwork from the tile edge */
+          .cfu-patronage { --h: clamp(74px, 7.8vw, 118px); }
+          .cfu-patronage-logo { height: var(--h); width: auto; display: block; filter: drop-shadow(0 2px 12px rgba(0,0,0,0.7)); }
           .cfu-hero-filmwrap { position: relative; flex: 0 1 auto; aspect-ratio: 16 / 9; max-height: 100%; min-height: 0; }
-          .cfu-hero-film { position: absolute; inset: 0; overflow: hidden; border-radius: clamp(56px, 6vw, 96px) 28px 28px 28px; background: ${SURF}; box-shadow: 0 34px 80px rgba(0,0,0,0.55), 0 0 0 1px ${LINE}; }
+          /* The tile grows up and to the left past its box (bottom and right edges stay put), which
+             also makes room for the patronage logo in its corner. */
+          .cfu-hero-filmwrap { --grow-y: clamp(24px, 5vh, 56px); --grow-x: clamp(0px, 2vw, 36px); }
+          .cfu-hero-film { position: absolute; inset: calc(-1 * var(--grow-y)) 0 0 calc(-1 * var(--grow-x)); overflow: hidden; border-radius: clamp(56px, 6vw, 96px) 28px 28px 28px; background: ${SURF}; box-shadow: 0 34px 80px rgba(0,0,0,0.55), 0 0 0 1px ${LINE}; }
           .cfu-hero-film video { width: 100%; height: 100%; object-fit: cover; display: block; }
           .cfu-hero-film::after { content: ""; position: absolute; inset: 0; background: linear-gradient(200deg, transparent 55%, rgba(5,8,13,0.45) 100%); pointer-events: none; }
           .cfu-stamp { position: absolute; left: clamp(-22px, -1.4vw, -12px); bottom: clamp(-46px, -5vh, -26px); width: clamp(100px, min(10.5vw, 19vh), 156px); aspect-ratio: 1; display: grid; place-items: center; z-index: 1; }
@@ -1451,6 +1472,12 @@ export default function CyberFirstUAE2027() {
             .cfu-hero { min-height: 0; }
             .cfu-hero-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; row-gap: 26px; }
             .cfu-hero-filmwrap { flex: none; max-height: none; }
+            /* stacked: the date stamp takes the tile's top-right corner, so the patronage sits centred
+               above the tile instead (no panel), at the OT Security First UAE mobile size */
+            .cfu-hero-filmwrap { margin-top: 116px; --grow-y: 0px; --grow-x: 0px; }
+            .cfu-patronage { --h: 66px; top: auto; left: 0; right: 0; bottom: calc(100% + 30px); gap: 8px; }
+            .cfu-patronage::before { display: none; }
+            .cfu-patronage-logo { margin: calc(var(--h) * -0.15) 0 calc(var(--h) * -0.12); }
             .cfu-hero-film { border-radius: clamp(56px, 12vw, 110px) 28px 28px 28px; }
             .cfu-stamp { left: auto; right: clamp(12px, 3vw, 28px); bottom: auto; top: -30px; width: clamp(92px, 15vw, 128px); }
             .cfu-stamp-text b { font-size: clamp(30px, 5vw, 44px); }
