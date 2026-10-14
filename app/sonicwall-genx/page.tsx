@@ -25,8 +25,7 @@ const SW_WHITE = "#ffffff";
 // ─── Data ────────────────────────────────────────────────────────────────────
 const TAKEAWAYS = [
   { heading: "Strategic Direction.", desc: "A clear view of SonicWall's strategic direction for the next five years and how it aligns with evolving cybersecurity priorities." },
-  { heading: "Modern Perimeter.", desc: "Practical insight into centralized cloud-managed perimeter security, Cloud Secure Edge, ZTNA, and SASE as foundations for modern protection." },
-  { heading: "Managed Security.", desc: "A better understanding of how managed security services, SOC, MDR, and MXDR can strengthen resilience, reduce risk, and improve security outcomes." },
+  { heading: "Modern Perimeter.", desc: "Practical insight into centralized cloud-managed security, Cloud Secure Edge, ZTNA, and SASE as foundations for modern protection." },
 ];
 
 const PAIN_POINTS = [
@@ -334,11 +333,8 @@ function OverviewSection() {
 
         {/* Body text */}
         <div ref={bodyRef} style={{ maxWidth: 780, margin: "0 auto", textAlign: "center" }}>
-          <p className="sw-ov-para" style={{ fontFamily: "var(--font-outfit)", fontSize: 15.5, fontWeight: 400, color: "#333", lineHeight: 1.8, margin: "0 0 12px", opacity: 0, clipPath: "inset(0 0 30% 0)" }}>
-            This executive roundtable brings together cybersecurity leaders for a focused discussion on what comes next beyond traditional firewall protection. The session will explore SonicWall&apos;s strategic outlook, modern cloud-managed perimeter security, and the role of Cloud Secure Edge, ZTNA, and SASE in strengthening today&apos;s distributed environments.
-          </p>
           <p className="sw-ov-para" style={{ fontFamily: "var(--font-outfit)", fontSize: 15.5, fontWeight: 400, color: "#333", lineHeight: 1.8, margin: "0 0 28px", opacity: 0, clipPath: "inset(0 0 30% 0)" }}>
-            Attendees will also examine how managed security services, including SOC, MDR, and MXDR, can help organizations reduce risk, improve resilience, and achieve better security outcomes.
+            This executive roundtable brings together cybersecurity leaders for a focused discussion on what comes next beyond traditional firewall protection. The session will explore SonicWall&apos;s strategic outlook, modern cloud-managed security, and the role of Cloud Secure Edge, ZTNA, and SASE in strengthening today&apos;s distributed environments.
           </p>
 
           {/* Case study callout — liquid glass skeuomorphic */}
