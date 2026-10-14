@@ -254,9 +254,9 @@ const UPCOMING_EVENTS = [
     darkLogo: true,
   },
   {
-    date: "October 21st, 2026",
+    date: "October 28th, 2026",
     month: "OCT",
-    day: "21",
+    day: "28",
     year: "2026",
     time: "12:00 PM – 5:00 PM",
     title: "UnifyApps Executive Boardroom",
