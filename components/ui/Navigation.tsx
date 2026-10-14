@@ -62,9 +62,6 @@ const NETWORKFIRST_COLOR = "#C9935A";
 // each group keeps the upcoming-events date order from /network-first
 type NFFormat = "virtual" | "physical";
 const networkFirstEvents: { href: string; label: string; date: string; format: NFFormat }[] = [
-  { href: "https://engage.unifyapps.com/rsvp/signature-lunch-dubai-october-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261013_MEA_OWNED_Lunch_SE_BFSI_Dubai", label: "UnifyApps · BFSI", date: "13 Oct", format: "physical" },
-  { href: "/algosec", label: "AlgoSec", date: "13 Oct", format: "physical" },
-  { href: "https://www.jedox.com/en/events/unlock-the-power-of-modern-fpa-2026/", label: "Jedox | PlanPulse", date: "14 Oct", format: "physical" },
   { href: "https://engage.unifyapps.com/rsvp/se-healthcare-telecom-lunch-dubai-october-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261015_MEA_OWNED_Lunch_SE_Healthcare_Telecom_Dubai", label: "UnifyApps · Health & Telecom", date: "15 Oct", format: "physical" },
   { href: "/blackstone-liferay", label: "Blackstone eIT × Liferay", date: "20 Oct", format: "physical" },
   // Both of these are at the Hilton Jeddah, but /ifs-29sept above is already
