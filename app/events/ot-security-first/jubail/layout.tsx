@@ -1,6 +1,17 @@
 import type { Metadata } from "next";
+import { IBM_Plex_Sans_Arabic } from "next/font/google";
 import { BreadcrumbSchema } from "@/lib/schemas";
 import { EventFactBlock } from "@/components/seo/FactBlock";
+
+// Arabic face for the registration section's language switch. Not preloaded:
+// English is the default, so most visitors never need it.
+const plexArabic = IBM_Plex_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-arabic",
+  display: "swap",
+  preload: false,
+});
 
 const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/ot-security-first/jubail`;
@@ -168,7 +179,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         audienceTypes={["OT/ICS security leaders", "Plant CISOs", "Energy security heads", "Petrochemicals security executives", "Utilities security leaders", "Engineering directors"]}
         url={PAGE_URL}
       />
-      {children}
+      {/* display: contents keeps layout untouched while --font-arabic inherits */}
+      <div className={plexArabic.variable} style={{ display: "contents" }}>
+        {children}
+      </div>
     </>
   );
 }

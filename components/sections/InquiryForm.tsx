@@ -91,10 +91,99 @@ const INQUIRY_TABS = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
+// ARABIC COPY
+// Used only when a page passes lang="ar" (OT Security First Jubail's language
+// switch). English stays the default everywhere else. Field values, the event
+// series names and what is sent to the API are left untouched.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type InquiryLang = "en" | "ar";
+
+type TabCopy = {
+  label: string;
+  heading: string;
+  description: string;
+  perks: string[];
+  trust: string;
+  cta: string;
+  messagePlaceholder: string;
+};
+
+const AR_TABS: Record<string, TabCopy> = {
+  sponsor: {
+    label: "الرعاية",
+    heading: "كن راعياً\nللقمة",
+    description: "ضع علامتك التجارية أمام كبار صنّاع القرار حول العالم. صُممت باقات الرعاية لتحقيق أقصى قدر من الظهور وتوليد فرص عملاء مؤهلة.",
+    perks: ["استضافة الطاولات المستديرة وفرص الكلمات الرئيسية", "توليد فرص عملاء مؤهلة", "حضور مميز للعلامة التجارية عالمياً"],
+    trust: "موثوق من قبل أكثر من 80 راعياً في أكثر من 6 أسواق عالمية",
+    cta: "اطلب معلومات الرعاية",
+    messagePlaceholder: "أخبرنا عن أهدافك من الرعاية...",
+  },
+  pass: {
+    label: "الحضور",
+    heading: "سجّل لحضور\nقمة تنفيذية",
+    description: "صُممت فعالياتنا لكبار القادة: مسؤولي أمن المعلومات، ومديري تقنية المعلومات، ومديري التقنية، ومديري العمليات، وكبار التنفيذيين. أرسل بياناتك وسنرشّحك للجلسة الأنسب لك.",
+    perks: ["حضور بالدعوة فقط لكبار التنفيذيين", "فعاليات متعددة في مدن عالمية", "جلسات وفق قاعدة تشاتام هاوس"],
+    trust: "أكثر من 5,000 من كبار القادة حضروا فعاليات EFG منذ عام 2023",
+    cta: "اطلب تذكرتك",
+    messagePlaceholder: "أخبرنا عن اهتماماتك...",
+  },
+  speaker: {
+    label: "التحدث",
+    heading: "قدّم طلبك\nللتحدث في القمة",
+    description: "نمنح المنصة للممارسين لا لمندوبي المبيعات. إن كنت قائداً ميدانياً تمتلك خبرة عملية حقيقية، فنحن نرحب بك على المنصة.",
+    perks: ["فرص الكلمات الرئيسية وحلقات النقاش", "الوصول إلى أكثر من 5,000 من كبار القادة", "انضم إلى شبكة متحدثينا"],
+    trust: "أكثر من 200 ممارس تحدثوا في فعاليات EFG منذ عام 2023",
+    cta: "أرسل مقترح المشاركة",
+    messagePlaceholder: "أخبرنا عن خلفيتك المهنية...",
+  },
+};
+
+const AR_FIELDS: Record<string, { label: string; placeholder?: string }> = {
+  name: { label: "الاسم الكامل", placeholder: "اسمك الكامل" },
+  email: { label: "البريد الإلكتروني للعمل" },
+  phone: { label: "رقم الهاتف" },
+  company: { label: "الشركة", placeholder: "اسم الشركة" },
+  title: { label: "المسمى الوظيفي", placeholder: "منصبك" },
+  interest: { label: "الفعالية المهتم بها", placeholder: "اختر سلسلة الفعاليات" },
+  topic: { label: "الموضوع المقترح", placeholder: "نبذة عن الموضوع أو مجال الخبرة" },
+  message: { label: "رسالة (اختياري)" },
+};
+
+const UI_COPY = {
+  en: {
+    submitted: "Inquiry Submitted",
+    submittedBody: "Our team will review your submission and get back to you within 2 working hours.",
+    another: "Submit another inquiry",
+    submitting: "Submitting...",
+    privacy: "Your information is kept confidential. We'll only use it to respond to your inquiry.",
+    invalidEmail: "Please enter a valid email address",
+    workEmail: "Please use your work email address",
+    genericError: "Something went wrong.",
+    arrow: "→",
+  },
+  ar: {
+    submitted: "تم إرسال طلبك",
+    submittedBody: "سيراجع فريقنا طلبك ويتواصل معك خلال ساعتي عمل.",
+    another: "إرسال طلب آخر",
+    submitting: "جارٍ الإرسال...",
+    privacy: "معلوماتك سرية، ولن نستخدمها إلا للرد على طلبك.",
+    invalidEmail: "يرجى إدخال بريد إلكتروني صحيح",
+    workEmail: "يرجى استخدام البريد الإلكتروني الخاص بالعمل",
+    genericError: "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+    arrow: "←",
+  },
+} as const;
+
+// validatePhone() returns English, country-specific messages; Arabic shows one
+// plain message instead.
+const AR_PHONE_ERROR = "يرجى إدخال رقم هاتف صحيح";
+
+// ─────────────────────────────────────────────────────────────────────────────
 // SECTION LABEL
 // ─────────────────────────────────────────────────────────────────────────────
 
-function SectionLabel({ text }: { text: string }) {
+function SectionLabel({ text, rtl = false }: { text: string; rtl?: boolean }) {
   return (
     <div className="flex items-center gap-3" style={{ marginBottom: 16 }}>
       <span
@@ -106,10 +195,12 @@ function SectionLabel({ text }: { text: string }) {
         }}
       />
       <span
+        className="inquiry-section-label"
         style={{
-          fontSize: 11,
+          fontSize: rtl ? 13 : 11,
           fontWeight: 600,
-          letterSpacing: "3px",
+          // Letter-spacing pulls joined Arabic letters apart.
+          letterSpacing: rtl ? 0 : "3px",
           textTransform: "uppercase",
           color: "var(--orange)",
           fontFamily: "var(--font-outfit)",
@@ -143,7 +234,9 @@ function InquiryPerkIcon({ type }: { type: string }) {
 // MAIN COMPONENT
 // ─────────────────────────────────────────────────────────────────────────────
 
-export default function InquiryForm({ defaultCountry, eventName, hideLabel, labelText }: { defaultCountry?: string; eventName?: string; hideLabel?: boolean; labelText?: string } = {}) {
+export default function InquiryForm({ defaultCountry, eventName, hideLabel, labelText, lang = "en" }: { defaultCountry?: string; eventName?: string; hideLabel?: boolean; labelText?: string; lang?: InquiryLang } = {}) {
+  const isAr = lang === "ar";
+  const ui = UI_COPY[lang];
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const [activeTab, setActiveTab] = useState<string>("sponsor");
@@ -195,7 +288,29 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
     if (key && INQUIRY_TABS.some((t) => t.key === key)) setActiveTab(key);
   }, []);
 
-  const tab = INQUIRY_TABS.find((t) => t.key === activeTab)!;
+  // Swap in the Arabic copy over the English tab; keys, field names and types
+  // are unchanged, so the submission is identical in either language.
+  const localize = (t: (typeof INQUIRY_TABS)[number]) => {
+    if (!isAr) return t;
+    const c = AR_TABS[t.key];
+    return {
+      ...t,
+      label: c.label,
+      heading: c.heading,
+      description: c.description,
+      perks: t.perks.map((p, i) => ({ ...p, text: c.perks[i] ?? p.text })),
+      trust: c.trust,
+      cta: c.cta,
+      fields: t.fields.map((f) => ({
+        ...f,
+        label: AR_FIELDS[f.name]?.label ?? f.label,
+        placeholder: f.name === "message" ? c.messagePlaceholder : AR_FIELDS[f.name]?.placeholder ?? f.placeholder,
+      })),
+    };
+  };
+  const tabs = INQUIRY_TABS.map(localize);
+  const tab = tabs.find((t) => t.key === activeTab)!;
+  const phoneMessage = (err: string | null) => (err && isAr ? AR_PHONE_ERROR : err);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -203,20 +318,20 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
     setFormError(null);
 
     if (formData.email && !isValidEmail(formData.email)) {
-      setEmailError("Please enter a valid email address");
+      setEmailError(ui.invalidEmail);
       setSubmitting(false);
       return;
     }
 
     if (formData.email && !isWorkEmail(formData.email)) {
-      setEmailError("Please use your work email address");
+      setEmailError(ui.workEmail);
       setSubmitting(false);
       return;
     }
 
     const phoneErr = validatePhone(formData.phone || "", selectedCountry);
     if (phoneErr) {
-      setPhoneError(phoneErr);
+      setPhoneError(phoneMessage(phoneErr));
       setSubmitting(false);
       return;
     }
@@ -238,6 +353,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
     };
 
     const meta = metadataMap[activeTab]?.() || {};
+    if (isAr) meta.form_language = "Arabic";
     const result = await submitForm({
       type,
       full_name: formData.name || "",
@@ -253,7 +369,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
     if (result.success) {
       setSubmitted(true);
     } else {
-      setFormError(result.error || "Something went wrong.");
+      setFormError(isAr ? ui.genericError : result.error || ui.genericError);
     }
   };
 
@@ -316,7 +432,15 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
         }}
       />
 
-      <div style={{ maxWidth: MAX_W, margin: "0 auto", padding: PAD, position: "relative" }}>
+      <div
+        dir={isAr ? "rtl" : "ltr"}
+        lang={isAr ? "ar" : undefined}
+        style={{
+          maxWidth: MAX_W, margin: "0 auto", padding: PAD, position: "relative",
+          // Arabic: the page supplies --font-arabic; Latin fallbacks keep digits and emails tidy.
+          ...(isAr ? { ["--font-outfit" as string]: "var(--font-arabic), system-ui, sans-serif", ["--font-display" as string]: "var(--font-arabic), system-ui, sans-serif" } : {}),
+        }}
+      >
         {/* Tab pills, top of section */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -324,10 +448,10 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
           transition={{ duration: 0.6, ease: EASE }}
           style={{ display: "flex", alignItems: "center", justifyContent: hideLabel ? "center" : "flex-start", gap: 8, marginBottom: 48 }}
         >
-          {!hideLabel && <SectionLabel text={labelText || "Get Involved"} />}
+          {!hideLabel && <SectionLabel text={labelText || "Get Involved"} rtl={isAr} />}
           {!hideLabel && <div style={{ flex: 1 }} />}
           <div style={{ display: "flex", gap: 6 }}>
-            {INQUIRY_TABS.map((t) => {
+            {tabs.map((t) => {
               const isActive = activeTab === t.key;
               return (
                 <button
@@ -351,7 +475,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                       : "1px solid rgba(255,255,255,0.08)",
                     cursor: "pointer",
                     transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
-                    letterSpacing: "0.2px",
+                    letterSpacing: isAr ? 0 : "0.2px",
                   }}
                 >
                   {t.label}
@@ -387,9 +511,9 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                   fontFamily: "var(--font-display)",
                   fontWeight: 800,
                   fontSize: "clamp(32px, 3.5vw, 50px)",
-                  letterSpacing: "-2px",
+                  letterSpacing: isAr ? 0 : "-2px",
                   color: "var(--white)",
-                  lineHeight: 1.08,
+                  lineHeight: isAr ? 1.3 : 1.08,
                   margin: 0,
                   whiteSpace: "pre-line",
                 }}
@@ -460,7 +584,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                     fontSize: 12,
                     fontWeight: 400,
                     color: "rgba(255,255,255,0.25)",
-                    letterSpacing: "0.3px",
+                    letterSpacing: isAr ? 0 : "0.3px",
                     margin: 0,
                   }}
                 >
@@ -534,7 +658,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                       margin: "0 0 8px",
                     }}
                   >
-                    Inquiry Submitted
+                    {ui.submitted}
                   </h3>
                   <p
                     style={{
@@ -546,8 +670,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                       lineHeight: 1.6,
                     }}
                   >
-                    Our team will review your submission and get back
-                    to you within 2 working hours.
+                    {ui.submittedBody}
                   </p>
                   <button
                     type="button"
@@ -564,7 +687,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                       padding: 0,
                     }}
                   >
-                    Submit another inquiry &rarr;
+                    {ui.another} {ui.arrow}
                   </button>
                 </motion.div>
               ) : (
@@ -590,7 +713,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                           return (
                             <div key={field.name} style={{ gridColumn: "1 / -1" }}>
                               <label style={labelStyle}>{field.label}</label>
-                              <div style={{ display: "flex", gap: 8 }}>
+                              <div dir="ltr" style={{ display: "flex", gap: 8 }}>
                                 <select
                                   suppressHydrationWarning
                                   value={`${selectedCountry.code}|${selectedCountry.country}`}
@@ -605,7 +728,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                                     const current = formData[field.name] || "";
                                     const recapped = normalizePhoneDigits(current, c);
                                     if (recapped !== current) handleChange(field.name, recapped);
-                                    setPhoneError(recapped ? validatePhone(recapped, c) : null);
+                                    setPhoneError(recapped ? phoneMessage(validatePhone(recapped, c)) : null);
                                   }}
                                   style={{ ...inputStyle, width: 120, flexShrink: 0, appearance: "none", cursor: "pointer" }}
                                 >
@@ -635,7 +758,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                                   onBlur={(e) => {
                                     e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
                                     const v = formData[field.name] || e.currentTarget.value;
-                                    if (v) setPhoneError(validatePhone(v, selectedCountry));
+                                    if (v) setPhoneError(phoneMessage(validatePhone(v, selectedCountry)));
                                   }}
                                 />
                               </div>
@@ -650,6 +773,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                               <input
                                 suppressHydrationWarning
                                 type="email"
+                                dir="ltr"
                                 value={formData[field.name] || ""}
                                 onChange={(e) => { handleChange(field.name, e.target.value); setEmailError(null); }}
                                 placeholder={field.placeholder}
@@ -661,8 +785,8 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                                   e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
                                   const val = formData[field.name] || e.currentTarget.value;
                                   if (!val) return;
-                                  if (!isValidEmail(val)) setEmailError("Please enter a valid email address");
-                                  else if (!isWorkEmail(val)) setEmailError("Please use your work email address");
+                                  if (!isValidEmail(val)) setEmailError(ui.invalidEmail);
+                                  else if (!isWorkEmail(val)) setEmailError(ui.workEmail);
                                 }}
                               />
                               {emailError && <p style={{ color: "#ef4444", fontSize: 11, margin: "4px 0 0" }}>{emailError}</p>}
@@ -780,7 +904,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                         e.currentTarget.style.boxShadow = "none";
                       }}
                     >
-                      {submitting ? "Submitting..." : tab.cta} {!submitting && <span>&rarr;</span>}
+                      {submitting ? ui.submitting : tab.cta} {!submitting && <span>{ui.arrow}</span>}
                     </button>
                   </form>
 
@@ -795,8 +919,7 @@ export default function InquiryForm({ defaultCountry, eventName, hideLabel, labe
                       margin: "14px 0 0",
                     }}
                   >
-                    Your information is kept confidential. We&apos;ll only use
-                    it to respond to your inquiry.
+                    {ui.privacy}
                   </p>
                 </motion.div>
               )}

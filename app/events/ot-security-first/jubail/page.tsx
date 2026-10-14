@@ -6002,7 +6002,12 @@ function BePartOfTheMovement() {
 }
 
 // ─── REGISTER (shared InquiryForm) ──────────────────────────────────────────
+// English by default; the switch turns this whole section (CPD line included)
+// into right-to-left Arabic. Submissions are the same in either language, with
+// form_language: "Arabic" added to the metadata when sent in Arabic.
 function RegisterSection() {
+  const [lang, setLang] = useState<"en" | "ar">("en");
+  const isAr = lang === "ar";
   return (
     <section
       style={{
@@ -6013,14 +6018,37 @@ function RegisterSection() {
       }}
     >
       <BgDots opacity={0.04} />
-      <div style={{ maxWidth: 1200, margin: "0 auto 8px", padding: "0 clamp(20px,4vw,60px)", position: "relative", zIndex: 1, display: "flex", justifyContent: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 14, padding: "8px 16px 8px 8px", borderRadius: 12, background: "rgba(255,255,255,0.06)", border: `1px solid ${C}30` }}>
+      <div
+        dir={isAr ? "rtl" : "ltr"}
+        className="otsf-jb-reg-top"
+        style={{ maxWidth: 1320, margin: "0 auto 8px", padding: "0 clamp(20px,4vw,60px)", position: "relative", zIndex: 2, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap", ...(isAr ? { ["--font-outfit" as string]: "var(--font-arabic), system-ui, sans-serif" } : {}) }}
+      >
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 14, padding: isAr ? "8px 8px 8px 16px" : "8px 16px 8px 8px", borderRadius: 12, background: "rgba(255,255,255,0.06)", border: `1px solid ${C}30` }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/CPD+jubail.jpeg" alt="CPD certified — Approved Provider #790688" loading="lazy" decoding="async" style={{ height: 40, width: "auto", display: "block", borderRadius: 8 }} />
           <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 500, color: "rgba(255,255,255,0.85)", lineHeight: 1.4 }}>
-            <strong style={{ color: C, fontWeight: 700 }}>CPD Certified Event</strong> · earn up to 7 CPD points.
+            {isAr ? (
+              <><strong style={{ color: C, fontWeight: 700 }}>فعالية معتمدة من CPD</strong> · اكسب حتى 7 نقاط CPD.</>
+            ) : (
+              <><strong style={{ color: C, fontWeight: 700 }}>CPD Certified Event</strong> · earn up to 7 CPD points.</>
+            )}
           </span>
         </div>
+
+        {/* Language switch */}
+        <label className="otsf-jb-lang">
+          <span className="otsf-jb-sr">{isAr ? "اللغة" : "Language"}</span>
+          <svg aria-hidden width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="otsf-jb-lang-globe">
+            <circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          </svg>
+          <select value={lang} onChange={(e) => setLang(e.target.value === "ar" ? "ar" : "en")} suppressHydrationWarning>
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+          </select>
+          <svg aria-hidden width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="otsf-jb-lang-chev">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </label>
       </div>
       <div
         className="otsf-jb-register-wrap"
@@ -6029,7 +6057,8 @@ function RegisterSection() {
         <InquiryForm
           defaultCountry="SA"
           eventName="OT Security First Jubail 2026"
-          labelText="Join Us in Jubail"
+          labelText={isAr ? "انضم إلينا في الجبيل" : "Join Us in Jubail"}
+          lang={lang}
         />
       </div>
 
@@ -6054,8 +6083,33 @@ function RegisterSection() {
         .otsf-jb-register-wrap .inquiry-split > div:last-child > .absolute {
           background: radial-gradient(ellipse, ${C}10 0%, transparent 70%) !important;
         }
-        .otsf-jb-register-wrap [style*="var(--orange)"][style*="letter-spacing: 3px"] {
+        .otsf-jb-register-wrap [style*="var(--orange)"][style*="letter-spacing: 3px"],
+        .otsf-jb-register-wrap .inquiry-section-label {
           color: ${C_BRIGHT} !important;
+        }
+        .otsf-jb-lang {
+          position: relative; display: inline-flex; align-items: center;
+          min-width: 200px; border-radius: 14px;
+          background: linear-gradient(180deg, rgba(10,16,38,0.92), rgba(6,10,26,0.92));
+          border: 1px solid ${C}40;
+          box-shadow: 0 10px 28px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+          color: #fff; transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .otsf-jb-lang:hover { border-color: ${C}90; }
+        .otsf-jb-lang:focus-within { border-color: ${C_BRIGHT}; box-shadow: 0 0 0 3px ${C}33, 0 10px 28px rgba(0,0,0,0.4); }
+        .otsf-jb-lang select {
+          appearance: none; -webkit-appearance: none; width: 100%;
+          background: transparent; border: none; outline: none; cursor: pointer;
+          color: #fff; font-family: var(--font-outfit), var(--font-arabic), system-ui, sans-serif;
+          font-size: 14px; font-weight: 600;
+          padding: 13px 44px 13px 44px;
+        }
+        .otsf-jb-lang option { color: #111; background: #fff; }
+        .otsf-jb-lang-globe { position: absolute; inset-inline-start: 16px; color: ${C_BRIGHT}; pointer-events: none; }
+        .otsf-jb-lang-chev { position: absolute; inset-inline-end: 16px; color: ${C_BRIGHT}; pointer-events: none; }
+        .otsf-jb-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+        @media (max-width: 640px) {
+          .otsf-jb-reg-top { justify-content: center !important; }
         }
         .otsf-jb-register-wrap .inquiry-split svg {
           color: ${C_BRIGHT};
