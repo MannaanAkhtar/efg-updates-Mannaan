@@ -40,6 +40,7 @@ export default function ConditionalNavigation() {
     pathname?.startsWith("/enterprisedb-uae") ||
     pathname?.startsWith("/inner_circle") ||
     pathname?.startsWith("/oracle") ||
+    pathname?.startsWith("/unifyapps") ||
     isSubdomain
   ) {
     return null;

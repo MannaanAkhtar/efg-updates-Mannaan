@@ -291,6 +291,7 @@ export function getSourceCategory(): string {
   if (p.startsWith("/bigleap")) return "The Big Leap Connect Riyadh";
   if (p.startsWith("/inner_circle")) return "The Inner Circle Riyadh (CleverTap)";
   if (p.startsWith("/blackstone-liferay")) return "Blackstone eIT × Liferay Executive Roundtable — AI-Powered Government (20 Oct 2026)";
+  if (p.startsWith("/unifyapps-28oct")) return "UnifyApps Executive Boardroom — Airlines, Ports, Energy & Contracting (28 Oct 2026)";
   if (p.startsWith("/sonicwall-genx")) return "SonicWall × GenX Executive Roundtable — Cyber Resilience (10 Nov 2026)";
   if (p.startsWith("/sonicwall")) return "SonicWall Virtual Roundtable";
   if (p.startsWith("/clevertap")) return "CleverTap Virtual Roundtable";
