@@ -570,31 +570,11 @@ const AGENDA = [
 ];
 
 const AWARDS_DATA = [
-  {
-    title: "Cybersecurity Visionary of the Year",
-    desc: "Recognising an individual demonstrating exceptional strategic vision in advancing Kuwait\u2019s cybersecurity posture.",
-    icon: "M15 12a3 3 0 11-6 0 3 3 0 016 0zM2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z",
-  },
-  {
-    title: "Secure AI & Emerging Technology Leadership",
-    desc: "Honouring leadership in securing AI adoption and emerging technology integration across the enterprise.",
-    icon: "M12 2a4 4 0 014 4v1a2 2 0 012 2v1a2 2 0 01-2 2H8a2 2 0 01-2-2V9a2 2 0 012-2V6a4 4 0 014-4zM9 18h6M10 22h4",
-  },
-  {
-    title: "Enterprise Cyber Resilience & Risk Management",
-    desc: "Celebrating excellence in building enterprise-wide cyber resilience frameworks and risk governance.",
-    icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
-  },
-  {
-    title: "Critical Infrastructure Cyber Defense",
-    desc: "Recognising outstanding efforts in protecting critical national infrastructure from cyber threats.",
-    icon: "M2 20h20M4 20V10l8-6 8 6v10M9 20v-4a3 3 0 016 0v4",
-  },
-  {
-    title: "Digital Trust, Privacy & Data Governance",
-    desc: "Honouring commitment to data protection, privacy standards, and building digital trust ecosystems.",
-    icon: "M12 1a3 3 0 00-3 3v4a3 3 0 006 0V4a3 3 0 00-3-3zM19 10v2a7 7 0 01-14 0v-2M5 21h14M8 21v-4M16 21v-4",
-  },
+  { title: "Kuwait Cybersecurity Visionary Award" },
+  { title: "AI Cyber Defence Innovator of the Year" },
+  { title: "Critical Infrastructure Security Leader Award" },
+  { title: "Digital Sovereignty Champion Award" },
+  { title: "Cyber Incident Response Leader of the Year" },
 ];
 
 const AWARDS_ELIGIBILITY = [
