@@ -208,7 +208,7 @@ const EVENT_CONFIGS: Record<string, {
         ],
       },
       { href: "#awards", label: "Awards" },
-      { href: "#register", label: "Register" },
+      // No "Register" link here: the Register Now / سجّل الآن buttons cover it.
     ],
     langSwitch: true,
   },
@@ -310,51 +310,64 @@ const NAV_LINK_STYLE = {
 
 const REGISTER_LABEL: Record<PageLang, string> = { en: "Register Now", ar: "سجّل الآن" };
 
-// EN | ع segmented switch. Both halves are real buttons; aria-pressed marks the
-// active one. The Arabic half is set in the Arabic face so the glyph renders well.
-function LangSwitch({ lang, onChange, color, size = "md" }: { lang: PageLang; onChange: (l: PageLang) => void; color: string; size?: "md" | "lg" }) {
-  const h = size === "lg" ? 40 : 34;
-  const opts: { value: PageLang; label: string; title: string }[] = [
-    { value: "en", label: "EN", title: "English" },
-    { value: "ar", label: "ع", title: "العربية" },
-  ];
+// Two registration buttons, one per language. Each sets the page language
+// (shared with the registration form via lib/page-lang) and then scrolls to the
+// form, so "سجّل الآن" lands on the Arabic form and "Register Now" on the
+// English one. The button for the current language is filled, the other outlined.
+const ARABIC_FACE = "var(--font-arabic), var(--font-outfit), system-ui";
+
+function RegisterButtons({
+  lang,
+  onPick,
+  color,
+  colorBright,
+  size = "md",
+}: {
+  lang: PageLang;
+  onPick: (l: PageLang) => void;
+  color: string;
+  colorBright: string;
+  size?: "md" | "lg";
+}) {
+  const lg = size === "lg";
+  const order: PageLang[] = ["en", "ar"];
   return (
-    <div
-      role="group"
-      aria-label="Language"
-      style={{ display: "inline-flex", alignItems: "center", gap: 2, padding: 3, height: h, borderRadius: 50, background: "rgba(255,255,255,0.05)", border: `1px solid ${color}40` }}
-    >
-      {opts.map((o) => {
-        const active = lang === o.value;
+    <div style={{ display: "inline-flex", alignItems: "center", gap: lg ? 12 : 8 }}>
+      {order.map((l) => {
+        const active = lang === l;
+        const ar = l === "ar";
         return (
-          <button
-            key={o.value}
-            type="button"
-            aria-pressed={active}
-            title={o.title}
-            lang={o.value}
-            onClick={() => onChange(o.value)}
-            className="event-nav-lang-btn"
+          <a
+            key={l}
+            href="#register"
+            lang={l}
+            dir={ar ? "rtl" : "ltr"}
+            aria-current={active ? "true" : undefined}
+            onClick={(e) => {
+              e.preventDefault();
+              onPick(l);
+            }}
+            className={active ? "event-nav-reg event-nav-reg-active" : "event-nav-reg"}
             style={{
-              height: h - 8,
-              minWidth: size === "lg" ? 44 : 36,
-              padding: "0 10px",
-              borderRadius: 50,
-              border: "none",
-              cursor: "pointer",
-              fontFamily: o.value === "ar" ? "var(--font-arabic), var(--font-outfit), system-ui" : "var(--font-outfit)",
-              fontSize: o.value === "ar" ? (size === "lg" ? 17 : 15) : (size === "lg" ? 13 : 12),
-              fontWeight: 700,
-              letterSpacing: o.value === "ar" ? 0 : "0.5px",
+              ["--reg-color" as string]: color,
+              ["--reg-bright" as string]: colorBright,
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              whiteSpace: "nowrap",
+              fontFamily: ar ? ARABIC_FACE : "var(--font-outfit)",
+              fontSize: ar ? (lg ? 17 : 15) : (lg ? 16 : 14),
+              fontWeight: 600,
+              letterSpacing: 0,
               lineHeight: 1,
-              color: active ? "#fff" : "rgba(255,255,255,0.55)",
-              background: active ? color : "transparent",
-              boxShadow: active ? `0 4px 14px ${color}55` : "none",
-              transition: "background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease",
+              color: "#fff",
+              padding: lg ? "14px 28px" : "10px 20px",
+              borderRadius: 50,
+              cursor: "pointer",
             }}
           >
-            {o.label}
-          </button>
+            {REGISTER_LABEL[l]}
+          </a>
         );
       })}
     </div>
@@ -568,8 +581,12 @@ export default function EventNavigation() {
   if (!config) return null;
 
   const { name, shortName, color, colorBright, date, location, logo, logoFilter, logoHeight, navLinks, langSwitch } = config;
-  const navLang: PageLang = langSwitch ? lang : "en";
-  const registerFont = navLang === "ar" ? "var(--font-arabic), var(--font-outfit), system-ui" : "var(--font-outfit)";
+  // With the language buttons, picking one sets the language and then scrolls.
+  const pickRegister = (l: PageLang, delay = 0) => {
+    setLang(l);
+    // Let the form re-render in the new language before scrolling to it.
+    setTimeout(() => smoothScrollToId("register"), delay + 60);
+  };
   const logoH = logoHeight ?? 70;
   const logoHTablet = Math.round(logoH * (60 / 70));
   const logoHMobile = Math.round(logoH * (50 / 70));
@@ -711,18 +728,19 @@ export default function EventNavigation() {
               <img src="https://efg-final.s3.eu-north-1.amazonaws.com/Events+First+logo+icon-01.svg" alt="EFG" style={{ width: 16, height: 16 }} />
               <span className="event-nav-efg-label" style={{ whiteSpace: "nowrap" }}>Events First Group</span>
             </Link>
-            {langSwitch && <LangSwitch lang={navLang} onChange={setLang} color={color} />}
+            {langSwitch ? (
+              <RegisterButtons lang={lang} onPick={(l) => pickRegister(l)} color={color} colorBright={colorBright} />
+            ) : (
             <a
               href="#register"
-              lang={navLang}
               onClick={(e) => {
                 e.preventDefault();
                 smoothScrollToId("register");
               }}
               className="transition-all duration-200"
               style={{
-                fontFamily: registerFont,
-                fontSize: navLang === "ar" ? 15 : 14,
+                fontFamily: "var(--font-outfit)",
+                fontSize: 14,
                 whiteSpace: "nowrap",
                 fontWeight: 600,
                 color: "white",
@@ -734,8 +752,9 @@ export default function EventNavigation() {
               onMouseEnter={(e) => (e.currentTarget.style.background = colorBright)}
               onMouseLeave={(e) => (e.currentTarget.style.background = color)}
             >
-              {REGISTER_LABEL[navLang]}
+              {REGISTER_LABEL.en}
             </a>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -824,18 +843,25 @@ export default function EventNavigation() {
                 className="mt-6"
                 style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}
               >
-                {langSwitch && <LangSwitch lang={navLang} onChange={setLang} color={color} size="lg" />}
+                {langSwitch ? (
+                  <RegisterButtons
+                    lang={lang}
+                    onPick={(l) => { setIsMobileMenuOpen(false); pickRegister(l, 300); }}
+                    color={color}
+                    colorBright={colorBright}
+                    size="lg"
+                  />
+                ) : (
                 <a
                   href="#register"
-                  lang={navLang}
                   onClick={(e) => {
                     e.preventDefault();
                     setIsMobileMenuOpen(false);
                     setTimeout(() => smoothScrollToId("register"), 300);
                   }}
                   style={{
-                    fontFamily: registerFont,
-                    fontSize: navLang === "ar" ? 17 : 16,
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: 16,
                     fontWeight: 600,
                     color: "white",
                     padding: "14px 36px",
@@ -845,8 +871,9 @@ export default function EventNavigation() {
                     cursor: "pointer",
                   }}
                 >
-                  {REGISTER_LABEL[navLang]}
+                  {REGISTER_LABEL.en}
                 </a>
+                )}
               </motion.div>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -885,10 +912,17 @@ export default function EventNavigation() {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(100%); }
         }
-        .event-nav-lang-btn:not([aria-pressed="true"]):hover { color: #fff !important; background: rgba(255,255,255,0.08) !important; }
-        .event-nav-lang-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-        /* The language switch costs ~95px; below 1280 the EFG link keeps its
-           arrow and icon and drops the words so nothing wraps. */
+        .event-nav-reg {
+          background: transparent;
+          border: 1px solid var(--reg-color);
+          transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+        }
+        .event-nav-reg:hover { background: color-mix(in srgb, var(--reg-color) 22%, transparent); transform: translateY(-1px); }
+        .event-nav-reg-active { background: var(--reg-color); box-shadow: 0 6px 18px color-mix(in srgb, var(--reg-color) 35%, transparent); }
+        .event-nav-reg-active:hover { background: var(--reg-bright); }
+        .event-nav-reg:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+        /* The second register button costs ~110px; below 1280 the EFG link keeps
+           its arrow and icon and drops the words so nothing wraps. */
         @media (max-width: 1279px) {
           .event-nav-right-compact .event-nav-efg-label { display: none; }
           .event-nav-right-compact { gap: 10px !important; }
