@@ -281,7 +281,7 @@ const allEvents = [
     title: "OT Security Jubail",
     tagline: "Securing Critical Infrastructure",
     description:
-      "Bridging IT and OT security for the industries that keep the world running, focused on Jubail's industrial heartland.",
+      "Bridging IT and OT security for the industries that keep the world running, in Dammam.",
     color: "#D34B9A",
     image:
       "https://images.unsplash.com/photo-1513828583688-c52646db42da?w=800&q=80",

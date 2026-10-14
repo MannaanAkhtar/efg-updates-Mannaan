@@ -114,7 +114,7 @@ const ENGAGEMENT_TIERS = [
     label: "Sponsor",
     tabKey: "sponsor",
     headline: "Back the only OT-only room in MEA.",
-    body: "Headline, strategic, or associate partnership across Jubail, Johannesburg, Muscat, and Virtual MENA. Your product in front of the CISOs running Saudi Aramco, ADNOC, Mubadala, Eskom, ENOC, KNPC and Oman LNG — the operators buying Claroty, Dragos, Nozomi, Xage, OPSWAT budgets this cycle.",
+    body: "Headline, strategic, or associate partnership across Dammam, Johannesburg, Muscat, and Virtual MENA. Your product in front of the CISOs running Saudi Aramco, ADNOC, Mubadala, Eskom, ENOC, KNPC and Oman LNG — the operators buying Claroty, Dragos, Nozomi, Xage, OPSWAT budgets this cycle.",
     features: [
       "Keynote & panel placement in the OT-only stream",
       "Branded OT demo lounge or closed CISO boardroom",
@@ -720,7 +720,7 @@ function Hero() {
               Johannesburg
             </span>
             <span style={{ color: "rgba(255,255,255,0.2)", opacity: 0.7 }}>·</span>
-            <span style={{ color: "rgba(255,255,255,0.58)" }}>Jubail</span>
+            <span style={{ color: "rgba(255,255,255,0.58)" }}>Dammam</span>
             <span style={{ color: "rgba(255,255,255,0.2)", opacity: 0.7 }}>·</span>
             <span style={{ color: "rgba(255,255,255,0.58)" }}>Muscat</span>
             <span style={{
@@ -2877,7 +2877,7 @@ function Arc() {
             </span>
             <span style={{ width: 40, height: 1, background: `linear-gradient(90deg, ${OT_CRIMSON}, transparent)`, opacity: 0.7 }} />
             <span style={{ fontFamily: "var(--font-display)", fontSize: "clamp(16px, 1.4vw, 20px)", fontWeight: 400, fontStyle: "italic", color: "rgba(255,255,255,0.78)", letterSpacing: "-0.01em" }}>
-              Johannesburg, Jubail &amp; Doha confirmed. UAE &amp; Muscat on deck. NCA OTCC, CIIP, South Africa NCIIP — one circuit.
+              Johannesburg, Dammam &amp; Doha confirmed. UAE &amp; Muscat on deck. NCA OTCC, CIIP, South Africa NCIIP — one circuit.
             </span>
           </div>
           <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 600, color: FAINT, letterSpacing: "0.22em", textTransform: "uppercase", fontVariantNumeric: "tabular-nums" }}>
@@ -5050,7 +5050,7 @@ function JoinCta() {
             margin: "14px auto 0",
             maxWidth: 620,
           }}>
-            Tell us which edition — Jubail, Johannesburg, Muscat, Virtual MENA, or the whole 2026 circuit. Sponsorship, invite, or speaker pitch. Our team replies within two working days with a tailored proposal aligned to your OT security, compliance, or commercial mandate.
+            Tell us which edition — Dammam, Johannesburg, Muscat, Virtual MENA, or the whole 2026 circuit. Sponsorship, invite, or speaker pitch. Our team replies within two working days with a tailored proposal aligned to your OT security, compliance, or commercial mandate.
           </p>
         </motion.div>
 
