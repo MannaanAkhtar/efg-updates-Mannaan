@@ -135,11 +135,12 @@ function Hero() {
           />
         </motion.div>
         <style>{`
-          .uae-patronage { position: absolute; top: clamp(124px,15vh,176px); right: clamp(24px,4.5vw,72px); display: flex; flex-direction: column; align-items: center; gap: 22px; }
-          .uae-patronage-logo { height: clamp(74px,7.8vw,118px); }
+          .uae-patronage { position: absolute; top: clamp(124px,15vh,176px); right: clamp(24px,4.5vw,72px); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+          /* The logo PNG has ~15% empty space above the artwork; pull it up so the gap reads as the gap. */
+          .uae-patronage-logo { --h: clamp(74px,7.8vw,118px); height: var(--h); margin-top: calc(var(--h) * -0.15); }
           @media (max-width: 899px) {
-            .uae-patronage { position: static; align-items: flex-start; gap: 16px; margin-bottom: 30px; }
-            .uae-patronage-logo { height: 66px; }
+            .uae-patronage { position: static; align-items: flex-start; gap: 8px; margin-bottom: 30px; }
+            .uae-patronage-logo { --h: 66px; }
           }
         `}</style>
         <motion.div
