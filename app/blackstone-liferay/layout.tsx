@@ -18,7 +18,7 @@ const PAGE_URL = `${BASE_URL}/blackstone-liferay`;
 export const metadata: Metadata = {
   title: "Executive Roundtable | AI-Powered Government — Enabling Citizen-Centered Experiences",
   description:
-    "An invitation-only executive roundtable co-hosted by Blackstone eIT and Liferay — integrating Digital Experience Platforms with scalable, governed Agentic AI to empower Saudi Vision 2030. 20 October 2026, Crowne Plaza Riyadh Hotel & Convention Center, Riyadh.",
+    "An invitation-only executive roundtable co-hosted by Blackstone eIT and Liferay — integrating Digital Experience Platforms with scalable, governed Agentic AI to empower Saudi Vision 2030. 24 November 2026, Crowne Plaza Riyadh Hotel & Convention Center, Riyadh.",
   keywords: [
     "Blackstone eIT",
     "Liferay",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI-Powered Government — Enabling Citizen-Centered Experiences | Blackstone eIT × Liferay",
     description:
-      "Invitation-only executive roundtable on integrating DXP with governed Agentic AI for Saudi public sector. Co-hosted by Blackstone eIT and Liferay. 20 October 2026, Crowne Plaza Riyadh Hotel & Convention Center, Riyadh.",
+      "Invitation-only executive roundtable on integrating DXP with governed Agentic AI for Saudi public sector. Co-hosted by Blackstone eIT and Liferay. 24 November 2026, Crowne Plaza Riyadh Hotel & Convention Center, Riyadh.",
     url: PAGE_URL,
     siteName: "Events First Group",
     locale: "en_US",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
     title: "AI-Powered Government — Blackstone eIT × Liferay Executive Roundtable",
-    description: "Invitation-only roundtable. 20 October 2026, Crowne Plaza Riyadh Hotel & Convention Center.",
+    description: "Invitation-only roundtable. 24 November 2026, Crowne Plaza Riyadh Hotel & Convention Center.",
   },
 };
 
@@ -61,8 +61,8 @@ export default function BlackstoneLiferayLayout({ children }: { children: React.
             name: "AI-Powered Government — Enabling Citizen-Centered Experiences | Blackstone eIT × Liferay",
             description:
               "An invitation-only executive roundtable integrating Digital Experience Platforms with governed Agentic AI for the Saudi public sector. Co-hosted by Blackstone eIT and Liferay.",
-            startDate: "2026-10-20T10:00:00+03:00",
-            endDate: "2026-10-20T14:00:00+03:00",
+            startDate: "2026-11-24T10:00:00+03:00",
+            endDate: "2026-11-24T14:00:00+03:00",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {

@@ -188,9 +188,9 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg",
   },
   {
-    date: "October 20th, 2026",
-    month: "OCT",
-    day: "20",
+    date: "November 24th, 2026",
+    month: "NOV",
+    day: "24",
     year: "2026",
     time: "10:00 – 14:00 AST",
     title: "Blackstone eIT × Liferay Executive Roundtable",

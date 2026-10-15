@@ -63,7 +63,6 @@ const NETWORKFIRST_COLOR = "#C9935A";
 type NFFormat = "virtual" | "physical";
 const networkFirstEvents: { href: string; label: string; date: string; format: NFFormat }[] = [
   { href: "https://engage.unifyapps.com/rsvp/se-healthcare-telecom-lunch-dubai-october-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261015_MEA_OWNED_Lunch_SE_Healthcare_Telecom_Dubai", label: "UnifyApps · Health & Telecom", date: "15 Oct", format: "physical" },
-  { href: "/blackstone-liferay", label: "Blackstone eIT × Liferay", date: "20 Oct", format: "physical" },
   // Both of these are at the Hilton Jeddah, but /ifs-29sept above is already
   // labelled "IFS · Jeddah" — so these two carry their theme instead, which
   // tells them apart where a third and fourth "IFS · Jeddah" would not.
@@ -77,6 +76,7 @@ const networkFirstEvents: { href: string; label: string; date: string; format: N
   { href: "/enterprisedb-southafrica", label: "EnterpriseDB, South Africa", date: "12 Nov", format: "physical" },
   { href: "/enterprisedb-egypt", label: "EnterpriseDB, Egypt", date: "16 Nov", format: "physical" },
   { href: "https://events.outsystems.com/event/17e2fb07-2b9a-46e2-9acf-44590276e2d8/homepage?RefId=oed-ksa", label: "OutSystems", date: "23 Nov", format: "physical" },
+  { href: "/blackstone-liferay", label: "Blackstone eIT × Liferay", date: "24 Nov", format: "physical" },
   { href: "/enterprisedb-uae", label: "EnterpriseDB, UAE", date: "25 Nov", format: "physical" },
   // Postponed from 23 Sep — date TBA, so it sits after every dated boardroom.
   { href: "/proofpoint", label: "Proofpoint", date: "TBA", format: "physical" },

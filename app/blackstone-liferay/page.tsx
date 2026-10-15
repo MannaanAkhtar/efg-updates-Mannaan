@@ -11,7 +11,7 @@ import {
 } from "@/lib/form-helpers";
 
 // ═════════════════════════════════════════════════════════════════════════════
-// BLACKSTONE eIT × LIFERAY — Executive Roundtable · Saudi Arabia · 20 Oct 2026
+// BLACKSTONE eIT × LIFERAY — Executive Roundtable · Saudi Arabia · 24 Nov 2026
 // Two co-hosts presented as one. A bespoke dark, futuristic identity that fuses
 // both brands: Blackstone eIT's indigo (#434EE5) and deep-navy tech mood, and
 // Liferay's royal blue (#0B5FFF) + signature pixel-tile "diamond" motif. The
@@ -95,7 +95,7 @@ const GLASS_GRAIN =
 
 // ─── Content ─────────────────────────────────────────────────────────────────
 const EVENT_META = [
-  { label: "Date", value: "20 October 2026" },
+  { label: "Date", value: "24 November 2026" },
   { label: "Time", value: "10:00 AM – 2:00 PM" },
   // Non-breaking space keeps "Saudi Arabia" whole when the row wraps.
   { label: "Location", value: "Crowne Plaza Riyadh Hotel & Convention Center · Saudi Arabia" },
@@ -1011,7 +1011,7 @@ function AgendaSection() {
   return (
     <section id="agenda" style={{ position: "relative", background: WASH_AGENDA, color: INK, ...SECTION_PAD }}>
       <div style={{ maxWidth: 980, margin: "0 auto" }}>
-        <SectionHeading light eyebrow="Agenda" title="Run of show" sub="20 October 2026 · 10:00 AM – 2:00 PM · Saudi Arabia" />
+        <SectionHeading light eyebrow="Agenda" title="Run of show" sub="24 November 2026 · 10:00 AM – 2:00 PM · Saudi Arabia" />
 
         <div ref={timelineRef} style={{ marginTop: "clamp(38px,4.6vw,58px)", position: "relative" }}>
           {/* spine track + scroll-filling progress */}
@@ -1290,7 +1290,7 @@ function RegisterSection() {
       job_title: jobTitle.trim(),
       company: company.trim(),
       phone: `${phoneCountry.code} ${cleanPhone}`,
-      event_name: "Blackstone eIT × Liferay Executive Roundtable — AI-Powered Government: Enabling Citizen-Centered Experiences · Saudi Arabia, 20 October 2026",
+      event_name: "Blackstone eIT × Liferay Executive Roundtable — AI-Powered Government: Enabling Citizen-Centered Experiences · Saudi Arabia, 24 November 2026",
       metadata: {
         "Event Page": "Blackstone eIT × Liferay · KSA",
         "Page Section": "Registration Form",
