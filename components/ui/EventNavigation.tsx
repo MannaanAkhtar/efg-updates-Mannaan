@@ -58,6 +58,8 @@ const EVENT_CONFIGS: Record<string, {
   logo?: string;
   logoFilter?: string;
   logoHeight?: number;
+  /** Space kept to the right of the logo, for files cropped tight to the artwork. */
+  logoGapRight?: number;
   navLinks: NavLink[];
   // Shows an EN | ع switch beside Register Now. It shares the page's language
   // choice with the registration section (lib/page-lang), so the button label
@@ -193,8 +195,10 @@ const EVENT_CONFIGS: Record<string, {
     colorBright: "#E872B5",
     date: "7 December 2026",
     location: "Dammam, KSA",
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OT+Security+First+Jubail+logo+Final-03.png",
-    logoHeight: 80,
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OT+KSA+logo.png",
+    // New file is cropped tight (the old one had ~23% empty space), so 56px matches the old visual size.
+    logoHeight: 56,
+    logoGapRight: 18,
     navLinks: [
       { href: "#overview", label: "Overview" },
       { href: "#speakers", label: "Speakers" },
@@ -580,7 +584,7 @@ export default function EventNavigation() {
 
   if (!config) return null;
 
-  const { name, shortName, color, colorBright, date, location, logo, logoFilter, logoHeight, navLinks, langSwitch } = config;
+  const { name, shortName, color, colorBright, date, location, logo, logoFilter, logoHeight, logoGapRight, navLinks, langSwitch } = config;
   // With the language buttons, picking one sets the language and then scrolls.
   const pickRegister = (l: PageLang, delay = 0) => {
     setLang(l);
@@ -628,6 +632,7 @@ export default function EventNavigation() {
                   justifyContent: "center",
                   height: 70,
                   overflow: "visible",
+                  marginRight: logoGapRight ?? 0,
                   ["--event-color-shimmer" as string]: `${colorBright}25`,
                   ["--event-nav-logo-h" as string]: `${logoH}px`,
                   ["--event-nav-logo-h-tablet" as string]: `${logoHTablet}px`,
