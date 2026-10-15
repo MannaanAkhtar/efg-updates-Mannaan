@@ -92,7 +92,6 @@ const teamMembers: Member[] = [
   { name: "Nadim Pirani", role: "Events Acquisition Manager", initials: "NP", photo: `${S3}/Nadim-Pirani.jpg?v=2` },
   { name: "Duaa", role: "Events Acquisition Manager", initials: "D", photo: `${S3}/duaa.PNG`, photoFit: "contain", photoScale: 1.22 },
   { name: "Sangeetha", role: "Events Acquisition Manager", initials: "S", photo: `${S3}/Sangeetha.jpeg`, photoTransform: "scale(1.25) translateY(12%)" },
-  { name: "Palak Luthra", role: "Events Acquisition Manager", initials: "PL", photo: `${S3}/palak1.jpeg`, photoFit: "contain", photoTransform: "scale(1.26) translateY(6%)" },
   // Lead Generation
   { name: "Dhana", role: "Lead Gen Expert", initials: "D", photo: `${S3}/Dhana+.jpeg` },
   // Operations
