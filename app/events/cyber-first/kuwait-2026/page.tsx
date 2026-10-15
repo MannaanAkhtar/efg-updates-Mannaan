@@ -231,7 +231,7 @@ const SPEAKERS: Speaker[] = [
   {
     name: "Eng. Khaled B. Althekair",
     title: "Consultant",
-    org: "",
+    org: "Confidential",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng._Khaled_B.+Althekair.png",
     linkedin: "https://www.linkedin.com/in/khaled-al-thekair-4a92547/",
   },
@@ -276,8 +276,8 @@ const SPEAKERS: Speaker[] = [
   },
   {
     name: "Faissal Al-Roumi",
-    title: "Executive Manager of Operational Risk",
-    org: "Burgan Bank",
+    title: "Executive Manager",
+    org: "Kuwaiti Bank",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/faissal-al-roumi-new1.png",
     linkedin: "https://www.linkedin.com/in/faissal-al-roumi-mba-corp-0b2064112/",
   },
@@ -323,16 +323,6 @@ const SPEAKERS: Speaker[] = [
     org: "Al Mulla International Exchange Company K.S.C.C",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Sherry+John+Oommen+1.png",
     linkedin: "https://www.linkedin.com/in/sherry-john-oommen-61aa9212/",
-  },
-  // Speakers not in the running-order list go after the last listed one.
-  {
-    name: "Mohammed Ibrahim",
-    title: "Information Security Manager",
-    org: "Boubyan Takaful Insurance Company",
-    // The %C2%A0 before the 1 is a non-breaking space in the S3 key, not a
-    // typo to tidy up — the object 404s without it.
-    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Ibrahim%C2%A01.png",
-    linkedin: "https://www.linkedin.com/in/mohamed-ebraheem-5b5143128/",
   },
 ];
 
@@ -6762,6 +6752,13 @@ const ADVISORY_BOARD: AdvisoryMember[] = [
     org: "City Group",
     photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/yousef-el-kourdi-new+1.png",
     linkedin: "https://www.linkedin.com/in/yousefelkordi/",
+  },
+  {
+    name: "Eng. Khaled B. Althekair",
+    title: "Consultant",
+    org: "Confidential",
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng._Khaled_B.+Althekair.png",
+    linkedin: "https://www.linkedin.com/in/khaled-al-thekair-4a92547/",
   },
   {
     name: "Abdulmohsen Alsulaimi",

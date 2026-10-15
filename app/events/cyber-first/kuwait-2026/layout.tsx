@@ -128,7 +128,7 @@ export default function CyberFirstKuwaitLayout({
               ],
             },
             performer: [
-              { "@type": "Person", name: "Faissal Al-Roumi", jobTitle: "Executive Manager of Operational Risk", worksFor: { "@type": "Organization", name: "Burgan Bank" } },
+              { "@type": "Person", name: "Faissal Al-Roumi", jobTitle: "Executive Manager", worksFor: { "@type": "Organization", name: "Kuwaiti Bank" } },
               { "@type": "Person", name: "Dr. Fai Ben Salamah", jobTitle: "Cybersecurity Expert", worksFor: { "@type": "Organization", name: "Kuwait Technical College" } },
               { "@type": "Person", name: "Yousef H. El-Kordi", jobTitle: "Group Information Technology Director", worksFor: { "@type": "Organization", name: "City Group" } },
               { "@type": "Person", name: "Mohamed Rushdhi", jobTitle: "Head of Information Security Unit", worksFor: { "@type": "Organization", name: "The Industrial Bank of Kuwait" } },
@@ -229,7 +229,7 @@ export default function CyberFirstKuwaitLayout({
         audienceSize="500+ delegates"
         audienceTypes={["CISOs", "Government cyber leaders", "Banking and fintech security heads", "Telecom security leaders", "Enterprise security executives"]}
         topSpeakers={[
-          { name: "Faissal Al-Roumi", title: "Executive Manager of Operational Risk", org: "Burgan Bank" },
+          { name: "Faissal Al-Roumi", title: "Executive Manager", org: "Kuwaiti Bank" },
           { name: "Dr. Fai Ben Salamah", title: "Cybersecurity Expert", org: "Kuwait Technical College" },
           { name: "Shaheela Banu A. Majeed", title: "Information Security & Compliance Officer & Auditor", org: "Oil & Gas (Confidential)" },
           { name: "Yousef El-Kourdi", title: "Group Head of Information Technology", org: "City Group Co. KSC" },
