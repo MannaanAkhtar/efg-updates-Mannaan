@@ -133,22 +133,22 @@ const TAKEAWAYS = [
   {
     n: "01",
     tag: "Experience",
-    body: "Deliver unified digital experiences that serve citizens, employees, partners, and suppliers through a single AI-powered Digital Experience Platform.",
+    body: "Unified digital services for citizens & employees",
   },
   {
     n: "02",
     tag: "Intelligence",
-    body: "Embed governed AI into every digital experience, enabling secure, context-aware automation powered by enterprise data rather than disconnected AI tools.",
+    body: "Governed AI powered by enterprise data",
   },
   {
     n: "03",
     tag: "Connection",
-    body: "Build composable digital platforms using open standards, low-code capabilities, and extensible architectures that accelerate innovation while protecting long-term flexibility.",
+    body: "Open, modular platforms built to scale",
   },
   {
     n: "04",
     tag: "Trust",
-    body: "Enable trusted AI through robust governance, data sovereignty, and compliance frameworks that meet national security and regulatory requirements.",
+    body: "Compliance, sovereignty & security by design",
   },
 ];
 
@@ -738,7 +738,7 @@ function TakeawaysSection() {
           </div>
 
           {/* ── Active detail ── */}
-          <div style={{ position: "relative", marginTop: "clamp(28px,3.4vw,46px)", minHeight: "clamp(150px,15vw,180px)" }}>
+          <div style={{ position: "relative", marginTop: "clamp(28px,3.4vw,46px)", minHeight: "clamp(96px,8vw,120px)" }}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={active}
