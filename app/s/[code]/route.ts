@@ -91,6 +91,10 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   "edbksa-afra": { path: "/enterprisedb-ksa", source: "afra", campaign: "enterprisedb-ksa", medium: "invite", hash: "register" },
   "edbsa-malak": { path: "/enterprisedb-southafrica", source: "malak", campaign: "enterprisedb-southafrica", medium: "invite", hash: "register" },
   "edbsa-mrigashi": { path: "/enterprisedb-southafrica", source: "mrigashi", campaign: "enterprisedb-southafrica", medium: "invite", hash: "register" },
+  // For EDB to share on its own channels. "partner" (not sales/invite) so it is
+  // tracked as EDB-sourced without being shown as a rep referral. Lands on the
+  // top of the page so their audience sees the event before the form.
+  "edb-southafrica": { path: "/enterprisedb-southafrica", source: "edb", campaign: "enterprisedb-southafrica", medium: "partner" },
   "edbeg-afra": { path: "/enterprisedb-egypt", source: "afra", campaign: "enterprisedb-egypt", medium: "invite", hash: "register" },
 
   // Blackstone eIT x Liferay Executive Roundtable — KSA, 20 Oct 2026.
