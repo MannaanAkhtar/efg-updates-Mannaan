@@ -810,7 +810,8 @@ const SPEAKERS: Person[] = [
   },
 ];
 
-// Keynote — shown above both bands. Title, organisation, headshot and bio are
+// Keynote — has its own section ahead of the partner marquees, the way the
+// Johannesburg page leads with its keynote. Title, organisation, headshot and bio are
 // carried over from his featured seat on the OT Security First Virtual
 // Boardroom MENA faculty.
 const KEYNOTE: Person & { bio: string } = {
@@ -832,7 +833,7 @@ function KeynoteFeature({ inView }: { inView: boolean }) {
       animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
       transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
       className="uae-keynote"
-      style={{ position: "relative", marginBottom: "clamp(40px,4.6vw,64px)" }}
+      style={{ position: "relative" }}
     >
       {/* Ambient glow behind the bezel */}
       <div aria-hidden style={{ position: "absolute", inset: -30, borderRadius: 40, pointerEvents: "none", filter: "blur(30px)", opacity: 0.55, background: `radial-gradient(ellipse 45% 70% at 18% 50%, ${GOLD}38 0%, transparent 70%), radial-gradient(ellipse 50% 70% at 82% 50%, ${C}40 0%, transparent 70%)` }} />
@@ -921,6 +922,25 @@ function KeynoteFeature({ inView }: { inView: boolean }) {
         @media (prefers-reduced-motion: reduce) { .uae-keynote-img { transition: none; } }
       `}</style>
     </motion.div>
+  );
+}
+
+function KeynoteSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <section id="keynote" ref={ref} style={{ ...wrap, scrollMarginTop: 100 }}>
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, ease: EASE }}
+        style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: "clamp(24px,3vw,40px)" }}
+      >
+        <span aria-hidden style={{ width: 28, height: 2, borderRadius: 2, background: `linear-gradient(90deg, ${GOLD}, ${C_BRIGHT})` }} />
+        <span style={{ fontFamily: FO, fontSize: 11, fontWeight: 700, letterSpacing: "4px", textTransform: "uppercase", color: GOLD }}>Keynote Address</span>
+      </motion.div>
+      <KeynoteFeature inView={inView} />
+    </section>
   );
 }
 
@@ -1138,9 +1158,6 @@ function AdvisorsAndSpeakers() {
       <p style={{ fontFamily: FO, fontSize: "clamp(14px,1.1vw,16px)", lineHeight: 1.65, color: "#8E8E8E", margin: "0 0 clamp(20px,2.4vw,32px)", maxWidth: 620 }}>
         The independent advisors shaping the technical agenda, and the speakers taking the stage on industrial cyber resilience across the UAE. More names announced ahead of 28 January 2027.
       </p>
-
-      {/* ── Keynote ── */}
-      <KeynoteFeature inView={inView} />
 
       {/* ── Advisors ── */}
       <div id="advisors" style={{ scrollMarginTop: 120 }}>
@@ -1556,6 +1573,7 @@ export default function OTUaePage() {
       <Hero />
       <StatPlates />
       <TheEvent />
+      <KeynoteSection />
       <PastSupportingMarquee />
       <PastSponsorsMarquee />
       <CpdCertified eventName="OT Security First UAE 2027" theme={C} registerHref="#register" />
