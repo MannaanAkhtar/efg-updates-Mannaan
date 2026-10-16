@@ -53,6 +53,9 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
 
   // SonicWall Executive Roundtable — Riyadh (7 Sep 2026)
   "sw7-nadim": { path: "/sonicwall-genx", source: "nadim", campaign: "sonicwall-7sept", medium: "invite", hash: "register" },
+  // 10 Nov Dubai edition (same page, new campaign so it is counted apart from 7 Sept).
+  "swg-jacqueline": { path: "/sonicwall-genx", source: "jacqueline", campaign: "sonicwall-genx", medium: "invite", hash: "register" },
+  "swg-nadim": { path: "/sonicwall-genx", source: "nadim", campaign: "sonicwall-genx", medium: "invite", hash: "register" },
 
   // IFS Executive Roundtable — Jeddah (15 Sep 2026, Manufacturing)
   "ifs15-duaa": { path: "/ifs-15sept", source: "duaa", campaign: "ifs-15sept", hash: "access" },
