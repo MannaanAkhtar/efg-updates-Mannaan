@@ -218,7 +218,7 @@ const SPEAKERS: Speaker[] = [
     name: "Abdulmajeed Al-Sabah",
     title: "Head, Risk & Compliance, Information Technology Department",
     org: "Kuwait National Petroleum Company (KNPC)",
-    photo: null,
+    photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulmajeed+Al+Sabah.png",
     linkedin: "https://www.linkedin.com/in/abdulmajeed-al-sabah-7113679a/",
   },
   {
