@@ -810,8 +810,8 @@ const SPEAKERS: Person[] = [
   },
 ];
 
-// Keynote — has its own section ahead of the partner marquees, the way the
-// Johannesburg page leads with its keynote. Title, organisation, headshot and bio are
+// Keynote — has its own section straight after the partner marquees, the way
+// the Johannesburg page leads with its keynote. Title, organisation, headshot and bio are
 // carried over from his featured seat on the OT Security First Virtual
 // Boardroom MENA faculty.
 const KEYNOTE: Person & { bio: string } = {
@@ -1281,7 +1281,7 @@ function MarqueeRow({ logos, direction, light = false }: { logos: string[]; dire
         {[...logos, ...logos].map((logo, i) => (
           <div key={i} className={`uae-marquee-item${light ? " is-light" : ""}`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={logo} alt={`${logo.split("/").pop()?.replace(/\.(png|jpg|svg|webp)$/i, "").replace(/[-_]/g, " ")} — past sponsor/partner of the OT Security First industrial cybersecurity series`} width={160} height={64} loading="lazy" decoding="async" style={light ? { maxHeight: 140, maxWidth: 250, objectFit: "contain" } : { maxHeight: 64, maxWidth: 160, objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.85 }} />
+            <img src={logo} alt={`${logo.split("/").pop()?.replace(/\.(png|jpg|svg|webp)$/i, "").replace(/[-_]/g, " ")} — past sponsor/partner of the OT Security First industrial cybersecurity series`} width={160} height={64} loading="lazy" decoding="async" style={light ? { maxHeight: 116, maxWidth: 250, objectFit: "contain" } : { maxHeight: 64, maxWidth: 160, objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.85 }} />
           </div>
         ))}
       </div>
@@ -1301,8 +1301,8 @@ function PastSupportingMarquee() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
-    <section ref={ref} style={{ position: "relative", zIndex: 1, padding: "clamp(42px,4.6vw,66px) 0 0", background: BG, overflow: "hidden" }}>
-      <div style={{ position: "relative", maxWidth: 1320, margin: "0 auto 40px", padding: "0 clamp(24px,5vw,80px)", textAlign: "center" }}>
+    <section ref={ref} style={{ position: "relative", zIndex: 1, padding: "clamp(32px,3.4vw,48px) 0 0", background: BG, overflow: "hidden" }}>
+      <div style={{ position: "relative", maxWidth: 1320, margin: "0 auto 18px", padding: "0 clamp(24px,5vw,80px)", textAlign: "center" }}>
         <motion.div initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: EASE }} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 22 }}>
           <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, transparent, ${C}4d)` }} />
           <span style={{ fontFamily: FO, fontSize: 11, fontWeight: 700, letterSpacing: "4px", textTransform: "uppercase", color: C_BRIGHT }}>Past Supporting Partners</span>
@@ -1318,8 +1318,8 @@ function PastSponsorsMarquee() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
-    <section ref={ref} style={{ position: "relative", zIndex: 1, padding: "clamp(20px,2.2vw,30px) 0 clamp(42px,4.6vw,66px)", background: BG, overflow: "hidden" }}>
-      <div style={{ position: "relative", maxWidth: 1320, margin: "0 auto 40px", padding: "0 clamp(24px,5vw,80px)", textAlign: "center" }}>
+    <section ref={ref} style={{ position: "relative", zIndex: 1, padding: "clamp(10px,1.2vw,16px) 0 clamp(32px,3.4vw,48px)", background: BG, overflow: "hidden" }}>
+      <div style={{ position: "relative", maxWidth: 1320, margin: "0 auto 18px", padding: "0 clamp(24px,5vw,80px)", textAlign: "center" }}>
         <motion.div initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: EASE }} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 22 }}>
           <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, transparent, ${C}4d)` }} />
           <span style={{ fontFamily: FO, fontSize: 11, fontWeight: 700, letterSpacing: "4px", textTransform: "uppercase", color: C_BRIGHT }}>Past Series Sponsors & Partners</span>
@@ -1327,7 +1327,7 @@ function PastSponsorsMarquee() {
         </motion.div>
       </div>
       <MarqueeRow logos={MARQUEE_ROW_1} direction="left" />
-      <div style={{ height: 16 }} />
+      <div style={{ height: 4 }} />
       <MarqueeRow logos={MARQUEE_ROW_2} direction="right" />
     </section>
   );
@@ -1571,11 +1571,11 @@ export default function OTUaePage() {
       <AmbientBg />
       <EventNavigation />
       <Hero />
-      <StatPlates />
-      <TheEvent />
-      <KeynoteSection />
       <PastSupportingMarquee />
       <PastSponsorsMarquee />
+      <KeynoteSection />
+      <StatPlates />
+      <TheEvent />
       <CpdCertified eventName="OT Security First UAE 2027" theme={C} registerHref="#register" />
       <WhyAbuDhabi />
       <TheMandate />
@@ -1605,8 +1605,8 @@ export default function OTUaePage() {
         .uae-marquee-track { display: flex; width: max-content; will-change: transform; }
         .uae-marquee-track.is-left { animation: uaeMarqueeLeft 35s linear infinite; }
         .uae-marquee-track.is-right { animation: uaeMarqueeRight 35s linear infinite; }
-        .uae-marquee-item { flex-shrink: 0; height: 80px; width: 180px; margin-right: 40px; display: flex; align-items: center; justify-content: center; opacity: 0.55; }
-        .uae-marquee-item.is-light { height: 144px; width: 210px; margin-right: 10px; opacity: 0.9; }
+        .uae-marquee-item { flex-shrink: 0; height: 66px; width: 180px; margin-right: 40px; display: flex; align-items: center; justify-content: center; opacity: 0.55; }
+        .uae-marquee-item.is-light { height: 120px; width: 210px; margin-right: 10px; opacity: 0.9; }
         .uae-card { transition: border-color 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1); }
         .uae-card:hover { border-color: ${C}66 !important; transform: translateY(-2px); }
         .uae-industry:hover { border-color: ${C}8c !important; background: linear-gradient(135deg, ${C}4d 0%, ${C}1f 55%, ${C}33 100%) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 18px 40px -18px ${C} !important; transform: translateY(-3px); }
