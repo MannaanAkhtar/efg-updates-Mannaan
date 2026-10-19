@@ -99,6 +99,7 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   // tracked as EDB-sourced without being shown as a rep referral.
   "edb-southafrica": { path: "/enterprisedb-southafrica", source: "edb", campaign: "enterprisedb-southafrica", medium: "partner", hash: "register" },
   "edbeg-afra": { path: "/enterprisedb-egypt", source: "afra", campaign: "enterprisedb-egypt", medium: "invite", hash: "register" },
+  "edbeg-mrigashi": { path: "/enterprisedb-egypt", source: "mrigashi", campaign: "enterprisedb-egypt", medium: "invite", hash: "register" },
 
   // Blackstone eIT x Liferay Executive Roundtable — KSA, 20 Oct 2026.
   // medium left at the "sales" default (not "invite") so /api/submit-form
