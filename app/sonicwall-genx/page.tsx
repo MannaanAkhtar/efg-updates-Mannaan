@@ -40,8 +40,8 @@ const SPEAKERS = [
 ];
 
 const AGENDA = [
-  { time: "10:00 AM", duration: "", title: "Welcome and Introduction", presenter: "GenX" },
-  { time: "10:30 AM", duration: "10 min", title: "Introduction to SonicWall", presenter: "Nabil Kouzi", highlight: true },
+  { time: "10:00 AM", duration: "30 min", title: "Registrations", presenter: "" },
+  { time: "10:30 AM", duration: "10 min", title: "Welcome and Introduction", presenter: "Nabil Kouzi", highlight: true },
   { time: "10:40 AM", duration: "45 min", title: "Unifying Security Operations with SonicWall Unified Management Platform", presenter: "Ateef Mulla", highlight: true },
   { time: "11:25 AM", duration: "15 min", title: "Break", presenter: "" },
   { time: "11:40 AM", duration: "30 min", title: "Cloud Secure Edge (ZTNA): Eliminating Trust at Every Step of the Modern Attack Path", presenter: "Ateef Mulla", highlight: true },
