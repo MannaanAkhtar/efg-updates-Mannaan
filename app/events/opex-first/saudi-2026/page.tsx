@@ -246,7 +246,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Dr. Mohammed Fouad Hussein Mesafer", title: "Strategy & Business Excellence Director", org: "Riyadh Cement Company", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Mohammed+Fouad+Hussein+Mesafer1.png", linkedin: "https://www.linkedin.com/in/dr-mohammed-fouad/" },
   { name: "Abdulmajeed S. Alqumayshi", title: "Director of Quality Assurance", org: "ESNAD", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulmajeed+S.+Alqumayshi.jpg", linkedin: "https://www.linkedin.com/in/abdulmajeed-s-alqumayshi-158209129/" },
   { name: "Ali Al Hakami", title: "Senior Director – Organisational Excellence", org: "Hail Region Development Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ali+Al+Hakami.png", linkedin: "https://www.linkedin.com/in/ali-al-hakami-19b54755/" },
-  { name: "Abdullah M Alzkeri", title: "Business Excellence Associate Director", org: "Diriyah", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdullah+M+Alzkeri.jpeg", linkedin: "https://www.linkedin.com/in/alzkeri/" },
+  { name: "Abdullah M. Alzkeri", title: "Business Excellence Leader", org: "a PIF-owned giga-project company", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdullah+M+Alzkeri.jpeg", linkedin: "https://www.linkedin.com/in/alzkeri/" },
 ];
 
 type AgendaItem = {
@@ -320,7 +320,7 @@ const AGENDA: AgendaItem[] = [
       "Measuring AI productivity and ROI in operational terms",
       "What autonomous enterprise really means in practice",
     ],
-    moderator: "Abdullah AlZkeri, Associate Director - Business Excellence, Diriyah Company",
+    moderator: "Abdullah M. Alzkeri, Business Excellence Leader, a PIF-owned giga-project company",
     panelists: [
       "Ahmed Alawami, Head of Data and AI, Saudi Energy",
       "Dr. Ibrahim bin Abdullah Alotaibi, Chief Strategy and Business Development Officer, Confidential Saudi Government Entity",
