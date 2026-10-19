@@ -204,6 +204,25 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Blackstone+eIT+Logo+Reversed+No+Slogan.png",
   },
   {
+    date: "November 26th, 2026",
+    month: "NOV",
+    day: "26",
+    year: "2026",
+    time: "10:00 – 12:30 GST",
+    title: "TRPGLOBAL Executive Roundtable",
+    subtitle: "AI-Powered Risk Command Center for Oracle Fusion",
+    sponsor: "TRPGLOBAL",
+    location: "Venue TBA",
+    link: "/trpglobal",
+    image: "",
+    brandColor: "#0E326C",
+    // The wordmark is navy with red-to-green dots, so it sits on a light card
+    // and keeps its own colours (logoAsIs) instead of the usual white knockout.
+    brandGradient: "linear-gradient(135deg, #FFFFFF 0%, #EEF2F8 55%, #C9D6EA 100%)",
+    brandLogo: "/trpglobal/trpglobal-logo.png",
+    logoAsIs: true,
+  },
+  {
     date: "October 15th, 2026",
     month: "OCT",
     day: "15",
@@ -2953,10 +2972,10 @@ function UpcomingSection() {
                                 ) : (
                                   // eslint-disable-next-line @next/next/no-img-element
                                   <img src={(e as unknown as Record<string, string>).brandLogo} alt="" style={{
-                                    height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Poka" ? 140 : e.sponsor === "Braze x Talon.One" ? 80 : e.sponsor === "Braze" ? 50 : e.sponsor === "UnifyApps" ? 64 : 72,
+                                    height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Poka" ? 140 : e.sponsor === "Braze x Talon.One" ? 80 : e.sponsor === "Braze" ? 50 : e.sponsor === "UnifyApps" ? 64 : e.sponsor === "TRPGLOBAL" ? 28 : 72,
                                     width: "auto",
                                     opacity: 0.9,
-                                    filter: (e as unknown as Record<string, unknown>).darkLogo === true ? "brightness(0) opacity(0.82) drop-shadow(0 1px 3px rgba(0,0,0,0.12))" : "brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.35))"
+                                    filter: (e as unknown as Record<string, unknown>).logoAsIs === true ? "none" : (e as unknown as Record<string, unknown>).darkLogo === true ? "brightness(0) opacity(0.82) drop-shadow(0 1px 3px rgba(0,0,0,0.12))" : "brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.35))"
                                   }} />
                                 )
                               )}

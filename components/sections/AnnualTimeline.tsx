@@ -229,6 +229,22 @@ export const allEvents: EventItem[] = [
     status: "open",
   },
   {
+    id: "networkfirst-trpglobal",
+    series: "NetworkFirst",
+    seriesColor: "#C9935A",
+    edition: "",
+    title: "TRPGLOBAL Executive Roundtable",
+    date: new Date("2026-11-26"),
+    dateDisplay: "November 26, 2026",
+    // City and venue not announced yet; regionOf() returns null for this, so
+    // it stays out of the nav's Region browser until a city is set.
+    location: "Location TBA",
+    venue: "Venue TBA",
+    attendees: "Invited",
+    href: "/trpglobal",
+    status: "open",
+  },
+  {
     id: "ot-security-jubail",
     series: "OT Security First",
     seriesColor: "#D34B9A",

@@ -41,6 +41,7 @@ export default function ConditionalNavigation() {
     pathname?.startsWith("/inner_circle") ||
     pathname?.startsWith("/oracle") ||
     pathname?.startsWith("/unifyapps") ||
+    pathname?.startsWith("/trpglobal") ||
     isSubdomain
   ) {
     return null;

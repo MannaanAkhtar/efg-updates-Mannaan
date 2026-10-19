@@ -78,6 +78,7 @@ const networkFirstEvents: { href: string; label: string; date: string; format: N
   { href: "https://events.outsystems.com/event/17e2fb07-2b9a-46e2-9acf-44590276e2d8/homepage?RefId=oed-ksa", label: "OutSystems", date: "23 Nov", format: "physical" },
   { href: "/blackstone-liferay", label: "Blackstone eIT × Liferay", date: "24 Nov", format: "physical" },
   { href: "/enterprisedb-uae", label: "EnterpriseDB, UAE", date: "25 Nov", format: "physical" },
+  { href: "/trpglobal", label: "TRPGLOBAL · Oracle Risk", date: "26 Nov", format: "physical" },
   // Postponed from 23 Sep — date TBA, so it sits after every dated boardroom.
   { href: "/proofpoint", label: "Proofpoint", date: "TBA", format: "physical" },
 ];
