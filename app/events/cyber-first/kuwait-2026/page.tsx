@@ -459,7 +459,7 @@ const SPONSORS = {
   gold: [
     { name: "Palo Alto Networks", logo: `${S3_LOGOS}/paloalto.png` },
     { name: "SentinelOne", logo: `${S3_LOGOS}/sentinelone.png` },
-    { name: "Google Cloud", logo: `${S3_LOGOS}/Google-Cloud-Security.png` },
+    { name: "Google Cloud", logo: `${S3_LOGOS}/google+cloud+security.png` },
     { name: "Kaspersky", logo: `${S3_LOGOS}/kaspersky.png` },
   ],
   associate: [
@@ -517,7 +517,7 @@ type FeaturedSponsor = {
 const FEATURED_SPONSORS: { gold: FeaturedSponsor[]; strategic: FeaturedSponsor[] } = {
   gold: [
     { name: "Kaspersky", logo: `${S3_LOGOS}/kaspersky.png` },
-    { name: "Google Cloud Security", logo: `${S3_LOGOS}/Google+Cloud-02.png` },
+    { name: "Google Cloud Security", logo: `${S3_LOGOS}/google+cloud+security.png` },
   ],
   strategic: [
     { name: "Akamai", logo: `${S3_LOGOS}/Akamai.png` },
@@ -4888,7 +4888,7 @@ const MARQUEE_ROW_1 = [
 ].filter(s => s.logo);
 
 const MARQUEE_ROW_2 = [
-  { name: "Google Cloud Security", logo: `${S3_LOGOS}/Google-Cloud-Security.png` },
+  { name: "Google Cloud Security", logo: `${S3_LOGOS}/google+cloud+security.png` },
   { name: "Anomali", logo: `${S3_LOGOS}/Anomali.png` },
   { name: "OPSWAT", logo: `${S3_LOGOS}/OPSWAT-logo.png` },
   { name: "Pentera", logo: `${S3_LOGOS}/PENTERA.png` },
