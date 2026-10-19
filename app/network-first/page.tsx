@@ -212,7 +212,7 @@ const UPCOMING_EVENTS = [
     title: "TRPGLOBAL Executive Roundtable",
     subtitle: "AI-Powered Risk Command Center for Oracle Fusion",
     sponsor: "TRPGLOBAL",
-    location: "Venue TBA",
+    location: "Oracle office, Dubai Internet City",
     link: "/trpglobal",
     image: "",
     brandColor: "#0E326C",

@@ -236,10 +236,8 @@ export const allEvents: EventItem[] = [
     title: "TRPGLOBAL Executive Roundtable",
     date: new Date("2026-11-26"),
     dateDisplay: "November 26, 2026",
-    // City and venue not announced yet; regionOf() returns null for this, so
-    // it stays out of the nav's Region browser until a city is set.
-    location: "Location TBA",
-    venue: "Venue TBA",
+    location: "Dubai, UAE",
+    venue: "Oracle office, Dubai Internet City",
     attendees: "Invited",
     href: "/trpglobal",
     status: "open",

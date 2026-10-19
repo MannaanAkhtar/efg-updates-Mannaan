@@ -307,7 +307,7 @@ function Hero() {
     { k: "Date", v: "Thursday, 26 November 2026" },
     { k: "Time", v: "10:00 AM – 12:30 PM", sub: "Dubai time" },
     { k: "Format", v: "Executive roundtable", sub: "Keynote · Oracle session · Demo · Discussion" },
-    { k: "Venue", v: "To be announced" },
+    { k: "Venue", v: "Oracle office", sub: "Dubai Internet City, UAE", keep: true },
   ];
   return (
     <section id="top" className="trp-hero">
@@ -345,7 +345,7 @@ function Hero() {
               <dt>{f.k}</dt>
               <dd>
                 {f.v}
-                {f.sub && <small>{f.sub}</small>}
+                {f.sub && <small className={"keep" in f && f.keep ? "trp-keep" : undefined}>{f.sub}</small>}
               </dd>
             </div>
           ))}
@@ -722,7 +722,7 @@ function Register() {
             Places are limited and confirmed individually. Register below and our team will be in touch with the final details.
           </p>
           <div style={{ marginTop: 36 }}><Countdown /></div>
-          <p className="trp-mono" style={{ margin: "20px 0 0", fontSize: 13, color: "rgba(255,255,255,0.55)" }}>Thursday, 26 November 2026 · 10:00 AM – 12:30 PM, Dubai time</p>
+          <p className="trp-mono" style={{ margin: "20px 0 0", fontSize: 13, color: "rgba(255,255,255,0.55)" }}>Thursday, 26 November 2026 · 10:00 AM – 12:30 PM, Dubai time<br />Oracle office, Dubai Internet City, UAE</p>
         </Reveal>
         <Reveal delay={0.1}>
           <RegistrationForm />
@@ -1017,6 +1017,7 @@ export default function TrpGlobalPage() {
           .trp-fact { padding: 12px 10px 14px 0; }
           .trp-fact:nth-child(even) { padding-left: 14px; }
           .trp-fact small { display: none; }
+          .trp-fact small.trp-keep { display: block; font-size: 12px; }
           .trp-about-cols, .trp-form-row { grid-template-columns: 1fr; }
           .trp-count > div + div { padding-left: 10px; }
           .trp-hero-stages { gap: 6px; }

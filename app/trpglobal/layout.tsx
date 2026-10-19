@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: `${TITLE} — TRPGLOBAL Executive Roundtable`,
-    description: "Detect. Prevent. Control. Assure. 26 November 2026 · 10:00 AM – 12:30 PM (Dubai time).",
+    description: "Detect. Prevent. Control. Assure. 26 November 2026 · 10:00 AM – 12:30 PM (Dubai time) · Oracle office, Dubai Internet City.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: `${TITLE} — TRPGLOBAL Executive Roundtable, 26 November 2026` }],
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
     title: `${TITLE} — TRPGLOBAL Executive Roundtable`,
-    description: "Detect. Prevent. Control. Assure. 26 November 2026 · 10:00 AM – 12:30 PM (Dubai time).",
+    description: "Detect. Prevent. Control. Assure. 26 November 2026 · 10:00 AM – 12:30 PM (Dubai time) · Oracle office, Dubai Internet City.",
     images: [OG_IMAGE],
   },
 };
@@ -79,8 +79,11 @@ export default function TrpGlobalLayout({ children }: { children: React.ReactNod
             endDate: "2026-11-26T12:30:00+04:00",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-            // Venue not announced yet, so no address is claimed.
-            location: { "@type": "Place", name: "To be announced" },
+            location: {
+              "@type": "Place",
+              name: "Oracle office, Dubai Internet City",
+              address: { "@type": "PostalAddress", addressLocality: "Dubai", addressCountry: "AE" },
+            },
             image: [OG_IMAGE],
             organizer: { "@type": "Organization", name: "TRPGLOBAL", url: "https://www.techriskpartners.com/" },
             url: PAGE_URL,
