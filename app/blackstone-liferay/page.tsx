@@ -871,6 +871,10 @@ const BL_SPEAKERS: { name: string; title: string; linkedin: string; photo: strin
   { name: "Wajih Yahyaoui", title: "Managing Partner, Blackstone eIT", linkedin: "https://www.linkedin.com/in/wajihyahyaoui/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Wajih+Yahyaoui-new.png" },
   { name: "Youness Soulayman", title: "CTO & Executive Director, Blackstone eIT", linkedin: "https://www.linkedin.com/in/younesszahir/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Youness_Soulayman_Blackstone.png" },
   { name: "Mahmoud Tayem", title: "Manager, Sales Engineering, Liferay", linkedin: "https://www.linkedin.com/in/tayemmahmoud/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mahmoud+Tayem+Small.jpg" },
+  // Supplied portrait is 200×200, so it is upscaled a little in the 4:5 card.
+  { name: "Dr Mohamad Sibai", title: "Chief Enterprise Architect, SFDA", linkedin: "https://www.linkedin.com/in/mjsibai/", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohamad+Sibai.jpg" },
+  // No portrait supplied yet: renders the monogram card until one arrives.
+  { name: "Maram Alajaji", title: "Director Customer Experience, Confidential", linkedin: "https://www.linkedin.com/in/maram-alajaji/", photo: "" },
 ];
 
 function SpeakersSection() {
