@@ -105,9 +105,9 @@ const ADVISORS: Speaker[] = [
 
 // ─── Awards ─────────────────────────────────────────────────────────────────
 const AWARDS_DATA = [
-  { title: "OT Security Program of the Year", desc: "For an organization that has implemented a mature, multi-site OT security program delivering measurable risk reduction." },
-  { title: "CISO / OT Security Leader of the Year", desc: "For an individual who has shown outstanding leadership in driving OT security across their organization or sector." },
-  { title: "OT Security Innovation Award", desc: "For a technology or solution provider offering a standout solution addressing a critical OT security challenge." },
+  { title: "Program of the Year", desc: "For an organization that has implemented a mature, multi-site OT security program delivering measurable risk reduction." },
+  { title: "CISO / Leader of the Year", desc: "For an individual who has shown outstanding leadership in driving OT security across their organization or sector." },
+  { title: "Innovation Award", desc: "For a technology or solution provider offering a standout solution addressing a critical OT security challenge." },
   { title: "Excellence in OT Incident Response & Resilience", desc: "For a team or organization that handled a significant OT-related incident effectively and improved resilience as a result." },
   { title: "Public Sector / Critical Infrastructure Protection Award", desc: "For a government entity, regulator, or state-owned enterprise showing leadership in securing national critical infrastructure." },
 ];
