@@ -6,7 +6,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Footer, InquiryForm } from "@/components/sections";
+import { InquiryForm } from "@/components/sections";
 import EventNavigation from "@/components/ui/EventNavigation";
 import CpdCertified from "@/components/events/CpdCertified";
 import { submitForm, isWorkEmail, COUNTRY_CODES, validatePhone } from "@/lib/form-helpers";
@@ -103,15 +103,6 @@ const ADVISORS: Speaker[] = [
   { name: "Irtiza Arain", title: "MENA leader for Critical Infrastructure Cybersecurity", org: "EY MENA", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Irtiza+Arain.jpeg", linkedin: "https://www.linkedin.com/in/irtizaarain/", flag: "https://flagcdn.com/w40/gb-eng.png" },
 ];
 
-// ─── Awards ─────────────────────────────────────────────────────────────────
-const AWARDS_DATA = [
-  { title: "Program of the Year", desc: "For an organization that has implemented a mature, multi-site OT security program delivering measurable risk reduction." },
-  { title: "CISO / Leader of the Year", desc: "For an individual who has shown outstanding leadership in driving OT security across their organization or sector." },
-  { title: "Innovation Award", desc: "For a technology or solution provider offering a standout solution addressing a critical OT security challenge." },
-  { title: "Excellence in OT Incident Response & Resilience", desc: "For a team or organization that handled a significant OT-related incident effectively and improved resilience as a result." },
-  { title: "Public Sector / Critical Infrastructure Protection Award", desc: "For a government entity, regulator, or state-owned enterprise showing leadership in securing national critical infrastructure." },
-];
-
 // ─── Past series sponsor marquee ────────────────────────────────────────────
 const MARQUEE_ROW_1 = [
   `${S3_LOGOS}/paloalto.png`,
@@ -161,7 +152,7 @@ const OT_SHORTS = [
 // ─── Gallery - UAE 2026 archive (reused as series past edition imagery) ─────
 const GALLERY: { src: string; alt: string; label: string }[] = [
   { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0510.JPG`, alt: "OT First UAE 2025 panel discussion - industrial CISOs and OT cybersecurity leaders on stage debating critical infrastructure defense", label: "Panel Discussion" },
-  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/opex+KSA+few/DSC08208.jpg", alt: "OT First main conference session - keynote presentation to critical infrastructure security leadership audience in Saudi Arabia", label: "Main Session" },
+  { src: "https://efg-final.s3.eu-north-1.amazonaws.com/events/opex+KSA+few/DSC08208.jpg", alt: "OT First main conference session - keynote presentation to critical infrastructure security leadership audience in the Region", label: "Main Session" },
   { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0811.JPG`, alt: "OT First exhibition floor - industrial cybersecurity solution providers and OT security technology vendors", label: "On Floor" },
   { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0683.JPG`, alt: "OT First networking session - CISOs and senior OT security executives building peer connections at the summit", label: "Networking" },
   { src: `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0820.JPG`, alt: "OT First partner exhibition - industrial cybersecurity vendors showcasing OT, ICS, and SCADA security solutions", label: "Partner Exhibition" },
@@ -220,20 +211,6 @@ function useCountdown(targetISO: string) {
   }, [targetISO]);
   return t;
 }
-
-// ─── Audience: PDF "Who Will You Meet?" - 10 roles ──────────────────────────
-const AUDIENCE_ROLES = [
-  "Senior government policymakers and ministries",
-  "National cybersecurity authorities and regulators",
-  "Heads of critical infrastructure and industrial zones",
-  "CISOs, CIOs, CTOs, and CDOs",
-  "Heads of OT, ICS, and industrial cybersecurity",
-  "Digital transformation and innovation leaders",
-  "Risk, compliance, and governance executives",
-  "Energy, utilities, petrochemicals, and manufacturing leaders",
-  "Technology providers, solution architects, and system integrators",
-  "Consultants and strategic advisory firms",
-];
 
 // ─── By the Numbers - donut chart data ─────────────────────────────────────
 // Pink brand anchor + distinct, harmonious cool accents (violet / blue / teal /
@@ -354,14 +331,10 @@ export default function OTFirst2026() {
       <StatsStrip />
       <ExecutivePerspective />
       <CpdCertified eventName="OT First 2026" theme={C} registerHref="#register" logoUrl="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/CPD+jubail.jpeg" logoWide />
-      <WhyJubail />
       <AdvisorsSection />
       <SpeakersSection />
       <SponsorsSection />
       <BePartOfTheMovement />
-      <Evidence2026 />
-      <AgendaSection />
-      <Audience />
       <ByTheNumbers />
       <LazyMount minHeight={160}><PastSponsorsMarquee /></LazyMount>
       <LazyMount minHeight={620}><FromTheRoom /></LazyMount>
@@ -370,7 +343,7 @@ export default function OTFirst2026() {
       <LazyMount minHeight={760} id="register"><RegisterSection /></LazyMount>
       <LazyMount minHeight={320}><VenueSection /></LazyMount>
       <LazyMount minHeight={640} id="contact"><Contact /></LazyMount>
-      <LazyMount minHeight={420}><Footer hideEvents={["OT Security First"]} /></LazyMount>
+      <SimpleFooter />
       <RequestResourcesModal />
       <OTSfJbPostReportFloat />
     </div>
@@ -822,7 +795,7 @@ function Hero() {
             loading="lazy"
             decoding="async"
             src="/events-first-group_logo_alt.svg"
-            alt="Events First Group logo - producers of OT First 2026, Saudi Arabia's flagship industrial cybersecurity summit"
+            alt="Events First Group logo - producers of OT First 2026, the Region's flagship industrial cybersecurity summit"
             width={180}
             height={66}
             style={{ height: 50, width: "auto", opacity: 0.8, transform: "translateY(-12px)" }}
@@ -1234,7 +1207,7 @@ function ExecutivePerspective() {
             maxWidth: 1080,
           }}
         >
-          Saudi Arabia&apos;s{" "}
+          The Region&apos;s{" "}
           <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT, padding: "0 0.22em 0 0.04em" }}>
             industrial transformation
           </em>{" "}
@@ -1525,8 +1498,8 @@ function ExecutivePerspective() {
               maxWidth: 1040,
             }}
           >
-            <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT, paddingRight: "0.18em" }}>OT First - Jubail</em>{" "}
-            is a world-class, one-day strategic dialogue platform dedicated to advancing industrial cybersecurity and operational resilience across Saudi Arabia.
+            <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT, paddingRight: "0.18em" }}>OT First</em>{" "}
+            is a world-class, one-day strategic dialogue platform dedicated to advancing industrial cybersecurity and operational resilience across the Region.
           </p>
 
           {/* Programme signature */}
@@ -1598,489 +1571,6 @@ function ExecutivePerspective() {
         }
         .otsf-jb-exec-video:hover .otsf-jb-exec-play-btn svg {
           fill: white;
-        }
-      `}</style>
-    </section>
-  );
-}
-
-// ─── WHY JUBAIL ────────────────────────────────────────────────────────────
-const WHY_BG_IMAGE = `${S3}/events/OT+Security+First+UAE+2025/OT+First+UAE+Photos/4N8A0811.JPG`;
-
-function WhyJubail() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
-  return (
-    <section
-      ref={ref}
-      id="context"
-      style={{
-        position: "relative",
-        padding: "clamp(64px, 7vw, 96px) 0",
-        background: BG_DEEP,
-        overflow: "hidden",
-      }}
-    >
-      {/* ── Background image layer - no overlay ── */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: `url(${WHY_BG_IMAGE})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-          filter: "blur(5px) brightness(0.92)",
-          transform: "scale(1.06)",
-          pointerEvents: "none",
-        }}
-      />
-      {/* Top-only darkening - protects headline readability, leaves cards on clean photo */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: "55%",
-          background:
-            "linear-gradient(180deg, rgba(5,8,24,0.82) 0%, rgba(5,8,24,0.55) 45%, rgba(5,8,24,0.15) 80%, transparent 100%)",
-          pointerEvents: "none",
-        }}
-      />
-
-      <div style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-        <Eyebrow inView={inView} label="Why Now" tone="cyan" />
-
-        <motion.h2
-          initial={{ opacity: 0, y: 18 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
-          style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 800,
-            fontSize: "clamp(28px, 4vw, 52px)",
-            letterSpacing: "-1.6px",
-            lineHeight: 1.02,
-            color: "white",
-            margin: "0 0 clamp(36px, 4vw, 56px)",
-            maxWidth: 960,
-            textShadow: "0 2px 18px rgba(0,0,0,0.65), 0 1px 3px rgba(0,0,0,0.5)",
-          }}
-        >
-          Two converging realities define the moment for{" "}
-          <em style={{ fontStyle: "italic", fontWeight: 400, color: CYAN }}>
-            OT First - Jubail.
-          </em>
-        </motion.h2>
-
-        <div
-          className="otsf-jb-why-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "clamp(22px, 3vw, 40px)",
-            alignItems: "stretch",
-          }}
-        >
-          <WhyCard
-            serial="01"
-            tag="Why Saudi Arabia"
-            headline="One of the most strategically significant industrial landscapes in the Middle East."
-            bullets={[
-              "Saudi Arabia accounts for a majority share of cybersecurity incidents within the MEA region.",
-              "Energy remains one of the most targeted sectors regionally.",
-              "ICS in the Middle East experience elevated ransomware pressure relative to global averages.",
-            ]}
-            inView={inView}
-            delay={0.2}
-          />
-          <WhyCard
-            serial="02"
-            tag="Why Jubail"
-            headline="The industrial focal point of national resilience."
-            bullets={[
-              "Defining industrial cyber events have already proven this risk is no longer theoretical.",
-              "Jubail concentrates critical petrochemical and energy assets material to GDP and exports.",
-              "Industrial density makes Jubail a strategic focal point for advancing OT cybersecurity maturity.",
-            ]}
-            inView={inView}
-            delay={0.3}
-          />
-        </div>
-      </div>
-
-      <style jsx global>{`
-        @media (max-width: 880px) {
-          .otsf-jb-why-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
-    </section>
-  );
-}
-
-function WhyCard({
-  serial,
-  tag,
-  headline,
-  bullets,
-  inView,
-  delay,
-}: {
-  serial: string;
-  tag: string;
-  headline: string;
-  bullets: string[];
-  inView: boolean;
-  delay: number;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 22 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.85, delay, ease: EASE }}
-      className="otsf-jb-why-card"
-      style={{
-        position: "relative",
-        padding: 1.2,
-        borderRadius: 24,
-        background: `linear-gradient(160deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.08) 22%, rgba(255,255,255,0.02) 60%, rgba(255,255,255,0.18) 100%)`,
-        boxShadow: `0 30px 70px rgba(0,0,0,0.55), 0 12px 30px rgba(0,0,0,0.35), 0 0 60px ${C}10`,
-      }}
-    >
-      <div
-        style={{
-          position: "relative",
-          padding: "clamp(24px, 2.6vw, 36px)",
-          borderRadius: 22.8,
-          background:
-            "linear-gradient(170deg, rgba(15,20,46,0.94) 0%, rgba(10,14,34,0.97) 55%, rgba(15,20,46,0.95) 100%)",
-          backdropFilter: "blur(18px) saturate(1.2)",
-          WebkitBackdropFilter: "blur(18px) saturate(1.2)",
-          overflow: "hidden",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        {/* Skeuomorphic curvature - inner shadow bottom-right + light catch top-left */}
-        <span
-          aria-hidden
-          style={{
-            position: "absolute",
-            inset: 0,
-            borderRadius: 22.8,
-            background:
-              "radial-gradient(ellipse 80% 60% at 20% 0%, rgba(255,255,255,0.08) 0%, transparent 55%), radial-gradient(ellipse 70% 80% at 100% 100%, rgba(0,0,0,0.35) 0%, transparent 55%)",
-            pointerEvents: "none",
-          }}
-        />
-
-        {/* Glass reflection band - top gloss */}
-        <span
-          aria-hidden
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: "38%",
-            background:
-              "linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 50%, transparent 100%)",
-            pointerEvents: "none",
-          }}
-        />
-
-        {/* Rim - brilliant top edge highlight (light source from above) */}
-        <span
-          aria-hidden
-          style={{
-            position: "absolute",
-            top: 0,
-            left: "4%",
-            right: "4%",
-            height: 1,
-            background:
-              "linear-gradient(90deg, transparent, rgba(255,255,255,0.55), rgba(255,255,255,0.35), rgba(255,255,255,0.55), transparent)",
-            boxShadow: "0 0 8px rgba(255,255,255,0.25)",
-          }}
-        />
-
-        {/* Magenta accent shine - angled refraction streak */}
-        <span
-          aria-hidden
-          style={{
-            position: "absolute",
-            top: 0,
-            left: "20%",
-            width: "30%",
-            height: 1,
-            background: `linear-gradient(90deg, transparent, ${C_BRIGHT}aa, transparent)`,
-            boxShadow: `0 0 10px ${C_BRIGHT}55`,
-          }}
-        />
-
-        {/* Header - italic serial + hairline + kicker */}
-        <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
-          <span
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: 18,
-              fontWeight: 500,
-              fontStyle: "italic",
-              letterSpacing: "-0.5px",
-              color: C_BRIGHT,
-              lineHeight: 1,
-            }}
-          >
-            {serial}
-          </span>
-          <span
-            aria-hidden
-            style={{
-              flex: 1,
-              height: 1,
-              background: `linear-gradient(90deg, ${C_BRIGHT}, rgba(255,255,255,0.06) 70%, transparent)`,
-            }}
-          />
-        </div>
-
-        {/* Topic headline - the dominant title */}
-        <h3
-          className="otsf-jb-why-title"
-          style={{
-            position: "relative",
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(28px, 3vw, 40px)",
-            fontWeight: 800,
-            letterSpacing: "-1.2px",
-            color: "white",
-            lineHeight: 1.02,
-            margin: "0 0 14px",
-            textShadow: "0 2px 14px rgba(0,0,0,0.45)",
-          }}
-        >
-          {tag}
-        </h3>
-
-        {/* Supporting sub-headline */}
-        <p
-          style={{
-            position: "relative",
-            fontFamily: "var(--font-outfit)",
-            fontSize: "clamp(15px, 1.35vw, 17.5px)",
-            fontWeight: 500,
-            letterSpacing: "-0.2px",
-            color: "rgba(255,255,255,0.82)",
-            lineHeight: 1.42,
-            margin: "0 0 22px",
-          }}
-        >
-          {headline}
-        </p>
-
-        {/* Compact numbered list */}
-        <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", flex: 1 }}>
-          {bullets.map((b, i) => (
-            <li
-              key={i}
-              style={{
-                position: "relative",
-                display: "grid",
-                gridTemplateColumns: "24px 1fr",
-                gap: 12,
-                padding: "12px 0",
-                borderTop: "1px solid rgba(255,255,255,0.07)",
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 12,
-                  fontWeight: 500,
-                  fontStyle: "italic",
-                  color: C_BRIGHT,
-                  opacity: 0.85,
-                  paddingTop: 1,
-                }}
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span
-                style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 13.5,
-                  fontWeight: 400,
-                  color: "rgba(255,255,255,0.7)",
-                  lineHeight: 1.55,
-                  letterSpacing: "-0.1px",
-                }}
-              >
-                {b}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </motion.div>
-  );
-}
-
-// ─── AUDIENCE ───────────────────────────────────────────────────────────────
-function Audience() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
-  return (
-    <section ref={ref} id="audience" style={{ position: "relative", padding: "clamp(64px, 7vw, 96px) 0", background: BG_BASE, overflow: "hidden" }}>
-      <BgDots opacity={0.04} />
-
-      {/* Ambient washes */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "20%",
-          left: "-10%",
-          width: 600,
-          height: 600,
-          borderRadius: "50%",
-          background: `radial-gradient(circle, ${C}0a 0%, transparent 60%)`,
-          filter: "blur(90px)",
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          bottom: "10%",
-          right: "-10%",
-          width: 500,
-          height: 500,
-          borderRadius: "50%",
-          background: `radial-gradient(circle, ${CYAN}0a 0%, transparent 60%)`,
-          filter: "blur(90px)",
-          pointerEvents: "none",
-        }}
-      />
-
-      <div style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-        <Eyebrow inView={inView} label="Who This Forum Is Designed For" tone="cyan" />
-
-        <motion.h2
-          initial={{ opacity: 0, y: 18 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
-          style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 800,
-            fontSize: "clamp(30px, 4.4vw, 56px)",
-            letterSpacing: "-2px",
-            lineHeight: 1.02,
-            color: "white",
-            margin: "0 0 28px",
-            maxWidth: 940,
-          }}
-        >
-          A curated room of{" "}
-          <em style={{ fontStyle: "italic", fontWeight: 400, color: CYAN }}>
-            decision-makers
-          </em>{" "}
-          who influence industrial resilience.
-        </motion.h2>
-
-        {/* PDF "Who Will You Meet?" - 10 roles, 2-col editorial grid */}
-        <div
-          className="otsf-jb-audience-roles"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            columnGap: "clamp(28px, 3.5vw, 56px)",
-            rowGap: 0,
-            borderTop: "1px solid rgba(255,255,255,0.1)",
-          }}
-        >
-          {AUDIENCE_ROLES.map((role, i) => {
-            const serial = String(i + 1).padStart(2, "0");
-            return (
-              <motion.div
-                key={role}
-                className="otsf-jb-role-row"
-                initial={{ opacity: 0, y: 14 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.18 + i * 0.05, ease: EASE }}
-                style={{
-                  position: "relative",
-                  display: "grid",
-                  gridTemplateColumns: "auto 1fr",
-                  alignItems: "center",
-                  gap: 18,
-                  padding: "20px 4px",
-                  borderBottom: "1px solid rgba(255,255,255,0.08)",
-                }}
-              >
-                {/* Magenta hairline rail (left) - grows on hover */}
-                <span
-                  aria-hidden
-                  className="otsf-jb-role-rail"
-                  style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: -2,
-                    width: 2,
-                    height: 0,
-                    transform: "translateY(-50%)",
-                    background: `linear-gradient(180deg, ${C_BRIGHT}, ${CYAN})`,
-                    boxShadow: `0 0 10px ${C_BRIGHT}55`,
-                    transition: "height 0.4s cubic-bezier(0.16,1,0.3,1)",
-                  }}
-                />
-                {/* Italic Roman-style serial */}
-                <span
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "clamp(18px, 1.7vw, 22px)",
-                    fontWeight: 500,
-                    fontStyle: "italic",
-                    letterSpacing: "-0.6px",
-                    color: C_BRIGHT,
-                    lineHeight: 1,
-                    minWidth: 36,
-                  }}
-                >
-                  {serial}
-                </span>
-                {/* Role label */}
-                <span
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "clamp(15.5px, 1.4vw, 19px)",
-                    fontWeight: 500,
-                    letterSpacing: "-0.4px",
-                    color: "rgba(255,255,255,0.88)",
-                    lineHeight: 1.32,
-                  }}
-                >
-                  {role}
-                </span>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
-
-      <style jsx global>{`
-        .otsf-jb-role-row:hover .otsf-jb-role-rail {
-          height: 80% !important;
-        }
-        @media (max-width: 720px) {
-          .otsf-jb-audience-roles {
-            grid-template-columns: 1fr !important;
-          }
         }
       `}</style>
     </section>
@@ -2542,912 +2032,6 @@ function ByTheNumbers() {
             font-size: 10.5px !important;
             margin-top: 8px !important;
             line-height: 1.3 !important;
-          }
-        }
-      `}</style>
-    </section>
-  );
-}
-
-// ─── 2026 EVIDENCE ───────────────────────────────────────────────────────────
-// Public-facing market evidence: each item carries its cited source.
-// Ordered by text density for the bento layout (longest = hero, top → bottom).
-type EvidenceItem = { fact: string; source: string; size: "xl" | "wide" | "sm" };
-const EVIDENCE_2026: EvidenceItem[] = [
-  {
-    fact: "Vendor land-grab: Darktrace first Saudi office (Jan 2026); OPSWAT Riyadh office, 4x Saudi growth; Yokogawa AI/Cyber CoE Dhahran (Feb 2026); Siemens Saudi software office (Feb 2026); Dragos Riyadh HQ + UAE CoE; Nozomi acquired by Mitsubishi",
-    source: "Vendor PRs, 2025-26",
-    size: "xl",
-  },
-  {
-    fact: "Dragos Y/R 2026: industrial ransomware +49% YoY (~3,300 victims); PYROXENE wipes vs ME infrastructure Jun 2025; BAUXITE (CyberAv3ngers-linked) hit ME oil & gas, water, chemicals",
-    source: "Dragos, Feb 2026",
-    size: "wide",
-  },
-  {
-    fact: "RC/JY cities passed SAR 1.5T cumulative investment; Amiral $11bn Jubail cracker (ops 2027); 45+ Jubail turnarounds in 2026",
-    source: "SPA / Arab News May 2026; TotalEnergies",
-    size: "wide",
-  },
-  {
-    fact: "MEA OT security market $4.36bn (2025) growing to $9.65bn (2030), 17.2% CAGR; energy fastest vertical",
-    source: "MarketsandMarkets, 2025",
-    size: "wide",
-  },
-  {
-    fact: "ECC-2:2024 requires cybersecurity roles to be held by Saudi nationals",
-    source: "Clyde & Co, Jan 2025",
-    size: "wide",
-  },
-  {
-    fact: "Electric (~$1B, Feb 2026); Claroty $150M Series F",
-    source: "Official event sites, 2026",
-    size: "wide",
-  },
-  {
-    fact: "SACS-210 (Feb 2026) adds a dedicated OT controls section; transition window closed 26 Aug 2026",
-    source: "4S Co. / NHR, Mar 2026",
-    size: "sm",
-  },
-  {
-    fact: "50% of OT organisations had at least one intrusion in the last year",
-    source: "Fortinet, Jul 2025",
-    size: "sm",
-  },
-];
-
-function Evidence2026() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
-  return (
-    <section
-      ref={ref}
-      id="evidence"
-      style={{
-        position: "relative",
-        padding: "clamp(64px, 7vw, 96px) 0",
-        background: BG_BASE,
-        overflow: "hidden",
-      }}
-    >
-      <BgDots opacity={0.04} />
-
-      {/* Ambient wash */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "8%",
-          left: "-10%",
-          width: 560,
-          height: 560,
-          borderRadius: "50%",
-          background: `radial-gradient(circle, ${C}10 0%, transparent 60%)`,
-          filter: "blur(100px)",
-          pointerEvents: "none",
-        }}
-      />
-
-      <div style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 clamp(24px, 5vw, 80px)" }}>
-        <Eyebrow inView={inView} label="The 2026 Evidence" />
-
-        <motion.h2
-          initial={{ opacity: 0, y: 18 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
-          style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 800,
-            fontSize: "clamp(30px, 4.4vw, 56px)",
-            letterSpacing: "-2px",
-            lineHeight: 1.02,
-            color: "white",
-            margin: "0 0 clamp(32px, 4vw, 52px)",
-            maxWidth: 940,
-          }}
-        >
-          The proof behind the{" "}
-          <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>agenda</em>.
-        </motion.h2>
-
-        <div className="otsf-jb-evidence-grid">
-          {EVIDENCE_2026.map((item, i) => (
-            <motion.article
-              key={item.source + i}
-              className={`otsf-jb-ev-card otsf-jb-ev-${item.size}`}
-              initial={{ opacity: 0, y: 22 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.1 + i * 0.06, ease: EASE }}
-              whileHover={{ y: -6, transition: { duration: 0.4, ease: EASE } }}
-              style={{
-                position: "relative",
-                display: "flex",
-                flexDirection: "column",
-                minHeight: 150,
-                padding: item.size === "xl" ? "32px 30px 26px" : "27px 24px 22px",
-                borderRadius: 16,
-                background:
-                  "linear-gradient(168deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.018) 44%, rgba(255,255,255,0.006) 100%)",
-                border: "1px solid rgba(255,255,255,0.09)",
-                boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.06), 0 18px 40px -28px rgba(0,0,0,0.85)",
-                overflow: "hidden",
-                isolation: "isolate",
-              }}
-            >
-              {/* Unified gradient top rail */}
-              <span
-                aria-hidden
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: 2,
-                  background: `linear-gradient(90deg, ${C} 0%, ${CYAN} 100%)`,
-                }}
-              />
-              {/* Specular hairline */}
-              <span
-                aria-hidden
-                style={{
-                  position: "absolute",
-                  top: 2,
-                  left: "8%",
-                  right: "8%",
-                  height: 1,
-                  background:
-                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent)",
-                }}
-              />
-              {/* Top-left accent glow */}
-              <span
-                aria-hidden
-                style={{
-                  position: "absolute",
-                  top: -50,
-                  left: -50,
-                  width: 150,
-                  height: 150,
-                  borderRadius: "50%",
-                  background: `radial-gradient(circle, ${C}26 0%, transparent 70%)`,
-                  pointerEvents: "none",
-                }}
-              />
-              {/* Bottom-right accent glow - fills negative space */}
-              <span
-                aria-hidden
-                style={{
-                  position: "absolute",
-                  bottom: -60,
-                  right: -60,
-                  width: 170,
-                  height: 170,
-                  borderRadius: "50%",
-                  background: `radial-gradient(circle, ${CYAN}14 0%, transparent 70%)`,
-                  pointerEvents: "none",
-                }}
-              />
-              {/* Sheen sweep (hover) */}
-              <span aria-hidden className="otsf-jb-ev-sheen" />
-              {/* Corner brackets */}
-              <span aria-hidden className="otsf-jb-ev-br otsf-jb-ev-br-tl" />
-              <span aria-hidden className="otsf-jb-ev-br otsf-jb-ev-br-br" />
-
-              {/* Fact */}
-              <p
-                style={{
-                  margin: 0,
-                  flex: 1,
-                  position: "relative",
-                  zIndex: 2,
-                  fontFamily: "var(--font-outfit)",
-                  fontSize:
-                    item.size === "xl"
-                      ? "clamp(16px, 1.45vw, 19px)"
-                      : "clamp(14px, 1.05vw, 15.5px)",
-                  fontWeight: item.size === "xl" ? 600 : 500,
-                  lineHeight: item.size === "xl" ? 1.5 : 1.58,
-                  color: item.size === "xl" ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.9)",
-                  letterSpacing: "0.01em",
-                }}
-              >
-                {item.fact}
-              </p>
-
-              {/* Source footer - pinned, consistent across all cards */}
-              <div
-                style={{
-                  marginTop: 20,
-                  paddingTop: 14,
-                  position: "relative",
-                  zIndex: 2,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 9,
-                  borderTop: "1px solid rgba(255,255,255,0.08)",
-                }}
-              >
-                <span
-                  aria-hidden
-                  style={{
-                    width: 7,
-                    height: 7,
-                    borderRadius: "50%",
-                    background: C,
-                    boxShadow: `0 0 9px ${C}cc`,
-                    flexShrink: 0,
-                  }}
-                />
-                <span
-                  style={{
-                    fontFamily: "var(--font-outfit)",
-                    fontSize: 10,
-                    fontWeight: 700,
-                    letterSpacing: "0.2em",
-                    textTransform: "uppercase",
-                    color: "rgba(255,255,255,0.4)",
-                    flexShrink: 0,
-                  }}
-                >
-                  Source
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-outfit)",
-                    fontSize: "clamp(11.5px, 0.9vw, 12.5px)",
-                    fontWeight: 600,
-                    letterSpacing: "0.01em",
-                    color: C_BRIGHT,
-                    lineHeight: 1.35,
-                  }}
-                >
-                  {item.source}
-                </span>
-              </div>
-            </motion.article>
-          ))}
-        </div>
-      </div>
-
-      <style jsx global>{`
-        /* Bento grid - tile size tracks text density */
-        .otsf-jb-evidence-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          grid-auto-rows: minmax(168px, auto);
-          grid-auto-flow: row dense;
-          gap: clamp(14px, 1.4vw, 20px);
-        }
-        .otsf-jb-ev-xl {
-          grid-column: span 2;
-          grid-row: span 2;
-        }
-        .otsf-jb-ev-wide {
-          grid-column: span 2;
-        }
-        .otsf-jb-ev-sm {
-          grid-column: span 1;
-        }
-        /* Tablet - collapse to 2 columns */
-        @media (max-width: 1080px) {
-          .otsf-jb-evidence-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-          .otsf-jb-ev-xl {
-            grid-column: span 2;
-            grid-row: span 1;
-          }
-          .otsf-jb-ev-wide {
-            grid-column: span 2;
-          }
-          .otsf-jb-ev-sm {
-            grid-column: span 1;
-          }
-        }
-        .otsf-jb-ev-card {
-          transition: border-color 0.55s ease, box-shadow 0.55s ease;
-        }
-        .otsf-jb-ev-card:hover {
-          border-color: rgba(211, 75, 154, 0.5) !important;
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09),
-            0 30px 60px -30px rgba(211, 75, 154, 0.5),
-            0 0 0 1px rgba(211, 75, 154, 0.14) !important;
-        }
-        /* Sheen sweep */
-        .otsf-jb-ev-sheen {
-          position: absolute;
-          top: 0;
-          left: -65%;
-          width: 55%;
-          height: 100%;
-          background: linear-gradient(
-            105deg,
-            transparent,
-            rgba(255, 255, 255, 0.07),
-            transparent
-          );
-          transform: skewX(-18deg);
-          pointer-events: none;
-          z-index: 1;
-          transition: left 0.9s ease;
-        }
-        .otsf-jb-ev-card:hover .otsf-jb-ev-sheen {
-          left: 135%;
-        }
-        /* Corner brackets */
-        .otsf-jb-ev-br {
-          position: absolute;
-          width: 16px;
-          height: 16px;
-          opacity: 0;
-          z-index: 3;
-          pointer-events: none;
-          transition: opacity 0.5s ease;
-        }
-        .otsf-jb-ev-br-tl {
-          top: 11px;
-          left: 11px;
-          border-top: 1.5px solid #d34b9a;
-          border-left: 1.5px solid #d34b9a;
-        }
-        .otsf-jb-ev-br-br {
-          bottom: 11px;
-          right: 11px;
-          border-bottom: 1.5px solid #f0529e;
-          border-right: 1.5px solid #f0529e;
-        }
-        .otsf-jb-ev-card:hover .otsf-jb-ev-br {
-          opacity: 0.85;
-        }
-        @media (max-width: 600px) {
-          .otsf-jb-evidence-grid {
-            grid-template-columns: 1fr;
-            grid-auto-rows: auto;
-          }
-          .otsf-jb-ev-xl,
-          .otsf-jb-ev-wide,
-          .otsf-jb-ev-sm {
-            grid-column: span 1;
-            grid-row: span 1;
-          }
-        }
-      `}</style>
-    </section>
-  );
-}
-
-// ─── AGENDA ──────────────────────────────────────────────────────────────────
-// Verbatim conference schedule (source: Jubail agenda doc). Do not alter copy.
-type AgendaPanelist = { name: string; role: string; org: string; moderator?: boolean };
-type AgendaRow = {
-  time: string;
-  type?: string;
-  logo?: string;
-  title: string;
-  desc?: string;
-  speaker?: string;
-  panelists?: AgendaPanelist[];
-  /** A break that falls inside a session's span rather than between sessions. */
-  pause?: boolean;
-};
-type AgendaBreak = { kind: "break"; time: string; label: string; desc?: string };
-type AgendaSession = { kind: "session"; serial: string; title: string; time: string; rows: AgendaRow[] };
-
-const AG_LOGOS = "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo";
-
-/**
- * Where the visible logo actually sits inside each agenda logo file, as
- * fractions of the file's width and height, plus the visible aspect ratio.
- *
- * Measured from the alpha channel of the files on S3. Several carry heavy
- * transparent padding (swIDch's mark fills only 26% of its file's height), so
- * giving every <img> the same height made the padded logos render a fraction
- * of the size of the unpadded ones: OPSWAT showed ~15x the area of swIDch.
- * If a file on S3 is replaced, re-measure it or it will be cropped wrongly.
- */
-const AG_LOGO_INK: Record<string, { x: number; y: number; w: number; h: number; aspect: number }> = {
-  "swidch+logo+white.png": { x: 0.2836, y: 0.3708, w: 0.4327, h: 0.2553, aspect: 3.905 },
-  "Yoko+logo-01.png": { x: 0.0408, y: 0.3206, w: 0.9179, h: 0.3574, aspect: 6.777 },
-  "SIS+logo-03.png": { x: 0.1145, y: 0.2614, w: 0.7699, h: 0.4761, aspect: 4.463 },
-  "Illumio_Logo_1.png": { x: 0, y: 0, w: 1, h: 1, aspect: 4.0 },
-  "OPSWAT_logo_notag_white.png": { x: 0, y: 0, w: 1, h: 1, aspect: 6.401 },
-  "schneider-electric-seeklogo.png": { x: 0, y: 0, w: 1, h: 1, aspect: 3.35 },
-};
-
-/**
- * Every agenda logo gets the same visible AREA rather than the same height,
- * which is what makes a row of differently shaped marks read as one size: a
- * wide wordmark comes out a little shorter, a compact one a little taller.
- * 3600px² puts a 4:1 logo at 120x30.
- */
-const AG_LOGO_AREA = 3600;
-
-function AgendaLogo({ src }: { src: string }) {
-  const ink = AG_LOGO_INK[src.split("/").pop() ?? ""];
-  if (!ink) {
-    // Unmeasured file: fall back to a plain fixed height.
-    return <img src={src} alt="" style={{ height: 30, width: "auto", display: "block" }} />;
-  }
-  const h = Math.sqrt(AG_LOGO_AREA / ink.aspect);
-  const w = h * ink.aspect;
-  // Size the whole file so its visible region comes out at w x h, then clip
-  // the transparent margin away.
-  const fullW = w / ink.w;
-  const fullH = h / ink.h;
-  return (
-    <span style={{ position: "relative", display: "block", width: Math.round(w), height: Math.round(h), overflow: "hidden" }}>
-      <img
-        src={src}
-        alt=""
-        style={{ position: "absolute", left: -ink.x * fullW, top: -ink.y * fullH, width: fullW, height: fullH, maxWidth: "none" }}
-      />
-    </span>
-  );
-}
-const AGENDA_BLOCKS: (AgendaBreak | AgendaSession)[] = [
-  { kind: "break", time: "08:30", label: "Registration", desc: "Delegate registration, welcome coffee" },
-  {
-    kind: "session",
-    serial: "01",
-    title: "The Regulatory Imperative — Governing OT Security in Saudi Arabia",
-    time: "09:00 – 10:10",
-    rows: [
-      {
-        time: "09:00 – 09:02",
-        type: "Opening Remarks",
-        title: "Welcome & Opening Remarks by the Organiser",
-      },
-      {
-        time: "09:02 – 09:05",
-        type: "Keynote",
-        title: "Topic & speaker TBC",
-      },
-      {
-        time: "09:05 – 09:45",
-        type: "Panel Discussion",
-        title: "GCC & Global Collaboration on OT Security: What Are the World's Leading Industrial Nations Doing and What Can Saudi Arabia Learn?",
-        panelists: [
-          { name: "Ali Abdulla Hasan Alsadadi", role: "Chief of Information Technology", org: "Ministry of Oil & Environment Bahrain" },
-          { name: "Hamoud Almohaya", role: "Head of GRC Cybersecurity", org: "Confidential Government" },
-          { name: "Dr. Mohammad Dahman Alshehri", role: "Senior Advisor and CISO", org: "Confidential" },
-          { name: "Naif Alshahrani", role: "Cybersecurity GRC Director", org: "Confidential" },
-          { name: "Abdulaziz Alarfaj", role: "Chief Information Security Officer", org: "Confidential" },
-          { name: "Eng. Huda Ahmed Mohsen", role: "Chief Of Information Technology", org: "Ministry Of Information Bahrain" },
-          { name: "Abdulrahman Al-Nimari", role: "VP, Cyber Security", org: "Confidential Organization", moderator: true },
-        ],
-      },
-      {
-        time: "09:45 – 10:00",
-        type: "Keynote",
-        title: "Reserved for Platinum Sponsor DSShield",
-        speaker: "Mesfer Almesfer, Chief Operating Officer (COO), DSShield",
-      },
-      {
-        time: "10:00 – 10:10",
-        logo: `${AG_LOGOS}/Yoko+logo-01.png`,
-        title: "Reserved for Gold Sponsor Yokogawa",
-        speaker: "Mohammed Shoukat Ali, GM & Head Global Cybersecurity CoE, Yokogawa",
-      },
-    ],
-  },
-  { kind: "break", time: "10:10 – 10:40", label: "Networking Break / VIP Exhibition Tour" },
-  {
-    kind: "session",
-    serial: "02",
-    title: "The Threat Landscape — What Is Coming for Saudi Arabia's Industrial Sector",
-    time: "10:40 – 12:00",
-    rows: [
-      {
-        time: "10:40 – 11:25",
-        type: "Panel Discussion",
-        title: "Under Attack: Incident Response, Threat Detection & OT Resilience Across Saudi Arabia's Industrial Corridor",
-        panelists: [
-          { name: "Aamir Khalid Pirzada", role: "Chief Information Officer", org: "National Metal Manufacturing and Casting Company (Maadaniyah)" },
-          { name: "Alaa Khalid", role: "Director, Cybersecurity Operations & GRC", org: "Confidential" },
-          { name: "Wael A. Rahman", role: "Lead ICS/OT Security Engineer", org: "Petroleum Development Oman" },
-          { name: "Ammad Baig", role: "VP of Digital Solutions and OT Cybersecurity", org: "INTECH Automation and Intelligence" },
-          { name: "Eng. Huda Ahmed Mohsen", role: "Chief Of Information Technology", org: "Ministry Of Information Bahrain" },
-          { name: "Dr. Hussain Aldawood", role: "Director of Cybersecurity Consulting", org: "EY" },
-          { name: "Ahmed Al Saleh", role: "Head of Digital & OT Cybersecurity Initiatives", org: "Aramco", moderator: true },
-        ],
-      },
-      {
-        time: "11:25 – 11:40",
-        logo: `${AG_LOGOS}/swidch+logo+white.png`,
-        title: "Water. Power. 700,000 Attacks a Day. And One Question: Who Is Controlling Your PLC?",
-        desc: "Why network monitoring alone cannot secure critical infrastructure and how endpoint-level authentication and pre-execution access control can protect legacy PLCs without changing existing systems.",
-        speaker: "Dr. Godfrey Gaston MBE, Cybersecurity Specialist, swIDch",
-      },
-      {
-        time: "11:40 – 11:55",
-        type: "Keynote",
-        title: "Reserved for ACET Solutions & Avanceon",
-        speaker: "Mubarik Mustafa, CEO, ACET Solutions",
-      },
-      {
-        time: "11:50 – 12:00",
-        type: "Keynote",
-        title: "Topic TBC",
-        speaker: "Faisal Althobaiti, Sr. Cybersecurity and Digitalization Engineer, Ma'aden",
-      },
-    ],
-  },
-  {
-    kind: "session",
-    serial: "03",
-    title: "Securing the Infrastructure — Technology, Standards & Operational Practice",
-    time: "12:00 – 14:00",
-    rows: [
-      {
-        time: "12:00 – 12:10",
-        type: "Keynote",
-        title: "Topic TBC",
-        speaker: "Eng. Ali Altamni, Senior Cybersecurity Leader, SABIC",
-      },
-      {
-        time: "12:10 – 12:20",
-        logo: `${AG_LOGOS}/SIS+logo-03.png`,
-        title: "Your AI Has Never Seen Your Plant",
-        desc: "Building industrial intelligence below Level 3.5",
-        speaker: "Tahir Saleem, Chief Innovation Officer, SIS Industrial Cybersecurity",
-      },
-      {
-        time: "12:20 – 12:30",
-        logo: `${AG_LOGOS}/Illumio_Logo_1.png`,
-        title: "Boosting OT operational resilience",
-        desc: "OT environments have become prime targets for cyberattacks, but preventing an attack is no longer the only measure of success. This session will explore the key steps to understand communications between industrial assets, reduce the risk of lateral movement, and strengthen operational resilience in the event of a breach.",
-        speaker: "Mohannad Meri, Senior Sales Engineer, Illumio",
-      },
-      {
-        time: "12:30 – 13:20",
-        type: "Panel Discussion",
-        title: "Standards, procurement & supply chain: How do we build OT security into the fabric of Saudi industrial operations?",
-        panelists: [
-          { name: "Saad AlGarni", role: "Head of Cybersecurity", org: "Saudi Global Ports" },
-          { name: "Khalaf Alkhaldi", role: "CISO", org: "Confidential" },
-          { name: "Mohammed Al-Ghamdi", role: "Executive VP Manufacturing", org: "Jubail Chemical Industries Co. (NAMA Chemicals Affiliate)" },
-          { name: "Feras Alamri", role: "Cybersecurity Defense Director", org: "Riyadh Airports" },
-          { name: "Redha Alahmad", role: "Senior Manager, Cybersecurity (OT/ICS)", org: "EY" },
-          { name: "Omer Bin Abdul Aziz", role: "Vice President | Digitalization", org: "Avanceon Middle East & South Asia", moderator: true },
-        ],
-      },
-      {
-        time: "13:20 – 13:35",
-        logo: `${AG_LOGOS}/OPSWAT_logo_notag_white.png`,
-        title: "Clean Is Not the Same as Safe",
-        speaker: "Ahmed Abdelhamid, Solution Engineer, OPSWAT",
-      },
-      { pause: true, time: "13:35 – 14:00", title: "Networking Break" },
-    ],
-  },
-  {
-    kind: "session",
-    serial: "04",
-    title: "The Road Ahead — Innovation, Collaboration & the Future of OT Security",
-    time: "14:00 – 15:55",
-    rows: [
-      {
-        time: "14:00 – 14:15",
-        logo: `${AG_LOGOS}/schneider-electric-seeklogo.png`,
-        title: "Building an OT security operations capability: Lessons from Saudi Arabia's most critical facilities",
-        desc: "What a fit-for-purpose OT SOC looks like — detection engineering for industrial protocols, threat hunting in ICS environments, and integrating OT visibility into a national security operations programme.",
-        speaker: "Abdulrahman Al Musfir, Regional Cybersecurity Officer - MEA, Schneider Electric",
-      },
-      {
-        time: "14:15 – 14:30",
-        type: "Keynote",
-        title: "AI Beyond the Pilot: Building Secure and Resilient AI for Critical Infrastructure",
-        speaker: "Ahmed T Alawami, Head of AI & Digital Transformation (Energy & Utilities), Saudi Energy",
-      },
-      {
-        time: "14:30 – 15:15",
-        type: "Panel Discussion",
-        title: "The Saudi Dialogue: What must Saudi Arabia's oil & gas, petrochemical, and government sectors commit to in the next 12 months?",
-        panelists: [
-          { name: "Mohammed Alangari", role: "CISO & VP of GRC", org: "Confidential Government Authority" },
-          { name: "Yazed Alamam", role: "Associate Director – Subsidiary and OT Cybersecurity", org: "Red Sea Global" },
-          { name: "Thamer Alrowidhan", role: "Chief Information Security Officer (CISO)", org: "Confidential Government" },
-          { name: "Irtiza Arain", role: "Director, Cybersecurity", org: "EY MENA", moderator: true },
-        ],
-      },
-      {
-        time: "15:15 – 15:30",
-        type: "Awards",
-        title: "Awards Ceremony & Official Close",
-      },
-      { pause: true, time: "15:30 – 15:55", title: "Networking Luncheon" },
-    ],
-  },
-];
-
-function AgendaTypeTag({ type }: { type: string }) {
-  const isPanel = type.toLowerCase().includes("panel");
-  const accent = isPanel ? CYAN : C_BRIGHT;
-  return (
-    <span
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        fontFamily: "var(--font-outfit)",
-        fontSize: 9.5,
-        fontWeight: 700,
-        letterSpacing: "1.4px",
-        textTransform: "uppercase",
-        color: accent,
-        background: `${accent}10`,
-        border: `1px solid ${accent}33`,
-        borderRadius: 100,
-        padding: "4px 11px",
-        lineHeight: 1.3,
-        whiteSpace: "nowrap",
-      }}
-    >
-      {type}
-    </span>
-  );
-}
-
-function AgendaBlock({ block }: { block: AgendaBreak | AgendaSession }) {
-  if (block.kind === "break") {
-    return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 14,
-          padding: "15px clamp(22px, 2.4vw, 30px)",
-          borderRadius: 14,
-          background: "rgba(255,255,255,0.025)",
-          border: "1px solid rgba(255,255,255,0.06)",
-        }}
-      >
-        <span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: `${C_BRIGHT}99`, flexShrink: 0 }} />
-        <span
-          style={{
-            fontFamily: "var(--font-outfit)",
-            fontSize: 14.5,
-            fontWeight: 800,
-            color: "#fff",
-            background: `linear-gradient(135deg, ${C}40, ${C}22)`,
-            border: `1px solid ${C}59`,
-            borderRadius: 9,
-            padding: "7px 14px",
-            letterSpacing: "0.3px",
-            whiteSpace: "nowrap",
-            boxShadow: `0 2px 10px ${C}1f`,
-          }}
-        >
-          {block.time}
-        </span>
-        <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.5)" }}>
-          {block.label}
-          {block.desc ? <span style={{ color: "rgba(255,255,255,0.38)" }}>{" · "}{block.desc}</span> : null}
-        </span>
-      </div>
-    );
-  }
-
-  return (
-    <div
-      style={{
-        position: "relative",
-        borderRadius: 22,
-        overflow: "hidden",
-        border: "1px solid rgba(255,255,255,0.08)",
-        background: "linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 100%)",
-        backdropFilter: "blur(14px)",
-        WebkitBackdropFilter: "blur(14px)",
-        boxShadow: "0 18px 50px rgba(0,0,0,0.35)",
-      }}
-    >
-      {/* Session header */}
-      <div style={{ padding: "26px clamp(26px, 2.8vw, 36px) 20px" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14, marginBottom: 11 }}>
-          <span style={{ fontFamily: "var(--font-outfit)", fontSize: 10.5, fontWeight: 700, letterSpacing: "2.6px", color: C_BRIGHT, textTransform: "uppercase", whiteSpace: "nowrap" }}>
-            Session {block.serial}
-          </span>
-          <span
-            style={{
-              fontFamily: "var(--font-outfit)",
-              fontSize: 14,
-              fontWeight: 700,
-              color: C_BRIGHT,
-              background: `${C}1c`,
-              border: `1px solid ${C}40`,
-              borderRadius: 8,
-              padding: "6px 13px",
-              letterSpacing: "0.3px",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {block.time}
-          </span>
-        </div>
-        <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(17px, 1.6vw, 20px)", fontWeight: 700, color: "white", lineHeight: 1.28, letterSpacing: "-0.4px", margin: 0 }}>
-          {block.title}
-        </h3>
-      </div>
-
-      <span aria-hidden style={{ display: "block", height: 1, margin: "0 clamp(26px, 2.8vw, 36px)", background: "rgba(255,255,255,0.08)" }} />
-
-      {/* Rows */}
-      <div>
-        {block.rows.map((row, ri) => (
-          <div
-            key={ri}
-            style={{
-              padding: row.pause ? "15px clamp(26px, 2.8vw, 36px)" : "24px clamp(26px, 2.8vw, 36px)",
-              borderTop: ri === 0 ? "none" : "1px solid rgba(255,255,255,0.055)",
-              background: row.pause ? "rgba(255,255,255,0.02)" : undefined,
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: 11, marginBottom: row.pause ? 0 : 12, flexWrap: "wrap" }}>
-              <span
-                style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 15,
-                  fontWeight: 800,
-                  color: "#fff",
-                  background: `linear-gradient(135deg, ${C}40, ${C}22)`,
-                  border: `1px solid ${C}59`,
-                  borderRadius: 9,
-                  padding: "7px 14px",
-                  letterSpacing: "0.3px",
-                  whiteSpace: "nowrap",
-                  boxShadow: `0 2px 10px ${C}1f`,
-                }}
-              >
-                {row.time}
-              </span>
-              {row.pause ? (
-                <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.5)" }}>
-                  {row.title}
-                </span>
-              ) : row.logo ? (
-                <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
-                  <AgendaLogo src={row.logo} />
-                </span>
-              ) : row.type ? (
-                <AgendaTypeTag type={row.type} />
-              ) : null}
-            </div>
-            {row.pause ? null : (
-              <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(15px, 1.3vw, 16.5px)", fontWeight: 600, color: "rgba(255,255,255,0.95)", lineHeight: 1.42, letterSpacing: "-0.2px", margin: "0 0 8px" }}>
-                {row.title}
-              </p>
-            )}
-            {row.desc ? (
-              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.58)", lineHeight: 1.68, margin: 0, maxWidth: 620 }}>
-                {row.desc}
-              </p>
-            ) : null}
-            {row.speaker ? (
-              <p style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 500, color: "rgba(255,255,255,0.72)", lineHeight: 1.6, margin: 0 }}>
-                {row.speaker}
-              </p>
-            ) : null}
-            {row.panelists ? (
-              <ul style={{ listStyle: "none", margin: "2px 0 0", padding: 0, display: "flex", flexDirection: "column", gap: 7, maxWidth: 640 }}>
-                {row.panelists.map((p, pi) => (
-                  <li key={pi} style={{ display: "flex", alignItems: "flex-start", gap: 9 }}>
-                    <span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: p.moderator ? CYAN : `${C_BRIGHT}cc`, marginTop: 8, flexShrink: 0 }} />
-                    <span style={{ fontFamily: "var(--font-outfit)", fontSize: 13.5, lineHeight: 1.55 }}>
-                      <span style={{ fontWeight: 700, color: p.moderator ? CYAN : "rgba(255,255,255,0.92)" }}>{p.name}</span>
-                      <span style={{ fontWeight: 400, color: "rgba(255,255,255,0.6)" }}>{`, ${p.role}, ${p.org}`}</span>
-                      {p.moderator ? <span style={{ fontWeight: 700, color: CYAN }}>{" (Moderator)"}</span> : null}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function AgendaSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const columns = [AGENDA_BLOCKS.slice(0, 4), AGENDA_BLOCKS.slice(4)];
-  return (
-    <section ref={ref} id="agenda" style={{ position: "relative", padding: "clamp(64px, 7vw, 100px) 0", background: BG_DEEP }}>
-      <BgDots opacity={0.04} />
-      <div style={{ position: "relative", maxWidth: 1440, margin: "0 auto", padding: "0 clamp(20px, 3vw, 44px)" }}>
-        <div style={{ textAlign: "center", marginBottom: "clamp(40px, 4.5vw, 60px)" }}>
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: EASE }}
-            style={{
-              display: "inline-block",
-              fontFamily: "var(--font-outfit)",
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: "4.5px",
-              textTransform: "uppercase",
-              color: C_BRIGHT,
-              marginBottom: 18,
-            }}
-          >
-            Agenda
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 18 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.85, delay: 0.1, ease: EASE }}
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "clamp(34px, 5vw, 64px)",
-              letterSpacing: "-2.2px",
-              lineHeight: 0.98,
-              color: "white",
-              margin: "0 0 16px",
-            }}
-          >
-            Conference{" "}
-            <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>agenda.</em>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.18, ease: EASE }}
-            style={{
-              fontFamily: "var(--font-outfit)",
-              fontSize: 14,
-              fontWeight: 600,
-              letterSpacing: "0.5px",
-              color: "rgba(255,255,255,0.6)",
-              margin: 0,
-            }}
-          >
-            7 December 2026 &nbsp;·&nbsp; Dammam, Saudi Arabia &nbsp;·&nbsp; 09:00 – 15:55
-          </motion.p>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.24, ease: EASE }}
-          className="otsf-jb-ag-cols"
-          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(24px, 3vw, 44px)", alignItems: "start" }}
-        >
-          {columns.map((col, ci) => (
-            <div key={ci} style={{ display: "flex", flexDirection: "column", gap: "clamp(16px, 1.8vw, 22px)" }}>
-              {col.map((block, bi) => (
-                <AgendaBlock key={`${ci}-${bi}`} block={block} />
-              ))}
-            </div>
-          ))}
-        </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.34, ease: EASE }}
-          style={{
-            fontFamily: "var(--font-outfit)",
-            fontSize: 12.5,
-            fontWeight: 500,
-            color: "rgba(255,255,255,0.38)",
-            textAlign: "center",
-            margin: "clamp(34px, 4vw, 48px) 0 0",
-          }}
-        >
-          OT First · 7 December 2026 · Dammam, Saudi Arabia ·{" "}
-          <span style={{ color: `${C_BRIGHT}bb` }}>Agenda is subject to change</span>
-        </motion.p>
-      </div>
-
-      <style jsx global>{`
-        @media (max-width: 940px) {
-          .otsf-jb-ag-cols {
-            grid-template-columns: 1fr !important;
-            gap: 16px !important;
           }
         }
       `}</style>
@@ -4013,7 +2597,7 @@ function SpeakersSection() {
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={s.photo}
-                    alt={`${s.name}, ${s.title}${s.org ? ` at ${s.org}` : ""} - speaker at OT First 2026 industrial cybersecurity summit, Saudi Arabia`}
+                    alt={`${s.name}, ${s.title}${s.org ? ` at ${s.org}` : ""} - speaker at OT First 2026 industrial cybersecurity summit, Region`}
                     loading="lazy"
                     decoding="async"
                     style={{
@@ -4278,7 +2862,7 @@ function AdvisorsSection() {
             margin: "0 0 48px",
           }}
         >
-          The independent advisors shaping the technical agenda, and the speakers taking the stage on industrial cyber resilience across Saudi Arabia.
+          The independent advisors shaping the technical agenda, and the speakers taking the stage on industrial cyber resilience across the Region.
         </motion.p>
 
         {/* Group label — Advisors */}
@@ -4341,7 +2925,7 @@ function AdvisorsSection() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={s.photo || ""}
-                  alt={`${s.name}, ${s.title}${s.org ? ` at ${s.org}` : ""} - advisor to OT First 2026 industrial cybersecurity summit, Saudi Arabia`}
+                  alt={`${s.name}, ${s.title}${s.org ? ` at ${s.org}` : ""} - advisor to OT First 2026 industrial cybersecurity summit, Region`}
                   loading="lazy"
                   decoding="async"
                   style={{
@@ -5168,7 +3752,6 @@ function AwardsSection() {
     contactName: "",
     email: "",
     phone: "",
-    category: "",
     reason: "",
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -5210,10 +3793,9 @@ function AwardsSection() {
       phone: `${awardsSelectedCountry.code} ${formData.phone.trim()}`,
       event_name: "OT First 2026",
       metadata: {
-        "Award Category": formData.category || "",
         "Nominee Company": formData.orgName.trim(),
         "Nomination Reason": formData.reason.trim(),
-        "Page Section": "OT Jubail Awards · Nomination Form",
+        "Page Section": "OT First Awards · Nomination Form",
       },
     });
     setIsSubmitting(false);
@@ -5285,12 +3867,12 @@ function AwardsSection() {
           >
             OT First{" "}
             <span style={{ background: `linear-gradient(135deg, ${GOLD}, ${GOLD_BRIGHT})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-              Jubail Awards 2026
+              Awards 2026
             </span>
           </h2>
         </motion.div>
 
-        <div className="otsf-jb-awards-split" style={{ display: "grid", gridTemplateColumns: "2fr 3fr", gap: 36, alignItems: "start" }}>
+        <div style={{ maxWidth: 560, margin: "0 auto" }}>
           {/* LEFT - Form */}
           <motion.div
             initial={{ opacity: 0, x: -22 }}
@@ -5388,23 +3970,6 @@ function AwardsSection() {
                   </div>
                   {awardsPhoneError && <p style={{ color: "#ef4444", fontFamily: "var(--font-outfit)", fontSize: 12, margin: 0 }}>{awardsPhoneError}</p>}
 
-                  <select
-                    required
-                    value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    onFocus={() => setFocusedField("category")}
-                    onBlur={() => setFocusedField(null)}
-                    style={{ ...inputStyle("category"), cursor: "pointer", color: formData.category ? "white" : "rgba(255,255,255,0.35)" }}
-                    suppressHydrationWarning
-                  >
-                    <option value="" disabled style={{ background: "#0a0e2a", color: "#888" }}>Select Award Category</option>
-                    {AWARDS_DATA.map((a) => (
-                      <option key={a.title} value={a.title} style={{ background: "#0a0e2a", color: "white" }}>
-                        {a.title}
-                      </option>
-                    ))}
-                  </select>
-
                   <textarea
                     placeholder="Reason for Nomination"
                     required
@@ -5461,200 +4026,10 @@ function AwardsSection() {
             )}
           </motion.div>
 
-          {/* RIGHT - Award Categories (editorial list) */}
-          <motion.div
-            initial={{ opacity: 0, x: 22 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.85, delay: 0.25, ease: EASE }}
-          >
-            {/* Header */}
-            <div style={{ marginBottom: 28, paddingBottom: 22, borderBottom: `1px solid ${GOLD}1f` }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 14 }}>
-                <span
-                  style={{
-                    fontFamily: "var(--font-outfit)",
-                    fontSize: 10.5,
-                    fontWeight: 700,
-                    letterSpacing: "3.5px",
-                    textTransform: "uppercase",
-                    color: GOLD,
-                  }}
-                >
-                  Categories · 05
-                </span>
-                <span aria-hidden style={{ flex: 1, height: 1, background: `linear-gradient(90deg, ${GOLD}66, transparent)` }} />
-              </div>
-              <h3
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 800,
-                  fontSize: "clamp(26px, 2.8vw, 36px)",
-                  color: "white",
-                  margin: "0 0 10px",
-                  letterSpacing: "-1px",
-                  lineHeight: 1.05,
-                }}
-              >
-                The{" "}
-                <em style={{ fontStyle: "italic", fontWeight: 400, color: GOLD_BRIGHT }}>
-                  honour roll
-                </em>
-              </h3>
-              <p
-                style={{
-                  fontFamily: "var(--font-outfit)",
-                  fontSize: 14.5,
-                  color: "rgba(255,255,255,0.6)",
-                  margin: 0,
-                  lineHeight: 1.6,
-                  maxWidth: 520,
-                }}
-              >
-                Five categories spanning programmes, leaders, innovators, and the public sector - chosen to recognise the breadth of industrial resilience in Saudi Arabia.
-              </p>
-            </div>
-
-            {/* Editorial 2-column list */}
-            <ol
-              className="otsf-jb-awards-list"
-              style={{
-                listStyle: "none",
-                margin: 0,
-                padding: 0,
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                columnGap: "clamp(24px, 3vw, 44px)",
-              }}
-            >
-              {AWARDS_DATA.map((a, i) => {
-                const roman = ["I", "II", "III", "IV", "V"][i] ?? String(i + 1);
-                // For 2-col, 5 items: top row is items 0,1 (no border-top), rest get border-top
-                const isTopRow = i < 2;
-                return (
-                  <li
-                    key={a.title}
-                    className="otsf-jb-award-row"
-                    style={{
-                      position: "relative",
-                      display: "grid",
-                      gridTemplateColumns: "minmax(56px, 68px) 1fr",
-                      gap: "clamp(14px, 1.6vw, 22px)",
-                      padding: "clamp(16px, 1.8vw, 22px) 10px clamp(16px, 1.8vw, 22px) 0",
-                      borderTop: isTopRow ? "none" : `1px solid ${GOLD}14`,
-                      transition: "background 0.4s ease, padding-left 0.4s cubic-bezier(0.16,1,0.3,1)",
-                    }}
-                  >
-                    {/* Left accent rail (appears on hover) */}
-                    <span
-                      aria-hidden
-                      className="otsf-jb-award-rail"
-                      style={{
-                        position: "absolute",
-                        left: 0,
-                        top: "20%",
-                        bottom: "20%",
-                        width: 2,
-                        background: `linear-gradient(180deg, ${GOLD_BRIGHT}, ${GOLD}66)`,
-                        boxShadow: `0 0 10px ${GOLD}66`,
-                        opacity: 0,
-                        transition: "opacity 0.4s ease",
-                      }}
-                    />
-
-                    {/* Roman numeral */}
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "baseline",
-                        gap: 4,
-                        paddingTop: 2,
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontFamily: "var(--font-display)",
-                          fontSize: "clamp(26px, 2.6vw, 34px)",
-                          fontWeight: 500,
-                          fontStyle: "italic",
-                          letterSpacing: "-1.2px",
-                          color: GOLD_BRIGHT,
-                          lineHeight: 1,
-                          textShadow: `0 0 14px ${GOLD}33`,
-                        }}
-                      >
-                        {roman}
-                      </span>
-                      <span
-                        style={{
-                          fontFamily: "var(--font-display)",
-                          fontSize: 12,
-                          fontStyle: "italic",
-                          fontWeight: 400,
-                          color: `${GOLD}88`,
-                          lineHeight: 1,
-                        }}
-                      >
-                        .
-                      </span>
-                    </div>
-
-                    {/* Title + Description */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                      <h4
-                        style={{
-                          fontFamily: "var(--font-display)",
-                          fontWeight: 700,
-                          fontSize: "clamp(15.5px, 1.4vw, 18px)",
-                          color: "white",
-                          margin: 0,
-                          letterSpacing: "-0.4px",
-                          lineHeight: 1.2,
-                        }}
-                      >
-                        {a.title}
-                      </h4>
-                      <p
-                        style={{
-                          fontFamily: "var(--font-outfit)",
-                          fontSize: 13,
-                          color: "rgba(255,255,255,0.62)",
-                          lineHeight: 1.55,
-                          margin: 0,
-                        }}
-                      >
-                        {a.desc}
-                      </p>
-                    </div>
-                  </li>
-                );
-              })}
-            </ol>
-          </motion.div>
         </div>
       </div>
 
       <style jsx global>{`
-        .otsf-jb-award-row:hover {
-          background: linear-gradient(90deg, ${GOLD}0c 0%, transparent 80%);
-          padding-left: 22px !important;
-        }
-        .otsf-jb-award-row:hover .otsf-jb-award-rail {
-          opacity: 1;
-        }
-        @media (max-width: 980px) {
-          .otsf-jb-awards-split { grid-template-columns: 1fr !important; }
-        }
-        @media (max-width: 720px) {
-          .otsf-jb-awards-list {
-            grid-template-columns: 1fr !important;
-          }
-          .otsf-jb-award-row {
-            border-top: 1px solid ${GOLD}14 !important;
-          }
-          .otsf-jb-award-row:first-child {
-            border-top: none !important;
-          }
-        }
       `}</style>
     </section>
   );
@@ -5803,7 +4178,7 @@ function BePartOfTheMovement() {
           <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT, textShadow: "0 2px 18px rgba(0,0,0,0.7)" }}>
             industrial cybersecurity
           </em>{" "}
-          in Saudi Arabia - where national infrastructure, industrial innovation, and cyber resilience converge.
+          in the Region - where national infrastructure, industrial innovation, and cyber resilience converge.
         </motion.h2>
 
         <motion.a
@@ -5991,7 +4366,7 @@ function VenueSection() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="https://efg-final.s3.eu-north-1.amazonaws.com/venues/Sheraton+Hotel+at+Twilight.png"
-        alt="Sheraton Dammam Hotel & Convention Centre, Dammam, Saudi Arabia — OT First 2026 venue"
+        alt="Sheraton Dammam Hotel & Convention Centre, Dammam, Region — OT First 2026 venue"
         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }}
       />
       {/* Readability scrim */}
@@ -6066,7 +4441,7 @@ function VenueSection() {
                 color: C_BRIGHT,
               }}
             >
-              Dammam · Saudi Arabia
+              Dammam · Region
             </span>
           </div>
 
@@ -6109,7 +4484,7 @@ function VenueSection() {
               marginRight: "auto",
             }}
           >
-            In Dammam, Saudi Arabia — host to OT First 2026.
+            In Dammam, Region — host to OT First 2026.
           </p>
           <a
             href="https://maps.app.goo.gl/1MgyRixX9wQpwr1TA"
@@ -7334,3 +5709,26 @@ function RequestResourcesModal() {
   );
 }
 
+
+// ─── SIMPLE FOOTER ──────────────────────────────────────────────────────────
+function SimpleFooter() {
+  return (
+    <footer
+      style={{
+        borderTop: "1px solid rgba(255,255,255,0.08)",
+        padding: "28px clamp(16px, 4vw, 48px)",
+        display: "flex",
+        flexWrap: "wrap",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 16,
+        background: BG_DEEP,
+      }}
+    >
+      <img src="/events-first-group_logo_alt.svg" alt="Events First Group" style={{ height: 32, width: "auto", display: "block" }} />
+      <p style={{ fontFamily: "var(--font-outfit)", fontSize: 13, color: "rgba(255,255,255,0.55)", margin: 0 }}>
+        © 2026 Events First Group. All rights reserved.
+      </p>
+    </footer>
+  );
+}

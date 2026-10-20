@@ -225,11 +225,10 @@ const EVENT_CONFIGS: Record<string, {
     color: "#D34B9A",
     colorBright: "#E872B5",
     date: "7 December 2026",
-    location: "Dammam, Saudi Arabia",
+    location: "Dammam, Region",
     navLinks: [
       { href: "#overview", label: "Overview" },
       { href: "#speakers", label: "Speakers" },
-      { href: "#agenda", label: "Agenda" },
       {
         label: "Partners",
         children: [

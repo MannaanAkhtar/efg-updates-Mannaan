@@ -16,13 +16,13 @@ const plexArabic = IBM_Plex_Sans_Arabic({
 const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/otfirst`;
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT_Jubail.png";
-const OG_IMAGE_ALT = "OT First 2026 — Industrial cybersecurity summit, 7 December 2026, Dammam, Saudi Arabia";
+const OG_IMAGE_ALT = "OT First 2026 — Industrial cybersecurity summit, 7 December 2026, Dammam, Region";
 
 const EVENT_START = "2026-12-07T08:30:00+03:00";
 const EVENT_END = "2026-12-07T17:30:00+03:00";
 
 const RICH_DESCRIPTION =
-  "OT First 2026 — Saudi Arabia's flagship industrial cybersecurity summit. Aligned with NCA OTCC-1:2022, convening CISOs, regulators, and critical infrastructure leaders. 7 December 2026, Dammam, Saudi Arabia.";
+  "OT First 2026 — The Region's flagship industrial cybersecurity summit. Aligned with NCA OTCC-1:2022, convening CISOs, regulators, and critical infrastructure leaders. 7 December 2026, Dammam, Region.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -30,13 +30,13 @@ export const metadata: Metadata = {
   description: RICH_DESCRIPTION,
   keywords: [
     "OT First 2026",
-    "OT security summit Saudi Arabia",
-    "industrial cybersecurity Jubail",
-    "critical infrastructure security Saudi Arabia",
+    "OT security summit Region",
+    "industrial cybersecurity summit",
+    "critical infrastructure security Region",
     "NCA OTCC-1:2022 compliance",
     "SCADA security summit Saudi",
     "ICS cybersecurity conference",
-    "IT OT convergence Saudi Arabia",
+    "IT OT convergence Region",
     "petrochemicals OT security",
   ],
   alternates: { canonical: PAGE_URL },
@@ -106,7 +106,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             name: "OT First 2026",
             alternateName: ["OT First 2026", "OT First Saudi 2026"],
             description:
-              "Saudi Arabia's flagship industrial cybersecurity summit — aligned with NCA OTCC-1:2022, convening CISOs, regulators, and critical infrastructure leaders for one day in Dammam.",
+              "The Region's flagship industrial cybersecurity summit — aligned with NCA OTCC-1:2022, convening CISOs, regulators, and critical infrastructure leaders for one day in Dammam.",
             image: [OG_IMAGE],
             startDate: EVENT_START,
             endDate: EVENT_END,
@@ -157,12 +157,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             "@context": "https://schema.org",
             "@type": "FAQPage",
             mainEntity: [
-              { "@type": "Question", name: "When is OT First 2026?", acceptedAnswer: { "@type": "Answer", text: "OT First 2026 takes place on 7 December 2026 in Dammam, Saudi Arabia. It is a one-day strategic dialogue platform for industrial cybersecurity and operational resilience." } },
-              { "@type": "Question", name: "Where is OT First 2026 held?", acceptedAnswer: { "@type": "Answer", text: "At the Sheraton Dammam Hotel & Convention Centre in Dammam, Saudi Arabia." } },
+              { "@type": "Question", name: "When is OT First 2026?", acceptedAnswer: { "@type": "Answer", text: "OT First 2026 takes place on 7 December 2026 in Dammam, Region. It is a one-day strategic dialogue platform for industrial cybersecurity and operational resilience." } },
+              { "@type": "Question", name: "Where is OT First 2026 held?", acceptedAnswer: { "@type": "Answer", text: "At the Sheraton Dammam Hotel & Convention Centre in Dammam, Region." } },
               { "@type": "Question", name: "Who attends OT First 2026?", acceptedAnswer: { "@type": "Answer", text: "Senior government policymakers, National Cybersecurity Authority regulators, heads of critical infrastructure, CISOs, CIOs, CTOs, CDOs, heads of OT/ICS cybersecurity, risk and compliance executives, and leaders from energy, utilities, petrochemicals, and manufacturing. Attendance is invitation-only." } },
               { "@type": "Question", name: "Is there a fee to attend OT First 2026?", acceptedAnswer: { "@type": "Answer", text: "Attendance is free for qualified delegates. Apply via the registration form on the event page; the advisory team will confirm eligibility." } },
               { "@type": "Question", name: "How do I register or sponsor OT First 2026?", acceptedAnswer: { "@type": "Answer", text: "Register via the form on this page. For sponsorship, partnership, or speaking enquiries, contact partnerships@eventsfirstgroup.com." } },
-              { "@type": "Question", name: "Does OT First 2026 align with NCA OTCC-1:2022?", acceptedAnswer: { "@type": "Answer", text: "Yes. The summit is aligned with the Saudi National Cybersecurity Authority's Operational Technology Cybersecurity Controls (OTCC-1:2022) and supports Saudi Arabia's national cybersecurity framework." } },
+              { "@type": "Question", name: "Does OT First 2026 align with NCA OTCC-1:2022?", acceptedAnswer: { "@type": "Answer", text: "Yes. The summit is aligned with the Saudi National Cybersecurity Authority's Operational Technology Cybersecurity Controls (OTCC-1:2022) and supports the Region's national cybersecurity framework." } },
               { "@type": "Question", name: "Which industries are represented at OT First 2026?", acceptedAnswer: { "@type": "Answer", text: "Oil and gas, power and utilities, petrochemicals, water and waste, nuclear, manufacturing, mining and metals, transport and logistics, smart cities, and critical government infrastructure — across both public sector leadership and private sector execution." } },
             ],
           }),
@@ -173,7 +173,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         series="OT First"
         date="7 December 2026"
         city="Dammam"
-        country="Saudi Arabia"
+        country="Region"
         format="in-person"
         audienceTypes={["OT/ICS security leaders", "Plant CISOs", "Energy security heads", "Petrochemicals security executives", "Utilities security leaders", "Engineering directors"]}
         url={PAGE_URL}
