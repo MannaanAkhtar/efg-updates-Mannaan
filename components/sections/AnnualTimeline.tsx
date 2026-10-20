@@ -112,13 +112,16 @@ export const allEvents: EventItem[] = [
     seriesColor: "#C9935A",
     edition: "",
     title: "IFS Executive Briefing",
-    date: new Date("2026-10-21"),
-    dateDisplay: "October 21, 2026",
+    // Postponed from 21 Oct to December 2026; exact day not set.
+    // `date` is only a sort key that files it under December, after dated events.
+    date: new Date("2026-12-31"),
+    dateDisplay: "December 2026 · Date TBC",
     location: "Dubai, UAE",
     venue: "Venue TBC",
     attendees: "Invited",
     href: "/ifs-dubai",
     status: "open",
+    dateTBA: true,
   },
   {
     id: "networkfirst-ifs-construction",
@@ -130,49 +133,40 @@ export const allEvents: EventItem[] = [
     // IFS roundtable, so three identically-titled rows would be separable only
     // by their dates.
     title: "IFS Construction & Engineering Roundtable",
-    date: new Date("2026-10-20"),
-    dateDisplay: "October 20, 2026",
+    // Postponed from 20 Oct to December 2026; exact day not set.
+    // `date` is only a sort key that files it under December, after dated events.
+    date: new Date("2026-12-31"),
+    dateDisplay: "December 2026 · Date TBC",
     location: "Jeddah, Saudi Arabia",
     venue: "Hilton Jeddah",
     attendees: "Invited",
     href: "/ifs-20core",
     status: "open",
+    dateTBA: true,
   },
   {
-    // Separate event from the 21 Oct Dubai briefing below — different theme,
+    // Separate event from the IFS Dubai briefing below — different theme,
     // different page. Both are listed.
     id: "networkfirst-ifs-fm",
     series: "NetworkFirst",
     seriesColor: "#C9935A",
     edition: "",
     title: "IFS Property & Facilities Roundtable",
-    date: new Date("2026-10-21"),
-    dateDisplay: "October 21, 2026",
+    // Postponed from 21 Oct to December 2026; exact day not set.
+    // `date` is only a sort key that files it under December, after dated events.
+    date: new Date("2026-12-31"),
+    dateDisplay: "December 2026 · Date TBC",
     location: "Jeddah, Saudi Arabia",
     venue: "Hilton Jeddah",
     attendees: "Invited",
     href: "/ifs-21fm",
     status: "open",
-  },
-  {
-    id: "networkfirst-unifyapps-healthcare-telecom",
-    series: "NetworkFirst",
-    seriesColor: "#C9935A",
-    edition: "",
-    title: "UnifyApps Signature Lunch",
-    date: new Date("2026-10-15"),
-    dateDisplay: "October 15, 2026",
-    location: "Dubai, UAE",
-    venue: "Venue TBC",
-    attendees: "Invited",
-    href: "https://engage.unifyapps.com/rsvp/se-healthcare-telecom-lunch-dubai-october-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261015_MEA_OWNED_Lunch_SE_Healthcare_Telecom_Dubai",
-    status: "open",
+    dateTBA: true,
   },
   {
     // UnifyApps calls this one an Executive Boardroom on its own page, not a
-    // Signature Lunch like the two above — keeping its own name also stops a
-    // third identically-titled UnifyApps row appearing under UAE in the nav's
-    // Region browser.
+    // Signature Lunch like its earlier October events — keeping its own name
+    // also keeps its row distinct under UAE in the nav's Region browser.
     id: "networkfirst-unifyapps-airlines-ports-energy",
     series: "NetworkFirst",
     seriesColor: "#C9935A",
@@ -184,6 +178,20 @@ export const allEvents: EventItem[] = [
     venue: "Five Iron Golf, The Westin Dubai Marina",
     attendees: "Invited",
     href: "https://engage.unifyapps.com/rsvp/se-airlines-ports-energy-contracting-lunch-oct-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261021_MEA_OWNED_Dubai_SE_Lunch_Airlines_Ports_Energy_Contracting",
+    status: "open",
+  },
+  {
+    id: "networkfirst-outsystems-uae",
+    series: "NetworkFirst",
+    seriesColor: "#C9935A",
+    edition: "",
+    title: "OutSystems Innovator Day UAE",
+    date: new Date("2026-10-28"),
+    dateDisplay: "October 28, 2026",
+    location: "Dubai, UAE",
+    venue: "Museum of the Future",
+    attendees: "200+",
+    href: "/outsystems2",
     status: "open",
   },
   {
@@ -380,7 +388,11 @@ const MONTHS = [
   { abbr: "SEP", full: "September", index: 8 },
   { abbr: "OCT", full: "October", index: 9 },
   { abbr: "NOV", full: "November", index: 10 },
+  // December and February were missing, which silently hid every event in
+  // those months (OT Security First KSA, 7 Dec). Only months with events render.
+  { abbr: "DEC", full: "December", index: 11 },
   { abbr: "JAN", full: "January", index: 0 },
+  { abbr: "FEB", full: "February", index: 1 },
   { abbr: "MAR", full: "March", index: 2 },
   { abbr: "TBA", full: "To be announced", index: TBA_MONTH_INDEX },
 ];
@@ -414,7 +426,7 @@ function groupEventsByMonth(events: EventItem[]) {
 function getNextEvent(): EventItem {
   const now = new Date();
   const upcoming = allEvents
-    .filter((e) => !e.monthTBA && e.date.getTime() > now.getTime())
+    .filter((e) => !e.monthTBA && !e.dateTBA && e.date.getTime() > now.getTime())
     .sort((a, b) => a.date.getTime() - b.date.getTime());
   return upcoming[0] || allEvents[0];
 }

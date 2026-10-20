@@ -52,10 +52,11 @@ const NAV_LINKS = [
   { id: "register", label: "Register" },
 ];
 
-// Anchored to the start of the event day: no start time has been confirmed, so
-// the countdown counts down to the date itself and the page never prints a
-// fabricated time. Replace with the real start (and offset) once it is set.
-const EVENT_DATE_ISO = "2026-10-20T09:00:00+03:00";
+// Postponed from 20 October to December 2026; the exact day is not set yet, so
+// the countdown tile shows a postponement notice instead. Once the date is
+// known, put it here and render <CountdownTimer targetIso={EVENT_DATE_ISO} bare />
+// back in the "count" tile.
+const EVENT_DATE_ISO: string | null = null;
 
 const HERO_IMAGE =
   "https://efg-final.s3.eu-north-1.amazonaws.com/heros/sitecore_hero-gettyimages-1267010934.avif";
@@ -893,7 +894,7 @@ function HeroSection() {
 
             {/* Facts */}
             <BentoFact
-              area="date" delay={0.14} label="Date" value="20 October 2026"
+              area="date" delay={0.14} label="Date" value="December 2026"
               icon={
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -938,11 +939,17 @@ function HeroSection() {
                 maxWidth: 84,
                 lineHeight: 1.5,
               }}>
-                Doors open in
+                {EVENT_DATE_ISO ? "Doors open in" : "Postponed"}
               </span>
               <span aria-hidden className="ifs-count-rule" style={{ width: 1, alignSelf: "stretch", background: IFS_HAIRLINE }} />
               <div style={{ flex: 1, minWidth: 0 }}>
-                <CountdownTimer targetIso={EVENT_DATE_ISO} bare />
+                {EVENT_DATE_ISO ? (
+                  <CountdownTimer targetIso={EVENT_DATE_ISO} bare />
+                ) : (
+                  <p style={{ margin: 0, fontFamily: "var(--font-outfit)", fontSize: 14.5, lineHeight: 1.5, color: "rgba(255,255,255,0.82)" }}>
+                    Moved from 20 October to December 2026. The exact date will be announced shortly.
+                  </p>
+                )}
               </div>
             </BentoTile>
 
@@ -1725,7 +1732,7 @@ function AgendaAndFormSection() {
       job_title: jobTitle.trim(),
       company: company.trim(),
       phone: fullPhone,
-      event_name: "IFS Executive Roundtable — Construction and Engineering · 20 October 2026",
+      event_name: "IFS Executive Roundtable — Construction and Engineering · December 2026 (date TBC)",
       metadata: {
         "Event Page": "IFS Executive Roundtable · Construction & Engineering",
         "Page Section": "Reservation Form",
@@ -2259,7 +2266,7 @@ function IfsFooter() {
             letterSpacing: "0.16em",
             textTransform: "uppercase",
           }}>
-            Executive Roundtable · IFS · Jeddah · 20 October 2026
+            Executive Roundtable · IFS · Jeddah · December 2026
           </p>
         </div>
       </div>

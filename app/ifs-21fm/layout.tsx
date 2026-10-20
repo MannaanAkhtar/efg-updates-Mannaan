@@ -11,9 +11,9 @@ export const metadata: Metadata = {
   // The headline leads, but the Property & Facilities phrasing stays in the
   // title — it is what the page is actually searched for.
   title:
-    "From Operational Complexity to Service Excellence | IFS Property & Facilities Roundtable · 21 October 2026",
+    "From Operational Complexity to Service Excellence | IFS Property & Facilities Roundtable · December 2026",
   description:
-    "An IFS executive roundtable for Property and Facilities Services leaders at the Hilton Jeddah on 21 October 2026. Discover how leading organizations are leveraging AI, intelligent asset management and connected service operations to improve efficiency, elevate customer experiences and unlock new levels of operational excellence.",
+    "An IFS executive roundtable for Property and Facilities Services leaders at the Hilton Jeddah in December 2026. Discover how leading organizations are leveraging AI, intelligent asset management and connected service operations to improve efficiency, elevate customer experiences and unlock new levels of operational excellence.",
   keywords: [
     "IFS",
     "IFS Cloud",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title:
-      "From Operational Complexity to Service Excellence — IFS Executive Roundtable, 21 October 2026",
+      "From Operational Complexity to Service Excellence — IFS Executive Roundtable, December 2026",
     description:
       "Discover how leading organizations are leveraging AI, intelligent asset management and connected service operations to improve efficiency, elevate customer experiences and unlock new levels of operational excellence.",
     url: PAGE_URL,
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "IFS Executive Roundtable — Property and Facilities Management, 21 October 2026",
+        alt: "IFS Executive Roundtable — Property and Facilities Management, December 2026",
       },
     ],
     locale: "en_US",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     site: "@eventsfirstgrp",
     title: "From Operational Complexity to Service Excellence — IFS Executive Roundtable",
     description:
-      "21 October 2026. How AI, intelligent asset management and connected service operations improve efficiency and elevate customer experiences.",
+      "December 2026. How AI, intelligent asset management and connected service operations improve efficiency and elevate customer experiences.",
     images: [OG_IMAGE],
   },
 };
@@ -76,7 +76,11 @@ export default function IfsPropertyFacilitiesLayout({
             // Start time is not confirmed; the date is anchored to the start of
             // the event day and no endDate is claimed.
             startDate: "2026-10-21T09:00:00+03:00",
-            eventStatus: "https://schema.org/EventScheduled",
+            // Postponed to December 2026, exact date not set. Per Google's event
+            // structured-data guidance the ORIGINAL dates stay in startDate/endDate
+            // with status EventPostponed; switch to EventRescheduled (adding
+            // previousStartDate) once the new date is known.
+            eventStatus: "https://schema.org/EventPostponed",
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {
               "@type": "Place",

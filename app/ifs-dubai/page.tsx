@@ -849,7 +849,7 @@ function HeroSection() {
                   </svg>
                 }
               >
-                21 October 2026
+                December 2026 · date TBC
               </HeroChip>
               <HeroChip
                 icon={
@@ -927,14 +927,17 @@ function HeroSection() {
               </a>
             </motion.div>
 
-            {/* Countdown to event */}
+            {/* Postponed from 21 October 2026, exact December date not set yet.
+                Bring back <CountdownTimer targetIso="…" /> here once it is. */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.55, ease: [0.22,1,0.36,1] }}
               style={{ marginTop: 22 }}
             >
-              <CountdownTimer targetIso="2026-10-21T10:00:00+04:00" />
+              <p style={{ margin: 0, fontFamily: "var(--font-outfit)", fontSize: 14.5, lineHeight: 1.55, color: "rgba(255,255,255,0.78)" }}>
+                Postponed to December 2026. The exact date will be announced shortly.
+              </p>
             </motion.div>
           </div>
 
@@ -1195,7 +1198,7 @@ function AgendaAndFormSection() {
       job_title: jobTitle.trim(),
       company: company.trim(),
       phone: fullPhone,
-      event_name: "IFS Executive Briefing — Responding to Supply Chain Disruption · Dubai 21 October 2026",
+      event_name: "IFS Executive Briefing — Responding to Supply Chain Disruption · Dubai, December 2026 (date TBC)",
       metadata: {
         "Event Page": "IFS Executive Briefing · Dubai",
         "Page Section": "Reservation Form",
@@ -1814,7 +1817,7 @@ function IfsFooter() {
             letterSpacing: "0.16em",
             textTransform: "uppercase",
           }}>
-            Executive Briefing · IFS · Dubai, 21 October 2026
+            Executive Briefing · IFS · Dubai, December 2026
           </p>
         </div>
       </div>

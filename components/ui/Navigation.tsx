@@ -62,16 +62,10 @@ const NETWORKFIRST_COLOR = "#C9935A";
 // each group keeps the upcoming-events date order from /network-first
 type NFFormat = "virtual" | "physical";
 const networkFirstEvents: { href: string; label: string; date: string; format: NFFormat }[] = [
-  { href: "https://engage.unifyapps.com/rsvp/se-healthcare-telecom-lunch-dubai-october-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261015_MEA_OWNED_Lunch_SE_Healthcare_Telecom_Dubai", label: "UnifyApps · Health & Telecom", date: "15 Oct", format: "physical" },
-  // Both of these are at the Hilton Jeddah, but /ifs-29sept above is already
-  // labelled "IFS · Jeddah" — so these two carry their theme instead, which
-  // tells them apart where a third and fourth "IFS · Jeddah" would not.
-  { href: "/ifs-20core", label: "IFS · Construction & Engineering", date: "20 Oct", format: "physical" },
-  { href: "/ifs-dubai", label: "IFS · Dubai", date: "21 Oct", format: "physical" },
-  { href: "/ifs-21fm", label: "IFS · Property & Facilities", date: "21 Oct", format: "physical" },
   // Contracting is dropped from the label for length; all four sectors are on
   // the listing cards.
   { href: "https://engage.unifyapps.com/rsvp/se-airlines-ports-energy-contracting-lunch-oct-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261021_MEA_OWNED_Dubai_SE_Lunch_Airlines_Ports_Energy_Contracting", label: "UnifyApps · Airlines, Ports & Energy", date: "28 Oct", format: "physical" },
+  { href: "/outsystems2", label: "OutSystems · Innovator Day UAE", date: "28 Oct", format: "physical" },
   { href: "/sonicwall-genx", label: "SonicWall × GenX", date: "10 Nov", format: "physical" },
   { href: "/enterprisedb-southafrica", label: "EnterpriseDB, South Africa", date: "12 Nov", format: "physical" },
   { href: "/enterprisedb-egypt", label: "EnterpriseDB, Egypt", date: "16 Nov", format: "physical" },
@@ -79,6 +73,11 @@ const networkFirstEvents: { href: string; label: string; date: string; format: N
   { href: "/blackstone-liferay", label: "Blackstone eIT × Liferay", date: "24 Nov", format: "physical" },
   { href: "/enterprisedb-uae", label: "EnterpriseDB, UAE", date: "25 Nov", format: "physical" },
   { href: "/trpglobal", label: "TRPGLOBAL · Oracle Risk", date: "26 Nov", format: "physical" },
+  // Postponed from 20/21 Oct to December, exact days not set: after every dated
+  // boardroom. The two Jeddah ones carry their theme rather than "IFS · Jeddah".
+  { href: "/ifs-20core", label: "IFS · Construction & Engineering", date: "Dec · TBC", format: "physical" },
+  { href: "/ifs-dubai", label: "IFS · Dubai", date: "Dec · TBC", format: "physical" },
+  { href: "/ifs-21fm", label: "IFS · Property & Facilities", date: "Dec · TBC", format: "physical" },
   // Postponed from 23 Sep — date TBA, so it sits after every dated boardroom.
   { href: "/proofpoint", label: "Proofpoint", date: "TBA", format: "physical" },
 ];

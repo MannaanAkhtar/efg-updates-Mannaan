@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   // The headline leads, but the Construction & Engineering phrasing stays in
   // the title — it is what the page is actually searched for.
   title:
-    "From Project Complexity to Predictable Outcomes | IFS Construction & Engineering Roundtable · 20 October 2026",
+    "From Project Complexity to Predictable Outcomes | IFS Construction & Engineering Roundtable · December 2026",
   description:
-    "An IFS executive roundtable for Construction and Engineering leaders at the Hilton Jeddah on 20 October 2026, focused on transforming project delivery, improving financial control, maximizing asset performance and driving profitable growth through connected, intelligent operations.",
+    "An IFS executive roundtable for Construction and Engineering leaders at the Hilton Jeddah in December 2026, focused on transforming project delivery, improving financial control, maximizing asset performance and driving profitable growth through connected, intelligent operations.",
   keywords: [
     "IFS",
     "IFS Cloud ERP",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title:
-      "From Project Complexity to Predictable Outcomes — IFS Executive Roundtable, 20 October 2026",
+      "From Project Complexity to Predictable Outcomes — IFS Executive Roundtable, December 2026",
     description:
       "Transforming project delivery, financial control and asset performance through connected, intelligent operations. An exclusive IFS executive roundtable for Construction and Engineering leaders.",
     url: PAGE_URL,
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "IFS Executive Roundtable — Construction and Engineering, 20 October 2026",
+        alt: "IFS Executive Roundtable — Construction and Engineering, December 2026",
       },
     ],
     locale: "en_US",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     site: "@eventsfirstgrp",
     title: "From Project Complexity to Predictable Outcomes — IFS Executive Roundtable",
     description:
-      "20 October 2026. Transforming project delivery, financial control and asset performance through connected, intelligent operations.",
+      "December 2026. Transforming project delivery, financial control and asset performance through connected, intelligent operations.",
     images: [OG_IMAGE],
   },
 };
@@ -74,7 +74,11 @@ export default function IfsCoreEngineeringLayout({
             // Start time is not confirmed; the date is anchored to the start of
             // the event day and no endDate is claimed.
             startDate: "2026-10-20T09:00:00+03:00",
-            eventStatus: "https://schema.org/EventScheduled",
+            // Postponed to December 2026, exact date not set. Per Google's event
+            // structured-data guidance the ORIGINAL dates stay in startDate/endDate
+            // with status EventPostponed; switch to EventRescheduled (adding
+            // previousStartDate) once the new date is known.
+            eventStatus: "https://schema.org/EventPostponed",
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {
               "@type": "Place",

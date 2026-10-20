@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title:
     "Responding to Supply Chain Disruption — In Weeks, Not Months | IFS Executive Briefing · Dubai",
   description:
-    "Join the IFS executive briefing in Dubai on 21 October 2026: how logistics and supply chain leaders gain visibility, test scenarios, and act fast when volatility hits. Focused on Saudi Arabia & UAE.",
+    "Join the IFS executive briefing in Dubai in December 2026: how logistics and supply chain leaders gain visibility, test scenarios, and act fast when volatility hits. Focused on Saudi Arabia & UAE.",
   keywords: [
     "IFS",
     "supply chain disruption",
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title:
-      "Responding to Supply Chain Disruption — In Weeks, Not Months · Dubai, 21 October 2026",
+      "Responding to Supply Chain Disruption — In Weeks, Not Months · Dubai, December 2026",
     description:
-      "IFS executive briefing for logistics and supply chain leaders navigating active disruption. Dubai, UAE — 21 October 2026.",
+      "IFS executive briefing for logistics and supply chain leaders navigating active disruption. Dubai, UAE — December 2026.",
     url: PAGE_URL,
     siteName: "Events First Group",
     images: [
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "IFS Executive Briefing — Responding to Supply Chain Disruption, Dubai 21 October 2026",
+        alt: "IFS Executive Briefing — Responding to Supply Chain Disruption, Dubai, December 2026",
       },
     ],
     locale: "en_US",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
     title: "Responding to Supply Chain Disruption — IFS Executive Briefing",
-    description: "Dubai · 21 October 2026. For logistics leaders navigating active disruption.",
+    description: "Dubai · December 2026. For logistics leaders navigating active disruption.",
     images: [OG_IMAGE],
   },
 };
@@ -66,7 +66,11 @@ export default function IfsLayout({
               "IFS executive briefing covering visibility, simulation, and execution for logistics leaders responding to active supply chain disruption. Focused on Saudi Arabia & UAE.",
             startDate: "2026-10-21T10:00:00+04:00",
             endDate: "2026-10-21T12:30:00+04:00",
-            eventStatus: "https://schema.org/EventScheduled",
+            // Postponed to December 2026, exact date not set. Per Google's event
+            // structured-data guidance the ORIGINAL dates stay in startDate/endDate
+            // with status EventPostponed; switch to EventRescheduled (adding
+            // previousStartDate) once the new date is known.
+            eventStatus: "https://schema.org/EventPostponed",
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             location: {
               "@type": "Place",

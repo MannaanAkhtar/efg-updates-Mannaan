@@ -136,9 +136,10 @@ const UPCOMING_EVENTS = [
     image: `${NF}/2026/02/outsystems-one.jpg`,
   },
   {
-    date: "October 21st, 2026",
-    month: "OCT",
-    day: "21",
+    // Postponed from 21 Oct to December 2026; exact day not set yet.
+    date: "December 2026, date TBC",
+    month: "DEC",
+    day: "TBA",
     year: "2026",
     time: "10:00 – 12:30 GST",
     title: "IFS Executive Briefing",
@@ -152,9 +153,10 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg",
   },
   {
-    date: "October 20th, 2026",
-    month: "OCT",
-    day: "20",
+    // Postponed from 20 Oct to December 2026; exact day not set yet.
+    date: "December 2026, date TBC",
+    month: "DEC",
+    day: "TBA",
     year: "2026",
     // Start time still unconfirmed; the page itself says the same rather than
     // showing a placeholder that looks real.
@@ -170,9 +172,10 @@ const UPCOMING_EVENTS = [
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ifs_logo_negative_rgb-1.svg",
   },
   {
-    date: "October 21st, 2026",
-    month: "OCT",
-    day: "21",
+    // Postponed from 21 Oct to December 2026; exact day not set yet.
+    date: "December 2026, date TBC",
+    month: "DEC",
+    day: "TBA",
     year: "2026",
     // Start time still unconfirmed; the page itself says the same rather than
     // showing a placeholder that looks real.
@@ -223,23 +226,6 @@ const UPCOMING_EVENTS = [
     logoAsIs: true,
   },
   {
-    date: "October 15th, 2026",
-    month: "OCT",
-    day: "15",
-    year: "2026",
-    time: "10:00 AM – 1:30 PM",
-    title: "UnifyApps Signature Lunch",
-    subtitle: "An executive lunch for Healthcare & Telecom leaders, Dubai",
-    sponsor: "UnifyApps",
-    location: "Dubai, UAE",
-    link: "https://engage.unifyapps.com/rsvp/se-healthcare-telecom-lunch-dubai-october-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261015_MEA_OWNED_Lunch_SE_Healthcare_Telecom_Dubai",
-    image: "",
-    brandColor: "#6E86FF",
-    brandGradient: "linear-gradient(140deg, #FBFCFF 0%, #EEF1FF 40%, #DCE3FF 72%, #C6D2FF 100%)",
-    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/unifyapps+logo.svg",
-    darkLogo: true,
-  },
-  {
     date: "October 28th, 2026",
     month: "OCT",
     day: "28",
@@ -255,6 +241,25 @@ const UPCOMING_EVENTS = [
     brandGradient: "linear-gradient(140deg, #FBFCFF 0%, #EEF1FF 40%, #DCE3FF 72%, #C6D2FF 100%)",
     brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/unifyapps+logo.svg",
     darkLogo: true,
+  },
+  {
+    date: "October 28th, 2026",
+    month: "OCT",
+    day: "28",
+    year: "2026",
+    time: "09:00 – 15:00 GST",
+    title: "OutSystems Innovator Day UAE",
+    subtitle: "Turning AI ambition into practical action",
+    sponsor: "OutSystems",
+    location: "Museum of the Future, Dubai",
+    link: "/outsystems2",
+    image: "",
+    brandColor: "#F32D35",
+    // The Innovator Day lockup has dark lettering, so it sits on a light card
+    // and keeps its own colours (logoAsIs), like the TRPGLOBAL card.
+    brandGradient: "linear-gradient(135deg, #FFFFFF 0%, #F7F3F2 55%, #EBDDDB 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OutSystems_Innovator_Day.png",
+    logoAsIs: true,
   },
 ];
 
@@ -315,6 +320,21 @@ type PastEvent = {
 };
 
 const PAST_EVENTS_2026: PastEvent[] = [
+  {
+    // UnifyApps ran its own RSVP page, so the card carries no link now the
+    // event is over.
+    sponsor: "UnifyApps",
+    title: "UnifyApps Signature Lunch",
+    subtitle: "An executive lunch for Healthcare & Telecom leaders, Dubai",
+    month: "OCT",
+    date: "15 Oct",
+    venue: "Dubai, UAE",
+    time: "10:00 AM – 1:30 PM",
+    image: "",
+    brandColor: "#6E86FF",
+    brandGradient: "linear-gradient(135deg, #6E86FF 0%, #3B4FC4 40%, #16205A 75%, #0a0a0a 100%)",
+    brandLogo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/unifyapps+logo.svg",
+  },
   {
     sponsor: "Jedox | PlanPulse",
     title: "Unlock the Power of Modern FP&A",
@@ -2972,7 +2992,7 @@ function UpcomingSection() {
                                 ) : (
                                   // eslint-disable-next-line @next/next/no-img-element
                                   <img src={(e as unknown as Record<string, string>).brandLogo} alt="" style={{
-                                    height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Poka" ? 140 : e.sponsor === "Braze x Talon.One" ? 80 : e.sponsor === "Braze" ? 50 : e.sponsor === "UnifyApps" ? 64 : e.sponsor === "TRPGLOBAL" ? 28 : 72,
+                                    height: e.sponsor === "Crayon" || e.sponsor === "Crayon × Microsoft" ? 200 : e.sponsor === "Poka" ? 140 : e.sponsor === "Braze x Talon.One" ? 80 : e.sponsor === "Braze" ? 50 : e.sponsor === "UnifyApps" ? 64 : e.sponsor === "TRPGLOBAL" ? 28 : e.sponsor === "OutSystems" ? 30 : 72,
                                     width: "auto",
                                     opacity: 0.9,
                                     filter: (e as unknown as Record<string, unknown>).logoAsIs === true ? "none" : (e as unknown as Record<string, unknown>).darkLogo === true ? "brightness(0) opacity(0.82) drop-shadow(0 1px 3px rgba(0,0,0,0.12))" : "brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.35))"

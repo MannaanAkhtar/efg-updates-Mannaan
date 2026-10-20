@@ -55,7 +55,10 @@ const NAV_LINKS = [
 // Anchored to the start of the event day: no start time has been confirmed, so
 // the countdown counts down to the date itself and the page never prints a
 // fabricated time. Replace with the real start (and offset) once it is set.
-const EVENT_DATE_ISO = "2026-10-21T09:00:00+03:00";
+// Postponed from 21 October to December 2026; the exact day is not set yet,
+// so the ops bar shows a postponement notice in place of the countdown. Set
+// the real date here to bring the countdown back.
+const EVENT_DATE_ISO: string | null = null;
 
 // Stock imagery, per the same pattern as the OPEX KSA page — remote Unsplash
 // with an explicit width/quality so the cards don't pull full-resolution files.
@@ -794,11 +797,15 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, delay: 0.16, ease: [0.22,1,0.36,1] }}
         >
-          <OpsCell label="Date"><OpsValue>21 October 2026</OpsValue></OpsCell>
+          <OpsCell label="Date"><OpsValue>December 2026</OpsValue></OpsCell>
           <OpsCell label="Time"><OpsValue>To be announced</OpsValue></OpsCell>
           <OpsCell label="Venue"><OpsValue>Hilton Jeddah</OpsValue></OpsCell>
-          <OpsCell label="Doors open in" wide>
-            <CountdownTimer targetIso={EVENT_DATE_ISO} bare />
+          <OpsCell label={EVENT_DATE_ISO ? "Doors open in" : "Postponed"} wide>
+            {EVENT_DATE_ISO ? (
+              <CountdownTimer targetIso={EVENT_DATE_ISO} bare />
+            ) : (
+              <OpsValue>Exact date to be announced</OpsValue>
+            )}
           </OpsCell>
 
           <div className="ifs-ops-cta">
@@ -1639,7 +1646,7 @@ function AgendaAndFormSection() {
       job_title: jobTitle.trim(),
       company: company.trim(),
       phone: fullPhone,
-      event_name: "IFS Executive Roundtable — Property and Facilities Management · 21 October 2026",
+      event_name: "IFS Executive Roundtable — Property and Facilities Management · December 2026 (date TBC)",
       metadata: {
         "Event Page": "IFS Executive Roundtable · Property & Facilities Management",
         "Page Section": "Reservation Form",
@@ -2173,7 +2180,7 @@ function IfsFooter() {
             letterSpacing: "0.16em",
             textTransform: "uppercase",
           }}>
-            Executive Roundtable · IFS · Jeddah · 21 October 2026
+            Executive Roundtable · IFS · Jeddah · December 2026
           </p>
         </div>
       </div>
