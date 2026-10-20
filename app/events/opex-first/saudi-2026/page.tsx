@@ -247,6 +247,7 @@ const SPEAKERS: Speaker[] = [
   { name: "Abdulmajeed S. Alqumayshi", title: "Director of Quality Assurance", org: "ESNAD", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulmajeed+S.+Alqumayshi.jpg", linkedin: "https://www.linkedin.com/in/abdulmajeed-s-alqumayshi-158209129/" },
   { name: "Ali Al Hakami", title: "Senior Director – Organisational Excellence", org: "Hail Region Development Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ali+Al+Hakami.png", linkedin: "https://www.linkedin.com/in/ali-al-hakami-19b54755/" },
   { name: "Abdullah M. Alzkeri", title: "Business Excellence Leader", org: "a PIF-owned giga-project company", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdullah+M+Alzkeri.jpeg", linkedin: "https://www.linkedin.com/in/alzkeri/" },
+  { name: "Anton Melnik", title: "CEO", org: "Alphyn.ai", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anton+Melnik.png", linkedin: "https://www.linkedin.com/in/antonmelnik" },
 ];
 
 type AgendaItem = {
@@ -366,7 +367,9 @@ const AGENDA: AgendaItem[] = [
   {
     time: "13:50 – 14:05",
     type: "Technology Presentation",
-    title: "Reserved for Databorn",
+    title: "One Open Stack for Sovereign AI",
+    subtitle: "The on-prem petabyte-scale data platform for AI in the Kingdom of Saudi Arabia",
+    speaker: "Anton Melnik, CEO, Alphyn.ai",
   },
   {
     time: "14:05 – 14:40",
@@ -446,7 +449,10 @@ const OPEX_SHORTS = [
   { id: "SLkj5gO-LQ8", label: "OPEX First" },
 ];
 
-const AWARDS = [
+// `body` is optional: the two categories added on 2026-10-20 (Regulatory
+// Excellence, Excellence Enablement) came without descriptions, so their cards
+// show the title only until copy is supplied.
+const AWARDS: { title: string; body?: string }[] = [
   {
     title: "Operational Excellence Award",
     body: "Recognises organisations or teams demonstrating outstanding implementation of OPEX methodologies — efficiency, cost reduction, and process optimisation gains.",
@@ -456,12 +462,10 @@ const AWARDS = [
     body: "Honours pioneering use of AI, IoT, data analytics, automation, or emerging technologies driving operational efficiency, predictive insights, and scalable improvements.",
   },
   {
-    title: "Sustainability & ESG Operational Excellence",
-    body: "Awards integration of sustainable practices, environmental responsibility, social impact, and strong governance into core operations — verifiable carbon, resource, or ESG performance.",
+    title: "Regulatory Excellence Award",
   },
   {
-    title: "Supply Chain & Procurement Optimisation",
-    body: "Celebrates innovative strategies in supply chain resilience, procurement efficiency, vendor management, and logistics — cost savings, risk mitigation, and agility in volatile environments.",
+    title: "Excellence Enablement Award",
   },
   {
     title: "Leadership in Operational & Change Excellence",
@@ -6547,7 +6551,7 @@ function Awards() {
               <span className="opex-cat-num">{String(i + 1).padStart(2, "0")}</span>
               <span className="opex-cat-divider" />
               <h3 className="opex-cat-title">{a.title}</h3>
-              <p className="opex-cat-body">{a.body}</p>
+              {a.body && <p className="opex-cat-body">{a.body}</p>}
             </article>
           ))}
         </div>
@@ -7227,7 +7231,7 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   { q: "Where is OPEX First Saudi 2026 held?", a: "OPEX First Saudi 2026 is held at the Hyatt Regency Riyadh Olaya in Riyadh, Saudi Arabia." },
   { q: "Who attends OPEX First Saudi 2026?", a: "Senior leaders driving operational excellence and digital transformation across Saudi Arabia — public-sector executives, enterprise C-suite, transformation directors, and process intelligence leaders. Attendance is invitation-only with 220+ delegates and 30+ speakers." },
   { q: "Is there a fee to attend OPEX First Saudi 2026?", a: "Attendance is free for qualified delegates. Apply via the registration form on the event page; the advisory team will confirm eligibility." },
-  { q: "How do I nominate someone for the OPEX First Awards 2026?", a: "Submit a nomination via the form in the Awards section of the event page. Five categories cover Operational Excellence, AI & Digital Transformation, Sustainability & ESG, Supply Chain & Procurement, and Leadership in Operational & Change Excellence." },
+  { q: "How do I nominate someone for the OPEX First Awards 2026?", a: "Submit a nomination via the form in the Awards section of the event page. Five categories cover Operational Excellence, AI & Digital Transformation, Regulatory Excellence, Excellence Enablement, and Leadership in Operational & Change Excellence." },
 ];
 
 function Faq() {

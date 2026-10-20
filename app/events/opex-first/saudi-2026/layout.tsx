@@ -177,7 +177,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 name: "How do I nominate someone for the OPEX First Awards 2026?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Submit a nomination via the form in the Awards section of the event page. Five categories cover Operational Excellence, AI & Digital Transformation, Sustainability & ESG, Supply Chain & Procurement, and Leadership in Operational & Change Excellence.",
+                  text: "Submit a nomination via the form in the Awards section of the event page. Five categories cover Operational Excellence, AI & Digital Transformation, Regulatory Excellence, Excellence Enablement, and Leadership in Operational & Change Excellence.",
                 },
               },
             ],
@@ -204,7 +204,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           { name: "RICS", tier: "Confirmed" },
           { name: "IQS", tier: "Confirmed" },
         ]}
-        awards={["Operational Excellence", "AI & Digital Transformation", "Sustainability & ESG", "Supply Chain & Procurement", "Leadership in Operational & Change Excellence"]}
+        awards={["Operational Excellence", "AI & Digital Transformation", "Regulatory Excellence", "Excellence Enablement", "Leadership in Operational & Change Excellence"]}
         url={PAGE_URL}
       />
       {children}
