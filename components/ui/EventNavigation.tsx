@@ -216,6 +216,32 @@ const EVENT_CONFIGS: Record<string, {
     ],
     langSwitch: true,
   },
+  // Unbranded clone of the KSA page. No logo by request (the KSA logo carries
+  // the OT Security First name): with no `logo`, the nav renders `shortName`
+  // as text, with the date and location underneath.
+  "/events/otfirst": {
+    name: "OT First 2026",
+    shortName: "OT First",
+    color: "#D34B9A",
+    colorBright: "#E872B5",
+    date: "7 December 2026",
+    location: "Dammam, Saudi Arabia",
+    navLinks: [
+      { href: "#overview", label: "Overview" },
+      { href: "#speakers", label: "Speakers" },
+      { href: "#agenda", label: "Agenda" },
+      {
+        label: "Partners",
+        children: [
+          { href: "#supporting-partner", label: "Supporting Partner" },
+          { href: "#sponsors", label: "Sponsors" },
+          { href: "#media-partners", label: "Media Partners" },
+        ],
+      },
+      { href: "#awards", label: "Awards" },
+    ],
+    langSwitch: true,
+  },
   "/events/ot-security-first/oman-2026": {
     name: "OT Security Oman 2026",
     shortName: "OT Security Oman",

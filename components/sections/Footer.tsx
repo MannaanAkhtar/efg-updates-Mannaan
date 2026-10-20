@@ -27,7 +27,13 @@ const footerLinks = {
   ],
 };
 
-export default function Footer() {
+/**
+ * `hideEvents` drops series links from the Events column by label, for pages
+ * that must not name a particular series (the unbranded /events/otfirst page
+ * leaves out "OT Security First").
+ */
+export default function Footer({ hideEvents = [] }: { hideEvents?: string[] } = {}) {
+  const eventLinks = footerLinks.events.filter((l) => !hideEvents.includes(l.label));
   return (
     <footer
       style={{
@@ -89,7 +95,7 @@ export default function Footer() {
           </div>
 
           {/* Column 2, Events */}
-          <FooterColumn title="Events" links={footerLinks.events} />
+          <FooterColumn title="Events" links={eventLinks} />
 
           {/* Column 3, Company */}
           <FooterColumn title="Company" links={footerLinks.company} />
