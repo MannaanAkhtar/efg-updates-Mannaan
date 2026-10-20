@@ -130,6 +130,8 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   // Single register form, so no tab= (same as the KSA page above).
   "os2-jacqueline": { path: "/outsystems2", source: "jacqueline", campaign: "outsystems-uae", hash: "register" },
   "os2-sangeetha": { path: "/outsystems2", source: "sangeetha", campaign: "outsystems-uae", hash: "register" },
+  "os2-mary": { path: "/outsystems2", source: "mary", campaign: "outsystems-uae", hash: "register" },
+  "os2-stephen": { path: "/outsystems2", source: "stephen", campaign: "outsystems-uae", hash: "register" },
 
   // UnifyApps Executive Boardroom — Airlines, Ports, Energy & Contracting,
   // Dubai, 28 Oct 2026. Single register form, so no tab=.
