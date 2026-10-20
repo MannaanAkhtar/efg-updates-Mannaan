@@ -188,7 +188,7 @@ const EVENT_CONFIGS: Record<string, {
       { href: "#venue", label: "Venue" },
     ],
   },
-  "/events/ot-security-first/jubail": {
+  "/events/ot-security-first/ksa": {
     name: "OT Security Jubail 2026",
     shortName: "OT Security Jubail",
     color: "#D34B9A",

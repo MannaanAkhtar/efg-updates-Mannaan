@@ -34,12 +34,12 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   "otsf-jhb-email": { path: "/events/ot-security-first/johannesburg-2026", source: "email", medium: "email", campaign: "otsf-jhb-2026", hash: "register" },
 
   // OT Security First Jubail 2026
-  "otsf-jub-anna": { path: "/events/ot-security-first/jubail", source: "anna", campaign: "otsf-jubail-2026", hash: "register", tab: "attend" },
-  "otsf-jub-mary": { path: "/events/ot-security-first/jubail", source: "mary", campaign: "otsf-jubail-2026", hash: "register", tab: "attend" },
-  "otsf-jub-stephen": { path: "/events/ot-security-first/jubail", source: "stephen", campaign: "otsf-jubail-2026", hash: "register", tab: "attend" },
-  "otsf-jub-reem": { path: "/events/ot-security-first/jubail", source: "reem", campaign: "otsf-jubail-2026", hash: "register", tab: "attend" },
-  "otsf-jub-duaa": { path: "/events/ot-security-first/jubail", source: "duaa", campaign: "otsf-jubail-2026", hash: "register", tab: "attend" },
-  "otsf-jub-linkedin": { path: "/events/ot-security-first/jubail", source: "linkedin", medium: "social", campaign: "otsf-jubail-2026", hash: "register" },
+  "otsf-jub-anna": { path: "/events/ot-security-first/ksa", source: "anna", campaign: "otsf-jubail-2026", hash: "register", tab: "attend" },
+  "otsf-jub-mary": { path: "/events/ot-security-first/ksa", source: "mary", campaign: "otsf-jubail-2026", hash: "register", tab: "attend" },
+  "otsf-jub-stephen": { path: "/events/ot-security-first/ksa", source: "stephen", campaign: "otsf-jubail-2026", hash: "register", tab: "attend" },
+  "otsf-jub-reem": { path: "/events/ot-security-first/ksa", source: "reem", campaign: "otsf-jubail-2026", hash: "register", tab: "attend" },
+  "otsf-jub-duaa": { path: "/events/ot-security-first/ksa", source: "duaa", campaign: "otsf-jubail-2026", hash: "register", tab: "attend" },
+  "otsf-jub-linkedin": { path: "/events/ot-security-first/ksa", source: "linkedin", medium: "social", campaign: "otsf-jubail-2026", hash: "register" },
 
   // Cyber First East Africa 2026
   "cfea-nadim": { path: "/events/cyber-first/kenya-2026", source: "nadim", campaign: "cfea-2026", hash: "register", tab: "attend" },

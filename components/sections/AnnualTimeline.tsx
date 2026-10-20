@@ -253,7 +253,7 @@ export const allEvents: EventItem[] = [
     location: "Dammam, Saudi Arabia",
     venue: "Sheraton Dammam Hotel & Convention Centre",
     attendees: "300+",
-    href: "/events/ot-security-first/jubail",
+    href: "/events/ot-security-first/ksa",
     status: "soon",
   },
   {

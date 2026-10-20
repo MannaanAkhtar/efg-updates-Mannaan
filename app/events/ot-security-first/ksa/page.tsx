@@ -6008,7 +6008,7 @@ function BePartOfTheMovement() {
 // form_language: "Arabic" added to the metadata when sent in Arabic. The choice
 // is shared with the nav's EN | ع switch (lib/page-lang), so both stay in step.
 function RegisterSection() {
-  const [lang, setLang] = usePageLang("/events/ot-security-first/jubail");
+  const [lang, setLang] = usePageLang("/events/ot-security-first/ksa");
   const isAr = lang === "ar";
   return (
     <section

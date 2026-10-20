@@ -14,7 +14,7 @@ const plexArabic = IBM_Plex_Sans_Arabic({
 });
 
 const BASE_URL = "https://www.eventsfirstgroup.com";
-const PAGE_URL = `${BASE_URL}/events/ot-security-first/jubail`;
+const PAGE_URL = `${BASE_URL}/events/ot-security-first/ksa`;
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT_Jubail.png";
 const OG_IMAGE_ALT = "OT Security First Jubail 2026 — Industrial cybersecurity summit, 7 December 2026, Dammam, Saudi Arabia";
 

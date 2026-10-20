@@ -6225,7 +6225,7 @@ function AgendaSection() {
 type JhbEdition = { city: string; edition: string; when: string; href?: string; logo?: string; image?: string; scrimLight?: boolean };
 const JHB_EDITIONS: JhbEdition[] = [
   { city: "Doha, Qatar", edition: "Qatar Edition", when: "November 2026", href: "/events/ot-security-first/qatar", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT+Qatar-02.png", image: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT_qatar.png", scrimLight: true },
-  { city: "Dammam, KSA", edition: "2nd Edition", when: "December 2026", href: "/events/ot-security-first/jubail", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OT+KSA+logo.png", image: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT_Jubail.png", scrimLight: true },
+  { city: "Dammam, KSA", edition: "2nd Edition", when: "December 2026", href: "/events/ot-security-first/ksa", logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/OT+KSA+logo.png", image: "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT_Jubail.png", scrimLight: true },
   { city: "United Arab Emirates", edition: "Flagship Edition", when: "2027" },
   { city: "Muscat, Oman", edition: "New Edition", when: "2027" },
 ];

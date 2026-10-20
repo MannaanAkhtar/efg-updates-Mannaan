@@ -27,9 +27,13 @@ const nextConfig: NextConfig = {
       { source: "/opex-first", destination: "/events/opex-first", permanent: true },
       { source: "/opex-first/", destination: "/events/opex-first", permanent: true },
       { source: "/events/opex-first/virtual-boardroom-mena", destination: "/events/opex-first/process-intelligence", permanent: true },
-      // OT Security First Jubail — URL shortened from jubail-2026 → jubail
-      { source: "/events/ot-security-first/jubail-2026", destination: "/events/ot-security-first/jubail", permanent: true },
-      { source: "/events/ot-security-first/jubail-2026/", destination: "/events/ot-security-first/jubail", permanent: true },
+      // OT Security First KSA — first jubail-2026, then jubail, now ksa (2026-10-20).
+      // Every old URL goes straight to the current one; query strings (UTM tags)
+      // carry over automatically, and the browser keeps any #register anchor.
+      { source: "/events/ot-security-first/jubail-2026", destination: "/events/ot-security-first/ksa", permanent: true },
+      { source: "/events/ot-security-first/jubail-2026/", destination: "/events/ot-security-first/ksa", permanent: true },
+      { source: "/events/ot-security-first/jubail", destination: "/events/ot-security-first/ksa", permanent: true },
+      { source: "/events/ot-security-first/jubail/", destination: "/events/ot-security-first/ksa", permanent: true },
       // OT Security First Africa — email campaign sent /africa by mistake → correct Johannesburg page
       { source: "/events/ot-security-first/africa", destination: "/events/ot-security-first/johannesburg-2026", permanent: true },
       { source: "/events/ot-security-first/africa/", destination: "/events/ot-security-first/johannesburg-2026", permanent: true },
