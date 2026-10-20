@@ -90,6 +90,9 @@ const REP_LINKS: Record<string, { path: string; source: string; campaign: string
   // be a no-op — and the page has no ?tab handler to read it anyway.
   "cfk-li": { path: "/events/cyber-first/kuwait-2026", source: "linkedin", medium: "social", campaign: "cf-kuwait-2026", hash: "register" },
   "cfk-afra": { path: "/events/cyber-first/kuwait-2026", source: "afra", campaign: "cf-kuwait-2026", hash: "register" },
+  // For Broadbits (strategic partner) to share. "partner" (not sales/invite) so
+  // sign-ups are tracked as Broadbits-sourced without showing as a rep referral.
+  "cfk-broadbits": { path: "/events/cyber-first/kuwait-2026", source: "broadbits", medium: "partner", campaign: "cf-kuwait-2026", hash: "register", tab: "attend" },
 
   // EnterpriseDB Executive Roundtable — KSA — deep-link straight to the register form
   "edbksa-afra": { path: "/enterprisedb-ksa", source: "afra", campaign: "enterprisedb-ksa", medium: "invite", hash: "register" },
