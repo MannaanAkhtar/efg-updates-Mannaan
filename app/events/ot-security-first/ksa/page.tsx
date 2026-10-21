@@ -35,7 +35,7 @@ const BG_DEEP = "#050818";    // Deep navy/black
 const BG_BASE = "#070C20";    // Section base
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const HERO_VIDEO = "https://efg-final.s3.eu-north-1.amazonaws.com/hero+videos/OT+Jubail+Hero.mp4";
+const HERO_VIDEO = "https://efg-final.s3.eu-north-1.amazonaws.com/hero+videos/OT+Dammam+Hero.mp4";
 const EVENT_DATE_ISO = "2026-12-07T08:30:00+03:00";
 
 const S3 = "https://efg-final.s3.eu-north-1.amazonaws.com";
@@ -449,7 +449,7 @@ export default function OTSecurityJubail2026() {
       <Hero />
       <StatsStrip />
       <ExecutivePerspective />
-      <CpdCertified eventName="OT Security First Jubail 2026" theme={C} registerHref="#register" logoUrl="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/CPD+jubail.jpeg" logoWide />
+      <CpdCertified eventName="OT Security First KSA 2026" theme={C} registerHref="#register" logoUrl="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/CPD+jubail.jpeg" logoWide />
       <WhyKingdom />
       <AdvisorsSection />
       <SpeakersSection />
@@ -975,7 +975,7 @@ function Hero() {
             loading="lazy"
             decoding="async"
             src="/events-first-group_logo_alt.svg"
-            alt="Events First Group logo - producers of OT Security First Jubail 2026, the Kingdom's flagship industrial cybersecurity summit"
+            alt="Events First Group logo - producers of OT Security First KSA 2026, the Kingdom's flagship industrial cybersecurity summit"
             width={180}
             height={66}
             style={{ height: 50, width: "auto", opacity: 0.8, transform: "translateY(-12px)" }}
@@ -1017,7 +1017,7 @@ function Hero() {
             loading="lazy"
             decoding="async"
             src="https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/CPD+jubail.jpeg"
-            alt="CPD accreditation - Accreditation Partner of OT Security First Jubail 2026"
+            alt="CPD accreditation - Accreditation Partner of OT Security First KSA 2026"
             style={{ height: 74, width: "auto", borderRadius: 8, display: "block", border: "1px solid rgba(255,255,255,0.16)", boxShadow: "0 8px 22px rgba(0,0,0,0.4)" }}
           />
         </motion.div>
@@ -1067,7 +1067,7 @@ function Hero() {
               loading="lazy"
               decoding="async"
               src={`${S3_LOGOS}/ISACA_logo_Riyadh_rev_RGB.png`}
-              alt="ISACA Riyadh Chapter logo - Supporting Partner of OT Security First Jubail 2026"
+              alt="ISACA Riyadh Chapter logo - Supporting Partner of OT Security First KSA 2026"
               style={{ height: 52, width: "auto", opacity: 0.9, objectFit: "contain", display: "block" }}
             />
           </a>
@@ -1082,7 +1082,7 @@ function Hero() {
               loading="lazy"
               decoding="async"
               src={`${S3}/logos/Logos-02.png`}
-              alt="Maadaniyah logo - Supporting Partner of OT Security First Jubail 2026"
+              alt="Maadaniyah logo - Supporting Partner of OT Security First KSA 2026"
               style={{ height: 82, width: "auto", opacity: 0.9, objectFit: "contain", display: "block" }}
             />
           </span>
@@ -1100,7 +1100,7 @@ function Hero() {
               loading="lazy"
               decoding="async"
               src={`${S3}/logos/Logos-03.png`}
-              alt="CREST logo - Supporting Partner of OT Security First Jubail 2026"
+              alt="CREST logo - Supporting Partner of OT Security First KSA 2026"
               style={{ height: 82, width: "auto", opacity: 0.9, objectFit: "contain", display: "block" }}
             />
           </a>
@@ -1678,7 +1678,7 @@ function ExecutivePerspective() {
               maxWidth: 1040,
             }}
           >
-            <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT, paddingRight: "0.18em" }}>OT Security First - Jubail</em>{" "}
+            <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT, paddingRight: "0.18em" }}>OT Security First - KSA</em>{" "}
             is a world-class, one-day strategic dialogue platform dedicated to advancing industrial cybersecurity and operational resilience across the Kingdom.
           </p>
 
@@ -1826,7 +1826,7 @@ function WhyKingdom() {
         >
           Two converging realities define the moment for{" "}
           <em style={{ fontStyle: "italic", fontWeight: 400, color: CYAN }}>
-            OT Security First - Jubail.
+            OT Security First - KSA.
           </em>
         </motion.h2>
 
@@ -1834,7 +1834,8 @@ function WhyKingdom() {
           className="otsf-jb-why-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 1fr",
+            gridTemplateColumns: "minmax(0, 640px)",
+            justifyContent: "center",
             gap: "clamp(22px, 3vw, 40px)",
             alignItems: "stretch",
           }}
@@ -1850,18 +1851,6 @@ function WhyKingdom() {
             ]}
             inView={inView}
             delay={0.2}
-          />
-          <WhyCard
-            serial="02"
-            tag="Why Jubail"
-            headline="The industrial focal point of national resilience."
-            bullets={[
-              "Defining industrial cyber events have already proven this risk is no longer theoretical.",
-              "Jubail concentrates critical petrochemical and energy assets material to GDP and exports.",
-              "Industrial density makes Jubail a strategic focal point for advancing OT cybersecurity maturity.",
-            ]}
-            inView={inView}
-            delay={0.3}
           />
         </div>
       </div>
@@ -2321,7 +2310,7 @@ function StatsStrip() {
   return (
     <section
       ref={ref}
-      aria-label="OT Security First Jubail 2026 by the numbers"
+      aria-label="OT Security First KSA 2026 by the numbers"
       style={{
         position: "relative",
         background: `linear-gradient(180deg, ${BG_DEEP} 0%, #090d22 50%, ${BG_DEEP} 100%)`,
@@ -3591,7 +3580,7 @@ function AgendaSection() {
             margin: "clamp(34px, 4vw, 48px) 0 0",
           }}
         >
-          OT Security First Jubail · 7 December 2026 · Dammam, Saudi Arabia ·{" "}
+          OT Security First KSA · 7 December 2026 · Dammam, Saudi Arabia ·{" "}
           <span style={{ color: `${C_BRIGHT}bb` }}>Agenda is subject to change</span>
         </motion.p>
       </div>
@@ -3704,7 +3693,7 @@ function ContactCard({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={photo}
-          alt={`${name}, ${role} at Events First Group - contact for OT Security First Jubail 2026 industrial cybersecurity summit`}
+          alt={`${name}, ${role} at Events First Group - contact for OT Security First KSA 2026 industrial cybersecurity summit`}
           width={420}
           height={560}
           loading="lazy"
@@ -4166,7 +4155,7 @@ function SpeakersSection() {
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={s.photo}
-                    alt={`${s.name}, ${s.title}${s.org ? ` at ${s.org}` : ""} - speaker at OT Security First Jubail 2026 industrial cybersecurity summit, Saudi Arabia`}
+                    alt={`${s.name}, ${s.title}${s.org ? ` at ${s.org}` : ""} - speaker at OT Security First KSA 2026 industrial cybersecurity summit, Saudi Arabia`}
                     loading="lazy"
                     decoding="async"
                     style={{
@@ -4494,7 +4483,7 @@ function AdvisorsSection() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={s.photo || ""}
-                  alt={`${s.name}, ${s.title}${s.org ? ` at ${s.org}` : ""} - advisor to OT Security First Jubail 2026 industrial cybersecurity summit, Saudi Arabia`}
+                  alt={`${s.name}, ${s.title}${s.org ? ` at ${s.org}` : ""} - advisor to OT Security First KSA 2026 industrial cybersecurity summit, Saudi Arabia`}
                   loading="lazy"
                   decoding="async"
                   style={{
@@ -4813,7 +4802,7 @@ function SponsorsSection() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={s.logo}
-                    alt={`${s.name} — ${t.tier} of OT Security First Jubail 2026 industrial cybersecurity summit`}
+                    alt={`${s.name} — ${t.tier} of OT Security First KSA 2026 industrial cybersecurity summit`}
                     loading="lazy"
                     decoding="async"
                     style={imgStyle}
@@ -4829,7 +4818,7 @@ function SponsorsSection() {
                 style: plateStyle,
               };
               return s.href ? (
-                <motion.a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`${s.name} — ${t.tier} of OT Security First Jubail`} {...common}>
+                <motion.a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`${s.name} — ${t.tier} of OT Security First KSA`} {...common}>
                   {inner}
                 </motion.a>
               ) : (
@@ -5438,7 +5427,7 @@ function AwardsSection() {
           >
             OT Security First{" "}
             <span style={{ background: `linear-gradient(135deg, ${GOLD}, ${GOLD_BRIGHT})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-              Jubail Awards 2026
+              KSA Awards 2026
             </span>
           </h2>
         </motion.div>
@@ -6058,7 +6047,7 @@ function RegisterSection() {
       >
         <InquiryForm
           defaultCountry="SA"
-          eventName="OT Security First Jubail 2026"
+          eventName="OT Security First KSA 2026"
           labelText={isAr ? "انضم إلينا في الدمام" : "Join Us in Dammam"}
           lang={lang}
         />
@@ -6144,7 +6133,7 @@ function VenueSection() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="https://efg-final.s3.eu-north-1.amazonaws.com/venues/Sheraton+Hotel+at+Twilight.png"
-        alt="Sheraton Dammam Hotel & Convention Centre, Dammam, Saudi Arabia — OT Security First Jubail 2026 venue"
+        alt="Sheraton Dammam Hotel & Convention Centre, Dammam, Saudi Arabia — OT Security First KSA 2026 venue"
         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }}
       />
       {/* Readability scrim */}
@@ -6262,7 +6251,7 @@ function VenueSection() {
               marginRight: "auto",
             }}
           >
-            In Dammam, Kingdom of Saudi Arabia — host to OT Security First Jubail 2026.
+            In Dammam, Kingdom of Saudi Arabia — host to OT Security First KSA 2026.
           </p>
           <a
             href="https://maps.app.goo.gl/1MgyRixX9wQpwr1TA"

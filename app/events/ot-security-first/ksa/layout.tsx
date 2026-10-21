@@ -16,22 +16,22 @@ const plexArabic = IBM_Plex_Sans_Arabic({
 const BASE_URL = "https://www.eventsfirstgroup.com";
 const PAGE_URL = `${BASE_URL}/events/ot-security-first/ksa`;
 const OG_IMAGE = "https://efg-final.s3.eu-north-1.amazonaws.com/assets/OT_Jubail.png";
-const OG_IMAGE_ALT = "OT Security First Jubail 2026 — Industrial cybersecurity summit, 7 December 2026, Dammam, Saudi Arabia";
+const OG_IMAGE_ALT = "OT Security First KSA 2026 — Industrial cybersecurity summit, 7 December 2026, Dammam, Saudi Arabia";
 
 const EVENT_START = "2026-12-07T08:30:00+03:00";
 const EVENT_END = "2026-12-07T17:30:00+03:00";
 
 const RICH_DESCRIPTION =
-  "OT Security First Jubail 2026 — the Kingdom's flagship industrial cybersecurity summit. Aligned with NCA OTCC-1:2022, convening CISOs, regulators, and critical infrastructure leaders. 7 December 2026, Dammam, Saudi Arabia.";
+  "OT Security First KSA 2026 — the Kingdom's flagship industrial cybersecurity summit. Aligned with NCA OTCC-1:2022, convening CISOs, regulators, and critical infrastructure leaders. 7 December 2026, Dammam, Saudi Arabia.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-  title: "OT Security Jubail 2026 | Industrial Cybersecurity Summit — 7 Dec",
+  title: "OT Security KSA 2026 | Industrial Cybersecurity Summit — 7 Dec",
   description: RICH_DESCRIPTION,
   keywords: [
-    "OT Security First Jubail 2026",
+    "OT Security First KSA 2026",
     "OT security summit Saudi Arabia",
-    "industrial cybersecurity Jubail",
+    "industrial cybersecurity KSA",
     "critical infrastructure security KSA",
     "NCA OTCC-1:2022 compliance",
     "SCADA security summit Saudi",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "OT Security First Jubail 2026 — Industrial Cybersecurity Summit",
+    title: "OT Security First KSA 2026 — Industrial Cybersecurity Summit",
     description: RICH_DESCRIPTION,
     url: PAGE_URL,
     siteName: "Events First Group",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     site: "@eventsfirstgrp",
-    title: "OT Security First Jubail 2026",
+    title: "OT Security First KSA 2026",
     description: RICH_DESCRIPTION,
     images: [{ url: OG_IMAGE, alt: OG_IMAGE_ALT }],
   },
@@ -77,7 +77,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Preconnect + DNS-prefetch to S3 — most page assets (hero video, bg images, gallery, speaker photos) hit this origin */}
       <link rel="preconnect" href="https://efg-final.s3.eu-north-1.amazonaws.com" crossOrigin="anonymous" />
       <link rel="dns-prefetch" href="https://efg-final.s3.eu-north-1.amazonaws.com" />
-      <BreadcrumbSchema items={[{ name: "Home", url: BASE_URL }, { name: "Events", url: `${BASE_URL}/events` }, { name: "OT Security First", url: `${BASE_URL}/events/ot-security-first` }, { name: "Jubail 2026", url: PAGE_URL }]} />
+      <BreadcrumbSchema items={[{ name: "Home", url: BASE_URL }, { name: "Events", url: `${BASE_URL}/events` }, { name: "OT Security First", url: `${BASE_URL}/events/ot-security-first` }, { name: "KSA 2026", url: PAGE_URL }]} />
       {/* Organization schema — site-wide brand surface for knowledge-panel eligibility */}
       <script
         type="application/ld+json"
@@ -104,8 +104,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Event",
-            name: "OT Security First Jubail 2026",
-            alternateName: ["OT Security Jubail 2026", "OT Security First Saudi 2026"],
+            name: "OT Security First KSA 2026",
+            alternateName: ["OT Security KSA 2026", "OT Security First Saudi 2026"],
             description:
               "The Kingdom's flagship industrial cybersecurity summit — aligned with NCA OTCC-1:2022, convening CISOs, regulators, and critical infrastructure leaders for one day in Dammam.",
             image: [OG_IMAGE],
@@ -158,19 +158,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             "@context": "https://schema.org",
             "@type": "FAQPage",
             mainEntity: [
-              { "@type": "Question", name: "When is OT Security First Jubail 2026?", acceptedAnswer: { "@type": "Answer", text: "OT Security First Jubail 2026 takes place on 7 December 2026 in Dammam, Saudi Arabia. It is a one-day strategic dialogue platform for industrial cybersecurity and operational resilience." } },
-              { "@type": "Question", name: "Where is OT Security First Jubail 2026 held?", acceptedAnswer: { "@type": "Answer", text: "At the Sheraton Dammam Hotel & Convention Centre in Dammam, Saudi Arabia." } },
-              { "@type": "Question", name: "Who attends OT Security First Jubail 2026?", acceptedAnswer: { "@type": "Answer", text: "Senior government policymakers, National Cybersecurity Authority regulators, heads of critical infrastructure, CISOs, CIOs, CTOs, CDOs, heads of OT/ICS cybersecurity, risk and compliance executives, and leaders from energy, utilities, petrochemicals, and manufacturing. Attendance is invitation-only." } },
-              { "@type": "Question", name: "Is there a fee to attend OT Security First Jubail 2026?", acceptedAnswer: { "@type": "Answer", text: "Attendance is free for qualified delegates. Apply via the registration form on the event page; the advisory team will confirm eligibility." } },
-              { "@type": "Question", name: "How do I register or sponsor OT Security First Jubail 2026?", acceptedAnswer: { "@type": "Answer", text: "Register via the form on this page. For sponsorship, partnership, or speaking enquiries, contact partnerships@eventsfirstgroup.com." } },
-              { "@type": "Question", name: "Does OT Security First Jubail 2026 align with NCA OTCC-1:2022?", acceptedAnswer: { "@type": "Answer", text: "Yes. The summit is aligned with the Saudi National Cybersecurity Authority's Operational Technology Cybersecurity Controls (OTCC-1:2022) and supports the Kingdom's national cybersecurity framework under Vision 2030." } },
-              { "@type": "Question", name: "Which industries are represented at OT Security First Jubail 2026?", acceptedAnswer: { "@type": "Answer", text: "Oil and gas, power and utilities, petrochemicals, water and waste, nuclear, manufacturing, mining and metals, transport and logistics, smart cities, and critical government infrastructure — across both public sector leadership and private sector execution." } },
+              { "@type": "Question", name: "When is OT Security First KSA 2026?", acceptedAnswer: { "@type": "Answer", text: "OT Security First KSA 2026 takes place on 7 December 2026 in Dammam, Saudi Arabia. It is a one-day strategic dialogue platform for industrial cybersecurity and operational resilience." } },
+              { "@type": "Question", name: "Where is OT Security First KSA 2026 held?", acceptedAnswer: { "@type": "Answer", text: "At the Sheraton Dammam Hotel & Convention Centre in Dammam, Saudi Arabia." } },
+              { "@type": "Question", name: "Who attends OT Security First KSA 2026?", acceptedAnswer: { "@type": "Answer", text: "Senior government policymakers, National Cybersecurity Authority regulators, heads of critical infrastructure, CISOs, CIOs, CTOs, CDOs, heads of OT/ICS cybersecurity, risk and compliance executives, and leaders from energy, utilities, petrochemicals, and manufacturing. Attendance is invitation-only." } },
+              { "@type": "Question", name: "Is there a fee to attend OT Security First KSA 2026?", acceptedAnswer: { "@type": "Answer", text: "Attendance is free for qualified delegates. Apply via the registration form on the event page; the advisory team will confirm eligibility." } },
+              { "@type": "Question", name: "How do I register or sponsor OT Security First KSA 2026?", acceptedAnswer: { "@type": "Answer", text: "Register via the form on this page. For sponsorship, partnership, or speaking enquiries, contact partnerships@eventsfirstgroup.com." } },
+              { "@type": "Question", name: "Does OT Security First KSA 2026 align with NCA OTCC-1:2022?", acceptedAnswer: { "@type": "Answer", text: "Yes. The summit is aligned with the Saudi National Cybersecurity Authority's Operational Technology Cybersecurity Controls (OTCC-1:2022) and supports the Kingdom's national cybersecurity framework under Vision 2030." } },
+              { "@type": "Question", name: "Which industries are represented at OT Security First KSA 2026?", acceptedAnswer: { "@type": "Answer", text: "Oil and gas, power and utilities, petrochemicals, water and waste, nuclear, manufacturing, mining and metals, transport and logistics, smart cities, and critical government infrastructure — across both public sector leadership and private sector execution." } },
             ],
           }),
         }}
       />
       <EventFactBlock
-        eventName="OT Security Jubail 2026"
+        eventName="OT Security KSA 2026"
         series="OT Security First"
         date="7 December 2026"
         city="Dammam"
