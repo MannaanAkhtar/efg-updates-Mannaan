@@ -220,7 +220,7 @@ const allEvents = [
       "An invitation-only UnifyApps executive boardroom in Dubai for CIOs, CTOs, CDOs and heads of AI across the airlines, ports, energy and contracting sectors.",
     color: "#C9935A",
     image: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/unifyapps+logo.svg",
-    href: "https://engage.unifyapps.com/rsvp/se-airlines-ports-energy-contracting-lunch-oct-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261021_MEA_OWNED_Dubai_SE_Lunch_Airlines_Ports_Energy_Contracting",
+    href: "/unifyapps-28oct",
     date: "2026-10-28",
     nextDate: "28 Oct 2026",
     nextCity: "Dubai, UAE",

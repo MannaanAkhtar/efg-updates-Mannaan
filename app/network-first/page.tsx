@@ -235,7 +235,7 @@ const UPCOMING_EVENTS = [
     subtitle: "An executive boardroom for Airlines, Ports, Energy & Contracting leaders, Dubai",
     sponsor: "UnifyApps",
     location: "Five Iron Golf, The Westin Dubai Marina, Dubai",
-    link: "https://engage.unifyapps.com/rsvp/se-airlines-ports-energy-contracting-lunch-oct-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261021_MEA_OWNED_Dubai_SE_Lunch_Airlines_Ports_Energy_Contracting",
+    link: "/unifyapps-28oct",
     image: "",
     brandColor: "#6E86FF",
     brandGradient: "linear-gradient(140deg, #FBFCFF 0%, #EEF1FF 40%, #DCE3FF 72%, #C6D2FF 100%)",

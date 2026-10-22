@@ -177,7 +177,7 @@ export const allEvents: EventItem[] = [
     location: "Dubai, UAE",
     venue: "Five Iron Golf, The Westin Dubai Marina",
     attendees: "Invited",
-    href: "https://engage.unifyapps.com/rsvp/se-airlines-ports-energy-contracting-lunch-oct-2026?utm_medium=agcy&utm_source=email&utm_content=ev&utm_campaign=20261021_MEA_OWNED_Dubai_SE_Lunch_Airlines_Ports_Energy_Contracting",
+    href: "/unifyapps-28oct",
     status: "open",
   },
   {
