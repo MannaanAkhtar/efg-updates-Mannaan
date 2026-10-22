@@ -131,70 +131,107 @@ const EXPECT = [
 ];
 
 // ─── Agenda ──────────────────────────────────────────────────────────────────
-// Every row carries its full detail inline. The source site hid the two long
-// partner sessions behind a "view more" dialog; here they are always on show.
+// Every row carries its full detail inline. The source site hides the session
+// abstracts behind a "view more" dialog; here they are always on show.
+// Copy, times and speakers follow the OutSystems agenda verbatim.
+type Speaker = { name: string; role: string; org: string; photo?: string };
 type Slot = {
   time: string;
   label: string;
   title?: string;
-  body?: string;
+  body?: string[];
+  speakers?: Speaker[];
   kind: "break" | "keynote" | "session" | "panel" | "award";
 };
 
 const AGENDA: Slot[] = [
   {
     time: "09:00–09:45",
-    label: "Arrival and Registration",
-    body: "Start your day with breakfast and networking before the main programme begins. Explore sponsor showcases, discover innovative solutions, and connect with OutSystems experts, partners, and fellow technology leaders.",
+    label: "Arrival & Registration",
+    body: ["Start your day with breakfast and networking before the main programme begins. Explore sponsor showcases, discover innovative solutions, and connect with OutSystems experts, partners, and fellow technology leaders."],
     kind: "break",
   },
-  { time: "09:45–10:05", label: "Welcome & Keynote", kind: "keynote" },
   {
-    time: "10:05–10:50",
-    label: "Human Leads, AI Delivers: How OutSystems Turns the UAE’s Agentic Mandate into Reality",
+    time: "09:45–10:05",
+    label: "Welcome & Keynote",
+    title: "Own Your Agentic Future",
+    body: [
+      "A lot has changed since we started delivering enterprise applications in the UAE. And the next shift may be the biggest one yet.",
+      "As the UAE moves from AI ambition to execution, with Agentic AI becoming a government mandate and Abu Dhabi aiming to become the world’s first fully AI-native government, the question is no longer whether organizations will adopt AI, but how they turn that ambition into real outcomes.",
+      "In this session, we’ll take a brief look back at the evolution of enterprise software before looking ahead to how AI and agentic systems are reshaping what comes next.",
+      "Everyone is experimenting with AI, yet few are scaling it. We’ll explore how leading organizations are moving beyond pilots to build secure, governed, enterprise-grade agentic systems and turn ideas into measurable business outcomes faster.",
+    ],
+    speakers: [{ name: "Rodrigo Castelo", role: "Vice President, Middle East & Africa", org: "OutSystems" }],
     kind: "keynote",
   },
   {
-    time: "10:50–11:10",
+    time: "10:05–10:50",
+    label: "Human Leads, AI Delivers: How OutSystems Turns the UAE’s Agentic Mandate into Reality",
+    body: ["The UAE’s agentic mandate is clear; the path to production isn’t. Pilots are easy. Running agents securely, at scale and with regulators’ trust is hard. In this session we show why most organizations end up assembling 20+ technologies to get there, and how OutSystems gives them that foundation as one platform. Then we prove it live, taking one familiar government process, building-permit approval, from idea to a governed multi-agent system in production: people and AI working together, every decision traceable, running wherever your data must stay."],
+    speakers: [
+      { name: "Fernando Santos", role: "Principal Product Marketing Manager", org: "OutSystems" },
+      { name: "Paulo Fernandes", role: "Lead Solution Architect", org: "OutSystems" },
+    ],
+    kind: "keynote",
+  },
+  {
+    time: "11:05–11:25",
     label: "Partner Session · FPT",
     title: "One App. Every Employee Service. Powered by AI",
-    body: "What if employees could access everyday workplace services through one intelligent, mobile-first experience, regardless of the systems behind them? Discover how FPT’s Employee Experience Accelerator, powered by OutSystems, brings together AI, enterprise systems and digital workflows into a unified experience — simplifying employee journeys, automating routine interactions and providing one seamless access point for workplace services. Learn how organizations can modernize employee services faster while maximizing the value of their existing core systems.",
+    body: ["What if employees could access everyday workplace services through one intelligent, mobile-first experience, regardless of the systems behind them? Discover how FPT’s Employee Experience Accelerator, powered by OutSystems, brings together AI, enterprise systems and digital workflows into a unified experience — simplifying employee journeys, automating routine interactions and providing one seamless access point for workplace services. Learn how organizations can modernize employee services faster while maximizing the value of their existing core systems."],
+    speakers: [{ name: "Trushank Mistry", role: "Product Owner", org: "FPT Middle East, FPT Corporation" }],
     kind: "session",
   },
   {
-    time: "11:10–11:30",
+    time: "11:25–11:45",
     label: "Partner Session · Exalio",
     title: "Revolutionizing Patent & IP Grants with OutSystems",
+    body: ["In this session, Hossam Khater, Co-Founder & CEO of Exalio, shares how Exalio leveraged OutSystems to rapidly architect and deploy an end-to-end Patent and Intellectual Property (IP) Management Platform. Hossam will unpack how the team engineered a strong foundational data architecture, unified complex integrations across multiple systems, and created a dynamic digital layer for seamless user experiences. Looking ahead, he will demonstrate how integrating OutSystems’ latest Agentic AI capabilities will redefine future development—driving unprecedented speed, intelligent automation, and elevated agility for the next generation of enterprise platform delivery."],
+    speakers: [{ name: "Hossam Khater", role: "Co-Founder & CEO", org: "Exalio" }],
     kind: "session",
   },
-  { time: "11:30–11:45", label: "Coffee & Networking Break", kind: "break" },
+  { time: "11:45–12:15", label: "Coffee & Networking Break", kind: "break" },
   {
-    time: "11:45–12:15",
+    time: "12:15–12:45",
     label: "Panel",
     title: "Beyond the Blueprint: How Real Organizations Are Living the Agentic Shift",
+    body: [
+      "AI agents promise to transform how organizations operate, but what does it really take to turn that promise into reality?",
+      "Hear directly from industry leaders as they share real-world experiences, lessons learned, and what it takes to move beyond pilots and bring Agentic AI to life, as the discussion goes beyond the hype to explore the realities of implementing AI agents, from legacy systems and integration challenges to governance, security, and measurable business value.",
+    ],
+    speakers: [
+      { name: "Doaa Saleh", role: "Principal Customer Success Manager", org: "OutSystems" },
+      { name: "Shaarawy Mohamed", role: "Chief Technology Officer", org: "FABMISR" },
+      { name: "Arsalan Iqbal", role: "Head of Technology", org: "GIG Gulf" },
+    ],
     kind: "panel",
   },
   {
-    time: "12:15–12:25",
+    time: "12:45–12:55",
     label: "Partner Session · Blackstone eIT",
-    title: "From AI to AGI: Are Enterprises Ready for the Next Intelligence Shift?",
-    body: "From AI to AGI, presented by Blackstone eIT at OutSystems Innovator Day UAE, explores the next evolution of enterprise AI from systems that assist to intelligent agents capable of reasoning, deciding, and acting. As organizations move toward agentic AI and AGI, success will depend on having the right foundations: connected systems, governed data, AI applications, intelligent workflows, and strong security, governance, and human oversight. Drawing on Blackstone eIT’s perspective on enterprise transformation, with practical OutSystems use cases, the session explores how organizations can move beyond isolated AI experiments to establish AI as an institutional capability that drives meaningful transformation and action.",
+    title: "Riding the AI Wave: A Practical Path to Enterprise Value",
+    body: ["As organizations move beyond AI experimentation, the challenge is turning AI capabilities into measurable business outcomes. Riding the AI Wave: A Practical Path to Enterprise Value, presented by Blackstone eIT at OutSystems Innovator Day UAE, explores how enterprises can practically leverage AI across business processes and operations. The session examines the foundations required to scale AI reliably, from connected enterprise systems and trusted data to governed workflows and human oversight. Through practical examples and customer success stories, it highlights three key actions business leaders can take to translate AI potential into tangible value: start with a business problem, connect AI to enterprise systems, and scale with control."],
+    speakers: [{ name: "Wajih Yahyaoui", role: "Managing Partner", org: "Blackstone eIT", photo: `${S3}/Speakers-photos/Wajih+Yahyaoui-new.png` }],
     kind: "session",
   },
-  { time: "12:25–12:40", label: "Coffee & Networking Break", kind: "break" },
   {
-    time: "12:40–13:10",
+    time: "12:55–13:25",
     label: "From potential to kinetic — Why execution, not models, decides who gets value from agents",
+    body: ["Every organisation has potential energy stored in AI: models licensed, pilots built, demos applauded. Very little of it is moving. This talk looks at the organisations that turned agents into measured, running systems — banks, insurers, telecoms, hospitals — and shows that what separated them was not the model but the execution: where to apply it, what data to trust, how to prove it, who owns it. Then it shows what that discipline looks like in practice, live."],
+    speakers: [
+      { name: "Elísio Simão", role: "RVP, Professional Services EMEA", org: "OutSystems" },
+      { name: "Hasan Derawan", role: "Lead Solution Delivery Manager", org: "OutSystems" },
+    ],
     kind: "session",
   },
   {
-    time: "13:10–13:35",
+    time: "13:25–13:55",
     label: "Awards & Recognition",
     title: "Celebrating Customer Success",
     kind: "award",
   },
-  { time: "13:35–13:40", label: "Closing Remarks", kind: "session" },
-  { time: "13:40–15:00", label: "Lunch & Networking", kind: "break" },
+  { time: "13:55–14:00", label: "Closing Remarks", kind: "session" },
+  { time: "14:00–15:00", label: "Lunch & Networking", kind: "break" },
 ];
 
 // Break rows get a neutral ink rather than a brand colour, so the spine reads
@@ -243,6 +280,15 @@ const SPONSOR_TIERS: SponsorTier[] = [
         logo: `${S3}/sponsors-logo/Blackstone+eIT+Logo+Main+No+Slogan+RGB.png`,
         h: 32,
       },
+    ],
+  },
+  {
+    tier: "Silver Sponsor",
+    scale: 0.9,
+    items: [
+      // The file carries a wide transparent margin (the mark fills about a
+      // third of its height), so its box is set tall to land near Gold's size.
+      { name: "Raqmiyat", logo: `${S3}/logos/raqmiyat-removebg-preview.png`, h: 170 },
     ],
   },
 ];
@@ -818,7 +864,8 @@ function Agenda() {
   // because a bare break row is a fraction of the height of a session carrying
   // a full abstract. Split on rendered weight instead, keeping the day in order.
   const { columns, half } = useMemo(() => {
-    const weight = (s: Slot) => 1 + (s.title ? 1 : 0) + (s.body ? Math.ceil(s.body.length / 160) : 0);
+    const weight = (s: Slot) =>
+      1 + (s.title ? 1 : 0) + (s.body ? Math.ceil(s.body.join(" ").length / 160) : 0) + (s.speakers ? Math.ceil(s.speakers.length / 2) * 2 : 0);
     const total = AGENDA.reduce((n, s) => n + weight(s), 0);
     let run = 0;
     let cut = AGENDA.length;
@@ -885,8 +932,29 @@ function Agenda() {
                           {s.title}
                         </p>
                       )}
-                      {s.body && (
-                        <p style={{ fontFamily: FO, fontSize: 13.5, color: TXT_70, margin: "8px 0 0", lineHeight: 1.6 }}>{s.body}</p>
+                      {s.body?.map((para, pi) => (
+                        <p key={pi} style={{ fontFamily: FO, fontSize: 13.5, color: TXT_70, margin: "8px 0 0", lineHeight: 1.6 }}>{para}</p>
+                      ))}
+                      {s.speakers && (
+                        <div className="idu-slot-speakers">
+                          {s.speakers.map((sp) => (
+                            <div key={sp.name} className="idu-speaker">
+                              {sp.photo ? (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img src={sp.photo} alt={sp.name} loading="lazy" decoding="async" className="idu-speaker-avatar" style={{ objectFit: "cover", objectPosition: "center top" }} />
+                              ) : (
+                                <span aria-hidden className="idu-speaker-avatar" style={{ background: `linear-gradient(135deg, ${accent}26, ${accent}0d)`, color: accent }}>
+                                  {sp.name.split(" ").map((w) => w[0]).slice(0, 2).join("")}
+                                </span>
+                              )}
+                              <span style={{ minWidth: 0 }}>
+                                <span style={{ display: "block", fontFamily: FD, fontWeight: 700, fontSize: 14, color: TXT, lineHeight: 1.25 }}>{sp.name}</span>
+                                <span style={{ display: "block", fontFamily: FO, fontSize: 12, color: TXT_70, lineHeight: 1.4, marginTop: 2 }}>{sp.role}</span>
+                                <span style={{ display: "block", fontFamily: FO, fontSize: 12, fontWeight: 600, color: TXT_45, lineHeight: 1.4 }}>{sp.org}</span>
+                              </span>
+                            </div>
+                          ))}
+                        </div>
                       )}
                     </div>
                   </motion.div>
@@ -1630,6 +1698,33 @@ export default function OutSystemsInnovatorDayUaePage() {
         }
         .idu-sponsor-cell:hover {
           transform: translateY(-3px);
+        }
+        .idu-slot-speakers {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+          gap: 10px;
+          margin-top: 14px;
+        }
+        .idu-speaker {
+          display: flex;
+          align-items: center;
+          gap: 11px;
+          padding: 9px 12px 9px 9px;
+          border-radius: 12px;
+          background: rgba(255,255,255,0.55);
+          border: 1px solid ${LINE};
+        }
+        .idu-speaker-avatar {
+          flex: none;
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-family: ${FD};
+          font-weight: 700;
+          font-size: 14px;
         }
         .idu-sponsor-logo {
           max-width: 100%;
