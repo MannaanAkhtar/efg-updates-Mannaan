@@ -211,50 +211,52 @@ const ADVISORS: Speaker[] = [
   { name: "Salem J. Sahary", title: "Senior Operational Excellence Expert", org: "SIPCHEM", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Salem+J.+Sahary.jpg" },
 ];
 
-// Speakers follow the client sheet order; those not on the sheet keep their
-// previous relative order after it.
+// Speakers follow the client sheet order (29 rows); any not on the sheet
+// follow after it.
 const SPEAKERS: Speaker[] = [
-  { name: "Mohammed Al Ghamdi", title: "VP Manufacturing", org: "NAMA Chemicals", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al+Ghamdi.jpeg", linkedin: "https://www.linkedin.com/in/mohammed-al-ghamdi-407451a5/" },
-  { name: "Ahmed Alawami", title: "Head of Data and AI", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+T+Alawami.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/" },
-  { name: "Reem Alharbi", title: "Deputy GM of Operational Command Center", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Reem+Alharbi.jpeg", linkedin: "https://www.linkedin.com/in/reem-alharbi-a89a4a156/" },
-  { name: "Anwar Zumah", title: "VP Direct Investment", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anwar+Zumah.jpeg", linkedin: "https://www.linkedin.com/in/anwar-zumah-223577a5/" },
-  { name: "Naif N. Al Suliman", title: "Crisis and Disaster Center (CDC) Executive Director", org: "National Water Company (NWC)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naif+N.jpeg", linkedin: "https://www.linkedin.com/in/naif-n-al-suliman-54918b50/" },
-  { name: "Mohammed N. Aljuhani", title: "Organizational Excellence Director", org: "Fund for Martyrs, Wounded, POWs and Missing in Action", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+N.+Aljuhani.jpg", linkedin: "https://www.linkedin.com/in/maljuhani/" },
-  { name: "Eng. Maher Mousa", title: "Regional Director of Product Management & Compliance", org: "Johnson Controls Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng+Maher+Mousa.jpeg", linkedin: "https://www.linkedin.com/in/maher-mousa-mba-cmi-b8881818/" },
-  { name: "Ahmed Al Idrissi", title: "Executive Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ahmed+al+idrissi.jpg", linkedin: "https://www.linkedin.com/in/ahmed-alidrissi/" },
-  { name: "Talal Alahmari", title: "Organizational Excellence Director", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/talal+alahmari.png", linkedin: "https://www.linkedin.com/in/alahmaritalal/" },
+  { name: "E. Nabil Heddied Aloufi", title: "Vice Governor for Risk Management and Business Continuity", org: "Digital Government Authority", photo: "", silhouette: true, linkedin: "https://www.linkedin.com/in/e-nabil-heddied-aloufi-b676307/" },
   { name: "Dr. Ibrahim bin Abdullah Alotaibi", title: "Chief Strategy and Business Development Officer", org: "Confidential Saudi Government Entity", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/brahim+bin+Abdullah+Alotaibi.jpg", linkedin: "https://www.linkedin.com/in/ibrahim-a-9314492a/" },
-  { name: "Maan Al Maddah", title: "Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Maan+Al+Maddah.jpg", linkedin: "https://www.linkedin.com/in/maanalmaddah/" },
-  // LinkedIn URLs arrived with share-tracking query strings; only the profile
-  // path is kept here.
-  { name: "Dr. Yousof Ghazzawi", title: "Senior Portfolio Leader - Business Transformation", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Yousof+Ghazzawi1.png", linkedin: "https://www.linkedin.com/in/yousofghazzawi/" },
-  { name: "Ghassan Gamal", title: "Executive Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ghassan+gamal.jpeg", linkedin: "https://www.linkedin.com/in/ggamal/" },
-  { name: "Meshaal Almanie", title: "Executive Director of Operations", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Meshaal+Almanie1.png", linkedin: "https://www.linkedin.com/in/meshaal-almanie/" },
-  { name: "Eng. Ahmed M. Khayyat", title: "GM, Corporate Operational Excellence", org: "Saudia Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng.+Ahmed+M.+Khayyat.jpeg", linkedin: "https://www.linkedin.com/in/ahkhayyat/" },
+  { name: "Anwar Zumah", title: "VP Direct Investment", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anwar+Zumah.jpeg", linkedin: "https://www.linkedin.com/in/anwar-zumah-223577a5/" },
+  { name: "Youness Zahir", title: "CTO & Executive Director", org: "Blackstone eIT", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Youness_Soulayman_Blackstone.png", linkedin: "https://www.linkedin.com/in/younesszahir/" },
   { name: "Mohaned Alsheqaiq", title: "Line Vice President", org: "Bahri Line", photo: "", silhouette: true, linkedin: "https://www.linkedin.com/in/mohaned-alsheqaiq-ba5b93107/" },
-  { name: "Dr. Mohammed Fouad Hussein Mesafer", title: "Strategy and Business Excellence Director", org: "Riyadh Cement Company", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Mohammed+Fouad+Hussein+Mesafer1.png", linkedin: "https://www.linkedin.com/in/dr-mohammed-fouad/" },
-  { name: "Abdulmajeed S. Alqumayshi", title: "Director of Quality Assurance", org: "ESNAD", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulmajeed+S.+Alqumayshi.jpg", linkedin: "https://www.linkedin.com/in/abdulmajeed-s-alqumayshi-158209129/" },
-  { name: "Ali Al Hakami", title: "Senior Director - Organisational Excellence", org: "Hail Region Development Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ali+Al+Hakami.png", linkedin: "https://www.linkedin.com/in/ali-al-hakami-19b54755/" },
-  { name: "Abdullah M. Alzkeri", title: "Associate Director, Business Excellence", org: "Diriyah", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdullah+M+Alzkeri.jpeg", linkedin: "https://www.linkedin.com/in/alzkeri/" },
-  { name: "Maram Baksh", title: "Director General", org: "Confidential Government", photo: "", silhouette: true, linkedin: "https://www.linkedin.com/in/maram-baksh-a78bb940/" },
-  { name: "Nadeer Alshyookh", title: "Business Transformation Manager Lead - MEA North", org: "SAP", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nadeer+AlShyookh.jpg", linkedin: "https://www.linkedin.com/in/nadeeralshyookh/" },
-  // Source portrait is only 200x200, so it upscales on the 3:4 card. Swap in a
-  // larger file if one turns up.
-  { name: "Dr. Nasser Alamri", title: "Strategic Engagement and Partnership Executive Advisor", org: "Government Entity", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+nasser+alamri.jpg", linkedin: "https://www.linkedin.com/in/nasseralamri/" },
+  { name: "Mohammed Al Ghamdi", title: "VP Manufacturing", org: "NAMA Chemicals", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al+Ghamdi.jpeg", linkedin: "https://www.linkedin.com/in/mohammed-al-ghamdi-407451a5/" },
+  { name: "Meshaal Almanie", title: "Executive Director of Operations", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Meshaal+Almanie1.png", linkedin: "https://www.linkedin.com/in/meshaal-almanie/" },
+  { name: "Naif N. Al Suliman", title: "Crisis and Disaster Center (CDC) Executive Director", org: "National Water Company (NWC)", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Naif+N.jpeg", linkedin: "https://www.linkedin.com/in/naif-n-al-suliman-54918b50/" },
+  { name: "Ahmed Al Idrissi", title: "Executive Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ahmed+al+idrissi.jpg", linkedin: "https://www.linkedin.com/in/ahmed-alidrissi/" },
+  { name: "Maan Al Maddah", title: "Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Maan+Al+Maddah.jpg", linkedin: "https://www.linkedin.com/in/maanalmaddah/" },
   // Blackstone eIT. Portraits and LinkedIn carried over from the Blackstone
   // pages. Wajih uses the "-new" portrait that /blackstone-liferay switched
   // to; the older Wajih_Yahaouyi_Blackstone.png on /outsystems-blackstone is
   // a different person and looks like it was the wrong file.
   { name: "Wajih Yahyaoui", title: "Managing Partner", org: "Blackstone eIT", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Wajih+Yahyaoui-new.png", photoBg: "#69686C", linkedin: "https://www.linkedin.com/in/wajihyahyaoui/" },
-  { name: "Youness Zahir", title: "CTO & Executive Director", org: "Blackstone eIT", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Youness_Soulayman_Blackstone.png", linkedin: "https://www.linkedin.com/in/younesszahir/" },
+  { name: "Ghassan Gamal", title: "Executive Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ghassan+gamal.jpeg", linkedin: "https://www.linkedin.com/in/ggamal/" },
+  { name: "Mohammed Al Amri", title: "GM Operational Excellence", org: "Roads General Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al+Amri.jpg", linkedin: "https://www.linkedin.com/in/mohammed-alamri-95a19844/" },
+  { name: "Eng. Ahmed M. Khayyat", title: "GM, Corporate Operational Excellence", org: "Saudia Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng.+Ahmed+M.+Khayyat.jpeg", linkedin: "https://www.linkedin.com/in/ahkhayyat/" },
+  { name: "Reem Alharbi", title: "Deputy GM of Operational Command Center", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Reem+Alharbi.jpeg", linkedin: "https://www.linkedin.com/in/reem-alharbi-a89a4a156/" },
+  { name: "Talal Alahmari", title: "Organizational Excellence Director", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/talal+alahmari.png", linkedin: "https://www.linkedin.com/in/alahmaritalal/" },
+  { name: "Ali Al Hakami", title: "Senior Director - Organisational Excellence", org: "Hail Region Development Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ali+Al+Hakami.png", linkedin: "https://www.linkedin.com/in/ali-al-hakami-19b54755/" },
   // Cut-out portrait on a transparent background; the supplied backdrop
   // colour stands in for the studio grey the other headshots have.
-  { name: "Odeh Mahmoud", title: "CEO", org: "Cyborg", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Odeh+Mahmoud.png", photoBg: "#69686C", linkedin: "https://www.linkedin.com/in/odeh-mahmoud/" },
+  { name: "Odeh Mahmoud", title: "CEO", org: "Cyborg Automation", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Odeh+Mahmoud.png", photoBg: "#69686C", linkedin: "https://www.linkedin.com/in/odeh-mahmoud/" },
+  // LinkedIn URLs arrived with share-tracking query strings; only the profile
+  // path is kept here.
+  { name: "Dr. Yousof Ghazzawi", title: "Senior Portfolio Leader - Business Transformation", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Yousof+Ghazzawi1.png", linkedin: "https://www.linkedin.com/in/yousofghazzawi/" },
+  { name: "Ahmed Alawami", title: "Head of Data and AI", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+T+Alawami.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/" },
+  { name: "Eng. Maher Mousa", title: "Regional Director of Product Management & Compliance", org: "Johnson Controls Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng+Maher+Mousa.jpeg", linkedin: "https://www.linkedin.com/in/maher-mousa-mba-cmi-b8881818/" },
+  { name: "Mohammed N. Aljuhani", title: "Organizational Excellence Director", org: "Fund for Martyrs, Wounded, POWs and Missing in Action", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+N.+Aljuhani.jpg", linkedin: "https://www.linkedin.com/in/maljuhani/" },
+  { name: "Dr. Mohammed Fouad Hussein Mesafer", title: "Strategy & Business Excellence Director", org: "Riyadh Cement Company", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Mohammed+Fouad+Hussein+Mesafer1.png", linkedin: "https://www.linkedin.com/in/dr-mohammed-fouad/" },
+  { name: "Nadeer Alshyookh", title: "Head of Business Transformation", org: "SAP Saudi Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nadeer+AlShyookh.jpg", linkedin: "https://www.linkedin.com/in/nadeeralshyookh/" },
+  { name: "Abdulmajeed S. Alqumayshi", title: "Director of Quality Assurance", org: "ESNAD", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulmajeed+S.+Alqumayshi.jpg", linkedin: "https://www.linkedin.com/in/abdulmajeed-s-alqumayshi-158209129/" },
+  { name: "Raghavendra Ramesh", title: "Global Head of Forward Deployed Engineering", org: "MOXO", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Raghavendra+Ramesh.jpeg", linkedin: "https://www.linkedin.com/in/raghavendraramesh/" },
+  { name: "Abdullah M. Alzkeri", title: "Business Excellence Leader", org: "A PIF Owned Giga Project Company", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdullah+M+Alzkeri.jpeg", linkedin: "https://www.linkedin.com/in/alzkeri/" },
   { name: "Jiya Chadha", title: "Senior Manager - Supply Chain Advisory", org: "Blue Yonder", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Jiya+Chadha1.jpeg", linkedin: "https://www.linkedin.com/in/jiya-chadha-26096763/" },
-  { name: "Neil Evans", title: "Head of Energy", org: "Q5 Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Neil_Evans.png", linkedin: "https://www.linkedin.com/in/neilmevans/" },
-  { name: "Raghavendra Ramesh", title: "Global Head of Forward Deployed Engineering", org: "Moxo", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Raghavendra+Ramesh.jpeg", linkedin: "https://www.linkedin.com/in/raghavendraramesh/" },
-  { name: "Mohammad Shoaib Osmani", title: "Business Architect", org: "Aris", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammad+Shoaib+Osmani.jpeg", linkedin: "https://www.linkedin.com/in/shoaibosmani/" },
   { name: "Anton Melnik", title: "CEO", org: "Alphyn.ai", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anton+Melnik.png", linkedin: "https://www.linkedin.com/in/antonmelnik" },
+  { name: "Maram Baksh", title: "Director General", org: "Confidential Government", photo: "", silhouette: true, linkedin: "https://www.linkedin.com/in/maram-baksh-a78bb940/" },
+  // Source portrait is only 200x200, so it upscales on the 3:4 card. Swap in a
+  // larger file if one turns up.
+  { name: "Dr. Nasser Alamri", title: "Strategic Engagement and Partnership Executive Advisor", org: "Government Entity", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+nasser+alamri.jpg", linkedin: "https://www.linkedin.com/in/nasseralamri/" },
+  { name: "Neil Evans", title: "Head of Energy", org: "Q5 Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Neil_Evans.png", linkedin: "https://www.linkedin.com/in/neilmevans/" },
+  { name: "Mohammad Shoaib Osmani", title: "Business Architect", org: "Aris", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammad+Shoaib+Osmani.jpeg", linkedin: "https://www.linkedin.com/in/shoaibosmani/" },
 ];
 
 type AgendaItem = {
