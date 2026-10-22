@@ -251,10 +251,6 @@ const SPEAKERS: Speaker[] = [
   { name: "Abdullah M. Alzkeri", title: "Business Excellence Leader", org: "A PIF Owned Giga Project Company", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdullah+M+Alzkeri.jpeg", linkedin: "https://www.linkedin.com/in/alzkeri/" },
   { name: "Jiya Chadha", title: "Senior Manager - Supply Chain Advisory", org: "Blue Yonder", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Jiya+Chadha1.jpeg", linkedin: "https://www.linkedin.com/in/jiya-chadha-26096763/" },
   { name: "Anton Melnik", title: "CEO", org: "Alphyn.ai", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anton+Melnik.png", linkedin: "https://www.linkedin.com/in/antonmelnik" },
-  { name: "Maram Baksh", title: "Director General", org: "Confidential Government", photo: "", silhouette: true, linkedin: "https://www.linkedin.com/in/maram-baksh-a78bb940/" },
-  // Source portrait is only 200x200, so it upscales on the 3:4 card. Swap in a
-  // larger file if one turns up.
-  { name: "Dr. Nasser Alamri", title: "Strategic Engagement and Partnership Executive Advisor", org: "Government Entity", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+nasser+alamri.jpg", linkedin: "https://www.linkedin.com/in/nasseralamri/" },
   { name: "Neil Evans", title: "Head of Energy", org: "Q5 Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Neil_Evans.png", linkedin: "https://www.linkedin.com/in/neilmevans/" },
   { name: "Mohammad Shoaib Osmani", title: "Business Architect", org: "Aris", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammad+Shoaib+Osmani.jpeg", linkedin: "https://www.linkedin.com/in/shoaibosmani/" },
 ];
