@@ -5494,6 +5494,27 @@ const SPONSORS_2026: S26SponsorItem[] = [
     innerBg: "linear-gradient(165deg, #ffffff 0%, #eef0f4 100%)",
     logoMaxHeight: 60,
   },
+  {
+    // Logo files shared with the OT Security First KSA page.
+    name: "Eye of Riyadh",
+    tier: "Media",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/unnamed+(9).png",
+    url: "https://www.eyeofriyadh.com/",
+    surface: "light",
+    innerBg: "linear-gradient(165deg, #ffffff 0%, #eef0f4 100%)",
+    // The file carries a wide white margin, so it needs a taller box to read
+    // the same size as its neighbours.
+    logoMaxHeight: 104,
+  },
+  {
+    name: "Eye of Dubai",
+    tier: "Media",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/eye+of+dubai.png",
+    url: "https://www.eyeofdubai.ae/",
+    surface: "light",
+    innerBg: "linear-gradient(165deg, #ffffff 0%, #eef0f4 100%)",
+    logoMaxHeight: 66,
+  },
 ];
 
 const S26_TIER_METALLIC: Record<S26SponsorTier, { strong: string; soft: string; label: string; glow: string; cardMaxWidth: number; displayLabel: string }> = {
@@ -5602,7 +5623,9 @@ function EventSponsors() {
                 </div>
 
                 {/* Row of sponsor cards */}
-                <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 24, width: "100%" }}>
+                {/* Media partners run three to a row (3 + 2), so the row is
+                    capped at three card widths plus their two gaps. */}
+                <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 24, width: "100%", maxWidth: tier === "Media" ? m.cardMaxWidth * 3 + 48 : undefined }}>
                   {tierSponsors.map((sponsor, i) => {
                     const shineColor = sponsor.surface === "dark" ? "rgba(255,255,255,0.32)" : "rgba(255,255,255,0.9)";
                     return (
