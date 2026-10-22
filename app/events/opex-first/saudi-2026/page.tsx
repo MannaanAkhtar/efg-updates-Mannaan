@@ -202,14 +202,19 @@ const FOCUS_AREAS = [
 // are transparent around the subject and would otherwise show the card.
 // #69686C is the studio grey used across all of this event's cut-outs.
 type Speaker = { name: string; title: string; org: string; photo: string; linkedin?: string; silhouette?: boolean; photoBg?: string };
-const SPEAKERS: Speaker[] = [
-  { name: "Maram Baksh", title: "Director General", org: "Confidential Government", photo: "", silhouette: true, linkedin: "https://www.linkedin.com/in/maram-baksh-a78bb940/" },
+// Advisors sit above the speakers, in the order of the client sheet.
+const ADVISORS: Speaker[] = [
   { name: "Eng. Abdulrazzag Al Aujan", title: "H.E. MoF Advisor", org: "Ministry of Finance", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Eng+AbdulRazzag+Al+Aujan.png", photoBg: "#69686C" },
-  { name: "Salem J. Sahary", title: "Senior Operational Excellence Expert", org: "SIPCHEM", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Salem+J.+Sahary.jpg" },
   { name: "Yasmin Bin Mobki", title: "General Manager of Privatization and PMO", org: "Ministry of Human Resources and Social Development", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/OPex+ksa/Yasmin+Bin+Mobki.png", photoBg: "#69686C" },
-  { name: "Mohammed Al Amri", title: "GM Operational Excellence", org: "Roads General Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al+Amri.jpg", linkedin: "https://www.linkedin.com/in/mohammed-alamri-95a19844/" },
-  { name: "Mohammed Al Ghamdi", title: "VP Manufacturing", org: "NAMA Chemicals", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al+Ghamdi.jpeg", linkedin: "https://www.linkedin.com/in/mohammed-al-ghamdi-407451a5/" },
   { name: "Faisal Al-Zahrani", title: "EHSS General Manager", org: "S-Chem", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Faisal+Al-Zahrani.png" },
+  { name: "Mohammed Al Amri", title: "GM Operational Excellence", org: "Roads General Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al+Amri.jpg", linkedin: "https://www.linkedin.com/in/mohammed-alamri-95a19844/" },
+  { name: "Salem J. Sahary", title: "Senior Operational Excellence Expert", org: "SIPCHEM", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Salem+J.+Sahary.jpg" },
+];
+
+// Speakers follow the client sheet order; those not on the sheet keep their
+// previous relative order after it.
+const SPEAKERS: Speaker[] = [
+  { name: "Mohammed Al Ghamdi", title: "VP Manufacturing", org: "NAMA Chemicals", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammed+Al+Ghamdi.jpeg", linkedin: "https://www.linkedin.com/in/mohammed-al-ghamdi-407451a5/" },
   { name: "Ahmed Alawami", title: "Head of Data and AI", org: "Saudi Energy", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ahmed+T+Alawami.png", linkedin: "https://www.linkedin.com/in/ahmed-alawami1/" },
   { name: "Reem Alharbi", title: "Deputy GM of Operational Command Center", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Reem+Alharbi.jpeg", linkedin: "https://www.linkedin.com/in/reem-alharbi-a89a4a156/" },
   { name: "Anwar Zumah", title: "VP Direct Investment", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anwar+Zumah.jpeg", linkedin: "https://www.linkedin.com/in/anwar-zumah-223577a5/" },
@@ -218,16 +223,24 @@ const SPEAKERS: Speaker[] = [
   { name: "Eng. Maher Mousa", title: "Regional Director of Product Management & Compliance", org: "Johnson Controls Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng+Maher+Mousa.jpeg", linkedin: "https://www.linkedin.com/in/maher-mousa-mba-cmi-b8881818/" },
   { name: "Ahmed Al Idrissi", title: "Executive Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ahmed+al+idrissi.jpg", linkedin: "https://www.linkedin.com/in/ahmed-alidrissi/" },
   { name: "Talal Alahmari", title: "Organizational Excellence Director", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/talal+alahmari.png", linkedin: "https://www.linkedin.com/in/alahmaritalal/" },
-  { name: "Nadeer Alshyookh", title: "Business Transformation Manager Lead - MEA North", org: "SAP", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nadeer+AlShyookh.jpg", linkedin: "https://www.linkedin.com/in/nadeeralshyookh/" },
   { name: "Dr. Ibrahim bin Abdullah Alotaibi", title: "Chief Strategy and Business Development Officer", org: "Confidential Saudi Government Entity", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/brahim+bin+Abdullah+Alotaibi.jpg", linkedin: "https://www.linkedin.com/in/ibrahim-a-9314492a/" },
-  // Source portrait is only 200x200, so it upscales on the 3:4 card. Swap in a
-  // larger file if one turns up.
-  { name: "Dr. Nasser Alamri", title: "Strategic Engagement and Partnership Executive Advisor", org: "Government Entity", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+nasser+alamri.jpg", linkedin: "https://www.linkedin.com/in/nasseralamri/" },
   { name: "Maan Al Maddah", title: "Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Maan+Al+Maddah.jpg", linkedin: "https://www.linkedin.com/in/maanalmaddah/" },
   // LinkedIn URLs arrived with share-tracking query strings; only the profile
   // path is kept here.
   { name: "Dr. Yousof Ghazzawi", title: "Senior Portfolio Leader - Business Transformation", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Yousof+Ghazzawi1.png", linkedin: "https://www.linkedin.com/in/yousofghazzawi/" },
   { name: "Ghassan Gamal", title: "Executive Advisor", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/ghassan+gamal.jpeg", linkedin: "https://www.linkedin.com/in/ggamal/" },
+  { name: "Meshaal Almanie", title: "Executive Director of Operations", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Meshaal+Almanie1.png", linkedin: "https://www.linkedin.com/in/meshaal-almanie/" },
+  { name: "Eng. Ahmed M. Khayyat", title: "GM, Corporate Operational Excellence", org: "Saudia Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng.+Ahmed+M.+Khayyat.jpeg", linkedin: "https://www.linkedin.com/in/ahkhayyat/" },
+  { name: "Mohaned Alsheqaiq", title: "Line Vice President", org: "Bahri Line", photo: "", silhouette: true, linkedin: "https://www.linkedin.com/in/mohaned-alsheqaiq-ba5b93107/" },
+  { name: "Dr. Mohammed Fouad Hussein Mesafer", title: "Strategy and Business Excellence Director", org: "Riyadh Cement Company", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Mohammed+Fouad+Hussein+Mesafer1.png", linkedin: "https://www.linkedin.com/in/dr-mohammed-fouad/" },
+  { name: "Abdulmajeed S. Alqumayshi", title: "Director of Quality Assurance", org: "ESNAD", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulmajeed+S.+Alqumayshi.jpg", linkedin: "https://www.linkedin.com/in/abdulmajeed-s-alqumayshi-158209129/" },
+  { name: "Ali Al Hakami", title: "Senior Director - Organisational Excellence", org: "Hail Region Development Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ali+Al+Hakami.png", linkedin: "https://www.linkedin.com/in/ali-al-hakami-19b54755/" },
+  { name: "Abdullah M. Alzkeri", title: "Associate Director, Business Excellence", org: "Diriyah", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdullah+M+Alzkeri.jpeg", linkedin: "https://www.linkedin.com/in/alzkeri/" },
+  { name: "Maram Baksh", title: "Director General", org: "Confidential Government", photo: "", silhouette: true, linkedin: "https://www.linkedin.com/in/maram-baksh-a78bb940/" },
+  { name: "Nadeer Alshyookh", title: "Business Transformation Manager Lead - MEA North", org: "SAP", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Nadeer+AlShyookh.jpg", linkedin: "https://www.linkedin.com/in/nadeeralshyookh/" },
+  // Source portrait is only 200x200, so it upscales on the 3:4 card. Swap in a
+  // larger file if one turns up.
+  { name: "Dr. Nasser Alamri", title: "Strategic Engagement and Partnership Executive Advisor", org: "Government Entity", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+nasser+alamri.jpg", linkedin: "https://www.linkedin.com/in/nasseralamri/" },
   // Blackstone eIT. Portraits and LinkedIn carried over from the Blackstone
   // pages. Wajih uses the "-new" portrait that /blackstone-liferay switched
   // to; the older Wajih_Yahaouyi_Blackstone.png on /outsystems-blackstone is
@@ -237,16 +250,10 @@ const SPEAKERS: Speaker[] = [
   // Cut-out portrait on a transparent background; the supplied backdrop
   // colour stands in for the studio grey the other headshots have.
   { name: "Odeh Mahmoud", title: "CEO", org: "Cyborg", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Odeh+Mahmoud.png", photoBg: "#69686C", linkedin: "https://www.linkedin.com/in/odeh-mahmoud/" },
-  { name: "Meshaal Almanie", title: "Executive Director of Operations", org: "Confidential", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Meshaal+Almanie1.png", linkedin: "https://www.linkedin.com/in/meshaal-almanie/" },
-  { name: "Eng. Ahmed M. Khayyat", title: "GM, Corporate Operational Excellence", org: "Saudia Group", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Eng.+Ahmed+M.+Khayyat.jpeg", linkedin: "https://www.linkedin.com/in/ahkhayyat/" },
   { name: "Jiya Chadha", title: "Senior Manager - Supply Chain Advisory", org: "Blue Yonder", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Jiya+Chadha1.jpeg", linkedin: "https://www.linkedin.com/in/jiya-chadha-26096763/" },
   { name: "Neil Evans", title: "Head of Energy", org: "Q5 Arabia", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Neil_Evans.png", linkedin: "https://www.linkedin.com/in/neilmevans/" },
   { name: "Raghavendra Ramesh", title: "Global Head of Forward Deployed Engineering", org: "Moxo", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Raghavendra+Ramesh.jpeg", linkedin: "https://www.linkedin.com/in/raghavendraramesh/" },
   { name: "Mohammad Shoaib Osmani", title: "Business Architect", org: "Aris", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Mohammad+Shoaib+Osmani.jpeg", linkedin: "https://www.linkedin.com/in/shoaibosmani/" },
-  { name: "Dr. Mohammed Fouad Hussein Mesafer", title: "Strategy & Business Excellence Director", org: "Riyadh Cement Company", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dr.+Mohammed+Fouad+Hussein+Mesafer1.png", linkedin: "https://www.linkedin.com/in/dr-mohammed-fouad/" },
-  { name: "Abdulmajeed S. Alqumayshi", title: "Director of Quality Assurance", org: "ESNAD", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdulmajeed+S.+Alqumayshi.jpg", linkedin: "https://www.linkedin.com/in/abdulmajeed-s-alqumayshi-158209129/" },
-  { name: "Ali Al Hakami", title: "Senior Director – Organisational Excellence", org: "Hail Region Development Authority", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Ali+Al+Hakami.png", linkedin: "https://www.linkedin.com/in/ali-al-hakami-19b54755/" },
-  { name: "Abdullah M. Alzkeri", title: "Business Excellence Leader", org: "a PIF-owned giga-project company", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Abdullah+M+Alzkeri.jpeg", linkedin: "https://www.linkedin.com/in/alzkeri/" },
   { name: "Anton Melnik", title: "CEO", org: "Alphyn.ai", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Anton+Melnik.png", linkedin: "https://www.linkedin.com/in/antonmelnik" },
 ];
 
@@ -4350,6 +4357,123 @@ function Speakers() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
+  const renderCard = (sp: Speaker, i: number) => (
+      <motion.div
+        key={sp.name}
+        initial={{ opacity: 0, y: 36, filter: "blur(8px)" }}
+        animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+        transition={{ duration: 0.8, delay: 0.15 + i * 0.06, ease: EASE }}
+        style={{
+          position: "relative",
+          borderRadius: 22,
+          padding: 4,
+          background: `linear-gradient(160deg, rgba(159,106,255,0.55) 0%, rgba(159,106,255,0.15) 28%, rgba(255,255,255,0.04) 60%, rgba(0,0,0,0.4) 100%)`,
+          boxShadow: `inset 0 1px 0 rgba(255,255,255,0.12), 0 24px 56px rgba(0,0,0,0.4), 0 0 32px ${V}20`,
+        }}
+      >
+        <div
+          style={{
+            borderRadius: 19,
+            background: `linear-gradient(180deg, ${BG_DARK} 0%, #060616 100%)`,
+            overflow: "hidden",
+            position: "relative",
+            border: `1px solid ${V}22`,
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), inset 0 -2px 12px rgba(0,0,0,0.5)",
+          }}
+        >
+          {/* Photo area */}
+          <div
+            style={{
+              position: "relative",
+              aspectRatio: "3/4",
+              background: sp.photo
+                ? `url(${sp.photo}) center/cover no-repeat${sp.photoBg ? ` ${sp.photoBg}` : ""}`
+                : `linear-gradient(160deg, ${V_DIM} 0%, ${BG_DARK} 60%, #000 100%)`,
+              overflow: "hidden",
+            }}
+          >
+            {/* Duotone violet overlay */}
+            <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, transparent 30%, ${BG_DARK}aa 70%, ${BG_DARK} 100%)`, mixBlendMode: "multiply" }} />
+            <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, ${V}10 0%, transparent 50%)`, mixBlendMode: "overlay" }} />
+
+            {/* Silhouette placeholder — used when a portrait isn't available yet */}
+            {!sp.photo && sp.silhouette && (
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  alignItems: "flex-end",
+                  justifyContent: "center",
+                }}
+              >
+                <svg viewBox="0 0 100 120" width="70%" height="88%" aria-hidden style={{ opacity: 0.32 }}>
+                  <circle cx="50" cy="38" r="24" fill={V_BRIGHT} />
+                  <path d="M8 120 C8 82 26 66 50 66 C74 66 92 82 92 120 Z" fill={V_BRIGHT} />
+                </svg>
+              </div>
+            )}
+
+            {/* Initials placeholder */}
+            {!sp.photo && !sp.silhouette && (
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontFamily: "var(--font-display)",
+                  fontSize: 64,
+                  fontWeight: 800,
+                  color: V_BRIGHT,
+                  opacity: 0.38,
+                  letterSpacing: "-2px",
+                }}
+              >
+                {speakerInitials(sp.name)}
+              </div>
+            )}
+
+            {/* Top reflection */}
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)` }} />
+
+            {/* LinkedIn */}
+            {sp.linkedin && (
+              <a
+                href={sp.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${sp.name} on LinkedIn`}
+                style={{ position: "absolute", top: 12, right: 12, zIndex: 3, width: 30, height: 30, borderRadius: 8, display: "inline-flex", alignItems: "center", justifyContent: "center", background: "rgba(10,6,22,0.55)", border: `1px solid ${V}66`, backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", color: "#fff" }}
+              >
+                <svg width={14} height={14} viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-4.9c0-1.17-.02-2.67-1.9-2.67-1.9 0-2.2 1.27-2.2 2.58V21H9z"/></svg>
+              </a>
+            )}
+          </div>
+
+          {/* Name chip */}
+          <div
+            style={{
+              padding: "16px 16px 18px",
+              borderTop: `1px solid ${RULE}`,
+              background: `linear-gradient(180deg, rgba(124,58,237,0.08), rgba(0,0,0,0.4))`,
+            }}
+          >
+            <h3 style={{ fontFamily: "var(--font-display)", fontSize: 14.5, fontWeight: 700, color: "white", margin: "0 0 4px", lineHeight: 1.25, letterSpacing: "-0.2px" }}>
+              {sp.name}
+            </h3>
+            <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11.5, color: MUTE, margin: "0 0 4px", lineHeight: 1.4 }}>
+              {sp.title}
+            </p>
+            <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 600, color: V_BRIGHT, margin: 0, letterSpacing: "1px", textTransform: "uppercase", lineHeight: 1.3 }}>
+              {sp.org}
+            </p>
+          </div>
+        </div>
+      </motion.div>
+  );
+
   return (
     <section
       ref={ref}
@@ -4370,126 +4494,38 @@ function Speakers() {
         <SectionEyebrow inView={inView} label="Speakers & Advisors" />
         <SectionTitle inView={inView}>Voices shaping the <em className="opex-violet-shimmer">execution agenda</em>.</SectionTitle>
 
-        <div className="opex-speakers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 245px))", justifyContent: "center", gap: 20, marginTop: 56 }}>
-          {SPEAKERS.map((sp, i) => (
-            <motion.div
-              key={sp.name}
-              initial={{ opacity: 0, y: 36, filter: "blur(8px)" }}
-              animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-              transition={{ duration: 0.8, delay: 0.15 + i * 0.08, ease: EASE }}
-              style={{
-                position: "relative",
-                borderRadius: 22,
-                padding: 4,
-                background: `linear-gradient(160deg, rgba(159,106,255,0.55) 0%, rgba(159,106,255,0.15) 28%, rgba(255,255,255,0.04) 60%, rgba(0,0,0,0.4) 100%)`,
-                boxShadow: `inset 0 1px 0 rgba(255,255,255,0.12), 0 24px 56px rgba(0,0,0,0.4), 0 0 32px ${V}20`,
-              }}
-            >
-              <div
-                style={{
-                  borderRadius: 19,
-                  background: `linear-gradient(180deg, ${BG_DARK} 0%, #060616 100%)`,
-                  overflow: "hidden",
-                  position: "relative",
-                  border: `1px solid ${V}22`,
-                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), inset 0 -2px 12px rgba(0,0,0,0.5)",
-                }}
-              >
-                {/* Photo area */}
-                <div
-                  style={{
-                    position: "relative",
-                    aspectRatio: "3/4",
-                    background: sp.photo
-                      ? `url(${sp.photo}) center/cover no-repeat${sp.photoBg ? ` ${sp.photoBg}` : ""}`
-                      : `linear-gradient(160deg, ${V_DIM} 0%, ${BG_DARK} 60%, #000 100%)`,
-                    overflow: "hidden",
-                  }}
-                >
-                  {/* Duotone violet overlay */}
-                  <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, transparent 30%, ${BG_DARK}aa 70%, ${BG_DARK} 100%)`, mixBlendMode: "multiply" }} />
-                  <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, ${V}10 0%, transparent 50%)`, mixBlendMode: "overlay" }} />
-
-                  {/* Silhouette placeholder — used when a portrait isn't available yet */}
-                  {!sp.photo && sp.silhouette && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        display: "flex",
-                        alignItems: "flex-end",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <svg viewBox="0 0 100 120" width="70%" height="88%" aria-hidden style={{ opacity: 0.32 }}>
-                        <circle cx="50" cy="38" r="24" fill={V_BRIGHT} />
-                        <path d="M8 120 C8 82 26 66 50 66 C74 66 92 82 92 120 Z" fill={V_BRIGHT} />
-                      </svg>
-                    </div>
-                  )}
-
-                  {/* Initials placeholder */}
-                  {!sp.photo && !sp.silhouette && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontFamily: "var(--font-display)",
-                        fontSize: 64,
-                        fontWeight: 800,
-                        color: V_BRIGHT,
-                        opacity: 0.38,
-                        letterSpacing: "-2px",
-                      }}
-                    >
-                      {speakerInitials(sp.name)}
-                    </div>
-                  )}
-
-                  {/* Top reflection */}
-                  <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)` }} />
-
-                  {/* LinkedIn */}
-                  {sp.linkedin && (
-                    <a
-                      href={sp.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${sp.name} on LinkedIn`}
-                      style={{ position: "absolute", top: 12, right: 12, zIndex: 3, width: 30, height: 30, borderRadius: 8, display: "inline-flex", alignItems: "center", justifyContent: "center", background: "rgba(10,6,22,0.55)", border: `1px solid ${V}66`, backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", color: "#fff" }}
-                    >
-                      <svg width={14} height={14} viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-4.9c0-1.17-.02-2.67-1.9-2.67-1.9 0-2.2 1.27-2.2 2.58V21H9z"/></svg>
-                    </a>
-                  )}
-                </div>
-
-                {/* Name chip */}
-                <div
-                  style={{
-                    padding: "16px 16px 18px",
-                    borderTop: `1px solid ${RULE}`,
-                    background: `linear-gradient(180deg, rgba(124,58,237,0.08), rgba(0,0,0,0.4))`,
-                  }}
-                >
-                  <h3 style={{ fontFamily: "var(--font-display)", fontSize: 14.5, fontWeight: 700, color: "white", margin: "0 0 4px", lineHeight: 1.25, letterSpacing: "-0.2px" }}>
-                    {sp.name}
-                  </h3>
-                  <p style={{ fontFamily: "var(--font-outfit)", fontSize: 11.5, color: MUTE, margin: "0 0 4px", lineHeight: 1.4 }}>
-                    {sp.title}
-                  </p>
-                  <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 600, color: V_BRIGHT, margin: 0, letterSpacing: "1px", textTransform: "uppercase", lineHeight: 1.3 }}>
-                    {sp.org}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+        <div style={{ marginTop: 48 }}>
+        <BandLabel inView={inView} label="Advisors" />
+        <div className="opex-speakers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 245px))", justifyContent: "center", gap: 20 }}>
+          {ADVISORS.map((sp, i) => renderCard(sp, i))}
+        </div>
+        </div>
+        <div style={{ marginTop: 52 }}>
+        <BandLabel inView={inView} label="Speakers" />
+        <div className="opex-speakers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 245px))", justifyContent: "center", gap: 20 }}>
+          {SPEAKERS.map((sp, i) => renderCard(sp, i + ADVISORS.length))}
+        </div>
         </div>
       </div>
     </section>
+  );
+}
+
+// Small centred label that splits the Advisors band from the Speakers band.
+function BandLabel({ inView, label }: { inView: boolean; label: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
+      style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginBottom: 22 }}
+    >
+      <span style={{ flex: "0 1 120px", height: 1, background: `linear-gradient(90deg, transparent, ${V}88)` }} />
+      <span style={{ fontFamily: "var(--font-display)", fontSize: "clamp(18px, 1.8vw, 22px)", fontWeight: 700, color: "white", letterSpacing: "-0.3px" }}>
+        {label}
+      </span>
+      <span style={{ flex: "0 1 120px", height: 1, background: `linear-gradient(270deg, transparent, ${V}88)` }} />
+    </motion.div>
   );
 }
 
