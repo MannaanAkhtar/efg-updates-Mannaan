@@ -792,6 +792,13 @@ const ADVISORS: Person[] = [
 
 const SPEAKERS: Person[] = [
   {
+    name: "Col. Saeed M. AlShebli",
+    title: "Deputy Director, Digital Security Department",
+    org: "UAE Ministry of Interior",
+    photo: `${S3}/Speakers-photos/saeed_portfolio+(2).png`,
+    linkedin: "https://www.linkedin.com/in/alshebli/",
+  },
+  {
     // Title, organisation, headshot and flag carried over from his seat on the
     // OT Security First Virtual Boardroom MENA faculty.
     name: "Vijay Velayutham",
