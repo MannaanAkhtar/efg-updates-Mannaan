@@ -757,6 +757,8 @@ type Person = {
   // Crop controls for portraits the default 4:5 top anchor does not suit.
   photoPos?: string;
   photoTransform?: string;
+  // Organisation logo shown at the foot of the card.
+  orgLogo?: string;
 };
 
 const ADVISORS: Person[] = [
@@ -796,6 +798,7 @@ const SPEAKERS: Person[] = [
     title: "Deputy Director, Digital Security Department",
     org: "UAE Ministry of Interior",
     photo: `${S3}/Speakers-photos/saeed_portfolio+(2).png`,
+    orgLogo: `${S3}/logos/ministry+of+interior.png`,
     linkedin: "https://www.linkedin.com/in/alshebli/",
   },
   {
@@ -805,6 +808,7 @@ const SPEAKERS: Person[] = [
     title: "Principal Information Security Officer",
     org: "UAE Ministry of Energy & Infrastructure",
     photo: `${S3}/boardroom/Vijay+Velayutham.png`,
+    orgLogo: `${S3}/logos/UAE+Energy+Ministry+logo+cutout.png`,
     linkedin: "https://www.linkedin.com/in/v4vijay/",
     flag: "https://flagcdn.com/w40/ae.png",
   },
@@ -1110,13 +1114,37 @@ function PersonCard({
         <p style={{ fontFamily: FO, fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.6)", lineHeight: 1.45, margin: 0 }}>
           {p.title}
         </p>
-        {p.org && (
+        {p.org && !p.orgLogo && (
           <span style={{ display: "inline-flex", alignItems: "flex-start", gap: 6, marginTop: 4, fontFamily: FO, fontSize: 11, fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.4)" }}>
             <span aria-hidden style={{ flex: "none", width: 5, height: 5, marginTop: 5, borderRadius: "50%", background: accent, boxShadow: `0 0 8px ${accent}e6` }} />
             {p.org}
           </span>
         )}
       </div>
+
+      {/* Organisation nameplate, edge to edge on a light ground: official
+          marks are drawn for white paper and their fine lettering disappears
+          on the dark card. The logo carries the name, so the org line above
+          is dropped when one is set. */}
+      {p.orgLogo && (
+        <div
+          style={{
+            display: "flex", alignItems: "center", justifyContent: "center",
+            height: 108, padding: "8px 16px",
+            background: "linear-gradient(180deg, #ffffff 0%, #f3f1f4 100%)",
+            borderTop: `2px solid ${accent}`,
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={p.orgLogo}
+            alt={p.org ? `${p.org} logo` : ""}
+            loading="lazy"
+            decoding="async"
+            style={{ display: "block", height: "100%", width: "auto", maxWidth: "100%", objectFit: "contain" }}
+          />
+        </div>
+      )}
     </motion.div>
   );
 }
