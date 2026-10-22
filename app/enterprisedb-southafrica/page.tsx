@@ -108,8 +108,8 @@ const EDB_STATS = [
 
 const EDB_PRODUCTS = ["EDB Postgres AI", "WarehousePG"];
 
-const SPEAKERS = [
-  { name: "Kash Rafique", role: "Director, Sales EMEA", org: "EDB", tag: "Moderator", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Kash+Rafique.jpg", initials: "KR", linkedin: "https://www.linkedin.com/in/kash-rafique-3a007997/" },
+const SPEAKERS: { name: string; role: string; org: string; tag?: string; photo: string; initials: string; linkedin: string }[] = [
+  { name: "Dhiren Vasram", role: "South Africa Country Leader", org: "EDB", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Dhiren+Vasram.jpeg", initials: "DV", linkedin: "https://www.linkedin.com/in/dhiren-vasram-a745892a/" },
   { name: "Malik Bilal", role: "Senior Sales Engineer", org: "EDB", photo: "https://efg-final.s3.eu-north-1.amazonaws.com/Speakers-photos/Malik+Bilal.jpg", initials: "MB", linkedin: "https://www.linkedin.com/in/malikbilal/" },
 ];
 
@@ -391,7 +391,7 @@ export default function EnterpriseDBRoundtablePage() {
                   ) : (
                     <span style={{ position: "relative", fontFamily: DISPLAY, fontSize: 54, fontWeight: 700, color: "rgba(255,255,255,0.9)", letterSpacing: "-0.03em" }}>{s.initials}</span>
                   )}
-                  <span style={{ position: "absolute", top: 14, left: 14, fontFamily: BODY, fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: WHITE, background: BLUE, padding: "6px 12px", borderRadius: 7 }}>{s.tag}</span>
+                  {s.tag && <span style={{ position: "absolute", top: 14, left: 14, fontFamily: BODY, fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: WHITE, background: BLUE, padding: "6px 12px", borderRadius: 7 }}>{s.tag}</span>}
                 </div>
                 <div style={{ padding: "22px 24px", display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 14 }}>
                   <div>
