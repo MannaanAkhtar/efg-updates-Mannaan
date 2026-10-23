@@ -3956,6 +3956,23 @@ function Speakers() {
 // logo would need the white plate the Knowledge Partner tier already uses.
 type CfqSponsor = { logo: string; name?: string; href?: string; lightBg?: boolean };
 
+// Gold tier sits above every other tier. TeKnowledge's wordmark is black ink,
+// so it takes the white plate; ABC's strapline is pale grey and only reads on
+// the dark tile.
+const CFQ_SPONSORS_2026_GOLD: CfqSponsor[] = [
+  {
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Original_LOGO_black.png",
+    name: "TeKnowledge",
+    href: "https://teknowledge.com/",
+    lightBg: true,
+  },
+  {
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ABC+LOGO-01.png",
+    name: "ABC Advanced Business Computing",
+    href: "https://abc.com.qa/",
+  },
+];
+
 const CFQ_SPONSORS_2026_STRATEGIC: CfqSponsor[] = [
   { logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Logo-02.png" },
   { logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/marlinix.png", name: "Marlinix" },
@@ -3974,6 +3991,62 @@ const CFQ_SPONSORS_2026_KNOWLEDGE = [
 function Sponsors2026() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  // One card treatment for the Gold and Strategic tiers.
+  const renderTile = (s: CfqSponsor, i: number, tier: string) => (
+    <motion.div
+      key={s.logo}
+      initial={{ opacity: 0, y: 22 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.75, delay: 0.25 + i * 0.08, ease: EASE }}
+      className={`cfq-sponsor-card${s.lightBg ? " is-light" : ""}`}
+      style={{
+        position: "relative",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "100%",
+        maxWidth: 268,
+        height: "clamp(104px, 12.5vw, 138px)",
+        // The original logos carry a lot of their own margin, so the
+        // tile is tight; a light-plate logo is framed closer and gets
+        // the roomier padding the Knowledge Partner tier uses.
+        padding: s.lightBg ? "clamp(10px, 1.2vw, 18px)" : "clamp(6px, 0.7vw, 10px)",
+        borderRadius: 18,
+        overflow: "hidden",
+        isolation: "isolate",
+      }}
+    >
+      {(() => {
+        const alt = s.name
+          ? `${s.name} — ${tier} of Cyber First Qatar 2026`
+          : `${tier} of Cyber First Qatar 2026 cybersecurity summit`;
+        const img = (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            loading="lazy"
+            decoding="async"
+            src={s.logo}
+            alt={alt}
+            style={{ position: "relative", zIndex: 1, maxWidth: "100%", maxHeight: "100%", width: "auto", height: "auto", objectFit: "contain", display: "block" }}
+          />
+        );
+        return s.href ? (
+          <a
+            href={s.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cfq-sponsor-link"
+            aria-label={s.name ? `${s.name} — visit website` : "Visit sponsor website"}
+          >
+            {img}
+          </a>
+        ) : (
+          img
+        );
+      })()}
+    </motion.div>
+  );
 
   return (
     <section
@@ -4036,6 +4109,32 @@ function Sponsors2026() {
             Partnering to{" "}
             <em style={{ fontStyle: "italic", fontWeight: 400, color: C_BRIGHT }}>secure Qatar.</em>
           </h2>
+        </motion.div>
+
+        {/* Gold Sponsors tier — first */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
+          style={{ marginTop: "clamp(36px, 4vw, 52px)" }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: "3px",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.55)",
+              marginBottom: "clamp(20px, 2.4vw, 28px)",
+            }}
+          >
+            Gold Sponsors
+          </div>
+
+          <div className="cfq-gold-row">
+            {CFQ_SPONSORS_2026_GOLD.map((s, i) => renderTile(s, i, "Gold Sponsor"))}
+          </div>
         </motion.div>
 
         {/* Counter-Extremism Knowledge Partner tier */}
@@ -4116,60 +4215,7 @@ function Sponsors2026() {
           </div>
 
           <div className="cfq-strategic-row">
-            {CFQ_SPONSORS_2026_STRATEGIC.map((s, i) => (
-              <motion.div
-                key={s.logo}
-                initial={{ opacity: 0, y: 22 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.75, delay: 0.25 + i * 0.08, ease: EASE }}
-                className={`cfq-sponsor-card${s.lightBg ? " is-light" : ""}`}
-                style={{
-                  position: "relative",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "100%",
-                  maxWidth: 268,
-                  height: "clamp(104px, 12.5vw, 138px)",
-                  // The original logos carry a lot of their own margin, so the
-                  // tile is tight; a light-plate logo is framed closer and gets
-                  // the roomier padding the Knowledge Partner tier uses.
-                  padding: s.lightBg ? "clamp(10px, 1.2vw, 18px)" : "clamp(6px, 0.7vw, 10px)",
-                  borderRadius: 18,
-                  overflow: "hidden",
-                  isolation: "isolate",
-                }}
-              >
-                {(() => {
-                  const alt = s.name
-                    ? `${s.name} — Strategic Sponsor of Cyber First Qatar 2026`
-                    : "Strategic Sponsor of Cyber First Qatar 2026 cybersecurity summit";
-                  const img = (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      loading="lazy"
-                      decoding="async"
-                      src={s.logo}
-                      alt={alt}
-                      style={{ position: "relative", zIndex: 1, maxWidth: "100%", maxHeight: "100%", width: "auto", height: "auto", objectFit: "contain", display: "block" }}
-                    />
-                  );
-                  return s.href ? (
-                    <a
-                      href={s.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="cfq-sponsor-link"
-                      aria-label={s.name ? `${s.name} — visit website` : "Visit sponsor website"}
-                    >
-                      {img}
-                    </a>
-                  ) : (
-                    img
-                  );
-                })()}
-              </motion.div>
-            ))}
+            {CFQ_SPONSORS_2026_STRATEGIC.map((s, i) => renderTile(s, i, "Strategic Sponsor"))}
           </div>
         </motion.div>
       </div>
@@ -4185,6 +4231,16 @@ function Sponsors2026() {
             inset 0 -1px 0 rgba(0, 0, 0, 0.35),
             0 20px 46px rgba(0, 0, 0, 0.42);
           transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+        .cfq-gold-row {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 268px));
+          justify-content: center;
+          gap: clamp(14px, 2vw, 32px);
+          align-items: stretch;
+        }
+        @media (max-width: 480px) {
+          .cfq-gold-row { grid-template-columns: minmax(0, 268px); }
         }
         /* Strategic Sponsors — all four on a single row. Equal tracks rather
            than a wrapping flex row, so they stay one line as they shrink. */
