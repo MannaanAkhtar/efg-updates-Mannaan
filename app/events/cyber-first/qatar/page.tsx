@@ -3956,15 +3956,13 @@ function Speakers() {
 // logo would need the white plate the Knowledge Partner tier already uses.
 type CfqSponsor = { logo: string; name?: string; href?: string; lightBg?: boolean };
 
-// Gold tier sits above every other tier. TeKnowledge's wordmark is black ink,
-// so it takes the white plate; ABC's strapline is pale grey and only reads on
-// the dark tile.
+// Gold tier sits above every other tier. Both logos are light artwork (white
+// TeKnowledge wordmark, pale grey ABC strapline), so both sit on the dark tile.
 const CFQ_SPONSORS_2026_GOLD: CfqSponsor[] = [
   {
-    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/Original_LOGO_black.png",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/teknowledge.png",
     name: "TeKnowledge",
     href: "https://teknowledge.com/",
-    lightBg: true,
   },
   {
     logo: "https://efg-final.s3.eu-north-1.amazonaws.com/sponsors-logo/ABC+LOGO-01.png",
