@@ -5513,6 +5513,16 @@ const SPONSORS_2026: S26SponsorItem[] = [
     innerBg: "linear-gradient(165deg, #ffffff 0%, #eef0f4 100%)",
     logoMaxHeight: 66,
   },
+  {
+    // JPEG on a white ground, so it takes the light card like its neighbours.
+    name: "Lean Competency System",
+    tier: "Media",
+    logo: "https://efg-final.s3.eu-north-1.amazonaws.com/logos/lcs.jpg",
+    url: "https://www.leancompetency.org/",
+    surface: "light",
+    innerBg: "linear-gradient(165deg, #ffffff 0%, #eef0f4 100%)",
+    logoMaxHeight: 80,
+  },
 ];
 
 const S26_TIER_METALLIC: Record<S26SponsorTier, { strong: string; soft: string; label: string; glow: string; cardMaxWidth: number; displayLabel: string }> = {
